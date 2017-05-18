@@ -25,6 +25,7 @@
 
 
 using System;
+using ASC.Common.Utils;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Server.Administration.Interfaces;
 
@@ -114,12 +115,14 @@ namespace ASC.Mail.Server.Administration.ServerModel
             if (string.IsNullOrEmpty(checkDomainName))
                 return false;
 
-            MxVerified = DnsChecker.DnsChecker.IsMxRecordCorrect(checkDomainName, MxHost, Logger);
+            var dnsLookup = new DnsLookup();
 
-            SpfVerified = DnsChecker.DnsChecker.IsTxtRecordCorrect(checkDomainName, SpfRecord, Logger);
+            MxVerified = dnsLookup.IsDomainMxRecordExists(checkDomainName, MxHost);
 
-            DkimVerified = DnsChecker.DnsChecker.IsDkimRecordCorrect(checkDomainName, DkimSelector, DkimPublicKey,
-                                                                                Logger);
+            SpfVerified = dnsLookup.IsDomainTxtRecordExists(checkDomainName, SpfRecord);
+
+            DkimVerified = dnsLookup.IsDomainDkimRecordExists(checkDomainName, DkimSelector, DkimPublicKey);
+
             return MxVerified && SpfVerified && DkimVerified;
         }
 

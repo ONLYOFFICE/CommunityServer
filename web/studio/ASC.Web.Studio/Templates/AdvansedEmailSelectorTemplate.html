@@ -1,0 +1,12 @@
+﻿<script id="template-emailselector-item" type="text/x-jquery-tmpl">
+    <div class="emailselector-item {{if isValid === false}}error{{/if}}" title="${email}">
+        <span class="emailselector-item-text">{{if name && name !== email }}${name} (${email}){{else}}${email}{{/if}}</span>
+        <span class="emailselector-item-close">&times;</span>
+    </div>
+</script>
+
+<script id="template-emailselector-autocomplete" type="text/x-jquery-tmpl">
+    <li>
+        <a>{{if name }}${name},&nbsp;{{/if}}{{if email }}${email}{{/if}}</a>
+    </li>
+</script>

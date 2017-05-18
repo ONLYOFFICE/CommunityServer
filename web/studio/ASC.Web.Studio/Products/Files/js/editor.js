@@ -29,21 +29,14 @@ window.ASC.Files.Editor = (function () {
     var isInit = false;
 
     var docIsChanged = false;
-    var fixedVersion = false;
+    var docIsChangedTimeout = null;
     var canShowHistory = false;
 
     var docEditor = null;
-    var docServiceParams = null;
+    var docServiceParams = {};
+    var configurationParams = null;
 
     var trackEditTimeout = null;
-    var shareLinkParam = "";
-    var docKeyForTrack = "";
-    var tabId = "";
-    var serverErrorMessage = null;
-    var editByUrl = false;
-    var thirdPartyApp = false;
-    var options = null;
-    var openinigDate;
     var doStartEdit = true;
 
     var init = function () {
@@ -59,11 +52,13 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.StartEdit, onStartEdit);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetEditHistory, completeGetEditHistory);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetDiffUrl, completeGetDiffUrl);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.RestoreVersion, completeGetEditHistory);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetMails, completeGetMails);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.StartMailMerge, completeStartMailMerge);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FileRename, completeRename);
     };
 
-    var createFrameEditor = function (serviceParams) {
+    var createFrameEditor = function (configuration) {
 
         jq("#iframeEditor").parents().css("height", "100%");
 
@@ -71,133 +66,25 @@ window.ASC.Files.Editor = (function () {
             "onReady": ASC.Files.Editor.readyEditor,
         };
 
-        if (serviceParams) {
-            var embedded = (serviceParams.type == "embedded");
+        if (configuration) {
+            var embedded = (configuration.type == "embedded");
 
-            var documentConfig = {
-                title: serviceParams.file.title,
-                url: serviceParams.url,
-                fileType: serviceParams.fileType,
-                key: serviceParams.key,
-                vkey: serviceParams.vkey,
-                options: ASC.Files.Editor.options,
-                info: {
-                    author: serviceParams.file.create_by,
-                    created: serviceParams.file.create_on,
-                },
-                permissions: {
-                    edit: serviceParams.canEdit,
-                    review: serviceParams.canReview,
-                },
-            };
+            var documentConfig = configuration.document;
 
-            if (serviceParams.filePath.length) {
-                documentConfig.info.folder = serviceParams.filePath;
-            }
-            if (serviceParams.sharingSettings.length) {
-                documentConfig.info.sharingSettings = serviceParams.sharingSettings;
+            var options = getOptions();
+            if (options) {
+                documentConfig.options = options;
             }
 
-            var editorConfig = {
-                mode: serviceParams.mode,
-                lang: serviceParams.lang,
-                customization: {
-                    logo: {
-                        image: ASC.Files.Editor.brandingLogoUrl || "",
-                        imageEmbedded: ASC.Files.Editor.brandingLogoEmbeddedUrl || "",
-                        url: ASC.Files.Editor.brandingSite || "",
-                    },
-                    customer: {
-                        logo: ASC.Files.Editor.brandingCustomerLogo || "",
-                        name: ASC.Files.Editor.brandingCustomer || "",
-                    },
-                },
-            };
-
-            if (ASC.Files.Editor.showAbout) {
-                editorConfig.customization.about = true;
-            }
-
-            if (ASC.Files.Editor.feedbackUrl) {
-                editorConfig.customization.feedback = {
-                    url: ASC.Files.Editor.feedbackUrl,
-                    visible: true,
-                };
-            }
-
-            if (ASC.Files.Editor.licenseUrl) {
-                editorConfig.licenseUrl = ASC.Files.Editor.licenseUrl;
-            }
-
-            if (ASC.Files.Editor.customerId) {
-                editorConfig.customerId = ASC.Files.Editor.customerId;
-            }
-
-            if (serviceParams.folderUrl.length > 0) {
-                editorConfig.customization.goback = {
-                    url: serviceParams.folderUrl
-                };
-            }
+            var editorConfig = configuration.editorConfig;
 
             if (embedded) {
-                editorConfig.embedded = {
-                    saveUrl: serviceParams.downloadUrl,
-                    embedUrl: serviceParams.embeddedUrl,
-                    shareUrl: serviceParams.viewerUrl,
-                    toolbarDocked: "top"
-                };
-
                 var keyFullscreen = "fullscreen";
                 if (location.hash.indexOf(keyFullscreen) < 0) {
-                    editorConfig.embedded.fullscreenUrl = serviceParams.embeddedUrl + "#" + keyFullscreen;
+                    editorConfig.embedded.fullscreenUrl = editorConfig.embedded.embedUrl + "#" + keyFullscreen;
                 }
             } else {
-                if (ASC.Files.Constants.URL_HANDLER_CREATE) {
-                    editorConfig.createUrl = ASC.Files.Constants.URL_HANDLER_CREATE + "?action=create&doctype=" + serviceParams.documentType;
-
-                    switch (serviceParams.documentType) {
-                        case "text":
-                            editorConfig.createUrl += "&title=" + encodeURIComponent(ASC.Files.Constants.TitleNewFileText);
-                            break;
-                        case "spreadsheet":
-                            editorConfig.createUrl += "&title=" + encodeURIComponent(ASC.Files.Constants.TitleNewFileSpreadsheet);
-                            break;
-                        case "presentation":
-                            editorConfig.createUrl += "&title=" + encodeURIComponent(ASC.Files.Constants.TitleNewFilePresentation);
-                            break;
-                    }
-
-                    editorConfig.templates =
-                        jq(serviceParams.templates).map(
-                            function (i, item) {
-                                return {
-                                    name: item.Key,
-                                    icon: item.Value,
-                                    url: editorConfig.createUrl + "&template=" + item.Key
-                                };
-                            }).toArray();
-                }
-
-                if (serviceParams.sharingSettingsUrl) {
-                    editorConfig.sharingSettingsUrl = serviceParams.sharingSettingsUrl;
-                }
-
-                if (serviceParams.fileChoiceUrl) {
-                    editorConfig.fileChoiceUrl = serviceParams.fileChoiceUrl;
-                }
-
-                if (serviceParams.mergeFolderUrl) {
-                    editorConfig.mergeFolderUrl = serviceParams.mergeFolderUrl;
-                }
-
-                editorConfig.user = {
-                    id: serviceParams.user[0],
-                    firstname: serviceParams.user[1],
-                    lastname: serviceParams.user[2],
-                    name: serviceParams.user[3],
-                };
-
-                if (serviceParams.type != "embedded") {
+                if (configuration.type != "embedded") {
                     var listRecent = getRecentList();
                     if (listRecent && listRecent.length) {
                         editorConfig.recent = listRecent.toArray();
@@ -205,15 +92,8 @@ window.ASC.Files.Editor = (function () {
                 }
             }
 
-            if (ASC.Files.Editor.pluginsUrl) {
-                editorConfig.plugins = {
-                    "url": ASC.Files.Editor.pluginsUrl,
-                    "pluginsData": ASC.Files.Editor.pluginsData.split("|"),
-                };
-            }
-
-            var typeConfig = serviceParams.type;
-            var documentTypeConfig = serviceParams.documentType;
+            var typeConfig = configuration.type;
+            var documentTypeConfig = configuration.documentType;
 
             eventsConfig.onDocumentStateChange = ASC.Files.Editor.documentStateChangeEditor;
             if (ASC.Files.Editor.docServiceParams.linkToEdit) {
@@ -222,21 +102,25 @@ window.ASC.Files.Editor = (function () {
             eventsConfig.onError = ASC.Files.Editor.errorEditor;
             eventsConfig.onOutdatedVersion = ASC.Files.Editor.reloadPage;
             eventsConfig.onInfo = ASC.Files.Editor.infoEditor;
+            eventsConfig.onRequestRename = ASC.Files.Editor.rename;
+            eventsConfig.onMetaChange = ASC.Files.Editor.metaChange;
 
             if (ASC.Files.Constants.URL_MAIL_ACCOUNTS) {
                 eventsConfig.onRequestEmailAddresses = ASC.Files.Editor.getMails;
                 eventsConfig.onRequestStartMailMerge = ASC.Files.Editor.requestStartMailMerge;
             }
 
-            if (!serviceParams.file.provider_key
-                && !ASC.Files.Editor.editByUrl
-                && !ASC.Files.Editor.thirdPartyApp) {
+            if (!ASC.Files.Editor.docServiceParams.fileProviderKey
+                && !ASC.Files.Editor.docServiceParams.editByUrl
+                && !ASC.Files.Editor.docServiceParams.thirdPartyApp) {
 
                 ASC.Files.Editor.canShowHistory = true;
                 eventsConfig.onRequestHistory = ASC.Files.Editor.requestHistory;
                 eventsConfig.onRequestHistoryData = ASC.Files.Editor.getDiffUrl;
                 eventsConfig.onRequestHistoryClose = ASC.Files.Editor.reloadPage;
+                eventsConfig.onRequestRestore = ASC.Files.Editor.restoreVersion;
             }
+            var token = configuration.token;
         }
 
         ASC.Files.Editor.docEditor = new DocsAPI.DocEditor("iframeEditor", {
@@ -247,8 +131,20 @@ window.ASC.Files.Editor = (function () {
             documentType: documentTypeConfig,
             document: documentConfig,
             editorConfig: editorConfig,
+            token: token,
             events: eventsConfig
         });
+    };
+
+    var getOptions = function () {
+        try {
+            var param = /(?:\?|\&)options=([^&]*)/g.exec(location.href);
+            if (param && param[1]) {
+                return jq.parseJSON(decodeURIComponent(param[1]));
+            }
+        } catch (e) {
+        }
+        return null;
     };
 
     var fixSize = function () {
@@ -261,8 +157,8 @@ window.ASC.Files.Editor = (function () {
     };
 
     var readyEditor = function () {
-        if (ASC.Files.Editor.serverErrorMessage) {
-            docEditorShowError(ASC.Files.Editor.serverErrorMessage);
+        if (ASC.Files.Editor.docServiceParams.serverErrorMessage) {
+            docEditorShowError(ASC.Files.Editor.docServiceParams.serverErrorMessage);
             return;
         }
 
@@ -271,15 +167,25 @@ window.ASC.Files.Editor = (function () {
             return;
         }
 
-        if (ASC.Files.Editor.docServiceParams && ASC.Files.Editor.docServiceParams.mode === "edit") {
+        if (ASC.Files.Editor.configurationParams && ASC.Files.Editor.configurationParams.editorConfig.mode === "edit") {
             ASC.Files.Editor.trackEdit();
         }
     };
 
     var documentStateChangeEditor = function (event) {
+        clearTimeout(docIsChangedTimeout);
+
         if (docIsChanged != event.data) {
-            document.title = ASC.Files.Editor.docServiceParams.file.title + (event.data ? " *" : "");
-            docIsChanged = event.data;
+            var titleChange = function () {
+                document.title = ASC.Files.Editor.configurationParams.document.title + (event.data ? " *" : "");
+                docIsChanged = event.data;
+            };
+
+            if (event.data) {
+                titleChange();
+            } else {
+                docIsChangedTimeout = setTimeout(titleChange, 500);
+            }
         }
 
         if (event.data) {
@@ -292,10 +198,8 @@ window.ASC.Files.Editor = (function () {
             doStartEdit = false;
 
             ASC.Files.ServiceManager.startEdit(event, {
-                fileID: ASC.Files.Editor.docServiceParams.file.id,
-                docKeyForTrack: ASC.Files.Editor.docServiceParams.key,
-                asNew: ASC.Files.Editor.options.asNew,
-                shareLinkKey: ASC.Files.Editor.shareLinkParam,
+                fileID: ASC.Files.Editor.docServiceParams.fileId,
+                shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam,
             });
 
             return true;
@@ -308,7 +212,7 @@ window.ASC.Files.Editor = (function () {
     };
 
     var requestEditRightsEditor = function () {
-        location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.shareLinkParam;
+        location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.docServiceParams.shareLinkParam;
     };
 
     var requestHistory = function () {
@@ -316,10 +220,12 @@ window.ASC.Files.Editor = (function () {
             return;
         }
 
+        ASC.Files.Editor.finishEdit();
+
         ASC.Files.ServiceManager.getEditHistory(ASC.Files.ServiceManager.events.GetEditHistory,
             {
-                fileID: ASC.Files.Editor.docServiceParams.file.id,
-                shareLinkParam: ASC.Files.Editor.shareLinkParam
+                fileID: ASC.Files.Editor.docServiceParams.fileId,
+                shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam
             });
     };
 
@@ -330,9 +236,20 @@ window.ASC.Files.Editor = (function () {
 
         ASC.Files.ServiceManager.getDiffUrl(ASC.Files.ServiceManager.events.GetDiffUrl,
             {
-                fileID: ASC.Files.Editor.docServiceParams.file.id,
+                fileID: ASC.Files.Editor.docServiceParams.fileId,
                 version: versionData.data | 0,
-                shareLinkParam: ASC.Files.Editor.shareLinkParam
+                shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam
+            });
+    };
+
+    var restoreVersion = function (versionData) {
+        ASC.Files.ServiceManager.restoreVersion(ASC.Files.ServiceManager.events.RestoreVersion,
+            {
+                fileID: ASC.Files.Editor.docServiceParams.fileId,
+                version: versionData.data.version,
+                shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam,
+                setLast: true,
+                url: versionData.data.url || "",
             });
     };
 
@@ -349,6 +266,23 @@ window.ASC.Files.Editor = (function () {
     var infoEditor = function (event) {
         if (event && event.data && event.data.mode == "view") {
             clearTimeout(trackEditTimeout);
+            trackEditTimeout = null;
+        }
+    };
+
+    var rename = function (event) {
+        ASC.Files.ServiceManager.renameFile(ASC.Files.ServiceManager.events.FileRename,
+            {
+                fileId: ASC.Files.Editor.docServiceParams.fileId,
+                newname: event.data,
+            });
+    };
+
+    var metaChange = function (event) {
+        if (event && event.data) {
+            ASC.Files.Editor.configurationParams.document.title = event.data.title;
+
+            document.title = ASC.Files.Editor.configurationParams.document.title + (docIsChanged ? " *" : "");
         }
     };
 
@@ -358,7 +292,8 @@ window.ASC.Files.Editor = (function () {
 
     var trackEdit = function () {
         clearTimeout(trackEditTimeout);
-        if (ASC.Files.Editor.editByUrl || ASC.Files.Editor.thirdPartyApp) {
+        trackEditTimeout = null;
+        if (ASC.Files.Editor.docServiceParams.editByUrl || ASC.Files.Editor.docServiceParams.thirdPartyApp) {
             return;
         }
         if (!doStartEdit) {
@@ -367,22 +302,23 @@ window.ASC.Files.Editor = (function () {
 
         ASC.Files.ServiceManager.trackEditFile(ASC.Files.ServiceManager.events.TrackEditFile,
             {
-                fileID: ASC.Files.Editor.docServiceParams.file.id,
-                tabId: ASC.Files.Editor.tabId,
-                docKeyForTrack: ASC.Files.Editor.docKeyForTrack,
-                shareLinkParam: ASC.Files.Editor.shareLinkParam,
-                fixedVersion: ASC.Files.Editor.fixedVersion
+                fileID: ASC.Files.Editor.docServiceParams.fileId,
+                tabId: ASC.Files.Editor.docServiceParams.tabId,
+                docKeyForTrack: ASC.Files.Editor.docServiceParams.docKeyForTrack,
+                shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam,
             });
     };
 
     var finishEdit = function () {
         if (trackEditTimeout !== null && doStartEdit) {
+            clearTimeout(trackEditTimeout);
+            trackEditTimeout = null;
             ASC.Files.ServiceManager.trackEditFile("FinishTrackEditFile",
                 {
-                    fileID: ASC.Files.Editor.docServiceParams.file.id,
-                    tabId: ASC.Files.Editor.tabId,
-                    docKeyForTrack: ASC.Files.Editor.docKeyForTrack,
-                    shareLinkParam: ASC.Files.Editor.shareLinkParam,
+                    fileID: ASC.Files.Editor.docServiceParams.fileId,
+                    tabId: ASC.Files.Editor.docServiceParams.tabId,
+                    docKeyForTrack: ASC.Files.Editor.docServiceParams.docKeyForTrack,
+                    shareLinkParam: ASC.Files.Editor.docServiceParams.shareLinkParam,
                     finish: true,
                     ajaxsync: true
                 });
@@ -391,6 +327,7 @@ window.ASC.Files.Editor = (function () {
 
     var completeTrack = function (jsonData, params, errorMessage) {
         clearTimeout(trackEditTimeout);
+        trackEditTimeout = null;
         if (typeof errorMessage != "undefined") {
             if (errorMessage == null || !errorMessage.length) {
                 setTimeout(function () {
@@ -472,15 +409,15 @@ window.ASC.Files.Editor = (function () {
             }
 
             if (recordsFromStorage.length > localStorageCount) {
-                recordsFromStorage = recordsFromStorage.pop();
+                recordsFromStorage.pop();
             }
 
             var currentRecord = {
                 url: location.href,
-                id: ASC.Files.Editor.docServiceParams.file.id,
-                title: ASC.Files.Editor.docServiceParams.file.title,
-                folder: ASC.Files.Editor.docServiceParams.filePath,
-                fileType: ASC.Files.Editor.docServiceParams.fileTypeNum
+                id: ASC.Files.Editor.docServiceParams.fileId,
+                title: ASC.Files.Editor.configurationParams.document.title,
+                folder: ASC.Files.Editor.configurationParams.document.info.folder,
+                fileType: ASC.Files.Editor.configurationParams.documentType,
             };
 
             var containRecord = jq(recordsFromStorage).is(function () {
@@ -519,10 +456,15 @@ window.ASC.Files.Editor = (function () {
             };
         } else {
             clearTimeout(trackEditTimeout);
+            trackEditTimeout = null;
+
+            var currentVersion = params.setLast
+                ? jsonData.length
+                : ASC.Files.Editor.docServiceParams.fileVersion;
 
             data = {
-                currentVersion: ASC.Files.Editor.docServiceParams.file.version,
-                history: jsonData
+                currentVersion: currentVersion,
+                history: jsonData,
             };
         }
 
@@ -544,11 +486,6 @@ window.ASC.Files.Editor = (function () {
                 error: errorMessage || "Connection is lost",
                 version: params.version,
             };
-        }
-
-        //todo: remove support old version
-        if (jsonData.previous && DocsAPI.DocEditor.version && !DocsAPI.DocEditor.version().indexOf("3")) {
-            jsonData.url = jsonData.previous.url;
         }
 
         ASC.Files.Editor.docEditor.setHistoryData(jsonData);
@@ -594,6 +531,13 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.Editor.docEditor.processMailMerge(typeof errorMessage == "undefined", errorMessage);
     };
 
+    var completeRename = function (xmlData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            docEditorShowError(errorMessage || "Connection is lost");
+        }
+        return;
+    };
+
     return {
         init: init,
         createFrameEditor: createFrameEditor,
@@ -603,14 +547,7 @@ window.ASC.Files.Editor = (function () {
 
         //set in .cs
         docServiceParams: docServiceParams,
-        shareLinkParam: shareLinkParam,
-        docKeyForTrack: docKeyForTrack,
-        tabId: tabId,
-        serverErrorMessage: serverErrorMessage,
-        editByUrl: editByUrl,
-        options: options,
-        thirdPartyApp: thirdPartyApp,
-        openinigDate: openinigDate,
+        configurationParams: configurationParams,
 
         trackEdit: trackEdit,
         finishEdit: finishEdit,
@@ -623,16 +560,22 @@ window.ASC.Files.Editor = (function () {
         reloadPage: reloadPage,
         requestHistory: requestHistory,
         getDiffUrl: getDiffUrl,
+        restoreVersion: restoreVersion,
         getMails: getMails,
         requestStartMailMerge: requestStartMailMerge,
         infoEditor: infoEditor,
+        rename: rename,
+        metaChange: metaChange,
 
-        fixedVersion: fixedVersion,
         canShowHistory: canShowHistory,
     };
 })();
 
 (function ($) {
+
+    if (jq("#iframeEditor").length == 0)
+        return;
+
     ASC.Files.Editor.init();
     $(function () {
         if (typeof DocsAPI === "undefined") {
@@ -644,7 +587,7 @@ window.ASC.Files.Editor = (function () {
 
         var fixPageCaching = function (delta) {
             if (location.hash.indexOf("reload") == -1) {
-                var openingDateParse = Date.parse(ASC.Files.Editor.openinigDate);
+                var openingDateParse = Date.parse(ASC.Files.Editor.docServiceParams.openinigDate);
                 if (!openingDateParse) {
                     return;
                 }
@@ -664,15 +607,20 @@ window.ASC.Files.Editor = (function () {
         fixPageCaching(10 * 60 * 1000);
 
         var $icon = jq("#docsEditorFavicon");
-        if ($icon.attr('href').indexOf('logo_favicon_general.ico') !== -1) {//not default
-             $icon.attr('href', $icon.attr('href'));
+        if ($icon.attr('href').indexOf('logo_favicon_general.ico') !== -1) { //not default
+            $icon.attr('href', $icon.attr('href'));
         }
 
-        ASC.Files.Editor.createFrameEditor(ASC.Files.Editor.docServiceParams);
+        ASC.Files.Editor.createFrameEditor(ASC.Files.Editor.configurationParams);
 
-        if (jq("body").hasClass("mobile") || ASC.Files.Editor.docServiceParams && ASC.Files.Editor.docServiceParams.type === "mobile") {
-            window.addEventListener("load", ASC.Files.Editor.fixSize);
-            window.addEventListener("orientationchange", ASC.Files.Editor.fixSize);
+        if (jq("body").hasClass("mobile") || ASC.Files.Editor.configurationParams && ASC.Files.Editor.configurationParams.type === "mobile") {
+            if (window.addEventListener) {
+                window.addEventListener("load", ASC.Files.Editor.fixSize);
+                window.addEventListener("resize", ASC.Files.Editor.fixSize);
+            } else if (window.attachEvent) {
+                window.attachEvent("onload", ASC.Files.Editor.fixSize);
+                window.attachEvent("onresize", ASC.Files.Editor.fixSize);
+            }
         }
     });
 })(jQuery);

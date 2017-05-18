@@ -24,6 +24,7 @@
 */
 
 
+using System.Globalization;
 using ASC.Common.Caching;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Threading.Progress;
@@ -47,14 +48,24 @@ namespace ASC.Web.CRM.Classes
     {
         public static readonly ICache Cache = AscCache.Default;
 
-        public static String GetStateCacheKey(EntityType entityType)
+        public static String GetStateCacheKey(EntityType entityType, int tenantId = -1)
         {
-            return String.Format("{0}:crm:queue:importtocsv:{1}", TenantProvider.CurrentTenantID.ToString(), entityType.ToString());
+            if (tenantId == -1)
+            {
+                tenantId = TenantProvider.CurrentTenantID;
+            }
+
+            return String.Format("{0}:crm:queue:importtocsv:{1}", tenantId.ToString(CultureInfo.InvariantCulture), entityType.ToString());
         }
 
-        public static String GetCancelCacheKey(EntityType entityType)
+        public static String GetCancelCacheKey(EntityType entityType, int tenantId = -1)
         {
-            return String.Format("{0}:crm:queue:importtocsv:{1}:cancel", TenantProvider.CurrentTenantID.ToString(), entityType.ToString());
+            if (tenantId == -1)
+            {
+                tenantId = TenantProvider.CurrentTenantID;
+            }
+
+            return String.Format("{0}:crm:queue:importtocsv:{1}:cancel", tenantId.ToString(CultureInfo.InvariantCulture), entityType.ToString());
         }
 
         public static ImportDataOperation Get(EntityType entityType)
@@ -83,10 +94,10 @@ namespace ASC.Web.CRM.Classes
             Cache.Insert(GetCancelCacheKey(entityType), true, TimeSpan.FromMinutes(1));
         }
 
-        public static void ResetAll(EntityType entityType)
+        public static void ResetAll(EntityType entityType, int tenantId = -1)
         {
-            Cache.Remove(GetStateCacheKey(entityType));
-            Cache.Remove(GetCancelCacheKey(entityType));
+            Cache.Remove(GetStateCacheKey(entityType, tenantId));
+            Cache.Remove(GetCancelCacheKey(entityType, tenantId));
         }
     }
 
@@ -216,28 +227,18 @@ namespace ASC.Web.CRM.Classes
 
         public void RunJob()
         {
-            CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-
-            SecurityContext.AuthenticateMe(_author);
-
-            var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
-
-            System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
-
-            //Fake http context allows fearlessly use shared DbManager.
-            bool fakeContext = HttpContext.Current == null;
-
-            ImportDataCache.Insert(_entityType,(ImportDataOperation)Clone());
-
             try
             {
-                if (fakeContext)
-                {
-                    HttpContext.Current = new HttpContext(
-                        new HttpRequest("fake", CommonLinkUtility.GetFullAbsolutePath(PathProvider.BaseAbsolutePath), string.Empty),
-                        new HttpResponse(new StringWriter()));
-                }
+                CoreContext.TenantManager.SetCurrentTenant(_tenantID);
+
+                SecurityContext.AuthenticateMe(_author);
+
+                var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
+
+                System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
+
+                ImportDataCache.Insert(_entityType, (ImportDataOperation)Clone());
 
                 switch (_entityType)
                 {
@@ -263,13 +264,7 @@ namespace ASC.Web.CRM.Classes
             }
             finally
             {
-                ImportDataCache.ResetAll(_entityType);
-
-                if (fakeContext && HttpContext.Current != null)
-                {
-                    new DisposableHttpContext(HttpContext.Current).Dispose();
-                    HttpContext.Current = null;
-                }
+                ImportDataCache.ResetAll(_entityType, _tenantID);
             }
         }
     }

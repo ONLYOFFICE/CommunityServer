@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2016
+ * (c) Copyright Ascensio System Limited 2010-2017
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -43,7 +43,6 @@ using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using DotNetOpenAuth.Messaging;
 using MailKit.Security;
-using ASC.Core.Notify.Signalr;
 using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Utils;
 using ASC.Mail.Aggregator.Core.Clients;
@@ -77,9 +76,8 @@ namespace ASC.Mail.Aggregator.CollectionService
         readonly TaskFactory _taskFactory;
         private readonly TimeSpan _tsTaskStateCheckInterval;
         private bool _isFirstTime = true;
-        private static SignalrServiceClient _signalrServiceClient;
+        private static SignalrWorker _signalrWorker;
         private const int SIGNALR_WAIT_SECONDS = 30;
-        private static readonly object Locker = new object();
         private readonly TimeSpan _taskSecondsLifetime;
 
         public AggregatorService(Options options)
@@ -137,7 +135,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                         : TimeSpan.FromSeconds(30);
 
                 if(_tasksConfig.EnableSignalr)
-                    _signalrServiceClient = new SignalrServiceClient();
+                    _signalrWorker = new SignalrWorker();
 
                 _workTimer = new Timer(workTimer_Elapsed, _cancelTokenSource.Token, Timeout.Infinite, Timeout.Infinite);
 
@@ -195,6 +193,8 @@ namespace ASC.Mail.Aggregator.CollectionService
             _resetEvent.Set();
 
             _queueManager.Dispose();
+
+            _signalrWorker.Dispose();
 
             base.OnStop();
         }
@@ -255,15 +255,13 @@ namespace ASC.Mail.Aggregator.CollectionService
             {
                 if (_isFirstTime)
                 {
-                    _queueManager.LoadQueueFromDump();
+                    _queueManager.LoadMailboxesFromDump();
 
                     if (_queueManager.ProcessingCount > 0)
                     {
                         _log.Info("Found {0} tasks to release", _queueManager.ProcessingCount);
 
                         _queueManager.ReleaseAllProcessingMailboxes();
-
-                        _queueManager.SaveQueueToDump();
                     }
 
                     _queueManager.LoadTenantsFromDump();
@@ -288,9 +286,6 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 var tasks = CreateTasks(_tasksConfig.MaxTasksAtOnce, cancelToken);
 
-                if (tasks.Any())
-                    _queueManager.SaveQueueToDump();
-
                 // ***Add a loop to process the tasks one at a time until none remain. 
                 while (tasks.Any())
                 {
@@ -303,8 +298,6 @@ namespace ASC.Mail.Aggregator.CollectionService
                         var outTask = tasks[indexTask];
 
                         FreeTask(outTask, tasks);
-
-                        _queueManager.SaveQueueToDump();
                     }
                     else
                     {
@@ -339,8 +332,6 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                     tasks.AddRange(newTasks);
 
-                    _queueManager.SaveQueueToDump();
-
                     _log.Info("Total tasks count = {0} ({1}).", tasks.Count,
                               string.Join(",", tasks.Select(t => t.Id)));
                 }
@@ -360,8 +351,6 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                     _queueManager.ReleaseAllProcessingMailboxes();
 
-                    _queueManager.SaveQueueToDump();
-
                     _queueManager.CancelHandler.Set();
 
                     return;
@@ -374,8 +363,6 @@ namespace ASC.Mail.Aggregator.CollectionService
                     _queueManager.ReleaseAllProcessingMailboxes();
                 }
             }
-
-            _queueManager.SaveQueueToDump();
 
             _queueManager.CancelHandler.Set();
 
@@ -407,14 +394,20 @@ namespace ASC.Mail.Aggregator.CollectionService
             _workTimer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
-        private void NotifySignalr(MailBox mailbox, ILogger log)
+        private void NotifySignalrIfNeed(MailBox mailbox, ILogger log)
         {
-            log.Debug("signalrServiceClient.SendUnreadUser(UserId = {0} TenantId = {1})", mailbox.UserId,
-                mailbox.TenantId);
+            if (!_tasksConfig.EnableSignalr)
+                return;
 
-            lock (Locker)
+            try
             {
-                _signalrServiceClient.SendUnreadUser(mailbox.TenantId, mailbox.UserId);
+                if (_signalrWorker != null)
+                    _signalrWorker.AddMailbox(mailbox);
+            }
+            catch (Exception ex)
+            {
+                log.Error("_signalrWorker.AddMailbox(UserId = {0} TenantId = {1}) Exception: {2}", mailbox.UserId,
+                mailbox.TenantId, ex.ToString());
             }
         }
 
@@ -482,7 +475,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             try
             {
                 client = new MailClient(mailbox, cancelToken, _tasksConfig.TcpTimeout,
-                    _tasksConfig.SslCertificateErrorsPermit, _tasksConfig.ProtocolLogPath, log);
+                    _tasksConfig.SslCertificateErrorsPermit, _tasksConfig.ProtocolLogPath, log, true);
 
                 log.Debug("MailClient.LoginImapPop(Tenant = {0}, MailboxId = {1} Address = '{2}')",
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail);
@@ -597,10 +590,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     "[CANCEL] ProcessMailbox(Tenant = {0}, MailboxId = {1}, Address = '{2}')",
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail);
 
-                if (_tasksConfig.EnableSignalr)
-                {
-                    NotifySignalr(mailbox, taskLogger);
-                }
+                NotifySignalrIfNeed(mailbox, taskLogger);
             }
             catch (Exception ex)
             {
@@ -701,8 +691,6 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             try
             {
-                
-
                 var mimeMessage = mailClientMessageEventArgs.Message;
                 var uid = mailClientMessageEventArgs.MessageUid;
                 var folder = mailClientMessageEventArgs.Folder;
@@ -766,7 +754,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 try
                 {
-                    message = new MailMessage(mimeMessage, folder.FolderId, unread, chainId, streamId);
+                    message = mimeMessage.CreateMailMessage(folder.FolderId, unread, chainId, streamId, log);
                 }
                 catch (Exception ex)
                 {
@@ -774,7 +762,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                     log.Debug("Creating fake message with original MimeMessage in attachments");
 
-                    message = MailMessage.CreateCorruptedMesage(mimeMessage, folder.FolderId, unread, chainId, streamId);
+                    message = mimeMessage.CreateCorruptedMesage(folder.FolderId, unread, chainId, streamId);
                 }
 
                 log.Debug("TryStoreMailData()");
@@ -970,7 +958,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 return;
             }
 
-            NotifySignalr(mailbox, log);
+            NotifySignalrIfNeed(mailbox, log);
 
             mailbox.LastSignalrNotify = now;
             mailbox.LastSignalrNotifySkipped = false;
@@ -1066,7 +1054,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 return;
 
             if (mailbox.LastSignalrNotifySkipped)
-                NotifySignalr(mailbox, _log);
+                NotifySignalrIfNeed(mailbox, _log);
 
             _queueManager.ReleaseMailbox(mailbox);
         }

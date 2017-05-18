@@ -112,41 +112,37 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="pattern_new_comment">
+  <data name="pattern_new_comment" xml:space="preserve">
     <value>h1.New Comment to Blog Post: "$PostSubject":"$URL"
 
-"$UserName":"$UserURL" $Date
+ $Date "$UserName":"$UserURL" has added a new comment to the "$PostSubject":"$URL" blog post:
 
 $CommentBody
 
 "Read More":"$CommentURL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this blog post, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_new_post">
+  <data name="pattern_new_post" xml:space="preserve">
     <value>h1.New Post in Blogs: "$PostSubject":"$URL"
 
-"$UserName":"$UserURL" $Date
+$Date "$UserName":"$UserURL" has created a new post in blogs: "$PostSubject":"$URL"
 
 $PostPreview
 
 "Read More":"$URL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new posts in blogs, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="subject_new_comment">
-    <value>Community. New Comment to Blog Post: $PostSubject</value>
+  <data name="subject_new_comment" xml:space="preserve">
+    <value>Community. New comment to blog post: $PostSubject</value>
   </data>
-  <data name="subject_new_post">
-    <value>Community. New Post in Blogs: $PostSubject</value>
+  <data name="subject_new_post" xml:space="preserve">
+    <value>Community. New post in blogs: $PostSubject</value>
   </data>
 </root>

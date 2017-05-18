@@ -41,8 +41,8 @@ namespace ASC.Web.Studio.UserControls.Common.ChooseTimePeriod
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/common/choosetimeperiod/css/choosetimeperiod.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/choosetimeperiod/js/choosetimeperiod.js");
+            Page.RegisterStyle("~/usercontrols/common/choosetimeperiod/css/choosetimeperiod.less")
+                .RegisterBodyScripts("~/usercontrols/common/choosetimeperiod/js/choosetimeperiod.js");
         }
     }
 

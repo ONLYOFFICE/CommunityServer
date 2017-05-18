@@ -98,7 +98,7 @@
             });
         } else {
             jq(window).one("onOpenSideNavOtherActions", function (event, switcherObj, dropdownItem) {
-                ASC.Clipboard.destroy(window.sideNavInviteLinkClip);
+                window.sideNavInviteLinkClip = ASC.Clipboard.destroy(window.sideNavInviteLinkClip);
 
                 var url = jq("#shareInviteUserLink").val();
                 sideNavInviteLinkClip = ASC.Clipboard.create(url, "sideNavInviteLink", {

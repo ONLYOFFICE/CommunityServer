@@ -26,6 +26,7 @@
 
 using System;
 using System.Web;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
@@ -62,16 +63,23 @@ namespace ASC.Web.Studio
 
             if (Request.QueryString["stop"] == "true")
             {
-                WarmUp.Instance.Terminate();
+                WarmUpController.Instance.Terminate();
             }
 
             if (Request.QueryString["restart"] == "true")
             {
-                WarmUp.Instance.Restart();
+                WarmUpController.Instance.Restart();
             }
 
-            if (!CoreContext.Configuration.Standalone || WarmUp.Instance.CheckCompleted())
+            if (!CoreContext.Configuration.Standalone || WarmUpController.Instance.CheckCompleted())
+            {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
+
+                if (!WarmUpSettings.GetCompleted())
+                {
+                    WarmUpSettings.SetCompleted(true);
+                }
+            }
 
             if (!SecurityContext.IsAuthenticated)
             {
@@ -95,15 +103,15 @@ namespace ASC.Web.Studio
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyle("~/usercontrols/common/startup/css/startup.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/startup/js/startup.js");
-            Page.RegisterInlineScript(string.Format("ProgressStartUpManager.init({0});", WarmUp.Instance.GetSerializedProgress()));
+            Page.RegisterStyle("~/usercontrols/common/startup/css/startup.less")
+                .RegisterBodyScripts("~/usercontrols/common/startup/js/startup.js")
+                .RegisterInlineScript(string.Format("ProgressStartUpManager.init({0});", WarmUpController.Instance.GetSerializedProgress()));
         }
 
         [AjaxMethod]
         public string GetStartUpProgress()
         {
-            return WarmUp.Instance.GetSerializedProgress();
+            return WarmUpController.Instance.GetSerializedProgress();
         }
     }
 }

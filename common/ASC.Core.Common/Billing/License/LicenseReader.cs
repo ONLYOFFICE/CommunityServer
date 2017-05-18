@@ -58,7 +58,7 @@ namespace ASC.Core.Billing
             private set { CoreContext.Configuration.SaveSetting(CustomerIdKey, value); }
         }
 
-        public static Stream GetLicenseStream(bool temp = false)
+        private static Stream GetLicenseStream(bool temp = false)
         {
             var path = temp ? licensePathTemp : licensePath;
             if (!File.Exists(path)) throw new BillingNotFoundException("License not found");
@@ -173,7 +173,7 @@ namespace ASC.Core.Billing
             dueDate = licenseJson.Value<DateTime>("end_date");
             if (dueDate.Date < DateTime.UtcNow.Date)
             {
-                throw new BillingException("License expired", licenseJsonString);
+                throw new LicenseExpiredException("License expired", licenseJsonString);
             }
 
             activeUsers = licenseJson.Value<int>("user_quota");
@@ -182,7 +182,7 @@ namespace ASC.Core.Billing
 
             if (activeUsers < CoreContext.UserManager.GetUsers(EmployeeStatus.Default, EmployeeType.User).Length)
             {
-                throw new BillingException("License quota", licenseJsonString);
+                throw new LicenseQuotaException("License quota", licenseJsonString);
             }
 
             countPortals = licenseJson.Value<int>("portal_count");
@@ -193,7 +193,7 @@ namespace ASC.Core.Billing
             var activePortals = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
             if (activePortals > 1 && countPortals < activePortals)
             {
-                throw new BillingException("License portal count", licenseJsonString);
+                throw new LicensePortalException("License portal count", licenseJsonString);
             }
 
             return licenseJson;
@@ -226,10 +226,16 @@ namespace ASC.Core.Billing
                     WhiteLabel = true,
                     Update = true,
                     Support = true,
-                    Trial = licenseJson.Value<bool>("trial"),
+                    Trial = licenseJson.Value<string>("trial") != null && licenseJson.Value<bool>("trial"),
                     CountPortals = countPortals,
                 };
             CoreContext.TenantManager.SaveTenantQuota(quota);
+
+            if (defaultQuota.CountPortals != countPortals)
+            {
+                defaultQuota.CountPortals = countPortals;
+                CoreContext.TenantManager.SaveTenantQuota(defaultQuota);
+            }
 
             var tariff = new Tariff
                 {

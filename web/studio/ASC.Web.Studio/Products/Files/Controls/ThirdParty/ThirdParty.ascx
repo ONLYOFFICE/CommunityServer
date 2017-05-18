@@ -1,15 +1,19 @@
 ﻿<%@ Assembly Name="ASC.Core.Common" %>
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ThirdParty.ascx.cs" Inherits="ASC.Web.Files.Controls.ThirdParty" %>
+
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Import" %>
+<%@ Import Namespace="ASC.Web.Files.Import.DocuSign" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id="thirdPartyAccountContainer">
-    <% if (ImportConfiguration.SupportInclusion)%>
-    <% { %>
+    <% if (ImportConfiguration.SupportInclusion) %>
+    <%
+       { %>
     <a class="account-connect button middle blue">
         <%: FilesUCResource.ThirdPartyConnectAccount %>
     </a>
@@ -22,11 +26,11 @@
 
 
 <div id="thirdPartyEditor" class="popup-modal">
-    <sc:Container id="ThirdPartyEditorTemp" runat="server">
-        <header>
+    <sc:Container ID="ThirdPartyEditorTemp" runat="server">
+        <Header>
             <span id="thirdPartyDialogCaption"></span>
-        </header>
-        <body>
+        </Header>
+        <Body>
             <div id="thirdPartyPanel">
                 <div><%: FilesUCResource.ThirdPartyFolderTitle %></div>
                 <input type="text" id="thirdPartyTitle" maxlength="<%=Global.MaxTitle%>" class="textEdit" />
@@ -46,16 +50,16 @@
                     <%=FilesUCResource.ButtonCancel%>
                 </a>
             </div>
-        </body>
+        </Body>
     </sc:Container>
 </div>
 
 <div id="thirdPartyDelete" class="popup-modal">
-    <sc:Container runat="server" id="ThirdPartyDeleteTmp">
-        <header>
+    <sc:Container runat="server" ID="ThirdPartyDeleteTmp">
+        <Header>
             <%: FilesUCResource.ThirdPartyDeleteCaption %>
-        </header>
-        <body>
+        </Header>
+        <Body>
             <div id="thirdPartyDeleteDescr"></div>
             <div class="middle-button-container">
                 <a id="deleteThirdParty" class="button blue middle">
@@ -66,16 +70,16 @@
                     <%= FilesUCResource.ButtonCancel %>
                 </a>
             </div>
-        </body>
+        </Body>
     </sc:Container>
 </div>
 
 <div id="thirdPartyNewAccount" class="popup-modal">
-    <sc:Container runat="server" id="ThirdPartyNewAccountTmp">
-        <header>
+    <sc:Container runat="server" ID="ThirdPartyNewAccountTmp">
+        <Header>
             <%: FilesUCResource.ThirdPartyConnectingAccount %>
-        </header>
-        <body>
+        </Header>
+        <Body>
             <%: FilesUCResource.ThirdPartyConnectAccountsDescription %>
             <div class="clearFix">
                 <% if (ImportConfiguration.SupportGoogleDriveInclusion) %>
@@ -88,7 +92,7 @@
                 <% } %>
                 <% if (ImportConfiguration.SupportDropboxInclusion) %>
                 <% { %>
-                <span class="add-account-big add-account-button DropBox" data-provider="DropBox" title="<%= FilesUCResource.ThirdPartyDropBox %>"></span>
+                <span class="add-account-big add-account-button DropboxV2" data-provider="DropboxV2" title="<%= FilesUCResource.ThirdPartyDropBox %>"></span>
                 <% } %>
                 <% if (ImportConfiguration.SupportSharePointInclusion) %>
                 <% { %>
@@ -102,22 +106,99 @@
                 <% { %>
                 <span class="add-account-big add-account-button SharePoint SkyDrive" data-provider="SharePoint" title="<%= FilesUCResource.ThirdPartySharePointDescr %>"></span>
                 <% } %>
+                <% if (ImportConfiguration.SupportWebDavInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button Nextcloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
+                <span class="add-account-big add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
+                <% } %>
                 <% if (ImportConfiguration.SupportYandexInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button Yandex" data-provider="Yandex" title="<%= FilesUCResource.ThirdPartyYandex %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportWebDavInclusion) %>
+                <% if (ImportConfiguration.SupportDocuSignInclusion) %>
                 <% { %>
-                <span class="add-account-big add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
+                <span class="add-account-big add-account-button DocuSign" data-provider="DocuSign" title="<%= FilesUCResource.ThirdPartyDocuSign %>" data-signed="<%= (DocuSignToken.GetToken() != null).ToString().ToLower() %>"></span>
                 <% } %>
                 <% if (ImportConfiguration.SupportWebDavInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button WebDav" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyWebDav %>"><%= FilesUCResource.ButtonAddWebDav %></span>
                 <% } %>
             </div>
-        </body>
+        </Body>
     </sc:Container>
 </div>
+
+<div id="thirPartyConfirmMove" class="popup-modal">
+    <sc:Container ID="ThirPartyConfirmMoveTmp" runat="server">
+        <Header><%= FilesUCResource.ConfirmThirdPartyMove %></Header>
+        <Body>
+            <div id="moveThirdPartyMessage"></div>
+            <div class="middle-button-container">
+                <a id="buttonMoveThirdParty" class="button blue middle">
+                    <%= FilesUCResource.ButtonMoveTo %>
+                </a>
+                <span class="splitter-buttons"></span>
+                <a id="buttonCopyThirdParty" class="button gray middle">
+                    <%= FilesUCResource.ButtonCopyTo %>
+                </a>
+                <span class="splitter-buttons"></span>
+                <a id="buttonCancelMoveThirdParty" class="button gray middle">
+                    <%= FilesUCResource.ButtonCancel %>
+                </a>
+            </div>
+        </Body>
+    </sc:Container>
+</div>
+
+<% if (ImportConfiguration.SupportDocuSignInclusion)
+   { %>
+<div id="thirdpartyToDocuSign" class="popup-modal">
+    <sc:Container ID="thirdpartyToDocuSignDialog" runat="server">
+        <Header>
+            <div class="thirdparty-todocusign-header"></div>
+        </Header>
+        <Body>
+            <div><%= FilesUCResource.DocuSignName %></div>
+            <input type="text" class="thirdparty-todocusign-title textEdit" maxlength="<%= Global.MaxTitle %>" />
+
+            <div class="thirdparty-todocusign-folder">
+                <div><%= FilesUCResource.DocuSignFolder %></div>
+                <div id="thirdpartyToDocuSignFolder">
+                    <a class="link dotline"></a>
+                </div>
+                <div id="thirdpartyToDocuSignFolderSelector" class="studio-action-panel webkit-scrollbar">
+                    <asp:PlaceHolder runat="server" ID="DocuSignFolderSelectorHolder"></asp:PlaceHolder>
+                </div>
+            </div>
+
+            <div class="thirdparty-todocusign-recipients">
+                <div><%= FilesUCResource.DocuSignRecipients %></div>
+                <span id="thirdpartyToDocuSignUserSelector" class="addUserLink">
+                    <a class="link dotline"><%= CustomNamingPeople.Substitute<FilesUCResource>("DocuSignRecipientAdd").HtmlEncode() %></a>
+                    <span class="sort-down-black"></span>
+                </span>
+                <div id="thirdpartyToDocuSignRecipientsList"></div>
+            </div>
+
+            <div id="thirdpartyToDocuSignMessagePanel">
+                <a id="thirdpartyToDocuSignAddMessage" class="baseLinkAction linkMedium"><%= FilesUCResource.DocuSignMessageAdd %></a>
+                <a id="thirdpartyToDocuSignRemoveMessage" class="baseLinkAction linkMedium"><%= FilesUCResource.DocuSignMessageRemove %></a>
+                <textarea id="thirdpartyToDocuSignMessage" maxlength="<%= DocuSignHelper.MaxEmailLength %>" placeholder="<%= FilesUCResource.DocuSignMessage %>"></textarea>
+            </div>
+
+            <div class="middle-button-container">
+                <a id="thirdpartyToDocuSignSend" class="button blue middle">
+                    <%= FilesUCResource.ButtonSendDocuSignDialog %>
+                </a>
+                <span class="splitter-buttons"></span>
+                <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
+                    <%= FilesUCResource.ButtonCancel %>
+                </a>
+            </div>
+        </Body>
+    </sc:Container>
+</div>
+<% } %>
 
 <div id="thirdPartyActionPanel" class="studio-action-panel">
     <ul class="dropdown-content">

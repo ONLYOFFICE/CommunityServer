@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClosedTasks" xml:space="preserve">
     <value>Closed</value>
@@ -124,10 +124,10 @@
     <value>Date</value>
   </data>
   <data name="DeleteTimers" xml:space="preserve">
-    <value>Delete time spends</value>
+    <value>Delete time spending</value>
   </data>
   <data name="DeleteTimersQuestion" xml:space="preserve">
-    <value>Are you sure you want to delete this time spends?</value>
+    <value>Are you sure you want to delete this time spending?</value>
   </data>
   <data name="DescrEmptyListTimersFilter" xml:space="preserve">
     <value>No timers matching your filter can be displayed in this section.</value>
@@ -139,7 +139,7 @@
     <value>On top</value>
   </data>
   <data name="GroupMenuSelectAll" xml:space="preserve">
-    <value>Selecl all</value>
+    <value>Select all</value>
   </data>
   <data name="Hours" xml:space="preserve">
     <value>hours</value>
@@ -166,10 +166,10 @@
     <value>Billed</value>
   </data>
   <data name="PaymentStatusNotBilled" xml:space="preserve">
-    <value>Not billed</value>
+    <value>Not Billed</value>
   </data>
   <data name="PaymentStatusNotChargeable" xml:space="preserve">
-    <value>Not chargeable</value>
+    <value>Not Chargeable</value>
   </data>
   <data name="ShortHours" xml:space="preserve">
     <value>h</value>
@@ -178,10 +178,10 @@
     <value>m</value>
   </data>
   <data name="StartTimer" xml:space="preserve">
-    <value>Start timer</value>
+    <value>Start Timer</value>
   </data>
   <data name="TimeSpentForTask" xml:space="preserve">
-    <value>Total time spent on the task:</value>
+    <value>The total time spent on the task:</value>
   </data>
   <data name="TotalTimeBilled" xml:space="preserve">
     <value>billed:</value>

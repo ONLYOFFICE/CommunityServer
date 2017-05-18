@@ -24,12 +24,10 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.UI;
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Classes;
 using ASC.Core;
+using ASC.Web.Files.Classes;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -40,13 +38,13 @@ namespace ASC.Web.Files.Controls
             get { return PathProvider.GetFileControlPath("MoreFeatures/MoreFeatures.ascx"); }
         }
 
-        protected string Lng {
-            get { return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture().TwoLetterISOLanguageName;  }
+        protected string Lng
+        {
+            get { return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture().TwoLetterISOLanguageName; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/morefeatures/css/morefeatures.css");
         }
     }
 }

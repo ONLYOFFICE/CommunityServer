@@ -49,6 +49,8 @@ namespace ASC.Web.Mail
 
         private AddonContext _context;
 
+        public bool Visible { get { return true; } }
+
         public AddonContext Context
         {
             get { return _context; }
@@ -95,14 +97,14 @@ namespace ASC.Web.Mail
             get { return BaseVirtualPath; }
         }
 
+        public string HelpURL
+        {
+            get { return BaseVirtualPath; }
+        }
+
         public string ProductClassName
         {
             get { return "mail"; }
-        }
-
-        public int GetMailCountersTimeout
-        {
-            get { return Convert.ToInt32(WebConfigurationManager.AppSettings["mail.get-counters-timeout"] ?? "3000"); }
         }
 
         public string HubUrl
@@ -118,10 +120,11 @@ namespace ASC.Web.Mail
 
             if (!page.AppRelativeTemplateSourceDirectory.Contains(BaseVirtualPath) && HubUrl == string.Empty)
             {
-                updateMailCounters = string.Format("\r\nsetTimeout(function () {{ Teamlab.getMailFolders(); }}, {0});", GetMailCountersTimeout);
+                updateMailCounters = string.Format("\r\nStudioManager.addPendingRequest(Teamlab.getMailFolders);");
             }
 
-            page.RegisterBodyScripts("~/js/asc/core/asc.mailreader.js");
+           // Migrate to CommonBodyScripts.ascx.cs
+           // page.RegisterBodyScripts("~/js/asc/core/asc.mailreader.js");
 
             if (!string.IsNullOrEmpty(updateMailCounters))
             {

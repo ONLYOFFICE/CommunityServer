@@ -27,71 +27,61 @@
 using System;
 using System.Web;
 using System.Linq;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core
 {
     public enum CookiesType
     {
-        AuthKey,
-        NoMobile
+        AuthKey
     }
 
     public class CookiesManager
     {
         private const string AuthCookiesName = "asc_auth_key";
-        private const string NoMobileCookiesName = "asc_nomobile";
 
         private static string GetCookiesName(CookiesType type)
         {
             switch (type)
             {
                 case CookiesType.AuthKey: return AuthCookiesName;
-                case CookiesType.NoMobile: return NoMobileCookiesName;
             }
 
             return string.Empty;
         }
 
-        public static bool IsMobileBlocked()
-        {
-            return !string.IsNullOrEmpty(GetRequestVar(CookiesType.NoMobile));
-        }
-
         public static string GetRequestVar(CookiesType type)
         {
-            if (HttpContext.Current!=null)
-            {
-                var cookie = HttpContext.Current.Request.QueryString[GetCookiesName(type)] ?? HttpContext.Current.Request.Form[GetCookiesName(type)];
-                return string.IsNullOrEmpty(cookie) ? GetCookies(type) : cookie;
-            }
-            return "";
+            if (HttpContext.Current == null) return "";
+
+            var cookie = HttpContext.Current.Request.QueryString[GetCookiesName(type)] ?? HttpContext.Current.Request.Form[GetCookiesName(type)];
+
+            return string.IsNullOrEmpty(cookie) ? GetCookies(type) : cookie;
         }
 
         public static void SetCookies(CookiesType type, string value, bool session = false)
         {
-            if (HttpContext.Current != null)
-            {
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Value = value;
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = session ? DateTime.MinValue : DateTime.Now.AddDays(365);
-                if (type==CookiesType.AuthKey)
-                {
-                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
-                }
-            }
+            if (HttpContext.Current == null) return;
+
+            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Value = value;
+            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = GetExpiresDate(session);
+
+            if (type == CookiesType.AuthKey)
+                HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
         }
 
         public static void SetCookies(CookiesType type, string value, string domain, bool session = false)
         {
-            if (HttpContext.Current != null)
-            {
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Value = value;
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Domain = domain;
-                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = session ? DateTime.MinValue : DateTime.Now.AddDays(365);
-                if (type == CookiesType.AuthKey)
-                {
-                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
-                }
-            }
+            if (HttpContext.Current == null) return;
+
+            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Value = value;
+            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Domain = domain;
+            HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = GetExpiresDate(session);
+
+            if (type == CookiesType.AuthKey)
+                HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
         }
 
         public static string GetCookies(CookiesType type)
@@ -110,11 +100,58 @@ namespace ASC.Web.Core
 
         public static void ClearCookies(CookiesType type)
         {
-            if (HttpContext.Current != null)
+            if (HttpContext.Current == null) return;
+
+            if (HttpContext.Current.Request.Cookies[GetCookiesName(type)] != null)
+                HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = DateTime.Now.AddDays(-3);
+        }
+
+        private static DateTime GetExpiresDate(bool session)
+        {
+            var expires = DateTime.MinValue;
+
+            if (!session)
             {
-                if (HttpContext.Current.Request.Cookies[GetCookiesName(type)] != null)
-                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = DateTime.Now.AddDays(-3);
+                var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+                var settings = TenantCookieSettings.GetForTenant(tenant);
+                expires = settings.IsDefault() ? DateTime.Now.AddYears(1) : DateTime.Now.AddMinutes(settings.LifeTime);
             }
+
+            return expires;
+        }
+
+        public static void SetLifeTime(int lifeTime)
+        {
+            var tenant = TenantProvider.CurrentTenantID;
+            TenantCookieSettings settings = null;
+
+            if (lifeTime > 0)
+            {
+                settings = TenantCookieSettings.GetForTenant(tenant);
+                settings.Index = settings.Index + 1;
+                settings.LifeTime = lifeTime;
+            }
+            TenantCookieSettings.SetForTenant(tenant, settings);
+
+            var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
+
+            SetCookies(CookiesType.AuthKey, cookie);
+        }
+
+        public static int GetLifeTime()
+        {
+            return TenantCookieSettings.GetForTenant(TenantProvider.CurrentTenantID).LifeTime;
+        }
+
+        public static void ResetUserCookie()
+        {
+            var settings = TenantCookieSettings.GetForUser(SecurityContext.CurrentAccount.ID);
+            settings.Index = settings.Index + 1;
+            TenantCookieSettings.SetForUser(SecurityContext.CurrentAccount.ID, settings);
+
+            var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
+
+            SetCookies(CookiesType.AuthKey, cookie);
         }
     }
 }

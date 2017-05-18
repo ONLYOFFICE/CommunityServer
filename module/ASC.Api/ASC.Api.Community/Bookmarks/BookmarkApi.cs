@@ -32,15 +32,14 @@ using ASC.Api.Bookmarks;
 using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.Bookmarking.Business;
+using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Pojo;
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
-using ASC.Bookmarking.Business.Permissions;
-using ASC.Web.Studio.Utility;
-using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Web.Studio.Controls.Common;
 
 namespace ASC.Api.Community
 {
@@ -337,7 +336,7 @@ namespace ASC.Api.Community
         [Create("bookmark")]
         public BookmarkWrapper AddBookmark(string url, string title, string description, string tags)
         {
-            var bookmark = new Bookmark(url, Core.Tenants.TenantUtil.DateTimeNow(), title, description) {UserCreatorID = SecurityContext.CurrentAccount.ID};
+            var bookmark = new Bookmark(url, TenantUtil.DateTimeNow(), title, description) {UserCreatorID = SecurityContext.CurrentAccount.ID};
             BookmarkingDao.AddBookmark(bookmark, !string.IsNullOrEmpty(tags) ? tags.Split(',').Select(x => new Tag {Name = x}).ToList() : new List<Tag>());
             return new BookmarkWrapper(bookmark);
         }
@@ -357,7 +356,7 @@ namespace ASC.Api.Community
         {
             var comment = new Comment
             {
-                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                Datetime = TenantUtil.DateTimeNow(),
                 UserID = SecurityContext.CurrentAccount.ID
             };
 
@@ -406,7 +405,7 @@ namespace ASC.Api.Community
             var comment = new Comment
             {
                 Content = content,
-                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                Datetime = TenantUtil.DateTimeNow(),
                 UserID = SecurityContext.CurrentAccount.ID
             };
 
@@ -441,8 +440,5 @@ namespace ASC.Api.Community
             BookmarkingServiceHelper.GetCurrentInstanse().UpdateComment(commentid, content);
             return HtmlUtility.GetFull(content);
         }
-
-
-
     }
 }

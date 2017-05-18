@@ -25,14 +25,14 @@
 
 
 using System;
+using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.MessagingSystem;
 using AjaxPro;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core;
+using ASC.Core.Common.Settings;
+using ASC.MessagingSystem;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using System.Web;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -55,8 +55,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/PasswordSettings/js/PasswordSettings.js");
-            Page.RegisterStyle("~/usercontrols/management/passwordsettings/css/passwordsettings.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/PasswordSettings/js/PasswordSettings.js")
+                .RegisterStyle("~/usercontrols/management/passwordsettings/css/passwordsettings.less");
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }
@@ -69,7 +69,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
                 var jsSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                var passwordSettingsObj = jsSerializer.Deserialize<StudioPasswordSettings>(objData);
+                var passwordSettingsObj = jsSerializer.Deserialize<Web.Core.Utility.PasswordSettings>(objData);
                 SettingsManager.Instance.SaveSettings(passwordSettingsObj, TenantProvider.CurrentTenantID);
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.PasswordStrengthSettingsUpdated);
@@ -93,7 +93,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-            var passwordSettingsObj = SettingsManager.Instance.LoadSettings<StudioPasswordSettings>(TenantProvider.CurrentTenantID);
+            var passwordSettingsObj = SettingsManager.Instance.LoadSettings<Web.Core.Utility.PasswordSettings>(TenantProvider.CurrentTenantID);
 
             return serializer.Serialize(passwordSettingsObj);
         }

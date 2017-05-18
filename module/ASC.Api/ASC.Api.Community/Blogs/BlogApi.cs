@@ -37,13 +37,11 @@ using ASC.Blogs.Core;
 using ASC.Blogs.Core.Domain;
 using ASC.Core;
 using ASC.Web.Community.Product;
-using SecurityContext = ASC.Core.SecurityContext;
-using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Core.Users;
+using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Community.Blogs;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Web.Studio.Controls.Common;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Community
 {
@@ -451,7 +449,7 @@ namespace ASC.Api.Community
                 TimeStampStr = comment.Datetime.Ago(),
                 IsRead = true,
                 Inactive = comment.Inactive,
-                CommentBody = comment.Content,
+                CommentBody = HtmlUtility.GetFull(comment.Content),
                 UserFullName = DisplayUserSettings.GetFullUserName(comment.UserID),
                 UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserID),
                 UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserID),

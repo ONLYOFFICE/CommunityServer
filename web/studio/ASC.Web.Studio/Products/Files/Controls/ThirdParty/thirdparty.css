@@ -27,12 +27,15 @@
 body .Box,
 body .BoxNet,
 body .DropBox,
+body .DropboxV2,
+body .DocuSign,
 body .Google,
 body .GoogleDrive,
 body .SkyDrive,
 body .SharePoint,
 body .WebDav,
 body .Yandex,
+body .Nextcloud,
 body .OwnCloud {
     background-color: transparent;
     background-repeat: no-repeat;
@@ -42,8 +45,12 @@ body .BoxNet {
     background-image: url("images/thirdparty_box.png");
     background-size: 158px 258px;
 }
-body .DropBox {
+body .DropBox,
+body .DropboxV2 {
     background-image: url("images/thirdparty_dropbox.png");
+}
+body .DocuSign {
+    background-image: url("images/thirdparty_docusign.png");
 }
 body .Google,
 body .GoogleDrive {
@@ -64,6 +71,9 @@ body .WebDav {
 body .Yandex {
     background-image: url("images/thirdparty_yandex.png");
 }
+body .Nextcloud {
+    background-image: url("images/thirdparty_nextcloud.png");
+}
 body .OwnCloud {
     background-image: url("images/thirdparty_owncloud.png");
 }
@@ -72,8 +82,7 @@ body .OwnCloud {
 /*******************************************************************************
    For Retina
 *******************************************************************************/
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (   min--moz-device-pixel-ratio: 2),
 only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
@@ -297,6 +306,98 @@ only screen and (                min-resolution: 2dppx)
 }
 .tree-thirdparty-list .add-account-button:hover {
     background-position: 0 -180px;
+}
+
+/*******************************************************************************
+    Third Party docusign dialog
+*******************************************************************************/
+.thirdparty-todocusign-header {
+    max-width: 335px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.thirdparty-todocusign-title {
+    margin-top: 8px;
+    width: 100%;
+}
+.thirdparty-todocusign-folder,
+.thirdparty-todocusign-recipients,
+#thirdpartyToDocuSignMessagePanel {
+    margin-top: 16px;
+}
+#thirdpartyToDocuSignFolderSelector {
+    max-height: 280px;
+    max-width: 600px;
+    overflow: auto;
+}
+#thirdpartyToDocuSignFolder {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+}
+#thirdpartyToDocuSignFolder:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #212121;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    width: 0;
+}
+#thirdpartyToDocuSignFolder a {
+    display: inline-block;
+    margin: 3px 24px 0 0;
+    max-width: 315px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#thirdpartyToDocuSignRecipientsList {
+    border: 1px solid #c7c7c7;
+    height: 121px;
+    margin-top: 8px;
+    overflow-x: hidden;
+    padding: 3px 0 8px;
+}
+.with-message #thirdpartyToDocuSignRecipientsList {
+    height: 60px;
+}
+.ds-user-link {
+    display: inline-block;
+    margin: 5px 0 0 12px;
+    white-space: nowrap;
+}
+.ds-user-link .userLink {
+    max-width: 315px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ds-user-link-delete {
+    background: url("images/user_12.png") no-repeat center center transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 12px;
+    margin: -10px 6px 0 0;
+    vertical-align: middle;
+    width: 12px;
+}
+.ds-user-link-delete:hover {
+    background-image: url("images/trash_12.png");
+}
+#thirdpartyToDocuSignMessage {
+    display: none;
+    height: 50px;
+    margin-top: 8px;
+    min-height: 50px;
+    resize: none;
+    width: 100%; 
+}
+.with-message #thirdpartyToDocuSignMessage {
+    display: inline;
 }
 
 /***************************************\

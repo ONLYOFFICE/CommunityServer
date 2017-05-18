@@ -26,11 +26,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using AjaxPro;
 using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
-using System.Linq;
+using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.Core.HelpCenter
 {

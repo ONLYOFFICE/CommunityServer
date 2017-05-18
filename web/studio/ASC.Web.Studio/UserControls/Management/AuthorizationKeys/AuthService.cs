@@ -25,6 +25,8 @@
 
 
 using System.Diagnostics;
+using ASC.Thrdparty.Configuration;
+using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -34,27 +36,55 @@ namespace ASC.Web.Studio.UserControls.Management
 
         public string Title { get; private set; }
 
-        public AuthKey Id { get; private set; }
-        
+        public string Description { get; private set; }
+
+        public string Instruction { get; private set; }
+
+        public bool CanSet = false;
+
+        public int? Order;
+
         public AuthKey Key { get; private set; }
+
+        public AuthKey Secret { get; private set; }
+
+        public AuthKey KeyDefault { get; private set; }
+
+        public AuthKey SecretDefault { get; private set; }
 
         public AuthService(string name)
         {
             Name = name;
             Title = GetResourceString(name) ?? name;
-        }
-
-        public AuthService WithId(string keyName, string keyValue)
-        {
-            if (keyName != null)
-                Id = new AuthKey(keyName, keyValue) {Title = GetResourceString(Name + "Key") ?? keyName};
-            return this;
+            Description = GetResourceString(name + "Description");
+            Instruction = GetResourceString(name + "Instruction");
         }
 
         public AuthService WithKey(string keyName, string keyValue)
         {
             if (keyName != null)
-                Key = new AuthKey(keyName, keyValue) {Title = GetResourceString(Name + "Secret") ?? keyName};
+                Key = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "Key") ?? keyName };
+            return this;
+        }
+
+        public AuthService WithSecret(string keyName, string keyValue)
+        {
+            if (keyName != null)
+                Secret = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "Secret") ?? keyName };
+            return this;
+        }
+
+        public AuthService WithKeyDefault(string keyName, string keyValue)
+        {
+            if (keyName != null)
+                KeyDefault = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "KeyDefault") ?? keyName };
+            return this;
+        }
+
+        public AuthService WithSecretDefault(string keyName, string keyValue)
+        {
+            if (keyName != null)
+                SecretDefault = new AuthKey { Name = keyName, Value = keyValue, Title = GetResourceString(Name + "SecretDefault") ?? keyName };
             return this;
         }
 
@@ -62,7 +92,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             try
             {
-                return Resources.Resource.ResourceManager.GetString("Consumers" + resourceKey);
+                return Resource.ResourceManager.GetString("Consumers" + resourceKey);
             }
             catch
             {
@@ -72,23 +102,8 @@ namespace ASC.Web.Studio.UserControls.Management
     }
 
     [DebuggerDisplay("({Name},{Value})")]
-    public class AuthKey
+    public class AuthKey : KeyElement
     {
-        public string Name { get; set; }
-
-        public string Value { get; set; }
-
         public string Title { get; set; }
-
-        public AuthKey()
-        {
-
-        }
-
-        public AuthKey(string name, string value)
-        {
-            Name = name;
-            Value = value;
-        }
     }
 }

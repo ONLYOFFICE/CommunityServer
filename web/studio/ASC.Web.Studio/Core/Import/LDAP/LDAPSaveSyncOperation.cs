@@ -127,10 +127,10 @@ namespace ASC.Web.Studio.Core.Import.LDAP
             var ldapUsers = Importer.GetDiscoveredUsersByAttributes()
                                  .ConvertAll(u =>
                                  {
-                                     if (u.FirstName == string.Empty)
+                                     if (string.IsNullOrEmpty(u.FirstName))
                                          u.FirstName = Resource.FirstName;
 
-                                     if (u.LastName == string.Empty)
+                                     if (string.IsNullOrEmpty(u.LastName))
                                          u.LastName = Resource.LastName;
 
                                      return u;
@@ -351,7 +351,7 @@ namespace ASC.Web.Studio.Core.Import.LDAP
             foreach (var userInfo in ldapUsers)
             {
                 SetProgress(Convert.ToInt32(percentage),
-                    currentSource: string.Format("Syncing user: {0}", userInfo.DisplayUserName()));
+                    currentSource: string.Format("Syncing user: {0} {1}", userInfo.FirstName, userInfo.LastName));
 
                 UserManagerWrapper.SyncUserLDAP(userInfo);
 
@@ -459,7 +459,7 @@ namespace ASC.Web.Studio.Core.Import.LDAP
                 var ldapGroupUser = uniqueLdapGroupUsers[i];
 
                 SetProgress(Convert.ToInt32(percentage),
-                    currentSource: string.Format("Syncing user: {0}", ldapGroupUser.DisplayUserName()));
+                    currentSource: string.Format("Syncing user: {0} {1}", ldapGroupUser.FirstName, ldapGroupUser.LastName));
 
                 uniqueLdapGroupUsers[i] = UserManagerWrapper.SyncUserLDAP(ldapGroupUser);
 

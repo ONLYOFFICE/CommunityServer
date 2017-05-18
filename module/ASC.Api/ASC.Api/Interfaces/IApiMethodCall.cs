@@ -24,15 +24,11 @@
 */
 
 
-#region usings
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Routing;
 using ASC.Api.Attributes;
-
-#endregion
 
 namespace ASC.Api.Interfaces
 {
@@ -50,6 +46,7 @@ namespace ASC.Api.Interfaces
         string FullPath { get; set; }
         RouteValueDictionary Constraints { get; set; }
         bool RequiresAuthorization { get; set; }
+        bool CheckPayment { get; set; }
         object Invoke(object instance, object[] args);
         IEnumerable<ApiCallFilter> Filters { get; set; }
         ICollection<IApiResponder> Responders { get; set; } 

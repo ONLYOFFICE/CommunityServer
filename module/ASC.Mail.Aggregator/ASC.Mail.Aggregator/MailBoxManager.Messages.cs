@@ -119,7 +119,7 @@ namespace ASC.Mail.Aggregator
                 {
                     using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                     {
-                        usedQuota = DeleteMessages(db, tenant, user, mailInfoList, false);
+                        usedQuota = DeleteMessages(db, tenant, user, mailInfoList);
                         tx.Commit();
                     }
                 }
@@ -449,8 +449,6 @@ namespace ASC.Mail.Aggregator
                     SetMessageFolderRestore(db, draft.Mailbox.TenantId, draft.Mailbox.UserId, MailFolder.Ids.sent,
                         draft.Id);
 
-                    RecalculateFolders(db, draft.Mailbox.TenantId, draft.Mailbox.UserId, true);
-
                     tx.Commit();
                 }
             }
@@ -475,8 +473,6 @@ namespace ASC.Mail.Aggregator
 
                     SetMessagesFolder(db, draft.Mailbox.TenantId, draft.Mailbox.UserId, listObjects,
                         MailFolder.Ids.drafts);
-
-                    RecalculateFolders(db, draft.Mailbox.TenantId, draft.Mailbox.UserId, true);
 
                     tx.Commit();
                 }
@@ -633,7 +629,7 @@ namespace ASC.Mail.Aggregator
                 idMail = db.ExecuteScalar<int>(insert);
 
                 ChangeFolderCounters(db, mailbox.TenantId, mailbox.UserId, folder,
-                    mail.IsNew ? 1 : 0, 1, false);
+                   unreadMessDiff: mail.IsNew ? 1 : 0, totalMessDiff: 1);
             }
             else
             {
@@ -1142,7 +1138,7 @@ namespace ASC.Mail.Aggregator
                 if (!item.HasParseError)
                 {
                     var watch = new Stopwatch();
-                    double swtGetBodyMilliseconds = 0;
+                    double swtGetBodyMilliseconds;
                     double swtSanitazeilliseconds = 0;
 
                     var dataStore = MailDataStore.GetDataStore(tenant);
@@ -1198,7 +1194,7 @@ namespace ASC.Mail.Aggregator
                 if (string.IsNullOrEmpty(mailDbInfo.introduction) && !string.IsNullOrEmpty(item.HtmlBody))
                 {
                     // if introduction wasn't saved, it will be save.
-                    var introduction = MailMessage.GetIntroduction(htmlBody);
+                    var introduction = MailUtil.GetIntroduction(htmlBody);
 
                     if (!string.IsNullOrEmpty(introduction))
                     {
@@ -1282,100 +1278,175 @@ namespace ASC.Mail.Aggregator
             return attachments;
         }
 
-        public List<MailMessage> GetSingleMailsFiltered(int tenant, string user, MailFilter filter, out long totalMessagesCount)
+        public List<MailMessage> GetFilteredMessages(int tenant, string user, MailFilter filter,
+            out long totalMessagesCount)
+        {
+            using (var db = GetDb())
+            {
+                return GetFilteredMessages(db, tenant, user, filter, out totalMessagesCount);
+            }
+        }
+
+        private static string[] GetMailMessagesColumns(string mmAlias = "", string concatTagIds = null)
+        {
+            return new[]
+            {
+                MailTable.Columns.Id.Prefix(mmAlias),
+                MailTable.Columns.From.Prefix(mmAlias),
+                MailTable.Columns.To.Prefix(mmAlias),
+                MailTable.Columns.Reply.Prefix(mmAlias),
+                MailTable.Columns.Subject.Prefix(mmAlias),
+                MailTable.Columns.Importance.Prefix(mmAlias),
+                MailTable.Columns.DateSent.Prefix(mmAlias),
+                MailTable.Columns.Size.Prefix(mmAlias),
+                MailTable.Columns.AttachCount.Prefix(mmAlias),
+                MailTable.Columns.Unread.Prefix(mmAlias),
+                MailTable.Columns.IsAnswered.Prefix(mmAlias),
+                MailTable.Columns.IsForwarded.Prefix(mmAlias),
+                concatTagIds ?? "\"\"",
+                MailTable.Columns.FolderRestore.Prefix(mmAlias),
+                MailTable.Columns.Folder.Prefix(mmAlias),
+                MailTable.Columns.ChainId.Prefix(mmAlias),
+                MailTable.Columns.ChainDate.Prefix(mmAlias),
+                MailTable.Columns.MailboxId.Prefix(mmAlias),
+                MailTable.Columns.CalendarUid.Prefix(mmAlias)
+            };
+        }
+
+        public List<MailMessage> GetFilteredMessages(IDbManager db, int tenant, string user, MailFilter filter, out long totalMessagesCount)
         {
             if (filter == null)
                 throw new ArgumentNullException("filter");
 
+            var res = new List<MailMessage>();
+
+            const string mm_alias = "mm";
+            const string mtm_alias = "tm";
+
             var concatTagIds =
-                String.Format(
-                    "(SELECT CAST(group_concat(tm.{0} ORDER BY tm.{3} SEPARATOR ',') AS CHAR) from {1} as tm WHERE tm.{2} = `id`) tagIds",
-                    TagMailTable.Columns.TagId, TagMailTable.Name, TagMailTable.Columns.MailId, TagMailTable.Columns.TimeCreated);
+                    string.Format(
+                        "(SELECT CAST(group_concat({4}.{0} ORDER BY {4}.{3} SEPARATOR ',') AS CHAR) from {1} as {4} WHERE {4}.{2} = {5}.{6}) tagIds",
+                        TagMailTable.Columns.TagId, 
+                        TagMailTable.Name, 
+                        TagMailTable.Columns.MailId,
+                        TagMailTable.Columns.TimeCreated, 
+                        mtm_alias,
+                        mm_alias,
+                        MailTable.Columns.Id);
 
-            using (var db = GetDb())
+            var queryTotalCount = new SqlQuery(MailTable.Name.Alias(mm_alias))
+                .Select(string.Format("count({0})", MailTable.Columns.Id.Prefix(mm_alias)));
+
+            var queryMessages = new SqlQuery(MailTable.Name.Alias(mm_alias))
+                .Select(GetMailMessagesColumns(mm_alias, concatTagIds));
+
+            if (filter.CustomLabels.Any())
             {
-                const string mm_alias = "mm";
-                const string mtm_alias = "tm";
+                queryMessages
+                    .InnerJoin(TagMailTable.Name.Alias(mtm_alias),
+                        Exp.EqColumns(MailTable.Columns.Id.Prefix(mm_alias),
+                            TagMailTable.Columns.MailId.Prefix(mtm_alias)))
+                    .Where(Exp.In(TagMailTable.Columns.TagId.Prefix(mtm_alias), filter.CustomLabels))
+                    .GroupBy(1)
+                    .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.Id.Prefix(mm_alias)),
+                        filter.CustomLabels.Count));
 
-                var filtered = new SqlQuery(MailTable.Name.Alias(mm_alias))
-                    .Select(
-                        MailTable.Columns.Id.Prefix(mm_alias), 
-                        MailTable.Columns.ChainId.Prefix(mm_alias));
+                queryTotalCount
+                    .InnerJoin(TagMailTable.Name.Alias(mtm_alias),
+                        Exp.EqColumns(MailTable.Columns.Id.Prefix(mm_alias),
+                            TagMailTable.Columns.MailId.Prefix(mtm_alias)))
+                    .Where(Exp.In(TagMailTable.Columns.TagId.Prefix(mtm_alias), filter.CustomLabels))
+                    .GroupBy(MailTable.Columns.Id.Prefix(mm_alias))
+                    .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.Id.Prefix(mm_alias)),
+                        filter.CustomLabels.Count));
+            }
 
-                if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
-                {
-                    filtered = filtered
-                        .InnerJoin(TagMailTable.Name.Alias(mtm_alias),
-                                    Exp.EqColumns(MailTable.Columns.Id.Prefix(mm_alias), TagMailTable.Columns.MailId.Prefix(mtm_alias)))
-                        .Where(Exp.In(TagMailTable.Columns.TagId.Prefix(mtm_alias), filter.CustomLabels));
-                }
+            queryMessages
+                .ApplyFilter(filter, mm_alias);
 
-                filtered = filtered
-                    .ApplyFilter(filter, mm_alias);
+            queryTotalCount
+                .ApplyFilter(filter, mm_alias);
 
-                if (filtered == null)
+            List<int> ids;
+            if (TryGetFullTextSearchIds(filter, out ids))
+            {
+                if (!ids.Any())
                 {
                     totalMessagesCount = 0;
-                    return new List<MailMessage>();
+                    return res;
                 }
+            }
 
-                filtered
-                    .Where(TagMailTable.Columns.Tenant.Prefix(mm_alias), tenant)
+            if (ids.Any())
+            {
+                queryMessages.Where(Exp.In(MailTable.Columns.Id.Prefix(mm_alias), ids));
+                queryTotalCount.Where(Exp.In(MailTable.Columns.Id.Prefix(mm_alias), ids));
+            }
+
+            queryMessages
+                .Where(TagMailTable.Columns.Tenant.Prefix(mm_alias), tenant)
                     .Where(TagMailTable.Columns.User.Prefix(mm_alias), user)
                     .Where(MailTable.Columns.IsRemoved.Prefix(mm_alias), false);
 
-                if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
-                {
-                    filtered = filtered
-                        .GroupBy(1)
-                        .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.Id.Prefix(mm_alias)), filter.CustomLabels.Count()));
-                }
+            queryTotalCount
+                .Where(TagMailTable.Columns.Tenant.Prefix(mm_alias), tenant)
+                    .Where(TagMailTable.Columns.User.Prefix(mm_alias), user)
+                    .Where(MailTable.Columns.IsRemoved.Prefix(mm_alias), false);
 
-                // Filter and sort all existing messages and get their ids and chain_ids
-                var filteredIds = db.ExecuteList(filtered)
-                                     .ConvertAll(r => new { id = Convert.ToInt32(r[0]), chain_id = (string)r[1] });
+            var page = filter.Page.GetValueOrDefault(1);
+            var pageSize = filter.PageSize;
 
-                var idsSet = filteredIds.Select(m => m.id).ToList();
+            queryMessages
+                .SetFirstResult((page - 1)*pageSize)
+                .SetMaxResults(pageSize)
+                .ApplySorting(filter);
 
-                if (!idsSet.Any())
-                {
-                    totalMessagesCount = 0;
-                    return new List<MailMessage>();
-                }
+            if (filter.IsDefault())
+            {
+                var folders = GetFolders(tenant, user);
+                var currentFolder =
+                    folders.FirstOrDefault(f => f.id == filter.PrimaryFolder);
 
-                const string select_chain_length = "1";
-
-                totalMessagesCount = idsSet.Count();
-                var page = Math.Min(filter.Page, (int)Math.Ceiling((double)totalMessagesCount / filter.PageSize));
-
-                var queryMessages = new SqlQuery(MailTable.Name + " as outer_mail")
-                    .Select(MailTable.Columns.Id, MailTable.Columns.From, MailTable.Columns.To,
-                            MailTable.Columns.Reply, MailTable.Columns.Subject, MailTable.Columns.Importance,
-                            "1", MailTable.Columns.DateSent, MailTable.Columns.Size,
-                            MailTable.Columns.AttachCount, MailTable.Columns.Unread, MailTable.Columns.IsAnswered,
-                            MailTable.Columns.IsForwarded, concatTagIds, MailTable.Columns.FolderRestore, 
-                            MailTable.Columns.ChainId, select_chain_length, MailTable.Columns.Folder)
-                    .Where(Exp.In(MailTable.Columns.Id, idsSet.ToArray()))
-                    .ApplySorting(filter)
-                    .SetFirstResult((page - 1) * filter.PageSize)
-                    .SetMaxResults(filter.PageSize);
-
-                var list = db.ExecuteList(queryMessages)
-                             .ConvertAll(r =>
-                                         ConvertToMailMessageItem(r, tenant));
-
-                return list;
+                totalMessagesCount = currentFolder == null ? 0 : currentFolder.totalMessages;
             }
+            else
+            {
+                if (filter.CustomLabels.Any())
+                {
+                    var queryTempCount = new SqlQuery()
+                        .SelectCount()
+                        .From(queryTotalCount, "tbl");
+
+                    totalMessagesCount = db.ExecuteScalar<long>(queryTempCount);
+                }
+                else
+                {
+                    totalMessagesCount = db.ExecuteScalar<long>(queryTotalCount);
+                }
+            }
+
+            if (totalMessagesCount == 0)
+                return res;
+
+            var tenantInfo = CoreContext.TenantManager.GetTenant(tenant);
+            var utcNow = DateTime.UtcNow;
+
+            res = db.ExecuteList(queryMessages)
+                    .ConvertAll(r => ConvertToMailMessage(r, tenantInfo, utcNow));
+
+            return res;
         }
 
         public long GetNextMessageId(int tenant, string user, int messageId, MailFilter filter)
         {
             using (var db = GetDb())
             {
-                var dateSent = db.ExecuteScalar<DateTime>(new SqlQuery(MailTable.Name)
+                var queryDateSent = new SqlQuery(MailTable.Name)
                     .Select(MailTable.Columns.DateSent)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(MailTable.Columns.Id, messageId));
+                    .Where(MailTable.Columns.Id, messageId);
+
+                var dateSent = db.ExecuteScalar<DateTime>(queryDateSent);
 
                 var sortOrder = filter.SortOrder == "ascending";
 
@@ -1416,10 +1487,12 @@ namespace ASC.Mail.Aggregator
 
                 queryMessages = queryMessages
                     .SetFirstResult(1)
-                    .SetMaxResults(1)
+                    .SetMaxResults(2)
                     .OrderBy(MailTable.Columns.DateSent.Prefix(mm_alias), sortOrder);
 
-                return db.ExecuteScalar<long>(queryMessages);
+                var idList =  db.ExecuteList(queryMessages).ConvertAll(r => Convert.ToInt64(r[0]));
+
+                return idList.FirstOrDefault(id => id != messageId);
             }
         }
 
@@ -1605,10 +1678,14 @@ namespace ASC.Mail.Aggregator
             {
                 var sourceFolder = keyPair.Key;
                 var totalMove = keyPair.Value;
+
                 int unreadMove;
                 unreadMessagesCountCollection.TryGetValue(sourceFolder, out unreadMove);
-                ChangeFolderCounters(db, tenant, user, sourceFolder, unreadMove != 0 ? unreadMove * (-1) : 0,
-                                     totalMove * (-1), false);
+
+                ChangeFolderCounters(db, tenant, user, sourceFolder,
+                    unreadMessDiff: unreadMove != 0 ? unreadMove*(-1) : 0,
+                    totalMessDiff: totalMove*(-1));
+
                 movedTotalUnreadCount += unreadMove;
                 movedTotalCount += totalMove;
             }
@@ -1616,7 +1693,7 @@ namespace ASC.Mail.Aggregator
             if (movedTotalUnreadCount != 0 || movedTotalCount != 0)
             {
                 ChangeFolderCounters(db, tenant, user, toFolder,
-                                     movedTotalUnreadCount, movedTotalCount, false);
+                    unreadMessDiff: movedTotalUnreadCount, totalMessDiff: movedTotalCount);
             }
         }
 
@@ -1686,33 +1763,39 @@ namespace ASC.Mail.Aggregator
             {
                 var folderRestore = keyPair.Key;
                 var totalRestore = keyPair.Value;
+
                 int unreadRestore;
                 unreadMessagesCountCollection.TryGetValue(folderRestore, out unreadRestore);
-                ChangeFolderCounters(db, tenant, user, folderRestore, unreadRestore, totalRestore, false);
+
+                ChangeFolderCounters(db, tenant, user, folderRestore, unreadMessDiff: unreadRestore,
+                    totalMessDiff: totalRestore);
+
                 prevTotalUnreadCount -= unreadRestore;
                 prevTotalCount -= totalRestore;
             }
 
             // Subtract the restored number of messages in the previous folder
             if (prevTotalUnreadCount != 0 || prevTotalCount != 0)
-                ChangeFolderCounters(db, tenant, user, prevInfo[0].folder, prevTotalUnreadCount,
-                                     prevTotalCount, false);
+            {
+                ChangeFolderCounters(db, tenant, user, prevInfo[0].folder, unreadMessDiff: prevTotalUnreadCount,
+                    totalMessDiff: prevTotalCount);
+            }
         }
 
         private long DeleteMessages(DbManager db, int tenant, string user,
-                                   List<object[]> deleteInfo, bool reCountFolders)
+            List<object[]> deleteInfo)
         {
             if (!deleteInfo.Any())
                 return 0;
 
             var messageFieldsInfo = deleteInfo
                 .ConvertAll(r =>
-                            new
-                                {
-                                    id = Convert.ToInt32(r[0]),
-                                    folder = Convert.ToInt32(r[1]),
-                                    unread = Convert.ToInt32(r[2])
-                                });
+                    new
+                    {
+                        id = Convert.ToInt32(r[0]),
+                        folder = Convert.ToInt32(r[1]),
+                        unread = Convert.ToInt32(r[2])
+                    });
 
             var messageIds = messageFieldsInfo.Select(m => m.id).ToArray();
 
@@ -1729,7 +1812,7 @@ namespace ASC.Mail.Aggregator
                     .Select(TagMailTable.Columns.TagId)
                     .Where(GetUserWhere(user, tenant))
                     .Where(Exp.In(TagMailTable.Columns.MailId, messageIds)))
-                                  .ConvertAll(r => Convert.ToInt32(r[0]));
+                .ConvertAll(r => Convert.ToInt32(r[0]));
 
             db.ExecuteNonQuery(
                 new SqlDelete(TagMailTable.Name)
@@ -1738,32 +1821,26 @@ namespace ASC.Mail.Aggregator
 
             UpdateTagsCount(db, tenant, user, affectedTags.Distinct());
 
-            if (!reCountFolders)
+            var totalCollection = (from row in messageFieldsInfo
+                group row by row.folder
+                into g
+                select new {id = Convert.ToInt32(g.Key), diff = -g.Count()})
+                .ToList();
+
+            var unreadCollection = (from row in messageFieldsInfo.Where(m => m.unread == 1)
+                group row by row.folder
+                into g
+                select new {id = Convert.ToInt32(g.Key), diff = -g.Count()})
+                .ToList();
+
+            foreach (var folder in totalCollection)
             {
-                var totalCollection = (from row in messageFieldsInfo
-                                       group row by row.folder
-                                           into g
-                                           select new { id = Convert.ToInt32(g.Key), diff = -g.Count() })
-                    .ToList();
+                var unreadInFolder = unreadCollection
+                    .FirstOrDefault(f => f.id == folder.id);
 
-                var unreadCollection = (from row in messageFieldsInfo.Where(m => m.unread == 1)
-                                        group row by row.folder
-                                            into g
-                                            select new { id = Convert.ToInt32(g.Key), diff = -g.Count() })
-                    .ToList();
-
-                foreach (var folder in totalCollection)
-                {
-                    var unreadInFolder = unreadCollection
-                        .FirstOrDefault(f => f.id == folder.id);
-
-                    ChangeFolderCounters(db, tenant, user, folder.id,
-                                         unreadInFolder != null ? unreadInFolder.diff : 0, folder.diff, false);
-                }
-            }
-            else
-            {
-                RecalculateFolders(db, tenant, user, false);
+                ChangeFolderCounters(db, tenant, user, folder.id,
+                    unreadMessDiff: unreadInFolder != null ? unreadInFolder.diff : 0,
+                    totalMessDiff: folder.diff);
             }
 
             UpdateChainFields(db, tenant, user, messageFieldsInfo.Select(m => Convert.ToInt32(m.id)).ToList());
@@ -1898,3 +1975,4 @@ namespace ASC.Mail.Aggregator
         #endregion
     }
 }
+

@@ -23,150 +23,143 @@
  *
 */
 
+if (typeof ASC === "undefined") {
+    ASC = {};
+}
 
-window.VoipPhoneView = new function() {
-    var $ = jq;
+if (typeof ASC.CRM === "undefined") {
+    ASC.CRM = function () { return {} };
+}
 
+if (typeof ASC.CRM.Voip === "undefined") {
+    ASC.CRM.Voip = function () { return {} };
+}
+
+ASC.CRM.Voip.PhoneView = (function($) {
     //#region fields
 
-    var initiated = false;
-    var serviceUnavailable = false;
+    var initiated = false,
+        serviceUnavailable = false,
+        serviceAlreadyRunning = false,
+        countries = [],
+        user = null,
+        operator = null,
+        pause = false,
+        allowOutgoingCalls = false,
+        missedCalls = [],
+        currentCall = null,
+        currentCallStatus = null,
+        defaultPhoneCode = '+1',
+        defaultPhoneCountry = 'US',
+        selectedPhoneCountry = 'US',
+        selectedContact = null,
+        incomingCallPlayer = null,
+        defaultResetCallInterval = 5000,
+        callTimer = null,
+        callTimerOffset = null,
+        signalrConnection = null,
+        twilioConnection = null;
 
-    var countries = [];
+    var callToContactId;
+    var disableClass = "disable",
+        activeClass = "active";
 
-    var user = null;
-    var operator = null;
+    var $dropViewBtn,
+        $dropView,
 
-    var missedCalls = [];
+        $view,
+        operatorStatusSwitcherOptionsTmpl,
+        optionsBoxTmpl,
+        countriesPanelTmpl,
+        contactPhoneSwitcherItemTmpl,
+        missedCallTmpl,
+        operatorsRedirectOptionTmpl,
+        callTmpl,
+        $serviceUnavailableBox,
+        $serviceAlreadyRunning,
+        $viewInitLoaderBox,
 
-    var testCall = {
-        to: '17205482333',
-        contact: {
-            displayName: 'John Snow',
-            //mediumFotoUrl: 'https://pavelpavel.teamlab.info/products/crm/app_themes/default/images/empty_people_logo_82_82.png'
-            mediumFotoUrl: '/products/crm/data/0/photos/01/47/37/contact_14737_200_200.jpeg'
-        }
-    };
-    var currentCall = null;
-    var currentCallStatus = null;
+        //operator box
+        $operatorBox,
+        $operatorStatus,
+        $operatorName,
+        $operatorStatusSwitcher,
+        $operatorStatusSwitcherOptions,
 
+        //options box
+        $optionsBox,
 
-    var defaultPhoneCode = '+1';
-    var defaultPhoneCountry = 'US';
+        //missed calls box
+        $missedCallsBox,
+        $missedCallsList,
+        $missedCallsEmptyMsg,
 
-    var selectedPhoneCountry = 'US';
-    var selectedContact = null;
+        //phone box
+        $phoneBox,
+        $selectedContact,
+        $phoneSelectorBox,
+        $countrySelector,
+        $phoneInput,
+        $phoneClearBtn,
+        $selectedContactPhoneSwitcherBtn,
+        $contactPhoneSwitcherPanel,
+        $selectContactBtn,
+        $callBtn,
 
-    var incomingCallPlayer = null;
-    var defaultResetCallInterval = 5000;
+        //call box
+        $callBox,
+        $callStatusBox,
+        $callStatuses,
+        $callMainBox,
+        $callDude,
+        $callTimer,
+        $callBtns,
+        $answerCallBtn,
+        $rejectCallBtn,
+        $completeCallBtn,
+        $redirectCallBtn,
+        $operatorsRedirectBox,
+        $operatorsRedirectSelector,
+        $operatorsRedirectEmptyMsg;
 
-    var callTimer = null;
-    var callTimerOffset = null;
-
-    var signalrConnection = null;
-    var twilioConnection = null;
-
-    //#endregion
-
-    //#region fields helpers
-
-    function operatorOnline() {
-        return operator.status == 0;
+    var loadingBanner = LoadingBanner,
+        master = ASC.Resources.Master,
+        resource = master.Resource;
+    var operatorStatus = {
+        online: 0,
+        busy: 1,
+        offline: 2
     }
 
-    function operatorBusy() {
-        return operator.status == 1;
+    var callStatus = {
+        outgoingStarted: 0,
+        outgoingGoing: 1,
+        outgoingCompleted: 2,
+        incomingStarted: 3,
+        incomingGoing: 4,
+        incomingCompleted: 5
     }
 
-    function setOperatorBusy() {
-        operator.status = 1;
-    }
-
-    function operatorOffline() {
-        return operator.status == 2;
-    }
-
-    function operatorAllowOutgoingCalls() {
-        return operator.allowOutgoingCalls;
-    }
-
-    function operatorAnswersByPhone() {
-        return operator.answer == 0;
-    }
-
-    function callRunning() {
-        return currentCallStatus != null;
-    }
-
-    function outgoingCallStarted() {
-        return currentCallStatus == 0;
-    }
-
-    function outgoingCallGoing() {
-        return currentCallStatus == 1;
-    }
-
-    function outgoingCallCompleted() {
-        return currentCallStatus == 2;
-    }
-
-    function incomingCallStarted() {
-        return currentCallStatus == 3;
-    }
-
-    function incomingCallGoing() {
-        return currentCallStatus == 4;
-    }
-
-    function incomingCallCompleted() {
-        return currentCallStatus == 5;
-    }
-
-    function setOutgoingCallStartedStatus() {
-        currentCallStatus = 0;
-    }
-
-    function setOutgoingCallGoingStatus() {
-        currentCallStatus = 1;
-    }
-
-    function setOutgoingCallCompletedStatus() {
-        currentCallStatus = 2;
-    }
-
-    function setIncomingCallStartedStatus() {
-        currentCallStatus = 3;
-
-        if (incomingCallPlayer) {
-            incomingCallPlayer.play();
-        }
-    }
-
-    function setIncomingCallGoingStatus() {
-        currentCallStatus = 4;
-
-        if (incomingCallPlayer && incomingCallPlayer.readyState != 0) {
-            incomingCallPlayer.pause();
-            incomingCallPlayer.currentTime = 0;
-        }
-    }
-
-    function setIncomingCallCompletedStatus() {
-        currentCallStatus = 5;
-    }
-
+    var documentHidden = true,
+        defaultDocTitle;
     //#endregion
 
     //#region init
 
     function init() {
+        if (typeof jq.connection === "undefined") {
+            $(".studio-top-panel .voip").hide();
+            return;
+        }
+
+        document.addEventListener("visibilitychange", function() { documentHidden = document.hidden; }, false);
+
         signalrConnection = jq.connection.voip;
 
         cacheElements();
 
         bindEvents();
         bindDrops();
-        bindPushEvents();
 
         setDefaultCountryData();
 
@@ -174,14 +167,21 @@ window.VoipPhoneView = new function() {
             return;
         }
 
+        $.connection.hub.reconnecting(function () {
+            operatorStatusUpdated(operatorStatus.offline);
+            Twilio.Device.destroy();
+        });
+
+        $.connection.hub.disconnected(function () {
+            if (initiated) {
+                operatorStatusUpdated(operatorStatus.offline);
+                Twilio.Device.destroy();
+            }
+        });
+
         $.connection.onStart
             .done(function() {
-                getData(function(data) {
-                    saveData(data);
-                    renderView();
-
-                    initiated = true;
-                });
+                getData(onGetData);
             })
             .fail(function() {
                 serviceUnavailable = true;
@@ -189,140 +189,172 @@ window.VoipPhoneView = new function() {
             });
     }
 
-    function initTwilio(token) {
-        Twilio.Device.setup(token);
-        Twilio.Device.sounds.incoming(false);
+    function onGetData(data) {
+        saveData(data);
+
+        signalrConnection.server.getStatus()
+            .done(function (status) {
+                operator.status = status;
+                if (status != operatorStatus.offline) {
+                    serviceAlreadyRunning = true;
+                }
+
+                renderView();
+
+                if (status === operatorStatus.offline) {
+                    setOperatorStatus(operatorStatus.online);
+                }
+            });
+    }
+
+    function initTwilio(status) {
+        Teamlab.getVoipToken(null,
+        {
+            success: function(params, data) {
+                Twilio.Device.setup(data);
+
+                Twilio.Device.ready(function () {
+                    Twilio.Device.sounds.incoming(false);
+                    Twilio.Device.sounds.disconnect(true);
+                    Twilio.Device.incoming(function (connection) { incomingTwilioHandler(connection) });
+                    Twilio.Device.cancel(cancelTwilioHandler);
+
+                    Twilio.Device.error(function (error) {
+                        if (error && (error.code === 31201 || error.code === 31208)) {
+                            rejectCall();
+                        }
+                    });
+
+                    Twilio.Device.offline(function() {
+                        initiated = false;
+                        twilioConnection = null;
+                    });
+
+                    initiated = true;
+
+                    pushOperatorStatus(status);
+                });
+            }
+        });
     }
 
     function cacheElements() {
-        this.$dropViewBtn = $('.voipActiveBox');
-        this.$dropView = $('#studio_dropVoipPopupPanel');
+        $dropViewBtn = $('.voipActiveBox');
+        $dropView = $('#studio_dropVoipPopupPanel');
 
-        this.$view = $dropView.find('#voip-phone-view');
+        $view = $dropView.find('#voip-phone-view');
 
-        this.operatorStatusSwitcherOptionsTmpl = $view.find('#operator-status-switcher-options-tmpl');
-        this.optionsBoxTmpl = $view.find('#options-box-tmpl');
-        this.countriesPanelTmpl = $view.find('#countries-panel-tmpl');
-        this.contactPhoneSwitcherItemTmpl = $view.find('#contact-phone-switcher-item-tmpl');
-        this.missedCallTmpl = $view.find('#missed-call-tmpl');
-        this.operatorsRedirectOptionTmpl = $view.find('#operators-redirect-option-tmpl');
-        this.callTmpl = $view.find('#call-tmpl');
+        operatorStatusSwitcherOptionsTmpl = 'operator-status-switcher-options-tmpl';
+        optionsBoxTmpl = 'options-box-tmpl';
+        countriesPanelTmpl = 'countries-panel-tmpl';
+        contactPhoneSwitcherItemTmpl = 'contact-phone-switcher-item-tmpl';
+        missedCallTmpl = 'missed-call-tmpl';
+        operatorsRedirectOptionTmpl = 'operators-redirect-option-tmpl';
+        callTmpl = 'call-tmpl';
 
         incomingCallPlayer = $dropView.find('#incoming-player').get(0);
         if (supportsMp3()) {
-            incomingCallPlayer.src = ASC.Resources.Master.VoipPhone.IncomingRingtoneMp3;
+            incomingCallPlayer.src = "https://media.twiliocdn.com/sdk/js/client/sounds/releases/1.0.0/incoming.mp3"; // master.VoipPhone.IncomingRingtoneMp3;
         } else if (supportsVAW()) {
-            incomingCallPlayer.src = ASC.Resources.Master.VoipPhone.IncomingRingtoneWav;
+            incomingCallPlayer.src = master.VoipPhone.IncomingRingtoneWav;
         } else {
             incomingCallPlayer = null;
         }
-
-        this.$serviceUnavailableBox = $view.find('#service-unavailable-box');
-        this.$viewInitLoaderBox = $view.find('#view-init-loader-box');
+        $serviceUnavailableBox = $view.find('#service-unavailable-box');
+        $serviceAlreadyRunning = $view.find('#service-already-running-box');
+        $viewInitLoaderBox = $view.find('#view-init-loader-box');
 
         //operator box
-        this.$operatorBox = $view.find('#operator-box');
+        $operatorBox = $view.find('#operator-box');
 
-        this.$operatorStatus = $operatorBox.find('#operator-status');
-        this.$operatorName = $operatorBox.find('#operator-name');
+        $operatorStatus = $operatorBox.find('#operator-status');
+        $operatorName = $operatorBox.find('#operator-name');
 
-        this.$operatorStatusSwitcher = $operatorBox.find('#operator-status-switcher');
-        this.$operatorStatusSwitcherOptions = $operatorBox.find('#operator-status-switcher-options');
+        $operatorStatusSwitcher = $operatorBox.find('#operator-status-switcher');
+        $operatorStatusSwitcherOptions = $operatorBox.find('#operator-status-switcher-options');
 
         //options box
-        this.$optionsBox = $view.find('#options-box');
+        $optionsBox = $view.find('#options-box');
 
         //missed calls box
-        this.$missedCallsBox = $view.find('#missed-calls-box');
-        this.$missedCallsList = $view.find('#missed-calls-list');
-        this.$missedCallsEmptyMsg = $missedCallsBox.find('#missed-calls-empty-msg');
+        $missedCallsBox = $view.find('#missed-calls-box');
+        $missedCallsList = $view.find('#missed-calls-list');
+        $missedCallsEmptyMsg = $missedCallsBox.find('#missed-calls-empty-msg');
 
         //phone box
-        this.$phoneBox = $view.find('#phone-box');
+        $phoneBox = $view.find('#phone-box');
 
-        this.$selectedContact = $phoneBox.find('#selected-contact');
-        this.$phoneSelectorBox = $phoneBox.find('#phone-selector-box');
+        $selectedContact = $phoneBox.find('#selected-contact');
+        $phoneSelectorBox = $phoneBox.find('#phone-selector-box');
 
-        this.$countrySelector = $phoneSelectorBox.find('#country-selector');
+        $countrySelector = $phoneSelectorBox.find('#country-selector');
 
-        this.$phoneInput = $phoneSelectorBox.find('#phone-input');
-        this.$phoneClearBtn = $phoneSelectorBox.find('#phone-clear-btn');
+        $phoneInput = $phoneSelectorBox.find('#phone-input');
+        $phoneClearBtn = $phoneSelectorBox.find('#phone-clear-btn');
 
-        this.$selectedContactPhoneSwitcherBtn = $phoneSelectorBox.find('#contact-phone-switcher-btn');
-        this.$contactPhoneSwitcherPanel = $phoneSelectorBox.find('#contact-phone-switcher-panel');
+        $selectedContactPhoneSwitcherBtn = $phoneSelectorBox.find('#contact-phone-switcher-btn');
+        $contactPhoneSwitcherPanel = $phoneSelectorBox.find('#contact-phone-switcher-panel');
 
-        this.$selectContactBtn = $phoneBox.find('#select-contact-btn');
+        $selectContactBtn = $phoneBox.find('#select-contact-btn');
 
-        this.$callBtn = $phoneBox.find('#call-btn');
+        $callBtn = $phoneBox.find('#call-btn');
 
         //call box
-        this.$callBox = $view.find('#call-box');
+        $callBox = $view.find('#call-box');
 
-        this.$callStatusBox = $callBox.find('#call-status-box');
-        this.$callStatuses = $callStatusBox.find('.call-status');
+        $callStatusBox = $callBox.find('#call-status-box');
+        $callStatuses = $callStatusBox.find('.call-status');
 
-        this.$callMainBox = $callBox.find('#call-main-box');
+        $callMainBox = $callBox.find('#call-main-box');
 
-        this.$callDude = $callBox.find('#call-dude');
-        this.$callTimer = $callBox.find('#call-timer');
+        $callDude = $callBox.find('#call-dude');
+        $callTimer = $callBox.find('#call-timer');
 
-        this.$callBtns = $callBox.find('.call-btn');
+        $callBtns = $callBox.find('.call-btn');
 
-        this.$answerCallBtn = $callBox.find('.answer-btn');
-        this.$rejectCallBtn = $callBox.find('.reject-btn');
-        this.$completeCallBtn = $callBox.find('.complete-btn');
-        this.$redirectCallBtn = $callBox.find('.redirect-btn');
+        $answerCallBtn = $callBox.find('.answer-btn');
+        $rejectCallBtn = $callBox.find('.reject-btn');
+        $completeCallBtn = $callBox.find('.complete-btn');
+        $redirectCallBtn = $callBox.find('.redirect-btn');
 
-        this.$operatorsRedirectBox = $callBox.find('#operators-redirect-box');
-        this.$operatorsRedirectSelector = $operatorsRedirectBox.find('#operators-redirect-selector');
-        this.$operatorsRedirectEmptyMsg = $operatorsRedirectBox.find('#operators-redirect-empty-msg');
+        $operatorsRedirectBox = $callBox.find('#operators-redirect-box');
+        $operatorsRedirectSelector = $operatorsRedirectBox.find('#operators-redirect-selector');
+        $operatorsRedirectEmptyMsg = $operatorsRedirectBox.find('#operators-redirect-empty-msg');
     }
 
     function bindEvents() {
+        var clickEventName = 'click';
         //operator box
-        $operatorBox.on('click', '#operator-online-btn', setOperatorStatus.bind(this, 0));
-        $operatorBox.on('click', '#operator-offline-btn', setOperatorStatus.bind(this, 2));
+        $operatorBox.on(clickEventName, '#operator-online-btn', setOperatorStatus.bind(this, 0));
+        $operatorBox.on(clickEventName, '#operator-offline-btn', setOperatorStatus.bind(this, 2));
 
-        $operatorStatusSwitcher.on('click', switchOperatorStatus);
+        $operatorStatusSwitcher.on(clickEventName, switchOperatorStatus);
 
         $optionsBox.on('change', '#call-type-selector', setOperatorCallType);
 
-        $phoneBox.on('click', '.panel-btn', phoneButtonClicked);
+        $phoneBox.on(clickEventName, '.panel-btn', phoneButtonClicked);
 
         $phoneInput.on('keyup', phoneInputPressed);
-        $phoneClearBtn.on('click', clearPhoneBox);
+        $phoneClearBtn.on(clickEventName, clearPhoneBox);
 
-        $phoneSelectorBox.on('click', '#countries-panel .dropdown-item', selectPhoneCountry);
-        $phoneSelectorBox.on('click', '#contact-phone-switcher-panel .dropdown-item', selectContactPhone);
+        $phoneSelectorBox.on(clickEventName, '#countries-panel .dropdown-item', selectPhoneCountry);
+        $phoneSelectorBox.on(clickEventName, '#contact-phone-switcher-panel .dropdown-item', selectContactPhone);
 
         $selectContactBtn.on('showList', selectContact);
 
-        $missedCallsBox.on('click', '.recall-btn', makeRecall);
+        $missedCallsBox.on(clickEventName, '.recall-btn', makeRecall);
 
-        $callBtn.on('click', makeCall);
-        $answerCallBtn.on('click', answerCall);
-        $rejectCallBtn.on('click', rejectCall);
-        $completeCallBtn.on('click', completeCall);
-        $redirectCallBtn.on('click', redirectCallHandler);
+        $callBtn.on(clickEventName, makeCall);
+        $answerCallBtn.on(clickEventName, answerCall);
+        $rejectCallBtn.on(clickEventName, rejectCall);
+        $completeCallBtn.on(clickEventName, completeCall);
+        $redirectCallBtn.on(clickEventName, redirectCallHandler);
 
-        $optionsBox.on('click', '#toggle-phone-box-btn', togglePhoneBox);
-
-        Twilio.Device.incoming(incomingTwilioHandler);
-        Twilio.Device.cancel(cancelTwilioHandler);
-
-        Twilio.Device.error(function(error) {
-            console.log('Device Error:' + error.message);
-        });
+        $optionsBox.on(clickEventName, '#toggle-phone-box-btn', showPhoneBox);
+        $optionsBox.on(clickEventName, '#toggle-missed-box-btn', showMissedBox);
     }
 
     function bindDrops() {
-        $.dropdownToggle({
-            switcherSelector: '.studio-top-panel .voipActiveBox',
-            dropdownID: 'studio_dropVoipPopupPanel',
-            addTop: 5,
-            addLeft: -268
-        });
-
         $.dropdownToggle({
             switcherSelector: '#operator-status-switcher',
             dropdownID: 'operator-status-switcher-options',
@@ -355,53 +387,26 @@ window.VoipPhoneView = new function() {
         });
     }
 
-    function bindPushEvents() {
-        signalrConnection.client.status = operatorStatusUpdated;
-        signalrConnection.client.onlineAgents = onlineOperatorsUpdated;
-
-        signalrConnection.client.dequeue = incomingCallInitiated;
-        signalrConnection.client.start = callGoing;
-        signalrConnection.client.end = callCompleted;
-
-        signalrConnection.client.miss = callMissed;
-    }
-
     //#endregion
 
     //#region data
 
     function getData(callback) {
-        async.parallel([
-                function(cb) {
-                    Teamlab.getVoipToken(null, {
-                        success: function(params, data) {
-                            cb(null, data);
-                        },
-                        error: function(err) {
-                            cb(err);
-                        }
-                    });
+        var teamlabParams = function(cb) {
+            return {
+                success: function(params, data) {
+                    cb(null, data);
                 },
-                function(cb) {
-                    Teamlab.getCrmCurrentVoipNumber(null, {
-                        success: function(params, data) {
-                            cb(null, data);
-                        },
-                        error: function(err) {
-                            cb(err);
-                        }
-                    });
-                }, function(cb) {
-                    Teamlab.getVoipMissedCalls(null,
-                        {
-                            success: function(params, data) {
-                                cb(null, data);
-                            },
-                            error: function(err) {
-                                cb(err);
-                            }
-                        });
-                }], function(err, data) {
+                error: function(err) {
+                    cb(err);
+                }
+            }
+        };
+
+        async.parallel([
+                function (cb) { Teamlab.getCrmCurrentVoipNumber(null, teamlabParams(cb)); },
+                function (cb) { Teamlab.getVoipMissedCalls(null, teamlabParams(cb)); }],
+                function (err, data) {
                     if (err) {
                         showErrorMessage();
                     } else {
@@ -410,17 +415,52 @@ window.VoipPhoneView = new function() {
                 });
     }
 
+    function spawnNotification(body, title) {
+        var n;
+
+        if (!("Notification" in window)) {
+            return;
+        }
+
+        if (Notification.permission === "granted") {
+            n = new Notification(title, { body: body });
+        }
+        else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    n = new Notification(title, { body: body });
+                }
+            });
+        }
+
+        if (n) {
+            n.onclick = function (event) {
+                event.preventDefault();
+                window.focus();
+            };
+        }
+    }
+
     function saveData(data) {
-        countries = window.VoIPCountries;
+        if ("Notification" in window) {
+            Notification.requestPermission();
+        }
+        countries = ASC.Voip.Countries;
         user = Teamlab.profile;
 
-        var twilioToken = data[0];
-        initTwilio(twilioToken);
-
-        var number = data[1];
+        var number = data[0];
         operator = number.settings.caller;
+        pause = number.settings.pause;
+        allowOutgoingCalls = operator.allowOutgoingCalls && number.settings.allowOutgoingCalls;
 
-        var calls = data[2];
+        if (!allowOutgoingCalls) {
+            lockMissedCallList();
+        }
+
+        defaultDocTitle = "+" + number.number;
+        document.title = defaultDocTitle;
+
+        var calls = data[1];
 
         if (!calls.length) {
             return;
@@ -537,51 +577,61 @@ window.VoipPhoneView = new function() {
             return;
         }
 
+        if (serviceAlreadyRunning) {
+            $serviceAlreadyRunning.show();
+            return;
+        } else {
+            $serviceAlreadyRunning.hide();
+        }
+
         renderOperatorBox();
         renderOptionsBox();
         renderMissedCalls();
         renderPhoneBox();
         renderCallBox();
 
-        if (incomingCallStarted()) {
+        if (currentCallStatus == callStatus.incomingStarted) {
             showDropView();
         }
     }
 
     function renderOperatorBox() {
-        $operatorStatusSwitcherOptions.html(operatorStatusSwitcherOptionsTmpl.tmpl());
+        $operatorStatusSwitcherOptions.html(jq.tmpl(operatorStatusSwitcherOptionsTmpl));
 
         $operatorStatusSwitcherOptions.hide();
         $operatorName.text(user.displayName);
 
-        if (operatorOnline()) {
+        if (operator.status == operatorStatus.online) {
             $operatorStatus.removeClass('offline').addClass('online');
-            $operatorStatusSwitcher.text(ASC.Resources.Master.Resource.OnlineStatus);
+            $operatorStatusSwitcher.text(resource.OnlineStatus);
             $operatorStatusSwitcher.removeClass('lock');
-        } else if (operatorOffline()) {
+        } else if (operator.status == operatorStatus.offline) {
             $operatorStatus.removeClass('online').addClass('offline');
-            $operatorStatusSwitcher.text(ASC.Resources.Master.Resource.OfflineStatus);
+            $operatorStatusSwitcher.text(resource.OfflineStatus);
             $operatorStatusSwitcher.removeClass('lock');
-        } else if (operatorBusy() && callRunning()) {
+        } else if (operator.status == operatorStatus.busy) {
             $operatorStatus.removeClass('offline').addClass('online');
-            $operatorStatusSwitcher.text(ASC.Resources.Master.Resource.BusyStatus);
-            $operatorStatusSwitcher.addClass('lock');
+            $operatorStatusSwitcher.text(resource.BusyStatus);
+            $operatorStatusSwitcher.removeClass('lock');
+            if (currentCallStatus != null) {
+                $operatorStatusSwitcher.addClass('lock');
+            }
         }
 
         $operatorBox.show();
     }
 
     function renderOptionsBox() {
-        if (!operatorAllowOutgoingCalls()) {
+        if (!allowOutgoingCalls) {
             return;
         }
 
-        if (callRunning()) {
+        if (currentCallStatus != null) {
             $optionsBox.hide();
             return;
         }
 
-        var $box = optionsBoxTmpl.tmpl({
+        var $box = jq.tmpl(optionsBoxTmpl, {
             answer: operator.answer,
             redirectToNumber: operator.redirectToNumber,
             phones: user.contacts.telephones
@@ -589,29 +639,35 @@ window.VoipPhoneView = new function() {
         $optionsBox.html($box);
 
         var $toggleBtn = $optionsBox.find('#toggle-phone-box-btn');
-        if (operatorAnswersByPhone()) {
+        var $toggleMissedBtn = $optionsBox.find('#toggle-missed-box-btn');
+        if (operator.answer == 0) {
             $toggleBtn.hide();
+            $toggleMissedBtn.hide();
         } else {
             $toggleBtn.show();
+            $toggleMissedBtn.show();
+            if (operator.status === operatorStatus.offline) {
+                $toggleBtn.addClass(disableClass);
+                $toggleMissedBtn.addClass(disableClass);
+            } else {
+                $toggleBtn.removeClass(disableClass);
+                $toggleMissedBtn.removeClass(disableClass);
+            }
         }
 
-        if (operatorOffline()) {
-            $optionsBox.hide();
-        } else {
-            $optionsBox.show();
-        }
+        $optionsBox.show();
     }
 
     function renderMissedCalls() {
-        if (callRunning()) {
+        if (currentCallStatus != null || $phoneBox.is(':visible')) {
             $missedCallsBox.hide();
             return;
         }
 
-        if (operatorOffline() || operatorAnswersByPhone()) {
+        if (operator.status == operatorStatus.offline || operator.answer == 0) {
             $missedCallsBox.hide();
         } else {
-            $missedCallsBox.show();
+            showMissedBox();
         }
 
         if (missedCalls.length) {
@@ -627,25 +683,25 @@ window.VoipPhoneView = new function() {
         if (missedCalls.length) {
             $missedCallsEmptyMsg.hide();
 
-            var $calls = missedCallTmpl.tmpl(missedCalls);
-            $missedCallsList.append($calls);
+            var $calls = $.tmpl(missedCallTmpl, missedCalls);
+            $missedCallsList.html($calls);
         }
     }
 
     function renderPhoneBox() {
         if (!initiated) {
-            var $panel = countriesPanelTmpl.tmpl({ countries: countries });
+            var $panel = $.tmpl(countriesPanelTmpl, { countries: countries });
             $phoneSelectorBox.append($panel);
         }
 
-        if (operatorOffline() || callRunning() || operatorAnswersByPhone()) {
+        if (operator.status == operatorStatus.offline || currentCallStatus != null || operator.answer == 0) {
             $phoneBox.hide();
             return;
         }
     }
 
     function renderCallBox() {
-        if (!callRunning()) {
+        if (currentCallStatus == null) {
             $callBox.hide();
             return;
         }
@@ -655,13 +711,13 @@ window.VoipPhoneView = new function() {
         $callStatuses.hide().filter('[data-status=' + currentCallStatus + ']').show();
         $callBtns.hide().filter('[data-status=' + currentCallStatus + ']').show();
 
-        if (incomingCallGoing()) {
+        if (currentCallStatus == callStatus.incomingGoing) {
             $operatorsRedirectBox.show();
         } else {
             $operatorsRedirectBox.hide();
         }
 
-        var $call = callTmpl.tmpl(currentCall);
+        var $call = $.tmpl(callTmpl, currentCall);
         $callMainBox.html($call);
 
         $callBox.show();
@@ -696,20 +752,31 @@ window.VoipPhoneView = new function() {
             $operatorStatusSwitcherOptions.hide();
         } else {
             showLoader();
-
-            signalrConnection.server.status(status)
-                .done(function() {
-                    hideLoader();
-                }).fail(function() {
-                    $operatorStatusSwitcherOptions.hide();
-                    showErrorMessage();
-                    hideLoader();
-                });
+            if (operator.status === operatorStatus.offline && status === operatorStatus.online) {
+                initTwilio(status);
+            } else {
+                if (operator.status === operatorStatus.online && status === operatorStatus.offline) {
+                    Twilio.Device.destroy();
+                }
+                pushOperatorStatus(status);
+            }
         }
     }
 
+    function pushOperatorStatus(status) {
+        signalrConnection.server.status(status)
+            .done(function() {
+                hideLoader();
+            })
+            .fail(function() {
+                $operatorStatusSwitcherOptions.hide();
+                showErrorMessage();
+                hideLoader();
+            });
+    }
+
     function switchOperatorStatus() {
-        if (operatorBusy() && callRunning()) {
+        if (operator.status == operatorStatus.busy && currentCallStatus != null) {
             return false;
         }
 
@@ -744,17 +811,22 @@ window.VoipPhoneView = new function() {
             });
     }
 
-    function togglePhoneBox() {
-        var visible = $phoneBox.is(':visible');
+    function showPhoneBox() {
+        if (jq(this).hasClass(disableClass)) return;
+        $missedCallsBox.hide();
+        $callBox.hide();
+        $phoneBox.show();
+        $optionsBox.find('#toggle-missed-box-btn').removeClass(activeClass);
+        $optionsBox.find('#toggle-phone-box-btn').addClass(activeClass);
+    }
 
-        if (visible) {
-            $missedCallsBox.show();
-            $phoneBox.hide();
-        } else {
-            $missedCallsBox.hide();
-            $callBox.hide();
-            $phoneBox.show();
-        }
+    function showMissedBox() {
+        if (jq(this).hasClass(disableClass)) return;
+        $callBox.hide();
+        $phoneBox.hide();
+        $missedCallsBox.show();
+        $optionsBox.find('#toggle-phone-box-btn').removeClass(activeClass);
+        $optionsBox.find('#toggle-missed-box-btn').addClass(activeClass);
     }
 
     function selectPhoneCountry(e) {
@@ -792,7 +864,7 @@ window.VoipPhoneView = new function() {
         var phone = contact.phone[0].data;
         renderSelectedPhone(phone);
 
-        var $items = contactPhoneSwitcherItemTmpl.tmpl(contact.phone);
+        var $items = jq.tmpl(contactPhoneSwitcherItemTmpl, contact.phone);
         $contactPhoneSwitcherPanel.find('.dropdown-content').html($items);
 
         $phoneClearBtn.show();
@@ -819,7 +891,7 @@ window.VoipPhoneView = new function() {
     }
 
     function phoneInputPressed() {
-        var phone = $phoneInput.val().replace(/\s/g, '');
+        var phone = $phoneInput.val().replace(/\D/g, '');
 
         if (phone != defaultPhoneCode) {
             $phoneClearBtn.show();
@@ -864,7 +936,7 @@ window.VoipPhoneView = new function() {
         $callBtn.addClass('disable');
 
         var query = {
-            to: $phoneInput.val().replace(/\s/g, ''),
+            to: $phoneInput.val().replace(/\D/g, ''),
             contactId: selectedContact ? selectedContact.id : null
         };
 
@@ -872,15 +944,19 @@ window.VoipPhoneView = new function() {
             success: function(params, call) {
                 currentCall = call;
 
-                setOperatorBusy();
-                setOutgoingCallStartedStatus();
+                operator.status = operatorStatus.busy;
+                currentCallStatus = callStatus.outgoingStarted;
 
                 $callBtn.removeClass('disable');
                 renderView();
             },
-            error: function() {
+            error: function (params, errors) {
+                if (Array.isArray(errors) && errors.length) {
+                    toastr.error(errors[0]);
+                } else {
+                    showErrorMessage();
+                }
                 $callBtn.removeClass('disable');
-                showErrorMessage();
             }
         });
     }
@@ -894,18 +970,18 @@ window.VoipPhoneView = new function() {
 
         $this.addClass('disable');
         $this.closest('.missed-call').addClass('selected');
-        $missedCallsList.addClass('lock');
+        lockMissedCallList();
 
         var number = $this.attr('data-number');
         Teamlab.callVoipNumber(null, { to: number }, {
             success: function(params, call) {
                 currentCall = call;
 
-                setOperatorBusy();
-                setOutgoingCallStartedStatus();
+                operator.status = operatorStatus.busy;
+                currentCallStatus = callStatus.outgoingStarted;
 
                 $this.removeClass('disable');
-                $missedCallsList.removeClass('lock');
+                unlockMissedCallList();
                 renderView();
 
                 deleteMissedCalls(number);
@@ -914,10 +990,19 @@ window.VoipPhoneView = new function() {
             error: function() {
                 $this.removeClass('disable');
                 $this.closest('.missed-call').removeClass('selected');
-                $missedCallsList.removeClass('lock');
+                unlockMissedCallList();
                 showErrorMessage();
             }
         });
+    }
+
+    function lockMissedCallList() {
+        $missedCallsList.addClass('lock');
+    }
+
+    function unlockMissedCallList() {
+        if (!allowOutgoingCalls) return;
+        $missedCallsList.removeClass('lock');
     }
 
     function answerCall() {
@@ -931,7 +1016,7 @@ window.VoipPhoneView = new function() {
     function rejectCall() {
         Teamlab.rejectVoipCall({}, currentCall.id, {
             success: function() {
-                setIncomingCallCompletedStatus();
+                currentCallStatus = callStatus.incomingCompleted;
                 renderView();
                 resetCall();
             },
@@ -951,7 +1036,7 @@ window.VoipPhoneView = new function() {
         Teamlab.redirectVoipCall({}, currentCall.id, { to: to },
             {
                 success: function() {
-                    setIncomingCallCompletedStatus();
+                    currentCallStatus = callStatus.incomingCompleted;
                     renderView();
                     resetCall();
                 },
@@ -967,11 +1052,39 @@ window.VoipPhoneView = new function() {
             twilioConnection.disconnect();
         } else {
             stopCallTimer();
-            setIncomingCallCompletedStatus();
+            currentCallStatus = callStatus.incomingCompleted;
 
             renderView();
             resetCall();
         }
+    }
+
+    function makeCallToContact(contactId) {
+        if (!operator || operator.status !== operatorStatus.online || currentCallStatus !== null || serviceUnavailable || serviceAlreadyRunning) {
+            callToContactId = contactId;
+            return;
+        }
+        callToContactId = null;
+        showPhoneBox();
+        Teamlab.getCrmContact({},
+            contactId,
+            {
+                success: function(params, contact) {
+                    var newObj = {
+                        title: contact.displayName || contact.title || contact.name || contact.Name,
+                        id: contact.id && contact.id.toString(),
+                        phone: contact.phone || (contact.commonData && contact.commonData.filter(function(el) {
+                                return el.infoType == 0;
+                            }))
+                    }
+
+                    if (contact.hasOwnProperty("contactclass")) {
+                        newObj.type = contact.contactclass;
+                    }
+
+                    selectContact(undefined, newObj);
+                }
+            });
     }
 
     //#endregion
@@ -979,21 +1092,41 @@ window.VoipPhoneView = new function() {
     //#region push handlers
 
     function operatorStatusUpdated(status) {
+        if (!initiated) {
+            if (operator.status == operatorStatus.offline && status == operatorStatus.online) {
+                serviceAlreadyRunning = true;
+            }
+            if (status === operatorStatus.offline) {
+                serviceAlreadyRunning = false;
+            }
+        }
+
         operator.status = status;
 
-        if (operatorBusy()) {
+        if (operator.status != operatorStatus.online) {
+            $callBtn.addClass(disableClass);
+        } else {
+            $callBtn.removeClass(disableClass);
+        }
+
+        if (operator.status == operatorStatus.busy) {
             renderOperatorBox();
             return;
         }
 
         renderView();
+        if (callToContactId) {
+            makeCallToContact(callToContactId);
+        }
     }
 
     function onlineOperatorsUpdated(ids) {
+        if (!initiated) return;
+
         var operators = getUsers(ids);
 
         if (operators && operators.length) {
-            var $operators = operatorsRedirectOptionTmpl.tmpl(operators);
+            var $operators = jq.tmpl(operatorsRedirectOptionTmpl, operators);
             $operatorsRedirectSelector.html($operators);
 
             $redirectCallBtn.removeClass('disable');
@@ -1006,18 +1139,48 @@ window.VoipPhoneView = new function() {
         }
     }
 
-    function incomingCallInitiated(call) {
-        currentCall = Teamlab.create('crm-voipCall', null, $.parseJSON(call));
+    function incomingCallInitiated(callId) {
+        if (!initiated) return;
 
-        setIncomingCallStartedStatus();
-        renderView();
+        signalrConnection.server.status(1).done(function() {
+            Teamlab.getVoipCall({},
+                callId,
+                {
+                    success: function (params, call) {
+                        currentCall = call;
+                        currentCallStatus = callStatus.incomingStarted;
+                        if (incomingCallPlayer) {
+                            incomingCallPlayer.play();
+                        }
+                        if (documentHidden) {
+                            spawnNotification(call.from, resource.CallIncoming);
+                            var focusTimer = setInterval(function () {
+                                if (window.closed) {
+                                    clearInterval(focusTimer);
+                                    return;
+                                }
+                                document.title = resource.CallIncoming + ":" + call.from;
+                                window.focus();
+                            }, 1000);
+
+                            window.onmousemove = function () {
+                                clearInterval(focusTimer);
+                                document.title = defaultDocTitle;
+                                document.onmousemove = null;
+                            }
+                        }
+                        renderView();
+                    }
+                });
+        });
     }
 
     function callGoing() {
-        if (incomingCallStarted()) {
-            setIncomingCallGoingStatus();
-        } else if (outgoingCallStarted()) {
-            setOutgoingCallGoingStatus();
+        if (currentCallStatus == callStatus.incomingStarted) {
+            currentCallStatus = callStatus.incomingGoing;
+            stopIncomingCallPlayer();
+        } else if (currentCallStatus == callStatus.outgoingStarted) {
+            currentCallStatus = callStatus.outgoingGoing;
         } else {
             return;
         }
@@ -1033,10 +1196,10 @@ window.VoipPhoneView = new function() {
             twilioConnection.disconnect();
         }
 
-        if (incomingCallGoing()) {
-            setIncomingCallCompletedStatus();
-        } else if (outgoingCallGoing()) {
-            setOutgoingCallCompletedStatus();
+        if (currentCallStatus == callStatus.incomingGoing) {
+            currentCallStatus = callStatus.incomingCompleted;
+        } else if (currentCallStatus == callStatus.outgoingGoing) {
+            currentCallStatus = callStatus.outgoingCompleted;
         } else {
             return;
         }
@@ -1045,19 +1208,34 @@ window.VoipPhoneView = new function() {
         resetCall();
     }
 
-    function callMissed(call) {
-        call = Teamlab.create('crm-voipCall', null, $.parseJSON(call));
+    function callMissed(callId) {
+        if (!initiated) return;
 
-        var res = addMissedCall(call);
 
-        var $call = missedCallTmpl.tmpl(res.call);
-        if (res.repeatedCall) {
-            $missedCallsList.find('.missed-call:first').replaceWith($call);
-        } else {
-            $missedCallsList.prepend($call);
-        }
+        Teamlab.getVoipCall({},
+            callId,
+            {
+                success: function(params, call) {
+                    var res = addMissedCall(call);
 
-        resetCall(0);
+                    var $call = jq.tmpl(missedCallTmpl, res.call);
+                    if (res.repeatedCall) {
+                        $missedCallsList.find('.missed-call:first').replaceWith($call);
+                    } else {
+                        $missedCallsList.prepend($call);
+                    }
+
+                    resetCall(0);
+
+                    if (!pause) {
+                        signalrConnection.server.status(0);
+                    }
+
+                    if (documentHidden) {
+                        spawnNotification(call.from, resource.CallMissed);
+                    }
+                }
+            });
     }
 
     function resetCall(interval) {
@@ -1072,14 +1250,18 @@ window.VoipPhoneView = new function() {
     function clearCall() {
         currentCall = null;
         currentCallStatus = null;
+        
+        stopIncomingCallPlayer();
 
+        $operatorStatusSwitcher.removeClass('lock');
+        clearPhoneBox();
+    }
+
+    function stopIncomingCallPlayer() {
         if (incomingCallPlayer && incomingCallPlayer.readyState != 0) {
             incomingCallPlayer.pause();
             incomingCallPlayer.currentTime = 0;
         }
-
-        $operatorStatusSwitcher.removeClass('lock');
-        clearPhoneBox();
     }
 
     //#endregion
@@ -1088,6 +1270,29 @@ window.VoipPhoneView = new function() {
 
     function incomingTwilioHandler(connection) {
         twilioConnection = connection;
+        
+        connection.accept(function () {
+            signalrConnection.server.status(1);
+            callGoing();
+            Teamlab.saveVoipCall({}, currentCall.id,
+            {
+                 answeredBy: Teamlab.profile.id
+            },
+            {
+                async: true,
+                success: function(params, call) {
+                    currentCall = call;
+                    renderView();
+                }
+            });
+        });
+        connection.disconnect(function () {
+            if (!pause) {
+                signalrConnection.server.status(0);
+            }
+            callCompleted();
+        });
+
         connection.accept();
     }
 
@@ -1130,32 +1335,58 @@ window.VoipPhoneView = new function() {
     //#region utils
 
     function supportsMp3() {
-        return !!Modernizr.audio.mp3;
+        return supportsAudioType("mp3");
     }
 
     function supportsVAW() {
-        return !!Modernizr.audio.wav;
+        return supportsAudioType("wav");
+    }
+
+    function supportsAudioType(audioType) {
+        try {
+            var elem = document.createElement('audio');
+            if (!!elem.canPlayType) {
+                switch (audioType) {
+                case "ogg":
+                    return elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, '');
+                case "mp3":
+                    return elem.canPlayType('audio/mpeg;').replace(/^no$/, '');
+                case "wav":
+                    return elem.canPlayType('audio/wav; codecs="1"').replace(/^no$/, '');
+                case "m4a":
+                    return (elem.canPlayType('audio/x-m4a;') || elem.canPlayType('audio/aac;')).replace(/^no$/, '');
+                }
+            }
+        } catch (e) {
+        }
+
+        return false;
     }
 
     function showLoader() {
-        LoadingBanner.displayLoading();
+        loadingBanner.displayLoading();
     }
 
     function hideLoader() {
-        LoadingBanner.hideLoading();
+        loadingBanner.hideLoading();
     }
 
     function showErrorMessage() {
-        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+        toastr.error(resource.CommonJSErrorMsg);
     }
 
     //#endregion
 
     return {
-        init: init
+        init: init,
+        makeCallToContact: makeCallToContact,
+        operatorStatusUpdated: operatorStatusUpdated,
+        callMissed: callMissed,
+        onlineOperatorsUpdated: onlineOperatorsUpdated,
+        incomingCallInitiated: incomingCallInitiated
     };
-};
+})(jq);
 
 jq(function() {
-    window.VoipPhoneView.init();
+    ASC.CRM.Voip.PhoneView.init();
 });

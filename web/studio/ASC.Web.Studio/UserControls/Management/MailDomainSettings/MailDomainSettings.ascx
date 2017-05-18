@@ -45,7 +45,7 @@
         </div>
         <div id="domainSettingsCbxContainer" class="clearFix" <%=_currentTenant.TrustedDomainsType == TenantTrustedDomainsType.None?"style=\"display:none;\"":""%>>
             <input type="checkbox" id="cbxInviteUsersAsVisitors" <%= _studioTrustedDomainSettings.InviteUsersAsVisitors ? "checked=\"checked\"" : "" %> <%= _enableInviteUsers && !_tenantAccessAnyone ? "" : "disabled=\"disabled\"" %>>
-            <label for="cbxInviteUsersAsVisitors"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %></label>
+            <label for="cbxInviteUsersAsVisitors"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators").HtmlEncode() %></label>
         </div>
         <div class="middle-button-container">
             <a class="button blue <%= _tenantAccessAnyone ? "disable" : "" %>" id="saveMailDomainSettingsBtn">

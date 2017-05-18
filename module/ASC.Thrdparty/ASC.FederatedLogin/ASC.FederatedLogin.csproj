@@ -66,16 +66,12 @@
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Hammock">
-      <HintPath>..\..\..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Hammock.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Contracts">
       <HintPath>..\..\..\packages\Code.Contract.1.0.0\lib\net35\Microsoft.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -96,9 +92,8 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TweetSharp">
-      <HintPath>..\..\..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\TweetSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Twitterizer2">
+      <HintPath>..\..\..\packages\twitterizer.2.4.2\lib\net45\Twitterizer2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +107,11 @@
     <Compile Include="Helpers\XrdsHelper.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="LoginMode.cs" />
+    <Compile Include="LoginProviders\BitlyLoginProvider.cs" />
     <Compile Include="LoginProviders\BoxLoginProvider.cs" />
+    <Compile Include="LoginProviders\IValidateKeysProvider.cs" />
+    <Compile Include="LoginProviders\DocuSignLoginProvider.cs" />
+    <Compile Include="LoginProviders\DropboxLoginProvider.cs" />
     <Compile Include="LoginProviders\FacebookLoginProvider.cs" />
     <Compile Include="LoginProviders\GoogleLoginProvider.cs" />
     <Compile Include="LoginProviders\ILoginProvider.cs" />

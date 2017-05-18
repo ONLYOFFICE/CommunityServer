@@ -56,7 +56,7 @@
             <label for="importAsCollaborators"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %></label><div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
             <div class="popup_helper" id="answerForHelpInviteGuests">
                 <p>
-                    <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator"), "<b>","</b>") %>
+                    <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator").HtmlEncode(), "<b>","</b>") %>
                     <% if (TenantExtra.EnableTarrifSettings)
                        { %>
                     <%= Resource.NotePriceCollaborator %>
@@ -239,7 +239,4 @@
     </div>
 
     <asp:HiddenField ID="HiddenFieldForPermission" runat="server" />
-</asp:Content>
-
-<asp:Content ID="projectsClientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="projectsClientTemplatesResourcesPlaceHolder" runat="server">
 </asp:Content>

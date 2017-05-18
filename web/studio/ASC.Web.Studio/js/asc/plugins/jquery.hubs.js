@@ -165,21 +165,10 @@
 
         proxies.voip = this.createHubProxy('voip');
         proxies.voip.client = {
-            miss: function (call) {
-                console.log(call);
-            },
-            mail: function (call) {
-                console.log(call);
-            },
-            onlineAgents: function (agents) {
-                console.log(agents);
-            },
-            start: function () {
-                console.log("start");
-            },
-            end: function () {
-                console.log("end");
-            }
+            status: function (status) { window.ASC.CRM.Voip.PhoneView.operatorStatusUpdated(status) },
+            miss: function (call) { window.ASC.CRM.Voip.PhoneView.callMissed(call) },
+            onlineAgents: function (ids) { window.ASC.CRM.Voip.PhoneView.onlineOperatorsUpdated(ids) },
+            dequeue: function (call) { window.ASC.CRM.Voip.PhoneView.incomingCallInitiated(call) }
         };
         proxies.voip.server = {
             status: function (status) {
@@ -199,6 +188,10 @@
             onlineAgents: function () {
                 /// <summary>Calls the onlineAgents method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 return proxies.voip.invoke.apply(proxies.voip, $.merge(["onlineAgents"], $.makeArray(arguments)));
+            },
+            getStatus: function () {
+                /// <summary>Calls the onlineAgents method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                return proxies.voip.invoke.apply(proxies.voip, $.merge(["getStatus"], $.makeArray(arguments)));
             }
         };
 
@@ -242,7 +235,7 @@ function countersHub() {
 
         // sendFeedsCount
         countersHub.client.sfc = function (counts) {
-            FeedReader.onGetNewFeedsCount(null, counts);
+            ASC.Feed.Reader.onGetNewFeedsCount(null, counts);
         };
 
         // sendMailNotification
@@ -280,7 +273,7 @@ jq(document).ready(function () {
         token: ASC.Resources.Master.Hub.Token
     };
 
-    if (ASC.Resources.Master.numberId && ASC.Resources.Master.Hub.VoipEnabled == "true") {
+    if (ASC.Resources.Master.numberId && ASC.Resources.Master.Hub.VoipEnabled) {
         jq.connection.hub.qs.numberId = ASC.Resources.Master.numberId;
     } else {
         delete jq.connection.hub.proxies.voip;
@@ -305,8 +298,8 @@ jq(document).ready(function () {
             if (ASC.Controls.TalkNavigationItem) {
                 ASC.Controls.TalkNavigationItem.updateValue(counts.me);
             }
-            if (window.FeedReader) {
-                window.FeedReader.onGetNewFeedsCount(null, counts.f);
+            if (ASC.Feed.Reader) {
+                ASC.Feed.Reader.onGetNewFeedsCount(null, counts.f);
             }
             if (ASC.Controls.MailReader) {
                 ASC.Controls.MailReader.setUnreadMailMessagesCount(counts.ma);

@@ -82,18 +82,20 @@
                   </xsl:attribute>
                   <xsl:value-of select="create_by" />
                 </span>
-                <span> | </span>
-                <span class="title-created">
-                  <resource name="fres.TitleCreated" />
-                </span>
-                <span class="title-removed">
-                  <resource name="fres.TitleRemoved" />
-                </span>&#160;<span class="create-date">
-                  <xsl:value-of select="create_on" />
-                </span>
-                <span class="modified-date" >
-                  <xsl:value-of select="modified_on" />
-                </span>
+                <xsl:if test="create_on != '' or modified_on != ''">
+                  <span> | </span>
+                  <span class="title-created">
+                    <resource name="fres.TitleCreated" />
+                  </span>
+                  <span class="title-removed">
+                    <resource name="fres.TitleRemoved" />
+                  </span>&#160;<span class="create-date">
+                    <xsl:value-of select="create_on" />
+                  </span>
+                  <span class="modified-date" >
+                    <xsl:value-of select="modified_on" />
+                  </span>
+                </xsl:if>
                 <xsl:if test="not(provider_key) or provider_key = ''">
                   <span> | </span>
                   <resource name="fres.TitleFiles" />&#160;<span class="countFiles">

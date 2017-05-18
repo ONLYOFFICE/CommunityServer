@@ -24,8 +24,6 @@
 */
 
 
-#region usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,8 +31,6 @@ using System.Reflection;
 using System.Web.Routing;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
-
-#endregion
 
 namespace ASC.Api.Impl
 {
@@ -80,14 +76,10 @@ namespace ASC.Api.Impl
 
         public string FullPath { get; set; }
 
-        public RouteValueDictionary Constraints
-        { get; set; }
+        public RouteValueDictionary Constraints { get; set; }
 
-        public bool RequiresAuthorization
-        {
-            get;
-            set;
-        }
+        public bool RequiresAuthorization { get; set; }
+        public bool CheckPayment { get; set; }
 
         public bool SupportsPoll { get; set; }
         public string RoutingPollUrl { get; set; }
@@ -102,11 +94,7 @@ namespace ASC.Api.Impl
             return MethodCall.Invoke(instance, args);
         }
 
-        public IEnumerable<ApiCallFilter> Filters
-        {
-            get;
-            set;
-        }
+        public IEnumerable<ApiCallFilter> Filters { get; set; }
 
         private ICollection<IApiResponder> _responders = new List<IApiResponder>();
 
@@ -121,7 +109,7 @@ namespace ASC.Api.Impl
         public override bool Equals(object obj)
         {
             return !ReferenceEquals(null, obj) &&
-                   (ReferenceEquals(this, obj) || obj.GetType() == typeof(ApiMethodCall) && Equals((ApiMethodCall)obj));
+                   (ReferenceEquals(this, obj) || obj.GetType() == typeof (ApiMethodCall) && Equals((ApiMethodCall)obj));
         }
 
         public bool Equals(ApiMethodCall other)
@@ -135,15 +123,19 @@ namespace ASC.Api.Impl
         {
             unchecked
             {
-                return ((FullPath != null ? FullPath.GetHashCode() : 0) * 397) ^
+                return ((FullPath != null ? FullPath.GetHashCode() : 0)*397) ^
                        (HttpMethod != null ? HttpMethod.GetHashCode() : 0);
             }
         }
 
         public override string ToString()
         {
-            return string.Format("{0} {1} {2}.{3}({4})", RoutingUrl, HttpMethod, MethodCall.DeclaringType.FullName,
-                                 MethodCall.Name, string.Join(",", GetParams().Select(x => x.Name).ToArray()));
+            return string.Format("{0} {1} {2}.{3}({4})",
+                                 RoutingUrl,
+                                 HttpMethod,
+                                 MethodCall.DeclaringType.FullName,
+                                 MethodCall.Name,
+                                 string.Join(",", GetParams().Select(x => x.Name).ToArray()));
         }
     }
 }

@@ -114,7 +114,7 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public int CreateDeliveryFailureAlert(int tenant, string user, string subject, string from, int messageId, int mailDaemonMessageid)
+        public int CreateDeliveryFailureAlert(int tenant, string user, int mailboxId, string subject, string from, int messageId, int mailDaemonMessageid)
         {
             var data = new DeliveryFailure
                 {
@@ -124,7 +124,7 @@ namespace ASC.Mail.Aggregator
                     failure_id = mailDaemonMessageid
                 };
 
-            return CreateAlert(tenant, user, -1, AlertTypes.DeliveryFailure, data);
+            return CreateAlert(tenant, user, mailboxId, AlertTypes.DeliveryFailure, data);
         }
 
         public int CreateCrmOperationFailureAlert(int tenant, string user, int messageId, AlertTypes type)
@@ -203,6 +203,14 @@ namespace ASC.Mail.Aggregator
                 new SqlDelete(MailAlertsTable.Name)
                     .Where(GetUserWhere(user, tenant))
                     .Where(Exp.In(MailAlertsTable.Columns.Id, alertIds)));
+        }
+
+        public void DeleteAlerts(IDbManager db, int tenant, string user, int mailboxId)
+        {
+            db.ExecuteNonQuery(
+                new SqlDelete(MailAlertsTable.Name)
+                    .Where(GetUserWhere(user, tenant))
+                    .Where(MailAlertsTable.Columns.MailboxId, mailboxId));
         }
 
         public List<MailAlert> FindAlerts(IDbManager db, int tenant, string user, int mailboxId = -1, AlertTypes type = AlertTypes.Empty)

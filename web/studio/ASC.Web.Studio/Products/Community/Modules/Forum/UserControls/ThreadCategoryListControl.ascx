@@ -14,7 +14,7 @@
                 title="<%#HttpUtility.HtmlEncode((string)Eval("Title"))%>">
                 <%#HttpUtility.HtmlEncode((string)Eval("Title"))%>
             </div>
-            <div class="describe-text" style="padding: 2px 0px 25px; width: 285px; word-wrap: break-word;"><%#HttpUtility.HtmlEncode((string)Eval("Description"))%></div>                
+            <div class="describe-text" style="padding: 2px 0px 25px; width: 285px; word-wrap: break-word;"><%#HttpUtility.HtmlEncode((string)Eval("Description")).Replace("\r\n", "</br>").Replace("\n", "</br>").Replace("  ", " &nbsp;")%></div>
 
             <asp:Repeater ID="_threadRepeater" runat="server">
                 <ItemTemplate>                
@@ -33,7 +33,7 @@
                                         <a class="link bold" href="<%#_settings.LinkProvider.TopicList((int)Eval("ID"))%>"
                                             title="<%#HttpUtility.HtmlEncode((string)Eval("Title"))%>"><%#HttpUtility.HtmlEncode((string)Eval("Title"))%></a>
                                     </div>
-                                    <div class="describe-text" style="padding: 2px 0px; width: 285px; word-wrap: break-word;"><%#HttpUtility.HtmlEncode((string)Eval("Description"))%></div>                
+                                    <div class="describe-text" style="padding: 2px 0px; width: 285px; word-wrap: break-word;"><%#HttpUtility.HtmlEncode((string)Eval("Description")).Replace("\r\n", "</br>").Replace("\n", "</br>").Replace("  ", " &nbsp;")%></div>
                                 </td>
                                 <td class="header-base-medium" style="width:100px; padding-top:8px; text-align:center;">
                                     <%#Eval("TopicCount")%>

@@ -1,0 +1,39 @@
+﻿<script id="projects_subtasksTemplate" type="text/x-jquery-tmpl">
+    {{each subtasks}}
+        {{tmpl($item.data.subtasks[$index], {taskStatus: $item.data.status}) 'projects_subtaskTemplate'}}   
+   {{/each}}  
+</script>
+
+<script id="projects_subtaskTemplate" type="text/x-jquery-tmpl">
+    <div id="${id}" class="with-entity-menu subtask clearFix {{if $item.data.status == 2}} closed{{/if}}{{if $item.data.canEdit}} canedit{{/if}}">
+        {{if $item.data.canEdit}}<div class="entity-menu"></div>
+        {{else}}<div class="nomenupoint"></div>{{/if}}
+        <div class="check"><input type="checkbox" {{if $item.data.status == 2}} checked="checked" {{/if}} {{if !$item.data.canEdit || $item.taskStatus == 2}} disabled="true" {{/if}} /></div>
+        <div class="taskName{{if $item.data.canEdit}} canedit{{/if}}"><span>{{html jq.linksParser(jq.htmlEncodeLight($item.data.title))}}</span></div>
+        {{if $item.data.responsible == null}}
+        <div class="not user">
+            <span>${ASC.Projects.Resources.TasksResource.NoResponsible}</span>
+        </div>
+        {{else}}
+        <div class="user" title="${$item.data.responsible.displayName}">
+            ${$item.data.responsible.displayName}
+        </div>
+        {{/if}}
+    </div>   
+</script>
+
+<script id="projects_fieldForAddSubtask" type="text/x-jquery-tmpl">
+    <table id="quickAddSubTaskField" class="add-subtask-field-wrapper display-none">
+        <tr>
+            <td class="subtask-name border-style">
+                <input class="subtask-name-input" type="text" value="${title}" data-subtaskid="${subtaskid}" maxlength="255"/>
+            </td>
+            <td class="subtask-responsible border-style">
+                <span class="subtask-responsible-selector link dotline">{{if responsible != null}}${responsible.displayName}{{else}}${ASC.Projects.Resources.TasksResource.NoResponsible}{{/if}}</span>
+            </td>
+            <td class="subtask-add-button">
+                <a class="button gray">${ASC.Projects.Resources.ProjectResource.OkButton}</a>
+            </td>
+        </tr>
+    </table>
+</script>

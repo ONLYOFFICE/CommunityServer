@@ -56,7 +56,15 @@ namespace ASC.Api.Documents
         /// <summary>
         /// </summary>
         [DataMember]
-        public bool SharedByMe { get; set; }
+        public bool Shared { get; set; }
+
+        //todo: remove
+        /// <summary>
+        /// SharedByMe is deprecated, please use Shared instead.
+        /// </summary>
+        [DataMember]
+        [Obsolete("SharedByMe is deprecated, please use Shared instead.")]
+        public bool SharedByMe { get { return Shared; } }
 
         /// <summary>
         /// </summary>
@@ -112,7 +120,7 @@ namespace ASC.Api.Documents
             Id = entry.ID;
             Title = entry.Title;
             Access = entry.Access;
-            SharedByMe = entry.SharedByMe;
+            Shared = entry.Shared;
             Created = (ApiDateTime)entry.CreateOn;
             CreatedBy = EmployeeWraper.Get(entry.CreateBy);
             Updated = (ApiDateTime)entry.ModifiedOn;

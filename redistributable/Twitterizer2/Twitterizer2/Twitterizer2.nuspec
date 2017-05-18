@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>twitterizer</id> 
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://www.twitterizer.net/license/</licenseUrl>
+    <projectUrl>http://www.twitterizer.net/</projectUrl>
+	<iconUrl>http://www.twitterizer.net/twitterizer-icon-draft1.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>
+	Fixed a few bugs with json.net dependency and json parsing. 
+	Now built for the client profile.
+	</releaseNotes>
+	<dependencies>
+      <dependency id="Newtonsoft.Json" version="[4.5.5]" />
+    </dependencies>
+    <copyright>Copyright 2012 Patrick "Ricky" Smith</copyright>
+    <tags>twitter twitterizer</tags>
+  </metadata>
+</package>

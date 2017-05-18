@@ -19,13 +19,10 @@
     <% } %>
 
     <div id="contactListBox">
-        <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
+        <table id="contactTable" class="table-list padding4">
             <tbody>
             </tbody>
         </table>
     </div>
     <asp:PlaceHolder ID="emptyScreen" runat="server"></asp:PlaceHolder>
-</asp:Content>
-
-<asp:Content ID="projectsClientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="projectsClientTemplatesResourcesPlaceHolder" runat="server">
 </asp:Content>

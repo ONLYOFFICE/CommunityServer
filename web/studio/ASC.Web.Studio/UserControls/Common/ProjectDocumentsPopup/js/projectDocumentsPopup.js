@@ -26,23 +26,28 @@
 
 window.ProjectDocumentsPopup = (function() {
     var isInit = false,
-        projId, rootFolderId,
+        rootFolderId,
         firstLoad = true;
     var attachButton;
 
-    var init = function(projectFolderId, projectName) {
+    var init = function (projectFolderId, projectName) {
+        if (rootFolderId && rootFolderId !== projectFolderId) {
+            isInit = false;
+            firstLoad = true;
+            jq(".popupContainerBreadCrumbs").html('');
+        }
+
         if (!isInit) {
             isInit = true;
-
+            var resource = ASC.Resources.Master.UserControlsCommonResource;
             jq.tmpl("template-emptyScreen",
             {
                 ImgSrc: jq("#emptyFileList").attr("data-imgSrc"),
-                Header: ASC.Resources.Master.UserControlsCommonResource.ProjectDocuments,
-                HeaderDescribe: ASC.Resources.Master.UserControlsCommonResource.EmptyDocsHeaderDescription,
-                Describe: ASC.Resources.Master.UserControlsCommonResource.EmptyDocsDescription
+                Header: resource.ProjectDocuments,
+                HeaderDescribe: resource.EmptyDocsHeaderDescription,
+                Describe: resource.EmptyDocsDescription
             }).appendTo("#emptyFileList");
 
-            projId = jq(".fileContainer").attr("projId");
             rootFolderId = projectFolderId;
 
             var rootName = "<a class='root' id='" + rootFolderId + "' >" + projectName + "</a>";
@@ -50,20 +55,20 @@ window.ProjectDocumentsPopup = (function() {
         }
         attachButton = jq("#popupDocumentUploader .buttonContainer .button.blue");
 
-        jq("#popupDocumentUploader .buttonContainer").on('click', '.button.blue', function() {
+        jq("#popupDocumentUploader .buttonContainer").off('click', '.button.blue').on('click', '.button.blue', function () {
 
             if (!jq(this).hasClass('disable')) {
                 attachSelectedFiles();
             }
             return false;
         });
-        jq("#popupDocumentUploader .buttonContainer").on('click', '.button.gray', function() {
+        jq("#popupDocumentUploader .buttonContainer").off('click', '.button.gray').on('click', '.button.gray', function () {
             ProjectDocumentsPopup.EnableEsc = true;
             jq.unblockUI();
             return false;
         });
 
-        jq("#popupDocumentUploader .popupContainerBreadCrumbs").on('click', 'a', function() {
+        jq("#popupDocumentUploader .popupContainerBreadCrumbs").off('click', 'a').on('click', 'a', function () {
             openPreviosFolder(this);
             var links = jq("#popupDocumentUploader .popupContainerBreadCrumbs").find('a');
             if (links.length - 1 > 1) {
@@ -74,7 +79,7 @@ window.ProjectDocumentsPopup = (function() {
             return false;
         });
 
-        jq("#checkAll").change(function() {
+        jq("#checkAll").off("change").on("change", function () {
             var checkedFlag = jq("#checkAll").prop("checked");
             jq("ul.fileList li input").prop("checked", checkedFlag);
             if (checkedFlag) {
@@ -84,7 +89,7 @@ window.ProjectDocumentsPopup = (function() {
             }
         });
 
-        jq("#popupDocumentUploader").on("click", ".fileList li", function(event) {
+        jq("#popupDocumentUploader").off('click', '.fileList li').on("click", ".fileList li", function (event) {
             if (!jq(event.target).is("input") && !jq(event.target).is("label")) {
                 var input = jq(this).children("input");
                 if (jq(input).is(":checked")) {
@@ -160,7 +165,14 @@ window.ProjectDocumentsPopup = (function() {
         }
         var files = args[1].files;
         for (var i = 0; i < args[1].files.length; i++) {
-            var fileName = decodeURIComponent(files[i].title);
+
+            var fileName = files[i].title;
+
+            try {
+                fileName = decodeURIComponent(fileName);
+            } catch (e) {
+                
+            }
 
             var exttype = ASC.Files.Utility.getCssClassByFileTitle(fileName, true);
 
@@ -191,6 +203,10 @@ window.ProjectDocumentsPopup = (function() {
         showCheckAll();
         jq(".loader").hide();
     };
+
+    var reset = function () {
+        firstLoad = true;
+    }
 
     var addItemInBreadCrumbs = function(id, title) {
         jq(".popupContainerBreadCrumbs a.current").removeClass("current");
@@ -232,6 +248,11 @@ window.ProjectDocumentsPopup = (function() {
         }
         jq("#checkAll").removeAttr("checked");
         jq(".fileList li input").removeAttr("checked");
+        jq(".fileList li input").prop("checked", false);
+
+        if (!firstLoad) {
+            Teamlab.call(Teamlab.events.getDocFolder, this, [undefined, undefined]);
+        }
 
         var margintop = jq(window).scrollTop() - 135;
         margintop = margintop + 'px';
@@ -301,10 +322,10 @@ window.ProjectDocumentsPopup = (function() {
                 massFileId.push(fileId);
                 var downloadUrl = ASC.Files.Utility.GetFileDownloadUrl(fileId);
                 var viewUrl = ASC.Files.Utility.GetFileViewUrl(fileId);
-                var docViewUrl = ASC.Files.Utility.GetFileWebViewerUrl(fileId);
+                var docEditUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileId);
                 var editUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileId);
                 var fileTmpl = { title: fileName, access: access, type: type, exttype: exttype, id: fileId, version: version, versionGroup: versionGroup,
-                    viewUrl: viewUrl, downloadUrl: downloadUrl, editUrl: editUrl, docViewUrl: docViewUrl, fromProjectDocs: true, trashAction: "deattach"
+                    viewUrl: viewUrl, downloadUrl: downloadUrl, editUrl: editUrl, docEditUrl: docEditUrl, fromProjectDocs: true, trashAction: "deattach"
                 };
                 listfiles.push(fileTmpl);
                 fileTmpl.attachFromPrjDocFlag = true;
@@ -323,6 +344,7 @@ window.ProjectDocumentsPopup = (function() {
         showPortalDocUploader: showPortalDocUploader,
         openFolder: openFolder,
         attachSelectedFiles: attachSelectedFiles,
-        openPreviosFolder: openPreviosFolder
+        openPreviosFolder: openPreviosFolder,
+        reset: reset
     };
 })(jQuery);

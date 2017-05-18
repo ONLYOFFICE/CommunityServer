@@ -294,16 +294,6 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public void DeleteFolder(object fileId)
-        {
-            //Do nothing
-        }
-
-        public void DeleteFileStream(object file)
-        {
-            //Do nothing
-        }
-
         public bool IsExistOnStorage(File file)
         {
             return true;
@@ -322,6 +312,11 @@ namespace ASC.Files.Thirdparty.SharePoint
         public Stream GetDifferenceStream(File file)
         {
             return null;
+        }
+
+        public bool ContainChanges(object fileId, int fileVersion)
+        {
+            return false;
         }
 
         #endregion

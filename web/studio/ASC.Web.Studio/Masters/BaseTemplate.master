@@ -1,7 +1,9 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.Masters.BaseTemplate" CodeBehind="BaseTemplate.master.cs" %>
 
+<%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 
 <%@ Register TagPrefix="client" Namespace="ASC.Web.Core.Client.Bundling" Assembly="ASC.Web.Core" %>
 <%@ Register TagPrefix="master" TagName="HeadStyles" Src="HeadStyles.ascx" %>
@@ -11,6 +13,8 @@
 <%@ Register TagPrefix="master" TagName="CommonBodyScripts" Src="CommonBodyScripts.ascx" %>
 <%@ Register TagPrefix="master" TagName="BodyScripts" Src="BodyScripts.ascx" %>
 <%@ Register TagPrefix="ucc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
+<%@ Register TagPrefix="rbc" Namespace="ASC.Web.Core.Client.Bundling" Assembly="ASC.Web.Core" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -34,8 +38,14 @@
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/opensansoffline/opensansoffline.css") %>" />
     <% } %>
 
-    <master:ThemeStyles ID="ThemeStyles" runat="server" CategoryName="common" />
+    <master:ThemeStyles ID="ThemeStyles" runat="server" />
     <master:CommonStyles ID="CommonStyles" runat="server" />
+    <rbc:ResourceStyleBundleControl ID="StaticStyle" runat="server" />
+    <% if (WebSkin.HasCurrentCultureCssFile)
+        {
+            AddStyles(ResolveUrl, "~/skins/default/common_style.css".Replace("css", CultureInfo.CurrentCulture.Name.ToLower() + ".css"));
+        }
+    %>
     <master:HeadStyles ID="HeadStyles" runat="server" />
 
     <%= RenderCustomScript() %>
@@ -65,8 +75,8 @@
                                     <div id="studio_sidePanel" class="<%= EnabledWebChat ? "sidepanel-with-chat" : ""  %>">
                                         <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
                                         <asp:PlaceHolder ID="InvitePanelHolder" runat="server" />
+                                        <asp:PlaceHolder ID="BannerHolder" runat="server" />
                                     </div>
-                                    <asp:PlaceHolder ID="BannerHolder" runat="server" />
                                     <% if (EnabledWebChat && !IsMobile)
                                        { %>
                                     <asp:PlaceHolder runat="server" ID="SmallChatHolder" />
@@ -85,13 +95,6 @@
                                     <div id="infoBoxTariffNotify" class="info-box excl">
                                         <div class="header-base medium bold"><%= TariffNotify.Item1 %></div>
                                         <div><%= TariffNotify.Item2 %></div>
-                                    </div>
-                                    <% } %>
-
-                                    <% if (!DisablePartnerPanel && Partner != null)
-                                       { %>
-                                    <div id="infoBoxPartnerPanel" class="info-box excl">
-                                        <div><%= String.Format(Resource.HostedExclNonAuthorized.HtmlEncode(), "<a target=\"_blank\" href=\"mailto:"+ (!string.IsNullOrEmpty(Partner.SupportEmail) ? Partner.SupportEmail : Partner.Email) + "\">", "</a>") %></div>
                                     </div>
                                     <% } %>
 
@@ -114,11 +117,10 @@
     <client:ClientScriptReference ID="clientLocalizationScript" runat="server" />
     <client:ClientScriptReference ID="baseTemplateMasterScripts" runat="server" />
 
-    <asp:ContentPlaceHolder ID="clientTemplatesResourcesPlaceHolder" runat="server" />
-
     <ucc:InlineScript ID="InlineScriptBefore" runat="server" />
     <master:CommonBodyScripts ID="CommonBodyScripts" runat="server" />
     <master:BodyScripts ID="BodyScripts" runat="server" />
+    <rbc:ResourceScriptBundleControl ID="StaticScript" runat="server" />
     <ucc:InlineScript ID="InlineScript" runat="server" />
 
     <asp:ContentPlaceHolder ID="YandexMetrikaScriptPlaceHolder" runat="server" />

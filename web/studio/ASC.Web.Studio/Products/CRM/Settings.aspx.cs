@@ -222,14 +222,6 @@ namespace ASC.Web.CRM
 
                     break;
 
-                case "voip.calls":
-                    var voIPCalls = (VoipCalls)LoadControl(VoipCalls.Location);
-                    CommonContainerHolder.Controls.Add(voIPCalls);
-
-                    titlePage = CRMCommonResource.VoIPCallsSettings;
-
-                    break;
-
                 default:
                     CommonContainerHolder.Controls.Add(LoadControl(CustomFieldsView.Location));
 

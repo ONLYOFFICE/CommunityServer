@@ -38,22 +38,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK">
-      <HintPath>..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\packages\MailKit.1.4.1\lib\net45\MailKit.dll</HintPath>
+      <HintPath>..\..\packages\MailKit.1.16.0\lib\net45\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.1.4.1\lib\net45\MimeKit.dll</HintPath>
+      <HintPath>..\..\packages\MimeKit.1.16.0\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="StackExchange.Redis">
@@ -74,7 +74,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Billing\BillingClient.cs" />
     <Compile Include="Billing\ITariffSyncService.cs" />
+    <Compile Include="Billing\License\LicenseException.cs" />
     <Compile Include="Billing\License\LicenseReader.cs" />
     <Compile Include="Billing\TariffSyncClient.cs" />
     <Compile Include="Billing\TariffSyncServiceSection.cs" />
@@ -185,6 +186,9 @@
     <Compile Include="Notify\Signalr\SignalrServiceClientWcf.cs" />
     <Compile Include="Security\Crypto.cs" />
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Tenants\TenantCookieSettings.cs" />
     <Compile Include="Tenants\TenantDomainValidator.cs" />
     <Compile Include="Tenants\TenantIndustry.cs" />
     <Compile Include="Tenants\TenantQuotaException.cs" />

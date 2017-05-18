@@ -27,6 +27,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
+using ASC.Web.Core.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -42,8 +43,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/UserControls/Common/SharingSettings/js/sharingsettings.js");
-            Page.RegisterStyle("~/UserControls/Common/SharingSettings/css/sharingsettings.less");
+            Page.RegisterBodyScripts("~/UserControls/Common/SharingSettings/js/sharingsettings.js")
+                .RegisterStyle("~/UserControls/Common/SharingSettings/css/" + ColorThemesSettings.ThemeFolderTemplate + "/sharingsettingsparams.less");
 
             _sharingDialogContainer.Options.IsPopup = IsPopup;
             _sharingDialogContainer.Header.Visible = IsPopup;

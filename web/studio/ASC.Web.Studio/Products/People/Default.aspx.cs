@@ -27,6 +27,7 @@
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.People.Resources;
 using ASC.Web.Studio;
@@ -35,7 +36,6 @@ using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using System;
-using System.Linq;
 using System.Web;
 
 namespace ASC.Web.People
@@ -48,20 +48,11 @@ namespace ASC.Web.People
 
         protected bool DisplayPayments { get; private set; }
 
-        private UserInfo userInfo;
-
         public AllowedActions Actions;
-
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            Page.RegisterBodyScripts(ResolveUrl, 
-                                         "~/products/people/js/peoplemanager.js",
-                                         "~/products/people/js/filterHandler.js",
-                                         "~/products/people/js/navigatorHandler.js",
-                                         "~/products/people/js/peopleController.js");
 
             Page.RegisterInlineScript(String.Format(" emptyScreenPeopleFilter = '{0}'; ",
                                                     WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")),
@@ -71,8 +62,8 @@ namespace ASC.Web.People
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-            IsAdmin = userInfo.IsAdmin();
+            var userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+            IsAdmin = userInfo.IsAdmin() || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, userInfo.ID);
             Actions = new AllowedActions(userInfo);
 
             var quota = TenantExtra.GetTenantQuota();
@@ -82,6 +73,7 @@ namespace ASC.Web.People
 
             var controlEmailChange = (UserEmailChange) LoadControl(UserEmailChange.Location);
             controlEmailChange.UserInfo = userInfo;
+            controlEmailChange.RegisterStylesAndScripts = true;
             userEmailChange.Controls.Add(controlEmailChange);
 
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));

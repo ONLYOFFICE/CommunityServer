@@ -27,6 +27,8 @@
 using System;
 using System.IO;
 using ASC.Data.Storage;
+using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.WebZones;
 
 namespace ASC.Web.Core
@@ -42,7 +44,11 @@ namespace ASC.Web.Core
 
         public abstract string StartURL { get; }
 
+        public abstract string HelpURL { get; }
+
         public abstract string ProductClassName { get; }
+
+        public abstract bool Visible { get; }
 
         public abstract void Init();
 
@@ -55,6 +61,8 @@ namespace ASC.Web.Core
         WebItemContext IWebItem.Context { get { return ((IProduct)this).Context; } }
 
         Guid IWebItem.ID { get { return ProductID; } }
+
+        public virtual ClientScriptLocalization ClientScriptLocalization { get; protected set; }
 
         public string GetResourcePath(string relativePath)
         {

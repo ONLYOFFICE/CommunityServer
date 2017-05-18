@@ -45,15 +45,20 @@
     height: 32px;
 }
 .to-parent-folder {
+    display: block;
     cursor: pointer;
     margin-left: 1px;
     margin-top: 1px;
+    outline: none;
     padding-left: 7px;
     width: 70px;
 }
-.to-parent-folder a {
+.to-parent-folder .up {
     font-weight: bold;
     line-height: 32px;
+}
+.to-parent-folder:hover .up {
+    text-decoration: underline;
 }
 /*************************************************************
    Main Content
@@ -307,12 +312,8 @@
     background-position: 0 -38px;
 }
 .file-lock {
-    background: url("images/lock.png") no-repeat 0 0 transparent;
-    cursor: pointer;
     display: none;
-    height: 16px;
     margin: 4px 0 0 8px;
-    width: 16px;
 }
 .file-row.file-locked .file-lock {
     display: block;
@@ -570,11 +571,15 @@ ul.without-share .btn-row {
     cursor: pointer;
 }
 .version-row .version-author {
-    width: 120px;
+    width: 115px;
 }
 .version-row .version-author .userLink {
     color: #787878;
-    white-space: normal;
+    cursor: default;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 115px;
+    white-space: nowrap;
 }
 .version-row .version-comment {
     overflow: hidden;

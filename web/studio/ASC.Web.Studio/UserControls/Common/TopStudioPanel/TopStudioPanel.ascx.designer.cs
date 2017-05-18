@@ -40,15 +40,6 @@ namespace ASC.Web.Studio.UserControls.Common {
         protected global::System.Web.UI.WebControls.Repeater _addonRepeater;
         
         /// <summary>
-        /// _voipPhonePlaceholder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _voipPhonePlaceholder;
-        
-        /// <summary>
         /// _customNavControls control.
         /// </summary>
         /// <remarks>

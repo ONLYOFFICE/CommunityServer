@@ -479,12 +479,10 @@ namespace ASC.Web.Files.ThirdPartyApp
                     userInfo.LastName = FilesCommonResource.UnknownLastName;
                 }
 
-                var pwd = UserManagerWrapper.GeneratePassword();
-
                 try
                 {
                     SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                    userInfo = UserManagerWrapper.AddUser(userInfo, pwd);
+                    userInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword());
                 }
                 finally
                 {

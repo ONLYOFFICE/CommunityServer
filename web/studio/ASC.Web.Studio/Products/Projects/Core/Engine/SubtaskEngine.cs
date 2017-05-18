@@ -170,6 +170,28 @@ namespace ASC.Projects.Engine
             return subtask;
         }
 
+        public Subtask Copy(Subtask from, Task task)
+        {
+            var team = factory.ProjectEngine.GetTeam(task.Project.ID);
+
+            var subtask = new Subtask
+            {
+                ID = default(int),
+                CreateBy = SecurityContext.CurrentAccount.ID,
+                CreateOn = TenantUtil.DateTimeNow(),
+                Task = task.ID,
+                Title = from.Title,
+                Status = from.Status
+            };
+
+            if (team.Any(r => r.ID == from.Responsible))
+            {
+                subtask.Responsible = from.Responsible;
+            }
+
+            return SaveOrUpdate(subtask, task);
+        }
+
         private void NotifySubtask(Task task, Subtask subtask, bool isNew, Guid oldResponsible)
         {
             //Don't send anything if notifications are disabled

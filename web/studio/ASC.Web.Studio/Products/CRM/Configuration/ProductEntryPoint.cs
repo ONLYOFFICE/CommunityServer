@@ -24,18 +24,20 @@
 */
 
 
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Services.NotifyService;
-using ASC.Web.Core;
-using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Files.Api;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Linq;
+using System.Web.Http;
+using ASC.Core.Common.Settings;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
+using ASC.Web.Core;
+using ASC.Web.Core.Utility;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Masters.ClientScripts;
+using ASC.Web.CRM.Resources;
+using ASC.Web.CRM.Services.NotifyService;
+using ASC.Web.Files.Api;
+using ASC.Web.Studio.Utility;
 
 
 namespace ASC.Web.CRM.Configuration
@@ -60,7 +62,11 @@ namespace ASC.Web.CRM.Configuration
 
         public override string StartURL { get { return PathProvider.StartURL(); } }
 
+        public override string HelpURL { get { return string.Concat(PathProvider.BaseVirtualPath, "help.aspx"); } }
+
         public override string ProductClassName { get { return "crm"; } }
+
+        public override bool Visible { get { return true; } }
 
         public override ProductContext Context { get { return context; } }
 
@@ -92,6 +98,13 @@ namespace ASC.Web.CRM.Configuration
             }
 
             SearchHandlerManager.Registry(new SearchHandler());
+
+            GlobalConfiguration.Configuration.Routes.MapHttpRoute(
+                name: "Twilio", 
+                routeTemplate: "twilio/{action}", 
+                defaults: new {controller = "Twilio", action = "index" });
+
+            ClientScriptLocalization = new ClientLocalizationResources();
         }
 
 

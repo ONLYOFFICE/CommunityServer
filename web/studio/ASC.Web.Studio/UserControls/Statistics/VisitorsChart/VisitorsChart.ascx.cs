@@ -39,14 +39,6 @@ using Resources;
 
 namespace ASC.Web.Studio.UserControls.Statistics
 {
-    public sealed class ChartPoint
-    {
-        public String DisplayDate { get; set; }
-        public DateTime Date { get; set; }
-        public Int32 Hosts { get; set; }
-        public Int32 Hits { get; set; }
-    }
-
     [ManagementControl(ManagementType.Statistic, Location)]
     [AjaxNamespace("VisitorsChart")]
     public partial class VisitorsChart : UserControl
@@ -57,9 +49,8 @@ namespace ASC.Web.Studio.UserControls.Statistics
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyle("~/usercontrols/statistics/visitorschart/css/visitorschart_style.less");
-
-            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/excanvas.min.js",
+            Page.RegisterStyle("~/usercontrols/statistics/visitorschart/css/visitorschart_style.less")
+                .RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/excanvas.min.js",
                 "~/usercontrols/statistics/visitorschart/js/jquery.flot.js",
                 "~/usercontrols/statistics/visitorschart/js/tooltip.js",
                 "~/usercontrols/statistics/visitorschart/js/visitorschart.js");
@@ -120,5 +111,13 @@ namespace ASC.Web.Studio.UserControls.Statistics
 
             return points;
         }
+    }
+
+    public sealed class ChartPoint
+    {
+        public String DisplayDate { get; set; }
+        public DateTime Date { get; set; }
+        public Int32 Hosts { get; set; }
+        public Int32 Hits { get; set; }
     }
 }

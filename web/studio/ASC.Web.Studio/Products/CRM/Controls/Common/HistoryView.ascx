@@ -73,7 +73,7 @@
         <br />
 
         <div id="eventsList">
-            <table id="eventsTable" class="table-list" cellpadding="10" cellspacing="0">
+            <table id="eventsTable" class="table-list padding10" cellpadding="0" cellspacing="0">
                 <tbody>
                 </tbody>
             </table>

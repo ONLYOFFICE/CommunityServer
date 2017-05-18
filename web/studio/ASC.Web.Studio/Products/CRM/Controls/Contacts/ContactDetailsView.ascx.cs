@@ -84,9 +84,9 @@ namespace ASC.Web.CRM.Controls.Contacts
             if (TargetContact is Company)
                 ExecPeopleContainerView();
 
-            Page.RegisterStyle("~/products/projects/app_themes/default/css/allprojects.less");
-            Page.RegisterBodyScripts("~/products/projects/js/base.js");
-            Page.RegisterBodyScripts("~/products/projects/js/projects.js");
+            Page.RegisterStyle("~/products/projects/app_themes/default/css/allprojects.less")
+                .RegisterBodyScripts("~/products/projects/js/base.js")
+                .RegisterBodyScripts("~/products/projects/js/projects.js");
             RegisterScript();
         }
 
@@ -96,7 +96,7 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         protected void ExecDealsView()
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ExchangeRateViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
         }
 
         protected void ExecPeopleContainerView()

@@ -39,11 +39,6 @@
     <div class="footerAuth">
         <%= Resource.PoweredBy %>
         <a href="http://www.onlyoffice.com/" title="www.onlyoffice.com" class="link underline" target="_blank">www.onlyoffice.com</a>
-         <%if (IsAutorizePartner.HasValue && Partner != null) { %>
-            <span class="float-right">
-                <%= IsAutorizePartner.Value ? (Partner.DisplayName ?? Partner.CompanyName).HtmlEncode() + " • <a class=\"link\" href=\"" + (Partner.Url.StartsWith("http:") || Partner.Url.StartsWith("https:") ? Partner.Url : string.Concat("http://", Partner.Url)) +"\" target=\"_blank\">" + Partner.Url + "</a>" 
-            : Resource.HostedNonAuthorizedVersion%></span>
-         <% } %>
     </div>
     <% } %>
 </asp:Content>--%>

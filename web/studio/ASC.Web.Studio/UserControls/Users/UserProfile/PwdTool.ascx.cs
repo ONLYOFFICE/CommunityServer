@@ -27,15 +27,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.MessagingSystem;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
-using ASC.Web.Core.Security;
-using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.Utility;
-using Resources;
-using ASC.Core.Users;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {

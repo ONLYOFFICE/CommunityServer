@@ -41,14 +41,17 @@ namespace ASC.Api.Calendar.Wrappers
         [DataMember(Name = "defaultAction", Order = 30)]
         public bool Default { get; set; }
 
+        [DataMember(Name = "defaultStyle", Order = 40)]
+        public string DefaultStyle { get; set; }
+
         public static AccessOption ReadOption
         {
-            get { return new AccessOption() { Id = "read", Default = true, Name= Resources.CalendarApiResource.ReadOption }; }
+            get { return new AccessOption() { Id = "read", Default = true, DefaultStyle = "read", Name= Resources.CalendarApiResource.ReadOption }; }
         }
 
         public static AccessOption FullAccessOption
         {
-            get { return new AccessOption() { Id = "full_access", Name = Resources.CalendarApiResource.FullAccessOption }; }
+            get { return new AccessOption() { Id = "full_access", DefaultStyle = "full", Name = Resources.CalendarApiResource.FullAccessOption }; }
         }
 
         public static AccessOption OwnerOption

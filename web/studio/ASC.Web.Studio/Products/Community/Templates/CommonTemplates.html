@@ -1,0 +1,54 @@
+﻿<script id="wikiListPagesByLetterTmpl" type="text/x-jquery-tmpl">
+    <table class="catDict" border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+           {{each(l, list) mainlist}}
+            <td class="catLetter">
+            
+                {{each(i, item) list}}
+                <div class="block">
+                    <div class="letter">
+                        ${item.headName}
+                    </div>
+                    <div class="catList">
+                    {{each(p, page) item.pages}}
+                        <div class="category">
+                            <a class="linkAction" href="${page.PageLink}" title="${page.PageName}">
+                                ${page.PageName}
+                            </a>
+                        </div>
+                    {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+            </td>
+            {{/each}}
+        </tr>
+    </table>
+</script>
+
+<script id="wikiListPagesTmpl" type="text/x-jquery-tmpl">
+    <table class="tableBase" cellpadding="10" cellspacing="0">
+        <colgroup>
+            <col/>
+            <col style="width: 150px;"/>
+            <col style="width: 140px;"/>
+        </colgroup>
+        <tbody>
+        {{each(i, page) list}}
+            <tr class="row">
+                <td class="borderBase">
+                    <a class="linkHeaderMedium" href="${page.PageLink}" title="${page.PageName}">
+                        ${page.PageName}
+                    </a>
+                </td>
+                <td class="borderBase">
+                    {{html page.Author}}
+                </td>
+                <td class="borderBase gray-text" style="text-align: right">
+                    ${page.PageDate}
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>

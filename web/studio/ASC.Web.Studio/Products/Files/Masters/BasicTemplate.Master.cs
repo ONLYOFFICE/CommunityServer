@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -25,9 +25,7 @@
 
 
 using System;
-using System.Web;
 using System.Web.UI;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files.Masters
 {
@@ -35,9 +33,9 @@ namespace ASC.Web.Files.Masters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientLocalizationScript(typeof(ClientScripts.FilesLocalizationResources));
-
-            Page.RegisterClientScript(typeof(ClientScripts.FilesConstantsResources));
+            Master
+                .AddClientScript(new ClientScripts.FilesLocalizationResources())
+                .AddClientScript(new ClientScripts.FilesConstantsResources());
         }
     }
 }

@@ -29,10 +29,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Text;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Core.Tenants;
+using ASC.Web.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Core.Users;
@@ -112,14 +112,10 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected bool IsAdmin()
         {
-            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
+                WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
         }
 
-        private static bool CanEdit()
-        {
-            var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-            return curUser.IsAdmin() || curUser.IsOwner();
-        }
         protected bool isPersonal
         {
             get { return CoreContext.Configuration.Personal; }
@@ -141,13 +137,13 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             ProfileHelper = new ProfileHelper(Request["user"]);
             UserInfo = ProfileHelper.UserInfo;
 
-            if ((IsPageEditProfileFlag && !(UserInfo.IsMe() || CanEdit())) || (!IsPageEditProfileFlag && !IsAdmin()))
+            if (IsPageEditProfileFlag ? !UserInfo.IsMe() && (!IsAdmin() || UserInfo.IsOwner()) : !IsAdmin())
             {
                 Response.Redirect("~/products/people/", true);
             }
 
-            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofileeditcontrol.js");
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less");
+            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofileeditcontrol.js")
+                .RegisterStyle("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less");
 
             CanAddUser = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
 
@@ -204,7 +200,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         public string GetTitle()
         {
             return IsPageEditProfileFlag
-                       ? UserInfo.DisplayUserName(true) + " - " + Resource.EditUserDialogTitle
+                       ? UserInfo.DisplayUserName(false) + " - " + Resource.EditUserDialogTitle
                        : Resource.CreateNewProfile;
         }
 

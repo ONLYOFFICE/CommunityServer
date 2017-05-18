@@ -27,7 +27,7 @@
 using System;
 using System.Text;
 using System.Web;
-using ASC.Core;
+using ASC.Web.Studio.Utility;
 using Uri = System.Uri;
 
 namespace ASC.VoipService.Twilio
@@ -49,7 +49,7 @@ namespace ASC.VoipService.Twilio
 
         public override string Connect(bool user = true, string contactId = null)
         {
-            var result =  GetEcho("connect", user);
+            var result =  GetEcho("", user);
             if (!string.IsNullOrEmpty(contactId))
             {
                 result += "&ContactId=" + contactId;
@@ -69,7 +69,7 @@ namespace ASC.VoipService.Twilio
 
         private string GetEcho(string method, bool user = true)
         {
-            return new TwilioResponseHelper(this, CoreContext.TenantManager.GetCurrentTenant().TenantAlias).GetEcho(method, user);
+            return new TwilioResponseHelper(this, CommonLinkUtility.GetFullAbsolutePath("")).GetEcho(method, user);
         }
     }
 }

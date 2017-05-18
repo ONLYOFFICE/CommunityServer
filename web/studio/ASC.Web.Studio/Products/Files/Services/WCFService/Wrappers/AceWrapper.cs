@@ -51,22 +51,28 @@ namespace ASC.Web.Files.Services.WCFService
         [DataMember(Name = "id", Order = 1)]
         public Guid SubjectId { get; set; }
 
-        [DataMember(Name = "title", Order = 2)]
+        [DataMember(Name = "title", Order = 2, EmitDefaultValue = false)]
         public string SubjectName { get; set; }
 
-        [DataMember(Name = "is_group", Order = 3)]
+        [DataMember(Name = "link", Order = 3, EmitDefaultValue = false)]
+        public string Link { get; set; }
+
+        [DataMember(Name = "link_short", Order = 4, EmitDefaultValue = false)]
+        public string ShortenLink { get; set; }
+
+        [DataMember(Name = "is_group", Order = 5)]
         public bool SubjectGroup { get; set; }
 
-        [DataMember(Name = "owner", Order = 4)]
+        [DataMember(Name = "owner", Order = 6)]
         public bool Owner { get; set; }
 
-        [DataMember(Name = "ace_status", Order = 5)]
+        [DataMember(Name = "ace_status", Order = 7)]
         public FileShare Share { get; set; }
 
-        [DataMember(Name = "locked", Order = 6)]
+        [DataMember(Name = "locked", Order = 8)]
         public bool LockedRights { get; set; }
 
-        [DataMember(Name = "disable_remove", Order = 7)]
+        [DataMember(Name = "disable_remove", Order = 9)]
         public bool DisableRemove { get; set; }
     }
 

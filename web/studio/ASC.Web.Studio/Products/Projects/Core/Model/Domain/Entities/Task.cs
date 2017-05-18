@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using ASC.Projects.Engine;
 
 namespace ASC.Projects.Core.Domain
 {
@@ -86,6 +87,11 @@ namespace ASC.Projects.Core.Domain
             Responsibles = new List<Guid>();
             SubTasks = new List<Subtask>();
             Links = new List<TaskLink>();
+        }
+
+        public override bool CanEdit()
+        {
+            return ProjectSecurity.CanEdit(this);
         }
     }
 }

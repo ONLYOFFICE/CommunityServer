@@ -824,7 +824,7 @@ ASC.CRM.InvoiceItemActionView = (function () {
             item = {
                 title: jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemTitle").val()),
                 description: jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemDescr").val()),
-                price: parseFloat(priceVal.replace(ASC.CRM.Data.CurrencyDecimalSeparator, '.')),
+                price: Number(priceVal.replace(ASC.CRM.Data.CurrencyDecimalSeparator, '.')),
                 sku: jq.trim(jq("#crm_invoiceItemMakerDialog .invoiceItemSKU").val()),
                 quantity: parseInt(quantityVal || "0"),
                 stockQuantity: parseInt(stockQuantityVal),
@@ -1227,7 +1227,8 @@ ASC.CRM.InvoiceTaxesView = (function () {
             ShowRequiredError($obj, true);
             isValid = false;
         } else {
-            if (Math.abs($obj.val()) > 100) {
+            var rate = Number($obj.val().replace(ASC.CRM.Data.CurrencyDecimalSeparator, '.'));
+            if (Math.abs(rate) > 100) {
                 AddRequiredErrorText($obj, ASC.CRM.Resources.CRMInvoiceResource.ErrorIncorrectRate);
                 ShowRequiredError($obj, true);
                 isValid = false;
@@ -1292,15 +1293,20 @@ ASC.CRM.InvoiceTaxesView = (function () {
         });
     };
 
-    var _readTaxData = function () {
+    var _readTaxData = function() {
         var tax = {
             name: jq("#manageTax .taxName").val().trim(),
             description: jq("#manageTax textarea").val().trim(),
             rate: 0
         };
 
-        var rate = jq("#manageTax .taxRate").val();
-        if (rate * 1 > 100) { rate = "100"; }
+        var rate = Number(jq("#manageTax .taxRate").val().replace(ASC.CRM.Data.CurrencyDecimalSeparator, '.'));
+
+        if (rate > 100)
+            rate = 100;
+
+        if (rate < -100)
+            rate = -100;
 
         tax.rate = rate;
 
@@ -1345,8 +1351,10 @@ ASC.CRM.InvoiceTaxesView = (function () {
             jq.forceNumber({
                 parent: "#manageTax",
                 input: ".taxRate",
-                integerOnly: true,
-                positiveOnly: false
+                integerOnly: false,
+                positiveOnly: false,
+                separator: ASC.CRM.Data.CurrencyDecimalSeparator,
+                lengthAfterSeparator: 2
             });
 
             jq("#createNewTax").on("click", function () {

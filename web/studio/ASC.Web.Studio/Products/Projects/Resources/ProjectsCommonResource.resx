@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
@@ -124,7 +127,7 @@
     <value>Add</value>
   </data>
   <data name="AddParticipants" xml:space="preserve">
-    <value>Add participants</value>
+    <value>Manage subscribers</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
@@ -167,6 +170,12 @@
   </data>
   <data name="Collapse" xml:space="preserve">
     <value>Hide</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
   <data name="CreateNewButton" xml:space="preserve">
     <value>Create New ...</value>
@@ -216,6 +225,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
   <data name="EmptyScreenContactsButton" xml:space="preserve">
     <value>Link or add contact</value>
   </data>
@@ -244,13 +256,13 @@
     <value>The Key milestone is used to create a milestone that you consider to be more important than others.{0} All the key milestones are marked by the red key icon placed near its title.</value>
   </data>
   <data name="HelpAnswerProjectStatus" xml:space="preserve">
-    <value>You can switch between three project status:{0}{1}Active.{2} All the created projects you are currently working on are marked as active until you do not decide to pause or complete them.{0}{1}Paused.{2} If you decide to temporarily suspend the work on your project, change its status to Paused. To resume the project just make it active setting the corresponding status.{0}{1}Completed.{2} When the work on the project is done and all the tasks are closed, complete your project changing its status to Completed. For further work you will need to reactivate it.</value>
+    <value>You can switch between three project status:{0}{1}Active.{2} All the created projects you are currently working on are marked as active until you do not decide to pause or complete them.{0}{1}Paused.{2} If you decide to temporarily suspend the work on your project, change its status to Paused. To resume the project just make it active setting the corresponding status.{0}{1}Closed.{2} When the work on the project is done and all the tasks are closed, complete your project changing its status to Closed. For further work you will need to reactivate it.</value>
   </data>
   <data name="HelpAnswerProjectTeam" xml:space="preserve">
-    <value>To add members to your team right now click the {1}Team{2} link and select the users you wish to add from the list.{0} You can also add/remove teammates later clicking the {1}Manage Team{2} link on your project Overview page or switching to the Team tab within this page.</value>
+    <value>To add members to your team right now click the {1}Manage Team{2} link and select the users you wish to add from the list.{0} You can also add/remove teammates later switching to the {1}Team{2} tab on your project {1}Overview{2} page and clicking the {1}Manage Team{2} button.</value>
   </data>
   <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
-    <value>By default, each project team member can view all content inside the selected project: milestones, tasks, documents and discussions. To restrict the access just select the teammate you wish to set access rights for and click one of the links to the right. In this way you can set the access rights for each member of your project team unless he/she does not have portal administrator privileges. The TeamLab administrator has full access to all content across all projects.</value>
+    <value>By default, each project team member can view all content inside the selected project: milestones, tasks, documents and discussions. To restrict the access just select the teammate you wish to set access rights for and click one of the links to the right. The same way you can set the access rights for each member of your project team unless he/she does not have portal administrator privileges. The ONLYOFFICE™ administrator has full access to all content across all projects.</value>
   </data>
   <data name="HelpQuestionFollowProject" xml:space="preserve">
     <value>What does Follow this project mean?</value>
@@ -262,19 +274,22 @@
     <value>What does a key milestone mean?</value>
   </data>
   <data name="HelpQuestionProjectStatus" xml:space="preserve">
-    <value>What project status exist?</value>
+    <value>What project statuses exist?</value>
   </data>
   <data name="HelpQuestionProjectTeam" xml:space="preserve">
     <value>How to manage your team?</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Скрыть</value>
+    <value>Hide</value>
   </data>
   <data name="hintSubscribersPrivateProject" xml:space="preserve">
     <value>This user does not receive notifications for this discussion, because the project has the private status and the user is not a member of the project team.</value>
   </data>
   <data name="History" xml:space="preserve">
     <value>History</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
   </data>
   <data name="In" xml:space="preserve">
     <value>in</value>
@@ -289,16 +304,16 @@
     <value>Active</value>
   </data>
   <data name="LeftMenuFollowedProjects" xml:space="preserve">
-    <value>Projects I follow</value>
+    <value>Projects I Follow</value>
   </data>
   <data name="LeftMenuLatest" xml:space="preserve">
     <value>Latest</value>
   </data>
   <data name="LeftMenuMyDiscussions" xml:space="preserve">
-    <value>My</value>
+    <value>My Discussions</value>
   </data>
   <data name="LeftMenuMyProjects" xml:space="preserve">
-    <value>My</value>
+    <value>My Projects</value>
   </data>
   <data name="Milestones" xml:space="preserve">
     <value>Milestones</value>
@@ -337,10 +352,13 @@
     <value>No data</value>
   </data>
   <data name="NoteTaskHaveLinks" xml:space="preserve">
-    <value>The task is linked to other tasks, in case you remove it all the links will be broken.</value>
+    <value>The task is linked with other tasks, in case you delete it all the links will be removed.</value>
   </data>
   <data name="OneTaskMoveButton" xml:space="preserve">
-    <value>Break links and move</value>
+    <value>Remove links and move</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>Tasks</value>
   </data>
   <data name="Or" xml:space="preserve">
     <value>or</value>
@@ -352,7 +370,7 @@
     <value>Preview</value>
   </data>
   <data name="ProductAdminOpportunities" xml:space="preserve">
-    <value>Делать все то же, что и менеджер проекта|Назначать менеджера проекта|Создавать и редактировать, удалять любой проект|Создавать/редактировать шаблоны</value>
+    <value>Do the same as project manager|Appoint project manager|Create and edit, delete any project|Create/edit templates</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
     <value>Build teams and assign tasks. Schedule project milestones, track project activity and generate reports.</value>
@@ -364,7 +382,7 @@
     <value>Projects</value>
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Просматривать проекты и участвовать в дискуссиях|Создавать и редактирвать вехи, задачи, дискуссии, документы|Учитывать время выполнения задач, генерировать отчеты|Формировать команду и устанавливать права доступа</value>
+    <value>View projects and take part in discussions|Create and edit milestones, tasks, discussions, documents|Track time for tasks, generate reports|Form project team and set access rights</value>
   </data>
   <data name="ProjectIn" xml:space="preserve">
     <value>in</value>
@@ -373,16 +391,16 @@
     <value>Project information</value>
   </data>
   <data name="ProjectLinkedWithContacts" xml:space="preserve">
-    <value>Contacts, which will be linked to the project</value>
+    <value>Contacts who will be linked to the project</value>
   </data>
   <data name="ProjectName" xml:space="preserve">
-    <value>Project name</value>
+    <value>Project Title</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Read more</value>
   </data>
   <data name="RemoveMemberFromTeam" xml:space="preserve">
-    <value>Remove a member from the team</value>
+    <value>Remove the user from the team</value>
   </data>
   <data name="ReportsModuleFirstLine" xml:space="preserve">
     <value>Generate general and detailed reports</value>
@@ -396,14 +414,20 @@
   <data name="ReportsModuleTitle" xml:space="preserve">
     <value>Reports</value>
   </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SaveAndAddMore" xml:space="preserve">
-    <value>Save &amp; Add more...</value>
+    <value>Save &amp; Create New Task</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
   </data>
   <data name="SearchText" xml:space="preserve">
     <value>Search</value>
@@ -424,7 +448,7 @@
     <value>Show next</value>
   </data>
   <data name="ShowOnPage" xml:space="preserve">
-    <value>Show on Page</value>
+    <value>Show on page</value>
   </data>
   <data name="SpentBilledTotally" xml:space="preserve">
     <value>Time Spent Billed</value>
@@ -442,13 +466,13 @@
     <value>Task added</value>
   </data>
   <data name="TaskCompareDateError" xml:space="preserve">
-    <value>Start date must be before due date</value>
+    <value>The start date must be earlier than the due date</value>
   </data>
   <data name="TaskMoveNote" xml:space="preserve">
     <value>The task you are going to move is linked with other tasks. {0} Please select one of the actions:</value>
   </data>
   <data name="TasksModuleFirstLine" xml:space="preserve">
-    <value>Add tasks and set the responsible</value>
+    <value>Add tasks and set the responsible person</value>
   </data>
   <data name="TasksModuleSecondLine" xml:space="preserve">
     <value>Record time spent on tasks</value>
@@ -459,17 +483,20 @@
   <data name="TasksModuleTitle" xml:space="preserve">
     <value>Tasks</value>
   </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Task Title</value>
+  </data>
   <data name="TaskUpdateButton" xml:space="preserve">
-    <value>Break links and update</value>
+    <value>Remove links and update</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
   <data name="TeamlabCutText" xml:space="preserve">
-    <value>Select the main part with the mouse and click "ONLYOFFICE Cut" so that only a short snippet of the post was shown at the discussion list and feed pages.</value>
+    <value>Select the text you want to be hidden from the feed pages and the discussion list page and click the "Text Cut" button.</value>
   </data>
   <data name="TeamlabCutTitle" xml:space="preserve">
-    <value>TeamLab Cut</value>
+    <value>Text Cut</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
@@ -485,6 +512,9 @@
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Total on page</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -514,9 +544,12 @@
     <value>mm</value>
   </data>
   <data name="WriteComment" xml:space="preserve">
-    <value>Написать комментарий</value>
+    <value>Add comment</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
   </data>
 </root>

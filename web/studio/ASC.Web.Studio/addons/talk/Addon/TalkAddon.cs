@@ -57,6 +57,7 @@ namespace ASC.Web.Talk.Addon
             get { return AddonID; }
         }
 
+        public bool Visible { get { return true; } }
         public AddonContext Context { get; private set; }
 
         WebItemContext IWebItem.Context
@@ -84,6 +85,11 @@ namespace ASC.Web.Talk.Addon
         public string StartURL
         {
             get { return BaseVirtualPath + "/default.aspx"; }
+        }
+
+        public string HelpURL
+        {
+            get { return null; }
         }
 
         public string ProductClassName

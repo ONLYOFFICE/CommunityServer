@@ -291,6 +291,14 @@ namespace ASC.CRM.Core
             return contact.ShareType == ShareType.Read || contact.ShareType == ShareType.ReadWrite || IsAdmin || GetAccessSubjectTo(contact).ContainsKey(SecurityContext.CurrentAccount.ID);
         }
 
+        public static bool CanAccessTo(Contact contact, Guid id)
+        {
+            return contact.ShareType == ShareType.Read || contact.ShareType == ShareType.ReadWrite ||
+                CoreContext.UserManager.IsUserInGroup(id, Constants.GroupAdmin.ID) ||
+                WebItemSecurity.IsProductAdministrator(ProductEntryPoint.ID, id) || 
+                GetAccessSubjectTo(contact).ContainsKey(id);
+        }
+
         public static bool CanAccessTo(int contactID, EntityType entityType, ShareType? shareType, int companyID)
         {
             if (shareType.HasValue && (shareType.Value == ShareType.Read || shareType.Value == ShareType.ReadWrite) || IsAdmin)

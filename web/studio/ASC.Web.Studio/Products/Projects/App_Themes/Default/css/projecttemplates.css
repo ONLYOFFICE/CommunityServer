@@ -25,7 +25,7 @@
 
 
 /*--popup--*/
-.projects-templates-container #templateActionPanel,
+#templateActionPanel,
 .projects-templates-container #projectMemberPanel,
 .projects-templates-container #milestoneActions,
 .projects-templates-container #taskActionPanel{
@@ -265,11 +265,7 @@ body.media-width-0-1100 .projects-templates-container #addTaskContainer #newTask
 	width: 145px;
 	text-align: right
 }
-.projects-templates-container .chooseResponsible .dottedLink {
-	max-width: 140px;
-	display: inline-block;
-	overflow: hidden;
-}
+
 .projects-templates-container .chooseResponsible.nobody {
 	display: none;
 }

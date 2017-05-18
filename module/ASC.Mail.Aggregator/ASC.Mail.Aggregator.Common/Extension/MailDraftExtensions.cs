@@ -50,7 +50,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
                 Date = DateTime.UtcNow,
                 Important = draft.Important,
                 HtmlBody = draft.HtmlBody,
-                Introduction = MailMessage.GetIntroduction(draft.HtmlBody),
+                Introduction = MailUtil.GetIntroduction(draft.HtmlBody),
                 StreamId = draft.StreamId,
                 TagIds = draft.Labels != null && draft.Labels.Count != 0 ? new Collection.ItemList<int>(draft.Labels) : null,
                 Size = draft.HtmlBody.Length,
@@ -270,13 +270,13 @@ namespace ASC.Mail.Aggregator.Common.Extension
                     var filename = "calendar.ics";
                     switch (draft.CalendarMethod)
                     {
-                        case "REQUEST":
+                        case Defines.ICAL_REQUEST:
                             filename = "invite.ics";
                             break;
-                        case "REPLY":
+                        case Defines.ICAL_REPLY:
                             filename = "reply.ics";
                             break;
-                        case "CANCEL":
+                        case Defines.ICAL_CANCEL:
                             filename = "cancel.ics";
                             break;
                     }
@@ -362,9 +362,9 @@ namespace ASC.Mail.Aggregator.Common.Extension
                 var sharedInfo =
                     fileStorageService.GetSharedInfo(new ItemList<string> { objectId })
                                       .Find(r => r.SubjectId == FileConstant.ShareLinkId);
-                linkNode.SetAttributeValue("href", sharedInfo.SubjectName);
+                linkNode.SetAttributeValue("href", sharedInfo.Link);
                 log.Info("ChangeAttachedFileLinks() Change file link href: {0}", fileId);
-                setLinks.Add(new Tuple<string, string>(fileId, sharedInfo.SubjectName));
+                setLinks.Add(new Tuple<string, string>(fileId, sharedInfo.Link));
             }
 
             linkNodes = doc.DocumentNode.SelectNodes("//div[contains(@class,'mailmessage-filelink')]");

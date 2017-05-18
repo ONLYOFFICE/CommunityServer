@@ -139,9 +139,9 @@ namespace ASC.Projects.Engine
             return new TaskFilterOperationResult(taskList, count);
         }
 
-        public int GetByFilterCount(TaskFilter filter)
+        public  TaskFilterCountOperationResult GetByFilterCount(TaskFilter filter)
         {
-            return taskDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled).TasksTotal;
+            return taskDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
         public IEnumerable<Task> GetByResponsible(Guid responsibleId, params TaskStatus[] statuses)
@@ -206,12 +206,7 @@ namespace ASC.Projects.Engine
 
         #region Save, Delete, Notify
 
-        public Task SaveOrUpdate(Task task, IEnumerable<int> attachedFileIds, bool notifyResponsible)
-        {
-            return SaveOrUpdate(task, attachedFileIds, notifyResponsible, false);
-        }
-
-        public Task SaveOrUpdate(Task task, IEnumerable<int> attachedFileIds, bool notifyResponsible, bool isImport)
+        public Task SaveOrUpdate(Task task, IEnumerable<int> attachedFileIds, bool notifyResponsible, bool isImport = false)
         {
             if (task == null) throw new ArgumentNullException("task");
             if (task.Project == null) throw new Exception("task.Project");
@@ -319,9 +314,44 @@ namespace ASC.Projects.Engine
                     task.Responsibles.Add(SecurityContext.CurrentAccount.ID);
 
                 subtaskDao.CloseAllSubtasks(task);
+                foreach (var subTask in task.SubTasks)
+                {
+                   subTask.Status = TaskStatus.Closed; 
+                }
             }
 
             return taskDao.Save(task);
+        }
+
+        public Task CopySubtasks(Task @from, Task to)
+        {
+            if (from.Status == TaskStatus.Closed) return to;
+
+            var subtaskEngine = factory.SubtaskEngine;
+            var subTasks = subtaskDao.GetSubtasks(@from.ID);
+
+            to.SubTasks = new List<Subtask>();
+
+            foreach (var subtask in subTasks)
+            {
+                to.SubTasks.Add(subtaskEngine.Copy(subtask, to));
+            }
+
+            return to;
+        }
+
+        public Task CopyFiles(Task from, Task to)
+        {
+            if (from.Project.ID != to.Project.ID) return to;
+
+            var files = GetFiles(from);
+
+            foreach (var file in files)
+            {
+                AttachFile(to, file.ID);
+            }
+
+            return to;
         }
 
         public Task MoveToMilestone(Task task, int milestoneID)
@@ -427,6 +457,9 @@ namespace ASC.Projects.Engine
             ProjectSecurity.DemandEdit(dependentTask);
             ProjectSecurity.DemandEdit(parentTask);
 
+            parentTask.Links.Add(link);
+            dependentTask.Links.Add(link);
+
             taskDao.AddLink(link);
         }
 
@@ -435,6 +468,8 @@ namespace ASC.Projects.Engine
             ProjectSecurity.DemandEdit(dependentTask);
 
             taskDao.RemoveLink(new TaskLink {DependenceTaskId = dependentTask.ID, ParentTaskId = parentTask.ID});
+            dependentTask.Links.RemoveAll(r => r.ParentTaskId == parentTask.ID && r.DependenceTaskId == dependentTask.ID);
+            parentTask.Links.RemoveAll(r => r.ParentTaskId == parentTask.ID && r.DependenceTaskId == dependentTask.ID);
         }
 
         private static void CheckLink(Task parentTask, Task dependentTask)

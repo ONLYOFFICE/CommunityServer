@@ -34,7 +34,7 @@ using System.Web.Routing;
 
 namespace ASC.Data.Storage.DiscStorage
 {
-    class DiscDataHandler : IRouteHandler, IHttpHandler
+    public class DiscDataHandler : IRouteHandler, IHttpHandler
     {
         private readonly string physPath;
 
@@ -107,7 +107,16 @@ namespace ASC.Data.Storage.DiscStorage
                 }
                 else
                 {
-                    context.Response.WriteFile(physPath);
+                    if (File.Exists(physPath + ".gz"))
+                    {
+                        context.Response.WriteFile(physPath + ".gz");
+                        context.Response.Headers["Content-Encoding"] = "gzip";
+                    }
+                    else
+                    {
+                        context.Response.WriteFile(physPath);
+                    }
+
                     context.Response.ContentType = MimeMapping.GetMimeMapping(physPath);
                     context.Response.Cache.SetVaryByCustom("*");
                     context.Response.Cache.SetAllowResponseInBrowserHistory(true);

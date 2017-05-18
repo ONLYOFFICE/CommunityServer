@@ -499,7 +499,7 @@ var ForumManager = new function() {
 
 function disableLastPostDelete() {
     try {
-        var postsCount = jq('div[id^="forum_post_"]').size();
+        var postsCount = jq('div[id^="forum_post_"]').length;
         if (postsCount == 1) {
             var postID = jq('div[id^="forum_post_"]').attr('id').split('forum_post_')[1];
 

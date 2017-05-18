@@ -11,5 +11,23 @@ namespace ASC.Web.Projects.Controls.Common {
     
     
     public partial class CommonList {
+        
+        /// <summary>
+        /// phAttachmentsControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phAttachmentsControl;
+        
+        /// <summary>
+        /// commonComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Studio.UserControls.Common.Comments.CommentsList commonComments;
     }
 }

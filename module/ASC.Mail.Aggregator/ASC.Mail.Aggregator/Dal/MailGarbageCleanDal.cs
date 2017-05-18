@@ -261,7 +261,7 @@ namespace ASC.Mail.Aggregator.Dal
 
         private DbManager GetDb()
         {
-            return new DbManager(MailBoxManager.ConnectionStringName);
+            return new DbManager(MailBoxManager.CONNECTION_STRING_NAME);
         }
 
     }

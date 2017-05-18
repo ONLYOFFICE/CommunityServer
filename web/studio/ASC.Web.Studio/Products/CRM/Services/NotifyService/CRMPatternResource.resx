@@ -117,23 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="subject_ResponsibleForTask" xml:space="preserve">
-    <value>CRM. Task Assigned to You: $EntityTitle</value>
-  </data>
-  <data name="subject_AddRelationshipEvent" xml:space="preserve">
-    <value>CRM. New Event Added to $EntityTitle</value>
-  </data>
-  <data name="subject_SetAccess" xml:space="preserve">
-    <value>CRM. Access Granted to $EntityTitle</value>
-  </data>
-  <data name="subject_ExportCompleted" xml:space="preserve">
-    <value>CRM. Data Export Successfully Completed</value>
-  </data>
-  <data name="subject_CreateNewContact" xml:space="preserve">
-    <value>CRM. New Contact Created Using 'Website Contact Form'</value>
-  </data>
   <data name="pattern_AddRelationshipEvent" xml:space="preserve">
-    <value>h1. New Event Added to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"            
+    <value>h1. New event added to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"            
 $__DateTime "$__AuthorName":"$__AuthorUrl" has added a new event to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}":                                                               
           $AdditionalData.get_item("EventContent")
 
@@ -151,22 +136,53 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has added a new event to "$EntityTitl
 
           ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about new events added within the CRM module, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_SetAccess" xml:space="preserve">
-    <value>h1.Access Granted to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. CRM. New contact created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has granted you the access to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
+$__DateTime A new contact has been created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
+
+Contact information:
+
+#foreach($contactInfo in $AdditionalData.Keys)
+#each
+
+$contactInfo: $AdditionalData.get_item($contactInfo)
+
+#end
 
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about the access granted to the CRM items, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
-    <value>CRM. You were Appointed as a Responsible Person for the Opportunity: $EntityTitle</value>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Data export successfully completed
+
+Please, follow this link to download the archive: "exportdata.zip":"${EntityRelativeURL}"
+
+*Note*: this link is valid for 24 hours only.
+
+If you have any questions or need assistance please feel free to contact us at "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Best regards,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="subject_ImportCompleted" xml:space="preserve">
-    <value>CRM. Data Import Successfully Completed</value>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1. CRM. Data import successfully completed
+
+Go to the "Contacts":"$__VirtualRootPath/products/crm/" list.
+
+If you have any questions or need assistance please feel free to contact us at "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Best regards,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
-    <value>h1.You were Appointed Responsible for the Opportunity: "$EntityTitle":"${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID"
+    <value>h1.You were appointed responsible for the opportunity: "$EntityTitle":"${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the opportunity: $EntityTitle .
 
@@ -178,23 +194,8 @@ $AdditionalData.get_item("OpportunityDescription")
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_ExportCompleted" xml:space="preserve">
-    <value>h1. CRM. Data Export Successfully Completed
-
-Please, follow this link to download the archive: "exportdata.zip":"${EntityRelativeURL}"
-
-*Note*: this link is valid for 24 hours only.
-
-If you have any questions or need assistance please feel free to contact us at "support@teamlab.com":"mailto:support@teamlab.com"
-
-Best regards,
-TeamLab Support Team
-"www.teamlab.com":"http://teamlab.com/"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
-  </data>
   <data name="pattern_ResponsibleForTask" xml:space="preserve">
-    <value>h1.Task Assigned to You: $EntityTitle
+    <value>h1.Task assigned to you: $EntityTitle
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: $EntityTitle.
 #if($AdditionalData.get_item("TaskCategory"))
@@ -238,42 +239,20 @@ Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_ImportCompleted" xml:space="preserve">
-    <value>h1. CRM. Data Import Successfully Completed
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Access granted to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
 
-Go to the "${EntityListTitle}":"$__VirtualRootPath/${EntityListRelativeURL}" list.
+$__DateTime "$__AuthorName":"$__AuthorUrl" has granted you the access to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
 
-If you have any questions or need assistance please feel free to contact us at "support@teamlab.com":"mailto:support@teamlab.com"
 
-Best regards,
-TeamLab Support Team
-"www.teamlab.com":"http://teamlab.com/"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about the access granted to the CRM items, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_CreateNewContact" xml:space="preserve">
-    <value>h1. CRM. New Contact Created Using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?id=$EntityID"
-
-$__DateTime A new contact has been created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?id=$EntityID"
-
-Contact information:
-
-#foreach($contactInfo in $AdditionalData.Keys)
-#each
-
-$contactInfo: $AdditionalData.get_item($contactInfo)
-
-#end
-
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="patterns" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>patterns.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="pattern_TaskReminder" xml:space="preserve">
-    <value>h1. Оповещение о наступление задачи $EntityTitle
+    <value>h1. Reminder about the task: $EntityTitle
 #if($AdditionalData.get_item("TaskCategory"))
 
 Task category:  $AdditionalData.get_item("TaskCategory")
@@ -300,9 +279,30 @@ Due date: $AdditionalData.get_item("DueDate")
 
 Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
 
-^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. New event added to $EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. New contact created using 'Website Contact Form'</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. Data export successfully completed</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. Data import successfully completed</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. You were appointed as a responsible person for the opportunity: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. Task assigned to you: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. Access granted to $EntityTitle</value>
   </data>
   <data name="subject_TaskReminder" xml:space="preserve">
-    <value>CRM. Напоминание о задаче: $EntityTitle</value>
+    <value>CRM. Reminder about the task: $EntityTitle</value>
   </data>
 </root>

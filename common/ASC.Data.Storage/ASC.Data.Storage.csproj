@@ -57,7 +57,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK">
-      <HintPath>..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
@@ -69,12 +69,14 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseStorage.cs" />
+    <Compile Include="ChunkedUploader\CommonChunkedUploadSession.cs" />
+    <Compile Include="ChunkedUploader\CommonChunkedUploadSessionHolder.cs" />
     <Compile Include="Configuration\ACL.cs" />
     <Compile Include="Configuration\AppenderConfigurationCollection.cs" />
     <Compile Include="Configuration\AppenderConfigurationElement.cs" />

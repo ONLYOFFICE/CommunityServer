@@ -276,7 +276,7 @@ namespace ASC.Web.UserControls.Wiki.UC
             }
 
             hfFCKLastState.Value = (!IsWysiwygDefault).ToString().ToLower();
-            txtPageName.Focus();
+            //txtPageName.Focus();
         }
 
         private static bool IsStandartName(Page page)
@@ -456,10 +456,10 @@ namespace ASC.Web.UserControls.Wiki.UC
             const string linkCssFormat = "<link rel='stylesheet' text='text/css' href='{0}' />";
             const string scriptFormat = "<script language='javascript' type='text/javascript' src='{0}'>\" + \"</\" + \"script>";
             var script = "\"";
-            if (!string.IsNullOrEmpty(MainCssFile))
-            {
-                script += string.Format(linkCssFormat, MainCssFile);
-            }
+            //if (!string.IsNullOrEmpty(MainCssFile))
+            //{
+            //    script += string.Format(linkCssFormat, MainCssFile);
+            //}
 
             script += string.Format(linkCssFormat, VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/content/main.css"));
 

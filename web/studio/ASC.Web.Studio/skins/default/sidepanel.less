@@ -341,6 +341,7 @@
     &.tariff{ background-position: 0 -1244px;}
     &.userforum{ background-position: 0 -1296px;}
     &.controlpanel{ background-position: 0 -1322px; } 
+    &.calls{ background-position: 0 -1348px; } 
 
 
     &.inviteusers{
@@ -472,7 +473,8 @@
         min-width: 24px;
         padding: 4px;
 
-        &.disable {
+        &.disable,
+        &.not-ready {
             .opacityStyle();
         }
     }
@@ -626,4 +628,43 @@
 }
 
 
+/*******************************************************************************
+    Banner
+*******************************************************************************/
+.banner-link {
+    background: no-repeat 0 0 transparent;
+    border: 1px solid #d1d1d1;
+    display: block;
+    height: 54px;
+    margin: 20px 0 0;
+    outline: medium none;
+    overflow: hidden;
+    padding: 5px 5px 5px 60px;
+    text-decoration: none;
+    width: 173px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+
+    &.banner-large {
+        height: auto;
+        max-height: 51px;
+        padding: 37px 15px 11px;
+        width: 208px;
+
+        .cancelButton {
+            float: right;
+            margin-top: -33px;
+            margin-right: -9px;
+            padding: 2px 5px;
+        }
+    }
+}
+.banner-link:active {
+    text-decoration: none;
+}
+.banner-link span {
+    font-size: 14px;
+    font-weight: 600;
+}
 

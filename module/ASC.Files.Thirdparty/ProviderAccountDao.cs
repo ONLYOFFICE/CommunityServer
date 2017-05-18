@@ -35,6 +35,7 @@ using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 using ASC.Files.Thirdparty.Box;
+using ASC.Files.Thirdparty.Dropbox;
 using ASC.Files.Thirdparty.GoogleDrive;
 using ASC.Files.Thirdparty.SharePoint;
 using ASC.Files.Thirdparty.Sharpbox;
@@ -53,14 +54,15 @@ namespace ASC.Files.Thirdparty
         private enum ProviderTypes
         {
             Box,
-            DropBox,
             BoxNet,
-            WebDav,
+            DropBox,
+            DropboxV2,
             Google,
-            Yandex,
-            SkyDrive,
+            GoogleDrive,
             SharePoint,
-            GoogleDrive
+            SkyDrive,
+            WebDav,
+            Yandex,
         }
 
 
@@ -264,6 +266,18 @@ namespace ASC.Files.Thirdparty
                     createOn);
             }
 
+            if (key == ProviderTypes.DropboxV2)
+            {
+                return new DropboxProviderInfo(
+                    id,
+                    key.ToString(),
+                    providerTitle,
+                    token,
+                    owner,
+                    folderType,
+                    createOn);
+            }
+
             if (key == ProviderTypes.SharePoint)
             {
                 return new SharePointProviderInfo(
@@ -328,6 +342,20 @@ namespace ASC.Files.Thirdparty
                                                               BoxLoginProvider.BoxOAuth20ClientId,
                                                               BoxLoginProvider.BoxOAuth20ClientSecret,
                                                               BoxLoginProvider.BoxOAuth20RedirectUrl,
+                                                              code);
+
+                    if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
+
+                    return new AuthData(token: token.ToJson());
+
+                case ProviderTypes.DropboxV2:
+
+                    code = authData.Token;
+
+                    token = OAuth20TokenHelper.GetAccessToken(DropboxLoginProvider.DropboxOauthTokenUrl,
+                                                              DropboxLoginProvider.DropboxOAuth20ClientId,
+                                                              DropboxLoginProvider.DropboxOAuth20ClientSecret,
+                                                              DropboxLoginProvider.DropboxOAuth20RedirectUrl,
                                                               code);
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));

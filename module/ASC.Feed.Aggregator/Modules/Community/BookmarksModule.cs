@@ -27,14 +27,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using ASC.Bookmarking.Pojo;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
-using System.Linq;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Feed.Aggregator.Modules.Community
 {
@@ -195,7 +195,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
             return new FeedComment(comment.UserID)
                 {
                     Id = comment.ID.ToString(),
-                    Description = HtmlSanitizer.Sanitize(comment.Content),
+                    Description = HtmlUtility.GetFull(comment.Content),
                     Date = comment.Datetime
                 };
         }

@@ -24,17 +24,16 @@
 */
 
 
+using System;
+using System.Security;
+using System.Web;
 using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using log4net;
 using Resources;
-using System;
-using System.IO;
-using System.Security;
-using System.Web;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Studio.HttpHandlers
@@ -55,10 +54,25 @@ namespace ASC.Web.Studio.HttpHandlers
                 result.Message = Resource.LicenseUploaded;
                 result.Success = true;
             }
+            catch (LicenseExpiredException ex)
+            {
+                LogManager.GetLogger(typeof(LicenseReader)).Error("License upload", ex);
+                result.Message = Resource.LicenseErrorExpired;
+            }
+            catch (LicenseQuotaException ex)
+            {
+                LogManager.GetLogger(typeof(LicenseReader)).Error("License upload", ex);
+                result.Message = Resource.LicenseErrorQuota;
+            }
+            catch (LicensePortalException ex)
+            {
+                LogManager.GetLogger(typeof(LicenseReader)).Error("License upload", ex);
+                result.Message = Resource.LicenseErrorPortal;
+            }
             catch (Exception ex)
             {
                 LogManager.GetLogger(typeof (LicenseReader)).Error("License upload", ex);
-                result.Message = ex.Message.HtmlEncode();
+                result.Message = Resource.LicenseError;
             }
 
             return result;

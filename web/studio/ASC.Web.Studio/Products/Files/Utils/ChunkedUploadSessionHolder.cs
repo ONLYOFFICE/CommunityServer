@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -28,7 +28,9 @@ using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using ASC.Core.ChunkedUploader;
+using ASC.Web.Studio.Core;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Utils
 {
@@ -36,12 +38,17 @@ namespace ASC.Web.Files.Utils
     {
         public static readonly TimeSpan SlidingExpiration = TimeSpan.FromHours(12);
 
+        private static CommonChunkedUploadSessionHolder CommonSessionHolder(bool currentTenant = true)
+        {
+            return new CommonChunkedUploadSessionHolder(Global.GetStore(currentTenant), FileConstant.StorageDomainTmp, SetupInfo.ChunkUploadSize);
+        }
+
         static ChunkedUploadSessionHolder()
         {
             // clear old sessions
             try
             {
-                Global.GetStore(false).DeleteExpired(FileConstant.StorageDomainTmp, "sessions", SlidingExpiration);
+                CommonSessionHolder(false).DeleteExpired();
             }
             catch (Exception err)
             {
@@ -51,35 +58,49 @@ namespace ASC.Web.Files.Utils
 
         public static void StoreSession(ChunkedUploadSession s)
         {
-            using (var stream = Serialize(s))
-            {
-                Global.GetStore(false).SavePrivate(FileConstant.StorageDomainTmp, Path.Combine("sessions", s.Id + ".session"), stream, s.Expired);
-            }
+            CommonSessionHolder(false).Store(s);
         }
 
         public static void RemoveSession(ChunkedUploadSession s)
         {
-            Global.GetStore(false).Delete(FileConstant.StorageDomainTmp, Path.Combine("sessions", s.Id + ".session"));
+            CommonSessionHolder(false).Remove(s);
         }
 
         public static ChunkedUploadSession GetSession(string sessionId)
         {
-            using (var stream = Global.GetStore(false).GetReadStream(FileConstant.StorageDomainTmp, Path.Combine("sessions", sessionId + ".session")))
-            {
-                return Deserialize(stream);
-            }
+            return (ChunkedUploadSession)CommonSessionHolder(false).Get(sessionId);
         }
 
-        private static Stream Serialize(ChunkedUploadSession s)
+        public static ChunkedUploadSession CreateUploadSession(File file, long contentLength)
         {
-            var stream = new MemoryStream();
-            new BinaryFormatter().Serialize(stream, s);
-            return stream;
+            var result = new ChunkedUploadSession(file, contentLength);
+            CommonSessionHolder().Init(result);
+            return result;
         }
 
-        private static ChunkedUploadSession Deserialize(Stream stream)
+        public static void UploadChunk(ChunkedUploadSession uploadSession, Stream stream, long length)
         {
-            return (ChunkedUploadSession) new BinaryFormatter().Deserialize(stream);
+            CommonSessionHolder().UploadChunk(uploadSession, stream, length);
+        }
+
+        public static void FinalizeUploadSession(ChunkedUploadSession uploadSession)
+        {
+            CommonSessionHolder().Finalize(uploadSession);
+        }
+
+        public static void Move(ChunkedUploadSession chunkedUploadSession, string newPath)
+        {
+            CommonSessionHolder().Move(chunkedUploadSession, newPath);
+        }
+
+        public static void AbortUploadSession(ChunkedUploadSession uploadSession)
+        {
+            CommonSessionHolder().Abort(uploadSession);
+        }
+
+        public static Stream UploadSingleChunk(ChunkedUploadSession uploadSession, Stream stream, long chunkLength)
+        {
+            return CommonSessionHolder().UploadSingleChunk(uploadSession, stream, chunkLength);
         }
     }
 }

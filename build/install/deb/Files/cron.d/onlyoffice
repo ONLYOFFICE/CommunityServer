@@ -6,7 +6,8 @@
 @midnight       root    sudo /etc/init.d/onlyofficeMailAggregator restart >/dev/null 2>&1
 @midnight       root    sudo /etc/init.d/onlyofficeMailWatchdog restart >/dev/null 2>&1
 @midnight       root    sudo /etc/init.d/onlyofficeNotify restart >/dev/null 2>&1
+@midnight       root    sudo redis-cli flushall >/dev/null 2>&1
 @midnight       root    sudo /etc/init.d/monoserve restart >/dev/null 2>&1
 @midnight       root    sudo /etc/init.d/monoserve2 restart >/dev/null 2>&1
-@midnight       root    sleep 10s; wget -b --no-check-certificate http://localhost/warmup1/StartUpSaaS.aspx >/dev/null 2>&1
-@midnight       root    sleep 10s; wget -b --no-check-certificate http://localhost/warmup2/StartUpSaaS.aspx >/dev/null 2>&1
+@midnight       root    sleep 10s; wget -qb http://localhost/warmup/Default.aspx >/dev/null 2>&1
+@midnight       root    sleep 10s; wget -qb http://localhost/warmup2/Default.aspx >/dev/null 2>&1

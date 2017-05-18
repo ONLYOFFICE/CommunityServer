@@ -120,29 +120,29 @@
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>Access is denied. Need admin privileges.</value>
   </data>
+  <data name="ErrorDeleteContact" xml:space="preserve">
+    <value>An error has occurred during contact deletion. Please, check your network connection or contact your network or portal administrator.</value>
+  </data>
   <data name="ErrorDkimPublicKeyInUse" xml:space="preserve">
-    <value>This dkim public key is already in use. Please reopen wizard again.</value>
+    <value>This DKIM public key is already in use. Please reopen the wizard.</value>
   </data>
   <data name="ErrorDuplicateAlias" xml:space="preserve">
-    <value>You want to create alias with already existing address.</value>
+    <value>You want to create an alias with already existing address.</value>
+  </data>
+  <data name="ErrorDuplicateDomain" xml:space="preserve">
+    <value>Domain is already in use.</value>
+  </data>
+  <data name="ErrorDuplicateGroup" xml:space="preserve">
+    <value>You want to create a mail group with already existing address.</value>
   </data>
   <data name="ErrorDuplicateMailbox" xml:space="preserve">
-    <value>You want to create mailbox with already existing address.</value>
+    <value>You want to create a mailbox with already existing address.</value>
   </data>
   <data name="ErrorDuplicateMailGroupAddress" xml:space="preserve">
-    <value>You want to add already existed address.</value>
+    <value>You want to add already existing address.</value>
   </data>
   <data name="ErrorInternalServer" xml:space="preserve">
     <value>Internal server error. Try again later.</value>
-  </data>
-  <data name="ErrorInvalidDomain" xml:space="preserve">
-    <value>Invalid domain name.</value>
-  </data>
-  <data name="ErrorMailboxLimit" xml:space="preserve">
-    <value>The limit of user's mailboxes is exceeded.</value>
-  </data>
-  <data name="ErrorUnknownUser" xml:space="preserve">
-    <value>Unknown user.</value>
   </data>
   <data name="ErrorInvalidAddress" xml:space="preserve">
     <value>Invalid address.</value>
@@ -150,22 +150,22 @@
   <data name="ErrorInvalidAlias" xml:space="preserve">
     <value>Invalid alias name.</value>
   </data>
+  <data name="ErrorInvalidDomain" xml:space="preserve">
+    <value>Invalid domain name.</value>
+  </data>
   <data name="ErrorInvalidMailbox" xml:space="preserve">
     <value>Invalid mailbox name.</value>
   </data>
   <data name="ErrorInvalidMailGroup" xml:space="preserve">
     <value>Incorrect group.</value>
   </data>
-  <data name="ErrorDuplicateDomain" xml:space="preserve">
-    <value>Domain is already in use.</value>
+  <data name="ErrorMailboxLimit" xml:space="preserve">
+    <value>The limit of user's mailboxes is exceeded.</value>
   </data>
-  <data name="ErrorDuplicateGroup" xml:space="preserve">
-    <value>You want to create mailgroup with already existing address.</value>
+  <data name="ErrorUnknownUser" xml:space="preserve">
+    <value>Unknown user.</value>
   </data>
   <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
-    <value>Invalid opearation for shared domain</value>
-  </data>
-  <data name="ErrorDeleteContact" xml:space="preserve">
-    <value>An error has happened during contact deletion! Please, check your network connection, or ask for help your network or portal administrator!</value>
+    <value>Invalid operation for shared domain</value>
   </data>
 </root>

@@ -375,6 +375,7 @@ namespace ASC.MessagingSystem
         UserFileUpdated = 5034,
         FileCreatedVersion = 5003,
         FileDeletedVersion = 5004,
+        FileRestoreVersion = 5044,
         FileUpdatedRevisionComment = 5005,
         FileLocked = 5006,
         FileUnlocked = 5007,
@@ -414,6 +415,11 @@ namespace ASC.MessagingSystem
         DocumentsUploadingFormatsSettingsUpdated = 5033,
 
         FileConverted = 5035,
+
+        FileChangeOwner = 5043,
+
+        DocumentSignComplete = 5046, // last
+        DocumentSendToSign = 5045,
 
         #endregion
 
@@ -464,6 +470,9 @@ namespace ASC.MessagingSystem
 
         PortalAccessSettingsUpdated = 6031,
 
+        CookieSettingsUpdated = 6032,
+        MailServiceSettingsUpdated = 6033,
+
         DocumentServiceLocationSetting = 5037,
         AuthorizationKeysSetting = 5038,
         FullTextSearchSetting = 5039,
@@ -471,7 +480,7 @@ namespace ASC.MessagingSystem
         StartTransferSetting = 5040,
         StartBackupSetting = 5041,
 
-        LicenseKeyUploaded = 5042, // last
+        LicenseKeyUploaded = 5042,
 
         #endregion
 

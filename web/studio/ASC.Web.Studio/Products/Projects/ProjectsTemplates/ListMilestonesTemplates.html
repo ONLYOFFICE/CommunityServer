@@ -1,0 +1,71 @@
+﻿<script id="projects_milestoneTemplate" type="text/x-jquery-tmpl">
+    <tr id="${id}" class="with-entity-menu ${status}">
+        <td class="status">
+            {{if canEdit && !Teamlab.profile.isVisitor}}
+                <div class="changeStatusCombobox canEdit" data-id="${id}">
+                {{if status == 'closed'}}
+                    <span class="${status}" title="${ASC.Projects.Resources.MilestoneResource.StatusClosed}"></span>
+                {{else}}
+                    <span class="${status}" title="${ASC.Projects.Resources.MilestoneResource.StatusOpen}"></span>
+                {{/if}}
+                    <span class="arrow"></span>
+                </div>
+            {{else}}
+                <div class="changeStatusCombobox noEdit">
+                {{if status == 'closed'}}
+                    <span class="${status}" title="${ASC.Projects.Resources.MilestoneResource.StatusClosed}"></span>
+                {{else}}
+                    <span class="${status}" title="${ASC.Projects.Resources.MilestoneResource.StatusOpen}"></span>
+                {{/if}}
+                </div>
+            {{/if}}
+        </td>
+        <td class="title stretch">
+            {{if isKey == true}}
+                <span class="key" title="${ASC.Projects.Resources.MilestoneResource.RootMilestone}"></span>
+            {{/if}}
+            <a href="javascript:void(0)" class="linkHeaderMedium {{if $item.data.status == 'closed'}} gray-text{{/if}}">${title}</a>
+        </td>
+        <td class="activeTasksCount">
+            {{if activeTasksCount != 0 || closedTasksCount != 0}}
+                {{if status != 'closed'}}
+                    <a href="${activeTasksLink}" title="${ASC.Projects.Resources.ProjectResource.TitleMilestoneOpenTasks}">${activeTasksCount}</a>
+                {{else}}
+                    ${activeTasksCount}
+                {{/if}}
+            {{/if}}
+        </td>
+        <td class="slash">
+            {{if activeTasksCount != 0 || closedTasksCount != 0}}
+                /
+            {{/if}}
+        </td>
+        <td class="closedTasksCount">
+            {{if activeTasksCount != 0 || closedTasksCount != 0}}
+                {{if status != 'closed'}}
+                    <a href="${closedTasksLink}" title="${ASC.Projects.Resources.ProjectResource.TitleMilestoneClosedTasks}">${closedTasksCount}</a>
+                {{else}}
+                    ${closedTasksCount}
+                {{/if}}
+            {{/if}}
+        </td>
+        <td class="deadline">
+            {{if status == "overdue"}}  
+                <span class="overdue">${deadline}</span>
+            {{else}}
+                <span>${deadline}</span>
+            {{/if}}
+        </td>
+        <td class="responsible">
+            <div>
+                <span {{if responsibleId=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}} class="not-action"{{/if}} title="${ASC.Projects.Resources.ProjectResource.TitleMilestoneResponsibleUser}">${responsible}</span>
+            </div>
+        </td>
+        <td class="actions">
+            {{if (canEdit && !Teamlab.profile.isVisitor) || canDelete}}
+                <div class="entity-menu"></div>
+            {{/if}}
+        </td>
+    </tr>
+</script>
+

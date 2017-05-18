@@ -24,11 +24,9 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.UI;
-using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -43,33 +41,24 @@ namespace ASC.Web.Files.Controls
 
         protected string AdditionalCssClass
         {
-            get
-            {
-                return FolderIDCurrentRoot != null ? "jstree-inprojects " : string.Empty;
-            }
+            get { return FolderIDCurrentRoot != null ? "jstree-inprojects " : string.Empty; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/products/files/controls/tree/treebuilder.js");
-
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/treebuilder.css");
-
             if (FolderIDCurrentRoot == null)
             {
                 var treeViewContainer = (Tree) LoadControl(Tree.Location);
                 treeViewContainer.ID = "treeViewContainer";
                 treeViewContainer.AdditionalCssClass = AdditionalCssClass;
                 treeViewContainer.WithNew = true;
-                treeViewContainer.WithoutBaseScripts = true;
                 TreeViewHolder.Controls.Add(treeViewContainer);
             }
 
-            var treeSelectorContainer = (Tree)LoadControl(Tree.Location);
+            var treeSelectorContainer = (Tree) LoadControl(Tree.Location);
             treeSelectorContainer.ID = "treeViewSelector";
             treeSelectorContainer.FolderIDCurrentRoot = FolderIDCurrentRoot;
             treeSelectorContainer.WithoutTrash = true;
-            treeSelectorContainer.WithoutBaseScripts = true;
             TreeSelectorHolder.Controls.Add(treeSelectorContainer);
         }
     }

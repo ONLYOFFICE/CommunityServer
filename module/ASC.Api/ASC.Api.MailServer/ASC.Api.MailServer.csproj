@@ -34,6 +34,10 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ARSoft.Tools.Net, Version=2.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ARSoft.Tools.Net.dll</HintPath>
+    </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
@@ -81,6 +85,7 @@
     <Compile Include="MailServerApi.Notification.cs" />
     <Compile Include="MailServerApi.Server.cs" />
     <Compile Include="MailServerApi.WebDomain.cs" />
+    <Compile Include="Operations\MailRemoveMailserverMailboxOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,10 +120,6 @@
     <ProjectReference Include="..\..\ASC.Mail.Server\Dal\MailServerDal\MailServerDal.csproj">
       <Project>{c436e243-3092-441d-8b25-aeba1cf2cefe}</Project>
       <Name>MailServerDal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Server\DnsChecker\DnsChecker.csproj">
-      <Project>{92f13aa5-840f-4b3e-9b6b-1dfee916d86d}</Project>
-      <Name>DnsChecker</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Mail.Server\MailServerUtils\MailServerUtils.csproj">
       <Project>{fb62491c-d153-45d0-a4f6-8c7ceadfa035}</Project>

@@ -112,41 +112,37 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="pattern_PostInTopicEmailPattern" xml:space="preserve">
     <value>h1.New Post in Forum Topic: "$TopicTitle":"$PostURL"
 
-$Date "$UserName":"$UserURL" has created a new post in topic:
+$Date "$UserName":"$UserURL" has created a new post in the "$TopicTitle":"$PostURL" topic:
 
 $PostText
 
 "Read More":"$PostURL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new posts in this forum topic, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_TopicInForumEmailPattern" xml:space="preserve">
     <value>h1.New Topic in Forums: "$TopicTitle":"$TopicURL"
 
-$Date "$UserName":"$UserURL" has created a new topic:
+$Date "$UserName":"$UserURL" has created a new topic: "$TopicTitle":"$TopicURL"
 
 $PostText
 
 "Read More":"$PostURL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new topics created in forums, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
-    <value>Community. New Post in Forum Topic: $TopicTitle</value>
+    <value>Community. New post in forum topic: $TopicTitle</value>
   </data>
   <data name="subject_TopicInForumEmailPattern" xml:space="preserve">
-    <value>Community. New Topic in Forums: $TopicTitle</value>
+    <value>Community. New topic in forums: $TopicTitle</value>
   </data>
 </root>

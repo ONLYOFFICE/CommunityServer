@@ -27,20 +27,13 @@
 window.ASC.Clipboard = (function () {
     var isInit = false;
     var enable = false;
-    var viaFlash = false;
-    var viaDesktop = false;
 
     var init = function () {
         if (isInit === false) {
             isInit = true;
         }
 
-        if (ASC.Clipboard.enable = ASC.Clipboard.viaFlash = !jq.browser.mobile && jq.browser.flashEnabled()
-            && typeof ZeroClipboard != 'undefined' && ZeroClipboard.moviePath === 'ZeroClipboard.swf') {
-            ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
-        } else {
-            ASC.Clipboard.enable = ASC.Clipboard.viaDesktop = !!window["AscDesktopEditor"];
-        }
+        ASC.Clipboard.enable = (typeof Clipboard != "undefined" && !jq.browser.safari);
     };
 
     var create = function (text, buttonId, options) {
@@ -49,118 +42,47 @@ window.ASC.Clipboard = (function () {
         }
 
         var opt = {
-            zIndex: 670,
             onComplete: null,
-            onMouseOver: null,
-            onMouseOut: null,
             textareaId: null,
-            panelId: buttonId,
         };
 
         jq.extend(opt, options);
 
-        if (ASC.Clipboard.viaFlash) {
-            return createViaFlash(text, buttonId, opt);
+        if (opt.textareaId) {
+            var cfg = {
+                target: function () {
+                    return jq("#" + opt.textareaId)[0];
+                }
+            };
+        } else {
+            cfg = {
+                text: function () {
+                    return text;
+                }
+            };
         }
 
-        if (ASC.Clipboard.viaDesktop) {
-            return createViaDesktop(text, buttonId, opt);
-        }
-
-        return null;
-    };
-
-    var createViaFlash = function (text, buttonId, opt) {
-        var clip = new ZeroClipboard.Client();
-
-        if (!text && opt.textareaId) {
-            text = jq("#" + textareaId).val();
-        }
-
-        clip.setText(text);
-        clip.glue(buttonId, opt.panelId, opt);
+        var clip = new Clipboard("#" + buttonId, cfg);
 
         if (opt.onComplete) {
-            clip.addEventListener("onComplete", opt.onComplete);
+            clip.on("success", opt.onComplete);
         }
-
-        if (opt.onMouseOver) {
-            clip.addEventListener("onMouseOver", opt.onMouseOver);
-        }
-
-        if (opt.onMouseOut) {
-            clip.addEventListener("onMouseOut", opt.onMouseOut);
-        }
-
-        return clip;
-    };
-
-    var createViaDesktop = function (text, buttonId, opt) {
-        var clip = jq("#" + buttonId)
-            .on("click.clipboard", function () {
-                if (opt.textareaId) {
-                    jq("#" + opt.textareaId).select();
-                } else {
-                    var textareaId = buttonId + new Date().getTime();
-
-                    var tempInput = document.createElement("input");
-                    tempInput.id = textareaId;
-                    tempInput.type = "text";
-                    tempInput.style.height = "1px";
-                    tempInput.style.width = "1px";
-                    tempInput.style.left = "-10px";
-                    tempInput.style.right = "-10px";
-                    tempInput.style.position = "absolute";
-                    document.body.appendChild(tempInput);
-
-                    tempInput = jq("#" + textareaId);
-                    tempInput.val(text);
-                    tempInput.select();
-                }
-
-                window["AscDesktopEditor"].Copy();
-
-                if (tempInput) {
-                    tempInput.remove();
-                }
-
-                jq(this).trigger("mouseout.clipboard");
-
-                if (opt.onComplete) {
-                    opt.onComplete();
-                }
-            })
-            .on("mouseover.clipboard", function () {
-                if (opt.onMouseOver) {
-                    opt.onMouseOver();
-                }
-            })
-            .on("mouseout.clipboard", function () {
-                if (opt.onMouseOut) {
-                    opt.onMouseOut();
-                }
-            });
 
         return clip;
     };
 
     var destroy = function (clip) {
-        if (ASC.Clipboard.viaFlash && clip && clip.destroy) {
+        if (clip) {
             clip.destroy();
-            delete window.ZeroClipboard.clients[clip.id];
         }
 
-        if (ASC.Clipboard.viaDesktop && clip) {
-            clip.off(".clipboard");
-        }
+        return null;
     };
 
     return {
         init: init,
 
         enable: enable,
-        viaFlash: viaFlash,
-        viaDesktop: viaDesktop,
 
         create: create,
         destroy: destroy,

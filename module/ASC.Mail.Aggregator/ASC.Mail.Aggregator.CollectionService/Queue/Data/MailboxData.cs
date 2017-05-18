@@ -1,5 +1,5 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using LiteDB;
 
 namespace ASC.Mail.Aggregator.CollectionService.Queue.Data
 {
@@ -13,7 +13,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue.Data
         public string UserId { get; set; }
 
         [DataMember(Name = "id")]
-        public int MailBoxId { get; set; }
+        public int MailboxId { get; set; }
 
         [DataMember]
         public string EMail { get; set; }

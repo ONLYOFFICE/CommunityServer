@@ -24,21 +24,21 @@
 */
 
 
-using ASC.ActiveDirectory;
-using ASC.ActiveDirectory.Novell;
-using ASC.Api.Attributes;
-using ASC.Core;
-using ASC.Core.Billing;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Import.LDAP;
-using ASC.Web.Studio.Utility;
-using Resources;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using ASC.ActiveDirectory;
+using ASC.ActiveDirectory.Novell;
+using ASC.Api.Attributes;
 using ASC.Common.Threading;
+using ASC.Core;
+using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Import.LDAP;
+using ASC.Web.Studio.Utility;
 using Newtonsoft.Json;
+using Resources;
 
 namespace ASC.Api.Settings
 {

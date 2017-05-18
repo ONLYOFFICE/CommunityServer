@@ -73,6 +73,21 @@
                                  "<b>" + UserName + "</b></li></ul>",
 							     "<b>"+JID+"</b>") %>
 					  </div>
+                      <% if (!ASC.Web.Studio.Utility.TenantExtra.Saas)
+                         { %>
+                      <div class="middle-button-container">
+                          <div class="header-base red-text">
+                              <%= TalkOverviewResource.WarningHeader %>
+                          </div>
+                          <div style="margin-top: 8px;">
+                              <%= string.Format(TalkOverviewResource.WarningText,
+                                                "<b>",
+                                                "</b>",
+                                                "<a href='/management.aspx'>",
+                                                "</a>") %>
+                          </div>
+                      </div>
+                      <% } %>
 				  </td>
 				  <td>
 					  <div class="tintMedium" style="width: 245px;">

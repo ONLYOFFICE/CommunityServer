@@ -11,7 +11,7 @@ window.ASC.TMTalk.contactsManager = (function () {
     customEvents = {
       // update contactlist
       updateContacts : 'onupdategroups',
-      // добавление нового контакта
+      // adding new contact
       addContact : 'onaddcontact',
       // remove contact
       removeContact : 'onremovecontact',

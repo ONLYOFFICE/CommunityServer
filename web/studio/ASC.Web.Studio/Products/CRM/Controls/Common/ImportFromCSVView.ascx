@@ -145,7 +145,7 @@
 
 
             <div class="middle-button-container">
-                <a class="button blue middle disable" href="javascript:void(0)" onclick="ASC.CRM.ImportEntities.startUploadCSVFile()">
+                <a class="button blue middle disable" href="javascript:void(0)" onclick="ASC.CRM.ImportEntities.startUploadCSVFile(this)">
                     <%= CRMContactResource.Continue%>
                 </a>
                 <span class="splitter-buttons"></span>
@@ -161,7 +161,7 @@
             <%: ImportFromCSVStepTwoHeaderLabel %></span><br />
         <span class="describe-text">
             <%= String.Format(ImportFromCSVStepTwoDescriptionLabel.HtmlEncode(), System.DateTimeExtension.DateFormatPattern)%></span>
-        <table id="columnMapping" cellspacing="0" cellpadding="10" class="table-list">
+        <table id="columnMapping" cellspacing="0" cellpadding="0" class="table-list padding10">
             <thead>
                 <tr>
                     <td style="width: 20%">

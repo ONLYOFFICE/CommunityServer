@@ -70,23 +70,24 @@ namespace ASC.Mail.Aggregator.Common
                 throw new ApiHelperException("ApiHelper: url scheme not setup", HttpStatusCode.InternalServerError, "");
 
             _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api");
+
             Scheme = scheme;
 
-            if (scheme.Equals(Uri.UriSchemeHttps) && ConfigurationManager.AppSettings["mail.certificate-permit"] != null)
-            {
-                var sslCertificateErrorsPermit =
-                    Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
+            if (!scheme.Equals(Uri.UriSchemeHttps) ||
+                ConfigurationManager.AppSettings["mail.certificate-permit"] == null)
+                return;
 
-                if (sslCertificateErrorsPermit)
-                {
-                    ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-                }
-            }
+            var sslCertificateErrorsPermit =
+                Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
+
+            if (sslCertificateErrorsPermit)
+                ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
         }
 
         private void Setup()
         {
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
             var user = SecurityContext.CurrentAccount;
 
             _log.Debug("ApiHelper->Setup: Tenant={0} User='{1}' IsAuthenticated={2} Scheme='{3}' HttpContext is {4}",
@@ -99,6 +100,7 @@ namespace ASC.Mail.Aggregator.Common
                 throw new AuthenticationException("User not authenticated");
 
             var hs = new HostedSolution(ConfigurationManager.ConnectionStrings["default"]);
+
             var authenticationCookie = hs.CreateAuthenticationCookie(tenant.TenantId, user.ID);
 
             var tempUrl = (WebConfigurationManager.AppSettings["api.url"] ?? "").Trim('~', '/');
@@ -110,14 +112,17 @@ namespace ASC.Mail.Aggregator.Common
             };
 
             var virtualDir = WebConfigurationManager.AppSettings["api.virtual-dir"];
+
             if (!string.IsNullOrEmpty(virtualDir))
                 tempUrl = string.Format("{0}/{1}", virtualDir.Trim('/'), tempUrl);
 
             var host = WebConfigurationManager.AppSettings["api.host"];
+
             if (!string.IsNullOrEmpty(host))
                 ubBase.Host = host;
 
             var port = WebConfigurationManager.AppSettings["api.port"];
+
             if (!string.IsNullOrEmpty(port))
                 ubBase.Port = int.Parse(port);
 
@@ -128,47 +133,23 @@ namespace ASC.Mail.Aggregator.Common
             _cookie = new Cookie("asc_auth_key", authenticationCookie, "/", BaseUrl.Host);
         }
 
-        public T Execute<T>(RestRequest request) where T : new()
-        {
-            Setup();
-
-            _log.Debug("ApiHelper->Execute<{0}>: request url: {1}/{2}", typeof(T), BaseUrl.Uri.ToString(), request.Resource);
-
-            var client = new RestClient {BaseUrl = BaseUrl.Uri.ToString()};
-
-            request.AddCookie(_cookie.Name, _cookie.Value);
-
-            var response = client.Execute<T>(request);
-
-            if (response.ErrorException != null)
-            {
-                var ex = new ApplicationException(ERR_MESSAGE, response.ErrorException);
-                throw ex;
-            }
-            return response.Data;
-        }
-
         public IRestResponse Execute(RestRequest request)
         {
             Setup();
 
             _log.Debug("ApiHelper->Execute: request url: {0}/{1}", BaseUrl.Uri.ToString(), request.Resource);
 
-            var client = new RestClient { BaseUrl = BaseUrl.Uri.ToString() };
+            var client = new RestClient { BaseUrl = BaseUrl.Uri };
 
             request.AddCookie(_cookie.Name, _cookie.Value);
 
             var response = client.ExecuteSafe(request);
 
             if (response.ErrorException is ApiHelperException)
-            {
                 return response;
-            }
 
             if (response.ErrorException != null)
-            {
                 throw new ApplicationException(ERR_MESSAGE, response.ErrorException);
-            }
 
             return response;
         }
@@ -194,6 +175,7 @@ namespace ASC.Mail.Aggregator.Common
             var json = JObject.Parse(response.Content);
 
             TariffState state;
+
             Enum.TryParse(json["response"]["state"].ToString(), out state);
 
             Defines.TariffType result;
@@ -205,9 +187,13 @@ namespace ASC.Mail.Aggregator.Common
             else
             {
                 var dueDate = DateTime.Parse(json["response"]["dueDate"].ToString());
+
                 var delayDateString = json["response"]["delayDueDate"].ToString();
+
                 var delayDueDate = DateTime.Parse(delayDateString);
+
                 var maxDateStr = DateTime.MaxValue.CutToSecond().ToString(CultureInfo.InvariantCulture);
+
                 delayDateString = delayDueDate.CutToSecond().ToString(CultureInfo.InvariantCulture);
 
                 result = (!delayDateString.Equals(maxDateStr) ? delayDueDate : dueDate)
@@ -222,6 +208,7 @@ namespace ASC.Mail.Aggregator.Common
         public void RemoveTeamlabMailbox(int mailboxId)
         {
             var request = new RestRequest("mailserver/mailboxes/remove/{id}", Method.DELETE);
+
             request.AddUrlSegment("id", mailboxId.ToString(CultureInfo.InvariantCulture));
 
             var response = Execute(request);
@@ -237,59 +224,61 @@ namespace ASC.Mail.Aggregator.Common
         public void SendMessage(MailMessage message, bool isAutoreply = false)
         {
             var request = new RestRequest("mail/messages/send.json", Method.PUT);
-            var jObject = new JObject();
-            jObject.Add("id", message.Id);
-            if (!String.IsNullOrEmpty(message.From))
-            {
+
+            var jObject = new JObject { { "id", message.Id } };
+
+            if (!string.IsNullOrEmpty(message.From))
                 jObject.Add("from", message.From);
-            }
+
             jObject.Add("to", message.To);
-            if (!String.IsNullOrEmpty(message.Cc))
-            {
+
+            if (!string.IsNullOrEmpty(message.Cc))
                 jObject.Add("cc", message.Cc);
-            }
-            if (!String.IsNullOrEmpty(message.Bcc))
-            {
+
+            if (!string.IsNullOrEmpty(message.Bcc))
                 jObject.Add("bcc", message.Bcc);
-            }
+
             jObject.Add("subject", message.Subject);
+
             jObject.Add("body", message.HtmlBody);
+
             jObject.Add("mimeReplyToId", message.MimeReplyToId);
+
             jObject.Add("importance", message.Important);
+
             if (message.TagIds != null && message.TagIds.Count != 0)
-            {
                 jObject.Add("tags", JsonConvert.SerializeObject(message.TagIds));
-            }
+
             if (message.Attachments != null && message.Attachments.Count != 0)
-            {
                 jObject.Add("attachments", JsonConvert.SerializeObject(message.Attachments));
-            }
+
             if (!string.IsNullOrEmpty(message.CalendarEventIcs))
-            {
                 jObject.Add("calendarIcs", message.CalendarEventIcs);
-            }
+
             jObject.Add("isAutoreply", isAutoreply);
 
             request.AddParameter("application/json; charset=utf-8", jObject, ParameterType.RequestBody);
-            var response = Execute(request);
-            if (response.ResponseStatus != ResponseStatus.Completed ||
-                (response.StatusCode != HttpStatusCode.Created &&
-                 response.StatusCode != HttpStatusCode.OK))
-            {
-                if (response.ErrorException is ApiHelperException)
-                {
-                    throw response.ErrorException;
-                }
 
-                throw new ApiHelperException("Send message to api failed.", response.StatusCode, response.Content);
-            }
+            var response = Execute(request);
+
+            if (response.ResponseStatus == ResponseStatus.Completed &&
+                (response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.OK))
+                return;
+
+            if (response.ErrorException is ApiHelperException)
+                throw response.ErrorException;
+
+            throw new ApiHelperException("Send message to api failed.", response.StatusCode, response.Content);
         }
 
         public List<string> SearchEmails(string term)
         {
             var request = new RestRequest("mail/emails/search.json", Method.GET);
+
             request.AddParameter("term", term);
+
             var response = Execute(request);
+
             if (response.ResponseStatus != ResponseStatus.Completed ||
                 (response.StatusCode != HttpStatusCode.Created &&
                  response.StatusCode != HttpStatusCode.OK))
@@ -301,7 +290,9 @@ namespace ASC.Mail.Aggregator.Common
 
                 throw new ApiHelperException("Search Emails failed.", response.StatusCode, response.Content);
             }
+
             var json = JObject.Parse(response.Content);
+
             return json["response"].ToObject<List<string>>();
         }
 
@@ -327,7 +318,7 @@ namespace ASC.Mail.Aggregator.Common
             {
                 var commonData = contact["contact"]["commonData"] as JArray;
 
-                if(commonData == null)
+                if (commonData == null)
                     continue;
 
                 var emails = commonData.Where(d => int.Parse(d["infoType"].ToString()) == 1).Select(d => (string)d["data"]).ToList();
@@ -386,7 +377,7 @@ namespace ASC.Mail.Aggregator.Common
 
                 if (contactData != null)
                 {
-                    emails.AddRange(contactData.Where(d => d["type"].ToString() == "mail").Select(d => (string) d["value"]).ToList());
+                    emails.AddRange(contactData.Where(d => d["type"].ToString() == "mail").Select(d => (string)d["value"]).ToList());
                 }
 
                 if (displayName.IndexOf(term, StringComparison.OrdinalIgnoreCase) > -1)
@@ -440,17 +431,14 @@ namespace ASC.Mail.Aggregator.Common
 
             var response = Execute(request);
 
-            if (response.ResponseStatus != ResponseStatus.Completed ||
-                (response.StatusCode != HttpStatusCode.Created &&
-                 response.StatusCode != HttpStatusCode.OK))
-            {
-                if (response.ErrorException is ApiHelperException)
-                {
-                    throw response.ErrorException;
-                }
+            if (response.ResponseStatus == ResponseStatus.Completed &&
+                (response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.OK))
+                return;
 
-                throw new ApiHelperException("Add message to crm history failed.", response.StatusCode, response.Content);
-            }
+            if (response.ErrorException is ApiHelperException)
+                throw response.ErrorException;
+
+            throw new ApiHelperException("Add message to crm history failed.", response.StatusCode, response.Content);
         }
 
         public int UploadToCrm(Stream fileStream, string filename, string contentType,
@@ -475,7 +463,7 @@ namespace ASC.Mail.Aggregator.Common
 
             var json = JObject.Parse(response.Content);
 
-            var id = Int32.Parse(json["response"]["id"].ToString());
+            var id = int.Parse(json["response"]["id"].ToString());
 
             return id;
         }
@@ -501,7 +489,7 @@ namespace ASC.Mail.Aggregator.Common
 
             var json = JObject.Parse(response.Content);
 
-            var id = Int32.Parse(json["response"]["id"].ToString());
+            var id = int.Parse(json["response"]["id"].ToString());
 
             return id;
         }
@@ -577,12 +565,14 @@ namespace ASC.Mail.Aggregator.Common
             }
 
             var json = JObject.Parse(response.Content);
+
             return json;
         }
 
         public bool IsCalendarModuleAvailable()
         {
             var json = GetPortalSettings();
+
             var jWebItem = json["response"].Children<JObject>()
                 .FirstOrDefault(
                     o =>
@@ -590,12 +580,14 @@ namespace ASC.Mail.Aggregator.Common
                         o["webItemId"].ToString() == WebItemManager.CalendarProductID.ToString());
 
             var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
+
             return isAvailable;
         }
 
         public bool IsMailModuleAvailable()
         {
             var json = GetPortalSettings();
+
             var jWebItem = json["response"].Children<JObject>()
                 .FirstOrDefault(
                     o =>
@@ -603,13 +595,16 @@ namespace ASC.Mail.Aggregator.Common
                         o["webItemId"].ToString() == WebItemManager.MailProductID.ToString());
 
             var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
+
             return isAvailable;
         }
 
         public bool IsCrmModuleAvailable()
         {
             var json = GetPortalSettings();
+
             var crmId = WebItemManager.CRMProductID.ToString();
+
             var jWebItem = json["response"].Children<JObject>()
                 .FirstOrDefault(
                     o =>
@@ -617,6 +612,7 @@ namespace ASC.Mail.Aggregator.Common
                         o["webItemId"].ToString() == crmId);
 
             var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
+
             return isAvailable;
         }
     }

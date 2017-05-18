@@ -1,5 +1,7 @@
 ﻿
-(function ($, win, doc, body) {
+(function ($) {
+    var resources = ASC.Resources.Master.Resource, teamlab = Teamlab;
+
     var projectadvancedSelector = function (element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.projectadvancedSelector.defaults, options);
@@ -15,10 +17,10 @@
                 itemsSimpleSelect = [];
 
             opts.newoptions = [
-                      { title: ASC.Resources.Master.Resource.SelectorTitle, type: "input", tag: "title" },
-                      { title: ASC.Resources.Master.Resource.SelectorManager, type: "select", tag: "manager" }
+                      { title: resources.SelectorTitle, type: "input", tag: "title" },
+                      { title: resources.SelectorManager, type: "select", tag: "manager" }
             ];
-            opts.newbtn = ASC.Resources.Master.Resource.CreateButton;
+            opts.newbtn = resources.CreateButton;
 
             that.displayAddItemBlock.call(that, opts);
 
@@ -27,17 +29,17 @@
                 employeeType: 1
             };
 
-            Teamlab.getProfilesByFilter({}, {
+            teamlab.getProfilesByFilter({}, {
                 before: function () {
                     that.showLoaderSimpleSelector.call(that, "manager");
                 },
                 filter: filter,
                 success: function (params, data) {
                     for (var i = 0, length = data.length; i < length; i++) {
-                        if (data[i].id == Teamlab.profile.id) {
+                        if (data[i].id == teamlab.profile.id) {
                             itemsSimpleSelect.unshift(
                                 {
-                                    title: ASC.Resources.Master.Resource.MeLabel,
+                                    title: resources.MeLabel,
                                     id: data[i].id
                                 }
                             );
@@ -91,24 +93,24 @@
             };
 
             if (!newProject.title) {
-                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: ASC.Resources.Master.Resource.ProjectSelectorEmptyTitleError });
+                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: resources.ProjectSelectorEmptyTitleError });
                 isError = true;
             }
             if (!newProject.responsibleid) {
-                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: ASC.Resources.Master.Resource.ProjectSelectorEmptyManagerError });
+                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: resources.ProjectSelectorEmptyManagerError });
                 isError = true;
             }
             if (!newProject.responsibleid && $addPanel.find(".manager input").val()) {
-                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: ASC.Resources.Master.Resource.ProjectSelectorNotPersonError });
+                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: resources.ProjectSelectorNotPersonError });
                 isError = true;
             }
             if (isError) {
                 $addPanel.find(".error input").first().focus();
                 return;
             }
-            Teamlab.addPrjProject({}, newProject, {
+            teamlab.addPrjProject({}, newProject, {
                 before: function() {
-                    that.displayLoadingBtn.call(that, { btn: $btn, text: ASC.Resources.Master.Resource.LoadingProcessing });
+                    that.displayLoadingBtn.call(that, { btn: $btn, text: resources.LoadingProcessing });
                 },
                 error: function(params, errors) {
                     that.showServerError.call(that, { field: $btn, error: errors });
@@ -146,10 +148,10 @@
     
     $.fn.projectadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
         showme: true,
-        addtext: ASC.Resources.Master.Resource.ProjectSelectorAddText,
-        noresults: ASC.Resources.Master.Resource.ProjectSelectorNoResult,
-        noitems: ASC.Resources.Master.Resource.ProjectSelectorNoItems,
-        emptylist: ASC.Resources.Master.Resource.ProjectSelectorEmptyList
+        addtext: resources.ProjectSelectorAddText,
+        noresults: resources.ProjectSelectorNoResult,
+        noitems: resources.ProjectSelectorNoItems,
+        emptylist: resources.ProjectSelectorEmptyList
     });
 
-})(jQuery, window, document, document.body);
+})(jQuery);

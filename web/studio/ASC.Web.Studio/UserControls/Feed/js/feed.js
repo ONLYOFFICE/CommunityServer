@@ -24,56 +24,49 @@
 */
 
 
-window.Feed = (function(productsAccessRightsParam) {
+ASC.Feed = (function() {
     var $ = jq;
 
-    var userId = Teamlab.profile.id;
+    var userId = Teamlab.profile.id,
+        basePath = '',
+        readedDate,
+        feedChunk = 30,
+        currentFeedsCount = 0,
+        currentGroupFeedsCount = 0,
+        guestId = '712d9ec3-5d2b-4b13-824f-71f00191dcca',
+        firstLoad = true,
+        $view = $('#feed-view'),
+        $emptyScreen = $view.find('#emptyFeedScr'),
+        $emptyFilterScreen = $view.find('#emptyFeedFilterScr'),
+        $managerEmptyScreen = $view.find('#manager-empty-screen'),
 
-    var basePath = '';
+        $communityEmptyScreen = $view.find('#emptyListCommunity'),
+        $crmEmptyScreen = $view.find('#emptyListCrm'),
+        $projectsEmptyScreen = $view.find('#emptyListProjects'),
+        $documentsEmptyScreen = $view.find('#emptyListDocuments'),
 
-    var readedDate;
+        $firstLoader = $view.find('.loader-page'),
 
-    var feedChunk = 30;
-    var currentFeedsCount = 0;
-    var currentGroupFeedsCount = 0;
+        $pageMenu = $('#feed-page-menu'),
 
-    var guestId = '712d9ec3-5d2b-4b13-824f-71f00191dcca';
+        $list = $('#feed-list'),
 
-    var firstLoad = true;
+        $showNextBtn = $('#show-next-feeds-btn'),
+        $showNextLoader = $('#show-next-feeds-loader'),
+        filter,
+        feedTemplateId = 'feedTmpl',
+        feedCommentTemplateId = 'feedCommentTmpl',
+        productsAccessRights;
 
-    var productsAccessRights = productsAccessRightsParam.split(',');
-    for (var i = 0; i < productsAccessRights.length; i++) {
-        productsAccessRights[i] = productsAccessRights[i].toLowerCase() == 'true';
-    }
+    function init(productsAccessRightsParam) {
+        filter = new FeedFilter();
+        filter.onSetFilter = onSetFilter;
+        filter.onResetFilter = onResetFilter;
 
-    var $view = $('#feed-view');
-
-    var $emptyScreen = $view.find('#emptyFeedScr');
-    var $emptyFilterScreen = $view.find('#emptyFeedFilterScr');
-    var $managerEmptyScreen = $view.find('#manager-empty-screen');
-
-    var $communityEmptyScreen = $view.find('#emptyListCommunity');
-    var $crmEmptyScreen = $view.find('#emptyListCrm');
-    var $projectsEmptyScreen = $view.find('#emptyListProjects');
-    var $documentsEmptyScreen = $view.find('#emptyListDocuments');
-
-    var $firstLoader = $view.find('.loader-page');
-
-    var $pageMenu = $('#feed-page-menu');
-
-    var $list = $('#feed-list');
-
-    var $showNextBtn = $('#show-next-feeds-btn');
-    var $showNextLoader = $('#show-next-feeds-loader');
-
-    var filter = new FeedFilter();
-    filter.onSetFilter = onSetFilter;
-    filter.onResetFilter = onResetFilter;
-
-    var feedTemplateId = 'feedTmpl';
-    var feedCommentTemplateId = 'feedCommentTmpl';
-
-    function init() {
+        productsAccessRights = productsAccessRightsParam.split(',');
+        for (var i = 0; i < productsAccessRights.length; i++) {
+            productsAccessRights[i] = productsAccessRights[i].toLowerCase() == 'true';
+        }
         initFilter();
         bindEvents();
     }
@@ -210,7 +203,8 @@ window.Feed = (function(productsAccessRightsParam) {
                             filtertitle: ASC.Resources.Master.FeedResource.ByUser + ':',
                             group: ASC.Resources.Master.FeedResource.ByUser,
                             hashmask: 'author/{0}',
-                            groupby: 'authorid'
+                            groupby: 'authorid',
+                            showme: false
                         }
                     ]),
                 sorters: []
@@ -435,7 +429,7 @@ window.Feed = (function(productsAccessRightsParam) {
     }
 
     function getFeedProductText(template) {
-        var productsCollection = FeedProductsColection;
+        var productsCollection = ASC.Feed.Products;
         if (!productsCollection) {
             return null;
         }
@@ -444,7 +438,7 @@ window.Feed = (function(productsAccessRightsParam) {
     }
 
     function getFeedActionText(template) {
-        var textsCollection = FeedTextsColection;
+        var textsCollection = ASC.Feed.Texts;
         if (!textsCollection) {
             return null;
         }
@@ -467,7 +461,7 @@ window.Feed = (function(productsAccessRightsParam) {
     }
 
     function getFeedLocation(template) {
-        var textsColection = FeedTextsColection;
+        var textsColection = ASC.Feed.Texts;
         if (!textsColection) {
             return null;
         }
@@ -1065,7 +1059,7 @@ window.Feed = (function(productsAccessRightsParam) {
         toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
     }
 
-    return {
+    return jq.extend({
         init: init
-    };
-});
+    }, ASC.Feed);
+})();

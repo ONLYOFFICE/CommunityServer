@@ -23,130 +23,111 @@
  *
 */
 
+if (typeof (ASC) === 'undefined') {
+     ASC = {};
+}
 
-window.FeedProductsColection = {
-    community: ASC.Resources.Master.FeedResource.CommunityProduct,
-    projects: ASC.Resources.Master.FeedResource.ProjectsProduct,
-    crm: ASC.Resources.Master.FeedResource.CrmProduct,
-    documents: ASC.Resources.Master.FeedResource.DocumentsProduct
-};
+if (typeof (ASC.Feed) === 'undefined') {
+    ASC.Feed = {};
+}
 
-window.FeedTextsColection = {
-    blog: {
-        createdText: ASC.Resources.Master.FeedResource.BlogCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.BlogCommentedText,
-        location: ASC.Resources.Master.FeedResource.BlogsModule
-    },
-    bookmark: {
-        createdText: ASC.Resources.Master.FeedResource.BookmarkCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.BookmarkCommentedText,
-        location: ASC.Resources.Master.FeedResource.BookmarksModule
-    },
-    news: {
-        createdText: ASC.Resources.Master.FeedResource.NewsCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.NewsCommentedText,
-        location: ASC.Resources.Master.FeedResource.EventsModule
-    },
-    order: {
-        createdText: ASC.Resources.Master.FeedResource.OrderCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.OrderCommentedText,
-        location: ASC.Resources.Master.FeedResource.EventsModule
-    },
-    advert: {
-        createdText: ASC.Resources.Master.FeedResource.AdvertCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.AdvertCommentedText,
-        location: ASC.Resources.Master.FeedResource.EventsModule
-    },
-    poll: {
-        createdText: ASC.Resources.Master.FeedResource.PollCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.PollCommentedText,
-        location: ASC.Resources.Master.FeedResource.EventsModule
-    },
-    forumPost: {
-        createdText: ASC.Resources.Master.FeedResource.ForumPostCreatedText,
-        location: ASC.Resources.Master.FeedResource.ForumsModule
-    },
-    forumTopic: {
-        createdText: ASC.Resources.Master.FeedResource.ForumTopicCreatedText,
-        location: ASC.Resources.Master.FeedResource.ForumsModule
-    },
-    forumPoll: {
-        createdText: ASC.Resources.Master.FeedResource.ForumPollCreatedText,
-        location: ASC.Resources.Master.FeedResource.ForumsModule
-    },
-    company: {
-        createdText: ASC.Resources.Master.FeedResource.CompanyCreatedText,
-        location: ASC.Resources.Master.FeedResource.ContactsModule
-    },
-    person: {
-        createdText: ASC.Resources.Master.FeedResource.PersonCreatedText,
-        location: ASC.Resources.Master.FeedResource.ContactsModule
-    },
-    crmTask: {
-        createdText: ASC.Resources.Master.FeedResource.CrmTaskCreatedText,
-        extraText: ASC.Resources.Master.FeedResource.Responsible,
-        extraText2: ASC.Resources.Master.FeedResource.Contact,
-        location: ASC.Resources.Master.FeedResource.CrmTaskModule
-    },
-    deal: {
-        createdText: ASC.Resources.Master.FeedResource.DealCreatedText,
-        extraText2: ASC.Resources.Master.FeedResource.Contact,
-        location: ASC.Resources.Master.FeedResource.OpportunitiesModule
-    },
-    cases: {
-        createdText: ASC.Resources.Master.FeedResource.CaseCreatedText,
-        location: ASC.Resources.Master.FeedResource.CasesModule
-    },
-    project: {
-        createdText: ASC.Resources.Master.FeedResource.ProjectCreatedText,
-        extraText: ASC.Resources.Master.FeedResource.ProjectManager
-    },
-    participant: {
-        createdText: ASC.Resources.Master.FeedResource.ParticipantCreatedText
-    },
-    milestone: {
-        createdText: ASC.Resources.Master.FeedResource.MilestoneCreatedText,
-        extraText: ASC.Resources.Master.FeedResource.Project,
-        location: ASC.Resources.Master.FeedResource.MilestonesModule
-    },
-    task: {
-        createdText: ASC.Resources.Master.FeedResource.TaskCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.TaskCommentedText,
-        extraText: ASC.Resources.Master.FeedResource.Project,
-        extraText2: ASC.Resources.Master.FeedResource.Responsibles,
-        location: ASC.Resources.Master.FeedResource.TasksModule
-    },
-    discussion: {
-        createdText: ASC.Resources.Master.FeedResource.DiscussionCreatedText,
-        commentedText: ASC.Resources.Master.FeedResource.DiscussionCommentedText,
-        location: ASC.Resources.Master.FeedResource.DiscussionsModule
-    },
-    file: {
-        createdText: ASC.Resources.Master.FeedResource.FileCreatedText,
-        createdExtraText: ASC.Resources.Master.FeedResource.FileCreatedInFolderText,
-        updatedText: ASC.Resources.Master.FeedResource.FileUpdatedText,
-        updatedExtraText: ASC.Resources.Master.FeedResource.FileUpdatedInFolderText,
-        extraText: ASC.Resources.Master.FeedResource.Size,
-        location: ASC.Resources.Master.FeedResource.FilesModule
-    },
-    sharedFile: {
-        createdText: ASC.Resources.Master.FeedResource.SharedFileCreatedText,
-        createdExtraText: ASC.Resources.Master.FeedResource.SharedFileCreatedInFolderText,
-        extraText: ASC.Resources.Master.FeedResource.Size,
-        location: ASC.Resources.Master.FeedResource.FilesModule
-    },
-    folder: {
-        createdText: ASC.Resources.Master.FeedResource.FolderCreatedText,
-        createdExtraText: ASC.Resources.Master.FeedResource.FolderCreatedInFolderText,
-        location: ASC.Resources.Master.FeedResource.FoldersModule
-    },
-    sharedFolder: {
-        createdText: ASC.Resources.Master.FeedResource.SharedFolderCreatedText,
-        location: ASC.Resources.Master.FeedResource.FoldersModule
+ASC.Feed = (function () {
+    var feedResource = ASC.Resources.Master.FeedResource;
+
+    function createTextsObj(createdText, location, commentedText) {
+        var result = {
+            createdText: createdText,
+            location: location
+        }
+
+        if (typeof commentedText !== "undefined") {
+            result.commentedText = commentedText;
+        }
+
+        return result;
     }
-};
 
-var FeedReader = function() {
+    return jq.extend({
+            Products: {
+                community: feedResource.CommunityProduct,
+                projects: feedResource.ProjectsProduct,
+                crm: feedResource.CrmProduct,
+                documents: feedResource.DocumentsProduct
+            },
+            Texts: {
+                blog: createTextsObj(feedResource.BlogCreatedText, feedResource.BlogsModule, feedResource.BlogCommentedText),
+                bookmark: createTextsObj(feedResource.BookmarkCreatedText, feedResource.BookmarksModule, feedResource.BookmarkCommentedText),
+                news: createTextsObj(feedResource.NewsCreatedText, feedResource.EventsModule, feedResource.NewsCommentedText),
+                order: createTextsObj(feedResource.OrderCreatedText, feedResource.EventsModule, feedResource.OrderCommentedText),
+                advert: createTextsObj(feedResource.AdvertCreatedText, feedResource.EventsModule, feedResource.AdvertCommentedText),
+                poll: createTextsObj(feedResource.PollCreatedText, feedResource.EventsModule, feedResource.PollCommentedText),
+                forumPost: createTextsObj(feedResource.ForumPostCreatedText, feedResource.ForumsModule),
+                forumTopic: createTextsObj(feedResource.ForumTopicCreatedText, feedResource.ForumsModule),
+                forumPoll: createTextsObj(feedResource.ForumPollCreatedText, feedResource.ForumsModule),
+                company: createTextsObj(feedResource.CompanyCreatedText, feedResource.ContactsModule),
+                person: createTextsObj(feedResource.PersonCreatedText, feedResource.ContactsModule),
+                crmTask: {
+                    createdText: feedResource.CrmTaskCreatedText,
+                    extraText: feedResource.Responsible,
+                    extraText2: feedResource.Contact,
+                    location: feedResource.CrmTaskModule
+                },
+                deal: {
+                    createdText: feedResource.DealCreatedText,
+                    extraText2: feedResource.Contact,
+                    location: feedResource.OpportunitiesModule
+                },
+                cases: createTextsObj(feedResource.CaseCreatedText, feedResource.CasesModule),
+                project: {
+                    createdText: feedResource.ProjectCreatedText,
+                    extraText: feedResource.ProjectManager
+                },
+                participant: {
+                    createdText: feedResource.ParticipantCreatedText
+                },
+                milestone: {
+                    createdText: feedResource.MilestoneCreatedText,
+                    extraText: feedResource.Project,
+                    location: feedResource.MilestonesModule
+                },
+                task: {
+                    createdText: feedResource.TaskCreatedText,
+                    commentedText: feedResource.TaskCommentedText,
+                    extraText: feedResource.Project,
+                    extraText2: feedResource.Responsibles,
+                    location: feedResource.TasksModule
+                },
+                discussion: {
+                    createdText: feedResource.DiscussionCreatedText,
+                    commentedText: feedResource.DiscussionCommentedText,
+                    location: feedResource.DiscussionsModule
+                },
+                file: {
+                    createdText: feedResource.FileCreatedText,
+                    createdExtraText: feedResource.FileCreatedInFolderText,
+                    updatedText: feedResource.FileUpdatedText,
+                    updatedExtraText: feedResource.FileUpdatedInFolderText,
+                    extraText: feedResource.Size,
+                    location: feedResource.FilesModule
+                },
+                sharedFile: {
+                    createdText: feedResource.SharedFileCreatedText,
+                    createdExtraText: feedResource.SharedFileCreatedInFolderText,
+                    extraText: feedResource.Size,
+                    location: feedResource.FilesModule
+                },
+                folder: {
+                    createdText: feedResource.FolderCreatedText,
+                    createdExtraText: feedResource.FolderCreatedInFolderText,
+                    location: feedResource.FoldersModule
+                },
+                sharedFolder: createTextsObj(feedResource.SharedFolderCreatedText, feedResource.FoldersModule)
+            }
+        }, ASC.Feed);
+})();
+
+
+ASC.Feed.Reader = (function() {
     var guestId = '712d9ec3-5d2b-4b13-824f-71f00191dcca';
 
     var newFeedsVal;
@@ -180,7 +161,7 @@ var FeedReader = function() {
     }
 
     function getNewFeedsCount() {
-        Teamlab.getNewFeedsCount({}, { filter: {}, success: onGetNewFeedsCount });
+        Teamlab.getNewFeedsCount({}, { filter: {}, success: onGetNewFeedsCount, async: true });
     }
 
     function onGetNewFeedsCount(params, newsCount) {
@@ -287,7 +268,7 @@ var FeedReader = function() {
     }
 
     function getFeedProductText(template) {
-        var productsCollection = FeedProductsColection;
+        var productsCollection = ASC.Feed.Products;
         if (!productsCollection) {
             return null;
         }
@@ -296,7 +277,7 @@ var FeedReader = function() {
     }
 
     function getFeedLocation(template) {
-        var textsColection = FeedTextsColection;
+        var textsColection = ASC.Feed.Texts;
         if (!textsColection) {
             return null;
         }
@@ -310,7 +291,7 @@ var FeedReader = function() {
     }
 
     function getFeedActionText(template) {
-        var textsCollection = FeedTextsColection;
+        var textsCollection = ASC.Feed.Texts;
         if (!textsCollection) {
             return null;
         }
@@ -389,80 +370,83 @@ var FeedReader = function() {
         }
     }
 
-    return {
-        getNewFeedsCount: getNewFeedsCount,
-        onGetNewFeedsCount: onGetNewFeedsCount,
-        getDropFeeds: getDropFeeds,
+    function init() {
+        if (jq("#studioPageContent li.feed a.feedActiveBox").length == 0)
+            return;
 
-        newFeeds: newFeeds,
-        newsRequested: newsRequested,
-        newsReaded: newsReaded
-    };
-}();
+        jq.dropdownToggle({
+            switcherSelector: '.studio-top-panel .feedActiveBox',
+            dropdownID: 'studio_dropFeedsPopupPanel',
+            addTop: 5,
+            addLeft: -392
+        });
 
-jq(document).ready(function() {
-    jq.dropdownToggle({
-        switcherSelector: '.studio-top-panel .feedActiveBox',
-        dropdownID: 'studio_dropFeedsPopupPanel',
-        addTop: 5,
-        addLeft: -392
-    });
-
-    jq('.studio-top-panel .feedActiveBox').on('mouseup', function(event) {
-        if (event.which == 2 && FeedReader.newFeeds()) {
-            FeedReader.newFeeds(false);
-            jq('.top-item-box.feed').removeClass('has-led');
-        }
-    });
-
-    jq('.studio-top-panel .feedActiveBox').on('click', function(event) {
-        if (FeedReader.newsRequested()) {
-            return false;
-        }
-
-        if (event.which == 2 && FeedReader.newFeeds()) {
-            FeedReader.newFeeds(false);
-            jq('.top-item-box.feed').removeClass('has-led');
-            return true;
-        }
-        if (event.which != 1) {
-            return true;
-        }
-
-        if (FeedReader.newFeeds()) {
-            if (!FeedReader.newsReaded()) {
-                FeedReader.newsRequested(true);
-
-                FeedReader.getDropFeeds();
-                Teamlab.readFeeds({}, {
-                    filter: {},
-                    success: function (params, readed) {
-                        try {
-                            if (ASC.Resources.Master.Hub.Url) {
-                                // sendFeedsCount
-                                jq.connection.ch.server.sfc();
-                            }
-                        } catch (e) {
-                            console.error(e.message);
-                        }
-                        if (readed) {
-                            FeedReader.newsRequested(false);
-                            FeedReader.newsReaded(true);
-                            jq('.top-item-box.feed').removeClass('has-led');
-                        }
-                    }
-                });
+        jq('.studio-top-panel .feedActiveBox').on('mouseup', function (event) {
+            if (event.which == 2 && newFeeds()) {
+                newFeeds(false);
+                jq('.top-item-box.feed').removeClass('has-led');
             }
-            event.preventDefault();
-        } else {
-            event.stopPropagation();
-        }
+        });
 
-        return true;
-    });
-    if (!ASC.Resources.Master.Hub.Url) {
-        setTimeout(function () {
-            FeedReader.getNewFeedsCount();
-        }, 3000);
+        jq('.studio-top-panel .feedActiveBox').on('click', function (event) {
+            if (newsRequested()) {
+                return false;
+            }
+
+            if (event.which == 2 && newFeeds()) {
+                newFeeds(false);
+                jq('.top-item-box.feed').removeClass('has-led');
+                return true;
+            }
+            if (event.which != 1) {
+                return true;
+            }
+
+            if (newFeeds()) {
+                if (!newsReaded()) {
+                    newsRequested(true);
+
+                    getDropFeeds();
+                    Teamlab.readFeeds({}, {
+                        filter: {},
+                        success: function (params, readed) {
+                            try {
+                                if (ASC.Resources.Master.Hub.Url) {
+                                    // sendFeedsCount
+                                    jq.connection.ch.server.sfc();
+                                }
+                            } catch (e) {
+                                console.error(e.message);
+                            }
+                            if (readed) {
+                                newsRequested(false);
+                                newsReaded(true);
+                                jq('.top-item-box.feed').removeClass('has-led');
+                            }
+                        }
+                    });
+                }
+                event.preventDefault();
+            } else {
+                event.stopPropagation();
+            }
+
+            return true;
+        });
+        if (!ASC.Resources.Master.Hub.Url) {
+            StudioManager.addPendingRequest(getNewFeedsCount);
+        }
     }
+
+    return {
+        init: init,
+        onGetNewFeedsCount: onGetNewFeedsCount
+    };
+})();
+
+jq(document).ready(function () {
+    if (jq("#studioPageContent li.feed a.feedActiveBox").length == 0)
+        return;
+
+    ASC.Feed.Reader.init();
 });

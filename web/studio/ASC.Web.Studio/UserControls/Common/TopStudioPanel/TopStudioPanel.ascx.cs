@@ -34,6 +34,7 @@ using ASC.Web.Core.WebZones;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
@@ -123,14 +124,24 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected bool DisplayTrialCountDays;
         protected int TariffDays;
-
-        protected bool? IsAuthorizedPartner { get; set; }
-        protected Partner Partner { get; set; }
-
         protected CompanyWhiteLabelSettings Settings { get; set; }
+        protected string CurrentProductName { get; set; }
+        protected string CurrentProductClassName { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            var currentProductID = string.IsNullOrEmpty(Request["productID"]) ? CommonLinkUtility.GetProductID() : new Guid(Request["productID"]);
+            CurrentProduct = WebItemManager.Instance[currentProductID] as IProduct;
+            if (CurrentProduct != null)
+            {
+                CurrentProductClassName = CurrentProduct.ProductClassName;
+                CurrentProductName = CurrentProduct.Name;
+            }
+            else
+            {
+                GetAddonNameAndClass();
+            }
+
             if (!DisableSearch)
             {
                 RenderSearchProducts();
@@ -147,7 +158,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 UserInfoVisible = !DisableUserInfo.HasValue || !DisableUserInfo.Value;
             }
 
-            if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal || CurrentUser.IsVisitor())
+            if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal || CurrentUser.IsVisitor() || (!CurrentUser.IsAdmin() && TariffSettings.HidePricingPage))
             {
                 DisableTariff = true;
             }
@@ -188,17 +199,6 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
             }
 
-            if (CoreContext.Configuration.PartnerHosted)
-            {
-                IsAuthorizedPartner = false;
-                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (partner != null)
-                {
-                    IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
-                    Partner = partner;
-                }
-            }
-
             if (!DisableTariff)
             {
                 var tariff = TenantExtra.GetCurrentTariff();
@@ -210,96 +210,54 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
             }
 
-            if (VoipNavigation.VoipEnabled)
-                _voipPhonePlaceholder.Controls.Add(LoadControl(VoipPhoneControl.Location));
 
             Settings = CompanyWhiteLabelSettings.Instance;
         }
 
         #region currentProduct
 
-        private IProduct _currentProduct;
-
-        protected IProduct CurrentProduct
-        {
-            get
-            {
-                if (_currentProduct == null)
-                {
-                    var currentProductID =
-                        String.IsNullOrEmpty(Request["productID"])
-                            ? CommonLinkUtility.GetProductID()
-                            : new Guid(Request["productID"]);
-
-                    _currentProduct = WebItemManager.Instance[currentProductID] as IProduct;
-                }
-                return _currentProduct;
-            }
-        }
+        protected IProduct CurrentProduct { get; set; }
 
         private IWebItem GetCurrentWebItem
         {
             get { return CommonLinkUtility.GetWebItemByUrl(Context.Request.Url.AbsoluteUri); }
         }
 
-        private string GetAddonNameOrEmptyClass()
+        private void GetAddonNameAndClass()
         {
             if (Page is Studio.Feed)
-                return "feed";
+            {
+                CurrentProductClassName = "feed";
+                CurrentProductName = UserControlsCommonResource.FeedTitle;
+                return;
+            }
 
             if (Page is Studio.Management)
-                return "settings";
+            {
+                CurrentProductClassName = "settings";
+                CurrentProductName = Resource.Administration;
+                return;
+            }
 
             var item = GetCurrentWebItem;
 
             if (item == null)
-                return "";
-
-            if (item.ID == WebItemManager.CalendarProductID || item.ID == WebItemManager.TalkProductID || item.ID == WebItemManager.MailProductID)
-                return item.ProductClassName;
-
-            return "";
-        }
-
-        private string GetAddonNameOrEmpty()
-        {
-            if (Page is Studio.Feed)
-                return UserControlsCommonResource.FeedTitle;
-
-            if (Page is Studio.Management)
-                return Resource.Administration;
-
-            var item = GetCurrentWebItem;
-
-            if (item == null)
-                return Resource.SelectProduct;
-
-            if (item.ID == WebItemManager.CalendarProductID || item.ID == WebItemManager.TalkProductID || item.ID == WebItemManager.MailProductID)
-                return item.Name;
-
-            return Resource.SelectProduct;
-        }
-
-        protected string CurrentProductName
-        {
-            get
             {
-                return
-                    CurrentProduct == null
-                        ? GetAddonNameOrEmpty()
-                        : CurrentProduct.Name;
+                CurrentProductClassName = "";
+                CurrentProductName = Resource.SelectProduct;
+                return;
             }
-        }
 
-        protected string CurrentProductClassName
-        {
-            get
+            if (item.ID == WebItemManager.CalendarProductID || item.ID == WebItemManager.TalkProductID ||
+                item.ID == WebItemManager.MailProductID)
             {
-                return
-                    CurrentProduct == null
-                        ? GetAddonNameOrEmptyClass()
-                        : CurrentProduct.ProductClassName;
+                CurrentProductClassName = item.ProductClassName;
+                CurrentProductName = item.Name;
+                return;
             }
+
+            CurrentProductClassName = "";
+            CurrentProductName = Resource.SelectProduct;
         }
 
         #endregion
@@ -337,11 +295,11 @@ namespace ASC.Web.Studio.UserControls.Common
                 sb.Append(rendered);
             }
 
-            rendered = VoipNavigation.RenderCustomNavigation(Page);
+/*            rendered = VoipNavigation.RenderCustomNavigation(Page);
             if (!string.IsNullOrEmpty(rendered))
             {
                 sb.Append(rendered);
-            }
+            }*/
 
             return sb.ToString();
         }

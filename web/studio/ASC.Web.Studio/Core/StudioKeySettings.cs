@@ -33,28 +33,11 @@ namespace ASC.Web.Studio.Core
     {
         public static string GetKey()
         {
-            if (CoreContext.Configuration.PartnerHosted)
-            {
-                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (partner != null)
-                {
-                    return partner.Id.Replace("-", "");
-                }
-            }
-
             return CoreContext.Configuration.GetKey(TenantProvider.CurrentTenantID);
         }
 
         public static string GetSKey()
         {
-            if (CoreContext.Configuration.PartnerHosted)
-            {
-                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (partner != null)
-                {
-                    return partner.AuthorizedKey;
-                }
-            }
             return CoreContext.Configuration.SKey;
         }
     }

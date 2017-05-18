@@ -1,0 +1,112 @@
+﻿<script id="message-print-tmpl" type="text/x-jquery-tmpl">
+    <div id="message-print-view">
+        {{if messages.length > 0}}
+            <div class="head-subject">
+                <div class="viewTitle">${messages[0].subject || MailScriptResource.NoSubject}</div>
+            </div>
+        {{/if}}
+
+        {{each(index, message) messages}}
+        <div class="message-print-box" data-messageid="${id}">
+            <div class="message-wrap">
+                <div class="full-view">
+                    <div class="head">
+                         <table>
+                            <tbody>
+                                <tr class="row">
+                                    <td class="header-label">
+                                        ${ASC.Mail.Resources.MailScriptResource.FromLabel}:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${from}</div>
+                                    </td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="header-label">
+                                        ${ASC.Mail.Resources.MailScriptResource.ToLabel}:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${to}</div>
+                                    </td>
+                                </tr>
+                                {{if cc}}
+                                <tr class="row">
+                                    <td class="header-label">
+                                        ${ASC.Mail.Resources.MailResource.CopyLabel}:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${cc}</div>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                {{if bcc}}
+                                <tr class="row">
+                                    <td class="header-label">
+                                        ${ASC.Mail.Resources.MailResource.BCCLabel}:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${bcc}</div>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                <tr class="row">
+                                    <td class="header-label">
+                                        ${ASC.Mail.Resources.MailScriptResource.DateLabel}:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${date}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="display-none">
+                {{if contentIsBlocked == true}}
+                    {{tmpl(message) "messageBlockContent"}}
+                {{/if}}
+            </div>
+
+            <div class="body">
+                {{html printedHtmlBody}}
+            </div>
+            
+            {{if hasAttachments == true}}
+                <div class="attachments">
+                    {{if attachments.length > 0}}
+                        <div class="title-attachments">
+                            <div class="icon"><i class="icon-attachment"></i></div>
+                            <div class="attachment-message has-attachment"></div>${ASC.Mail.Resources.MailResource.Attachments} (${attachments.length}):
+                            <span class="fullSizeLabel">
+                                ${ASC.Mail.Resources.MailResource.FullSize}: ${$item.fileSizeToStr(full_size)}
+                            </span>
+                        </div>
+                    {{/if}}
+                    <table class="attachments_list">
+                        <tbody>
+                            {{each attachments}}
+                                <tr class="row">
+                                    <td class="file_icon">
+                                        <div class="attachmentImage ${$value.iconCls}"/>
+                                    </td>
+                                    <td class="file_info">
+                                        <span title="${$value.fileName}">
+                                            <span class="file-name">
+                                                ${$item.cutFileName($item.getFileNameWithoutExt($value.fileName))}
+                                                <span class="file-extension">${$item.getFileExtension($value.fileName)}</span>
+                                            </span>
+                                        </span>
+                                        <span class="fullSizeLabel">(${$item.fileSizeToStr($value.size)})</span>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</script>

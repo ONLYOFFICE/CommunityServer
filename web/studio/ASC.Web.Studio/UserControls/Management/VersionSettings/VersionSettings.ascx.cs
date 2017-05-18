@@ -50,8 +50,8 @@ namespace ASC.Web.Studio.UserControls.Management.VersionSettings
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
-            Page.RegisterStyle("~/usercontrols/management/versionsettings/css/versionsettings.less");
-            Page.RegisterBodyScripts("~/usercontrols/Management/VersionSettings/js/script.js");
+            Page.RegisterStyle("~/usercontrols/management/versionsettings/css/versionsettings.less")
+                .RegisterBodyScripts("~/usercontrols/Management/VersionSettings/js/script.js");
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]

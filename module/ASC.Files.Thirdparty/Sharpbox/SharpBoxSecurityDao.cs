@@ -109,5 +109,10 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public void DeleteShareRecords(params FileShareRecord[] records)
         {
         }
+
+        public bool IsShared(object entryId, FileEntryType type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

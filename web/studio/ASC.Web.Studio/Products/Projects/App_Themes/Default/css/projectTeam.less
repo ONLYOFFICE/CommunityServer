@@ -85,7 +85,7 @@
 }
 .pm-projectTeam-modulePermissionOff {
     background: url("../images/common-icons.png") no-repeat 0 -22px;
-    padding: 5px 0 5px 20px;
+    padding: 5px 0 5px 23px;
     cursor: pointer;
 
     span {
@@ -175,6 +175,7 @@
             display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;
+            max-width: 340px;
 
             &.without-title {
                 margin-top: 6px;
@@ -209,6 +210,12 @@
         .pm-projectTeam-userPhotoContainer,
         .user-info-container {
             float: left;
+
+            span{
+                max-width:350px; 
+                overflow:hidden; 
+                white-space:nowrap;
+            }
         }
 
         span {
@@ -233,10 +240,6 @@
     }
 }
 
-    
-#userActionPanel {
-    width: 165px;
-}
 body.media-width-0-1200 .pm-projectTeam-participantContainer .splitter {
     display:none;
 }

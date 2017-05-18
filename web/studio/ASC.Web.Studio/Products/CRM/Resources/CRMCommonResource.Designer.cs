@@ -79,7 +79,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Права будут установлены только на те контакты, для которых вы являетесь автором..
+        ///   Looks up a localized string similar to The access rights will be set only for the contacts which were created by you..
         /// </summary>
         public static string AccessRightsLimit {
             get {
@@ -133,7 +133,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add tag.
+        ///   Looks up a localized string similar to Add Tag.
         /// </summary>
         public static string AddNewTag {
             get {
@@ -151,7 +151,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add this event.
+        ///   Looks up a localized string similar to Add This Event.
         /// </summary>
         public static string AddThisNote {
             get {
@@ -178,7 +178,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the terms similar in spelling use the {0}~{1} symbol at the end of a word.{2}Learn more...{3}.
+        ///   Looks up a localized string similar to Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. It&apos;s not recommended to use these symbols at the beginning of your query. To search for the exact phrase use the quotation marks.{2}Learn more...{3}.
         /// </summary>
         public static string AdvansedFilterInfoText {
             get {
@@ -196,7 +196,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Corresponding TeamLab CRM field.
+        ///   Looks up a localized string similar to Corresponding ONLYOFFICE™ CRM field.
         /// </summary>
         public static string AssignedField {
             get {
@@ -250,11 +250,20 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By category.
+        ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string ByCategory {
             get {
                 return ResourceManager.GetString("ByCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By title.
+        /// </summary>
+        public static string ByTitle {
+            get {
+                return ResourceManager.GetString("ByTitle", resourceCulture);
             }
         }
         
@@ -349,7 +358,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Двоеточие.
+        ///   Looks up a localized string similar to Colon.
         /// </summary>
         public static string Colon {
             get {
@@ -367,7 +376,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Запятая.
+        ///   Looks up a localized string similar to Comma.
         /// </summary>
         public static string Comma {
             get {
@@ -385,7 +394,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compose a letter to be sent to all the clients selected in the contact list. You can check the number of selected clients in the &apos;To&apos; field, enter a common &apos;Subject&apos; and use the &apos;Personal tags&apos; to include all the necessary information to your letter..
+        ///   Looks up a localized string similar to Compose a letter to be sent to all the clients selected in the contact list. You can check the number of selected clients in the &apos;To&apos; field, enter a common &apos;Subject&apos; and use the &apos;Personal tags&apos; to include all the necessary information to your letter. This is a beta version for those who want to try out new features of ONLYOFFICE™ CRM..
         /// </summary>
         public static string ComposeMailDescription {
             get {
@@ -412,7 +421,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Изменить список стадий теплоты контакта можно {0}тут{1}.
+        ///   Looks up a localized string similar to To change the list of the contact temperature levels, refer to the CRM {0}Settings{1} section.
         /// </summary>
         public static string ContactCategoriesHelpInfo {
             get {
@@ -466,7 +475,16 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кол-во.
+        ///   Looks up a localized string similar to Convert.
+        /// </summary>
+        public static string Convert {
+            get {
+                return ResourceManager.GetString("Convert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
         /// </summary>
         public static string Count {
             get {
@@ -691,7 +709,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new contact.
+        ///   Looks up a localized string similar to Create New Contact.
         /// </summary>
         public static string CreateNewContact {
             get {
@@ -718,7 +736,16 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product CRM is not enabled.
+        ///   Looks up a localized string similar to Creation date.
+        /// </summary>
+        public static string CreationDate {
+            get {
+                return ResourceManager.GetString("CreationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The CRM module is not enabled.
         /// </summary>
         public static string CRMProductIsDisabled {
             get {
@@ -1024,7 +1051,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Latvian Lats.
+        ///   Looks up a localized string similar to Latvian Lat.
         /// </summary>
         public static string Currency_LatvianLats {
             get {
@@ -1092,6 +1119,15 @@ namespace ASC.Web.CRM.Resources {
         public static string Currency_MoroccanDirham {
             get {
                 return ResourceManager.GetString("Currency_MoroccanDirham", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Belarusian Ruble.
+        /// </summary>
+        public static string Currency_NewBelarusianRuble {
+            get {
+                return ResourceManager.GetString("Currency_NewBelarusianRuble", resourceCulture);
             }
         }
         
@@ -1357,7 +1393,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom.
+        ///   Looks up a localized string similar to Custom period.
         /// </summary>
         public static string CustomDateFilter {
             get {
@@ -1366,7 +1402,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom.
+        ///   Looks up a localized string similar to Other users.
         /// </summary>
         public static string CustomResponsibleFilter {
             get {
@@ -1447,7 +1483,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add taxes specific to certain countries and use them with invoices..
+        ///   Looks up a localized string similar to Add taxes specific to certain countries and use them in invoices..
         /// </summary>
         public static string DashInvoiceTaxes {
             get {
@@ -1510,7 +1546,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overdue by {0} day(s).
+        ///   Looks up a localized string similar to {0} day(s) overdue.
         /// </summary>
         public static string DateOverueByDays {
             get {
@@ -1537,7 +1573,16 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete this event.
+        ///   Looks up a localized string similar to Delete contact.
+        /// </summary>
+        public static string DeleteContact {
+            get {
+                return ResourceManager.GetString("DeleteContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete event.
         /// </summary>
         public static string DeleteHistoryEvent {
             get {
@@ -1609,7 +1654,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Двойная кавычка.
+        ///   Looks up a localized string similar to Double quote.
         /// </summary>
         public static string DoubleQuote {
             get {
@@ -1623,6 +1668,33 @@ namespace ASC.Web.CRM.Resources {
         public static string DuplicateRecords {
             get {
                 return ResourceManager.GetString("DuplicateRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {!Users}.
+        /// </summary>
+        public static string Employees {
+            get {
+                return ResourceManager.GetString("Employees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Be aware of what your clients think about your produce and brand in the social network..
+        /// </summary>
+        public static string EmptyContentTwitterAccountsDescribe {
+            get {
+                return ResourceManager.GetString("EmptyContentTwitterAccountsDescribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No linked twitter accounts.
+        /// </summary>
+        public static string EmptyContentTwitterAccountsHeader {
+            get {
+                return ResourceManager.GetString("EmptyContentTwitterAccountsHeader", resourceCulture);
             }
         }
         
@@ -1650,6 +1722,15 @@ namespace ASC.Web.CRM.Resources {
         public static string EmptyHistoryHeader {
             get {
                 return ResourceManager.GetString("EmptyHistoryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The opportunity participant list is empty.
+        /// </summary>
+        public static string EmptyPeopleInDealContent {
+            get {
+                return ResourceManager.GetString("EmptyPeopleInDealContent", resourceCulture);
             }
         }
         
@@ -1690,6 +1771,24 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        public static string Files {
+            get {
+                return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum file size is exceeded.
         /// </summary>
         public static string FileSizeErrorMsg {
@@ -1699,7 +1798,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By creation date.
+        ///   Looks up a localized string similar to Creation date.
         /// </summary>
         public static string FilterByCreationDate {
             get {
@@ -1708,7 +1807,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By date.
+        ///   Looks up a localized string similar to Due date.
         /// </summary>
         public static string FilterByDate {
             get {
@@ -1717,7 +1816,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By responsible.
+        ///   Looks up a localized string similar to Responsible.
         /// </summary>
         public static string FilterByResponsible {
             get {
@@ -1780,7 +1879,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Изменить список категорий для событий истории можно {0}тут{1}.
+        ///   Looks up a localized string similar to You can change the list for categories of history events {0}here{1}.
         /// </summary>
         public static string HistoryCategoriesHelpInfo {
             get {
@@ -1825,7 +1924,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  was received.
+        ///   Looks up a localized string similar to has been received.
         /// </summary>
         public static string HistoryEventInboxMail {
             get {
@@ -1834,7 +1933,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to was sent.
+        ///   Looks up a localized string similar to has been sent.
         /// </summary>
         public static string HistoryEventOutboxMail {
             get {
@@ -1861,7 +1960,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дублировать.
+        ///   Looks up a localized string similar to Duplicate.
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_Clone {
             get {
@@ -1870,8 +1969,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
-        ///Выбрав опцию &quot;Дублировать&quot;,  при импорте  будет создан дубликат записи B.
+        ///   Looks up a localized string similar to Use this option to import contacts duplicating the coinciding contacts. E.g. there are two records - &apos;A&apos; and &apos;B&apos; - in your ONLYOFFICE™ CRM. You want to import &apos;B&apos; and &apos;C&apos; records. In case you select the &apos;Duplicate&apos; option, a duplicate record to &apos;B&apos; will be created while importing..
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_CloneDescription {
             get {
@@ -1880,7 +1978,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duplicate check will be performed based on the Email field..
+        ///   Looks up a localized string similar to Check for duplicates will be performed based on the Email field..
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_Description {
             get {
@@ -1889,7 +1987,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Перезаписать.
+        ///   Looks up a localized string similar to Overwrite.
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_Overwrite {
             get {
@@ -1898,8 +1996,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
-        ///Выбрав опцию &quot;Перезаписать&quot;,  при импорте запись B будет заменена существующей..
+        ///   Looks up a localized string similar to Use this option to import contacts overwriting the existing contacts. E.g. there are two records - &apos;A&apos; and &apos;B&apos; - in your ONLYOFFICE™ CRM. You want to import &apos;B&apos; and &apos;C&apos; records. In case you select the &apos;Overwrite&apos; option, the existing &apos;B&apos; will be overwritten by the imported one while importing..
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_OverwriteDescription {
             get {
@@ -1908,7 +2005,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пропустить.
+        ///   Looks up a localized string similar to Skip.
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_Skip {
             get {
@@ -1917,8 +2014,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
-        ///Выбрав опцию &quot;Пропустить&quot;, при импорте запись B будет пропущена.
+        ///   Looks up a localized string similar to Use this option to import contacts keeping the existing contacts. E.g. there are two records - &apos;A&apos; and &apos;B&apos; - in your ONLYOFFICE™ CRM. You want to import &apos;B&apos; and &apos;C&apos; records. In case you select the &apos;Skip&apos; option, the existing &apos;B&apos; will be preserved while importing..
         /// </summary>
         public static string ImportFromCSV_DublicateBehavior_SkipDescription {
             get {
@@ -1927,7 +2023,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Символ разделитель.
+        ///   Looks up a localized string similar to Delimiter.
         /// </summary>
         public static string ImportFromCSV_ReadFileSettings_DelimiterCharacter {
             get {
@@ -1936,7 +2032,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кодировка.
+        ///   Looks up a localized string similar to Encoding.
         /// </summary>
         public static string ImportFromCSV_ReadFileSettings_Encoding {
             get {
@@ -1945,7 +2041,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Настройки CSV файла.
+        ///   Looks up a localized string similar to CSV File Settings.
         /// </summary>
         public static string ImportFromCSV_ReadFileSettings_Header {
             get {
@@ -1954,7 +2050,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Разделитель текста.
+        ///   Looks up a localized string similar to Text Delimiter.
         /// </summary>
         public static string ImportFromCSV_ReadFileSettings_QuoteCharacter {
             get {
@@ -1977,6 +2073,33 @@ namespace ASC.Web.CRM.Resources {
         public static string ImportFromCSVStepTwoProgressLable {
             get {
                 return ResourceManager.GetString("ImportFromCSVStepTwoProgressLable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Contact List.
+        /// </summary>
+        public static string ImportStartingPanelButton {
+            get {
+                return ResourceManager.GetString("ImportStartingPanelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import of contacts can take several minutes depending on the amount of your data. You will be informed when it is done..
+        /// </summary>
+        public static string ImportStartingPanelDescription {
+            get {
+                return ResourceManager.GetString("ImportStartingPanelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing started.
+        /// </summary>
+        public static string ImportStartingPanelHeader {
+            get {
+                return ResourceManager.GetString("ImportStartingPanelHeader", resourceCulture);
             }
         }
         
@@ -2053,7 +2176,16 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, wait..
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LoadingProcessing {
+            get {
+                return ResourceManager.GetString("LoadingProcessing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait ....
         /// </summary>
         public static string LoadingWait {
             get {
@@ -2062,7 +2194,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тело письма.
+        ///   Looks up a localized string similar to Email body.
         /// </summary>
         public static string MailBody {
             get {
@@ -2089,7 +2221,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teamlab Mass Send Feature: &quot;{0}&quot;.
+        ///   Looks up a localized string similar to ONLYOFFICE™ Mass Send Feature: &quot;{0}&quot;.
         /// </summary>
         public static string MailHistoryEventTemplate {
             get {
@@ -2098,7 +2230,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mail Send.
+        ///   Looks up a localized string similar to Sending Mail.
         /// </summary>
         public static string MailSend {
             get {
@@ -2116,7 +2248,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid email: {0}.
+        ///   Looks up a localized string similar to Invalid email address: {0}.
         /// </summary>
         public static string MailSender_InvalidEmail {
             get {
@@ -2125,7 +2257,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delivery failed - retrying in {0} seconds..
+        ///   Looks up a localized string similar to Delivery failed - will retry in {0} seconds..
         /// </summary>
         public static string MailSender_MailboxBusyException {
             get {
@@ -2134,7 +2266,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Заголовок письма.
+        ///   Looks up a localized string similar to Email subject.
         /// </summary>
         public static string MailSubject {
             get {
@@ -2161,6 +2293,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculator.
         /// </summary>
         public static string MoneyCalculator {
@@ -2179,11 +2320,29 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My.
+        ///   Looks up a localized string similar to My opportunities.
+        /// </summary>
+        public static string MyDeals {
+            get {
+                return ResourceManager.GetString("MyDeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My events.
         /// </summary>
         public static string MyEventsFilter {
             get {
                 return ResourceManager.GetString("MyEventsFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My tasks.
+        /// </summary>
+        public static string MyTasks {
+            get {
+                return ResourceManager.GetString("MyTasks", resourceCulture);
             }
         }
         
@@ -2287,7 +2446,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Organisation Profile.
+        ///   Looks up a localized string similar to Organization Profile.
         /// </summary>
         public static string OrganisationProfile {
             get {
@@ -2314,11 +2473,38 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overview.
+        /// </summary>
+        public static string Overview {
+            get {
+                return ResourceManager.GetString("Overview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Share.
         /// </summary>
         public static string Part {
             get {
                 return ResourceManager.GetString("Part", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait.
+        /// </summary>
+        public static string PleaseWait {
+            get {
+                return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portal name.
+        /// </summary>
+        public static string PortalName {
+            get {
+                return ResourceManager.GetString("PortalName", resourceCulture);
             }
         }
         
@@ -2405,7 +2591,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Делать все то же, что и пользователь CRM|Импортировать, экспортировать данные|Рассылать письма контактам|Задавать настройки|Управлять любым контактом, задачей, мероприятием, сделкой.
+        ///   Looks up a localized string similar to Do the same as CRM user|Import, export data|Send emails to CRM contacts|Manage settings|Manage any contact, task, case, opportunity.
         /// </summary>
         public static string ProductAdminOpportunities {
             get {
@@ -2450,7 +2636,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Создавать контакт, задачу, мероприятие, сделку с возможностью ограничения доступа к ним|Редактировать контакт, задачу, мероприятие, сделке к которым предоставлен доступ.
+        ///   Looks up a localized string similar to Create contact, task, case, opportunity with a possibility to limit access to them|Edit contact, task, case, opportunity with the access rights set up.
         /// </summary>
         public static string ProductUserOpportunities {
             get {
@@ -2540,7 +2726,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SelectAll.
+        ///   Looks up a localized string similar to Select All.
         /// </summary>
         public static string SelectAll {
             get {
@@ -2558,7 +2744,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Точка с запятой.
+        ///   Looks up a localized string similar to Semicolon.
         /// </summary>
         public static string Semicolon {
             get {
@@ -2585,7 +2771,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set permissions.
+        ///   Looks up a localized string similar to Set Permissions.
         /// </summary>
         public static string SetPermissions {
             get {
@@ -2639,6 +2825,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show more.
+        /// </summary>
+        public static string ShowMore {
+            get {
+                return ResourceManager.GetString("ShowMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show on page.
         /// </summary>
         public static string ShowOnPage {
@@ -2648,7 +2843,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Одиночная кавычка.
+        ///   Looks up a localized string similar to Single quote .
         /// </summary>
         public static string SingleQuote {
             get {
@@ -2657,7 +2852,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пробел.
+        ///   Looks up a localized string similar to Space.
         /// </summary>
         public static string Space {
             get {
@@ -2666,7 +2861,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Store this letter in History.
+        ///   Looks up a localized string similar to Store this message in History.
         /// </summary>
         public static string StoreThisLetterInHistory {
             get {
@@ -2684,7 +2879,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Relationship Event.
+        ///   Looks up a localized string similar to New events.
         /// </summary>
         public static string SubscriptionType_AddRelationshipEvent {
             get {
@@ -2693,7 +2888,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new contact.
+        ///   Looks up a localized string similar to New contacts.
         /// </summary>
         public static string SubscriptionType_CreateNewContact {
             get {
@@ -2702,7 +2897,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export Completed.
+        ///   Looks up a localized string similar to Export completed.
         /// </summary>
         public static string SubscriptionType_ExportCompleted {
             get {
@@ -2729,7 +2924,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Responsible for task.
+        ///   Looks up a localized string similar to Tasks assigned to you.
         /// </summary>
         public static string SubscriptionType_ResponsibleForTask {
             get {
@@ -2738,7 +2933,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Access.
+        ///   Looks up a localized string similar to Access granted.
         /// </summary>
         public static string SubscriptionType_SetAccess {
             get {
@@ -2756,7 +2951,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Табуляция.
+        ///   Looks up a localized string similar to Tabulation.
         /// </summary>
         public static string Tabulation {
             get {
@@ -2909,7 +3104,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Звонки.
+        ///   Looks up a localized string similar to Calls.
         /// </summary>
         public static string VoIPCallsSettings {
             get {
@@ -2918,7 +3113,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Общие.
+        ///   Looks up a localized string similar to Common.
         /// </summary>
         public static string VoIPCommonSettings {
             get {
@@ -2927,7 +3122,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Номера.
+        ///   Looks up a localized string similar to Numbers.
         /// </summary>
         public static string VoIPNumbersSettings {
             get {

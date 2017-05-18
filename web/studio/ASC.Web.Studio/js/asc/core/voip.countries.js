@@ -23,47 +23,46 @@
  *
 */
 
+if (typeof ASC === "undefined")
+    ASC = {};
 
-window.VoIPCountries = [
-    { iso: 'US', title: 'United States', code: 1 },
-    { iso: 'AT', title: 'Austria', code: 43 },
-    { iso: 'AU', title: 'Australia', code: 61 },
-    { iso: 'BE', title: 'Belgium', code: 32 },
-    { iso: 'BG', title: 'Bulgaria', code: 359 },
-    /*{ iso: 'BH', title: 'Bahrain', code: 973 },*/
-    /*{ iso: 'BR', title: 'Brazil', code: 55 },*/
-    { iso: 'CA', title: 'Canada', code: 1 },
-    { iso: 'CH', title: 'Switzerland', code: 41 },
-    /*{ iso: 'CY', title: 'Cyprus', code: 357 },*/
-    { iso: 'CZ', title: 'Czech Republic', code: 420 },
-    { iso: 'DK', title: 'Denmark', code: 45 },
-    /*{ iso: 'DO', title: 'Dominican Republic', code: 1809 },*/
-    /*{ iso: 'EE', title: 'Estonia', code: 372 },*/
-    { iso: 'ES', title: 'Spain', code: 34 },
-    { iso: 'FI', title: 'Finland', code: 358 },
-    { iso: 'FR', title: 'France', code: 33 },
-    { iso: 'GB', title: 'United Kingdom', code: 44 },
-    { iso: 'GR', title: 'Greece', code: 30 },
-    { iso: 'HK', title: 'Hong Kong', code: 852 },
-    { iso: 'IE', title: 'Ireland', code: 353 },
-    { iso: 'IL', title: 'Israel', code: 972 },
-    { iso: 'IT', title: 'Italy', code: 39 },
-    { iso: 'JP', title: 'Japan', code: 81 },
-    /*{ iso: 'LT', title: 'Lithuania', code: 370 },*/
-    /*{ iso: 'LU', title: 'Luxembourg', code: 352 },*/
-    { iso: 'LV', title: 'Latvia', code: 371 },
-        /*{ iso: 'MT', title: 'Malta', code: 356 },*/
-    { iso: 'MX', title: 'Mexico', code: 52 },
-    { iso: 'NL', title: 'The Netherlands', code: 31 },
-    /*{ iso: 'NO', title: 'Norway', code: 47 },*/
-    { iso: 'NZ', title: 'New Zealand', code: 64 },
-    /* { iso: 'PE', title: 'Peru', code: 51 },*/
-    { iso: 'PL', title: 'Poland', code: 48 },
-    { iso: 'PR', title: 'Puerto Rico', code: 1787 },
-    { iso: 'PT', title: 'Portugal', code: 351 },
-    { iso: 'RO', title: 'Romania', code: 40 },
-    { iso: 'SE', title: 'Sweden', code: 46 },
-    { iso: 'SK', title: 'Slovakia', code: 421 },
-    /*{ iso: 'SV', title: 'El Salvador', code: 503 },*/
-    /*{ iso: 'ZA', title: 'South Africa', code: 27 }*/
-];
+if (typeof ASC.Voip === "undefined")
+    ASC.Voip = {};
+
+ASC.Voip.Countries = (function () {
+    function country(iso, title, code) {
+        return { iso: iso, title: title, code: code };
+    };
+
+    return [
+        country('US', 'United States', 1),
+        country('AT', 'Austria', 43),
+        country('AU', 'Australia', 61),
+        country('BE', 'Belgium', 32),
+        country('BG', 'Bulgaria', 359),
+        country('CA', 'Canada', 1),
+        country('CH', 'Switzerland', 41),
+        country('CZ', 'Czech Republic', 420),
+        country('DK', 'Denmark', 45),
+        country('ES', 'Spain', 34),
+        country('FI', 'Finland', 358),
+        country('FR', 'France', 33),
+        country('GB', 'United Kingdom', 44),
+        country('GR', 'Greece', 30),
+        country('HK', 'Hong Kong', 852),
+        country('IE', 'Ireland', 353),
+        country('IL', 'Israel', 972),
+        country('IT', 'Italy', 39),
+        country('JP', 'Japan', 81),
+        country('LV', 'Latvia', 371),
+        country('MX', 'Mexico', 52),
+        country('NL', 'The Netherlands', 31),
+        country('NZ', 'New Zealand', 64),
+        country('PL', 'Poland', 48),
+        country('PR', 'Puerto Rico', 1787),
+        country('PT', 'Portugal', 351),
+        country('RO', 'Romania', 40),
+        country('SE', 'Sweden', 46),
+        country('SK', 'Slovakia', 421)
+    ];
+})();

@@ -186,7 +186,7 @@ var UnreadMailManager = new function () {
                     success: onGetDropMail,
                     error: function(p, e) {
                         jq("#studio_dropMailPopupPanel").hide();
-                        window.toastr.error(e[0]);
+                        window.console.error(e);
                     }
                 });
                 event.preventDefault();
@@ -235,28 +235,49 @@ var UnreadMailManager = new function () {
 
     function onGetDropMail(params, response) {
         var $dropMailBox = jq('#drop-mail-box'),
-            $markAllBtn = $dropMailBox.find('.mark-all-btn'),
-            dropMailList = $dropMailBox.find('.list');
+            dropMailList = $dropMailBox.find('.list'),
+            mailActiveBox = jq(".mailActiveBox");
 
         if (response) {
-            var mails = response,
-                ln = mails.length < 10 ? mails.length : 10;
-                        
+            var mails = response;
+
             dropMailList.empty();
 
-            if (ln) {
-                for (var i = 0; i < ln; i++) {
-                    try {
-                        var template = getMailTemplate(mails[i]);
-                        jq.tmpl('dropMailTmpl', template).appendTo(dropMailList);
-                    } catch (e) {
-                        toastr.error(e);
+            var isListEmpty = true;
+
+            if (mails.length > 0) {
+                try {
+                    var unreadMails = [];
+                    var i, n;
+                    for (i = 0, n = mails.length; i < n; i++) {
+                        if (mails[i].isNew) {
+                            if (unreadMails.length >= 10)
+                                break;
+
+                            var unreadMail = getMailTemplate(mails[i]);
+                            unreadMails.push(unreadMail);
+                        }
                     }
+
+                    if (unreadMails.length > 0) {
+                        isListEmpty = false;
+                        jq.tmpl("dropMailsTmpl", unreadMails).appendTo(dropMailList);
+                    } else {
+                        hideLoaderMail(true);
+                        var mailUrl =  mailActiveBox.prop("href");
+                        setTimeout(function () { window.location.href = mailUrl; }, 1000);
+                        return;
+                    }
+
+                } catch (e) {
+                    console.error(e);
                 }
+
             } else {
-                jq(".mailActiveBox").removeClass("has-led");
+                mailActiveBox.removeClass("has-led");
             }
-            hideLoaderMail(!ln);
+
+            hideLoaderMail(isListEmpty);
             dropMailList.scrollTop(0);
             return;
         }
@@ -300,6 +321,10 @@ var UnreadMailManager = new function () {
                 }
 
                 jq("#studio_dropMailPopupPanel").hide();
+            },
+            error: function (p, e) {
+                jq("#studio_dropMailPopupPanel").hide();
+                window.console.error(e);
             }
         });
     }

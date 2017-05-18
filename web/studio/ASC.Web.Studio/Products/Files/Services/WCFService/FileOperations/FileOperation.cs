@@ -56,6 +56,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         public const string ERROR = "Error";
         public const string PROCESSED = "Processed";
         public const string FINISHED = "Finished";
+        public const string HOLD = "Hold";
 
         private readonly IPrincipal principal;
         private readonly string culture;
@@ -90,10 +91,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         protected List<object> Files { get; private set; }
 
+        protected bool HoldResult { get; private set; }
+
         public abstract FileOperationType OperationType { get; }
 
 
-        protected FileOperation(List<object> folders, List<object> files, Tenant tenant = null)
+        protected FileOperation(List<object> folders, List<object> files, bool holdResult = true, Tenant tenant = null)
         {
             CurrentTenant = tenant ?? CoreContext.TenantManager.GetCurrentTenant();
             principal = Thread.CurrentPrincipal;
@@ -101,6 +104,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
             Folders = folders ?? new List<object>();
             Files = files ?? new List<object>();
+
+            HoldResult = holdResult;
 
             TaskInfo = new DistributedTask();
         }
@@ -176,6 +181,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             TaskInfo.SetProperty(RESULT, Status);
             TaskInfo.SetProperty(ERROR, Error);
             TaskInfo.SetProperty(PROCESSED, successProcessed);
+            TaskInfo.SetProperty(HOLD, HoldResult);
         }
 
         protected virtual int InitTotalProgressSteps()

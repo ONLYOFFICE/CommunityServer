@@ -1,0 +1,55 @@
+﻿<script id="sharingListTemplate" type="text/x-jquery-tmpl">
+    {{each(i, item) items}}
+        <div id="sharing_item_${item.id}" class="sharingItem borderBase clearFix {{if i%2 == 0}}tintMedium{{/if}}">        
+
+            {{if item.isGroup}}
+                <div class="name" title="${item.name}">
+                    ${item.name}
+                    <span class="sharing-group"></span>
+                </div>
+            {{else}}
+                <div class="name">
+                    <span class="userLink" id="sharing_item_user_${item.id}" data-uid="${item.id}">${item.name}</span>
+                </div>
+            {{/if}}
+
+            <div class="remove">
+                {{if item.canEdit & !item.hideRemove}}
+                    <div class="removeItem reset-icon" data="${item.id}"></div>
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </div>
+
+            <div class="action">
+                {{if item.canEdit}}
+                    <select data="${item.id}" id="select_${item.id}">
+                        {{each(j, action) actions}}
+                            {{if !action.disabled | action.id == item.selectedAction.id}}
+                                <option value="${action.id}"
+                                    {{if action.id == item.selectedAction.id}}selected="selected"{{/if}} 
+                                    {{if action.disabled}}disabled="disabled"{{/if}} >${action.name}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                {{else}}
+                    <span class="action-clean">${item.selectedAction.name}</span>
+                {{/if}}
+            </div>
+        </div>
+    {{/each}}
+</script>
+
+<script id="sharingActionsTemplate" type="text/x-jquery-tmpl">
+    <ul class="dropdown-content">
+        {{each(i, action) actions}}
+            {{if !action.disabled & typeof action.defaultStyle != "undefined"}}
+                <li>
+                    <a
+                        class="dropdown-item share-def-action-${action.defaultStyle} {{if action.defaultAction}}active{{/if}}"
+                        data-id="${action.id}"><span>${action.name}</span></a>
+                </li>
+             {{/if}}
+        {{/each}}
+    </ul>
+</script>

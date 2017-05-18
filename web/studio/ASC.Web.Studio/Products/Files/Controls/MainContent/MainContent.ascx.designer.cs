@@ -40,13 +40,13 @@ namespace ASC.Web.Files.Controls {
         protected global::ASC.Web.Studio.Controls.Common.Container confirmOverwriteDialog;
         
         /// <summary>
-        /// ConfirmMoveThirPartyDialog control.
+        /// changeOwnerDialog control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.Container ConfirmMoveThirPartyDialog;
+        protected global::ASC.Web.Studio.Controls.Common.Container changeOwnerDialog;
         
         /// <summary>
         /// UploaderPlaceHolder control.

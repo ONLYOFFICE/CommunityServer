@@ -32,8 +32,10 @@ using ASC.Notify.Engine;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Masters.ClientScripts;
 using ASC.Web.Projects.Resources;
 
 using log4net;
@@ -83,10 +85,17 @@ namespace ASC.Web.Projects.Configuration
             get { return PathProvider.BaseVirtualPath; }
         }
 
+        public override string HelpURL
+        {
+            get { return string.Concat(PathProvider.BaseVirtualPath, "help.aspx"); }
+        }
+
         public override string ProductClassName
         {
             get { return "projects"; }
         }
+
+        public override bool Visible { get { return true; } }
 
         public override ProductContext Context
         {
@@ -171,6 +180,7 @@ namespace ASC.Web.Projects.Configuration
                     });
 
             NotifyClient.Instance.Client.AddInterceptor(securityInterceptor);
+            ClientScriptLocalization = new ClientLocalizationResources();
         }
 
         public override void Shutdown()

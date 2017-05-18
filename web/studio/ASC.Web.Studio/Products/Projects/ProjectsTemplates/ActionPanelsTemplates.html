@@ -1,0 +1,481 @@
+﻿<script id="projects_statusChangePanel" type="text/x-jquery-tmpl">
+    <div id="statusChangePanel" class="studio-action-panel">
+        <ul id="statusList" class="dropdown-content">
+            {{each statuses}}
+            <li class="${cssClass} dropdown-item">${text}</li>
+            {{/each}}
+        </ul>
+    </div>
+</script>
+
+<script id="projects_panelFrame" type="text/x-jquery-tmpl">
+    <div id="${panelId}" class="studio-action-panel" objid="">
+        <div class="panel-content">
+        </div>
+    </div>
+</script>
+
+<script id="projects_actionMenuContent" type="text/x-jquery-tmpl">
+    <ul class="dropdown-content">
+        {{each menuItems}}
+            <li id="${id}" class="dropdown-item"><span title="${text}">${text}</span></li>
+        {{/each}}
+    </ul>
+</script>
+
+<script id="projects_linedListWithCheckbox" type="text/x-jquery-tmpl">
+    <ul class="dropdown-content lined">
+        {{each menuItems}}
+            <li class="dropdown-item {{if classname}}${classname}{{/if}}"><input id="${id}" type="checkbox" /><label for="${id}" title="${title}">${title}</label></li>
+        {{/each}}
+    </ul>
+</script>
+
+<script id="projects_descriptionPanelContent" type="text/x-jquery-tmpl">
+    {{if creationDate}}
+    <div class="date">
+        <div class="param">${ASC.Projects.Resources.TasksResource.CreatingDate}:</div>
+        <div class="value">${creationDate}</div>
+    </div>
+    {{/if}}
+    {{if createdBy}}
+    <div class="createdby">
+        <div class="param">${ASC.Projects.Resources.TasksResource.CreatedBy}:</div>
+        <div class="value">${createdBy}</div>
+    </div>
+    {{/if}}
+    {{if typeof startDate == "string"}}
+    <div class="startdate">
+        <div class="param">${ASC.Projects.Resources.TasksResource.TaskStartDate}:</div>
+        <div class="value">${startDate}</div>
+    </div>
+    {{/if}}
+    {{if closedDate}}
+    <div class="closed">
+        <div class="param">${ASC.Projects.Resources.TasksResource.Closed}:</div>
+        <div class="value">${closedDate}</div>
+    </div>
+    {{/if}}
+    {{if closedBy}}
+    <div class="closedby">
+        <div class="param">${ASC.Projects.Resources.TasksResource.ClosedBy}:</div>
+        <div class="value">${closedBy}</div>
+    </div>
+    {{/if}}
+    {{if project}}
+    <div class="project">
+        <div class="param">${ASC.Projects.Resources.TasksResource.Project}:</div>
+        <div class="value" projectid="${projectId}">
+            <span class="link dotline">{{html project}}</span>
+        </div>
+    </div>
+    {{/if}}
+    {{if milestone}}
+    <div class="milestone">
+        <div class="param">${ASC.Projects.Resources.TasksResource.Milestone}:</div>
+        <div class="value" projectid="${projectId}" milestone="${milestoneId}">
+            <span class="link dotline">{{html milestone}}</span>
+        </div>
+    </div>
+    {{/if}}
+    {{if description}}
+    <div class="descr">
+        <div class="param">${ASC.Projects.Resources.TasksResource.Description}:</div>
+        <div class="value">
+            <div class="descrValue">{{html jq.linksParser(jq.htmlEncodeLight(description))}}</div>
+            {{if readMore}}
+            <a class="readMore" target="_blank" href="${readMore}">${ASC.Projects.Resources.CommonResource.ReadMore}</a>
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+</script>
+
+<script id="projects_timeTrakingGroupActionMenu" type="text/x-jquery-tmpl">
+    <ul id="timeTrakingGroupActionMenu" class="clearFix contentMenu contentMenuDisplayAll display-none">
+    <li class="menuAction menuActionSelectAll menuActionSelectLonely">
+        <div class="menuActionSelect">
+            <input id="selectAllTimers" type="checkbox" title="${ASC.Projects.Resources.TimeTrackingResource.GroupMenuSelectAll}"/>
+                    </div>
+        </li>
+        <li class="menuAction" data-status="billed" title="${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusBilled}">
+            <span>${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusBilled}</span>
+        </li>
+        <li class="menuAction" data-status="not-billed" title="${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotBilled}">
+            <span>${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotBilled}</span>
+        </li>
+        <li class="menuAction" data-status="not-chargeable" title="${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotChargeable}">
+            <span>${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotChargeable}</span>
+        </li>
+        <li class="menuAction" data-status="delete" title="${ASC.Projects.Resources.CommonResource.Delete}">
+            <span>${ASC.Projects.Resources.CommonResource.Delete}</span>
+        </li>
+
+        <li class="menu-action-checked-count">
+            <span></span>
+            <a id="deselectAllTimers" class="link dotline small">
+                ${ASC.Projects.Resources.TimeTrackingResource.GroupMenuDeselectAll}
+            </a>
+        </li>
+        <li class="menu-action-simple-pagenav" style="display: list-item;"></li>
+        <li class="menu-action-on-top">
+            <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
+                ${ASC.Projects.Resources.TimeTrackingResource.GroupMenuOnTop}
+            </a>
+        </li>
+
+    </ul>
+</script>
+
+<script id="projects_totalTimeText" type="text/x-jquery-tmpl">
+
+    <span data-tasktext="${ASC.Projects.Resources.TimeTrackingResource.TimeSpentForTask}" data-listtext="${ASC.Projects.Resources.TimeTrackingResource.TotalTimeNote}"></span>
+    <span class="total-count">
+        ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeCommon}
+        <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
+        <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
+    </span>
+    <span class="billed-count">
+        ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeBilled}
+        <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
+        <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
+    </span>
+     
+</script>
+
+<script id="projects_navPanel" type="text/x-jquery-tmpl">
+    <div class="project-info-container">
+        <div class="project-total-info">
+            <div class="project-title header-with-menu with-entity-menu">
+                {{if typeof $item.data.uplink != "undefined"}}
+                <a class="header-back-link" href="${$item.data.uplink}"></a>
+                {{/if}}
+                <span class="main-title-icon ${$item.data.icon}"></span>
+                {{if $item.data.private}}<span class="private"></span>{{/if}}
+                <span id="essenceTitle" class="text-overflow truncated-text" title="${$item.data.title}">${$item.data.title}</span>
+                {{if typeof $item.data.subscribed != "undefined"}}
+                <a id="subscribe" class="follow-status {{if $item.data.subscribed}}subscribed{{else}}unsubscribed{{/if}}" title="${$item.data.subscribedTitle}"></a>
+                {{/if}}
+                <span class="entity-menu"></span>
+            </div>
+            {{if $item.data.ganttchart}}
+            <a class="button blue middle gant-chart-link" href="${$item.data.ganttchart}" target="_blank">${ASC.Projects.Resources.ProjectResource.GanttGart}</a>
+            {{/if}}
+        </div>
+
+        <div id="projectTabs" class="display-none tabsNavigationLinkBox"></div>
+    </div>
+</script>
+
+<script id="projects_emptyScreen" type="text/x-jquery-tmpl">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <div class="emptyScrImage ${img}">
+                </div>
+            </td>
+            <td>
+                <div class="emptyScrTd">
+                    <div class="header-base-big">${$item.data.header}</div>
+                    <div class="emptyScrDscr">${$item.data.description}</div>
+                    {{if $item.data.button.canCreate()}}
+                    <div class="emptyScrBttnPnl">
+                        <span class="link dotline {{if $item.data.button.clear}}clearFilterButton{{else}}addFirstElement{{/if}}">${$item.data.button.title}</span>
+                    </div>
+                    {{/if}}
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<script id="projects_description" type="text/x-jquery-tmpl">
+    <div class="descriptionContainer">
+        {{if status.items.length }}
+        <div>
+            <span class="title">${ASC.Projects.Resources.CommonResource.Status}:</span>
+            <span class="value">
+                {{if status.canChange }}
+                <span class="link dotline status">
+                    ${status.current.title}
+                </span>
+                {{else}}
+                    ${status.current.title}
+                {{/if}}
+            </span>
+        </div>
+        {{/if}}
+        {{each data}}
+        {{tmpl($item.data.data[$index]) 'projects_description_item'}}
+        {{/each}}
+    </div>
+</script>
+
+<script id="projects_description_item" type="text/x-jquery-tmpl">
+    {{if typeof value != "undefined" && value.length}}
+    <div>
+        <span class="title">${title}:</span>
+        <span class="value">
+        {{if typeof href != "undefined" && href.length}}
+        <a href="${href}">${value}</a>
+        {{else typeof wrapper != "undefined" && wrapper.length}}
+        {{html jq.format(wrapper, value)}}
+        {{else}}
+        {{html value}}
+        {{/if}}
+        </span>
+    </div>
+    {{/if}}
+</script>
+
+<script id="projects_dashboard_empty_screen" type="text/x-jquery-tmpl">
+    <div id="projects_dashboard_empty_screen_container">
+        <div class="backdrop" blank-page=""></div>
+
+        <div id="content" blank-page="" class="dashboard-center-box projects">
+            <div class="header">
+                <span class="close">&times;</span>
+                ${ASC.Projects.Resources.CommonResource.DashboardTitle}
+            </div>
+            <div class="content clearFix">
+                {{each blocks}}
+                <div class="module-block">
+                    <img src="/products/projects/app_themes/default/images/${image}"/>
+                    <div class="title">${title}</div>
+                    <ul>
+                        {{each ul}}
+                        <li>${$value}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/each}}
+            </div>
+            <div class="dashboard-buttons">
+                <a class="button huge create-button" href="/products/projects/projects.aspx?action=add">
+                    ${ASC.Projects.Resources.CommonResource.CreateProjectButtonText}
+                </a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="projects_move_task_panel" type="text/x-jquery-tmpl">
+    <div class="describe-text">${ASC.Projects.Resources.TasksResource.Task}</div>
+    <div class="taskTitls ms"><b id="moveTaskTitles"></b>
+    </div>
+    <div class="describe-text ms">${ASC.Projects.Resources.TasksResource.WillBeMovedToMilestone}:</div>
+    <div class="milestonesList">
+        {{tmpl(milestones) 'projects_milestoneForMoveTaskPanelTmpl'}}
+        <div class="milestonesButtons">
+            <input id="ms_0" type="radio" name="milestones" value="0"/>
+            <label for="ms_0">${ASC.Projects.Resources.TasksResource.None}</label>
+        </div>
+    </div>
+
+    <div class="middle-button-container">
+        <a href="javascript:void(0)" class="button blue middle">
+            ${ASC.Projects.Resources.TasksResource.MoveToMilestone}
+        </a>
+        <span class="splitter-buttons"></span>
+        <a class="button gray middle" href="javascript:void(0)">
+            ${ASC.Projects.Resources.CommonResource.Cancel}
+        </a>
+    </div>
+</script>
+
+<script id="projects_common_popup_header" type="text/x-jquery-tmpl">
+    <span class="commonPopupHeaderTitle">${title}</span>
+</script>
+
+<script id="projects_task_action" type="text/x-jquery-tmpl">
+    {{tmpl 'projects_common_action'}}
+
+    <div id="pm-milestoneBlock" class="display-none">
+        <div class="pm-headerLeft">
+            ${ASC.Projects.Resources.MilestoneResource.Milestone}:
+        </div>
+        <div class="pm-fieldRight">
+            <div id="taskMilestone" data-id="" class="link dotline advansed-select-container">
+                ${ASC.Projects.Resources.CommonResource.Select}
+            </div>
+        </div>
+        <div style="clear: both">
+        </div>
+    </div>
+    <div id="pm-respBlock" class="display-none">
+        <div class="pm-headerLeft userAddHeader">${ASC.Projects.Resources.TasksResource.TaskResponsible}:</div>
+        <div class="userAdd">
+            <div id="responsibleSelectContainer">
+            </div>
+            <span id="taskResponsible" class="link dotline advansed-select-container">
+                ${ASC.Projects.Resources.TasksResource.Add}
+            </span>
+            <div class="float-right notify display-none">
+                <input type="checkbox" id="notify" checked="checked"/>
+                <label for="notify">${ASC.Projects.Resources.MessageResource.SubscribeUsers}</label>
+            </div>
+            <div id="fullFormUserList">
+            </div>
+        </div>
+    </div>
+    <div style="clear: both">
+    </div>
+    <div class="pm-headerLeft notify">
+    </div>
+
+    <div style="clear: both" class="notify">
+    </div>
+    <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TasksResource.TaskStartDate}:</div>
+    <div class="pm-fieldRight">
+        <span class="requiredErrorText startDate-error" error="${ASC.Projects.Resources.CommonResource.TaskCompareDateError}" style="margin-right: 24px;">
+        </span>
+        <input type="text" id="taskStartDate" class="textEditCalendar"/>
+    </div>
+    <div style="clear: both">
+    </div>
+    <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TasksResource.DeadLine}:</div>
+    <div class="pm-fieldRight">
+        <input type="text" id="taskDeadline" class="textEditCalendar"/>
+        <span class="splitter"></span><span class="link dotline deadline_left" data-value="0">
+            ${ASC.Projects.Resources.CommonResource.Today}
+        </span><span class="splitter"></span><span class="link dotline deadline_left" data-value="3">
+            3
+            ${ASC.Projects.Resources.DayGenitiveSingular}
+        </span><span class="splitter"></span><span class="link dotline deadline_left" data-value="7">
+            ${ASC.Projects.Resources.ReportResource.Week}
+        </span>
+    </div>
+    <div style="clear: both">
+    </div>
+    <div>
+        <div class="pm-headerLeft">
+            ${ASC.Projects.Resources.TasksResource.Priority}:
+        </div>
+        <div class="pm-fieldRight">
+            <input type="checkbox" name="priority" value="1" id="priority"/><label class="priority high" for="priority">${ASC.Projects.Resources.TasksResource.HighPriority}</label>
+        </div>
+        <div style="clear: both">
+        </div>
+    </div>
+    <div style="clear: both">
+    </div>
+    <div class="display-none" id="copySubtasksContainer">
+        <div class="pm-headerLeft">
+            ${ASC.Projects.Resources.CommonResource.Copy}:
+        </div>
+        <div class="pm-fieldRight">
+            <div class="copy">
+                <input type="checkbox" name="copySubtasks" value="1" id="copySubtasks"/><label class="copy" for="copySubtasks">${ASC.Projects.Resources.TasksResource.Subtasks}</label>
+            </div>
+            <div class="copy files">
+                <input type="checkbox" name="copyFiles" value="1" id="copyFiles"/><label class="copy" for="copyFiles">${ASC.Projects.Resources.CommonResource.DocsModuleTitle}</label>
+            </div>
+        </div>
+    </div>
+    <div class="success-popup display-none">
+        ${ASC.Projects.Resources.CommonResource.TaskAddedMessage}
+        <a id="taskLink" href="javascript:void(0)">${ASC.Projects.Resources.TasksResource.GoToTheTask}</a>
+    </div>
+    <div class="error-popup display-none"></div>
+    <div class="pm-action-block big-button-container">
+        <a id="saveTaskAction" href="javascript:void(0)" class="button blue middle">
+            ${ASC.Projects.Resources.CommonResource.Save}
+        </a>
+        <span class="splitter-buttons"></span>
+        <a id="createTaskAndCreateNew" href="javascript:void(0)" class="button gray middle">
+            ${ASC.Projects.Resources.CommonResource.SaveAndAddMore}
+        </a>
+        <span class="splitter-buttons"></span>
+        <a id="closeTaskAction" class="button gray middle" href="javascript:void(0)">
+            ${ASC.Projects.Resources.CommonResource.Cancel}
+        </a>
+    </div>
+</script>
+
+<script id="projects_milestone_action" type="text/x-jquery-tmpl">
+    {{tmpl 'projects_common_action'}}
+
+    <div id="milestoneResponsibleContainer" class="block-cnt-splitter requiredField">
+        <span class="requiredErrorText">${ASC.Projects.Resources.MilestoneResource.ChooseResponsible}</span>
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.MilestoneResource.Responsible}:
+        </div>
+        <div id="milestoneResponsible" data-id="" class="link dotline advansed-select-container">
+            ${ASC.Projects.Resources.CommonResource.Select}
+        </div>
+        <div class="notifyResponsibleContainer">
+            <input id="notifyResponsibleCheckbox" type="checkbox" checked="checked"/>
+            <label for="notifyResponsibleCheckbox"> ${ASC.Projects.Resources.MilestoneResource.NotifyResponsible}</label>
+        </div>
+        <div id="noActiveParticipantsMilNote" class="float-right gray-text display-none">${ASC.Projects.Resources.ProjectsJSResource.NoActiveParticipantsNote}</div>
+    </div>
+    <div style="clear: both"></div>
+
+    <div id="milestoneDeadlineContainer" class="block-cnt-splitter requiredField">
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.MilestoneResource.MilestoneDeadline}:
+        </div>
+        <div id="milestoneDeadlineSelectorContainer">
+            <input type="text" id="milestoneDeadlineInputBox" class="textEditCalendar"/>
+            <span class="link dotline deadlineLeft" data-value="7">
+                ${ASC.Projects.Resources.MilestoneResource.DeadlineInWeek}
+            </span>
+            <span class="link dotline deadlineLeft" data-value="1">
+                ${ASC.Projects.Resources.MilestoneResource.DeadlineInMonth}
+            </span>
+            <span class="link dotline deadlineLeft" data-value="2">
+                ${ASC.Projects.Resources.MilestoneResource.DeadlineInTwoMonths}
+            </span>
+        </div>
+    </div>
+
+    <div id="milestoneKeyContainer">
+        <input id="milestoneKeyCheckBox" type="checkbox"/>
+        <label for="milestoneKeyCheckBox"> ${ASC.Projects.Resources.MilestoneResource.RootMilestone}</label>
+        <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectMilestone', popup: true });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectMilestone}"></div>
+        <div class="popup_helper" id="AnswerForProjectMilestone">
+            <p>${jq.format(ASC.Projects.Resources.CommonResource.HelpAnswerProjectMilestone, "<br/>", "<b>", "</b>")}
+            </p>
+        </div>
+    </div>
+
+    <div id="milestoneNotifyManagerContainer">
+        <input id="milestoneNotifyManagerCheckBox" type="checkbox"/>
+        <label for="milestoneNotifyManagerCheckBox"> ${ASC.Projects.Resources.MilestoneResource.RemindMe}</label>
+    </div>
+    <div class="error-popup display-none"></div>
+    <div id="milestoneActionButtonsContainer" class="big-button-container">
+        <a id="milestoneActionButton" href="javascript:void(0)" class="button blue middle"
+           add="${ASC.Projects.Resources.MilestoneResource.AddMilestoneButton}" update="${ASC.Projects.Resources.CommonResource.SaveChanges}">
+        </a>
+        <span class="splitter-buttons"></span>
+        <a id="milestoneActionCancelButton" href="javascript:void(0)" class="button gray middle" onclick="javascript:jq.unblockUI();">
+            ${ASC.Projects.Resources.CommonResource.Cancel}
+        </a>
+    </div>
+</script>
+
+<script id="projects_common_action" type="text/x-jquery-tmpl">
+    <div class="block-cnt-splitter titlePanel requiredField">
+        <span class="requiredErrorText title">${title.error}</span>
+        <div class="headerPanelSmall">
+            ${title.header}:
+        </div>
+        <input class="textEdit" maxlength="250"/>
+    </div>
+    <div class="block-cnt-splitter">
+        <div class="headerPanelSmall">
+            ${description}:
+        </div>
+        <textarea cols="22" rows="3"></textarea>
+    </div>
+    <div class="block-cnt-splitter requiredField projectContaner">
+        <span class="requiredErrorText">${project.error}</span>
+        <div class="headerPanelSmall">${project.header}:</div>
+        <div data-id="" class="link dotline advansed-select-container">
+            ${ASC.Projects.Resources.CommonResource.Select}
+        </div>
+    </div>
+</script>

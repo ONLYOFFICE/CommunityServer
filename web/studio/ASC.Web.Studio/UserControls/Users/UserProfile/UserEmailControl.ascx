@@ -17,7 +17,7 @@
             <% } %>
         </div>
     <div id="emailUserProfile" class="field-value">
-    <% if (Viewer.IsAdmin() || Viewer.ID == User.ID) {
+    <% if (IsAdmin || Viewer.ID == User.ID) {
         if (User.ActivationStatus == EmployeeActivationStatus.Activated) { %>
         <div>
             <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
@@ -25,7 +25,7 @@
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()) && User.Sid == null)
                { %>
-            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
+            <a class="linkAction baseLinkAction" onclick="ASC.EmailOperationManager.showEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>
         </div>
       <% } else if (User.ActivationStatus == EmployeeActivationStatus.NotActivated) {%>
@@ -35,7 +35,7 @@
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
                { %>
-            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
+            <a class="linkAction baseLinkAction" onclick="ASC.EmailOperationManager.showEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>
             <div class="caption emailWarning"><%=Resources.Resource.EmailIsNotConfirmed%>
                 <a id="linkNotActivatedActivation" href="javascript:void(0);" class="activate">
@@ -50,7 +50,7 @@
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
                { %>
-            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
+            <a class="linkAction baseLinkAction" onclick="ASC.EmailOperationManager.showEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>
             <div class="caption emailWarning"><%=Resources.Resource.PendingTitle%> 
             <% if (User.Status != EmployeeStatus.Terminated) { %>

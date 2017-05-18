@@ -267,7 +267,8 @@ namespace ASC.Web.Community.Blogs
                             Name = ASC.Blogs.Core.Resources.BlogsResource.SubscribeOnNewPostTitle,
                             NotifyAction = Constants.NewPost,
                             Single = true,
-                            IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType)
+                            IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType),
+                            CanSubscribe = true
                         },
                     new SubscrType
                         {

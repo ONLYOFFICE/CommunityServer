@@ -58,6 +58,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 51)]
         public EmployeeWraper CreatedBy { get; set; }
 
+        [DataMember]
+        public bool CanCreateComment { get; set; }
+
         private ApiDateTime updated;
 
         [DataMember(Order = 50)]
@@ -100,6 +103,7 @@ namespace ASC.Api.Projects.Wrappers
             CanEdit = ProjectSecurity.CanEdit(message);
             CommentsCount = message.CommentsCount;
             Status = message.Status;
+            CanCreateComment = ProjectSecurity.CanCreateComment(message);
         }
 
 

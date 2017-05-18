@@ -24,54 +24,52 @@
 */
 
 
-using System.Collections.Generic;
-using System.Web;
 using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Mail.Masters.ClientScripts
 {
-    public class ClientTemplateResources : ClientScriptLocalization
+    public class ClientTemplateResources : ClientScriptTemplate
     {
-        protected override string BaseNamespace
+        protected override string[] Links
         {
-            get { return "ASC.Mail.Master"; }
-        }
-
-        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
-        {
-            return RegisterClientTemplatesPath(context, 
-                "~/addons/mail/templates/foldersTmpl.ascx",
-                "~/addons/mail/templates/messagesTmpl.ascx",
-                "~/addons/mail/templates/messageTmpl.ascx",
-                "~/addons/mail/templates/editMessageTmpl.ascx",
-                "~/addons/mail/templates/accountTmpl.ascx",
-                "~/addons/mail/templates/accountErrorTmpl.ascx",
-                "~/addons/mail/templates/accountWizardTmpl.ascx",
-                "~/addons/mail/templates/accountsPanelTmpl.ascx",
-                "~/addons/mail/templates/contactsTmpl.ascx",
-                "~/addons/mail/templates/contactEditTmpl.ascx",
-                "~/addons/mail/templates/accountsTmpl.ascx",
-                "~/addons/mail/templates/tagsTmpl.ascx",
-                "~/addons/mail/templates/crmIntegrationPopupTmpl.ascx",
-                "~/addons/mail/templates/docAttachmentsTmpl.ascx",
-                "~/addons/mail/templates/addFirstAccountTmpl.ascx",
-                "~/addons/mail/templates/composeMessageBodyTmpl.ascx",
-                "~/addons/mail/templates/signatureTmpl.ascx",
-                "~/addons/mail/templates/mailAutoreplyTmpl.ascx",
-                "~/addons/mail/templates/emptyScrTmpl.ascx",
-                "~/addons/mail/templates/alertsTmpl.ascx",
-                "~/addons/mail/templates/messagePrintTmpl.ascx",
-                "~/addons/mail/templates/administration/mailboxTableTmpl.ascx",
-                "~/addons/mail/templates/administration/groupTableTmpl.ascx",
-                "~/addons/mail/templates/administration/editMailGroupTmpl.ascx",
-                "~/addons/mail/templates/administration/editMailboxTmpl.ascx",
-                "~/addons/mail/templates/administration/addQuestionBoxTmpl.ascx",
-                "~/addons/mail/templates/administration/createDomainWizardTmpl.ascx",
-                "~/addons/mail/templates/administration/createMailboxPopupTmpl.ascx",
-                "~/addons/mail/templates/administration/administrationDataTmpl.ascx",
-                "~/addons/mail/templates/administration/createMailgroupPopupTmpl.ascx",
-                "~/addons/mail/templates/calendarTmpl.ascx",
-                "~/addons/mail/templates/commonTmpl.ascx");
+            get
+            {
+                return new[]
+                {
+                    "~/addons/mail/templates/foldersTmpl.html",
+                    "~/addons/mail/templates/messagesTmpl.html",
+                    "~/addons/mail/templates/messageTmpl.html",
+                    "~/addons/mail/templates/editMessageTmpl.html",
+                    "~/addons/mail/templates/accountTmpl.html",
+                    "~/addons/mail/templates/accountErrorTmpl.html",
+                    "~/addons/mail/templates/accountWizardTmpl.html",
+                    "~/addons/mail/templates/accountsPanelTmpl.html",
+                    "~/addons/mail/templates/contactsTmpl.html",
+                    "~/addons/mail/templates/contactEditTmpl.html",
+                    "~/addons/mail/templates/accountsTmpl.html",
+                    "~/addons/mail/templates/tagsTmpl.html",
+                    "~/addons/mail/templates/crmIntegrationPopupTmpl.html",
+                    "~/addons/mail/templates/docAttachmentsTmpl.html",
+                    "~/addons/mail/templates/addFirstAccountTmpl.html",
+                    "~/addons/mail/templates/composeMessageBodyTmpl.html",
+                    "~/addons/mail/templates/signatureTmpl.html",
+                    "~/addons/mail/templates/mailAutoreplyTmpl.html",
+                    "~/addons/mail/templates/emptyScrTmpl.html",
+                    "~/addons/mail/templates/alertsTmpl.html",
+                    "~/addons/mail/templates/messagePrintTmpl.html",
+                    "~/addons/mail/templates/administration/mailboxTableTmpl.html",
+                    "~/addons/mail/templates/administration/groupTableTmpl.html",
+                    "~/addons/mail/templates/administration/editMailGroupTmpl.html",
+                    "~/addons/mail/templates/administration/editMailboxTmpl.html",
+                    "~/addons/mail/templates/administration/addQuestionBoxTmpl.html",
+                    "~/addons/mail/templates/administration/createDomainWizardTmpl.html",
+                    "~/addons/mail/templates/administration/createMailboxPopupTmpl.html",
+                    "~/addons/mail/templates/administration/administrationDataTmpl.html",
+                    "~/addons/mail/templates/administration/createMailgroupPopupTmpl.html",
+                    "~/addons/mail/templates/calendarTmpl.html",
+                    "~/addons/mail/templates/commonTmpl.html"
+                };
+            }
         }
     }
 }

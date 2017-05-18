@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Core.Common.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core.Notify;
 using AjaxPro;
@@ -105,9 +106,10 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
-                "~/usercontrols/firsttime/js/manager.js");
-            Page.RegisterStyle("~/usercontrols/firsttime/css/EmailAndPassword.less");
+            Page.RegisterBodyScripts(
+                "~/js/uploader/jquery.fileupload.js",
+                "~/usercontrols/firsttime/js/manager.js")
+                .RegisterStyle("~/usercontrols/firsttime/css/EmailAndPassword.less");
 
             var script = new StringBuilder();
 
@@ -154,7 +156,8 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     throw new Exception(Resource.EmailAndPasswordIncorrectEmail);
                 }
 
-                UserManagerWrapper.SetUserPassword(currentUser.ID, pwd);
+                UserManagerWrapper.CheckPasswordPolicy(pwd);
+                SecurityContext.SetUserPassword(currentUser.ID, pwd);
 
                 email = email.Trim();
                 if (currentUser.Email != email)

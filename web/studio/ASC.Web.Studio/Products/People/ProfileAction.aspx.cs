@@ -29,6 +29,7 @@ using System.IO;
 using System.Web;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Core;
@@ -128,13 +129,8 @@ namespace ASC.Web.People
 
         protected bool IsAdmin()
         {
-            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
-        }
-
-        private static bool CanEdit()
-        {
-            var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-            return curUser.IsAdmin() || curUser.IsOwner();
+            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
+                WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -147,8 +143,7 @@ namespace ASC.Web.People
                 Response.Redirect("/my.aspx?action=edit");
             }
 
-            if ((IsPageEditProfile() && !(userInfo.IsMe() || CanEdit()))
-                || (!IsPageEditProfile() && !IsAdmin()))
+            if (IsPageEditProfile() ? !userInfo.IsMe() && (!IsAdmin() || userInfo.IsOwner()) : !IsAdmin())
             {
                 Response.Redirect("~/products/people/", true);
             }

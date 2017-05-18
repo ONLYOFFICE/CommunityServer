@@ -63,7 +63,7 @@ namespace ASC.Web.Core.Mobile
         {
             if (string.IsNullOrEmpty(userEmail)) return false;
 
-            String fromCache = cache.Get<String>(GetCacheKey(userEmail, appType));
+            var fromCache = cache.Get<String>(GetCacheKey(userEmail, appType));
 
             bool cachedValue;
 
@@ -73,11 +73,11 @@ namespace ASC.Web.Core.Mobile
             }
 
             var isRegistered = registrator.IsInstallRegistered(userEmail, appType);
-            cache.Insert(GetCacheKey(userEmail, appType), isRegistered, cacheExpiration);
+            cache.Insert(GetCacheKey(userEmail, appType), isRegistered.ToString(), cacheExpiration);
             return isRegistered;
         }
 
-        private string GetCacheKey(string userEmail, MobileAppType? appType)
+        private static string GetCacheKey(string userEmail, MobileAppType? appType)
         {
             var cacheKey = appType.HasValue ? userEmail + "/" + appType.ToString() : userEmail;
             

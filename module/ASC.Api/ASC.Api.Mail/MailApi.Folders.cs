@@ -30,6 +30,7 @@ using ASC.Api.Attributes;
 using ASC.Api.Mail.DataContracts;
 using ASC.Api.Mail.Extensions;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.ComplexOperations.Base;
 
 namespace ASC.Api.Mail
 {
@@ -47,7 +48,7 @@ namespace ASC.Api.Mail
             if (!IsSignalRAvailable)
                 MailBoxManager.UpdateUserActivity(TenantId, Username);
 
-            return MailBoxManager.GetFolders(TenantId, Username, true)
+            return MailBoxManager.GetFolders(TenantId, Username)
                                  .Where(f => f.id != MailFolder.Ids.temp)
                                  .ToList()
                                  .ToFolderData();
@@ -70,5 +71,18 @@ namespace ASC.Api.Mail
             return folderid;
         }
 
+
+        /// <summary>
+        ///    Returns the list of all folders
+        /// </summary>
+        /// <returns>Folders list</returns>
+        /// <short>Get folders</short> 
+        /// <category>Folders</category>
+        /// <visible>false</visible>
+        [Read(@"folders/recalculate")]
+        public MailOperationStatus RecalculateFolders()
+        {
+            return MailBoxManager.RecalculateFolders(TranslateMailOperationStatus);
+        }
     }
 }

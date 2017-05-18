@@ -39,6 +39,7 @@ using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
+using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using FileShare = System.IO.FileShare;
 
@@ -268,6 +269,8 @@ namespace ASC.Files.Core.Data
                     }
 
                     file.Title = Global.ReplaceInvalidCharsAndTruncate(file.Title);
+                    //make lowerCase
+                    file.Title = FileUtility.ReplaceFileExtension(file.Title, FileUtility.GetFileExtension(file.Title));
 
                     file.ModifiedBy = SecurityContext.CurrentAccount.ID;
                     file.ModifiedOn = TenantUtil.DateTimeNow();
@@ -331,7 +334,8 @@ namespace ASC.Files.Core.Data
                 {
                     if (isNew)
                     {
-                        DeleteFile(file.ID);
+                        var stored = Global.GetStore().IsDirectory(GetUniqFileDirectory(file.ID));
+                        DeleteFile(file.ID, stored);
                     }
                     else if (!IsExistOnStorage(file))
                     {
@@ -371,6 +375,11 @@ namespace ASC.Files.Core.Data
 
         public void DeleteFile(object fileId)
         {
+            DeleteFile(fileId, true);
+        }
+
+        private void DeleteFile(object fileId, bool deleteFolder)
+        {
             if (fileId == null) return;
             using (var db = GetDb())
             {
@@ -390,6 +399,9 @@ namespace ASC.Files.Core.Data
                     fromFolders.ForEach(folderId => RecalculateFilesCount(db, folderId));
                 }
             }
+
+            if (deleteFolder)
+                DeleteFolder(fileId);
         }
 
         public bool IsExist(String title, object folderId)
@@ -566,39 +578,25 @@ namespace ASC.Files.Core.Data
 
         public ChunkedUploadSession CreateUploadSession(File file, long contentLength)
         {
-            if (SetupInfo.ChunkUploadSize > contentLength)
-                return new ChunkedUploadSession(file, contentLength) { UseChunks = false };
-
-            var tempPath = Guid.NewGuid().ToString();
-            var uploadId = Global.GetStore().InitiateChunkedUpload(FileConstant.StorageDomainTmp, tempPath);
-
-            var uploadSession = new ChunkedUploadSession(file, contentLength);
-            uploadSession.Items["TempPath"] = tempPath;
-            uploadSession.Items["UploadId"] = uploadId;
-
-            return uploadSession;
+            return ChunkedUploadSessionHolder.CreateUploadSession(file, contentLength);
         }
 
         public void UploadChunk(ChunkedUploadSession uploadSession, Stream stream, long chunkLength)
         {
             if (!uploadSession.UseChunks)
             {
-                UploadSingleChunk(uploadSession, stream, chunkLength);
+                using (var streamToSave = ChunkedUploadSessionHolder.UploadSingleChunk(uploadSession, stream, chunkLength))
+                {
+                    if (streamToSave != Stream.Null)
+                    {
+                        uploadSession.File = SaveFile(GetFileForCommit(uploadSession), streamToSave);
+                    }
+                }
+
                 return;
             }
 
-            var tempPath = uploadSession.GetItemOrDefault<string>("TempPath");
-            var uploadId = uploadSession.GetItemOrDefault<string>("UploadId");
-            var chunkNumber = uploadSession.GetItemOrDefault<int>("ChunksUploaded") + 1;
-
-            var eTag = Global.GetStore().UploadChunk(FileConstant.StorageDomainTmp, tempPath, uploadId, stream, chunkNumber, chunkLength);
-
-            var eTags = uploadSession.GetItemOrDefault<List<string>>("ETag") ?? new List<string>();
-            eTags.Add(eTag);
-
-            uploadSession.Items["ChunksUploaded"] = chunkNumber;
-            uploadSession.Items["ETag"] = eTags;
-            uploadSession.BytesUploaded += chunkLength;
+            ChunkedUploadSessionHolder.UploadChunk(uploadSession, stream, chunkLength);
 
             if (uploadSession.BytesUploaded == uploadSession.BytesTotal)
             {
@@ -606,69 +604,20 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        private void UploadSingleChunk(ChunkedUploadSession uploadSession, Stream stream, long chunkLength)
-        {
-            if (uploadSession.BytesTotal == 0)
-                uploadSession.BytesTotal = chunkLength;
-
-            if (uploadSession.BytesTotal == chunkLength)
-            {
-                uploadSession.File = SaveFile(GetFileForCommit(uploadSession), stream);
-                uploadSession.BytesUploaded = chunkLength;
-            }
-            else if (uploadSession.BytesTotal > chunkLength)
-            {
-                //This is hack fixing strange behaviour of plupload in flash mode.
-
-                if (!uploadSession.Items.ContainsKey("ChunksBuffer"))
-                    uploadSession.Items["ChunksBuffer"] = Path.GetTempFileName();
-
-                using (var bufferStream = new FileStream(uploadSession.GetItemOrDefault<string>("ChunksBuffer"), FileMode.Append))
-                {
-                    stream.StreamCopyTo(bufferStream);
-                }
-
-                uploadSession.BytesUploaded += chunkLength;
-
-                if (uploadSession.BytesTotal == uploadSession.BytesUploaded)
-                {
-                    using (var bufferStream = new FileStream(uploadSession.GetItemOrDefault<string>("ChunksBuffer"), FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose))
-                    {
-                        uploadSession.File = SaveFile(GetFileForCommit(uploadSession), bufferStream);
-                    }
-                }
-            }
-        }
-
         private File FinalizeUploadSession(ChunkedUploadSession uploadSession)
         {
-            var tempPath = uploadSession.GetItemOrDefault<string>("TempPath");
-            var uploadId = uploadSession.GetItemOrDefault<string>("UploadId");
-            var eTags = uploadSession.GetItemOrDefault<List<string>>("ETag")
-                                     .Select((x, i) => new KeyValuePair<int, string>(i + 1, x))
-                                     .ToDictionary(x => x.Key, x => x.Value);
-
-            Global.GetStore().FinalizeChunkedUpload(FileConstant.StorageDomainTmp, tempPath, uploadId, eTags);
+            ChunkedUploadSessionHolder.FinalizeUploadSession(uploadSession);
 
             var file = GetFileForCommit(uploadSession);
             SaveFile(file, null);
-            Global.GetStore().Move(FileConstant.StorageDomainTmp, tempPath, string.Empty, GetUniqFilePath(file));
+            ChunkedUploadSessionHolder.Move(uploadSession, GetUniqFilePath(file));
 
             return file;
         }
 
         public void AbortUploadSession(ChunkedUploadSession uploadSession)
         {
-            if (uploadSession.UseChunks)
-            {
-                var tempPath = uploadSession.GetItemOrDefault<string>("TempPath");
-                var uploadId = uploadSession.GetItemOrDefault<string>("UploadId");
-                Global.GetStore().AbortChunkedUpload(FileConstant.StorageDomainTmp, tempPath, uploadId);
-            }
-            else if (uploadSession.Items.ContainsKey("ChunksBuffer"))
-            {
-                System.IO.File.Delete(uploadSession.GetItemOrDefault<string>("ChunksBuffer"));
-            }
+            ChunkedUploadSessionHolder.AbortUploadSession(uploadSession);
         }
 
         private File GetFileForCommit(ChunkedUploadSession uploadSession)
@@ -762,12 +711,7 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public void DeleteFileStream(object fileId)
-        {
-            Global.GetStore().Delete(GetUniqFilePath(GetFile(fileId)));
-        }
-
-        public void DeleteFolder(object fileId)
+        private static void DeleteFolder(object fileId)
         {
             Global.GetStore().DeleteDirectory(GetUniqFileDirectory(fileId));
         }
@@ -843,6 +787,19 @@ namespace ASC.Files.Core.Data
             return Global.GetStore().GetReadStream(string.Empty, GetUniqFilePath(file, DiffTitle));
         }
 
+        public bool ContainChanges(object fileId, int fileVersion)
+        {
+            using (var dbManager = GetDb())
+            {
+                return dbManager.ExecuteScalar<int>(
+                    Query("files_file")
+                        .SelectCount()
+                        .Where(Exp.Eq("id", fileId))
+                        .Where(Exp.Eq("version", fileVersion))
+                        .Where(!Exp.Eq("changes", null))) > 0;
+            }
+        }
+
         #endregion
 
         private File ToFile(object[] r)
@@ -862,7 +819,7 @@ namespace ASC.Files.Core.Data
                 RootFolderType = ParseRootFolderType(r[10]),
                 RootFolderCreator = ParseRootFolderCreator(r[10]),
                 RootFolderId = ParseRootFolderId(r[10]),
-                SharedByMe = Convert.ToBoolean(r[11]),
+                Shared = Convert.ToBoolean(r[11]),
                 ConvertedType = (string)r[12],
                 Comment = (string)r[13],
             };

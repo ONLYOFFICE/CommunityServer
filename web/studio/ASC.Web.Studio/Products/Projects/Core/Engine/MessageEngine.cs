@@ -175,7 +175,7 @@ namespace ASC.Projects.Engine
             }
 
             if (!participant.Any())
-                participant = GetSubscribers(message).Select(r=> new Guid(r.ID));
+                participant = GetSubscribers(message).Select(r=> new Guid(r.ID)).ToList();
 
             NotifyParticipiant(message, isNew, participant, GetFiles(message), notify);
 

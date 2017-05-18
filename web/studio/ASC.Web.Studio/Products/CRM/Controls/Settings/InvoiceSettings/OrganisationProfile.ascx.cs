@@ -47,7 +47,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.OrganisationProfileViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.OrganisationProfileViewData());
 
             RegisterScript();
         }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -79,9 +79,9 @@ namespace ASC.Web.Community.Blogs
         protected void RenderScripts()
         {
             Page.RegisterBodyScripts("~/products/community/modules/blogs/js/blogs.js",
-                "~/js/asc/plugins/tagsautocompletebox.js");
-            Page.RegisterStyle("~/products/community/modules/blogs/app_themes/default/blogstyle.css");
-            Page.RegisterInlineScript(@"
+                "~/products/community/js/tagsautocompletebox.js")
+                .RegisterStyle("~/products/community/modules/blogs/app_themes/default/blogstyle.css")
+                .RegisterInlineScript(@"
 function createSearchHelper() {
 
 	var ForumTagSearchHelper = new SearchHelper(

@@ -12,7 +12,7 @@
                 <td class="value"><% =RenderCreatedDate() %></td>
             </tr>
             <tr>
-                <td class="name"><%= CustomNamingPeople.Substitute<Resource>("TenantUsersTotal") %>:</td>
+                <td class="name"><%= CustomNamingPeople.Substitute<Resource>("TenantUsersTotal").HtmlEncode() %>:</td>
                 <td class="value"><%= RenderUsersTotal() %></td>
             </tr>
         </table>

@@ -30,6 +30,7 @@ using System.Threading;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
@@ -64,8 +65,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(typeof(ConfirmActivation));
-            Page.RegisterBodyScripts("~/usercontrols/management/confirmactivation/js/confirmactivation.js");
-            Page.RegisterStyle("~/usercontrols/management/ConfirmActivation/css/confirmactivation.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/confirmactivation/js/confirmactivation.js")
+                .RegisterStyle("~/usercontrols/management/ConfirmActivation/css/confirmactivation.less");
             Page.Title = HeaderStringHelper.GetPageTitle(Resource.Authorization);
             ButtonEmailAndPasswordOK.Text = Resource.EmailAndPasswordOK;
             btChangeEmail.Text = Resource.ChangeEmail;
@@ -103,7 +104,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         return;
                     }
 
-                    UserAuth(User, HttpContext.Current);
+                    UserAuth(User);
                     ActivateMail(User);
                 }
 
@@ -121,14 +122,14 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
-        private static void UserAuth(UserInfo user, HttpContext context)
+        private static void UserAuth(UserInfo user)
         {
             if (SecurityContext.IsAuthenticated) return;
 
             if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
             {
-                context.Session["refererURL"] = context.Request.Url.AbsoluteUri;
-                context.Response.Redirect(Confirm.SmsConfirmUrl(user), true);
+                HttpContext.Current.Session["refererURL"] = HttpContext.Current.Request.Url.AbsoluteUri;
+                HttpContext.Current.Response.Redirect(Confirm.SmsConfirmUrl(user), true);
                 return;
             }
 
@@ -175,13 +176,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 var pwd = Request.Form["pwdInput"];
 
                 UserManagerWrapper.CheckPasswordPolicy(pwd);
-                if (string.IsNullOrEmpty(pwd))
-                {
-                    throw new ArgumentException(Resource.ErrorMissMatchPwd);
-                }
 
                 SecurityContext.SetUserPassword(User.ID, pwd);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedPassword);
+
+                CookiesManager.ResetUserCookie();
+                MessageService.Send(HttpContext.Current.Request, MessageAction.CookieSettingsUpdated);
             }
             catch (Exception ex)
             {
@@ -287,7 +287,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 return EmailValidationKeyProvider.ValidationResult.Invalid;
             }
 
-            var email = request["email"];
+            var email = (request["email"] ?? "").Trim();
             if (String.IsNullOrEmpty(email) || !email.TestEmailRegex())
             {
                 return EmailValidationKeyProvider.ValidationResult.Invalid;

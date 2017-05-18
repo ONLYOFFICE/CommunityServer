@@ -38,7 +38,6 @@ using ASC.Web.Studio.UserControls.Management;
 
 namespace ASC.Web.Mail.Controls
 {
-  [AjaxPro.AjaxNamespace("MailBox")]
   public partial class MailBox : System.Web.UI.UserControl
   {
     public static string Location { get { return "~/addons/mail/Controls/MailBox/MailBox.ascx"; } }
@@ -48,13 +47,27 @@ namespace ASC.Web.Mail.Controls
     protected void Page_Load(object sender, EventArgs e)
     {
         Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js",
-            "~/usercontrols/common/ckeditor/ckeditor-connector.js");
-
-        AjaxPro.Utility.RegisterTypeForAjax(this.GetType());
+                                 "~/usercontrols/common/ckeditor/ckeditor-connector.js",
+                                 "~/products/files/js/common.js",
+                                 "~/products/files/js/templatemanager.js",
+                                 "~/products/files/js/servicemanager.js",
+                                 "~/products/files/js/ui.js",
+                                 "~/products/files/js/eventhandler.js",
+                                 "~/products/files/controls/emptyfolder/emptyfolder.js",
+                                 "~/products/files/controls/fileselector/fileselector.js",
+                                 "~/products/files/controls/tree/tree.js"
+            )
+            .RegisterStyle("~/products/files/controls/fileselector/fileselector.css",
+                           "~/products/files/controls/thirdparty/thirdparty.css",
+                           "~/products/files/controls/contentlist/contentlist.css",
+                           "~/products/files/controls/emptyfolder/emptyfolder.css",
+                           "~/products/files/controls/tree/tree.css"
+            );
 
         TagsPageHolder.Controls.Add(LoadControl(TagsPage.Location) as TagsPage);
         TagsPageHolder.Controls.Add(LoadControl(AccountsPage.Location) as AccountsPage);
         TagsPageHolder.Controls.Add(LoadControl(ContactsPage.Location) as ContactsPage);
+        TagsPageHolder.Controls.Add(LoadControl(CommonSettingsPage.Location) as CommonSettingsPage);
 
         if (Configuration.Settings.IsAdministrationPageAvailable())
             TagsPageHolder.Controls.Add(LoadControl(AdministrationPage.Location) as AdministrationPage);
@@ -82,63 +95,6 @@ namespace ASC.Web.Mail.Controls
     protected String RenderRedirectUpload()
     {
         return string.Format("{0}://{1}:{2}{3}", Request.GetUrlRewriter().Scheme, Request.GetUrlRewriter().Host, Request.GetUrlRewriter().Port, VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?newEditor=true&esid=mail");
-    }
-
-    private static readonly Regex cssBlock = new Regex(@"(\<style(.)*?\>.*?((\r\n)*|.*)*?\<\/style\>)", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex cssTag = new Regex(@"(\<style(.)*?\>|<\/style\>)", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex cssRow = new Regex(@"((\r\n)(.*){)", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-    private String wrapCSS(string css)
-    {
-        string res = "\r\n" + cssTag.Replace(css, "").Replace("\r\n", "").Replace("}", "}\r\n");
-        MatchCollection mc = cssRow.Matches(res);
-        foreach (Match occur in mc)
-        {
-            string selectors = occur.Value;
-            if (!string.IsNullOrEmpty(selectors))
-            {
-                selectors = selectors.Replace("\r\n", "\r\n#itemContainer .body ").Replace(",", ", #itemContainer .body ");
-            }
-            res = res.Replace(occur.Value, selectors);
-
-        }
-        res = "<style>" + res + "</style>";
-        return res;
-    }
-
-    private String handleCSS(string html)
-    {
-        if (cssBlock.IsMatch(html))
-        {
-            MatchCollection mc = cssBlock.Matches(html);
-            foreach (Match occur in mc)
-            {
-                html = html.Replace(occur.Value, wrapCSS(occur.Value));
-            }
-        }
-        return html;
-    }
-
-    [AjaxPro.AjaxMethod(AjaxPro.HttpSessionStateRequirement.ReadWrite)]
-    public string getHtmlBody(string url)
-    {
-        try
-        {
-            HttpWebRequest loHttp = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse loWebResponse = (HttpWebResponse)loHttp.GetResponse();
-            StreamReader loResponseStream = new StreamReader(loWebResponse.GetResponseStream());
-            string html = loResponseStream.ReadToEnd();
-            loWebResponse.Close();
-            loResponseStream.Close();
-
-            html = handleCSS(html);
-
-            return html;
-        }
-        catch
-        {
-            return String.Empty;
-        }
     }
 
     public bool IsMailPrintAvailable()

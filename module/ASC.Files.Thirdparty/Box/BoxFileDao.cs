@@ -49,6 +49,10 @@ namespace ASC.Files.Thirdparty.Box
         {
             var boxFileId = MakeBoxId(fileId);
             CacheReset(boxFileId, true);
+
+            var boxFile = GetBoxFile(fileId);
+            var parentPath = GetParentFolderId(boxFile);
+            if (parentPath != null) CacheReset(parentPath);
         }
 
         public File GetFile(object fileId)
@@ -202,6 +206,7 @@ namespace ASC.Files.Thirdparty.Box
         public void DeleteFile(object fileId)
         {
             var boxFile = GetBoxFile(fileId);
+            if (boxFile == null) return;
             var id = MakeId(boxFile.Id);
 
             using (var db = GetDb())
@@ -391,16 +396,6 @@ namespace ASC.Files.Thirdparty.Box
             return null;
         }
 
-        public void DeleteFolder(object fileId)
-        {
-            //Do nothing
-        }
-
-        public void DeleteFileStream(object file)
-        {
-            //Do nothing
-        }
-
         public bool IsExistOnStorage(File file)
         {
             return true;
@@ -419,6 +414,11 @@ namespace ASC.Files.Thirdparty.Box
         public Stream GetDifferenceStream(File file)
         {
             return null;
+        }
+
+        public bool ContainChanges(object fileId, int fileVersion)
+        {
+            return false;
         }
 
         #endregion

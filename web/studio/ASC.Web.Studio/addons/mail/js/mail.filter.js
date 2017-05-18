@@ -32,6 +32,7 @@ window.MailFilter = (function($) {
         from,
         importance,
         withCalendar,
+        page,
         pageSize,
         periodFrom,
         periodTo,
@@ -54,6 +55,7 @@ window.MailFilter = (function($) {
             tags = new Array();
             from = undefined;
             importance = false;
+            page = 1;
             pageSize = TMMail.option('MessagesPageSize');
             periodFrom = 0;
             withinPeriod = '';
@@ -294,6 +296,14 @@ window.MailFilter = (function($) {
 
 
     /*page & page size*/
+    var setPage = function (newPage) {
+        page = newPage;
+    };
+
+    var getPage = function () {
+        return page;
+    };
+
     var setPageSize = function(newSize) {
         pageSize = parseInt(newSize);
     };
@@ -317,6 +327,7 @@ window.MailFilter = (function($) {
             periodWithin,
             sortParam,
             sortorder,
+            pageParam,
             pageSizeParam,
             fromDateParam,
             fromMessageParam,
@@ -330,6 +341,7 @@ window.MailFilter = (function($) {
             unreadParam = TMMail.getParamsValue(params, /unread=([^\/]+)/);
             attachmentsParam = TMMail.getParamsValue(params, /(attachments\/)/);
             fromParam = TMMail.getParamsValue(params, /from=([^\/]+)/);
+            pageParam = TMMail.getParamsValue(params, /page=(\d+)/);
             pageSizeParam = TMMail.getParamsValue(params, /page_size=(\d+)/);
             period = TMMail.getParamsValue(params, /period=([^\/]+)/);
             periodWithin = TMMail.getParamsValue(params, /within=([^\/]+)/);
@@ -432,6 +444,8 @@ window.MailFilter = (function($) {
             setPrevFlag(false);
         }
 
+        setPage(pageParam ? pageParam : 1);
+
         if (pageSizeParam) {
             setPageSize(pageSizeParam);
         } else {
@@ -460,6 +474,7 @@ window.MailFilter = (function($) {
         f.period = getPeriod();
         f.period_within = getPeriodWithin();
         f.search = getSearch();
+        f.page = page;
         f.page_size = pageSize;
         f.from_date = fromDate;
         f.from_message = fromMessage;
@@ -523,6 +538,9 @@ window.MailFilter = (function($) {
         }
 
         if (includePagingInfo === true) {
+            if(!commonSettingsPage.isConversationsEnabled())
+                res += 'page=' + f.page + '/';
+
             res += 'page_size=' + f.page_size + '/';
         }
 
@@ -579,6 +597,8 @@ window.MailFilter = (function($) {
     function toData() {
         var res = {};
         res.folder = folder;
+        if (!commonSettingsPage.isConversationsEnabled())
+            res.page = page;
         res.page_size = pageSize;
         if (getUnread() != undefined) {
             res.unread = getUnread();
@@ -693,6 +713,9 @@ window.MailFilter = (function($) {
         getSort: getSort,
         setSortOrder: setSortOrder,
         getSortOrder: getSortOrder,
+
+        getPage: getPage,
+        setPage: setPage,
 
         setPageSize: setPageSize,
         getPageSize: getPageSize,

@@ -79,13 +79,6 @@ namespace ASC.VoipService
         public int WaitTime { get; set; }
 
         public Queue(){}
-        public Queue(string name, string waitUrl)
-        {
-            Name = name;
-            WaitUrl = waitUrl;
-            WaitTime = 30;
-            Size = 5;
-        }
 
         public Queue(string id, string name, int size, string waitUrl, int waitTime)
         {
@@ -100,8 +93,8 @@ namespace ASC.VoipService
     public class WorkingHours
     {
         public bool Enabled { get; set; }
-        public TimeSpan From { get; set; }
-        public TimeSpan To { get; set; }
+        public TimeSpan? From { get; set; }
+        public TimeSpan? To { get; set; }
 
         public WorkingHours(){}
 
@@ -137,58 +130,12 @@ namespace ASC.VoipService
         }
     }
 
-    public class VoiceMail
-    {
-
-        public string Url { get; set; }
-
-        public bool Enabled { get; set; }
-
-        public int TimeOut { get; set; }
-
-        public VoiceMail()
-        {
-            TimeOut = 30;
-        }
-
-        public VoiceMail(string url, bool enabled)
-        {
-            Url = url;
-            Enabled = enabled;
-            TimeOut = 30;
-            
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((VoiceMail) obj);
-        }
-
-        protected bool Equals(VoiceMail other)
-        {
-            return string.Equals(Url, other.Url) && Enabled.Equals(other.Enabled) && TimeOut == other.TimeOut;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = (Url != null ? Url.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Enabled.GetHashCode();
-                hashCode = (hashCode * 397) ^ TimeOut;
-                return hashCode;
-            }
-        }
-    }
-
     public class VoipUpload
     {
         public string Name { get; set; }
         public string Path { get; set; }
         public AudioType AudioType { get; set; }
+        public bool IsDefault { get; set; }
     }
 
     #region Enum

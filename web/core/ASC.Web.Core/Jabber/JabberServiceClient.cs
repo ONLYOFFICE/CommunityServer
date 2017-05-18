@@ -25,12 +25,9 @@
 
 
 using ASC.Core;
-using ASC.Core.Common.Notify.Jabber;
 using ASC.Core.Notify.Jabber;
 using System;
-using System.Collections.Generic;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace ASC.Web.Core.Jabber
 {

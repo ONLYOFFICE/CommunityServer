@@ -112,42 +112,42 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EditSectionCaption">
+  <data name="EditSectionCaption" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="EditSectionTitleFormat">
+  <data name="EditSectionTitleFormat" xml:space="preserve">
     <value>Edit section:{0}</value>
   </data>
-  <data name="editWiki_File">
+  <data name="editWiki_File" xml:space="preserve">
     <value>File</value>
   </data>
-  <data name="editWiki_FileName">
+  <data name="editWiki_FileName" xml:space="preserve">
     <value>File Name</value>
   </data>
-  <data name="editWiki_PageBody">
+  <data name="editWiki_PageBody" xml:space="preserve">
     <value>Text</value>
   </data>
-  <data name="editWiki_PageName">
+  <data name="editWiki_PageName" xml:space="preserve">
     <value>Page Title</value>
   </data>
-  <data name="editWiki_PagePreview">
+  <data name="editWiki_PagePreview" xml:space="preserve">
     <value>Preview</value>
   </data>
-  <data name="editWiki_UploadCaption">
+  <data name="editWiki_UploadCaption" xml:space="preserve">
     <value>Upload File</value>
   </data>
-  <data name="editWiki_UploadFileName">
+  <data name="editWiki_UploadFileName" xml:space="preserve">
     <value>Uploaded File Name</value>
   </data>
-  <data name="Enlarge">
+  <data name="Enlarge" xml:space="preserve">
     <value>Zoom In</value>
   </data>
-  <data name="HelpPage_DefaultBody">
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
     <value>Creating wiki pages is very simple even if you have never used any markup language before. All you need to know is a few simple rules listed below. We hope you'll find them useful. 
 
 @@TOC@@
@@ -163,7 +163,7 @@ To start a new section, use the = symbol at the beginning of a paragraph:
 ===Sub-subsection===&lt;br&gt;
 
 &lt;p&gt;
-Inserting @TOC@ in a page will unite all page sections and subsections in a table of contents.
+Inserting @@TOC@@ in a page will unite all page sections and subsections in a table of contents.
 &lt;/p&gt;
 
 Wiki markup ignores line breaks. You may use them to separate sentences within a paragraph. 
@@ -219,13 +219,13 @@ To insert the link to another wiki page, put the page title in double square bra
 In case the link and the title you want to be displayed on a page are different, type the link title after the | symbol: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
 
 &lt;p&gt;
-External links are inserted right into the text, like this: &lt;br&gt; http://TeamLab.com&lt;/p&gt; 
+External links are inserted right into the text, like this: &lt;br&gt; http://example.com&lt;/p&gt; 
 
 &lt;p&gt;
-In case you need to change the external link title, put it in single square brackets, and type your title after a space: &lt;br&gt; [http://TeamLab.com TeamLab]&lt;/p&gt; 
+In case you need to change the external link title, put it in single square brackets, and type your title after a space: &lt;br&gt; [http://example.com YourTitle]&lt;/p&gt; 
 
 &lt;p&gt;
-To insert an e-mail address, use single square brackets: &lt;br&gt; [mailto:support@teamlab.com]&lt;/p&gt; 
+To insert an e-mail address, use single square brackets: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
 
 &lt;p&gt; 
 To add a page to category, add the link to the desired category [[Category: Desired category]] at the bottom of the page.
@@ -314,15 +314,15 @@ Thumbnail image =  [[Image:Image Title | thumb]] – the image will be compresse
 
 If you have an html-formatted text that you would like to transfer here, you may do it quickly and easily. Click on '''Create new page''' on the '''Actions''' panel. Next paste your text into the editor window and switch to the wiki markup display by clicking on the Wiki icon on the formatting panel above. The html tags will be changed to wiki markup. Check the results, correct minor errors if any and press '''Publish'''. Your page is ready.</value>
   </data>
-  <data name="HelpPageCaption">
+  <data name="HelpPageCaption" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="MainPage_DefaultBody">
-    <value>'''Welcome to TeamLab Wiki!''' 
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Welcome to Wiki!''' 
 
 Here you may create pages, interlink and unite them into categories via your web browser. Wiki is a convenient tool for keeping project-related documentation characterized by the following features:
 
-*multiple authors. Each '''TeamLab''' member may edit the contents of any page.
+*multiple authors. Each portal member may edit the contents of any page.
 *quick editing. Click on '''Edit''' link availabe on every page and start editing right in your browser.
 *easy transfer from HTML to WIKI. Learn [[Internal:Help#HTML to Wiki Transfer|how]] 
 *page version support. Check what's been edited by reverting the page to its previous version.
@@ -331,7 +331,7 @@ Here you may create pages, interlink and unite them into categories via your web
 
 ==Wiki Navigation and Structure==
 
-You may navigate wiki through the '''Navigation Panel''' always available while you are inside '''TeamLab''' wiki. 
+You may navigate wiki through the '''Navigation Panel''' always available while you are inside the wiki. 
 
 ===Pages===
 
@@ -349,7 +349,7 @@ You may upload files of any size and format to wiki, as well as give links to up
 
 ===Help===
 
-Creating pages for '''TeamLab''' wiki is easy. All you need to know is a few simple rules. Visit the [[Internal:Help|wiki markup tips]] to read through the wiki markup rules.  
+Creating pages for your wiki is easy. All you need to know is a few simple rules. Visit the [[Internal:Help|wiki markup tips]] to read through the wiki markup rules.  
 
 
 ==Creating Your Wiki==
@@ -358,108 +358,108 @@ To create your own wiki, start with creating a new page by clicking on the '''Cr
 
 Remember that this is your personal space where you may organize everything according to your specific needs. Even the contents of this page is editable. For example, you may delete what's written here and paste links to your projects for your convenience. &lt;br&gt;Good luck!</value>
   </data>
-  <data name="MainPage_EmptyPage">
+  <data name="MainPage_EmptyPage" xml:space="preserve">
     <value>The page doesn't exist.  Click {here} to create and edit it.</value>
   </data>
-  <data name="miniToolBar_Anchor">
+  <data name="miniToolBar_Anchor" xml:space="preserve">
     <value>Anchor</value>
   </data>
-  <data name="miniToolBar_Bold">
+  <data name="miniToolBar_Bold" xml:space="preserve">
     <value>Bold</value>
   </data>
-  <data name="miniToolBar_CodeEscaped">
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
     <value>Preblock</value>
   </data>
-  <data name="miniToolBar_CodeInline">
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
     <value>To visually highlight third-party code </value>
   </data>
-  <data name="miniToolBar_Comment">
+  <data name="miniToolBar_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="miniToolBar_Escape">
+  <data name="miniToolBar_Escape" xml:space="preserve">
     <value>HTML code example</value>
   </data>
-  <data name="miniToolBar_ExternalLink">
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
     <value>External link</value>
   </data>
-  <data name="miniToolBar_FileLink">
+  <data name="miniToolBar_FileLink" xml:space="preserve">
     <value>Local file link</value>
   </data>
-  <data name="miniToolBar_H1">
+  <data name="miniToolBar_H1" xml:space="preserve">
     <value>H1</value>
   </data>
-  <data name="miniToolBar_H2">
+  <data name="miniToolBar_H2" xml:space="preserve">
     <value>H2</value>
   </data>
-  <data name="miniToolBar_H3">
+  <data name="miniToolBar_H3" xml:space="preserve">
     <value>H3</value>
   </data>
-  <data name="miniToolBar_H4">
+  <data name="miniToolBar_H4" xml:space="preserve">
     <value>H4 (use with moderation)</value>
   </data>
-  <data name="miniToolBar_HR">
+  <data name="miniToolBar_HR" xml:space="preserve">
     <value>Horizontal line</value>
   </data>
-  <data name="miniToolBar_Image">
+  <data name="miniToolBar_Image" xml:space="preserve">
     <value>Image</value>
   </data>
-  <data name="miniToolBar_Italic">
+  <data name="miniToolBar_Italic" xml:space="preserve">
     <value>Italics</value>
   </data>
-  <data name="miniToolBar_LineBreak">
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
     <value>New line</value>
   </data>
-  <data name="miniToolBar_NoBr">
+  <data name="miniToolBar_NoBr" xml:space="preserve">
     <value>NoBR tag</value>
   </data>
-  <data name="miniToolBar_NoWiki">
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
     <value>Cannot be interpreted by the Wiki language</value>
   </data>
-  <data name="miniToolBar_PageLink">
+  <data name="miniToolBar_PageLink" xml:space="preserve">
     <value>Page Link</value>
   </data>
-  <data name="miniToolBar_SpetialTags">
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
     <value>Special tags</value>
   </data>
-  <data name="miniToolBar_Striked">
+  <data name="miniToolBar_Striked" xml:space="preserve">
     <value>Strike</value>
   </data>
-  <data name="miniToolBar_Subscript">
+  <data name="miniToolBar_Subscript" xml:space="preserve">
     <value>Subscript</value>
   </data>
-  <data name="miniToolBar_Superscript">
+  <data name="miniToolBar_Superscript" xml:space="preserve">
     <value>Superscript</value>
   </data>
-  <data name="miniToolBar_Symbols">
+  <data name="miniToolBar_Symbols" xml:space="preserve">
     <value>Special symbols</value>
   </data>
-  <data name="miniToolBar_Underlined">
+  <data name="miniToolBar_Underlined" xml:space="preserve">
     <value>Underline</value>
   </data>
-  <data name="miniToolBar_WrapperBox">
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
     <value>Block</value>
   </data>
-  <data name="wikiErrorFileSizeLimitText">
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
     <value>The maximal size of the uploaded file is exceeded</value>
   </data>
-  <data name="wikiFileDownloadCaption">
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
     <value>Download file</value>
   </data>
-  <data name="wikiInternalCategoriesKeyCaption">
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
     <value>Categories</value>
   </data>
-  <data name="wikiMaxUploadSizeFormat">
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
     <value>Maximum uploaded file size is {0}</value>
   </data>
-  <data name="wikiPageEditSectionCaptionFormat">
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
     <value>, Section: "{0}"</value>
   </data>
-  <data name="wikiPageMoved">
+  <data name="wikiPageMoved" xml:space="preserve">
     <value>=The page has been moved=
 Page name changed to [[{0}|{0}]].
 You can find latest version [[{0}|here]]</value>
   </data>
-  <data name="wikiTOCFakeCaption">
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
     <value>Table of Contents</value>
   </data>
 </root>

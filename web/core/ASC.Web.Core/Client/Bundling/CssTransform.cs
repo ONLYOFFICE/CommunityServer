@@ -31,13 +31,15 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Optimization;
+using Microsoft.Ajax.Utilities;
 
 namespace ASC.Web.Core.Client.Bundling
 {
-    class CssTransform : IItemTransform
+    class CssTransform : IItemTransform, IBundleTransform
     {
         private readonly string bundlepath;
 
+        public CssTransform(): this("") { }
 
         public CssTransform(string bundlepath)
         {
@@ -62,7 +64,7 @@ namespace ASC.Web.Core.Client.Bundling
 
             var urlRegex = new Regex(@"url\((.*?)\)", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
             input = urlRegex.Replace(input, m => ResolveUrlPath(includedVirtualPath, m));
-            return input;
+            return new Minifier().MinifyStyleSheet(input);
         }
 
         private string ResolveImportLessPath(string virtualPath, Match m)
@@ -105,6 +107,11 @@ namespace ASC.Web.Core.Client.Bundling
                 return m.Value.Replace(m.Groups[1].Value, "\"" + path + "\"");
             }
             return m.Value;
+        }
+
+        public void Process(BundleContext context, BundleResponse response)
+        {
+            response.ContentType = "text/css";
         }
     }
 }

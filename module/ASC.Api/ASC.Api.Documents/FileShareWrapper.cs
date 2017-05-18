@@ -52,8 +52,11 @@ namespace ASC.Api.Documents
             {
                 if (aceWrapper.SubjectId == FileConstant.ShareLinkId)
                 {
-
-                    SharedTo = new FileShareLink { Id = aceWrapper.SubjectId, ShareLink = aceWrapper.SubjectName };
+                    SharedTo = new FileShareLink
+                        {
+                            Id = aceWrapper.SubjectId,
+                            ShareLink = aceWrapper.ShortenLink ?? aceWrapper.Link
+                        };
                 }
                 else
                 {

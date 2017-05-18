@@ -58,7 +58,7 @@ namespace ASC.Api.Mail
         /// <param name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param> 
         /// <param optional="true" name="from_date">Date from wich conversations search performed</param>
         /// <param optional="true" name="from_message">Message from wich conversations search performed</param>
-        /// <param optional="true" name="with_calendar">Message has сalendar flag. bool flag.</param>
+        /// <param optional="true" name="with_calendar">Message has calendar flag. bool flag.</param>
         /// <param name="prev_flag"></param>
         /// <returns>List of filtered chains</returns>
         /// <short>Gets filtered conversations</short>
@@ -86,20 +86,21 @@ namespace ASC.Api.Mail
             {
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
-                Attachments = attachments.GetValueOrDefault(false),
-                PeriodFrom = period_from.GetValueOrDefault(0),
-                PeriodTo = period_to.GetValueOrDefault(0),
-                Important = important.GetValueOrDefault(false),
+                Attachments = attachments,
+                PeriodFrom = period_from,
+                PeriodTo = period_to,
+                Important = important,
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
                 CustomLabels = new ItemList<int>(tags),
-                SearchFilter = search,
+                SearchText = search,
                 PageSize = page_size.GetValueOrDefault(25),
                 SortOrder = sortorder,
-                WithCalendar = with_calendar.GetValueOrDefault(false)
+                WithCalendar = with_calendar
             };
 
             bool hasMore;
+
             var conversations = MailBoxManager.GetConversations(
                 TenantId,
                 Username,
@@ -108,10 +109,17 @@ namespace ASC.Api.Mail
                 from_message.GetValueOrDefault(0),
                 prev_flag,
                 out hasMore);
+
             if (hasMore)
-                _context.SetTotalCount(filter.PageSize + 1);
+            {
+                var page = filter.PageSize;
+                _context.SetTotalCount(page + 1);
+            }
             else
+            {
                 _context.SetTotalCount(conversations.Count);
+            }
+
             return conversations;
         }
 
@@ -162,7 +170,8 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="tags">Messages tags. Id of tags linked with target messages.</param>
         /// <param optional="true" name="search">Text to search in messages body and subject.</param>
         /// <param optional="true" name="page_size">Count on messages on page</param>
-        /// <param name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param> 
+        /// <param name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param>
+        /// <param optional="true" name="with_calendar">Message has with_calendar flag. bool flag.</param> 
         /// <returns>Head message id of previous or next conversation.</returns>
         /// <category>Conversations</category>
         [Read(@"conversation/{id:[0-9]+}/{direction:(next|prev)}")]
@@ -179,7 +188,8 @@ namespace ASC.Api.Mail
             IEnumerable<int> tags,
             string search,
             int? page_size,
-            string sortorder)
+            string sortorder,
+            bool? with_calendar)
         {
             // inverse sort order if prev message require
             if ("prev" == direction)
@@ -189,16 +199,17 @@ namespace ASC.Api.Mail
             {
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
-                Attachments = attachments.GetValueOrDefault(false),
-                PeriodFrom = period_from.GetValueOrDefault(0),
-                PeriodTo = period_to.GetValueOrDefault(0),
-                Important = important.GetValueOrDefault(false),
+                Attachments = attachments,
+                PeriodFrom = period_from,
+                PeriodTo = period_to,
+                Important = important,
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
                 CustomLabels = new ItemList<int>(tags),
-                SearchFilter = search,
+                SearchText = search,
                 PageSize = page_size.GetValueOrDefault(25),
-                SortOrder = sortorder
+                SortOrder = sortorder,
+                WithCalendar = with_calendar
             };
 
             return MailBoxManager.GetNextConversationId(TenantId, Username, id, filter);

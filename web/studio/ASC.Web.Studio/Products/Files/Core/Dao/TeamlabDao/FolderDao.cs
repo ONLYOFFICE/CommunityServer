@@ -271,6 +271,7 @@ namespace ASC.Files.Core.Data
                         db.ExecuteNonQuery(
                             Update("files_folder")
                                 .Set("title", folder.Title)
+                                .Set("create_by", folder.CreateBy.ToString())
                                 .Set("modified_on", TenantUtil.DateTimeToUtc(folder.ModifiedOn))
                                 .Set("modified_by", folder.ModifiedBy.ToString())
                                 .Where("id", folder.ID));
@@ -357,6 +358,7 @@ namespace ASC.Files.Core.Data
                 db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", subfolders)).Where("entry_type", (int)FileEntryType.Folder));
                 db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
                 db.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", subfolders)).Where("entry_type", (int)FileEntryType.Folder));
+                db.ExecuteNonQuery(Delete("files_bunch_objects").Where("left_node", id));
 
                 tx.Commit();
 
@@ -373,7 +375,7 @@ namespace ASC.Files.Core.Data
                     var folder = GetFolder(folderId);
 
                     if (folder.FolderType != FolderType.DEFAULT)
-                        throw new ArgumentException("It is forbidden to move to the System folder.", "folderId");
+                        throw new ArgumentException("It is forbidden to move the System folder.", "folderId");
 
                     var recalcFolders = new List<object> { toFolderId };
                     var parent = dbManager.ExecuteScalar<int>(Query("files_folder").Select("parent_id").Where("id", folderId));
@@ -849,7 +851,7 @@ namespace ASC.Files.Core.Data
                     RootFolderType = ParseRootFolderType(r[10]),
                     RootFolderCreator = ParseRootFolderCreator(r[10]),
                     RootFolderId = ParseRootFolderId(r[10]),
-                    SharedByMe = Convert.ToBoolean(r[11]),
+                    Shared = Convert.ToBoolean(r[11]),
                 };
             switch (f.FolderType)
             {

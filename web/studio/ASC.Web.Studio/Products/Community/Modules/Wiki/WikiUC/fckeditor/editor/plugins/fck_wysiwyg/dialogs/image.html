@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2007 Frederico Caldeira Knabben
@@ -118,6 +118,7 @@ function TempFileLoaded(file, response)
 		return;
 		
 	GetE('txtUrl').value = file;
+	GetE('txtWidth').value = "";
 	var prevResponse = new Object();
 	response.WebPath = unescape(response.WebPath).replace(/&amp;/g, "&").replace(/\+/g, "%2b");
 	prevResponse.value = response.WebPath;
@@ -263,7 +264,7 @@ function Ok()
 	var imgCaption	= GetE('txtAlt').value ;
 	var imgType		= GetE('xType').value ;
 	var imgLocation	= GetE('cmbAlign').value ;
-	var imgWidth	= GetE('txtWidth').value.replace(/[a-z%]/gi, '') ;
+	var imgWidth	= GetE('txtWidth').value.replace(/[a-z%]/gi, '') || "130";
 	//var imgHeight	= GetE('txtHeight').value ;
 
 	var ajaxArg = '[[Image:' + imgName ;
@@ -574,10 +575,16 @@ function UpdatePreviewFromAjax( response )
 {
 	response = response.value;
 	var eImgPreview = window.document.getElementById('prevImg');
-	eImgPreview.src = response
-	SetAttribute(eImgPreview, "width" , '130px' ) ;
-	SetAttribute(eImgPreview, "height", '130px' ) ;
-	//UpdateImage( eImgPreview, response) ;
+
+	eImgPreview.onload = function() {
+		if (GetE('txtWidth').value) return;
+		GetE('txtWidth').value = (this.naturalWidth || 130) + "px";
+	};
+
+	eImgPreview.src = response;
+	SetAttribute(eImgPreview, "width" , '130px' );
+	SetAttribute(eImgPreview, "height", '130px');
+	//UpdateImage( eImgPreview, response);
 }
 
 function UpdatePreview()

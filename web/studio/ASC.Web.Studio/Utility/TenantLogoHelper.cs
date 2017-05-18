@@ -24,12 +24,8 @@
 */
 
 
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core.WhiteLabel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ASC.Web.Studio.Utility
 {

@@ -2283,12 +2283,12 @@ function Header(calendar, options) {
 		}
 
 		fcMenus.modeMenuAddNew.popupMenu({
-			anchor: "right,bottom",
-			direction: "left,down",
+			anchor: "left,bottom",
+			direction: "right,down",
 			arrow: "up",
 			showArrow: false,
 			closeTimeout: -1,
-			cssClassName: "asc-popupmenu asc-popup-wide",
+			cssClassName: "asc-popupmenu",
 			items: [
 				{
 					label: calendar.options.eventEditor.newEventTitle,
@@ -4054,7 +4054,7 @@ function CategoriesList(calendar) {
 				'<div class="content">' +
 					'<div class="content-h first">' +
 						'<span class="main-label">' + htmlEscape(calendar.options.categories.title) + '</span>' +
-						<!--'<span class="add-label" title="' + htmlEscape(calendar.options.categories.addNewCategoryLabel) + '"/>' + -->
+						//<!--'<span class="add-label" title="' + htmlEscape(calendar.options.categories.addNewCategoryLabel) + '"/>' + -->
 					'</div>' +
 					'<div class="categories"/>' +
                     (calendar.options.isPersonal ? "" :
@@ -4088,10 +4088,10 @@ function CategoriesList(calendar) {
 		var subscrItems = subscr.find(".content-li");
 
 		// restore heights of lists
-		var cih = categItems.eq(0).outerHeight(true);
+		var cih = categItems.eq(0).length ? categItems.eq(0).outerHeight(true) : 22;
 		var categH = categItems.length * cih;
 		var minCategH = categItems.length > 1 ? 2 * cih : cih;
-		var sih = subscrItems.eq(0).outerHeight(true);
+		var sih = subscrItems.eq(0).length ? subscrItems.eq(0).outerHeight(true) : 22;
 		var subscrH = subscrItems.length * sih;
 		var minSubscrH = subscrItems.length > 1 ? 2 * sih : sih;
 
@@ -4110,13 +4110,13 @@ function CategoriesList(calendar) {
 
 		// calc new heights
 		var listH = _list.height();
-		var otherH = _list.find(".date-box").outerHeight(true) +
-				_list.find(".content-h").outerHeight(true) * 2;
+		var otherH = (_list.find(".date-box").length ? _list.find(".date-box").outerHeight(true) : 0) +
+				(_list.find(".content-h").length ? _list.find(".content-h").outerHeight(true) * 2 : 0);
 		var scrollH = listH - otherH;
 		var categSpace = categ.outerHeight(true) - categ.height();
 		var subscrSpace = subscr.outerHeight(true) - subscr.height();
-		var newCategH = Math.max(minCategH, Math.round(scrollH * categH / (categH + subscrH)));
-		var newSubscrH = Math.max(minSubscrH, Math.round(scrollH * subscrH / (categH + subscrH)));
+		var newCategH = Math.max(minCategH, Math.round(scrollH * categH / (categH + subscrH)) || 0);
+		var newSubscrH = Math.max(minSubscrH, Math.round(scrollH * subscrH / (categH + subscrH)) || 0);
 		var delta = newCategH + newSubscrH - scrollH;
 		if (delta > 0) {
 			if (newCategH > newSubscrH) {newCategH = newCategH - delta;}
@@ -5499,9 +5499,9 @@ function EventEditor(calendar, uiBlocker) {
 			ar = fcUtil.getElementRect(_anchor);
 			if (ar.top < vr.top) {
 				skipArrowPos = true;
-				var m = _dialog.popupFrame("option", "offset").match(/^([+-]?\d+)(px)?,([+-]?\d+)(px)?/i);
-				var newOffs = m[1] + (m[2] ? m[2] : "") + "," +
-						(vr.top - ar.top + parseInt(m[3], 10)) + (m[4] ? m[4] : "");
+				var m = _dialog.popupFrame("option", "offset").match(/^([+-]?\d+(\.\d+)?)(px)?,([+-]?\d+(\.\d+)?)(px)?/i);
+				var newOffs = m[1] + (m[3] ? m[3] : "") + "," +
+						(vr.top - ar.top + parseInt(m[4], 10)) + (m[6] ? m[6] : "");
 				_dialog.popupFrame("option", "offset", newOffs);
 			}
 		}
@@ -6764,7 +6764,7 @@ function EventEditor(calendar, uiBlocker) {
 				dlg.editor.allday.prop("checked", true);
 				dlg.viewer.allday.addClass("yes");
 			} else {
-				dlg.editor.allday.removeAttr("checked");
+				dlg.editor.allday.prop("checked", false);
 				dlg.viewer.allday.removeClass("yes");
 			}
 
@@ -9274,7 +9274,7 @@ function EventPage(calendar) {
             dlg.editor.allday.prop("checked", true);
             dlg.viewer.allday.addClass("yes");
         } else {
-            dlg.editor.allday.removeAttr("checked");
+            dlg.editor.allday.prop("checked", false);
             dlg.viewer.allday.removeClass("yes");
         }
 
@@ -12913,15 +12913,19 @@ function AgendaView(element, calendar, viewName) {
 	}
 
     function getCellBounds(row, col) {
-        var c = dayBodyCells.length > 1 ? dayBodyCells[col] : $(".fc-agenda-allday .fc-day-content:visible")[0];
-		if (c) {
-			return {
-					left:   c.offsetLeft,
-					top:    c.offsetTop,
-					right:  c.offsetLeft + c.offsetWidth - (dayBodyCells.length > 1 ? 0 : 325),
-					bottom: c.offsetTop + c.offsetHeight};
-		}
-		return {top:0, right:0, bottom:0, left:0};
+        var isWeekView = dayBodyCells.length > 1;
+        var allDayContainer = $(".fc-agenda-allday .fc-day-content:visible")[0];
+        var cellContainer = isWeekView ? dayBodyCells[col] : allDayContainer;
+
+        if (allDayContainer && cellContainer) {
+            return {
+                left: cellContainer.offsetLeft,
+                top: allDayContainer.offsetTop,
+                right: cellContainer.offsetLeft + cellContainer.offsetWidth - (isWeekView ? 0 : 325),
+                bottom: allDayContainer.offsetTop + allDayContainer.offsetHeight
+            };
+        }
+        return {top:0, right:0, bottom:0, left:0};
 	}
 
 }
@@ -14454,7 +14458,7 @@ function DayEventRenderer() {
 				i++;
 			}
 			if (t.name != "month") {
-				rowDivs[rowI].height(arrayMax(colHeights));
+				rowDivs[rowI].height(arrayMax(colHeights) + (seg ? seg.outerHeight : 0));
 			}
 		}
 		daySegSetTops(segs, getRowTops(rowDivs));
@@ -14870,7 +14874,7 @@ function DayEventRenderer() {
 						
 		var ph = popup.outerHeight(true);
 		if (ph > 190) {
-			popup.css("overflow-y", "scroll").css("overflow-x", "hidden").css("max-height", "190px");
+			popup.css("overflow-y", "auto").css("overflow-x", "hidden").css("max-height", "190px");
 		}
 		else {
 			popup.css("overflow-y", "hidden");

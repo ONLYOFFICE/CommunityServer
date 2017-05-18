@@ -142,16 +142,19 @@
     <value>Do you want to activate %1?</value>
   </data>
   <data name="AddAccountBtnLabel" xml:space="preserve">
-    <value>Add account</value>
+    <value>Add Account</value>
   </data>
   <data name="AddAccountInfoQuestion" xml:space="preserve">
     <value>Do you want to add your first mail account right now?</value>
   </data>
   <data name="AddAccountInfoText" xml:space="preserve">
-    <value>You haven't got any mail accounts connected to TeamLab Mail. Please add your mail account to start receiving and sending email messages.</value>
+    <value>You haven't got any mail accounts connected to ONLYOFFICE™ Mail. Please add your mail account to start receiving and sending email messages.</value>
   </data>
   <data name="AddAccountInfoTitle" xml:space="preserve">
-    <value>Add a new account to start using TeamLab Mail.</value>
+    <value>Add a new account to start using ONLYOFFICE™ Mail.</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Common Settings</value>
   </data>
   <data name="AdministrationLabel" xml:space="preserve">
     <value>Mail Server</value>
@@ -160,37 +163,40 @@
     <value>(Alias)</value>
   </data>
   <data name="AliasNotificationText" xml:space="preserve">
-    <value>Alias of mailbox %mailbox_address%, edited in administration panel only</value>
+    <value>%mailbox_address% mailbox alias, edited in administration panel only</value>
   </data>
   <data name="AllLabel" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="AttachemntsUnauthorizedError" xml:space="preserve">
+    <value>You are not authorized. Please authorize before you can proceed.</value>
+  </data>
   <data name="AttachmentsBadInputParamsError" xml:space="preserve">
-    <value>Some input params are invalid.</value>
+    <value>Some input parameters are invalid.</value>
   </data>
   <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
-    <value>Access to document is denied.</value>
+    <value>Access to the document is denied.</value>
   </data>
   <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
-    <value>Document not found or not exists on storage.</value>
+    <value>Document could not be found or does not exist on the chosen storage.</value>
   </data>
   <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
-    <value>Empty files not supported.</value>
+    <value>Empty files are not supported.</value>
   </data>
   <data name="AttachmentsExecutableWarning" xml:space="preserve">
-    <value>executable files may not be allowed by some services (f.e. Gmail)</value>
+    <value>executable files may be not allowed by some services (e.g. Gmail)</value>
   </data>
   <data name="AttachmentsLimitLabel" xml:space="preserve">
-    <value>Note: The file size must not exceed %1 MB. The total size of all files should be no more than %2 MB.</value>
+    <value>Note: the file size must not exceed %1 MB. The total size of all files should be no more than %2 MB.</value>
   </data>
   <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
-    <value>Message not found.</value>
+    <value>Message could not be found.</value>
   </data>
   <data name="AttachmentsTotalLimitError" xml:space="preserve">
     <value>Total size of all attachments exceeds limit.</value>
   </data>
   <data name="AttachmentsUnknownError" xml:space="preserve">
-    <value>Some error has happend. Try again later.</value>
+    <value>Some unexpected error has occurred. Please try again later.</value>
   </data>
   <data name="AuthErrorDisablePopupBody" xml:space="preserve">
     <value>The {0} mail account could not be connected for a long time and had to be disabled.{1} Please, check all the account settings you entered or sign in to the mail service you use and check the security settings. When you are sure all the issues with the account connection are resolved you can always enable it in your connected accounts list.</value>
@@ -210,8 +216,68 @@
   <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
     <value>An error occurred while connecting to the account.</value>
   </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>disable</value>
+  </data>
   <data name="Bytes" xml:space="preserve">
     <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>No later events</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>No earlier events</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>All day</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Prev day</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>map</value>
+  </data>
+  <data name="CalendarMoreDetailsLabel" xml:space="preserve">
+    <value>more details</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>No location</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizer</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Recurrence</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Maybe</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Where</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Who</value>
   </data>
   <data name="CancelBtnLabel" xml:space="preserve">
     <value>Cancel</value>
@@ -241,7 +307,10 @@
     <value>Copying to "My Documents" folder</value>
   </data>
   <data name="CorrectAccountRecommendation" xml:space="preserve">
-    <value>Please, check your account settings. If you are sure your settings are correct, sign in to your mail provider to confirm any verification questions and then try again.</value>
+    <value>Please, check all the account settings you entered. If you are sure your settings are correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After that try again.</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Create contact</value>
   </data>
   <data name="CreateMailboxBtn" xml:space="preserve">
     <value>Create mailbox</value>
@@ -250,16 +319,25 @@
     <value>We provide you with a ready-made free default domain so that you could create your new mailbox right away.</value>
   </data>
   <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
-    <value>This domain is common for all portals, so it is recommended that your corporate domain was used for corporate email correspondence.</value>
+    <value>This domain is common for all portals, so it is recommended that your corporate domain is used for corporate email correspondence.</value>
   </data>
   <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
     <value>Create Mailbox</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Create new contact</value>
   </data>
   <data name="CreateNewCRMCompany" xml:space="preserve">
     <value>Create new CRM company</value>
   </data>
   <data name="CreateNewCRMPerson" xml:space="preserve">
     <value>Create new CRM person</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Create personal contact</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Company</value>
   </data>
   <data name="CRMContactsLabel" xml:space="preserve">
     <value>CRM Contacts</value>
@@ -269,6 +347,9 @@
   </data>
   <data name="DeactivateAccountShure" xml:space="preserve">
     <value>Do you want to deactivate %1?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>Some of your accounts are not receiving mail.</value>
   </data>
   <data name="DefaultAccountText" xml:space="preserve">
     <value>This account used to send the mail by default</value>
@@ -280,10 +361,10 @@
     <value>Do you want to delete %1?</value>
   </data>
   <data name="DeleteTagShure" xml:space="preserve">
-    <value>Are you sure you want to delete this tag %1?</value>
+    <value>Are you sure you want to delete the %1 tag?</value>
   </data>
   <data name="DeletionMessage" xml:space="preserve">
-    <value>Deletion of messages</value>
+    <value>Deleting messages</value>
   </data>
   <data name="DeliveryFailurePopupBody" xml:space="preserve">
     <value>Please, check your message recipients addresses and message format.  If you are sure your message is correct, check all the {account_name} account settings, and, if everything is correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After then try again.</value>
@@ -304,10 +385,13 @@
     <value>Mail accounts have been disabled</value>
   </data>
   <data name="DisableAllMailboxesPopupText" xml:space="preserve">
-    <value>Your portal has not been used for quite a long time, so your mail accounts connected to Teamlab Mail have been disabled. If you still want to use them go to your account page and enable them back again.</value>
+    <value>Your portal has not been used for quite a long time, so your mail accounts connected to ONLYOFFICE™ Mail have been disabled. If you still want to use them go to your account page and enable them back again.</value>
   </data>
   <data name="DoneLabel" xml:space="preserve">
     <value>Done</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Edit contact</value>
   </data>
   <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
     <value>Uploading attachment to selected folder failed.</value>
@@ -331,13 +415,13 @@
     <value>No messages to be displayed in this folder</value>
   </data>
   <data name="EmptyInboxButton" xml:space="preserve">
-    <value>Compose new letter</value>
+    <value>Compose new message</value>
   </data>
   <data name="EmptyInboxDescription" xml:space="preserve">
     <value>The Inbox section allows you to manage the messages you receive. Here you can see the correspondence history, tick the most important messages, group emails by categories using tags or delete the unnecessary ones.</value>
   </data>
   <data name="EmptyInboxHeader" xml:space="preserve">
-    <value>No letters recieved</value>
+    <value>No messages recieved</value>
   </data>
   <data name="EmptyScrAccountsButton" xml:space="preserve">
     <value>Set up the first account</value>
@@ -357,23 +441,26 @@
   <data name="EmptyScrCrmHeader" xml:space="preserve">
     <value>The contact list is empty</value>
   </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>This contact list will show all your personal contacts from the address book. You have not entered any contacts there yet.</value>
+  </data>
   <data name="EmptyScrTagsButton" xml:space="preserve">
     <value>Create New Mail Tag</value>
   </data>
   <data name="EmptyScrTagsDescription" xml:space="preserve">
-    <value>First create tag - then use them</value>
+    <value>You need first to create a tag and use it after that only</value>
   </data>
   <data name="EmptyScrTagsHeader" xml:space="preserve">
     <value>No tags created</value>
   </data>
   <data name="EmptySentButton" xml:space="preserve">
-    <value>Compose new letter</value>
+    <value>Compose new message</value>
   </data>
   <data name="EmptySentDescription" xml:space="preserve">
     <value>The Sent section allows you to manage the messages you send. Here you can tick the most important messages, group emails by categories using tags or delete the unnecessary ones.</value>
   </data>
   <data name="EmptySentHeader" xml:space="preserve">
-    <value>No letters sent yet</value>
+    <value>No messages have been sent yet</value>
   </data>
   <data name="EmptySpamDescription" xml:space="preserve">
     <value>The Spam section contains messages you identified as junk mail. Here you can delete emails, classify them as 'non-spam' or clear the whole section.</value>
@@ -382,37 +469,49 @@
     <value>No messages to be displayed in this folder</value>
   </data>
   <data name="EmptyTrashDescription" xml:space="preserve">
-    <value>The Trash section contains messages which were deleted. Here you can recover some emails or definitely delete them.</value>
+    <value>The Trash section contains messages which were deleted. Here you can recover some emails or delete them permanently.</value>
   </data>
   <data name="EmptyTrashHeader" xml:space="preserve">
     <value>No messages to be displayed in this folder</value>
   </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Mail autoreply is enabled</value>
+  </data>
   <data name="ErrorAccountAlreadyExists" xml:space="preserve">
-    <value>This account already exists in TeamLab Mail.</value>
+    <value>This account already exists</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Calendar is unreachable</value>
   </data>
   <data name="ErrorEmptyField" xml:space="preserve">
     <value>empty field</value>
   </data>
   <data name="ErrorEmptyToField" xml:space="preserve">
-    <value>empty To field</value>
+    <value>Empty 'To' field</value>
   </data>
   <data name="ErrorIncorrectAddress" xml:space="preserve">
-    <value>incorrect address</value>
+    <value>Incorrect address </value>
   </data>
   <data name="ErrorIncorrectEmail" xml:space="preserve">
-    <value>incorrect address</value>
+    <value>Incorrect address </value>
   </data>
   <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
     <value>no mailbox selected</value>
   </data>
   <data name="ErrorNotification" xml:space="preserve">
-    <value>Unknown error has happened!</value>
+    <value>Unknown error has occurred</value>
   </data>
   <data name="ErrorNotificationEx" xml:space="preserve">
-    <value>An error has happened during account creation! Please, check your network connection, or ask for help your network or portal administrator!</value>
+    <value>An error has occurred during account creation. Please, check your network connection or ask your network or portal administrator for help.</value>
   </data>
   <data name="ErrorNoUserSelectedField" xml:space="preserve">
     <value>no user selected</value>
+  </data>
+  <data name="ErrorOpenFolderDescription" xml:space="preserve">
+    <value>Try to reconnect the account or log in using the original service website.</value>
+  </data>
+  <data name="ErrorOpenFolderHeader" xml:space="preserve">
+    <value>The contents of the folder are not available.</value>
   </data>
   <data name="ErrorOpenMessage" xml:space="preserve">
     <value>A problem has occurred while trying to open this message.</value>
@@ -421,13 +520,19 @@
     <value>Please refresh the page and try to open this message once again. In case the problem persists, please {0}contact our support team.{1}</value>
   </data>
   <data name="ErrorParseMessageHelp" xml:space="preserve">
-    <value>Our apologies for the inconveniences but the mail message failed to load to Teamlab Mail. Use the copy of the original message added as an attachment to open it using any available mail client software or {0}contact our support team.{1}</value>
+    <value>Our apologies for the inconveniences but the mail message failed to load to ONLYOFFICE™ Mail. Use the copy of the original message added as an attachment to open it using any available mail client software or {0}contact our support team.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>This phone number already exists</value>
   </data>
   <data name="ErrorSendMessage" xml:space="preserve">
     <value>A problem has occurred while trying to send this message.</value>
   </data>
   <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
-    <value>Tag %1 already exists</value>
+    <value>The %1 tag already exists</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Unsupported file format</value>
   </data>
   <data name="ExistAccountText" xml:space="preserve">
     <value>If you want to reconnect this account, please remove it first from the list of your connected accounts at the 'Settings &gt; Accounts Management' page.</value>
@@ -454,7 +559,7 @@
     <value>Export message to CRM contact history complete successfully</value>
   </data>
   <data name="FilterAnotherGroup" xml:space="preserve">
-    <value>Another</value>
+    <value>Other</value>
   </data>
   <data name="FilterByContactStage" xml:space="preserve">
     <value>Temperature level</value>
@@ -463,10 +568,10 @@
     <value>Date</value>
   </data>
   <data name="FilterByPeriod" xml:space="preserve">
-    <value>By period</value>
+    <value>Custom period</value>
   </data>
   <data name="FilterByTitle" xml:space="preserve">
-    <value>Title</value>
+    <value>Name</value>
   </data>
   <data name="FilterChoose" xml:space="preserve">
     <value>Choose</value>
@@ -476,6 +581,12 @@
   </data>
   <data name="FilterContactStage" xml:space="preserve">
     <value>Temperature level</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="FilterFrequentlyContacted" xml:space="preserve">
+    <value>Frequently contacted</value>
   </data>
   <data name="FilterFromSender" xml:space="preserve">
     <value>From sender</value>
@@ -501,6 +612,9 @@
   <data name="FilterPerson" xml:space="preserve">
     <value>Persons</value>
   </data>
+  <data name="FilterPersonalContacts" xml:space="preserve">
+    <value>Personal contacts</value>
+  </data>
   <data name="FilterRead" xml:space="preserve">
     <value>Read</value>
   </data>
@@ -519,11 +633,14 @@
   <data name="FilterWithAttachments" xml:space="preserve">
     <value>With attachments</value>
   </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>With calendar</value>
+  </data>
   <data name="FilterWithOpportunity" xml:space="preserve">
     <value>With opportunities</value>
   </data>
   <data name="FilterWithTags" xml:space="preserve">
-    <value>With tags</value>
+    <value>With tag</value>
   </data>
   <data name="ForwardSubjectPrefix" xml:space="preserve">
     <value>Fwd</value>
@@ -534,8 +651,26 @@
   <data name="FromLabel" xml:space="preserve">
     <value>From</value>
   </data>
+  <data name="GoForDetailsText" xml:space="preserve">
+    <value>Go to {0} to enable them.</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>You can {0} or change it in {1}</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>Go to {0} to enable them.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Go to Calendar</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Go to Event</value>
+  </data>
   <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
     <value>Group cannot be set as default mailbox</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>(Group)</value>
   </data>
   <data name="HelpCenterLabel" xml:space="preserve">
     <value>Help</value>
@@ -588,11 +723,20 @@
   <data name="LoadingAttachments" xml:space="preserve">
     <value>loading attachments...</value>
   </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Mail Autoreply</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>To</value>
+  </data>
   <data name="MailboxCreation" xml:space="preserve">
-    <value>Mailbox creation...</value>
+    <value>Creating mailbox...</value>
   </data>
   <data name="MailBoxUpdate" xml:space="preserve">
-    <value>MailBox update...</value>
+    <value>Mailbox update...</value>
   </data>
   <data name="ManageAccountsLabel" xml:space="preserve">
     <value>Manage accounts</value>
@@ -601,13 +745,19 @@
     <value>Manage signature</value>
   </data>
   <data name="MarkAllRecipientsLabel" xml:space="preserve">
-    <value>Mark all recipient(s)`s mail</value>
+    <value>Mark all recipient(s) mail</value>
   </data>
   <data name="MarkAllSendersLabel" xml:space="preserve">
-    <value>Mark all sender(s)`s mail</value>
+    <value>Mark all sender(s) mail</value>
   </data>
   <data name="Megabytes" xml:space="preserve">
     <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>This message contains images that cannot be displayed at the moment. Do you want to continue?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Continue without images</value>
   </data>
   <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
     <value>This message contains images that cannot be displayed at the moment. Do you want to print it?</value>
@@ -615,20 +765,17 @@
   <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
     <value>Confirm printing without images</value>
   </data>
-  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
-    <value>This message contains images that cannot be displayed at the moment. Do you want to continue?</value>
-  </data>
-   <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
-    <value>Continue without images</value>
-  </data>
   <data name="MessageNotSent" xml:space="preserve">
     <value>The message has not been sent. Are you sure you want to delete it?</value>
   </data>
   <data name="More" xml:space="preserve">
     <value>%1 more</value>
   </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>More Details</value>
+  </data>
   <data name="MovingMessages" xml:space="preserve">
-    <value>Moving of messages</value>
+    <value>Moving messages</value>
   </data>
   <data name="NewAccount" xml:space="preserve">
     <value>Add mail account</value>
@@ -640,10 +787,10 @@
     <value>No further action is necessary.</value>
   </data>
   <data name="NoLettersFilterDescription" xml:space="preserve">
-    <value>No letters matching your filter can be displayed in this folder. Please select other filter options or clear filter to view all the contacts in this folder.</value>
+    <value>No messages matching your filter can be displayed in this folder. Please select other filter options or clear filter to view all the messages in this folder.</value>
   </data>
   <data name="NoLettersFilterHeader" xml:space="preserve">
-    <value>No letters to be displayed for this filter here</value>
+    <value>No messages to be displayed for this filter here</value>
   </data>
   <data name="NoneLabel" xml:space="preserve">
     <value>None</value>
@@ -672,6 +819,9 @@
   <data name="PageHeaderReply" xml:space="preserve">
     <value>Reply</value>
   </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Personal Contacts</value>
+  </data>
   <data name="PrintAllBtnLabel" xml:space="preserve">
     <value>Print all</value>
   </data>
@@ -684,14 +834,17 @@
   <data name="QuotaPopupHeader" xml:space="preserve">
     <value>The available disk storage is exceeded</value>
   </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Quoted text hidden]</value>
+  </data>
   <data name="ReadLabel" xml:space="preserve">
     <value>Mark as read</value>
   </data>
   <data name="RemoveSpamQuestion" xml:space="preserve">
-    <value>Do you want to remove all letters from Spam?</value>
+    <value>Do you want to delete all messages from Spam?</value>
   </data>
   <data name="RemoveTrashQuestion" xml:space="preserve">
-    <value>Do you want to remove all letters from Trash?</value>
+    <value>Do you want to delete all messages from Trash?</value>
   </data>
   <data name="ReplySubjectPrefix" xml:space="preserve">
     <value>Re</value>
@@ -711,6 +864,12 @@
   <data name="ResetFilterButton" xml:space="preserve">
     <value>Reset filter</value>
   </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>No contacts matching the selected filter could be found. Please select another filter or clear this one to view all contacts.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>There are no contacts matching this filter</value>
+  </data>
   <data name="ResetTlContactsFilterDescription" xml:space="preserve">
     <value>No portal contacts matching your filter can be displayed on this page. Please select other filter options or clear filter to view all the portal contacts.</value>
   </data>
@@ -721,7 +880,7 @@
     <value>Restore</value>
   </data>
   <data name="RestoringMessages" xml:space="preserve">
-    <value>Restoring of messages</value>
+    <value>Restoring messages</value>
   </data>
   <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
     <value>It was successfully saved %real_count% from %count% in My Documents.</value>
@@ -729,11 +888,14 @@
   <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
     <value>Saving was unsuccessful.</value>
   </data>
-  <data name="SaveAttachmentToMyDocsSuccess" xml:space="preserve">
-    <value>'%file_name%' is successfully saved in My Documents.</value>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%' is successfully saved in Calendar.</value>
   </data>
   <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
     <value>'%file_name%' is successfully saved in '%folder_name%'.</value>
+  </data>
+  <data name="SaveAttachmentToMyDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' is successfully saved in My Documents.</value>
   </data>
   <data name="SavingMessage" xml:space="preserve">
     <value>Saving message</value>
@@ -748,7 +910,7 @@
     <value>Sending message</value>
   </data>
   <data name="SentMessageText" xml:space="preserve">
-    <value>Message's been sent!</value>
+    <value>Message has been sent!</value>
   </data>
   <data name="ServerLabel" xml:space="preserve">
     <value>Server</value>
@@ -790,7 +952,7 @@
     <value>Tags</value>
   </data>
   <data name="TeamLabContactsLabel" xml:space="preserve">
-    <value>TeamLab Contacts</value>
+    <value>Portal Contacts</value>
   </data>
   <data name="ToLabel" xml:space="preserve">
     <value>To</value>
@@ -821,158 +983,5 @@
   </data>
   <data name="WithTags" xml:space="preserve">
     <value>With tags</value>
-  </data>
-  <data name="QuotedTextHiddenMsg" xml:space="preserve">
-    <value>[Quoted text hidden]</value>
-  </data>
-  <data name="FilterContactStageNotSpecified" xml:space="preserve">
-    <value>Not specified</value>
-  </data>
-  <data name="ErrorOpenFolderDescription" xml:space="preserve">
-    <value>Try to reconnect the account or log in using the original service website.</value>
-  </data>
-  <data name="ErrorOpenFolderHeader" xml:space="preserve">
-    <value>The contents of the folder are not available.</value>
-  </data>
-  <data name="CRMCompany" xml:space="preserve">
-    <value>Company</value>
-  </data>
-  <data name="PersonalContactsLabel" xml:space="preserve">
-    <value>Personal Contacts</value>
-  </data>
-  <data name="CreatePersonalContact" xml:space="preserve">
-    <value>Create personal contact</value>
-  </data>
-  <data name="CreateNewContactLabel" xml:space="preserve">
-    <value>Create new contact</value>
-  </data>
-  <data name="ErrorPhoneExist" xml:space="preserve">
-    <value>This phone number already exists</value>
-  </data>
-  <data name="EditContactcLabel" xml:space="preserve">
-    <value>Edit contact</value>
-  </data>
-  <data name="DeactivatedAccountsNotification" xml:space="preserve">
-    <value>Some of your accounts are not receiving mail.</value>
-  </data>
-  <data name="GoForDetailsText" xml:space="preserve">
-    <value>For details, go to the {0}.</value>
-  </data>
-  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
-    <value>Go to {0} to enable them.</value>
-  </data>
-  <data name="MailAutoreplyLabel" xml:space="preserve">
-    <value>Mail Autoreply</value>
-  </data>
-  <data name="EnabledAutoreplyNotification" xml:space="preserve">
-    <value>Mail autoreply is enabled</value>
-  </data>
-  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
-    <value>You can {0} or change it in {1}</value>
-  </data>
-  <data name="AutoreplyDisable" xml:space="preserve">
-    <value>disable</value>
-  </data>
-  <data name="FilterWithCalendar" xml:space="preserve">
-    <value>With calendar</value>
-  </data>
-  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
-    <value>'%file_name%' is successfully saved in Calendar.</value>
-  </data>
-  <data name="CalendarAgendaLabel" xml:space="preserve">
-    <value>Agenda</value>
-  </data>
-  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
-    <value>No later events</value>
-  </data>
-  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
-    <value>No earlier events</value>
-  </data>
-  <data name="CalendarMapLabel" xml:space="preserve">
-    <value>map</value>
-  </data>
-  <data name="CalendarMoreDetailsLabel" xml:space="preserve">
-    <value>more details</value>
-  </data>
-  <data name="MoreDetailsLabel" xml:space="preserve">
-    <value>More Details</value>
-  </data>
-  <data name="CalendarNoLocationLabel" xml:space="preserve">
-    <value>No location</value>
-  </data>
-  <data name="CalendarOrganizerLabel" xml:space="preserve">
-    <value>Organizer</value>
-  </data>
-  <data name="CalendarParticipantsLabel" xml:space="preserve">
-    <value>Participants</value>
-  </data>
-  <data name="CalendarReplyLabel" xml:space="preserve">
-    <value>Reply</value>
-  </data>
-  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
-    <value>Maybe</value>
-  </data>
-  <data name="CalendarReplyNoLabel" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="CalendarReplyYesLabel" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="CalendarWhenLabel" xml:space="preserve">
-    <value>When</value>
-  </data>
-  <data name="CalendarRecurrenceLabel" xml:space="preserve">
-    <value>Recurrence</value>
-  </data>
-  <data name="CalendarWhereLabel" xml:space="preserve">
-    <value>Where</value>
-  </data>
-  <data name="CalendarWhoLabel" xml:space="preserve">
-    <value>Who</value>
-  </data>
-  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
-    <value>Calendar is unreachable</value>
-  </data>
-  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
-    <value>Unsupported file format</value>
-  </data>
-  <data name="CreateContactButton" xml:space="preserve">
-    <value>Create contact</value>
-  </data>
-  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
-    <value>This contact list will show all your personal contacts from the address book. You have not entered any contacts there yet.</value>
-  </data>
-  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
-    <value>No contacts matching the selected filter could be found. Please select another filter or clear this one to view all contacts.</value>
-  </data>
-  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
-    <value>There are no contacts matching this filter</value>
-  </data>
-  <data name="CalendarEventAllDayLabel" xml:space="preserve">
-    <value>All day</value>
-  </data>
-  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
-    <value>Prev day</value>
-  </data>
-  <data name="GoToCalendarLink" xml:space="preserve">
-    <value>Go to Calendar</value>
-  </data>
-   <data name="GoToEventLink" xml:space="preserve">
-    <value>Go to Event</value>
-  </data>
-  <data name="CalendarLabel" xml:space="preserve">
-    <value>Calendar</value>
-  </data>
-  <data name="FilterFrequentlyContacted" xml:space="preserve">
-    <value>Frequently contacted</value>
-  </data>
-  <data name="FilterPersonalContacts" xml:space="preserve">
-    <value>Personal contacts</value>
-  </data>
-  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
-    <value>From</value>
-  </data>
-  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
-    <value>To</value>
   </data>
 </root>

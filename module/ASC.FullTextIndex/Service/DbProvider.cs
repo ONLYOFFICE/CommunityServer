@@ -39,10 +39,7 @@ namespace ASC.FullTextIndex.Service
             using (var db = new DbManager("default"))
             {
                 var last = db.ExecuteScalar<DateTime>(new SqlQuery("webstudio_index").SelectMax("last_modified"));
-                var period = TextIndexCfg.ChangedCron.Period();
-                if (!period.HasValue)
-                    return false;
-                return last.Add(period.Value) > DateTime.UtcNow;
+                return !last.Equals(DateTime.MinValue);
             }
         }
 

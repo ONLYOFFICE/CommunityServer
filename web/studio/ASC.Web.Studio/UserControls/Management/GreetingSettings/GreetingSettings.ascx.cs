@@ -25,16 +25,16 @@
 
 
 using System;
-using System.Web.UI;
 using System.Web;
-using ASC.Web.Studio.Utility;
-using ASC.Web.Studio.Core;
+using System.Web.UI;
 using AjaxPro;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.MessagingSystem;
-using Resources;
 using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
+using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -46,9 +46,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/greetingsettings/js/greetingsettings.js"));
-
-            Page.RegisterStyle("~/usercontrols/management/greetingsettings/css/greetingsettings.less");
+            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/greetingsettings/js/greetingsettings.js"))
+                .RegisterStyle("~/usercontrols/management/greetingsettings/css/greetingsettings.less");
 
             if (GreetingLogoSettings.AvailableControl)
             {

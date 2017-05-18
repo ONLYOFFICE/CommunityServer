@@ -79,20 +79,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensor.
+        ///   Looks up a localized string similar to Copyright.
         /// </summary>
         public static string AboutCompanyLicensor {
             get {
                 return ResourceManager.GetString("AboutCompanyLicensor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SUBLICENSEE.
-        /// </summary>
-        public static string AboutCompanySublicensee {
-            get {
-                return ResourceManager.GetString("AboutCompanySublicensee", resourceCulture);
             }
         }
         
@@ -106,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About Teamlab Office.
+        ///   Looks up a localized string similar to About this program.
         /// </summary>
         public static string AboutCompanyTitle {
             get {
@@ -124,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See how Teamlab compares to Google Drive and Office365 word processors:.
+        ///   Looks up a localized string similar to See how ONLYOFFICE™ compares to Google Drive and Office365 word processors:.
         /// </summary>
         public static string AboutPersonalCompareText {
             get {
@@ -133,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teamlab Personal enables you to:.
+        ///   Looks up a localized string similar to ONLYOFFICE™ Personal enables you to:.
         /// </summary>
         public static string AboutPersonalEnableHeader {
             get {
@@ -144,7 +135,7 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}Sign up via Facebook or Google account.{1}
         ///{0}Create and upload docs from your computer.{1}
-        ///{0}Connect your favorite cloud storage: Dropbox, Google Drive, SkyDrive or Box.{1}
+        ///{0}Connect your favorite cloud storage: Dropbox, Google Drive, OneDrive or Box.{1}
         ///{0}Share files with your friends, co-edit and comment them in real time.{1}
         ///{0}Embed documents to your web page.{1}
         ///{0}View files from your iOS or Android tablet.{1}.
@@ -156,7 +147,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more information, please proceed to the official website {0}www.teamlab.com{1}.
+        ///   Looks up a localized string similar to For more information, please proceed to the official website {0}www.onlyoffice.com{1}.
         /// </summary>
         public static string AboutPersonalMoreInfoText {
             get {
@@ -174,7 +165,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feel free to contact us at {0}personal@teamlab.com{2} or join {1}our Facebook community{2}!.
+        ///   Looks up a localized string similar to Feel free to contact us at {0}personal@onlyoffice.com{2} or join {1}our Facebook community{2}!.
         /// </summary>
         public static string AboutPersonalQuestionText {
             get {
@@ -183,7 +174,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What makes Teamlab processors the best?.
+        ///   Looks up a localized string similar to What makes ONLYOFFICE™ processors the best?.
         /// </summary>
         public static string AboutPersonalTheBestHeader {
             get {
@@ -192,7 +183,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}If you are a user:{1} it combines the formatting quality of MS Office &amp; online collaboration of Google Docs..
+        ///   Looks up a localized string similar to {0}If you are a user:{1} they combine the formatting quality of MS Office &amp; online collaboration of Google Docs..
         /// </summary>
         public static string AboutPersonalTheBestText1 {
             get {
@@ -201,7 +192,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}If you are a tech enthusiast:{1} it&apos;s built with the use of HTML5 element, Canvas..
+        ///   Looks up a localized string similar to {0}If you are a tech enthusiast:{1} they&apos;re built with the use of HTML5 element, Canvas..
         /// </summary>
         public static string AboutPersonalTheBestText2 {
             get {
@@ -210,7 +201,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would like to use Teamlab in your company?.
+        ///   Looks up a localized string similar to Would like to use ONLYOFFICE™ in your company?.
         /// </summary>
         public static string AboutPersonalUseHeader {
             get {
@@ -219,7 +210,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teamlab Personal rises from Teamlab Office - collaborative suite for small and medium business. Apart from document processors, Teamlab Office includes project and document management toolset, CRM system and Email aggregator..
+        ///   Looks up a localized string similar to ONLYOFFICE™ Personal rises from ONLYOFFICE™ - collaborative suite for small and medium business. Apart from document processors, ONLYOFFICE™ includes project and document management toolset, CRM system and Email aggregator..
         /// </summary>
         public static string AboutPersonalUseText {
             get {
@@ -228,7 +219,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What is Teamlab Personal:.
+        ///   Looks up a localized string similar to What is ONLYOFFICE™ Personal:.
         /// </summary>
         public static string AboutPersonalWhatIsItHeader {
             get {
@@ -237,7 +228,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teamlab Personal is a suite of online processors for text documents, spreadsheets and presentations with co-editing and commenting capabilities. It is free for individual use..
+        ///   Looks up a localized string similar to ONLYOFFICE™ Personal is a suite of online processors for text documents, spreadsheets and presentations with co-editing and commenting capabilities. It is free for individual use..
         /// </summary>
         public static string AboutPersonalWhatIsItText {
             get {
@@ -255,7 +246,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Права доступа.
+        ///   Looks up a localized string similar to Access Rights.
         /// </summary>
         public static string AccessRights {
             get {
@@ -264,7 +255,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доступ к продукту {0} предоставлен.
+        ///   Looks up a localized string similar to Access to {0} module is given to.
         /// </summary>
         public static string AccessRightsAccessToProduct {
             get {
@@ -273,7 +264,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавить {!group}.
+        ///   Looks up a localized string similar to Add {!group}.
         /// </summary>
         public static string AccessRightsAddGroup {
             get {
@@ -282,7 +273,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавить {!user}.
+        ///   Looks up a localized string similar to Add {!user}.
         /// </summary>
         public static string AccessRightsAddUser {
             get {
@@ -300,7 +291,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change portal owner.
+        ///   Looks up a localized string similar to Change Portal Owner.
         /// </summary>
         public static string AccessRightsChangeOwnerButtonText {
             get {
@@ -309,7 +300,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes will be applied after the confirmation via Email..
+        ///   Looks up a localized string similar to Changes will be applied after the confirmation via email..
         /// </summary>
         public static string AccessRightsChangeOwnerConfirmText {
             get {
@@ -318,7 +309,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To change Portal owner please, choose the Name of the new Portal owner below..
+        ///   Looks up a localized string similar to To change the Portal owner please choose the Name of the new Portal owner below..
         /// </summary>
         public static string AccessRightsChangeOwnerText {
             get {
@@ -327,7 +318,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Продукт {0} отключен и не отображается на портале. Для его подключения перейдите в настройки продуктов и инструментов.
+        ///   Looks up a localized string similar to {0} module is disabled and is not shown on the portal. To enable it, refer to the Modules &amp; Tools section of the Portal Settings.
         /// </summary>
         public static string AccessRightsDisabledProduct {
             get {
@@ -345,7 +336,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Полный доступ.
+        ///   Looks up a localized string similar to Full access.
         /// </summary>
         public static string AccessRightsFullAccess {
             get {
@@ -354,7 +345,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Права такие же как и у Владельца портала, кроме|Сменить владельца портала|Удалить портал.
+        ///   Looks up a localized string similar to Have the same access rights as the portal owner, except the right to|Change portal owner|Backup portal data |Deactivate or delete portal.
         /// </summary>
         public static string AccessRightsFullAccessOpportunities {
             get {
@@ -363,7 +354,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Владелец портала может.
+        ///   Looks up a localized string similar to Portal owner can.
         /// </summary>
         public static string AccessRightsOwnerCan {
             get {
@@ -372,7 +363,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Делать все то же, что и администраторы продуктов|Назначать администраторов продуктов|Управлять доступом к продуктам|Задавать настройки портала|Управлять аккаунтами пользователями|Сменить владельца портала|Удалить портал.
+        ///   Looks up a localized string similar to Do the same as module administrators|Appoint module administrators|Set modules access rights|Manage portal configuration|Manage user accounts|Change portal owner|Backup portal data|Deactivate or delete portal.
         /// </summary>
         public static string AccessRightsOwnerOpportunities {
             get {
@@ -381,7 +372,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Администраторы {0} могут.
+        ///   Looks up a localized string similar to {0} administrators can.
         /// </summary>
         public static string AccessRightsProductAdminsCan {
             get {
@@ -435,7 +426,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account Deactivation.
+        ///   Looks up a localized string similar to Portal Deactivation.
         /// </summary>
         public static string AccountDeactivation {
             get {
@@ -444,7 +435,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Before you delete the portal, please make sure that automatic billing turned off. You may ckeck on the status of automatic billing in your {0}Avangate account{1}..
+        ///   Looks up a localized string similar to Before you delete the portal, please make sure that automatic billing is turned off. You may check the status of automatic billing in your {0}Avangate account{1}..
         /// </summary>
         public static string AccountDeactivationConfirmMsg {
             get {
@@ -462,7 +453,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account Deletion.
+        ///   Looks up a localized string similar to Portal Deletion.
         /// </summary>
         public static string AccountDeletion {
             get {
@@ -485,6 +476,15 @@ namespace Resources {
         public static string Action {
             get {
                 return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
             }
         }
         
@@ -516,7 +516,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validation code cannot be empty.
+        ///   Looks up a localized string similar to Validation code field cannot be empty.
         /// </summary>
         public static string ActivateMobilePhoneEmptyCode {
             get {
@@ -534,7 +534,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send.
+        ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string ActivateSendButton {
             get {
@@ -543,7 +543,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string AddButton {
             get {
@@ -561,7 +561,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add {!group}.
+        ///   Looks up a localized string similar to Create new {!group}.
         /// </summary>
         public static string AddDepartmentDlgTitle {
             get {
@@ -570,7 +570,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add {!Groups}.
+        ///   Looks up a localized string similar to Add Groups.
         /// </summary>
         public static string AddGroupsForSharingButton {
             get {
@@ -588,7 +588,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавить ограничение.
+        ///   Looks up a localized string similar to Add allowed IP address.
         /// </summary>
         public static string AddIPRestrictionBtn {
             get {
@@ -768,7 +768,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Affilliate Status.
+        ///   Looks up a localized string similar to Affiliate Status.
         /// </summary>
         public static string AffilliateStatus {
             get {
@@ -813,7 +813,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ответить.
+        ///   Looks up a localized string similar to Answer.
         /// </summary>
         public static string AnswerCallBtn {
             get {
@@ -876,7 +876,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check your email box to confirm the account..
+        ///   Looks up a localized string similar to Check your email inbox to confirm the account..
         /// </summary>
         public static string AuthDocsCheckEmail {
             get {
@@ -903,7 +903,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit .DOCX, .XLSX and .PPTX..
+        ///   Looks up a localized string similar to Edit word docs, spreadsheets and presentations online.
         /// </summary>
         public static string AuthDocsEditText {
             get {
@@ -912,7 +912,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your E-mail.
+        ///   Looks up a localized string similar to Enter your email address.
         /// </summary>
         public static string AuthDocsEmailHint {
             get {
@@ -948,7 +948,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeamLab Personal - online text, spreadsheet and presentation editors for personal use.
+        ///   Looks up a localized string similar to ONLYOFFICE Personal is a free online office perfectly compatible with Microsoft(R) formats. It is an alternative to MS Office and enables you to edit word documents, spreadsheets and presentations online for free..
         /// </summary>
         public static string AuthDocsMetaDescription {
             get {
@@ -957,7 +957,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to edit word online, online word processor, edit document online, online spreadsheet editor, online presentation, collaborative editing.
+        ///   Looks up a localized string similar to edit word online, word editor online, word online free, word office online.
         /// </summary>
         public static string AuthDocsMetaKeywords {
             get {
@@ -984,7 +984,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sent you an activation email at .
+        ///   Looks up a localized string similar to Your activation email has been sent to .
         /// </summary>
         public static string AuthDocsSendActivationEmail {
             get {
@@ -1011,7 +1011,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get Free Office{0} In The Cloud.
+        ///   Looks up a localized string similar to Free Alternative{0}to Microsoft® Office.
         /// </summary>
         public static string AuthDocsTitle {
             get {
@@ -1056,7 +1056,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authorization keys is the option which allows you to connect your TeamLab portal with the third party services like Twitter, Facebook, DropBox etc. Connect your portal with Facebook, Twitter or Linkedin if you don&apos;t want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, SkyDrive, Zoho etc. to transfer the documents from all those storages to TeamLab Documents module. Connect TeamLab portal with Facebook (update information about people) to refresh the  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string AuthorizationKeysEnableButton {
+            get {
+                return ResourceManager.GetString("AuthorizationKeysEnableButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How It Works?.
+        /// </summary>
+        public static string AuthorizationKeysHelpHeader {
+            get {
+                return ResourceManager.GetString("AuthorizationKeysHelpHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For more detailed instructions about connecting this service, please refer to our {0}Help Center{1} that provides all the necessary information..
+        /// </summary>
+        public static string AuthorizationKeysHelpText {
+            get {
+                return ResourceManager.GetString("AuthorizationKeysHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you still have some questions on how to connect this service or need technical assistance, please feel free to contact our {0}Support Team{1}..
+        /// </summary>
+        public static string AuthorizationKeysSupportText {
+            get {
+                return ResourceManager.GetString("AuthorizationKeysSupportText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization keys is the option which allows you to connect your ONLYOFFICE™ portal with the third party services like DropBox, Facebook, Twitter etc. Connect your portal with Facebook, Linkedin or Twitter if you don&apos;t want to introduce your portal credentials every time you enter it. Link it up with such services like DropBox, OneDrive, etc. to transfer the documents from all those storages to ONLYOFFICE™ Documents module. Connect ONLYOFFICE™ portal with Facebook (update information about people) to refre [rest of string was truncated]&quot;;.
         /// </summary>
         public static string AuthorizationKeysText {
             get {
@@ -1074,7 +1110,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отключить.
+        ///   Looks up a localized string similar to Disable.
         /// </summary>
         public static string AutoBackupOff {
             get {
@@ -1083,7 +1119,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Включить.
+        ///   Looks up a localized string similar to Enable.
         /// </summary>
         public static string AutoBackupOn {
             get {
@@ -1092,7 +1128,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Используйте эту опцию для автоматического создания резервных копий данных, содержащихся на портале..
+        ///   Looks up a localized string similar to Use this option for automatic backup of the portal data..
         /// </summary>
         public static string AutoBackupText {
             get {
@@ -1101,7 +1137,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Автоматическое резервное копирование данных.
+        ///   Looks up a localized string similar to Automatic backup.
         /// </summary>
         public static string AutoDataBackup {
             get {
@@ -1110,7 +1146,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Опция {0}Автоматическое резервное копирование данных{1} используется для автоматизации процесса создания резервных копий данных для последующего их восстановления на локальном сервере или SaaS-портале. Выберите хранилище для данных, период автоматического сохранения и максимальное число хранимых копий.{2}{0}Обратите внимание:{1} прежде чем Вы сможете сохранять резервные копии в стороннем аккаунте (DropBox, Box.com, OneDrive или Google Drive), потребуется подключить его к модулю Документы ONLYOFFICE..
+        ///   Looks up a localized string similar to The {0}Automatic backup{1} option is used to automate the portal data backup process to be able to restore it later on a local server or SaaS portal. Choose the data storage, automatic backup period and maximal number of saved copies.{2}{0}Note:{1} before you can save the backup data to a third party account (DropBox, Box.com, OneDrive or Google Drive), you will need to connect this account to ONLYOFFICE Common Documents folder..
         /// </summary>
         public static string AutoDataBackupHelp {
             get {
@@ -1128,7 +1164,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backup/Restore.
+        ///   Looks up a localized string similar to Backup.
         /// </summary>
         public static string Backup {
             get {
@@ -1137,7 +1173,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cloud.
+        ///   Looks up a localized string similar to Amazon Cloud.
         /// </summary>
         public static string BackupCloud {
             get {
@@ -1146,7 +1182,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The count of backup copies.
+        ///   Looks up a localized string similar to The maximal number of backup copies to be stored.
         /// </summary>
         public static string BackupCopyCount {
             get {
@@ -1155,11 +1191,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teamlab documents.
+        ///   Looks up a localized string similar to ONLYOFFICE documents.
         /// </summary>
         public static string BackupDocsTeamlab {
             get {
                 return ResourceManager.GetString("BackupDocsTeamlab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dropbox, Box, OneDrive, Google Drive....
+        /// </summary>
+        public static string BackupDocsThirdparty {
+            get {
+                return ResourceManager.GetString("BackupDocsThirdparty", resourceCulture);
             }
         }
         
@@ -1182,7 +1227,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make backup with mail.
+        ///   Looks up a localized string similar to Include Mail in backup.
         /// </summary>
         public static string BackupMakeWithMail {
             get {
@@ -1191,7 +1236,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The third-party services are not connected.{0}For connection go to the module &quot;Documents&quot;..
+        ///   Looks up a localized string similar to No third-party services are connected.{0}Go to the &quot;Documents&quot; module to connect..
         /// </summary>
         public static string BackupNotAvailableThirdServices {
             get {
@@ -1229,7 +1274,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use this option if you want to get all data contained on the portal as file..
+        ///   Looks up a localized string similar to Use this option if you want to get all data contained on the portal as a file..
         /// </summary>
         public static string BackupText {
             get {
@@ -1247,7 +1292,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to connect your third party account (DropBox, Box.com, OneDrive or Google Drive) to ONLYOFFICE Documents before you will be able to save your backup there..
+        ///   Looks up a localized string similar to You need to connect your third party account (DropBox, Box.com, OneDrive or Google Drive) to ONLYOFFICE Common Documents folder before you will be able to save your backup there..
         /// </summary>
         public static string BackupThirdStorageDisable {
             get {
@@ -1283,7 +1328,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Браузер.
+        ///   Looks up a localized string similar to Browser.
         /// </summary>
         public static string Browser {
             get {
@@ -1310,7 +1355,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Позвонить.
+        ///   Looks up a localized string similar to Call.
         /// </summary>
         public static string CallBtn {
             get {
@@ -1319,7 +1364,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Разговор закончен.
+        ///   Looks up a localized string similar to Call is over.
         /// </summary>
         public static string CallCompleteStatus {
             get {
@@ -1328,7 +1373,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Идет соединение.
+        ///   Looks up a localized string similar to Connecting.
         /// </summary>
         public static string CallConnectStatus {
             get {
@@ -1337,7 +1382,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Идет звонок.
+        ///   Looks up a localized string similar to Call is in progress.
         /// </summary>
         public static string CallGoingStatus {
             get {
@@ -1346,7 +1391,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Входящий.
+        ///   Looks up a localized string similar to Incoming.
         /// </summary>
         public static string CallIncomingStatus {
             get {
@@ -1364,7 +1409,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel the comment addition.
+        ///   Looks up a localized string similar to Cancel adding the comment.
         /// </summary>
         public static string CancelCommentButton {
             get {
@@ -1391,7 +1436,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Почта успешно изменена.
+        ///   Looks up a localized string similar to Mail has been successfully changed.
         /// </summary>
         public static string ChangeEmailSuccess {
             get {
@@ -1517,11 +1562,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}{{!Guest}} can:{1}view open content portal;{2}post a comment;{3}attach and download files.{4}.
+        ///   Looks up a localized string similar to {0}{!Guest} can:{1}{2}{4}attach and download files;{5}{4}view and comment the portal open content;{5}{4}organize his/her schedule using the Calendar;{5}{4}use Talk to chat with other portal users online.{5}{3}.
         /// </summary>
-        public static string CollaboratorCanDescribe {
+        public static string CollaboratorCanDescribe2 {
             get {
-                return ResourceManager.GetString("CollaboratorCanDescribe", resourceCulture);
+                return ResourceManager.GetString("CollaboratorCanDescribe2", resourceCulture);
             }
         }
         
@@ -1553,7 +1598,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Original.
+        ///   Looks up a localized string similar to Mellow green.
         /// </summary>
         public static string ColorThemeDefault {
             get {
@@ -1616,7 +1661,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Завершить.
+        ///   Looks up a localized string similar to Disconnect.
         /// </summary>
         public static string CompleteCallBtn {
             get {
@@ -1643,7 +1688,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please confirm that you want to deactivate your account.
+        ///   Looks up a localized string similar to Please confirm that you want to deactivate your portal.
         /// </summary>
         public static string ConfirmDeactivatePortalTitle {
             get {
@@ -1652,7 +1697,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please confirm that you want to delete your account.
+        ///   Looks up a localized string similar to Please confirm that you want to delete your portal.
         /// </summary>
         public static string ConfirmDeletePortalTitle {
             get {
@@ -1666,6 +1711,15 @@ namespace Resources {
         public static string ConfirmDnsUpdateTitle {
             get {
                 return ResourceManager.GetString("ConfirmDnsUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to continue?.
+        /// </summary>
+        public static string ConfirmMessage {
+            get {
+                return ResourceManager.GetString("ConfirmMessage", resourceCulture);
             }
         }
         
@@ -1706,7 +1760,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please confirm that you want to reactivate your account.
+        ///   Looks up a localized string similar to Please confirm that you want to reactivate your portal.
         /// </summary>
         public static string ConfirmReactivatePortalTitle {
             get {
@@ -1734,7 +1788,7 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to This action cannot be undone.
-        ///Are you sure want to delete {!user} {0}.
+        ///Are you sure want to delete {!user} {0}?.
         /// </summary>
         public static string ConfirmRemoveUser {
             get {
@@ -1761,7 +1815,52 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box Key.
+        ///   Looks up a localized string similar to Bitly.
+        /// </summary>
+        public static string ConsumersBitly {
+            get {
+                return ResourceManager.GetString("ConsumersBitly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подключить сервис Bitly для сокращения пригласительных ссылок на портал и расшаренных ссылок в Документах..
+        /// </summary>
+        public static string ConsumersBitlyDescription {
+            get {
+                return ResourceManager.GetString("ConsumersBitlyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив сервис Bitly Вы будуте получать сокращенные ссылки для приглашения новых пользователей на портал ONLYOFFICE™ и сокращённые ссылки для расшаренных на внешний доступ документов в модуле Документы..
+        /// </summary>
+        public static string ConsumersBitlyInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersBitlyInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string ConsumersBitlyKey {
+            get {
+                return ResourceManager.GetString("ConsumersBitlyKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Api Key.
+        /// </summary>
+        public static string ConsumersBitlySecret {
+            get {
+                return ResourceManager.GetString("ConsumersBitlySecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Box.
         /// </summary>
         public static string ConsumersBox {
             get {
@@ -1770,25 +1869,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box Key.
+        ///   Looks up a localized string similar to Подключить приложение для управления файлами и папками Box..
         /// </summary>
-        public static string ConsumersBoxCom {
+        public static string ConsumersBoxDescription {
             get {
-                return ResourceManager.GetString("ConsumersBoxCom", resourceCulture);
+                return ResourceManager.GetString("ConsumersBoxDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box Key.
+        ///   Looks up a localized string similar to Добавив приложение сервиса Box Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Box, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
         /// </summary>
-        public static string ConsumersBoxComSecret {
+        public static string ConsumersBoxInstruction {
             get {
-                return ResourceManager.GetString("ConsumersBoxComSecret", resourceCulture);
+                return ResourceManager.GetString("ConsumersBoxInstruction", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box ID.
+        ///   Looks up a localized string similar to client_id.
         /// </summary>
         public static string ConsumersBoxKey {
             get {
@@ -1797,7 +1896,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Box Key.
+        ///   Looks up a localized string similar to client_secret.
         /// </summary>
         public static string ConsumersBoxSecret {
             get {
@@ -1806,20 +1905,56 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CrunchBase.
+        ///   Looks up a localized string similar to DocuSign.
         /// </summary>
-        public static string ConsumersCrunchBase {
+        public static string ConsumersDocuSign {
             get {
-                return ResourceManager.GetString("ConsumersCrunchBase", resourceCulture);
+                return ResourceManager.GetString("ConsumersDocuSign", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CrunchBase Key.
+        ///   Looks up a localized string similar to Подключить приложение для добавления электронной подписи DocuSign к документам..
         /// </summary>
-        public static string ConsumersCrunchBaseSecret {
+        public static string ConsumersDocuSignDescription {
             get {
-                return ResourceManager.GetString("ConsumersCrunchBaseSecret", resourceCulture);
+                return ResourceManager.GetString("ConsumersDocuSignDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив приложение сервиса DocuSign Вы сможете подписывать файлы модуля Документы. Это позволит вам отправлять файл на получение электронной подписи сотрудникам портала ONLYOFFICE™ средствами сервиса DocuSugn. Подписанный файл будет сохранён в Документах порала ONLYOFFICE™..
+        /// </summary>
+        public static string ConsumersDocuSignInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersDocuSignInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DocuSign Key.
+        /// </summary>
+        public static string ConsumersDocuSignKey {
+            get {
+                return ResourceManager.GetString("ConsumersDocuSignKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DocuSign authentication endpoint.
+        /// </summary>
+        public static string ConsumersDocuSignKeyDefault {
+            get {
+                return ResourceManager.GetString("ConsumersDocuSignKeyDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DocuSign Secret.
+        /// </summary>
+        public static string ConsumersDocuSignSecret {
+            get {
+                return ResourceManager.GetString("ConsumersDocuSignSecret", resourceCulture);
             }
         }
         
@@ -1833,7 +1968,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DropBox ID.
+        ///   Looks up a localized string similar to Подключить приложение для управления файлами и папками Dropbox..
+        /// </summary>
+        public static string ConsumersDropBoxDescription {
+            get {
+                return ResourceManager.GetString("ConsumersDropBoxDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив приложение сервиса Dropbox Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Dropbox, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        /// </summary>
+        public static string ConsumersDropBoxInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersDropBoxInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App key.
         /// </summary>
         public static string ConsumersDropBoxKey {
             get {
@@ -1842,7 +1995,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DropBox Key.
+        ///   Looks up a localized string similar to App secret.
         /// </summary>
         public static string ConsumersDropBoxSecret {
             get {
@@ -1860,25 +2013,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Facebook in CRM Key.
+        ///   Looks up a localized string similar to Подключить приложение для входа на портал по учетной записи Facebook и поиска контактов..
         /// </summary>
-        public static string ConsumersFacebookCRM {
+        public static string ConsumersFacebookDescription {
             get {
-                return ResourceManager.GetString("ConsumersFacebookCRM", resourceCulture);
+                return ResourceManager.GetString("ConsumersFacebookDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Facebook Key.
+        ///   Looks up a localized string similar to Добавив приложение сервиса Facebook Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Facebook. Так же Вы сможете на странице редактирования персоны CRM находить и привязывать аккаунт Facebook..
         /// </summary>
-        public static string ConsumersFacebookCRMSecret {
+        public static string ConsumersFacebookInstruction {
             get {
-                return ResourceManager.GetString("ConsumersFacebookCRMSecret", resourceCulture);
+                return ResourceManager.GetString("ConsumersFacebookInstruction", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Facebook ID.
+        ///   Looks up a localized string similar to App ID.
         /// </summary>
         public static string ConsumersFacebookKey {
             get {
@@ -1887,7 +2040,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Facebook Key.
+        ///   Looks up a localized string similar to App Secret.
         /// </summary>
         public static string ConsumersFacebookSecret {
             get {
@@ -1896,7 +2049,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Google Key.
+        ///   Looks up a localized string similar to User Token.
+        /// </summary>
+        public static string ConsumersFacebookSecretDefalt {
+            get {
+                return ResourceManager.GetString("ConsumersFacebookSecretDefalt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google.
         /// </summary>
         public static string ConsumersGoogle {
             get {
@@ -1905,7 +2067,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Google ID.
+        ///   Looks up a localized string similar to Подключить проект для входа на портал по учетной записи Google и для управления файлами и папками Google Drive..
+        /// </summary>
+        public static string ConsumersGoogleDescription {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив проект сервиса Google Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Google и подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в Google Drive, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        /// </summary>
+        public static string ConsumersGoogleInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersGoogleInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client ID.
         /// </summary>
         public static string ConsumersGoogleKey {
             get {
@@ -1914,7 +2094,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Google Key.
+        ///   Looks up a localized string similar to Client secret.
         /// </summary>
         public static string ConsumersGoogleSecret {
             get {
@@ -1923,7 +2103,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Linkedin Key.
+        ///   Looks up a localized string similar to Linkedin.
         /// </summary>
         public static string ConsumersLinkedIn {
             get {
@@ -1932,7 +2112,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Linkedin ID.
+        ///   Looks up a localized string similar to Подключить приложение для входа на портал по учетной записи LinkedIn..
+        /// </summary>
+        public static string ConsumersLinkedInDescription {
+            get {
+                return ResourceManager.GetString("ConsumersLinkedInDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив приложение сервиса LinkeIn Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт LinkedIn..
+        /// </summary>
+        public static string ConsumersLinkedInInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersLinkedInInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key.
         /// </summary>
         public static string ConsumersLinkedInKey {
             get {
@@ -1941,7 +2139,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Linkedin Key.
+        ///   Looks up a localized string similar to Secret key.
         /// </summary>
         public static string ConsumersLinkedInSecret {
             get {
@@ -1950,7 +2148,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SkyDrive.
+        ///   Looks up a localized string similar to OneDrive.
         /// </summary>
         public static string ConsumersSkyDrive {
             get {
@@ -1959,7 +2157,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SkyDrive ID.
+        ///   Looks up a localized string similar to Подключить приложение для управления файлами и папками OneDrive..
+        /// </summary>
+        public static string ConsumersSkyDriveDescription {
+            get {
+                return ResourceManager.GetString("ConsumersSkyDriveDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив приложение сервиса OneDrive Вы сможете подключать свои аккаунт в модуле Документы. Это позволит загружать и создавать новые файлы в OneDrive, редактировать существующие, копировать и удалять, предоставлять доступ к файлам и папкам для пользователей портала ONLYOFFICE™..
+        /// </summary>
+        public static string ConsumersSkyDriveInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersSkyDriveInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client ID.
         /// </summary>
         public static string ConsumersSkyDriveKey {
             get {
@@ -1968,7 +2184,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SkyDrive Key.
+        ///   Looks up a localized string similar to Client Secret.
         /// </summary>
         public static string ConsumersSkyDriveSecret {
             get {
@@ -1977,7 +2193,52 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter Key.
+        ///   Looks up a localized string similar to Twilio.
+        /// </summary>
+        public static string ConsumersTwilio {
+            get {
+                return ResourceManager.GetString("ConsumersTwilio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подключить Twilio для получения возможности совершения вызовов контактов CRM прямо из браузера..
+        /// </summary>
+        public static string ConsumersTwilioDescription {
+            get {
+                return ResourceManager.GetString("ConsumersTwilioDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив Twilio Вы сможете звонить любому контакту из CRM прямо из браузера..
+        /// </summary>
+        public static string ConsumersTwilioInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersTwilioInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Sid.
+        /// </summary>
+        public static string ConsumersTwilioKey {
+            get {
+                return ResourceManager.GetString("ConsumersTwilioKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auth Token.
+        /// </summary>
+        public static string ConsumersTwilioSecret {
+            get {
+                return ResourceManager.GetString("ConsumersTwilioSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitter.
         /// </summary>
         public static string ConsumersTwitter {
             get {
@@ -1986,34 +2247,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter in CRM Key.
+        ///   Looks up a localized string similar to Подключить приложение для входа на портал по учетной записи Twitter и поиска контактов..
         /// </summary>
-        public static string ConsumersTwitterCrm {
+        public static string ConsumersTwitterDescription {
             get {
-                return ResourceManager.GetString("ConsumersTwitterCrm", resourceCulture);
+                return ResourceManager.GetString("ConsumersTwitterDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter ID.
+        ///   Looks up a localized string similar to Добавив приложение сервиса Twitter Вы сможете на странице своего профиля подключить вход на портал ONLYOFFICE™ используя аккаунт Twitter. Так же Вы сможете на странице персоны CRM привязывать аккаунт и читать новости Twitter..
         /// </summary>
-        public static string ConsumersTwitterCrmKey {
+        public static string ConsumersTwitterInstruction {
             get {
-                return ResourceManager.GetString("ConsumersTwitterCrmKey", resourceCulture);
+                return ResourceManager.GetString("ConsumersTwitterInstruction", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter Key.
-        /// </summary>
-        public static string ConsumersTwitterCrmSecret {
-            get {
-                return ResourceManager.GetString("ConsumersTwitterCrmSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Twitter ID.
+        ///   Looks up a localized string similar to API key.
         /// </summary>
         public static string ConsumersTwitterKey {
             get {
@@ -2022,11 +2274,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter Key.
+        ///   Looks up a localized string similar to Access Token.
+        /// </summary>
+        public static string ConsumersTwitterKeyDefault {
+            get {
+                return ResourceManager.GetString("ConsumersTwitterKeyDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API secret.
         /// </summary>
         public static string ConsumersTwitterSecret {
             get {
                 return ResourceManager.GetString("ConsumersTwitterSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access Token Secret.
+        /// </summary>
+        public static string ConsumersTwitterSecretDefault {
+            get {
+                return ResourceManager.GetString("ConsumersTwitterSecretDefault", resourceCulture);
             }
         }
         
@@ -2081,6 +2351,33 @@ namespace Resources {
         public static string ControlPanelSettings {
             get {
                 return ResourceManager.GetString("ControlPanelSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Cookie Settings{1} allows to set cookie lifetime in minutes.{2}After save all the users will be logged out from portal..
+        /// </summary>
+        public static string CookieSettingsHelp {
+            get {
+                return ResourceManager.GetString("CookieSettingsHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lifetime.
+        /// </summary>
+        public static string CookieSettingsLifeTime {
+            get {
+                return ResourceManager.GetString("CookieSettingsLifeTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cookie Settings.
+        /// </summary>
+        public static string CookieSettingsTitle {
+            get {
+                return ResourceManager.GetString("CookieSettingsTitle", resourceCulture);
             }
         }
         
@@ -2148,42 +2445,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portal was created. Continue..
-        /// </summary>
-        public static string CreatingPortalContinue {
-            get {
-                return ResourceManager.GetString("CreatingPortalContinue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The portal is ready. Continue..
-        /// </summary>
-        public static string CreatingPortalContinueUser {
-            get {
-                return ResourceManager.GetString("CreatingPortalContinueUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Portal is creating. Please wait!.
-        /// </summary>
-        public static string CreatingPortalWaiting {
-            get {
-                return ResourceManager.GetString("CreatingPortalWaiting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Portal is being prepared. Please wait!.
-        /// </summary>
-        public static string CreatingPortalWaitingUser {
-            get {
-                return ResourceManager.GetString("CreatingPortalWaitingUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ctrl+Enter.
         /// </summary>
         public static string CtrlEnterKeys {
@@ -2211,6 +2472,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customization.
+        /// </summary>
+        public static string Customization {
+            get {
+                return ResourceManager.GetString("Customization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom.
         /// </summary>
         public static string CustomNamingPeopleSchema {
@@ -2230,7 +2500,8 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to {0}Data Backup{1} option is used to backup the portal data to be able to restore it later to your local server or SaaS portal. Select the storage for the data (do not forget to enter your Amazon details to be able to access it).{2}
-        ///{0}Note:{1} you need to connect your third party account (DropBox, Box.com, OneDrive or Google Drive) to Teamlab Documents before you will be able to save your backup there..
+        ///If you choose to include mail, only the messages for the last 30 days will be backed up.{2}
+        ///{0}Note:{1} you need to connect your third party account (DropBox, Box.com, OneDrive or Google Drive) to ONLYOFFICE Common Documents folder before you will be able to save your backup th [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DataBackupHelp {
             get {
@@ -2248,7 +2519,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to день.
+        ///   Looks up a localized string similar to day.
         /// </summary>
         public static string Day {
             get {
@@ -2257,7 +2528,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to дня.
+        ///   Looks up a localized string similar to days.
         /// </summary>
         public static string DaysOne {
             get {
@@ -2266,7 +2537,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to дней.
+        ///   Looks up a localized string similar to days.
         /// </summary>
         public static string DaysTwo {
             get {
@@ -2302,7 +2573,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deactivation/Deletion Portal.
+        ///   Looks up a localized string similar to Portal Deactivation/Deletion.
         /// </summary>
         public static string DeactivationDeletionPortal {
             get {
@@ -2329,7 +2600,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choise of products.
+        ///   Looks up a localized string similar to Module choice.
         /// </summary>
         public static string DefaultPageSettingsChoiseOfProducts {
             get {
@@ -2338,7 +2609,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default start page.
+        ///   Looks up a localized string similar to Default Start Page.
         /// </summary>
         public static string DefaultPageSettingsTitle {
             get {
@@ -2366,7 +2637,7 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to This action cannot be undone.
-        ///Are you sure want to delete {!group} {0}?.
+        ///Are you sure want to delete the {0} {!group}?.
         /// </summary>
         public static string DeleteDepartmentConfirmation {
             get {
@@ -2384,7 +2655,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account has been successfully deleted. {0}In 10 seconds you will be redirected {1}here{2}.
+        ///   Looks up a localized string similar to Your portal has been successfully deleted. {0}In 10 seconds you will be redirected {1}here{2}.
         /// </summary>
         public static string DeletePortalSuccessMessage {
             get {
@@ -2402,7 +2673,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attention! You are deleteting your profile from portal.
+        ///   Looks up a localized string similar to Attention! You are deleting your profile from portal.
         /// </summary>
         public static string DeleteProfileConfirm {
             get {
@@ -2411,7 +2682,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send the profile delete instructions to the email.
+        ///   Looks up a localized string similar to Send the profile deletion instructions to the email address.
         /// </summary>
         public static string DeleteProfileInfo {
             get {
@@ -2461,6 +2732,15 @@ namespace Resources {
         public static string Department {
             get {
                 return ResourceManager.GetString("Department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {!Head}.
+        /// </summary>
+        public static string DepartmentMaster {
+            get {
+                return ResourceManager.GetString("DepartmentMaster", resourceCulture);
             }
         }
         
@@ -2546,6 +2826,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portal DNS address.
+        /// </summary>
+        public static string DnsSettingsLabel {
+            get {
+                return ResourceManager.GetString("DnsSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document Service.
         /// </summary>
         public static string DocService {
@@ -2555,7 +2844,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document service location specifies the address of the server with the document services installed. Please change the &apos;&amp;lt;editors-dns-name&amp;gt;&apos; for the server address in the below lines leaving the rest ofthe line exactly as it is..
+        ///   Looks up a localized string similar to Document service location specifies the address of the server with the document services installed. Please change the &apos;&amp;lt;editors-dns-name&amp;gt;&apos; for the server address in the below lines leaving the rest of the line exactly as it is..
         /// </summary>
         public static string DocServiceText {
             get {
@@ -2573,7 +2862,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document editing service Address.
+        ///   Looks up a localized string similar to Document Editing Service Address.
         /// </summary>
         public static string DocServiceUrlApi {
             get {
@@ -2582,7 +2871,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document command service Address.
+        ///   Looks up a localized string similar to Document Command Service Address.
         /// </summary>
         public static string DocServiceUrlCommand {
             get {
@@ -2591,7 +2880,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document conversion service Address.
+        ///   Looks up a localized string similar to Document Conversion Service Address.
         /// </summary>
         public static string DocServiceUrlConverter {
             get {
@@ -2609,7 +2898,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Document Service{2} is the server service which allows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used to notify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which is used to get the external link to the opened document.{0}{1}Conversion Service{2} is the server service which allows to convert the document file into the appropriate OfficeOpen XML format.{0}{1}Community Server Address{2} is the addres [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to {1}Document Service{2} is the server service which allows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used to notify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which is used to get the external link to the opened document.{0}{1}Conversion Service{2} is the server service which allows to convert the document file into the appropriate OfficeOpen XML format..
         /// </summary>
         public static string DocServiceUrlHelp {
             get {
@@ -2627,7 +2916,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document storage service Address.
+        ///   Looks up a localized string similar to Document Storage Service Address.
         /// </summary>
         public static string DocServiceUrlStorage {
             get {
@@ -2897,7 +3186,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Для этого в активационном письме перейдите по ссылке. Не получали письмо со ссылкой?.
+        ///   Looks up a localized string similar to Use the link provided in the activation email. Haven&apos;t received an email with the activation link?.
         /// </summary>
         public static string EmailActivationPanelBodyText {
             get {
@@ -2906,7 +3195,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Для полноценной работы с прорталом активируйте e-mail, введенный при регистрации..
+        ///   Looks up a localized string similar to Please activate your email entered while registering to get access to all the portal features..
         /// </summary>
         public static string EmailActivationPanelHeaderText {
             get {
@@ -2915,7 +3204,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Запросить акивацию повторно.
+        ///   Looks up a localized string similar to Request activation once again.
         /// </summary>
         public static string EmailActivationPanelLinkText {
             get {
@@ -2924,7 +3213,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to На Ваш регистрационный почтовый ящик отправлено письмо для активации. Пожалуйста, откройте письмо и перейдите по ссылке в нем..
+        ///   Looks up a localized string similar to An activation email has been sent to your email address. Please follow the link in the message to activate your account..
         /// </summary>
         public static string EmailActivationPanelSendText {
             get {
@@ -3041,7 +3330,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (minimum 6 symbols).
+        ///   Looks up a localized string similar to (minimum 6 characters).
         /// </summary>
         public static string EmailAndPasswordTypePasswordRecommendations {
             get {
@@ -3131,7 +3420,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no data taked the storage space.
+        ///   Looks up a localized string similar to There is no data taking the storage space.
         /// </summary>
         public static string EmptyUsageSpace {
             get {
@@ -3221,11 +3510,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доступ к порталу ограничен..
+        ///   Looks up a localized string similar to The access to the portal is restricted..
         /// </summary>
         public static string ErrorAccessRestricted {
             get {
                 return ResourceManager.GetString("ErrorAccessRestricted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad keys.
+        /// </summary>
+        public static string ErrorBadKeys {
+            get {
+                return ResourceManager.GetString("ErrorBadKeys", resourceCulture);
             }
         }
         
@@ -3302,6 +3600,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter a name.
+        /// </summary>
+        public static string ErrorEmptyName {
+            get {
+                return ResourceManager.GetString("ErrorEmptyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The uploaded file could not be found.
         /// </summary>
         public static string ErrorEmptyUploadFileSelected {
@@ -3356,7 +3663,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image weight is too large.
+        ///   Looks up a localized string similar to Image file size is too large.
         /// </summary>
         public static string ErrorImageWeightLimit {
             get {
@@ -3374,7 +3681,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доступ к порталу ограничен.
+        ///   Looks up a localized string similar to The access to the portal is restricted.
         /// </summary>
         public static string ErrorIpSecurity {
             get {
@@ -3419,15 +3726,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The new password and its confirmation do not match.
-        /// </summary>
-        public static string ErrorMissMatchPwd {
-            get {
-                return ResourceManager.GetString("ErrorMissMatchPwd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Your browser does not support JavaScript!.
         /// </summary>
         public static string ErrorNoscript {
@@ -3437,7 +3735,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your tariff plan doesn&apos;t support this option.
+        ///   Looks up a localized string similar to Your pricing plan does not support this option.
         /// </summary>
         public static string ErrorNotAllowedOption {
             get {
@@ -3446,7 +3744,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid format of date.
+        ///   Looks up a localized string similar to Invalid date format.
         /// </summary>
         public static string ErrorNotCorrectDate {
             get {
@@ -3455,7 +3753,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid email.
+        ///   Looks up a localized string similar to Incorrect email.
         /// </summary>
         public static string ErrorNotCorrectEmail {
             get {
@@ -3482,7 +3780,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A new password is incorrect. It must contain.
+        ///   Looks up a localized string similar to from {0} to {1} characters.
+        /// </summary>
+        public static string ErrorPasswordLength {
+            get {
+                return ResourceManager.GetString("ErrorPasswordLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain.
         /// </summary>
         public static string ErrorPasswordMessage {
             get {
@@ -3523,15 +3830,6 @@ namespace Resources {
         public static string ErrorPasswordNoUpperCase {
             get {
                 return ResourceManager.GetString("ErrorPasswordNoUpperCase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to at least {0} characters.
-        /// </summary>
-        public static string ErrorPasswordShort {
-            get {
-                return ResourceManager.GetString("ErrorPasswordShort", resourceCulture);
             }
         }
         
@@ -3698,6 +3996,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Congratulations! The users have been successfully added..
+        /// </summary>
+        public static string FinishImportUserTitle {
+            get {
+                return ResourceManager.GetString("FinishImportUserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The link to confirm your account has been sent to the specified email.
         /// </summary>
         public static string FinishInviteJoinEmailMessage {
@@ -3712,15 +4019,6 @@ namespace Resources {
         public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for.
-        /// </summary>
-        public static string For {
-            get {
-                return ResourceManager.GetString("For", resourceCulture);
             }
         }
         
@@ -3752,7 +4050,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сервис полнотекстового поиска не запущен.
+        ///   Looks up a localized string similar to Full text search service is not running.
         /// </summary>
         public static string FullTextSearchServiceIsNotRunning {
             get {
@@ -3761,7 +4059,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сервис полнотекстового поиска запущен.
+        ///   Looks up a localized string similar to Full text search service is running.
         /// </summary>
         public static string FullTextSearchServiceIsRunning {
             get {
@@ -3779,7 +4077,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Для работы полнотекстового поиска на сервере должен быть установлен sphinx.2.2.8..
+        ///   Looks up a localized string similar to To use the full text search you need sphinx.2.2.10 installed on your server..
         /// </summary>
         public static string FullTextSearchSettingsHelp {
             get {
@@ -3788,7 +4086,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Настройки для работы со sphinx, запуска индексатора и поискового демона. Необходимо указать хост и порт, который прослушивает поисковый демон searchd. Эти настройки должны совпадать с конфигурацией sphinx, прописанной в файле sphinx.conf.in в разделе searchd.  .
+        ///   Looks up a localized string similar to Settings for work with sphinx, indexer and search daemon launch. You need to specify the host and the port number which is listened to by the searchd search daemon. These settings must coincide with sphinx configuration in the searchd section of the sphinx.conf.in file..
         /// </summary>
         public static string FullTextSearchSettingsText {
             get {
@@ -3815,7 +4113,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get shorten link.
+        ///   Looks up a localized string similar to Get contacts.
+        /// </summary>
+        public static string GetContacts {
+            get {
+                return ResourceManager.GetString("GetContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get shortened link.
         /// </summary>
         public static string GetShortenLink {
             get {
@@ -3833,7 +4140,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Greeting Settings.
+        ///   Looks up a localized string similar to Welcome Page Settings.
         /// </summary>
         public static string GreetingSettingsTitle {
             get {
@@ -3914,7 +4221,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you {1}deactivate{2} your account, your portal and all information associated with it will be blocked so that no one has access to it for a particular period. In this case click the {1}Deactivate{2} button. A link to confirm the operation will be sent to the email address of the portal owner.{0}In case you want to come back to TeamLab portal and resume using it you will need to use the second link provided in the confirmation email. So, please, keep this email in a safe place.{0}If you do not think you w [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you wish to {1}deactivate{2} the portal, your portal and all information associated with it will be blocked so that no one has access to it for a particular period. To do that click the {1}Deactivate{2} button. A link to confirm the operation will be sent to the email address of the portal owner.{0}In case you want to come back to the ONLYOFFICE™ portal and resume using it you will need to use the second link provided in the confirmation email. So, please, keep this email in a safe place.{0}If you do not [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HelpAnswerAccountDeactivation {
             get {
@@ -3923,7 +4239,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Administrator Message Settings{2} is a way to contact the portal administrator.{0}Enable this option to display the contact form on the {1}Sign In{2} page so that people could send the messag to the portal administrator in case they have troubles accessing the portal.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
+        ///   Looks up a localized string similar to {1}Administrator Message Settings{2} is a way to contact the portal administrator.{0}Enable this option to display the contact form on the {1}Sign In{2} page so that people could send the message to the portal administrator in case they have troubles accessing the portal.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
         /// </summary>
         public static string HelpAnswerAdminMessSettings {
             get {
@@ -3932,7 +4248,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Цветовые схемы{2} позволяют кастомизировать интерфейс портала под корпоративный стиль Вашего предприятия.{0} Выберите одну из цветовых схем из списка слева.{0} Чтобы применить цветовую схему, используйте кнопку {1}Сохранить{2} внизу раздела..
+        ///   Looks up a localized string similar to {1}Color Themes{2} let you customize your portal interface according to your company brand.{0} Select one of the color themes from the list on the left.{0} To apply the selected color theme, click the {1}Save{2} button at the bottom of this section..
         /// </summary>
         public static string HelpAnswerColorTheme {
             get {
@@ -3941,7 +4257,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}Default start page{1} is a way to switch between products you see at the main page of the portal. To make the parameters you set take effect click the {0}Save{1} button at the bottom of the section..
+        ///   Looks up a localized string similar to {0}Default Start Page{1} is a way to select the module you go to right after you log in to the portal or click the ONLYOFFICE™ logo when you have already signed in. To make the parameters you set take effect click the {0}Save{1} button at the bottom of the section..
         /// </summary>
         public static string HelpAnswerDefaultPageSettings {
             get {
@@ -3950,7 +4266,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}DNS Settings{2} is a way to set an alternative URL for your TeamLab portal.{0}You can either enter a desired alias in the {1}Portal Address{2} field or check the {1}Custom domain name{2} box and specify your own domain name for the TeamLab portal in the field below.{0} To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
+        ///   Looks up a localized string similar to {1}DNS Settings{2} is a way to set an alternative URL for your ONLYOFFICE™ portal.{0}Check the {1}Custom domain name{2} box and specify your own domain name for the ONLYOFFICE™ portal in the field below.{0} To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
         /// </summary>
         public static string HelpAnswerDNSSettings {
             get {
@@ -3959,7 +4275,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Greeting Settings{2} is a way to change the default portal title to be displayed on the {1}Welcome Page{2} of your portal.{0}Enter the name you like in the {1}Title{2} field..
+        ///   Looks up a localized string similar to {1}Welcome Page Settings{2} is a way to change the default portal title to be displayed on the {1}Welcome Page{2} of your portal. The same name is also used for the {1}From{2} field of your portal email notifications.{0}Enter the name you like in the {1}Title{2} field..
         /// </summary>
         public static string HelpAnswerGreetingSettings {
             get {
@@ -3977,7 +4293,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Language and Time Zone Settings{2} is a way to change the language of the whole portal for all portal users and to configure the time zone so that all the events of the TeamLab portal will be shown with the correct date and time.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
+        ///   Looks up a localized string similar to {1}Language and Time Zone Settings{2} is a way to change the language of the whole portal for all portal users and to configure the time zone so that all the events of the ONLYOFFICE™ portal will be shown with the correct date and time.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
         /// </summary>
         public static string HelpAnswerLngTimeSettings {
             get {
@@ -3995,7 +4311,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Trusted Mail Domain Settings{2} is a way to specify the mail servers used for user self-registeration.{0}You can either to check the {1}Custom domains{2} option and enter the trusted mail server in the field below so that person who has an account at it will be able to register him(her)self by clicking the Join link on the {1}Sign In{2}page or disable this option.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
+        ///   Looks up a localized string similar to {1}Trusted Mail Domain Settings{2} is a way to specify the mail servers used for user self-registration.{0}You can either to check the {1}Custom domains{2} option and enter the trusted mail server in the field below so that person who has an account at it will be able to register him(her)self by clicking the Join link on the {1}Sign In{2} page or disable this option.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
         /// </summary>
         public static string HelpAnswerMailDomainSettings {
             get {
@@ -4013,7 +4329,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Public Portal{2} is a free option that allows anyone to view your public contents without registration. No private projects are available and the Crm module is disabled for such portals.{0}Registration to public portals is not limited in number of users, new users are added upon the request to the portal administrator. Use the {1}Register new users Immediately{2} option to remove any registration confirmation necessity..
+        ///   Looks up a localized string similar to {1}Public Portal{2} is a free option that allows anyone to view your public contents without registration. No private projects are available and the CRM module is disabled for such portals.{0}Registration to public portals is not limited in number of users, new users are added upon the request to the portal administrator. Use the {1}Register new users Immediately{2} option to remove any registration confirmation necessity..
         /// </summary>
         public static string HelpAnswerPortalAccessSettings {
             get {
@@ -4022,7 +4338,8 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There U can change the alias of your portal .
+        ///   Looks up a localized string similar to Here you can change your portal address. Enter the part that will appear next to the onlyoffice.com/onlyoffice.eu portal address.
+        ///*Please note*: your old portal address will become available to new ONLYOFFICE users once you click the &apos;Save&apos; button..
         /// </summary>
         public static string HelpAnswerPortalRename {
             get {
@@ -4031,7 +4348,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Portal Version{2} is a way to switch between the available TeamLab portal versions.{0}You can either use the new version or switch back to the previous version of the portal.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
+        ///   Looks up a localized string similar to {1}Portal Version{2} is a way to switch between the available ONLYOFFICE™ portal versions.{0}You can either use the new version or switch back to the previous version of the portal.{0}To make the parameters you set take effect click the {1}Save{2} button at the bottom of the section..
         /// </summary>
         public static string HelpAnswerPortalVersion {
             get {
@@ -4049,7 +4366,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Migrating the portal to the servers of the region closest to your geographical location will make the portal response faster. The closer your users and clients are located to the server region, the faster the portal speed will be.{0}{1}Note:{2} the portal will be unavailable during the migration process. After the migration is complete the portal URL will be changed and all the shared documents links will be inaccessible.{0}To start the migration process click the {1}Change server region{2} button at the se [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Migrating the portal to the servers of the region closest to your geographical location will make the portal response faster. The closer your users and clients are located to the server region, the faster the portal speed will be.{0}To start the migration process click the {1}Change Server Region{2} button at the section bottom.{0}{1}Note:{2} once the process is started, it cannot be canceled. Please also note that due to technical limitations only the mail for the last 30 days will be transferred..
         /// </summary>
         public static string HelpAnswerTransferPortal {
             get {
@@ -4265,24 +4582,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The non-authorized portal version. The part of functionality is not available. {0}Contact{1} to your Teamlab partner..
-        /// </summary>
-        public static string HostedExclNonAuthorized {
-            get {
-                return ResourceManager.GetString("HostedExclNonAuthorized", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to non-authorized version.
-        /// </summary>
-        public static string HostedNonAuthorizedVersion {
-            get {
-                return ResourceManager.GetString("HostedNonAuthorizedVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Host Login.
         /// </summary>
         public static string HostLogin {
@@ -4328,7 +4627,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How to import the documents from Box.net?.
+        ///   Looks up a localized string similar to How to import the documents from Box?.
         /// </summary>
         public static string HowToImportBox {
             get {
@@ -4355,7 +4654,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How to import the documents from Google Docs?.
+        ///   Looks up a localized string similar to How to import the documents from Google Drive?.
         /// </summary>
         public static string HowToImportGoogle {
             get {
@@ -4364,7 +4663,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How to transfer contacts from a mail client address book to TeamLab?.
+        ///   Looks up a localized string similar to How to transfer contacts from a mail client address book to ONLYOFFICE™?.
         /// </summary>
         public static string HowToImportMailClient {
             get {
@@ -4373,7 +4672,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How to import contacts from Yahoo, Google, Windows Life to TeamLab?.
+        ///   Looks up a localized string similar to How to import contacts from Yahoo, Google, Windows Live to ONLYOFFICE™?.
         /// </summary>
         public static string HowToImportWorld {
             get {
@@ -4427,7 +4726,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete selected.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string ImportContactsDeleteButton {
             get {
@@ -4445,7 +4744,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User&apos;s email.
+        ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string ImportContactsEmail {
             get {
@@ -4454,7 +4753,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No contacts has been returned.{0}You also can import contacts from other profiles..
+        ///   Looks up a localized string similar to No contacts have been received.{0}You can also import contacts from other profiles..
         /// </summary>
         public static string ImportContactsEmptyData {
             get {
@@ -4463,7 +4762,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter user&apos;s name.
+        ///   Looks up a localized string similar to Enter the user first name.
         /// </summary>
         public static string ImportContactsEmptyFirstName {
             get {
@@ -4472,7 +4771,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter user&apos;s surname.
+        ///   Looks up a localized string similar to Enter the user last name.
         /// </summary>
         public static string ImportContactsEmptyLastName {
             get {
@@ -4526,7 +4825,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User&apos;s name.
+        ///   Looks up a localized string similar to First name.
         /// </summary>
         public static string ImportContactsFirstName {
             get {
@@ -4553,7 +4852,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong file format selection for import.{0}Please, select another file and repeat the importing process ance again..
+        ///   Looks up a localized string similar to The file selected for importing has a wrong format.{0}Please, select another file and repeat the importing process once again..
         /// </summary>
         public static string ImportContactsFromFileError {
             get {
@@ -4589,7 +4888,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use this link to invite co-workers and friends to join your portal. Copy the link below and paste into the email to send it to the people you wish to invite. After they follow this link and enter their email, first name, last name and password they will be automatically added to your portal and will be able to start collaborating with you. The link is valid for 3 days..
+        ///   Looks up a localized string similar to Use this link to invite co-workers and friends to join your portal. Copy the link below and paste into the email to send it to the people you wish to invite. After they follow this link and enter their email, first name, last name and password they will be automatically added to your portal and will be able to start collaborating with you. The link is valid for 7 days..
         /// </summary>
         public static string ImportContactsInviteHint {
             get {
@@ -4607,7 +4906,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User&apos;s surname.
+        ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string ImportContactsLastName {
             get {
@@ -4616,7 +4915,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ok.
+        ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string ImportContactsOkButton {
             get {
@@ -4625,7 +4924,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add selected users.
+        ///   Looks up a localized string similar to Add Selected.
         /// </summary>
         public static string ImportContactsSaveButton {
             get {
@@ -4639,6 +4938,15 @@ namespace Resources {
         public static string ImportContactsSmallDescription {
             get {
                 return ResourceManager.GetString("ImportContactsSmallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import from Basecamp.
+        /// </summary>
+        public static string ImportFromBaseCamp {
+            get {
+                return ResourceManager.GetString("ImportFromBaseCamp", resourceCulture);
             }
         }
         
@@ -4670,7 +4978,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upgrade you plan or add more users as guests with view-only permissions. You will be able to change their roles later in the &apos;People&apos; module..
+        ///   Looks up a localized string similar to Upgrade your pricing plan or add more users as guests with view-only permissions. You will be able to change their roles later in the &apos;People&apos; module..
         /// </summary>
         public static string ImportUserLimitReason {
             get {
@@ -4688,7 +4996,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upgrade you plan or add more users as guests with view-only permissions. You will be able to change their roles later in the &apos;People&apos; module or {0}Read about non-profit usage{1}.
+        ///   Looks up a localized string similar to Upgrade your plan or add more users as guests with view-only permissions. You will be able to change their roles later in the &apos;People&apos; module or {0}Read about non-profit usage{1}.
         /// </summary>
         public static string ImportUserOpenPortalLimitReason {
             get {
@@ -4733,7 +5041,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверный формат IP-адреса.
+        ///   Looks up a localized string similar to Incorrect IP address format.
         /// </summary>
         public static string IncorrectIPAddressFormat {
             get {
@@ -4778,7 +5086,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose Password.
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string InvitePassword {
             get {
@@ -4850,7 +5158,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}IP Security{1} is used to restrict access to the portal for certain IP addresses only. You can set the restrictions using either exact IP addresses in the IPv4 format (#.#.#.#, where # is the number value from 0 to 255) or IP range (in the #.#.#.#-#.#.#.# format)..
+        ///   Looks up a localized string similar to {0}IP Security{1} is used to restrict login to the portal from all IP addresses except certain addresses. You can set the allowed IP addresses using either exact IP addresses in the IPv4 format (#.#.#.#, where # is a numeric value from 0 to 255) or IP range (in the #.#.#.#-#.#.#.# format). The IP security does not work for portal owners, they can access the portal from any IP address..
         /// </summary>
         public static string IpSecurityHelp {
             get {
@@ -4868,8 +5176,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Первым необходимо указать IP или диапазон IP-адресов, в который входит ваш текущий IP, иначе после сохранения Вам будет
-        ///заблокирован доступ к порталу..
+        ///   Looks up a localized string similar to First you need to specify your current IP or the IP range your current IP address belongs to, otherwise your portal access will be blocked right after you save the settings. The portal owner will have the portal access from any IP address..
         /// </summary>
         public static string IpSecurityWarning {
             get {
@@ -4878,7 +5185,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Migrate TeamLab Mail as well.
+        ///   Looks up a localized string similar to Migrate ONLYOFFICE™ Mail as well (not recommended).
         /// </summary>
         public static string IsMailMigration {
             get {
@@ -4896,7 +5203,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join to our Affilliate Program.
+        ///   Looks up a localized string similar to Become our Affiliate.
         /// </summary>
         public static string JoinToAffilliateProgram {
             get {
@@ -4950,7 +5257,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authentication.
+        ///   Looks up a localized string similar to User Authentication.
         /// </summary>
         public static string LdapSettingsAuthentication {
             get {
@@ -4959,7 +5266,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Если у текущего пользователя Windows не имеет прав на чтение данных из LDAP сервера/Active Directory, включите эту опцию и укажите учетные данные другого пользователя, у которого есть права на чтение..
+        ///   Looks up a localized string similar to Enable this option if the current Windows user does not have rights to read from LDAP server/Active Directory, and enter the credentials of another user with the read rights..
         /// </summary>
         public static string LdapSettingsAuthenticationHelper {
             get {
@@ -4968,7 +5275,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect error.
+        ///   Looks up a localized string similar to Connection error.
         /// </summary>
         public static string LdapSettingsConnectError {
             get {
@@ -5004,7 +5311,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается создать пользователей, получены некоректные данные..
+        ///   Looks up a localized string similar to Users could not be created, the received data are incorrect..
         /// </summary>
         public static string LdapSettingsErrorCantCreateUsers {
             get {
@@ -5013,7 +5320,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Серверу не удается получить настройки..
+        ///   Looks up a localized string similar to The server could not get settings..
         /// </summary>
         public static string LdapSettingsErrorCantGetLdapSettings {
             get {
@@ -5022,7 +5329,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Серверу не удается сохранить настройки..
+        ///   Looks up a localized string similar to The server could not save settings..
         /// </summary>
         public static string LdapSettingsErrorCantSaveLdapSettings {
             get {
@@ -5031,7 +5338,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверный логин или пароль..
+        ///   Looks up a localized string similar to Incorrect login or password..
         /// </summary>
         public static string LdapSettingsErrorCredentialsNotValid {
             get {
@@ -5049,7 +5356,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ни одна группа не найдена..
+        ///   Looks up a localized string similar to No groups could be found..
         /// </summary>
         public static string LdapSettingsErrorGroupsNotFound {
             get {
@@ -5058,7 +5365,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверно указан атрибут User Filter..
+        ///   Looks up a localized string similar to Invalid User Filter value..
         /// </summary>
         public static string LdapSettingsErrorIncorrectLdapFilter {
             get {
@@ -5067,7 +5374,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неизвестная ошибка..
+        ///   Looks up a localized string similar to Unknown error..
         /// </summary>
         public static string LdapSettingsErrorUnknownError {
             get {
@@ -5076,7 +5383,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ни один пользователь не найден..
+        ///   Looks up a localized string similar to No users could be found..
         /// </summary>
         public static string LdapSettingsErrorUsersNotFound {
             get {
@@ -5085,7 +5392,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается получить Group Attribute для одной или нескольких групп..
+        ///   Looks up a localized string similar to Could not get Group Attribute for one or several groups..
         /// </summary>
         public static string LdapSettingsErrorWrongGroupAttribute {
             get {
@@ -5094,7 +5401,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверно указан Group DN..
+        ///   Looks up a localized string similar to Incorrect Group DN..
         /// </summary>
         public static string LdapSettingsErrorWrongGroupDN {
             get {
@@ -5103,7 +5410,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверно указан Group Filter..
+        ///   Looks up a localized string similar to Incorrect Group Filter..
         /// </summary>
         public static string LdapSettingsErrorWrongGroupFilter {
             get {
@@ -5112,7 +5419,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается получить  Group Name Attribute для одной или нескольких групп..
+        ///   Looks up a localized string similar to Could not obtain Group Name Attribute for one or several groups..
         /// </summary>
         public static string LdapSettingsErrorWrongGroupNameAttribute {
             get {
@@ -5121,7 +5428,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается получить Login Attribute для одного или нескольких пользователей..
+        ///   Looks up a localized string similar to Could not get Login Attribute for one or several users..
         /// </summary>
         public static string LdapSettingsErrorWrongLoginAttribute {
             get {
@@ -5130,7 +5437,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается подключиться к LDAP серверу. Возможно указан неверный адрес или порт..
+        ///   Looks up a localized string similar to Unable to connect to LDAP server. Please check if the server address and port number are correct..
         /// </summary>
         public static string LdapSettingsErrorWrongServerOrPort {
             get {
@@ -5139,7 +5446,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается получить User Attribute для одного или нескольких пользователей..
+        ///   Looks up a localized string similar to Could not get User Attribute for one or several users..
         /// </summary>
         public static string LdapSettingsErrorWrongUserAttribute {
             get {
@@ -5148,7 +5455,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверно указан User DN..
+        ///   Looks up a localized string similar to Incorrect User DN..
         /// </summary>
         public static string LdapSettingsErrorWrongUserDN {
             get {
@@ -5166,7 +5473,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует имя пользователя..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the user name..
         /// </summary>
         public static string LdapSettingsFirstNameAttributeHelper {
             get {
@@ -5184,7 +5491,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта группы, в котором указывается какие пользователи в ней состоят..
+        ///   Looks up a localized string similar to Enter the group object attribute which specifies what users this group includes..
         /// </summary>
         public static string LdapSettingsGroupAttributeHelper {
             get {
@@ -5202,7 +5509,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите абсолютный путь (distinguished name) к директории с группами, которые хотите добавить..
+        ///   Looks up a localized string similar to Enter the distinguished name to the directory containing groups you want to add..
         /// </summary>
         public static string LdapSettingsGroupDNHelper {
             get {
@@ -5220,7 +5527,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Используйте поисковый LDAP-фильтр для выбора групп, которые нужно импортровать. Важно отметить, что будут добавлены только те пользователи, которые входят в эти группы..
+        ///   Looks up a localized string similar to Use search LDAP filter to select groups that will be imported. Please note that only users from these groups will be added..
         /// </summary>
         public static string LdapSettingsGroupFilterHelper {
             get {
@@ -5238,7 +5545,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Включите опцию, если хотите добавить группы  из LDAP сервера/Active Directory в Teamlab Office. Важно отметить, что будут добавлены только те пользователи, которые входят в эти группы..
+        ///   Looks up a localized string similar to Enable this option if you want to add groups from LDAP server/Active Directory to ONLYOFFICE™. Please note that only users who belong to these groups will be added..
         /// </summary>
         public static string LdapSettingsGroupMembershipHelper {
             get {
@@ -5256,7 +5563,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует имя группы..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the group name..
         /// </summary>
         public static string LdapSettingsGroupNameAttributeHelper {
             get {
@@ -5265,7 +5572,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not found any group which contains users..
+        ///   Looks up a localized string similar to No group containing users could be found..
         /// </summary>
         public static string LdapSettingsGroupsNotFound {
             get {
@@ -5274,7 +5581,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Возможно, что при импорте пользователей в Teamlab будет превышена квота пользователей для текущего тарифа. Остальные пользователи будут добавлены как гости. Вы согласны начать импорт?.
+        ///   Looks up a localized string similar to The current pricing plan user limit can be exceeded while importing. All the other users will be added as guests. Do you agree to start importing?.
         /// </summary>
         public static string LdapSettingsImportUserLimitDecision {
             get {
@@ -5283,7 +5590,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Внутренняя ошибка сервера..
+        ///   Looks up a localized string similar to Server internal error..
         /// </summary>
         public static string LdapSettingsInternalServerError {
             get {
@@ -5301,7 +5608,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует местоположение пользователя..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the user location..
         /// </summary>
         public static string LdapSettingsLocationAttributeHelper {
             get {
@@ -5328,7 +5635,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует логин пользователя..
+        ///   Looks up a localized string similar to Enter the object attribute corresponding to the user login..
         /// </summary>
         public static string LdapSettingsLoginAttributeHelper {
             get {
@@ -5346,7 +5653,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует почтовый адрес пользователя..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the user address..
         /// </summary>
         public static string LdapSettingsMailAttributeHelper {
             get {
@@ -5364,7 +5671,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует мобильный телефон пользователя..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the user mobile phone number..
         /// </summary>
         public static string LdapSettingsMobilePhoneAttributeHelper {
             get {
@@ -5400,7 +5707,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите пароль пользователя, у которого есть права на чтение данных из LDAP сервера/Active Directory..
+        ///   Looks up a localized string similar to Enter the password for the user with the access rights to read data from LDAP server/Active Directory..
         /// </summary>
         public static string LdapSettingsPasswordHelper {
             get {
@@ -5418,7 +5725,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите номер порта, по которому работает Ваш LDAP сервер/Active Directory..
+        ///   Looks up a localized string similar to Enter the port number for your LDAP server/Active Directory..
         /// </summary>
         public static string LdapSettingsPortNumberHelper {
             get {
@@ -5472,7 +5779,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует фамилия пользователя..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the user last name..
         /// </summary>
         public static string LdapSettingsSecondNameAttributeHelper {
             get {
@@ -5490,7 +5797,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите URL LDAP сервера без номера порта, например LDAP://mycompany.com..
+        ///   Looks up a localized string similar to Enter the LDAP server URL without the port number, e.g. LDAP://mycompany.com..
         /// </summary>
         public static string LdapSettingsServerHelper {
             get {
@@ -5508,7 +5815,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Проверка настроек поддержки LDAP.
+        ///   Looks up a localized string similar to Checking LDAP support settings.
         /// </summary>
         public static string LdapSettingsStatusCheckingLdapSettings {
             get {
@@ -5517,7 +5824,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Получение списка групп от LDAP сервера.
+        ///   Looks up a localized string similar to Retrieving the group list from the LDAP server.
         /// </summary>
         public static string LdapSettingsStatusGettingGroupsFromLdap {
             get {
@@ -5535,7 +5842,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Получение списка пользователей от LDAP сервера.
+        ///   Looks up a localized string similar to Retrieving the user list from the LDAP server.
         /// </summary>
         public static string LdapSettingsStatusGettingUsersFromLdap {
             get {
@@ -5571,7 +5878,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сохранение  групп.
+        ///   Looks up a localized string similar to Saving groups.
         /// </summary>
         public static string LdapSettingsStatusSavingGroups {
             get {
@@ -5580,7 +5887,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сохранение настроек.
+        ///   Looks up a localized string similar to Saving settings.
         /// </summary>
         public static string LdapSettingsStatusSavingSettings {
             get {
@@ -5589,7 +5896,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сохранение пользователей.
+        ///   Looks up a localized string similar to Saving users.
         /// </summary>
         public static string LdapSettingsStatusSavingUsers {
             get {
@@ -5607,7 +5914,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сохранение успешно завершено.
+        ///   Looks up a localized string similar to Saving has been successfully completed.
         /// </summary>
         public static string LdapSettingsSuccess {
             get {
@@ -5625,7 +5932,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Достигнут лимит количества пользователей для текущего тарифа.
+        ///   Looks up a localized string similar to The current pricing plan user limit has been reached.
         /// </summary>
         public static string LdapSettingsTenantQuotaSettled {
             get {
@@ -5652,7 +5959,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта, которому соотвествует должность пользователя..
+        ///   Looks up a localized string similar to Please specify the object attribute that corresponds to the user position..
         /// </summary>
         public static string LdapSettingsTitleAttributeHelper {
             get {
@@ -5688,7 +5995,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите атрибут объекта пользователя, который используется для определения членства этого пользователя в группах..
+        ///   Looks up a localized string similar to Enter the user object attribute used to determine whether this user is a member of the groups..
         /// </summary>
         public static string LdapSettingsUserAttributeHelper {
             get {
@@ -5706,7 +6013,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите абсолютный путь (distinguished name) к директории с пользователями, которых хотите добавить..
+        ///   Looks up a localized string similar to Enter the distinguished name to the directory containing users you want to add..
         /// </summary>
         public static string LdapSettingsUserDNHelper {
             get {
@@ -5724,7 +6031,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Используйте поисковый LDAP-фильтр для выбора пользователей, которых нужно импортировать..
+        ///   Looks up a localized string similar to Use the search LDAP filter to select the users who must be imported..
         /// </summary>
         public static string LdapSettingsUserFilterHelper {
             get {
@@ -5733,7 +6040,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите {0} пользователя, у которого есть права на чтение данных из LDAP сервера/Active Directory..
+        ///   Looks up a localized string similar to Please specify {0} user who has LDAP server/Active Directory read access rights..
         /// </summary>
         public static string LdapSettingsUserNameHelper {
             get {
@@ -5751,7 +6058,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удается получить уникальный идентификатор объектов пользователей/групп. По умолчанию система пытается подобрать один из следующих идентификаторов: entryUUID, nsuniqueid, GUID, objectSid. Если ни один из данных атрибутов не соответсвует вашему LDAP-серверу пожалуйста укажите необходимый атрибут в настройке ldap.unique.id в файле web.appsettings.config..
+        ///   Looks up a localized string similar to Unique ID for user/group objects could not be obtained. By default the system will try to match one of the following identifiers: entryUUID, nsuniqueid, GUID, objectSid. If none of the attributes corresponds to your LDAP server, please specify the necessary attribute in the ldap.unique.id setting of the web.appsettings.config file..
         /// </summary>
         public static string LdapSettingsWrongSidAttribute {
             get {
@@ -5787,11 +6094,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Learn more.
+        /// </summary>
+        public static string LearnMoreLink {
+            get {
+                return ResourceManager.GetString("LearnMoreLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License Agreements.
         /// </summary>
         public static string LicenseAgreements {
             get {
                 return ResourceManager.GetString("LicenseAgreements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is not correct.
+        /// </summary>
+        public static string LicenseError {
+            get {
+                return ResourceManager.GetString("LicenseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License has expired.
+        /// </summary>
+        public static string LicenseErrorExpired {
+            get {
+                return ResourceManager.GetString("LicenseErrorExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of portals exceeds the one allowed by the license.
+        /// </summary>
+        public static string LicenseErrorPortal {
+            get {
+                return ResourceManager.GetString("LicenseErrorPortal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of users exceeds the one allowed by the license.
+        /// </summary>
+        public static string LicenseErrorQuota {
+            get {
+                return ResourceManager.GetString("LicenseErrorQuota", resourceCulture);
             }
         }
         
@@ -5823,7 +6175,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Идет загрузка, пожалуйста подождите.
+        ///   Looks up a localized string similar to Loading, please wait.
         /// </summary>
         public static string LoadingMsg {
             get {
@@ -5886,7 +6238,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доступ к порталу ограничен. Свяжитесь с администратором..
+        ///   Looks up a localized string similar to Portal access is restricted. Contact the portal administrator..
         /// </summary>
         public static string LoginFailIPSecurityMsg {
             get {
@@ -5922,7 +6274,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t find associated third party account.
+        ///   Looks up a localized string similar to Can&apos;t find associated third party account. You need to connect your social networking account at the profile editing page first..
         /// </summary>
         public static string LoginWithAccountNotFound {
             get {
@@ -6084,7 +6436,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option allows to connect your portal to the {0}Mail Server{1} installed on a remote computer using the {2}Docker installation{3}..
+        ///   Looks up a localized string similar to This option allows to connect your portal to the {0}Mail Server{1} installed on a remote computer using the {2}Docker installation{3}.{4}{0}Note:{1} make sure that ports {0}3306{1} and {0}8081{1} are opened at the computer where {0}Mail Server{1} is installed. We also strongly recommend that you change your {0}Mail Server{1} database access password..
         /// </summary>
         public static string MailServiceHelp {
             get {
@@ -6183,7 +6535,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeamLab.
+        ///   Looks up a localized string similar to ONLYOFFICE™.
         /// </summary>
         public static string MainPageTitle {
             get {
@@ -6228,7 +6580,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Statistic.
+        ///   Looks up a localized string similar to Statistics.
         /// </summary>
         public static string ManagementCategoryStatistic {
             get {
@@ -6264,7 +6616,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Co-edit your documents with teammates.
+        ///   Looks up a localized string similar to View and edit documents right on the portal.
         /// </summary>
         public static string ManagerEmptyScreen_DocumentsLinkDscr {
             get {
@@ -6273,7 +6625,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your team members.
+        ///   Looks up a localized string similar to View your team members.
         /// </summary>
         public static string ManagerEmptyScreen_PeopleLink {
             get {
@@ -6291,7 +6643,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start your project.
+        ///   Looks up a localized string similar to Take part in projects.
         /// </summary>
         public static string ManagerEmptyScreen_ProjectsLink {
             get {
@@ -6300,7 +6652,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control tasks and track perfomance with Gantt chart.
+        ///   Looks up a localized string similar to Control tasks and track performance with Gantt chart.
         /// </summary>
         public static string ManagerEmptyScreen_ProjectsLinkDscr {
             get {
@@ -6327,7 +6679,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mark all as Read.
+        ///   Looks up a localized string similar to Mark as Read.
         /// </summary>
         public static string MarkAllAsRead {
             get {
@@ -6345,7 +6697,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please authorize yourself.
+        ///   Looks up a localized string similar to Please authorize yourself..
         /// </summary>
         public static string MessageAuthorize {
             get {
@@ -6390,7 +6742,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your email was activated successfully.
+        ///   Looks up a localized string similar to Your email was activated successfully..
         /// </summary>
         public static string MessageEmailConfirmed {
             get {
@@ -6399,7 +6751,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send the email invite instructions to the {0} email address.
+        ///   Looks up a localized string similar to Send the invitation instructions to the {0} email address.
         /// </summary>
         public static string MessageReSendInviteInstructionsOnEmail {
             get {
@@ -6552,7 +6904,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To change the phone number, it was sent to you to confirm the code in the SMS to your new phone..
+        ///   Looks up a localized string similar to To change the phone number use the text message with the code which has been sent to your new phone..
         /// </summary>
         public static string MobilePhoneChangeDescriptionSms {
             get {
@@ -6579,7 +6931,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erase user phone.
+        ///   Looks up a localized string similar to Delete user phone.
         /// </summary>
         public static string MobilePhoneErase {
             get {
@@ -6588,7 +6940,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user phone will be erased and the instruction to change user mobile number will be sent to email address.
+        ///   Looks up a localized string similar to The instructions on how to change the user mobile number will be sent to the user email address.
         /// </summary>
         public static string MobilePhoneEraseDescription {
             get {
@@ -6597,7 +6949,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To change the number, you have to erase your current phone number.
+        ///   Looks up a localized string similar to To change the number, you need to delete your current phone number.
         /// </summary>
         public static string MobilePhoneMustErase {
             get {
@@ -6714,7 +7066,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы пока не добавили ни одного домена. Перейдите по {0}ссылке{1}, чтобы добавить первый..
+        ///   Looks up a localized string similar to You haven&apos;t added any domains yet. Follow the {0}link{1} to add the first domain..
         /// </summary>
         public static string NoMailServerDomainsMsg {
             get {
@@ -6723,7 +7075,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пропущенных звонков нет.
+        ///   Looks up a localized string similar to No missed calls.
         /// </summary>
         public static string NoMissedCallsMsg {
             get {
@@ -6732,7 +7084,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Больше никого нет, отвечай сам!.
+        ///   Looks up a localized string similar to No other operators available, please answer..
         /// </summary>
         public static string NoRedirectOperatorsMsg {
             get {
@@ -6921,177 +7273,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applying code.
-        /// </summary>
-        public static string PartnerCodeWait {
-            get {
-                return ResourceManager.GetString("PartnerCodeWait", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Applying code. It takes some time..
-        /// </summary>
-        public static string PartnerCodeWaitInfo {
-            get {
-                return ResourceManager.GetString("PartnerCodeWaitInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your Personal Teamlab Partner is.
-        /// </summary>
-        public static string PartnerIs {
-            get {
-                return ResourceManager.GetString("PartnerIs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apply.
-        /// </summary>
-        public static string PartnerKeyApply {
-            get {
-                return ResourceManager.GetString("PartnerKeyApply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter the registration key now.
-        /// </summary>
-        public static string PartnerKeyEnter {
-            get {
-                return ResourceManager.GetString("PartnerKeyEnter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Request a registration key from the Partner.
-        /// </summary>
-        public static string PartnerKeyRequest {
-            get {
-                return ResourceManager.GetString("PartnerKeyRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Payment.
-        /// </summary>
-        public static string PartnerPayExceptionHeader {
-            get {
-                return ResourceManager.GetString("PartnerPayExceptionHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pay key.
-        /// </summary>
-        public static string PartnerPayKey {
-            get {
-                return ResourceManager.GetString("PartnerPayKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pay with PayPal.
-        /// </summary>
-        public static string PartnerPayPal {
-            get {
-                return ResourceManager.GetString("PartnerPayPal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Downgrade is not available in PayPal.
-        /// </summary>
-        public static string PartnerPayPalDowngrade {
-            get {
-                return ResourceManager.GetString("PartnerPayPalDowngrade", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PayPal is not available.
-        /// </summary>
-        public static string PartnerPayPalExc {
-            get {
-                return ResourceManager.GetString("PartnerPayPalExc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Support Phone.
-        /// </summary>
-        public static string PartnerPhone {
-            get {
-                return ResourceManager.GetString("PartnerPhone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A request for a registration code sent to your partner Teamlab Office. A letter from him will come to your inbox..
-        /// </summary>
-        public static string PartnerRequestInfo {
-            get {
-                return ResourceManager.GetString("PartnerRequestInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Request to increase the limit sent.
-        /// </summary>
-        public static string PartnerRequestLimit {
-            get {
-                return ResourceManager.GetString("PartnerRequestLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A request to increase the limit sent to your partner Teamlab Office. A letter from him will come to your inbox..
-        /// </summary>
-        public static string PartnerRequestLimitInfo {
-            get {
-                return ResourceManager.GetString("PartnerRequestLimitInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send request.
-        /// </summary>
-        public static string PartnerRequestSend {
-            get {
-                return ResourceManager.GetString("PartnerRequestSend", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Request sent.
-        /// </summary>
-        public static string PartnerRequestSent {
-            get {
-                return ResourceManager.GetString("PartnerRequestSent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact Sales Team.
-        /// </summary>
-        public static string PartnerSales {
-            get {
-                return ResourceManager.GetString("PartnerSales", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact Support Team.
-        /// </summary>
-        public static string PartnerSupport {
-            get {
-                return ResourceManager.GetString("PartnerSupport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -7254,7 +7435,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Limit exceeded ({0} disc space).
+        ///   Looks up a localized string similar to Limit exceeded ({0} Mb disk space).
         /// </summary>
         public static string PortalAccessSettingsDiscSpaceLimitException {
             get {
@@ -7362,7 +7543,34 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM + VoIP.
+        ///   Looks up a localized string similar to Pricing page available for administrators only.
+        /// </summary>
+        public static string PricingPageSettingsCbxText {
+            get {
+                return ResourceManager.GetString("PricingPageSettingsCbxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Pricing Page Settings{1} allow the portal administrator to enable or disable the pricing page visibility to all users making it visible to the portal administrators only..
+        /// </summary>
+        public static string PricingPageSettingsHelp {
+            get {
+                return ResourceManager.GetString("PricingPageSettingsHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pricing Page Settings.
+        /// </summary>
+        public static string PricingPageSettingsTitle {
+            get {
+                return ResourceManager.GetString("PricingPageSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM.
         /// </summary>
         public static string ProductCRMAndVoIP {
             get {
@@ -7371,7 +7579,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Products &amp; Instruments.
+        ///   Looks up a localized string similar to Modules &amp; Tools.
         /// </summary>
         public static string ProductsAndInstruments {
             get {
@@ -7389,7 +7597,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instruments.
+        ///   Looks up a localized string similar to Tools.
         /// </summary>
         public static string ProductsAndInstruments_Instruments {
             get {
@@ -7398,7 +7606,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Products.
+        ///   Looks up a localized string similar to Modules.
         /// </summary>
         public static string ProductsAndInstruments_Products {
             get {
@@ -7488,7 +7696,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Перевести.
+        ///   Looks up a localized string similar to Пересчитать.
+        /// </summary>
+        public static string RecalculateQuota {
+            get {
+                return ResourceManager.GetString("RecalculateQuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redirect.
         /// </summary>
         public static string RedirectCallBtn {
             get {
@@ -7515,7 +7732,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your registration e-mail.
+        ///   Looks up a localized string similar to Your registration email.
         /// </summary>
         public static string RegistrationEmailWatermark {
             get {
@@ -7542,7 +7759,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отклонить.
+        ///   Looks up a localized string similar to Reject.
         /// </summary>
         public static string RejectCallBtn {
             get {
@@ -7560,7 +7777,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The invite will be sent to the entered email.
+        ///   Looks up a localized string similar to The invitation will be sent to the entered email.
         /// </summary>
         public static string ResendInviteDescription {
             get {
@@ -7569,7 +7786,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resend.
+        ///   Looks up a localized string similar to Re-send.
         /// </summary>
         public static string ResendInvitesButton {
             get {
@@ -7578,7 +7795,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you wanna resend invites?.
+        ///   Looks up a localized string similar to Do you want to send invitations once again?.
         /// </summary>
         public static string ResendInvitesText {
             get {
@@ -7587,7 +7804,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resend invite.
+        ///   Looks up a localized string similar to Re-send invitation.
         /// </summary>
         public static string ResendInviteTitle {
             get {
@@ -7643,7 +7860,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restore to default.
+        ///   Looks up a localized string similar to Restore to Default.
         /// </summary>
         public static string RestoreDefaultButton {
             get {
@@ -7652,7 +7869,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use this option to deactivate your portal temporarily..
+        ///   Looks up a localized string similar to Use this option to restore your portal from the previously saved backup file..
         /// </summary>
         public static string RestoreDesc {
             get {
@@ -7688,7 +7905,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portal restore is underway..
+        ///   Looks up a localized string similar to Portal restoring is underway..
         /// </summary>
         public static string RestorePortalProcessTitle {
             get {
@@ -7697,7 +7914,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send notification about backup to users.
+        ///   Looks up a localized string similar to Send notification about portal restoring to users.
         /// </summary>
         public static string RestoreSendNotification {
             get {
@@ -7895,7 +8112,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send invite again.
+        ///   Looks up a localized string similar to Send invitation once again.
         /// </summary>
         public static string SendInviteAgain {
             get {
@@ -7940,7 +8157,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send test mail.
+        ///   Looks up a localized string similar to Send Test Mail.
         /// </summary>
         public static string SendTestMail {
             get {
@@ -7976,7 +8193,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is current version already.
+        ///   Looks up a localized string similar to This is the current version already.
         /// </summary>
         public static string SettingsAlreadyCurrentPortalVersion {
             get {
@@ -7985,7 +8202,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bad portal version.
+        ///   Looks up a localized string similar to Invalid portal version.
         /// </summary>
         public static string SettingsBadPortalVersion {
             get {
@@ -8008,6 +8225,24 @@ namespace Resources {
         public static string SgServerRegion {
             get {
                 return ResourceManager.GetString("SgServerRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access granted:.
+        /// </summary>
+        public static string SharingSettingsItemsTitle {
+            get {
+                return ResourceManager.GetString("SharingSettingsItemsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing Settings.
+        /// </summary>
+        public static string SharingSettingsTitle {
+            get {
+                return ResourceManager.GetString("SharingSettingsTitle", resourceCulture);
             }
         }
         
@@ -8039,7 +8274,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Включение и отключение всплывающих подсказок.
+        ///   Looks up a localized string similar to Enable/disable tooltips.
         /// </summary>
         public static string ShowingTipsSettingMsg {
             get {
@@ -8058,7 +8293,7 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Registration is available to users with an email account at any domain. 
-        ///To register, enter your email and click on Send Invitation.  An email message with a link to activate your TeamLab account will be sent to the specified email..
+        ///To register, enter your email and click on Send Invitation.  An email message with a link to activate your ONLYOFFICE™ account will be sent to the specified email..
         /// </summary>
         public static string SignInFromAnyDomainInviteTitle {
             get {
@@ -8067,7 +8302,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Single sign-on.
+        ///   Looks up a localized string similar to Single Sign-on.
         /// </summary>
         public static string SingleSignOnSettings {
             get {
@@ -8076,7 +8311,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SLO EndpointURL.
+        ///   Looks up a localized string similar to SLO Endpoint URL.
         /// </summary>
         public static string SloEndpointURL {
             get {
@@ -8274,7 +8509,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from the SMS received to the mobile phone with the number which was specified at the first portal login via the two-factor authentication.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section. .
+        ///   Looks up a localized string similar to Two-factor authentication is available for paid portals only.{2} {0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from the SMS received to the mobile phone with the number which was specified at the first portal login via the two-factor authentication.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below thi [rest of string was truncated]&quot;;.
         /// </summary>
         public static string SmsAuthDescription {
             get {
@@ -8310,7 +8545,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time to use the code has expired. Request sms again..
+        ///   Looks up a localized string similar to Time to use the code has expired. Please request a new text message..
         /// </summary>
         public static string SmsAuthenticationTimeout {
             get {
@@ -8337,7 +8572,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy sms-package.
+        ///   Looks up a localized string similar to Buy SMS-package.
         /// </summary>
         public static string SmsBuyHeader {
             get {
@@ -8346,7 +8581,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMS package: {0}/{1} sms.
+        ///   Looks up a localized string similar to SMS package: {0}/{1} SMS.
         /// </summary>
         public static string SmsCount {
             get {
@@ -8355,7 +8590,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sms settings not available.
+        ///   Looks up a localized string similar to SMS settings are not available.
         /// </summary>
         public static string SmsNotAvailable {
             get {
@@ -8364,7 +8599,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not paid the required number of sms.
+        ///   Looks up a localized string similar to The number of SMS for the selected plan has been exceeded.
         /// </summary>
         public static string SmsNotPaidError {
             get {
@@ -8373,7 +8608,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} sms-package for {1}.
+        ///   Looks up a localized string similar to {0} SMS-package for {1}.
         /// </summary>
         public static string SmsPackage {
             get {
@@ -8382,7 +8617,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy more sms.
+        ///   Looks up a localized string similar to Buy more SMS.
         /// </summary>
         public static string SmsPackageHelper {
             get {
@@ -8391,7 +8626,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You sent too many SMS. Please try again later..
+        ///   Looks up a localized string similar to You have sent too many text messages. Please try again later..
         /// </summary>
         public static string SmsTooMuchError {
             get {
@@ -8427,7 +8662,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you use a Gmail account for SMTP server, you will not be able to send mail until you do the following: sign in to the Gmail account you use via its standard web interface and confirm any verification questions about the TeamLab access attempt to the account, in case there are some.{0}We recommend using ports 587 or 25 for the email messages to be sent, as other values might prevent the SMTP from the correct work..
+        ///   Looks up a localized string similar to If you use a Gmail account for SMTP server, you will not be able to send mail until you do the following: sign in to the Gmail account you use via its standard web interface and confirm any verification questions about the ONLYOFFICE™ access attempt to the account, in case there are some.{0}We recommend using ports 587 or 25 for the email messages to be sent, as other values might prevent the SMTP from the correct work..
         /// </summary>
         public static string SMTPSettingsHelp {
             get {
@@ -8436,7 +8671,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The SMTP settings are needed to set up an email account which will be used to send notifications from the portal using your own SMTP server instead of the one TeamLab uses. Please fill in all the fields and click the &apos;Save&apos; button. You can use the &apos;Send test mail&apos; button to check if all the settings you entered are correct and work as supposed..
+        ///   Looks up a localized string similar to The SMTP settings are needed to set up an email account which will be used to send notifications from the portal using your own SMTP server instead of the one ONLYOFFICE™ uses. Please fill in all the fields and click the &apos;Save&apos; button. You can use the &apos;Send Test Mail&apos; button to check if all the settings you entered are correct and work as supposed..
         /// </summary>
         public static string SmtpSettingsText {
             get {
@@ -8472,7 +8707,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Переданы пустые настройки.
+        ///   Looks up a localized string similar to Blank settings have been transferred.
         /// </summary>
         public static string SsoSettingsAreEmpty {
             get {
@@ -8481,7 +8716,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удалось создать пользователя, используя полученный аутентификационный токен.
+        ///   Looks up a localized string similar to Could not create the user with this authentication token.
         /// </summary>
         public static string SsoSettingsCantCreateUser {
             get {
@@ -8490,7 +8725,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удалось сохранить настройки.
+        ///   Looks up a localized string similar to Could not save settings.
         /// </summary>
         public static string SsoSettingsCantSaveSettings {
             get {
@@ -8499,7 +8734,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Технология единого входа отключена.
+        ///   Looks up a localized string similar to Single sign-on is disabled.
         /// </summary>
         public static string SsoSettingsDisabled {
             get {
@@ -8508,7 +8743,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download public key of client certificate.
+        ///   Looks up a localized string similar to Download client certificate public key.
         /// </summary>
         public static string SsoSettingsDownloadPublicKeyOfCertificate {
             get {
@@ -8517,7 +8752,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Аутентификационный токен не обнаружен.
+        ///   Looks up a localized string similar to Authentication token could not be found.
         /// </summary>
         public static string SsoSettingsEmptyToken {
             get {
@@ -8535,7 +8770,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неожидаемый тип аутентификационного токена.
+        ///   Looks up a localized string similar to Unexpected authentication token type.
         /// </summary>
         public static string SsoSettingsEnexpectedTokenType {
             get {
@@ -8544,7 +8779,9 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}Single Sign-on{1} allows to enable or disable third party authentication using SAML/JWT. After enabling single sign-on select the {0}SSO Type{1} from the drop-down list, {0}Issuer URL{1}, {0}SSO Endpoint URL{1}, {0}SLO Endpoint URL{1} and {0}Signature Validation Type{1} (for JWT only). .
+        ///   Looks up a localized string similar to {0}Single Sign-on{1} allows to enable or disable third party authentication using the installed SSO services (Onelogin) without providing additional credentials.{2}
+        ///Select the most convenient SSO type for you (SAML/JWT) and enter the required fields using the information from the SSO service account. The hints for fields entries can be found next to them.{2}
+        ///After enabling single sign-on select the {0}SSO Type{1} from the drop-down list, {0}Issuer URL{1}, {0}SSO Endpoint URL{1}, {0}SLO Endpoint URL{1} and [rest of string was truncated]&quot;;.
         /// </summary>
         public static string SsoSettingsHelp {
             get {
@@ -8553,7 +8790,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Идентифицирует поставщика учётных записей. Issuer URL используется для проверки цифровой подписи SAML-ответа или JWT-токена. Обязательное поле..
+        ///   Looks up a localized string similar to Identifies the user account provider. Issuer URL is used to validate the SAML response or JWT token digital signatures..
         /// </summary>
         public static string SsoSettingsIssuerUrlHelper {
             get {
@@ -8562,7 +8799,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невалидный аутентификационный токен.
+        ///   Looks up a localized string similar to Invalid authentication token.
         /// </summary>
         public static string SsoSettingsNotValidToken {
             get {
@@ -8571,7 +8808,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password of client certificate.
+        ///   Looks up a localized string similar to Client certificate password.
         /// </summary>
         public static string SsoSettingsPasswordOfClientCertificate {
             get {
@@ -8580,7 +8817,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ключ.
+        ///   Looks up a localized string similar to Key.
         /// </summary>
         public static string SsoSettingsPublicKey {
             get {
@@ -8589,7 +8826,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ключ в зависимости от типа проверки подписи может представлять публичный ключ X.509 сертификата, публичный ключ  RSA SHA-256 или приватный ключ HMAC SHA-256. Используется для валидации подписи JWT-токена или SAML-ответа. Обязательное поле..
+        ///   Looks up a localized string similar to Depending on the validation type the key can be public X.509 certificate key, or public RSA SHA-256 key, or private HMAC SHA-256 key and is used for JWT token or SAML response signature validation..
         /// </summary>
         public static string SsoSettingsPublicKeyHelper {
             get {
@@ -8598,7 +8835,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Public key of client certificate.
+        ///   Looks up a localized string similar to Client certificate public key.
         /// </summary>
         public static string SsoSettingsServiceProviderPublicKey {
             get {
@@ -8607,7 +8844,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Публичный ключ клиентского сертификата используется для подписи SAML-запросов. Существуют такие провайдеры идентификации, которые принимают только подписанные SAML-запросы, например ADFS..
+        ///   Looks up a localized string similar to Client certificate public key is used to sign SAML requests. Some authentication providers, e.g. ADFS, accept signed SAML requests only..
         /// </summary>
         public static string SsoSettingsServiceProviderPublicKeyHelper {
             get {
@@ -8616,7 +8853,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Если указать данный URL, то при выходе из Teamlab Office пользователь будет перенаправлен на данный URL. Необязательное поле..
+        ///   Looks up a localized string similar to When the user signs out of ONLYOFFICE portal he/she will be redirected to the entered URL..
         /// </summary>
         public static string SsoSettingsSloEndpointUrlHelper {
             get {
@@ -8625,7 +8862,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Если SSO инициализируется на стороне поставщика сервиса, то происходит перенаправление на указанный URL. Обязательное поле..
+        ///   Looks up a localized string similar to If SSO is initiated on service provider side the redirect will be made to the entered URL..
         /// </summary>
         public static string SsoSettingsSsoEndpointUrlHelper {
             get {
@@ -8634,7 +8871,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тип SSO.
+        ///   Looks up a localized string similar to SSO Type.
         /// </summary>
         public static string SsoSettingsSsoType {
             get {
@@ -8643,7 +8880,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Определяет тип токена, который поставщик учётных записей будет передавать поставщику сервиса при аутентификации пользователя..
+        ///   Looks up a localized string similar to Determines the type of the token which the account provider will transfer to the service provider during user authentication..
         /// </summary>
         public static string SsoSettingsSsoTypeHelper {
             get {
@@ -8652,7 +8889,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неожидаемая ошибка.
+        ///   Looks up a localized string similar to Unexpected error.
         /// </summary>
         public static string SsoSettingsUnexpectedError {
             get {
@@ -8670,7 +8907,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Данный пользователь заблокирован.
+        ///   Looks up a localized string similar to This user is disabled.
         /// </summary>
         public static string SsoSettingsUserTerminated {
             get {
@@ -8679,7 +8916,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тип валидации подписи.
+        ///   Looks up a localized string similar to Signature Validation Type.
         /// </summary>
         public static string SsoSettingsValidationType {
             get {
@@ -8688,7 +8925,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to При использовании JWT необходимо выбрать верный тип проверки подписи токена - с помощью открытого ключа X.509 сертификата, публичного ключа  асимметричного алгоритма RSA SHA-256 или приватного ключа симметричного алгоритма HMAC SHA-256. Тип проверки зависит от того каким образом был подписан токен на стороне поставщика учётных записей. При использовании SAML для проверки подписи используется открытый ключ X.509 сертификата..
+        ///   Looks up a localized string similar to When using JWT it is necessary to select the valid token signature validation type: using open X.509 certificate key, public asymmetric RSA SHA-256 algorithm key, or private symmetric HMAC SHA-256 algorithm key..
         /// </summary>
         public static string SsoSettingsValidationTypeHelper {
             get {
@@ -8697,7 +8934,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверный ключ.
+        ///   Looks up a localized string similar to Invalid key.
         /// </summary>
         public static string SsoSettingsWrongPublicKey {
             get {
@@ -8706,7 +8943,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Переданы некорректные настройки.
+        ///   Looks up a localized string similar to Invalid settings have been transferred.
         /// </summary>
         public static string SsoSettingsWrongSerialization {
             get {
@@ -8715,7 +8952,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверный тип токена.
+        ///   Looks up a localized string similar to Invalid token type.
         /// </summary>
         public static string SsoSettingsWrongTokenType {
             get {
@@ -8724,7 +8961,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверный формат URL: {0}.
+        ///   Looks up a localized string similar to Invalid URL format: {0}.
         /// </summary>
         public static string SsoSettingsWrongURL {
             get {
@@ -8733,7 +8970,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверный тип валидации подписи.
+        ///   Looks up a localized string similar to Incorrect signature validation type.
         /// </summary>
         public static string SsoSettingsWrongValidationType {
             get {
@@ -8742,7 +8979,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The creation process might take some time, please wait....
+        ///   Looks up a localized string similar to The initialization process might take some time, please wait....
         /// </summary>
         public static string StartUpWaitText {
             get {
@@ -8751,7 +8988,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Common.
+        ///   Looks up a localized string similar to Statistics.
         /// </summary>
         public static string StatisticsTitle {
             get {
@@ -8787,7 +9024,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portal version.
+        ///   Looks up a localized string similar to Portal Version.
         /// </summary>
         public static string StudioVersionSettings {
             get {
@@ -8841,7 +9078,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notice via.
+        ///   Looks up a localized string similar to Notify via.
         /// </summary>
         public static string SubscriptionNoticeVia {
             get {
@@ -8859,7 +9096,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user status was successfully changed.
+        ///   Looks up a localized string similar to The user status has been successfully changed.
         /// </summary>
         public static string SuccessChangeUserStatus {
             get {
@@ -8877,7 +9114,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portal was renamed successfully.
+        ///   Looks up a localized string similar to Portal has been renamed successfully.
         /// </summary>
         public static string SuccessfullyPortalRenameMessage {
             get {
@@ -8886,7 +9123,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Greeting settings have been successfully saved.
+        ///   Looks up a localized string similar to Welcome Page settings have been successfully saved.
         /// </summary>
         public static string SuccessfullySaveGreetingSettingsMessage {
             get {
@@ -8913,7 +9150,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invites have been successfully resend.
+        ///   Looks up a localized string similar to Invitations have been successfully re-sent.
         /// </summary>
         public static string SuccessResendInvitesText {
             get {
@@ -8967,7 +9204,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reduce the required parameter or preserve your current pricing plan..
+        ///   Looks up a localized string similar to Reduce the required parameter or select another pricing plan..
         /// </summary>
         public static string TarffDowngradeErrorDescription {
             get {
@@ -9012,7 +9249,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can prolong the existing plan or change it using the table below..
+        ///   Looks up a localized string similar to You can prolong the current plan or change it using the table below..
         /// </summary>
         public static string TariffCanProlong {
             get {
@@ -9021,7 +9258,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a plan that suits your needs best. The plan, we recommend, is highlighted below..
+        ///   Looks up a localized string similar to Choose a plan that suits your needs best. The recommended plan is highlighted below..
         /// </summary>
         public static string TariffChooseLabel {
             get {
@@ -9030,7 +9267,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downgrade.
+        ///   Looks up a localized string similar to This plan cannot be selected.
         /// </summary>
         public static string TariffDowngrade {
             get {
@@ -9057,7 +9294,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot downgrade your account as the storage amount/users number exceeds limitations according to the pricing plan selected:.
+        ///   Looks up a localized string similar to You cannot select this plan as either the storage space or number of users exceeds limitations of the selected pricing plan:.
         /// </summary>
         public static string TariffDowngradeErrorTitle {
             get {
@@ -9093,11 +9330,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It will be expired on {0}..
+        ///   Looks up a localized string similar to It will expire on {0}..
         /// </summary>
         public static string TariffExpiredDate {
             get {
                 return ResourceManager.GetString("TariffExpiredDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It will expire on {0}..
+        /// </summary>
+        public static string TariffExpiredDateStandalone {
+            get {
+                return ResourceManager.GetString("TariffExpiredDateStandalone", resourceCulture);
             }
         }
         
@@ -9120,7 +9366,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}Click here{1} to upload license file for your portal..
+        ///   Looks up a localized string similar to {0}Click here{1} to upload a license file for your portal..
         /// </summary>
         public static string TariffLinkStandalone {
             get {
@@ -9165,7 +9411,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The tariff plan is not available until the end of the tariff for the year..
+        ///   Looks up a localized string similar to The pricing plan is not available until the end of the paid year..
         /// </summary>
         public static string TariffRemarkDisabledMonth {
             get {
@@ -9174,7 +9420,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The tariff plan is not available until the end of the tariff for the 3 year..
+        ///   Looks up a localized string similar to The pricing plan is not available until the end of the 3 year pricing plan..
         /// </summary>
         public static string TariffRemarkDisabledYear {
             get {
@@ -9210,7 +9456,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tariffs.
+        ///   Looks up a localized string similar to Pricing plans.
         /// </summary>
         public static string Tariffs {
             get {
@@ -9219,7 +9465,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Для вашего удобства при оплате в рублях расчет происходит по фиксированному курсу {0} рублей за 1 доллар..
+        ///   Looks up a localized string similar to For your convenience paiments in Russian roubles are calculated using the fixed exchange rate {0} Russian roubles for 1 US dollar..
         /// </summary>
         public static string TariffsCurrencyRu {
             get {
@@ -9264,7 +9510,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for having checked out Teamlab Office!{2}{0}Free trial period is expired.{1}.
+        ///   Looks up a localized string similar to Thank you for having checked out ONLYOFFICE™!{2}{0}Free trial period has expired.{1}.
         /// </summary>
         public static string TariffTrialOverdue {
             get {
@@ -9273,7 +9519,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeamLab Office.
+        ///   Looks up a localized string similar to Cannot add new users.
+        /// </summary>
+        public static string TariffUserLimitHeader {
+            get {
+                return ResourceManager.GetString("TariffUserLimitHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding new users will exceed the maximum number of portal members available according to your pricing plan..
+        /// </summary>
+        public static string TariffUserLimitReason {
+            get {
+                return ResourceManager.GetString("TariffUserLimitReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE™.
         /// </summary>
         public static string TeamLabOfficeTitle {
             get {
@@ -9314,6 +9578,15 @@ namespace Resources {
         public static string TenantUsersTotal {
             get {
                 return ResourceManager.GetString("TenantUsersTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Third Party Authorization.
+        /// </summary>
+        public static string ThirdPartyAuthorization {
+            get {
+                return ResourceManager.GetString("ThirdPartyAuthorization", resourceCulture);
             }
         }
         
@@ -9444,7 +9717,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Additional Mobile Phone.
+        ///   Looks up a localized string similar to Mobile Phone.
         /// </summary>
         public static string TitleMobphone {
             get {
@@ -9543,7 +9816,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change server region.
+        ///   Looks up a localized string similar to Change Server Region.
         /// </summary>
         public static string TransferPortalButton {
             get {
@@ -9552,7 +9825,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}You are about to start the portal migration to another region. The portal will be unavailable during the migration process. After it is over the notification will be sent to your email address.{1}{0}Are you sure you want to continue?{1}.
+        ///   Looks up a localized string similar to {0}You are about to start the portal migration to another region. The portal will be unavailable during the migration process. After it is over the notification will be sent to your email address.{1}{0}Mail domains, mailboxes (except for those of third party services) and emails contained there will not be transferred during the migration process.{1}{0}Are you sure you want to continue?{1}.
         /// </summary>
         public static string TransferPortalContentPopup {
             get {
@@ -9579,7 +9852,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Different region portal migration.
+        ///   Looks up a localized string similar to Portal Region.
         /// </summary>
         public static string TransferPortalTitle {
             get {
@@ -9597,7 +9870,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The portal will be unavailable during the migration process. After the migration is complete the portal URL will be changed and all the shared documents links will be inaccessible..
+        ///   Looks up a localized string similar to The portal will not be available during the migration process. After the migration is complete the portal URL will be changed and all the shared documents links will be inaccessible..
         /// </summary>
         public static string TransferPortalWarning {
             get {
@@ -9652,7 +9925,7 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Registration is available to users with an email account at {0}. 
-        ///To register, enter your email and click on Send Invitation.  An email message with a link to activate your TeamLab account will be sent to the specified email..
+        ///To register, enter your email and click on Send Invitation.  An email message with a link to activate your ONLYOFFICE™ account will be sent to the specified email..
         /// </summary>
         public static string TrustedDomainsInviteTitle {
             get {
@@ -9715,7 +9988,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Как минимум один из сайтов имеет аналогичную https привязку. Удалить эти привязки и продолжить?.
+        ///   Looks up a localized string similar to At least one of the sites has similar https binding. Do you want to delete the binding and continue?.
         /// </summary>
         public static string UploadHttpsSettingsError {
             get {
@@ -9760,11 +10033,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}{{!User}} can:{1}create new posts, view and edit open content portal;{2}post a comment;{3}attach files;{4}close the tasks assigned to them, etc.{5}.
+        ///   Looks up a localized string similar to {0}{!User} can:{1}{2}{4}create/edit/manage/share files and folders;{5}{4}create and edit posts in Blogs, share news, etc;{5}{4}create and edit CRM contacts, task, case, opportunity;{5}{4}create and edit project, team, milestones, tasks, discussions etc.{5}{3}.
         /// </summary>
-        public static string UserCanDescribe {
+        public static string UserCanDescribe2 {
             get {
-                return ResourceManager.GetString("UserCanDescribe", resourceCulture);
+                return ResourceManager.GetString("UserCanDescribe2", resourceCulture);
             }
         }
         
@@ -9868,7 +10141,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Посмотреть тарифные планы.
+        ///   Looks up a localized string similar to See pricing plans.
         /// </summary>
         public static string ViewTariffPlans {
             get {
@@ -9913,7 +10186,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не допускайте нулевого баланса, чтобы всегда иметь возможность совершать и принимать звонки..
+        ///   Looks up a localized string similar to Please maintain above zero balance to be able to make and receive calls..
         /// </summary>
         public static string VoipBuyHelperMsg {
             get {
@@ -9922,7 +10195,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy voip-package.
+        ///   Looks up a localized string similar to Buy VoIP package.
         /// </summary>
         public static string VoipBuyMsg {
             get {
@@ -9931,7 +10204,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to voip-package for {0}.
+        ///   Looks up a localized string similar to VoIP package for {0}.
         /// </summary>
         public static string VoipPackageMsg {
             get {
@@ -9940,7 +10213,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voip Package: {0}/{1}.
+        ///   Looks up a localized string similar to VoIP Package: {0}/{1}.
         /// </summary>
         public static string VoipPackageSateMsg {
             get {
@@ -9949,7 +10222,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to К сожалению, сервис временно недоступен. Попробуйте позже..
+        ///   Looks up a localized string similar to Соединение уже установлено в другом окне.
+        /// </summary>
+        public static string VoipServiceAlreadyRunningMsg {
+            get {
+                return ResourceManager.GetString("VoipServiceAlreadyRunningMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unfortunately the service is currently unavailable. Please try again later..
         /// </summary>
         public static string VoipServiceUnavailableMsg {
             get {
@@ -9967,7 +10249,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TeamLab.
+        ///   Looks up a localized string similar to ONLYOFFICE™.
         /// </summary>
         public static string WebStudioName {
             get {
@@ -9985,7 +10267,52 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for choosing TeamLab! For the security reasons the password setup procedure must be performed..
+        ///   Looks up a localized string similar to {0}This means that you can: {1}view portal content open for all portal users,{2}leave comments,{3}attach and download files.{4}.
+        /// </summary>
+        public static string WelcomeCollaboratorCan {
+            get {
+                return ResourceManager.GetString("WelcomeCollaboratorCan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In case you need some additional rights please contact your portal administrator..
+        /// </summary>
+        public static string WelcomeCollaboratorOtherActions {
+            get {
+                return ResourceManager.GetString("WelcomeCollaboratorOtherActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to ONLYOFFICE™.
+        /// </summary>
+        public static string WelcomeCollaboratorPopupHeader {
+            get {
+                return ResourceManager.GetString("WelcomeCollaboratorPopupHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The portal administrator invited you as guest user to the portal..
+        /// </summary>
+        public static string WelcomeCollaboratorRole {
+            get {
+                return ResourceManager.GetString("WelcomeCollaboratorRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start work.
+        /// </summary>
+        public static string WelcomeCollaboratorStartWork {
+            get {
+                return ResourceManager.GetString("WelcomeCollaboratorStartWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for choosing ONLYOFFICE™! For the security reasons the password setup procedure must be performed..
         /// </summary>
         public static string WelcomeDescription {
             get {
@@ -9994,11 +10321,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Your TeamLab Portal.
+        ///   Looks up a localized string similar to Welcome to Your ONLYOFFICE™ Portal.
         /// </summary>
         public static string WelcomeTitle {
             get {
                 return ResourceManager.GetString("WelcomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to ONLYOFFICE™!.
+        /// </summary>
+        public static string WelcomeToTeamlab {
+            get {
+                return ResourceManager.GetString("WelcomeToTeamlab", resourceCulture);
             }
         }
         
@@ -10012,7 +10348,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We use TeamLab Online Office.
+        ///   Looks up a localized string similar to We use ONLYOFFICE™ Online Office.
         /// </summary>
         public static string WeUseTeamLabOnlineOffice {
             get {
@@ -10048,51 +10384,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, choose the {1}Team{3}lab{4} Office{2} module {0} for the first meeting.
-        /// </summary>
-        public static string WizardChooseStartModule {
-            get {
-                return ResourceManager.GetString("WizardChooseStartModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for Efficient Client Relations.
-        /// </summary>
-        public static string WizardCrmReason {
-            get {
-                return ResourceManager.GetString("WizardCrmReason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Simple Cloud CRM.
-        /// </summary>
-        public static string WizardCrmTitle {
-            get {
-                return ResourceManager.GetString("WizardCrmTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for Better Document Collaboration.
-        /// </summary>
-        public static string WizardDocsReason {
-            get {
-                return ResourceManager.GetString("WizardDocsReason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online Office Apps.
-        /// </summary>
-        public static string WizardDocsTitle {
-            get {
-                return ResourceManager.GetString("WizardDocsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Language and Time Zone Settings.
         /// </summary>
         public static string WizardGenTimeLang {
@@ -10111,65 +10402,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to to Get Things Done.
-        /// </summary>
-        public static string WizardProjectsReason {
-            get {
-                return ResourceManager.GetString("WizardProjectsReason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project Management Toolset.
-        /// </summary>
-        public static string WizardProjectsTitle {
-            get {
-                return ResourceManager.GetString("WizardProjectsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Registration Settings.
         /// </summary>
         public static string WizardRegistrationSettings {
             get {
                 return ResourceManager.GetString("WizardRegistrationSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Watch video.
-        /// </summary>
-        public static string WizardRelatedVideo {
-            get {
-                return ResourceManager.GetString("WizardRelatedVideo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How to Set up the ARM of the Portal?.
-        /// </summary>
-        public static string WizardSetUpARM {
-            get {
-                return ResourceManager.GetString("WizardSetUpARM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We are building your {0}Team{2}lab{3}{1} Cloud {0}Office{1}.
-        /// </summary>
-        public static string WizardVideoTitle {
-            get {
-                return ResourceManager.GetString("WizardVideoTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We are preparing your {0}Team{2}lab{3}{1} Cloud {0}Office{1}.
-        /// </summary>
-        public static string WizardVideoTitleUser {
-            get {
-                return ResourceManager.GetString("WizardVideoTitleUser", resourceCulture);
             }
         }
         

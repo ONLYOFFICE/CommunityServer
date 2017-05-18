@@ -24,6 +24,16 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Runtime.Serialization;
+using System.Security;
+using System.Threading;
+using System.Web;
 using ASC.Common.Caching;
 using ASC.Common.Security.Authentication;
 using ASC.Core;
@@ -38,15 +48,6 @@ using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Security;
-using System.Threading;
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -119,7 +120,7 @@ namespace ASC.Web.Files.Utils
             }
 
             var fileUri = PathProvider.GetFileStreamUrl(file);
-            var docKey = DocumentServiceHelper.GetDocKey(file.ID, file.Version, file.ModifiedOn);
+            var docKey = DocumentServiceHelper.GetDocKey(file);
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
             DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, false, out convertUri);
@@ -131,7 +132,7 @@ namespace ASC.Web.Files.Utils
             return new ResponseStream(((HttpWebRequest)WebRequest.Create(convertUri)).GetResponse());
         }
 
-        public static File ExecDuplicate(File file, string shareLinkKey)
+        public static File ExecDuplicate(File file, string doc)
         {
             var toFolderId = file.FolderID;
 
@@ -141,7 +142,7 @@ namespace ASC.Web.Files.Utils
                 var fileSecurity = Global.GetFilesSecurity();
                 if (!fileSecurity.CanRead(file))
                 {
-                    var readLink = FileShareLink.Check(shareLinkKey, true, fileDao, out file);
+                    var readLink = FileShareLink.Check(doc, true, fileDao, out file);
                     if (file == null)
                     {
                         throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
@@ -169,7 +170,7 @@ namespace ASC.Web.Files.Utils
                 var fileUri = PathProvider.GetFileStreamUrl(file);
                 var fileExtension = file.ConvertedExtension;
                 var toExtension = FileUtility.GetInternalExtension(file.Title);
-                var docKey = DocumentServiceHelper.GetDocKey(file.ID, file.Version, file.ModifiedOn);
+                var docKey = DocumentServiceHelper.GetDocKey(file);
 
                 string convertUri;
                 fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
@@ -218,7 +219,7 @@ namespace ASC.Web.Files.Utils
             {
                 if (conversionQueue.ContainsKey(file))
                 {
-                    throw new Exception(FilesCommonResource.ErrorMassage_Reconverting);
+                    return;
                 }
 
                 var queueResult = new ConvertFileOperationResult
@@ -234,6 +235,7 @@ namespace ASC.Web.Files.Utils
                         Account = SecurityContext.CurrentAccount,
                         Delete = deleteAfter,
                         StartDateTime = DateTime.Now,
+                        Url = HttpContext.Current != null && HttpContext.Current.Request != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null
                     };
                 conversionQueue.Add(file, queueResult);
                 cache.Insert(GetKey(file), queueResult, TimeSpan.FromMinutes(10));
@@ -316,8 +318,8 @@ namespace ASC.Web.Files.Utils
                         timer.Change(Timeout.Infinite, Timeout.Infinite);
 
                         conversionQueue.Where(x => !string.IsNullOrEmpty(x.Value.Processed)
-                                                   && (x.Value.Progress == 100 && DateTime.Now - x.Value.StopDateTime > TimeSpan.FromMinutes(1) ||
-                                                       DateTime.Now - x.Value.StopDateTime > TimeSpan.FromMinutes(10)))
+                                                   && (x.Value.Progress == 100 && DateTime.UtcNow - x.Value.StopDateTime > TimeSpan.FromMinutes(1) ||
+                                                       DateTime.UtcNow - x.Value.StopDateTime > TimeSpan.FromMinutes(10)))
                                        .ToList()
                                        .ForEach(x =>
                                            {
@@ -361,6 +363,13 @@ namespace ASC.Web.Files.Utils
                                 tenantId = operationResult.TenantId;
                                 account = operationResult.Account;
 
+                                if (HttpContext.Current == null && !WorkContext.IsMono)
+                                {
+                                    HttpContext.Current = new HttpContext(
+                                        new HttpRequest("hack", operationResult.Url, string.Empty),
+                                        new HttpResponse(new StringWriter()));
+                                }
+
                                 cache.Insert(GetKey(file), operationResult, TimeSpan.FromMinutes(10));
                             }
 
@@ -386,7 +395,7 @@ namespace ASC.Web.Files.Utils
 
                             var toExtension = FileUtility.GetInternalExtension(file.Title);
                             var fileExtension = file.ConvertedExtension;
-                            var docKey = DocumentServiceHelper.GetDocKey(file.ID, file.Version, file.ModifiedOn);
+                            var docKey = DocumentServiceHelper.GetDocKey(file);
 
                             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
                             operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, true, out convertedFileUrl);
@@ -407,7 +416,7 @@ namespace ASC.Web.Files.Utils
                                     else
                                     {
                                         operationResult.Progress = 100;
-                                        operationResult.StopDateTime = DateTime.Now;
+                                        operationResult.StopDateTime = DateTime.UtcNow;
                                         operationResult.Error = exception.Message;
                                         cache.Insert(GetKey(file), operationResult, TimeSpan.FromMinutes(10));
                                     }
@@ -427,7 +436,7 @@ namespace ASC.Web.Files.Utils
 
                                     if (DateTime.Now - operationResult.StartDateTime > TimeSpan.FromMinutes(10))
                                     {
-                                        operationResult.StopDateTime = DateTime.Now;
+                                        operationResult.StopDateTime = DateTime.UtcNow;
                                         operationResult.Error = FilesCommonResource.ErrorMassage_ConvertTimeout;
                                         Global.Logger.ErrorFormat("CheckConvertFilesStatus timeout: {0} ({1})", file.ID, file.ContentLengthString);
                                     }
@@ -483,7 +492,7 @@ namespace ASC.Web.Files.Utils
                                         }
 
                                         operationResult.Progress = 100;
-                                        operationResult.StopDateTime = DateTime.Now;
+                                        operationResult.StopDateTime = DateTime.UtcNow;
                                         operationResult.Processed = "1";
                                         if (!string.IsNullOrEmpty(operationResultError))
                                         {
@@ -622,7 +631,7 @@ namespace ASC.Web.Files.Utils
 
         private static string GetKey(File f)
         {
-            return string.Format("fileConvertation-{0}-{1}", f.ID, f.Version);
+            return string.Format("fileConvertation-{0}", f.ID);
         }
 
 
@@ -647,6 +656,7 @@ namespace ASC.Web.Files.Utils
             public int TenantId { get; set; }
             public IAccount Account { get; set; }
             public bool Delete { get; set; }
+            public string Url { get; set; }
         }
     }
 }

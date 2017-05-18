@@ -28,21 +28,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.Utils;
 using ASC.Api.Wiki.Wrappers;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Web.Community.Product;
+using ASC.Web.Community.Wiki.Common;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 using File = ASC.Web.UserControls.Wiki.Data.File;
-using ASC.Web.Studio.UserControls.Common.Comments;
-using ASC.Core.Tenants;
-using ASC.Core;
-using ASC.Web.Studio.Utility;
-using ASC.Web.Core.Users;
-using ASC.Web.Community.Product;
-using ASC.Web.Community.Wiki.Common;
-using ASC.Web.Community.Blogs;
-using ASC.Common.Security.Authorizing;
-using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Api.Community
 {
@@ -308,7 +305,7 @@ namespace ASC.Api.Community
             return HtmlUtility.GetFull(content);
         }
 
-        private CommentInfo GetCommentInfo(Comment comment)
+        private static CommentInfo GetCommentInfo(Comment comment)
         {
             var info = new CommentInfo
             {
@@ -318,7 +315,7 @@ namespace ASC.Api.Community
                 TimeStampStr = comment.Date.Ago(),
                 IsRead = true,
                 Inactive = comment.Inactive,
-                CommentBody = comment.Body,
+                CommentBody = HtmlUtility.GetFull(comment.Body),
                 UserFullName = DisplayUserSettings.GetFullUserName(comment.UserId),
                 UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserId),
                 UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserId),

@@ -51,7 +51,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var result = selector.GetFileDao(fileId).GetFile(selector.ConvertId(fileId));
 
             if (result != null && !Default.IsMatch(fileId))
-                SetSharedByMeProperty(new[] { result });
+                SetSharedProperty(new[] { result });
 
             return result;
         }
@@ -62,7 +62,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var result = selector.GetFileDao(fileId).GetFile(selector.ConvertId(fileId), fileVersion);
 
             if (result != null && !Default.IsMatch(fileId))
-                SetSharedByMeProperty(new[] { result });
+                SetSharedProperty(new[] { result });
 
             return result;
         }
@@ -73,7 +73,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var result = selector.GetFileDao(parentId).GetFile(selector.ConvertId(parentId), title);
 
             if (result != null && !Default.IsMatch(parentId))
-                SetSharedByMeProperty(new[] { result });
+                SetSharedProperty(new[] { result });
 
             return result;
         }
@@ -120,7 +120,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             if (!Default.IsMatch(parentId))
             {
-                SetSharedByMeProperty(result);
+                SetSharedProperty(result);
             }
 
             return result;
@@ -342,18 +342,6 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return TryGetFileDao().Search(text, folderType);
         }
 
-        public void DeleteFileStream(object fileId)
-        {
-            var selector = GetSelector(fileId);
-            selector.GetFileDao(fileId).DeleteFileStream(selector.ConvertId(fileId));
-        }
-
-        public void DeleteFolder(object fileId)
-        {
-            var selector = GetSelector(fileId);
-            selector.GetFileDao(fileId).DeleteFolder(selector.ConvertId(fileId));
-        }
-
         public bool IsExistOnStorage(File file)
         {
             var fileId = file.ID;
@@ -387,6 +375,12 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var stream = selector.GetFileDao(fileId).GetDifferenceStream(file);
             file.ID = fileId; //Restore
             return stream;
+        }
+
+        public bool ContainChanges(object fileId, int fileVersion)
+        {
+            var selector = GetSelector(fileId);
+            return selector.GetFileDao(fileId).ContainChanges(selector.ConvertId(fileId), fileVersion);
         }
 
         #endregion

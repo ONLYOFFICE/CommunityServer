@@ -35,5 +35,7 @@ namespace ASC.Data.Storage
         void QuotaUsedSet(string module, string domain, string dataTag, long size);
 
         long QuotaUsedGet(string module, string domain);
+
+        void QuotaUsedCheck(long size);
     }
 }

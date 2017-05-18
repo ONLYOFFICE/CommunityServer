@@ -24,11 +24,10 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.UI;
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.UserControls.Common;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -43,8 +42,6 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/products/files/controls/accessrights/accessrights.js");
-
             var sharingSetting = (SharingSettings) LoadControl(SharingSettings.Location);
             sharingSetting.EnableShareMessage = true;
             sharingSetting.IsPopup = IsPopup;

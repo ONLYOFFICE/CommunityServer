@@ -175,7 +175,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             {
                 zip.CompressionLevel = ionic::Ionic.Zlib.CompressionLevel.Level3;
                 zip.AlternateEncodingUsage = ionic::Ionic.Zip.ZipOption.AsNecessary;
-                zip.AlternateEncoding = Encoding.GetEncoding(Thread.CurrentThread.CurrentCulture.TextInfo.OEMCodePage);
+                zip.AlternateEncoding = Encoding.UTF8;
 
                 foreach (var path in entriesPathId.AllKeys)
                 {

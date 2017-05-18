@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BirthdayCongratulateLinkTitle" xml:space="preserve">
     <value>Send Your Greetings</value>
@@ -136,7 +136,7 @@
     <value>Birthdays</value>
   </data>
   <data name="BirthdaysSubscribeAll" xml:space="preserve">
-    <value>Subscribe to all the birthdays</value>
+    <value>All the birthdays</value>
   </data>
   <data name="BirthdaysTodayTitle" xml:space="preserve">
     <value>Today is the birthday</value>

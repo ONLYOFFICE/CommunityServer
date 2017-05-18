@@ -15,11 +15,6 @@
         <li class="studio-top-logo ">
             <a class="top-logo" title="<%: Resource.TeamLabOfficeTitle %>" href="<%= CommonLinkUtility.GetDefault() %>">
                 <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
-                <% if (IsAuthorizedPartner.HasValue)
-                   { %>
-                    <span class="top-logo-partner_name">
-                        <%= IsAuthorizedPartner.Value && Partner != null ? Resource.For + " " + (Partner.DisplayName ?? Partner.CompanyName).HtmlEncode() : Resource.HostedNonAuthorizedVersion %></span>
-                <% } %>
             </a>
         </li>
 
@@ -98,8 +93,7 @@
                     <asp:Repeater runat="server" ID="_productRepeater">
                         <ItemTemplate>
                             <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
-                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item 
-                                    <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
                                     <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
                                 </a>
                             </li>
@@ -112,19 +106,19 @@
                     <asp:Repeater runat="server" ID="_addonRepeater">
                         <ItemTemplate>
                             <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
-                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item">
+                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
                                     <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
                                 </a>
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <li class="feed"><a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item"><%= UserControlsCommonResource.FeedTitle %></a></li>
+                    <li class="feed"><a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item <%= "feed" == CurrentProductClassName ? "active" : "" %>"><%= UserControlsCommonResource.FeedTitle %></a></li>
                     <% } %>
 
                     <% if (IsAdministrator)
                        { %>
                         <li class="dropdown-item-seporator"></li>
-                        <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item"><%= Resource.Administration %></a></li>
+                        <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item <%= "settings" == CurrentProductClassName ? "active" : "" %>"><%= Resource.Administration %></a></li>
                     <% } %>
                     <% if (!DisableTariff)
                        { %>
@@ -224,39 +218,6 @@
                         <div><%= string.Format(UserControlsCommonResource.SourceCode, "<a href=\"https://github.com/ONLYOFFICE/CommunityServer\" class=\"link underline\" target=\"_blank\">", "</a>") %></div>
                         <% } %>
 
-                        <% if (IsAuthorizedPartner.HasValue && IsAuthorizedPartner.Value && Partner != null)
-                            { %>
-                            <br />
-                            <div class="confirmation-popup_licensor"><%= Resource.AboutCompanySublicensee %></div>
-                            <div class="confirmation-popup_name"><%= (Partner.DisplayName ?? Partner.CompanyName).HtmlEncode() %></div>
-                            <ul class="confirmation-popup_info">
-                                <% if (!string.IsNullOrEmpty(Partner.Address))
-                                    { %>
-                                    <li><span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
-                                        </span><%= Partner.Address.HtmlEncode() %></li>
-                                <% } %>
-                                <% if (!string.IsNullOrEmpty(Partner.SupportEmail))
-                                    { %>
-                                    <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                        </span><a href="mailto:<%= Partner.SupportEmail %>" class="link"><%= Partner.SupportEmail %></a></li>
-                                <% }
-                                    else if (!string.IsNullOrEmpty(Partner.Email))
-                                    { %>
-                                    <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                        </span><a href="mailto:<%= Partner.Email %>" class="link"><%= Partner.Email %></a></li>
-                                <% } %>
-                                <% if (!string.IsNullOrEmpty(Partner.Phone))
-                                    { %>
-                                    <li><span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
-                                        </span><%= Partner.Phone.HtmlEncode() %></li>
-                                <% } %>
-                                <% if (!string.IsNullOrEmpty(Partner.Url))
-                                    { %>
-                                    <li><a href="<%= Partner.Url.StartsWith("http:") || Partner.Url.StartsWith("https:") ? Partner.Url : string.Concat("http://", Partner.Url) %>" target="_blank" class="link"><%= Partner.Url %></a></li>
-                                <% } %>
-                            </ul>
-                        <% } %>
-
                         <% if (!Settings.IsDefault && !Settings.IsLicensor)
                            {
                                var defaultSettings = Settings.GetDefault() as CompanyWhiteLabelSettings;
@@ -332,9 +293,6 @@
         </div>
     </div>
 
-    <div id="studio_dropVoipPopupPanel" class="studio-action-panel">
-        <asp:PlaceHolder runat="server" ID="_voipPhonePlaceholder"></asp:PlaceHolder>
-    </div>
 
     <asp:PlaceHolder runat="server" ID="_customNavControls"></asp:PlaceHolder>
 </div>

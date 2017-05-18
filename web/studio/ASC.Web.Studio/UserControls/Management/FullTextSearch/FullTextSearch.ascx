@@ -27,6 +27,10 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <%= String.Format(Resource.FullTextSearchSettingsHelp.HtmlEncode(), "<br />") %>
+        <p><%= String.Format(Resource.FullTextSearchSettingsHelp.HtmlEncode(), "<br />") %></p>
+        <% if (!string.IsNullOrEmpty(HelpLink))
+           { %>
+        <a href="<%= HelpLink + "/server/windows/community/troubleshooting.aspx#SphinxIssue" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <% } %>
     </div>
 </div>

@@ -31,11 +31,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
-using ASC.Common.Utils;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
+using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
@@ -44,10 +44,7 @@ using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
-using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using Newtonsoft.Json.Linq;
-using ASC.Core.Users;
 using CommandMethod = ASC.Web.Core.Files.DocumentService.CommandMethod;
 using File = ASC.Files.Core.File;
 
@@ -65,19 +62,29 @@ namespace ASC.Web.Files.Services.DocumentService
             Corrupted = 3,
             Closed = 4,
             MailMerge = 5,
+            ForceSave = 6, // not used
+            CorruptedForceSave = 7, //not used
         }
 
-        [DebuggerDisplay("{Status}")]
+        [DebuggerDisplay("{Status} - {Key}")]
         public class TrackerData
         {
+            public List<Action> Actions;
             public string ChangesUrl;
-            public string ChangesHistory;
             public object History;
             public string Key;
+            public MailMergeData MailMerge;
             public TrackerStatus Status;
             public string Url;
             public List<string> Users;
-            public MailMergeData MailMerge;
+            public string UserData;
+
+            [DebuggerDisplay("{Type} - {UserId}")]
+            public class Action
+            {
+                public string Type;
+                public string UserId;
+            }
         }
 
         public enum MailMergeType
@@ -91,6 +98,7 @@ namespace ASC.Web.Files.Services.DocumentService
         public class MailMergeData
         {
             public int RecordCount;
+            public int RecordErrorCount;
             public int RecordIndex;
 
             public string From;
@@ -105,30 +113,18 @@ namespace ASC.Web.Files.Services.DocumentService
         #endregion
 
 
-        public static bool StartTrack(string fileId, string docKeyForTrack, bool isNew)
+        public static bool StartTrack(string fileId, string docKeyForTrack)
         {
             var callbackUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath
                                                                     + "?" + FilesLinkUtility.Action + "=track"
-                                                                    + "&vkey=" + HttpUtility.UrlEncode(Signature.Create(fileId, StudioKeySettings.GetSKey()))
-                                                                    + "&new=" + isNew.ToString().ToLower());
+                                                                    + "&" + FilesLinkUtility.FileId + "=" + fileId
+                                                                    + "&" + FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId));
             callbackUrl = DocumentServiceConnector.ReplaceCommunityAdress(callbackUrl);
             return DocumentServiceConnector.Command(CommandMethod.Info, docKeyForTrack, fileId, callbackUrl);
         }
 
-        public static string ProcessData(string fileId, bool isNew, string trackDataString)
+        public static string ProcessData(string fileId, TrackerData fileData)
         {
-            if (string.IsNullOrEmpty(trackDataString))
-            {
-                throw new ArgumentException("DocService return null");
-            }
-
-            var data = JObject.Parse(trackDataString);
-            if (data == null)
-            {
-                throw new ArgumentException("DocService response is incorrect");
-            }
-
-            var fileData = data.ToObject<TrackerData>();
             switch (fileData.Status)
             {
                 case TrackerStatus.NotFound:
@@ -137,21 +133,20 @@ namespace ASC.Web.Files.Services.DocumentService
                     break;
 
                 case TrackerStatus.Editing:
-                    ProcessEdit(fileId, isNew, fileData);
+                    ProcessEdit(fileId, fileData);
                     break;
 
                 case TrackerStatus.MustSave:
                 case TrackerStatus.Corrupted:
-                    return ProcessSave(fileId, isNew, fileData);
+                    return ProcessSave(fileId, fileData);
 
                 case TrackerStatus.MailMerge:
-                    ProcessMailMerge(fileId, fileData);
-                    break;
+                    return ProcessMailMerge(fileId, fileData);
             }
             return null;
         }
 
-        private static void ProcessEdit(string fileId, bool isNew, TrackerData fileData)
+        private static void ProcessEdit(string fileId, TrackerData fileData)
         {
             if (ThirdPartySelector.GetAppByFileId(fileId) != null)
             {
@@ -173,8 +168,8 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 try
                 {
-                    var shareLinkKey = FileShareLink.CreateKey(fileId);
-                    EntryManager.TrackEditing(fileId, userId, userId, isNew, shareLinkKey);
+                    var doc = FileShareLink.CreateKey(fileId);
+                    EntryManager.TrackEditing(fileId, userId, userId, doc);
                 }
                 catch (Exception e)
                 {
@@ -185,7 +180,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             if (usersDrop.Any())
             {
-                if (!Drop(fileData.Key, usersDrop, fileId))
+                if (!DocumentServiceHelper.DropUser(fileData.Key, usersDrop, fileId))
                 {
                     Global.Logger.Error("DocService drop failed for users " + string.Join(",", usersDrop));
                 }
@@ -197,7 +192,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
         }
 
-        private static string ProcessSave(string fileId, bool isNew, TrackerData fileData)
+        private static string ProcessSave(string fileId, TrackerData fileData)
         {
             Guid userId;
             var comments = new List<string>();
@@ -225,13 +220,13 @@ namespace ASC.Web.Files.Services.DocumentService
             File file = null;
             var saved = false;
 
+            FileTracker.Remove(fileId);
+
             if (string.IsNullOrEmpty(fileData.Url))
             {
                 try
                 {
                     comments.Add(FilesCommonResource.ErrorMassage_SaveUrlLost);
-
-                    FileTracker.Remove(fileId);
 
                     file = EntryManager.CompleteVersionFile(fileId, 0, false, false);
 
@@ -249,7 +244,7 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 try
                 {
-                    file = EntryManager.SaveEditing(fileId, -1, userId, null, fileData.Url, null, isNew, string.Empty, string.Join("; ", comments), false);
+                    file = EntryManager.SaveEditing(fileId, null, fileData.Url, null, string.Empty, string.Join("; ", comments), false);
                     saved = fileData.Status == TrackerStatus.MustSave;
                 }
                 catch (Exception ex)
@@ -266,25 +261,23 @@ namespace ASC.Web.Files.Services.DocumentService
                 if (user != null)
                     FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
 
-                SaveHistory(file, string.IsNullOrEmpty(fileData.ChangesHistory) ? fileData.History.ToString() : fileData.ChangesHistory, fileData.ChangesUrl);
+                SaveHistory(file, fileData.History.ToString(), fileData.ChangesUrl);
             }
-
-            FileTracker.Remove(fileId);
-
-            DocumentServiceConnector.Command(CommandMethod.Saved, fileData.Key, fileId, null, userId.ToString(), saved ? "1" : "0");
 
             return saved
                        ? "0" //error:0 - saved
                        : "1"; //error:1 - some error
         }
 
-        private static void ProcessMailMerge(string fileId, TrackerData fileData)
+        private static string ProcessMailMerge(string fileId, TrackerData fileData)
         {
             Guid userId;
             if (fileData.Users == null || fileData.Users.Count == 0 || !Guid.TryParse(fileData.Users[0], out userId))
             {
                 userId = FileTracker.GetEditingBy(fileId).FirstOrDefault();
             }
+
+            var sended = false;
 
             try
             {
@@ -369,6 +362,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     Global.Logger.InfoFormat("DocService mailMerge {0}/{1} send: {2}",
                                              fileData.MailMerge.RecordIndex, fileData.MailMerge.RecordCount, response);
                 }
+                sended = true;
             }
             catch (Exception ex)
             {
@@ -382,16 +376,17 @@ namespace ASC.Web.Files.Services.DocumentService
             if (fileData.MailMerge != null &&
                 fileData.MailMerge.RecordIndex == fileData.MailMerge.RecordCount - 1)
             {
-                NotifyClient.SendMailMergeEnd(userId, fileData.MailMerge.RecordCount);
+                var errorCount = fileData.MailMerge.RecordErrorCount;
+                if (!sended) errorCount++;
+
+                NotifyClient.SendMailMergeEnd(userId, fileData.MailMerge.RecordCount, errorCount);
             }
+
+            return sended
+                       ? "0" //error:0 - sended
+                       : "1"; //error:1 - some error
         }
 
-
-        public static bool Drop(string docKeyForTrack, List<Guid> users, object fileId = null)
-        {
-            var dropString = "[\"" + string.Join("\",\"", users) + "\"]";
-            return DocumentServiceConnector.Command(CommandMethod.Drop, docKeyForTrack, fileId, null, dropString);
-        }
 
         private static void StoringFileAfterError(string fileId, string userId, string downloadUri)
         {

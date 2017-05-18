@@ -88,7 +88,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add new mailgroup.
+        ///   Looks up a localized string similar to Add new mail group.
         /// </summary>
         public static string AddMailgroupLabel {
             get {
@@ -142,7 +142,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to enter the mailbox address and choose the user who the mailbox will be created for..
+        ///   Looks up a localized string similar to You need to enter the mailbox address and choose the user you want to create the mailbox for..
         /// </summary>
         public static string CreateMailboxPopupHeader {
             get {
@@ -151,7 +151,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new mailgroup.
+        ///   Looks up a localized string similar to Create new mail group.
         /// </summary>
         public static string CreateMailgroupHeaderInfo {
             get {
@@ -160,7 +160,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to enter the mailgroup address and choose mailboxes that will be included in this mailgroup..
+        ///   Looks up a localized string similar to You need to enter the mail group address and choose mailboxes that will be included in this mailgroup..
         /// </summary>
         public static string CreateMailgroupPopupHeader {
             get {
@@ -187,7 +187,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mail group deletion will not in any way affect the mailboxes within it.
+        ///   Looks up a localized string similar to Mail group deletion will not affect the mailboxes within it in any way.
         /// </summary>
         public static string DeleteGroupAttention {
             get {
@@ -196,7 +196,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete mailgroup.
+        ///   Looks up a localized string similar to Delete mail group.
         /// </summary>
         public static string DeleteGroupLabel {
             get {
@@ -205,7 +205,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you delete server mailbox all the letters removed from the mailbox..
+        ///   Looks up a localized string similar to If you delete server mailbox all the letters will be removed from the mailbox..
         /// </summary>
         public static string DeleteMailboxAttention {
             get {
@@ -277,7 +277,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Just open the control panel of your domain in another browser tab and simply copy the bold text info the appropriate fields or select the most suitable one from the available variants:.
+        ///   Looks up a localized string similar to Just open the control panel of your domain in another browser tab and simply copy the bold text into the appropriate fields or select the most suitable variant from the available ones:.
         /// </summary>
         public static string DomainWizardCopyInfo {
             get {
@@ -295,7 +295,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Domain &quot;{0}&quot; already in use..
+        ///   Looks up a localized string similar to Domain &quot;{0}&quot; is already in use..
         /// </summary>
         public static string DomainWizardDomainAlreadyExists {
             get {
@@ -394,7 +394,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Before you can start create your corporate email-addresses, you need to add TXT-record in the control panel of your own domain in order to prove your domain ownership..
+        ///   Looks up a localized string similar to Before you can start create your corporate email addresses, you need to add TXT record in the control panel of your own domain in order to prove your domain ownership..
         /// </summary>
         public static string DomainWizardProveDomainOwnershipInfo {
             get {
@@ -430,7 +430,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can also read the {0}FAQ{1} for step-by-step instructions to most popular hosting services..
+        ///   Looks up a localized string similar to You can also read the {0}FAQ{1} for step-by-step instructions for most popular hosting services..
         /// </summary>
         public static string DomainWizardToFAQ {
             get {
@@ -466,7 +466,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit mailgroup addresses.
+        ///   Looks up a localized string similar to Edit mail group addresses.
         /// </summary>
         public static string EditGroupAddressesLabel {
             get {
@@ -538,7 +538,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mailgroup address.
+        ///   Looks up a localized string similar to Mail group address.
         /// </summary>
         public static string MailgroupAddressLabel {
             get {
@@ -547,7 +547,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mailgroup mailboxes.
+        ///   Looks up a localized string similar to Mail group mailboxes.
         /// </summary>
         public static string MailgroupMailboxesLabel {
             get {
@@ -574,7 +574,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set up your own domain to create and manage corporate mailboxes like username@yourcompany.com. You can create mailboxes for your employess, and they will see them in their Only Office Mail clients..
+        ///   Looks up a localized string similar to Set up your own domain to create and manage corporate mailboxes like username@yourcompany.com. You can create mailboxes for your employees, and they will see them in their ONLYOFFICE Mail clients..
         /// </summary>
         public static string NoDomainSetUpDescription {
             get {

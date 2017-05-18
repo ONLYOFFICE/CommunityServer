@@ -117,58 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="pattern_MailMergeEnd" xml:space="preserve">
-    <value>h1. Mailing Completed
-
-This is a mail message to notify you that the mailing of $MailsCount messages that you have requested is now complete.
-
-You can check the status of this mail messages in your "Sent":"$__VirtualRootPath/addons/mail/#sent" folder of the Mail module.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
-  </data>
-  <data name="subject_MailMergeEnd" xml:space="preserve">
-    <value>Documents. Mailing is complete.</value>
-  </data>
-  <data name="pattern_ShareDocument" xml:space="preserve">
-    <value>h1.$__DateTime Пользователем "$__AuthorName":"$__AuthorUrl" 
-
-был предоставлен доступ к "$DocumentTitle":"$DocumentURL"
-
-с правами: "$AccessRights".
-
-$Message 
-
-Адрес Вашего портала: "$__VirtualRootPath":"$__VirtualRootPath"</value>
-  </data>
-  <data name="subject_ShareDocument" xml:space="preserve">
-    <value>Документы. Вам предоставлен доступ к $DocumentTitle</value>
-  </data>
-  <data name="pattern_ShareFolder" xml:space="preserve">
-    <value>h1.$__DateTime Пользователем "$__AuthorName":"$__AuthorUrl" 
-
-был предоставлен доступ к папке "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID"
-
-с правами: "$AccessRights".
-
-$Message
-
-Адрес Вашего портала: "$__VirtualRootPath":"$__VirtualRootPath"</value>
-  </data>
-  <data name="subject_ShareFolder" xml:space="preserve">
-    <value>Документы. Вам предоставлен доступ к $DocumentTitle</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="patterns" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>patterns.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
-  </data>
   <data name="pattern_LinkToEmail" xml:space="preserve">
-    <value>h1. Access Granted to Document: "$DocumentTitle":"$DocumentURL"
+    <value>h1. Access granted to document: "$DocumentTitle":"$DocumentURL"
 
 $__DateTime $__AuthorName ("$UserEmail":"mailto:$UserEmail") granted you the access to the "$DocumentTitle":"$DocumentURL" document with the following access rights: "$AccessRights".
 
 $Message</value>
   </data>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. All signers completed $DocumentTitle
+
+This is a mail message to notify you that all signers completed "$DocumentTitle":"$DocumentURL".
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Watch your DocuSign account for more information.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Mailing completed
+
+This is a mail message to notify you that you have requested the mailing of $MailsCount messages and the process is now complete. $Message
+
+The successfully sent mail messages can be found in your "Sent":"$__VirtualRootPath/addons/mail/#sent" folder of the Mail module.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Access granted to document: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$DocumentTitle":"$DocumentURL" document with the following access rights: "$AccessRights". 
+
+$Message 
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the shared documents, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Access granted to folder: "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$DocumentTitle":"$__VirtualRootPath/products/files/#$FolderID" folder with the following access rights: "$AccessRights". 
+
+$Message 
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the shared folders, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
   <data name="subject_LinkToEmail" xml:space="preserve">
-    <value>Документы. Вам предоставлен доступ к $DocumentTitle</value>
+    <value>Documents. You are granted access to $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Documents. All signers completed $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Documents. Sign status changed</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Documents. Mailing is complete.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Documents. Access granted to document: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Documents. Access granted to folder: $DocumentTitle</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="patterns" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>patterns.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
 </root>

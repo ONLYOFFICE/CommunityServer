@@ -117,44 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateNewTask" xml:space="preserve">
-    <value>Add new task</value>
-  </data>
-  <data name="EditThisTask" xml:space="preserve">
-    <value>Edit task</value>
-  </data>
-  <data name="EmptyMessageTitle" xml:space="preserve">
-    <value>Each message must have a title</value>
-  </data>
-  <data name="EmptyProjectTitle" xml:space="preserve">
-    <value>Each project must have a title</value>
-  </data>
-  <data name="IncorrectDate" xml:space="preserve">
-    <value>The date format is invalid</value>
-  </data>
-  <data name="EmptyProjectManager" xml:space="preserve">
-    <value>Each project must have a manager</value>
-  </data>
-  <data name="NotifyProjectLeader" xml:space="preserve">
-    <value>Notify the project manager by E-mail</value>
-  </data>
-  <data name="InvalidTime" xml:space="preserve">
-    <value>Invalid time format</value>
-  </data>
   <data name="AddMilestone" xml:space="preserve">
-    <value>Add Milestone</value>
+    <value>Create new milestone</value>
   </data>
-  <data name="EditMilestone" xml:space="preserve">
-    <value>Edit Milestone</value>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Create new task</value>
   </data>
-  <data name="NoMilestone" xml:space="preserve">
-    <value>No milestone</value>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Add This Task</value>
   </data>
-  <data name="TimerNoData" xml:space="preserve">
-    <value>No Data</value>
+  <data name="AllProjects" xml:space="preserve">
+    <value>All projects</value>
   </data>
-  <data name="SuccessfullyAdded" xml:space="preserve">
-    <value>Successfully added</value>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Choose Responsible</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Create new task</value>
   </data>
   <data name="CRMCompanyName" xml:space="preserve">
     <value>Company Name</value>
@@ -168,14 +159,176 @@
   <data name="CRMLastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
-  <data name="NoActiveParticipantsNote" xml:space="preserve">
-    <value>There are no active participants</value>
+  <data name="DelayDay" xml:space="preserve">
+    <value>day</value>
   </data>
-  <data name="ViewAllOpenTasks" xml:space="preserve">
-    <value>View all open tasks</value>
+  <data name="DelayDays" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Discussion could not be found</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Discussions</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Edit Milestone</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Edit task</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Each message must have a title</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Each project must have a manager</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Each project must have a title</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Each task must have a title</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Note: the file size cannot exceed 100 MB.</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>active tasks</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>Collapse task list below milestones</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>Expand task list below milestones</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>add</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>closed</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>high</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>open</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>milestones</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>New Milestone</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>New task</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>There are no tasks available for link creation</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>The recent changes you made may be not saved if you leave this page right now.</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} responsible users</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>subtasks</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>subtask</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>Task is {0} days overdue</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>tasks</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>Tasks without milestones</value>
+  </data>
+  <data name="GanttWeek" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>year</value>
   </data>
   <data name="GroupMenuSelectedItems" xml:space="preserve">
     <value>selected</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>The date format is invalid</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Invalid time format</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>member(s)</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Milestone Added</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Milestone Removed</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Milestone Edited</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>There are no active participants</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>No milestone</value>
+  </data>
+  <data name="NotifyProjectLeader" xml:space="preserve">
+    <value>Notify the project manager by email</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Project could not be found</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projects</value>
   </data>
   <data name="RelatedLinkTypeEE" xml:space="preserve">
     <value>end-end</value>
@@ -189,167 +342,17 @@
   <data name="RelatedLinkTypeSS" xml:space="preserve">
     <value>start-start</value>
   </data>
-  <data name="DelayDay" xml:space="preserve">
-    <value>day</value>
-  </data>
-  <data name="DelayDays" xml:space="preserve">
-    <value>days</value>
-  </data>
-  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
-    <value>active tasks</value>
-  </data>
-  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
-    <value>milestones</value>
-  </data>
-  <data name="GanttNewTask" xml:space="preserve">
-    <value>New task</value>
-  </data>
-  <data name="GanttResponsibles" xml:space="preserve">
-    <value>{0} responsibles</value>
-  </data>
-  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
-    <value>subtasks</value>
-  </data>
-  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
-    <value>subtask</value>
-  </data>
-  <data name="GanttTaskDetails" xml:space="preserve">
-    <value>Details</value>
-  </data>
-  <data name="GanttTaskOverdue" xml:space="preserve">
-    <value>Task is overdue on {0} days</value>
-  </data>
-  <data name="GanttTasksMilDesc" xml:space="preserve">
-    <value>tasks</value>
-  </data>
-  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
-    <value>Tasks without milestones</value>
-  </data>
-  <data name="GanttNewMilestone" xml:space="preserve">
-    <value>New Milestone</value>
-  </data>
-  <data name="GanttWeek" xml:space="preserve">
-    <value>week</value>
-  </data>
-  <data name="GanttYear" xml:space="preserve">
-    <value>year</value>
-  </data>
-  <data name="ToTaskList" xml:space="preserve">
-    <value>To the task list</value>
-  </data>
-  <data name="GanttDayShort" xml:space="preserve">
-    <value>d</value>
-  </data>
-  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
-    <value>The last changes you made may not be saved if you leave this page right now.</value>
-  </data>
-  <data name="GanttCollapse" xml:space="preserve">
-    <value>Collapse task list below milestones</value>
-  </data>
-  <data name="GanttExpand" xml:space="preserve">
-    <value>Expand</value>
-  </data>
-  <data name="NextPage" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="PreviousPage" xml:space="preserve">
-    <value>Previous</value>
-  </data>
-  <data name="GanttWeekShort" xml:space="preserve">
-    <value>week</value>
-  </data>
-  <data name="DiscussionNotFound" xml:space="preserve">
-    <value>Discussion not found</value>
+  <data name="Remove" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="ReportTmplNotFound" xml:space="preserve">
-    <value>Template not found</value>
+    <value>Template could not be found</value>
   </data>
-  <data name="TaskNotFound" xml:space="preserve">
-    <value>Task not found</value>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
   </data>
-  <data name="ProjectNotFound" xml:space="preserve">
-    <value>Project Not Found</value>
-  </data>
-  <data name="ChooseResponsible" xml:space="preserve">
-    <value>Choose Responsible</value>
-  </data>
-  <data name="MilestoneAdded" xml:space="preserve">
-    <value>Milestone Added</value>
-  </data>
-  <data name="TaskAdded" xml:space="preserve">
-    <value>Task Added</value>
-  </data>
-  <data name="MilestoneRemoved" xml:space="preserve">
-    <value>Milestone Removed</value>
-  </data>
-  <data name="MilestoneUpdated" xml:space="preserve">
-    <value>Milestone Edited</value>
-  </data>
-  <data name="TaskRemoved" xml:space="preserve">
-    <value>Task Removed</value>
-  </data>
-  <data name="TaskUpdated" xml:space="preserve">
-    <value>Task Updated</value>
-  </data>
-  <data name="TimeRemoved" xml:space="preserve">
-    <value>Time Removed</value>
-  </data>
-  <data name="TimeUpdated" xml:space="preserve">
-    <value>Time Updated</value>
-  </data>
-  <data name="DiscussionsModule" xml:space="preserve">
-    <value>Discussions</value>
-  </data>
-  <data name="ProductName" xml:space="preserve">
-    <value>Projects</value>
-  </data>
-  <data name="MilestonesModule" xml:space="preserve">
-    <value>Milestones</value>
-  </data>
-  <data name="ProjectsModule" xml:space="preserve">
-    <value>Projects</value>
-  </data>
-  <data name="TasksModule" xml:space="preserve">
-    <value>Tasks</value>
-  </data>
-  <data name="ContactsModule" xml:space="preserve">
-    <value>Contacts</value>
-  </data>
-  <data name="DocumentsModule" xml:space="preserve">
-    <value>Documents</value>
-  </data>
-  <data name="TeamModule" xml:space="preserve">
-    <value>Team</value>
-  </data>
-  <data name="TimeTrackingModule" xml:space="preserve">
-    <value>Time Tracking</value>
-  </data>
-  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
-    <value>Begin Date</value>
-  </data>
-  <data name="GanttLeftPanelEndDate" xml:space="preserve">
-    <value>End Date</value>
-  </data>
-  <data name="GanttLeftPanelPriority" xml:space="preserve">
-    <value>Priority</value>
-  </data>
-  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
-    <value>Responsible(-s)</value>
-  </data>
-  <data name="GanttLeftPanelStatus" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
-    <value>closed</value>
-  </data>
-  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
-    <value>high</value>
-  </data>
-  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
-    <value>open</value>
-  </data>
-  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
-    <value>Нет задач доступных для создания связи</value>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Saving message...</value>
   </data>
   <data name="StatusClosedMilestone" xml:space="preserve">
     <value>Closed</value>
@@ -366,13 +369,52 @@
   <data name="StatusSuspendProject" xml:space="preserve">
     <value>Paused</value>
   </data>
-  <data name="ApplyBtn" xml:space="preserve">
-    <value>Apply</value>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Successfully added</value>
   </data>
-  <data name="GanttLeftPanelAddDate" xml:space="preserve">
-    <value>add</value>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>Task Added</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>Task could not be found</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>Task Removed</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Task Updated</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Team</value>
   </data>
   <data name="TemplateSaved" xml:space="preserve">
     <value>Template saved</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>Time Removed</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>No Data</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Time Tracking</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>Time Updated</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>To the task list</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Uploading...</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>View all open tasks</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>Overview</value>
   </data>
 </root>

@@ -50,16 +50,16 @@
       <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime">
-      <HintPath>..\..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK">
-      <HintPath>..\..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
+      <HintPath>..\..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core">
-      <HintPath>..\..\..\packages\dotless.1.5.1\lib\dotless.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
@@ -70,18 +70,15 @@
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="LinkedIn">
       <HintPath>..\..\..\packages\LinkedIn.1.0.0.1\lib\net45\LinkedIn.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\packages\MailKit.1.4.1\lib\net45\MailKit.dll</HintPath>
+      <HintPath>..\..\packages\MailKit.1.16.0\lib\net45\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -112,14 +109,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.1.4.1\lib\net45\MimeKit.dll</HintPath>
+      <HintPath>..\..\packages\MimeKit.1.16.0\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NVelocity">
       <HintPath>..\..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
@@ -131,7 +128,7 @@
       <HintPath>..\..\..\packages\RedisSessionProvider.10.0.0.0\lib\net45\RedisSessionProvider.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
-      <HintPath>..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+      <HintPath>..\..\..\packages\RestSharpSigned.105.1.0\lib\net45\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
@@ -145,13 +142,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt">
-      <HintPath>..\..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
@@ -177,7 +171,7 @@
     <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.Web.Http">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.Tracing">
@@ -185,12 +179,12 @@
     </Reference>
     <Reference Include="System.Web.Http.WebHost">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
@@ -206,12 +200,12 @@
       <HintPath>..\..\..\packages\Textile.1.3.0.0\lib\net35\Textile.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
-      <HintPath>..\..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Yahoo.Yui.Compressor">
-      <HintPath>..\..\..\packages\YUICompressor.NET.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+      <HintPath>..\..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="DotNetZip">
+      <HintPath>..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -223,19 +217,19 @@
     </Compile>
     <Compile Include="App_Start\WebApi.Startup.cs" />
     <Compile Include="Controls\Common\InlineScript.cs" />
-    <Compile Include="Controls\Common\VoIPNavigation.cs" />
     <Compile Include="Controls\FileUploader\FileToUpload.cs" />
     <Compile Include="Controls\FileUploader\HttpModule\UploadProgressHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="App_Themes\codehighlighter\vs.css" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Https\HttpsManager.cs" />
+    <Compile Include="Core\HelpCenter\BaseHelpCenterStorage.cs" />
     <Compile Include="Core\Import\LDAP\LDAPOperation.cs" />
     <Compile Include="Core\Import\LDAP\LDAPOperationType.cs" />
     <Compile Include="Core\Import\LDAP\LDAPSaveSyncOperation.cs" />
+    <Compile Include="Core\Quota\QuotaSync.cs" />
+    <Compile Include="Core\WarmUp.cs" />
     <Compile Include="PaymentRequired.aspx.cs">
       <DependentUpon>PaymentRequired.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -246,7 +240,6 @@
     <Compile Include="Core\Backup\BackupAjaxHandler.cs" />
     <Compile Include="Core\Backup\BackupFileUploadHandler.cs" />
     <Compile Include="Core\Backup\BackupHelper.cs" />
-    <Compile Include="Core\Import\SaveLdapSettingTask.cs" />
     <Compile Include="Core\Import\SsoImporter.cs" Condition=" Exists('Core\Import\SsoImporter.cs') " />
     <Compile Include="Core\Import\SsoImporter2.cs" Condition=" !Exists('Core\Import\SsoImporter.cs') " />
     <Compile Include="Core\IpRestrictionsSettings.cs" />
@@ -263,7 +256,6 @@
     <Compile Include="Core\HelpCenter\VideoGuideStorage.cs" />
     <Compile Include="Core\Import\ActiveDirectoryUserImporter.cs" />
     <Compile Include="Core\TipsSettings.cs" />
-    <Compile Include="Core\WarmUp.cs" />
     <Compile Include="HttpHandlers\AjaxFileUploadHandler.cs" />
     <Compile Include="HttpHandlers\FCKEditorFileUploadHandler.cs" />
     <Compile Include="HttpHandlers\UrlProxyHandler.cs" />
@@ -275,7 +267,6 @@
     <Compile Include="HttpHandlers\TemplatingHandler.cs" />
     <Compile Include="HttpHandlers\TenantLogoHandler.cs" />
     <Compile Include="HttpHandlers\UserPhotoHandler.cs" />
-    <Compile Include="Core\Voip\VoipPaymentSettings.cs" />
     <Compile Include="Masters\CommonBodyScripts.ascx.cs">
       <DependentUpon>CommonBodyScripts.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -352,7 +343,6 @@
     <Compile Include="Core\Search\SearchComparer.cs" />
     <Compile Include="Core\Search\SearchResult.cs" />
     <Compile Include="Core\SecutiryConstants.cs" />
-    <Compile Include="Core\StudioPasswordSettings.cs" />
     <Compile Include="Core\PromotionsSettings.cs" />
     <Compile Include="Core\Users\CustomNamingPeople.cs" />
     <Compile Include="Core\Users\NamingPeopleResource.Designer.cs">
@@ -405,6 +395,14 @@
     </Compile>
     <Compile Include="UserControls\Common\Comments\CommentInfo.cs" />
     <Compile Include="UserControls\Common\Comments\Comments.cs" />
+    <Compile Include="UserControls\Common\ThirdPartyBanner\ThirdPartyBannerSettings.cs" />
+    <Compile Include="UserControls\Common\ThirdPartyBanner\ThirdPartyBanner.ascx.cs">
+      <DependentUpon>ThirdPartyBanner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\ThirdPartyBanner\ThirdPartyBanner.ascx.designer.cs">
+      <DependentUpon>ThirdPartyBanner.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Common\InviteLink\InviteLink.ascx.cs">
       <DependentUpon>InviteLink.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -442,8 +440,6 @@
     <Compile Include="UserControls\Common\SmallChat\SmallChat.ascx.designer.cs">
       <DependentUpon>SmallChat.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Common\TabsNavigator\TabsNavigator.cs" />
-    <Compile Include="UserControls\Common\TabsNavigator\TabsNavigatorItem.cs" />
     <Compile Include="UserControls\Common\TopStudioPanel\VoipPhoneControl.ascx.cs">
       <DependentUpon>VoipPhoneControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -497,13 +493,6 @@
     <Compile Include="UserControls\EmptyScreens\ManagerDashboardEmptyScreen.ascx.designer.cs">
       <DependentUpon>ManagerDashboardEmptyScreen.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\EmptyScreens\ProjectsDashboardEmptyScreen.ascx.cs">
-      <DependentUpon>ProjectsDashboardEmptyScreen.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\EmptyScreens\ProjectsDashboardEmptyScreen.ascx.designer.cs">
-      <DependentUpon>ProjectsDashboardEmptyScreen.ascx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.cs" Condition="Exists('UserControls\Management\AuditTrail\AuditTrail.ascx.cs')">
       <DependentUpon>AuditTrail.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -525,6 +514,20 @@
     </Compile>
     <Compile Include="UserControls\Management\Backup\Backup.ascx.designer.cs" Condition="Exists('UserControls\Management\Backup\Backup.ascx.designer.cs')">
       <DependentUpon>Backup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\CookieSettings\CookieSettings.ascx.cs">
+      <DependentUpon>CookieSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\CookieSettings\CookieSettings.ascx.designer.cs">
+      <DependentUpon>CookieSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\PricingPageSettings\PricingPageSettings.ascx.cs">
+      <DependentUpon>PricingPageSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\PricingPageSettings\PricingPageSettings.ascx.designer.cs">
+      <DependentUpon>PricingPageSettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\MailService\MailService.ascx.cs">
       <DependentUpon>MailService.ascx</DependentUpon>
@@ -688,13 +691,6 @@
       <DependentUpon>SmtpSettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\TariffSettings\TariffSettings.cs" />
-    <Compile Include="UserControls\Management\TariffSettings\VoipBuy.ascx.cs">
-      <DependentUpon>VoipBuy.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\Management\TariffSettings\VoipBuy.ascx.designer.cs">
-      <DependentUpon>VoipBuy.ascx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Management\TariffSettings\TariffUsage.ascx.cs">
       <DependentUpon>TariffUsage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -737,7 +733,6 @@
     <Compile Include="Utility\HtmlUtility\Highlighter.cs" />
     <Compile Include="Utility\HtmlUtility\HtmlUtility.cs" />
     <Compile Include="Utility\HtmlUtility\LangType.cs" />
-    <Compile Include="Utility\LinkShorterUtil.cs" />
     <Compile Include="Utility\TenantExtra.cs" />
     <Compile Include="Services\WhatsNew\feed.ashx.cs">
       <DependentUpon>feed.ashx</DependentUpon>
@@ -793,6 +788,7 @@
     </Compile>
     <Compile Include="UserControls\Management\AccessRights\AccessRights.ascx.cs">
       <DependentUpon>AccessRights.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\Management\AccessRights\AccessRights.ascx.designer.cs">
       <DependentUpon>AccessRights.ascx</DependentUpon>
@@ -906,6 +902,7 @@
     </Compile>
     <Compile Include="UserControls\Users\ImportUsers\ImportUsers.ascx.cs">
       <DependentUpon>ImportUsers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\Users\ImportUsers\ImportUsers.ascx.designer.cs">
       <DependentUpon>ImportUsers.ascx</DependentUpon>
@@ -1071,18 +1068,21 @@
     </Compile>
     <Compile Include="UserControls\Statistics\VisitorsChart\VisitorsChart.ascx.cs">
       <DependentUpon>VisitorsChart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\Statistics\VisitorsChart\VisitorsChart.ascx.designer.cs">
       <DependentUpon>VisitorsChart.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Users\ThumbnailEditor\ThumbnailEditor.ascx.cs">
       <DependentUpon>ThumbnailEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\Users\ThumbnailEditor\ThumbnailEditor.ascx.designer.cs">
       <DependentUpon>ThumbnailEditor.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Users\UserProfile\UserProfileControl.ascx.cs">
       <DependentUpon>UserProfileControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\Users\UserProfile\UserProfileControl.ascx.designer.cs">
       <DependentUpon>UserProfileControl.ascx</DependentUpon>
@@ -1090,6 +1090,20 @@
     <Compile Include="Utility\AjaxResponse.cs" />
     <Compile Include="Utility\CommonControlsConfigurer.cs" />
     <Compile Include="Utility\HeaderStringHelper.cs" />
+    <Compile Include="VoipClient.aspx.cs">
+      <DependentUpon>VoipClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VoipClient.aspx.designer.cs">
+      <DependentUpon>VoipClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Warmup.aspx.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Warmup.aspx.designer.cs">
+      <DependentUpon>Warmup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Wizard.aspx.cs">
       <DependentUpon>Wizard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1097,6 +1111,9 @@
     <Compile Include="Wizard.aspx.designer.cs">
       <DependentUpon>Wizard.aspx</DependentUpon>
     </Compile>
+    <Content Include="js\asc\core\voip.navigationitem.js" />
+    <Content Include="js\third-party\autosize.js" />
+    <Content Include="js\third-party\clipboard.js" />
     <Content Include="PaymentRequired.aspx" />
     <Content Include="js\asc\core\clipboard.js" />
     <Content Include="js\asc\plugins\jquery-emailadvansedselector.js" />
@@ -1109,9 +1126,11 @@
     <Content Include="js\third-party\rrule.js" />
     <Content Include="js\uploader\jquery.fileuploadManager.js" />
     <Content Include="js\uploader\jquery.fileupload.js" />
+    <Content Include="skins\bright-blue\img\edit_lock.png" />
+    <Content Include="skins\dark-green\img\edit_lock.png" />
+    <Content Include="skins\deep-blue\img\edit_lock.png" />
     <Content Include="skins\default\Images\exclamation.png" />
     <Content Include="PreparationPortal.aspx" />
-    <Content Include="js\third-party\modernizr.js" />
     <Content Include="skins\bright-blue\img\advfilter-icons.png" />
     <Content Include="skins\bright-blue\img\btn_icons.png" />
     <Content Include="skins\bright-blue\img\btn_row_icons.png" />
@@ -1135,6 +1154,7 @@
     <Content Include="skins\default\Images\filetype\retina\file_csv.png" />
     <Content Include="skins\default\Images\filetype\retina\file_djvu.png" />
     <Content Include="skins\default\Images\filetype\retina\file_doc.png" />
+    <Content Include="skins\default\Images\filetype\retina\file_docx.png" />
     <Content Include="skins\default\Images\filetype\retina\file_dvd.png" />
     <Content Include="skins\default\Images\filetype\retina\file_ebook.png" />
     <Content Include="skins\default\Images\filetype\retina\file_flv.png" />
@@ -1151,12 +1171,15 @@
     <Content Include="skins\default\Images\filetype\retina\file_odt.png" />
     <Content Include="skins\default\Images\filetype\retina\file_pdf.png" />
     <Content Include="skins\default\Images\filetype\retina\file_pps.png" />
+    <Content Include="skins\default\Images\filetype\retina\file_ppsx.png" />
     <Content Include="skins\default\Images\filetype\retina\file_ppt.png" />
+    <Content Include="skins\default\Images\filetype\retina\file_pptx.png" />
     <Content Include="skins\default\Images\filetype\retina\file_rtf.png" />
     <Content Include="skins\default\Images\filetype\retina\file_sound.png" />
     <Content Include="skins\default\Images\filetype\retina\file_svg.png" />
     <Content Include="skins\default\Images\filetype\retina\file_txt.png" />
     <Content Include="skins\default\Images\filetype\retina\file_xls.png" />
+    <Content Include="skins\default\Images\filetype\retina\file_xlsx.png" />
     <Content Include="skins\default\Images\filetype\retina\file_xml.png" />
     <Content Include="skins\default\Images\filetype\retina\file_xps.png" />
     <Content Include="skins\default\Images\filetype\retina\folder.png" />
@@ -1168,6 +1191,15 @@
     <Content Include="skins\default\Images\onlyoffice_logo\favicon_general.ico" />
     <Content Include="skins\default\Images\onlyoffice_logo\light_small.png" />
     <Content Include="skins\default\Images\onlyoffice_logo\light_small_general.png" />
+    <Content Include="skins\default\Images\onlyoffice_logo\presentation.ico" />
+    <Content Include="skins\default\Images\onlyoffice_logo\spreadsheet.ico" />
+    <Content Include="skins\default\Images\onlyoffice_logo\text.ico" />
+    <Content Include="skins\default\Images\ui-icons_444444_256x240.png" />
+    <Content Include="skins\default\Images\ui-icons_555555_256x240.png" />
+    <Content Include="skins\default\Images\ui-icons_777620_256x240.png" />
+    <Content Include="skins\default\Images\ui-icons_777777_256x240.png" />
+    <Content Include="skins\default\Images\ui-icons_cc0000_256x240.png" />
+    <Content Include="skins\default\Images\ui-icons_ffffff_256x240.png" />
     <Content Include="skins\default\jquery-emailadvansedselector.css" />
     <Content Include="skins\default\Images\community150.png" />
     <Content Include="skins\default\Images\documents150.png" />
@@ -1215,6 +1247,7 @@
     <Content Include="skins\default\Images\filetype\file_djvu.png" />
     <Content Include="skins\default\Images\filetype\file_doc.png" />
     <Content Include="skins\default\Images\filetype\file_doct.png" />
+    <Content Include="skins\default\Images\filetype\file_docx.png" />
     <Content Include="skins\default\Images\filetype\file_dvd.png" />
     <Content Include="skins\default\Images\filetype\file_ebook.png" />
     <Content Include="skins\default\Images\filetype\file_flv.png" />
@@ -1224,7 +1257,6 @@
     <Content Include="skins\default\Images\filetype\file_html.png" />
     <Content Include="skins\default\Images\filetype\file_iaf.png" />
     <Content Include="skins\default\Images\filetype\file_image.png" />
-    <Content Include="skins\default\Images\filetype\file_image_old.png" />
     <Content Include="skins\default\Images\filetype\file_m2ts.png" />
     <Content Include="skins\default\Images\filetype\file_mkv.png" />
     <Content Include="skins\default\Images\filetype\file_mov.png" />
@@ -1235,14 +1267,17 @@
     <Content Include="skins\default\Images\filetype\file_odt.png" />
     <Content Include="skins\default\Images\filetype\file_pdf.png" />
     <Content Include="skins\default\Images\filetype\file_pps.png" />
+    <Content Include="skins\default\Images\filetype\file_ppsx.png" />
     <Content Include="skins\default\Images\filetype\file_ppt.png" />
     <Content Include="skins\default\Images\filetype\file_pptt.png" />
+    <Content Include="skins\default\Images\filetype\file_pptx.png" />
     <Content Include="skins\default\Images\filetype\file_rtf.png" />
     <Content Include="skins\default\Images\filetype\file_sound.png" />
     <Content Include="skins\default\Images\filetype\file_svg.png" />
     <Content Include="skins\default\Images\filetype\file_txt.png" />
     <Content Include="skins\default\Images\filetype\file_xls.png" />
     <Content Include="skins\default\Images\filetype\file_xlst.png" />
+    <Content Include="skins\default\Images\filetype\file_xlsx.png" />
     <Content Include="skins\default\Images\filetype\file_xml.png" />
     <Content Include="skins\default\Images\filetype\file_xps.png" />
     <Content Include="skins\default\Images\filetype\file_cal.png" />
@@ -1311,20 +1346,52 @@
     <Content Include="skins\pure-orange\img\btn_row_icons.png" />
     <Content Include="skins\pure-orange\img\dropdown-menu-icons.png" />
     <Content Include="skins\pure-orange\img\dropdown-menu-icons_retina.png" />
+    <Content Include="skins\pure-orange\img\edit_lock.png" />
     <Content Include="skins\wild-pink\img\advfilter-icons.png" />
     <Content Include="skins\wild-pink\img\btn_icons.png" />
     <Content Include="skins\wild-pink\img\btn_row_icons.png" />
     <Content Include="skins\wild-pink\img\dropdown-menu-icons.png" />
     <Content Include="skins\wild-pink\img\dropdown-menu-icons_retina.png" />
+    <Content Include="skins\wild-pink\img\edit_lock.png" />
     <Content Include="StartUp.aspx" />
     <Content Include="StartUpSaaS.aspx" />
-    <Content Include="Templates\CommonTemplates.ascx" />
-    <Content Include="Templates\CommentsTemplates.ascx" />
-    <Content Include="Templates\AdvansedEmailSelectorTemplate.ascx" />
-    <Content Include="Templates\ManagementTemplates.ascx" />
-    <Content Include="Templates\DropMailTemplate.ascx" />
+    <Content Include="Templates\AdvansedEmailSelectorTemplate.html" />
+    <Content Include="Templates\AdvansedFilterTemplate.html" />
+    <Content Include="Templates\AdvansedSelectorTemplate.html" />
+    <Content Include="Templates\CommentsTemplates.html" />
+    <Content Include="Templates\CommonTemplates.html" />
+    <Content Include="Templates\ContainerTemplate.html" />
+    <Content Include="Templates\DropFeedTemplate.html" />
+    <Content Include="Templates\DropMailTemplate.html" />
+    <Content Include="Templates\FeedListTemplate.html" />
+    <Content Include="Templates\GroupSelectorTemplate.html" />
+    <Content Include="Templates\ManagementTemplates.html" />
+    <Content Include="Templates\SharingSettingsTemplate.html" />
+    <Content Include="Templates\UserProfileCardTemplate.html" />
+    <Content Include="Templates\VoipTemplate.html" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\image_background.png" />
     <Content Include="UserControls\Common\ckeditor\contents.css" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\default-action.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\link.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\bright-blue\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\dark-green\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\deep-blue\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\baseparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\default-action.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\group.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\images\link.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\sharingsettings.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\default\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\pure-orange\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\default-action.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\images\link.png" />
+    <Content Include="UserControls\Common\SharingSettings\css\wild-pink\sharingsettingsparams.less" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\bitly.png" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\docusign.png" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\social.png" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\storage.png" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\css\img\twilio.png" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\ThirdPartyBanner.ascx" />
     <Content Include="UserControls\Common\InviteLink\InviteLink.ascx" />
     <Content Include="UserControls\Common\InviteLink\js\invitelink.js" />
     <Content Include="UserControls\Common\LoaderPage\css\loaderpage.less" />
@@ -1332,7 +1399,6 @@
   <ItemGroup>
     <Content Include="js\asc\plugins\jquery-contactadvansedselector.js" />
     <Content Include="js\asc\plugins\jquery-groupadvansedselector.js" />
-    <Content Include="js\asc\plugins\jquery-milestoneadvansedselector.js" />
     <Content Include="js\asc\plugins\jquery-projectadvansedselector.js" />
     <Content Include="js\third-party\async.js" />
     <Content Include="js\third-party\jquery\jquery.caret.1.02.min.js" />
@@ -1352,19 +1418,19 @@
     <Content Include="Masters\HeadStyles.ascx" />
     <Content Include="Masters\ThemeStyles.ascx" />
     <Content Include="skins\bright-blue\img\16_delete.png" />
-    <Content Include="skins\bright-blue\img\bnt-onoff.png" />
+    <Content Include="skins\bright-blue\img\btn-onoff.png" />
     <Content Include="skins\bright-blue\img\convert_pencil.png" />
     <Content Include="skins\bright-blue\img\edit_pencil.png" />
     <Content Include="skins\bright-blue\img\mainmenu_upload.png" />
     <Content Include="skins\bright-blue\img\unfollow.png" />
     <Content Include="skins\dark-green\img\16_delete.png" />
-    <Content Include="skins\dark-green\img\bnt-onoff.png" />
+    <Content Include="skins\dark-green\img\btn-onoff.png" />
     <Content Include="skins\dark-green\img\convert_pencil.png" />
     <Content Include="skins\dark-green\img\edit_pencil.png" />
     <Content Include="skins\dark-green\img\mainmenu_upload.png" />
     <Content Include="skins\dark-green\img\unfollow.png" />
     <Content Include="skins\deep-blue\img\16_delete.png" />
-    <Content Include="skins\deep-blue\img\bnt-onoff.png" />
+    <Content Include="skins\deep-blue\img\btn-onoff.png" />
     <Content Include="skins\deep-blue\img\convert_pencil.png" />
     <Content Include="skins\deep-blue\img\edit_pencil.png" />
     <Content Include="skins\deep-blue\img\mainmenu_upload.png" />
@@ -1376,7 +1442,7 @@
     <Content Include="skins\default\ImagesCSS\asp_28.png" />
     <Content Include="skins\default\ImagesCSS\avatar.jpg" />
     <Content Include="skins\default\ImagesCSS\back-progress.png" />
-    <Content Include="skins\default\ImagesCSS\bnt-onoff.png" />
+    <Content Include="skins\default\ImagesCSS\btn-onoff.png" />
     <Content Include="skins\default\ImagesCSS\btn-edit.png" />
     <Content Include="skins\default\ImagesCSS\btn_64.png" />
     <Content Include="skins\default\ImagesCSS\btn_icons.png" />
@@ -1436,27 +1502,23 @@
     <Content Include="skins\default\ImagesCSS\unfollow.png" />
     <Content Include="skins\default\ImagesCSS\up.png" />
     <Content Include="skins\default\ImagesCSS\upload.png" />
-    <Content Include="skins\default\ImagesCSS\user_icon_header.png" />
     <Content Include="skins\default\ImagesCSS\vb_28.png" />
     <Content Include="skins\default\ImagesCSS\video_icon.png" />
     <Content Include="skins\default\ImagesCSS\xml_28.png" />
     <Content Include="skins\default\Images\empty_screen_filter.png" />
     <Content Include="skins\default\jquery-advansedselector.less" />
     <Content Include="skins\default\toastr.less" />
-    <Content Include="skins\pure-orange\img\bnt-onoff.png" />
+    <Content Include="skins\pure-orange\img\btn-onoff.png" />
     <Content Include="skins\pure-orange\img\convert_pencil.png" />
     <Content Include="skins\pure-orange\img\edit_pencil.png" />
     <Content Include="skins\pure-orange\img\mainmenu_upload.png" />
     <Content Include="skins\pure-orange\img\unfollow.png" />
     <Content Include="skins\wild-pink\img\16_delete.png" />
-    <Content Include="skins\wild-pink\img\bnt-onoff.png" />
+    <Content Include="skins\wild-pink\img\btn-onoff.png" />
     <Content Include="skins\wild-pink\img\convert_pencil.png" />
     <Content Include="skins\wild-pink\img\edit_pencil.png" />
     <Content Include="skins\wild-pink\img\mainmenu_upload.png" />
     <Content Include="skins\wild-pink\img\unfollow.png" />
-    <Content Include="Templates\AdvansedSelectorTemplate.ascx" />
-    <Content Include="Templates\GroupSelectorTemplate.ascx" />
-    <Content Include="Templates\SharingSettingsTemplate.ascx" />
     <Content Include="Terms.aspx" />
     <Content Include="UserControls\Common\Attachments\css\ImagesCss\attach.png" />
     <Content Include="UserControls\Common\Attachments\css\ImagesCss\download_action.png" />
@@ -1503,9 +1565,7 @@
     <Content Include="UserControls\Common\SmallChat\js\smallChat.js" />
     <Content Include="UserControls\Common\SmallChat\SmallChat.ascx" />
     <Content Include="UserControls\Common\StartUp\js\startup.js" />
-    <Content Include="UserControls\Common\TabsNavigator\js\tabsnavigator.js" />
     <Content Include="UserControls\Common\ThirdPartyScripts\GoogleConversionPersonScript.ascx" />
-    <Content Include="UserControls\Common\ThirdPartyScripts\WelcomeScript.ascx" />
     <Content Include="UserControls\Common\ThirdPartyScripts\GoogleAnalyticsScript.ascx" />
     <Content Include="UserControls\Common\ThirdPartyScripts\WizardScript.ascx" />
     <Content Include="UserControls\Common\ThirdPartyScripts\GoogleTagManagerScript.ascx" />
@@ -1519,7 +1579,6 @@
     <Content Include="UserControls\EmptyScreens\CommunityDashboardEmptyScreen.ascx" />
     <Content Include="UserControls\EmptyScreens\CRMDashboardEmptyScreen.ascx" />
     <Content Include="UserControls\EmptyScreens\ManagerDashboardEmptyScreen.ascx" />
-    <Content Include="UserControls\EmptyScreens\ProjectsDashboardEmptyScreen.ascx" />
     <Content Include="UserControls\FirstTime\css\images\clouds.png" />
     <Content Include="UserControls\FirstTime\css\images\clouds_fond.png" />
     <Content Include="UserControls\FirstTime\css\images\collapse_down_dark.png" />
@@ -1538,11 +1597,25 @@
     <Content Include="UserControls\Management\AuditTrail\js\audittrail.js" />
     <Content Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx" />
     <Content Include="UserControls\Management\AuthorizationKeys\css\authorizationkeys.css" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\bitly.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\box.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\docusign.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\dropbox.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\facebook.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\google.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\linkedin.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\skydrive.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\twilio.png" />
+    <Content Include="UserControls\Management\AuthorizationKeys\img\twitter.png" />
     <Content Include="UserControls\Management\AuthorizationKeys\js\authorizationkeys.js" />
     <Content Include="UserControls\Management\Backup\Backup.ascx" />
     <Content Include="UserControls\Management\Backup\css\backup.less" />
     <Content Include="UserControls\Management\Backup\js\backup.js" />
     <Content Include="UserControls\Management\ConfirmInviteActivation\css\images\sprite_acc.png" />
+    <Content Include="UserControls\Management\CookieSettings\js\cookiesettings.js" />
+    <Content Include="UserControls\Management\CookieSettings\CookieSettings.ascx" />
+    <Content Include="UserControls\Management\PricingPageSettings\PricingPageSettings.ascx" />
+    <Content Include="UserControls\Management\PricingPageSettings\js\pricingpagesettings.js" />
     <Content Include="UserControls\Management\MailService\css\mailservice.css" />
     <Content Include="UserControls\Management\MailService\MailService.ascx" />
     <Content Include="UserControls\Management\MailService\js\mailservice.js" />
@@ -1648,17 +1721,13 @@
     <Content Include="UserControls\Management\TariffSettings\css\rub.woff" />
     <Content Include="UserControls\Management\TariffSettings\css\tariffhistory.less" />
     <Content Include="UserControls\Management\TariffSettings\css\tarifflimitexceed.less" />
-    <Content Include="UserControls\Management\TariffSettings\css\tariffpartner.less" />
     <Content Include="UserControls\Management\TariffSettings\css\tariffusage.less" />
     <Content Include="UserControls\Management\TariffSettings\js\tarifflimitexceed.js" />
-    <Content Include="UserControls\Management\TariffSettings\js\tariffpartner.js" />
     <Content Include="UserControls\Management\TariffSettings\js\tariffusage.js" />
-    <Content Include="UserControls\Management\TariffSettings\js\voipbuy.js" />
     <Content Include="UserControls\Management\TariffSettings\TariffLimitExceed.ascx" />
     <Content Include="UserControls\Management\TariffSettings\TariffHistory.ascx" />
     <Content Include="UserControls\Management\TariffSettings\TariffUsage.ascx" />
-    <Content Include="UserControls\Management\TariffSettings\TariffPartner.ascx" />
-    <Content Include="UserControls\Management\TariffSettings\VoipBuy.ascx" />
+    <Content Include="UserControls\Statistics\ProductQuotes\js\product_quotes.js" />
     <Content Include="UserControls\Users\TipsSettings\js\tipsSettings.js" />
     <Content Include="UserControls\Users\TipsSettings\TipsSettings.ascx" />
     <Content Include="UserControls\Users\UserProfile\css\images\acc_linked.png" />
@@ -1701,6 +1770,8 @@
     <Content Include="UserControls\Management\TariffSettings\css\tariffstandalone.less" />
     <Content Include="UserControls\Management\TariffSettings\css\tariff.less" />
     <Content Include="skins\default\wizard.less" />
+    <Content Include="UserControls\Common\Comments\css\codehighlighter\vs.less" />
+    <Content Include="UserControls\Common\ThirdPartyBanner\css\thirdpartybanner.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1806,6 +1877,8 @@
     <Content Include="UserControls\Management\TimeAndLanguage\TimeAndLanguage.ascx" />
     <Content Include="UserControls\Users\UserSubscriptions\js\subscription_manager.js" />
     <Content Include="UserControls\Users\UserSubscriptions\UserSubscriptions.ascx" />
+    <Content Include="VoipClient.aspx" />
+    <Content Include="Warmup.aspx" />
     <Content Include="web.consumers.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1835,7 +1908,9 @@
     <Content Include="web.log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="web.connections.config" />
+    <Content Include="web.connections.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Services\WhatsNew\feed.ashx" />
     <Content Include="web.unity.config" />
     <Content Include="web.storage.config">
@@ -1997,14 +2072,12 @@
     <Content Include="UserControls\Management\VersionSettings\VersionSettings.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="js\flash\zeroclipboard\ZeroClipboard10.swf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="401.aspx" />
-    <Content Include="402.aspx" />
     <Content Include="403.aspx" />
     <Content Include="404.aspx" />
     <Content Include="500.aspx" />
+    <Content Include="401.htm" />
+    <Content Include="402.htm" />
+    <Content Include="403.htm" />
     <Content Include="404.htm" />
     <Content Include="500.htm" />
     <Content Include="migration-portal.htm" />
@@ -2013,7 +2086,6 @@
     <Content Include="Feed.aspx" />
     <Content Include="js\asc\api\api.factory.js" />
     <Content Include="js\asc\api\api.helper.js" />
-    <Content Include="js\asc\api\api.service.js" />
     <Content Include="js\asc\api\asc.teamlab.js" />
     <Content Include="js\asc\core\asc.pagenavigator.js" />
     <Content Include="js\asc\core\asc.anchorcontroller.js" />
@@ -2044,10 +2116,8 @@
     <Content Include="js\asc\plugins\jquery-advansedselector.js" />
     <Content Include="js\asc\plugins\jquery-useradvansedselector.js" />
     <Content Include="js\asc\plugins\popupBox.js" />
-    <Content Include="js\asc\plugins\tagsAutocompleteBox.js" />
     <Content Include="js\asc\plugins\countries.js" />
     <Content Include="js\asc\plugins\phonecontroller.js" />
-    <Content Include="js\third-party\jquery\jquery.autosize.js" />
     <Content Include="js\third-party\jquery\jquery.magnific-popup.js" />
     <Content Include="js\third-party\jquery\jquery.blockUI.js" />
     <Content Include="js\third-party\jquery\jquery.colors.js" />
@@ -2061,21 +2131,15 @@
     <Content Include="js\third-party\jquery\jquery.tmpl.js" />
     <Content Include="js\third-party\jquery\jquery.ui.js" />
     <Content Include="js\third-party\jquery\jquery.uri.js" />
-    <Content Include="js\third-party\jquery\jquery.watermarkinput.js" />
     <Content Include="js\third-party\jquery\toastr.js" />
     <Content Include="js\third-party\ajaxpro.core.js" />
     <Content Include="js\third-party\highlight.pack.js" />
     <Content Include="js\third-party\sorttable.js" />
-    <Content Include="js\third-party\zeroclipboard.js" />
     <Content Include="js\third-party\head.load.js" />
     <Content Include="js\third-party\setImmediate.js" />
     <Content Include="js\uploader\ajaxupload.js" />
     <Content Include="skins\default\jquery_style.css" />
     <Content Include="Tariffs.aspx" />
-    <Content Include="Templates\AdvansedFilterTemplate.ascx" />
-    <Content Include="Templates\FeedListTemplate.ascx" />
-    <Content Include="Templates\DropFeedTemplate.ascx" />
-    <Content Include="Templates\UserProfileCardTemplate.ascx" />
     <Content Include="UserControls\Common\ActivateEmailPanel.ascx" />
     <Content Include="UserControls\Common\Banner\Banner.ascx" />
     <Content Include="UserControls\Common\Banner\js\banner.js" />
@@ -2094,7 +2158,6 @@
     <Content Include="UserControls\Feed\js\feed.filter.js" />
     <Content Include="UserControls\Feed\js\feed.js" />
     <Content Include="UserControls\Feed\NewNavigationPanel.ascx" />
-    <Content Include="UserControls\FirstTime\js\start.js" />
     <Content Include="UserControls\Management\ConfirmInviteActivation\js\confirm_invite_activation.js" />
     <Content Include="UserControls\Management\DefaultPageSettings\DefaultPageSettings.ascx" />
     <Content Include="UserControls\Management\DefaultPageSettings\js\defaultpage.js" />
@@ -2115,7 +2178,6 @@
     <Content Include="UserControls\Users\ResendInvitesControl\js\resendinvitescontrol.js" />
     <Content Include="UserControls\Users\UserSubscriptions\css\img\hmenu-selected.png" />
     <Content Include="UserControls\Users\UserSubscriptions\css\img\icons_titles.png" />
-    <Content Include="Welcome.aspx" />
     <Compile Include="Controls\Common\FeedControl.cs" />
     <Compile Include="Core\StudioTrustedDomainSettings.cs" />
     <Compile Include="Core\CollaboratorSettings.cs" />
@@ -2248,13 +2310,6 @@
     <Compile Include="UserControls\Management\TariffSettings\TariffLimitExceed.ascx.designer.cs">
       <DependentUpon>TariffLimitExceed.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Management\TariffSettings\TariffPartner.ascx.cs">
-      <DependentUpon>TariffPartner.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\Management\TariffSettings\TariffPartner.ascx.designer.cs">
-      <DependentUpon>TariffPartner.ascx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Management\TransferPortal\TransferPortal.ascx.cs">
       <DependentUpon>TransferPortal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2299,13 +2354,6 @@
     </Compile>
     <Compile Include="Utility\CustomResourceHelper.cs" />
     <Compile Include="Utility\TransferResourceHelper.cs" />
-    <Compile Include="Welcome.aspx.cs">
-      <DependentUpon>Welcome.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Welcome.aspx.designer.cs">
-      <DependentUpon>Welcome.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="skins\base.less" />
@@ -2319,7 +2367,6 @@
     <Content Include="skins\default\actionpanel.less" />
     <Content Include="skins\default\buttons.less" />
     <None Include="skins\default\common_style.wide-screen.less" />
-    <Content Include="UserControls\Common\SharingSettings\css\sharingsettings.less" />
     <Content Include="UserControls\Common\ProjectDocumentsPopup\css\projectDocumentsPopup.less" />
     <Content Include="UserControls\Common\HelpCenter\css\help-center.less" />
   </ItemGroup>
@@ -2393,6 +2440,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+    <Copy SourceFiles="$(TrunkDir)packages\jQuery.3.1.1\Content\Scripts\jquery-3.1.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.core.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\jQuery.BlockUI.2.70\Content\Scripts\jquery.blockUI.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.blockUI.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\Magnific.Popup.1.1.0\Content\Scripts\jquery.magnific-popup.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.magnific-popup.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\jquery.mousewheel.3.1.13\Content\Scripts\jquery.mousewheel.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.mousewheel.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\Microsoft.AspNet.SignalR.JS.2.2.1\content\Scripts\jquery.signalR-2.2.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.signalR.js" ContinueOnError="true" />
+  </Target>
   <Target Name="AfterBuild">
     <!-- Copy Mail third-party -->
     <Copy SourceFiles="$(TrunkDir)packages\UDE.CSharp.1.0.0\lib\Ude.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />

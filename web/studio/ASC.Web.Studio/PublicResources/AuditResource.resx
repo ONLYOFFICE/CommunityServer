@@ -121,7 +121,7 @@
     <value>Action</value>
   </data>
   <data name="AuditTrailEmptyScreenDscr" xml:space="preserve">
-    <value>Use TeamLab and you'll see here a lot of interesting.</value>
+    <value>When the portal is actively used, all the user activity will be displayed here: document creation and editing, participation in projects, CRM and other modules, and various other information.</value>
   </data>
   <data name="AuditTrailEmptyScreenHeader" xml:space="preserve">
     <value>There is nothing to be displayed here</value>
@@ -130,7 +130,7 @@
     <value>Audit Trail</value>
   </data>
   <data name="AuditTrailOnlineUsers" xml:space="preserve">
-    <value>Пользователи в сети</value>
+    <value>Online Users</value>
   </data>
   <data name="DateCol" xml:space="preserve">
     <value>Date</value>
@@ -142,22 +142,22 @@
     <value>Email is not specified</value>
   </data>
   <data name="GenerateText" xml:space="preserve">
-    <value>Подождите пока генерируется отчет...</value>
+    <value>Please wait while the report is being generated...</value>
   </data>
   <data name="LastAuditEventsText" xml:space="preserve">
-    <value>Здесь показывается только последняя активность. Скачайте отчет за последние полгода для детальной статистики.</value>
+    <value>Only the latest activity is shown at this page. Download the report for the latest half year to view the detailed statistics. Please note, that the logging is currently enabled for the Documents, Projects, CRM and People modules, as well as for portal settings.</value>
   </data>
   <data name="LastLoginEventsText" xml:space="preserve">
-    <value>Здесь показывается только последняя активность. Скачайте отчет за последние полгода для детальной статистики.</value>
+    <value>Only the latest activity is shown at this page. Download the report for the latest half year to view the detailed statistics.</value>
   </data>
   <data name="LoginHistoryEmptyScreenDscr" xml:space="preserve">
-    <value>Use TeamLab and you'll see here a lot of interesting.</value>
+    <value>When the portal is actively used, all the user successful login activity as well as the unsuccessful login attempts will be displayed here.</value>
   </data>
   <data name="LoginHistoryEmptyScreenHeader" xml:space="preserve">
     <value>There is nothing to be displayed here</value>
   </data>
   <data name="LoginHistoryNav" xml:space="preserve">
-    <value>Log-in History</value>
+    <value>Login History</value>
   </data>
   <data name="LoginHistoryTitle" xml:space="preserve">
     <value>Login History</value>

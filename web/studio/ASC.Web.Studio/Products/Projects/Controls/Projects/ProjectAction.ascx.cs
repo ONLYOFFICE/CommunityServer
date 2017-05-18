@@ -48,8 +48,6 @@ namespace ASC.Web.Projects.Controls.Projects
         protected int ActiveMilestonesCount { get; set; }
         protected bool IsEditingProjectAvailable { get; set; }
         protected string PageTitle { get; set; }
-        protected string ActiveTasksUrl { get; set; }
-        protected string ActiveMilestonesUrl { get; set; }
         protected string ProjectActionButtonTitle { get; set; }
         protected int TemplatesCount { get; set; }
         protected bool RenderProjectPrivacyCheckboxValue { get; set; }
@@ -67,10 +65,6 @@ namespace ASC.Web.Projects.Controls.Projects
         {
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "projectaction.js");
 
-            _hintPopupDeleteProject.Options.IsPopup = true;
-            _hintPopupActiveTasks.Options.IsPopup = true;
-            _hintPopupActiveMilestones.Options.IsPopup = true;
-
             TemplatesCount = Page.EngineFactory.TemplateEngine.GetCount();
             HideChooseTeam = CoreContext.UserManager.GetUsers().All(r => r.ID == SecurityContext.CurrentAccount.ID);
 
@@ -82,8 +76,6 @@ namespace ASC.Web.Projects.Controls.Projects
                 ActiveMilestonesCount = Page.EngineFactory.MilestoneEngine.GetByProject(Project.ID).Count(m => m.Status == MilestoneStatus.Open);
                 IsEditingProjectAvailable = true;
                 PageTitle = ProjectResource.EditProject;
-                ActiveTasksUrl = string.Format("tasks.aspx?prjID={0}#status=open", Project.ID);
-                ActiveMilestonesUrl = string.Format("milestones.aspx?prjID={0}#status=open", Project.ID);
                 ProjectActionButtonTitle = ProjectResource.SaveProject;
                 RenderProjectPrivacyCheckboxValue = Project.Private;
                 ProjectManagerId = Project.Responsible.ToString();
@@ -94,11 +86,23 @@ namespace ASC.Web.Projects.Controls.Projects
                 var tags = Page.EngineFactory.TagEngine.GetProjectTags(Project.ID).Select(r => r.Value.HtmlEncode()).ToArray();
                 ProjectTags = string.Join(", ", tags);
 
-                ProjectStatusTitle = Project.Status.ToString();
+                switch (Project.Status)
+                {
+                    case ProjectStatus.Open:
+                        ProjectStatusTitle = ProjectsJSResource.StatusOpenProject;
+                        break;
+                    case ProjectStatus.Paused:
+                        ProjectStatusTitle = ProjectsJSResource.StatusSuspendProject;
+                        break;
+                    case ProjectStatus.Closed:
+                        ProjectStatusTitle = ProjectsJSResource.StatusClosedProject;
+                        break;
+                }
+
                 ProjectStatusList = string.Join(";",
-                    string.Join(",", (int)ProjectStatus.Open, ProjectStatus.Open),
-                    string.Join(",", (int)ProjectStatus.Paused, ProjectStatus.Paused),
-                    string.Join(",", (int)ProjectStatus.Closed, ProjectStatus.Closed));
+                    string.Join(",", (int)ProjectStatus.Open, ProjectsJSResource.StatusOpenProject),
+                    string.Join(",", (int)ProjectStatus.Paused, ProjectsJSResource.StatusSuspendProject),
+                    string.Join(",", (int)ProjectStatus.Closed, ProjectsJSResource.StatusClosedProject));
 
                 Page.Title = HeaderStringHelper.GetPageTitle(Project.Title);
             }
@@ -110,10 +114,6 @@ namespace ASC.Web.Projects.Controls.Projects
                 }
 
                 projectTitle.Attributes.Add("deftext", ProjectTemplatesResource.DefaultProjTitle);
-                
-                _hintPopupDeleteProject.Options.IsPopup = true;
-                _hintPopupActiveTasks.Options.IsPopup = true;
-                _hintPopupActiveMilestones.Options.IsPopup = true;
 
                 PageTitle = ProjectResource.CreateNewProject;
                 ProjectActionButtonTitle = ProjectResource.AddNewProject;

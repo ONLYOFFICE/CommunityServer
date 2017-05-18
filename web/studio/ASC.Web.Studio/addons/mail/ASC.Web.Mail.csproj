@@ -48,10 +48,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\ASC.Common.dll</HintPath>
@@ -80,12 +76,8 @@
       <HintPath>..\..\..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -97,6 +89,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
+    <Reference Include="DotNetZip">
+      <HintPath>..\..\..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Default\Images\24x_google.png" />
@@ -111,9 +106,9 @@
     <Content Include="App_Themes\Default\Images\Loader\loader_16_dark.gif" />
     <Content Include="App_Themes\Default\Images\mail.png" />
     <Content Include="App_Themes\Default\Images\mail_disabled.png" />
-    <Content Include="App_Themes\Default\iframe_content.css" />
     <Content Include="App_Themes\Default\Images\mark_sprite.png" />
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx" />
     <Content Include="Controls\DocumentsPopup\css\images\can-public-share.png" />
     <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
     <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
@@ -129,6 +124,7 @@
     <Content Include="Controls\DocumentsPopup\css\documentsPopup.less" />
     <Content Include="Controls\DocumentsPopup\css\images\project-documents.png" />
     <Content Include="Default.aspx" />
+    <Content Include="js\commonsettings\page.js" />
     <Content Include="OAuth.aspx" />
     <Content Include="js\accountsPanel.js" />
     <Content Include="js\actionMenu.js" />
@@ -160,7 +156,6 @@
     <Content Include="js\contacts\tlGroups.js" />
     <Content Include="js\contacts\types.js" />
     <Content Include="js\emailAutocomplete.js" />
-    <Content Include="js\third-party\autoresize.jquery.js" />
     <Content Include="js\fromsenderfilter.js" />
     <Content Include="js\helpcenter\page.js" />
     <Content Include="js\helpcenter\panel.js" />
@@ -168,7 +163,6 @@
     <Content Include="js\third-party\jquery.dotdotdot.min.js" />
     <Content Include="js\third-party\jquery.textchange.min.js" />
     <Content Include="js\hidePanel.js" />
-    <Content Include="js\third-party\jquery.waitforimages.js" />
     <Content Include="js\mail.accounts.js" />
     <Content Include="js\mail.accountsmodal.js" />
     <Content Include="js\mail.accountspage.js" />
@@ -198,43 +192,51 @@
     <Content Include="js\trustedAddresses.js" />
     <Content Include="js\wysiwyg.js" />
     <Content Include="js\mail.cache.js" />
-    <Content Include="templates\accountErrorTmpl.ascx" />
-    <Content Include="templates\accountsPanelTmpl.ascx" />
-    <Content Include="templates\accountsTmpl.ascx" />
-    <Content Include="templates\accountTmpl.ascx" />
-    <Content Include="templates\accountWizardTmpl.ascx" />
-    <Content Include="templates\addFirstAccountTmpl.ascx" />
-    <Content Include="templates\administration\addQuestionBoxTmpl.ascx" />
-    <Content Include="templates\administration\administrationDataTmpl.ascx" />
-    <Content Include="templates\administration\createMailgroupPopupTmpl.ascx" />
-    <Content Include="templates\administration\createMailboxPopupTmpl.ascx" />
-    <Content Include="templates\administration\createDomainWizardTmpl.ascx" />
-    <Content Include="templates\alertsTmpl.ascx" />
-    <Content Include="templates\administration\editMailboxTmpl.ascx" />
-    <Content Include="templates\administration\editMailGroupTmpl.ascx" />
-    <Content Include="templates\administration\groupTableTmpl.ascx" />
-    <Content Include="templates\administration\mailboxTableTmpl.ascx" />
-    <Content Include="templates\contactEditTmpl.ascx" />
-    <Content Include="templates\contactsTmpl.ascx" />
-    <Content Include="templates\calendarTmpl.ascx" />
-    <Content Include="templates\commonTmpl.ascx" />
-    <Content Include="templates\docAttachmentsTmpl.ascx" />
-    <Content Include="templates\messagePrintTmpl.ascx" />
-    <Content Include="templates\crmIntegrationPopupTmpl.ascx" />
-    <Content Include="templates\emptyScrTmpl.ascx" />
-    <Content Include="templates\signatureTmpl.ascx" />
-    <Content Include="templates\editMessageTmpl.ascx" />
-    <Content Include="templates\messagesTmpl.ascx" />
-    <Content Include="templates\foldersTmpl.ascx" />
-    <Content Include="templates\messageTmpl.ascx" />
-    <Content Include="templates\composeMessageBodyTmpl.ascx" />
-    <Content Include="templates\tagsTmpl.ascx" />
-    <Content Include="templates\mailAutoreplyTmpl.ascx" />
+    <Content Include="templates\accountErrorTmpl.html" />
+    <Content Include="templates\accountsPanelTmpl.html" />
+    <Content Include="templates\accountsTmpl.html" />
+    <Content Include="templates\accountTmpl.html" />
+    <Content Include="templates\accountWizardTmpl.html" />
+    <Content Include="templates\addFirstAccountTmpl.html" />
+    <Content Include="templates\administration\addQuestionBoxTmpl.html" />
+    <Content Include="templates\administration\administrationDataTmpl.html" />
+    <Content Include="templates\administration\createDomainWizardTmpl.html" />
+    <Content Include="templates\administration\createMailboxPopupTmpl.html" />
+    <Content Include="templates\administration\createMailgroupPopupTmpl.html" />
+    <Content Include="templates\administration\domainTableTmpl.html" />
+    <Content Include="templates\administration\editMailboxTmpl.html" />
+    <Content Include="templates\administration\editMailGroupTmpl.html" />
+    <Content Include="templates\administration\groupTableTmpl.html" />
+    <Content Include="templates\administration\mailboxTableTmpl.html" />
+    <Content Include="templates\alertsTmpl.html" />
+    <Content Include="templates\calendarTmpl.html" />
+    <Content Include="templates\commonTmpl.html" />
+    <Content Include="templates\composeMessageBodyTmpl.html" />
+    <Content Include="templates\contactEditTmpl.html" />
+    <Content Include="templates\contactsTmpl.html" />
+    <Content Include="templates\crmIntegrationPopupTmpl.html" />
+    <Content Include="templates\docAttachmentsTmpl.html" />
+    <Content Include="templates\editMessageTmpl.html" />
+    <Content Include="templates\emptyScrTmpl.html" />
+    <Content Include="templates\foldersTmpl.html" />
+    <Content Include="templates\mailAutoreplyTmpl.html" />
+    <Content Include="templates\messagePrintTmpl.html" />
+    <Content Include="templates\messagesTmpl.html" />
+    <Content Include="templates\messageTmpl.html" />
+    <Content Include="templates\signatureTmpl.html" />
+    <Content Include="templates\tagsTmpl.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\MailAddon.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\MailSpaceUsageStatManager.cs" />
+    <Compile Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx.cs">
+      <DependentUpon>CommonSettingsPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx.designer.cs">
+      <DependentUpon>CommonSettingsPage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AccountsPage\AccountsPage.ascx.cs">
       <DependentUpon>AccountsPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -323,6 +325,7 @@
     </Compile>
     <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
+    <Compile Include="Masters\ClientScripts\ClientSettingsResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\MailAdministrationResource.Designer.cs">
       <AutoGen>True</AutoGen>

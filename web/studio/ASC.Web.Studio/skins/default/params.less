@@ -78,8 +78,12 @@
 .bg-is-new () {
     background-color: @bg-is-new;
 
-    &:hover {
+    &:not(.nohover):hover {
         background-color: @bg-is-new-hover;
+    }
+
+    &.nohover{
+        cursor:default;
     }
 }
 

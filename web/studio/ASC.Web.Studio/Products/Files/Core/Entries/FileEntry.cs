@@ -67,6 +67,9 @@ namespace ASC.Files.Core
             set { throw new NotImplementedException(); }
         }
 
+        [DataMember(Name = "modified_by_id")]
+        public Guid ModifiedBy { get; set; }
+
         [DataMember(Name = "modified_by")]
         public string ModifiedByString
         {
@@ -81,7 +84,7 @@ namespace ASC.Files.Core
         public FileShare Access { get; set; }
 
         [DataMember(Name = "shared")]
-        public bool SharedByMe { get; set; }
+        public bool Shared { get; set; }
 
         [DataMember(Name = "provider_id", EmitDefaultValue = false)]
         public int ProviderId { get; set; }
@@ -94,13 +97,7 @@ namespace ASC.Files.Core
             get { return !string.IsNullOrEmpty(ProviderKey); }
         }
 
-        public DateTime? SharedToMeOn { get; set; }
-
-        public String SharedToMeBy { get; set; }
-
         public DateTime CreateOn { get; set; }
-
-        public virtual Guid ModifiedBy { get; set; }
 
         public DateTime ModifiedOn { get; set; }
 

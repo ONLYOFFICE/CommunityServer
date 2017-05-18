@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/loadphoto_style.less");
-            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/loadphoto.js");
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/loadphoto_style.less")
+                .RegisterBodyScripts("~/usercontrols/users/userprofile/js/loadphoto.js");
             _ctrlLoadPhotoContainer.Options.IsPopup = true;
         }
     }

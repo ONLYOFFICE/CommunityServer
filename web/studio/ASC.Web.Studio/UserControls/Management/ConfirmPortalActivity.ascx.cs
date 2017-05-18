@@ -218,6 +218,7 @@ namespace ASC.Web.Studio.UserControls.Management
         [AjaxMethod]
         public string PortalRemove(string email, string key)
         {
+            email = (email ?? "").Trim();
             if (!string.IsNullOrEmpty(email) && !email.TestEmailRegex())
             {
                 throw new ArgumentException(Resource.ErrorNotCorrectEmail);

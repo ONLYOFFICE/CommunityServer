@@ -31,6 +31,7 @@ using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Pojo;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.Studio.Utility;
 
@@ -64,14 +65,14 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
         {
             var userID = comment.UserID;
 
-            CommentInfo c = new CommentInfo
+            var c = new CommentInfo
                 {
                     CommentID = comment.ID.ToString(),
                     UserID = userID,
                     TimeStamp = comment.Datetime,
                     TimeStampStr = comment.Datetime.Ago(),
                     Inactive = comment.Inactive,
-                    CommentBody = comment.Content,
+                    CommentBody = HtmlUtility.GetFull(comment.Content),
                     UserFullName = DisplayUserSettings.GetFullUserName(userID),
                     UserProfileLink = CommonLinkUtility.GetUserProfile(userID),
                     UserAvatarPath = UserPhotoManager.GetBigPhotoURL(userID),

@@ -24,276 +24,396 @@
 */
 
 
-var $ = jq;
+if (typeof ASC === "undefined") {
+    ASC = {};
+}
 
-var VoIPQuickView = {
-    buyPhonePopupInit: false,
+if (typeof ASC.CRM === "undefined") {
+    ASC.CRM = function () { return {} };
+}
 
-    numbers: [],
-    operators: [],
+if (typeof ASC.CRM.Voip === "undefined") {
+    ASC.CRM.Voip = function () { return {} };
+}
 
-    init: function() {
-        this.cacheElements();
-        this.bindEvents();
+ASC.CRM.Voip.QuickView = (function ($) {
+    var buyPhonePopupInit = false,
+        linkPhonePopupInit = false,
+        numbers = [],
+        operators = [];
 
-        this.showLoader();
+    var $view,
 
-        var self = this;
-        this.getData(function(numbers) {
-            self.saveData(numbers);
-            self.renderView();
+        $showBuyPhonePopupBtn,
+        $showLinkPhonePopupBtn,
+        $linkPhonePopup,
+        $buyPhonePopup,
+        $removeNumberPopup,
 
-            self.hideLoader();
+        $countrySelectorBox,
+
+        $countrySelector,
+        $countryCode,
+        $countryInput,
+        $countryInputClearBtn,
+
+        $countrySelectorSearchBtn,
+
+        $availableNumbers,
+        $availableNumbersLoader,
+        $availableNumbersEmptyMsg,
+        $availableNumbersEmptySearchMsg,
+
+        $buyPhoneBtn,
+        $cancelBuyPhoneBtn,
+
+        $existingNumbers,
+        $existingNumbersLoader,
+        $existingNumbersEmptyMsg,
+
+        $linkPhoneBtn,
+        $cancelLinkPhoneBtn,
+
+        $existingNumbersEmptyBox,
+        $existingNumbersList,
+
+        $emptyBuyPhoneBtn,
+        $emptyLinkPhoneBtn;
+
+    var loadingBanner = LoadingBanner,
+        clickEventName = "click";
+
+    function init () {
+        cacheElements();
+        bindEvents();
+
+        showLoader();
+
+        getData(function(numbersResp) {
+            saveData(numbersResp);
+            renderView();
+
+            hideLoader();
         });
-    },
+    };
 
-    cacheElements: function() {
-        this.countriesListTmpl = $('#countries-list-tmpl');
+    function cacheElements() {
+        $view = $('#voip-quick-view');
 
-        this.operatorsTmpl = $('#operators-tmpl');
-        this.existingNumberTmpl = $('#existing-number-tmpl');
+        $showBuyPhonePopupBtn = $view.find('#show-buy-phone-popup-btn');
+        $showLinkPhonePopupBtn = $view.find('#show-link-phone-popup-btn');
+        $buyPhonePopup = $view.find('#buy-phone-popup');
+        $linkPhonePopup = $view.find('#link-phone-popup');
+        $removeNumberPopup = $view.find('#remove-number-popup');
 
-        this.availableNumberTmpl = $('#available-number-tmpl');
+        $countrySelectorBox = $buyPhonePopup.find('#country-selector-box');
 
-        this.$view = $('#voip-quick-view');
+        $countrySelector = $countrySelectorBox.find('#country-selector');
+        $countryCode = $countrySelectorBox.find('#country-code');
+        $countryInput = $countrySelectorBox.find('#country-input');
+        $countryInputClearBtn = $countrySelectorBox.find('#country-input-clear-btn');
 
-        this.$showBuyPhonePopupBtn = this.$view.find('#show-buy-phone-popup-btn');
-        this.$buyPhonePopup = this.$view.find('#buy-phone-popup');
+        $countrySelectorSearchBtn = $buyPhonePopup.find('#country-selector-search-btn');
 
-        this.$countrySelectorBox = this.$buyPhonePopup.find('#country-selector-box');
+        $availableNumbers = $buyPhonePopup.find('.numbers');
+        $availableNumbersLoader = $buyPhonePopup.find('.numbers-loader');
+        $availableNumbersEmptyMsg = $buyPhonePopup.find('.numbers-empty-msg');
+        $availableNumbersEmptySearchMsg = $buyPhonePopup.find('#available-numbers-empty-search-msg');
 
-        this.$countrySelector = this.$countrySelectorBox.find('#country-selector');
-        this.$countryCode = this.$countrySelectorBox.find('#country-code');
-        this.$countryInput = this.$countrySelectorBox.find('#country-input');
-        this.$countryInputClearBtn = this.$countrySelectorBox.find('#country-input-clear-btn');
+        $buyPhoneBtn = $buyPhonePopup.find('.phone-btn');
+        $cancelBuyPhoneBtn = $buyPhonePopup.find('.cancel-btn');
 
-        this.$countrySelectorSearchBtn = this.$buyPhonePopup.find('#country-selector-search-btn');
+        $existingNumbers = $linkPhonePopup.find('.numbers');
+        $existingNumbersLoader = $linkPhonePopup.find('.numbers-loader');
+        $existingNumbersEmptyMsg = $linkPhonePopup.find('.numbers-empty-msg');
 
-        this.$availableNumbers = this.$view.find('#available-numbers');
-        this.$availableNumbersLoader = this.$view.find('#available-numbers-loader');
-        this.$availableNumbersEmptyMsg = this.$view.find('#available-numbers-empty-msg');
-        this.$availableNumbersEmptySearchMsg = this.$view.find('#available-numbers-empty-search-msg');
+        $linkPhoneBtn = $linkPhonePopup.find('.phone-btn');
+        $cancelLinkPhoneBtn = $linkPhonePopup.find('.cancel-btn');
 
-        this.$buyPhoneBtn = this.$view.find('#buy-phone-btn');
-        this.$cancelBuyPhoneBtn = this.$view.find('#cancel-buy-phone-btn');
-        this.$buyPhoneLoader = this.$view.find('#buy-phone-loader');
+        $existingNumbersEmptyBox = $view.find('#existing-numbers-empty-box');
+        $existingNumbersList = $view.find('#existing-numbers-list');
 
-        this.$existingNumbersEmptyBox = this.$view.find('#existing-numbers-empty-box');
-        this.$existingNumbersList = this.$view.find('#existing-numbers-list');
-    },
+        var resource = ASC.CRM.Resources.CRMVoipResource;
+        var describe = [
+            resource.EmptyScreenNumberDescription1,
+            "<br/><br/>",
+            resource.EmptyScreenNumberDescription2
+        ].join('');
 
-    bindEvents: function() {
-        $('body').on('click', this.clickHandler.bind(this));
+        $existingNumbersEmptyBox.append(jq.tmpl("template-emptyScreen",
+        {
+            ID: "phones-empty-screen",
+            ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_phones"],
+            Header: resource.EmptyScreenNumberHeader,
+            Describe: describe,
+            ButtonHTML: jq.format("<a class='link dotline plus' id=\"empty-buy-phone-btn\">{0}</a><br/><a class='link dotline plus' id=\"empty-link-phone-btn\">{1}</a>", resource.BuyNumberBtn, resource.LinkNumberBtn)
+        }));
 
-        this.$showBuyPhonePopupBtn.on('click', this.showBuyPhonePopupHandler.bind(this));
+        $emptyBuyPhoneBtn = $view.find('#empty-buy-phone-btn');
+        $emptyLinkPhoneBtn = $view.find('#empty-link-phone-btn');
+    };
 
-        this.$countrySelectorBox.on('click', '.studio-action-panel .dropdown-item', this.countryChangedHandler.bind(this));
-        this.$countrySelector.on('click', this.countrySelectorToggleHandler.bind(this));
+    function bindEvents() {
+        $('body').on(clickEventName, clickHandler);
 
-        this.$countryInput.on('keyup', this.countryInputKeyupHandler.bind(this));
-        this.$countryInputClearBtn.on('click', this.countryInputClearHandler.bind(this));
-        this.$countrySelectorSearchBtn.on('click', this.countrySelectorSearchHandler.bind(this));
+        $showBuyPhonePopupBtn.add($emptyBuyPhoneBtn).on(clickEventName, showBuyPhonePopupHandler);
+        $showLinkPhonePopupBtn.add($emptyLinkPhoneBtn).on(clickEventName, showLinkPhonePopupHandler);
 
-        this.$existingNumbersList.on('click', '.number-box .actions', this.toggleNumberActionsHandler.bind(this));
-        this.$existingNumbersList.on('click', '.operators-box .actions', this.toggleOperatorActionsHandler.bind(this));
+        $countrySelectorBox.on(clickEventName, '.studio-action-panel .dropdown-item', countryChangedHandler);
+        $countrySelector.on(clickEventName, countrySelectorToggleHandler);
 
-        this.$existingNumbersList.on('click', '.number .number-box .outgoing-calls .on_off_button', this.numberOutgoingCallsUpdatedHandler.bind(this));
-        this.$existingNumbersList.on('click', '.number .number-box .voicemail .on_off_button', this.numberVoicemailUpdatedHandler.bind(this));
-        this.$existingNumbersList.on('click', '.number .number-box .recording-calls .on_off_button', this.numberRecordingCallsUpdatedHandler.bind(this));
+        $countryInput.on('keyup', countryInputKeyupHandler);
+        $countryInputClearBtn.on(clickEventName, countryInputClearHandler);
+        $countrySelectorSearchBtn.on(clickEventName, countrySelectorSearchHandler);
 
-        this.$existingNumbersList.on('click', '.number .switcher', this.toggleOperatorsBoxHandler.bind(this));
+        $existingNumbersList.on(clickEventName, '.number-box .actions', toggleNumberActionsHandler);
+        $existingNumbersList.on(clickEventName, '.operators-box .actions', toggleOperatorActionsHandler);
 
-        this.$existingNumbersList.on('click', '.number .operator .outgoing-calls .on_off_button', this.operatorOutgoingCallsUpdatedHandler.bind(this));
-        this.$existingNumbersList.on('click', '.number .operator .recording-calls .on_off_button', this.operatorRecordingCallsUpdatedHandler.bind(this));
+        $existingNumbersList.on(clickEventName, '.number .number-box .outgoing-calls .on_off_button', numberOutgoingCallsUpdatedHandler);
+        $existingNumbersList.on(clickEventName, '.number .number-box .voicemail .on_off_button', numberVoicemailUpdatedHandler);
+        $existingNumbersList.on(clickEventName, '.number .number-box .recording-calls .on_off_button', numberRecordingCallsUpdatedHandler);
+        $existingNumbersList.on(clickEventName, '.number .number-box .show-remove-number-btn', showNumberRemovePopup);
+        $existingNumbersList.on(clickEventName, '.number .number-box .edit-number-btn', editNumber);
 
-        this.$existingNumbersList.on('showList', '.number .operators-box .add-operators-btn', this.addOperatorsHandler.bind(this));
-        this.$existingNumbersList.on('click', '.number .operators-box .delete-operator-btn', this.deleteOperatorHandler.bind(this));
+        $existingNumbersList.on(clickEventName, '.number .switcher', toggleOperatorsBoxHandler);
+
+        $existingNumbersList.on(clickEventName, '.number .operator .outgoing-calls .on_off_button', operatorOutgoingCallsUpdatedHandler);
+        $existingNumbersList.on(clickEventName, '.number .operator .recording-calls .on_off_button', operatorRecordingCallsUpdatedHandler);
+
+        $existingNumbersList.on('showList', '.number .operators-box .add-operators-btn', addOperatorsHandler);
+        $existingNumbersList.on(clickEventName, '.number .operators-box .delete-operator-btn', deleteOperatorHandler);
 
 
-        this.$availableNumbers.on('click', '.number input', this.numberSelectedHandler.bind(this));
+        $availableNumbers.on(clickEventName, '.number input', numberSelectedHandler);
 
-        this.$buyPhoneBtn.on('click', this.buyNumberHandler.bind(this));
-        this.$cancelBuyPhoneBtn.on('click', this.cancelBuyNumberHandler.bind(this));
-    },
+        $buyPhoneBtn.on(clickEventName, buyNumberHandler);
+        $cancelBuyPhoneBtn.on(clickEventName, cancelBuyNumberHandler);
+
+        $existingNumbers.on(clickEventName, '.number input', existingNumberSelectedHandler);
+
+        $linkPhoneBtn.on(clickEventName, linkNumberHandler);
+        $cancelLinkPhoneBtn.on(clickEventName, cancelLinkPhoneHandler);
+    };
 
     //#region data
 
-    getData: function(cb) {
-        this.showLoader();
+    function getData(cb) {
+        showLoader();
 
-        var self = this;
         Teamlab.getCrmVoipExistingNumbers(null, {
-            success: function(params, numbers) {
-                self.hideLoader();
-                cb(numbers);
+            success: function(params, numbersResp) {
+                hideLoader();
+                cb(numbersResp);
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    saveData: function(numbers) {
-        if (!numbers || !numbers.length) {
+    function saveData(numbersResp) {
+        if (!numbersResp || !numbersResp.length) {
+            $existingNumbersEmptyBox.removeClass("display-none");
             return;
         }
 
-        this.numbers = numbers;
+        numbers = numbersResp;
 
-        for (var i = 0; i < numbers.length; i++) {
-            var number = numbers[i];
+        for (var i = 0; i < numbersResp.length; i++) {
+            var number = numbersResp[i];
             for (var j = 0; j < number.settings.operators.length; j++) {
-                this.operators.push(number.settings.operators[j].id);
+                operators.push(number.settings.operators[j].id);
             }
         }
-    },
-    
-    saveNumber: function(number) {
-        for (var i = 0; i < this.numbers.length; i++) {
-            if (this.numbers[i].id == number.id) {
-                this.numbers[i] = number;
+    };
+
+    function saveNumber(number) {
+        for (var i = 0; i < numbers.length; i++) {
+            if (numbers[i].id == number.id) {
+                numbers[i] = number;
                 return;
             }
         }
-    },
+    };
 
-    addOperators: function(numberId, operators) {
-        if (!operators || !operators.length) {
+    function deleteNumber(numberId) {
+        numbers = numbers.filter(function (item) { return item.id !== numberId });
+    };
+
+    function addOperators(numberId, operatorsResp) {
+        if (!operatorsResp || !operatorsResp.length) {
             return;
         }
 
         var result = null;
-        for (var i = 0; i < this.numbers.length; i++) {
-            if (this.numbers[i].id == numberId) {
-                result = this.numbers[i];
+        for (var i = 0; i < numbers.length; i++) {
+            if (numbers[i].id == numberId) {
+                result = numbers[i];
                 break;
             }
         }
 
         if (!result) return;
 
-        this.setOperatorsUserInfo(operators);
-        result.settings.operators = operators;
+        operatorsResp = setOperatorsUserInfo(operatorsResp);
+        result.settings.operators = operatorsResp;
 
-        for (i = 0; i < operators.length; i++) {
-            this.operators.push(operators[i].id);
+        for (i = 0; i < operatorsResp.length; i++) {
+            operators.push(operatorsResp[i].id);
         }
 
         return result;
-    },
+    };
 
-    deleteOperator: function(operatorId) {
-        for (var i = 0; i < this.operators.length; i++) {
-            if (this.operators[i] == operatorId) {
-                this.operators.splice(i, 1);
+    function deleteOperator(operatorId) {
+        for (var i = 0; i < operators.length; i++) {
+            if (operators[i] == operatorId) {
+                operators.splice(i, 1);
                 return;
             }
         }
-    },
-    
+    };
+
     //#endregion
 
     //#region rendering
 
-    renderView: function() {
-        this.renderExistingNumbers();
-        this.$view.show();
-    },
+    function renderView() {
+        renderExistingNumbers();
+        $view.show();
+    };
 
-    renderExistingNumbers: function() {
-        if (!this.numbers.length) {
-            this.$existingNumbersEmptyBox.show();
+    function renderExistingNumbers() {
+        if (!numbers.length) {
+            $existingNumbersEmptyBox.show();
             return;
         }
 
+        $showBuyPhonePopupBtn.removeClass("display-none");
+        $showLinkPhonePopupBtn.removeClass("display-none");
+
         var $numbers = [];
-        for (var i = 0; i < this.numbers.length; i++) {
-            this.setOperatorsUserInfo(this.numbers[i].settings.operators);
-
-            var $number = this.existingNumberTmpl.tmpl(this.numbers[i]);
-            var $addOperatorsBtn = $number.find('.add-operators-btn');
-
-            $addOperatorsBtn.useradvancedSelector({ showGroups: true });
-            $addOperatorsBtn.useradvancedSelector('disable', this.operators);
-
-            $numbers.push($number);
+        for (var i = 0; i < numbers.length; i++) {
+            numbers[i].settings.operators = setOperatorsUserInfo(numbers[i].settings.operators);
+            $numbers.push(renderExistingNumber(numbers[i]));
         }
 
-        this.$existingNumbersList.append($numbers);
-        this.$existingNumbersList.show();
-    },
+        $existingNumbersList.append($numbers);
+        $existingNumbersList.show();
+    };
 
-    renderAddedOperators: function(number) {
-        var $operators = this.operatorsTmpl.tmpl(number);
-        this.$existingNumbersList.find('#enumber' + number.id + ' .operators-box').append($operators);
+    function renderExistingNumber(number) {
+        var $number = jq.tmpl("voip-existing-number-tmpl", number);
+        var $addOperatorsBtn = $number.find('.add-operators-btn');
 
-        var $addOperatorBtn = this.$view.find('.add-operators-btn');
-        $addOperatorBtn.useradvancedSelector('disable', this.operators);
-    },
-    
+        $addOperatorsBtn.useradvancedSelector({ showGroups: true });
+        $addOperatorsBtn.useradvancedSelector('disable', operators);
+        return $number;
+    };
+
+    function renderAddedOperators(number) {
+        var $operators = jq.tmpl("voip-operators-tmpl", number);
+        $existingNumbersList.find('#enumber' + number.id + ' .operators-box').append($operators);
+
+        var $addOperatorBtn = $view.find('.add-operators-btn');
+        $addOperatorBtn.useradvancedSelector('disable', operators);
+    };
+
     //#endregion
-    
+
     //#region handlers
 
-    clickHandler: function(e) {
+    function clickHandler(e) {
         var $this = $(e.target);
 
         if (!$this.is('.actions')) {
-            this.clearActionPanel();
+            clearActionPanel();
         }
 
         if (!$this.is('#country-selector')) {
-            this.$buyPhonePopup.find('#country-selector-box .studio-action-panel').hide();
+            $buyPhonePopup.find('#country-selector-box .studio-action-panel').hide();
         }
-    },
+    };
 
-    clearActionPanel: function() {
-        this.$view.find('.number-box').removeClass('selected').removeClass('operator-selected');
-        this.$view.find('.operator').removeClass('selected');
-        this.$view.find('.studio-action-panel').hide();
-    },
+    function clearActionPanel() {
+        $view.find('.number-box').removeClass('selected').removeClass('operator-selected');
+        $view.find('.operator').removeClass('selected');
+        $view.find('.studio-action-panel').hide();
+    };
 
-    showBuyPhonePopupHandler: function() {
-        if (!this.buyPhonePopupInit) {
-            var $countriesList = this.countriesListTmpl.tmpl({ countries: window.VoIPCountries });
-            this.$countrySelector.after($countriesList);
-            this.renderAvailableNumbers('US', 1);
+    function showBuyPhonePopupHandler() {
+        if (!buyPhonePopupInit) {
+            var $countriesList = jq.tmpl("voip-countries-list-tmpl", { countries: ASC.Voip.Countries });
+            $countrySelector.after($countriesList);
+            renderAvailableNumbers('US', 1);
 
-            this.buyPhonePopupInit = true;
+            buyPhonePopupInit = true;
         }
 
-        StudioBlockUIManager.blockUI(this.$buyPhonePopup, 550, 550, 0, 'absolute');
-    },
+        StudioBlockUIManager.blockUI($buyPhonePopup, 550, 550, 0, 'absolute');
+    };
 
-    countrySelectorToggleHandler: function() {
-        this.$countrySelector.siblings('.studio-action-panel').toggle();
-    },
+    function showLinkPhonePopupHandler() {
+        if (!linkPhonePopupInit) {
+            $linkPhoneBtn.addClass('disable');
 
-    countryInputKeyupHandler: function() {
-        var text = this.$countryInput.val();
+            $existingNumbers.empty();
+            $existingNumbersEmptyMsg.hide();
+            $existingNumbersLoader.show();
+
+            Teamlab.getCrmVoipUnlinkedNumbers({}, {
+                success: function (params, numbersResp) {
+                    $existingNumbersLoader.hide();
+
+                    if (numbersResp.length) {
+                        var $numbers = jq.tmpl("voip-available-number-tmpl", numbersResp);
+
+                        $existingNumbers.html($numbers);
+                    } else {
+                        $existingNumbersEmptyMsg.show();
+                    }
+                },
+                error: function () {
+                    $existingNumbersLoader.hide();
+                    showErrorMessage();
+                }
+            });
+
+            linkPhonePopupInit = true;
+        }
+
+        StudioBlockUIManager.blockUI($linkPhonePopup, 550, 550, 0, 'absolute');
+    };
+
+    function countrySelectorToggleHandler() {
+        $countrySelector.siblings('.studio-action-panel').toggle();
+    };
+
+    function countryInputKeyupHandler() {
+        var text = $countryInput.val();
         if (text) {
-            this.$countryInputClearBtn.show();
+            $countryInputClearBtn.show();
         } else {
-            this.$countryInputClearBtn.hide();
+            $countryInputClearBtn.hide();
         }
 
-        this.countrySelectorSearchHandler();
-    },
+        countrySelectorSearchHandler();
+    };
 
-    countryInputClearHandler: function() {
-        this.$countryInput.val('');
-        this.$countryInputClearBtn.hide();
+    function countryInputClearHandler() {
+        $countryInput.val('');
+        $countryInputClearBtn.hide();
 
-        this.countrySelectorSearchHandler();
-    },
+        countrySelectorSearchHandler();
+    };
 
-    countrySelectorSearchHandler: function() {
-        var text = this.$countryInput.val();
-        var seachText = this.$countryCode.text() + text;
+    function countrySelectorSearchHandler() {
+        var text = $countryInput.val();
+        var seachText = $countryCode.text() + text;
 
         var exist = false;
-        this.$availableNumbers.find('.number').each(function() {
+        $availableNumbers.find('.number').each(function() {
             var $el = $(this);
             var number = $el.find('.number-value').text();
 
@@ -306,81 +426,122 @@ var VoIPQuickView = {
         });
 
         if (!exist) {
-            this.$availableNumbersEmptySearchMsg.show();
+            $availableNumbersEmptySearchMsg.show();
         } else {
-            this.$availableNumbersEmptySearchMsg.hide();
+            $availableNumbersEmptySearchMsg.hide();
         }
-    },
+    };
 
-    toggleNumberActionsHandler: function(e) {
+    function toggleNumberActionsHandler(e) {
         var $this = $(e.target);
         var $panel = $this.find('.studio-action-panel');
         var $number = $this.closest('.number-box');
 
         var visible = $panel.is(':visible');
-        this.clearActionPanel();
+        clearActionPanel();
 
         if (visible) {
             $panel.hide();
             $number.removeClass('selected');
         } else {
-            var offset = $this.offset();
             $panel.css({
-                top: offset.top + 20,
-                left: offset.left - $panel.width() + 26
+                top: $this.outerHeight(),
+                left: $this.width() - $panel.width()
             });
             $panel.show();
             $number.addClass('selected');
         }
-    },
+    };
 
-    toggleOperatorActionsHandler: function(e) {
+    function toggleOperatorActionsHandler(e) {
         var $this = $(e.target);
         var $panel = $this.find('.studio-action-panel');
         var $operator = $this.closest('.operator');
         var $number = $this.closest('.number').find('.number-box');
 
         var visible = $panel.is(':visible');
-        this.clearActionPanel();
+        clearActionPanel();
 
         if (visible) {
             $panel.hide();
             $number.removeClass('operator-selected');
             $operator.removeClass('selected');
         } else {
-            var offset = $this.offset();
             $panel.css({
-                top: offset.top + 20,
-                left: offset.left - $panel.width() + 26
+                top: $this.outerHeight(),
+                left: $this.width() - $panel.width()
             });
             $panel.show();
             $number.addClass('operator-selected');
             $operator.addClass('selected');
         }
-    },
+    };
 
-    numberOutgoingCallsUpdatedHandler: function(e) {
+    function numberOutgoingCallsUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { allowOutgoingCalls: on };
 
-        this.numberSettinglUpdatedHandler(e, setting);
-    },
+        numberSettinglUpdatedHandler(e, setting);
+    };
 
-    numberVoicemailUpdatedHandler: function(e) {
+    function numberVoicemailUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { voiceMail: { enabled: on } };
 
-        this.numberSettinglUpdatedHandler(e, setting);
-    },
+        numberSettinglUpdatedHandler(e, setting);
+    };
 
-    numberRecordingCallsUpdatedHandler: function(e) {
+    function numberRecordingCallsUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { record: on };
 
-        this.numberSettinglUpdatedHandler(e, setting);
-    },
+        numberSettinglUpdatedHandler(e, setting);
+    };
 
-    numberSettinglUpdatedHandler: function(e, setting) {
+    function editNumber(e) {
+        var $this = $(e.target).closest('.number');
+        var numberId = $this.attr('data-numberId');
+        window.open("settings.aspx?type=voip.numbers#" + numberId);
+    }
+
+    function showNumberRemovePopup(e) {
+        $removeNumberPopup.off(clickEventName)
+            .on(clickEventName, "#remove-number-btn", numberRemoveHandler.bind(null, e.target))
+            .on(clickEventName, "#cancel-remove-phone-btn", cancelNumberRemoveHandler);
+        StudioBlockUIManager.blockUI($removeNumberPopup, 550, 550, 0, 'absolute');
+    }
+
+    function cancelNumberRemoveHandler() {
+        jq.unblockUI();
+    }
+
+    function numberRemoveHandler(target) {
+        var $this = $(target).closest('.number');
+        var numberId = $this.attr('data-numberId');
+
+        Teamlab.removeCrmVoipNumber({}, numberId, {
+            after: jq.unblockUI,
+            success: function (params, number) {
+                deleteNumber(numberId);
+
+                if (numbers.length) {
+                    $this.remove();
+
+                    var $addOperatorBtns = $view.find('.add-operators-btn');
+                    number.settings.operators.forEach(function (item) {
+                        deleteOperator(item.id);
+                        $addOperatorBtns.useradvancedSelector('undisable', [item.id]);
+                    });
+
+                } else {
+                    location.reload();
+                }
+            },
+            error: showErrorMessage
+        });
+    };
+
+    function numberSettinglUpdatedHandler(e, setting) {
         var $this = $(e.target);
 
         var numberId = $this.closest('.number').attr('data-numberId');
@@ -388,12 +549,11 @@ var VoIPQuickView = {
 
         var operatorBtnSelector = $this.attr('data-operator-btn-selector');
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
         Teamlab.updateCrmVoipNumberSettings(null, numberId, setting, {
             success: function(params, number) {
-                self.saveNumber(number);
+                saveNumber(number);
                 if (on) {
                     $this.removeClass('off').addClass('on');
                     if (operatorBtnSelector) {
@@ -408,31 +568,31 @@ var VoIPQuickView = {
                     }
                 }
 
-                self.hideLoader();
-                self.showSuccessOpearationMessage();
+                hideLoader();
+                showSuccessOpearationMessage();
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    operatorOutgoingCallsUpdatedHandler: function(e) {
+    function operatorOutgoingCallsUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { allowOutgoingCalls: on };
 
-        this.operatorSettingUpdatedHandler(e, setting);
-    },
-    
-    operatorRecordingCallsUpdatedHandler: function(e) {
+        operatorSettingUpdatedHandler(e, setting);
+    };
+
+    function operatorRecordingCallsUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { record: on };
 
-        this.operatorSettingUpdatedHandler(e, setting);
-    },
+        operatorSettingUpdatedHandler(e, setting);
+    };
 
-    operatorSettingUpdatedHandler: function(e, setting) {
+    function operatorSettingUpdatedHandler(e, setting) {
         var $this = $(e.target);
         if ($this.is('.disable')) {
             return;
@@ -441,9 +601,8 @@ var VoIPQuickView = {
         var operatorId = $this.closest('.operator').attr('data-operatorId');
         var on = $this.is('.off');
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
         Teamlab.updateCrmVoipOperator(null, operatorId, setting, {
             success: function() {
                 if (on) {
@@ -452,17 +611,17 @@ var VoIPQuickView = {
                     $this.removeClass('on').addClass('off');
                 }
 
-                self.hideLoader();
-                self.showSuccessOpearationMessage();
+                hideLoader();
+                showSuccessOpearationMessage();
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    addOperatorsHandler: function(e, addedOperators) {
+    function addOperatorsHandler(e, addedOperators) {
         var ids = addedOperators.map(function(o) {
             return o.id;
         });
@@ -471,162 +630,226 @@ var VoIPQuickView = {
             return;
         }
 
-        var self = this;
         var numberId = $(e.target).closest('.number').attr('data-numberid');
 
-        this.showLoader();
+        showLoader();
         Teamlab.addCrmVoipNumberOperators(null, numberId, { operators: ids }, {
-            success: function(params, operators) {
-                var number = self.addOperators(numberId, operators);
-                self.renderAddedOperators(number);
+            success: function(params, operatorsResp) {
+                var number = addOperators(numberId, operatorsResp);
+                renderAddedOperators(number);
 
-                self.hideLoader();
+                hideLoader();
             },
             error: function() {
-                self.showErrorMessage();
-                self.hideLoader();
+                showErrorMessage();
+                hideLoader();
             }
         });
-    },
+    };
 
-    deleteOperatorHandler: function(e) {
+    function deleteOperatorHandler(e) {
         var numberId = $(e.target).closest('.number').attr('data-numberid');
         var operatorId = $(e.target).closest('.operator').attr('data-operatorid');
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
         Teamlab.removeCrmVoipNumberOperators(null, numberId, { oper: operatorId }, {
             success: function() {
-                self.deleteOperator(operatorId);
-                self.$existingNumbersList.find('#enumber' + numberId + ' .operator[data-operatorid=' + operatorId + ']').remove();
+                deleteOperator(operatorId);
+                $existingNumbersList.find('#enumber' + numberId + ' .operator[data-operatorid=' + operatorId + ']').remove();
 
-                self.hideLoader();
+                hideLoader();
 
-                var $addOperatorBtns = self.$view.find('.add-operators-btn');
+                var $addOperatorBtns = $view.find('.add-operators-btn');
                 $addOperatorBtns.useradvancedSelector('undisable', [operatorId]);
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    countryChangedHandler: function(e) {
+    function countryChangedHandler(e) {
         var $this = $(e.currentTarget).find('.voip-flag');
 
         var iso = $this.attr('data-iso');
         var code = $this.attr('data-code');
 
-        this.renderAvailableNumbers(iso, code);
-    },
+        renderAvailableNumbers(iso, code);
+    };
 
-    numberSelectedHandler: function() {
-        this.$buyPhoneBtn.removeClass('disable');
-    },
+    function numberSelectedHandler() {
+        $buyPhoneBtn.removeClass('disable');
+    };
 
-    toggleOperatorsBoxHandler: function(e) {
+    function existingNumberSelectedHandler() {
+        $linkPhoneBtn.removeClass('disable');
+    };
+
+    function toggleOperatorsBoxHandler(e) {
         var $this = $(e.currentTarget);
         $this.closest('.number').find('.operators-box').toggle();
         $this.find('.expander-icon').toggleClass('open');
-    },
+    };
 
-    renderAvailableNumbers: function(iso, code) {
-        this.$buyPhoneBtn.addClass('disable');
+    function renderAvailableNumbers(iso, code) {
+        $buyPhoneBtn.addClass('disable');
 
-        this.$countrySelector.attr('class', 'voip-flag link arrow-down ' + iso);
-        this.$countryCode.text('+' + code);
-        this.$countryInput.val('');
-        this.$countryInput.hide();
-        this.$countryInputClearBtn.hide();
+        $countrySelector.attr('class', 'voip-flag link arrow-down ' + iso);
+        $countryCode.text('+' + code);
+        $countryInput.val('');
+        $countryInput.hide();
+        $countryInputClearBtn.hide();
 
-        this.$availableNumbers.empty();
-        this.$availableNumbersEmptyMsg.hide();
-        this.$availableNumbersEmptySearchMsg.hide();
-        this.$availableNumbersLoader.show();
+        $availableNumbers.empty();
+        $availableNumbersEmptyMsg.hide();
+        $availableNumbersEmptySearchMsg.hide();
+        $availableNumbersLoader.show();
 
-        var self = this;
         Teamlab.getCrmVoipAvailableNumbers(null, {
             filter: { numberType: 0, isoCountryCode: iso },
-            success: function(params, numbers) {
-                self.$availableNumbersLoader.hide();
+            success: function(params, numbersResp) {
+                $availableNumbersLoader.hide();
 
-                if (numbers.length) {
-                    var $numbers = self.availableNumberTmpl.tmpl(numbers);
+                if (numbersResp.length) {
+                    var $numbers = jq.tmpl("voip-available-number-tmpl", numbersResp);
 
-                    self.$availableNumbers.empty();
-                    self.$availableNumbers.append($numbers);
+                    $availableNumbers.empty();
+                    $availableNumbers.append($numbers);
                 } else {
-                    self.$availableNumbersEmptyMsg.show();
+                    $availableNumbersEmptyMsg.show();
                 }
 
-                self.$countryInput.show();
+                $countryInput.show();
             },
             error: function() {
-                self.$availableNumbersLoader.hide();
-                self.showErrorMessage();
+                $availableNumbersLoader.hide();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    buyNumberHandler: function() {
-        if (this.$buyPhoneBtn.is('.disable')) {
+    function buyNumberHandler() {
+        if ($buyPhoneBtn.is('.disable')) {
             return;
         }
 
-        this.$buyPhoneBtn.addClass('disable');
-        this.$cancelBuyPhoneBtn.addClass('disable');
-        this.$buyPhoneLoader.css('display', 'inline-block');
+        $buyPhoneBtn.addClass('disable');
+        $cancelBuyPhoneBtn.addClass('disable');
 
-        var $selectedNumber = this.$availableNumbers.find('input:checked');
+        var $selectedNumber = $availableNumbers.find('input:checked');
         if (!$selectedNumber.length) {
             return;
         }
 
         var number = $selectedNumber.attr('data-number');
 
-        var self = this;
         Teamlab.createCrmVoipNumber(null,
-            { number: number },
-            {
-                success: function(params, addedNumber) {
-                    var $number = self.existingNumberTmpl.tmpl(addedNumber);
+        { number: number },
+        {
+            before: function () {
+                loadingBanner.showLoaderBtn("#buy-phone-popup");
+            },
+            after: function () {
+                loadingBanner.hideLoaderBtn("#buy-phone-popup");
+            },
+            success: function(params, addedNumber) {
+                $existingNumbersEmptyBox.hide();
+                var $number = renderExistingNumber(addedNumber);
+                numbers.push(addedNumber);
 
-                    self.$availableNumbers.find('#anumber\\' + number).remove();
-                    self.$existingNumbersList.append($number);
+                $availableNumbers.find('#anumber\\' + number).remove();
+                $existingNumbersList.append($number);
+                $existingNumbersList.show();
+                $showBuyPhonePopupBtn.removeClass("display-none");
+                $showLinkPhonePopupBtn.removeClass("display-none");
 
-                    self.$cancelBuyPhoneBtn.removeClass('disable');
-                    self.$buyPhoneLoader.hide();
+                $cancelBuyPhoneBtn.removeClass('disable');
+                $.unblockUI();
+                toastr.success(ASC.Resources.Master.Resource.BuyNumberSuccessMsg);
+            },
+            error: function() {
+                $cancelBuyPhoneBtn.removeClass('disable');
+                showErrorMessage();
+            }
+        });
+    };
 
-                    toastr.success(ASC.Resources.Master.Resource.BuyNumberSuccessMsg);
-                },
-                error: function() {
-                    self.$cancelBuyPhoneBtn.removeClass('disable');
-                    self.$buyPhoneLoader.hide();
-                    self.showErrorMessage();
-                }
-            });
-    },
+    function linkNumberHandler() {
+        if ($linkPhoneBtn.is('.disable')) {
+            return;
+        }
 
-    cancelBuyNumberHandler: function() {
-        if (this.$cancelBuyPhoneBtn.is('.disable')) {
+        $linkPhoneBtn.addClass('disable');
+        $cancelLinkPhoneBtn.addClass('disable');
+
+        var $selectedNumber = $existingNumbers.find('input:checked');
+        if (!$selectedNumber.length) {
+            return;
+        }
+
+        var number = $selectedNumber.attr('data-number');
+        var numberId = $selectedNumber.attr('data-numberId');
+
+        Teamlab.linkCrmVoipNumber(null,
+        { number: number, id: numberId },
+        {
+            before: function () {
+                loadingBanner.showLoaderBtn("#link-phone-popup");
+            },
+            after: function () {
+                loadingBanner.hideLoaderBtn("#link-phone-popup");
+            },
+            success: function(params, addedNumber) {
+                $existingNumbersEmptyBox.hide();
+                var $number = renderExistingNumber(addedNumber);
+                numbers.push(addedNumber);
+
+                $existingNumbers.find('#anumber\\' + number).remove();
+                $existingNumbersList.append($number);
+                $existingNumbersList.show();
+                $showBuyPhonePopupBtn.removeClass("display-none");
+                $showLinkPhonePopupBtn.removeClass("display-none");
+
+                $cancelLinkPhoneBtn.removeClass('disable');
+                $.unblockUI();
+                toastr.success(ASC.CRM.Resources.CRMVoipResource.LinkNumberSuccessMsg);
+            },
+            error: function() {
+                $cancelLinkPhoneBtn.removeClass('disable');
+                showErrorMessage();
+            }
+        });
+    };
+
+    function cancelBuyNumberHandler() {
+        if ($cancelBuyPhoneBtn.is('.disable')) {
             return;
         }
         $.unblockUI();
-    },
+    };
 
-    setOperatorsUserInfo: function(operators) {
-        if (!operators || !operators.length) {
+    function cancelLinkPhoneHandler() {
+        if ($cancelLinkPhoneBtn.is('.disable')) {
             return;
         }
+        $.unblockUI();
+    };
 
-        for (var i = 0; i < operators.length; i++) {
-            operators[i].userInfo = this.getUserInfo(operators[i].id);
+    function setOperatorsUserInfo(operatorsResp) {
+        if (!operatorsResp || !operatorsResp.length) {
+            return operatorsResp;
         }
-    },
 
-    getUserInfo: function(id) {
+        for (var i = 0; i < operatorsResp.length; i++) {
+            operatorsResp[i].userInfo = getUserInfo(operatorsResp[i].id);
+        }
+
+        return operatorsResp.filter(function (item) { return item.userInfo !== null; });
+    };
+
+    function getUserInfo(id) {
         var users = ASC.Resources.Master.ApiResponses_Profiles.response;
         if (!users) {
             return null;
@@ -639,27 +862,31 @@ var VoIPQuickView = {
         }
 
         return null;
-    },
-    
+    };
+
     //#endregion
-    
+
     //#region utils
+    function showLoader() {
+        loadingBanner.displayLoading();
+    };
 
-    showLoader: function() {
-        LoadingBanner.displayLoading();
-    },
+    function hideLoader() {
+        loadingBanner.hideLoading();
+    };
 
-    hideLoader: function() {
-        LoadingBanner.hideLoading();
-    },
-
-    showSuccessOpearationMessage: function() {
+    function showSuccessOpearationMessage() {
         toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
-    },
+    };
 
-    showErrorMessage: function() {
+    function showErrorMessage() {
         toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
     }
-    
+
     //#endregion
-};
+
+
+    return {
+        init: init
+    };
+})(jq);

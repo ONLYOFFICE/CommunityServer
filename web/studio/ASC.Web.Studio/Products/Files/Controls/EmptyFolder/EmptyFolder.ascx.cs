@@ -24,11 +24,6 @@
 */
 
 
-using System;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Files;
@@ -36,6 +31,10 @@ using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Controls.Common;
+using System;
+using System.Linq;
+using System.Text;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -63,16 +62,12 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/products/files/controls/emptyfolder/emptyfolder.js");
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/emptyfolder/emptyfolder.css");
-
-            var isMobile = MobileDetector.IsMobile;
             var currUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
             var isVisitor = currUser.IsVisitor();
             var isOutsider = currUser.IsOutsider();
 
             var strCreateFile =
-                !HideAddActions && !isMobile && !isVisitor
+                !HideAddActions && !isVisitor
                     ? string.Format(@"<div class=""empty-folder-create empty-folder-create-editor"">
 <a class=""link dotline plus empty-folder-create-document"">{0}</a>,
 <a class=""link dotline empty-folder-create-spreadsheet"">{1}</a>,

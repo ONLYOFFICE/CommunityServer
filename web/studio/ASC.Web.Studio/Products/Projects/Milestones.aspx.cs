@@ -24,21 +24,10 @@
 */
 
 
-using ASC.Web.Projects.Controls.Common;
-using ASC.Web.Projects.Resources;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
-using ASC.Web.Studio.Utility;
-
 namespace ASC.Web.Projects
 {
     public partial class Milestones : BasePage
     {
-        protected override void PageLoad()
-        {
-            Title = HeaderStringHelper.GetPageTitle(MilestoneResource.Milestones);
-
-            _content.Controls.Add(LoadControl(CommonList.Location));
-            loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
-        }
+        protected override void PageLoad() {}
     }
 }

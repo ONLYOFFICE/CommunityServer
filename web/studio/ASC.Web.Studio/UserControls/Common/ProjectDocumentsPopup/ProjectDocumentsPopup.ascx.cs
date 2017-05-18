@@ -25,42 +25,32 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using ASC.Data.Storage;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Controls.Common;
 using Resources;
-using System.Web.UI.HtmlControls;
 
 namespace ASC.Web.Studio.UserControls.Common.ProjectDocumentsPopup
 {
     public partial class ProjectDocumentsPopup : System.Web.UI.UserControl
     {
         public string PopupName { get; set; }
-        public int ProjectId { get; set; }
 
         public static string Location { get { return "~/UserControls/Common/ProjectDocumentsPopup/ProjectDocumentsPopup.ascx"; } }
 
         public ProjectDocumentsPopup()
         {
             PopupName = UserControlsCommonResource.AttachOfProjectDocuments;
-            ProjectId = 0;
-        }
-
-        private void InitScripts()
-        {
-            Page.RegisterStyle("~/usercontrols/common/projectdocumentspopup/css/projectDocumentsPopup.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/projectdocumentspopup/js/projectDocumentsPopup.js");
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             _documentUploader.Options.IsPopup = true;
             InitScripts();
+        }
+
+        private void InitScripts()
+        {
+            Page.RegisterStyle("~/usercontrols/common/projectdocumentspopup/css/projectDocumentsPopup.less")
+                .RegisterBodyScripts("~/usercontrols/common/projectdocumentspopup/js/projectDocumentsPopup.js");
         }
     }
 }

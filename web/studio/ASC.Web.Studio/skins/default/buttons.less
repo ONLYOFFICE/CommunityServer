@@ -251,7 +251,7 @@
 }
 
 .on_off_button {
-    background: url("@{img-change-url}bnt-onoff.png") no-repeat top center transparent;
+    background: url("@{img-change-url}btn-onoff.png") no-repeat top center transparent;
     height: 16px;
     width: 41px;
     display: inline-block;
@@ -269,6 +269,31 @@
         background-position: bottom center;
     }
 }
+
+.on-off-checkbox {
+    left: -9999px;
+    position: absolute;
+}
+.on-off-checkbox + label {
+    cursor: pointer;
+    padding-left: 52px;
+    position: relative;
+}
+.on-off-checkbox + label:before {
+    background: url("@{img-change-url}btn-onoff.png") no-repeat bottom center transparent;
+    content: "";
+    height: 16px;
+    left: 0;
+    position: absolute;
+    width: 41px;
+}
+.on-off-checkbox:checked + label:before {
+    background-position: top center;
+}
+.on-off-checkbox:disabled + label:before {
+    .opacityStyle();
+}
+
 
 /*******************************************************************************
    Button Containers

@@ -27,7 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using ASC.Web.Core.WebZones;
+using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Core.Utility.Settings
 {

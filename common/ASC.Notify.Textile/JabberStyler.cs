@@ -39,6 +39,7 @@ namespace ASC.Notify.Textile
         static readonly Regex LinkReplacer = new Regex(@"""(?<text>[\w\W]+?)"":""(?<link>[^""]+)""", RegexOptions.Singleline | RegexOptions.Compiled);
         static readonly Regex TextileReplacer = new Regex(@"(h1\.|h2\.|\*|h3\.|\^)", RegexOptions.Singleline | RegexOptions.Compiled);
         static readonly Regex BrReplacer = new Regex(@"<br\s*\/*>", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.Singleline);
+        static readonly Regex ClosedTagsReplacer = new Regex(@"</(p|div)>", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.Singleline);
         static readonly Regex TagReplacer = new Regex(@"<(.|\n)*?>", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled | RegexOptions.Singleline);
         static readonly Regex MultiLineBreaksReplacer = new Regex(@"(?:\r\n|\r(?!\n)|(?!<\r)\n){3,}", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
@@ -62,7 +63,8 @@ namespace ASC.Notify.Textile
             body += LinkReplacer.Replace(lines[lines.Length - 1], EvalLink);
             body = TextileReplacer.Replace(HttpUtility.HtmlDecode(body), ""); //Kill textile markup
             body = BrReplacer.Replace(body, Environment.NewLine);
-            body = TagReplacer.Replace(body, Environment.NewLine);
+            body = ClosedTagsReplacer.Replace(body, Environment.NewLine);
+            body = TagReplacer.Replace(body, "");
             body = MultiLineBreaksReplacer.Replace(body, Environment.NewLine);
             message.Body = body;
         }

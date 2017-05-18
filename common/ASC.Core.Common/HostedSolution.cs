@@ -191,6 +191,11 @@ namespace ASC.Core
             return clientTenantManager.GetTenantQuota(tenant);
         }
 
+        public IEnumerable<TenantQuota> GetTenantQuotas()
+        {
+            return clientTenantManager.GetTenantQuotas();
+        }
+
         public TenantQuota SaveTenantQuota(TenantQuota quota)
         {
             return clientTenantManager.SaveTenantQuota(quota);

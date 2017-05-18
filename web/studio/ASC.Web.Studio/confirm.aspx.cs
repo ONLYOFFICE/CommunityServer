@@ -27,6 +27,7 @@
 using System;
 using System.Web;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
@@ -94,7 +95,7 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableTariff = true;
             Master.TopStudioPanel.DisableLoginPersonal = true;
 
-            _email = Request["email"] ?? "";
+            _email = (Request["email"] ?? "").Trim();
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             if (tenant.Status != TenantStatus.Active && _type != ConfirmType.PortalContinue)
@@ -324,7 +325,7 @@ namespace ASC.Web.Studio
                     user.ActivationStatus = EmployeeActivationStatus.Activated;
                     user = CoreContext.UserManager.SaveUserInfo(user);
 
-                    if (!CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && user.IsAdmin()) {
+                    if (!CoreContext.Configuration.Personal && user.IsAdmin()) {
                         StudioNotifyService.Instance.SendAdminWellcome(user);
                     }
 

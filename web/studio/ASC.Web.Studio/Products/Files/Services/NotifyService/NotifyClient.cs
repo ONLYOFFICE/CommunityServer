@@ -51,17 +51,45 @@ namespace ASC.Web.Files.Services.NotifyService
             Instance = WorkContext.NotifyContext.NotifyService.RegisterClient(NotifySource.Instance);
         }
 
-        public static void SendMailMergeEnd(Guid userId, int countMails)
+        public static void SendDocuSignComplete(File file)
+        {
+            var recipient = NotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString());
+
+            Instance.SendNoticeAsync(
+                NotifyConstants.Event_DocuSignComplete,
+                file.UniqID,
+                recipient,
+                true,
+                new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID))),
+                new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title)
+                );
+        }
+
+        public static void SendDocuSignStatus(string subject, string status)
+        {
+            var recipient = NotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString());
+
+            Instance.SendNoticeAsync(
+                NotifyConstants.Event_DocuSignStatus,
+                null,
+                recipient,
+                true,
+                new TagValue(NotifyConstants.Tag_DocumentTitle, subject),
+                new TagValue(NotifyConstants.Tag_Message, status)
+                );
+        }
+
+        public static void SendMailMergeEnd(Guid userId, int countMails, int countError)
         {
             var recipient = NotifySource.Instance.GetRecipientsProvider().GetRecipient(userId.ToString());
 
-            Instance.SendNoticeToAsync(
+            Instance.SendNoticeAsync(
                 NotifyConstants.Event_MailMergeEnd,
                 null,
-                new[] {recipient},
-                new[] {ASC.Core.Configuration.Constants.NotifyEMailSenderSysName},
-                null,
-                new TagValue(NotifyConstants.Tag_MailsCount, countMails)
+                recipient,
+                true,
+                new TagValue(NotifyConstants.Tag_MailsCount, countMails),
+                new TagValue(NotifyConstants.Tag_Message, countError > 0 ? string.Format(FilesCommonResource.ErrorMassage_MailMergeCount, countError) : string.Empty)
                 );
         }
 
@@ -85,7 +113,8 @@ namespace ASC.Web.Files.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode()),
                     new TagValue(NotifyConstants.Tag_UserEmail, CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email),
                     new TagValue(CommonTags.WithPhoto, CoreContext.Configuration.Personal ? "personal" : ""),
-                    new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false")
+                    new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
+                    new TagValue("noUnsubscribeLink", "true")
                     );
             }
         }

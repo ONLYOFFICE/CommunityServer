@@ -8,7 +8,7 @@
 
 <div id="userProfileEditPage" class="containerBodyBlock">
     <div class="clearFix profile-title header-with-menu">
-        <span id="titleEditProfile" class="header text-overflow"><%= GetTitle() %></span>
+        <span id="titleEditProfile" class="header text-overflow"><%= GetTitle().HtmlEncode() %></span>
         <% if ((IsAdmin() || UserInfo.IsMe()) && UserInfo.IsLDAP())
         { %>
         <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
@@ -100,10 +100,10 @@
                     <div class="popup_helper" id="AnswerForProjectTeam">
 
                         <div id="collaboratorCanBlock" class="can-description-block <%= IsVisitor ? "" : "display-none" %>">
-                            <%= CustomNamingPeople.Substitute(String.Format(Resource.CollaboratorCanDescribe.HtmlEncode(), "<p>", "</p><ul><li>", "</li><li>", "</li><li>", "</li></ul>")) %>
+                            <%= String.Format(CustomNamingPeople.Substitute(Resource.CollaboratorCanDescribe2).HtmlEncode(), "<p>", "</p>", "<ul>", "</ul>", "<li>", "</li>") %>
                         </div>
                         <div id="userCanBlock" class="can-description-block <%= IsVisitor ? "display-none" : "" %>">
-                            <%= CustomNamingPeople.Substitute(String.Format(Resource.UserCanDescribe.HtmlEncode(), "<p>", "</p><ul><li>", "</li><li>", "</li><li>", "</li><li>", "</li></ul>")) %>
+                            <%= String.Format(CustomNamingPeople.Substitute(Resource.UserCanDescribe2).HtmlEncode(), "<p>", "</p>", "<ul>", "</ul>", "<li>", "</li>") %>
                         </div>
 
                     </div>

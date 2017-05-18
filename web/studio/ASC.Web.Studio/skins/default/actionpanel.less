@@ -109,13 +109,27 @@
                 }
             }
 
-            &.hover,
             &:hover,
-            &.hover a,
             &:hover a {
                 text-decoration: none;
                 background-color: #e9e9e9;
                 .borderRadius(2px);
+            }
+        }
+
+        .dropdown-with-item {
+            padding-right: 20px;
+            position: relative;
+
+            &:after {
+                content: "\203A";
+                display: block;
+                font-size: 20px;
+                height: 14px;
+                right: 0;
+                position: absolute;
+                top: -2px;
+                width: 12px;
             }
         }
 

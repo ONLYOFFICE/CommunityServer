@@ -56,8 +56,8 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             LoginMessage = Request["m"];
 
-            Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js", "~/usercontrols/common/authorize/js/authorize.js");
+            Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less")
+                .RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js", "~/usercontrols/common/authorize/js/authorize.js");
 
             Page.Title = Resource.AuthDocsTitlePage;
             Page.MetaDescription = Resource.AuthDocsMetaDescription.HtmlEncode();
@@ -82,8 +82,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                         throw new InvalidCredentialException(Resource.InvalidUsernameOrPassword);
                     }
 
-                    // защита от перебора: на 5-ый неправильный ввод делать Sleep
-                    var counter = 0;
+                    int counter;
 
                     int.TryParse(cache.Get<string>("loginsec/" + Login), out counter);
 
@@ -139,7 +138,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
             }
             else
             {
-                var confirmedEmail = Request.QueryString["confirmed-email"];
+                var confirmedEmail = (Request.QueryString["confirmed-email"] ?? "").Trim();
 
                 if (String.IsNullOrEmpty(confirmedEmail) || !confirmedEmail.TestEmailRegex()) return;
 

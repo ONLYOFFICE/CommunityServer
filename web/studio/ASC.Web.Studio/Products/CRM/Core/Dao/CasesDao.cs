@@ -300,7 +300,6 @@ namespace ASC.CRM.Core.Dao
                     {
                         foreach (var filesID in filesIDs)
                         {
-                            filedao.DeleteFolder(filesID);
                             filedao.DeleteFile(filesID);
                         }
                     }

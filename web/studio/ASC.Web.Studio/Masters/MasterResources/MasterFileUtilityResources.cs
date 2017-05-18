@@ -75,7 +75,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override string GetCacheHash()
         {
-            return ClientSettings.ResetCacheKey;
+            return ClientSettings.ResetCacheKey
+                   + string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl);
         }
     }
 }

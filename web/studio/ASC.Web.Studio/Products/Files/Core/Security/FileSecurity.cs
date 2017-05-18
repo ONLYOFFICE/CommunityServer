@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using ASC.Core;
 using ASC.Core.Users;
@@ -218,7 +219,8 @@ namespace ASC.Files.Core.Security
                                              return new[] {x.Subject};
                                          })
                          .Distinct()
-                         .Where(x => Can(fileEntry, x, action));
+                         .Where(x => Can(fileEntry, x, action))
+                         .ToList();
         }
 
         public IEnumerable<FileEntry> FilterRead(IEnumerable<FileEntry> entries)
@@ -236,6 +238,16 @@ namespace ASC.Files.Core.Security
             return Filter(entries.Cast<FileEntry>(), FilesSecurityActions.Read, SecurityContext.CurrentAccount.ID).Cast<Folder>();
         }
 
+        public IEnumerable<File> FilterEdit(IEnumerable<File> entries)
+        {
+            return Filter(entries.Cast<FileEntry>(), FilesSecurityActions.Edit, SecurityContext.CurrentAccount.ID).Cast<File>();
+        }
+
+        public IEnumerable<Folder> FilterEdit(IEnumerable<Folder> entries)
+        {
+            return Filter(entries.Cast<FileEntry>(), FilesSecurityActions.Edit, SecurityContext.CurrentAccount.ID).Cast<Folder>();
+        }
+
         private bool Can(FileEntry entry, Guid userId, FilesSecurityActions action)
         {
             return Filter(new[] {entry}, action, userId).Any();
@@ -250,7 +262,7 @@ namespace ASC.Files.Core.Security
 
             if (isOutsider && action != FilesSecurityActions.Read) return Enumerable.Empty<FileEntry>();
 
-            entries = entries.Where(f => f != null);
+            entries = entries.Where(f => f != null).ToList();
             var result = new List<FileEntry>(entries.Count());
 
             // save entries order
@@ -409,6 +421,11 @@ namespace ASC.Files.Core.Security
                             e.Access = FileShare.None;
                             result.Add(e);
                         }
+                        else if (action == FilesSecurityActions.Review && adapter.CanReview(e, userId))
+                        {
+                            e.Access = FileShare.Review;
+                            result.Add(e);
+                        }
                         else if (action == FilesSecurityActions.Create && adapter.CanCreate(e, userId))
                         {
                             e.Access = FileShare.ReadWrite;
@@ -492,7 +509,7 @@ namespace ASC.Files.Core.Security
             }
         }
 
-        public List<FileEntry> GetSharesForMe(string searchText = "", bool searchSubfolders = false)
+        public List<FileEntry> GetSharesForMe(string searchText = "")
         {
             using (var folderDao = daoFactory.GetFolderDao())
             using (var fileDao = daoFactory.GetFileDao())
@@ -535,8 +552,12 @@ namespace ASC.Files.Core.Security
                                           x.Access = fileIds[x.ID];
                                   });
 
-                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText, searchSubfolders && !string.IsNullOrEmpty(searchText));
-                folders = FilterRead(folders).ToList();
+                var searchSubfolders = !string.IsNullOrEmpty(searchText);
+                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText,  searchSubfolders);
+                if (searchSubfolders)
+                {
+                    folders = FilterRead(folders).ToList();
+                }
                 folders.ForEach(x =>
                                     {
                                         if (folderIds.ContainsKey(x.ID))
@@ -547,9 +568,19 @@ namespace ASC.Files.Core.Security
 
                 if (!string.IsNullOrEmpty(searchText))
                 {
-                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToArray(), searchText, searchSubfolders && !string.IsNullOrEmpty(searchText));
+                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToArray(), searchText, searchSubfolders);
                     filesInSharedFolders = FilterRead(filesInSharedFolders).ToList();
                     entries.AddRange(filesInSharedFolders);
+                }
+
+                entries = entries.Where(f =>
+                                        f.RootFolderType == FolderType.USER // show users files
+                                        && f.RootFolderCreator != SecurityContext.CurrentAccount.ID // don't show my files
+                    ).ToList();
+
+                if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
+                {
+                    entries = entries.Where(r => !r.ProviderEntry).ToList();
                 }
 
                 var failedEntries = entries.Where(x => !String.IsNullOrEmpty(x.Error));

@@ -27,11 +27,8 @@
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Security.Cryptography;

@@ -177,11 +177,6 @@ namespace ASC.Core.Tenants
             set { SetFeature("voip", value); }
         }
 
-        public bool Visitor
-        {
-            get { return GetFeature("visitor"); }
-            set { SetFeature("visitor", value); }
-        }
 
         public bool WhiteLabel
         {

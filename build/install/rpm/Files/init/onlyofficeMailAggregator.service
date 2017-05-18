@@ -6,7 +6,7 @@ After=network.target syslog.target mysql.service
 Type=forking
 ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeMailAggregator'
 ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/MailAggregator -l:/tmp/onlyofficeMailAggregator /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.CollectionService.exe
-Environment=MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_OPTIONS=--server MONO_GC_PARAMS=nursery-size=64m
+Environment=MONO_IOMAP=all
 User=onlyoffice
 Group=onlyoffice
 

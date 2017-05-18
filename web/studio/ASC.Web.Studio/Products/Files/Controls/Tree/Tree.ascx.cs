@@ -45,29 +45,15 @@ namespace ASC.Web.Files.Controls
         public string AdditionalCssClass { get; set; }
         public bool WithoutTrash { get; set; }
         public bool WithNew { get; set; }
-        public bool WithoutBaseScripts { get; set; }
 
         protected bool IsVisitor;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.FilesConstantsResources));
-
-            if (!WithoutBaseScripts)
-            {
-                Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
-                    "common.js", 
-                    "templatemanager.js",
-                    "servicemanager.js",
-                    "anchormanager.js");
-
-                Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/thirdparty/thirdparty.css");
-            }
-            Page.RegisterBodyScripts("~/products/files/controls/tree/tree.js");
+            Page.RegisterClientScript(new Masters.ClientScripts.FilesConstantsResources());
 
             Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                "controls/tree/tree.css",
-                "app_themes/<theme_folder>/leftmenu.less");
+                               "app_themes/<theme_folder>/leftmenu.less");
 
             if (Global.IsOutsider)
                 WithoutTrash = true;

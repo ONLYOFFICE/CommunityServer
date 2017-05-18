@@ -1,0 +1,48 @@
+﻿<script id="createMailgroupPopupTmpl" type="text/x-jquery-tmpl">
+    <div id="mail_server_create_mailgroup_popup">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="block-cnt-splitter">
+                            <span>${ASC.Mail.Resources.MailAdministrationResource.CreateMailgroupPopupHeader}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="mail_server_add_mailgroup" class="block-cnt-splitter requiredField">
+                            <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
+                            <div class="headerPanelSmall bold">${ASC.Mail.Resources.MailAdministrationResource.MailgroupAddressLabel}</div>
+                            <input type="text" class="mailgroup_name textEdit" maxlength="64" />
+                            <span>@${domain.name}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="mailboxesContainer" class="requiredField">
+                            <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorNoMailboxSelectedField}</span>
+                            <div class="headerPanelSmall bold">
+                                ${ASC.Mail.Resources.MailAdministrationResource.MailgroupMailboxesLabel}
+                            </div>
+                            <div>
+                                <span id="mailboxAddressSelector" data-id="" class="link dotline plus">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxLabel}</span>
+                            </div>
+                            <div class="mailbox_table">
+                                <table></table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="progressContainer" style="margin-top: -1px;">
+            <div class="loader" style="display: none;">${ASC.Mail.Resources.MailResource.LoadingLabel}</div>
+        </div>
+        <div class="buttons" style="margin-top: 0;">
+            <button class="button middle blue save" type="button">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</button>
+            <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
+        </div>
+    </div>
+</script>

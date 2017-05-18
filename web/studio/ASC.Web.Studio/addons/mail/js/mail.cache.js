@@ -48,16 +48,34 @@ window.mailCache = (function($) {
             console.log("%s is loading to cache", id);
             async.parallel([
                 function (cb) {
-                    Teamlab.getMailConversation(null, id, data,
-                    {
-                        success: function (params, messages) {
-                            cb(null, messages);
-                        },
-                        error: function (err) {
-                            cb(err);
-                        },
-                        async: true
-                    });
+
+                    if (commonSettingsPage.isConversationsEnabled()) {
+                        Teamlab.getMailConversation(null,
+                            id,
+                            data,
+                            {
+                                success: function(params, messages) {
+                                    cb(null, messages);
+                                },
+                                error: function(err) {
+                                    cb(err);
+                                },
+                                async: true
+                            });
+                    } else {
+                        Teamlab.getMailMessage(null,
+                            id,
+                            data,
+                            {
+                                success: function (params, messages) {
+                                    cb(null, messages);
+                                },
+                                error: function (err) {
+                                    cb(err);
+                                },
+                                async: true
+                            });
+                    }
                 },
                 function (cb) {
                     if (ASC.Mail.Constants.CRM_AVAILABLE) {
@@ -80,7 +98,7 @@ window.mailCache = (function($) {
                 if (err) {
                     callback(err);
                 } else {
-                    var content = $.extend(true, {}, { messages: data[0], hasLinked: data[1].isLinked });
+                    var content = $.extend(true, {}, { messages: commonSettingsPage.isConversationsEnabled() ? data[0] : [data[0]], hasLinked: data[1].isLinked });
                     set(id, content);
                     callback();
                 }

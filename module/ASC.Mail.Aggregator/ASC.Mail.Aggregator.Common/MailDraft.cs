@@ -64,7 +64,7 @@ namespace ASC.Mail.Aggregator.Common
                 if (calendar != null)
                 {
                     _calendarMethod = calendar.Method;
-                    _calendarEventUid = calendar.Events[0].UID;
+                    _calendarEventUid = calendar.Events[0].Uid;
                 }
             }
         }

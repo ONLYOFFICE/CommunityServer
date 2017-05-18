@@ -24,8 +24,12 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Common.Web;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security;
+using System.Text;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -35,13 +39,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security;
-using System.Text;
+using JWT;
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -50,35 +48,16 @@ namespace ASC.Web.Files.Services.DocumentService
 {
     public static class DocumentServiceHelper
     {
-        public static File GetParams(object fileId, int version, string shareLinkKey, bool itsNew, bool editPossible, bool tryEdit, out DocumentServiceParams docServiceParams)
+        public static File GetParams(object fileId, int version, string doc, bool editPossible, bool tryEdit, bool tryCoauth, out Configuration configuration)
         {
             File file;
 
             var lastVersion = true;
-            var rightToEdit = true;
-            var rightToReview = true;
-            var checkLink = false;
+            FileShare linkRight;
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                var fileShare = FileShareLink.Check(shareLinkKey, fileDao, out file);
-
-                switch (fileShare)
-                {
-                    case FileShare.ReadWrite:
-                        checkLink = true;
-                        break;
-                    case FileShare.Review:
-                        rightToEdit = false;
-                        checkLink = true;
-                        break;
-                    case FileShare.Read:
-                        editPossible = false;
-                        rightToEdit = false;
-                        rightToReview = false;
-                        checkLink = true;
-                        break;
-                }
+                linkRight = FileShareLink.Check(doc, fileDao, out file);
 
                 if (file == null)
                 {
@@ -95,57 +74,62 @@ namespace ASC.Web.Files.Services.DocumentService
                     }
                 }
             }
-            return GetParams(file, lastVersion, checkLink, itsNew, editPossible, rightToEdit, rightToReview, tryEdit, out docServiceParams);
+            return GetParams(file, lastVersion, linkRight, true, true, editPossible, tryEdit, tryCoauth, out configuration);
         }
 
-        public static File GetParams(File file, bool lastVersion, bool checkLink, bool itsNew, bool editPossible, bool rightToEdit, bool rightToReview, bool tryEdit, out DocumentServiceParams docServiceParams)
+        public static File GetParams(File file, bool lastVersion, FileShare linkRight, bool rightToRename, bool rightToEdit, bool editPossible, bool tryEdit, bool tryCoauth, out Configuration configuration)
         {
-            if (!checkLink && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
+            if (file == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
+            if (!string.IsNullOrEmpty(file.Error)) throw new Exception(file.Error);
+
+            var rightToReview = rightToEdit;
+            var reviewPossible = editPossible;
+
+            if (linkRight == FileShare.Restrict && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
                 rightToEdit = false;
                 rightToReview = false;
             }
 
-            if (file == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
-
-            if (!string.IsNullOrEmpty(file.Error)) throw new Exception(file.Error);
-
             var fileSecurity = Global.GetFilesSecurity();
-            var reviewPossible = editPossible;
-            if (!checkLink)
+            rightToEdit = rightToEdit
+                          && (linkRight == FileShare.ReadWrite
+                              || fileSecurity.CanEdit(file));
+            if (editPossible && !rightToEdit)
             {
-                rightToEdit = rightToEdit && fileSecurity.CanEdit(file);
-                if (editPossible && !rightToEdit)
-                {
-                    editPossible = false;
-                }
-
-                rightToReview = rightToReview && fileSecurity.CanReview(file);
-                if (reviewPossible && !rightToReview)
-                {
-                    reviewPossible = false;
-                }
-
-                if (!(editPossible || reviewPossible) && !fileSecurity.CanRead(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+                editPossible = false;
             }
+
+            rightToRename = rightToRename && rightToEdit && fileSecurity.CanEdit(file);
+
+            rightToReview = rightToReview
+                            && (linkRight == FileShare.Review || linkRight == FileShare.ReadWrite
+                                || fileSecurity.CanReview(file));
+            if (reviewPossible && !rightToReview)
+            {
+                reviewPossible = false;
+            }
+
+            if (linkRight == FileShare.Restrict
+                && !(editPossible || reviewPossible)
+                && !fileSecurity.CanRead(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+
 
             if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
             if (file.ContentLength > SetupInfo.AvailableFileSize) throw new Exception(string.Format(FilesCommonResource.ErrorMassage_FileSizeEdit, FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize)));
 
+            string strError = null;
             if ((editPossible || reviewPossible)
                 && EntryManager.FileLockedForMe(file.ID))
             {
-                rightToEdit = editPossible = reviewPossible = false;
+                strError = FilesCommonResource.ErrorMassage_LockedFile;
+                rightToRename = false;
+                rightToEdit = false;
+                editPossible = false;
+                reviewPossible = false;
             }
 
-            if ((editPossible || reviewPossible)
-                && FileTracker.IsEditing(file.ID)
-                && (!FileUtility.CanCoAuhtoring(file.Title) || FileTracker.IsEditingAlone(file.ID)))
-            {
-                rightToEdit = editPossible = reviewPossible = false;
-            }
-            
             if (editPossible
                 && !FileUtility.CanWebEdit(file.Title))
             {
@@ -154,29 +138,74 @@ namespace ASC.Web.Files.Services.DocumentService
 
             if (!editPossible && !FileUtility.CanWebView(file.Title)) throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
 
-            rightToReview = rightToReview && reviewPossible && FileUtility.CanWebReview(file.Title);
-
-            var versionForKey = file.Version;
-
-            //CreateNewDoc
-            if ((itsNew || FileTracker.FixedVersion(file.ID)) && file.Version == 1 && file.CreateOn == file.ModifiedOn)
+            if (reviewPossible &&
+                !FileUtility.CanWebReview(file.Title))
             {
-                versionForKey = 0;
+                rightToReview = reviewPossible = false;
             }
 
-            var docKey = GetDocKey(file.ID, versionForKey, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
+            var rightChangeHistory = rightToEdit;
+
+            if (FileTracker.IsEditing(file.ID))
+            {
+                rightChangeHistory = false;
+
+                bool coauth;
+                if ((editPossible || reviewPossible)
+                    && tryCoauth
+                    && (!(coauth = FileUtility.CanCoAuhtoring(file.Title)) || FileTracker.IsEditingAlone(file.ID)))
+                {
+                    if (tryEdit)
+                    {
+                        var editingBy = FileTracker.GetEditingBy(file.ID).FirstOrDefault();
+                        strError = string.Format(!coauth
+                                                     ? FilesCommonResource.ErrorMassage_EditingCoauth
+                                                     : FilesCommonResource.ErrorMassage_EditingMobile,
+                                                 Global.GetUserName(editingBy));
+                    }
+                    rightToEdit = editPossible = reviewPossible = false;
+                }
+            }
+
+            var docKey = GetDocKey(file);
             var modeWrite = (editPossible || reviewPossible) && tryEdit;
 
-            docServiceParams = new DocumentServiceParams
+            configuration = new Configuration(file)
                 {
-                    File = file,
-                    Key = docKey,
-                    CanEdit = rightToEdit && lastVersion,
-                    ModeWrite = modeWrite,
-                    CanReview = rightToReview && lastVersion,
+                    Document =
+                        {
+                            Key = docKey,
+                            Permissions =
+                                {
+                                    Edit = rightToEdit && lastVersion,
+                                    Rename = rightToRename && lastVersion && !file.ProviderEntry,
+                                    Review = rightToReview && lastVersion,
+                                    ChangeHistory = rightChangeHistory,
+                                }
+                        },
+                    EditorConfig =
+                        {
+                            ModeWrite = modeWrite,
+                        },
+                    ErrorMessage = strError,
                 };
 
             return file;
+        }
+
+
+        public static string GetSignature(object payload)
+        {
+            if (string.IsNullOrEmpty(FileUtility.SignatureSecret)) return null;
+
+            JsonWebToken.JsonSerializer = new Web.Core.Files.DocumentService.JwtSerializer();
+            return JsonWebToken.Encode(payload, FileUtility.SignatureSecret, JwtHashAlgorithm.HS256);
+        }
+
+
+        public static string GetDocKey(File file)
+        {
+            return GetDocKey(file.ID, file.Version, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
         }
 
         public static string GetDocKey(object fileId, int fileVersion, DateTime modified)
@@ -194,6 +223,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             return DocumentServiceConnector.GenerateRevisionId(Hasher.Base64Hash(keyDoc, HashAlg.SHA256));
         }
+
 
         public static void CheckUsersForDrop(File file, Guid userId)
         {
@@ -215,77 +245,22 @@ namespace ASC.Web.Files.Services.DocumentService
                 usersDrop.Add(userId);
             }
 
-            var versionForKey = file.Version;
-
-            //NewDoc
-            if (FileTracker.FixedVersion(file.ID) && file.Version == 1 && file.CreateOn == file.ModifiedOn)
-            {
-                versionForKey = 0;
-            }
-
-            var docKey = GetDocKey(file.ID, versionForKey, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
-            DocumentServiceTracker.Drop(docKey, usersDrop, file.ID);
+            if (!usersDrop.Any()) return;
+            var docKey = GetDocKey(file);
+            DropUser(docKey, usersDrop, file.ID);
         }
 
-
-        private static readonly ICache CacheUri = AscCache.Memory;
-
-        public static string GetExternalUri(File file)
+        public static bool DropUser(string docKeyForTrack, List<Guid> users, object fileId = null)
         {
-            try
-            {
-                using (var fileDao = Global.DaoFactory.GetFileDao())
-                using (var fileStream = fileDao.GetFileStream(file))
-                {
-                    var docKey = GetDocKey(file.ID, file.Version, file.ModifiedOn);
-
-                    var uri = CacheUri.Get<string>(docKey);
-                    if (string.IsNullOrEmpty(uri))
-                    {
-                        uri = DocumentServiceConnector.GetExternalUri(fileStream, MimeMapping.GetMimeMapping(file.Title), docKey);
-                    }
-                    CacheUri.Insert(docKey, uri, DateTime.UtcNow.Add(TimeSpan.FromSeconds(2)));
-                    return uri;
-                }
-            }
-            catch (Exception exception)
-            {
-                Global.Logger.Error("Get external uri: ", exception);
-            }
-            return null;
+            return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Drop, docKeyForTrack, fileId, null, users.Select(u => u.ToString()).ToArray());
         }
 
-        public static bool HaveExternalIP()
+        public static bool RenameFile(File file)
         {
-            if (!CoreContext.Configuration.Standalone)
-                return true;
-
-            var checkExternalIp = FilesSettings.CheckHaveExternalIP;
-            if (checkExternalIp.Value.AddDays(5) >= DateTime.UtcNow)
-            {
-                return checkExternalIp.Key;
-            }
-
-            string convertUri;
-            try
-            {
-                const string toExtension = ".docx";
-                var fileExtension = FileUtility.GetInternalExtension(toExtension);
-                var storeTemplate = Global.GetStoreTemplate();
-                var fileUri = storeTemplate.GetUri("", FileConstant.NewDocPath + "default/new" + fileExtension).ToString();
-
-                fileUri = DocumentServiceConnector.ReplaceCommunityAdress(CommonLinkUtility.GetFullAbsolutePath(fileUri));
-                DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, Guid.NewGuid().ToString(), false, out convertUri);
-            }
-            catch
-            {
-                convertUri = string.Empty;
-            }
-
-            var result = !string.IsNullOrEmpty(convertUri);
-            Global.Logger.Info("HaveExternalIP result " + result);
-            FilesSettings.CheckHaveExternalIP = new KeyValuePair<bool, DateTime>(result, DateTime.UtcNow);
-            return result;
+            if (!FileTracker.IsEditing(file.ID)) return true;
+            var docKeyForTrack = GetDocKey(file);
+            var meta = new Web.Core.Files.DocumentService.MetaData { Title = file.Title };
+            return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Meta, docKeyForTrack, file.ID, meta: meta);
         }
     }
 }

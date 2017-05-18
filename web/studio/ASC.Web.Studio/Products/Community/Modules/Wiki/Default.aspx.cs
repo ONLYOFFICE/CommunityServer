@@ -30,26 +30,24 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.UserControls.Common.Comments;
-using ASC.Web.Studio.Utility.HtmlUtility;
 using AjaxPro;
+using ASC.Common.Security.Authorizing;
 using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.Product;
 using ASC.Web.Community.Wiki.Common;
+using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
 using ASC.Web.UserControls.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.UC;
-using ASC.Common.Security.Authorizing;
-using Newtonsoft.Json;
 
 namespace ASC.Web.Community.Wiki
 {
@@ -269,6 +267,7 @@ namespace ASC.Web.Community.Wiki
                 BindPagesByCategory();
             }
 
+            
 
             var script = @"
                     window.scrollPreview = function() {
@@ -299,7 +298,8 @@ namespace ASC.Web.Community.Wiki
                     });
                     if (jq('#WikiActionsMenuPanel .dropdown-content a').length == 0) {
                         jq('span.menu-small').hide();
-                    }";
+                    }
+                    jq('input[id$=txtPageName]').focus();";
 
             Page.RegisterInlineScript(script);
 
@@ -371,27 +371,14 @@ namespace ASC.Web.Community.Wiki
 
             ActionPanel.Text = sb.ToString();
 
-            sb = new StringBuilder();
+            var script = String.Format("ASC.Community.Wiki.BindSubscribeEvent({0}, \"{1}\", \"{2}\", \"{3}\")",
+                subscribed.ToString().ToLower(CultureInfo.CurrentCulture),
+                HttpUtility.HtmlEncode((Page as WikiBasePage).WikiPage).EscapeString(),
+                WikiResource.NotifyOnEditPage,
+                WikiResource.UnNotifyOnEditPage
+                );
 
-            sb.AppendLine("var notyfy = " + subscribed.ToString().ToLower(CultureInfo.CurrentCulture) + ";");
-            sb.AppendLine("var pageId = \"" + HttpUtility.HtmlEncode((Page as WikiBasePage).WikiPage).EscapeString() + "\";");
-            sb.AppendLine("jq(\"#statusSubscribe\").on(\"click\", function(){");
-            sb.AppendLine("AjaxPro.onLoading = function(b) {");
-            sb.AppendLine("if(b) LoadingBanner.displayLoading();");
-            sb.AppendLine("else LoadingBanner.hideLoading();");
-            sb.AppendLine("}");
-            sb.AppendLine("MainWikiAjaxMaster.SubscribeOnEditPage(notyfy, pageId, callbackNotifyWikiPage);");
-            sb.AppendLine("});");
-            sb.AppendLine("function callbackNotifyWikiPage(result){notyfy = result.value;");
-            sb.AppendLine("if(!notyfy){");
-            sb.AppendLine("jq(\"#statusSubscribe\").removeClass(\"subscribed\").addClass(\"unsubscribed\");");
-            sb.AppendFormat("jq(\"#statusSubscribe\").attr(\"title\", \"{0}\");", WikiResource.NotifyOnEditPage);
-            sb.AppendLine("} else {");
-            sb.AppendLine("jq(\"#statusSubscribe\").removeClass(\"unsubscribed\").addClass(\"subscribed\");");
-            sb.AppendFormat("jq(\"#statusSubscribe\").attr(\"title\", \"{0}\");", WikiResource.UnNotifyOnEditPage);
-            sb.AppendLine("}};");
-
-            Page.RegisterInlineScript(sb.ToString());
+            Page.RegisterInlineScript(script);
         }
 
         protected void InitCategoryActionPanel()
@@ -991,7 +978,7 @@ namespace ASC.Web.Community.Wiki
                     TimeStampStr = comment.Date.Ago(),
                     IsRead = true,
                     Inactive = comment.Inactive,
-                    CommentBody = comment.Body,
+                    CommentBody = HtmlUtility.GetFull(comment.Body),
                     UserFullName = DisplayUserSettings.GetFullUserName(comment.UserId),
                     UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserId),
                     UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserId),

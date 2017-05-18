@@ -23,26 +23,149 @@
  *
 */
 
+if (typeof ASC === "undefined") {
+    ASC = {};
+}
 
-window.VoipCallsView = new function() {
-    var $ = jq;
+if (typeof ASC.CRM === "undefined") {
+    ASC.CRM = function () { return {} };
+}
 
-    var filterHashStorageKey = 'voip.calls.filterhash';
-    var pageCountStorageKey = 'voip.calls.pagecount';
-    var currentPageStorageKey = 'voip.calls.currentpage';
+if (typeof ASC.CRM.Voip === "undefined") {
+    ASC.CRM.Voip = function () { return {} };
+}
 
-    var callTmpl;
-    var calls = [];
-    
-    var pagingCtrl;
-    var pagingVisibleInterval = 3;
+ASC.CRM.Voip.CallsView = (function ($) {
 
-    var pageCount;
-    var currentPage;
-    var filterItemsCount;
+    var myCallsContactFilter = (function () {
+        var showList = "showList",
+            filterId = 'calls-filter',
+            idFilterByContact = 'contactID',
 
-    var filterInit;
-    var currentFilter;
+            type = 'custom-contact',
+            hiddenContainerId = 'hiddenBlockForCallsContactSelector',
+            headerContainerId = 'callsContactSelectorForFilter';
+
+        function init() {
+            jq("#" + headerContainerId)
+                .contactadvancedSelector(
+                {
+                    showme: true,
+                    addtext: ASC.CRM.Resources.CRMContactResource.AddNewCompany,
+                    noresults: ASC.CRM.Resources.CRMCommonResource.NoMatches,
+                    noitems: ASC.CRM.Resources.CRMCommonResource.NoMatches,
+                    inPopup: true,
+                    onechosen: true,
+                    isTempLoad: true
+                });
+
+            jq(window).bind("afterResetSelectedContact", function (event, obj, objName) {
+                if (objName === "callsContactSelectorForFilter" && filterId) {
+                    jq('#' + filterId).advansedFilter('resize');
+                }
+            });
+        }
+
+        function onSelectContact(event, item) {
+            jq("#" + headerContainerId).find(".inner-text .value").text(item.title);
+
+            var $filter = jq('#' + filterId);
+            $filter.advansedFilter(idFilterByContact, { id: item.id, displayName: item.title, value: item.id });
+            $filter.advansedFilter('resize');
+        }
+
+        function createFilterByContact(filter) {
+            var o = document.createElement('div');
+            o.innerHTML = [
+              '<div class="default-value">',
+                '<span class="title">',
+                  filter.title,
+                '</span>',
+                '<span class="selector-wrapper">',
+                  '<span class="contact-selector"></span>',
+                '</span>',
+                '<span class="btn-delete">&times;</span>',
+              '</div>'
+            ].join('');
+            return o;
+        }
+
+        function customizeFilterByContact($container, $filteritem, filter) {
+            var $headerContainer = jq('#' + headerContainerId);
+            if ($headerContainer.parent().is("#" + hiddenContainerId)) {
+                $headerContainer.off(showList).on(showList, onSelectContact);
+                $headerContainer.next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+            }
+        }
+
+        function destroyFilterByContact($container, $filteritem, filter) {
+            var $headerContainer = jq('#' + headerContainerId);
+            if (!$headerContainer.parent().is("#" + hiddenContainerId)) {
+                $headerContainer.off(showList);
+                $headerContainer.find(".inner-text .value").text(ASC.CRM.Resources.CRMCommonResource.Select);
+                $headerContainer.next().andSelf().appendTo(jq('#' + hiddenContainerId));
+                jq('#' + headerContainerId).contactadvancedSelector("reset");
+            }
+        }
+
+        function processFilter($container, $filteritem, filtervalue, params) {
+            if (params && params.id && isFinite(params.id)) {
+                var $headerContainer = jq('#' + headerContainerId);
+                $headerContainer.find(".inner-text .value").text(params.displayName);
+                $headerContainer.contactadvancedSelector("select", [params.id]);
+            }
+        }
+
+        return{
+            type: type,
+            id: idFilterByContact,
+            apiparamname: jq.toJSON(["entityid", "entityType"]),
+            title: ASC.CRM.Resources.CRMContactResource.Contact,
+            group: ASC.CRM.Resources.CRMCommonResource.Other,
+            hashmask: '',
+            create: createFilterByContact,
+            customize: customizeFilterByContact,
+            destroy: destroyFilterByContact,
+            process: processFilter,
+            init: init
+        };
+
+    })();
+
+    var callTmpl,
+        calls = [],
+        pagingCtrl,
+        pagingVisibleInterval = 3,
+        pageCount,
+        currentPage,
+        filterItemsCount,
+        filterInit,
+        currentFilter,
+        $view,
+        $playRecordNotSupportBox,
+        $callList,
+        $paging,
+        $pagingPageCount,
+        $pagingItemsCount,
+        $emptyListBox,
+        $emptyFilterBox,
+        $callRecordPlayPanel,
+        $callRecordPlayPanelLoader,
+        $callRecordPlayPanelProgrees,
+        $callRecordPlayPanelProgreesPersentage,
+        $callRecordPlayPanelTimer,
+        $callRecordPlayer,
+        callRecordPlayer;
+
+    var loadingBanner = LoadingBanner,
+        resources = ASC.CRM.Resources,
+        jsresource = resources.CRMJSResource,
+        localStorageManagerLocal = localStorageManager,
+        self;
+
+    var pageCountStorageKey = "pageCountStorageKey",
+        currentPageStorageKey = "currentPageStorageKey",
+        filterHashStorageKey = "filterHashStorageKey";
 
     function init() {
         var hashCallId = getHashParam(window.location.hash, 'id');
@@ -50,6 +173,8 @@ window.VoipCallsView = new function() {
             renderCallView(hashCallId);
             return;
         }
+
+        self = this;
 
         cacheElements();
         bindEvents();
@@ -60,16 +185,18 @@ window.VoipCallsView = new function() {
         if (!supportsAudioVAW()) {
             $playRecordNotSupportBox.show();
         }
+
+        myCallsContactFilter.init();
     }
 
     function renderCallView(callId) {
-        this.$view = $('#voip-calls-view');
+        $view = $('#voip-calls-view');
 
         showLoader();
         Teamlab.getVoipCall(null, callId, {
             success: function(params, call) {
                 var callJS = getJSCall(call);
-                var $callView = $('#call-view-tmpl').tmpl(callJS);
+                var $callView = jq.tmpl('voip-call-view-tmpl', callJS);
                 $view.append($callView);
 
                 hideLoader();
@@ -82,61 +209,52 @@ window.VoipCallsView = new function() {
     }
 
     function cacheElements() {
-        this.$view = $('#voip-calls-view');
-        this.$playRecordNotSupportBox = $view.find('#play-record-not-support-box');
+        $view = $('#voip-calls-view');
+        $playRecordNotSupportBox = $view.find('#play-record-not-support-box');
         
-        callTmpl = $view.find('#call-tmpl');
+        $callList = $view.find('#calls-list');
 
-        this.$filter = $view.find('#calls-filter');
-        this.$callList = $view.find('#calls-list');
+        $paging = $view.find('#calls-paging');
+        $pagingPageCount = $paging.find('#calls-paging-page-count');
+        $pagingItemsCount = $paging.find('#calls-paging-items-count');
 
-        this.$paging = $view.find('#calls-paging');
-        this.$pagingPageCount = $paging.find('#calls-paging-page-count');
-        this.$pagingItemsCount = $paging.find('#calls-paging-items-count');
+        $emptyListBox = $view.find('#voip-calls-empty-list-box');
+        $emptyFilterBox = $view.find('#voip-calls-empty-filter-box');
 
-        this.$emptyListBox = $view.find('#voip-calls-empty-list-box');
-        this.$emptyFilterBox = $view.find('#voip-calls-empty-filter-box');
+        $callRecordPlayPanel = $view.find('#call-record-play-panel');
+        $callRecordPlayPanelLoader = $callRecordPlayPanel.find('#call-record-play-panel-loader');
+        $callRecordPlayPanelProgrees = $callRecordPlayPanel.find('#call-record-play-panel-progress');
+        $callRecordPlayPanelProgreesPersentage = $view.find('#call-record-play-panel-progress-percentage');
+        $callRecordPlayPanelTimer = $callRecordPlayPanel.find('#call-record-play-panel-timer');
 
-        this.$callRecordPlayPanel = $view.find('#call-record-play-panel');
-        this.$callRecordPlayPanelLoader = $callRecordPlayPanel.find('#call-record-play-panel-loader');
-        this.$callRecordPlayPanelProgrees = $callRecordPlayPanel.find('#call-record-play-panel-progress');
-        this.$callRecordPlayPanelProgreesPersentage = $view.find('#call-record-play-panel-progress-percentage');
-        this.$callRecordPlayPanelTimer = $callRecordPlayPanel.find('#call-record-play-panel-timer');
-
-        this.$callRecordPlayer = $callRecordPlayPanel.find('#call-record-player');
-        this.callRecordPlayer = $callRecordPlayer.get(0);
+        $callRecordPlayer = $callRecordPlayPanel.find('#call-record-player');
+        callRecordPlayer = $callRecordPlayer.get(0);
     }
 
     function bindEvents() {
-        ASC.Controls.AnchorController.bind(/^(.+)*$/, function() {
-            var filterHash = getFilterObj($filter.advansedFilter()).hash;
-            if (window.location.hash != filterHash) {
-                initFilterByHash(window.location.hash);
-            }
-        });
-
         $pagingPageCount.on('change', function(e) {
             currentPage = 0;
             pageCount = $(e.target).val();
             saveStoragePaging();
 
-            pagingCtrl.EntryCountOnPage = pageCount;
+            self.pagingCtrl.EntryCountOnPage = pageCount;
 
             getCalls();
         });
 
-        $emptyFilterBox.on('click', '.clearFilterButton', clearFilter);
+        var clickEventName = 'click';
+        $emptyFilterBox.on(clickEventName, '.clearFilterButton', clearFilter);
 
         if (supportsAudioVAW()) {
-            $callList.on('click', '.call-type .call-type-icon.play', startPlayCallRecord);
+            $callList.on(clickEventName, '.call-type .call-type-icon.play', startPlayCallRecord);
 
-            $callRecordPlayPanel.on('click', '.pause', pauseCallRecord);
-            $callRecordPlayPanel.on('click', '.play', resumeCallRecord);
-            $callRecordPlayPanel.on('click', '.stop', stopCallRecord);
+            $callRecordPlayPanel.on(clickEventName, '.pause', pauseCallRecord);
+            $callRecordPlayPanel.on(clickEventName, '.play', resumeCallRecord);
+            $callRecordPlayPanel.on(clickEventName, '.stop', stopCallRecord);
 
-            $callRecordPlayPanelProgrees.on('click', changeCallRecordTime);
+            $callRecordPlayPanelProgrees.on(clickEventName, changeCallRecordTime);
 
-            $callRecordPlayPanel.on('click', function() {
+            $callRecordPlayPanel.on(clickEventName, function () {
                 return false;
             });
 
@@ -145,7 +263,7 @@ window.VoipCallsView = new function() {
             callRecordPlayer.addEventListener('ended', completeCallRecord);
         }
 
-        $callList.on('click', '.toggle-redirections-btn', toogleCallRedirections);
+        $callList.on(clickEventName, '.toggle-redirections-btn', toogleCallRedirections);
     }
 
     function initPaging() {
@@ -160,13 +278,13 @@ window.VoipCallsView = new function() {
 
         $pagingPageCount.val(pageCount).tlCombobox();
 
-        pagingCtrl = new ASC.Controls.PageNavigator.init(
-            'VoipCallsView.pagingCtrl', '#calls-paging-box',
+        self.pagingCtrl = new ASC.Controls.PageNavigator.init(
+            'ASC.CRM.Voip.CallsView.pagingCtrl', '#calls-paging-box',
             pageCount, pagingVisibleInterval, currentPage + 1,
-            ASC.CRM.Resources.CRMJSResource.Previous, ASC.CRM.Resources.CRMJSResource.Next
+            jsresource.Previous, jsresource.Next
         );
 
-        pagingCtrl.changePageCallback = function(page) {
+        self.pagingCtrl.changePageCallback = function (page) {
             currentPage = page - 1;
             saveStoragePaging();
 
@@ -175,12 +293,12 @@ window.VoipCallsView = new function() {
     }
 
     function getStoragePaging() {
-        if (!localStorageManager.isAvailable) {
+        if (!localStorageManagerLocal.isAvailable) {
             return null;
         }
 
-        var pc = parseInt(localStorageManager.getItem("pageCountStorageKey"));
-        var cp = parseInt(localStorageManager.getItem("currentPageStorageKey"));
+        var pc = parseInt(localStorageManagerLocal.getItem(pageCountStorageKey));
+        var cp = parseInt(localStorageManagerLocal.getItem(currentPageStorageKey));
 
         if (isNaN(pc) || isNaN(cp)) {
             return null;
@@ -188,13 +306,13 @@ window.VoipCallsView = new function() {
 
         return {
             pageCount: pc,
-            currentPage: cp,
+            currentPage: cp
         };
     }
 
     function saveStoragePaging() {
-        localStorageManager.setItem("pageCountStorageKey", pageCount);
-        localStorageManager.setItem("currentPageStorageKey", currentPage);
+        localStorageManagerLocal.setItem(pageCountStorageKey, pageCount);
+        localStorageManagerLocal.setItem(currentPageStorageKey, currentPage);
     }
 
     function initFilter() {
@@ -215,19 +333,16 @@ window.VoipCallsView = new function() {
     }
 
     function initFilterByHash(hash) {
-        var sortByParam = getHashParam(hash, 'sortBy');
-        var sortOrderParam = getHashParam(hash, 'sortOrder');
-
-        var typeParam = getHashParam(hash, 'callType');
-        var agentParam = getHashParam(hash, 'agent');
-
-        var fromParam = getHashParam(hash, 'from');
-        var toParam = getHashParam(hash, 'to');
-
-        var textParam = getHashParam(hash, 'text');
+        var sortByParam = getHashParam(hash, 'sortBy'),
+            sortOrderParam = getHashParam(hash, 'sortOrder'),
+            typeParam = getHashParam(hash, 'callType'),
+            agentParam = getHashParam(hash, 'agent'),
+            fromParam = getHashParam(hash, 'from'),
+            toParam = getHashParam(hash, 'to'),
+            textParam = decodeURIComponent(getHashParam(hash, 'text'));
 
         var days = getFilterDays();
-        $filter.advansedFilter(
+        $view.find('#calls-filter').advansedFilter(
             {
                 store: false,
                 colcount: 2,
@@ -238,15 +353,15 @@ window.VoipCallsView = new function() {
                     {
                         type: 'combobox',
                         id: 'answered',
-                        title: ASC.CRM.Resources.CRMJSResource.VoipCallAnsweredType,
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallType,
+                        title: jsresource.VoipCallAnsweredType,
+                        group: jsresource.VoipCallType,
                         groupby: 'type',
                         hash: 'callType',
                         options:
                         [
-                            { value: 'answered', title: ASC.CRM.Resources.CRMJSResource.VoipCallAnsweredType, def: true },
-                            { value: 'missed', title: ASC.CRM.Resources.CRMJSResource.VoipCallMissedType },
-                            { value: 'outgoing', title: ASC.CRM.Resources.CRMJSResource.VoipCallOutgoingType }
+                            { value: 'answered', title: jsresource.VoipCallAnsweredType, def: true },
+                            { value: 'missed', title: jsresource.VoipCallMissedType },
+                            { value: 'outgoing', title: jsresource.VoipCallOutgoingType }
                         ],
                         isset: !!typeParam && typeParam == 'answered',
                         params: !!typeParam && typeParam == 'answered' ? { value: 'answered' } : null
@@ -254,15 +369,15 @@ window.VoipCallsView = new function() {
                     {
                         type: 'combobox',
                         id: 'missed',
-                        title: ASC.CRM.Resources.CRMJSResource.VoipCallMissedType,
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallType,
+                        title: jsresource.VoipCallMissedType,
+                        group: jsresource.VoipCallType,
                         groupby: 'type',
                         hash: 'callType',
                         options:
                         [
-                            { value: 'answered', title: ASC.CRM.Resources.CRMJSResource.VoipCallAnsweredType },
-                            { value: 'missed', title: ASC.CRM.Resources.CRMJSResource.VoipCallMissedType, def: true },
-                            { value: 'outgoing', title: ASC.CRM.Resources.CRMJSResource.VoipCallOutgoingType }
+                            { value: 'answered', title: jsresource.VoipCallAnsweredType },
+                            { value: 'missed', title: jsresource.VoipCallMissedType, def: true },
+                            { value: 'outgoing', title: jsresource.VoipCallOutgoingType }
                         ],
                         isset: !!typeParam && typeParam == 'missed',
                         params: !!typeParam && typeParam == 'missed' ? { value: 'missed' } : null
@@ -270,15 +385,15 @@ window.VoipCallsView = new function() {
                     {
                         type: 'combobox',
                         id: 'outgoing',
-                        title: ASC.CRM.Resources.CRMJSResource.VoipCallOutgoingType,
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallType,
+                        title: jsresource.VoipCallOutgoingType,
+                        group: jsresource.VoipCallType,
                         groupby: 'type',
                         hash: 'callType',
                         options:
                         [
-                            { value: 'answered', title: ASC.CRM.Resources.CRMJSResource.VoipCallAnsweredType },
-                            { value: 'missed', title: ASC.CRM.Resources.CRMJSResource.VoipCallMissedType },
-                            { value: 'outgoing', title: ASC.CRM.Resources.CRMJSResource.VoipCallOutgoingType, def: true }
+                            { value: 'answered', title: jsresource.VoipCallAnsweredType },
+                            { value: 'missed', title: jsresource.VoipCallMissedType },
+                            { value: 'outgoing', title: jsresource.VoipCallOutgoingType, def: true }
                         ],
                         isset: !!typeParam && typeParam == 'outgoing',
                         params: !!typeParam && typeParam == 'outgoing' ? { value: 'outgoing' } : null
@@ -287,36 +402,36 @@ window.VoipCallsView = new function() {
                     {
                         type: 'daterange',
                         id: 'today',
-                        title: ASC.CRM.Resources.CRMJSResource.Today,
+                        title: jsresource.Today,
                         filtertitle: ' ',
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallDate,
+                        group: jsresource.VoipCallDate,
                         groupby: 'date',
                         bydefault: { from: days.today, to: days.today }
                     },
                     {
                         type: 'daterange',
                         id: 'currentweek',
-                        title: ASC.CRM.Resources.CRMJSResource.CurrentWeek,
+                        title: jsresource.CurrentWeek,
                         filtertitle: ' ',
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallDate,
+                        group: jsresource.VoipCallDate,
                         groupby: 'date',
                         bydefault: { from: days.startWeek, to: days.endWeek }
                     },
                     {
                         type: 'daterange',
                         id: 'currentmonth',
-                        title: ASC.CRM.Resources.CRMJSResource.CurrentMonth,
+                        title: jsresource.CurrentMonth,
                         filtertitle: ' ',
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallDate,
+                        group: jsresource.VoipCallDate,
                         groupby: 'date',
                         bydefault: { from: days.startMonth, to: days.endMonth }
                     },
                     {
                         type: 'daterange',
                         id: 'date',
-                        title: ASC.CRM.Resources.CRMJSResource.CustomPeriod,
+                        title: jsresource.CustomPeriod,
                         filtertitle: ' ',
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallDate,
+                        group: jsresource.VoipCallDate,
                         groupby: 'date',
                         isset: !!fromParam && !!toParam,
                         params: !!fromParam && !!toParam ? { from: fromParam, to: toParam } : null
@@ -325,24 +440,25 @@ window.VoipCallsView = new function() {
                     {
                         type: 'person',
                         id: 'agent',
-                        title: ASC.CRM.Resources.CRMJSResource.VoipCallAgent,
-                        group: ASC.CRM.Resources.CRMJSResource.VoipCallCaller,
+                        title: jsresource.VoipCallAgent,
+                        group: jsresource.VoipCallCaller,
                         isset: !!agentParam,
                         params: !!agentParam ? { id: agentParam } : null
                     },
+                    myCallsContactFilter,
                     // Text
                     {
                         type: 'text',
                         id: 'text',
                         isset: !!textParam,
                         reset: !textParam,
-                        params: !!textParam ? { value: textParam } : null
+                        params: !!textParam ? { value: textParam } : ""
                     }
                 ],
                 sorters: [
-                    { id: 'date', title: ASC.CRM.Resources.CRMJSResource.VoipCallDate, selected: sortByParam == 'date', sortOrder: sortByParam == 'date' ? sortOrderParam : 'descending', def: sortByParam == 'date' || !sortByParam },
-                    { id: 'duration', title: ASC.CRM.Resources.CRMJSResource.VoipCallDuration, selected: sortByParam == 'duration', sortOrder: sortByParam == 'duration' ? sortOrderParam : 'descending', def: sortByParam == 'duration' },
-                    { id: 'cost', title: ASC.CRM.Resources.CRMJSResource.VoipCallCost, selected: sortByParam == 'cost', sortOrder: sortByParam == 'cost' ? sortOrderParam : 'descending', def: sortByParam == 'cost' }
+                    { id: 'date', title: jsresource.VoipCallDate, selected: sortByParam == 'date', sortOrder: sortByParam == 'date' ? sortOrderParam : 'descending', def: sortByParam == 'date' || !sortByParam },
+                    { id: 'duration', title: jsresource.VoipCallDuration, selected: sortByParam == 'duration', sortOrder: sortByParam == 'duration' ? sortOrderParam : 'descending', def: sortByParam == 'duration' },
+                    { id: 'cost', title: jsresource.VoipCallCost, selected: sortByParam == 'cost', sortOrder: sortByParam == 'cost' ? sortOrderParam : 'descending', def: sortByParam == 'cost' }
                 ]
             })
             .bind('setfilter', filterChangedHandler)
@@ -378,20 +494,18 @@ window.VoipCallsView = new function() {
     }
 
     function getStorageFilterHash() {
-        return localStorageManager.getItem("filterHashStorageKey");
+        return localStorageManagerLocal.getItem(filterHashStorageKey);
     }
 
     function saveStorageFilterHash(filterHash) {
-        localStorageManager.setItem("filterHashStorageKey", '#' + filterHash);
+        localStorageManagerLocal.setItem(filterHashStorageKey, '#' + filterHash);
     }
 
     function clearFilter() {
-        $filter.advansedFilter(null);
+        $view.find('#calls-filter').advansedFilter(null);
     }
 
     function filterChangedHandler(e, $fltr) {
-        $filter = $fltr;
-
         if (!filterInit) {
             filterInit = true;
         } else {
@@ -426,8 +540,12 @@ window.VoipCallsView = new function() {
                 data.SortOrder = filter.params.sortOrder;
                 hash += 'sortBy=' + filter.params.id + '&sortOrder=' + filter.params.sortOrder;
             } else if (filter.id == 'text') {
-                data.FilterValue = filter.params.value;
-                hash += filter.id + '=' + filter.params.value;
+                if (filter.params.value !== "null") {
+                    data.FilterValue = filter.params.value;
+                    hash += filter.id + '=' + filter.params.value;
+                } else {
+                    hash = hash.substr(0, hash.length - 1);
+                }
             } else if (filter.type == 'daterange') {
                 data.from = filter.params.from ? ServiceFactory.serializeTimestamp(new Date(filter.params.from)) : null;
                 data.to = filter.params.to ? ServiceFactory.serializeTimestamp(new Date(filter.params.to)) : null;
@@ -474,7 +592,7 @@ window.VoipCallsView = new function() {
         Teamlab.getVoipCalls(null, filter, {
             success: function(params, data) {
                 filterItemsCount = params.__total;
-                calls = getJSCalls(data);
+                calls = data.map(getJSCall);
 
                 setPaging();
                 renderCalls();
@@ -492,14 +610,6 @@ window.VoipCallsView = new function() {
         });
     }
 
-    function getJSCalls(serverCalls) {
-        for (var i = 0; i < serverCalls.length; i++) {
-            serverCalls[i] = getJSCall(serverCalls[i]);
-        }
-
-        return serverCalls;
-    }
-
     function getJSCall(call) {
         var supportsPlaying = supportsAudioVAW();
         call.supportsPlaying = supportsPlaying;
@@ -508,59 +618,51 @@ window.VoipCallsView = new function() {
         call.typeString = getCallTypeString(call);
 
         call.contactTitle = call.contact.id != -1
-            ? call.contact.displayName ? call.contact.displayName : ASC.CRM.Resources.CRMJSResource.VoipCallContactRemoved
+            ? call.contact.displayName ? call.contact.displayName : jsresource.VoipCallContactRemoved
             : '';
         call.durationString = getTimeString(call.dialDuration);
-
-        for (var i = 0; i < call.history.length; i++) {
-            var h = call.history[i];
-            h.supportsPlaying = supportsPlaying;
-            h.agent = window.UserManager.getUser(h.answeredBy);
-            h.durationString = getTimeString(h.wrapUpTime);
-            h.waitingTimeString = getTimeString(h.waitTime);
+        if (call.recordUrl && call.recordUrl.length) {
+            call.recordUrl = "https://api.twilio.com" + call.recordUrl.replace("json", "wav");
         }
-
         return call;
     }
 
     function getCallTypeClass(call) {
-        if (call.status == 2) {
-            return 'answered';
-        } else if (call.status == 3) {
-            return 'missed';
-        } else if (call.status == 1) {
-            return 'outgoing';
-        } else {
-            return '';
+        switch (call.status) {
+            case 1:
+                return 'outgoing';
+            case 2:
+                return 'answered';
+            case 3:
+                return 'missed';
+            default:
+                return '';
         }
     }
 
     function getCallTypeString(call) {
-        if (call.status == 2) {
-            return ASC.CRM.Resources.CRMJSResource.VoipCallAnsweredType;
-        } else if (call.status == 3) {
-            return ASC.CRM.Resources.CRMJSResource.VoipCallMissedType;
-        } else if (call.status == 1) {
-            return ASC.CRM.Resources.CRMJSResource.VoipCallOutgoingType;
-        } else {
-            return '';
+        switch (call.status) {
+            case 1: return jsresource.VoipCallOutgoingType;
+            case 2: return jsresource.VoipCallAnsweredType;
+            case 3: return jsresource.VoipCallMissedType;
+            default: return '';
         }
     }
 
     function setPaging() {
         $pagingItemsCount.text(filterItemsCount);
-        pagingCtrl.drawPageNavigator(currentPage + 1, filterItemsCount);
+        self.pagingCtrl.drawPageNavigator(currentPage + 1, filterItemsCount);
     }
 
     function renderCalls() {
         stopCallRecord();
-
+        
         if (calls.length) {
-            var $calls = callTmpl.tmpl(calls);
+            var $calls = jq.tmpl("voip-view-call-tmpl", calls);
             $callList.find('tbody').html($calls);
 
-            $filter.show();
-            $filter.advansedFilter('resize');
+            $view.find('#calls-filter').show();
+            $view.find('#calls-filter').advansedFilter('resize');
             $callList.show();
             $paging.show();
 
@@ -572,11 +674,11 @@ window.VoipCallsView = new function() {
             $paging.hide();
 
             if (filterApplied()) {
-                $filter.show();
-                $filter.advansedFilter('resize');
+                $view.find('#calls-filter').show();
+                $view.find('#calls-filter').advansedFilter('resize');
                 $emptyFilterBox.show();
             } else {
-                $filter.hide();
+                $view.find('#calls-filter').hide();
                 $emptyListBox.show();
             }
         }
@@ -586,6 +688,7 @@ window.VoipCallsView = new function() {
         var currentHash = window.location.hash;
         if (getHashParam(currentHash, 'callType')
             || getHashParam(currentHash, 'agent')
+            || getHashParam(currentHash, 'contactID')
             || getHashParam(currentHash, 'text')
             || getHashParam(currentHash, 'from')
             || getHashParam(currentHash, 'to')) {
@@ -611,8 +714,11 @@ window.VoipCallsView = new function() {
 
         updateCallRecordTimer();
 
-        $callRecordPlayPanel.appendTo($el);
+        $callRecordPlayPanel.css("top", "");
+        $callRecordPlayPanel.css("left", "");
+        $callRecordPlayPanel.offset($el.offset());
         $callRecordPlayPanel.show();
+        playCallRecord();
     }
 
     function playCallRecord() {
@@ -707,16 +813,44 @@ window.VoipCallsView = new function() {
         return results == null ? '' : results[1];
     }
 
+    var supportsAudioWAV, supportsAudioMP3;
+
     function supportsAudioVAW() {
-        return !!Modernizr.audio.wav;
+        if (typeof supportsAudioWAV == "undefined") {
+            supportsAudioWAV = supportsAudioType("wav");
+        }
+        return supportsAudioWAV;
+    }
+
+    function checkSupportsAudioMP3() {
+        if (typeof supportsAudioMP3 == "undefined") {
+            supportsAudioMP3 = supportsAudioType("mp3");
+        }
+        return supportsAudioMP3;
+    }
+
+    function supportsAudioType(audioType) {
+        try {
+            var elem = document.createElement('audio');
+            if (!!elem.canPlayType) {
+                switch (audioType) {
+                    case "ogg": return elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, '');
+                    case "mp3": return elem.canPlayType('audio/mpeg;').replace(/^no$/, '');
+                    case "wav": return elem.canPlayType('audio/wav; codecs="1"').replace(/^no$/, '');
+                    case "m4a": return (elem.canPlayType('audio/x-m4a;') || elem.canPlayType('audio/aac;')).replace(/^no$/, '');
+                }
+            }
+        } catch (e) { }
+
+        return false;
     }
 
     function showLoader() {
-        LoadingBanner.displayLoading();
+        loadingBanner.displayLoading();
     }
 
     function hideLoader() {
-        LoadingBanner.hideLoading();
+        loadingBanner.hideLoading();
     }
 
     function showErrorMessage() {
@@ -729,8 +863,8 @@ window.VoipCallsView = new function() {
         init: init,
         pagingCtrl: pagingCtrl
     };
-};
+})(jq);
 
 jq(function() {
-    window.VoipCallsView.init();
+    ASC.CRM.Voip.CallsView.init();
 });

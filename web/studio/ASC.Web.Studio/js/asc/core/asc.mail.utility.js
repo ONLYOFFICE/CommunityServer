@@ -34,6 +34,7 @@ if (typeof ASC.Mail === "undefined") {
 }
 if (typeof ASC.Mail.Utility === "undefined") {
     ASC.Mail.Utility = (function () {
+        var resources = ASC.Resources.Master.Resource;
         var parseErrorTypes = {
                 None: 0,
                 EmptyRecipients: 1,
@@ -452,8 +453,8 @@ if (typeof ASC.Mail.Utility === "undefined") {
             switch (params.method) {
                 case "REQUEST":
                     info.action = params.isUpdate ?
-                        ASC.Resources.Master.Resource.MailIcsUpdateDescription :
-                        ASC.Resources.Master.Resource.MailIcsRequestDescription.format(
+                        resources.MailIcsUpdateDescription :
+                        resources.MailIcsRequestDescription.format(
                         (iCalInfo.organizerAddress.name || iCalInfo.organizerAddress.email) ||
                         (iCalInfo.currentAttendeeAddress.name || iCalInfo.currentAttendeeAddress.email));
                     break;
@@ -461,13 +462,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     var res;
                     switch (params.replyDecision) {
                         case "ACCEPTED":
-                            res = ASC.Resources.Master.Resource.MailIcsReplyYesDescription;
+                            res = resources.MailIcsReplyYesDescription;
                             break;
                         case "TENTATIVE":
-                            res = ASC.Resources.Master.Resource.MailIcsReplyMaybeDescription;
+                            res = resources.MailIcsReplyMaybeDescription;
                             break;
                         case "DECLINED":
-                            res = ASC.Resources.Master.Resource.MailIcsReplyNoDescription;
+                            res = resources.MailIcsReplyNoDescription;
                             break;
                         default:
                             throw "Unsupported attendee partstart";
@@ -476,7 +477,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         iCalInfo.currentAttendeeAddress.email);
                     break;
                 case "CANCEL":
-                    info.action = ASC.Resources.Master.Resource.MailIcsCancelDescription;
+                    info.action = resources.MailIcsCancelDescription;
                     break;
                 default:
                     break;
@@ -532,8 +533,8 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 var fromAddress = iCalInfo.organizerAddress;
 
                 var subject = params.isUpdate ?
-                    ASC.Resources.Master.Resource.MailIcsUpdateSubject.format(iCalInfo.event.summary) :
-                    ASC.Resources.Master.Resource.MailIcsRequestSubject.format(iCalInfo.event.summary);
+                    resources.MailIcsUpdateSubject.format(iCalInfo.event.summary) :
+                    resources.MailIcsRequestSubject.format(iCalInfo.event.summary);
 
                 message.from = fromAddress;
                 message.to = toAddresses;
@@ -573,13 +574,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 var subject;
                 switch (params.replyDecision) {
                     case "ACCEPTED":
-                        subject = ASC.Resources.Master.Resource.MailIcsReplyYesDescription;
+                        subject = resources.MailIcsReplyYesDescription;
                         break;
                     case "TENTATIVE":
-                        subject = ASC.Resources.Master.Resource.MailIcsReplyMaybeDescription;
+                        subject = resources.MailIcsReplyMaybeDescription;
                         break;
                     case "DECLINED":
-                        subject = ASC.Resources.Master.Resource.MailIcsReplyNoDescription;
+                        subject = resources.MailIcsReplyNoDescription;
                         break;
                     default:
                         throw "Unsupported attendee partstart";
@@ -596,7 +597,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 message.from = fromAddress;
                 message.to = [toAddress];
-                message.subject = ASC.Resources.Master.Resource.MailIcsReplySubject.format(subject);
+                message.subject = resources.MailIcsReplySubject.format(subject);
                 message.body = createBoby(params, iCalInfo);
                 message.calendarIcs = iCalInfo.comp.toString();
 
@@ -648,7 +649,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
             message.from = fromAddress;
             message.to = toAddresses;
-            message.subject = ASC.Resources.Master.Resource.MailIcsCancelSubject.format(iCalInfo.event.summary);
+            message.subject = resources.MailIcsCancelSubject.format(iCalInfo.event.summary);
             message.body = createBoby(params, iCalInfo);
             message.calendarIcs = iCalInfo.comp.toString();
 
@@ -1127,14 +1128,14 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 switch (state) {
                     case -1:
-                        toastr.error(ASC.Resources.Master.Resource.MailSendMessageError);
+                        toastr.error(resources.MailSendMessageError);
 
                         if (module === "mail" && window.mailAlerts) { // mail hook
                             window.mailAlerts.check(lastSentMessageId > 0 ? { showFailureOnlyMessageId: lastSentMessageId } : {});
                         }
                         break;
                     case 0:
-                        toastr.success(ASC.Resources.Master.Resource.MailSentMessageText);
+                        toastr.success(resources.MailSentMessageText);
                         if (module === "mail" && window.mailAlerts) { // mail hook
                             if (!ASC.Resources.Master.Hub.Url ||
                             (jq.connection && jq.connection.hub.state !== jq.connection.connectionState.connected)) {
@@ -1145,13 +1146,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         }
                         break;
                     case 1:
-                        toastr.success(ASC.Resources.Master.Resource.MailSentIcalRequestText);
+                        toastr.success(resources.MailSentIcalRequestText);
                         break;
                     case 2:
-                        toastr.success(ASC.Resources.Master.Resource.MailSentIcalResponseText);
+                        toastr.success(resources.MailSentIcalResponseText);
                         break;
                     case 3:
-                        toastr.success(ASC.Resources.Master.Resource.MailSentIcalCancelText);
+                        toastr.success(resources.MailSentIcalCancelText);
                         break;
                     default:
                         break;
@@ -1179,16 +1180,16 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 if (dtStart.isSame(dtEnd, 'day')) {
                     if (allDayStart)
-                        dateEvent = "{0}, {1}".format(strStart, ASC.Resources.Master.Resource.MailIcsCalendarAllDayEventLabel);
+                        dateEvent = "{0}, {1}".format(strStart, resources.MailIcsCalendarAllDayEventLabel);
                     else
                         dateEvent = "{0}, {1} - {2} {3}".format(strStart, strStartTime, strEndTime, strTz);
                 } else {
                     if (allDayStart && allDayEnd) {
-                        dateEvent = "{0}, {1} - {2}, {1}".format(strStart, ASC.Resources.Master.Resource.MailIcsCalendarAllDayEventLabel, strEnd);
+                        dateEvent = "{0}, {1} - {2}, {1}".format(strStart, resources.MailIcsCalendarAllDayEventLabel, strEnd);
                     } else if (allDayStart && !allDayEnd) {
-                        dateEvent = "{0}, {1} - {2}, {3} {4}".format(strStart, ASC.Resources.Master.Resource.MailIcsCalendarAllDayEventLabel, strEnd, strEndTime, strTz);
+                        dateEvent = "{0}, {1} - {2}, {3} {4}".format(strStart, resources.MailIcsCalendarAllDayEventLabel, strEnd, strEndTime, strTz);
                     } else if (!allDayStart && allDayEnd) {
-                        dateEvent = "{0}, {1} {2} - {3}, {4}".format(strStart, strStartTime, strTz, strEnd, ASC.Resources.Master.Resource.MailIcsCalendarAllDayEventLabel);
+                        dateEvent = "{0}, {1} {2} - {3}, {4}".format(strStart, strStartTime, strTz, strEnd, resources.MailIcsCalendarAllDayEventLabel);
                     } else {
                         dateEvent = "{0}, {1} - {2}, {3} {4}".format(strStart, strStartTime, strEnd, strEndTime, strTz);
                     }
@@ -1264,67 +1265,67 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     function getText(id) {
                         switch (id.toLowerCase()) {
                             case "every":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleEveryLabel;
+                                return resources.MailIcsRRuleEveryLabel;
                             case "until":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleUntilLabel;
+                                return resources.MailIcsRRuleUntilLabel;
                             case "for":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleForLabel;
+                                return resources.MailIcsRRuleForLabel;
                             case "times":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleTimesLabel;
+                                return resources.MailIcsRRuleTimesLabel;
                             case "time":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleTimeLabel;
+                                return resources.MailIcsRRuleTimeLabel;
                             case "(~ approximate)":
-                                return "(~ {0})".format(ASC.Resources.Master.Resource.MailIcsRRuleApproximateLabel);
+                                return "(~ {0})".format(resources.MailIcsRRuleApproximateLabel);
                             case "hours":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleHoursLabel;
+                                return resources.MailIcsRRuleHoursLabel;
                             case "hour":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleHourLabel;
+                                return resources.MailIcsRRuleHourLabel;
                             case "weekdays":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleWeekdaysLabel;
+                                return resources.MailIcsRRuleWeekdaysLabel;
                             case "weekday":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleWeekdayLabel;
+                                return resources.MailIcsRRuleWeekdayLabel;
                             case "days":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleDaysLabel;
+                                return resources.MailIcsRRuleDaysLabel;
                             case "day":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleDayLabel;
+                                return resources.MailIcsRRuleDayLabel;
                             case "weeks":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleWeeksLabel;
+                                return resources.MailIcsRRuleWeeksLabel;
                             case "week":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleWeekLabel;
+                                return resources.MailIcsRRuleWeekLabel;
                             case "months":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleMonthsLabel;
+                                return resources.MailIcsRRuleMonthsLabel;
                             case "month":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleMonthLabel;
+                                return resources.MailIcsRRuleMonthLabel;
                             case "years":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleYearsLabel;
+                                return resources.MailIcsRRuleYearsLabel;
                             case "year":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleYearLabel;
+                                return resources.MailIcsRRuleYearLabel;
                             case "on":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleOnLabel;
+                                return resources.MailIcsRRuleOnLabel;
                             case "on the":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleOnTheLabel;
+                                return resources.MailIcsRRuleOnTheLabel;
                             case "in":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleInLabel;
+                                return resources.MailIcsRRuleInLabel;
                             case "at":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleAtLabel;
+                                return resources.MailIcsRRuleAtLabel;
                             case "the":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleTheLabel;
+                                return resources.MailIcsRRuleTheLabel;
                             case "and":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleAndLabel;
+                                return resources.MailIcsRRuleAndLabel;
                             case "or":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleOrLabel;
+                                return resources.MailIcsRRuleOrLabel;
                             case "last":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleLastLabel;
+                                return resources.MailIcsRRuleLastLabel;
                             case "st":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleStLabel;
+                                return resources.MailIcsRRuleStLabel;
                             case "nd":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleNdLabel;
+                                return resources.MailIcsRRuleNdLabel;
                             case "rd":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleRdLabel;
+                                return resources.MailIcsRRuleRdLabel;
                             case "th":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleThLabel;
+                                return resources.MailIcsRRuleThLabel;
                             case "rrule error: unable to fully convert this rrule to text":
-                                return ASC.Resources.Master.Resource.MailIcsRRuleParseErrorLabel;
+                                return resources.MailIcsRRuleParseErrorLabel;
                             default:
                                 return id;
                         }
@@ -1370,7 +1371,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
             }
 
         };
-    })(jQuery);
+    })();
 }
 
 if (typeof ASC.Mail.Message === "undefined") {
@@ -1941,5 +1942,5 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
                 };
             }
         };
-    })(jQuery);
+    })();
 }

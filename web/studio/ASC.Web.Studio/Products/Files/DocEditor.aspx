@@ -14,11 +14,13 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-touch-fullscreen" content="yes" />
 
-    <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' id='docsEditorFavicon'/>", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
+    <%= string.Format("<link href='{0}' rel='shortcut icon' type='image/x-icon' id='docsEditorFavicon'/>", Favicon) %>
     <title>ONLYOFFICE™</title>
 
     <style type="text/css">
@@ -60,7 +62,7 @@
         <master:EditorScripts runat="server" />
         <sc:InlineScript ID="InlineScripts" runat="server" />
 
-        <script language="javascript" type="text/javascript" src="<%= DocServiceApiUrl %>"></script>
+        <script language="javascript" type="text/javascript" src="<%= DocServiceApiUrl.HtmlEncode() %>"></script>
     </form>
 </body>
 </html>

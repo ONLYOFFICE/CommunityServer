@@ -53,18 +53,7 @@ namespace ASC.Data.Storage
             size = Math.Abs(size);
             if (UsedInQuota(dataTag))
             {
-                var quota = CoreContext.TenantManager.GetTenantQuota(tenant);
-                if (quota != null)
-                {
-                    if (quota.MaxFileSize != 0 && quota.MaxFileSize < size)
-                    {
-                        throw new TenantQuotaException(string.Format("Exceeds the maximum file size ({0}MB)", BytesToMegabytes(quota.MaxFileSize)));
-                    }
-                    if (quota.MaxTotalSize != 0 && quota.MaxTotalSize < currentSize + size)
-                    {
-                        throw new TenantQuotaException(string.Format("Exceeded maximum amount of disk quota ({0}MB)", BytesToMegabytes(quota.MaxTotalSize)));
-                    }
-                }
+                QuotaUsedCheck(size);
                 Interlocked.Add(ref currentSize, size);
             }
             SetTenantQuotaRow(module, domain, size, dataTag, true);
@@ -96,6 +85,22 @@ namespace ASC.Data.Storage
             return CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(tenant).WithPath(path))
                 .Where(r => UsedInQuota(r.Tag))
                 .Sum(r => r.Counter);
+        }
+
+        public void QuotaUsedCheck(long size)
+        {
+            var quota = CoreContext.TenantManager.GetTenantQuota(tenant);
+            if (quota != null)
+            {
+                if (quota.MaxFileSize != 0 && quota.MaxFileSize < size)
+                {
+                    throw new TenantQuotaException(string.Format("Exceeds the maximum file size ({0}MB)", BytesToMegabytes(quota.MaxFileSize)));
+                }
+                if (quota.MaxTotalSize != 0 && quota.MaxTotalSize < currentSize + size)
+                {
+                    throw new TenantQuotaException(string.Format("Exceeded maximum amount of disk quota ({0}MB)", BytesToMegabytes(quota.MaxTotalSize)));
+                }
+            }
         }
 
         #endregion

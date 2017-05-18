@@ -178,7 +178,7 @@
     <value>Client notes</value>
   </data>
   <data name="ClientNotessHelpInfoText" xml:space="preserve">
-    <value>Will be displayed on the invoice and in the letter body if you send the invoice per Teamlab Mail.</value>
+    <value>Will be displayed on the invoice and in the letter body if you send the invoice per ONLYOFFICE™ Mail.</value>
   </data>
   <data name="Consignee" xml:space="preserve">
     <value>Consignee</value>
@@ -304,19 +304,19 @@
     <value>Edit tax</value>
   </data>
   <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
-    <value>Invoice items allow you ...</value>
+    <value>This section allows you to set the list of items which can be included into invoices. After the list is created you can select the necessary item from it to add to your payment document. You can also add new items whenever needed.</value>
   </data>
   <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
-    <value>No invoice itms matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the invoice items in this section. Or you can create the invoice item if it is absent from the list.</value>
+    <value>No invoice items matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the invoice items in this section. Or you can create the invoice item if it is absent from the list.</value>
   </data>
   <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
     <value>No invoice items to be displayed for this filter here</value>
   </data>
   <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
-    <value>The invoice items list is empty</value>
+    <value>Products &amp; Services list is empty</value>
   </data>
   <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
-    <value>Invoices allow you ...</value>
+    <value>The 'Invoices' section allows you to create payment documents that you can provide your clients with. After the invoices are added the list of the available ones will be displayed here.</value>
   </data>
   <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
     <value>No invoices matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the invoices in this section. Or you can create the invoice if it is absent from the list.</value>
@@ -328,7 +328,7 @@
     <value>The invoice list is empty</value>
   </data>
   <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
-    <value>Invoice taxes allow you ...</value>
+    <value>Invoice taxes allow you to create additional taxes specific for the countries or areas you or your clients live in. You can add the tax name, interest rate and description. You can also add new taxes whenever needed.</value>
   </data>
   <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
     <value>The invoice taxes list is empty</value>
@@ -355,7 +355,7 @@
     <value>Price is incorect</value>
   </data>
   <data name="ErrorIncorrectQuantity" xml:space="preserve">
-    <value>Quantity is incorect</value>
+    <value>Quantity is incorrect</value>
   </data>
   <data name="ErrorIncorrectRate" xml:space="preserve">
     <value>the rate value is incorect</value>
@@ -418,10 +418,10 @@
     <value>Price</value>
   </data>
   <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
-    <value>With iventory stock</value>
+    <value>With inventory stock</value>
   </data>
   <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
-    <value>Without iventory stock</value>
+    <value>Without inventory stock</value>
   </data>
   <data name="InvoiceLanguage" xml:space="preserve">
     <value>Invoice language</value>
@@ -433,7 +433,7 @@
     <value>Invoice number</value>
   </data>
   <data name="InvoiceNumberBusyError" xml:space="preserve">
-    <value>The invoice number is busy</value>
+    <value>The invoice number is already taken</value>
   </data>
   <data name="Invoices" xml:space="preserve">
     <value>Invoice</value>
@@ -454,7 +454,7 @@
     <value>Tax 2 rate</value>
   </data>
   <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
-    <value>Tax with this name is already registered</value>
+    <value>Tax with such a name has already been registered</value>
   </data>
   <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
     <value>Tax categories let you create additional taxes specific for the countries or areas you or your clients live in. You can add the tax name, interest rate and description.</value>
@@ -481,7 +481,7 @@
     <value>Your default CRM currency.&lt;br/&gt;To change it, please go to &lt;a href="?type=common" target="_blank"&gt;Common Settings&lt;/a&gt;</value>
   </data>
   <data name="IventoryStockHelpInfo" xml:space="preserve">
-    <value>Add the quantity of items you currently have in ctock. This number ill decrease every time the item is added to an invoice. When you receive more inventory, simply add it to your current inventory here.</value>
+    <value>Add the quantity of items you currently have in stock. This number will decrease every time the item is added to an invoice. When you receive more inventory, simply add it to your current inventory here.</value>
   </data>
   <data name="LinkOpportunityButton" xml:space="preserve">
     <value>Link with opportunity</value>
@@ -499,13 +499,13 @@
     <value>Mark as rejected</value>
   </data>
   <data name="MarkAsSend" xml:space="preserve">
-    <value>Mark as send</value>
+    <value>Mark as billed</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Number</value>
   </data>
   <data name="NumberFormatErrorMsg" xml:space="preserve">
-    <value>Format is incorrect or invoice with same number is already exist</value>
+    <value>Format is incorrect or invoice with the same number already exists</value>
   </data>
   <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
     <value>Start number is empty</value>
@@ -535,7 +535,7 @@
     <value>Select product or service from list or add new</value>
   </data>
   <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
-    <value>Every invoice must have an items</value>
+    <value>Every invoice must have items</value>
   </data>
   <data name="QuantityCol" xml:space="preserve">
     <value>Quantity</value>
@@ -574,7 +574,7 @@
     <value>Show invoice profile</value>
   </data>
   <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
-    <value>Открыть в новой вкладке</value>
+    <value>Open in a new tab</value>
   </data>
   <data name="StartNumber" xml:space="preserve">
     <value>Start number</value>
@@ -598,7 +598,7 @@
     <value>Terms</value>
   </data>
   <data name="TermsRequiredErrorMsg" xml:space="preserve">
-    <value>Every invoice must have a terms</value>
+    <value>Every invoice must have terms</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Invoice Total</value>

@@ -24,10 +24,15 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Web;
+using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.Core.Helpers;
+using ASC.Web.CRM.Classes;
 using ASC.Web.Projects.Resources;
+using ASC.Web.Studio.Core.Users;
 
 namespace ASC.Web.Projects.Masters.ClientScripts
 {
@@ -40,14 +45,58 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>(5)
-                         {
-                             RegisterResourceSet("ProjectsJSResource", ProjectsJSResource.ResourceManager),
-                             RegisterResourceSet("ProjectsFilterResource", ProjectsFilterResource.ResourceManager),
-                             RegisterResourceSet("ImportResource", ImportResource.ResourceManager),
-                             RegisterResourceSet("TasksResource", TaskResource.ResourceManager),
-                             RegisterResourceSet("CommonResource", ProjectsCommonResource.ResourceManager)
-                         };
+            return new List<KeyValuePair<string, object>>(10)
+            {
+                RegisterResourceSet("ProjectsJSResource", ProjectsJSResource.ResourceManager),
+                RegisterResourceSet("ProjectsFilterResource", ProjectsFilterResource.ResourceManager),
+                RegisterResourceSet("ImportResource", ImportResource.ResourceManager),
+                RegisterResourceSet("TasksResource", TaskResource.ResourceManager),
+                RegisterResourceSet("CommonResource", ProjectsCommonResource.ResourceManager),
+                RegisterResourceSet("TimeTrackingResource", TimeTrackingResource.ResourceManager),
+                RegisterResourceSet("MessageResource", MessageResource.ResourceManager),
+                RegisterResourceSet("ProjectResource", ProjectResource.ResourceManager),
+                RegisterResourceSet("MilestoneResource", MilestoneResource.ResourceManager),
+                RegisterResourceSet("ProjectTemplatesResource", ProjectTemplatesResource.ResourceManager),
+                RegisterResourceSet("ProjectsFileResource", ProjectsFileResource.ResourceManager),
+                RegisterResourceSet("ReportResource", ReportResource.ResourceManager),
+                RegisterObject(
+                new
+                    {
+                        ViewByDepartments = CustomNamingPeople.Substitute<ReportResource>("ViewByDepartments").HtmlEncode(),
+                        ViewByUsers = CustomNamingPeople.Substitute<ReportResource>("ViewByUsers").HtmlEncode(),
+                        AllDepartments = CustomNamingPeople.Substitute<ProjectsCommonResource>("AllDepartments").HtmlEncode(),
+                        AllUsers = CustomNamingPeople.Substitute<ProjectsCommonResource>("AllUsers").HtmlEncode(),
+                        PaymentStatus = new
+                        {
+                            NotChargeable = ResourceEnumConverter.ConvertToString(PaymentStatus.NotChargeable),
+                            NotBilled = ResourceEnumConverter.ConvertToString(PaymentStatus.NotBilled),
+                            Billed = ResourceEnumConverter.ConvertToString(PaymentStatus.Billed)
+                        },
+                        GrammaticalResource.DayGenitiveSingular
+                    })
+            };
+        }
+    }
+
+    public class CRMDataResources : ClientScript
+    {
+        protected override string BaseNamespace
+        {
+            get { return "ASC.CRM.Data"; }
+        }
+
+        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
+        {
+            return new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(new
+                       {
+                            SmallSizePhotoCompany = ContactPhotoManager.GetSmallSizePhoto(0, true),
+                            SmallSizePhoto = ContactPhotoManager.GetSmallSizePhoto(0, false),
+                            MediumSizePhotoCompany = ContactPhotoManager.GetMediumSizePhoto(0, true),
+                            MediumSizePhoto = ContactPhotoManager.GetMediumSizePhoto(0, false),
+                       })
+                   };
         }
     }
 }

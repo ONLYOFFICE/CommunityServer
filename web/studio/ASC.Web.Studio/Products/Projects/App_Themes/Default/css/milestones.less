@@ -31,98 +31,18 @@
 }
 
 #milestonesList {
-    tbody {
-        tr:hover, tr.menuopen {
-            background-color: #F2F2F2;
-        }
-    }
-
     a {
         text-decoration: none;
     }
 
     td {
-        height: 40px;
-        padding: 0px;
-        margin: 0px;
-
-        &.status {
-            width: 60px;
-
-            .changeStatusCombobox {
-                width: 38px;
-                height: 22px;
-                margin: 3px 0px 3px 10px;
-                text-align: center;
-
-                &.canEdit {
-                    border: 1px solid #d1d1d1;
-                    border-radius: 3px;
-                    -moz-border-radius: 3px;
-                    -webkit-border-radius: 3px;
-                    cursor: pointer;
-
-                    span.arrow {
-                        background-image: none;
-                        height: 7px;
-                        width: 7px;
-                        display: inline-block;
-                        position: relative;
-                        margin: 0 4px 4px 1px;
-                        *inline: inline;
-                        *zoom: 1;
-
-                        &:after {
-                            display: block;
-                            border-left: 4px solid transparent;
-                            border-right: 4px solid transparent;
-                            border-top: 4px solid #B8B8B8;
-                            content: "";
-                            height: 0;
-                            position: absolute;
-                            right: -1px;
-                            top: 50%;
-                            margin-top: -2px;
-                            width: 0;
-                            text-align: center;
-                        }
-                    }
-                }
-
-                &.noEdit {
-                    background-image: none;
-                    background-color: transparent;
-                    border: 1px solid transparent;
-                }
-
-                span {
-                    display: inline-block;
-                    margin: 3px 0 0 2px;
-                    width: 16px;
-                    height: 16px;
-                    *inline: inline;
-                    *zoom: 1;
-                }
-
-                .active,
-                .overdue,
-                .closed {
-                    background: url('../images/projects_entity_statuses.png') no-repeat;
-                    background-position: 0 -60px;
-                }
-
-                .closed {
-                    background-position: 0 -80px;
-                }
-            }
-        }
-
         &.title {
-            padding-left: 10px;
+            white-space:nowrap;
+            overflow:hidden;
+            max-width:1px;
 
             div {
                 width: 99%;
-                margin-left: 3px;
             }
 
             .key {
@@ -132,15 +52,6 @@
                 display: block;
                 width: 16px;
                 height: 16px;
-            }
-
-            a, a:hover {
-                font-weight: bold;
-                overflow: hidden;
-                color: #333333;
-                width: 93%;
-                text-decoration: none;
-                cursor: default;
             }
         }
 
@@ -174,6 +85,7 @@
         &.responsible {
             width: 160px;
             padding-left: 20px;
+            padding-right: 15px;
 
             div {
                 width: 160px;
@@ -194,54 +106,26 @@
             text-align: center;
 
             .overdue {
-                color: #E34603;
+                color: #cc3300;
             }
         }
 
         &.actions {
-            width: 45px;
+            width: 20px;
 
             .entity-menu {
-                margin: 0px 10px 0px 14px;
+                margin: 0 8px 0 0;
             }
         }
 
         &.process {
             height: 37px;
-            background: url('../images/loader16.gif') no-repeat 18px 11px;
+            background: url('../../../../../skins/default/Images/loader_16.gif') no-repeat 18px 11px;
         }
     }
 
-        tr:hover .changeStatusCombobox.canEdit,
-        td.status .changeStatusCombobox.canEdit.selected {
-            background-color: #eaeaea;
-            border-color: #a8a8a8;
-
-            span.arrow:after {
-                border-top-color: #999999;
-            }
-        }
-
     tr.closed {
-        td.title a {
-            color: #83888D;
-        }
-
-        td.responsible span {
-            color: #83888D;
-            border-bottom-color: #83888D;
-        }
-
-        td.deadline {
-            color: #83888D;
-            font-size: 11px;
-        }
-
-        td.closedTasksCount a,
-        td.activeTasksCount a,
-        td.slash {
-            color: #83888D;
-        }
+        color: #83888D;
     }
 
     tr:hover td.responsible span, td.responsible span:hover {
@@ -250,9 +134,9 @@
     }
 
     tr:hover td.responsible span.not-action, td.responsible span.not-action:hover {
-            border-bottom: 1px dotted transparent;
-            cursor: default;
-        }
+        border-bottom: 1px dotted transparent;
+        cursor: default;
+    }
 }
    
 

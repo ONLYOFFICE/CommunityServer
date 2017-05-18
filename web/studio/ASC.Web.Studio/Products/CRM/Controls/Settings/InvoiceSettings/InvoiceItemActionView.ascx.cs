@@ -59,7 +59,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.InvoiceItemActionViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.InvoiceItemActionViewData());
 
             RegisterScript();
         }

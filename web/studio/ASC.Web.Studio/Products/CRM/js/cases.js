@@ -760,12 +760,7 @@ ASC.CRM.ListCasesView = (function() {
         ASC.CRM.ListCasesView.advansedFilter = jq("#casesAdvansedFilter")
             .advansedFilter({
                 anykey      : false,
-                hint        : ASC.CRM.Resources.CRMCommonResource.AdvansedFilterInfoText.format(
-                            '<b>',
-                            '</b>',
-                            '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
-                            '</a>'),
-                hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
+                hintDefaultDisable: true,
                 maxfilters  : 3,
                 maxlength   : "100",
                 store       : true,

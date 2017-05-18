@@ -49,6 +49,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             var driveId = MakeDriveId(fileId);
             CacheReset(driveId, true);
+
+            var driveFile = GetDriveEntry(fileId);
+            var parentDriveId = GetParentDriveId(driveFile);
+            if (parentDriveId != null) CacheReset(parentDriveId);
         }
 
         public File GetFile(object fileId)
@@ -207,6 +211,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public void DeleteFile(object fileId)
         {
             var driveFile = GetDriveEntry(fileId);
+            if (driveFile == null) return;
             var id = MakeId(driveFile.Id);
 
             using (var db = GetDb())
@@ -446,16 +451,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return null;
         }
 
-        public void DeleteFolder(object fileId)
-        {
-            //Do nothing
-        }
-
-        public void DeleteFileStream(object file)
-        {
-            //Do nothing
-        }
-
         public bool IsExistOnStorage(File file)
         {
             return true;
@@ -474,6 +469,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public Stream GetDifferenceStream(File file)
         {
             return null;
+        }
+
+        public bool ContainChanges(object fileId, int fileVersion)
+        {
+            return false;
         }
 
         #endregion

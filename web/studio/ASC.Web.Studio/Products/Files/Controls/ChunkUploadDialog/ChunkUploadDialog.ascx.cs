@@ -24,12 +24,9 @@
 */
 
 
-using System;
-using System.Text;
-using System.Web;
-using System.Web.UI;
 using ASC.Web.Files.Classes;
-using ASC.Web.Studio.Core;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -42,22 +39,6 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
-            InitScripts();
-        }
-
-        protected void InitScripts()
-        {
-            var apiServer = new ASC.Api.ApiServer();
-            var apiUrl = String.Format("{0}settings/quota.json", SetupInfo.WebApiBaseUrl);
-            var response = apiServer.GetApiResponse(apiUrl, "GET");
-            if (response == null) return;
-
-            var responseApi = Encoding.UTF8.GetString(Convert.FromBase64String(response));
-
-            var inlineScript = new StringBuilder();
-            inlineScript.AppendFormat("ASC.Files.ChunkUploads.tenantQuota = {0}.response;ASC.Files.ChunkUploads.changeQuotaText();", responseApi);
-            Page.RegisterInlineScript(inlineScript.ToString());
         }
     }
 }

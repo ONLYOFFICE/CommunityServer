@@ -8,7 +8,7 @@
 
 <asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
     <asp:ContentPlaceHolder ID="CommunityPageHeader" runat="server" />
-    <ucc:feedcontrol runat="server" title="Teamlab Community" AutoFill="true" />
+    <ucc:feedcontrol runat="server" title="Onlyoffice Community" AutoFill="true" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="TopContent" runat="server">

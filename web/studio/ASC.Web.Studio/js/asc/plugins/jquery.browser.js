@@ -22,10 +22,6 @@
         };
 
         var ua = window.navigator.userAgent;
-        //This fixes an ie7 bug that causes crashes from incorrect version identification
-        if (/*@cc_on/*@if(@_jscript_version<=5.6)1@else@*/0/*@end@*/) {
-            ua = "msie 6.0";
-        }
 
         var matched = jQuery.uaMatch(ua);
         var browser = {};

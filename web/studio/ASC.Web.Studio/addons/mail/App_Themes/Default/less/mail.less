@@ -322,9 +322,8 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
     float: left;
     white-space: nowrap;
 
-    .unread {
-        font-size:  14px;
-        line-height: 17px;
+    .new-label-menu {
+        margin: 2px 0 0 6px;
     }
 }
 
@@ -418,14 +417,6 @@ div.subject {
     left: 50px;
 }
 
-.row-tag {
-    overflow: hidden;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    padding-left: 14px !important;
-}
-
 div.studioSideBoxMailBody {
     padding: 5px 0 10px;
 }
@@ -445,12 +436,6 @@ div.studioSideBoxMailBody {
             width: 198px;
         }
     }
-}
-
-h1.item {
-    display: block;
-    width: 720px;
-    overflow: hidden;
 }
 
 .stick-panel {
@@ -644,18 +629,6 @@ a.disable {
     }
 }
 
-h1 span, noindex:-moz-any-link {
-    margin-left: 10px;
-}
-
-.hr {
-    margin-top: 13px;
-    margin-bottom: 19px;
-    width: 180px;
-    height: 1px;
-    background: #c8c8c8;
-}
-
 .container.body {
     #MessageBodyContainer {
         width: 100% !important;
@@ -726,7 +699,7 @@ noindex:-moz-any-link {
 }
 
 input[type="checkbox"] {
-    margin-right: 3px;
+    vertical-align: middle;
 }
 
 div.checkbox {
@@ -797,10 +770,11 @@ span.editTag {
     background: url("@{base-icon-sprite-url}") no-repeat;
     .icon-mixin (3, 3);
     display: inline-block;
-    width: 14px;
+    width: 12px;
     height: 12px;
     cursor: pointer;
     opacity: 0;
+    margin-bottom: -1px;
 }
 
 .attachment-grouped-message {
@@ -1015,29 +989,8 @@ textarea {
 
 }
 
-#pnl_SendFileList {
-    width: 100%;
-}
-
 .composeTitle {
     font-size: 18px !important;
-}
-
-h1 {
-    font-size: 30px;
-    line-height: 33px;
-    font-weight: normal;
-    color: #333333;
-    margin: 0px;
-    padding: 0px;
-    span {
-        font-size: 18px;
-        line-height: 30px;
-        color: #333333;
-        position: absolute;
-        margin-top: 4px;
-        margin-left: 0px;
-    }
 }
 
 .td_datetime {
@@ -1142,31 +1095,9 @@ h1 {
     }
 }
 
-.withIcon {
-    white-space: nowrap;
-    div {
-        padding-right: 23px !important;
-    }
-}
-
-.td_checkbox {
-    .cb {
-        width: 43px;
-        input {
-            margin-left: 9px;
-        }
-    }
-}
-
 .existsTags {
     max-height:400px;
     overflow-y:auto;
-}
-
-.row-tag.inactive {
-    .tag {
-        cursor:auto;
-    }
 }
 
 * html table#newMessage div.helper div.mailbox-from-helper, * html table#newMessage div.helper div.mailbox-to-helper {
@@ -1208,20 +1139,6 @@ div.error-popup {
             background-position: -16px 0;
         }
     }
-
-    .row.row-tag {
-        .label {
-            float:left;
-            width:200px;
-            height: 19px;
-            line-height: 19px;
-            padding-top: 7px;
-        }
-        .addresses {
-            margin-left: 224px;
-            margin-right: 70px;
-        }
-    }
 }
 
 input {
@@ -1257,10 +1174,6 @@ input {
 
 .placeholder {
     color: #999;
-}
-
-.rasdelitel_h_30 {
-    height: 40px;
 }
 
 .subject {
@@ -1337,22 +1250,6 @@ input {
 
 .hidden {
     display: none;
-}
-
-div.studioSideBoxNavigationBody {
-    padding: 5px 0 10px;
-}
-
-br.clear {
-    display: block;
-    width: 100%;
-    height: 1px;
-    line-height: 1px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    clear: both;
 }
 
 @media screen and (max-height: 768px)
@@ -1483,15 +1380,16 @@ body.media-width-0-1200
 
 /* End Loading animation */
 
-.ui-buttonset {
-    .ui-widget {
+.ui-controlgroup {
+    margin-right: 7px;
+    display: flex;
+
+    .ui-controlgroup-item {
         font-family: 'Open Sans', sans-serif;
         font-size: 12px;
+        font-weight: normal;
         line-height: 13px;
-    }
-
-    .ui-widget:not([aria-pressed]),
-    .ui-widget[aria-pressed="false"] {
+        height: 15px;
         color: #666666;
         background-color: #dedede;
         background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f3f3f3), to(#dedede));
@@ -1500,13 +1398,46 @@ body.media-width-0-1200
         background-image: linear-gradient(to bottom, #f3f3f3 0%, #dedede 100%);
         background-repeat: repeat-x;
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff3f3f3', endColorstr='#ffdedede', GradientType=0);
-        border-width: 1px;
-        border-style: solid;
-        border-color: #bfbfbf;
+        border: 1px solid #bfbfbf;
+        white-space: nowrap !important;
     }
 
-    .ui-button-text {
-        padding: 3px 24px;
+    .ui-checkboxradio-checked,
+    .ui-widget-content .ui-state-active, 
+    .ui-widget-header .ui-state-active, 
+    a.ui-button:active, 
+    .ui-button:active, 
+    .ui-button.ui-state-active:hover {
+        border: 1px solid #bfbfbf;
+        background: #fff;
+        color: #666666;
+    }
+
+    .ui-state-active:hover {
+        border: 1px solid #bfbfbf;
+        background: gray; 
+        color: #666666;
+    }
+
+    .ui-corner-left {
+        border-right: none !important;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .ui-corner-right {
+        border-left: none !important;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .ui-visual-focus {
+        box-shadow: none;
+    }
+
+    .ui-checkboxradio-label {
+        padding: 5px 23px 3px 23px;
+        white-space: nowrap;
     }
 }
 

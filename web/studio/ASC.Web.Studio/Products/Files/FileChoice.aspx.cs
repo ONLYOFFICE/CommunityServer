@@ -24,18 +24,19 @@
 */
 
 
-using System;
-using System.Text;
-using System.Web;
 using ASC.Files.Core;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Studio;
+using System;
+using System.Text;
+using System.Web;
 
 namespace ASC.Web.Files
 {
-    public partial class FileChoice : MainPage
+    public partial class FileChoice : MainPage, IStaticBundle
     {
         public static string Location
         {
@@ -62,8 +63,9 @@ namespace ASC.Web.Files
         {
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
-
-            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath, "filechoice.css");
+            Master.Master
+                  .AddStaticStyles(GetStaticStyleSheet())
+                  .AddStaticBodyScripts(GetStaticJavaScript());
 
             var fileSelector = (FileSelector) LoadControl(FileSelector.Location);
             fileSelector.IsFlat = true;
@@ -75,8 +77,6 @@ namespace ASC.Web.Files
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "filechoice.js");
-
             var script = new StringBuilder();
 
             FolderType folderType;
@@ -116,6 +116,41 @@ namespace ASC.Web.Files
                                 (!string.IsNullOrEmpty(Request[MailMergeParam])).ToString().ToLower());
 
             Page.RegisterInlineScript(script.ToString());
+        }
+
+
+        public ScriptBundleData GetStaticJavaScript()
+        {
+            return (ScriptBundleData)
+                   new ScriptBundleData("fileschoice", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath,
+                                  "common.js",
+                                  "templatemanager.js",
+                                  "servicemanager.js",
+                                  "ui.js",
+                                  "eventhandler.js",
+                                  "anchormanager.js",
+                                  "filechoice.js"
+                       )
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "controls/emptyfolder/emptyfolder.js",
+                                  "controls/fileselector/fileselector.js",
+                                  "controls/tree/tree.js"
+                       );
+        }
+
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return (StyleBundleData)
+                   new StyleBundleData("fileschoice", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "filechoice.css")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "controls/fileselector/fileselector.css",
+                                  "controls/thirdparty/thirdparty.css",
+                                  "controls/contentlist/contentlist.css",
+                                  "controls/emptyfolder/emptyfolder.css",
+                                  "controls/tree/tree.css"
+                       );
         }
     }
 }

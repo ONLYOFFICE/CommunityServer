@@ -39,7 +39,7 @@ namespace ASC.Mail.Aggregator
     {
         static MailQueueItemSettings()
         {
-            using (var db = new DbManager(MailBoxManager.ConnectionStringName))
+            using (var db = new DbManager(MailBoxManager.CONNECTION_STRING_NAME))
             {
                 var imapFlags = db.ExecuteList(new SqlQuery(DbSchema.ImapFlags.Name)
                                                     .Select(DbSchema.ImapFlags.Columns.FolderId,

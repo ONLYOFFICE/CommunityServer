@@ -26,21 +26,21 @@
 
 using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
-using ASC.MessagingSystem;
-using ASC.Web.Studio.UserControls.Statistics;
 using AjaxPro;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
+using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Web.Core.Security;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using System.Net.Mail;
-using ASC.Core.Users;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls

@@ -60,8 +60,8 @@
             <div id="studio_emailOperationResult" class="clearFix">
                 <div id="studio_emailOperationResultText" class="userResultText"></div>
                 <div class="middle-button-container">
-                    <a class="button gray middle" href="javascript:EmailOperationManager.CloseEmailOperationWindow(); return false;"
-                        onclick="EmailOperationManager.CloseEmailOperationWindow(); return false;">
+                    <a class="button gray middle" href="javascript:ASC.EmailOperationManager.closeEmailOperationWindow(); return false;"
+                        onclick="ASC.EmailOperationManager.closeEmailOperationWindow(); return false;">
                         <%=Resource.CloseButton%>
                     </a>
                 </div>

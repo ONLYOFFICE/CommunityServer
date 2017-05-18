@@ -53,19 +53,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -142,13 +138,13 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\ASC.Web.Community.csproj">
       <Project>{11ba9805-752f-4f6f-a876-6ba56f0eb9de}</Project>
@@ -165,10 +161,6 @@
     <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
       <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
       <Name>ASC.Web.Projects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Feed\ASC.Feed.csproj">
       <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>

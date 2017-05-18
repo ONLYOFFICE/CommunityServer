@@ -14,7 +14,7 @@
     
     <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
     <div class="clearFix default-title profile-title header-with-menu">
-        <span class="header text-overflow"><%= Resources.Resource.People %></span>
+        <span class="header text-overflow"><%= Resource.People %></span>
         <% if (IsAdmin) { %>
         <span class="menu-small" style="display:none;"></span>
         <% } %>
@@ -23,7 +23,7 @@
     <% if (IsAdmin) { %>
     <div id="actionGroupMenu" class="studio-action-panel">
         <ul class="dropdown-content">
-            <li><a class="dropdown-item update-group"><%=ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("DepEditHeader").HtmlEncode()%></a></li>
+            <li><a class="dropdown-item update-group"><%= CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode()%></a></li>
             <li><a class="dropdown-item delete-group"><%= PeopleResource.DeleteButton %></a></li>
         </ul>
     </div>
@@ -124,7 +124,7 @@
 
     </div>
 
-    <div id="peopleActionMenu" class="studio-action-panel" data-canedit="<%=Actions.AllowEdit %>" data-candel="<%=Actions.AllowAddOrDelete %>">        
+    <div id="peopleActionMenu" class="studio-action-panel" data-canedit="<%= Actions.AllowEdit %>" data-candel="<%= Actions.AllowAddOrDelete %>">        
     </div>
 
 
@@ -137,12 +137,12 @@
         <ul class="dropdown-content">
             <li>
                 <a class="dropdown-item" data-type="<%= (int)EmployeeType.User %>">
-                    <%= CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %>
+                    <%= CustomNamingPeople.Substitute<Resource>("User").HtmlEncode() %>
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" data-type="<%= (int)EmployeeType.Visitor %>">
-                    <%= CustomNamingPeople.Substitute<Resources.Resource>("Guest").HtmlEncode() %>
+                    <%= CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode() %>
                 </a>
             </li>
         </ul>

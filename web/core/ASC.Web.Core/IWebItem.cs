@@ -38,7 +38,11 @@ namespace ASC.Web.Core
 
         string StartURL { get; }
 
+        string HelpURL { get; }
+
         string ProductClassName { get; }
+
+        bool Visible { get; }
 
         WebItemContext Context { get; }
     }

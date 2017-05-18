@@ -56,22 +56,22 @@ namespace ASC.Web.Files.Utils
             return Signature.Create(fileId, Global.GetDocDbKey());
         }
 
-        public static string Parse(string key)
+        public static string Parse(string doc)
         {
-            return Signature.Read<string>(key ?? String.Empty, Global.GetDocDbKey());
+            return Signature.Read<string>(doc ?? String.Empty, Global.GetDocDbKey());
         }
 
-        public static bool Check(string key, bool checkRead, IFileDao fileDao, out File file)
+        public static bool Check(string doc, bool checkRead, IFileDao fileDao, out File file)
         {
-            var fileShare = Check(key, fileDao, out file);
+            var fileShare = Check(doc, fileDao, out file);
             return (!checkRead && (fileShare == FileShare.ReadWrite || fileShare == FileShare.Review)) || (checkRead && fileShare != FileShare.Restrict);
         }
 
-        public static FileShare Check(string key, IFileDao fileDao, out File file)
+        public static FileShare Check(string doc, IFileDao fileDao, out File file)
         {
             file = null;
-            if (string.IsNullOrEmpty(key)) return FileShare.Restrict;
-            var fileId = Parse(key);
+            if (string.IsNullOrEmpty(doc)) return FileShare.Restrict;
+            var fileId = Parse(doc);
             file = fileDao.GetFile(fileId);
             if (file == null) return FileShare.Restrict;
 

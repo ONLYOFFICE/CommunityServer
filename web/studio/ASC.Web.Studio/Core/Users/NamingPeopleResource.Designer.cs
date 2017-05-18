@@ -61,7 +61,7 @@ namespace ASC.Web.Studio.Core.Users {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Members.
+        ///   Looks up a localized string similar to Add Users.
         /// </summary>
         public static string CommonAddUsers {
             get {
@@ -133,7 +133,7 @@ namespace ASC.Web.Studio.Core.Users {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member.
+        ///   Looks up a localized string similar to User.
         /// </summary>
         public static string CommonUser {
             get {
@@ -142,7 +142,7 @@ namespace ASC.Web.Studio.Core.Users {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Members.
+        ///   Looks up a localized string similar to Users.
         /// </summary>
         public static string CommonUsers {
             get {

@@ -126,12 +126,11 @@ var ImportUsersManager = new function() {
         if (!ASC.Clipboard.enable) {
             jq("#inviteLinkCopy").remove();
         } else {
-            ASC.Clipboard.destroy(ImportUsersManager.clip);
+            ImportUsersManager.clip = ASC.Clipboard.destroy(ImportUsersManager.clip);
 
             var url = jq("#inviteUserLink").val();
 
             ImportUsersManager.clip = ASC.Clipboard.create(url, "inviteLinkCopy", {
-                panelId: "inviteLinkPanel",
                 onComplete: function () {
                     if (typeof(window.toastr) !== "undefined") {
                         toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);

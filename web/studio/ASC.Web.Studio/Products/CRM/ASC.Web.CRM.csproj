@@ -3,9 +3,8 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
-  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
-  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -53,23 +52,30 @@
       <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="LumenWorks.Framework.IO">
       <HintPath>..\..\..\..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client">
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.SignalR.Client.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -81,13 +87,53 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages">
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment">
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor">
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Twitterizer2">
-      <HintPath>..\..\..\..\..\packages\twitterizer.2.4.0.22461\lib\net45\Twitterizer2.dll</HintPath>
+    <Reference Include="DotNetZip">
+      <HintPath>..\..\..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Mvc">
+      <HintPath>..\..\..\..\..\packages\Twilio.Mvc.3.2.1\lib\3.5\Twilio.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Twiml">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Twilio.TwiML.3.5.0\lib\3.5\Twilio.Twiml.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calls.aspx.cs">
+      <DependentUpon>Calls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calls.aspx.designer.cs">
+      <DependentUpon>Calls.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cases.aspx.cs">
       <DependentUpon>Cases.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,10 +148,14 @@
     <Compile Include="Classes\LocalizedEnumConverter.cs" />
     <Compile Include="Classes\OrganisationLogoManager.cs" />
     <Compile Include="Classes\RegisterClientScriptHelper.cs" />
+    <Compile Include="Classes\SignalRHelper.cs" />
     <Compile Include="Classes\SocialMedia\FacebookApiHelper.cs" />
     <Compile Include="Classes\SocialMedia\TwitterApiHelper.cs" />
     <Compile Include="Classes\SubscriptionManager.cs" />
+    <Compile Include="Classes\TwilioController.cs" />
+    <Compile Include="Classes\VoipEngine.cs" />
     <Compile Include="Configuration\CRMsSpaceUsageStatManager.cs" />
+    <Compile Include="Configuration\VoipModule.cs" />
     <Compile Include="Controls\Cases\CasesFullCardView.ascx.cs">
       <DependentUpon>CasesFullCardView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -249,7 +299,6 @@
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
@@ -615,6 +664,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Default\images\contacts.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_phones.png" />
     <Content Include="App_Themes\Default\images\customize.png" />
     <Content Include="App_Themes\Default\images\drag.png" />
     <Content Include="App_Themes\Default\images\drug-n-drop_items.png" />
@@ -625,6 +675,7 @@
     <Content Include="App_Themes\Default\images\empty_screen_invoices.png" />
     <Content Include="App_Themes\Default\images\empty_screen_products_services.png" />
     <Content Include="App_Themes\Default\images\empty_screen_taxes.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_voip_settings.png" />
     <Content Include="App_Themes\Default\images\event_categories.png" />
     <Content Include="App_Themes\Default\images\flags_all.png" />
     <Content Include="App_Themes\Default\images\icons.png" />
@@ -647,6 +698,8 @@
     <Content Include="App_Themes\Default\images\sales.png" />
     <Content Include="App_Themes\Default\images\search_in_module.png" />
     <Content Include="App_Themes\Default\images\task_categories.png" />
+    <Content Include="App_Themes\Default\images\voip_logo.png" />
+    <Content Include="Calls.aspx" />
     <Content Include="Cases.aspx" />
     <Content Include="Controls\Cases\CasesActionView.ascx" />
     <Content Include="Controls\Cases\CasesDetailsView.ascx" />
@@ -684,6 +737,18 @@
     <Content Include="js\sender.js" />
     <Content Include="js\settings.invoices.js" />
     <Content Include="Masters\BasicTemplate.Master" />
+    <Content Include="Templates\CasesTemplates.html" />
+    <Content Include="Templates\CommonCustomFieldsTemplates.html" />
+    <Content Include="Templates\CommonTemplates.html" />
+    <Content Include="Templates\ContactInfoCardTemplate.html" />
+    <Content Include="Templates\ContactSelectorTemplates.html" />
+    <Content Include="Templates\ContactsTemplates.html" />
+    <Content Include="Templates\DealsTemplates.html" />
+    <Content Include="Templates\InvoicesTemplates.html" />
+    <Content Include="Templates\SettingsTemplates.html" />
+    <Content Include="Templates\SimpleContactListTemplate.html" />
+    <Content Include="Templates\TasksTemplates.html" />
+    <Content Include="Templates\VoipTemplates.html" />
     <EmbeddedResource Include="Resources\CRMErrorsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMErrorsResource.Designer.cs</LastGenOutput>
@@ -864,17 +929,6 @@
     <Content Include="js\settings.js" />
     <Content Include="js\socialmedia.js" />
     <Content Include="js\tasks.js" />
-    <Content Include="Templates\CasesTemplates.ascx" />
-    <Content Include="Templates\CommonCustomFieldsTemplates.ascx" />
-    <Content Include="Templates\CommonTemplates.ascx" />
-    <Content Include="Templates\ContactInfoCardTemplate.ascx" />
-    <Content Include="Templates\ContactSelectorTemplates.ascx" />
-    <Content Include="Templates\ContactsTemplates.ascx" />
-    <Content Include="Templates\DealsTemplates.ascx" />
-    <Content Include="Templates\InvoicesTemplates.ascx" />
-    <Content Include="Templates\SettingsTemplates.ascx" />
-    <Content Include="Templates\SimpleContactListTemplate.ascx" />
-    <Content Include="Templates\TasksTemplates.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="HttpHandlers\filehandler.ashx" />
@@ -945,6 +999,10 @@
     <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
       <Name>ASC.MessagingSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
       <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>

@@ -165,10 +165,21 @@ window.folderPanel = (function($) {
         return pos;
     }
 
-    function onGetMailFolders(params, newFolders) {
-        if (!newFolders.length) {
+    function onGetMailFolders(params, respFolders) {
+        if (!respFolders.length) {
             return;
         }
+        var isChainsEnabled = commonSettingsPage.isConversationsEnabled();
+        var newFolders = [];
+
+        respFolders.forEach(function (t) {
+            newFolders.push({
+                id: t.id,
+                time_modified: t.time_modified,
+                total_count: isChainsEnabled ? t.total_count : t.total_messages_count,
+                unread: isChainsEnabled ? t.unread : t.unread_messages
+            });
+        });
 
         var marked = getMarkedFolder() || -1; // -1 if no folder selected
 
@@ -199,15 +210,19 @@ window.folderPanel = (function($) {
             if (params.check_conversations_on_changes) {
                 var currentFolder = MailFilter.getFolder();
                 pos = searchFolderById(changedFolders, currentFolder);
-                if (pos > -1)
-                    serviceManager.getMailFilteredConversations();
+                if (pos > -1) {
+                    if (commonSettingsPage.isConversationsEnabled())
+                        serviceManager.getMailFilteredConversations();
+                    else
+                        serviceManager.getMailFilteredMessages();
+                }
             }
         }
 
         folders = newFolders;
 
         var storedCount = localStorageManager.getItem("MailUreadMessagesCount");
-        var unread = folders[0].unread_messages;
+        var unread = respFolders[0].unread_messages;
         if (storedCount !== unread) {
             localStorageManager.setItem("MailUreadMessagesCount", unread);
         }
@@ -235,9 +250,12 @@ window.folderPanel = (function($) {
     }
 
     function setCount(folderEl, count) {
+        var unreadEl = folderEl.find('.unread');
         folderEl.attr('unread', count);
         var countText = count ? count : "";
-        folderEl.find('.unread').text(countText);
+        unreadEl.toggleClass("new-label-menu", count > 0);
+        unreadEl.toggleClass("nohover", count > 0);
+        unreadEl.text(countText);
     }
 
     function getFolderEl(folderId) {

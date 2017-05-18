@@ -251,7 +251,7 @@ ASC.People.PeopleController = (function() {
 
         _peopleList = data;
 
-        var $o = jq.tmpl("userListTemplate", { users: data, isAdmin: Teamlab.profile.isAdmin });
+        var $o = jq.tmpl("userListTemplate", { users: data, isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin });
         jq("#peopleData tbody").empty().append($o);
         bindEvents(jq($o));
         jq(window).trigger('people-render-profiles', [params, data]);
@@ -322,7 +322,7 @@ ASC.People.PeopleController = (function() {
                     newAnchorObj["sortorder"] = currentAnchorObj["sortorder"];
                 } else {
                     newAnchorObj["sortorder"] = "ascending";
-                    if (currentAnchorObj == null && Teamlab.profile.isAdmin) {
+                    if (currentAnchorObj == null && (Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin)) {
                         //check if active users exist
                         var needActiveFilterAsDefault = false;
                         if (typeof (ASC) !== "undefined" &&
@@ -360,6 +360,7 @@ ASC.People.PeopleController = (function() {
             currentAnchor = newAnchor;
         }
         window.peoplePageNavigator.CurrentPageNumber = 1;
+        setPaginationCookie(1, "pageOfProfilesList");
         searchQuery();
         jq(window).trigger('change-group', [jq.getAnchorParam("group") || null]);
     };
@@ -370,8 +371,8 @@ ASC.People.PeopleController = (function() {
         if (groupId == null) {
             return;
         }
-
-        Teamlab.getGroup(groupId, {
+        
+        Teamlab.getGroup({}, groupId, {
             filter: null,
             before: showLoader,
             after: hideLoader,
@@ -438,7 +439,7 @@ ASC.People.PeopleController = (function() {
             isLDAP: isLDAP
         };
         var $menu = jq.tmpl("userActionMenuTemplate",
-            { user: profile, isAdmin: Teamlab.profile.isAdmin, isMe: (profile.id === Teamlab.profile.id), canEdit: canEdit, canDel: canDel });
+            { user: profile, isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin, isMe: (profile.id === Teamlab.profile.id), canEdit: canEdit, canDel: canDel });
         $actionMenu.html($menu);
 
         var $buttons = $actionMenu.find(".dropdown-item");
@@ -455,10 +456,10 @@ ASC.People.PeopleController = (function() {
                 PasswordTool.ShowPwdReminderDialog("1", email);
             }
             else if (jq(this).hasClass("change-email")) {
-                EmailOperationManager.ShowEmailChangeWindow(email, personId);
+                ASC.EmailOperationManager.showEmailChangeWindow(email, personId);
             }
             else if (jq(this).hasClass("email-activation")) {
-                EmailOperationManager.SendEmailActivationInstructions(email, personId, function (response) {
+                ASC.EmailOperationManager.sendEmailActivationInstructions(email, personId, function (response) {
                     $person.attr("data-email", response.request.args.email);
                 });
             }
@@ -532,7 +533,7 @@ ASC.People.PeopleController = (function() {
 
 
 
-        if (Teamlab.profile.isAdmin === true) {
+        if (Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin) {
 
             if (jq("#changeTypeDialogBody").length == 1) {
                 jq.tmpl("template-blockUIPanel", {
@@ -672,6 +673,7 @@ ASC.People.PeopleController = (function() {
 
     var setFilter = function (evt, $container, filter, filterparams, filters) {
         window.peoplePageNavigator.CurrentPageNumber = 1;
+        setPaginationCookie(1, "pageOfProfilesList");
 
         deselectAll();
         var 
@@ -693,6 +695,7 @@ ASC.People.PeopleController = (function() {
 
     var resetFilter = function (evt, $container, filter, filters) {
         window.peoplePageNavigator.CurrentPageNumber = 1;
+        setPaginationCookie(1, "pageOfProfilesList");
         deselectAll();
         var 
             oldAnchor = jq.anchorToObject(ASC.Controls.AnchorController.getAnchor()),
@@ -713,6 +716,10 @@ ASC.People.PeopleController = (function() {
         var cookieCount = jq.cookies.get("countOfProfilesList");
         if (cookieCount) {
             window.peoplePageNavigator.EntryCountOnPage = cookieCount.key;
+        }
+        cookieCount = jq.cookies.get("pageOfProfilesList");
+        if (cookieCount) {
+            window.peoplePageNavigator.CurrentPageNumber = cookieCount.key;
         }
         var 
             pageCount = window.peoplePageNavigator.EntryCountOnPage,
@@ -759,12 +766,12 @@ ASC.People.PeopleController = (function() {
         }
     };
 
-    var deleteGroup = function() {
+    var deleteGroup = function () {
         var groupId = jq.getAnchorParam('group') || null;
         if (groupId == null) {
             return;
         }
-        Teamlab.deleteGroup(groupId, {
+        Teamlab.deleteGroup({}, groupId, {
             before: function () { LoadingBanner.showLoaderBtn("#confirmationDeleteDepartmentPanel") },
             after: function () { LoadingBanner.hideLoaderBtn("#confirmationDeleteDepartmentPanel") },
             success: onDeleteGroup
@@ -774,6 +781,7 @@ ASC.People.PeopleController = (function() {
 
     var resetAllFilters = function () {
         window.peoplePageNavigator.CurrentPageNumber = 1;
+        setPaginationCookie(1, "pageOfProfilesList");
         deselectAll();
         currentAnchor = jq.removeParam('query', currentAnchor);
         ASC.Controls.AnchorController.move("");
@@ -781,6 +789,7 @@ ASC.People.PeopleController = (function() {
 
     var moveToPage = function(page) {
         window.peoplePageNavigator.CurrentPageNumber = page;
+        setPaginationCookie(page, "pageOfProfilesList");
         searchQuery();
     };
 
@@ -1426,7 +1435,7 @@ ASC.People.PeopleController = (function() {
             var profile = data[i];
             profile.isChecked = true;
 
-            var $row = jq.tmpl("userListTemplate", { users: [profile], isAdmin: Teamlab.profile.isAdmin });
+            var $row = jq.tmpl("userListTemplate", { users: [profile], isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin });
             jq("#user_" + profile.id).replaceWith($row);
 
             for (var j = 0, m = _peopleList.length; j < m; j++) {
@@ -1576,7 +1585,7 @@ ASC.People.PeopleController = (function() {
     var initAdvansedFilter = function() {
         var filters = new Array();
 
-        if (Teamlab.profile.isAdmin) {
+        if (Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin) {
             filters.push({
                     type: "combobox",
                     id: "selected-status-active",
@@ -1915,9 +1924,13 @@ ASC.People.PeopleController = (function() {
         selectCheckbox: selectCheckbox
     };
 })();
+
 jq(document).ready(function() {
+    var $peopleData = jq("#peopleData");
+    if (!$peopleData.length) return;
+
     ASC.People.PeopleController.init();
 
-    jq("#peopleData").on("click", ".check-list", ASC.People.PeopleController.selectRow);
-    jq("#peopleData").on("click", ".checkbox-user", ASC.People.PeopleController.selectCheckbox);
+    $peopleData.on("click", ".check-list", ASC.People.PeopleController.selectRow);
+    $peopleData.on("click", ".checkbox-user", ASC.People.PeopleController.selectCheckbox);
 });

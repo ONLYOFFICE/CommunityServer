@@ -48,6 +48,8 @@ window.ASC.Files.EventHandler = (function () {
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FolderRename, ASC.Files.EventHandler.onRenameFolder);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FileRename, ASC.Files.EventHandler.onRenameFile);
 
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.ChangeOwner, ASC.Files.EventHandler.onChangeOwner);
+
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetFileHistory, ASC.Files.EventHandler.onGetFileHistory);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SetCurrentVersion, ASC.Files.EventHandler.onUpdateHistory);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.CompleteVersion, ASC.Files.EventHandler.onUpdateHistory);
@@ -387,9 +389,7 @@ window.ASC.Files.EventHandler = (function () {
             var fileTitle = fileData.title;
             var fileId = fileData.entryId;
 
-            ASC.Files.Actions.checkEditFile(fileId, winEditor,
-                false //bug with empty file on server restarting
-            );
+            ASC.Files.Actions.checkEditFile(fileId, winEditor);
         } else {
             fileTitle = params.fileTitle;
         }
@@ -475,6 +475,72 @@ window.ASC.Files.EventHandler = (function () {
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoRenameFile.format(params.name, newName));
     };
 
+    var onChangeOwner = function (jsonData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.UI.displayInfoPanel(errorMessage, true);
+            return;
+        }
+
+        var createBy;
+        var title;
+        jq(params.list).each(function (i, entry) {
+            var itemId = ASC.Files.UI.parseItemId(entry);
+
+            var newData;
+            jq(jsonData).each(function (j, data) {
+                if (data.id == itemId.entryId) {
+                    newData = data;
+                    return false;
+                }
+                return true;
+            });
+
+            if (itemId.entryType == "folder") {
+                var stringXml = ASC.Files.Common.jsonToXml({folder: newData});
+                var htmlXML = ASC.Files.TemplateManager.translateFromString(stringXml);
+
+                var folderId = itemId.entryId;
+                var folderObj = ASC.Files.UI.getEntryObject("folder", folderId);
+
+                folderObj = insertFolderItems(htmlXML, folderObj);
+
+                folderObj.yellowFade().removeClass("new-folder");
+
+                ASC.Files.UI.selectRow(folderObj, true);
+                ASC.Files.UI.updateMainContentHeader();
+
+                if (ASC.Files.Tree) {
+                    ASC.Files.Tree.resetFolder(params.parentFolderID);
+                }
+
+                var folderData = ASC.Files.UI.getObjectData(folderObj);
+                createBy = folderData.create_by;
+                title = folderData.title;
+            } else {
+                stringXml = ASC.Files.Common.jsonToXml({file: newData});
+
+                var fileData = ASC.Files.EventHandler.onGetFile(stringXml,
+                    {
+                        fileId: itemId.entryId,
+                        isStringXml: true,
+                        show: true,
+                    }, errorMessage);
+
+                ASC.Files.UI.selectRow(fileData.entryObject, true);
+                ASC.Files.UI.updateMainContentHeader();
+                
+                createBy = fileData.create_by;
+                title = fileData.title;
+            }
+        });
+
+        if (params.list.length > 1) {
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoChangeOwnerArray.format(Encoder.htmlEncode(createBy), params.list.length));
+        } else {
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoChangeOwner.format(Encoder.htmlEncode(createBy), title));
+        }
+    };
+
     var onUpdateHistory = function (jsonData, params, errorMessage) {
         var fileId = params.fileId;
         var fileObj = ASC.Files.UI.getEntryObject("file", fileId);
@@ -535,10 +601,12 @@ window.ASC.Files.EventHandler = (function () {
             jq(".not-preview").removeClass("not-preview");
         }
 
-        jq("#contentVersions .version-row[data-version='" + fileData.version + "'] .version-restore").empty();
-        jq("#contentVersions .version-row[data-version='" + fileData.version + "'] .version-sublist span").text(ASC.Files.FilesJSResources.RevisionCurrent);
+        var curVersion = jq("#contentVersions .version-row").length;
+        var curVersionGroup = jq("#contentVersions .version-row:first").attr("data-version-group");
 
-        var curVersionGroup = fileData.version_group;
+        jq("#contentVersions .version-row[data-version='" + curVersion + "'] .version-restore").empty();
+        jq("#contentVersions .version-row[data-version='" + curVersion + "'] .version-sublist span").text(ASC.Files.FilesJSResources.RevisionCurrent);
+
         jq("#contentVersions .version-row[data-version-group=" + curVersionGroup + "]").show();
         jq("#contentVersions .version-row").each(function () {
             var row = jq(this);
@@ -559,6 +627,8 @@ window.ASC.Files.EventHandler = (function () {
                 row.find(".version-num span, .version-continue").remove();
             }
         });
+
+        ASC.Files.UI.registerUserProfilePopup(jq("#contentVersions"));
     };
 
     var onUpdateComment = function (jsonData, params, errorMessage) {
@@ -829,7 +899,7 @@ window.ASC.Files.EventHandler = (function () {
             jsonData = [];
         }
 
-        var list = jq("#filesMainContent .file-row.on-edit");
+        var list = jq(".files-content-panel #filesMainContent .file-row.on-edit:not(.cannot-edit)");
 
         for (var i = 0; i < list.length; i++) {
             var fileData = ASC.Files.UI.getObjectData(list[i]);
@@ -1056,6 +1126,7 @@ window.ASC.Files.EventHandler = (function () {
         onCreateFolder: onCreateFolder,
         onRenameFolder: onRenameFolder,
         onRenameFile: onRenameFile,
+        onChangeOwner: onChangeOwner,
         onUpdateHistory: onUpdateHistory,
         onGetFileHistory: onGetFileHistory,
         onUpdateComment: onUpdateComment,

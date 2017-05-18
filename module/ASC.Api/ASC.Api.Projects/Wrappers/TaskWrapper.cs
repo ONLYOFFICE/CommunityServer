@@ -50,6 +50,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public bool CanDelete { get; set; }
 
+        [DataMember]
+        public bool CanReadFiles { get; set; }
+
         [DataMember(Order = 12, EmitDefaultValue = false)]
         public ApiDateTime Deadline { get; set; }
 
@@ -79,7 +82,6 @@ namespace ASC.Api.Projects.Wrappers
 
         [DataMember(Order = 54, EmitDefaultValue = false)]
         public SimpleMilestoneWrapper Milestone { get; set; }
-
 
         private TaskWrapper()
         {
@@ -133,11 +135,12 @@ namespace ASC.Api.Projects.Wrappers
             CanCreateSubtask = ProjectSecurity.CanCreateSubtask(task);
             CanCreateTimeSpend = ProjectSecurity.CanCreateTimeSpend(task);
             CanDelete = ProjectSecurity.CanDelete(task);
+            CanReadFiles = ProjectSecurity.CanReadFiles(task.Project);
         }
 
         public TaskWrapper(Task task, Milestone milestone) : this(task)
         {
-            if (task.Milestone != 0)
+            if (milestone != null && task.Milestone != 0)
                 Milestone = new SimpleMilestoneWrapper(milestone);
         }
 

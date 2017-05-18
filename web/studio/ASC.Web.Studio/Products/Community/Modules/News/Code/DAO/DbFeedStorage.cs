@@ -431,7 +431,7 @@ namespace ASC.Web.Community.News.Code.DAO
                     new TagValue("CommentBody", HtmlUtility.GetFull(comment.Comment)),
                     new TagValue(NewsConst.TagDate, comment.Date.ToShortString()),
                     new TagValue(NewsConst.TagURL, CommonLinkUtility.GetFullAbsolutePath("~/products/community/modules/news/?docid=" + feed.Id)),
-                    new TagValue("CommentURL", CommonLinkUtility.GetFullAbsolutePath("~/products/community/modules/news/?docid=" + feed.Id + "#" + comment.Id.ToString(CultureInfo.InvariantCulture))),
+                    new TagValue("CommentURL", CommonLinkUtility.GetFullAbsolutePath("~/products/community/modules/news/?docid=" + feed.Id + "#container_" + comment.Id.ToString(CultureInfo.InvariantCulture))),
                     new TagValue(NewsConst.TagUserName, DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID)),
                     new TagValue(NewsConst.TagUserUrl, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID))),
                     GetReplyToTag(feed, comment)

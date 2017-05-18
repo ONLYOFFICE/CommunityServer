@@ -56,21 +56,21 @@ namespace ASC.Web.CRM.Controls.Common
 
         private void InitPage()
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ListContactViewData));
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ListTaskViewData));
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ListCasesViewData));
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ListDealViewData));
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ListInvoiceViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.ListContactViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ListTaskViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ListCasesViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ListDealViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ListInvoiceViewData());
 
             var privatePanel = (PrivatePanel)LoadControl(PrivatePanel.Location);
-            var usersWhoHasAccess = new List<string> {CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode()};
+            var usersWhoHasAccess = new List<string> {CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser")};
             privatePanel.UsersWhoHasAccess = usersWhoHasAccess;
             privatePanel.DisabledUsers = new List<Guid> {SecurityContext.CurrentAccount.ID};
             privatePanel.HideNotifyPanel = true;
             _phPrivatePanel.Controls.Add(privatePanel);
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ListDealViewData));
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ExchangeRateViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.ListDealViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
         }
 
 

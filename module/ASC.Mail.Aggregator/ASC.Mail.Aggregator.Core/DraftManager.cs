@@ -129,9 +129,7 @@ namespace ASC.Mail.Aggregator.Core
 
             manager.SetDraftSending(draft);
 
-            var taskFactory = new TaskFactory();
-
-            taskFactory.StartNew(() =>
+            Task.Run(() =>
             {
                 try
                 {
@@ -202,7 +200,7 @@ namespace ASC.Mail.Aggregator.Core
                         manager.SaveAutoreplyHistory(draft.Mailbox, message);
                     }
                 }
-            }, CancellationToken.None);
+            });
 
             return message.Id;
         }
@@ -213,16 +211,18 @@ namespace ASC.Mail.Aggregator.Core
 
         private void SaveIcsAttachment(MailDraft draft, MimeMessage mimeMessage)
         {
-            if (string.IsNullOrEmpty(draft.CalendarIcs) || mimeMessage.Attachments.Count() != 1) return;
+            if (string.IsNullOrEmpty(draft.CalendarIcs)) return;
 
             try
             {
-                var icsAttachment = mimeMessage.Attachments.First() as TextPart;
+                var icsAttachment =
+                    mimeMessage.Attachments.FirstOrDefault(
+                        a => a.ContentType.IsMimeType("application", "ics"));
 
-                if(icsAttachment == null)
+                if (icsAttachment == null)
                     return;
 
-                using (var memStream = new MemoryStream(Encoding.UTF8.GetBytes(icsAttachment.Text)))
+                using (var memStream = new MemoryStream(Encoding.UTF8.GetBytes(draft.CalendarIcs)))
                 {                                                                                                          
                     manager.AttachFile(draft.Mailbox.TenantId, draft.Mailbox.UserId,
                         draft.Id, icsAttachment.ContentType.Name, memStream);
@@ -278,13 +278,13 @@ namespace ASC.Mail.Aggregator.Core
                 {
                     switch (draft.CalendarMethod)
                     {
-                        case "REQUEST":
+                        case Defines.ICAL_REQUEST:
                             state = 1;
                             break;
-                        case "REPLY":
+                        case Defines.ICAL_REPLY:
                             state = 2;
                             break;
-                        case "CANCEL":
+                        case Defines.ICAL_CANCEL:
                             state = 3;
                             break;
                     }
@@ -372,20 +372,13 @@ namespace ASC.Mail.Aggregator.Core
                                 "<a id=\"delivery_failure_faq_link\" target=\"blank\" href=\"#\" class=\"link underline\">")
                             .Replace("{url_end}", "</a>"));
 
-                var lastDotIndex = exOnSanding.Message.LastIndexOf('.');
-                var smtpResponse = exOnSanding.Message;
+                const int max_length = 300;
 
-                if (lastDotIndex != -1 && lastDotIndex != smtpResponse.Length)
-                {
-                    try
-                    {
-                        smtpResponse = smtpResponse.Remove(lastDotIndex + 1, smtpResponse.Length - lastDotIndex - 1);
-                    }
-                    catch (Exception)
-                    {
-                        // skip
-                    }
-                }
+                var smtpResponse = string.IsNullOrEmpty(exOnSanding.Message)
+                    ? "no response"
+                    : exOnSanding.Message.Length > max_length
+                        ? exOnSanding.Message.Substring(0, max_length)
+                        : exOnSanding.Message;
 
                 sbMessage.AppendFormat("<p style=\"color:gray;font: normal 12px Arial, Tahoma,sans-serif;\">{0}: \"{1}\"</p></div>", DaemonLabels.ReasonLabel,
                     smtpResponse);
@@ -408,8 +401,10 @@ namespace ASC.Mail.Aggregator.Core
                 var mailDaemonMessageid = manager.MailSave(draft.Mailbox, notifyMessageItem, 0, MailFolder.Ids.inbox, MailFolder.Ids.inbox,
                     string.Empty, string.Empty, false);
 
-                manager.CreateDeliveryFailureAlert(draft.Mailbox.TenantId,
+                manager.CreateDeliveryFailureAlert(
+                    draft.Mailbox.TenantId,
                     draft.Mailbox.UserId,
+                    draft.Mailbox.MailBoxId,
                     draft.Subject,
                     draft.From,
                     draft.Id,

@@ -42,7 +42,6 @@ using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
-    [AjaxNamespace("TimeAndLanguageSettingsController")]
     public partial class TimeAndLanguage : UserControl
     {
         public bool WithoutButton;
@@ -60,10 +59,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts("~/usercontrols/management/TimeAndLanguage/js/TimeAndLanguage.js");
-
-            Page.RegisterStyle("~/usercontrols/management/TimeAndLanguage/css/TimeAndLanguage.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/TimeAndLanguage/js/TimeAndLanguage.js")
+                .RegisterStyle("~/usercontrols/management/TimeAndLanguage/css/TimeAndLanguage.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
 
@@ -117,58 +114,11 @@ namespace ASC.Web.Studio.UserControls.Management
             return sb.ToString();
         }
 
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public object SaveLanguageTimeSettings(string lng, string timeZoneID)
-        {
-            try
-            {
-                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-                var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                var culture = CultureInfo.GetCultureInfo(lng);
-
-                var changelng = false;
-                if (SetupInfo.EnabledCultures.Find(c => String.Equals(c.Name, culture.Name, StringComparison.InvariantCultureIgnoreCase)) != null)
-                {
-                    if (!String.Equals(tenant.Language, culture.Name, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        tenant.Language = culture.Name;
-                        changelng = true;
-                    }
-                }
-
-                var oldTimeZone = tenant.TimeZone;
-                tenant.TimeZone = GetTimeZones().FirstOrDefault(tz => tz.Id == timeZoneID) ?? TimeZoneInfo.Utc;
-
-                CoreContext.TenantManager.SaveTenant(tenant);
-
-                if (!tenant.TimeZone.Id.Equals(oldTimeZone.Id) || changelng)
-                {
-                    if (!tenant.TimeZone.Id.Equals(oldTimeZone.Id))
-                    {
-                        MessageService.Send(HttpContext.Current.Request, MessageAction.TimeZoneSettingsUpdated);
-                    }
-                    if (changelng)
-                    {
-                        MessageService.Send(HttpContext.Current.Request, MessageAction.LanguageSettingsUpdated);
-                    }
-                }
-
-                return changelng
-                           ? new { Status = 1, Message = String.Empty }
-                           : new { Status = 2, Message = Resource.SuccessfullySaveSettingsMessage };
-            }
-            catch (Exception e)
-            {
-                return new { Status = 0, Message = e.Message.HtmlEncode() };
-            }
-        }
-
-
-        private IEnumerable<TimeZoneInfo> GetTimeZones()
+        private static IEnumerable<TimeZoneInfo> GetTimeZones()
         {
             var timeZones = TimeZoneInfo.GetSystemTimeZones().ToList();
-            if (!timeZones.Any(tz => tz.Id == "UTC"))
+            if (timeZones.All(tz => tz.Id != "UTC"))
             {
                 timeZones.Add(TimeZoneInfo.Utc);
             }

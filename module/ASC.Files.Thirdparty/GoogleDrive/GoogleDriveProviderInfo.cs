@@ -132,7 +132,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             if (HttpContext.Current != null)
             {
-                var key = "__CLOUD_STORAGE" + ID;
+                var key = "__GOOGLE_STORAGE" + ID;
                 var storage = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
                 if (storage != null)
                 {

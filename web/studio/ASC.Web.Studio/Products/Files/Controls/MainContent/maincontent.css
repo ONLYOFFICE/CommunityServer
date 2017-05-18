@@ -110,20 +110,66 @@ dt.confirm-remove-files {
 }
 #overwriteMessage {
     overflow: hidden;
+    padding-bottom: 6px;
+}
+.overwrite-capt,
+#overwriteListShow,
+#overwriteListHide {
+    line-height: 30px;
+}
+.overwrite-resolve {
+    display: inline-block;
+    margin-bottom: 1px;
+    padding: 8px 10px;
+    width: 400px;
+}
+.overwrite-resolve.selected {
+    background-color: #f2f2f2;
+}
+.overwrite-resolve:hover {
+    background-color: #e5e5e5;
+}
+.overwrite-resolve input {
+    float: left;
+    margin: 4px 8px 0 0;
+}
+.overwrite-resolve-descr {
+    float: left;
+    width: 370px;
+}
+.overwrite-resolve-head {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 22px;
 }
 #overwriteList {
     border: 1px solid #D1D1D1;
     line-height: 20px;
     list-style-type: none;
-    margin: 15px 0 0;
-    max-height: 300px;
+    margin: 0 0 15px;
+    max-height: 120px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 15px;
+    padding: 8px 15px;
 }
 #overwriteList li {
-    width: 330px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 365px;
+}
+
+.change-owner-header {
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.change-owner-selector {
+    border-bottom: 1px dotted;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 

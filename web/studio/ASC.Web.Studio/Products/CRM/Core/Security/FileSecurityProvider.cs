@@ -41,6 +41,11 @@ namespace ASC.CRM.Core
             return true;
         }
 
+        public bool CanReview(FileEntry file, Guid userId)
+        {
+            return CanEdit(file, userId);
+        }
+
         public bool CanDelete(FileEntry file, Guid userId)
         {
             return file.CreateBy == userId || file.ModifiedBy == userId || CRMSecurity.IsAdmin;

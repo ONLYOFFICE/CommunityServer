@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EmailAndPassword.ascx.cs" Inherits="ASC.Web.Studio.UserControls.FirstTime.EmailAndPassword" %>
 
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="Resources" %>
 
@@ -13,7 +14,7 @@
                     <%= Resource.EmailAndPasswordTypePassword %> <span class="info"><%= Resource.EmailAndPasswordTypePasswordRecommendations %></span><span>*</span>
                 </div>
                 <div class="float-left">
-                    <input type="password" id="newPwd" class="textEdit" maxlength="30" />
+                    <input type="password" id="newPwd" class="textEdit" maxlength="<%= PasswordSettings.MaxLength %>" />
                 </div>
             </div>
             <div class="pwd">
@@ -21,7 +22,7 @@
                     <%= Resource.EmailAndPasswordConfirmPassword %><span>*</span>
                 </div>
                 <div>
-                    <input type="password" id="confPwd" class="textEdit" maxlength="30" />
+                    <input type="password" id="confPwd" class="textEdit" maxlength="<%= PasswordSettings.MaxLength %>" />
                 </div>
             </div>
             <% if (IsVisiblePromocode)
@@ -44,6 +45,7 @@
                 <%= UserControlsCommonResource.LicenseKeyLabel %><span>*</span>
             </div>
             <div class="clearFix">
+                <input type="file" id="uploadButton" />
                 <a id="licenseKey" class="button gray"><%= UserControlsCommonResource.UploadFile %></a>
                 <span id="licenseKeyText"></span>
             </div>

@@ -29,14 +29,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 
 namespace ASC.Web.Core.Client.HttpHandlers
 {
@@ -56,13 +54,16 @@ namespace ASC.Web.Core.Client.HttpHandlers
             var store = GetClientVariables(context);
             if (store == null) return string.Empty;
 
-            var namespaces = BaseNamespace.Split('.');
             var builder = new StringBuilder();
 
-            for (var index = 1; index <= namespaces.Length; index++)
+            if (!string.IsNullOrEmpty(BaseNamespace))
             {
-                var ns = string.Join(".", namespaces, 0, index);
-                builder.AppendFormat("if (typeof({0})==='undefined'){{{0} = {{}};}} ", ns);
+                var namespaces = BaseNamespace.Split('.');
+                for (var index = 1; index <= namespaces.Length; index++)
+                {
+                    var ns = string.Join(".", namespaces, 0, index);
+                    builder.AppendFormat("if (typeof({0})==='undefined'){{{0} = {{}};}} ", ns);
+                }
             }
 
             foreach (var clientObject in store)
@@ -102,50 +103,58 @@ namespace ASC.Web.Core.Client.HttpHandlers
             return new KeyValuePair<string, object>(key, new ClinetResourceSet(resourceManager));
         }
 
-        protected IEnumerable<KeyValuePair<string, object>> RegisterClientTemplatesPath(HttpContext context, params string[] virtualPathToControl)
+        protected IEnumerable<KeyValuePair<string, object>> RegisterClientTemplatesPath(HttpContext context, params string[] virtualPath)
         {
-            using (var page = new Page())
-            using (var output = new StringWriter())
+            var htmlBuilder = new StringBuilder();
+            foreach (var path in virtualPath)
             {
-                foreach (var path in virtualPathToControl)
-                {
-                    page.Controls.Add(page.LoadControl(path));
-                }
-
-                context.Server.Execute(page, output, false);
-
-                var doc = new HtmlDocument();
-                doc.LoadHtml(output.GetStringBuilder().ToString());
-                var nodes = doc.DocumentNode.SelectNodes("/script[@type='text/x-jquery-tmpl']");
-                var templates = nodes.ToDictionary(x => x.Attributes["id"].Value, y => y.InnerHtml);
-                return new List<KeyValuePair<string, object>>(1)
-                       {
-                           new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(() => templates))
-                       };
+                var data = File.ReadAllText(context.Server.MapPath(path));
+                htmlBuilder.Append(data);
             }
+
+            return new List<KeyValuePair<string, object>>(1)
+            {
+                new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(htmlBuilder.ToString()))
+            };
         }
 
+        public static string GetTemplateData(string input)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(input);
+            var nodes = doc.DocumentNode.SelectNodes("/script[@type='text/x-jquery-tmpl']");
+            var templates = nodes.ToDictionary(x => x.Attributes["id"].Value, y => y.InnerHtml);
+
+            var result = new StringBuilder();
+
+            foreach (var template in templates)
+            {
+                // only for jqTmpl for now
+                result.Append(string.Format("jQuery.template('{0}', '{1}');{2}",
+                    template.Key,
+                    template.Value
+                        .Replace("\r\n", "")
+                        .Replace("\r", "")
+                        .Replace("\n", "")
+                        .Replace(Environment.NewLine, "")
+                        .Replace("'", "\\'"), Environment.NewLine));
+            }
+
+            return result.ToString();
+        }
 
         class ClientTemplateSet
         {
-            private readonly Func<Dictionary<string, string>> getTemplates;
+            private readonly string input;
 
-            public ClientTemplateSet(Func<Dictionary<string, string>> clientTemplates)
+            public ClientTemplateSet(string input)
             {
-                getTemplates = clientTemplates;
+                this.input = input;
             }
 
             public string GetClientTemplates()
             {
-                var result = new StringBuilder();
-
-                foreach (var template in getTemplates())
-                {
-                    // only for jqTmpl for now
-                    result.AppendFormat("jQuery.template('{0}', '{1}');{2}", template.Key, template.Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").Replace(Environment.NewLine, "").Replace("'", "\\'"), Environment.NewLine);
-                }
-
-                return result.ToString();
+                return GetTemplateData(input);
             }
         }
 

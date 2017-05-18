@@ -20,7 +20,7 @@
                 <label for="radioPublicPortal"><%= Resource.PortalAccessSettingsAnyone %></label>
                 <div id="cbxRegisterUsersContainer" class="clearFix">
                     <input type="checkbox" id="cbxRegisterUsers" <%= (Settings.RegisterUsersImmediately ? "checked=\"checked\"" : "") %>/>
-                    <label for="cbxRegisterUsers"><%= CustomNamingPeople.Substitute<Resource>("RegisterNewUsersImmediately") %></label>
+                    <label for="cbxRegisterUsers"><%= CustomNamingPeople.Substitute<Resource>("RegisterNewUsersImmediately").HtmlEncode() %></label>
                 </div>
             </div>
         </div>

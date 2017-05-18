@@ -24,40 +24,36 @@
 */
 
 
-using ASC.Api.Attributes;
-using ASC.Api.Collections;
-using ASC.Api.Employee;
-using ASC.Api.Interfaces;
-using ASC.Api.Utils;
-using ASC.Common.Threading.Progress;
-using ASC.Core;
-using ASC.Core.Billing;
-using ASC.Core.Tenants;
-using ASC.Core.Users;
-using ASC.IPSecurity;
-using ASC.MessagingSystem;
-using ASC.Security.Cryptography;
-using ASC.Web.Core;
-using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Core.WhiteLabel;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Https;
-using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.Core.SMS;
-using ASC.Web.Studio.UserControls.FirstTime;
-using ASC.Web.Studio.Utility;
-using log4net;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Security;
 using System.Web;
+using ASC.Api.Attributes;
+using ASC.Api.Collections;
+using ASC.Api.Employee;
+using ASC.Api.Interfaces;
+using ASC.Api.Utils;
 using ASC.Common.Threading;
+using ASC.Core;
+using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
+using ASC.IPSecurity;
+using ASC.MessagingSystem;
+using ASC.Web.Core;
+using ASC.Web.Core.Utility;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Quota;
+using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Utility;
+using log4net;
+using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
 
 
@@ -70,6 +66,7 @@ namespace ASC.Api.Settings
     {
         private const int ONE_THREAD = 1;
         private static readonly DistributedTaskQueue ldapTasks = new DistributedTaskQueue("ldapOperations", ONE_THREAD);
+        private static readonly DistributedTaskQueue quotaTasks = new DistributedTaskQueue("quotaOperations", ONE_THREAD);
 
         public string Name
         {
@@ -129,6 +126,54 @@ namespace ASC.Api.Settings
         {
             var diskQuota = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
             return new QuotaWrapper(diskQuota, GetQuotaRows());
+        }
+
+        ///<summary>
+        /// Start Recalculate Quota Task
+        ///</summary>
+        ///<short>
+        /// Recalculate Quota 
+        ///</short>
+        ///<returns></returns>
+        [Read("recalculatequota")]
+        public void RecalculateQuota()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var operations = quotaTasks.GetTasks()
+                .Where(t => t.GetProperty<int>(QuotaSync.TenantIdKey) == TenantProvider.CurrentTenantID);
+
+            if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
+            {
+                throw new InvalidOperationException(Resource.LdapSettingsTooManyOperations);
+            }
+
+            var op = new QuotaSync(TenantProvider.CurrentTenantID);
+
+            quotaTasks.QueueTask(op.RunJob, op.GetDistributedTask());
+        }
+
+        ///<summary>
+        /// Check Recalculate Quota Task
+        ///</summary>
+        ///<short>
+        /// Check Recalculate Quota Task
+        ///</short>
+        ///<returns>Check Recalculate Quota Task Status</returns>
+        [Read("checkrecalculatequota")]
+        public bool CheckRecalculateQuota()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var task = quotaTasks.GetTasks().FirstOrDefault(t => t.GetProperty<int>(QuotaSync.TenantIdKey) == TenantProvider.CurrentTenantID);
+
+            if (task != null && task.Status == DistributedTaskStatus.Completed)
+            {
+                quotaTasks.RemoveTask(task.Id);
+                return false;
+            }
+
+            return task != null;
         }
 
         /// <summary>
@@ -384,14 +429,14 @@ namespace ASC.Api.Settings
 
         ///<visible>false</visible>
         [Create("whitelabel/savefromfiles")]
-        public void SaveWhiteLabelSettingsFromFiles(IEnumerable<System.Web.HttpPostedFileBase> files)
+        public void SaveWhiteLabelSettingsFromFiles(IEnumerable<System.Web.HttpPostedFileBase> attachments)
         {
-            if (files != null && files.Any())
+            if (attachments != null && attachments.Any())
             {
                 var tenantId = TenantProvider.CurrentTenantID;
                 var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
 
-                foreach (var f in files)
+                foreach (var f in attachments)
                 {
                     var parts = f.FileName.Split('.');
 
@@ -593,7 +638,7 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!StudioSmsNotificationSettings.IsVisibleSettings || CoreContext.PaymentManager.GetApprovedPartner() != null)
+            if (!StudioSmsNotificationSettings.IsVisibleSettings)
             {
                 throw new Exception(Resource.SmsNotAvailable);
             }
@@ -624,31 +669,56 @@ namespace ASC.Api.Settings
         }
 
         ///<visible>false</visible>
-        [Create("sendcongratulations", false)] //NOTE: this method doesn't requires auth!!!
-        public void SendCongratulations(Guid userid, string key)
-        {
-            var authInterval = TimeSpan.FromHours(1);
-            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(userid.ToString() + ConfirmType.Auth, key, authInterval);
-
-            switch (checkKeyResult)
-            {
-                case EmailValidationKeyProvider.ValidationResult.Ok:
-                    var currentUser = CoreContext.UserManager.GetUsers(userid);
-                    StudioNotifyService.Instance.SendCongratulations(currentUser);
-                    FirstTimeTenantSettings.SendInstallInfo(currentUser);
-                    break;
-                default:
-                    throw new SecurityException("Access Denied.");
-            }
-        }
-
-        ///<visible>false</visible>
         [Update("colortheme")]
         public void SaveColorTheme(string theme)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
             ColorThemesSettings.SaveColorTheme(theme);
             MessageService.Send(HttpContext.Current.Request, MessageAction.ColorThemeChanged);
+        }
+
+        ///<visible>false</visible>
+        [Update("timeandlanguage")]
+        public string TimaAndLanguage(string lng, string timeZoneID)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var culture = CultureInfo.GetCultureInfo(lng);
+
+            var changelng = false;
+            if (SetupInfo.EnabledCultures.Find(c => String.Equals(c.Name, culture.Name, StringComparison.InvariantCultureIgnoreCase)) != null)
+            {
+                if (!String.Equals(tenant.Language, culture.Name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    tenant.Language = culture.Name;
+                    changelng = true;
+                }
+            }
+
+            var oldTimeZone = tenant.TimeZone;
+            var timeZones = TimeZoneInfo.GetSystemTimeZones().ToList();
+            if (timeZones.All(tz => tz.Id != "UTC"))
+            {
+                timeZones.Add(TimeZoneInfo.Utc);
+            }
+            tenant.TimeZone = timeZones.FirstOrDefault(tz => tz.Id == timeZoneID) ?? TimeZoneInfo.Utc;
+
+            CoreContext.TenantManager.SaveTenant(tenant);
+
+            if (!tenant.TimeZone.Id.Equals(oldTimeZone.Id) || changelng)
+            {
+                if (!tenant.TimeZone.Id.Equals(oldTimeZone.Id))
+                {
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.TimeZoneSettingsUpdated);
+                }
+                if (changelng)
+                {
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.LanguageSettingsUpdated);
+                }
+            }
+
+            return Resource.SuccessfullySaveSettingsMessage;
         }
 
         ///<visible>false</visible>
@@ -685,55 +755,6 @@ namespace ASC.Api.Settings
             if (!CoreContext.Configuration.Standalone) return false;
             LicenseReader.RefreshLicense();
             return true;
-        }
-
-        ///<visible>false</visible>
-        [Read("https/check")]
-        public object CheckHttpsCertificate()
-        {
-            try
-            {
-                return new
-                    {
-                        success = true,
-                        exist = HttpsManager.IsExistHttpsCertificate()
-                    };
-            }
-            catch (Exception exception)
-            {
-                LogManager.GetLogger(typeof(HttpsManager)).Error(exception);
-
-                return new
-                {
-                    success = false,
-                    message = exception.Message
-                };
-            }
-        }
-
-        ///<visible>false</visible>
-        [Update("https/upload")]
-        public object UploadHttpsCertificate(string filePath, string password)
-        {
-            try
-            {
-                HttpsManager.UploadCertificate(filePath, password);
-
-                return new
-                {
-                    success = true
-                };
-            }
-            catch (Exception exception)
-            {
-                LogManager.GetLogger(typeof(HttpsManager)).Error(exception);
-
-                return new
-                {
-                    success = false,
-                    message = exception.Message
-                };
-            }
         }
     }
 }

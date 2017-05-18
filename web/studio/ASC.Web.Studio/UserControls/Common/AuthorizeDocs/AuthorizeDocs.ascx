@@ -53,17 +53,21 @@
 
 <script id="personalReviewTmpl" type="text/x-jquery-tmpl">
     <div class="auth-form-with_review_i carousel-block">
-            <img src="${photoUrl}" class="auth-form-with_review_photo" />
-            <div  class="auth-form-with_review_info">
-                <span class="auth-form-with_review_author">${author}</span>
-                <span class="auth-form-with_review_date">${date}</span>
-                <span class="auth-form-with_review_rating">
-                    {{each(i, star) stars}}
-                    <span class="auth-form-with_review_star"></span>
-                    {{/each}}
-                </span>
-            </div>
-            <div class="auth-form-with_review_text">${value}</div>
+        <div class="auth-form-with_review_photo">
+            {{if photoUrl }}
+            <img src="${photoUrl}" alt="${author}" />
+            {{/if}}
+        </div>
+        <div  class="auth-form-with_review_info">
+            <span class="auth-form-with_review_author">${author}</span>
+            <span class="auth-form-with_review_date">${date}</span>
+            <span class="auth-form-with_review_rating">
+                {{each(i, star) stars}}
+                <span class="auth-form-with_review_star"></span>
+                {{/each}}
+            </span>
+        </div>
+        <div class="auth-form-with_review_text">${value}</div>
      </div>
 </script>
 

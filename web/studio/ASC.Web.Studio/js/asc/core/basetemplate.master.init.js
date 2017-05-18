@@ -103,7 +103,7 @@ var defineBodyMediaClass = function () {
     }
 
     // init API Manager
-    ServiceManager.init(ASC.Resources.Master.ApiPath);
+    ServiceHelper.init(ASC.Resources.Master.ApiPath);
     ServiceFactory.init({
         responses: {
             isme: ASC.Resources.Master.ApiResponsesMyProfile

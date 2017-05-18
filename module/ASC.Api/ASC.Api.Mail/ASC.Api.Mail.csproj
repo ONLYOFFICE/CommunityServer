@@ -55,6 +55,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="antlr.runtime">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\antlr.runtime.dll</HintPath>
+    </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
@@ -71,6 +75,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="ASC.MessagingSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
     <Reference Include="ASC.Specific, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Specific.dll</HintPath>
@@ -83,10 +91,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
     </Reference>
-    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
@@ -95,8 +99,22 @@
       <HintPath>..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Ical.Net">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Ical.Net.Collections">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.Collections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -109,17 +127,19 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailApi.MailService.cs" />
     <Compile Include="DataContracts\MailAccountData.cs" />
     <Compile Include="DataContracts\MailBoxAccountSettings.cs" />
     <Compile Include="DataContracts\MailContactData.cs" />
     <Compile Include="DataContracts\MailFolderData.cs" />
     <Compile Include="DataContracts\MailTagData.cs" />
     <Compile Include="Extensions\DataContractsExtensions.cs" />
+    <Compile Include="MailApi.Settings.cs" />
     <Compile Include="MailApi.Attachments.cs" />
     <Compile Include="MailApi.Autoreply.cs">
       <SubType>Code</SubType>

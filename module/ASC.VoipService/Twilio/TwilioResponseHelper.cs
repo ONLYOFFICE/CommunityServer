@@ -26,9 +26,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
+using System.Web;
 using ASC.Core;
+using ASC.Core.Tenants;
 using Twilio.TwiML;
 
 namespace ASC.VoipService.Twilio
@@ -36,42 +37,47 @@ namespace ASC.VoipService.Twilio
     public class TwilioResponseHelper
     {
         private readonly VoipSettings settings;
-        private readonly string tenant;
-        private readonly string echoUrl;
+        private readonly string baseUrl;
 
-        public TwilioResponseHelper(VoipSettings settings, string tenant)
+        public TwilioResponseHelper(VoipSettings settings, string baseUrl)
         {
             this.settings = settings;
-            this.tenant = tenant;
-            echoUrl = ConfigurationManager.AppSettings["echoUrl"] ?? "http://voip.teamlab.info/";
-            if (!echoUrl.EndsWith("/"))
-                echoUrl += "/";
-            echoUrl += "api/twilio/{0}?Tenant={1}";
+            this.baseUrl = baseUrl.TrimEnd('/') + "/twilio/";
         }
 
-        public TwilioResponse Inbound()
+        public TwilioResponse Inbound(Tuple<Agent,bool> agentTuple)
         {
+            var agent = agentTuple != null ? agentTuple.Item1 : null;
+            var anyOnline = agentTuple != null ? agentTuple.Item2 : false;
             var response = new TwilioResponse();
-
+            
             if (settings.WorkingHours != null && settings.WorkingHours.Enabled)
             {
-                if (!(settings.WorkingHours.From <= DateTime.UtcNow.TimeOfDay && settings.WorkingHours.To >= DateTime.UtcNow.TimeOfDay))
+                var now = TenantUtil.DateTimeFromUtc(DateTime.UtcNow);
+                if (!(settings.WorkingHours.From <= now.TimeOfDay && settings.WorkingHours.To >= now.TimeOfDay))
                 {
                     return AddVoiceMail(response);
                 }
             }
 
-            if (settings.AvailableOperators.Any())
+            if (anyOnline)
             {
                 if (!string.IsNullOrEmpty(settings.GreetingAudio))
                 {
-                    response.Play(settings.GreetingAudio);
+                    response.Play(EncodePlay(settings.GreetingAudio));
                 }
 
-                response.Enqueue(settings.Queue.Name, new { method = "GET", action = GetEcho("enqueue"), waitUrl = GetEcho("wait"), waitUrlMethod = "GET" });
+                response.Enqueue(settings.Queue.Name,
+                    new
+                    {
+                        method = "POST",
+                        action = GetEcho("Enqueue", agent != null),
+                        waitUrl = GetEcho("Wait", agent != null),
+                        waitUrlMethod = "POST"
+                    });
             }
 
-            return AddVoiceMail(response); 
+            return AddVoiceMail(response);
         }
 
         public TwilioResponse Outbound()
@@ -117,30 +123,48 @@ namespace ASC.VoipService.Twilio
 
             if (!string.IsNullOrEmpty(queue.WaitUrl))
             {
-                response.BeginGather(new { method = "GET", action = GetEcho("gatherQueue") })
-                        .Play(queue.WaitUrl)
+                response.BeginGather(new { method = "POST", action = GetEcho("gatherQueue") })
+                        .Play(EncodePlay(queue.WaitUrl))
                         .EndGather();
             }
 
             return response;
         }
 
-        public TwilioResponse GatherQueue(string digits, string number)
+        public TwilioResponse GatherQueue(string digits, string number, List<Agent> availableOperators)
         {
             var response = new TwilioResponse();
 
             if (digits == "#") return AddVoiceMail(response);
 
-            var oper = settings.AvailableOperators.Find(r => r.PostFix == digits) ?? settings.AvailableOperators.FirstOrDefault();
+            var oper = settings.Operators.Find(r => r.PostFix == digits && availableOperators.Contains(r)) ??
+                settings.Operators.FirstOrDefault(r => availableOperators.Contains(r));
 
             return oper != null ? AddToResponse(response, oper) : response;
         }
 
         public TwilioResponse Redirect(string to)
         {
-            return to == "hold"
-                       ? new TwilioResponse().Play(settings.HoldAudio, new {loop = 0})
-                       : new TwilioResponse().Enqueue(settings.Queue.Name, new { method = "GET", action = GetEcho("enqueue"), waitUrl = GetEcho("wait") + "&RedirectTo=" + to, waitUrlMethod = "GET" });
+            if (to == "hold")
+            {
+                return new TwilioResponse().Play(EncodePlay(settings.HoldAudio), new {loop = 0});
+            }
+
+            Guid newCallerId;
+
+            if (Guid.TryParse(to, out newCallerId))
+            {
+                SecurityContext.AuthenticateMe(newCallerId);
+            }
+
+            return new TwilioResponse().Enqueue(settings.Queue.Name,
+                new
+                {
+                    method = "POST",
+                    action = GetEcho("enqueue"),
+                    waitUrl = GetEcho("wait") + "&RedirectTo=" + to,
+                    waitUrlMethod = "POST"
+                });
         }
 
         public TwilioResponse VoiceMail()
@@ -150,7 +174,7 @@ namespace ASC.VoipService.Twilio
 
         private TwilioResponse AddToResponse(TwilioResponse response, Agent agent)
         {
-            var dialAttributes = new { method = "GET", action = GetEcho("dial"), timeout = agent.TimeOut, record = agent.Record ? "record-from-answer" : "do-not-record" };
+            var dialAttributes = new { method = "POST", action = GetEcho("dial"), timeout = agent.TimeOut, record = agent.Record ? "record-from-answer" : "do-not-record" };
 
             switch (agent.Answer)
             {
@@ -182,26 +206,34 @@ namespace ASC.VoipService.Twilio
             element.SetAttributeValue("url", url);
 
             element.AllowedAttributes.Add("method");
-            element.SetAttributeValue("method", "GET");
+            element.SetAttributeValue("method", "POST");
         }
 
         private TwilioResponse AddVoiceMail(TwilioResponse response)
         {
-            return settings.VoiceMail == null || !settings.VoiceMail.Enabled
-                       ? response
-                       : response.Play(settings.VoiceMail.Url).Record(new { method = "GET", action = GetEcho("voiceMail"), maxLength = settings.VoiceMail.TimeOut });
+            return string.IsNullOrEmpty(settings.VoiceMail)
+                       ? response.Say("")
+                       : response.Play(EncodePlay(settings.VoiceMail)).Record(new { method = "POST", action = GetEcho("voiceMail"), maxLength = 30 });
         }
 
         public string GetEcho(string action, bool user = true)
         {
-            var result = string.Format(echoUrl, action, tenant);
+            var result = baseUrl + action;
 
             if (user)
             {
-                result += "&CallerId=" + SecurityContext.CurrentAccount.ID;
+                result += "?CallerId=" + SecurityContext.CurrentAccount.ID;
             }
 
             return result;
+        }
+
+        private string EncodePlay(string path)
+        {
+            var lastIndex = path.LastIndexOf('/');
+            var start = path.Substring(0, lastIndex);
+            var end = path.Substring(lastIndex + 1);
+            return  start + '/' + HttpUtility.UrlEncode(end);
         }
     }
 }

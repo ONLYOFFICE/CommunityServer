@@ -34,10 +34,6 @@
     max-width: 100%;
     display: none;
 }
-.cnvrt-list-file-block .tl-combobox .combobox-container {
-    margin: 0;
-    width: auto;
-}
 .cnvrt-list-file-block .tl-combobox .combobox-container .container-top {
     right: 8px;
 }
@@ -56,8 +52,10 @@
 .cnvrt-file-block-active {
     background-color: #fafafa;
 }
+.cnvrt-file-block-open .cnvrt-file-block-head {
+    border-bottom: 1px dotted #d1d1d1;
+}
 .cnvrt-file-block-body {
-    border-top: 1px dotted #D1D1D1;
     padding-left: 20px;
 }
 .cnvrt-file-block-open .cnvrt-file-block-body {
@@ -100,10 +98,10 @@
 .cnvrt-title-content .file-extension {
     font-weight: bold;
 }
-.cnvrt-file-block-head .cnvrt-format-icon-content,
 .cnvrt-file-block-head .cnvrt-title-content {
     cursor: pointer;
     font-size: 14px;
+    margin-left: 5px;
 }
 .cnvrt-tooltip-content {
     color: #808080;

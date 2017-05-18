@@ -73,10 +73,10 @@ window.uetq = window.uetq || [];
         } else {
             ASC.Controls.FirstTimeView.ShowOperationInfo(result);
         }
-    }
+    };
 
     this.SaveTimeLangSettingsCallback = function(result) {
-        if (result.Status == 2 || result.Status == 1) {
+        if (result.Status == 1) {
             ASC.Controls.FirstTimeView.Finish(); // enter redirect on the dash of modules
         } else {
             ASC.Controls.FirstTimeView.ShowOperationInfo(result);
@@ -84,7 +84,7 @@ window.uetq = window.uetq || [];
                 return ASC.Resources.Master.Resource.WizardCancelConfirmMessage;
             };
         }
-    }
+    };
 
     this.ShowOperationInfo = function (result) {
         if (result.Status == 1)

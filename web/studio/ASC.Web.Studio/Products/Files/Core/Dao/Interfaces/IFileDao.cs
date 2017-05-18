@@ -242,20 +242,6 @@ namespace ASC.Files.Core
         IEnumerable<File> Search(String text, FolderType folderType);
 
         /// <summary>
-        /// Delete streama of file
-        /// Only in TMFileDao
-        /// </summary>
-        /// <param name="fileId"></param>
-        void DeleteFileStream(object fileId);
-
-        /// <summary>
-        /// Delete parent folder on storage
-        /// Only in TMFileDao
-        /// </summary>
-        /// <param name="fileId"></param>
-        void DeleteFolder(object fileId);
-
-        /// <summary>
         ///   Checks whether file exists on storage
         /// </summary>
         /// <param name="file">file</param>
@@ -267,6 +253,8 @@ namespace ASC.Files.Core
         List<EditHistory> GetEditHistory(object fileId, int fileVersion = 0);
 
         Stream GetDifferenceStream(File file);
+
+        bool ContainChanges(object fileId, int fileVersion);
 
         #endregion
     }

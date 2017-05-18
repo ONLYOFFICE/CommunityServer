@@ -6,50 +6,44 @@
         var isReady = false;
         var listFun = new Array();
 
-        var load = function () {
-            ckeditorConnector.isReady = true;
-            for (var i = 0; i < ckeditorConnector.listFun.length; i++) {
-                ckeditorConnector.listFun[i]();
-            }
+        var load = function (fun) {
+            onReady(fun);
+
+            var ckeditorScript = loadScript("ckeditor.js");
+            ckeditorScript.onload = function () {
+                var adapterScript = loadScript("adapters/jquery.js");
+                adapterScript.onload = function () {
+                    isReady = true;
+                    for (var i = 0; i < listFun.length; i++) {
+                        listFun[i]();
+                    }
+                };
+            };
         };
 
-        var onReady = function (fun) {
+        function onReady(fun) {
             if (typeof fun !== "function") {
                 return false;
             }
-            if (ckeditorConnector.isReady) {
+            if (isReady) {
                 fun();
             } else {
-                ckeditorConnector.listFun.push(fun);
+                listFun.push(fun);
             }
-            return ckeditorConnector.isReady;
+            return isReady;
+        };
+
+        function loadScript(scriptName) {
+            var newScript = document.createElement("script");
+            newScript.type = "text/javascript";
+            newScript.src = window.CKEDITOR_BASEPATH + scriptName;
+            return document.getElementsByTagName("head")[0].appendChild(newScript);
         };
 
         return {
-            isReady: isReady,
-            listFun: listFun,
-            load: load,
-            onReady: onReady,
+            load: load
         };
     })();
 
     window.CKEDITOR_BASEPATH = ASC.Resources.Master.CKEDITOR_BASEPATH;
-    var getPath = function (scriptName) {
-        return window.CKEDITOR_BASEPATH + scriptName;
-    };
-
-    var loadScript = function (src) {
-        var newScript = document.createElement("script");
-        newScript.type = "text/javascript";
-        newScript.src = src;
-        return document.getElementsByTagName("head")[0].appendChild(newScript);
-    };
-
-    var ckeditorScript = loadScript(getPath("ckeditor.js"));
-    ckeditorScript.onload = function () {
-        var adapterScript = loadScript(getPath("adapters/jquery.js"));
-        adapterScript.onload = function () {
-            ckeditorConnector.load();
-        };
-    };
 };

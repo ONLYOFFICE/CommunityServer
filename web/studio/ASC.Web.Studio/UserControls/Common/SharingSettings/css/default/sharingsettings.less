@@ -1,0 +1,282 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+#studio_sharingSettingsDialog {
+    display: none;
+}
+#sharingSettingsItems {
+    border-top: 1px solid #d1d1d1;
+    height: 232px;
+    min-height: 232px;
+    overflow: auto;
+}
+.sharing-empty {
+    float: left;
+    margin-top: -115px;
+    text-align: center;
+    width: 100%;
+}
+#sharingSettingsDialogBody.with-message #sharingSettingsItems {
+    height: 172px;
+    min-height: 172px;
+}
+body.mobile #sharingSettingsItems {
+    height: auto !important;
+    overflow: visible !important;
+}
+#studio_sharingSettingsDialog .sharingItem {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    padding: 10px 8px 7px;
+}
+#studio_sharingSettingsDialog .sharingItem .name {
+    float: left;
+    max-width: 346px;
+    overflow: hidden;
+}
+#studio_sharingSettingsDialog .sharingItem .action {
+    float: right;
+    text-align: right;
+    width: 140px;
+}
+.action-clean {
+    padding-right: 24px;
+}
+#studio_sharingSettingsDialog .sharingItem .remove {
+    float: right;
+    width: 16px;
+    margin-left: 4px;
+}
+.sharing-group {
+    background: url("images/group.png") no-repeat 0 0 transparent;
+    display: inline-block;
+    height: 16px;
+    margin: -1px 0 -2px 5px;
+    width: 16px;
+}
+.add-to-sharing-links {
+    display: block;
+    margin-bottom: 13px;
+
+    .addUserLink {
+        border-top-right-radius: 0;
+        -moz-border-radius-topright: 0;
+        -webkit-border-top-right-radius: 0;
+        -khtml-border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        -moz-border-radius-bottomright: 0;
+        -webkit-border-bottom-right-radius: 0;
+        -khtml-border-bottom-right-radius: 0;
+
+        &.button,
+        &.button:hover {
+            padding-right: 8px;
+        }
+
+        &::after {
+            left: 8px;
+        }
+    }
+
+    .share-default-action {
+        margin-left: -5px;
+        position: relative;
+        width: 0;
+        border-top-left-radius: 0;
+        -moz-border-radius-topleft: 0;
+        -webkit-border-top-left-radius: 0;
+        -khtml-border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        -moz-border-radius-bottomleft: 0;
+        -webkit-border-bottom-left-radius: 0;
+        -khtml-border-bottom-left-radius: 0;
+
+        span {
+            background: @shareDefaultActionImage no-repeat 10px 20px transparent;
+            display: block;
+            height: 13px;
+            margin-left: -24px;
+            padding: 0 24px;
+        }
+
+        &::after {
+            border-color: @shareDefaultActionAfterColor transparent transparent;
+            border-style: solid solid outset;
+            border-width: 4px 4px 0;
+            content: "";
+            height: 0;
+            margin-top: -2px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+        }
+
+        &.share-def-action-read span {
+            background-position-y: -1px;
+        }
+
+        &.share-def-action-review span {
+            background-position-y: -41px;
+        }
+
+        &.share-def-action-full span {
+            background-position-y: -81px;
+        }
+
+        &.share-def-action-restrict span {
+            background-position-y: -121px;
+        }
+    }
+
+    .share-def-action .dropdown-item {
+        padding-left: 32px;
+
+        span {
+            background: url("images/default-action.png") no-repeat 0 20px transparent;
+            margin-left: -26px;
+            padding-left: 26px;
+        }
+
+        &.share-def-action-read {
+            span {
+                background-position-y: 0px;
+            }
+
+            &.active span {
+                background-position-y: -20px;
+            }
+        }
+
+        &.share-def-action-review {
+            span {
+                background-position-y: -40px;
+            }
+
+            &.active span {
+                background-position-y: -60px;
+            }
+        }
+
+        &.share-def-action-full {
+            span {
+                background-position-y: -80px;
+            }
+
+            &.active span {
+                background-position-y: -100px;
+            }
+        }
+
+        &.share-def-action-restrict {
+            span {
+                background-position-y: -120px;
+            }
+
+            &.active span {
+                background-position-y: -140px;
+            }
+        }
+    }
+}
+
+/*----------------custom select------------------------*/
+#studio_sharingSettingsDialog div.action div.title {
+    border-bottom: 1px dotted;
+    color: #1A6DB3;
+    cursor: pointer;
+    float: right;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#studio_sharingSettingsDialog div.action ul.options {
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    list-style: none;
+    margin: -7px -5px;
+    padding: 0;
+    right: -2px;
+    width: auto !important;
+}
+#studio_sharingSettingsDialog div.action li.option {
+    height: 20px;
+    margin: 2px;
+    overflow: hidden;
+    padding: 3px 4px 0;
+    white-space: nowrap;
+}
+#studio_sharingSettingsDialog div.action li.option:hover {
+    background-color: #E8E9E9 !important;
+}
+#studio_sharingSettingsDialog div.action li.option.selected {
+    font-weight: bold;
+}
+#sharingSettingsItems .tl-combobox .combobox-container {
+    max-width: 220px;
+    min-width: 120px;
+    width: auto;
+}
+
+/****************************************\
+    Share Message
+\****************************************/
+#shareMessagePanel {
+    padding: 24px 0 0;
+}
+#shareAddMessage,
+#shareRemoveMessage {
+    margin-left: 7px;
+}
+#shareMessage {
+    display: none;
+    height: 50px;
+    margin: 8px 0 0;
+    max-width: 548px;
+    min-height: 50px;
+    min-width: 548px;
+    padding: 0;
+    resize: none;
+}
+#sharingSettingsDialogBody.with-message #shareMessage {
+    display: inline;
+}
+#shareGetLink {
+    float: right;
+    padding-left: 17px;
+    padding-right: 17px;
+    position: relative;
+    width: 0;
+}
+#shareGetLink:after{
+    background: @shareGetLinkImage no-repeat 0 0 transparent;
+    content: " ";
+    display: block;
+    height: 24px;
+    left: 5px;
+    position: absolute;
+    top: -1px;
+    width: 24px;
+}

@@ -40,10 +40,7 @@ using ASC.Feed;
 using ASC.Feed.Data;
 using ASC.Web.Core;
 using ASC.Web.Core.Helpers;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.Services.WhatsNew
 {

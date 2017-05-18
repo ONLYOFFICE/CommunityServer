@@ -3,21 +3,26 @@
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommonList.ascx.cs" Inherits="ASC.Web.Projects.Controls.Common.CommonList" %>
+<%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
 
-
+<div id="addTaskPanel" class="commonActionPanel"></div>
+<div id="milestoneActionPanel" class="commonActionPanel"></div>
+<div id="commonPopupContainer" style="display: none"></div>
+<div id="moveTaskPanel" style="display: none"></div>
+<div class="project-info-container display-none"></div>
 <div id="filterContainer">
     <div id="ProjectsAdvansedFilter"></div>
 </div>
-
-<div class="simplePageNavigator"></div>
+<div id="emptyScrCtrlPrj" class="noContentBlock emptyScrCtrl"></div>
 
 <div id="CommonListContainer">
     <div id="groupActionContainer">
         <div class="header-menu-spacer"> </div>
     </div>
+
     <div class="taskList"></div>
 
-    <table id="tableListProjects" class="table-list height40">
+    <table id="tableListProjects" class="table-list">
         <tbody>
         </tbody>
     </table>
@@ -47,20 +52,25 @@
                 <span class="gray-text"><%= ProjectsCommonResource.Total%> : </span>
                 <span class="gray-text" style="margin-right: 20px;" id="totalCount"></span>
                 <span class="gray-text"><%= ProjectsCommonResource.ShowOnPage%> : </span>
-                <select id="countOfRowsSmall" class="display-none top-align">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                </select> 
-                <select id="countOfRowsBig" class="display-none top-align">
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="75">75</option>
-                    <option value="100">100</option>
-                </select> 
+                <span id="countOfRows" class="top-align link dotline">25</span> 
             </td>
         </tr>
         </tbody>
     </table>
+    
+    <div id="descriptionTab" class="display-none">
+        <div class="tab"></div>
+        <div class="tab1"></div>
+        <div id="subtaskContainer" class="display-none">    
+            <div class="subtasks"></div>
+        </div>
+        <div id="filesContainer" class="display-none">
+            <asp:PlaceHolder runat="server" ID="phAttachmentsControl" />
+        </div>
+
+        <div id="commonCommentsContainer" class="display-none">
+            <scl:CommentsList ID="commonComments" runat="server" BehaviorID="commonComments">
+            </scl:CommentsList>
+        </div>  
+    </div>
 </div>

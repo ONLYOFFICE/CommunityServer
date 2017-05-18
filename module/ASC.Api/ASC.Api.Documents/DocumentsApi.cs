@@ -24,6 +24,17 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Mime;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Exceptions;
@@ -39,19 +50,7 @@ using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Mime;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using FilesNS = ASC.Web.Files.Services.WCFService;
 using MimeMapping = ASC.Common.Web.MimeMapping;
@@ -194,7 +193,7 @@ namespace ASC.Api.Documents
         /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <returns>Uploaded file</returns>
         [Create("@my/upload")]
-        public object UploadFileToMy(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<System.Web.HttpPostedFileBase> files)
+        public object UploadFileToMy(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files)
         {
             return UploadFile(Global.FolderMy.ToString(), file, contentType, contentDisposition, files, false, true);
         }
@@ -218,7 +217,7 @@ namespace ASC.Api.Documents
         /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <returns>Uploaded file</returns>
         [Create("@common/upload")]
-        public object UploadFileToCommon(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<System.Web.HttpPostedFileBase> files)
+        public object UploadFileToCommon(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files)
         {
             return UploadFile(Global.FolderCommon.ToString(), file, contentType, contentDisposition, files, false, true);
         }
@@ -338,35 +337,30 @@ namespace ASC.Api.Documents
         /// 
         /// </summary>
         /// <param name="fileId">File ID</param>
-        /// <param name="version"></param>
-        /// <param name="tabId"></param>
         /// <param name="fileExtension"></param>
         /// <param name="downloadUri"></param>
         /// <param name="stream"></param>
-        /// <param name="asNew"></param>
         /// <param name="doc"></param>
         /// <category>Files</category>
         /// <returns></returns>
         [Update("file/{fileId}/saveediting")]
-        public FileWrapper SaveEditing(String fileId, int version, Guid tabId, string fileExtension, string downloadUri, Stream stream, bool asNew, String doc)
+        public FileWrapper SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc)
         {
-            return new FileWrapper(_fileStorageService.SaveEditing(fileId, version, tabId, fileExtension, downloadUri, stream, asNew, doc));
+            return new FileWrapper(_fileStorageService.SaveEditing(fileId, fileExtension, downloadUri, stream, doc));
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="fileId">File ID</param>
-        /// <param name="docKeyForTrack"></param>
-        /// <param name="asNew"></param>
         /// <param name="editingAlone"></param>
         /// <param name="doc"></param>
         /// <category>Files</category>
         /// <returns></returns>
         [Create("file/{fileId}/startedit")]
-        public string StartEdit(String fileId, String docKeyForTrack, bool asNew, bool editingAlone, String doc)
+        public string StartEdit(String fileId, bool editingAlone, String doc)
         {
-            return _fileStorageService.StartEdit(fileId, docKeyForTrack, asNew, editingAlone, doc);
+            return _fileStorageService.StartEdit(fileId, editingAlone, doc);
         }
 
         /// <summary>
@@ -375,15 +369,31 @@ namespace ASC.Api.Documents
         /// <param name="fileId">File ID</param>
         /// <param name="tabId"></param>
         /// <param name="docKeyForTrack"></param>
-        /// <param name="shareLinkKey"></param>
+        /// <param name="doc"></param>
         /// <param name="isFinish"></param>
-        /// <param name="fixedVersion"></param>
         /// <category>Files</category>
         /// <returns></returns>
         [Read("file/{fileId}/trackeditfile")]
-        public KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String shareLinkKey, bool isFinish, bool fixedVersion)
+        public KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String doc, bool isFinish)
         {
-            return _fileStorageService.TrackEditFile(fileId, tabId, docKeyForTrack, shareLinkKey, isFinish, fixedVersion);
+            return _fileStorageService.TrackEditFile(fileId, tabId, docKeyForTrack, doc, isFinish);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileId">File ID</param>
+        /// <param name="version"></param>
+        /// <param name="doc"></param>
+        /// <category>Files</category>
+        /// <returns></returns>
+        [Read("file/{fileId}/openedit")]
+        public Configuration OpenEdit(String fileId, int version, String doc)
+        {
+            Configuration configuration;
+            DocumentServiceHelper.GetParams(fileId, version, doc, true, true, true, out configuration);
+            configuration.Type = Configuration.EditorType.External;
+            return configuration;
         }
 
 
@@ -419,21 +429,20 @@ namespace ASC.Api.Documents
         /// ]]>
         /// </returns>
         [Create("{folderId}/upload/create_session")]
-        public string CreateUploadSession(string folderId, string fileName, long fileSize, string relativePath)
+        public object CreateUploadSession(string folderId, string fileName, long fileSize, string relativePath)
         {
             var file = FileUploader.VerifyChunkedUpload(folderId, fileName, fileSize, FilesSettings.UpdateIfExist, relativePath);
 
-            //if "files.uploader.url" value="products/files/"
-            if (CoreContext.Configuration.Standalone)
+            if (FilesLinkUtility.IsLocalFileUploader)
             {
                 var session = FileUploader.InitiateUpload(file.FolderID.ToString(), (file.ID ?? "").ToString(), file.Title, file.ContentLength);
 
                 var response = ChunkedUploaderHandler.ToResponseObject(session, true);
-                return JsonConvert.SerializeObject(new
+                return new
                     {
                         success = true,
-                        data = JsonConvert.SerializeObject(response)
-                    });
+                        data = response
+                    };
             }
 
             var createSessionUrl = FilesLinkUtility.GetInitiateUploadSessionUrl(file.FolderID, file.ID, file.Title, file.ContentLength);
@@ -442,10 +451,10 @@ namespace ASC.Api.Documents
             request.ContentLength = 0;
 
             // hack for uploader.onlyoffice.com in api requests
-            var rewriterHeader = _context.RequestContext.HttpContext.Request.Headers[System.Web.HttpRequestExtensions.UrlRewriterHeader];
+            var rewriterHeader = _context.RequestContext.HttpContext.Request.Headers[HttpRequestExtensions.UrlRewriterHeader];
             if (!string.IsNullOrEmpty(rewriterHeader))
             {
-                request.Headers[System.Web.HttpRequestExtensions.UrlRewriterHeader] = rewriterHeader;
+                request.Headers[HttpRequestExtensions.UrlRewriterHeader] = rewriterHeader;
             }
 
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
@@ -457,7 +466,7 @@ namespace ASC.Api.Documents
             using (var response = request.GetResponse())
             using (var responseStream = response.GetResponseStream())
             {
-                return new StreamReader(responseStream).ReadToEnd(); //result is json string
+                return JObject.Parse(new StreamReader(responseStream).ReadToEnd()); //result is json string
             }
         }
 
@@ -701,11 +710,12 @@ namespace ASC.Api.Documents
         /// <short>Delete file</short>
         /// <category>Files</category>
         /// <param name="fileId">File ID</param>
+        /// <param name="deleteAfter">Delete after finished</param>
         /// <returns>Operation result</returns>
         [Delete("file/{fileId}")]
-        public IEnumerable<FileOperationWraper> DeleteFile(String fileId)
+        public IEnumerable<FileOperationWraper> DeleteFile(String fileId, bool deleteAfter)
         {
-            return DeleteBatchItems(null, new[] { fileId });
+            return DeleteBatchItems(null, new[] { fileId }, deleteAfter);
         }
 
         /// <summary>
@@ -775,11 +785,12 @@ namespace ASC.Api.Documents
         /// <short>Delete folder</short>
         /// <category>Folders</category>
         /// <param name="folderId">Folder ID</param>
+        /// <param name="deleteAfter">Delete after finished</param>
         /// <returns>Operation result</returns>
         [Delete("folder/{folderId}")]
-        public IEnumerable<FileOperationWraper> DeleteFolder(String folderId)
+        public IEnumerable<FileOperationWraper> DeleteFolder(String folderId, bool deleteAfter)
         {
-            return DeleteBatchItems(new[] { folderId }, null);
+            return DeleteBatchItems(new[] { folderId }, null, deleteAfter);
         }
 
         /// <summary>
@@ -813,16 +824,17 @@ namespace ASC.Api.Documents
         /// <param name="folderIds">Folder ID list</param>
         /// <param name="fileIds">File ID list</param>
         /// <param name="conflictResolveType">Overwriting behavior: skip(0), overwrite(1) or duplicate(2)</param>
+        /// <param name="deleteAfter">Delete after finished</param>
         /// <returns>Operation result</returns>
         [Update("fileops/move")]
-        public IEnumerable<FileOperationWraper> MoveBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType)
+        public IEnumerable<FileOperationWraper> MoveBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType, bool deleteAfter)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
             itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
             itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, conflictResolveType, false).Select(o => new FileOperationWraper(o));
+            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, conflictResolveType, false, deleteAfter).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -834,16 +846,17 @@ namespace ASC.Api.Documents
         /// <param name="folderIds">Folder ID list</param>
         /// <param name="fileIds">File ID list</param>
         /// <param name="conflictResolveType">Overwriting behavior: skip(0), overwrite(1) or duplicate(2)</param>
+        /// <param name="deleteAfter">Delete after finished</param>
         /// <returns>Operation result</returns>
         [Update("fileops/copy")]
-        public IEnumerable<FileOperationWraper> CopyBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType)
+        public IEnumerable<FileOperationWraper> CopyBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType, bool deleteAfter)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
             itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
             itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, conflictResolveType, true).Select(o => new FileOperationWraper(o));
+            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, conflictResolveType, true, deleteAfter).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -928,18 +941,19 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <param name="folderIds">Folder ID list</param>
         /// <param name="fileIds">File ID list</param>
+        /// <param name="deleteAfter">Delete after finished</param>
         /// <short>Delete files and folders</short>
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/delete")]
-        public IEnumerable<FileOperationWraper> DeleteBatchItems(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
+        public IEnumerable<FileOperationWraper> DeleteBatchItems(IEnumerable<String> folderIds, IEnumerable<String> fileIds, bool deleteAfter)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
             itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
             itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.DeleteItems("delete", itemList).Select(o => new FileOperationWraper(o));
+            return _fileStorageService.DeleteItems("delete", itemList, false, deleteAfter).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -1130,7 +1144,7 @@ namespace ASC.Api.Documents
                 sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectId }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
             }
 
-            return sharedInfo.SubjectName;
+            return sharedInfo.ShortenLink ?? sharedInfo.Link;
         }
 
         /// <summary>
@@ -1147,7 +1161,7 @@ namespace ASC.Api.Documents
         /// <param name="providerId">Provider ID</param>
         /// <category>Third-Party Integration</category>
         /// <returns>Folder contents</returns>
-        /// <remarks> List of provider key: DropBox, Box, WebDav, Yandex, SkyDrive, SharePoint, GoogleDrive</remarks>
+        /// <remarks> List of provider key: DropboxV2, Box, WebDav, Yandex, SkyDrive, SharePoint, GoogleDrive</remarks>
         /// <exception cref="ArgumentException"></exception>
         [Create("thirdparty")]
         public FolderWrapper SaveThirdParty(
@@ -1263,7 +1277,7 @@ namespace ASC.Api.Documents
         /// <param name="docServiceUrlConverter">Document conversion service Address</param>
         /// <param name="docServiceUrlPortal">Community Server Address</param>
         /// <returns></returns>
-        [Read("savedocservice")]
+        [Update("docservice")]
         public bool CheckDocServiceUrl(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal)
         {
             FilesLinkUtility.DocServiceApiUrl = docServiceUrlApi;
@@ -1274,7 +1288,7 @@ namespace ASC.Api.Documents
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.DocumentServiceLocationSetting);
 
-            return DocumentServiceConnector.CheckDocServiceUrl(docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal);
+            return DocumentServiceConnector.CheckDocServiceUrl();
         }
 
         /// <visible>false</visible>

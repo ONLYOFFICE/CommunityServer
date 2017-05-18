@@ -236,7 +236,7 @@ ASC.CalendarController = new function() {
         ASC.CalendarController.ApiUrl = ASC.Resources.Master.ApiPath + 'calendar';
 
         var calHeight = jq(window).height() -
-            jq("#studioPageContent .mainContainer").outerHeight(true);
+            (jq("#studioPageContent .mainContainer").length ? jq("#studioPageContent .mainContainer").outerHeight(true) : 0);
 
         var defTimeZone = null;
 
@@ -316,6 +316,8 @@ ASC.CalendarController = new function() {
         ASC.Mail.Accounts = [];
         ASC.Mail.DefaultAccount = null;
         ASC.Mail.Initialized = false;
+
+        if (Teamlab.profile.isVisitor) return;
 
         window.Teamlab.getAccounts({}, {
             success: function(params, res) {

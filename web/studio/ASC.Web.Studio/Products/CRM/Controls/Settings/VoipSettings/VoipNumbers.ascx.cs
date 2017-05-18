@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -26,8 +26,10 @@
 
 using System;
 using System.Web;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.Core.Voip;
+using ASC.CRM.Core;
+using ASC.VoipService.Dao;
+using ASC.Web.CRM.Configuration;
+using ASC.Web.Studio;
 
 namespace ASC.Web.CRM.Controls.Settings
 {
@@ -41,9 +43,9 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!VoipPaymentSettings.IsEnabled)
+            if (!VoipNumberData.Allowed || !CRMSecurity.IsAdmin)
             {
-                Response.Redirect(PathProvider.StartURL() + "settings.aspx");
+                Response.Redirect(PathProvider.StartURL() + "settings.aspx?type=voip.common");
             }
 
             Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");

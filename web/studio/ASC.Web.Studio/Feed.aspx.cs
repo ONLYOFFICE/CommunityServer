@@ -171,7 +171,8 @@ namespace ASC.Web.Studio
         {
             if (CoreContext.Configuration.Personal) return string.Empty;
 
-            page.RegisterBodyScripts("~/js/asc/core/asc.feedreader.js");
+            // Migrate to CommonBodyScript
+            //page.RegisterBodyScripts("~/js/asc/core/asc.feedreader.js");
 
             return
                 string.Format(@"<li class=""top-item-box feed"">

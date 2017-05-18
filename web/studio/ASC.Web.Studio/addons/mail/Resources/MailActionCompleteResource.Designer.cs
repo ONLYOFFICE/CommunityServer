@@ -22,7 +22,7 @@ namespace ASC.Web.Mail.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MailActionCompleteResource {
+    public class MailActionCompleteResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ASC.Web.Mail.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ASC.Web.Mail.Resources.MailActionCompleteResource", typeof(MailActionCompleteResource).Assembly);
@@ -51,7 +51,7 @@ namespace ASC.Web.Mail.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Address &quot;{0}&quot; was added successfully..
         /// </summary>
-        internal static string AddAddressSuccess {
+        public static string AddAddressSuccess {
             get {
                 return ResourceManager.GetString("AddAddressSuccess", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Alias &quot;{0}&quot; was added successfully..
         /// </summary>
-        internal static string AddAliasSuccess {
+        public static string AddAliasSuccess {
             get {
                 return ResourceManager.GetString("AddAliasSuccess", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to New contact was added successfully..
         /// </summary>
-        internal static string AddContactSuccess {
+        public static string AddContactSuccess {
             get {
                 return ResourceManager.GetString("AddContactSuccess", resourceCulture);
             }
@@ -90,25 +90,25 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mailbox &quot;{0}&quot; was added successfully..
         /// </summary>
-        internal static string AddMailboxSuccess {
+        public static string AddMailboxSuccess {
             get {
                 return ResourceManager.GetString("AddMailboxSuccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mailgroup &quot;{0}&quot; was added successfully..
+        ///   Looks up a localized string similar to Mail group &quot;{0}&quot; was added successfully..
         /// </summary>
-        internal static string AddMailGroupSuccess {
+        public static string AddMailGroupSuccess {
             get {
                 return ResourceManager.GetString("AddMailGroupSuccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The %folder% has been cleaned..
+        ///   Looks up a localized string similar to The %folder% has been emptied..
         /// </summary>
-        internal static string clearFolder {
+        public static string clearFolder {
             get {
                 return ResourceManager.GetString("clearFolder", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to All selected conversations have been deleted..
         /// </summary>
-        internal static string deleteFilteredConversations {
+        public static string deleteFilteredConversations {
             get {
                 return ResourceManager.GetString("deleteFilteredConversations", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to All selected messages have been deleted..
         /// </summary>
-        internal static string deleteFilteredMessages {
+        public static string deleteFilteredMessages {
             get {
                 return ResourceManager.GetString("deleteFilteredMessages", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% contacts have been deleted..
         /// </summary>
-        internal static string DeleteManyContacts {
+        public static string DeleteManyContacts {
             get {
                 return ResourceManager.GetString("DeleteManyContacts", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% conversations have been deleted..
         /// </summary>
-        internal static string deleteManyConversations {
+        public static string deleteManyConversations {
             get {
                 return ResourceManager.GetString("deleteManyConversations", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% messages have been deleted..
         /// </summary>
-        internal static string deleteManyMessages {
+        public static string deleteManyMessages {
             get {
                 return ResourceManager.GetString("deleteManyMessages", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The contact has been deleted..
         /// </summary>
-        internal static string DeleteOneContact {
+        public static string DeleteOneContact {
             get {
                 return ResourceManager.GetString("DeleteOneContact", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The conversation has been deleted..
         /// </summary>
-        internal static string deleteOneConversation {
+        public static string deleteOneConversation {
             get {
                 return ResourceManager.GetString("deleteOneConversation", resourceCulture);
             }
@@ -180,25 +180,25 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The message has been deleted..
         /// </summary>
-        internal static string deleteOneMessage {
+        public static string deleteOneMessage {
             get {
                 return ResourceManager.GetString("deleteOneMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The contact was successfully changed..
+        ///   Looks up a localized string similar to The contact has been successfully changed..
         /// </summary>
-        internal static string EditContactSuccess {
+        public static string EditContactSuccess {
             get {
                 return ResourceManager.GetString("EditContactSuccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All selected converstaions have been moved to the %folder%..
+        ///   Looks up a localized string similar to All selected conversations have been moved to the %folder%..
         /// </summary>
-        internal static string moveFilteredConversationsTo {
+        public static string moveFilteredConversationsTo {
             get {
                 return ResourceManager.GetString("moveFilteredConversationsTo", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to All selected messages have been moved to the %folder%..
         /// </summary>
-        internal static string moveFilteredMessagesTo {
+        public static string moveFilteredMessagesTo {
             get {
                 return ResourceManager.GetString("moveFilteredMessagesTo", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% conversations have been moved to the %folder%..
         /// </summary>
-        internal static string moveManyConversationsTo {
+        public static string moveManyConversationsTo {
             get {
                 return ResourceManager.GetString("moveManyConversationsTo", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% messages have been moved to the %folder%..
         /// </summary>
-        internal static string moveManyMessagesTo {
+        public static string moveManyMessagesTo {
             get {
                 return ResourceManager.GetString("moveManyMessagesTo", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The conversation has been moved to the %folder%..
         /// </summary>
-        internal static string moveOneConversationTo {
+        public static string moveOneConversationTo {
             get {
                 return ResourceManager.GetString("moveOneConversationTo", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The message has been moved to the %folder%..
         /// </summary>
-        internal static string moveOneMessageTo {
+        public static string moveOneMessageTo {
             get {
                 return ResourceManager.GetString("moveOneMessageTo", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Address &quot;{0}&quot; was removed successfully..
         /// </summary>
-        internal static string RemoveAddressSuccess {
+        public static string RemoveAddressSuccess {
             get {
                 return ResourceManager.GetString("RemoveAddressSuccess", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Alias &quot;{0}&quot; was removed successfully..
         /// </summary>
-        internal static string RemoveAliasSuccess {
+        public static string RemoveAliasSuccess {
             get {
                 return ResourceManager.GetString("RemoveAliasSuccess", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Domain &quot;{0}&quot; was removed successfully..
         /// </summary>
-        internal static string RemoveDomainSuccess {
+        public static string RemoveDomainSuccess {
             get {
                 return ResourceManager.GetString("RemoveDomainSuccess", resourceCulture);
             }
@@ -279,16 +279,16 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mailbox &quot;{0}&quot; was removed successfully..
         /// </summary>
-        internal static string RemoveMailboxSuccess {
+        public static string RemoveMailboxSuccess {
             get {
                 return ResourceManager.GetString("RemoveMailboxSuccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mailgroup &quot;{0}&quot; was removed successfully..
+        ///   Looks up a localized string similar to Mail group &quot;{0}&quot; was removed successfully..
         /// </summary>
-        internal static string RemoveMailGroupSuccess {
+        public static string RemoveMailGroupSuccess {
             get {
                 return ResourceManager.GetString("RemoveMailGroupSuccess", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to All selected conversations have been restored..
         /// </summary>
-        internal static string restoreFilteredConversations {
+        public static string restoreFilteredConversations {
             get {
                 return ResourceManager.GetString("restoreFilteredConversations", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to All selected messages have been restored..
         /// </summary>
-        internal static string restoreFilteredMessages {
+        public static string restoreFilteredMessages {
             get {
                 return ResourceManager.GetString("restoreFilteredMessages", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% conversations have been restored..
         /// </summary>
-        internal static string restoreManyConversations {
+        public static string restoreManyConversations {
             get {
                 return ResourceManager.GetString("restoreManyConversations", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to %count% messages have been restored..
         /// </summary>
-        internal static string restoreManyMessages {
+        public static string restoreManyMessages {
             get {
                 return ResourceManager.GetString("restoreManyMessages", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The conversation has been restored to the %folder%..
         /// </summary>
-        internal static string restoreOneConversationTo {
+        public static string restoreOneConversationTo {
             get {
                 return ResourceManager.GetString("restoreOneConversationTo", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The message has been restored to the %folder%..
         /// </summary>
-        internal static string restoreOneMessageTo {
+        public static string restoreOneMessageTo {
             get {
                 return ResourceManager.GetString("restoreOneMessageTo", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mailbox &quot;{0}&quot; was updated successfully..
         /// </summary>
-        internal static string updateMailboxSuccess {
+        public static string updateMailboxSuccess {
             get {
                 return ResourceManager.GetString("updateMailboxSuccess", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace ASC.Web.Mail.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Mailgroup &quot;{0}&quot; was updated successfully..
         /// </summary>
-        internal static string updateMailGroupSuccess {
+        public static string updateMailGroupSuccess {
             get {
                 return ResourceManager.GetString("updateMailGroupSuccess", resourceCulture);
             }

@@ -51,8 +51,9 @@
             </td>
             <td class="version-author" >
               <span class="userLink">
-                <xsl:attribute name="title">
-                  <xsl:value-of select="modified_by" />
+                <xsl:attribute name="id">version_<xsl:value-of select="id" />_<xsl:value-of select="version" /></xsl:attribute>
+                <xsl:attribute name="data-uid">
+                  <xsl:value-of select="modified_by_id" />
                 </xsl:attribute>
                 <xsl:value-of select="modified_by" />
               </span>

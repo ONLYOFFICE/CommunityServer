@@ -5,6 +5,7 @@
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 
 <div id="caseProfile" class="clearFix">
     <table border="0" cellpadding="0" cellspacing="0" class="crm-detailsTable">
@@ -31,7 +32,7 @@
             <% if (CRMSecurity.IsPrivate(TargetCase)) %>
             <% { %>
             <tr>
-                <td class="describe-text" style="white-space:nowrap;"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode()%>:</td>
+                <td class="describe-text" style="white-space:nowrap;"><%= CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode() %>:</td>
                 <td></td>
                 <td class="caseAccessList"></td>
             </tr>

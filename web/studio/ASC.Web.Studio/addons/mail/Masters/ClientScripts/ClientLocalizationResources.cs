@@ -24,10 +24,14 @@
 */
 
 
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web;
 using ASC.Web.Mail.Resources;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.Core.Helpers;
+using Resources;
 
 namespace ASC.Web.Mail.Masters.ClientScripts
 {
@@ -40,12 +44,24 @@ namespace ASC.Web.Mail.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterResourceSet("MailResource", MailResource.ResourceManager);
-            yield return RegisterResourceSet("MailScriptResource", MailScriptResource.ResourceManager);
-            yield return RegisterResourceSet("MailAttachmentsResource", MailAttachmentsResource.ResourceManager);
-            yield return RegisterResourceSet("MailActionCompleteResource", MailActionCompleteResource.ResourceManager);
-            yield return RegisterResourceSet("MailAdministrationResource", MailAdministrationResource.ResourceManager);
-            yield return RegisterResourceSet("MailApiErrorsResource", MailApiErrorsResource.ResourceManager);
+            var autoreplyDaysInterval = Convert.ToInt32(ConfigurationManager.AppSettings["mail.autoreply-days-interval"] ?? "4");
+
+            return new List<KeyValuePair<string, object>>(6)
+            {
+                RegisterResourceSet("MailResource", MailResource.ResourceManager),
+                RegisterResourceSet("MailScriptResource", MailScriptResource.ResourceManager),
+                RegisterResourceSet("MailAttachmentsResource", MailAttachmentsResource.ResourceManager),
+                RegisterResourceSet("MailActionCompleteResource", MailActionCompleteResource.ResourceManager),
+                RegisterResourceSet("MailAdministrationResource", MailAdministrationResource.ResourceManager),
+                RegisterResourceSet("MailApiErrorsResource", MailApiErrorsResource.ResourceManager),
+                RegisterObject(new
+                {
+                    ErrorOpenMessageHelp = string.Format(MailScriptResource.ErrorOpenMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),
+                    ErrorParseMessageHelp = string.Format(MailScriptResource.ErrorParseMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),
+                    FilesCannotBeAttachedAsLinks = string.Format(MailResource.FilesCannotBeAttachedAsLinks_Body, "<br/>"),
+                    Autoreply = string.Format(MailResource.AutoreplyInformationText, string.Format(GrammaticalHelper.ChooseNumeralCase(autoreplyDaysInterval, Resource.DrnAgoDaysI, Resource.DrnAgoDaysR1, Resource.DrnAgoDaysRm), autoreplyDaysInterval))
+                })
+            };
         }
     }
 }

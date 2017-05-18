@@ -30,7 +30,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core.Users

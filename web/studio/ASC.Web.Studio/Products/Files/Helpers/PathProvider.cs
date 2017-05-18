@@ -112,12 +112,6 @@ namespace ASC.Web.Files.Classes
             if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
 
             const int uriLengthLimit = 1024;
-            string fileUri = null;
-            if (!DocumentServiceHelper.HaveExternalIP())
-                fileUri = DocumentServiceHelper.GetExternalUri(file);
-
-            if (!string.IsNullOrEmpty(fileUri))
-                return fileUri;
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
@@ -151,21 +145,6 @@ namespace ASC.Web.Files.Classes
             query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
             query += FilesLinkUtility.Version + "=" + file.Version + "&";
             query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID + file.Version.ToString(CultureInfo.InvariantCulture));
-
-            return uriBuilder.Uri + "?" + query;
-        }
-
-        public static string GetLicenseUrl(File file)
-        {
-            if (!CoreContext.Configuration.Standalone) return string.Empty;
-            if (file == null) return string.Empty;
-
-            //NOTE: Always build path to handler!
-            var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
-            var query = uriBuilder.Query;
-            query += FilesLinkUtility.Action + "=license&";
-            query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
-            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID.ToString());
 
             return uriBuilder.Uri + "?" + query;
         }

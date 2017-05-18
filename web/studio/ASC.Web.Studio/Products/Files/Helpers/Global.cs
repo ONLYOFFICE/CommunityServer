@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -74,16 +74,11 @@ namespace ASC.Web.Files.Classes
 
         public const int MaxTitle = 170;
 
-        public static readonly Regex InvalidTitleChars = new Regex("[\t@#$%&*\\+:;\"'<>?|\\\\/]");
+        public static readonly Regex InvalidTitleChars = new Regex("[\t*\\+:\"<>?|\\\\/]");
 
         public static bool EnableUploadFilter
         {
             get { return Boolean.TrueString.Equals(WebConfigurationManager.AppSettings["files.upload-filter"] ?? "false", StringComparison.InvariantCultureIgnoreCase); }
-        }
-
-        public static bool EnableEmbedded
-        {
-            get { return Boolean.TrueString.Equals(WebConfigurationManager.AppSettings["files.docservice.embedded"] ?? "true", StringComparison.InvariantCultureIgnoreCase); }
         }
 
         public static TimeSpan StreamUrlExpire
@@ -306,7 +301,7 @@ namespace ASC.Web.Files.Classes
 
                 if (Equals(id, 0)) //TODO: think about 'null'
                 {
-                    var isWarmup = HttpContext.Current != null && HttpContext.Current.Request.QueryString["warmup"] == "true" && !WarmUp.Instance.CheckCompleted();
+                    var isWarmup = HttpContext.Current != null && HttpContext.Current.Request.QueryString["warmup"] == "true" && !WarmUpController.Instance.CheckCompleted();
 
                     if ((!CoreContext.Configuration.Standalone || !isWarmup))
                 {
@@ -317,37 +312,14 @@ namespace ASC.Web.Files.Classes
                     {
                         try
                         {
-                            var path = string.Empty;
-                            IDataStore storeTemplate = null;
-                            if (my)
-                            {
-                                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                                if (partner != null)
-                                {
-                                    path = FileConstant.StoragePartnerDocuments + "/" + partner.Id + "/";
-                                    storeTemplate = StorageFactory.GetStorage(string.Empty,
-                                                                              FileConstant.StoragePartnerDocuments);
-                                    if (!storeTemplate.IsDirectory(path)
-                                        || storeTemplate.ListFilesRelative("", path, "*", false).Length == 0)
-                                    {
-                                        storeTemplate = null;
-                                    }
-                                }
-                            }
+                            var storeTemplate = GetStoreTemplate();
 
-                            if (storeTemplate == null)
-                            {
-                                storeTemplate = GetStoreTemplate();
-                                var culture = my
-                                                  ? CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID)
-                                                               .GetCulture()
-                                                  : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
+                            var culture = my ? CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture() : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
+                            var path = FileConstant.StartDocPath + culture + "/";
 
-                                path = FileConstant.StartDocPath + culture + "/";
-                                if (!storeTemplate.IsDirectory(path))
-                                    path = FileConstant.StartDocPath + "default/";
-                                path += my ? "my/" : "corporate/";
-                            }
+                            if (!storeTemplate.IsDirectory(path))
+                                path = FileConstant.StartDocPath + "default/";
+                            path += my ? "my/" : "corporate/";
 
                             SaveStartDocument(folderDao, fileDao, id, path, storeTemplate);
                         }

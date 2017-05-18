@@ -56,11 +56,6 @@ namespace ASC.Core
             get { return personal ?? (bool)(personal = ConfigurationManager.AppSettings["core.personal"] == "true"); }
         }
 
-        public bool PartnerHosted
-        {
-            get { return ConfigurationManager.AppSettings["core.payment-partners-hosted"] == "true"; }
-        }
-
         public SmtpSettings SmtpSettings
         {
             get
@@ -193,13 +188,7 @@ namespace ASC.Core
                 if (t != null && !string.IsNullOrWhiteSpace(t.PaymentId))
                     return t.PaymentId;
 
-                var prefix = string.Empty;
-                if (t != null && !string.IsNullOrEmpty(t.PartnerId) &&
-                    PartnerHosted)
-                {
-                    prefix = t.PartnerId + "h";
-                }
-                return prefix + ConfigurationManager.AppSettings["core.payment-region"] + tenant;
+                return ConfigurationManager.AppSettings["core.payment-region"] + tenant;
             }
         }
 

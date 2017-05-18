@@ -777,7 +777,7 @@ var SmallChat = (function () {
         $messageInputArea.val(v.substring(0, cursorPos) + smileString + v.substring(cursorPos, v.length));
         $messageInputArea.val($messageInputArea.val() + " ");
         setCaretPosition($messageInputArea, cursorPos + smileString.length);
-        $messageInputArea.trigger("autosize.resize");
+        autosize.update($messageInputArea);
         sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
         $messageInputArea.scrollTop($messageInputArea.prop("scrollHeight"));
         sendTypingSignal(userName);
@@ -1284,17 +1284,16 @@ var SmallChat = (function () {
                 if (!isMobile) {
                     $messageInputArea.focus();
                 }
-                $messageInputArea.autosize({
-                    className: "message_input_area_autosizejs",
-                    callback: resizeMessageInputArea
-                });
+                autosize($messageInputArea);
+                $messageInputArea.on("autosize:resized", resizeMessageInputArea);
+
                 var message = messageInMenu;
                 if (!message || message == "") {
                     message = sessionStorageManager.getItem("message" + userName);
                 }
                 if (message && message != "") {
                     $messageInputArea.val(message);
-                    $messageInputArea.trigger("autosize.resize");
+                    autosize.update($messageInputArea);
                     sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
                 }
                 var $chatMessagesLoading = $conversationBlock.find(".chat_messages_loading");
@@ -1503,7 +1502,7 @@ var SmallChat = (function () {
     function closeConversationBlock(userName) {
         var $conversationBlock = jq(".conversation_block[data-username='" + userName + "']");
         sessionStorageManager.removeItem("userName" + $conversationBlock.attr("data-dialog-number"));
-        $conversationBlock.find(".message_input_area").trigger("autosize.destroy");
+        autosize.destroy($conversationBlock.find(".message_input_area"));
         $conversationBlock.remove();
         moveOtherConversationBlocks(+$conversationBlock.attr("data-dialog-number"));
         sessionStorageManager.setItem("dialogsNumber",+sessionStorageManager.getItem("dialogsNumber") - 1);
@@ -1762,7 +1761,7 @@ var SmallChat = (function () {
                 $messageInputArea.val(v.substring(0, cursorPos) + "\n" + v.substring(cursorPos, v.length));
                 //$messageInputArea.val($messageInputArea.val() + " ");
                 setCaretPosition($messageInputArea, cursorPos + 1);
-                $messageInputArea.trigger("autosize.resize");
+                autosize.update($messageInputArea);
                 $messageInputArea.scrollTop($messageInputArea.prop("scrollHeight"));
                 //sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
                 return true;
@@ -2439,18 +2438,14 @@ var SmallChat = (function () {
                 }
             });
 
-            var addTop = 0;
-            if (jq("#smallChatOptionsPopupID").parents(".mainPageTableSidePanel:first").hasClass("ui-resizable")) {
-                addTop = -jq("#smallChatOptionsPopupID").parents(".mainPageTableSidePanel:first").position().top;
-            }
-
             jq.dropdownToggle({
                 switcherSelector: ".small_chat_option_icon",
                 dropdownID: "smallChatOptionsPopupID",
-                addTop: addTop,
-                addLeft: -6,
-                alwaysUp: true
+                addTop: -155,
+                addLeft: 20,
+                position: "fixed"
             });
+
             jq(".small_chat_en_dis_sounds").click(function () {
                 handleMenuClickEvent(jq(this), "EnableSound");
             });
@@ -2513,7 +2508,7 @@ var SmallChat = (function () {
     };
 })();
 
-jq(window).load(function () {
+jq(window).on("load", function () {
     ASC.Controls.JabberClient.extendChat = SmallChat.extendChat;
     SmallChat.init();
 });

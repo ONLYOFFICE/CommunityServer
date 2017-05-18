@@ -32,6 +32,7 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
+using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
 using AppLimit.CloudComputing.SharpBox;
 using File = ASC.Files.Core.File;
@@ -152,7 +153,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             var fileToDownload = GetFileById(file.ID);
             //Check length of the file
             if (fileToDownload == null)
-                throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
+                throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
             if (fileToDownload is ErrorEntry)
                 throw new Exception(((ErrorEntry) fileToDownload).Error);
 
@@ -217,6 +218,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public void DeleteFile(object fileId)
         {
             var file = GetFileById(fileId);
+            if (file == null) return;
             var id = MakeId(file);
 
             using (var db = GetDb())
@@ -284,6 +286,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public object FileRename(File file, string newTitle)
         {
             var entry = GetFileById(file.ID);
+
+            if (entry == null)
+                throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
 
             var oldFileId = MakeId(entry);
             var newFileId = oldFileId;
@@ -466,16 +471,6 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return null;
         }
 
-        public void DeleteFolder(object fileId)
-        {
-            //Do nothing
-        }
-
-        public void DeleteFileStream(object file)
-        {
-            //Do nothing
-        }
-
         public bool IsExistOnStorage(File file)
         {
             return true;
@@ -494,6 +489,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public Stream GetDifferenceStream(File file)
         {
             return null;
+        }
+
+        public bool ContainChanges(object fileId, int fileVersion)
+        {
+            return false;
         }
 
         #endregion

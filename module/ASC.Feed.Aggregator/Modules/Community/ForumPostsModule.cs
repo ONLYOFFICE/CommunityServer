@@ -27,13 +27,13 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Forum;
-using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
-using System.Linq;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Feed.Aggregator.Modules.Community
 {
@@ -132,7 +132,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
                     Product = Product,
                     Module = Name,
                     Title = post.Subject,
-                    Description = HtmlSanitizer.Sanitize(post.Text),
+                    Description = HtmlUtility.GetFull(post.Text),
                     Keywords = string.Format("{0} {1}", post.Subject, post.Text),
                     HasPreview = false,
                     CanComment = false,

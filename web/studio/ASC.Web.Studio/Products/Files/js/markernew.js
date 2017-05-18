@@ -235,30 +235,12 @@ window.ASC.Files.Marker = (function () {
 
                 var rowLink = entryObj.find(".entry-title .name a");
 
-                if (entryType == "file") {
-                    if (rowLink.is(":not(:has(.file-extension))")) {
-                        ASC.Files.UI.highlightExtension(rowLink, entryTitle);
-                    }
-
-                    var entryUrl = ASC.Files.Utility.GetFileDownloadUrl(entryId);
-
-                    if (ASC.Files.Utility.CanWebEdit(entryTitle)
-                        && !ASC.Files.Utility.MustConvert(entryTitle)) {
-                        entryUrl = ASC.Files.Utility.GetFileWebEditorUrl(entryId);
-                        rowLink.attr("href", entryUrl).attr("target", "_blank");
-                    } else if (ASC.Files.Utility.CanWebView(entryTitle)) {
-                        entryUrl = ASC.Files.Utility.GetFileWebViewerUrl(entryId);
-                        rowLink.attr("href", entryUrl).attr("target", "_blank");
-                    } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(entryTitle)) {
-                        entryUrl = "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(entryId));
-                        rowLink.attr("href", entryUrl);
-                    } else {
-                        rowLink.attr("href", entryUrl);
-                    }
-                } else {
-                    entryUrl = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(entryId);
-                    rowLink.attr("href", entryUrl);
+                if (entryType == "file" && rowLink.is(":not(:has(.file-extension))")) {
+                    ASC.Files.UI.highlightExtension(rowLink, entryTitle);
                 }
+
+                var entryUrl = ASC.Files.UI.getEntryLink(entryType, entryId, entryTitle);
+                rowLink.attr("href", entryUrl).attr("target", "_blank");
             });
 
             var targetSize = params.targetSize;

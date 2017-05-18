@@ -107,7 +107,7 @@ namespace ASC.Web.Community.Forum
 
             sb.Append("<div style='float:left; width:70%; max-width:600px; overflow: hidden;'>");
             sb.Append("<div class='headerPanel'>" + category.Title.HtmlEncode() + "</div>");
-            sb.Append("<div class='describe-text' style='margin-top:3px;'>" + category.Description.HtmlEncode() + "</div>");
+            sb.Append("<div class='describe-text' style='margin-top:3px;'>" + category.Description.HtmlEncode().Replace("\r\n", "</br>").Replace("\n", "</br>").Replace("  ", " &nbsp;") + "</div>");
 
 
             sb.Append("</div>");
@@ -159,7 +159,7 @@ namespace ASC.Web.Community.Forum
             sb.Append("<div class='clearFix' style='padding:3px;'>");
 
             sb.Append("<div style='float:left; width:70%; max-width:600px; overflow: hidden;'><a class='link bold' href='topics.aspx?f=" + thread.ID + "'>" + thread.Title.HtmlEncode() + "</a>");
-            sb.Append("<div class='describe-text' style='margin-top:3px;'>" + thread.Description.HtmlEncode() + "</div>");
+            sb.Append("<div class='describe-text' style='margin-top:3px;'>" + thread.Description.HtmlEncode().Replace("\r\n", "</br>").Replace("\n", "</br>").Replace("  ", " &nbsp;") + "</div>");
             sb.Append("</div>");
 
             sb.Append("<div align=right style='margin-right:3px; padding-top:5px; float:right;'>");

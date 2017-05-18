@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tarifflimitexceed.js");
-            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tarifflimitexceed.js")
+                .RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
 
             tariffLimitExceedUsersDialog.Options.IsPopup = true;
             tariffLimitExceedStorageDialog.Options.IsPopup = true;

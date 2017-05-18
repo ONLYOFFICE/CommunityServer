@@ -8,43 +8,51 @@
 
     <xsl:for-each select="fileTypeBlock">
       <xsl:if test="count(files / file) > 0">
-        <div class="borderBase cnvrt-file-block cnvrt-file-block-closed cnvrt-file-block-active">
-          <div class="cnvrt-file-block-head">
-            <xsl:if test="count(blockFormats / format) > 0">
-              <div class="cnvrt-format-title-content">
-                <select class="select-format">
-                  <xsl:for-each select="blockFormats/format">
-                    <option>
-                      <xsl:attribute name="value">
-                        <xsl:value-of select="value"/>
-                      </xsl:attribute>
-                      <xsl:value-of select="name"/>
-                    </option>
-                  </xsl:for-each>
-                </select>
-                <span class="cnvrt-format-title">
-                  <xsl:value-of select="blockFormats/format/name"/>
-                </span>
+        <div class="">
+          <xsl:attribute name="class">
+            borderBase cnvrt-file-block cnvrt-file-block-active
+            <xsl:choose>
+              <xsl:when test="count(files / file) > 1">
+                cnvrt-file-block-closed
+              </xsl:when>
+              <xsl:otherwise>
+                cnvrt-file-block-open
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:if test="count(files / file) > 1">
+            <div class="cnvrt-file-block-head">
+              <xsl:if test="count(blockFormats / format) > 0">
+                <div class="cnvrt-format-title-content">
+                  <select class="select-format">
+                    <xsl:for-each select="blockFormats/format">
+                      <option>
+                        <xsl:attribute name="value">
+                          <xsl:value-of select="value"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="name"/>
+                      </option>
+                    </xsl:for-each>
+                  </select>
+                  <span class="cnvrt-format-title">
+                    <xsl:value-of select="blockFormats/format/name"/>
+                  </span>
+                </div>
+              </xsl:if>
+              <div class="cnvrt-status-content"></div>
+              <div class="cnvrt-cbx-content">
+                <input type="checkbox" checked="checked"/>
               </div>
-            </xsl:if>
-            <div class="cnvrt-status-content"></div>
-            <div class="cnvrt-cbx-content">
-              <input type="checkbox" checked="checked"/>
-            </div>
-            <div>
-              <xsl:attribute name="class">
-                cnvrt-format-icon-content <xsl:value-of select="blockCssClass"/>
-              </xsl:attribute>
-            </div>
-            <div class="cnvrt-title-content">
-              <xsl:value-of select="blockTitle"/>
-            </div>
-            <xsl:if test="count(blockFormats / format) > 0">
-              <div class="cnvrt-tooltip-content">
-                <resource name="fres.ConvertTo"/>
+              <div class="cnvrt-title-content">
+                <xsl:value-of select="blockTitle"/>
               </div>
-            </xsl:if>
-          </div>
+              <xsl:if test="count(blockFormats / format) > 0">
+                <div class="cnvrt-tooltip-content">
+                  <resource name="fres.ConvertTo"/>
+                </div>
+              </xsl:if>
+            </div>
+          </xsl:if>
           <div class="cnvrt-file-block-body">
             <xsl:for-each select="files/file">
               <div class="cnvrt-file-row cnvrt-file-row-active">

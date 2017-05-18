@@ -264,10 +264,7 @@ namespace ASC.Mail.Server.Dal
                 if (!mailbox.IsTeamlab)
                     throw new ArgumentException("Mailbox is not teamlab and it can't be deleted.");
 
-                var quotaSizeForClean = mailboxManager.RemoveMailBox(mailbox, db);
-
-                //TODO: Maybe cleaning of quota need to move into RemoveMailBox?
-                mailboxManager.QuotaUsedDelete(mailbox.TenantId, quotaSizeForClean);
+                mailboxManager.RemoveMailBox(db, mailbox, false);
             }
 
             var deleteAddressesQuery = new SqlDelete(AddressTable.Name)

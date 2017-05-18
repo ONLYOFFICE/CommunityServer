@@ -21,15 +21,15 @@ namespace ASC.Api.Calendar.BusinessObjects
         public int EventId { get; set; }
         public string Ics { get; set; }
 
-        public List<DDay.iCal.IICalendar> History
+        public List<Ical.Net.Interfaces.ICalendar> History
         {
             get {
                 var history = DDayICalParser.DeserializeCalendar(Ics);
-                return history == null ? new List<DDay.iCal.IICalendar>() : history.ToList();
+                return history == null ? new List<Ical.Net.Interfaces.ICalendar>() : history.ToList();
             }
         }
 
-        public bool Contains(DDay.iCal.IICalendar calendar)
+        public bool Contains(Ical.Net.Interfaces.ICalendar calendar)
         {
             if (!History.Any() || calendar == null || calendar.Events == null || calendar.Events.FirstOrDefault() == null)
                 return false;
@@ -39,12 +39,12 @@ namespace ASC.Api.Calendar.BusinessObjects
             var isExist = History
                 .Where(x => x.Method == calendar.Method)
                 .Select(x => x.Events.First())
-                .Any(x => x.Sequence == eventObj.Sequence && x.DTStamp.UTC == eventObj.DTStamp.UTC);
+                .Any(x => x.Sequence == eventObj.Sequence && x.DtStamp.AsUtc == eventObj.DtStamp.AsUtc);
 
             return isExist;
         }
 
-        public DDay.iCal.IICalendar GetMerged()
+        public Ical.Net.Interfaces.ICalendar GetMerged()
         {
             if (!History.Any()) return null;
 
@@ -54,28 +54,28 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             if(!allCalendars.Any()) return null;
 
-            var recurrenceIdCalendars = new List<DDay.iCal.IICalendar>();
-            var calendars = new List<DDay.iCal.IICalendar>();
+            var recurrenceIdCalendars = new List<Ical.Net.Interfaces.ICalendar>();
+            var calendars = new List<Ical.Net.Interfaces.ICalendar>();
 
             foreach (var cal in allCalendars)
             {
-                if (cal.Events.First().RecurrenceID == null)
+                if (cal.Events.First().RecurrenceId == null)
                     calendars.Add(cal);
                 else
                     recurrenceIdCalendars.Add(cal);
             }
 
             recurrenceIdCalendars = recurrenceIdCalendars
-                .OrderByDescending(x => x.Events.First().DTStamp)
+                .OrderByDescending(x => x.Events.First().DtStamp)
                 .ToList();
 
             if (!calendars.Any())
             {
-                return recurrenceIdCalendars.FirstOrDefault(x => x.Method != DDay.iCal.CalendarMethods.Reply) ?? recurrenceIdCalendars.First();
+                return recurrenceIdCalendars.FirstOrDefault(x => x.Method != Ical.Net.CalendarMethods.Reply) ?? recurrenceIdCalendars.First();
             }
 
             recurrenceIdCalendars = recurrenceIdCalendars
-                .Where(x => x.Method == DDay.iCal.CalendarMethods.Cancel)
+                .Where(x => x.Method == Ical.Net.CalendarMethods.Cancel)
                 .ToList();
 
             var sequence = calendars
@@ -84,21 +84,21 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             calendars = calendars
                 .Where(x => x.Events.First().Sequence == sequence)
-                .OrderByDescending(x => x.Events.First().DTStamp)
+                .OrderByDescending(x => x.Events.First().DtStamp)
                 .ToList();
 
-            var targetCalendar = calendars.FirstOrDefault(x => x.Method != DDay.iCal.CalendarMethods.Reply) ?? calendars.First();
+            var targetCalendar = calendars.FirstOrDefault(x => x.Method != Ical.Net.CalendarMethods.Reply) ?? calendars.First();
 
             if (targetCalendar == null) return null;
 
             var targetEvent = targetCalendar.Events.First();
 
-            if (targetCalendar.Method == DDay.iCal.CalendarMethods.Cancel)
-                targetEvent.Status = DDay.iCal.EventStatus.Cancelled;
+            if (targetCalendar.Method == Ical.Net.CalendarMethods.Cancel)
+                targetEvent.Status = Ical.Net.EventStatus.Cancelled;
 
             calendars = calendars
-                .Where(x => x.Method == DDay.iCal.CalendarMethods.Reply)
-                .OrderBy(x => x.Events.First().DTStamp)
+                .Where(x => x.Method == Ical.Net.CalendarMethods.Reply)
+                .OrderBy(x => x.Events.First().DtStamp)
                 .ToList();
 
             foreach (var calendar in calendars)
@@ -114,8 +114,33 @@ namespace ASC.Api.Calendar.BusinessObjects
                         if (!targetAttendee.Value.OriginalString.Equals(tmpAttendee.Value.OriginalString, StringComparison.OrdinalIgnoreCase))
                             continue;
 
+                        var parameters = new Ical.Net.General.ParameterList();
+
+                        foreach (var param in targetAttendee.Parameters)
+                        {
+                            switch (param.Group)
+                            {
+                                case "PARTSTAT":
+                                    parameters.Add(new Ical.Net.General.CalendarParameter(param.Group, tmpAttendee.ParticipationStatus));
+                                    break;
+                                case "RSVP":
+                                    parameters.Add(new Ical.Net.General.CalendarParameter(param.Group, tmpAttendee.Rsvp.ToString().ToUpper()));
+                                    break;
+                                default:
+                                    parameters.Add(param);
+                                    break;
+                            }
+                        }
+
+                        targetAttendee.Parameters.Clear();
+
+                        foreach (var param in parameters)
+                        {
+                            targetAttendee.Parameters.Add(param);
+                        }
+
                         targetAttendee.ParticipationStatus = tmpAttendee.ParticipationStatus;
-                        targetAttendee.RSVP = tmpAttendee.RSVP;
+                        targetAttendee.Rsvp = tmpAttendee.Rsvp;
                         exist = true;
                         break;
                     }
@@ -129,11 +154,11 @@ namespace ASC.Api.Calendar.BusinessObjects
             {
                 var removedEvent = recurrenceIdCalendar.Events.First();
 
-                if (targetEvent.ExceptionDates.All(x => !x.First().Contains(removedEvent.RecurrenceID)))
+                if (targetEvent.ExceptionDates.All(x => !x.First().Contains(removedEvent.RecurrenceId)))
                 {
-                    targetEvent.ExceptionDates.Add(new DDay.iCal.PeriodList
+                    targetEvent.ExceptionDates.Add(new Ical.Net.DataTypes.PeriodList
                         {
-                            removedEvent.RecurrenceID
+                            removedEvent.RecurrenceId
                         });
                 }
             }

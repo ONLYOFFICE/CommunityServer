@@ -24,15 +24,15 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
-using log4net;
 using System;
 using System.Configuration;
 using System.Linq;
 using System.Runtime.Serialization;
+using ASC.Core;
+using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
+using ASC.Web.Studio.Utility;
+using log4net;
 
 namespace ASC.Web.Studio.Core.SMS
 {

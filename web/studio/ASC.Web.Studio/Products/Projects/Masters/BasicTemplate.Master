@@ -19,11 +19,7 @@
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
     <asp:PlaceHolder ID="_projectNavigatePanel" runat="server" />
+    <asp:ContentPlaceHolder ID="commonHolder" runat="server" />
     <asp:ContentPlaceHolder ID="BTPageContent" runat="server" />
     <asp:PlaceHolder runat="server" ID="_commonPopupHolder"></asp:PlaceHolder>
-    <asp:ContentPlaceHolder ID="emptyScreenPlaceHolders" runat="server" />
-</asp:Content>
-
-<asp:Content ContentPlaceHolderID="clientTemplatesResourcesPlaceHolder" runat="server">
-    <asp:ContentPlaceHolder ID="projectsClientTemplatesResourcesPlaceHolder" runat="server" />
 </asp:Content>

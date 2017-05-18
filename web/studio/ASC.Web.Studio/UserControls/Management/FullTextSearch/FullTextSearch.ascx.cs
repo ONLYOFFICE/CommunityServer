@@ -50,14 +50,18 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
+        protected string HelpLink { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!CoreContext.Configuration.Standalone)
                 Response.Redirect("~/management.aspx");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts("~/usercontrols/management/fulltextsearch/js/fulltextsearch.js");
-            Page.RegisterStyle("~/usercontrols/management/fulltextsearch/css/fulltextsearch.css");
+            Page.RegisterBodyScripts("~/usercontrols/management/fulltextsearch/js/fulltextsearch.js")
+                .RegisterStyle("~/usercontrols/management/fulltextsearch/css/fulltextsearch.css");
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
 
         [AjaxMethod]

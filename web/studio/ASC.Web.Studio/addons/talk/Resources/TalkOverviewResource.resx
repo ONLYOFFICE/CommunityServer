@@ -112,63 +112,63 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoupdateContactListDescription">
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
     <value>The contact list is updated automatically as people are added/removed from the list of employees, so you don't have to check it out manually.  </value>
   </data>
-  <data name="ChatTabs">
+  <data name="ChatTabs" xml:space="preserve">
     <value>Chat Tabs</value>
   </data>
-  <data name="ContactListWithOptions">
+  <data name="ContactListWithOptions" xml:space="preserve">
     <value>Contact List Options</value>
   </data>
-  <data name="IntegrationWith3rdPartyAppsSectionContent">
+  <data name="IntegrationWith3rdPartyAppsSectionContent" xml:space="preserve">
     <value>You may use a third-party desktop/mobile IM client to access Talk. To do that, you'll need to integrate Talk with any IM client that supports Jabber/XMPP.</value>
   </data>
-  <data name="IntegrationWith3rdPartyAppsSectionTitle">
+  <data name="IntegrationWith3rdPartyAppsSectionTitle" xml:space="preserve">
     <value>Third-Party Software Support</value>
   </data>
-  <data name="MessageFieldOptions">
+  <data name="MessageFieldOptions" xml:space="preserve">
     <value>Message Field Options</value>
   </data>
-  <data name="MirandaIMLink">
+  <data name="MirandaIMLink" xml:space="preserve">
     <value>Miranda IM - the Miranda IM client home page.  Smaller, Faster, Easier</value>
   </data>
-  <data name="OverviewContent">
+  <data name="OverviewContent" xml:space="preserve">
     <value>Talk is a corporate IM system for exchanging instant text messages among the employees in real time.</value>
   </data>
-  <data name="OverviewContentDescription">
+  <data name="OverviewContentDescription" xml:space="preserve">
     <value>Talk offers all the traditional features you expect from a messenger - choice of status, history archiving, file transfer, multi-user chat support, and more.</value>
   </data>
-  <data name="OverviewSectionTitle">
+  <data name="OverviewSectionTitle" xml:space="preserve">
     <value>Talk Overview</value>
   </data>
-  <data name="OverviewWebClientDescription">
+  <data name="OverviewWebClientDescription" xml:space="preserve">
     <value>Launch our web client to start using Talk right now with no prior settings. </value>
   </data>
-  <data name="PidginLink">
+  <data name="PidginLink" xml:space="preserve">
     <value>A free chat client used by millions. Connect easily to MSN, Google Talk, Yahoo, AIM and other chat networks all at once.</value>
   </data>
-  <data name="PsiLink">
+  <data name="PsiLink" xml:space="preserve">
     <value>The Cross-Platform JabberXMPP Client For Power Users</value>
   </data>
-  <data name="Recommended">
+  <data name="Recommended" xml:space="preserve">
     <value>Recommended Clients</value>
   </data>
-  <data name="ScreenshotsSectionTitle">
+  <data name="ScreenshotsSectionTitle" xml:space="preserve">
     <value>Screenshots</value>
   </data>
-  <data name="StartWebClientLink">
+  <data name="StartWebClientLink" xml:space="preserve">
     <value>Launch Web Client</value>
   </data>
-  <data name="StartWebClientLinkDescription">
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
     <value>No extra settings! Click to launch web client and start talking right now</value>
   </data>
-  <data name="ThirdPartyAppsSettingsSectionContent">
+  <data name="ThirdPartyAppsSettingsSectionContent" xml:space="preserve">
     <value>To get Talk integrate with a third-party client, you'll need the following settings:{0}
 Server Name: {1}
 Server Address: {2}
@@ -176,10 +176,16 @@ Connection Port: {3}
 Your User Name: {4}
 To connect you'll need to enter your Jabber ID {5} and password from your account.</value>
   </data>
-  <data name="TrillianLink">
+  <data name="TrillianLink" xml:space="preserve">
     <value>Trillian - Windows, iPhone, and Web based instant messenger.  Supports Astra, Windows Live, Facebook, Twitter, Yahoo, MySpace, AIM, Email, Google Talk, Skype, ICQ, Jabber, IRC, Bonjour, and more!</value>
   </data>
-  <data name="YourStatusChanger">
+  <data name="WarningHeader" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="WarningText" xml:space="preserve">
+    <value>For Talk to work correctly this computer must be accessible for the other computers in the local network or from the internet and the {0}Server Name{1} must be a domain name or a local computer name (not an IP address), in case there is a local DNS server. This can be done setting the valid {0}Server Name{1} and {0}Server Address{1} with the help of {2}DNS Settings{3} option.</value>
+  </data>
+  <data name="YourStatusChanger" xml:space="preserve">
     <value>Status Changer</value>
   </data>
 </root>

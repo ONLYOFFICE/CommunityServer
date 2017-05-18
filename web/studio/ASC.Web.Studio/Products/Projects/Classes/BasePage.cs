@@ -46,12 +46,6 @@ namespace ASC.Web.Projects
 
         public Project Project { get; set; }
 
-        public string EssenceTitle { get; set; }
-
-        public string EssenceStatus { get; set; }
-
-        public bool IsSubcribed { get; set; }
-
         public EngineFactory EngineFactory { get; private set; }
 
         protected virtual bool CheckSecurity { get { return true; } }
@@ -65,8 +59,6 @@ namespace ASC.Web.Projects
             PreInit += PagePreInit;
             EngineFactory = Global.EngineFactory;
             RequestContext = new RequestContext(EngineFactory);
-            EssenceTitle = "";
-            EssenceStatus = "";
         }
 
         protected void PagePreInit(object sender, EventArgs e)
@@ -89,18 +81,6 @@ namespace ASC.Web.Projects
                 if (!CanRead)
                 {
                     Response.Redirect("projects.aspx?prjID=" + Project.ID, true);
-                }
-                if (!RequestContext.IsInConcreteProjectModule)
-                {
-                    EssenceTitle = Project.Title;
-                    EssenceStatus = Project.Status != ProjectStatus.Open
-                        ? LocalizedEnumConverter.ConvertToString(Project.Status).ToLower()
-                        : "";
-                }
-
-                if (!RequestContext.IsInConcreteProjectModule)
-                {
-                    IsSubcribed = EngineFactory.ProjectEngine.IsFollow(Project.ID, Participant.ID);
                 }
             }
 

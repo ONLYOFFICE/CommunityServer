@@ -61,10 +61,6 @@ namespace ASC.Web.Community.Forum
         protected void Page_Load(object sender, EventArgs e)
         {
             ForumContainer.Options.InfoType = InfoType.Alert;
-
-            Page.RegisterBodyScripts(ForumManager.BaseVirtualPath + "/js/forummaker.js");
-            Page.RegisterStyle(ForumManager.BaseVirtualPath + "/app_themes/default/style.css");
-
             var sb = new StringBuilder();
             sb.Append(" ForumMakerProvider.All='" + Resources.ForumResource.All + "'; ");
             sb.Append(" ForumMakerProvider.ConfirmMessage='" + Resources.ForumResource.ConfirmMessage + "'; ");
@@ -73,7 +69,9 @@ namespace ASC.Web.Community.Forum
             sb.Append(" ForumMakerProvider.NameEmptyString='" + Resources.ForumResource.NameEmptyString + "'; ");
             sb.Append(" ForumContainer_PanelInfoID = '" + ForumContainer.GetInfoPanelClientID() + "'; ");
 
-            Page.RegisterInlineScript(sb.ToString());
+            Page.RegisterBodyScripts(ForumManager.BaseVirtualPath + "/js/forummaker.js")
+                .RegisterStyle(ForumManager.BaseVirtualPath + "/app_themes/default/style.css")
+                .RegisterInlineScript(sb.ToString());
 
             SearchText = "";
 

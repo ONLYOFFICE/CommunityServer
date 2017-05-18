@@ -27,6 +27,7 @@
 using System;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
+using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
@@ -40,6 +41,9 @@ namespace ASC.Api.Projects.Wrappers
         public bool CanEdit { get; set; }
 
         [DataMember]
+        public bool CanDelete { get; set; }
+
+        [DataMember]
         public ProjectSecurityInfo Security { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
@@ -50,6 +54,9 @@ namespace ASC.Api.Projects.Wrappers
 
         [DataMember(Order = 33)]
         public int TaskCount { get; set; }
+
+        [DataMember(Order = 33)]
+        public int TaskCountTotal { get; set; }
 
         [DataMember(Order = 34)]
         public int MilestoneCount { get; set; }
@@ -66,18 +73,21 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 35)]
         public int DocumentsCount { get; set; }
 
+        [DataMember(Order = 36)]
+        public bool IsFollow { get; set; }
+
 
         private ProjectWrapperFull()
         {
         }
 
-        public ProjectWrapperFull(Project project, object filesRoot)
+        public ProjectWrapperFull(Project project, object filesRoot, bool isFollow)
         {
             Id = project.ID;
             Title = project.Title;
             Description = project.Description;
             Status = (int)project.Status;
-            Responsible = EmployeeWraper.Get(project.Responsible);
+            Responsible = new EmployeeWraperFull(CoreContext.UserManager.GetUsers(project.Responsible));
             Created = (ApiDateTime)project.CreateOn;
             CreatedBy = EmployeeWraper.Get(project.CreateBy);
             Updated = (ApiDateTime)project.LastModifiedOn;
@@ -87,18 +97,24 @@ namespace ASC.Api.Projects.Wrappers
             }
             Security = new ProjectSecurityInfo(project);
             CanEdit = ProjectSecurity.CanEdit(project);
+            CanDelete = ProjectSecurity.CanDelete(project);
             ProjectFolder = filesRoot;
             IsPrivate = project.Private;
 
             TaskCount = project.TaskCount;
+            TaskCountTotal = project.TaskCountTotal;
             MilestoneCount = project.MilestoneCount;
             DiscussionCount = project.DiscussionCount;
             TimeTrackingTotal = project.TimeTrackingTotal ?? "";
             DocumentsCount = project.DocumentsCount;
             ParticipantCount = project.ParticipantCount;
+            IsFollow = isFollow;
         }
 
-        public ProjectWrapperFull(Project project) : this(project, 0)
+        public ProjectWrapperFull(Project project, object filesRoot) : this(project, filesRoot, false)
+        { }
+
+        public ProjectWrapperFull(Project project) : this(project, 0, false)
         {
         }
 

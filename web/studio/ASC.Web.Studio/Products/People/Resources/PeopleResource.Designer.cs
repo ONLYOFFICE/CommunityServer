@@ -61,7 +61,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portal. Access Rights..
+        ///   Looks up a localized string similar to Portal Access Rights.
         /// </summary>
         public static string AccessRightsSettings {
             get {
@@ -97,6 +97,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Image.
+        /// </summary>
+        public static string AddImage {
+            get {
+                return ResourceManager.GetString("AddImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add members.
         /// </summary>
         public static string AddMembers {
@@ -106,7 +115,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blocked.
+        ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string BlockedMessage {
             get {
@@ -133,7 +142,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change users status.
+        ///   Looks up a localized string similar to Change user status.
         /// </summary>
         public static string ChangeStatusButton {
             get {
@@ -142,7 +151,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upgrade your plan and repeat the operation or other users status will not be changed..
+        ///   Looks up a localized string similar to If this number exceeds the current pricing plan you will need to upgrade your plan and repeat the operation or other users status will not be changed..
         /// </summary>
         public static string ChangeStatusDialogConstraint {
             get {
@@ -160,7 +169,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot change the status for portal owner and yourself.
+        ///   Looks up a localized string similar to You cannot change the status for portal owner and for yourself.
         /// </summary>
         public static string ChangeStatusDialogRestriction {
             get {
@@ -214,7 +223,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot change the type for portal administrators and yourself.
+        ///   Looks up a localized string similar to You cannot change the type for portal administrators and for yourself.
         /// </summary>
         public static string ChangeTypeDialogRestriction {
             get {
@@ -264,6 +273,15 @@ namespace ASC.Web.People.Resources {
         public static string Confirmation {
             get {
                 return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New User.
+        /// </summary>
+        public static string CreateNewProfile {
+            get {
+                return ResourceManager.GetString("CreateNewProfile", resourceCulture);
             }
         }
         
@@ -332,11 +350,56 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {!user} will not be displayed in the list of active {!users}.
+        /// </summary>
+        public static string DisableUserHelp {
+            get {
+                return ResourceManager.GetString("DisableUserHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string EditButton {
+            get {
+                return ResourceManager.GetString("EditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Image.
+        /// </summary>
+        public static string EditImage {
+            get {
+                return ResourceManager.GetString("EditImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable.
         /// </summary>
         public static string EnableUserButton {
             get {
                 return ResourceManager.GetString("EnableUserButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {!user} will be displayed as active again.
+        /// </summary>
+        public static string EnableUserHelp {
+            get {
+                return ResourceManager.GetString("EnableUserHelp", resourceCulture);
             }
         }
         
@@ -368,7 +431,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image weight is too large.
+        ///   Looks up a localized string similar to Image file size is too large.
         /// </summary>
         public static string ErrorImageWeightLimit {
             get {
@@ -382,6 +445,24 @@ namespace ASC.Web.People.Resources {
         public static string ErrorUnknownFileImageType {
             get {
                 return ResourceManager.GetString("ErrorUnknownFileImageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
             }
         }
         
@@ -418,6 +499,24 @@ namespace ASC.Web.People.Resources {
         public static string LblActive {
             get {
                 return ResourceManager.GetString("LblActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string LblByName {
+            get {
+                return ResourceManager.GetString("LblByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string LblByType {
+            get {
+                return ResourceManager.GetString("LblByType", resourceCulture);
             }
         }
         
@@ -485,6 +584,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Primary Mobile Phone.
+        /// </summary>
+        public static string LblMobilePhone {
+            get {
+                return ResourceManager.GetString("LblMobilePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string LblOKButton {
@@ -494,7 +602,34 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resend invites.
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string LblOther {
+            get {
+                return ResourceManager.GetString("LblOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string LblPassword {
+            get {
+                return ResourceManager.GetString("LblPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string LblPending {
+            get {
+                return ResourceManager.GetString("LblPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send invitations once again.
         /// </summary>
         public static string LblResendInvites {
             get {
@@ -503,7 +638,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send activation again.
+        ///   Looks up a localized string similar to Send activation link once again.
         /// </summary>
         public static string LblSendActivation {
             get {
@@ -530,6 +665,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string LblStatus {
+            get {
+                return ResourceManager.GetString("LblStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subscriptions.
         /// </summary>
         public static string LblSubscriptions {
@@ -539,7 +683,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Terminated.
+        ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string LblTerminated {
             get {
@@ -548,7 +692,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Всплывающие подсказки.
+        ///   Looks up a localized string similar to Tooltips.
         /// </summary>
         public static string LblTips {
             get {
@@ -593,7 +737,16 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This product  provides information about people and their relationships.
+        ///   Looks up a localized string similar to Делать все то же, что и пользователь|Создавать профили и отделы|Импортировать профили|Приглашвть пользователей.
+        /// </summary>
+        public static string ProductAdminOpportunities {
+            get {
+                return ResourceManager.GetString("ProductAdminOpportunities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new users, invite or import them. Manage users and view their detailed information..
         /// </summary>
         public static string ProductDescription {
             get {
@@ -607,6 +760,15 @@ namespace ASC.Web.People.Resources {
         public static string ProductName {
             get {
                 return ResourceManager.GetString("ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Просматривать профили и отделы.
+        /// </summary>
+        public static string ProductUserOpportunities {
+            get {
+                return ResourceManager.GetString("ProductUserOpportunities", resourceCulture);
             }
         }
         
@@ -647,6 +809,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SaveButton {
+            get {
+                return ResourceManager.GetString("SaveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select all.
         /// </summary>
         public static string SelectAll {
@@ -656,11 +827,29 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} selected.
+        /// </summary>
+        public static string SelectedCount {
+            get {
+                return ResourceManager.GetString("SelectedCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
             }
         }
         
@@ -683,11 +872,56 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Social Profiles.
+        /// </summary>
+        public static string SocialProfiles {
+            get {
+                return ResourceManager.GetString("SocialProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User has been successfully deleted.
+        /// </summary>
+        public static string SuccessfullyDeleteUserInfoMessage {
+            get {
+                return ResourceManager.GetString("SuccessfullyDeleteUserInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The instructions for your profile deletion have been sent to email address.
+        /// </summary>
+        public static string SuccessfullySentNotificationDeleteUserInfoMessage {
+            get {
+                return ResourceManager.GetString("SuccessfullySentNotificationDeleteUserInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your current pricing plan allows you to add {0}{1} active users{2}..
+        /// </summary>
+        public static string TariffActiveUserLimit {
+            get {
+                return ResourceManager.GetString("TariffActiveUserLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Thumbnails.
+        /// </summary>
+        public static string TitleThumbnailPhoto {
+            get {
+                return ResourceManager.GetString("TitleThumbnailPhoto", resourceCulture);
             }
         }
         

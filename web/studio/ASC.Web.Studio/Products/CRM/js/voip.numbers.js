@@ -24,152 +24,189 @@
 */
 
 
-var $ = jq;
+if (typeof ASC === "undefined") {
+    ASC = {};
+}
 
-var VoIPNumbersView = {
-    numbers: [],
-    operators: [],
-    ringtones: [],
+if (typeof ASC.CRM === "undefined") {
+    ASC.CRM = function () { return {} };
+}
 
-    currentNumber: null,
-    hash: null,
+if (typeof ASC.CRM.Voip === "undefined") {
+    ASC.CRM.Voip = function () { return {} };
+}
 
-    timeRegex: /^([01]\d|2[0123]):[0-5]\d$/,
+ASC.CRM.Voip.NumbersView = (function ($) {
+    var numbers = [],
+        operators = [],
+        ringtones = [],
 
-    init: function() {
-        this.hash = window.location.hash.slice(1);
-        
-        if (!this.hash) {
-            VoIPQuickView.init();
+        currentNumber = null,
+        hash = null,
+
+        timeRegex = /^([01]\d|2[0123]):[0-5]\d$/,
+        currentRingtoneType;
+
+    var $view,
+
+        $emptyNumbersListMsg,
+        $numberSelector,
+        $numberSettingsBox,
+        $workingHoursFromInput,
+        $workingHoursToInput,
+        $ringtonePlayer,
+        ringtonePlayer,
+        $saveSettingsBtn,
+        $showRemoveNumberBtn,
+        $removeNumberPopup,
+        $operatorsList,
+        $addOperatorsBtn;
+
+    function init() {
+        hash = window.location.hash.slice(1);
+
+        if (!hash) {
+            ASC.CRM.Voip.QuickView.init();
             return;
         }
 
-        this.cacheElements();
-        this.bindEvents();
+        cacheElements();
+        bindEvents();
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
-        this.getData(function(numbers, ringtones) {
-            self.saveData(numbers, ringtones);
-            self.renderView();
+        getData(function(numbersResp, ringtonesResp) {
+            saveData(numbersResp, ringtonesResp);
+            renderView();
 
-            self.hideLoader();
+            hideLoader();
         });
-    },
+    };
 
-    cacheElements: function() {
-        this.numberSelectorOptionTmpl = $('#number-selector-option-tmpl');
-        this.settingsTmpl = $('#settings-tmpl');
-        this.ringtoneSelectorOptionTmpl = $('#ringtone-selector-option-tmpl');
-        this.operatorTmpl = $('#operator-tmpl');
+    function cacheElements() {
+        $view = $('#voip-numbers-view');
 
-        this.$view = $('#voip-numbers-view');
+        $emptyNumbersListMsg = $view.find('#empty-numbers-list-msg');
+        $numberSelector = $view.find('#number-selector');
+        $numberSettingsBox = $view.find('#number-settings-box');
 
-        this.$emptyNumbersListMsg = this.$view.find('#empty-numbers-list-msg');
-        this.$numberSelector = this.$view.find('#number-selector');
-        this.$numberSettingsBox = this.$view.find('#number-settings-box');
+        $ringtonePlayer = $view.find('#ringtone-player');
+        ringtonePlayer = $ringtonePlayer.get(0);
 
-        this.$ringtonePlayer = this.$view.find('#ringtone-player');
-        this.ringtonePlayer = this.$ringtonePlayer.get(0);
+        $saveSettingsBtn = $view.find('#save-settings-btn');
+        $removeNumberPopup = $('#remove-number-popup');
+        $showRemoveNumberBtn = $view.find('#show-remove-number-btn');
 
-        this.$saveSettingsBtn = this.$view.find('#save-settings-btn');
-        this.$deleteNumberBtn = this.$view.find('#delete-number-btn');
+        $operatorsList = $view.find('#operators-list-body');
+        $addOperatorsBtn = $view.find('#add-operators-btn');
+    };
 
-        this.$operatorsList = this.$view.find('#operators-list-body');
-        this.$addOperatorsBtn = this.$view.find('#add-operators-btn');
-    },
+    function bindEvents() {
+        var clickEventName = "click",
+            changeEventName = "change";
 
-    bindEvents: function() {
-        $('body').on('click', this.clickHandler.bind(this));
+        $('body').on(clickEventName, clickHandler);
 
-        this.$numberSelector.on('change', this.numberChangedHandler.bind(this));
+        $showRemoveNumberBtn.on(clickEventName, showNumberRemovePopup);
+        $removeNumberPopup.on(clickEventName, "#remove-number-btn", numberRemoveHandler);
+        $removeNumberPopup.on(clickEventName, "#cancel-remove-phone-btn", cancelNumberRemoveHandler);
 
-        this.$numberSettingsBox.on('click', '#outgoing-calls-setting-btn', this.quickSettingChangedHandler.bind(this));
-        this.$numberSettingsBox.on('click', '#voicemail-setting-btn', this.quickSettingChangedHandler.bind(this));
-        this.$numberSettingsBox.on('click', '#record-incoming-setting-btn', this.quickSettingChangedHandler.bind(this));
-        this.$numberSettingsBox.on('click', '#working-hours-setting-btn', this.quickSettingChangedHandler.bind(this));
+        $numberSelector.on(changeEventName, numberChangedHandler);
 
-        this.$numberSettingsBox.on('change', '.ringtone-selector', this.ringtoneSettingChangedHandler.bind(this));
-        this.$numberSettingsBox.on('click', '.ringtone-play-btn', this.ringtonePlayHandler.bind(this));
+        $numberSettingsBox.on("keydown", function (e) {
+            if (e.which == 13) {
+                return false;
+            }
+            
+        });
+        $numberSettingsBox.on(clickEventName, '#outgoing-calls-setting-btn', quickSettingChangedHandler);
+        $numberSettingsBox.on(clickEventName, '#voicemail-setting-btn', quickSettingChangedHandler);
+        $numberSettingsBox.on(clickEventName, '#record-incoming-setting-btn', quickSettingChangedHandler);
+        $numberSettingsBox.on(clickEventName, '#working-hours-setting-btn', workHoursChangedHandler);
 
-        this.$saveSettingsBtn.on('click', this.saveSettingsHandler.bind(this));
+        $numberSettingsBox.on(changeEventName, '.ringtone-selector', ringtoneSettingChangedHandler);
+        $numberSettingsBox.on(clickEventName, '.ringtone-play-btn', ringtonePlayHandler);
 
-        this.$addOperatorsBtn.on('showList', this.addOperatorsHandler.bind(this));
-        this.$operatorsList.on('click', '.operator .actions', this.toggleActionsHandler.bind(this));
-        this.$operatorsList.on('click', '.operator .actions .delete-operator-btn', this.deleteOperatorHandler.bind(this));
-        
-        this.$operatorsList.on('click', '.operator .outgoing-calls .on_off_button', this.operatorOutgoingCallsUpdatedHandler.bind(this));
-        this.$operatorsList.on('click', '.operator .incoming-recording .on_off_button', this.operatorIncomingRecordingUpdatedHandler.bind(this));
-    },
+        $saveSettingsBtn.on(clickEventName, saveSettingsHandler);
+
+        $addOperatorsBtn.on('showList',addOperatorsHandler);
+        $operatorsList.on(clickEventName, '.operator .actions', toggleActionsHandler);
+        $operatorsList.on(clickEventName, '.operator .actions .delete-operator-btn', deleteOperatorHandler);
+
+        $operatorsList.on(clickEventName, '.operator .outgoing-calls .on_off_button', operatorOutgoingCallsUpdatedHandler);
+        $operatorsList.on(clickEventName, '.operator .incoming-recording .on_off_button', operatorIncomingRecordingUpdatedHandler);
+    };
 
     //#region data
 
-    getData: function(callback) {
+    function getData(callback) {
         async.parallel([
-                function(cb) {
-                    Teamlab.getCrmVoipExistingNumbers(null, {
-                        success: function(params, numbers) {
-                            cb(null, numbers);
-                        },
-                        error: function(err) {
-                            cb(err);
-                        }
-                    });
-                }, function(cb) {
-                    Teamlab.getVoipUploads({}, {
-                        success: function(params, ringtones) {
-                            cb(null, ringtones);
-                        },
-                        error: function(err) {
-                            cb(err);
-                        }
-                    });
-                }], function(err, data) {
-                    if (err) {
-                        self.showErrorMessage();
-                    } else {
-                        callback(data[0], data[1]);
+            function(cb) {
+                Teamlab.getCrmVoipExistingNumbers(null, {
+                    success: function(params, numbersResp) {
+                        cb(null, numbersResp);
+                    },
+                    error: function(err) {
+                        cb(err);
                     }
                 });
-    },
+            }, function(cb) {
+                Teamlab.getVoipUploads({}, {
+                    success: function(params, ringtonesResp) {
+                        cb(null, ringtonesResp);
+                    },
+                    error: function(err) {
+                        cb(err);
+                    }
+                });
+            }
+        ], function(err, data) {
+            if (err) {
+                showErrorMessage();
+            } else {
+                callback(data[0], data[1]);
+            }
+        });
+    };
 
-    saveData: function(numbers, ringtones) {
-        this.ringtones = this.getTypedRingtones(ringtones);
+    function saveData(numbersResp, ringtonesResp) {
+        ringtones = getTypedRingtones(ringtonesResp);
 
-        for (var i = 0; i < numbers.length; i++) {
-            var number = numbers[i];
+        for (var i = 0; i < numbersResp.length; i++) {
+            var number = numbersResp[i];
 
-            number.settings.ringtones = this.ringtones;
+            number.settings.ringtones = ringtones;
 
             for (var j = 0; j < number.settings.operators.length; j++) {
-                this.operators.push(number.settings.operators[j].id);
+                operators.push(number.settings.operators[j].id);
             }
 
-            this.setOperatorsUserInfo(number.settings.operators);
-            this.numbers.push(number);
-            
-            if (number.id == this.hash) {
-                this.currentNumber = number;
+            number.settings.operators = setOperatorsUserInfo(number.settings.operators);
+            numbers.push(number);
+
+            if (number.id == hash) {
+                currentNumber = number;
             }
         }
 
-        if (this.numbers.length && !this.currentNumber) {
-            this.currentNumber = this.numbers[0];
+        if (numbers.length && !currentNumber) {
+            currentNumber = numbers[0];
         }
-    },
+    };
 
-    setOperatorsUserInfo: function(operators) {
-        if (!operators || !operators.length) {
-            return;
+    function setOperatorsUserInfo(operatorsResp) {
+        if (!operatorsResp || !operatorsResp.length) {
+            return operatorsResp;
         }
 
-        for (var i = 0; i < operators.length; i++) {
-            operators[i].userInfo = this.getUserInfo(operators[i].id);
+        for (var i = 0; i < operatorsResp.length; i++) {
+            operatorsResp[i].userInfo = getUserInfo(operatorsResp[i].id);
         }
-    },
 
-    getUserInfo: function(id) {
+        return operatorsResp.filter(function (item) { return item.userInfo !== null; });
+    };
+
+    function getUserInfo(id) {
         var users = ASC.Resources.Master.ApiResponses_Profiles.response;
         if (!users) {
             return null;
@@ -182,61 +219,62 @@ var VoIPNumbersView = {
         }
 
         return null;
-    },
+    };
 
-    saveNumber: function(number) {
-        for (var i = 0; i < this.numbers.length; i++) {
-            if (this.numbers[i].id == number.id) {
-                this.numbers[i] = number;
-                this.numbers[i].settings.ringtones = this.ringtones;
+    function saveNumber(number) {
+        number.settings.operators = setOperatorsUserInfo(number.settings.operators);
+        for (var i = 0; i < numbers.length; i++) {
+            if (numbers[i].id == number.id) {
+                numbers[i] = number;
+                numbers[i].settings.ringtones = ringtones;
                 return;
             }
         }
-    },
+    };
 
-    setCurrentNumber: function(numberId) {
-        for (var i = 0; i < this.numbers.length; i++) {
-            var number = this.numbers[i];
+    function setCurrentNumber(numberId) {
+        for (var i = 0; i < numbers.length; i++) {
+            var number = numbers[i];
             if (number.id == numberId) {
-                this.currentNumber = number;
+                currentNumber = number;
                 return true;
             }
         }
 
         return false;
-    },
+    };
 
-    addOperators: function(operators) {
-        this.setOperatorsUserInfo(operators);
+    function addOperators(operatorsResp) {
+        operatorsResp = setOperatorsUserInfo(operatorsResp);
 
-        for (var i = 0; i < operators.length; i++) {
-            this.operators.push(operators[i].id);
-            this.currentNumber.settings.operators.push(operators[i]);
+        for (var i = 0; i < operatorsResp.length; i++) {
+            operators.push(operatorsResp[i].id);
+            currentNumber.settings.operators.push(operatorsResp[i]);
         }
 
-        var result = $.extend(true, {}, this.currentNumber);
-        result.settings.operators = operators;
+        var result = $.extend(true, {}, currentNumber);
+        result.settings.operators = operatorsResp;
 
         return result;
-    },
+    };
 
-    deleteOperator: function(operatorId) {
-        for (var i = 0; i < this.currentNumber.settings.operators.length; i++) {
-            if (this.currentNumber.settings.operators[i].id == operatorId) {
-                this.currentNumber.settings.operators.splice(i, 1);
+    function deleteOperator(operatorId) {
+        for (var i = 0; i < currentNumber.settings.operators.length; i++) {
+            if (currentNumber.settings.operators[i].id == operatorId) {
+                currentNumber.settings.operators.splice(i, 1);
                 break;
             }
         }
 
-        for (var j = 0; j < this.operators.length; j++) {
-            if (this.operators[j] == operatorId) {
-                this.operators.splice(j, 1);
+        for (var j = 0; j < operators.length; j++) {
+            if (operators[j] == operatorId) {
+                operators.splice(j, 1);
                 break;
             }
         }
-    },
+    };
 
-    getTypedRingtones: function(ringtones) {
+    function getTypedRingtones(ringtonesResp) {
         var result = {
             greeting: [],
             hold: [],
@@ -244,45 +282,54 @@ var VoIPNumbersView = {
             queue: []
         };
 
-        for (var i = 0; i < ringtones.length; i++) {
-            var ringtone = ringtones[i];
+        for (var i = 0; i < ringtonesResp.length; i++) {
+            var ringtone = ringtonesResp[i];
             var targetRingtones;
-
-            if (ringtone.audioType == 0) {
-                targetRingtones = result.greeting;
-            } else if (ringtone.audioType == 1) {
-                targetRingtones = result.hold;
-            } else if (ringtone.audioType == 2) {
-                targetRingtones = result.voicemail;
-            } else {
-                targetRingtones = result.queue;
+            switch (ringtone.audioType) {
+                case 0:
+                    targetRingtones = result.greeting;
+                    break;
+                case 1:
+                    targetRingtones = result.hold;
+                    break;
+                case 2:
+                    targetRingtones = result.voicemail;
+                    break;
+                default:
+                    targetRingtones = result.queue;
+                    break;
             }
 
             targetRingtones.push(ringtone);
         }
 
         return result;
-    },
+    };
 
-    addRingtone: function(ringtone) {
+    function addRingtone(ringtone) {
         var targetRingtones;
 
-        if (ringtone.audioType == 0) {
-            targetRingtones = this.ringtones.greeting;
-        } else if (ringtone.audioType == 1) {
-            targetRingtones = this.ringtones.hold;
-        } else if (ringtone.audioType == 2) {
-            targetRingtones = this.ringtones.voicemail;
-        } else {
-            targetRingtones = this.ringtones.queue;
+        switch (ringtone.audioType) {
+            case 0:
+                targetRingtones = ringtones.greeting;
+                break;
+            case 1:
+                targetRingtones = ringtones.hold;
+                break;
+            case 2:
+                targetRingtones = ringtones.voicemail;
+                break;
+            default:
+                targetRingtones = ringtones.queue;
+                break;
         }
 
         targetRingtones.push(ringtone);
-    },
-    
+    };
+
     //#endregion
 
-    createFileuploadInput: function (browseButtonId, audioType) {
+    function createFileuploadInput(browseButtonId, audioType) {
         var buttonObj = jq("#" + browseButtonId);
 
         var inputObj = jq("<input/>")
@@ -294,25 +341,25 @@ var VoIPNumbersView = {
 
         inputObj.appendTo(buttonObj.parent());
 
-        buttonObj.on("click", function (e) {
+        buttonObj.on("click", function(e) {
             e.preventDefault();
             jq("#fileupload_" + audioType).click();
         });
 
         return inputObj;
-    },
+    };
 
-    getFileExtension: function (fileTitle) {
+    function getFileExtension(fileTitle) {
         if (typeof fileTitle == "undefined" || fileTitle == null) {
             return "";
         }
         fileTitle = fileTitle.trim();
         var posExt = fileTitle.lastIndexOf(".");
         return 0 <= posExt ? fileTitle.substring(posExt).trim().toLowerCase() : "";
-    },
+    };
 
-    correctFile: function (file) {
-        if (this.getFileExtension(file.name) != ".mp3") {
+    function correctFile(file) {
+        if (getFileExtension(file.name) != ".mp3") {
             toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileFormatErrorMsg);
             return false;
         }
@@ -328,13 +375,10 @@ var VoIPNumbersView = {
         }
 
         return true;
-    },
+    };
 
-    bindUploader: function(browseButtonId, audioType, selectorId) {
-
-        var self = this;
-
-        var uploader = self.createFileuploadInput(browseButtonId, audioType);
+    function bindUploader(browseButtonId, audioType, selectorId) {
+        var uploader = createFileuploadInput(browseButtonId, audioType);
 
         uploader.fileupload({
             url: "ajaxupload.ashx?type=ASC.Web.CRM.Controls.Settings.VoipUploadHandler,ASC.Web.CRM",
@@ -347,26 +391,37 @@ var VoIPNumbersView = {
                     name: "audioType",
                     value: audioType
                 }
-            ]
+            ],
+            dropZone: jq("#" + browseButtonId).parents(".ringtone-setting-item")
         });
 
         uploader
             .bind("fileuploadadd", function (e, data) {
-                if (self.correctFile(data.files[0])) {
+                if (correctFile(data.files[0]) ) {
                     data.submit();
                 }
             })
-            .bind("fileuploaddone", function (e, data) {
+            .bind("fileuploaddone", function(e, data) {
                 var response = $.parseJSON(data.result);
+                if (!response.Success || !response.Data) {
+                    if (response.Message) {
+                        toastr.error(response.Message);
+                    } else {
+                        toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileErrorMsg);
+                    }
+                    hideLoader();
+                    return;
+                }
                 var newRingtone = {
                     name: response.Data.Name,
                     path: response.Data.Path,
-                    audioType: response.Data.AudioType
+                    audioType: response.Data.AudioType,
+                    isDefault: response.Data.isDefault
                 };
-                self.addRingtone(newRingtone);
+                addRingtone(newRingtone);
 
                 var $selector = $('#' + selectorId);
-                var $newOption = self.ringtoneSelectorOptionTmpl.tmpl(newRingtone);
+                var $newOption = jq.tmpl("voip-ringtone-selector-option-tmpl", newRingtone);
 
                 var $player = $selector.siblings('.ringtone-player');
                 var $playBtn = $selector.siblings('.ringtone-play-btn');
@@ -377,105 +432,108 @@ var VoIPNumbersView = {
                 $player.attr('src', newRingtone.path);
                 $playBtn.removeClass('disable');
             })
-            .bind("fileuploadfail", function () {
-                self.hideLoader();
+            .bind("fileuploadfail", function() {
+                hideLoader();
                 toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileErrorMsg);
             })
-            .bind("fileuploadstart", self.showLoader)
-            .bind("fileuploadstop", self.hideLoader);
-    },
+            .bind("fileuploadstart", showLoader)
+            .bind("fileuploadstop", hideLoader);
+    };
 
     //#region rendering
 
-    renderView: function() {
-        if (this.numbers.length) {
-            var $numberSelectorOptions = this.numberSelectorOptionTmpl.tmpl(this.numbers);
-            this.$numberSelector.append($numberSelectorOptions);
-            this.$numberSelector.val(this.currentNumber.id);
-            this.renderSettings();
+    function renderView() {
+        if (numbers.length) {
+            var $numberSelectorOptions = jq.tmpl("voip-number-selector-option-tmpl", numbers);
+            $numberSelector.append($numberSelectorOptions);
+            $numberSelector.val(currentNumber.id);
+            renderSettings();
         } else {
-            this.$emptyNumbersListMsg.show();
+            $emptyNumbersListMsg.show();
         }
 
-        this.$view.show();
-    },
+        $view.show();
+    };
 
-    renderSettings: function() {
-        this.renderGeneralSettings();
-        this.renderOperators();
-    },
+    function renderSettings() {
+        renderGeneralSettings();
+        renderOperators();
+    };
 
-    renderGeneralSettings: function() {
-        if (!this.currentNumber) {
+    function renderGeneralSettings() {
+        if (!currentNumber) {
             return;
         }
 
-        var $settings = this.settingsTmpl.tmpl(this.currentNumber);
-        this.$numberSettingsBox.html($settings);
+        var $settings = jq.tmpl("voip-settings-tmpl", currentNumber);
+        $numberSettingsBox.html($settings);
 
-        this.bindUploader('greeting-ringtone-load-btn', 0, 'greeting-ringtone-selector');
-        this.bindUploader('queue-wait-ringtone-load-btn', 3, 'queue-wait-ringtone-selector');
-        this.bindUploader('hold-ringtone-load-btn', 1, 'hold-ringtone-selector');
-        this.bindUploader('voicemail-ringtone-load-btn', 2, 'voicemail-ringtone-selector');
+        $workingHoursFromInput = $numberSettingsBox.find("#working-hours-from-input");
+        $workingHoursToInput = $numberSettingsBox.find("#working-hours-to-input");
 
-        this.$numberSettingsBox.find('#greeting-ringtone-player').bind('ended', this.recorPlayerEndedHandler.bind(this));
-        this.$numberSettingsBox.find('#hold-ringtone-player').bind('ended', this.recorPlayerEndedHandler.bind(this));
-        this.$numberSettingsBox.find('#voicemail-ringtone-player').bind('ended', this.recorPlayerEndedHandler.bind(this));
-    },
+        bindUploader('greeting-ringtone-load-btn', 0, 'greeting-ringtone-selector');
+        bindUploader('queue-wait-ringtone-load-btn', 3, 'queue-wait-ringtone-selector');
+        bindUploader('hold-ringtone-load-btn', 1, 'hold-ringtone-selector');
+        bindUploader('voicemail-ringtone-load-btn', 2, 'voicemail-ringtone-selector');
 
-    renderOperators: function() {
-        if (!this.currentNumber) {
+        $numberSettingsBox.find('#greeting-ringtone-player').bind('ended', recorPlayerEndedHandler);
+        $numberSettingsBox.find('#hold-ringtone-player').bind('ended', recorPlayerEndedHandler);
+        $numberSettingsBox.find('#voicemail-ringtone-player').bind('ended', recorPlayerEndedHandler);
+    };
+
+    function renderOperators() {
+        if (!currentNumber) {
             return;
         }
 
-        this.$addOperatorsBtn.useradvancedSelector({ showGroups: true });
-        this.$addOperatorsBtn.useradvancedSelector('disable', this.operators);
+        $addOperatorsBtn.useradvancedSelector({ showGroups: true });
+        $addOperatorsBtn.useradvancedSelector('disable', operators);
 
-        var $operators = this.operatorTmpl.tmpl(this.currentNumber);
-        this.$operatorsList.html($operators);
-    },
-    
-    renderOperatorSettingsChanges: function(number) {
+        var $operators = jq.tmpl("voip-operator-tmpl", currentNumber);
+        $operatorsList.html($operators);
+    };
+
+    function renderOperatorSettingsChanges(number) {
         if (number.settings.allowOutgoingCalls) {
-            this.$operatorsList.find('.outgoing-calls .on_off_button').removeClass('disable');
+            $operatorsList.find('.outgoing-calls .on_off_button').removeClass('disable');
         } else {
-            this.$operatorsList.find('.outgoing-calls .on_off_button').removeClass('on').addClass('off').addClass('disable');
+            $operatorsList.find('.outgoing-calls .on_off_button').removeClass('on').addClass('off').addClass('disable');
         }
-        
+
         if (number.settings.record) {
-            this.$operatorsList.find('.incoming-recording .on_off_button').removeClass('disable');
+            $operatorsList.find('.incoming-recording .on_off_button').removeClass('disable');
         } else {
-            this.$operatorsList.find('.incoming-recording .on_off_button').removeClass('on').addClass('off').addClass('disable');
+            $operatorsList.find('.incoming-recording .on_off_button').removeClass('on').addClass('off').addClass('disable');
         }
-    },
+    };
 
-    renderAddedOperators: function(operators) {
-        this.$addOperatorsBtn.useradvancedSelector('disable', this.operators);
+    function renderAddedOperators(addedOperators) {
+        $addOperatorsBtn.useradvancedSelector('disable', operators);
 
-        this.setOperatorsUserInfo(operators);
-        var $operators = this.operatorTmpl.tmpl(operators);
-        this.$operatorsList.append($operators);
-    },
+        addedOperators = setOperatorsUserInfo(addedOperators);
+        var $operators = jq.tmpl("voip-operator-tmpl", addedOperators);
+        $operatorsList.append($operators);
+    };
 
-    renderDeletedOperator: function(operatorId) {
-        this.$operatorsList.find('.operator[data-operatorid=' + operatorId + ']').remove();
-        this.$addOperatorsBtn.useradvancedSelector('undisable', [operatorId]);
-    },
-    
+    function renderDeletedOperator(operatorId) {
+        $operatorsList.find('.operator[data-operatorid=' + operatorId + ']').remove();
+        $addOperatorsBtn.useradvancedSelector('undisable', [operatorId]);
+    };
+
     //#endregion
 
     //#region handlers
 
-    clickHandler: function(e) {
+    function clickHandler(e) {
         var $this = $(e.target);
 
         if (!$this.is('.actions')) {
-            this.$view.find('.operator').removeClass('selected');
-            this.$view.find('.studio-action-panel').hide();
+            $view.find('.operator').removeClass('selected');
+            $view.find('.studio-action-panel').hide();
         }
-    },
+    };
 
-    toggleActionsHandler: function(e) {
+    function toggleActionsHandler(e) {
         var $this = $(e.target);
         var $panel = $this.find('.studio-action-panel');
         var $operator = $this.closest('.operator');
@@ -485,96 +543,137 @@ var VoIPNumbersView = {
             $panel.hide();
             $operator.removeClass('selected');
         } else {
-            var offset = $this.offset();
             $panel.css({
-                top: offset.top + 20,
-                left: offset.left - $panel.width() + 26
+                top: $this.outerHeight(),
+                left: $this.width() - $panel.width()
             });
             $panel.show();
             $operator.addClass('selected');
         }
-    },
+    };
 
-    numberChangedHandler: function() {
-        var changedNumberId = this.$numberSelector.val();
-        this.setCurrentNumber(changedNumberId);
+    function showNumberRemovePopup() {
+        StudioBlockUIManager.blockUI($removeNumberPopup, 550, 550, 0, 'absolute');
+    }
+
+    function numberRemoveHandler() {
+        Teamlab.removeCrmVoipNumber({}, $numberSelector.val(), {
+            before: showLoader,
+            after: hideLoader,
+            success: function () {
+                location.hash = "";
+                location.reload();
+            },
+            error: showErrorMessage
+        });
+    };
+
+    function cancelNumberRemoveHandler() {
+        jq.unblockUI();
+    };
+
+    function numberChangedHandler() {
+        var changedNumberId = $numberSelector.val();
+        setCurrentNumber(changedNumberId);
 
         window.location.hash = changedNumberId;
 
-        this.renderSettings();
-    },
+        renderSettings();
+    };
 
-    quickSettingChangedHandler: function(e) {
+    function quickSettingChangedHandler(e) {
         var $this = $(e.target);
-        if ($this.is('.on')) {
+        var on = $this.is('.on');
+        if (on) {
             $this.removeClass('on').addClass('off');
         } else {
             $this.removeClass('off').addClass('on');
         }
-    },
+        return on;
+    };
 
-    saveSettingsHandler: function() {
-        var $workingHoursInvalidFormatError = this.$numberSettingsBox.find('#working-hours-invalid-format-error');
-        var $workingHoursInvalidIntervalError = this.$numberSettingsBox.find('#working-hours-invalid-interval-error');
+    function workHoursChangedHandler(e) {
+        var wasOn = quickSettingChangedHandler(e);
+        if (wasOn) {
+            $workingHoursFromInput.add($workingHoursToInput).val("").attr("disabled", "disabled");
+        } else {
+            $workingHoursFromInput.add($workingHoursToInput).removeAttr("disabled");
+            $workingHoursFromInput.val("6:00");
+            $workingHoursToInput.val("23:00");
+            $workingHoursFromInput.focus();
+        }
+
+    };
+
+    function saveSettingsHandler() {
+        var $workingHoursInvalidFormatError = $numberSettingsBox.find('#working-hours-invalid-format-error');
+        var $workingHoursInvalidIntervalError = $numberSettingsBox.find('#working-hours-invalid-interval-error');
 
         $workingHoursInvalidFormatError.hide();
         $workingHoursInvalidIntervalError.hide();
 
-        var whFrom = this.$numberSettingsBox.find('#working-hours-from-input').val();
-        var whTo = this.$numberSettingsBox.find('#working-hours-to-input').val();
-        if (!this.timeRegex.test(whFrom) || !this.timeRegex.test(whTo)) {
+        var whEnabled = $numberSettingsBox.find('#working-hours-setting-btn').is('.on');
+        var whFrom = $workingHoursFromInput.val().trim();
+        var whTo = $workingHoursToInput.val().trim();
+
+        if (whFrom.length === 4 && whFrom.indexOf("0") !== 0) {
+            whFrom = "0" + whFrom;
+            $workingHoursFromInput.val(whFrom);
+        }
+        if (whTo.length === 4 && whTo.indexOf("0") !== 0) {
+            whTo = "0" + whTo;
+            $workingHoursToInput.val(whTo);
+        }
+
+        if (whEnabled && (!timeRegex.test(whFrom) || !timeRegex.test(whTo))) {
             $workingHoursInvalidFormatError.show();
             return;
         }
 
         var fromNumber = +whFrom.replace(':', '');
         var toNumber = +whTo.replace(':', '');
-        if (fromNumber >= toNumber) {
+        if (whEnabled && fromNumber >= toNumber) {
             $workingHoursInvalidIntervalError.show();
             return;
         }
 
         var obj = {
-            alias: this.$numberSettingsBox.find('#number-alias-input').val(),
-            allowOutgoingCalls: this.$numberSettingsBox.find('#outgoing-calls-setting-btn').is('.on'),
-            voiceMail: {
-                enabled: this.$numberSettingsBox.find('#voicemail-setting-btn').is('.on'),
-                url: this.$numberSettingsBox.find('#voicemail-ringtone-selector').val()
-            },
-            record: this.$numberSettingsBox.find('#record-incoming-setting-btn').is('.on'),
+            alias: $numberSettingsBox.find('#number-alias-input').val(),
+            allowOutgoingCalls: $numberSettingsBox.find('#outgoing-calls-setting-btn').is('.on'),
+            voiceMail: $numberSettingsBox.find('#voicemail-ringtone-selector').val(),
+            record: $numberSettingsBox.find('#record-incoming-setting-btn').is('.on'),
             workingHours: {
-                enabled: this.$numberSettingsBox.find('#working-hours-setting-btn').is('.on'),
+                enabled: whEnabled,
                 from: whFrom,
                 to: whTo
             },
-            greeting: this.$numberSettingsBox.find('#greeting-ringtone-selector').val(),
-            holdUp: this.$numberSettingsBox.find('#hold-ringtone-selector').val(),
-            wait: this.$numberSettingsBox.find('#queue-wait-ringtone-selector').val()
+            greeting: $numberSettingsBox.find('#greeting-ringtone-selector').val(),
+            holdUp: $numberSettingsBox.find('#hold-ringtone-selector').val(),
+            wait: $numberSettingsBox.find('#queue-wait-ringtone-selector').val()
         };
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
-        Teamlab.updateCrmVoipNumberSettings(null, this.currentNumber.id, obj, {
+        Teamlab.updateCrmVoipNumberSettings(null, currentNumber.id, obj, {
             success: function(params, number) {
-                self.saveNumber(number);
-                self.renderOperatorSettingsChanges(number);
-                self.hideLoader();
-                self.showSuccessOpearationMessage();
+                saveNumber(number);
+                renderOperatorSettingsChanges(number);
+                hideLoader();
+                showSuccessOpearationMessage();
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    ringtoneSettingChangedHandler: function(e) {
+    function ringtoneSettingChangedHandler(e) {
         var $this = $(e.target);
         var ringtone = $this.val();
-        
-        if ($this.siblings('.ringtone-play-btn').attr('data-type') == this.currentRingtoneType) {
-            this.stopRingtonePlayer();
+
+        if ($this.siblings('.ringtone-play-btn').attr('data-type') == currentRingtoneType) {
+            stopRingtonePlayer();
         }
 
         var $playBtn = $this.closest('.ringtone-setting-item').find('.ringtone-play-btn');
@@ -583,37 +682,37 @@ var VoIPNumbersView = {
         } else {
             $playBtn.addClass('disable');
         }
-    },
+    };
 
-    ringtonePlayHandler: function(e) {
+    function ringtonePlayHandler(e) {
         var $this = $(e.target);
         if ($this.is('.disable')) return false;
 
-        this.ringtonePlayer.setAttribute('src', $this.siblings('.ringtone-selector').val());
+        ringtonePlayer.setAttribute('src', $this.siblings('.ringtone-selector').val());
 
         var playOn = $this.is('.__stop');
 
-        this.stopRingtonePlayer();
+        stopRingtonePlayer();
 
         if (!playOn) {
-            this.currentRingtoneType = $this.attr('data-type');
-            this.ringtonePlayer.play();
+            currentRingtoneType = $this.attr('data-type');
+            ringtonePlayer.play();
             $this.removeClass('__play').addClass('__stop');
         }
 
         return false;
-    },
-    
-    stopRingtonePlayer: function() {
-        if (this.ringtonePlayer.readyState != 0) {
-            this.ringtonePlayer.pause();
-            this.ringtonePlayer.currentTime = 0;
+    };
+
+    function stopRingtonePlayer() {
+        if (ringtonePlayer.readyState != 0) {
+            ringtonePlayer.pause();
+            ringtonePlayer.currentTime = 0;
         }
-        
-        this.$numberSettingsBox.find('.ringtone-play-btn.__stop').removeClass('__stop').addClass('__play');
-    },
-    
-    recorPlayerEndedHandler: function(e) {
+
+        $numberSettingsBox.find('.ringtone-play-btn.__stop').removeClass('__stop').addClass('__play');
+    };
+
+    function recorPlayerEndedHandler(e) {
         var $player = $(e.target);
         var player = $player.get(0);
 
@@ -621,9 +720,9 @@ var VoIPNumbersView = {
         player.pause();
 
         $player.closest('.ringtone-setting-item').find('.ringtone-play-btn').removeClass('__stop').addClass('__play');
-    },
+    };
 
-    addOperatorsHandler: function(e, addedOperators) {
+    function addOperatorsHandler(e, addedOperators) {
         var ids = addedOperators.map(function(o) {
             return o.id;
         });
@@ -632,56 +731,54 @@ var VoIPNumbersView = {
             return;
         }
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
-        Teamlab.addCrmVoipNumberOperators(null, this.currentNumber.id, { operators: ids }, {
-            success: function(params, operators) {
-                var number = self.addOperators(operators);
-                self.renderAddedOperators(number);
-                self.hideLoader();
+        Teamlab.addCrmVoipNumberOperators(null, currentNumber.id, { operators: ids }, {
+            success: function(params, operatorsResp) {
+                var number = addOperators(operatorsResp);
+                renderAddedOperators(number);
+                hideLoader();
             },
             error: function() {
-                self.showErrorMessage();
-                self.hideLoader();
+                showErrorMessage();
+                hideLoader();
             }
         });
-    },
+    };
 
-    deleteOperatorHandler: function(e) {
+    function deleteOperatorHandler(e) {
         var operatorId = $(e.target).closest('.operator').attr('data-operatorid');
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
-        Teamlab.removeCrmVoipNumberOperators(null, this.currentNumber.id, { oper: operatorId }, {
+        Teamlab.removeCrmVoipNumberOperators(null, currentNumber.id, { oper: operatorId }, {
             success: function() {
-                self.deleteOperator(operatorId);
-                self.renderDeletedOperator(operatorId);
-                self.hideLoader();
+                deleteOperator(operatorId);
+                renderDeletedOperator(operatorId);
+                hideLoader();
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
-    operatorOutgoingCallsUpdatedHandler: function(e) {
+    function operatorOutgoingCallsUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { allowOutgoingCalls: on };
 
-        this.operatorSettingUpdatedHandler(e, setting);
-    },
+        operatorSettingUpdatedHandler(e, setting);
+    };
 
-    operatorIncomingRecordingUpdatedHandler: function(e) {
+    function operatorIncomingRecordingUpdatedHandler(e) {
         var on = $(e.target).is('.off');
         var setting = { record: on };
 
-        this.operatorSettingUpdatedHandler(e, setting);
-    },
+        operatorSettingUpdatedHandler(e, setting);
+    };
 
-    operatorSettingUpdatedHandler: function(e, setting) {
+    function operatorSettingUpdatedHandler(e, setting) {
         var $this = $(e.target);
         if ($this.is('.disable')) {
             return;
@@ -690,50 +787,55 @@ var VoIPNumbersView = {
         var operatorId = $this.closest('.operator').attr('data-operatorId');
         var on = $this.is('.off');
 
-        this.showLoader();
+        showLoader();
 
-        var self = this;
         Teamlab.updateCrmVoipOperator(null, operatorId, setting, {
-            success: function() {
+            success: function(params, data) {
                 if (on) {
                     $this.removeClass('off').addClass('on');
                 } else {
                     $this.removeClass('on').addClass('off');
                 }
 
-                self.hideLoader();
-                self.showSuccessOpearationMessage();
+                saveNumber(currentNumber);
+
+                hideLoader();
+                showSuccessOpearationMessage();
             },
             error: function() {
-                self.hideLoader();
-                self.showErrorMessage();
+                hideLoader();
+                showErrorMessage();
             }
         });
-    },
+    };
 
     //#endregion
 
     //#region utils
 
-    showLoader: function() {
+    function showLoader() {
         LoadingBanner.displayLoading();
-    },
+    };
 
-    hideLoader: function() {
+    function hideLoader() {
         LoadingBanner.hideLoading();
-    },
+    };
 
-    showSuccessOpearationMessage: function() {
+    function showSuccessOpearationMessage() {
         toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
-    },
+    };
 
-    showErrorMessage: function() {
+    function showErrorMessage() {
         toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
-    }
-    
-    //#endregion
-};
+    };
 
-$(function() {
-    VoIPNumbersView.init();
+    //#endregion
+
+    return {
+        init : init
+    };
+})(jq);
+
+jq(function() {
+    ASC.CRM.Voip.NumbersView.init();
 });

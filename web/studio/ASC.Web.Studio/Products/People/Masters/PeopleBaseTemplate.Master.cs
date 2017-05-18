@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -25,18 +25,15 @@
 
 
 using System;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.UI;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.People.UserControls;
 using ASC.Web.Studio.UserControls.Users;
-using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.People.Masters
 {
-    public partial class PeopleBaseTemplate : MasterPage
+    public partial class PeopleBaseTemplate : MasterPage, IStaticBundle
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,19 +45,43 @@ namespace ASC.Web.People.Masters
             ControlHolder.Controls.Add(new ImportUsersWebControl());
             ControlHolder.Controls.Add(LoadControl(ResendInvitesControl.Location));
 
-            Page.RegisterClientScript(typeof(ClientScripts.ClientTemplateResources));
-            Page.RegisterClientScript(typeof(ClientScripts.ClientCustomResources));
-            Page.RegisterClientLocalizationScript(typeof(ClientScripts.ClientLocalizationResources));
+            Master
+                .AddClientScript(
+                    new ClientScripts.ClientTemplateResources(),
+                    new ClientScripts.ClientCustomResources(),
+                    new ClientScripts.ClientLocalizationResources());
         }
 
         private void InitScripts()
         {
-            Page.RegisterStyle(CommonLinkUtility.ToAbsolute, "~/products/people/app_themes/default/css/people.master.less");
-            Page.RegisterBodyScripts(ResolveUrl, 
-                                      "~/products/people/js/peopleCore.js",
-                                      "~/products/people/js/departmentmanagement.js",
-                                      "~/products/people/js/peopleActions.js");
-            Page.RegisterInlineScript("jQuery(document.body).children('form').bind('submit', function() { return false; });");
+            Master
+                .AddStaticStyles(GetStaticStyleSheet())
+                .AddStaticBodyScripts(GetStaticJavaScript())
+                .RegisterInlineScript(
+                    "jQuery(document.body).children('form').bind('submit', function() { return false; });");
+        }
+
+        public ScriptBundleData GetStaticJavaScript()
+        {
+            return (ScriptBundleData)
+                new ScriptBundleData("people", "people")
+                    .AddSource(ResolveUrl,
+                        "~/products/people/js/peoplemanager.js",
+                        "~/products/people/js/filterHandler.js",
+                        "~/products/people/js/navigatorHandler.js",
+                        "~/products/people/js/peopleController.js",
+                        "~/products/people/js/peopleCore.js",
+                        "~/products/people/js/departmentmanagement.js",
+                        "~/products/people/js/peopleActions.js",
+                        "~/products/people/js/sideNavigationPanel.js");
+        }
+
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return (StyleBundleData)
+                new StyleBundleData("people", "people")
+                    .AddSource(ResolveUrl,
+                        "~/products/people/app_themes/default/css/people.master.less");
         }
     }
 }

@@ -27,18 +27,39 @@ ARGS="-d:$DIR -l:$LOCKFILE $DIR/$EXEC --service \"ASC.SignalR.Base.SignalRLaunch
 do_start() {
 	echo -n "Starting $NAME... "
 	export MONO_IOMAP=all
-	export MONO_ASPNET_WEBCONFIG_CACHESIZE=2000
-	export MONO_THREADS_PER_CPU=2000
-	export MONO_OPTIONS="--server"
-	export MONO_GC_PARAMS=nursery-size=64m
+
 	start-stop-daemon -S -c $USER:$GROUP -x $DAEMON -- $ARGS
 	echo "OK"
 }
 
 do_stop() {
-	echo -n "Stopping $NAME... "
-	kill $PID
-	echo "OK"
+        echo -n "Stopping $NAME... "
+		
+		# Return
+        #   0 if daemon has been stopped
+        #   1 if daemon was already stopped
+        #   2 if daemon could not be stopped
+        #   other if a failure occurred
+        start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $LOCKFILE
+        RETVAL="$?"
+        [ "$RETVAL" = 2 ] && return 2
+        
+		# Wait for children to finish too if this is a daemon that forks
+        # and if the daemon is only ever run from this initscript.
+        # If the above conditions are not satisfied then add some other code
+        # that waits for the process to drop all resources that could be
+        # needed by services started subsequently.  A last resort is to
+        # sleep for some time.		
+	    get_pid
+		
+		if [ -n "$PID" ]; then
+			kill -9 $PID
+		fi
+    	
+        # Many daemons don't delete their pidfiles when they exit.
+        rm -f $LOCKFILE
+        return "$RETVAL"
+        echo "OK"
 }
 
 get_pid() {

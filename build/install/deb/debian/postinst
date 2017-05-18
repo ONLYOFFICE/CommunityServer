@@ -132,8 +132,9 @@ upgrade_storage(){
 		mkdir -p $DIR/Data/addons/talk/Data
 		cp -R -u $DIR/WebStudio/addons/talk/Data/upload/. $DIR/Data/addons/talk/Data
 	fi
-	if [ -d $DIR/Data/bundle ]; then
-		rm -rf $DIR/Data/bundle
+	if [ -d $DIR/bundle ]; then
+		mkdir -p $DIR/Data/bundle
+		cp -rf $DIR/bundle/* $DIR/Data/bundle/
 	fi
 }
 
@@ -162,12 +163,16 @@ case "$1" in
 		chown www-data:www-data -R /var/cache/nginx/onlyoffice
 		chown onlyoffice:www-data -R /var/run/onlyoffice
 		chmod g+s+w /var/run/onlyoffice
+
+		sed '/conversionPattern\s*value=\"%folder{LogDirectory}/s!web!web2!g' -i /var/www/onlyoffice/WebStudio2/web.log4net.config;
 		
 		# import common ssl certificates
 		mozroots --import --sync --machine --quiet
 
 		# configure ngninx for onlyoffice
 		rm -f /etc/nginx/sites-enabled/default
+		sed -i '1d' /etc/logrotate.d/nginx
+        sed '1 i\/var/log/nginx/*.log /var/log/onlyoffice/nginx.*.log {' -i /etc/logrotate.d/nginx
 
 		# call db_stop to prevent installation hang
 		db_stop

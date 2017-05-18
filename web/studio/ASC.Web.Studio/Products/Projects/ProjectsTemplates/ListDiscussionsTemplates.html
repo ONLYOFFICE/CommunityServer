@@ -1,0 +1,118 @@
+﻿<script id="projects_discussionTemplate" type="text/x-jquery-tmpl">
+    <div class="container-list">
+      <div class="header-list clearFix">
+          <div class="avatar-list">
+              <img src="${authorAvatar}" alt="${authorName}"/>
+          </div>
+          <div class="describe-list">
+              <div class="title-list">
+                  <a href="${discussionUrl}">
+                      ${title}
+                  </a>
+                  {{if status == 1}}
+                    <span class="status">${ASC.Projects.Resources.MessageResource.ArchiveDiscussionStatus}</span>
+                  {{/if}}
+              </div>
+              <div class="info-list">
+                    <span class="caption-list">${ASC.Projects.Resources.MessageResource.AuthorTitle}:</span>
+                    <span class="name-list author{{if authorId=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}} not-action{{/if}}" data-authorId="${authorId}">${authorName}</span>
+              </div>
+              {{if projectTitle}}
+                  <div class="info-list">          
+                        <span class="caption-list">${ASC.Projects.Resources.ProjectResource.Project}:</span>
+                        <span class="name-list project" data-projectId="${projectId}">${projectTitle}</span>
+                  </div>
+              {{/if}}
+              <div class="date-list">
+                    ${createdDate}<span class="time-list">${createdTime}</span>
+              </div>
+          </div>
+        </div>
+        <div class="content-list">
+                {{html htmlUtility.getFull(text)}}
+                
+                {{if hasPreview}}
+                   <div><a class="read-more" target="_blank" href="${discussionUrl}"><font>${ASC.Projects.Resources.MessageResource.ReadMore}</font></a></div>
+                {{/if}}
+                
+                <div class="comment-list">
+                    <a href="${commentsUrl}">${ASC.Projects.Resources.MessageResource.Comments}: ${commentsCount}</a>
+                    {{if canComment}}
+                    <a href="${writeCommentUrl}">${ASC.Projects.Resources.CommonResource.WriteComment}</a>
+                    {{/if}}
+                </div>
+        </div>
+    </div>
+</script>
+
+<script id="projects_discussionActionTemplate" type="text/x-jquery-tmpl">
+    <div class="discussionContainer">
+        <div class="discussionHeaderContainer">
+            <span class="discussionHeader">${title}</span>
+        </div>
+        <div class="discussionAuthorAvatar">
+            <img src="${authorAvatarUrl}" alt="${authorName}"/>
+        </div>
+        <div class="discussionDescriptionContainer">
+            <div>
+                <a class="link bold" href="${authorPageUrl}">
+                    ${authorName}
+                </a>
+                <span class="discussionCreatedDate">
+                    ${createOn}
+                </span>
+            </div>
+            <div class="discussionAuthorTitle">
+                ${authorTitle}
+            </div>
+            <div class="discussionText">
+                {{html content}}
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+</script>
+
+<script id="projects_discussionTab" type="text/x-jquery-tmpl">
+    <div id="discussionParticipantsContainer" class="participantsContainer display-none">
+        <div id="manageParticipantsSelector" class="link dotline plus">${ASC.Projects.Resources.CommonResource.AddParticipants}</div>
+        <ul id="discussionParticipantsTable" class="items-display-list">
+            {{tmpl 'projects_subscribedUsers'}}
+        </ul>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="popup_helper" id="hintSubscribersPrivateProject">
+        <p>${ASC.Projects.Resources.CommonResource.hintSubscribersPrivateProject}</p>
+    </div>
+</script>
+
+<script id="projects_subscribedUsers" type="text/x-jquery-tmpl">
+    {{each newListParticipants}}
+    {{tmpl($item.data.newListParticipants[$index]) 'projects_subscribedUser'}}
+    {{/each}} 
+    {{each notSeePartisipant}}
+    {{tmpl($item.data.notSeePartisipant[$index]) 'projects_subscribedUser'}}
+    {{/each}}
+</script>
+
+<script id="projects_subscribedUser" type="text/x-jquery-tmpl">
+    <li class="items-display-list_i" guid='${id}'>
+        <span class="item-name">
+            <a class="link {{if hidden}}gray{{/if}}" href="${profileUrl}" target="_blank">${displayName}</a>            
+        </span>
+        {{if !descriptionFlag}}<div class="reset-action"></div>{{/if}}
+    </li>
+</script>
+
+<script id="projects_tabs" type="text/x-jquery-tmpl">
+    <div class="tabs-section" id="${id}">
+        <span class="header-base">${title}{{if count}} (${count}){{/if}}</span>
+        <span id="switcher${id}" class="toggle-button">
+            {{if state}}
+            ${ASC.Projects.Resources.CommonResource.Hide}
+            {{else}}
+            ${ASC.Projects.Resources.CommonResource.Show}
+            {{/if}}
+        </span>
+    </div>
+</script>

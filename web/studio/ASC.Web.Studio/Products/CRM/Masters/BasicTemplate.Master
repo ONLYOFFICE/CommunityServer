@@ -2,6 +2,7 @@
 <%@ Assembly Name="ASC.Web.CRM" %>
 
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="BasicTemplate.master.cs" Inherits="ASC.Web.CRM.BasicTemplate" EnableViewState="false" MasterPageFile="~/Masters/BaseTemplate.master" %>
+<%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -20,5 +21,3 @@
     <asp:PlaceHolder ID="SideNavigation" runat="server" />
     <asp:ContentPlaceHolder ID="BTSidePanel" runat="server" />
 </asp:Content>
-
-<asp:Content ID="clientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="clientTemplatesResourcesPlaceHolder" runat="server" />

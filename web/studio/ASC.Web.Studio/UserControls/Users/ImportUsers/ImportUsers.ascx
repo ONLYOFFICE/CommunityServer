@@ -70,12 +70,15 @@
 <div id="importUsers">
     <div class="blockUI blockMsg blockElement" id="upload"><img/></div>
         <div class="desc">
-            <%= String.Format(CustomNamingPeople.Substitute<Resource>("ImportContactsDescription"),"<span class=\"starStyle\">*</span>")%>
+            <%= String.Format(CustomNamingPeople.Substitute<Resource>("ImportContactsDescription").HtmlEncode(), "<span class=\"starStyle\">*</span>")%>
         </div>
         <div class="smallDesc"><span class="starStyle">*</span> <%= CustomNamingPeople.Substitute<Resource>("ImportContactsSmallDescription").HtmlEncode() %></div>
         <div class="clearFix importUsers" id="panel">
             <div class="frame <%= MobileDetector.IsMobile ? "framePad" : "" %>">
-                <iframe src="<%= SetupInfo.GetImportServiceUrl() %>" style="border: none; width: <%= MobileDetector.IsMobile ? "100%" : "505px" %>; height: 50px; overflow: hidden; filter: alpha(opacity=100);" frameborder="0" id="ifr"></iframe>
+                <% if (!string.IsNullOrEmpty(ImportServiceUrl)) 
+                   { %>
+                <iframe src="<%= ImportServiceUrl %>" style="border: none; width: <%= MobileDetector.IsMobile ? "100%" : "505px" %>; height: 50px; overflow: hidden; filter: alpha(opacity=100);" frameborder="0" id="ifr"></iframe>
+                <% } %>
             </div>
         <div class="file" onclick="ImportUsersManager.ChangeVisionFileSelector();" title="<%= Resource.ImportContactsFromFile %>" style="display: <%= MobileDetector.IsMobile ? "none" : "block" %>;">
             <%= Resource.ImportContactsFromFile %>
@@ -129,7 +132,7 @@
         <label>
             <input type="checkbox" id="importAsCollaborators" onclick="ImportUsersManager.ChangeInviteLinkType();"
             <%= EnableInviteLink ? "" : "disabled=\"disabled\" checked=\"checked\"" %> />
-            <%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %>
+            <%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators").HtmlEncode() %>
         </label>
         <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
     </div>
@@ -167,7 +170,7 @@
                 </div>
                 <div class="popup_helper" id="answerForHelpInviteGuests">
                     <p>
-                        <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator"), "<b>","</b>")%>
+                        <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator").HtmlEncode(), "<b>","</b>")%>
                         <% if (TenantExtra.EnableTarrifSettings && TenantExtra.GetTenantQuota().ActiveUsers != LicenseReader.MaxUserCount)
                            { %>
                         <%= Resource.NotePriceCollaborator %>
@@ -220,7 +223,7 @@
                 <span class="splitter-buttons"></span>
                 <% } %>
                     <a id="import-limit-btn" class="<%= TenantExtra.EnableTarrifSettings ? "gray" : "blue" %> button" onclick="ImportUsersManager.ConfirmationLimit();">
-                        <%= CustomNamingPeople.Substitute<Resource>("AddUsersCaption") %>
+                        <%= CustomNamingPeople.Substitute<Resource>("AddUsersCaption").HtmlEncode() %>
                     </a>
                     <span class="splitter-buttons"></span>
                     <a id="import-limit-cancel-btn" class="button gray" onclick="ImportUsersManager.HideImportUserLimitPanel();">

@@ -41,6 +41,7 @@ using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
 using System.Globalization;
 using ASC.Web.Studio.Utility.HtmlUtility;
+using ASC.Web.Core.Users;
 
 namespace ASC.Web.Community.Blogs
 {
@@ -89,13 +90,15 @@ namespace ASC.Web.Community.Blogs
             get { return Request.QueryString["search"]; }
         }
 
+        public List<Tuple<Post, int>> PostsAndCommentsCount { get; set; }
+
         #endregion
 
         #region Methods
 
         protected override void PageLoad()
         {
-            
+            PostsAndCommentsCount = new List<Tuple<Post, int>>();
 
             BlogsPageSize = string.IsNullOrEmpty(Request["size"]) ? 20 : Convert.ToInt32(Request["size"]);
             Guid? userId = null;
@@ -132,7 +135,7 @@ namespace ASC.Web.Community.Blogs
                 FillPosts(postsQuery, engine);
             }
 
-            Title = HeaderStringHelper.GetPageTitle(mainContainer.CurrentPageCaption ?? BlogsResource.AddonName);
+            Title = HeaderStringHelper.GetPageTitle(BlogsResource.AddonName);
 
             var jsResource = new StringBuilder();
             jsResource.Append(String.Format("ASC.Community.BlogsJSResource = {{}};ASC.Community.BlogsJSResource.ReadMoreLink = \"{0}\";", BlogsResource.ReadMoreLink));
@@ -199,71 +202,8 @@ namespace ASC.Web.Community.Blogs
                 return;
             }
 
-            placeContent.Controls.Add(new Literal {Text = "<div>"});
 
-            var post_with_comments = engine.GetPostsCommentsCount(posts);
-
-            if (!String.IsNullOrEmpty(UserID))
-            {
-                var post = post_with_comments[0].Item1;
-                var st = new StringBuilder();
-
-                st.Append("<div class=\"BlogsHeaderBlock header-with-menu\" style=\"margin-bottom:16px;\">");
-                st.Append("<span class=\"header\">" + CoreContext.UserManager.GetUsers(post.UserID).DisplayUserName() + "</span>");
-                st.Append("</div>");
-
-                placeContent.Controls.Add(new Literal {Text = st.ToString()});
-            }
-
-            for (var i = 0; i < post_with_comments.Count; i++)
-            {
-                var post = post_with_comments[i].Item1;
-                var commentCount = post_with_comments[i].Item2;
-                var sb = new StringBuilder();
-                var user = CoreContext.UserManager.GetUsers(post.UserID);
-
-                sb.Append("<div class=\"container-list\">");
-                sb.Append("<div class=\"header-list\">");
-
-                sb.Append("<div class=\"avatar-list\">");
-                sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID.ToString() + "\">" + ImageHTMLHelper.GetHTMLUserAvatar(user.ID) + "</a>");
-                sb.Append("</div><div class=\"describe-list\">");
-                sb.Append("<div class=\"title-list\">");
-                sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID.ToString() + "\">" + HttpUtility.HtmlEncode(post.Title) + "</a>");
-                sb.Append("</div>");
-
-                sb.Append("<div class=\"info-list\">");
-                sb.Append("<span class=\"caption-list\">" + BlogsResource.PostedTitle + ":</span>");
-                sb.Append(user.RenderCustomProfileLink("name-list", "link"));
-                sb.Append("</div>");
-
-                if (String.IsNullOrEmpty(UserID))
-                {
-                    sb.Append("<div class=\"info-list\">");
-                    sb.Append("<a class=\"link gray-text\" href=\"" + VirtualPathUtility.ToAbsolute(ASC.Blogs.Core.Constants.BaseVirtualPath) + "?userid=" + post.UserID + "\">" + BlogsResource.AllRecordsOfTheAutor + "</a>");
-                    sb.Append("</div>");
-                }
-
-                sb.Append("<div class=\"date-list\">");
-                sb.AppendFormat("{0}<span class=\"time-list\">{1}</span>", post.Datetime.ToString("d"), post.Datetime.ToString("t"));
-                sb.Append("</div></div></div>");
-
-                sb.Append("<div class=\"content-list\">");
-               
-                sb.Append(HtmlUtility.GetFull(post.Content, false));
-                sb.Append("<div id=\"postIndividualLink\" class=\"display-none\">viewblog.aspx?blogid=" + post.ID.ToString() + "</div>");               
-                sb.Append("<div class=\"comment-list\">");
-                sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID + "#comments\">" + BlogsResource.CommentsTitle + ": " + commentCount.ToString() + "</a>");
-                if (!currentUser.IsOutsider())
-                {
-                    sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID + "#addcomment\">" + BlogsResource.CommentsAddButtonTitle + "</a>");
-                }
-                sb.Append("</div></div></div>");
-
-                placeContent.Controls.Add(new Literal {Text = sb.ToString()});
-            }
-
-            placeContent.Controls.Add(new Literal {Text = "</div>"});
+            PostsAndCommentsCount = engine.GetPostsCommentsCount(posts);
         }
 
         #endregion

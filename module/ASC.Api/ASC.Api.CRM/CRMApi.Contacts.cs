@@ -114,7 +114,7 @@ namespace ASC.Api.CRM
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>Contact Info</returns>
         [Create(@"contact/{contactid:[0-9]+}/project/{projectid:[0-9]+}")]
-        public ContactBaseWrapper SetRelativeContactToProject(int contactid, int projectid)
+        public ContactWrapper SetRelativeContactToProject(int contactid, int projectid)
         {
             if (contactid <= 0 || projectid <= 0) throw new ArgumentException();
 
@@ -130,7 +130,7 @@ namespace ASC.Api.CRM
             var messageAction = contact is Company ? MessageAction.ProjectLinkedCompany : MessageAction.ProjectLinkedPerson;
             MessageService.Send(Request, messageAction, project.Title, contact.GetTitle());
 
-            return ToContactBaseWrapper(contact);
+            return ToContactWrapper(contact);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace ASC.Api.CRM
         ///    Contact list
         /// </returns>
         [Create(@"contact/project/{projectid:[0-9]+}")]
-        public IEnumerable<ContactBaseWrapper> SetRelativeContactListToProject(IEnumerable<int> contactid, int projectid)
+        public IEnumerable<ContactWrapper> SetRelativeContactListToProject(IEnumerable<int> contactid, int projectid)
         {
             if (contactid == null) throw new ArgumentException();
             
@@ -166,7 +166,7 @@ namespace ASC.Api.CRM
 
             MessageService.Send(Request, MessageAction.ProjectLinkedContacts, project.Title, contacts.Select(x => x.GetTitle()));
 
-            return contacts.ConvertAll(ToContactBaseWrapper);
+            return contacts.ConvertAll(ToContactWrapper);
         }
 
         /// <summary>

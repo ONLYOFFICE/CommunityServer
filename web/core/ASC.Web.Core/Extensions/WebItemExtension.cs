@@ -118,12 +118,7 @@ namespace ASC.Web.Core
 
         public static bool IsDisabled(this IWebItem item, Guid userID)
         {
-            return item != null && (!WebItemSecurity.IsAvailableForUser(item.ID.ToString("N"), userID) || !item.IsLicensed());
-        }
-
-        public static bool IsLicensed(this IWebItem item)
-        {
-            return WebItemSecurity.IsLicensed(item);
+            return item != null && (!WebItemSecurity.IsAvailableForUser(item.ID.ToString("N"), userID) || !item.Visible);
         }
 
         public static bool IsSubItem(this IWebItem item)

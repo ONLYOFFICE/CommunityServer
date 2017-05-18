@@ -32,7 +32,6 @@ using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Security;
 using ASC.Web.Core.WhiteLabel;
-using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
@@ -74,10 +73,12 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
-            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffstandalone.js");
-            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariff.less");
-            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffstandalone.less");
+            Page
+                .RegisterBodyScripts(
+                    "~/js/uploader/jquery.fileupload.js",
+                    "~/usercontrols/management/tariffsettings/js/tariffstandalone.js")
+                .RegisterStyle("~/usercontrols/management/tariffsettings/css/tariff.less",
+                    "~/usercontrols/management/tariffsettings/css/tariffstandalone.less");
 
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             CurrentTariff = TenantExtra.GetCurrentTariff();
@@ -98,7 +99,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     return "<b>" + Resource.TariffTrial + "</b> "
                            + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
-                                  ? string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.Date.ToLongDateString())
+                                  ? string.Format(Resource.TariffExpiredDateStandalone, CurrentTariff.DueDate.Date.ToLongDateString())
                                   : string.Empty);
                 }
                 return String.Format(Resource.TariffTrialOverdue.HtmlEncode(),
@@ -112,7 +113,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 return "<b>" + UserControlsCommonResource.TariffPaidStandalone.HtmlEncode() + "</b> "
                        + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
-                              ? string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.Date.ToLongDateString())
+                              ? string.Format(Resource.TariffExpiredDateStandalone, CurrentTariff.DueDate.Date.ToLongDateString())
                               : string.Empty);
             }
 
@@ -152,22 +153,6 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 return new { Status = 0, Message = ex.Message };
             }
-        }
-
-        [AjaxMethod]
-        public void SendRequest(string fname, string lname, string title, string email, string phone, string ctitle, string csize, string site, string message)
-        {
-            if (!CoreContext.Configuration.Standalone) throw new NotSupportedException();
-
-            var key = HttpContext.Current.Request.UserHostAddress + "requesttariff";
-            var count = Convert.ToInt32(HttpContext.Current.Cache[key]);
-            if (2 < count)
-            {
-                throw new ArgumentOutOfRangeException("Messages count", "Rate limit exceeded.");
-            }
-            HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(2));
-
-            StudioNotifyService.Instance.SendRequestTariff(true, fname, lname, title, email, phone, ctitle, csize, site, message);
         }
     }
 }

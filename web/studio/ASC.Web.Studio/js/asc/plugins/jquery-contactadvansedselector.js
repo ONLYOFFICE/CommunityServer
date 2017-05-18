@@ -1,5 +1,6 @@
 ﻿
-(function ($, win, doc, body) {
+(function ($) {
+    var resources = ASC.Resources.Master.Resource, teamlab = Teamlab;
     var contactadvancedSelector = function (element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.contactadvancedSelector.defaults, options);
@@ -17,17 +18,17 @@
 
             opts.newoptions = [
                          {
-                             title: ASC.Resources.Master.Resource.SelectorContactType, type: "choice", tag: "type", items: [
-                                      { type: "person", title: ASC.Resources.Master.Resource.SelectorPerson },
-                                      { type: "company", title: ASC.Resources.Master.Resource.SelectorCompany }
+                             title: resources.SelectorContactType, type: "choice", tag: "type", items: [
+                                      { type: "person", title: resources.SelectorPerson },
+                                      { type: "company", title: resources.SelectorCompany }
                              ]
                          },
-                         { title: ASC.Resources.Master.Resource.SelectorFirstName, type: "input", tag: "first-name" },
-                         { title: ASC.Resources.Master.Resource.SelectorLastName, type: "input", tag: "last-name" },
-                         { title: ASC.Resources.Master.Resource.SelectorCompany, type: "select", tag: "company" },
-                         { title: ASC.Resources.Master.Resource.SelectorCompanyName, type: "input", tag: "title" }
+                         { title: resources.SelectorFirstName, type: "input", tag: "first-name" },
+                         { title: resources.SelectorLastName, type: "input", tag: "last-name" },
+                         { title: resources.SelectorCompany, type: "select", tag: "company" },
+                         { title: resources.SelectorCompanyName, type: "input", tag: "title" }
             ];
-            opts.newbtn = ASC.Resources.Master.Resource.CreateButton;
+            opts.newbtn = resources.CreateButton;
 
             that.displayAddItemBlock.call(that, opts);
 
@@ -69,7 +70,7 @@
 
             if (!that.cache[""]) {
 
-                Teamlab.getCrmContacts({}, {
+                teamlab.getCrmContacts({}, {
                     filter: {
                         startIndex: startIndex,
                         Count: 15
@@ -93,7 +94,7 @@
                 if ($this.innerHeight() + $this.scrollTop() >= $this.prop("scrollHeight")
                     && that.options.showSearch && that.$advancedSelector.find(".advanced-selector-search-field")) {
                     startIndex += 15;
-                    Teamlab.getCrmContacts({}, {
+                    teamlab.getCrmContacts({}, {
                         filter: {
                             startIndex: startIndex,
                             Count: 15
@@ -158,7 +159,7 @@
             if (that.options.isTempLoad) {
                 that.initAdvSelectorDataTempLoad.call(that);
             } else {
-                Teamlab.getCrmContacts({}, {
+                teamlab.getCrmContacts({}, {
                     before: function () {
                         that.showLoaderListAdvSelector.call(that, 'items');
                     },
@@ -198,7 +199,7 @@
             }
 
             if (cachedItem == null) {
-                Teamlab.getCrmContactsByPrefix({}, {
+                teamlab.getCrmContactsByPrefix({}, {
                     filter: filter,
                     success: successCallback,
                     error: errorCallback
@@ -213,7 +214,7 @@
                     if ($this.innerHeight() + $this.scrollTop() >= $this.prop("scrollHeight")
                         && that.options.showSearch && that.$advancedSelector.find(".advanced-selector-search-field")) {
                         startIndex += 15;
-                        Teamlab.getCrmContactsByPrefix({}, {
+                        teamlab.getCrmContactsByPrefix({}, {
                             filter: {
                                 startIndex: startIndex,
                                 Count: 15,
@@ -278,9 +279,16 @@
                 var newObj = {};
                 newObj.title = data[i].displayName || data[i].title || data[i].name || data[i].Name;
                 newObj.id = data[i].id && data[i].id.toString();
-                newObj.phone = data[i].phone || (data[i].commonData && data[i].commonData.filter(function (el) {
-                    return el.infoType == 0;
-                }));
+
+                if (data[i].phone) {
+                    newObj.phone = [data[i].phone];
+                } else {
+                    newObj.phone = 
+                    (data[i].commonData &&
+                        data[i].commonData.filter(function(el) {
+                            return el.infoType == 0;
+                        }));
+                }
 
                 if (data[i].hasOwnProperty("contactclass")) {
                     newObj.type = data[i].contactclass;
@@ -316,28 +324,28 @@
                 newContact.companyId = $addPanel.find(".company input").attr("data-id");
             }
             if (isCompany && !newContact.companyName) {
-                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: ASC.Resources.Master.Resource.ContactSelectorEmptyNameError });
+                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: resources.ContactSelectorEmptyNameError });
                 isError = true;
             }
             if (!isCompany && !newContact.firstName) {
-                that.showErrorField.call(that, { field: $addPanel.find(".first-name"), error: ASC.Resources.Master.Resource.ErrorEmptyUserFirstName });
+                that.showErrorField.call(that, { field: $addPanel.find(".first-name"), error: resources.ErrorEmptyUserFirstName });
                 isError = true;
             }
             if (!isCompany && !newContact.lastName) {
-                that.showErrorField.call(that, { field: $addPanel.find(".last-name"), error: ASC.Resources.Master.Resource.ErrorEmptyUserLastName });
+                that.showErrorField.call(that, { field: $addPanel.find(".last-name"), error: resources.ErrorEmptyUserLastName });
                 isError = true;
             }
             if (!isCompany && !newContact.companyId && $addPanel.find(".company input").val()) {
-                that.showErrorField.call(that, { field: $addPanel.find(".company"), error: ASC.Resources.Master.Resource.ContactSelectorNotFoundError });
+                that.showErrorField.call(that, { field: $addPanel.find(".company"), error: resources.ContactSelectorNotFoundError });
                 isError = true;
             }
             if (isError) {
                 $addPanel.find(".error input").first().focus();
                 return;
             }
-            Teamlab.addCrmContact({}, isCompany, newContact, {
+            teamlab.addCrmContact({}, isCompany, newContact, {
                 before:function(){
-                    that.displayLoadingBtn.call(that, { btn: $btn, text: ASC.Resources.Master.Resource.LoadingProcessing });
+                    that.displayLoadingBtn.call(that, { btn: $btn, text: resources.LoadingProcessing });
                 },
                 error: function (params, errors) {
                     that.showServerError.call(that, { field: $btn, error: errors });
@@ -403,12 +411,12 @@
     }
     $.fn.contactadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
         showme: true,
-        addtext: ASC.Resources.Master.Resource.ContactSelectorAddText,
-        noresults: ASC.Resources.Master.Resource.ContactSelectorNoResult,
-        noitems: ASC.Resources.Master.Resource.ContactSelectorNoItems,
-        emptylist: ASC.Resources.Master.Resource.ContactSelectorEmptyList,
+        addtext: resources.ContactSelectorAddText,
+        noresults: resources.ContactSelectorNoResult,
+        noitems: resources.ContactSelectorNoItems,
+        emptylist: resources.ContactSelectorEmptyList,
         withPhoneOnly: false
         
     });
 
-})(jQuery, window, document, document.body);
+})(jQuery);

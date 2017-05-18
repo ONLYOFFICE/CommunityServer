@@ -26,7 +26,7 @@
 
 jq(function () {
 
-    function bindEvents() {
+    function bindEvents () {
         jq(function () {
             jq("#loginSignUp").on("click", function () {
                 jq("#loginPopup").hide();
@@ -41,7 +41,7 @@ jq(function () {
         // close popup window
         jq(".default-personal-popup_closer").on("click", function () {
             jq(this).parents(".default-personal-popup").fadeOut(200);
-        })
+        });
 
         // confirm the email
         jq(document).on("keypress", "#confirmEmail", function (evt) {
@@ -50,21 +50,23 @@ jq(function () {
                 evt.preventDefault();
                 jq("#confirmEmailBtn").trigger("click");
             }
-        })
+        });
 
         jq(document).keyup(function (event) {
             var code;
-            if (!e)
+            if (!e) {
                 var e = event;
-            if (e.keyCode)
+            }
+            if (e.keyCode) {
                 code = e.keyCode;
-            else if (e.which)
+            } else if (e.which) {
                 code = e.which;
+            }
 
             if (code == 27) {
                 jq(".default-personal-popup").fadeOut(200);
             }
-        })
+        });
 
         jq("#confirmEmailBtn").on("click", function () {
             var $email = jq("#confirmEmail"),
@@ -78,8 +80,7 @@ jq(function () {
             if (!email) {
                 errorText = ASC.Resources.Master.Resource.ErrorEmptyEmail;
                 isError = true;
-            }
-            else if (!jq.isValidEmail(email)) {
+            } else if (!jq.isValidEmail(email)) {
                 errorText = ASC.Resources.Master.Resource.ErrorNotCorrectEmail;
                 isError = true;
             }
@@ -138,16 +139,16 @@ jq(function () {
             if (jq.trim(anch) == "passrecovery") {
                 PasswordTool.ShowPwdReminderDialog();
             }
-        } catch (e) { }
+        } catch (e) {
+        }
     }
 
-    function getReviewList() {
+    function getReviewList () {
         var lng = jq("#reviewsContainer").attr("data-lng");
         lng = lng ? lng.toLowerCase() : "en";
-        
+
         jq.getJSON("/UserControls/Common/AuthorizeDocs/js/reviews.json", function (data) {
-            var reviews = data.en.reviews,
-                items = "";
+            var reviews = data.en.reviews;
 
             jq.each(data, function (key, val) {
                 if (key == lng) {
@@ -158,15 +159,17 @@ jq(function () {
             shuffle(reviews);
             reviews.forEach(function (review) {
                 review.stars = new Array(parseInt(review.rating));
-                review.photo = review.photo || "default.png";
-                review.photoUrl = "/UserControls/Common/AuthorizeDocs/css/images/foto_commets/" + review.photo;
+                if (review.photo) {
+                    review.photoUrl = "/UserControls/Common/AuthorizeDocs/css/images/foto_commets/" + review.photo;
+                }
                 jq("#personalReviewTmpl").tmpl(review).appendTo("#reviewsContainer");
             });
 
 
         });
     }
-    function shuffle(array) {
+
+    function shuffle (array) {
         var counter = array.length, temp, index;
 
         // While there are elements in the array
@@ -184,19 +187,17 @@ jq(function () {
         }
     }
 
-    function carouselSlider($carousel) {
+    function carouselSlider ($carousel) {
         var blockHeight = $carousel.find('.carousel-block').outerHeight(true);
-        $carousel.animate({ top: "-" + blockHeight + "px" }, 800, function () {
+        $carousel.animate({top: "-" + blockHeight + "px"}, 800, function () {
             $carousel.find(".carousel-block").eq(0).clone().appendTo($carousel);
             $carousel.find(".carousel-block").eq(0).remove();
-            $carousel.css({ "top": "0px" });
+            $carousel.css({"top": "0px"});
         });
     }
 
-    function carouselAuto() {
-        var $carousel = jq("#reviewsContainer"),
-            counter = 1;
-
+    function carouselAuto () {
+        var $carousel = jq("#reviewsContainer");
         setInterval(function () {
             carouselSlider($carousel);
         }, 8000);
@@ -212,5 +213,5 @@ jq(function () {
 
     bindEvents();
     getReviewList();
-    carouselAuto();    
-})
+    carouselAuto();
+});

@@ -181,7 +181,8 @@ namespace ASC.Files.Core.Data
                 .SelectCount()
                 .Where(Exp.EqColumns("s.entry_id", "f.id"))
                 .Where("s.entry_type", (int) type)
-                .Where("owner", SecurityContext.CurrentAccount.ID.ToString());
+                //.Where("owner", SecurityContext.CurrentAccount.ID.ToString())
+                ;
         }
 
         protected SqlUpdate GetRecalculateFilesCountUpdate(object folderId)
@@ -220,7 +221,7 @@ namespace ASC.Files.Core.Data
 
             using (var DbManager = GetDb())
             {
-                if (id.ToString().StartsWith("sbox") || id.ToString().StartsWith("box") || id.ToString().StartsWith("spoint") || id.ToString().StartsWith("drive"))
+                if (id.ToString().StartsWith("sbox") || id.ToString().StartsWith("box") || id.ToString().StartsWith("dropbox") || id.ToString().StartsWith("spoint") || id.ToString().StartsWith("drive"))
                     result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
                 else
                     result = DbManager.ExecuteScalar<String>(Query("files_thirdparty_id_mapping")

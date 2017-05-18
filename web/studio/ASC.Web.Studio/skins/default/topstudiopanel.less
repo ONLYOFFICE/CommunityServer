@@ -70,17 +70,6 @@
     }
     &:not(.try-welcome-top) .studio-top-logo .top-logo img { max-height: 23px; }
 
-    .top-logo-partner_name {
-        color: #c5c9d3;
-        font-size: 13px;
-        max-width: 350px;
-        overflow: hidden;
-        white-space: nowrap;
-        display: inline-block;
-        text-overflow: ellipsis;
-        vertical-align: bottom;
-    }
-
     .studio-action-panel {
         .dropdown-item {
             display: block;
@@ -416,33 +405,6 @@ body.desktop .studio-top-panel {
     }
 }
 
-@media all and (max-width: 1200px) {
-
-    .studio-top-panel {
-        .staff-profile-box {
-            .usr-prof {
-                display: none;
-            }
-
-            .userLink {
-                background: url("@{imagesBaseUrl}user_icon_header.png") 0 bottom no-repeat transparent;
-                height: 12px;
-                padding-top: 3px;
-                width: 12px;
-            }
-        }
-    }
-}
-@media all and (max-width: 1060px) {
-    .studio-top-panel .top-logo-partner_name {
-        max-width: 220px;
-    }
-}
-@media all and (min-width: 1060px) and (max-width: 1300px) {
-    .studio-top-panel .top-logo-partner_name {
-        max-width: 290px;
-    }
-}
 /*******************************************************************************
    FeedReader
 *******************************************************************************/
@@ -601,8 +563,7 @@ body.desktop .studio-top-panel {
 /*******************************************************************************
    For Retina
 *******************************************************************************/
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (   min--moz-device-pixel-ratio: 2),
 only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),

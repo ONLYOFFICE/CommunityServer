@@ -124,12 +124,8 @@ namespace ASC.Api.Impl
 
         public IApiMethodCall GetMethod(string routeUrl, string httpMethod)
         {
-            var methodToCall =
-                _methods.Where(
-                    x =>
-                    x.FullPath ==
-                    StringUtils.TrimExtension(routeUrl, Config.GetBasePath().Length)).SingleOrDefault(x => x.HttpMethod.Equals(httpMethod, StringComparison.OrdinalIgnoreCase));
-            return methodToCall;
+            var basePath = StringUtils.TrimExtension(routeUrl, Config.GetBasePath().Length);
+            return _methods.SingleOrDefault(x => x.FullPath == basePath && x.HttpMethod.Equals(httpMethod, StringComparison.OrdinalIgnoreCase));
         }
 
 

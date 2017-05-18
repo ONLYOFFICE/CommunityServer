@@ -25,14 +25,16 @@
 
 
 using System;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
+using ASC.Web.Core;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.CRM.Controls.Common;
+using ASC.Web.CRM.Masters.ClientScripts;
+using ASC.Web.Studio.Masters.MasterResources;
 
 namespace ASC.Web.CRM
 {
-    public partial class BasicTemplate : MasterPage
+    public partial class BasicTemplate : MasterPage, IStaticBundle
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,58 +42,24 @@ namespace ASC.Web.CRM
 
             Page.EnableViewState = false;
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.CRMSettingsResources));
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ClientCustomResources));
-            Page.RegisterClientLocalizationScript(typeof(Masters.ClientScripts.ClientLocalizationResources));
-            Page.RegisterClientLocalizationScript(typeof(Masters.ClientScripts.ClientTemplateResources));
-
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.CommonData));
-        }
-
-        protected void RegisterScriptForTaskAction()
-        {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.TaskActionViewData));
-            Page.RegisterInlineScript("ASC.CRM.NavSidePanel.init();");
+            Master
+                .AddClientScript(
+                    new TaskActionViewData(),
+                    new CRMSettingsResources(),
+                    new ClientCustomResources(),
+                    new CommonData(),
+                    ((Product)WebItemManager.Instance[WebItemManager.CRMProductID]).ClientScriptLocalization,
+                    ((Product)WebItemManager.Instance[WebItemManager.ProjectsProductID]).ClientScriptLocalization);
         }
 
         protected void InitControls()
         {
             SideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));
 
-            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath,
-                "common.less",
-                "tasks.less",
-                "cases.less",
-                "contacts.less",
-                "deals.less",
-                "invoices.less",
-                "fg.css",
-                "socialmedia.less",
-                "settings.less",
-                "voip.common.less",
-                "voip.quick.less",
-                "voip.numbers.less",
-                "voip.calls.less");
-
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
-                                         "common.js",
-                                         "navsidepanel.js",
-                                         "fileUploader.js",
-                                         "tasks.js",
-                                         "contacts.js",
-                                         "cases.js",
-                                         "deals.js",
-                                         "invoices.js",
-                                         "socialmedia.js",
-                                         "sender.js"
-                                     );
-
-            Page.RegisterBodyScripts(ResolveUrl,
-                                         "~/js/uploader/ajaxupload.js",
-                                         "~/js/third-party/jquery/jquery.autosize.js");
-
-
-            RegisterScriptForTaskAction();
+            Master
+                .AddStaticStyles(GetStaticStyleSheet())
+                .AddStaticBodyScripts(GetStaticJavaScript())
+                .RegisterInlineScript("ASC.CRM.NavSidePanel.init();");
         }
 
         #region Methods
@@ -108,5 +76,46 @@ namespace ASC.Web.CRM
         }
 
         #endregion
+
+        public ScriptBundleData GetStaticJavaScript()
+        {
+            return (ScriptBundleData)
+                new ScriptBundleData("crm", "crm")
+                    .AddSource(ResolveUrl, new ClientTemplateResources())
+                    .AddSource(PathProvider.GetFileStaticRelativePath,
+                        "common.js",
+                        "navsidepanel.js",
+                        "fileUploader.js",
+                        "tasks.js",
+                        "contacts.js",
+                        "cases.js",
+                        "deals.js",
+                        "invoices.js",
+                        "socialmedia.js",
+                        "sender.js")
+                    .AddSource(ResolveUrl,
+                        "~/js/uploader/ajaxupload.js",
+                        "~/js/third-party/autosize.js");
+        }
+
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return (StyleBundleData)
+                new StyleBundleData("crm", "crm")
+                    .AddSource(PathProvider.GetFileStaticRelativePath,
+                        "common.less",
+                        "tasks.less",
+                        "cases.less",
+                        "contacts.less",
+                        "deals.less",
+                        "invoices.less",
+                        "fg.css",
+                        "socialmedia.less",
+                        "settings.less",
+                        "voip.common.less",
+                        "voip.quick.less",
+                        "voip.numbers.less",
+                        "voip.calls.less");
+        }
     }
 }

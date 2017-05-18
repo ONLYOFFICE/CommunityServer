@@ -1,0 +1,26 @@
+﻿<script id="groupTableTmpl" type="text/x-jquery-tmpl">
+    <div class="group_table_container" group_id="${id}">
+        {{tmpl({email: address.email, id: id}) "groupTableRowTmpl"}}
+        <div class="group_content">
+            {{tmpl({mailboxes: mailboxes}) "mailboxTableTmpl"}}
+        </div>
+    </div>
+</script>
+
+
+<script id="groupTableRowTmpl" type="text/x-jquery-tmpl">
+    <table class="group_menu">
+        <tr data_id="${id}" class="row with-entity-menu">
+            <td class="name_column">
+                <div class="group_name" onclick="javascript:administrationPage.manageGroupContent('${id}');">
+                    <span class="expander-icon open"></span>
+                    <span class="group_icon"></span>
+                    <span class="name bold" title="${ASC.Mail.Resources.MailAdministrationResource.GroupLabel}: ${email}">${email}</span>
+                </div>
+            </td>
+            <td class="menu_column">
+                <div class="entity-menu" title="${ASC.Mail.Resources.MailScriptResource.Actions}" data_id="${id}"></div>
+            </td>
+        </tr>
+    </table>
+</script>

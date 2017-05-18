@@ -24,6 +24,11 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -35,20 +40,15 @@ using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
 using Box.V2.Models;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace ASC.Files.Thirdparty.Box
 {
     internal abstract class BoxDaoBase : IDisposable
     {
-        private static readonly ConcurrentDictionary<string, BoxFile> CacheFile = new ConcurrentDictionary<string, BoxFile>();
-        private static readonly ConcurrentDictionary<string, BoxFolder> CacheFolder = new ConcurrentDictionary<string, BoxFolder>();
-        private static readonly ConcurrentDictionary<string, List<BoxItem>> CacheChildItems = new ConcurrentDictionary<string, List<BoxItem>>();
+        private static readonly TimeSpan CacheExpiration = TimeSpan.FromMinutes(1);
+        private static readonly ICache CacheFile = AscCache.Memory;
+        private static readonly ICache CacheFolder = AscCache.Memory;
+        private static readonly ICache CacheChildItems = AscCache.Memory;
         private static readonly ICacheNotify CacheNotify;
 
         protected readonly BoxDaoSelector BoxDaoSelector;
@@ -61,34 +61,31 @@ namespace ASC.Files.Thirdparty.Box
         static BoxDaoBase()
         {
             CacheNotify = AscCache.Notify;
-            CacheNotify.Subscribe<BoxCacheItem>((i, o) =>
+            CacheNotify.Subscribe<BoxCacheItem>((i, action) =>
                 {
+                    if (action != CacheNotifyAction.Remove) return;
                     if (i.ResetAll)
                     {
-                        CacheFile.Clear();
-                        CacheFolder.Clear();
-                        CacheChildItems.Clear();
+                        CacheChildItems.Remove(new Regex("^box-.*"));
+                        CacheFile.Remove(new Regex("^boxf-.*"));
+                        CacheFolder.Remove(new Regex("^boxd-.*"));
                     }
 
                     if (!i.IsFile.HasValue)
                     {
-                        List<BoxItem> item;
-                        CacheChildItems.TryRemove(i.Key, out item);
+                        CacheChildItems.Remove("box-" + i.Key);
 
-                        BoxFolder folder;
-                        CacheFolder.TryRemove(i.Key, out folder);
+                        CacheFolder.Remove("boxd-" + i.Key);
                     }
                     else
                     {
                         if (i.IsFile.Value)
                         {
-                            BoxFile file;
-                            CacheFile.TryRemove(i.Key, out file);
+                            CacheFile.Remove("boxf-" + i.Key);
                         }
                         else
                         {
-                            BoxFolder folder;
-                            CacheFolder.TryRemove(i.Key, out folder);
+                            CacheFolder.Remove("boxd-" + i.Key);
                         }
                     }
                 });
@@ -131,14 +128,14 @@ namespace ASC.Files.Thirdparty.Box
                 else
                 {
                     result = db.ExecuteScalar<String>(Query("files_thirdparty_id_mapping")
-                                                                 .Select("id")
-                                                                 .Where(Exp.Eq("hash_id", id)));
+                                                          .Select("id")
+                                                          .Where(Exp.Eq("hash_id", id)));
                 }
                 if (saveIfNotExist)
                 {
                     db.ExecuteNonQuery(Insert("files_thirdparty_id_mapping")
-                                                  .InColumnValue("id", id)
-                                                  .InColumnValue("hash_id", result));
+                                           .InColumnValue("id", id)
+                                           .InColumnValue("hash_id", result));
                 }
             }
             return result;
@@ -270,45 +267,45 @@ namespace ASC.Files.Thirdparty.Box
         {
             if (boxFile == null) return null;
             return new File
-            {
-                ID = MakeId(boxFile.ErrorId),
-                CreateBy = BoxProviderInfo.Owner,
-                CreateOn = TenantUtil.DateTimeNow(),
-                ModifiedBy = BoxProviderInfo.Owner,
-                ModifiedOn = TenantUtil.DateTimeNow(),
-                ProviderId = BoxProviderInfo.ID,
-                ProviderKey = BoxProviderInfo.ProviderKey,
-                RootFolderCreator = BoxProviderInfo.Owner,
-                RootFolderId = MakeId(),
-                RootFolderType = BoxProviderInfo.RootFolderType,
-                Title = MakeFileTitle(boxFile),
-                Error = boxFile.Error
-            };
+                {
+                    ID = MakeId(boxFile.ErrorId),
+                    CreateBy = BoxProviderInfo.Owner,
+                    CreateOn = TenantUtil.DateTimeNow(),
+                    ModifiedBy = BoxProviderInfo.Owner,
+                    ModifiedOn = TenantUtil.DateTimeNow(),
+                    ProviderId = BoxProviderInfo.ID,
+                    ProviderKey = BoxProviderInfo.ProviderKey,
+                    RootFolderCreator = BoxProviderInfo.Owner,
+                    RootFolderId = MakeId(),
+                    RootFolderType = BoxProviderInfo.RootFolderType,
+                    Title = MakeFileTitle(boxFile),
+                    Error = boxFile.Error
+                };
         }
 
         private Folder ToErrorFolder(ErrorFolder boxFolder)
         {
             if (boxFolder == null) return null;
             return new Folder
-            {
-                ID = MakeId(boxFolder.ErrorId),
-                ParentFolderID = null,
-                CreateBy = BoxProviderInfo.Owner,
-                CreateOn = TenantUtil.DateTimeNow(),
-                FolderType = FolderType.DEFAULT,
-                ModifiedBy = BoxProviderInfo.Owner,
-                ModifiedOn = TenantUtil.DateTimeNow(),
-                ProviderId = BoxProviderInfo.ID,
-                ProviderKey = BoxProviderInfo.ProviderKey,
-                RootFolderCreator = BoxProviderInfo.Owner,
-                RootFolderId = MakeId(),
-                RootFolderType = BoxProviderInfo.RootFolderType,
-                Shareable = false,
-                Title = MakeFolderTitle(boxFolder),
-                TotalFiles = 0,
-                TotalSubFolders = 0,
-                Error = boxFolder.Error
-            };
+                {
+                    ID = MakeId(boxFolder.ErrorId),
+                    ParentFolderID = null,
+                    CreateBy = BoxProviderInfo.Owner,
+                    CreateOn = TenantUtil.DateTimeNow(),
+                    FolderType = FolderType.DEFAULT,
+                    ModifiedBy = BoxProviderInfo.Owner,
+                    ModifiedOn = TenantUtil.DateTimeNow(),
+                    ProviderId = BoxProviderInfo.ID,
+                    ProviderKey = BoxProviderInfo.ProviderKey,
+                    RootFolderCreator = BoxProviderInfo.Owner,
+                    RootFolderId = MakeId(),
+                    RootFolderType = BoxProviderInfo.RootFolderType,
+                    Shareable = false,
+                    Title = MakeFolderTitle(boxFolder),
+                    TotalFiles = 0,
+                    TotalSubFolders = 0,
+                    Error = boxFolder.Error
+                };
         }
 
         public File ToFile(BoxFile boxFile)
@@ -322,26 +319,26 @@ namespace ASC.Files.Thirdparty.Box
             }
 
             return new File
-            {
-                ID = MakeId(boxFile.Id),
-                Access = FileShare.None,
-                ContentLength = boxFile.Size.HasValue ? (long)boxFile.Size : 0,
-                CreateBy = BoxProviderInfo.Owner,
-                CreateOn = boxFile.CreatedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.CreatedAt.Value) : default(DateTime),
-                FileStatus = FileStatus.None,
-                FolderID = MakeId(GetParentFolderId(boxFile)),
-                ModifiedBy = BoxProviderInfo.Owner,
-                ModifiedOn = boxFile.ModifiedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.ModifiedAt.Value) : default(DateTime),
-                NativeAccessor = boxFile,
-                ProviderId = BoxProviderInfo.ID,
-                ProviderKey = BoxProviderInfo.ProviderKey,
-                Title = MakeFileTitle(boxFile),
-                RootFolderId = MakeId(),
-                RootFolderType = BoxProviderInfo.RootFolderType,
-                RootFolderCreator = BoxProviderInfo.Owner,
-                SharedByMe = false,
-                Version = 1
-            };
+                {
+                    ID = MakeId(boxFile.Id),
+                    Access = FileShare.None,
+                    ContentLength = boxFile.Size.HasValue ? (long)boxFile.Size : 0,
+                    CreateBy = BoxProviderInfo.Owner,
+                    CreateOn = boxFile.CreatedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.CreatedAt.Value) : default(DateTime),
+                    FileStatus = FileStatus.None,
+                    FolderID = MakeId(GetParentFolderId(boxFile)),
+                    ModifiedBy = BoxProviderInfo.Owner,
+                    ModifiedOn = boxFile.ModifiedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.ModifiedAt.Value) : default(DateTime),
+                    NativeAccessor = boxFile,
+                    ProviderId = BoxProviderInfo.ID,
+                    ProviderKey = BoxProviderInfo.ProviderKey,
+                    Title = MakeFileTitle(boxFile),
+                    RootFolderId = MakeId(),
+                    RootFolderType = BoxProviderInfo.RootFolderType,
+                    RootFolderCreator = BoxProviderInfo.Owner,
+                    Shared = false,
+                    Version = 1
+                };
         }
 
         public Folder GetRootFolder(object folderId)
@@ -354,11 +351,11 @@ namespace ASC.Files.Thirdparty.Box
             var boxFolderId = MakeBoxId(folderId);
             try
             {
-                BoxFolder folder;
-                if (!CacheFolder.TryGetValue(BoxProviderInfo.ID + boxFolderId, out folder))
+                var folder = CacheFolder.Get<BoxFolder>("boxd-" + BoxProviderInfo.ID + boxFolderId);
+                if (folder == null)
                 {
                     folder = BoxProviderInfo.Storage.GetFolder(boxFolderId);
-                    CacheFolder.TryAdd(BoxProviderInfo.ID + boxFolderId, folder);
+                    CacheFolder.Insert("boxd-" + BoxProviderInfo.ID + boxFolderId, folder, DateTime.UtcNow.Add(CacheExpiration));
                 }
                 return folder;
             }
@@ -373,11 +370,11 @@ namespace ASC.Files.Thirdparty.Box
             var boxFileId = MakeBoxId(fileId);
             try
             {
-                BoxFile file;
-                if (!CacheFile.TryGetValue(BoxProviderInfo.ID + boxFileId, out file))
+                var file = CacheFile.Get<BoxFile>("boxf-" + BoxProviderInfo.ID + boxFileId);
+                if (file == null)
                 {
                     file = BoxProviderInfo.Storage.GetFile(boxFileId);
-                    CacheFile.TryAdd(BoxProviderInfo.ID + boxFileId, file);
+                    CacheFile.Insert("boxf-" + BoxProviderInfo.ID + boxFileId, file, DateTime.UtcNow.Add(CacheExpiration));
                 }
                 return file;
             }
@@ -395,12 +392,12 @@ namespace ASC.Files.Thirdparty.Box
         protected List<BoxItem> GetBoxItems(object parentId, bool? folder = null)
         {
             var boxFolderId = MakeBoxId(parentId);
-            List<BoxItem> items;
+            var items = CacheChildItems.Get<List<BoxItem>>("box-" + BoxProviderInfo.ID + boxFolderId);
 
-            if (!CacheChildItems.TryGetValue(BoxProviderInfo.ID + boxFolderId, out items))
+            if (items == null)
             {
                 items = BoxProviderInfo.Storage.GetItems(boxFolderId);
-                CacheChildItems.TryAdd(BoxProviderInfo.ID + boxFolderId, items);
+                CacheChildItems.Insert("box-" + BoxProviderInfo.ID + boxFolderId, items, DateTime.UtcNow.Add(CacheExpiration));
             }
 
             if (folder.HasValue)
@@ -504,11 +501,11 @@ namespace ASC.Files.Thirdparty.Box
                 }
                 var key = BoxProviderInfo.ID + boxId;
 
-                CacheNotify.Publish(new BoxCacheItem {IsFile = isFile, Key = key }, CacheNotifyAction.Remove);
+                CacheNotify.Publish(new BoxCacheItem { IsFile = isFile, Key = key }, CacheNotifyAction.Remove);
             }
         }
 
-        class BoxCacheItem
+        private class BoxCacheItem
         {
             public bool ResetAll { get; set; }
             public bool? IsFile { get; set; }

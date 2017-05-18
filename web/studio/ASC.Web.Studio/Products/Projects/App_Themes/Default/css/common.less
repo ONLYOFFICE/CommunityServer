@@ -1,0 +1,932 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+.loader-page{
+    display:none
+}
+.gant-chart-link, .gant-chart-link:hover {
+    float: right;
+    margin-left: 6px;
+    margin-top: 3px;
+}
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+.headerPanelSmall { /*---remove this style carefully---*/
+    color: #3C4046;
+    font-weight: bold;
+}
+
+/*---popup paragraph---*/
+.popupContainerClass p {
+    margin: 4px 0;
+
+    &:first-child {
+        margin-top: 11px;
+    }
+}
+
+
+/*----popup description panel---*/
+
+.studio-action-panel {
+    .param,
+    .value {
+        display: inline-block;
+        min-height: 16px;
+        padding: 4px 0;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+
+    .param {
+        color: #83888d;
+        padding-left: 12px;
+        width: 100px;
+    }
+
+    .value {
+        margin-right: 12px;
+        max-width: 250px;
+        overflow: hidden;
+        white-space: nowrap;
+
+        a.readMore {
+            color: #83888d;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .descrValue {
+        max-height: 52px;
+        max-width: 185px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /*---combobox status---*/
+    #statusList li.dropdown-item {
+        padding-left: 30px;
+        background-image: url('../images/projects_entity_statuses.png');
+        background-position: 2px center;
+        background-repeat: no-repeat;
+
+        &.open {
+            background-position: 10px -57px;
+        }
+
+        &.closed {
+            background-position: 10px -78px;
+        }
+
+        &.paused {
+            background-position: 10px -95px;
+        }
+
+        &.not-chargeable {
+            background-position: 10px 5px;
+        }
+
+        &.not-billed {
+            background-position: 10px -16px;
+        }
+
+        &.billed {
+            background-position: 10px -37px;
+        }
+    }
+}
+
+/*--- timer ---*/
+#timerTime {
+    padding: 8px;
+    position: absolute;
+    max-width: 288px;
+    overflow: hidden;
+
+    select, textarea {
+        width: 230px;
+        max-width: 230px;
+    }
+
+    select {
+        option {
+            max-width: 228px;
+        }
+    }
+
+    #firstViewStyle {
+        width: 231px;
+        height: 112px;
+        background: #e4e4e4;
+        padding: 16px 20px 24px 21px;
+        margin-bottom: 22px;
+
+        .h, .m, .s {
+            display: inline-block;
+            width: 72px;
+            height: 72px;
+            background: url("../images/timer-icons.png") no-repeat;
+            text-align: center;
+            font-size: 48px;
+            color: #fff;
+            line-height: 72px;
+        }
+
+        .h, .m {
+            margin-right: 4px;
+        }
+
+        .reset {
+            margin-top: 7px;
+            padding: 12px 26px;
+        }
+
+        .start {
+            margin-top: 7px;
+            margin-right: 5px;
+            padding: 13px 68px;
+
+            div {
+                height: 15px;
+                width: 15px;
+                background: url("../images/timer-icons.png") no-repeat 0 -80px;
+            }
+
+            &.stop div {
+                background-position: -21px -80px;
+            }
+        }
+    }
+
+    .block-cnt-splitter {
+        padding-left: 16px;
+        width: 240px;
+    }
+
+    #inputTimeHours, #inputTimeMinutes {
+        width: 40px;
+        text-align: center;
+
+        .error {
+            border-color: rgb(204,0,0);
+        }
+    }
+
+    .time-fields-container {
+        margin-bottom: 8px;
+    }
+
+    #timeTrakingErrorPanel {
+        padding: 5px 0;
+        width: 260px;
+        overflow: hidden;
+        height: 10px;
+
+        &.error {
+            color: #cc3300;
+        }
+
+        &.success {
+            color: #74AF00;
+        }
+    }
+
+    .timer-img {
+        margin-top: 130px;
+        height: 150px;
+        width: 100%;
+        background: url("../images/empty_screen_time_tracking.png") no-repeat center;
+    }
+
+    .message-for-empty-timer {
+        color: #333;
+        font-size: 18px;
+        margin-top: 24px;
+        padding: 0 16px;
+    }
+}
+
+/*--- styles for good table---*/
+table.listContainer {
+    width: 100%;
+
+    tr {
+        background: none repeat scroll 0 0 white;
+        border-bottom: 1px solid #D1D1D1;
+    }
+
+    td {
+        white-space: nowrap;
+
+        &.stretch {
+            white-space: normal;
+            width: auto;
+        }
+    }
+}
+
+/*---projects left navigation additional style--*/
+.page-menu {
+    #myProjectsConteiner {
+        padding: 0;
+
+        div {
+            padding: 4px 0;
+            overflow: hidden;
+        }
+
+        .expander {
+            margin: 0 1px 0 40px;
+
+            &:after {
+                border-left: 4px solid #696969;
+                border-bottom: 4px solid transparent;
+                border-top: 4px solid transparent;
+                content: "";
+                height: 0;
+                position: absolute;
+                top: 50%;
+                width: 0;
+                left: 0;
+                margin-top: -4px;
+            }
+        }
+
+        &.open {
+            .expander {
+                margin: 2px 3px 0 38px;
+
+                &:after {
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 4px solid #696969;
+                }
+            }
+        }
+
+        .menu-sub-list {
+            display: none;
+            max-width: 210px;
+            overflow: hidden;
+            margin-left: 50px;
+        }
+
+        &.open .menu-sub-list {
+            display: block;
+        }
+
+        .menu-sub-list .menu-sub-item {
+            white-space: nowrap;
+            overflow: hidden;
+            padding-left: 8px;
+
+            a {
+                color: #333;
+                text-decoration: none;
+                overflow: hidden;
+                display: inline-block;
+                max-width: 185px;
+                text-overflow: ellipsis;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .menu-list .menu-sub-list.documentTreeNavigation {
+        display: block;
+    }
+}
+
+#treeViewContainer {
+    display: none;
+}
+.open #treeViewContainer {
+    display: block;
+}
+
+/*-----pagination-----*/
+
+#tableForNavigation {
+    margin-top: 10px;
+    width: 100%;
+    display: none;
+
+    .tl-combobox {
+        margin-bottom: 1px;
+        vertical-align: middle;
+
+        .combobox-container {
+            padding: 8px;
+            width: 50px;
+
+            .combobox-options {
+                line-height: 22px;
+            }
+        }
+
+        .combobox-title .inner-text {
+            border-bottom: 1px dotted #666666;
+            color: #666666;
+        }
+    }
+}
+
+.divPager
+{
+	clear: right; 
+	display: inline-block;
+}
+
+/*--projects info---*/
+.project-info-container {
+    padding-top: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+    min-height: 41px;
+    display:none;
+
+    .project-total-info {
+        max-height: 30px;
+
+        .additional-info {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .header-with-menu {
+            overflow: visible;
+        }
+
+        .essenceProject {
+            margin-top: 8px;
+        }
+
+        .project-title {
+            display: inline-block;
+            max-width: 100%;
+
+            span.private {
+                background: url("../images/small-icons.png") -1px -36px no-repeat;
+                height: 12px;
+                left: 12px;
+                position: absolute;
+                top: 21px;
+                width: 12px;
+            }
+
+            #subscribe{
+                float:left;
+            }
+            .entity-menu {
+                float:left;
+                margin: 5px 0 0 7px;
+            }
+        }
+    }
+
+    .taskClosedStatus {
+        color: #999;
+    }
+}
+
+#essenceTitle.truncated-text {
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 1000px;
+}
+
+body.media-width-0-1575:not(.media-width-0-1350) #essenceTitle.truncated-text {
+    max-width: 800px;
+}
+body.media-width-0-1350 #essenceTitle.truncated-text {
+    max-width: 600px;
+}
+body.media-width-0-1150 #essenceTitle.truncated-text {
+    max-width: 400px;
+}
+
+/*--- project navigation-----*/
+#projectTabs {
+    overflow: hidden;
+    margin-top: 16px;
+}
+
+#pageHeader {
+    margin-bottom: 23px;
+    overflow: auto;
+
+    .pageTitle {
+        color: #333;
+        float: left;
+        font-size: 25px;
+    }
+}
+
+.addNewButton {
+    float: left;    
+}
+
+
+.button.gray.add-new { display: none;}
+
+/*---for contacts page---*/
+
+#contactsForProjectPanel {
+    display: none;
+    margin-bottom: 14px;
+    margin-top: -5px;
+    width: 450px;
+}
+
+/*----empty screens----*/
+#emptyScreenForFilter {
+    display: none;
+}
+
+/*-----add milestone popup-----*/
+#milestoneActionPanel {
+    display: none;
+
+    input[type="checkbox"] {
+        margin: 2px 0 0 0;
+        float: left;
+    }
+
+    label {
+        padding-left: 6px;
+    }
+
+    .requiredFieldError > input {
+        border: 1px solid #CC0000;
+    }
+
+    .tl-combobox .combobox-title .inner-text {
+        color: #333;
+        border-bottom: 1px dotted #333;
+    }
+
+    .full-width {
+        padding-top: 3px;
+    }
+}
+
+
+#milestoneResponsibleContainer {
+    display: none;
+
+    .notifyResponsibleContainer {
+        display: inline-block;
+        padding-top: 3px;
+        margin-left: 24px;
+        vertical-align: top;
+    }
+
+    .tl-combobox .combobox-title .inner-text {
+        max-width: 240px;
+    }
+}
+
+#milestoneDeadlineSelectorContainer {
+    input {
+        margin-right: 13px;
+        cursor: pointer;
+    }
+
+    span {
+        display: inline-block;
+        margin-right: 15px;
+        line-height: 15px;
+    }
+}
+
+#milestoneDescriptionInputBox {
+	width: 100%;
+	min-height: 93px;
+	max-height: 200px;
+	margin: 0px;
+    resize: none;
+}
+
+#milestoneKeyContainer {
+	margin-bottom: 8px;
+}
+
+#milestoneActionButtonsContainer {
+    margin-bottom: 5px;
+
+    .successMessage {
+        display: none;
+        margin: -14px 0 8px 0;
+        color: #666;
+    }
+}
+
+#milestoneActionProcessContainer {
+	display: none;
+}
+
+#milestoneProjectContainer .combobox-container {
+    max-width: 300px;
+}
+
+#milestoneResponsible {
+    max-width: 276px;
+    text-overflow: ellipsis;
+}
+
+/*------add task popup----*/
+#addTaskPanel {
+    .red-border {
+        border: 1px solid #CC0000;
+    }
+
+    .pm-fieldRight input {
+        vertical-align: middle;
+        margin: 1px 0 0;
+    }
+
+    .taskProcess {
+        height: 25px;
+        padding-left: 25px;
+        background: url('../../../../../skins/default/Images/loader_16.gif') no-repeat 2px 7px;
+    }
+
+    div.copy{
+        display:inline-block;
+        &.files{
+            margin-left:10px;
+        }
+    }
+
+    label.priority.high {
+        line-height: 14px;
+        margin-left: 8px;
+        cursor: pointer;
+        vertical-align: top;
+        padding-left: 16px;
+        background: url('../images/projects_entity_statuses.png') no-repeat 0 -116px;
+    }
+
+    label.copy {
+        line-height: 14px;
+        margin-left: 8px;
+        cursor: pointer;
+        vertical-align: top;
+    }
+
+    #fullFormUserList {
+        display: none;
+        margin-bottom: 5px;
+        overflow: hidden;
+        width: 370px;
+
+        .user {
+            background: url("../images/small-icons.png") no-repeat 0 3px transparent;
+            display: inline-block;
+            float: left;
+            line-height: 20px;
+            overflow: hidden;
+            padding: 0 0 0 17px;
+            white-space: nowrap;
+            margin: 0 12px 0 0;
+
+            &:hover {
+                background: url("../images/small-icons.png") no-repeat 0 -14px transparent;
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .notify label {
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    .infoPanel {
+        display: none;
+        padding: 10px 0 10px 30px;
+    }
+
+    .requiredFieldError input {
+        border: 1px solid #cc0000;
+    }
+
+    .pm-headerLeft {
+        float: left;
+        text-align: left;
+        width: 110px;
+        margin-right: 12px;
+        margin-bottom: 15px;
+        font-weight: bold;
+
+        .requiredField {
+            margin-top: -4px;
+
+            .headerPanelSmall {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    .pm-fieldRight {
+        margin-bottom: 15px;
+
+        .combobox-container {
+            max-width: 300px;
+        }
+
+        .tl-combobox .combobox-title .inner-text {
+            color: #333;
+            border-bottom: 1px dotted #333;
+        }
+    }
+
+    #taskLink {
+        float: right;
+        color: #666666;
+    }
+
+    select {
+        max-width: 200px;
+    }
+}
+
+#pm-projectBlock .pm-fieldRight {
+    margin-top: 2px;
+}
+#taskProject, #taskProject option{
+	max-width: 250px;
+}
+#taskMilestone, #taskMilestone option{
+	max-width: 300px;
+}
+.pm-action-block .successMessage {
+    display: none;
+    margin: -14px 0 8px 0;
+    color: #666;
+}
+
+/*---Banner for mobile app---*/
+
+.mobileApp-banner {
+    text-align: center;
+    width: 240px;
+}
+.mobileApp-banner_text {    
+    color: #83888D;        
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 16px;
+    margin-bottom: 8px;
+}
+
+.mobileApp-banner_text_i:last-child {
+    font-weight:400;
+}
+
+.mobileApp-banner_btn {
+    background: url("../images/mobile_app_btns.png") no-repeat;
+    display: inline-block;
+    height: 47px;
+    width: 118px;
+
+    .app-store {
+        background-position: 0 0;
+
+        &:hover {
+            background-position: 0 -47px;
+        }
+    }
+
+    .google-play {
+        background-position: -118px 0;
+
+        &:hover {
+            background-position: -118px -47px;
+        }
+    }
+}
+
+.advansed-select-container {
+    display: inline-block;
+    max-width: 550px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#CommonListContainer {
+    display: none;
+}
+
+table.table-list {
+    td {
+        height: 40px;
+        margin: 0;
+        padding: 0;
+
+        &.status {
+            width: 64px;
+
+            .changeStatusCombobox {
+                width: 38px;
+                height: 22px;
+                margin: 3px 0px 3px 8px;
+                text-align: center;
+
+                &.canEdit {
+                    border: 1px solid #d1d1d1;
+                    border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    cursor: pointer;
+
+                    span.arrow {
+                        background-image: none;
+                        height: 7px;
+                        width: 7px;
+                        display: inline-block;
+                        position: relative;
+                        margin: 0 4px 4px 1px;
+                        *inline: inline;
+                        *zoom: 1;
+
+                        &:after {
+                            display: block;
+                            border-left: 4px solid transparent;
+                            border-right: 4px solid transparent;
+                            border-top: 4px solid #B8B8B8;
+                            content: "";
+                            height: 0;
+                            position: absolute;
+                            right: -1px;
+                            top: 50%;
+                            margin-top: -2px;
+                            width: 0;
+                            text-align: center;
+                        }
+                    }
+                }
+
+                &.noEdit {
+                    background-image: none;
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                    margin-left:0px;
+                }
+
+                span {
+                    display: inline-block;
+                    margin: 3px 0 0 2px;
+                    width: 16px;
+                    height: 16px;
+                    *inline: inline;
+                    *zoom: 1;
+                }
+
+                .active,
+                .open,
+                .overdue,
+                .paused,
+                .closed {
+                    background: url('../images/projects_entity_statuses.png') no-repeat;
+                    background-position: 0 -60px;
+                }
+
+                .closed {
+                    background-position: 0 -80px;
+                }
+
+                .paused {
+                    background-position: 0 -98px;
+                }
+            }
+        }
+    }
+
+        tr:hover .changeStatusCombobox.canEdit,
+        td.status .changeStatusCombobox.canEdit.selected {
+            background-color: #eaeaea;
+            border-color: #a8a8a8;
+
+            span.arrow:after {
+                border-top-color: #999999;
+            }
+        }
+}
+
+#emptyScrCtrlPrj {
+    .emptyScrImage{
+        &.tasks{
+            background-image: url('../images/empty_screen_tasks.png');
+        }
+        &.discussions{
+            background-image: url('../images/empty_screen_discussions.png');
+        }
+        &.milestones{
+            background-image: url('../images/empty_screen_milestones.png');
+        }
+        &.projects{
+            background-image: url('../images/projects_logo.png');
+        }
+        &.time_tracking{
+            background-image: url('../images/empty_screen_time_tracking.png');
+        }
+        &.templates{
+            background-image: url('../images/project-templates_logo.png');
+        }
+        &.comments{
+            background-image: url('../images/empty_screen_comments.png');
+        }
+        &.relatedtasks{
+            background-image: url('../images/empty_screen_relatedtasks.png');
+        }
+        &.subtasks{
+            background-image: url('../images/empty_screen_subtasks.png');
+        }
+        &.filter{
+            background-image: url('../../../../../skins/Default/images/empty_screen_filter.png');
+        }
+    }
+}
+
+.descriptionContainer{
+    div{
+        padding-bottom: 10px;
+    }
+    span{
+        &.title{
+            color: #83888d;
+            width: 100px;
+        }
+        &.value{
+            margin-right: 12px;
+            max-width: 250px;
+            a {
+                color: #000;
+                &:hover {
+                    text-decoration: none
+                }
+            }
+        }
+    }
+}
+
+#noComments{
+    display:none
+}
+
+.commonActionPanel{
+    display:none;
+
+    .titlePanel .textEdit{
+        font-size: 12px;
+        width: 99%;
+        padding-right: 0;
+    }
+
+    textarea{
+        min-height: 60px;
+        max-height: 400px;
+        width: 99%; 
+        resize: none;
+    }
+    .headerPanelSmall {
+        float: left;
+        font-weight: bold;
+        text-align: left;
+        width: 120px;
+        margin-top: 0;
+    }
+}

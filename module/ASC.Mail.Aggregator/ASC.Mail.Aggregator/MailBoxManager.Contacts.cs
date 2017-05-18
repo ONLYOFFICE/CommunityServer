@@ -490,18 +490,17 @@ namespace ASC.Mail.Aggregator
 
             var apiHelper = new ApiHelper(httpContextScheme);
 
-            Task<List<string>>[] taskArray =
+            var taskList = new List<Task<List<string>>>()
             {
-                Task<List<string>>.Factory.StartNew(
-                    () =>
-                    {
-                        CoreContext.TenantManager.SetCurrentTenant(tenant);
-                        SecurityContext.AuthenticateMe(userGuid);
+                Task.Run(() =>
+                {
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+                    SecurityContext.AuthenticateMe(userGuid);
 
-                        return SearchMailContacts(tenant, userName, term, maxCountPerSystem).ToList();
-                    }),
+                    return SearchMailContacts(tenant, userName, term, maxCountPerSystem).ToList();
+                }),
 
-                Task<List<string>>.Factory.StartNew(() =>
+                Task.Run(() =>
                 {
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
                     SecurityContext.AuthenticateMe(userGuid);
@@ -509,33 +508,33 @@ namespace ASC.Mail.Aggregator
                     return SearchAccountEmails(tenant, userName, term);
                 }),
 
-                Task<List<string>>.Factory.StartNew(
-                    () =>
-                    {
-                        CoreContext.TenantManager.SetCurrentTenant(tenant);
-                        SecurityContext.AuthenticateMe(userGuid);
+                Task.Run(() =>
+                {
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+                    SecurityContext.AuthenticateMe(userGuid);
 
-                        return WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(),
-                            SecurityContext.CurrentAccount.ID)
-                            ? apiHelper.SearchCrmEmails(term, maxCountPerSystem)
-                            : new List<string>();
-                    }),
+                    return WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(),
+                        SecurityContext.CurrentAccount.ID)
+                        ? apiHelper.SearchCrmEmails(term, maxCountPerSystem)
+                        : new List<string>();
+                }),
 
-                Task<List<string>>.Factory.StartNew(
-                    () =>
-                    {
-                        CoreContext.TenantManager.SetCurrentTenant(tenant);
-                        SecurityContext.AuthenticateMe(userGuid);
+                Task.Run(() =>
+                {
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+                    SecurityContext.AuthenticateMe(userGuid);
 
-                        return WebItemSecurity.IsAvailableForUser(WebItemManager.PeopleProductID.ToString(),
-                            SecurityContext.CurrentAccount.ID)
-                            ? apiHelper.SearchPeopleEmails(term, 0, maxCountPerSystem)
-                            : new List<string>();
-                    })
+                    return WebItemSecurity.IsAvailableForUser(WebItemManager.PeopleProductID.ToString(),
+                        SecurityContext.CurrentAccount.ID)
+                        ? apiHelper.SearchPeopleEmails(term, 0, maxCountPerSystem)
+                        : new List<string>();
+                })
             };
 
             try
             {
+                var taskArray = taskList.ToArray<Task>();
+
                 Task.WaitAll(taskArray, timeout);
 
                 watch.Stop();
@@ -549,15 +548,15 @@ namespace ASC.Mail.Aggregator
 
                 foreach (var t in e.InnerExceptions)
                 {
-                    errorText.AppendFormat("\n-------------------------------------------------\n{0}",
-                        t);
+                    errorText
+                        .AppendFormat("\n-------------------------------------------------\n{0}", t);
                 }
 
                 _log.Error(errorText.ToString());
             }
 
             contacts =
-                taskArray.Aggregate(contacts,
+                taskList.Aggregate(contacts,
                     (current, task) => !task.IsFaulted
                                        && task.IsCompleted
                                        && !task.IsCanceled

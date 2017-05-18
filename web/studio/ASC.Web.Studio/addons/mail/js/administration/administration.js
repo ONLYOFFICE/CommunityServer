@@ -40,7 +40,6 @@ window.administrationManager = (function($) {
             serviceManager.bind(window.Teamlab.events.addMailDomain, onAddMailDomain);
             serviceManager.bind(window.Teamlab.events.getMailServerFullInfo, onGetMailServerFullInfo);
             serviceManager.bind(window.Teamlab.events.addMailbox, onAddMailbox);
-            serviceManager.bind(window.Teamlab.events.removeMailbox, onRemoveMailbox);
             serviceManager.bind(window.Teamlab.events.addMailGroup, onAddMailGroup);
             serviceManager.bind(window.Teamlab.events.removeMailGroup, onRemoveMailGroup);
             serviceManager.bind(window.Teamlab.events.removeMailDomain, onRemoveMailDomain);
@@ -122,7 +121,7 @@ window.administrationManager = (function($) {
         events.trigger('onaddmailbox', mailbox);
     }
 
-    function onRemoveMailbox(params, id) {
+    function removeMailbox(id) {
         for (var i = 0; i < mailboxes.length; i++) {
             if (mailboxes[i].id == id) {
                 var mailbox = mailboxes[i];
@@ -390,6 +389,8 @@ window.administrationManager = (function($) {
         getDomain: getDomain,
         getServerInfo: getServerInfo,
         getMailgroupsByDomain: getMailgroupsByDomain,
+
+        removeMailbox: removeMailbox,
 
         events: events
     };

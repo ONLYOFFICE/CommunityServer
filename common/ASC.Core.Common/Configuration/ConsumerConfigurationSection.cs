@@ -106,6 +106,13 @@ namespace ASC.Thrdparty.Configuration
             set { base["type"] = value; }
         }
 
+        [ConfigurationProperty("order")]
+        public int? Order
+        {
+            get { return (int?)base["order"]; }
+            set { base["order"] = value; }
+        }
+
         public override bool IsReadOnly()
         {
             return false;
@@ -115,7 +122,9 @@ namespace ASC.Thrdparty.Configuration
         {
             Default,
             Key,
-            Secret
+            Secret,
+            KeyDefault,
+            SecretDefault,
         }
     }
 }

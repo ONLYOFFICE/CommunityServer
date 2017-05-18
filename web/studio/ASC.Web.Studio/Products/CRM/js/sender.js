@@ -81,7 +81,7 @@ ASC.CRM.SmtpSender = (function () {
             ASC.CRM.SmtpSender.showSendEmailPanel();
         };
         var configData = { toolbar: 'CrmEmail' };
-        ckeditorConnector.onReady(function () {
+        ckeditorConnector.load(function () {
             ASC.CRM.SmtpSender.editor = jq('#ckEditor').ckeditor(callbackFunction, configData).editor;
         });
     };

@@ -47,5 +47,32 @@ namespace ASC.Web.Files.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ASC.Web.Studio.Controls.Common.Container ThirdPartyNewAccountTmp;
+        
+        /// <summary>
+        /// ThirPartyConfirmMoveTmp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Studio.Controls.Common.Container ThirPartyConfirmMoveTmp;
+        
+        /// <summary>
+        /// thirdpartyToDocuSignDialog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Studio.Controls.Common.Container thirdpartyToDocuSignDialog;
+        
+        /// <summary>
+        /// DocuSignFolderSelectorHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder DocuSignFolderSelectorHolder;
     }
 }

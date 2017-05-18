@@ -57,12 +57,10 @@ namespace ASC.Api.Impl
         {
             Log.Debug("configuring entry points");
             var routeMap = new List<IApiMethodCall>();
-            string apiBasePathPath = Config.GetBasePath();
-            var registrations = Container.Registrations.Where(x => x.RegisteredType == typeof(IApiEntryPoint)).ToList();
+            var apiBasePathPath = Config.GetBasePath();
+            var registrations = Container.Registrations.Where(x => x.RegisteredType == typeof (IApiEntryPoint)).ToList();
             //Register instances
-            foreach (ApiMethodCall apiMethodCall in
-                registrations.Select(apiEntryPoint => RouteEntryPoint(apiEntryPoint)).SelectMany(
-                    routePaths => routePaths.Cast<ApiMethodCall>()))
+            foreach (var apiMethodCall in registrations.Select(RouteEntryPoint).SelectMany(routePaths => routePaths.Cast<ApiMethodCall>()))
             {
                 apiMethodCall.FullPath = GetFullPath(apiBasePathPath, apiMethodCall);
                 if (routeMap.Contains(apiMethodCall))
@@ -73,12 +71,9 @@ namespace ASC.Api.Impl
                 routeMap.Add(apiMethodCall);
             }
             //Register instance to container
-            Container.RegisterInstance(typeof(IEnumerable<IApiMethodCall>), routeMap,
+            Container.RegisterInstance(typeof (IEnumerable<IApiMethodCall>), routeMap,
                                        new SingletonLifetimeManager());
-
-
         }
-
 
 
         private IEnumerable<IApiMethodCall> RouteEntryPoint(ContainerRegistration apiEntryPoint)
@@ -86,20 +81,16 @@ namespace ASC.Api.Impl
             try
             {
                 //Get all methods
-                MethodInfo[] methods = apiEntryPoint.MappedToType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+                var methods = apiEntryPoint.MappedToType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
 
-                var gloabalFilters =
-                    apiEntryPoint.MappedToType.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>().ToList();
-                gloabalFilters.AddRange(apiEntryPoint.MappedToType.Assembly.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>());
-                gloabalFilters.AddRange(Container.ResolveAll<ApiCallFilter>());//Add gloably registered filters
+                var gloabalFilters = apiEntryPoint.MappedToType.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>().ToList();
+                gloabalFilters.AddRange(apiEntryPoint.MappedToType.Assembly.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>());
+                gloabalFilters.AddRange(Container.ResolveAll<ApiCallFilter>()); //Add gloably registered filters
 
                 return (from methodInfo in methods.Where(x => !x.IsConstructor)
-                        let attr =
-                            methodInfo.GetCustomAttributes(typeof(ApiAttribute), true).Cast<ApiAttribute>().FirstOrDefault()
-                        let cache =
-                            methodInfo.GetCustomAttributes(typeof(CacheAttribute), true).Cast<CacheAttribute>().
-                            FirstOrDefault()
-                        let filters = methodInfo.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>()
+                        let attr = methodInfo.GetCustomAttributes(typeof (ApiAttribute), true).Cast<ApiAttribute>().FirstOrDefault()
+                        let cache = methodInfo.GetCustomAttributes(typeof (CacheAttribute), true).Cast<CacheAttribute>().FirstOrDefault()
+                        let filters = methodInfo.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>()
                         where attr != null
                         select ToApiMethodCall(methodInfo, apiEntryPoint, attr, cache, filters, gloabalFilters)).ToList();
             }
@@ -121,6 +112,7 @@ namespace ASC.Api.Impl
             methodCall.CacheTime = cache != null ? cache.CacheTime : 0;
             methodCall.Constraints = ExtractConstraints(attr.Path, attr.Method);
             methodCall.RequiresAuthorization = attr.RequiresAuthorization;
+            methodCall.CheckPayment = attr.CheckPayment;
 
             //Add filters
             gloabalFilters.AddRange(filters);
@@ -136,9 +128,9 @@ namespace ASC.Api.Impl
         {
             var rwDict = new RouteValueDictionary();
             var dictionary = RouteParser.Matches(path).Cast<Match>()
-                .Where(match => match.Success && match.Groups["constraint"].Success && match.Groups["route"].Success)
-                .ToDictionary(match => match.Groups["route"].Value,
-                              match => match.Groups["constraint"].Value.TrimStart(':'));
+                                        .Where(match => match.Success && match.Groups["constraint"].Success && match.Groups["route"].Success)
+                                        .ToDictionary(match => match.Groups["route"].Value,
+                                                      match => match.Groups["constraint"].Value.TrimStart(':'));
             if (dictionary.Count > 0)
             {
                 foreach (var constraint in dictionary)
@@ -146,11 +138,11 @@ namespace ASC.Api.Impl
                     rwDict.Add(constraint.Key, constraint.Value);
                 }
             }
-            rwDict.Add("method", new ApiHttpMethodConstraint(method.ToUpperInvariant()));//Adding method Constraint
+            rwDict.Add("method", new ApiHttpMethodConstraint(method.ToUpperInvariant())); //Adding method Constraint
             return rwDict;
         }
 
-        private string ExtractPath(string path)
+        private static string ExtractPath(string path)
         {
             return RouteParser.Replace(path, EvaluteRoute);
         }
@@ -167,21 +159,28 @@ namespace ASC.Api.Impl
         public RouteCallInfo ResolveRoute(MethodInfo apiCall, Dictionary<string, object> arguments)
         {
             //Iterate throug all points and find needed one
-            var entryPoint = Container.Resolve<IEnumerable<IApiMethodCall>>().Where(x => x.MethodCall.Equals(apiCall)).SingleOrDefault();
+            var entryPoint = Container.Resolve<IEnumerable<IApiMethodCall>>().SingleOrDefault(x => x.MethodCall.Equals(apiCall));
             if (entryPoint != null)
             {
                 //Yahoo
-                var url = RouteReplacer.Replace(GetFullPath(Config.GetBasePath(), entryPoint), (x) =>
-                                                                                                   {
-                                                                                                       if (x.Success && x.Groups["route"].Success && arguments.ContainsKey(x.Groups["route"].Value))
-                                                                                                       {
-                                                                                                           var args = arguments[x.Groups["route"].Value];
-                                                                                                           arguments.Remove(x.Groups["route"].Value);
-                                                                                                           return x.Value.Replace("{" + x.Groups["route"].Value + "}", Convert.ToString(args, CultureInfo.InvariantCulture));
-                                                                                                       }
-                                                                                                       return x.Value;
-                                                                                                   });
-                return new RouteCallInfo() { Url = url, Method = entryPoint.HttpMethod, Params = arguments };
+                var url = RouteReplacer.Replace(GetFullPath(Config.GetBasePath(), entryPoint),
+                                                x =>
+                                                    {
+                                                        if (x.Success && x.Groups["route"].Success && arguments.ContainsKey(x.Groups["route"].Value))
+                                                        {
+                                                            var args = arguments[x.Groups["route"].Value];
+                                                            arguments.Remove(x.Groups["route"].Value);
+                                                            return x.Value.Replace("{" + x.Groups["route"].Value + "}",
+                                                                                   Convert.ToString(args, CultureInfo.InvariantCulture));
+                                                        }
+                                                        return x.Value;
+                                                    });
+                return new RouteCallInfo
+                    {
+                        Url = url,
+                        Method = entryPoint.HttpMethod,
+                        Params = arguments
+                    };
             }
             throw new ArgumentException("Api method not found or not registered");
         }

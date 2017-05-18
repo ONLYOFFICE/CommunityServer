@@ -26,18 +26,16 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Web.Studio.Utility.HtmlUtility;
+using AjaxPro;
 using ASC.Blogs.Core;
 using ASC.Blogs.Core.Domain;
 using ASC.Blogs.Core.Resources;
 using ASC.Core;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
-using Newtonsoft.Json;
-using AjaxPro;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Web.Community.Blogs
 {
@@ -74,9 +72,6 @@ namespace ASC.Web.Community.Blogs
         {
             //EditBlogPresenter presenter = new EditBlogPresenter(ctrlViewBlogView, DaoFactory.GetBlogDao());
             //ctrlViewBlogView.AttachPresenter(presenter);
-
-            ctrlViewBlogView.UpdateCompleted += HandleUpdateCompleted;
-            ctrlViewBlogView.UpdateCancelled += HandleUpdateCancelled;
 
             if (IsPostBack) return;
 
@@ -137,7 +132,7 @@ namespace ASC.Web.Community.Blogs
                         TimeStampStr = comment.Datetime.Ago(),
                         IsRead = true,
                         Inactive = comment.Inactive,
-                        CommentBody = comment.Content,
+                        CommentBody = HtmlUtility.GetFull(comment.Content),
                         UserFullName = DisplayUserSettings.GetFullUserName(comment.UserID),
                         UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserID),
                         UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserID),
@@ -168,22 +163,5 @@ namespace ASC.Web.Community.Blogs
 
         #endregion
 
-        #region Events
-
-        private void HandleUpdateCancelled(object sender, EventArgs e)
-        {
-            Response.Redirect(Constants.DefaultPageUrl);
-        }
-
-        private void HandleUpdateCompleted(object sender, EventArgs e)
-        {
-            Response.Redirect("viewblog.aspx?blogid=" + BlogId);
-        }
-
-        protected void btnPreview_Click(object sender, EventArgs e)
-        {
-        }
-
-        #endregion
     }
 }

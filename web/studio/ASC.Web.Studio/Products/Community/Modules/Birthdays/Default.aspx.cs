@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -39,34 +38,25 @@ using ASC.Web.Studio.Controls.Common;
 
 namespace ASC.Web.Community.Birthdays
 {
-    [AjaxNamespace("AjaxPro.Birthdays")]
     public partial class Default : MainPage
     {
+
+        protected List<UserInfo> todayBirthdays;
+        protected List<BirthdayWrapper> upcomingBirthdays;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             RenderScripts();
-            Utility.RegisterTypeForAjax(GetType(), this);
 
-            var today = GetTodayBirthdays();
-            var upcoming = GetUpcomingBirthdays();
+            todayBirthdays = GetTodayBirthdays();
+            upcomingBirthdays = GetUpcomingBirthdays().ToList();
 
-            if (today != null && today.Count > 0)
-            {
-                todayRpt.DataSource = today;
-                todayRpt.DataBind();
-            }
-
-            if (upcoming == null || !upcoming.Any())
+            if (upcomingBirthdays == null || !upcomingBirthdays.Any())
             {
                 upcomingEmptyContent.Controls.Add(new EmptyScreenControl
                     {
                         Describe = BirthdaysResource.BirthdaysEmptyUpcomingTitle
                     });
-            }
-            else
-            {
-                upcomingRpt.DataSource = upcoming;
-                upcomingRpt.DataBind();
             }
 
             Title = HeaderStringHelper.GetPageTitle(BirthdaysResource.BirthdaysModuleTitle);
@@ -74,8 +64,9 @@ namespace ASC.Web.Community.Birthdays
 
         protected void RenderScripts()
         {
-            Page.RegisterStyle("~/products/community/modules/birthdays/app_themes/default/birthdays.css");
-            Page.RegisterBodyScripts("~/products/community/modules/birthdays/js/birthdays.js");
+            Page
+                .RegisterStyle("~/products/community/modules/birthdays/app_themes/default/birthdays.css")
+                .RegisterBodyScripts("~/products/community/modules/birthdays/js/birthdays.js");
         }
 
         private static List<UserInfo> GetTodayBirthdays()
@@ -121,13 +112,6 @@ namespace ASC.Web.Community.Birthdays
         protected bool IsInRemindList(Guid userID)
         {
             return BirthdaysNotifyClient.Instance.IsSubscribe(SecurityContext.CurrentAccount.ID, userID);
-        }
-
-        [AjaxMethod]
-        public bool RemindAboutBirthday(Guid userID, bool onRemind)
-        {
-            BirthdaysNotifyClient.Instance.SetSubscription(SecurityContext.CurrentAccount.ID, userID, onRemind);
-            return onRemind;
         }
 
         protected class BirthdayWrapper

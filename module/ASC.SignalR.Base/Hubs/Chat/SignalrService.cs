@@ -205,12 +205,12 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "SignalrService"));
 
                 List<MailBoxManager.MailFolderInfo> mailFolderInfos =
-                    mailBoxManager.GetFolders(tenant, userId, true);
+                    mailBoxManager.GetFolders(tenant, userId);
                 foreach (var mailFolderInfo in mailFolderInfos)
                 {
                     if (mailFolderInfo.id == MailFolder.Ids.inbox)
                     {
-                        count = mailFolderInfo.unread;
+                        count = mailFolderInfo.unreadMessages;
                         break;
                     }
                 }

@@ -1,0 +1,43 @@
+﻿<script id="mailAutoreplyTmpl" type="text/x-jquery-tmpl">
+    <div class="mail_autoreply">
+        <span class="info">${ASC.Mail.Resources.Autoreply}</span>
+        <label for="turnAutoreplyFlag" class="checkbox turn_autoreply">
+            <input type="checkbox" id="turnAutoreplyFlag" name="turnAutoreply" {{if turnOn}} checked {{/if}}/>
+            <span>${ASC.Mail.Resources.MailResource.TurnAutoreplyOn}</span>
+        </label>
+        <label for="onlyContactsFlag" class="checkbox only_contacts">
+            <input type="checkbox" id="onlyContactsFlag" name="onlyContacts" {{if onlyContacts}} checked {{/if}}/>
+            <span>${ASC.Mail.Resources.MailResource.OnlySendAutoreplyToContacts}</span>
+        </label>
+        <div class="mail_autoreply_from_to_date">
+            <div class="mail_autoreply_from_date">
+                <div class="bold">${ASC.Mail.Resources.MailScriptResource.MailAutoreplyFromDateLabel}</div>
+                <input type="text" id="autoreplyStartDate" class="textEditCalendar" autocomplete="off"/>
+            </div>
+            <div class="mail_autoreply_to_date">
+                <div class="mail_autoreply_to_date_bold bold">
+                    <label for="turnOnToDateFlag" class="checkbox">
+                        <input type="checkbox" id="turnOnToDateFlag" name="turnOnToDate" {{if turnOnToDate}} checked {{/if}}/>
+                        <span>${ASC.Mail.Resources.MailScriptResource.MailAutoreplyToDateLabel}</span>
+                    </label>
+                </div>
+                <input type="text" id="autoreplyDueDate" class="textEditCalendar" autocomplete="off"/>
+            </div>
+        </div>
+        <div class="mail_autoreply_subject">
+            <div class="bold">${ASC.Mail.Resources.MailScriptResource.SubjectLabel}</div>
+            <input type="text" class="textEdit" id="autoreplySubject" value="${subject}"/>
+        </div>
+        <div class="mail_autoreply_body requiredField">
+            <span class="requiredErrorText">${ASC.Mail.Resources.MailResource.ErrorEmptyBody}</span>
+            <div class="bold headerPanelSmall">${ASC.Mail.Resources.MailResource.BodyLabel}</div>
+            <div id="MailAutoreplyWYSIWYGEditor" class="mail_autoreply_wysiwyg_editor">
+                <textarea id="ckMailAutoreplyEditor" style="height:200px;"></textarea>
+            </div>
+        </div>
+        <div class="buttons">
+            <a class="button blue middle ok">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</a>
+            <a class="button gray middle cancel">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</a>
+        </div>
+    </div>
+</script>

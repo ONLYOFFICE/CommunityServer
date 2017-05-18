@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MailService.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.MailService" %>
+<%@ Import Namespace="ASC.Web.Core.Mail" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -16,13 +17,13 @@
     <div class="settings-switcher-content display-none">
         <div class="mail-service-item">
             <div class="header-base-small"><%= Resource.MailServiceUser %></div>
-            <input id="mailServiceUser" type="text" class="mail-service-value textEdit" value="<%= User %>" placeholder="<%= DefaultUser %>" />
-            <div class="gray-text"><%= string.Format(Resource.MailServiceExample, DefaultUser) %></div>
+            <input id="mailServiceUser" type="text" class="mail-service-value textEdit" value="<%= User %>" placeholder="<%= MailServiceHelper.DefaultUser %>" />
+            <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultUser) %></div>
         </div>
         <div class="mail-service-item">
             <div class="header-base-small"><%= Resource.MailServicePassword %></div>
-            <input id="mailServicePassword" type="text" class="mail-service-value textEdit" value="<%= Password %>" placeholder="<%= DefaultPassword %>" />
-            <div class="gray-text"><%= string.Format(Resource.MailServiceExample, DefaultPassword) %></div>
+            <input id="mailServicePassword" type="text" class="mail-service-value textEdit" value="<%= Password %>" placeholder="<%= MailServiceHelper.DefaultPassword %>" />
+            <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultPassword) %></div>
         </div>
     </div>
 

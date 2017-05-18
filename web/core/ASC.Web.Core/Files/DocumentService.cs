@@ -25,54 +25,41 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
-using ASC.Common.Utils;
 using ASC.Core;
+using JWT;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace ASC.Web.Core.Files
 {
     /// <summary>
     /// Class service connector
     /// </summary>
-    public class DocumentService
+    public static class DocumentService
     {
-        private readonly string _tenantId;
-        private readonly string _secretKey;
-        private readonly int _userCount;
-        private const string RequestParams = "?url={0}&outputtype={1}&filetype={2}&title={3}&key={4}&vkey={5}";
-        private const string RequestTrackParams = "?c={0}&key={1}&vkey={2}&callback={3}&users={4}&status={5}";
-
         /// <summary>
         /// Timeout to request conversion
         /// </summary>
-        public int Timeout = 120000;
+        public static int Timeout = 120000;
 
         /// <summary>
         /// Number of tries request conversion
         /// </summary>
-        public int MaxTry = 3;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="tenantId">Public license key</param>
-        /// <param name="secretKey">Secret license key</param>
-        /// <param name="userCount">User count</param>
-        public DocumentService(string tenantId, string secretKey, int userCount)
-        {
-            _tenantId = tenantId;
-            _secretKey = secretKey;
-            _userCount = userCount;
-        }
+        public static int MaxTry = 3;
 
         /// <summary>
         /// Translation key to a supported form.
@@ -89,28 +76,6 @@ namespace ASC.Web.Core.Files
         }
 
         /// <summary>
-        /// Generate validate key for editor by documentId
-        /// </summary>
-        /// <param name="documentRevisionId">Key for caching on service, whose used in editor</param>
-        /// <param name="userIp">Add host address to the key</param>
-        /// <returns>Validation key</returns>
-        public string GenerateValidateKey(string documentRevisionId, string userIp)
-        {
-            if (string.IsNullOrEmpty(documentRevisionId)) return string.Empty;
-
-            documentRevisionId = GenerateRevisionId(documentRevisionId);
-
-            object primaryKey;
-
-            if (!string.IsNullOrEmpty(userIp))
-                primaryKey = new { expire = DateTime.UtcNow, key = documentRevisionId, key_id = _tenantId, user_count = _userCount, ip = userIp };
-            else
-                primaryKey = new { expire = DateTime.UtcNow, key = documentRevisionId, key_id = _tenantId, user_count = _userCount };
-
-            return Signature.Create(primaryKey, _secretKey);
-        }
-
-        /// <summary>
         /// The method is to convert the file to the required format
         /// </summary>
         /// <param name="documentConverterUrl">Url to the service of conversion</param>
@@ -119,6 +84,7 @@ namespace ASC.Web.Core.Files
         /// <param name="toExtension">Extension to which to convert</param>
         /// <param name="documentRevisionId">Key for caching on service</param>
         /// <param name="isAsync">Perform conversions asynchronously</param>
+        /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="convertedDocumentUri">Uri to the converted document</param>
         /// <returns>The percentage of completion of conversion</returns>
         /// <example>
@@ -127,17 +93,19 @@ namespace ASC.Web.Core.Files
         /// </example>
         /// <exception>
         /// </exception>
-        public int GetConvertedUri(
+        public static int GetConvertedUri(
             string documentConverterUrl,
             string documentUri,
             string fromExtension,
             string toExtension,
             string documentRevisionId,
             bool isAsync,
+            string signatureSecret,
             out string convertedDocumentUri)
         {
             fromExtension = string.IsNullOrEmpty(fromExtension) ? Path.GetExtension(documentUri) : fromExtension;
-            if (string.IsNullOrEmpty(fromExtension)) throw new ArgumentNullException("fromExtension", "Document's extension is not known");
+            if (string.IsNullOrEmpty(fromExtension)) throw new ArgumentNullException("fromExtension", "Document's extension for conversion is not known");
+            if (string.IsNullOrEmpty(toExtension)) throw new ArgumentNullException("toExtension", "Extension for conversion is not known");
 
             var title = Path.GetFileName(documentUri ?? "");
             title = string.IsNullOrEmpty(title) || title.Contains("?") ? Guid.NewGuid().ToString() : title;
@@ -147,22 +115,40 @@ namespace ASC.Web.Core.Files
                                      : documentRevisionId;
             documentRevisionId = GenerateRevisionId(documentRevisionId);
 
-            var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
+            var request = (HttpWebRequest)WebRequest.Create(documentConverterUrl);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Timeout = Timeout;
 
-            var urlDocumentService = documentConverterUrl + RequestParams;
-            var urlToConverter = String.Format(urlDocumentService,
-                                               HttpUtility.UrlEncode(documentUri),
-                                               (toExtension ?? "").Trim('.'),
-                                               fromExtension.Trim('.'),
-                                               HttpUtility.UrlEncode(title),
-                                               documentRevisionId,
-                                               validateKey);
+            var body = new ConvertionBody
+                {
+                    Async = isAsync,
+                    FileType = fromExtension.Trim('.'),
+                    Key = documentRevisionId,
+                    OutputType = toExtension.Trim('.'),
+                    Title = title,
+                    Url = documentUri,
+                };
 
-            if (isAsync)
-                urlToConverter += "&async=true";
+            if (!string.IsNullOrEmpty(signatureSecret))
+            {
+                var payload = new Dictionary<string, object>
+                    {
+                        { "payload", body }
+                    };
+                JsonWebToken.JsonSerializer = new JwtSerializer();
+                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
+            }
 
-            var req = (HttpWebRequest) WebRequest.Create(urlToConverter);
-            req.Timeout = Timeout;
+            var bodyString = JsonConvert.SerializeObject(body);
+
+            var bytes = Encoding.UTF8.GetBytes(bodyString ?? "");
+            request.ContentLength = bytes.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
 
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
             if (WorkContext.IsMono)
@@ -170,18 +156,18 @@ namespace ASC.Web.Core.Files
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
             }
 
-            Stream stream = null;
-            var countTry = 0;
             XDocument xDocumentResponse;
             WebResponse response = null;
             try
             {
+                var countTry = 0;
+                Stream stream = null;
                 while (countTry < MaxTry)
                 {
                     try
                     {
                         countTry++;
-                        response = req.GetResponse();
+                        response = request.GetResponse();
                         stream = response.GetResponseStream();
                         break;
                     }
@@ -189,7 +175,7 @@ namespace ASC.Web.Core.Files
                     {
                         if (ex.Status != WebExceptionStatus.Timeout)
                         {
-                            throw new HttpException((int) HttpStatusCode.BadRequest, ex.Message, ex);
+                            throw new HttpException((int)HttpStatusCode.BadRequest, ex.Message, ex);
                         }
                     }
                 }
@@ -218,27 +204,41 @@ namespace ASC.Web.Core.Files
         /// <param name="fileStream">Stream of document</param>
         /// <param name="contentType">Mime type</param>
         /// <param name="documentRevisionId">Key for caching on service, whose used in editor</param>
+        /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <returns>Uri to document in the storage</returns>
-        public string GetExternalUri(
+        public static string GetExternalUri(
             string documentStorageUrl,
             Stream fileStream,
             string contentType,
-            string documentRevisionId)
+            string documentRevisionId,
+            string signatureSecret)
         {
-            var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
-
-            var urlDocumentService = documentStorageUrl + RequestParams;
-            var urlTostorage = String.Format(urlDocumentService,
-                                             string.Empty,
-                                             string.Empty,
-                                             string.Empty,
-                                             string.Empty,
-                                             documentRevisionId,
-                                             validateKey);
+            var urlTostorage = String.Format("{0}?key={1}",
+                                             documentStorageUrl,
+                                             documentRevisionId);
 
             var request = (HttpWebRequest)WebRequest.Create(urlTostorage);
             request.Method = "POST";
             request.ContentType = contentType;
+            request.Timeout = Timeout;
+
+            if (!string.IsNullOrEmpty(signatureSecret))
+            {
+                var payload = new Dictionary<string, object>
+                    {
+                        {
+                            "query", new Dictionary<string, string>
+                                {
+                                    {
+                                        "key", documentRevisionId
+                                    }
+                                }
+                        }
+                    };
+                JsonWebToken.JsonSerializer = new JwtSerializer();
+                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
+            }
 
             if (fileStream != null)
             {
@@ -272,38 +272,61 @@ namespace ASC.Web.Core.Files
         }
 
         /// <summary>
-        /// Обращение к подписке на события с файлом в сервисе редактирования
+        /// Request to Document Server with command
         /// </summary>
         /// <param name="documentTrackerUrl">Url to the command service</param>
         /// <param name="method">Name of method</param>
         /// <param name="documentRevisionId">Key for caching on service, whose used in editor</param>
         /// <param name="callbackUrl">Url to the callback handler</param>
         /// <param name="users">users id for drop</param>
-        /// <param name="status">saving status</param>
+        /// <param name="meta">file meta data for update</param>
+        /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="version">server version</param>
         /// <returns>Response</returns>
-        public CommandResultTypes CommandRequest(
+        public static CommandResultTypes CommandRequest(
             string documentTrackerUrl,
             CommandMethod method,
             string documentRevisionId,
             string callbackUrl,
-            string users,
-            string status,
+            string[] users,
+            MetaData meta,
+            string signatureSecret,
             out string version)
         {
-            var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
+            var request = (HttpWebRequest)WebRequest.Create(documentTrackerUrl);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Timeout = Timeout;
 
-            var urlDocumentService = documentTrackerUrl + RequestTrackParams;
-            var urlToTrack = String.Format(urlDocumentService,
-                                           method.ToString().ToLower(CultureInfo.InvariantCulture),
-                                           documentRevisionId,
-                                           validateKey,
-                                           HttpUtility.UrlEncode(callbackUrl ?? ""),
-                                           HttpUtility.UrlEncode(users ?? ""),
-                                           status);
+            var body = new CommandBody
+                {
+                    Command = method,
+                    Key = documentRevisionId,
+                };
 
-            var request = (HttpWebRequest)WebRequest.Create(urlToTrack);
-            request.Method = "GET";
+            if (!string.IsNullOrEmpty(callbackUrl)) body.Callback = callbackUrl;
+            if (users != null && users.Length > 0) body.Users = users;
+            if (meta != null) body.Meta = meta;
+
+            if (!string.IsNullOrEmpty(signatureSecret))
+            {
+                var payload = new Dictionary<string, object>
+                    {
+                        { "payload", body }
+                    };
+                JsonWebToken.JsonSerializer = new JwtSerializer();
+                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
+            }
+
+            var bodyString = JsonConvert.SerializeObject(body);
+
+            var bytes = Encoding.UTF8.GetBytes(bodyString ?? "");
+            request.ContentLength = bytes.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
 
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
             if (WorkContext.IsMono)
@@ -345,7 +368,9 @@ namespace ASC.Web.Core.Files
             Info,
             Drop,
             Saved, //not used
-            Version, //not used
+            Version,
+            ForceSave, //not used
+            Meta,
         }
 
         public enum CommandResultTypes
@@ -353,7 +378,74 @@ namespace ASC.Web.Core.Files
             NoError = 0,
             DocumentIdError = 1,
             ParseError = 2,
-            CommandError = 3
+            UnknownError = 3,
+            NotModify = 4,
+            UnknownCommand = 5,
+            Token = 6,
+            TokenExpire = 7,
+        }
+
+        [Serializable]
+        [DataContract(Name = "Command", Namespace = "")]
+        [DebuggerDisplay("{Command} ({Key})")]
+        private class CommandBody
+        {
+            public CommandMethod Command { get; set; }
+
+            [DataMember(Name = "c", IsRequired = true)]
+            public string C
+            {
+                get { return Command.ToString().ToLower(CultureInfo.InvariantCulture); }
+            }
+
+            [DataMember(Name = "callback", IsRequired = false, EmitDefaultValue = false)]
+            public string Callback { get; set; }
+
+            [DataMember(Name = "key", IsRequired = true)]
+            public string Key { get; set; }
+
+            [DataMember(Name = "meta", IsRequired = false, EmitDefaultValue = false)]
+            public MetaData Meta { get; set; }
+
+            [DataMember(Name = "users", IsRequired = false, EmitDefaultValue = false)]
+            public string[] Users { get; set; }
+
+            //not used
+            [DataMember(Name = "userdata", IsRequired = false, EmitDefaultValue = false)]
+            public string UserData { get; set; }
+        }
+
+        [Serializable]
+        [DataContract(Name = "meta", Namespace = "")]
+        [DebuggerDisplay("{Title}")]
+        public class MetaData
+        {
+            [DataMember(Name = "title")]
+            public string Title;
+        }
+
+        [Serializable]
+        [DataContract(Name = "Converion", Namespace = "")]
+        [DebuggerDisplay("{Title} from {FileType} to {OutputType} ({Key})")]
+        private class ConvertionBody
+        {
+            [DataMember(Name = "async")]
+            public bool Async { get; set; }
+
+            [DataMember(Name = "filetype", IsRequired = true)]
+            public string FileType { get; set; }
+
+            [DataMember(Name = "key", IsRequired = true)]
+            public string Key { get; set; }
+
+            [DataMember(Name = "outputtype", IsRequired = true)]
+            public string OutputType { get; set; }
+
+            [DataMember(Name = "title")]
+            public string Title { get; set; }
+
+            [DataMember(Name = "url", IsRequired = true)]
+            public string Url { get; set; }
         }
 
         public class DocumentServiceException : Exception
@@ -416,13 +508,13 @@ namespace ASC.Web.Core.Files
                     errorMessage = "user count exceed";
                     break;
                 case -21: // public const int c_nErrorKeyExpire = -21;
-                    errorMessage = "tariff expire";
+                    errorMessage = "signature expire";
                     break;
                 case -20: // public const int c_nErrorVKeyEncrypt = -20;
-                    errorMessage = "encrypt VKey";
+                    errorMessage = "encrypt signature";
                     break;
                 case -8: // public const int c_nErrorFileVKey = -8;
-                    errorMessage = "document VKey";
+                    errorMessage = "document signature";
                     break;
                 case -6: // public const int c_nErrorDatabase = -6;
                     errorMessage = "database";
@@ -445,6 +537,44 @@ namespace ASC.Web.Core.Files
             }
 
             throw new DocumentServiceException(errorMessage);
+        }
+
+
+        public class JwtSerializer : IJsonSerializer
+        {
+            private class CamelCaseExceptDictionaryKeysResolver : CamelCasePropertyNamesContractResolver
+            {
+                protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
+                {
+                    var contract = base.CreateDictionaryContract(objectType);
+
+                    contract.DictionaryKeyResolver = propertyName => propertyName;
+
+                    return contract;
+                }
+            }
+
+            public string Serialize(object obj)
+            {
+                var settings = new JsonSerializerSettings
+                    {
+                        ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
+                        NullValueHandling = NullValueHandling.Ignore,
+                    };
+
+                return JsonConvert.SerializeObject(obj, Formatting.Indented, settings);
+            }
+
+            public T Deserialize<T>(string json)
+            {
+                var settings = new JsonSerializerSettings
+                    {
+                        ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
+                        NullValueHandling = NullValueHandling.Ignore,
+                    };
+
+                return JsonConvert.DeserializeObject<T>(json, settings);
+            }
         }
     }
 }

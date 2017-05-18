@@ -146,5 +146,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
         {
             TryGetSecurityDao().DeleteShareRecords(records);
         }
+
+        public bool IsShared(object entryId, FileEntryType type)
+        {
+            return TryGetSecurityDao().IsShared(entryId, type);
+        }
     }
 }

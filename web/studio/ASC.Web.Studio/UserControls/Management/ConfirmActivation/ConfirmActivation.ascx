@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmActivation.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ConfirmActivation" %>
 
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 <asp:Panel runat="server" ID="passwordSetter" Visible="false">
@@ -13,8 +14,7 @@
         <% if (isPersonal){ %>
         <label class="default-personal-popup_label"><%= Resource.Password %></label>
         <% } %>
-        <input type="password" id="studio_confirm_pwd" placeholder="<%= isPersonal ? "" :Resource.InvitePassword %>" value="" name="pwdInput"
-            class="pwdLoginTextbox" />
+        <input type="password" id="studio_confirm_pwd" placeholder="<%= isPersonal ? "" :Resource.InvitePassword %>" value="" name="pwdInput" class="pwdLoginTextbox" maxlength="<%= PasswordSettings.MaxLength %>" />
     </div>
     <asp:Button runat="server" ID="ButtonEmailAndPasswordOK"
         CssClass="button blue big" OnClick="LoginToPortal" />

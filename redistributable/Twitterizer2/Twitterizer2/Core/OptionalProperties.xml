@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<OptionalProperties>
+  <OptionalProperties>
+    <summary>
+      Provides a base class for method specific optional parameters, as well as properties for providing configuration settings at run time.
+    </summary>
+  </OptionalProperties>
+
+  <Property name="UseSSL">
+    <summary>
+      Allows modification of the API endpoint addresses to enable SSL communication.
+    </summary>
+    <remarks>
+      The default value can be set at an application level by adding a <c>Twitterizer2.EnableSSL</c> application setting with the value <c>true</c>.
+      For example:
+      <code lang="xml">
+        <![CDATA[<configuration>
+  <appSettings>
+    <!-- Enable use of SSL to reach Twitter -->
+    <add key="Twitterizer2.EnableSSL" value="true" />
+  </appSettings>
+<configuration>]]>
+      </code>
+    </remarks>
+    <value>
+      The current configured value. <c>true</c> if enabled, otherwise <c>false</c>. Default: <c>false</c>
+    </value>
+  </Property>
+
+  <Property name="APIBaseAddress">
+    
+    <remarks>
+      The default value can be set at an application level by adding a <c>Twitterizer2.APIBaseAddress</c> application setting with the base address as the value.
+      For example:
+      <code lang="xml">
+        <![CDATA[<configuration>
+  <appSettings>
+    <!-- Set or change this value to interface with a non-twitter API (like Wordpress) -->
+    <add key="Twitterizer2.APIBaseAddress" value="http://api.twitter.com/1.1/" />
+  </appSettings>
+<configuration>]]>
+      </code>
+    </remarks>
+    <value>The API end point base address. Default: "http://api.twitter.com/1.1/"</value>
+  </Property>
+
+  <Property name="CacheOutput">
+    <summary>
+      Allows run time enabling of API output caching.
+    </summary>
+    <remarks>
+      The default value can be set at an application level by adding a <c>Twitterizer2.EnableCaching</c> application setting with value <c>true</c>.
+      For example:
+      <code lang="xml">
+        <![CDATA[<configuration>
+  <appSettings>
+    <!-- Enable caching results -->
+    <add key="Twitterizer2.EnableCaching" value="true" />
+  </appSettings>
+<configuration>]]>
+      </code>
+    </remarks>
+    <value>
+      The currently configured value. <c>true</c> if enabled, otherwise <c>false</c>. Default: <c>false</c>
+    </value>
+    <seealso cref="Twitterizer.OptionalProperties.CacheOutput" />
+  </Property>
+
+  <Property name="CacheTimespan">
+    <summary>
+      Allows configuration of the sliding expiration timespan for output caching.
+    </summary>
+    <remarks>
+      The default value can be set at an application level by adding a <c>Twitterizer2.CacheTimeout</c> application setting with value equal to the number of seconds of the duration.
+      For example:
+      <code lang="xml">
+        <![CDATA[<configuration>
+  <appSettings>
+    <!-- Sets the number of seconds to cache results (default is 5 minutes) -->
+    <add key="Twitterizer2.CacheTimeout" value="300"/>
+  </appSettings>
+<configuration>]]>
+      </code>
+    </remarks>
+    <value>
+      The duration that API output should be cached, on a sliding expiration, once enabled. Default: 5 minutes
+    </value>
+    <seealso cref="Twitterizer.OptionalProperties.CacheOutput" />
+  </Property>
+
+  <Property name="Proxy">
+    <summary>
+      Allows overriding of the default proxy settings for API call requests.
+    </summary>
+    <value>
+      The supplied <see cref="System.Net.WebProxy" />, or <c>null</c>.
+    </value>
+  </Property>
+
+</OptionalProperties>

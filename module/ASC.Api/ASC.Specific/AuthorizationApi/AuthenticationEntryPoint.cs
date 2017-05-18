@@ -24,16 +24,20 @@
 */
 
 
+using System;
+using System.Security.Authentication;
+using System.Threading;
+using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
 using ASC.Api.Utils;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.Notify;
@@ -41,10 +45,6 @@ using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
 using Resources;
-using System;
-using System.Security.Authentication;
-using System.Threading;
-using System.Web;
 
 namespace ASC.Specific.AuthorizationApi
 {
@@ -78,7 +78,7 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="accessToken">provider token</param>
         /// <returns>tokent to use in 'Authorization' header when calling API methods</returns>
         /// <exception cref="AuthenticationException">Thrown when not authenticated</exception>
-        [Create(@"", false)] //NOTE: this method doesn't requires auth!!!
+        [Create(@"", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
         public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken)
         {
             bool viaEmail;
@@ -131,7 +131,7 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="accessToken">provider token</param>
         /// <param name="mobilePhone">new mobile phone</param>
         /// <returns>mobile phone</returns>
-        [Create(@"setphone", false)] //NOTE: this method doesn't requires auth!!!
+        [Create(@"setphone", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
         public AuthenticationTokenData SaveMobilePhone(string userName, string password, string provider, string accessToken, string mobilePhone)
         {
             bool viaEmail;
@@ -155,7 +155,7 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="provider">social media provider type</param>
         /// <param name="accessToken">provider token</param>
         /// <returns>mobile phone</returns>
-        [Create(@"sendsms", false)] //NOTE: this method doesn't requires auth!!!
+        [Create(@"sendsms", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
         public AuthenticationTokenData SendSmsCode(string userName, string password, string provider, string accessToken)
         {
             bool viaEmail;
@@ -182,7 +182,7 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="accessToken">provider token</param>
         /// <param name="code">sms code</param>
         /// <returns>tokent to use in 'Authorization' header when calling API methods</returns>
-        [Create(@"{code}", false)] //NOTE: this method doesn't requires auth!!!
+        [Create(@"{code}", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
         public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string code)
         {
             bool viaEmail;

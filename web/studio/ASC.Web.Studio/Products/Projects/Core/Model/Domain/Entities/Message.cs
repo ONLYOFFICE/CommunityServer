@@ -24,6 +24,8 @@
 */
 
 
+using ASC.Projects.Engine;
+
 namespace ASC.Projects.Core.Domain
 {
     public class Message : ProjectEntity
@@ -35,6 +37,11 @@ namespace ASC.Projects.Core.Domain
         public int CommentsCount { get; set; }
 
         public MessageStatus Status { get; set; }
+
+        public override bool CanEdit()
+        {
+            return ProjectSecurity.CanEdit(this);
+        }
     }
 
     public enum MessageStatus

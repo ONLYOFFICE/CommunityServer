@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Globalization;
 using System.Web.UI;
 using ASC.Web.Studio.Core;
 using ASC.Web.UserControls.Wiki.Handlers;
@@ -64,8 +65,10 @@ namespace ASC.Web.UserControls.Wiki.UC
             {
                 try
                 {
-                    //string uploadedUserName;
-                    var content = new byte[Request.Files[0].ContentLength];
+                    var file = Request.Files[0];
+                    var content = new byte[file.ContentLength];
+                    var fileExt = Path.GetExtension(file.FileName);
+                    var localPath = Guid.NewGuid() + fileExt;
 
                     if (content.Length > MaxUploadSize && MaxUploadSize > 0)
                     {
@@ -73,12 +76,10 @@ namespace ASC.Web.UserControls.Wiki.UC
                     }
                     else
                     {
-                        Request.Files[0].InputStream.Read(content, 0, Request.Files[0].ContentLength);
-                        string localPath;
-                        result.WebPath = TempFileContentSave(content, out localPath);
+                        file.InputStream.Read(content, 0, file.ContentLength);
+                        result.WebPath = TempFileContentSave(content, localPath);
                         result.LocalPath = localPath;
                     }
-
 
                     Response.StatusCode = 200;
                     Response.Write(AjaxPro.JavaScriptSerializer.Serialize(result));
@@ -90,15 +91,15 @@ namespace ASC.Web.UserControls.Wiki.UC
             Response.End();
         }
 
-        private static string TempFileContentSave(byte[] fileContent, out string filaLocation)
+        private static string TempFileContentSave(byte[] fileContent, string filaLocation)
         {
-            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId.ToString();
+            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId.ToString(CultureInfo.InvariantCulture);
             var storage = StorageFactory.GetStorage(tenantId, WikiSection.Section.DataStorage.ModuleName);
             string result;
 
             using (var ms = new MemoryStream(fileContent))
             {
-                result = storage.SaveTemp(WikiSection.Section.DataStorage.TempDomain, out filaLocation, ms).ToString();
+                result = storage.Save(WikiSection.Section.DataStorage.TempDomain, filaLocation, ms).ToString();
             }
 
             return result;

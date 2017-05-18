@@ -127,7 +127,7 @@ namespace ASC.Web.CRM.Controls.Deals
                     cntrlPrivatePanel.SelectedUsers = CRMSecurity.GetAccessSubjectTo(TargetDeal);
             }
 
-            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(), CRMDealResource.ResponsibleDeal };
+            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser"), CRMDealResource.ResponsibleDeal };
 
             cntrlPrivatePanel.UsersWhoHasAccess = usersWhoHasAccess;
             cntrlPrivatePanel.DisabledUsers = new List<Guid> { SecurityContext.CurrentAccount.ID };

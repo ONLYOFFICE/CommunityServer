@@ -51,22 +51,21 @@ namespace ASC.Web.Calendar.UserControls
 
         private void InitScripts()
         {
-            Page.RegisterStyle("~/addons/calendar/app_themes/<theme_folder>/calendar.less",
-                "~/addons/calendar/usercontrols/popup/css/popup.css",
-                "~/addons/calendar/usercontrols/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
-                "~/addons/calendar/usercontrols/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
-                "~/addons/calendar/usercontrols/css/jquery.jscrollpane.css");
-
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
-                "~/addons/calendar/usercontrols/popup/popup.js",
-                "~/addons/calendar/usercontrols/js/calendar_controller.js",
-                "~/addons/calendar/usercontrols/js/recurrence_rule.js",
-                "~/addons/calendar/usercontrols/js/calendar_event_page.js",
-                "~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js",
-                "~/addons/calendar/usercontrols/js/jquery.mousewheel.js",
-                "~/addons/calendar/usercontrols/js/jquery.cookie.js",
-                "~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js",
-                "~/addons/calendar/usercontrols/fullcalendar/fullcalendar.js");
+            Page
+                .RegisterStyle("~/addons/calendar/app_themes/<theme_folder>/calendar.less")
+                .RegisterStyle("~/addons/calendar/usercontrols/popup/css/popup.css",
+                    "~/addons/calendar/usercontrols/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
+                    "~/addons/calendar/usercontrols/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
+                    "~/addons/calendar/usercontrols/css/jquery.jscrollpane.css")
+                .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+                    "~/addons/calendar/usercontrols/popup/popup.js",
+                    "~/addons/calendar/usercontrols/js/calendar_controller.js",
+                    "~/addons/calendar/usercontrols/js/recurrence_rule.js",
+                    "~/addons/calendar/usercontrols/js/calendar_event_page.js",
+                    "~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js",
+                    "~/addons/calendar/usercontrols/js/jquery.mousewheel.js",
+                    "~/addons/calendar/usercontrols/js/jquery.cookie.js",
+                    "~/addons/calendar/usercontrols/fullcalendar/fullcalendar.js");
 
 
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "calendar_full_screen",

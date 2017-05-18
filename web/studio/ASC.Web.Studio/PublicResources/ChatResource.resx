@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChatRoomInvite" xml:space="preserve">
-    <value>Приглашение в чат-комнату</value>
+    <value>Invitation to chat room</value>
   </data>
   <data name="ClearText" xml:space="preserve">
     <value>Clear</value>
   </data>
   <data name="CloseAllWindows" xml:space="preserve">
-    <value>Закрыть все окна</value>
+    <value>Close all mini-chat windows</value>
   </data>
   <data name="CloseItem" xml:space="preserve">
     <value>Close item </value>
@@ -132,11 +132,17 @@
   <data name="CloseMessageWindowAltTitle" xml:space="preserve">
     <value>Close window</value>
   </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Chat rooms</value>
+  </data>
   <data name="ExtendChatAltTitle" xml:space="preserve">
     <value>Extend mini-chat</value>
   </data>
   <data name="GoTalk" xml:space="preserve">
-    <value>Пожалуйста перейдите в Talk.</value>
+    <value>Please switch to Talk.</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Groups</value>
   </data>
   <data name="HintCtrlEnterSender" xml:space="preserve">
     <value>Use Ctrl+Enter to send messages</value>
@@ -147,29 +153,32 @@
   <data name="InputNotificationMessage" xml:space="preserve">
     <value>Enter your message..</value>
   </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Mailings</value>
+  </data>
   <data name="MinimizeAllWindows" xml:space="preserve">
-    <value>Свернуть все окна</value>
+    <value>Minimize all mini-chat windows</value>
   </data>
   <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
-    <value>Сворачивать все окна при потере фокуса</value>
+    <value>Minimize all windows when out of focus</value>
   </data>
   <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
-    <value>Свернуть окно</value>
+    <value>Minimize window</value>
   </data>
   <data name="NewMessageLabel" xml:space="preserve">
     <value>New message</value>
   </data>
   <data name="RestoreAllWindows" xml:space="preserve">
-    <value>Развернуть все окна</value>
+    <value>Expand all mini-chat windows</value>
   </data>
   <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
-    <value>Развернуть окно</value>
+    <value>Expand window</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="ServerError" xml:space="preserve">
-    <value>Внутренняя ошибка сервера.</value>
+    <value>Server internal error.</value>
   </data>
   <data name="ShowHideChatAltTitle" xml:space="preserve">
     <value>Show/Hide mini-chat</value>
@@ -195,10 +204,13 @@
   <data name="StatusOnline" xml:space="preserve">
     <value>Online</value>
   </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Create chat room</value>
+  </data>
   <data name="TypingMessage" xml:space="preserve">
-    <value>набирает сообщение...</value>
+    <value>typing the message...</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
-    <value>В списке нет контактов, соответствующих заданному критерию</value>
+    <value>No contacts matching your search criteria can be found in list</value>
   </data>
 </root>

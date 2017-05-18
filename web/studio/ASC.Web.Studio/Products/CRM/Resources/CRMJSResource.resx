@@ -133,7 +133,7 @@
     <value>Add phone</value>
   </data>
   <data name="AddNewTask" xml:space="preserve">
-    <value>Assign a new task</value>
+    <value>Create New Task</value>
   </data>
   <data name="AddressGenitivePlural" xml:space="preserve">
     <value>addresses</value>
@@ -145,7 +145,7 @@
     <value>Address</value>
   </data>
   <data name="AddThisTask" xml:space="preserve">
-    <value>Assign this task</value>
+    <value>Save</value>
   </data>
   <data name="Batch" xml:space="preserve">
     <value>batch</value>
@@ -175,13 +175,13 @@
     <value>Case</value>
   </data>
   <data name="CaseStatusClosed" xml:space="preserve">
-    <value>Закрыто</value>
+    <value>Closed</value>
   </data>
   <data name="CaseStatusOpened" xml:space="preserve">
-    <value>Открыто</value>
+    <value>Open</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Update</value>
+    <value>Edit</value>
   </data>
   <data name="CheckAsPrimary" xml:space="preserve">
     <value>Mark as primary</value>
@@ -194,6 +194,9 @@
   </data>
   <data name="CityWatermark" xml:space="preserve">
     <value>City</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Close case</value>
   </data>
   <data name="Company" xml:space="preserve">
     <value>Company</value>
@@ -208,8 +211,8 @@
     <value>Are you sure you want to delete this task?</value>
   </data>
   <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
-    <value>Вся введеная информация будет потеряна.
-Выполнить переход?</value>
+    <value>All the entered information will be lost.
+Are you sure you want to continue anyway?</value>
   </data>
   <data name="ContactFacebookDescription" xml:space="preserve">
     <value>Please enter your facebook account identifier.</value>
@@ -222,6 +225,9 @@
   </data>
   <data name="CurrentMonth" xml:space="preserve">
     <value>Current month</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Current user</value>
   </data>
   <data name="CurrentWeek" xml:space="preserve">
     <value>Current week</value>
@@ -263,7 +269,7 @@
     <value>Delivery address</value>
   </data>
   <data name="EditEmail" xml:space="preserve">
-    <value>Update email</value>
+    <value>Edit email</value>
   </data>
   <data name="EditingDealProgress" xml:space="preserve">
     <value>Saving changes...</value>
@@ -272,13 +278,13 @@
     <value>Saving changes...</value>
   </data>
   <data name="EditPhone" xml:space="preserve">
-    <value>Update phone</value>
+    <value>Edit phone</value>
   </data>
   <data name="EditSelectedCustomField" xml:space="preserve">
-    <value>Update «{0}» field</value>
+    <value>Edit «{0}» field</value>
   </data>
   <data name="EditTask" xml:space="preserve">
-    <value>Update a task</value>
+    <value>Edit task</value>
   </data>
   <data name="ElementsSelectedCount" xml:space="preserve">
     <value>{0} selected</value>
@@ -287,10 +293,13 @@
     <value>Empty</value>
   </data>
   <data name="EmptyFieldsOfSettings" xml:space="preserve">
-    <value>The fields of settings can't be empty</value>
+    <value>The settings fields cannot be empty</value>
   </data>
   <data name="EmptyItemList" xml:space="preserve">
     <value>The element list cannot be empty</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Every field must have a title</value>
   </data>
   <data name="EmptyLetterBodyContent" xml:space="preserve">
     <value>Every letter must have a body</value>
@@ -304,14 +313,17 @@
   <data name="EmptyTaskTitle" xml:space="preserve">
     <value>Every task must have a title</value>
   </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>The title field cannot be empty</value>
+  </data>
   <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
-    <value>Не найдено соответствие полю  'Название мероприятия'</value>
+    <value>No fields corresponding to the 'Case Title' could be found</value>
   </data>
   <data name="ErrorContactIsNotSelected" xml:space="preserve">
     <value>No person is selected</value>
   </data>
   <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
-    <value>The fields corresponding to the 'First Name'' or 'Company Name' could not be found</value>
+    <value>No fields corresponding to the 'First Name' or 'Company Name' could be found</value>
   </data>
   <data name="ErrorEmailRecipientsCount" xml:space="preserve">
     <value>{0} email recipients maximum</value>
@@ -331,11 +343,14 @@
   <data name="ErrorMessage_SaveImageError" xml:space="preserve">
     <value>An error occurred while uploading the image to the server</value>
   </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Incorrect email</value>
+  </data>
   <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
-    <value>Не найдено соответствие полям  'Название возможной сделки', 'Ответственный за возможную сделку'</value>
+    <value>No fields corresponding to the 'Opportunity Title', 'Opportunity Responsible' could be found</value>
   </data>
   <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
-    <value>Не найдено соответствие полям 'Название задачи', 'Ответственный', 'Срок выполнения'</value>
+    <value>No fields corresponding to the 'Task Title', 'Responsible', 'Due Date' could be found</value>
   </data>
   <data name="ErrorTheLastContactStage" xml:space="preserve">
     <value>The "{0}" type is the last one. It cannot be deleted.</value>
@@ -362,7 +377,7 @@
     <value>Find account in Twitter</value>
   </data>
   <data name="GenerateLinkInfo" xml:space="preserve">
-    <value>Your recipient list has been generated. {0} Click the links below to pre-populate your email program with the email addresses.</value>
+    <value>Your recipient list has been generated. {0} Click the links below to pass your email addresses over to the email program.</value>
   </data>
   <data name="GoToSettings" xml:space="preserve">
     <value>Go to Settings</value>
@@ -424,6 +439,9 @@
   <data name="ManyTasks" xml:space="preserve">
     <value>tasks</value>
   </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>New document</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
   </data>
@@ -449,7 +467,7 @@
     <value>There are no events</value>
   </data>
   <data name="NoFileSelected" xml:space="preserve">
-    <value>No file selected</value>
+    <value>No file has been selected</value>
   </data>
   <data name="NoPersons" xml:space="preserve">
     <value>There are no persons</value>
@@ -480,6 +498,12 @@
   </data>
   <data name="OneTask" xml:space="preserve">
     <value>task</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Open a case</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Overall progress</value>
   </data>
   <data name="PerPeriodDays" xml:space="preserve">
     <value>during {0} days</value>
@@ -523,6 +547,9 @@
   <data name="SelectedCSVFileLabel" xml:space="preserve">
     <value>Selected CSV file: {0}</value>
   </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Choices</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
@@ -536,7 +563,7 @@
     <value>Show more</value>
   </data>
   <data name="Stage" xml:space="preserve">
-    <value>Стадия теплоты</value>
+    <value>Temperature level</value>
   </data>
   <data name="StateWatermark" xml:space="preserve">
     <value>State</value>
@@ -545,22 +572,28 @@
     <value>Successfully closed</value>
   </data>
   <data name="TaskIsOver" xml:space="preserve">
-    <value>Task «{0}» is closed</value>
+    <value>The «{0}» task is closed</value>
   </data>
   <data name="TeamlabWatermark" xml:space="preserve">
     <value>Powered by {0}</value>
   </data>
   <data name="TemplateFixedDeadline" xml:space="preserve">
-    <value>От старта контейнера {0} дней {1} часов {2} минут</value>
+    <value>{0} days {1} hours {2} minutes from the container start</value>
   </data>
   <data name="TemplateNotFixedDeadline" xml:space="preserve">
-    <value>От предыдущей задачи {0} дней {1} часов {2} минут</value>
+    <value>From the previous task {0} days {1} hours {2} minutes</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>
   </data>
   <data name="UnsuccessfullyClosed" xml:space="preserve">
     <value>Unsuccessfully closed</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Attach file</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>The file «{0}» is being uploaded...</value>
   </data>
   <data name="VoipCallAgent" xml:space="preserve">
     <value>Agent</value>

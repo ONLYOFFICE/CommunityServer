@@ -25,13 +25,7 @@
 
 
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Controls.Common;
-using ASC.Web.Projects.Controls.Tasks;
-using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
-
-using ASC.Projects.Core.Domain;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects
 {
@@ -40,45 +34,18 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             var taskID = UrlParameters.EntityID;
+            if (taskID < 0) return;
 
-            if (taskID >= 0)
+            var task = EngineFactory.TaskEngine.GetByID(taskID);
+
+            if (task == null || task.Project.ID != Project.ID)
             {
-                var task = EngineFactory.TaskEngine.GetByID(taskID);
-
-                if (task == null || task.Project.ID != Project.ID)
-                {
-                    RedirectNotFound(string.Format("tasks.aspx?prjID={0}", Project.ID));
-                }
-                else
-                {
-                    InitTaskPage(task);
-                }
+                RedirectNotFound(string.Format("tasks.aspx?prjID={0}", Project.ID));
             }
             else
             {
-                _content.Controls.Add(LoadControl(CommonList.Location));
-
-                Title = HeaderStringHelper.GetPageTitle(TaskResource.Tasks);
-                loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
+                Title = HeaderStringHelper.GetPageTitle(task.Title);
             }
         }
-
-        private void InitTaskPage(Task task)
-        {
-            var taskDescriptionView = (TaskDescriptionView)LoadControl(PathProvider.GetFileStaticRelativePath("Tasks/TaskDescriptionView.ascx"));
-            taskDescriptionView.Task = task;
-            _content.Controls.Add(taskDescriptionView);
-
-            EssenceTitle = task.Title;
-            IsSubcribed = EngineFactory.TaskEngine.IsSubscribed(task);
-
-            if ((int)task.Status == 2)
-            {
-                EssenceStatus = TaskResource.Closed;
-            }
-
-            Title = HeaderStringHelper.GetPageTitle(task.Title);
-        }
-
     }
 }

@@ -58,11 +58,15 @@ window.Attachments = (function() {
         createNewEntityFlag = flag;
     };
 
-    var getEntityFiles = function() {
+    var getEntityFiles = function (files) {
+        if (Array.isArray(files)) {
+            onGetFiles([, files]);
+            return;
+        }
         switch (moduleName) {
             case "projects":
                 {
-                    Teamlab.getPrjEntityFiles(null, entityId, entityType, function() { onGetFiles(arguments); });
+                    Teamlab.getPrjEntityFiles(null, entityId(), entityType, function() { onGetFiles(arguments); });
                     break;
                 }
             case "crm":
@@ -74,10 +78,10 @@ window.Attachments = (function() {
                 LoadingBanner.hideLoading();
         }
     };
-    var loadFiles = function() {
+    var loadFiles = function(files) {
         if (!isLoaded) {
             LoadingBanner.displayLoading();
-            getEntityFiles();
+            getEntityFiles(files);
         }
     };
     var checkEditingSupport = function() {
@@ -91,23 +95,21 @@ window.Attachments = (function() {
             jq("#createFirstDocument, #showDocumentPanel, #emptyDocumentPanel .newDocComb").hide();
         }
     };
-    var init = function() {
+    var init = function (entityTypeParam, entityIdParam) {
         if (!isInit) {
             isInit = true;
 
             checkEditingSupport();
 
-            entityId = jq.getURLParam("id");
+            entityId = entityIdParam || jq.getURLParam("id");
 
             emptyScreenVisible = jq("#emptyDocumentPanel").length == 0 ? false : true;
 
-            var projId = jq(".wrapperFilesContainer").attr("projectId");
             var module = jq(".wrapperFilesContainer").attr("moduleName");
 
-            if (projId != "0") projectId = projId;
             if (module != "") moduleName = module;
 
-            entityType = jq(".wrapperFilesContainer").attr("entityType");
+            entityType = entityTypeParam || jq(".wrapperFilesContainer").attr("entityType");
             var warnText = jq(".infoPanelAttachFile #wrongSign").text() + " " + characterString;
             jq(".infoPanelAttachFile #wrongSign").text(warnText);
 
@@ -210,13 +212,9 @@ window.Attachments = (function() {
     };
 
     var initUploader = function() {
-        if (moduleName != 'crm') {
-            createAjaxUploader("linkNewDocumentUpload");
-        } else {
-            if (jq("#attachmentsContainer tr").length) {
-                createAjaxUploader("linkNewDocumentUpload");
-                return;
-            }
+        createAjaxUploader("linkNewDocumentUpload");
+
+        if (moduleName == "crm") {
             createAjaxUploader("uploadFirstFile");
         }
     };
@@ -248,7 +246,7 @@ window.Attachments = (function() {
             if (!uploadWithAttach) {
                 Teamlab.uploadFilesToPrjEntity(
                     null,
-                    entityId,
+                    entityId(),
                     {
                         buttonId: buttonId,
                         autoSubmit: true,
@@ -327,8 +325,10 @@ window.Attachments = (function() {
         }
     };
     var createFile = function() {
-        var hWindow = null;
-        hWindow = window.open('');
+        var hWindow = window.open("");
+        hWindow.document.write(ASC.Resources.Master.Resource.LoadingPleaseWait);
+        hWindow.document.close();
+
         var title = jq("#newDocTitle").val();
         if (jq.trim(title) == "") {
             title = jq("#newDocTitle").attr("data");
@@ -349,7 +349,7 @@ window.Attachments = (function() {
     var createFileTmpl = function (fileData) {
         var fileTmpl = {};
 
-        fileTmpl.title = decodeURIComponent(fileData.title);
+        fileTmpl.title = fileData.title;
 
         fileTmpl.exttype = ASC.Files.Utility.getCssClassByFileTitle(fileTmpl.title, true);
 
@@ -384,11 +384,8 @@ window.Attachments = (function() {
         }
         fileTmpl.versionGroup = versionGroup;
         fileTmpl.downloadUrl = ASC.Files.Utility.GetFileDownloadUrl(fileTmpl.id);
-        fileTmpl.docViewUrl = ASC.Files.Utility.GetFileWebViewerUrl(fileTmpl.id);
+        fileTmpl.docEditUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileTmpl.id);
         fileTmpl.editUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileTmpl.id);
-        if (fileData.isNewFile) {
-            fileTmpl.editUrl = fileTmpl.editUrl + "&new=true";
-        }
         fileTmpl.fileStatus = fileData.fileStatus;
         fileTmpl.trashAction = fileData.trashAction ? fileData.trashAction : "delete";
         if (createNewEntityFlag && !fileData.fromProjectDocs) {
@@ -502,8 +499,18 @@ window.Attachments = (function() {
         initUploader();
     };
 
+    var events = [];
     var bind = function(eventName, handler) {
         jq(document).bind(eventName, handler);
+        events.push(eventName);
+    };
+
+    var unbind = function () {
+        var $doc = jq(document);
+        while (events.length) {
+            var item = events.shift();
+            $doc.unbind(item);
+        }
     };
 
     var banOnEditing = function() {
@@ -535,9 +542,9 @@ window.Attachments = (function() {
         }
         LoadingBanner.hideLoading();
         if (banOnEditingFlag) {
-            jq(".containerAction, .information-upload-panel, .infoPanelAttachFile").remove();
-            jq("#emptyDocumentPanel .emptyScrBttnPnl").remove();
-            jq("#attachmentsContainer").find(".unlinkDoc").remove();
+            jq(".containerAction, .information-upload-panel, .infoPanelAttachFile").hide();
+            jq("#emptyDocumentPanel .emptyScrBttnPnl").hide();
+            jq("#attachmentsContainer").find(".unlinkDoc").hide();
         }
     };
 
@@ -567,15 +574,17 @@ window.Attachments = (function() {
         jq(".containerAction").show();
 
         if (response[0].handler.location) {
-            response[0].handler.location.href = ASC.Files.Utility.GetFileWebEditorUrl(file.id) + "&new=true";
+            response[0].handler.location.href = ASC.Files.Utility.GetFileWebEditorUrl(file.id);
         }
     };
 
     return {
         init: init,
         bind: bind,
+        unbind: unbind,
         loadFiles: loadFiles,
-        isLoaded: isLoaded,
+        get isLoaded() { return isLoaded; },
+        set isLoaded(value) { isLoaded = value; },
         appendToListAttachFiles: appendToListAttachFiles,
         isAddedFile: isAddedFile,
         appendFilesToLayout: publicAppendToListAttachFiles,

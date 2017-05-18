@@ -32,6 +32,8 @@ using Box.V2.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using BoxSDK = Box.V2;
 
 namespace ASC.Files.Thirdparty.Box
 {
@@ -83,12 +85,36 @@ namespace ASC.Files.Thirdparty.Box
 
         public BoxFolder GetFolder(string folderId)
         {
-            return _boxClient.FoldersManager.GetInformationAsync(folderId, _boxFields).Result;
+            try
+            {
+                return _boxClient.FoldersManager.GetInformationAsync(folderId, _boxFields).Result;
+            }
+            catch (Exception ex)
+            {
+                var boxException = (BoxSDK.Exceptions.BoxException) ex.InnerException;
+                if (boxException != null && boxException.Error.Status == ((int) HttpStatusCode.NotFound).ToString())
+                {
+                    return null;
+                }
+                throw;
+            }
         }
 
         public BoxFile GetFile(string fileId)
         {
-            return _boxClient.FilesManager.GetInformationAsync(fileId, _boxFields).Result;
+            try
+            {
+                return _boxClient.FilesManager.GetInformationAsync(fileId, _boxFields).Result;
+            }
+            catch (Exception ex)
+            {
+                var boxException = (BoxSDK.Exceptions.BoxException) ex.InnerException;
+                if (boxException != null && boxException.Error.Status == ((int) HttpStatusCode.NotFound).ToString())
+                {
+                    return null;
+                }
+                throw;
+            }
         }
 
         public List<BoxItem> GetItems(string folderId, int limit = 500)

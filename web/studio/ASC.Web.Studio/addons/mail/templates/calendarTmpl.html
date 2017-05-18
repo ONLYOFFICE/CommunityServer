@@ -1,0 +1,238 @@
+﻿<script id="calendarHeaderTmpl" type="text/x-jquery-tmpl">
+    <div class="calendarView" style="display: none;">
+        <table>
+            <tbody>
+            {{tmpl($item.data, {}) "calendarEventInfoBlockContent"}}
+            <tr>
+                <td class="cal_info">
+                    <div class="cal_summary" title="${summary}">
+                        <p style="margin: 0;" {{if eventSummaryChanged}}class="line-through"{{/if}}>${summary}</p>
+                    </div>
+                    {{if typeof(showDetail) != 'undefined'}}
+                    <div class="cal_details">
+                        <a onclick="${showDetail}" class="link dotline">${ASC.Mail.Resources.MailScriptResource.MoreDetailsLabel}</a>
+                        {{if typeof(eventUrl) != 'undefined'}}
+                        <span style="line-height: 0; padding-right: 8px;">&nbsp;</span>
+                        <a href="${eventUrl}" target="_blank" class="link underline">${ASC.Mail.Resources.MailScriptResource.GoToEventLink}</a>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+                    <table class="cal_card">
+                        <tbody>
+                        <tr class="card_row card_when">
+                            <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarWhenLabel}:{{if ASC.Mail.Constants.CALENDAR_AVAILABLE === true}}{{tmpl({ "messageId": messageId}, {}) "calendarDateHelperTmpl"}}{{/if}}</td>
+                            <td class="card_value{{if eventDateEventChanged == true}} line-through{{/if}}" {{if typeof(dateEvent) !='undefined' && dateEvent !=''&& dateEvent !=null}}title="${dateEvent}"{{/if}}>
+                                ${dateEvent}
+                            </td>
+                        </tr>
+                        {{if typeof(rruleText) != 'undefined' && rruleText != '' && rruleText != null}}
+                        <tr class="card_row">
+                            <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarRecurrenceLabel}:</td>
+                            <td class="card_value{{if eventRRuleEventChanged == true}} line-through{{/if}}">
+                                ${rruleText}
+                            </td>
+                        </tr>
+                        {{/if}}
+                        <tr class="card_row card_location">
+                            <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarWhereLabel}:</td>
+                            <td class="card_value{{if eventLocationChanged == true}} line-through{{/if}}" {{if typeof(location) !='undefined' && location !=''&& location !=null}}title="${location}"{{/if}}>
+                                {{if typeof(location) != 'undefined' && location != ''&& location != null}}
+                                ${location}&nbsp;{{tmpl({ "mapUrl": mapUrl}, {}) "mapLinkTmpl"}}
+                                {{else}}
+                                ${ASC.Mail.Resources.MailScriptResource.CalendarNoLocationLabel}
+                                {{/if}}</td>
+                        </tr>
+                        <tr class="card_row">
+                            <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarWhoLabel}:</td>
+                            <td class="card_value{{if eventOrganizerChanged == true}} line-through{{/if}}">
+                                {{if orgEmail !== ''}}
+                                <a title="${orgEmail}" name="${orgName}" class="goToWriter link">
+                                    {{if typeof(orgName) != 'undefined' && orgName != '' && orgName != null}}
+                                    ${orgName}
+                                    {{else}}
+                                    ${orgEmail}
+                                    {{/if}}
+                                </a>
+                                {{else}}
+                                ${orgName}
+                                {{/if}}&nbsp;(${ASC.Mail.Resources.MailScriptResource.CalendarOrganizerLabel})
+                            </td>
+                        </tr>
+                        {{if typeof(calendarName) != 'undefined' && calendarName != '' && calendarName != null}}
+                        <tr class="card_row">
+                            <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarLabel}:</td>
+                            <td class="card_value">
+                                ${calendarName}
+                            </td>
+                        </tr>
+                        {{/if}}
+                        {{if showButtons == true}}
+                        <tr class="card_row cal_buttons_row" style="display: none;">
+                            <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarReplyLabel}:</td>
+                            <td class="card_value">
+                                <div class="cal_buttons">
+                                    <input type="radio" id="request-accept" name="calendar-request">
+                                    <label for="request-accept">${ASC.Mail.Resources.MailScriptResource.CalendarReplyYesLabel}</label>
+
+                                    <input type="radio" id="request-maybe" name="calendar-request">
+                                    <label for="request-maybe">${ASC.Mail.Resources.MailScriptResource.CalendarReplyMaybeLabel}</label>
+
+                                    <input type="radio" id="request-decline" name="calendar-request">
+                                    <label for="request-decline">${ASC.Mail.Resources.MailScriptResource.CalendarReplyNoLabel}</label>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/if}}
+                            </tbody>
+                        </table>
+                    </td>
+                    {{if needAgenda == true}}
+                    <td class="cal_agenda">
+                        <div class="agenda_label">
+                            <p style="margin: 0;">${ASC.Mail.Resources.MailScriptResource.CalendarAgendaLabel}</p>
+                        </div>
+                        <div class="agenda_date">
+                            <span>${agendaDate}</span>
+                            <span style="line-height: 0;">&nbsp;</span>
+                            <a href="/addons/calendar/#agendaDay/${timeDay}" target="_blank" class="link underline">${ASC.Mail.Resources.MailScriptResource.GoToCalendarLink}</a>
+                        </div>
+                        <div class="agenda_loading large-loading"></div>
+                    </td>
+                    {{/if}}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script id="calendarEventsAgendaTmpl" type="text/x-jquery-tmpl">
+    <div class="agenda_card webkit-scrollbar">
+        <table>
+            <tbody>
+                {{tmpl(events) "calendarEventsAgendaItemTmpl"}}
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script id="calendarEventsAgendaItemTmpl" type="text/x-jquery-tmpl">
+    {{if isNotifyItem}}
+        <tr class="agenda_row no_events">
+            <td colspan="2">${title}</td>
+        </tr>
+    {{else}}
+        <tr class="agenda_row{{if isCurrent}} active{{/if}}">
+            <td class="time" date="${date}">${time}</td>
+            <td class="title">
+                <span title="${title}">{{if href != null}}<a href="${href}" target="_blank" class="link underline">${title}</a>{{else}}${title}{{/if}}</span>
+            </td>
+        </tr>
+    {{/if}}
+</script>
+
+<script id="calendarPopupTmpl" type="text/x-jquery-tmpl">
+    <div class="calendarPopView popup">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="cal_info">
+                        {{if typeof(action) != 'undefined' && action != '' && action != null}}
+                        <div class="cal_action">${action}</div>
+                         {{/if}}
+                        <div class="cal_summary" title="${summary}">
+                            <p style="margin: 0;">${summary}</p>
+                        </div>
+                        <table class="cal_card">
+                            <tbody>
+                                <tr class="card_row">
+                                    <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarWhenLabel}:</td>
+                                    <td class="card_value" title="${dateEvent}">
+                                        ${dateEvent}
+                                    </td>
+                                </tr>
+                                {{if typeof(rruleText) != 'undefined' && rruleText != '' && rruleText != null}}
+                                <tr class="card_row">
+                                    <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarRecurrenceLabel}:</td>
+                                    <td class="card_value">
+                                        ${rruleText}
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                <tr class="card_row card_location">
+                                    <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarWhereLabel}:</td>
+                                    <td class="card_value" {{if typeof(location) != 'undefined' &&  location != ''&& location != null}}title="${location}"{{/if}}>
+                                        {{if typeof(location) != 'undefined' && location != '' && location != null}}
+                                             ${location}&nbsp;<a href="${mapUrl}" target="_blank" class="link underline">(${ASC.Mail.Resources.MailScriptResource.CalendarMapLabel})</a>
+                                        {{else}}
+                                            ${ASC.Mail.Resources.MailScriptResource.CalendarNoLocationLabel}
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-bottom: 16px;"><div class="webkit-scrollbar" style="max-height: 200px;overflow-x: hidden; overflow-y: auto;">{{html description}}</div></td>
+                </tr>
+                {{if attendees.length > 0}}
+                    <tr>
+                        <td>
+                            <span>${ASC.Mail.Resources.MailScriptResource.CalendarParticipantsLabel}:</span>
+                            <div class="webkit-scrollbar" style="padding: 0; margin-left: 20px; max-height: 100px; overflow-x: hidden; overflow-y: auto;">
+                                <ul>
+                                    <li>
+                                        {{if orgEmail !== ''}}
+                                            <a title="${orgEmail}" name="${orgName}" class="goToWriter link">
+                                                {{if typeof(orgName) != 'undefined' && orgName != '' && orgName != null}}
+                                                    ${orgName}
+                                                {{else}}
+                                                    ${orgEmail}
+                                                {{/if}}
+                                            </a>
+                                        {{else}}
+                                            ${orgName}
+                                        {{/if}}&nbsp;(${ASC.Mail.Resources.MailScriptResource.CalendarOrganizerLabel})
+                                    </li>
+                                    {{each attendees}}
+                                        {{if email !== orgEmail}}
+                                            <li>
+                                                {{if email !== ''}}
+                                                    <a title="${email}" name="${name}" class="goToWriter link">
+                                                        {{if typeof(name) != 'undefined' && name != '' && name != null}}
+                                                            ${name}
+                                                        {{else}}
+                                                            ${email}
+                                                        {{/if}}
+                                                    </a>
+                                                {{else}}
+                                                    <span>${name}</span>
+                                                {{/if}}
+                                            </li>
+                                        {{/if}}
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {{/if}}
+            </tbody>
+        </table>
+        <div class="buttons">
+            <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CloseBtnLabel}</button>
+        </div>
+    </div>
+
+</script>
+
+<script id="calendarEventInfoBlockContent" type="text/x-jquery-tmpl">
+    {{if typeof(eventDisplayInfo) != 'undefined' && eventDisplayInfo != '' && eventDisplayInfo != null}}
+    <tr>
+        <td colspan="2" style="padding: 4px;" class="notify-panel">
+            <div class="${eventDisplayInfoClass}">
+                <span class="bold">${eventDisplayInfo}</span>
+            </div>
+        </td>
+    </tr>
+    {{/if}}
+</script>

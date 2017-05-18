@@ -160,8 +160,8 @@ namespace ASC.Web.Community.News
         {
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
-            //Page.RegisterInlineScript("ckeditorConnector.onReady(function () {window.newsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComNews', extraPlugins: '', filebrowserUploadUrl: '" + RedirectUpload() + @"'}).editor;});");
-            Page.RegisterInlineScript("ckeditorConnector.onReady(function () {" +
+            //Page.RegisterInlineScript("ckeditorConnector.load(function () {window.newsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComNews', extraPlugins: '', filebrowserUploadUrl: '" + RedirectUpload() + @"'}).editor;});");
+            Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
                           "window.newsEditor = CKEDITOR.replace('ckEditor', { toolbar : 'ComBlog', filebrowserUploadUrl: '" + RedirectUpload() + "'});" +
                           "window.newsEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});" +
                            "});");

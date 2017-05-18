@@ -35,9 +35,9 @@ using ASC.Core;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 using System.Configuration;
+using ASC.Common.Utils;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Dal;
-using ASC.Mail.Server.DnsChecker;
 using ASC.Mail.Server.PostfixAdministration;
 using log4net.Config;
 using ServerType = ASC.Mail.Server.Dal.ServerType;
@@ -336,14 +336,14 @@ namespace ASC.MailServer.DnsCheckerService
 
             try
             {
-                var mxVerified = DnsChecker.IsMxRecordCorrect(taskDto.domain_name, taskDto.mx_record,
-                    _log);
+                var dnsLookup = new DnsLookup();
 
-                var spfVerified = DnsChecker.IsTxtRecordCorrect(taskDto.domain_name, taskDto.spf, _log);
+                var mxVerified = dnsLookup.IsDomainMxRecordExists(taskDto.domain_name, taskDto.mx_record);
 
-                var dkimVerified = DnsChecker.IsDkimRecordCorrect(taskDto.domain_name,
-                    taskDto.dkim_selector,
-                    taskDto.dkim_public_key, _log);
+                var spfVerified = dnsLookup.IsDomainTxtRecordExists(taskDto.domain_name, taskDto.spf);
+
+                var dkimVerified = dnsLookup.IsDomainDkimRecordExists(taskDto.domain_name, taskDto.dkim_selector,
+                    taskDto.dkim_public_key);
 
                 _log.Info("Domain '{0}' MX={1} SPF={2} DKIM={3}", taskDto.domain_name, mxVerified, spfVerified,
                     dkimVerified);

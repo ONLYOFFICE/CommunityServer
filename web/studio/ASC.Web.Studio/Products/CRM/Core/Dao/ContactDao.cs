@@ -1313,7 +1313,7 @@ namespace ASC.CRM.Core.Dao
                 firstName = String.Empty;
                 lastName = String.Empty;
                 title = String.Empty;
-                companyName = ((Company)contact).CompanyName.Trim();
+                companyName = (((Company) contact).CompanyName ?? "").Trim();
                 isCompany = true;
                 companyID = 0;
                 displayName = companyName;
@@ -1590,7 +1590,6 @@ namespace ASC.CRM.Core.Dao
             {
                 foreach (var filesID in filesIDs)
                 {
-                    filedao.DeleteFolder(filesID);
                     filedao.DeleteFile(filesID);
                 }
             }
@@ -1814,7 +1813,7 @@ namespace ASC.CRM.Core.Dao
         public List<int> GetContactIDsByContactInfo(ContactInfoType infoType, String data, int? category, bool? isPrimary)
         {
             List<int> ids;
-            var q = new SqlQuery("crm_contact_info")
+            var q = Query("crm_contact_info")
                   .Select("contact_id")
                   .Where(Exp.Eq("type", (int)infoType));
 

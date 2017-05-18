@@ -13,7 +13,7 @@
                 
         </div>
         <p class="containerCheckAll display-none"><input type="checkbox" title="<%=UserControlsCommonResource.CheckAll%>" id="checkAll"/><label for="checkAll"><%=UserControlsCommonResource.CheckAll%></label></p>
-        <div class="fileContainer" projId = "<%=ProjectId %>">
+        <div class="fileContainer">
             <img class="loader" src="<%= WebImageSupplier.GetAbsoluteWebPath("loader_32.gif")%>"/>
             <div id="emptyFileList" class="display-none" data-imgSrc="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Common/ProjectDocumentsPopup/Images/project-documents.png") %>">
             </div>

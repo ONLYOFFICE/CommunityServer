@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -34,9 +35,8 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Entities.Feed;
 using ASC.Projects.Engine;
-using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
-using System.Linq;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
 {
@@ -290,8 +290,8 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         {
             return new FeedComment(comment.Comment.CreateBy)
                 {
-                    Id = comment.Comment.ID.ToString(),
-                    Description = HtmlSanitizer.Sanitize(comment.Comment.Content),
+                    Id = comment.Comment.OldGuidId.ToString(),
+                    Description = HtmlUtility.GetFull(comment.Comment.Content),
                     Date = comment.Comment.CreateOn
                 };
         }

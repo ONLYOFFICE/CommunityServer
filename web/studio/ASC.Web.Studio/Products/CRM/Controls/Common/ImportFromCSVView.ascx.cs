@@ -87,7 +87,7 @@ namespace ASC.Web.CRM.Controls.Common
 
             ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import_contacts.png", ProductEntryPoint.ID);
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ImportFromCSVViewDataContacts));
+            Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataContacts());
             RegisterClientScriptHelper.DataUserSelectorListView(Page, "_ImportContactsManager", null);
         }
 
@@ -110,7 +110,7 @@ namespace ASC.Web.CRM.Controls.Common
 
             ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-opportunities.png", ProductEntryPoint.ID);
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ImportFromCSVViewDataDeals));
+            Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataDeals());
 
             var privatePanel = (PrivatePanel)Page.LoadControl(PrivatePanel.Location);
             privatePanel.CheckBoxLabel = CRMDealResource.PrivatePanelCheckBoxLabel;
@@ -139,7 +139,7 @@ namespace ASC.Web.CRM.Controls.Common
 
             ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-tasks.png", ProductEntryPoint.ID);
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ImportFromCSVViewDataTasks));
+            Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataTasks());
         }
 
         protected void InitForCase()
@@ -158,7 +158,7 @@ namespace ASC.Web.CRM.Controls.Common
 
             ImportImgSrc = WebImageSupplier.GetAbsoluteWebPath("import-cases.png", ProductEntryPoint.ID);
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ImportFromCSVViewDataCases));
+            Page.RegisterClientScript(new Masters.ClientScripts.ImportFromCSVViewDataCases());
             
             var privatePanel = (PrivatePanel)Page.LoadControl(PrivatePanel.Location);
             privatePanel.CheckBoxLabel = CRMCasesResource.PrivatePanelCheckBoxLabel;

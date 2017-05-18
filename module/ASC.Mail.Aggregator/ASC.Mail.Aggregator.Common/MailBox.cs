@@ -375,8 +375,8 @@ namespace ASC.Mail.Aggregator.Common
             if (email == null) throw new ArgumentNullException("email");
             if (string.IsNullOrEmpty(account)) throw new ArgumentNullException("account");
             if (string.IsNullOrEmpty(server)) throw new ArgumentNullException("server");
-            if (!server.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
-            if (!smtpServer.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
+            if (!server.Contains(":")) throw new FormatException("Invalid server string format is <server:port>");
+            if (!smtpServer.Contains(":")) throw new FormatException("Invalid smtp server string format is <server:port>");
 
             TenantId = tenant;
             UserId = user;

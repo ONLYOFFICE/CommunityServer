@@ -9,6 +9,12 @@
 # Short-Description: Start ONLYOFFICE MailAggregator Service
 ### END INIT INFO
 
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.2-14) to ensure that this file is present
+# and status_of_proc is working.
 . /lib/lsb/init-functions
 
 NAME=$(basename $0)
@@ -23,72 +29,78 @@ DIR=/var/www/onlyoffice/Services/MailAggregator
 EXEC=ASC.Mail.Aggregator.CollectionService.exe
 ARGS="-d:$DIR -l:$LOCKFILE $DIR/$EXEC"
 
+# Exit if the package is not installed
+[ -x "$DAEMON" ] || exit 0
 
 do_start() {
-	echo -n "Starting $NAME... "
-	export MONO_IOMAP=all
-	export MONO_ASPNET_WEBCONFIG_CACHESIZE=2000
-	export MONO_THREADS_PER_CPU=2000
-	export MONO_OPTIONS="--server"
-	export MONO_GC_PARAMS=nursery-size=64m
-	start-stop-daemon -S -c $USER:$GROUP -x $DAEMON -- $ARGS
-	echo "OK"
+        echo -n "Starting $NAME... "
+        export MONO_IOMAP=all
+        start-stop-daemon -S -c $USER:$GROUP -x $DAEMON -- $ARGS
+        echo "OK"
 }
 
 do_stop() {
-	echo -n "Stopping $NAME... "
-	kill $PID
-	echo "OK"
+        echo -n "Stopping $NAME... "
+        start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $LOCKFILE
+        RETVAL="$?"
+        [ "$RETVAL" = 2 ] && return 2
+        start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5  --pidfile $LOCKFILE
+        [ "$?" = 2 ] && return 2
+        # Many daemons don't delete their pidfiles when they exit.
+        # killall -9 $NAME
+        rm -f $LOCKFILE
+        return "$RETVAL"
+        echo "OK"
 }
 
 get_pid() {
-	PID=$(ps auxf | grep $PROGRAM.exe | grep $NAME | awk '{print $2}')
+        PID=$(ps auxf | grep $PROGRAM.exe | grep $NAME | awk '{print $2}')
 }
 
 
 case "$1" in
-	start)
-		get_pid
-		if [ -z "$PID" ]; then
-			rm -f "$LOCKFILE"
-			do_start
-		else
-			echo "$NAME is running (pid $PID)"
-		fi
-	;;
+        start)
+                get_pid
+                if [ -z "$PID" ]; then
+                        rm -f "$LOCKFILE"
+                        do_start
+                else
+                        echo "$NAME is running (pid $PID)"
+                fi
+        ;;
 
-	stop)
-		get_pid
-		if [ -n "$PID" ]; then
-			do_stop
-			rm -f "$LOCKFILE"
-		else
-			echo "$NAME is not running"
-		fi
-	;;
+        stop)
+                get_pid
+                if [ -n "$PID" ]; then
+                        do_stop
+                        rm -f "$LOCKFILE"
+                else
+                        echo "$NAME is not running"
+                fi
+        ;;
 
-	status)
-		get_pid
-		if [ -z "$PID" ]; then
-			echo "$NAME is not running"
-		else
-			echo "$NAME is running (pid $PID)"
-		fi
-	;;
+        status)
+                get_pid
+                if [ -z "$PID" ]; then
+                        echo "$NAME is not running"
+                else
+                        echo "$NAME is running (pid $PID)"
+                fi
+        ;;
 
-	restart|force-reload)
-		get_pid
-		if [ -n "$PID" ]; then
-			do_stop
-		fi
-		rm -f "$LOCKFILE"
-		sleep 5
-		do_start
-	;;
+        restart|force-reload)
+                get_pid
+                if [ -n "$PID" ]; then
+                        do_stop
+                fi
+                rm -f "$LOCKFILE"
+                sleep 5
+                do_start
+        ;;
 
-	*)
-		echo $"Usage: $0 {start|stop|status|restart|force-reload}"
-	;;
+        *)
+                echo $"Usage: $0 {start|stop|status|restart|force-reload}"
+        ;;
 esac
 
 exit 0

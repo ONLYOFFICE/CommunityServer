@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security;
 using System.Web;
@@ -38,22 +39,19 @@ using ASC.Api.Impl;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.FederatedLogin;
+using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
 using ASC.Specific;
+using ASC.Web.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
-using ASC.Web.Core;
-using SecurityContext = ASC.Core.SecurityContext;
-using System.Net;
 using Resources;
-using ASC.FederatedLogin;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Core;
-using ASC.FederatedLogin.Profile;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Employee
 {
@@ -271,7 +269,8 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> GetByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
         {
             if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
-            var isAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            var isAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
+                          WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
             var status = isAdmin ? EmployeeStatus.All : EmployeeStatus.Default;
 
             if (employeeStatus != null)
@@ -644,7 +643,7 @@ namespace ASC.Api.Employee
             }
 
             // change user type
-            var canBeGuestFlag = !user.IsOwner() && !user.IsAdmin() && !user.IsMe();
+            var canBeGuestFlag = !user.IsOwner() && !user.IsAdmin() && !user.GetListAdminModules().Any() && !user.IsMe();
 
             if (isVisitor && !user.IsVisitor() && canBeGuestFlag)
             {
@@ -832,21 +831,13 @@ namespace ASC.Api.Employee
         /// </short>
         /// <param name="email">User email</param>     
         /// <returns></returns>
-        [Read("{email}/password")]
-        public void SendUserPassword(string email)
+        /// <visible>false</visible>
+        [Create("password", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
+        public string SendUserPassword(string email)
         {
-            if (String.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
+            var userInfo = UserManagerWrapper.SendUserPassword(email);
 
-            var userInfo = CoreContext.UserManager.GetUserByEmail(email);
-            if (!CoreContext.UserManager.UserExists(userInfo.ID) || string.IsNullOrEmpty(userInfo.Email))
-            {
-                throw new Exception("The user email could not be found");
-            }
-            if (userInfo.Status == EmployeeStatus.Terminated)
-            {
-                throw new Exception("Your profile is suspended");
-            }
-            StudioNotifyService.Instance.UserPasswordChange(userInfo);
+            return String.Format(Resource.MessageYourPasswordSuccessfullySendedToEmail, userInfo.Email);
         }
 
         /// <summary>
@@ -883,6 +874,10 @@ namespace ASC.Api.Employee
             if (!string.IsNullOrEmpty(password))
             {
                 SecurityContext.SetUserPassword(userid, password);
+                MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedPassword);
+
+                CookiesManager.ResetUserCookie();
+                MessageService.Send(HttpContext.Current.Request, MessageAction.CookieSettingsUpdated);
             }
 
             return new EmployeeWraperFull(GetUserInfo(userid.ToString()));
@@ -1136,40 +1131,6 @@ namespace ASC.Api.Employee
         }
 
         #region Auth page hidden methods
- 
-        ///<visible>false</visible>
-        [Update("remindpwd", RequiresAuthorization = false)]
-        public string RemindPwd(string email)
-        {
-            if (!email.TestEmailRegex())
-            {
-                throw new Exception("<div>" + Resource.ErrorNotCorrectEmail + "</div>");
-            }
-
-            var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            if (tenant != null)
-            {
-                var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
-                if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
-                {
-                    throw new Exception("<div>" + Resource.ErrorAccessRestricted + "</div>");
-                }
-            }
-
-            var userInfo = CoreContext.UserManager.GetUserByEmail(email);
-            if (userInfo.Sid != null)
-            {
-                throw new Exception("<div>" + Resource.CouldNotRecoverPasswordForLdapUser + "</div>");
-            }
-
-            UserManagerWrapper.SendUserPassword(email);
-
-            string displayUserName = userInfo.DisplayUserName(false);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentPasswordChangeInstructions, displayUserName);
-
-            return String.Format(Resource.MessageYourPasswordSuccessfullySendedToEmail, "<b>" + email + "</b>");
-        }
-
 
         ///<visible>false</visible>
         [Update("thirdparty/linkaccount")]

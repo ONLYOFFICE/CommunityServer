@@ -25,9 +25,12 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Web;
 using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core.Common.Settings;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Core.Client.HttpHandlers
@@ -54,6 +57,33 @@ namespace ASC.Web.Core.Client.HttpHandlers
             }
 
             return result;
+        }
+    }
+
+    public abstract class ClientScriptTemplate : ClientScript
+    {
+        protected abstract string[] Links { get; }
+
+        protected sealed override string BaseNamespace { get { return ""; } }
+
+        protected sealed override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
+        {
+            return RegisterClientTemplatesPath(context, Links);
+        }
+
+        protected internal sealed override string GetCacheHash()
+        {
+            return ClientSettings.ResetCacheKey;
+        }
+
+        public string[] GetLinks()
+        {
+            if (ClientSettings.BundlingEnabled)
+            {
+                return Links;
+            }
+
+            return new[] { new ClientScriptReference().AddScript(this).GetLink() };
         }
     }
 }

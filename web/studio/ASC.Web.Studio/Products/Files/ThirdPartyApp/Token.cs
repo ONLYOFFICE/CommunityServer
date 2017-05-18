@@ -119,8 +119,20 @@ namespace ASC.Web.Files.ThirdPartyApp
                     .Where("app", app);
 
                 var oAuth20Token = db.ExecuteList(querySelect).ConvertAll(r => DecryptToken(r[0] as string)).FirstOrDefault();
+                if (oAuth20Token == null) return null;
 
                 return new Token(oAuth20Token, app);
+            }
+        }
+
+        public static void DeleteToken(string app)
+        {
+            using (var db = new DbManager(FileConstant.DatabaseId))
+            {
+                db.ExecuteNonQuery(new SqlDelete(TableTitle)
+                                       .Where("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)
+                                       .Where("user_id", SecurityContext.CurrentAccount.ID.ToString())
+                                       .Where("app", app));
             }
         }
 

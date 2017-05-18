@@ -27,6 +27,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 using Twilio;
 
 namespace ASC.VoipService.Twilio
@@ -40,6 +41,9 @@ namespace ASC.VoipService.Twilio
 
         public TwilioProvider(string accountSid, string authToken)
         {
+            if (string.IsNullOrEmpty(accountSid)) throw new ArgumentNullException("accountSid");
+            if (string.IsNullOrEmpty(authToken)) throw new ArgumentNullException("authToken");
+
             this.authToken = authToken;
             this.accountSid = accountSid;
 
@@ -48,13 +52,43 @@ namespace ASC.VoipService.Twilio
 
         #region Call
 
-        public string GetRecord(string callId)
+        public VoipRecord GetRecord(string recordSid)
         {
-            var result = client.ListRecordings(callId, null, null, null);
-            ThrowIfError(result);
+            var logger = log4net.LogManager.GetLogger("ASC");
+            logger.DebugFormat("recordSid {0}", recordSid);
 
-            var record = result.Recordings.Find(r => r.AccountSid == accountSid);
-            return record != null ? record.Uri.ToString() : "";
+            var result = new VoipRecord { Id = recordSid };
+            var count = 6;
+
+            while (count > 0)
+            {
+                var record = client.GetRecording(recordSid);
+                ThrowIfError(record);
+
+                if (!record.Price.HasValue)
+                {
+                    count--;
+                    Thread.Sleep(10000);
+                    continue;
+                }
+
+                result.Price = (-1) * record.Price.Value;
+                logger.DebugFormat("recordSid {0} price {1}", recordSid, result.Price);
+
+                result.Duration = record.Duration;
+                if (record.Uri != null)
+                {
+                    result.Uri = record.Uri.ToString();
+                }
+                break;
+            }
+
+            return result;
+        }
+
+        public void CreateQueue(VoipPhone newPhone)
+        {
+            newPhone.Settings.Queue = ((TwilioPhone)newPhone).CreateQueue(newPhone.Number, 5, string.Empty, 5);
         }
 
         #endregion
@@ -72,7 +106,7 @@ namespace ASC.VoipService.Twilio
 
             ThrowIfError(newNumber);
 
-            return new VoipPhone {Id = newNumber.Sid, Number = phoneNumber.Substring(1)};
+            return new TwilioPhone(client) {Id = newNumber.Sid, Number = phoneNumber.Substring(1)};
         }
 
         public VoipPhone DeleteNumber(VoipPhone phone)
@@ -85,7 +119,7 @@ namespace ASC.VoipService.Twilio
         {
             var result = client.ListIncomingPhoneNumbers();
             ThrowIfError(result);
-            return result.IncomingPhoneNumbers.Select(r => new VoipPhone {Id = r.Sid, Number = r.PhoneNumber});
+            return result.IncomingPhoneNumbers.Select(r => new TwilioPhone(client) {Id = r.Sid, Number = r.PhoneNumber});
         }
 
         public IEnumerable<VoipPhone> GetAvailablePhoneNumbers(PhoneNumberType phoneNumberType, string isoCountryCode)
@@ -106,15 +140,24 @@ namespace ASC.VoipService.Twilio
                     break;
             }
             ThrowIfError(result);
-            return result.AvailablePhoneNumbers.Select(r => new VoipPhone { Number = r.PhoneNumber });
+            return result.AvailablePhoneNumbers.Select(r => new TwilioPhone(client) { Number = r.PhoneNumber });
         }
 
-        public TwilioPhone GetPhone(string phoneSid)
+        public VoipPhone GetPhone(string phoneSid)
         {
             var phone = client.GetIncomingPhoneNumber(phoneSid);
             ThrowIfError(phone);
 
-            return new TwilioPhone(client) {Id = phone.Sid, Number = phone.PhoneNumber, Settings = new TwilioVoipSettings(new Uri(phone.VoiceUrl))};
+            var result = new TwilioPhone(client) { Id = phone.Sid, Number = phone.PhoneNumber, Settings = new TwilioVoipSettings() };
+
+            if (string.IsNullOrEmpty(phone.VoiceUrl))
+            {
+                phone.VoiceUrl = result.Settings.Connect(false);
+            }
+
+            result.Settings.VoiceUrl = phone.VoiceUrl;
+
+            return result;
         }
 
         public VoipPhone GetPhone(object[] data)
@@ -126,6 +169,29 @@ namespace ASC.VoipService.Twilio
                     Alias = (string) data[2],
                     Settings = new TwilioVoipSettings((string) data[3])
                 };
+        }
+
+        public VoipCall GetCall(string callId)
+        {
+            var result = new VoipCall {Id = callId};
+            var count = 6;
+
+            while (count > 0)
+            {
+                var call = client.GetCall(result.Id);
+                if (!call.Price.HasValue || !call.Duration.HasValue)
+                {
+                    count--;
+                    Thread.Sleep(10000);
+                    continue;
+                }
+
+                result.Price = (-1)*call.Price.Value;
+                result.DialDuration = call.Duration.Value;
+                break;
+            }
+
+            return result;
         }
 
         public string GetToken(Agent agent, int seconds = 60*60*24)
@@ -143,7 +209,7 @@ namespace ASC.VoipService.Twilio
 
         public void DisablePhone(VoipPhone phone)
         {
-            var result = client.UpdateIncomingPhoneNumber(phone.Id, new PhoneNumberOptions { VoiceUrl = null, VoiceApplicationSid = null });
+            var result = client.UpdateIncomingPhoneNumber(phone.Id, new PhoneNumberOptions { VoiceUrl = "", SmsUrl = "" });
             ThrowIfError(result);
         }
 

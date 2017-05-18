@@ -25,8 +25,11 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Common.Utils;
@@ -157,6 +160,155 @@ namespace ASC.Mail.Aggregator.Common.Extension
             {
                 logger.Warn("MimeMessage.FixEncodingIssues: {0}", ex.Message);
             }
+        }
+
+        public static MailMessage CreateMailMessage(this MimeMessage message,
+            int folder = 1,
+            bool unread = false,
+            string chainId = "",
+            string streamId = "",
+            ILogger log = null)
+        {
+            var mail = new MailMessage();
+
+            if (message == null)
+                throw new ArgumentNullException("message");
+
+            log = log ?? new NullLogger();
+
+            mail.Date = MailUtil.IsDateCorrect(message.Date.UtcDateTime) ? message.Date.UtcDateTime : DateTime.UtcNow;
+            mail.MimeMessageId = (string.IsNullOrEmpty(message.MessageId) ? MailUtil.CreateMessageId() : message.MessageId)
+                .Trim(new[] { '<', '>' });
+            mail.ChainId = string.IsNullOrEmpty(chainId) ? mail.MimeMessageId : chainId;
+            mail.MimeReplyToId = mail.ChainId.Equals(mail.MimeMessageId) ? null : message.InReplyTo.Trim('<', '>');
+            mail.ReplyTo = message.ReplyTo.ToString();
+            mail.From = message.From.ToString();
+            mail.FromEmail = message.From != null && message.From.Mailboxes != null && message.From.Mailboxes.Any()
+                ? message.From.Mailboxes.First().Address
+                : "";
+            mail.ToList = message.To.Mailboxes.Select(s => new MailAddress(s.Address, s.Name)).ToList();
+            mail.To = string.Join(", ", message.To.Mailboxes.Select(s => s.ToString()));
+            mail.CcList = message.Cc.Mailboxes.Select(s => new MailAddress(s.Address, s.Name)).ToList();
+            mail.Cc = string.Join(", ", message.Cc.Mailboxes.Select(s => s.ToString()));
+            mail.Bcc = string.Join(", ", message.Bcc.Mailboxes.Select(s => s.ToString()));
+            mail.Subject = message.Subject ?? string.Empty;
+            mail.Important = message.Importance == MessageImportance.High || message.Priority == MessagePriority.Urgent;
+
+            mail.TextBodyOnly = false;
+
+            mail.Introduction = "";
+
+            mail.Attachments = new List<MailAttachment>();
+
+            mail.HtmlBodyStream = new MemoryStream();
+
+            mail.ExtractMainParts(message);
+
+            mail.Size = mail.HtmlBodyStream.Length > 0 ? mail.HtmlBodyStream.Length : mail.HtmlBody.Length;
+
+            mail.HeaderFieldNames = new NameValueCollection();
+
+            message.Headers
+                .ToList()
+                .ForEach(h => mail.HeaderFieldNames.Add(h.Field, h.Value));
+
+            mail.Folder = folder;
+            mail.IsNew = unread;
+            mail.StreamId = string.IsNullOrEmpty(streamId) ? MailUtil.CreateStreamId() : streamId;
+
+            mail.LoadCalendarInfo(message, log);
+
+            return mail;
+        }
+
+        public static MailMessage CreateCorruptedMesage(this MimeMessage message, 
+            int folder = 1,
+            bool unread = false, 
+            string chainId = "", 
+            string streamId = "")
+        {
+            var mailMessage = new MailMessage
+            {
+                HasParseError = true
+            };
+
+            MailUtil.SkipErrors(() => mailMessage.Date = MailUtil.IsDateCorrect(message.Date.UtcDateTime)
+                ? message.Date.UtcDateTime
+                : DateTime.UtcNow);
+
+            MailUtil.SkipErrors(() => mailMessage.MimeMessageId = (string.IsNullOrEmpty(message.MessageId) ? MailUtil.CreateMessageId() : message.MessageId)
+                .Trim('<', '>'));
+
+            MailUtil.SkipErrors(() => mailMessage.ChainId = string.IsNullOrEmpty(chainId) ? mailMessage.MimeMessageId : chainId);
+
+            MailUtil.SkipErrors(() => mailMessage.MimeReplyToId = mailMessage.ChainId.Equals(mailMessage.MimeMessageId) ? null : message.InReplyTo.Trim('<', '>'));
+
+            MailUtil.SkipErrors(() => mailMessage.ReplyTo = message.ReplyTo.ToString());
+
+            MailUtil.SkipErrors(() => mailMessage.From = message.From.ToString());
+
+            MailUtil.SkipErrors(() =>
+                mailMessage.FromEmail =
+                    message.From != null && message.From.Mailboxes != null && message.From.Mailboxes.Any()
+                        ? message.From.Mailboxes.First().Address
+                        : "");
+
+            MailUtil.SkipErrors(() => mailMessage.ToList = message.To.Mailboxes.Select(s => MailUtil.ExecuteSafe(() => new MailAddress(s.Address, s.Name))).ToList());
+
+            MailUtil.SkipErrors(() => mailMessage.To = string.Join(", ", message.To.Mailboxes.Select(s => s.ToString())));
+
+            MailUtil.SkipErrors(() => mailMessage.CcList = message.Cc.Mailboxes.Select(s => MailUtil.ExecuteSafe(() => new MailAddress(s.Address, s.Name))).ToList());
+
+            MailUtil.SkipErrors(() => mailMessage.Cc = string.Join(", ", message.Cc.Mailboxes.Select(s => s.ToString())));
+
+            MailUtil.SkipErrors(() => mailMessage.Bcc = string.Join(", ", message.Bcc.Mailboxes.Select(s => s.ToString())));
+
+            MailUtil.SkipErrors(() => mailMessage.Subject = message.Subject ?? string.Empty);
+
+            MailUtil.SkipErrors(() => mailMessage.Important = message.Importance == MessageImportance.High || message.Priority == MessagePriority.Urgent);
+
+            mailMessage.HtmlBodyStream = new MemoryStream();
+
+            using (var sw = new StreamWriter(mailMessage.HtmlBodyStream, Encoding.UTF8, 1024, true))
+            {
+                sw.Write("<body><pre>&nbsp;</pre></body>");
+                sw.Flush();
+            }
+
+            mailMessage.Size = mailMessage.HtmlBodyStream.Length;
+
+            mailMessage.HeaderFieldNames = new NameValueCollection();
+
+            message.Headers
+                .ToList()
+                .ForEach(h => MailUtil.SkipErrors(() => mailMessage.HeaderFieldNames.Add(h.Field, h.Value)));
+
+            mailMessage.Folder = folder;
+            mailMessage.IsNew = unread;
+            mailMessage.StreamId = string.IsNullOrEmpty(streamId) ? MailUtil.CreateStreamId() : streamId;
+            mailMessage.TextBodyOnly = true;
+            mailMessage.Introduction = "";
+            mailMessage.Attachments = new List<MailAttachment>();
+
+            MailUtil.SkipErrors(() =>
+            {
+                var mailAttach = new MailAttachment
+                {
+                    contentId = null,
+                    fileName = "message.eml",
+                    contentType = "message/rfc822",
+                    contentLocation = null,
+                    dataStream = new MemoryStream()
+                };
+
+                message.WriteTo(mailAttach.dataStream);
+
+                mailAttach.size = mailAttach.dataStream.Length;
+
+                mailMessage.Attachments.Add(mailAttach);
+            });
+
+            return mailMessage;
         }
     }
 }

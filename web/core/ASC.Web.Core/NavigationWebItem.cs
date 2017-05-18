@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Collections.Generic;
 using ASC.Web.Core.WebZones;
 
 namespace ASC.Web.Core
@@ -41,7 +40,11 @@ namespace ASC.Web.Core
 
         public virtual string StartURL { get; set; }
 
+        public virtual string HelpURL { get; set; }
+
         public virtual string ProductClassName { get; set; }
+
+        public bool Visible { get { return true; } }
 
         public virtual WebItemContext Context { get; set; }
 

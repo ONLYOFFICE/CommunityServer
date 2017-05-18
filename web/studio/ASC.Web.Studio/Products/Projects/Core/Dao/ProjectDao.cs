@@ -203,6 +203,7 @@ namespace ASC.Projects.Data.DAO
                 .Select(ProjectColumns.Select(c => "p." + c).ToArray())
                 .Select(new SqlQuery(MilestonesTable + " m").SelectCount().Where(Exp.EqColumns("m.tenant_id", "p.tenant_id") & Exp.EqColumns("m.project_id", "p.id")).Where(Exp.Eq("m.status", MilestoneStatus.Open)))
                 .Select(new SqlQuery(TasksTable + " t").SelectCount().Where(Exp.EqColumns("t.tenant_id", "p.tenant_id") & Exp.EqColumns("t.project_id", "p.id")).Where(!Exp.Eq("t.status", TaskStatus.Closed)))
+                .Select(new SqlQuery(TasksTable + " t").SelectCount().Where(Exp.EqColumns("t.tenant_id", "p.tenant_id") & Exp.EqColumns("t.project_id", "p.id")))
                 .Select(new SqlQuery(ParticipantTable + " pp").SelectCount().Where(Exp.EqColumns("pp.tenant", "p.tenant_id") & Exp.EqColumns("pp.project_id", "p.id") & Exp.Eq("pp.removed", false)))
                 .Select("p.private")
                 .Where("p.tenant_id", Tenant);
@@ -363,21 +364,6 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
-        public Project GetFullProjectById(int projectId)
-        {
-            var query = new SqlQuery(ProjectsTable + " p")
-                .Select(ProjectColumns.Select(c => "p." + c).ToArray())
-                .Select(new SqlQuery("projects_milestones m").SelectCount().Where(Exp.EqColumns("m.project_id", "p.id")).Where(Exp.Eq("m.status", MilestoneStatus.Open)))
-                .Select(new SqlQuery("projects_tasks t").SelectCount().Where(Exp.EqColumns("t.project_id", "p.id")).Where(!Exp.Eq("t.status", TaskStatus.Closed)))
-                .Select(new SqlQuery("projects_project_participant pp").SelectCount().Where(Exp.EqColumns("pp.project_id", "p.id") & Exp.Eq("pp.removed", false)))
-                .Where("p.id", projectId)
-                .Where("p.tenant_id", Tenant);
-
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(ToProjectFull).SingleOrDefault();
-            }
-        }
         public List<Project> GetById(ICollection projectIDs)
         {
             using (var db = new DbManager(DatabaseId))
@@ -579,16 +565,24 @@ namespace ASC.Projects.Data.DAO
                                                    .Select("id")
                                                    .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages)));
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones)));
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", new object[] { tasks.Select(r => "Task_" + r) })));
-
-                    db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
-                    db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
-                    db.ExecuteNonQuery(Delete(TasksOrderTable).Where("project_id", projectId));
-                    db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where(Exp.In("task_id", tasks)));
-                    db.ExecuteNonQuery(Delete(SubtasksTable).Where(Exp.In("task_id", tasks)));
-                    db.ExecuteNonQuery(Delete(TasksTable).Where("project_id", projectId));
+                    if (messages.Any())
+                    {
+                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages)));
+                        db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
+                    }
+                    if (milestones.Any())
+                    {
+                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones)));
+                        db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
+                    }
+                    if (tasks.Any())
+                    {
+                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", tasks.Select(r => "Task_" + r).ToList())));
+                        db.ExecuteNonQuery(Delete(TasksOrderTable).Where("project_id", projectId));
+                        db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where(Exp.In("task_id", tasks)));
+                        db.ExecuteNonQuery(Delete(SubtasksTable).Where(Exp.In("task_id", tasks)));
+                        db.ExecuteNonQuery(Delete(TasksTable).Where("project_id", projectId));
+                    }
 
                     db.ExecuteNonQuery(Delete(ProjectsTable).Where("id", projectId));
 
@@ -839,8 +833,9 @@ namespace ASC.Projects.Data.DAO
             var project = ToProject(r);
 
             project.TaskCount = Convert.ToInt32(r[11]);
+            project.TaskCountTotal = Convert.ToInt32(r[12]);
             project.MilestoneCount = Convert.ToInt32(r[10]);
-            project.ParticipantCount = Convert.ToInt32(r[12]);
+            project.ParticipantCount = Convert.ToInt32(r[13]);
 
             return project;
         }

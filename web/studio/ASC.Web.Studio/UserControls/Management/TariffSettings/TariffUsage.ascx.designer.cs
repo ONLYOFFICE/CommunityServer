@@ -22,24 +22,6 @@ namespace ASC.Web.Studio.UserControls.Management {
         protected global::System.Web.UI.WebControls.PlaceHolder SmsBuyHolder;
         
         /// <summary>
-        /// VoipBuyHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder VoipBuyHolder;
-        
-        /// <summary>
-        /// PaymentsCodeHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PaymentsCodeHolder;
-        
-        /// <summary>
         /// downgradeInfoContainer control.
         /// </summary>
         /// <remarks>

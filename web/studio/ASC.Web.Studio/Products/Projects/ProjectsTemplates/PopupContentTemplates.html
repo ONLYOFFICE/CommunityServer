@@ -1,0 +1,73 @@
+﻿<!--list tasks popups-->
+<script id="projects_commonWarning" type="text/x-jquery-tmpl">
+    {{each notes}}
+    <p>${$value}</p>
+    {{/each}}
+    <div class="errorBox display-none"></div>
+    <div class="middle-button-container">
+        <a class="button blue middle">${okButton}</a> 
+        <span class="splitter-buttons"></span>
+        <a class="button gray middle cancel">${ASC.Projects.Resources.CommonResource.Cancel}</a>
+    </div>
+</script>
+
+<!--list time-traking popups-->
+
+<script id="projects_editTimerPopup" type="text/x-jquery-tmpl">
+    <div id="TimeLogTaskTitle" class="header-base block-cnt-splitter"></div>
+           
+    <div class="addLogPanel-infoPanel">
+        <div class="addLogPanel-infoPanelBody">
+            <span class="header-base gray-text">
+                ${ASC.Projects.Resources.CommonResource.SpentTotally}
+            </span>
+            <span class="splitter-buttons"></span>
+            <span id="TotalHoursCount" class="header-base"></span>
+            <span class="splitter-buttons"></span>
+        </div>
+    </div> 
+    <div class="warnBox" style="display:none;" id="timeTrakingErrorPanel"></div>
+    <div class="block-cnt-splitter" style="float:right">
+        <div class="headerPanelSmall">
+            <b>${ASC.Projects.Resources.TasksResource.TaskResponsible}:</b>
+        </div>
+        <select style="width: 220px;" class="comboBox pm-report-select" id="teamList"></select>
+    </div>
+        
+    <div>   
+    <div class="block-cnt-splitter" style="float:left;margin-right:20px">
+        <div class="headerPanelSmall">
+            <b>${ASC.Projects.Resources.CommonResource.Time}:</b>
+        </div>
+        <input id="inputTimeHours" type="text" placeholder="${ASC.Projects.Resources.CommonResource.WatermarkHours}" class="textEdit" maxlength="2" />
+        <span class="splitter">:</span>
+        <input id="inputTimeMinutes" type="text" placeholder="${ASC.Projects.Resources.CommonResource.WatermarkMinutes}" class="textEdit" maxlength="2" />
+    </div>
+           
+    <div class="block-cnt-splitter">
+        <div class="headerPanelSmall">
+            <b>${ASC.Projects.Resources.CommonResource.Date}:</b>
+        </div>
+        <input id="timeTrakingDate" class="textEditCalendar" style="margin-right: 3px"/>
+    </div>
+    </div>
+        
+    <div style="clear:both"></div>
+           
+    <div class="block-cnt-splitter">
+        <div class="headerPanelSmall">
+            <b>${ASC.Projects.Resources.ProjectResource.ProjectDescription}:</b>
+        </div>
+        <textarea id="timeDescription" rows="7" cols="20" maxlength="250"></textarea>
+    </div>
+         
+    <div class="middle-button-container">
+        <a href="javascript:void(0)" class="button blue middle">
+            ${ASC.Projects.Resources.CommonResource.SaveChanges}
+        </a>
+        <span class="splitter-buttons"></span>
+        <a class="button gray middle" href="javascript:void(0)" onclick="javascript: jq.unblockUI();">
+            ${ASC.Projects.Resources.CommonResource.Cancel}
+        </a>
+    </div>
+</script>

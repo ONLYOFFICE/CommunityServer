@@ -124,9 +124,9 @@
     <value>Calendar</value>
   </data>
   <data name="CalendarSharingSubscription" xml:space="preserve">
-    <value>Sharing of Calendars &amp; Events</value>
+    <value>Sharing of calendars &amp; events</value>
   </data>
   <data name="EventAlertSubscription" xml:space="preserve">
-    <value>Alerts about Events</value>
+    <value>Event reminders</value>
   </data>
 </root>

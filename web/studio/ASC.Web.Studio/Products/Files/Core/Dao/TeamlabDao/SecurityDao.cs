@@ -62,6 +62,19 @@ namespace ASC.Files.Core.Data
             }
         }
 
+        public bool IsShared(object entryId, FileEntryType type)
+        {
+            using (var DbManager = GetDb())
+            {
+                var q = Query("files_security s")
+                    .SelectCount()
+                    .Where(Exp.Eq("s.entry_id", MappingID(entryId).ToString()))
+                    .Where("s.entry_type", (int) type);
+
+                return DbManager.ExecuteScalar<int>(q) > 0;
+            }
+        }
+
         public void SetShare(FileShareRecord r)
         {
             using (var DbManager = GetDb())

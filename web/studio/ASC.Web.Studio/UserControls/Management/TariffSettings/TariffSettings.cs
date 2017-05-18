@@ -24,12 +24,13 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Web.Core.Utility.Settings;
 using System;
 using System.Globalization;
 using System.Runtime.Serialization;
+using ASC.Core;
+using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -42,6 +43,9 @@ namespace ASC.Web.Studio.UserControls.Management
         [DataMember(Name = "HideRecommendation")]
         public bool HideBuyRecommendationSetting { get; set; }
 
+        [DataMember(Name = "HidePricingPage")]
+        public bool HidePricingPageForUsers { get; set; }
+
         [DataMember(Name = "LicenseAccept")]
         public string LicenseAcceptSetting { get; set; }
 
@@ -50,6 +54,7 @@ namespace ASC.Web.Studio.UserControls.Management
             return new TariffSettings
                 {
                     HideBuyRecommendationSetting = false,
+                    HidePricingPageForUsers = false,
                     LicenseAcceptSetting = DateTime.MinValue.ToString(CultureInfo),
                 };
         }
@@ -67,6 +72,17 @@ namespace ASC.Web.Studio.UserControls.Management
                 var tariffSettings = SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID);
                 tariffSettings.HideBuyRecommendationSetting = value;
                 SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
+            }
+        }
+
+        public static bool HidePricingPage
+        {
+            get { return SettingsManager.Instance.LoadSettings<TariffSettings>(TenantProvider.CurrentTenantID).HidePricingPageForUsers; }
+            set
+            {
+                var tariffSettings = SettingsManager.Instance.LoadSettings<TariffSettings>(TenantProvider.CurrentTenantID);
+                tariffSettings.HidePricingPageForUsers = value;
+                SettingsManager.Instance.SaveSettings(tariffSettings, TenantProvider.CurrentTenantID);
             }
         }
 

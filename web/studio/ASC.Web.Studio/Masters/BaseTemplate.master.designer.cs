@@ -37,7 +37,7 @@ namespace ASC.Web.Studio.Masters {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Core.Client.Bundling.ResourceBundleControl ThemeStyles;
+        protected global::ASC.Web.Core.Client.Bundling.ResourceStyleBundleControl ThemeStyles;
         
         /// <summary>
         /// CommonStyles control.
@@ -46,7 +46,16 @@ namespace ASC.Web.Studio.Masters {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Core.Client.Bundling.ResourceBundleControl CommonStyles;
+        protected global::ASC.Web.Studio.Masters.CommonStyles CommonStyles;
+        
+        /// <summary>
+        /// StaticStyle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Core.Client.Bundling.ResourceStyleBundleControl StaticStyle;
         
         /// <summary>
         /// HeadStyles control.
@@ -55,7 +64,7 @@ namespace ASC.Web.Studio.Masters {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Core.Client.Bundling.ResourceBundleControl HeadStyles;
+        protected global::ASC.Web.Core.Client.Bundling.ResourceStyleBundleControl HeadStyles;
         
         /// <summary>
         /// HeaderContent control.
@@ -199,7 +208,7 @@ namespace ASC.Web.Studio.Masters {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Core.Client.Bundling.ResourceBundleControl HeadScripts;
+        protected global::ASC.Web.Studio.Masters.HeadScripts HeadScripts;
         
         /// <summary>
         /// clientLocalizationScript control.
@@ -220,15 +229,6 @@ namespace ASC.Web.Studio.Masters {
         protected global::ASC.Web.Core.Client.Bundling.ClientScriptReference baseTemplateMasterScripts;
         
         /// <summary>
-        /// clientTemplatesResourcesPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder clientTemplatesResourcesPlaceHolder;
-        
-        /// <summary>
         /// InlineScriptBefore control.
         /// </summary>
         /// <remarks>
@@ -244,7 +244,7 @@ namespace ASC.Web.Studio.Masters {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Core.Client.Bundling.ResourceBundleControl CommonBodyScripts;
+        protected global::ASC.Web.Studio.Masters.CommonBodyScripts CommonBodyScripts;
         
         /// <summary>
         /// BodyScripts control.
@@ -253,7 +253,16 @@ namespace ASC.Web.Studio.Masters {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Core.Client.Bundling.ResourceBundleControl BodyScripts;
+        protected global::ASC.Web.Core.Client.Bundling.ResourceScriptBundleControl BodyScripts;
+        
+        /// <summary>
+        /// StaticScript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Core.Client.Bundling.ResourceScriptBundleControl StaticScript;
         
         /// <summary>
         /// InlineScript control.

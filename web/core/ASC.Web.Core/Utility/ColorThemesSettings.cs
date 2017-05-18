@@ -29,8 +29,7 @@ using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Web;
-using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.Utility
@@ -41,7 +40,7 @@ namespace ASC.Web.Core.Utility
     {
         public const string ThemeFolderTemplate = "<theme_folder>";
         private const string DefaultName = "pure-orange";
-        private static readonly string desktopSkin = ConfigurationManager.AppSettings["web.desktop.skin"];
+        private static readonly string DesktopSkin = ConfigurationManager.AppSettings["web.desktop.skin"];
 
 
         [DataMember(Name = "ColorThemeName")]
@@ -92,9 +91,9 @@ namespace ASC.Web.Core.Utility
 
         public static string GetColorThemesSettings()
         {
-            if (HttpContext.Current != null && HttpContext.Current.Request.DesktopApp() && !string.IsNullOrEmpty(desktopSkin))
+            if (HttpContext.Current != null && HttpContext.Current.Request.DesktopApp())
             {
-                return desktopSkin;
+                return DesktopSkin ?? "bright-blue";
             }
 
             var colorTheme = SettingsManager.Instance.LoadSettings<ColorThemesSettings>(TenantProvider.CurrentTenantID);
@@ -102,19 +101,6 @@ namespace ASC.Web.Core.Utility
 
             if (colorTheme.FirstRequest)
             {
-                if (colorTheme.ColorThemeName == DefaultName)
-                {
-                    var partnerId = CoreContext.TenantManager.GetCurrentTenant().PartnerId;
-                    if (!string.IsNullOrEmpty(partnerId))
-                    {
-                        var partner = CoreContext.PaymentManager.GetPartner(partnerId);
-                        if (partner != null && partner.Status == PartnerStatus.Approved && !partner.Removed)
-                        {
-                            colorThemeName = partner.Theme;
-                        }
-                    }
-                }
-
                 SaveColorTheme(colorThemeName);
             }
 

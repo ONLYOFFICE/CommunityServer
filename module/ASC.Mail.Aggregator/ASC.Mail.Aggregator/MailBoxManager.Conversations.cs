@@ -68,7 +68,7 @@ namespace ASC.Mail.Aggregator
 
             using (var db = GetDb())
             {
-                var res = GetFilteredChains(
+                var res = GetFilteredConversations(
                     db,
                     tenant,
                     user,
@@ -87,7 +87,7 @@ namespace ASC.Mail.Aggregator
                         res.Reverse();
                     else
                     {
-                        res = GetFilteredChains(db, tenant, user, filter, null, 0, false, out hasMore);
+                        res = GetFilteredConversations(db, tenant, user, filter, null, 0, false, out hasMore);
                         hasMore = false;
 
                         if (!res.Any())
@@ -148,7 +148,7 @@ namespace ASC.Mail.Aggregator
 
                 filter.PageSize = 1;
                 bool hasMore;
-                var messages = GetFilteredChains(db, tenant, user, filter, chainDate, id, false, out hasMore);
+                var messages = GetFilteredConversations(db, tenant, user, filter, chainDate, id, false, out hasMore);
                 return messages.Any() ? messages.First().Id : 0;
             }
         }
@@ -305,7 +305,6 @@ namespace ASC.Mail.Aggregator
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
                     SetMessagesFolder(db, tenant, user, listObjects, folder);
-                    RecalculateFolders(db, tenant, user, true);
                     tx.Commit();
                 }
             }
@@ -331,7 +330,6 @@ namespace ASC.Mail.Aggregator
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
                     RestoreMessages(db, tenant, user, listObjects);
-                    RecalculateFolders(db, tenant, user, true);
                     tx.Commit();
                 }
             }
@@ -359,8 +357,7 @@ namespace ASC.Mail.Aggregator
 
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    usedQuota = DeleteMessages(db, tenant, user, listObjects, false);
-                    RecalculateFolders(db, tenant, user, true);
+                    usedQuota = DeleteMessages(db, tenant, user, listObjects);
                     tx.Commit();
                 }
             }
@@ -588,7 +585,7 @@ namespace ASC.Mail.Aggregator
 
         #region private conversations methods
 
-        private List<MailMessage> GetFilteredChains(IDbManager db, int tenant, string user, MailFilter filter,
+        private List<MailMessage> GetFilteredConversations(IDbManager db, int tenant, string user, MailFilter filter,
             DateTime? utcChainFromDate, int fromMessageId, bool? prevFlag, out bool hasMore)
         {
             var res = new List<MailMessage>();
@@ -605,25 +602,7 @@ namespace ASC.Mail.Aggregator
             const string mtm_alias = "tm";
 
             var queryMessages = new SqlQuery(MailTable.Name.Alias(mm_alias))
-                .Select(
-                    MailTable.Columns.Id.Prefix(mm_alias),
-                    MailTable.Columns.From.Prefix(mm_alias),
-                    MailTable.Columns.To.Prefix(mm_alias),
-                    MailTable.Columns.Reply.Prefix(mm_alias),
-                    MailTable.Columns.Subject.Prefix(mm_alias),
-                    MailTable.Columns.Importance.Prefix(mm_alias),
-                    MailTable.Columns.DateSent.Prefix(mm_alias),
-                    MailTable.Columns.Size.Prefix(mm_alias),
-                    MailTable.Columns.AttachCount.Prefix(mm_alias),
-                    MailTable.Columns.Unread.Prefix(mm_alias),
-                    MailTable.Columns.IsAnswered.Prefix(mm_alias),
-                    MailTable.Columns.IsForwarded.Prefix(mm_alias),
-                    MailTable.Columns.FolderRestore.Prefix(mm_alias),
-                    MailTable.Columns.Folder.Prefix(mm_alias),
-                    MailTable.Columns.ChainId.Prefix(mm_alias),
-                    MailTable.Columns.MailboxId.Prefix(mm_alias),
-                    MailTable.Columns.ChainDate.Prefix(mm_alias),
-                    MailTable.Columns.CalendarUid.Prefix(mm_alias));
+                .Select(GetMailMessagesColumns(mm_alias));
 
             if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
             {
@@ -676,18 +655,23 @@ namespace ASC.Mail.Aggregator
                 }
             }
 
-            // We are increasing the size of the page to check whether it is necessary to show the Next button.
-            while (res.Count < filter.PageSize + 1)
-            {
-                queryMessages.SetFirstResult(chunkIndex*CHUNK_SIZE*filter.PageSize)
-                    .SetMaxResults(CHUNK_SIZE*filter.PageSize);
-                chunkIndex++;
+            var tenantInfo = CoreContext.TenantManager.GetTenant(tenant);
+            var utcNow = DateTime.UtcNow;
+            var pageSize = filter.PageSize;
 
-                var tenantInfo = CoreContext.TenantManager.GetTenant(tenant);
+            // We are increasing the size of the page to check whether it is necessary to show the Next button.
+            while (res.Count < pageSize + 1)
+            {
+                queryMessages
+                    .SetFirstResult(chunkIndex*CHUNK_SIZE*pageSize)
+                    .SetMaxResults(CHUNK_SIZE*pageSize);
+
+                chunkIndex++;
+                
                 var list = db
                     .ExecuteList(queryMessages)
                     .ConvertAll(r =>
-                        ConvertToConversation(r, tenantInfo));
+                        ConvertToMailMessage(r, tenantInfo, utcNow));
 
                 if (0 == list.Count)
                     break;
@@ -734,18 +718,18 @@ namespace ASC.Mail.Aggregator
                     if (!alreadyContains)
                         res.Add(item);
 
-                    if (filter.PageSize + 1 == res.Count)
+                    if (pageSize + 1 == res.Count)
                         break;
                 }
 
-                if (filter.PageSize + 1 == res.Count)
+                if (pageSize + 1 == res.Count)
                     break;
             }
 
-            hasMore = res.Count > filter.PageSize;
+            hasMore = res.Count > pageSize;
 
             if (hasMore)
-                res.RemoveAt(filter.PageSize);
+                res.RemoveAt(pageSize);
 
             return res;
         }
@@ -755,10 +739,10 @@ namespace ASC.Mail.Aggregator
             ids = new List<int>();
             var actionSucceed = false;
 
-            if (!string.IsNullOrEmpty(filter.SearchFilter) && FullTextSearch.SupportModule(FullTextSearch.MailModule))
+            if (!string.IsNullOrEmpty(filter.SearchText) && FullTextSearch.SupportModule(FullTextSearch.MailModule))
             {
                 var mailModule =
-                    FullTextSearch.MailModule.Match(filter.SearchFilter)
+                    FullTextSearch.MailModule.Match(filter.SearchText)
                         .OrderBy(MailTable.Columns.DateSent, filter.SortOrder == "ascending");
 
                 if (filter.PrimaryFolder != 1 && filter.PrimaryFolder != 2)
@@ -792,42 +776,6 @@ namespace ASC.Mail.Aggregator
             }
 
             return actionSucceed;
-        }
-
-        private static MailMessage ConvertToConversation(object[] r, Tenant tenantInfo)
-        {
-            var now = TenantUtil.DateTimeFromUtc(tenantInfo.TimeZone, DateTime.UtcNow);
-            var date = TenantUtil.DateTimeFromUtc(tenantInfo.TimeZone, (DateTime)r[6]);
-            var chainDate = TenantUtil.DateTimeFromUtc(tenantInfo.TimeZone, (DateTime)r[16]);
-
-            var isToday = (now.Year == date.Year && now.Date == date.Date);
-            var isYesterday = (now.Year == date.Year && now.Date == date.Date.AddDays(1));
-
-            return new MailMessage
-            {
-                Id = Convert.ToInt64(r[0]),
-                From = (string)r[1],
-                To = (string)r[2],
-                ReplyTo = (string)r[3],
-                Subject = (string)r[4],
-                Important = Convert.ToBoolean(r[5]),
-                Date = date,
-                Size = Convert.ToInt32(r[7]),
-                HasAttachments = Convert.ToBoolean(r[8]),
-                IsNew = Convert.ToBoolean(r[9]),
-                IsAnswered = Convert.ToBoolean(r[10]),
-                IsForwarded = Convert.ToBoolean(r[11]),
-                RestoreFolderId = r[12] != null ? Convert.ToInt32(r[12]) : -1,
-                Folder = Convert.ToInt32(r[13]),
-                ChainId = (string)(r[14] ?? ""),
-                IsToday = isToday,
-                IsYesterday = isYesterday,
-                MailboxId = Convert.ToInt32(r[15]),
-                LabelsString = "",
-                ChainDate = chainDate,
-                ChainLength = 1,
-                CalendarUid = (string)r[17]
-            };
         }
 
         private static Exp GetSearchFolders(string folderName, int folder)

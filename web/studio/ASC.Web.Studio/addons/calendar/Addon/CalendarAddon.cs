@@ -50,6 +50,8 @@ namespace ASC.Web.Calendar
 
         private AddonContext _context;
 
+        public bool Visible { get { return true; } }
+
         public AddonContext Context
         {
             get { return _context; }
@@ -96,6 +98,12 @@ namespace ASC.Web.Calendar
         {
             get { return "~/addons/calendar/"; }
         }
+
+        public string HelpURL
+        {
+            get { return null; }
+        }
+
         public string ProductClassName
         {
             get { return "calendar"; }

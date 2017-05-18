@@ -138,28 +138,6 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
             return result;
         }
 
-        private static readonly List<string> BlockedAttrs = new List<string>
-            {
-                "onload",
-                "onunload",
-                "onclick",
-                "ondblclick",
-                "onmousedown",
-                "onmouseup",
-                "onmouseover",
-                "onmousemove",
-                "onmouseout",
-                "onfocus",
-                "onblur",
-                "onkeypress",
-                "onkeydown",
-                "onkeyup",
-                "onsubmit",
-                "onreset",
-                "onselect",
-                "onchange"
-            };
-
         private static void ProcessMaliciousAttributes(HtmlDocument doc)
         {
             var nodes = doc.DocumentNode.SelectNodes("//*");
@@ -171,13 +149,15 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
             foreach (var node in doc.DocumentNode.SelectNodes("//*"))
             {
                 var toRemove = node.Attributes
-                                   .Where(htmlAttribute => BlockedAttrs.Contains(htmlAttribute.Name.ToLowerInvariant())
+                                   .Where(htmlAttribute => htmlAttribute.Name.StartsWith("on", StringComparison.OrdinalIgnoreCase)
                                                            ||
-                                                           htmlAttribute.Value.StartsWith("javascript", StringComparison.OrdinalIgnoreCase)
+                                                           htmlAttribute.Value.TrimStart().StartsWith("javascript", StringComparison.OrdinalIgnoreCase)
                                                            ||
-                                                           htmlAttribute.Value.StartsWith("data", StringComparison.OrdinalIgnoreCase)
+                                                           htmlAttribute.Value.TrimStart().StartsWith("data", StringComparison.OrdinalIgnoreCase)
                                                            ||
-                                                           htmlAttribute.Value.StartsWith("vbscript", StringComparison.OrdinalIgnoreCase)
+                                                           htmlAttribute.Value.TrimStart().StartsWith("vbscript", StringComparison.OrdinalIgnoreCase)
+                                                           ||
+                                                           htmlAttribute.Value.TrimStart().StartsWith(">", StringComparison.OrdinalIgnoreCase)
                     ).ToList();
                 foreach (var htmlAttribute in toRemove)
                 {

@@ -29,21 +29,26 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading;
+using ARSoft.Tools.Net;
 using ASC.Mail.Aggregator.Common.Utils;
-using ARSoft.Tools.Net.Dns;
 using ASC.Api.Exceptions;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Threading;
+using ASC.Common.Utils;
+using ASC.Core;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Imap;
 using ASC.Mail.Aggregator.Common.Logging;
+using ASC.Mail.Aggregator.ComplexOperations;
+using ASC.Mail.Aggregator.ComplexOperations.Base;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.DbSchema;
 using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
-using MxRecord = ARSoft.Tools.Net.Dns.MxRecord;
 
 namespace ASC.Mail.Aggregator
 {
@@ -434,90 +439,189 @@ namespace ASC.Mail.Aggregator
             return result > 0;
         }
 
+        public MailOperationStatus RemoveMailbox(MailBox mailbox,
+            Func<DistributedTask, string> translateMailOperationStatus = null)
+        {
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var user = SecurityContext.CurrentAccount;
+
+            var operations = MailOperations.GetTasks()
+                .Where(o =>
+                {
+                    var oTenant = o.GetProperty<int>(MailOperation.TENANT);
+                    var oUser = o.GetProperty<string>(MailOperation.OWNER);
+                    var oType = o.GetProperty<MailOperationType>(MailOperation.OPERATION_TYPE);
+                    return oTenant == tenant.TenantId &&
+                           oUser == user.ID.ToString() &&
+                           oType == MailOperationType.RemoveMailbox;
+                })
+                .ToList();
+
+            var sameOperation = operations.FirstOrDefault(o =>
+            {
+                var oSource = o.GetProperty<string>(MailOperation.SOURCE);
+                return oSource == mailbox.MailBoxId.ToString();
+            });
+
+            if (sameOperation != null)
+            {
+                return GetMailOperationStatus(sameOperation.Id, translateMailOperationStatus);
+            }
+
+            var runningOperation = operations.FirstOrDefault(o => o.Status <= DistributedTaskStatus.Running);
+
+            if (runningOperation != null)
+                throw new MailOperationAlreadyRunningException("Remove mailbox operation already running.");
+
+            var op = new MailRemoveMailboxOperation(tenant, user, mailbox, this);
+
+            return QueueTask(op, translateMailOperationStatus);
+        }
+
         public void RemoveMailBox(MailBox mailbox, bool needRecalculateFolders = true)
         {
             if (mailbox.MailBoxId <= 0)
                 throw new Exception("MailBox id is 0");
 
-            long totalAttachmentsSize;
+            long freedQuotaSize;
 
             using (var db = GetDb())
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    totalAttachmentsSize = RemoveMailBox(mailbox, db, needRecalculateFolders);
+                    freedQuotaSize = RemoveMailBoxInfo(mailbox, db);
 
                     tx.Commit();
                 }
             }
 
-            QuotaUsedDelete(mailbox.TenantId, totalAttachmentsSize);
+            QuotaUsedDelete(mailbox.TenantId, freedQuotaSize);
+
+            if (!needRecalculateFolders)
+                return;
+
+            RecalculateFolders();
         }
 
-        public long RemoveMailBox(MailBox mailBox, DbManager db, bool needRecalculateFolders = true)
+        public void RemoveMailBox(DbManager db, MailBox mailbox, bool needRecalculateFolders = true)
+        {
+            if (mailbox.MailBoxId <= 0)
+                throw new Exception("MailBox id is 0");
+
+            var freedQuotaSize = RemoveMailBoxInfo(mailbox, db);
+
+            QuotaUsedDelete(mailbox.TenantId, freedQuotaSize);
+
+            if (!needRecalculateFolders)
+                return;
+
+            RecalculateFolders();
+        }
+
+        /// <summary>
+        /// Set mailbox removed
+        /// </summary>
+        /// <param name="mailBox"></param>
+        /// <returns>Return freed quota value</returns>
+        public long RemoveMailBoxInfo(MailBox mailBox)
+        {
+            long freedQuotaSize;
+
+            using (var db = GetDb())
+            {
+                using (var tx = db.BeginTransaction())
+                {
+                    freedQuotaSize = RemoveMailBoxInfo(mailBox, db);
+
+                    tx.Commit();
+                }
+            }
+
+            return freedQuotaSize;
+        }
+
+        /// <summary>
+        /// Set mailbox removed
+        /// </summary>
+        /// <param name="mailBox"></param>
+        /// <param name="db"></param>
+        /// <returns>Return freed quota value</returns>
+        private long RemoveMailBoxInfo(MailBox mailBox, DbManager db)
         {
             if (mailBox.MailBoxId <= 0)
                 throw new Exception("MailBox id is 0");
 
-            db.ExecuteNonQuery(
+            var setMaiboxRemovedQuery =
                 new SqlUpdate(MailboxTable.Name)
                     .Set(MailboxTable.Columns.IsRemoved, true)
-                    .Where(MailboxTable.Columns.Id, mailBox.MailBoxId));
+                    .Where(MailboxTable.Columns.Id, mailBox.MailBoxId);
 
-            db.ExecuteNonQuery(
-                new SqlDelete(ChainTable.Name)
-                    .Where(GetUserWhere(mailBox.UserId, mailBox.TenantId))
-                    .Where(ChainTable.Columns.MailboxId, mailBox.MailBoxId));
+            db.ExecuteNonQuery(setMaiboxRemovedQuery);
 
-            db.ExecuteNonQuery(
+            var deleteChainsQuery = new SqlDelete(ChainTable.Name)
+                .Where(GetUserWhere(mailBox.UserId, mailBox.TenantId))
+                .Where(ChainTable.Columns.MailboxId, mailBox.MailBoxId)
+                .Where(Exp.In(ChainTable.Columns.Folder,
+                    new[]
+                    {
+                        MailFolder.Ids.inbox, MailFolder.Ids.sent, MailFolder.Ids.drafts, MailFolder.Ids.trash,
+                        MailFolder.Ids.spam, MailFolder.Ids.temp
+                    }));
+
+            db.ExecuteNonQuery(deleteChainsQuery);
+
+            var deleteChainXCrmQuery =
                 new SqlDelete(ChainXCrmContactEntity.Name)
                     .Where(ChainXCrmContactEntity.Columns.Tenant, mailBox.TenantId)
-                    .Where(ChainXCrmContactEntity.Columns.MailboxId, mailBox.MailBoxId));
+                    .Where(ChainXCrmContactEntity.Columns.MailboxId, mailBox.MailBoxId);
 
-            db.ExecuteNonQuery(
-                new SqlDelete(MailAlertsTable.Name)
-                    .Where(MailAlertsTable.Columns.Tenant, mailBox.TenantId)
-                    .Where(MailAlertsTable.Columns.User, mailBox.UserId)
-                    .Where(MailAlertsTable.Columns.MailboxId, mailBox.MailBoxId));
+            db.ExecuteNonQuery(deleteChainXCrmQuery);
 
-            db.ExecuteNonQuery(
-                new SqlUpdate(MailTable.Name)
-                    .Set(MailTable.Columns.IsRemoved, true)
-                    .Where(MailTable.Columns.MailboxId, mailBox.MailBoxId)
-                    .Where(GetUserWhere(mailBox.UserId, mailBox.TenantId)));
+            var setMailRemovedQuery = new SqlUpdate(MailTable.Name)
+                .Set(MailTable.Columns.IsRemoved, true)
+                .Where(MailTable.Columns.MailboxId, mailBox.MailBoxId)
+                .Where(GetUserWhere(mailBox.UserId, mailBox.TenantId));
 
-            var totalAttachmentsSize = db.ExecuteScalar<long>(
+            db.ExecuteNonQuery(setMailRemovedQuery);
+
+            var getTotalAttachmentsSizeQuery = string.Format(
+                "select sum(a.size) from {0} a inner join {1} m on a.{2} = m.{3} where m.{4} = @mailbox_id and m.{5} = @tid and a.{5} = @tid and a.{6} != @need_remove",
+                AttachmentTable.Name,
+                MailTable.Name,
+                AttachmentTable.Columns.MailId,
+                MailTable.Columns.Id,
+                MailTable.Columns.MailboxId,
+                MailTable.Columns.Tenant,
+                AttachmentTable.Columns.NeedRemove);
+
+            var totalAttachmentsSize = db.ExecuteScalar<long>(getTotalAttachmentsSizeQuery,
+                new {tid = mailBox.TenantId, need_remove = true, mailbox_id = mailBox.MailBoxId});
+
+            var setAttachmentsRemovedQuery =
                 string.Format(
-                    "select sum(a.size) from {0} a inner join {1} m on a.{2} = m.{3} where m.{4} = @mailbox_id and m.{5} = @tid and a.{5} = @tid and a.{6} != @need_remove",
-                    AttachmentTable.Name,
-                    MailTable.Name,
-                    AttachmentTable.Columns.MailId,
-                    MailTable.Columns.Id,
-                    MailTable.Columns.MailboxId,
-                    MailTable.Columns.Tenant,
-                    AttachmentTable.Columns.NeedRemove), new { tid = mailBox.TenantId, need_remove = true, mailbox_id = mailBox.MailBoxId });
+                    "update {0} a inner join {1} m on a.{2} = m.{3} set a.{4} = @need_remove where m.{5} = @mailbox_id",
+                    AttachmentTable.Name, MailTable.Name, AttachmentTable.Columns.MailId, MailTable.Columns.Id,
+                    AttachmentTable.Columns.NeedRemove, MailTable.Columns.MailboxId);
 
-            var query = string.Format("update {0} a inner join {1} m on a.{2} = m.{3} set a.{4} = @need_remove where m.{5} = @mailbox_id",
-                    AttachmentTable.Name, MailTable.Name, AttachmentTable.Columns.MailId, MailTable.Columns.Id, AttachmentTable.Columns.NeedRemove, MailTable.Columns.MailboxId);
+            db.ExecuteNonQuery(setAttachmentsRemovedQuery, new { need_remove = true, mailbox_id = mailBox.MailBoxId });
 
-            db.ExecuteNonQuery(query, new { need_remove = true, mailbox_id = mailBox.MailBoxId });
+            var getAffectedTagsQuery =
+                string.Format("select t.{0} from {1} t inner join {2} m on t.{3} = m.{4} where m.{5} = @mailbox_id",
+                    TagMailTable.Columns.TagId, TagMailTable.Name, MailTable.Name, TagMailTable.Columns.MailId,
+                    MailTable.Columns.Id, MailTable.Columns.MailboxId);
 
-            query = string.Format("select t.{0} from {1} t inner join {2} m on t.{3} = m.{4} where m.{5} = @mailbox_id",
-                TagMailTable.Columns.TagId, TagMailTable.Name, MailTable.Name, TagMailTable.Columns.MailId, MailTable.Columns.Id, MailTable.Columns.MailboxId);
-
-            var affectedTags = db.ExecuteList(query, new { mailbox_id = mailBox.MailBoxId })
+            var affectedTags = db.ExecuteList(getAffectedTagsQuery, new { mailbox_id = mailBox.MailBoxId })
                 .ConvertAll(r => Convert.ToInt32(r[0]))
                 .Distinct();
 
-            query = string.Format("delete t from {0} t inner join {1} m on t.{2} = m.{3} where m.{4} = @mailbox_id",
-                                  TagMailTable.Name, MailTable.Name, TagMailTable.Columns.MailId, MailTable.Columns.Id, MailTable.Columns.MailboxId);
+            var deleteTagMailQuery =
+                string.Format("delete t from {0} t inner join {1} m on t.{2} = m.{3} where m.{4} = @mailbox_id",
+                    TagMailTable.Name, MailTable.Name, TagMailTable.Columns.MailId, MailTable.Columns.Id,
+                    MailTable.Columns.MailboxId);
 
-            db.ExecuteNonQuery(query, new { mailbox_id = mailBox.MailBoxId });
+            db.ExecuteNonQuery(deleteTagMailQuery, new { mailbox_id = mailBox.MailBoxId });
 
             UpdateTagsCount(db, mailBox.TenantId, mailBox.UserId, affectedTags);
-
-            if (needRecalculateFolders)
-                RecalculateFolders(db, mailBox.TenantId, mailBox.UserId);
 
             var signatureDal = new SignatureDal(db);
             signatureDal.DeleteSignature(mailBox.MailBoxId, mailBox.TenantId);
@@ -525,10 +629,12 @@ namespace ASC.Mail.Aggregator
             var autoreplyDal = new AutoreplyDal(db);
             autoreplyDal.DeleteAutoreply(mailBox.MailBoxId, mailBox.TenantId);
 
+            DeleteAlerts(db, mailBox.TenantId, mailBox.UserId, mailBox.MailBoxId);
+
             return totalAttachmentsSize;
         }
 
-        public ClientConfig GetMailBoxSettings(string host)
+        private ClientConfig GetStoredMailBoxSettings(string host)
         {
             using (var db = GetDb())
             {
@@ -586,7 +692,7 @@ namespace ASC.Mail.Aggregator
 
                 if (providerSettings == null)
                 {
-                    return SearchBusinessVendorsSettings(host);
+                    return null;
                 }
 
                 var config = new ClientConfig();
@@ -633,6 +739,12 @@ namespace ASC.Mail.Aggregator
 
                 return config;
             }
+        }
+
+        public ClientConfig GetMailBoxSettings(string host)
+        {
+            var config = GetStoredMailBoxSettings(host);
+            return config ?? SearchBusinessVendorsSettings(host);
         }
 
         public bool SetMailBoxSettings(ClientConfig config)
@@ -1543,32 +1655,29 @@ namespace ASC.Mail.Aggregator
 
             try
             {
-                var dnsMessage = DnsClient.Default.Resolve(domain, RecordType.Mx);
+                var dnsLookup = new DnsLookup();
 
-                if ((dnsMessage == null) ||
-                    ((dnsMessage.ReturnCode != ReturnCode.NoError) && (dnsMessage.ReturnCode != ReturnCode.NxDomain)))
-                {
-                    return null;
-                }
-
-                var mxRecords = dnsMessage.AnswerRecords.Where(r => r.RecordType == RecordType.Mx).Cast<MxRecord>().ToList();
+                var mxRecords = dnsLookup.GetDomainMxRecords(domain);
 
                 if (!mxRecords.Any())
                 {
                     return null;
                 }
 
-                foreach (var mxXdomain in from mx in mxRecords
-                    from mxXdomain in MxToDomainBusinessVendorsList
-                    where mx.ExchangeDomainName.ToLowerInvariant().Contains(mxXdomain.Key)
-                    select mxXdomain)
+                var knownBusinessMxs =
+                    MxToDomainBusinessVendorsList.Where(
+                        mx =>
+                            mxRecords.FirstOrDefault(
+                                r => r.ExchangeDomainName.ToString().ToLowerInvariant().Contains(mx.Key.ToLowerInvariant())) != null)
+                        .ToList();
+
+                foreach (var mxXdomain in knownBusinessMxs)
                 {
-                    settingsFromDb = GetMailBoxSettings(mxXdomain.Value);
+                    settingsFromDb = GetStoredMailBoxSettings(mxXdomain.Value);
 
                     if (settingsFromDb != null)
                         return settingsFromDb;
                 }
-
             }
             catch (Exception ex)
             {

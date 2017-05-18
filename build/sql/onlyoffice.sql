@@ -603,7 +603,7 @@ CREATE TABLE IF NOT EXISTS `crm_invoice_tax` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `rate` int(11) NOT NULL DEFAULT '0',
+  `rate` decimal(10,2) NOT NULL DEFAULT '0.00',
   `create_on` datetime NOT NULL,
   `create_by` char(38) NOT NULL,
   `last_modifed_on` datetime DEFAULT NULL,
@@ -743,35 +743,24 @@ CREATE TABLE IF NOT EXISTS `crm_task_template_task` (
 
 CREATE TABLE IF NOT EXISTS `crm_voip_calls` (
   `id` varchar(50) NOT NULL,
+  `parent_call_id` varchar(50) NOT NULL,
   `number_from` varchar(50) NOT NULL,
   `number_to` varchar(50) NOT NULL,
   `status` int(10) DEFAULT NULL,
   `answered_by` varchar(50) NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
   `dial_date` datetime DEFAULT NULL,
   `dial_duration` int(11) DEFAULT NULL,
+  `record_sid` VARCHAR(50) NULL DEFAULT NULL,
   `record_url` text,
   `record_duration` int(11) DEFAULT NULL,
+  `record_price` DECIMAL(10,4) NOT NULL,
   `contact_id` int(10) DEFAULT NULL,
   `price` decimal(10,4) DEFAULT NULL,
   `tenant_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `tenant_id` (`tenant_id`)
+  KEY `tenant_id` (`tenant_id`),
+  KEY `parent_call_id` (`parent_call_id`, `tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `crm_voip_calls_history` (
-  `id` varchar(50) NOT NULL,
-  `parent_call_id` varchar(50) NOT NULL,
-  `answered_by` varchar(50) NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
-  `queue_date` datetime DEFAULT NULL,
-  `answer_date` datetime DEFAULT NULL,
-  `end_dial_date` datetime DEFAULT NULL,
-  `record_url` text,
-  `record_duration` int(11) DEFAULT NULL,
-  `price` decimal(10,4) DEFAULT NULL,
-  `tenant_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tenant_id` (`tenant_id`,`parent_call_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 CREATE TABLE IF NOT EXISTS `crm_voip_number` (
   `id` varchar(50) NOT NULL,
@@ -1466,7 +1455,8 @@ CREATE TABLE IF NOT EXISTS `mail_mail` (
   KEY `uidl` (`uidl`,`id_mailbox`),
   KEY `mime_message_id` (`id_mailbox`,`mime_message_id`),
   KEY `md5` (`md5`,`id_mailbox`),
-  KEY `main` (`tenant`,`id_user`,`folder`,`chain_date`),
+  KEY `list_conversations` (`tenant`, `id_user`, `folder`, `chain_date`),
+  KEY `list_messages` (`tenant`, `id_user`, `folder`, `date_sent`),
   KEY `time_modified` (`time_modified`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 

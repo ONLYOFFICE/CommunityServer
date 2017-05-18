@@ -27,9 +27,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
 using ASC.Core;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Utilities;
 
 namespace ASC.VoipService
 {
@@ -41,18 +45,13 @@ namespace ASC.VoipService
 
         public List<Agent> Operators { get; set; }
 
-        internal List<Agent> AvailableOperators
-        {
-            get { return Operators.Where(r => r.Status != AgentStatus.Offline).ToList(); }
-        }
-
         public Queue Queue { get; set; }
 
         public Agent Caller { get { return Operators.FirstOrDefault(r => r.Id == SecurityContext.CurrentAccount.ID); } }
 
         public WorkingHours WorkingHours { get; set; }
 
-        public VoiceMail VoiceMail { get; set; }
+        public string VoiceMail { get; set; }
 
         public string GreetingAudio { get; set; }
 
@@ -82,22 +81,30 @@ namespace ASC.VoipService
                         Pause,
                         Record
                     },
-                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                    new JsonSerializerSettings { ContractResolver = CustomSerializeContractResolver.Instance });
             }
             set
             {
-                var settings = JsonConvert.DeserializeObject<VoipSettings>(value, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                try
+                {
+                    var settings = JsonConvert.DeserializeObject<VoipSettings>(value, new JsonSerializerSettings {ContractResolver = CustomSerializeContractResolver.Instance });
 
-                Operators = settings.Operators ?? new List<Agent>();
-                Name = settings.Name;
-                Queue = settings.Queue;
-                WorkingHours = settings.WorkingHours;
-                GreetingAudio = settings.GreetingAudio;
-                VoiceMail = settings.VoiceMail;
-                HoldAudio = settings.HoldAudio;
-                AllowOutgoingCalls = settings.AllowOutgoingCalls;
-                Pause = settings.Pause;
-                Record = settings.Record;
+                    Operators = settings.Operators ?? new List<Agent>();
+                    Name = settings.Name;
+                    Queue = settings.Queue;
+                    WorkingHours = settings.WorkingHours;
+                    GreetingAudio = settings.GreetingAudio;
+                    VoiceMail = settings.VoiceMail;
+                    HoldAudio = settings.HoldAudio;
+                    AllowOutgoingCalls = settings.AllowOutgoingCalls;
+                    Pause = settings.Pause;
+                    Record = settings.Record;
+                }
+                catch (Exception)
+                {
+
+                }
+
             }
         }
 
@@ -135,6 +142,49 @@ namespace ASC.VoipService
         public static VoipSettings GetSettings(string settings)
         {
             return new VoipSettings {JsonSettings = settings};
+        }
+    }
+
+    class CustomSerializeContractResolver : CamelCasePropertyNamesContractResolver
+    {
+        public static readonly CustomSerializeContractResolver Instance = new CustomSerializeContractResolver();
+
+        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+        {
+            var property = base.CreateProperty(member, memberSerialization);
+
+            if (property.PropertyName == "voiceMail")
+            {
+                property.MemberConverter = new VoiceMailConverter();
+            }
+
+            return property;
+        }
+    }
+
+    class VoiceMailConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            serializer.Serialize(writer, value);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.ValueType != null && reader.ValueType.Name == "String")
+            {
+                return reader.Value;
+            }
+
+            var jObject = JObject.Load(reader);
+            var url = jObject.Value<string>("url");
+
+            return !string.IsNullOrEmpty(url) ? url : "";
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return true;
         }
     }
 }

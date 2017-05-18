@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -26,9 +26,11 @@
 
 using System;
 using System.Web;
+using ASC.CRM.Core;
 using ASC.Data.Storage;
+using ASC.Web.CRM.Configuration;
+using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.Core.Voip;
 using Resources;
 
 namespace ASC.Web.CRM.Controls.Settings
@@ -43,7 +45,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!VoipPaymentSettings.IsEnabled)
+            if (!((CRMSecurity.IsAdmin || VoipNumberData.CanMakeOrReceiveCall) && VoipNumberData.Allowed))
             {
                 Response.Redirect(PathProvider.StartURL() + "settings.aspx");
             }

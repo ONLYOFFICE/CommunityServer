@@ -62,8 +62,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts("~/usercontrols/management/monitoring/js/portschecker.js");
-            Page.RegisterStyle("~/usercontrols/management/monitoring/css/monitoring.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/monitoring/js/portschecker.js")
+                .RegisterStyle("~/usercontrols/management/monitoring/css/monitoring.less");
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

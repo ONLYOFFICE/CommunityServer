@@ -42,7 +42,7 @@ namespace ASC.Web.Files.Import
 
         public static bool SupportInclusion
         {
-            get { return SupportBoxInclusion || SupportDropboxInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion; }
+            get { return SupportBoxInclusion || SupportDropboxInclusion || SupportDocuSignInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion; }
         }
 
         public static bool SupportBoxInclusion
@@ -56,7 +56,11 @@ namespace ASC.Web.Files.Import
 
         public static bool SupportDropboxInclusion
         {
-            get { return ThirdPartyProviders.Contains("dropbox") && !string.IsNullOrEmpty(DropboxAppKey) && !string.IsNullOrEmpty(DropboxAppSecret); }
+            get
+            {
+                return ThirdPartyProviders.Contains("dropboxv2") &&
+                       !(string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20ClientId) || string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20ClientSecret) || string.IsNullOrEmpty(DropboxLoginProvider.DropboxOAuth20RedirectUrl));
+            }
         }
 
         public static bool SupportOneDriveInclusion
@@ -93,6 +97,14 @@ namespace ASC.Web.Files.Import
             get { return KeyStorage.Get("dropboxappsecret"); }
         }
 
+        public static bool SupportDocuSignInclusion
+        {
+            get
+            {
+                return ThirdPartyProviders.Contains("docusign") &&
+                       !(string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20ClientId) || string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20ClientSecret) || string.IsNullOrEmpty(DocuSignLoginProvider.DocuSignOAuth20RedirectUrl));
+            }
+        }
 
         public static bool SupportGoogleDriveInclusion
         {

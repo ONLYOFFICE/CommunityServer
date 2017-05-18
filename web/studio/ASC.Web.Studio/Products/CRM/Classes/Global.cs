@@ -24,38 +24,27 @@
 */
 
 
-#region Import
-
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
-using System.Text;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
-using ASC.Core;
-using ASC.Core.Users;
+using System.Web.Configuration;
+using ASC.Core.Common.Settings;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Data.Storage;
-using ASC.Thrdparty.Configuration;
-using ASC.VoipService;
-using ASC.VoipService.Dao;
-using ASC.VoipService.Twilio;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core;
+using ASC.Web.Core.Files;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using System.Web.Configuration;
-using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using ASC.Web.Core.Files;
-using ASC.Web.Core;
 using Newtonsoft.Json;
-
-#endregion
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.CRM.Classes
 {

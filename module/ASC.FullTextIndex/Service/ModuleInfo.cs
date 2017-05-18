@@ -156,7 +156,7 @@ namespace ASC.FullTextIndex
             private static string EscapeString(string text)
             {
                 var escapeListFrom = new[] { "\\", "(", ")", "|", "-", "!", "@", "~", "\"", "&", "/", "^", "$", "=", "'", "\x00", "\n", "\r", "\x1a" };
-                var escapeListTo = new[] { "\\\\", @"\\\(", @"\\\)", @"\\\|", @"\\\-", @"\\\!", @"\\\@", @"\\\~", "\\\"", @"\\\&", @"\\/", @"\\\^", @"\\\$", @"\\\=", "\\'", "\\x00", "\\n", "\\r", "\\x1a" };
+                var escapeListTo = new[] { "\\\\", @"\\\(", @"\\\)", @"\\\|", @"\\\-", @"\\\!", @"\\\@", @"\\\~", "\\\\\"", @"\\\&", @"\\/", @"\\\^", @"\\\$", @"\\\=", "\\'", "\\x00", "\\n", "\\r", "\\x1a" };
                 for (var i = 0; i < escapeListFrom.Length; i++)
                 {
                     text = text.Replace(escapeListFrom[i], escapeListTo[i]);
@@ -172,7 +172,7 @@ namespace ASC.FullTextIndex
 
             private static string ExpandKeyword(string text)
             {
-                return string.Format("( ({0}) | (*{0}*) | (={0}) )", text);
+                return string.Format("( ({0}) | (*{0}*) | (={0}) | (\\^{0}*) | (*{0}\\$) )", text);
             }
         }
     }

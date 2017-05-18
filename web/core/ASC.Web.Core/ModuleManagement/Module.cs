@@ -25,8 +25,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASC.Web.Core.WebZones;
 
 namespace ASC.Web.Core.ModuleManagement
@@ -40,46 +38,23 @@ namespace ASC.Web.Core.ModuleManagement
         }
 
 
-        public virtual Guid ID
-        {
-            get;
-            set;
-        }
+        public virtual Guid ID { get; set; }
 
-        public virtual Guid ProjectId
-        {
-            get;
-            set;
-        }
+        public virtual Guid ProjectId { get; set; }
 
-        public virtual string Name
-        {
-            get;
-            set;
-        }
+        public virtual string Name { get; set; }
 
-        public virtual string ModuleSysName
-        {
-            get;
-            set;
-        }
+        public virtual string ModuleSysName { get; set; }
 
-        public virtual string Description
-        {
-            get;
-            set;
-        }
+        public virtual string Description { get; set; }
 
-        public virtual string StartURL
-        {
-            get;
-            set;
-        }
-        public virtual string ProductClassName
-        {
-            get;
-            set;
-        }
+        public virtual string StartURL { get; set; }
+
+        public virtual string HelpURL { get; set; }
+
+        public virtual string ProductClassName { get; set; }
+
+        public bool Visible { get { return true; } }
 
         public virtual ModuleContext Context
         {

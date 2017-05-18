@@ -104,7 +104,7 @@
                 <div style="margin-bottom: 5px; padding: 0px 5px;">
                     <%=DateTimeService.DateTime2StringPostStyle(DateTimeService.CurrentDate())%>
                 </div>
-                <div id="forum_message_previewfck" class="forum_mesBox" style="width: 550px;">
+                <div id="forum_message_previewfck" class="forum_mesBox">
                 </div>
             </td>
         </tr>

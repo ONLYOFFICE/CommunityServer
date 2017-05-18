@@ -112,57 +112,51 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="pattern_1">
+  <data name="pattern_1" xml:space="preserve">
     <value>h1.New Wiki Page Added: "$PageName":"$URL"
 
-$Date "$UserName":"$UserURL" has created a new wiki page:
+$Date "$UserName":"$UserURL" has created a new Wiki page: "$PageName":"$URL"
 
 $PagePreview
 
 "Read More":"$URL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscripion settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new Wiki pages created, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_2">
+  <data name="pattern_2" xml:space="preserve">
     <value>h1.Wiki Page Edited: "$PageName":"$URL"
 
-$Date "$UserName":"$UserURL" has edited the Wiki page:
+$Date "$UserName":"$UserURL" has edited the Wiki page: "$PageName":"$URL"
 
 $PagePreview
 
 "Read More":"$URL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscripion settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the changes of this Wiki page, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="pattern_3">
+  <data name="pattern_3" xml:space="preserve">
     <value>h1.New Comment to Wiki Page "$PageName":"$URL"
 
-$Date "$UserName":"$UserURL" has added a comment to the Wiki page:
+$Date "$UserName":"$UserURL" has added a new comment to the "$PageName":"$URL" Wiki page:
 
 $CommentBody
 
 "Read More":"$URL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscripion settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this Wiki page, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^ </value>
   </data>
-  <data name="subject_1">
-    <value>Community. New Wiki Page Added: $PageName</value>
+  <data name="subject_1" xml:space="preserve">
+    <value>Community. New Wiki page added: $PageName</value>
   </data>
-  <data name="subject_2">
-    <value>Community. Wiki Page Edited: $PageName</value>
+  <data name="subject_2" xml:space="preserve">
+    <value>Community. Wiki page edited: $PageName</value>
   </data>
-  <data name="subject_3">
-    <value>Community. New Comment to Wiki Page: $PageName</value>
+  <data name="subject_3" xml:space="preserve">
+    <value>Community. New comment to Wiki page: $PageName</value>
   </data>
 </root>

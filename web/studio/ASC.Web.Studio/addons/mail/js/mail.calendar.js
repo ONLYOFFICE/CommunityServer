@@ -468,18 +468,18 @@ window.mailCalendar = (function ($) {
 
                         var buttons = html.find(".cal_buttons");
                         if (buttons.length > 0) {
-                            buttons.buttonset({
-                                items: ".button, input[type=radio]"
-                            });
+                            buttons.controlgroup();
+
+                            buttons.find("> input:radio").checkboxradio("option", "icon", false);
 
                             function checkButton(idButton) {
                                 if (idCheckedButton) {
                                     var checkedButton = buttons.find(idButton);
                                     checkedButton.prop('checked', true);
-                                    buttons.buttonset("refresh");
+                                    buttons.controlgroup("refresh");
                                 } else {
-                                    buttons.find(".button").prop('checked', false);
-                                    buttons.buttonset("refresh");
+                                    buttons.find("> input:radio").prop('checked', false);
+                                    buttons.controlgroup("refresh");
                                 }
 
                                 return null;

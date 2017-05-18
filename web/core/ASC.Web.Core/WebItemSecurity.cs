@@ -28,6 +28,7 @@ using ASC.Common.Caching;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
@@ -43,9 +44,26 @@ namespace ASC.Web.Core
     public static class WebItemSecurity
     {
         private static readonly SecurityAction Read = new SecurityAction(new Guid("77777777-32ae-425f-99b5-83176061d1ae"), "ReadWebItem", false, true);
-        private static readonly ICache cache = AscCache.Default;
+        private static readonly ICache cache;
+        private static readonly ICacheNotify cacheNotify;
 
+        static WebItemSecurity()
+        {
+            try
+            {
+                cache = AscCache.Memory;
+                cacheNotify = AscCache.Notify;
+                cacheNotify.Subscribe<WebItemSecurityNotifier>((r, act) =>
+                {
+                    ClearCache();
+                });
+            }
+            catch
+            {
                 
+            }
+        }
+
         public static bool IsAvailableForUser(string id, Guid @for)
         {
             var result = false;
@@ -126,12 +144,6 @@ namespace ASC.Web.Core
             return result;
         }
 
-
-        public static bool IsLicensed(IWebItem item)
-        {
-            return true;
-        }
-
         public static void SetSecurity(string id, bool enabled, params Guid[] subjects)
         {
             if(SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone)
@@ -160,7 +172,7 @@ namespace ASC.Web.Core
                 CoreContext.AuthorizationManager.AddAce(a);
             }
 
-            ClearCache();
+            cacheNotify.Publish(new WebItemSecurityNotifier(), CacheNotifyAction.Any);
         }
 
         public static WebItemSecurityInfo GetSecurityInfo(string id)
@@ -210,6 +222,15 @@ namespace ASC.Web.Core
                 {
                     throw new System.Security.SecurityException("Collaborator can not be an administrator");
                 }
+
+                if (productid == WebItemManager.PeopleProductID)
+                {
+                    foreach (var ace in GetPeopleModuleActions(userid))
+                    {
+                        CoreContext.AuthorizationManager.AddAce(ace);
+                    }
+                }
+
                 CoreContext.UserManager.AddUserIntoGroup(userid, productid);
             }
             else
@@ -221,10 +242,19 @@ namespace ASC.Web.Core
                         CoreContext.UserManager.RemoveUserFromGroup(userid, id);
                     }
                 }
+
+                if (productid == ASC.Core.Users.Constants.GroupAdmin.ID || productid == WebItemManager.PeopleProductID)
+                {
+                    foreach (var ace in GetPeopleModuleActions(userid))
+                    {
+                        CoreContext.AuthorizationManager.RemoveAce(ace);
+                    }
+                }
+
                 CoreContext.UserManager.RemoveUserFromGroup(userid, productid);
             }
 
-            ClearCache();
+            cacheNotify.Publish(new WebItemSecurityNotifier(), CacheNotifyAction.Any);
         }
 
         public static bool IsProductAdministrator(Guid productid, Guid userid)
@@ -268,6 +298,16 @@ namespace ASC.Web.Core
         private static string GetCacheKey()
         {
             return string.Format("{0}:{1}", TenantProvider.CurrentTenantID, "webitemsecurity");
+        }
+
+        private static IEnumerable<AzRecord> GetPeopleModuleActions(Guid userid)
+        {
+            return new List<Guid>
+                {
+                    ASC.Core.Users.Constants.Action_AddRemoveUser.ID,
+                    ASC.Core.Users.Constants.Action_EditUser.ID,
+                    ASC.Core.Users.Constants.Action_EditGroups.ID
+                }.Select(action => new AzRecord(userid, action, AceType.Allow));
         }
 
         private class WebItemSecurityObject : ISecurityObject
@@ -340,5 +380,10 @@ namespace ASC.Web.Core
                 throw new NotImplementedException();
             }
         }
+    }
+
+    public class WebItemSecurityNotifier
+    {
+        
     }
 }

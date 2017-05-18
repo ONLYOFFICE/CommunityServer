@@ -27,23 +27,24 @@
 using ASC.Core;
 using ASC.Core.Common.Notify.Push;
 using ASC.Core.Users;
+using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Import;
+using ASC.Web.Files.Masters;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using System;
-using System.Linq;
 using System.Web;
-using ASC.Web.Core.Files;
 
 namespace ASC.Web.Files
 {
-    public partial class _Default : MainPage
+    public partial class _Default : MainPage, IStaticBundle
     {
         protected bool AddCustomScript;
 
@@ -55,8 +56,10 @@ namespace ASC.Web.Files
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            LoadScripts();
+        {           
+            ((BasicTemplate)Master).Master
+               .AddStaticStyles(GetStaticStyleSheet())
+               .AddStaticBodyScripts(GetStaticJavaScript());
 
             LoadControls();
 
@@ -111,41 +114,59 @@ namespace ASC.Web.Files
             #endregion
         }
 
-        private void LoadScripts()
+        public ScriptBundleData GetStaticJavaScript()
         {
-            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath, "common.css");
-            Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                "controls/maincontent/maincontent.css",
-                "controls/contentlist/contentlist.css",
-                "controls/accessrights/accessrights.css",
-                "controls/fileviewer/fileviewer.css",
-                "controls/thirdparty/thirdparty.css",
-                "controls/convertfile/convertfile.css",
-                "controls/chunkuploaddialog/chunkuploaddialog.css");
+            return (ScriptBundleData)
+                   new ScriptBundleData("files", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath,
+                                  "auth.js",
+                                  "common.js",
+                                  "filter.js",
+                                  "templatemanager.js",
+                                  "servicemanager.js",
+                                  "ui.js",
+                                  "mousemanager.js",
+                                  "markernew.js",
+                                  "actionmanager.js",
+                                  "anchormanager.js",
+                                  "foldermanager.js",
+                                  "eventhandler.js"
+                       )
+                       .AddSource(ResolveUrl,
+                                  "~/js/third-party/jquery/jquery.mousewheel.js",
+                                  "~/js/third-party/jquery/jquery.uri.js",
+                                  "~/js/uploader/jquery.fileupload.js")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "controls/accessrights/accessrights.js",
+                                  "controls/chunkuploaddialog/chunkuploadmanager.js",
+                                  "controls/convertfile/convertfile.js",
+                                  "controls/createmenu/createmenu.js",
+                                  "controls/emptyfolder/emptyfolder.js",
+                                  "controls/fileviewer/fileviewer.js",
+                                  "controls/thirdparty/thirdparty.js",
+                                  "controls/tree/treebuilder.js",
+                                  "controls/tree/tree.js"
+                       );
+        }
 
-            Page.RegisterBodyScripts(ResolveUrl, 
-                                         "~/js/third-party/jquery/jquery.mousewheel.js",
-                                         "~/js/third-party/jquery/jquery.uri.js",
-                                         "~/js/third-party/sorttable.js");
-
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath,
-                                         "auth.js",
-                                         "common.js",
-                                         "filter.js",
-                                         "templatemanager.js",
-                                         "servicemanager.js",
-                                         "ui.js",
-                                         "mousemanager.js",
-                                         "markernew.js",
-                                         "actionmanager.js",
-                                         "anchormanager.js",
-                                         "foldermanager.js");
-
-            Page.RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                         "controls/createmenu/createmenu.js",
-                                         "controls/fileviewer/fileviewer.js",
-                                         "controls/convertfile/convertfile.js",
-                                         "controls/chunkuploaddialog/chunkuploadmanager.js");
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return (StyleBundleData)
+                   new StyleBundleData("files", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "controls/accessrights/accessrights.css",
+                                  "controls/chunkuploaddialog/chunkuploaddialog.css",
+                                  "controls/contentlist/contentlist.css",
+                                  "controls/convertfile/convertfile.css",
+                                  "controls/emptyfolder/emptyfolder.css",
+                                  "controls/fileviewer/fileviewer.css",
+                                  "controls/maincontent/maincontent.css",
+                                  "controls/morefeatures/css/morefeatures.css",
+                                  "controls/thirdparty/thirdparty.css",
+                                  "controls/tree/treebuilder.css",
+                                  "controls/tree/tree.css"
+                       );
         }
 
         private void LoadControls()
@@ -228,5 +249,7 @@ namespace ASC.Web.Files
                 StudioNotifyService.Instance.SendUserWelcomePersonal(user);
             }
         }
+
+        
     }
 }

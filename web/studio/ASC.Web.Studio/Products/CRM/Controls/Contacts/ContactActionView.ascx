@@ -292,7 +292,7 @@
 
                     <dt style="margin-top:20px;">
                         <div id="contactListBox">
-                            <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
+                            <table id="contactTable" class="table-list padding4" cellpadding="0" cellspacing="0">
                                 <tbody>
                                 </tbody>
                             </table>

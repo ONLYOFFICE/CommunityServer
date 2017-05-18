@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -46,7 +46,7 @@ namespace ASC.Api.CRM.Wrappers
         public string To { get; set; }
 
         [DataMember(Order = 4)]
-        public VoipCallStatus Status { get; set; }
+        public VoipCallStatus? Status { get; set; }
 
         [DataMember(Order = 5)]
         public EmployeeWraper AnsweredBy { get; set; }
@@ -63,8 +63,14 @@ namespace ASC.Api.CRM.Wrappers
         [DataMember(Order = 11)]
         public ContactWrapper Contact { get; set; }
 
-        [DataMember(Order = 12)]
-        public IEnumerable<VoipCallHistoryWrapper> History { get; set; }
+        [DataMember(Order = 11, EmitDefaultValue = false)]
+        public IEnumerable<VoipCallWrapper> Calls { get; set; }
+
+        [DataMember(Order = 13)]
+        public string RecordUrl { get; set; }
+
+        [DataMember(Order = 14)]
+        public int RecordDuration { get; set; }
 
         public VoipCallWrapper(VoipCall call, ContactWrapper contact = null)
         {
@@ -75,9 +81,15 @@ namespace ASC.Api.CRM.Wrappers
             AnsweredBy = EmployeeWraper.Get(call.AnsweredBy);
             DialDate = new ApiDateTime(call.DialDate);
             DialDuration = call.DialDuration;
-            Cost = call.TotalPrice;
+            Cost = call.Price + call.ChildCalls.Sum(r=> r.Price) + call.VoipRecord.Price;
             Contact = contact;
-            History = call.History.Select(h => new VoipCallHistoryWrapper(h));
+            RecordUrl = call.VoipRecord.Uri;
+            RecordDuration = call.VoipRecord.Duration;
+
+            if (call.ChildCalls.Any())
+            {
+                Calls = call.ChildCalls.Select(childCall => new VoipCallWrapper(childCall));
+            }
         }
     }
 }

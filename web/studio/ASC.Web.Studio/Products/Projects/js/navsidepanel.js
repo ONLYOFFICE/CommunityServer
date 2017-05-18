@@ -25,21 +25,112 @@
 
 
 ASC.Projects.navSidePanel = (function () {
-    var currentProjectId;
-    var isInit;
+    var currentProjectId, isInit;
+    var common = ASC.Projects.Common;
+    var $createNewButton,
+        $createNewTask,
+        $createNewMilestone,
+        $createNewTimer,
+        $createNewDiscussion,
+        $menuCreateNewButton,
+        $menuTMDocs,
+        $menuMessages,
+        $menuTasks,
+        $menuMilestones,
+        $menuTimeTracking,
+        $menuTemplates,
+        $menuSettings,
+        $menuImport,
+        $menuProjects,
+        $myProjectsConteiner,
+        $pageMenu,
+        $menuMyProjects,
+        $menuFollowedProjects,
+        $menuActiveProjects,
+        $menuMyMilestones,
+        $menuUpcomingMilestones,
+        $menuMyTasks,
+        $menuUpcomingTasks,
+        $menuMyDiscussions,
+        $menuLatestDiscussion;
 
-    var init = function () {
+    var ascProjects = ASC.Projects;
+
+    var openClass = "open",
+        activeClass = "active",
+        disableClass = "disable",
+        currentCategoryClass = "currentCategory",
+        openCurrentCategoryClass = openClass + " " + currentCategoryClass,
+        activeCurrentCategoryClass = activeClass + " " + currentCategoryClass;
+
+    var projectsPage = "projects.aspx",
+        messagesPage = "messages.aspx",
+        tasksPage = "tasks.aspx",
+        milestonesPage = "milestones.aspx",
+        timetrackingPage = "timetracking.aspx";
+    var profileID;
+
+    function init() {
+        currentProjectId = jq.getURLParam('prjID');
+
+        if (!$createNewDiscussion) {
+            $createNewDiscussion = jq("#createNewDiscussion");
+        }
+
+        if (currentProjectId !== null) {
+            $createNewDiscussion.attr("href", "messages.aspx?action=add&prjID=" + currentProjectId);
+        } else {
+            $createNewDiscussion.attr("href", "messages.aspx?action=add");
+        }
+
         if (isInit) {
             return;
         }
 
+        Teamlab.bind(Teamlab.events.updatePrjProjectStatus,
+            function(params, project) {
+                showOrHideCreateNew();
+            });
+
+        profileID = Teamlab.profile.id;
         isInit = true;
 
-        currentProjectId = jq.getURLParam('prjID');
+        $menuCreateNewButton = jq("#menuCreateNewButton");
+        $createNewButton = jq("#createNewButton");
+        $createNewTask = jq("#createNewTask");
+        $createNewMilestone = jq("#createNewMilestone");
+        $createNewTimer = jq("#createNewTimer");
+        $menuTMDocs = jq("#menuTMDocs");
+        $menuMessages = jq("#menuMessages");
+        $menuTasks = jq("#menuTasks");
+        $menuMilestones = jq("#menuMilestones");
+        $menuTimeTracking = jq("#menuTimeTracking");
+        $menuTemplates = jq("#menuTemplates");
+        $menuSettings = jq("#menuSettings");
+        $menuImport = jq("#menuImport");
+        $menuProjects = jq("#menuProjects");
+        $myProjectsConteiner = jq("#myProjectsConteiner");
+        $pageMenu = jq(".page-menu");
+        $menuMyProjects = $pageMenu.find("#menuMyProjects");
+        $menuFollowedProjects = $pageMenu.find("#menuFollowedProjects");
+        $menuActiveProjects = $pageMenu.find("#menuActiveProjects");
+        $menuMyMilestones = $pageMenu.find("#menuMyMilestones");
+        $menuUpcomingMilestones = $pageMenu.find("#menuUpcomingMilestones");
+        $menuMyTasks = $pageMenu.find("#menuMyTasks");
+        $menuUpcomingTasks = $pageMenu.find("#menuUpcomingTasks");
+        $menuMyDiscussions = $pageMenu.find("#menuMyDiscussions");
+        $menuLatestDiscussion = $pageMenu.find("#menuLatestDiscussion");
+
         highlightMenu();
         initNavMenuItems();
+        showOrHideCreateNew();
 
-        jq("#createNewTask").click(function () {
+        $menuCreateNewButton.on("click", function (e) {
+            if ($menuCreateNewButton.hasClass(disableClass)) return false;
+            return true;
+        });
+
+        $createNewTask.click(function () {
             var anchor = ASC.Controls.AnchorController.getAnchor();
             var author = jq.getAnchorParam('responsible_for_milestone', anchor) ||
                 jq.getAnchorParam('tasks_responsible', anchor) ||
@@ -54,257 +145,358 @@ ASC.Projects.navSidePanel = (function () {
                 taskParams.responsibles = [{ id: author }];
             }
             ASC.Projects.TaskAction.showCreateNewTaskForm(taskParams);
-            jq("#createNewButton").hide();
+            $createNewButton.hide();
             return false;
         });
-        jq("#createNewMilestone").click(function () {
+
+        $createNewMilestone.click(function () {
             ASC.Projects.MilestoneAction.showNewMilestonePopup();
-            jq("#createNewButton").hide();
+            $createNewButton.hide();
             return false;
         });
-        jq("#createNewTimer").click(function () {
-            var currentCategory = jq(".menu-list").find(".menu-item.currentCategory").attr("id");
+
+        $createNewTimer.click(function () {
+            var currentCategory = jq(".menu-list").find(".menu-item." + currentCategoryClass).attr("id");
             var taskId = jq.getURLParam("ID");
+
             if (currentProjectId) {
-                if ((currentCategory === "menuTasks" || document.location.href.indexOf("timetracking.aspx") > 0) && taskId) {
-                    ASC.Projects.Common.showTimer('timer.aspx?prjID=' + currentProjectId + '&ID=' + taskId);
+                if ((currentCategory === "menuTasks" || document.location.href.indexOf(timetrackingPage) > 0) && taskId) {
+                    common.showTimer(currentProjectId, taskId);
                 } else {
-                    ASC.Projects.Common.showTimer('timer.aspx?prjID=' + currentProjectId);
+                    common.showTimer(currentProjectId);
                 }
             } else {
-                ASC.Projects.Common.showTimer('timer.aspx');
+                common.showTimer();
             }
-            jq("#createNewButton").hide();
+            $createNewButton.hide();
             return false;
         });
-        jq("#myProjectsConteiner .expander").click(function (event) {
+
+        $myProjectsConteiner.find(".expander").click(function (event) {
             var menuItem = jq(this).closest(".menu-sub-item");
-            if (jq(menuItem).hasClass("open")) {
-                jq(menuItem).removeClass("open");
+            if (jq(menuItem).hasClass(openClass)) {
+                jq(menuItem).removeClass(openClass);
             } else {
-                jq(menuItem).addClass("open");
+                jq(menuItem).addClass(openClass);
             }
             event.stopPropagation();
         });
-        jq(".page-menu #menuMyProjects").click(function () {
-            jq(".active").removeClass("active");
-            jq(this).closest("div").addClass("active");
-        });
     };
 
-    var highlightMenu = function () {
-        jq(".menu-list li.filter, li.menu-item, div.menu-item").removeClass("active currentCategory");
+    function highlightMenu() {
+        jq(".menu-list li.filter, li.menu-item, div.menu-item, li.menu-sub-item").removeClass(activeCurrentCategoryClass);
         var pathnamearr = location.pathname.split('/');
-        var currentPage = pathnamearr[pathnamearr.length - 1];
+        var currentPage = pathnamearr[pathnamearr.length - 1].toLowerCase();
+        currentProjectId = jq.getURLParam("prjID");
 
         if (currentPage === "tmdocs.aspx") {
-            jq("#menuTMDocs").removeClass("none-sub-list");
-            jq("#menuTMDocs").addClass("sub-list open");
+            $menuTMDocs.removeClass("none-sub-list");
+            $menuTMDocs.addClass("sub-list open");
             if (!currentProjectId) {
-                jq("#menuTMDocs a").attr("href", "#");
-                jq("#menuTMDocs").addClass("active currentCategory");
+                $menuTMDocs.find("a").attr("href", "#");
+                $menuTMDocs.addClass(activeCurrentCategoryClass);
             } else {
-                jq("#menuTMDocs a").attr("href", "tmdocs.aspx");
+                $menuTMDocs.find("a").attr("href", "tmdocs.aspx");
             }
         }
 
         if (currentProjectId) {
-            currentPage = "projects.aspx";
+            currentPage = projectsPage;
         }
-        if (currentPage === "messages.aspx") {
-            jq("#menuMessages").addClass("active currentCategory");
+        if (currentPage === messagesPage) {
+            $menuMessages.addClass(activeCurrentCategoryClass);
         }
 
-        if (currentPage === "projects.aspx") {
-            if (!jq("#myProjectsConteiner li[id=" + currentProjectId + "]").length) {
-                jq("#menuProjects").addClass("active");
+        if (currentPage === projectsPage) {
+            if (!$myProjectsConteiner.find("li[id=" + currentProjectId + "]").length) {
+                $menuProjects.addClass(activeClass);
             } else {
-                jq("#menuProjects").addClass("open");
-                jq("#myProjectsConteiner").addClass("open");
-                jq("#myProjectsConteiner").addClass("currentCategory");
-                jq("#myProjectsConteiner li[id=" + currentProjectId + "]").addClass("active currentCategory");
+                $menuProjects.addClass(openClass);
+                $myProjectsConteiner.addClass(openCurrentCategoryClass);
+                $myProjectsConteiner.find("li[id=" + currentProjectId + "]").addClass(activeCurrentCategoryClass);
             }
 
-            jq("#menuProjects").addClass("currentCategory");
+            $menuProjects.addClass(currentCategoryClass);
         }
 
-        if (currentPage === "milestones.aspx") {
-            jq("#menuMilestones").addClass("active currentCategory");
+        if (currentPage === milestonesPage) {
+            $menuMilestones.addClass(activeCurrentCategoryClass);
         }
 
-        if (currentPage === "tasks.aspx") {
-            jq("#menuTasks").addClass("active currentCategory");
+        if (currentPage === tasksPage) {
+            $menuTasks.addClass(activeCurrentCategoryClass);
         }
 
-        if (currentPage === "timeTracking.aspx") {
-            jq("#menuTimeTracking").addClass("active currentCategory");
+        if (currentPage === timetrackingPage) {
+            $menuTimeTracking.addClass(activeCurrentCategoryClass);
         }
 
         if (currentPage === "reports.aspx") {
-            jq("#menuReports").addClass("active");
+            jq("#menuReports").addClass(activeClass);
         }
 
-        if (currentPage === "projectTemplates.aspx") {
-            jq("#menuTemplates").addClass("active");
-            jq("#menuSettings").addClass("currentCategory open");
-        }
-
-        if (currentPage === "import.aspx") {
-            jq("#menuImport").addClass("active");
-            jq("#menuSettings").addClass("currentCategory open");
+        if (currentPage === "projecttemplates.aspx") {
+            $menuTemplates.addClass(activeClass);
         }
 
 
 
-        var currentCategory = jq(".menu-list").find(".menu-item.active").attr("id");
+        var currentCategory = jq(".menu-list").find(".menu-item." + activeClass).attr("id");
         var hash = document.location.hash;
         var flag = false;
 
-        var pageProjectsFlag = location.href.indexOf("projects.aspx");
+        var pageProjectsFlag = location.href.indexOf(projectsPage);
         var pageActionFlag = jq.getURLParam('action');
 
         if ((!currentProjectId && !pageActionFlag) && pageProjectsFlag > 0) {
-            if (hash.indexOf("team_member=" + Teamlab.profile.id) > 0) {
-                if (jq("#myProjectsConteiner").length) {
-                    jq(".page-menu #menuMyProjects").closest("div").addClass("active");
+            if (hash.indexOf("team_member=" + profileID) > 0) {
+                if ($myProjectsConteiner.length) {
+                    $menuMyProjects.closest("div").addClass(activeClass);
                 } else {
-                    jq(".page-menu #menuMyProjects").closest("li").addClass("active");
+                    $menuMyProjects.closest("li").addClass(activeClass);
                 }
 
                 flag = true;
             } else if (hash.indexOf("followed=true") > 0) {
-                jq(".page-menu #menuFollowedProjects").parent("li").addClass("active");
+                $menuFollowedProjects.parent("li").addClass(activeClass);
                 flag = true;
             } else {
                 if (hash.indexOf("status=open") > 0) {
-                    jq(".page-menu #menuActiveProjects").parent("li").addClass("active");
-                    jq("#menuProjects").addClass("open");
+                    $menuActiveProjects.parent("li").addClass(activeClass);
+                    $menuProjects.addClass(openClass);
                     flag = true;
                 }
             }
             if (flag) {
-                jq("#menuProjects").removeClass("active");
+                $menuProjects.removeClass(activeClass);
             }
         }
 
         if (currentCategory === "menuMilestones") {
             flag = false;
-            if (hash.indexOf("user_tasks=" + Teamlab.profile.id) > 0 && hash.indexOf("status=open") > 0) {
-                jq(".page-menu #menuMyMilestones").parent("li").addClass("active");
+            if (hash.indexOf("user_tasks=" + profileID) > 0 && hash.indexOf("status=open") > 0) {
+                $menuMyMilestones.parent("li").addClass(activeClass);
                 flag = true;
-            } else if (hash.indexOf("user_tasks=" + Teamlab.profile.id) > 0 && hash.indexOf("&deadlineStart=") > 0) {
-                jq(".page-menu #menuUpcomingMilestones").parent("li").addClass("active");
-                flag = true;
-            }
-            if (flag) {
-                jq("#menuMilestones").removeClass("active");
-            }
-        }
-
-        if (currentCategory === "menuTasks" && jq("#menuTasks").hasClass("open")) {
-            flag = false;
-            if (hash.indexOf("tasks_responsible=" + Teamlab.profile.id) > 0 && hash.indexOf("status=open") > 0) {
-                jq(".page-menu #menuMyTasks").parent("li").addClass("active");
-                flag = true;
-            } else if (hash.indexOf("tasks_responsible=" + Teamlab.profile.id) > 0 && hash.indexOf("&deadlineStart=") > 0) {
-                jq(".page-menu #menuUpcomingTasks").parent("li").addClass("active");
+            } else if (hash.indexOf("user_tasks=" + profileID) > 0 && hash.indexOf("&deadlineStart=") > 0) {
+                $menuUpcomingMilestones.parent("li").addClass(activeClass);
                 flag = true;
             }
             if (flag) {
-                jq("#menuTasks").removeClass("active");
+                $menuMilestones.removeClass(activeClass);
             }
         }
 
-        if (currentCategory == "menuMessages" && jq("#menuMessages").hasClass("open")) {
+        if (currentCategory === "menuTasks" && $menuTasks.hasClass(openClass)) {
             flag = false;
-            if (hash.indexOf("author=" + Teamlab.profile.id) > 0) {
-                jq(".page-menu #menuMyDiscussions").parent("li").addClass("active");
+            if (hash.indexOf("tasks_responsible=" + profileID) > 0 && hash.indexOf("status=open") > 0) {
+                $menuMyTasks.parent("li").addClass(activeClass);
+                flag = true;
+            } else if (hash.indexOf("tasks_responsible=" + profileID) > 0 && hash.indexOf("&deadlineStart=") > 0) {
+                $menuUpcomingTasks.parent("li").addClass(activeClass);
+                flag = true;
+            }
+            if (flag) {
+                $menuTasks.removeClass(activeClass);
+            }
+        }
+
+        if (currentCategory == "menuMessages" && $menuMessages.hasClass(openClass)) {
+            flag = false;
+            if (hash.indexOf("author=" + profileID) > 0) {
+                $menuMyDiscussions.parent("li").addClass(activeClass);
                 flag = true;
             } else if (hash.indexOf("createdStart=") > 0) {
-                jq(".page-menu #menuLatestDiscussion").parent("li").addClass("active");
+                $menuLatestDiscussion.parent("li").addClass(activeClass);
                 flag = true;
             }
             if (flag) {
-                jq("#menuMessages").removeClass("active");
+                $menuMessages.removeClass(activeClass);
             }
         }
     };
 
-    var initNavMenuItems = function () {
+    function initNavMenuItems() {
         var currentDate = new Date();
         var date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
         var deadlineStart = date.getTime();
+
         date.setDate(date.getDate() + 7);
         var deadlineStop = date.getTime();
 
         date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
         var createdStop = date.getTime();
+
         date.setDate(date.getDate() - 7);
         var createdStart = date.getTime();
-        var path;
 
-        var menuitems = [];
-        menuitems.push({ id: '#menuProjects .category-wrapper a', href: 'projects.aspx', onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuMyProjects', href: "projects.aspx#" + ASC.Projects.AllProject.basePath + "&team_member=" + Teamlab.profile.id + "&status=open", onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuFollowedProjects', href: "projects.aspx#" + ASC.Projects.AllProject.basePath + "&status=open&followed=true", onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuActiveProjects', href: "projects.aspx#" + ASC.Projects.AllProject.basePath + "&status=open", onclick: highlightMenu });
+        var categoryWrapper = ".category-wrapper a";
 
-        path = "#" + ASC.Projects.AllMilestones.basePath + "&user_tasks=" + Teamlab.profile.id + "&deadlineStart=" + deadlineStart + "&deadlineStop=" + deadlineStop;
-        menuitems.push({ id: '#menuMilestones .category-wrapper a', href: 'milestones.aspx', onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuMyMilestones', href: "milestones.aspx#" + ASC.Projects.AllMilestones.basePath + "&user_tasks=" + Teamlab.profile.id + "&status=open", onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuUpcomingMilestones', href: "milestones.aspx" + path, onclick: highlightMenu });
+        var menuitems = [
+            createProjectItem($menuProjects.find(categoryWrapper)),
+            createProjectItem($menuMyProjects, "team_member=" + profileID + "&status=open"),
+            createProjectItem($menuFollowedProjects, "status=open&followed=true"),
+            createProjectItem($menuActiveProjects, "status=open"),
 
-        path = "#" + ASC.Projects.TasksManager.basePath + "&tasks_responsible=" + Teamlab.profile.id + "&deadlineStart=" + deadlineStart + "&deadlineStop=" + deadlineStop;
-        menuitems.push({ id: '#menuTasks .category-wrapper a', href: 'tasks.aspx', onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuMyTasks', href: "tasks.aspx#" + ASC.Projects.TasksManager.basePath + "&tasks_responsible=" + Teamlab.profile.id + "&status=open", onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuUpcomingTasks', href: "tasks.aspx" + path, onclick: highlightMenu });
+            createMilestoneItem($menuMilestones.find(categoryWrapper)),
+            createMilestoneItem($menuMyMilestones, "user_tasks=" + profileID + "&status=open"),
+            createMilestoneItem($menuUpcomingMilestones, "user_tasks=" + profileID + "&deadlineStart=" + deadlineStart + "&deadlineStop=" + deadlineStop),
 
-        path = "#" + ASC.Projects.Discussions.basePath + "&createdStart=" + createdStart + "&createdStop=" + createdStop;
-        menuitems.push({ id: '#menuMessages .category-wrapper a', href: 'messages.aspx', onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuLatestDiscussion', href: "messages.aspx" + path, onclick: highlightMenu });
-        menuitems.push({ id: '.page-menu #menuMyDiscussions', href: "messages.aspx#" + ASC.Projects.Discussions.basePath + "&author=" + Teamlab.profile.id, onclick: highlightMenu });
+            createTaskItem($menuTasks.find(categoryWrapper)),
+            createTaskItem($menuMyTasks, "tasks_responsible=" + profileID + "&status=open"),
+            createTaskItem($menuUpcomingTasks, "tasks_responsible=" + profileID + "&deadlineStart=" + deadlineStart + "&deadlineStop=" + deadlineStop),
 
-        menuitems.push({ id: '#menuTimeTracking a', href: 'timeTracking.aspx', onclick: highlightMenu });
+            createDiscussionItem($menuMessages.find(categoryWrapper)),
+            createDiscussionItem($menuLatestDiscussion, "createdStart=" + createdStart + "&createdStop=" + createdStop),
+            createDiscussionItem($menuMyDiscussions, "author=" + profileID),
 
-        initMenuItems(menuitems, true);
-    };
+            createItem($menuTimeTracking.find('a'), timetrackingPage)
+        ];
 
-    var initMenuItems = function (items, checkNotInPrj) {
-        var currentPage = location.pathname.split('/')[3];
-        var prjId = checkNotInPrj ? jq.getURLParam('prjID') : 0;
-        items.forEach(function (item) {
-            jq(item.id).attr('href', item.href);
-        });
-        if (checkInit(currentPage, prjId)) {
-            items.forEach(function (item) {
-                initMenuItem(item);
-            });
+        if (jq.getURLParam("id") == null || (location.href.contains("messages.aspx") && !location.href.contains("action") || location.href.contains("tasks.aspx"))) {
+            initMenuItems(menuitems);
+
+            var myprojects = $myProjectsConteiner.find("li a");
+            var myProjectsOnClick =  function(item) {
+                return function () {
+                    if (!checkInit()) return true;
+                    var id = jq(item).parent("li").attr("id");
+                    ASC.Projects.AllProject.goToProject(item.href, id);
+                    highlightMenu();
+                    return false;
+                }
+            }
+            for (var i = 0, j = myprojects.length; i < j; i++) {
+                jq(myprojects[i]).on("click", myProjectsOnClick(myprojects[i]));
+            };
         }
     };
 
-    var checkInit = function (currentPage, prjId) {
-        return !!(window.history && window.history.replaceState) && !prjId && !jq.getURLParam('action') &&
-            (currentPage === "projects.aspx" || currentPage === "messages.aspx" || currentPage === "tasks.aspx" || currentPage === "milestones.aspx" || currentPage.toLowerCase() === "timetracking.aspx");
-    };
+    function createProjectItem(id, hash) {
+        return createItem(id, projectsPage, ascProjects.AllProject.basePath, hash);
+    }
 
-    var initMenuItem = function (item) {
-        jq(item.id).on('click', function (event) {
-            if (event.which === 1 && event.ctrlKey || event.which === 2) return true;
-            if (location.href.endsWith(item.href)) return false;
-            event.stopPropagation();
-            history.pushState({ href: item.href }, { href: item.href }, item.href);
-            ASC.Controls.AnchorController.historyCheck();
-            if (!jq(this).attr("href").contains("#")) {
-                location.hash = "";
-            }
-            ASC.Projects.Common.baseInit();
-            item.onclick();
-            return false;
+    function createMilestoneItem(id, hash) {
+        return createItem(id, milestonesPage, ascProjects.AllMilestones.basePath, hash);
+    }
+
+    function createTaskItem(id, hash) {
+        return createItem(id, tasksPage, ascProjects.TasksManager.basePath, hash);
+    }
+
+    function createDiscussionItem(id, hash) {
+        return createItem(id, messagesPage, ascProjects.Discussions.basePath, hash);
+    }
+
+    function createItem(id, basePage, basePath, hash) {
+        var href = basePage;
+        if (hash) {
+            href += "#" + basePath + "&" + hash;
+        }
+
+        return { id: id, href: href, onclick: highlightMenu };
+    }
+
+    function initMenuItems(items) {
+        items.forEach(function (item) {
+            item.id.attr('href', item.href);
+            item.id.on("click", function(event) {
+                    return onClick.call(this, item, event);
+                });
         });
     };
 
+    function showOrHideCreateNew() {
+        var projects = ASC.Projects.Master.Projects;
+        var $createNewProject = jq("#createNewProject"),
+            $createProjectTempl = jq("#createProjectTempl");
+
+        var canCreateMilestone = false, canCreateTask = false, canCreateMessage = false, canCreateTimeSpend = false;
+
+        for (var i = 0, j = projects.length; i < j; i++) {
+            var item = projects[i];
+            if (item.status !== 0) continue;
+
+            if (item.canCreateMilestone) canCreateMilestone = true;
+            if (item.canCreateTask) canCreateTask = true;
+            if (item.canCreateMessage) canCreateMessage = true;
+            if (item.canCreateTimeSpend && item.taskCountTotal > 0) canCreateTimeSpend = true;
+        }
+
+        if (canCreateMilestone) {
+            $createNewMilestone.show();
+        } else {
+            $createNewMilestone.hide();
+        }
+
+        if (canCreateTask) {
+            $createNewTask.show();
+        } else {
+            $createNewTask.hide();
+        }
+
+        if (canCreateMessage) {
+            $createNewDiscussion.show();
+        } else {
+            $createNewDiscussion.hide();
+        }
+
+        if (canCreateTimeSpend) {
+            $createNewTimer.show();
+        } else {
+            $createNewTimer.hide();
+        }
+
+        if (canCreateMilestone || canCreateTask || canCreateMessage || canCreateTimeSpend || currentUserIsModuleAdmin()
+        ) {
+            $menuCreateNewButton.removeClass(disableClass);
+        } else {
+            if ($createNewButton.find(".dropdown-item-seporator").length === 0) {
+                $menuCreateNewButton.addClass(disableClass);
+            } else {
+                $createNewButton.find(".dropdown-item-seporator:first").hide();
+            }
+        }
+
+        if (!currentUserIsModuleAdmin()) {
+            $createNewProject.hide();
+            $createProjectTempl.hide();
+        }
+    }
+
+    function currentUserIsModuleAdmin () {
+        return Teamlab.profile.isAdmin || ASC.Projects.Master.IsModuleAdmin;
+    };
+
+    function checkInit() {
+        var currentPage = document.location.pathname.match(/[^\/]+$/)[0];
+        return !!(window.history && window.history.replaceState) && !jq.getURLParam('action') &&
+            (currentPage === projectsPage ||
+            currentPage === messagesPage ||
+            currentPage === tasksPage ||
+            currentPage === milestonesPage ||
+            currentPage === timetrackingPage ||
+            currentPage === "projectteam.aspx");
+    };
+    
+    function onClick(item, event) {
+        if (!checkInit()) return true;
+        if (event.which === 1 && event.ctrlKey || event.which === 2) return true;
+        if (location.href.endsWith(item.href)) return false;
+        event.stopPropagation();
+        history.pushState({ href: item.href }, { href: item.href }, item.href);
+        ASC.Controls.AnchorController.historyCheck();
+        if (!jq(this).attr("href").contains("#")) {
+            location.hash = "";
+        }
+        common.baseInit();
+        if (item.hasOwnProperty('onclick')) {
+            item.onclick();
+        }
+        return false;
+    }
+
     return {
         init: init,
-        initMenuItems: initMenuItems
+        onClick: onClick
     };
 })(jQuery);

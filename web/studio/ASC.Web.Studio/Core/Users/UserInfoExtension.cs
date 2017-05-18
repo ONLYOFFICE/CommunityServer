@@ -59,8 +59,7 @@ namespace ASC.Core.Users
             }
             else
             {
-                var popupID = Guid.NewGuid();
-                sb.AppendFormat("<span class=\"userLink\" id=\"{0}\" data-uid=\"{1}\" data-pid=\"{2}\">", popupID, userInfo.ID, productID);
+                sb.AppendFormat("<span class=\"userLink\" id=\"{0}\" data-uid=\"{1}\" data-pid=\"{2}\">", Guid.NewGuid(), userInfo.ID, productID);
                 sb.AppendFormat("<a class='linkDescribe' href=\"{0}\">{1}</a>", userInfo.GetUserProfilePageURL(), userInfo.DisplayUserName());
                 sb.Append("</span>");
             }
@@ -87,8 +86,7 @@ namespace ASC.Core.Users
             }
             else
             {
-                var popupID = Guid.NewGuid();
-                sb.AppendFormat("<span class=\"{0}\" id=\"{1}\" data-uid=\"{2}\" >", containerCss, popupID, userInfo.ID);
+                sb.AppendFormat("<span class=\"{0}\" id=\"{1}\" data-uid=\"{2}\" >", containerCss, Guid.NewGuid(), userInfo.ID);
                 sb.AppendFormat("<a class='{0}' href=\"{1}\">{2}</a>", linkCss, userInfo.GetUserProfilePageURL(), userInfo.DisplayUserName());
                 sb.Append("</span>");
             }
@@ -97,19 +95,9 @@ namespace ASC.Core.Users
 
         public static List<string> GetListAdminModules(this UserInfo ui)
         {
-            var listModules = new List<string>();
+            var products = WebItemManager.Instance.GetItemsAll<IProduct>();
 
-            var productsForAccessSettings = WebItemManager.Instance.GetItemsAll<IProduct>().Where(n => String.Compare(n.GetSysName(), "people") != 0).ToList();
-
-            foreach (var product in productsForAccessSettings)
-            {
-                if (WebItemSecurity.IsProductAdministrator(product.ID, ui.ID))
-                {
-                    listModules.Add(product.ProductClassName);
-                }
-            }
-
-            return listModules;
+            return (from product in products where WebItemSecurity.IsProductAdministrator(product.ID, ui.ID) select product.ProductClassName).ToList();
         }
     }
 }

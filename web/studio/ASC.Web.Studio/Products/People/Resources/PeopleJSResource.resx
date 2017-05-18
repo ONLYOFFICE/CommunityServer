@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Choose user</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Image format is not supported</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>An error occurred while uploading the image to the server</value>
+  </data>
   <data name="HelpContentAccessRights" xml:space="preserve">
     <value>Open the portal Settings page if you need to restrict the access to the People module and give some users administrator privileges.</value>
   </data>
@@ -139,7 +148,7 @@
     <value>Edit Your Profile</value>
   </data>
   <data name="HelpTitleViewUser" xml:space="preserve">
-    <value>View User's Profile</value>
+    <value>View User Profile</value>
   </data>
   <data name="LblActive" xml:space="preserve">
     <value>Active</value>
@@ -148,7 +157,7 @@
     <value>Name</value>
   </data>
   <data name="LblByType" xml:space="preserve">
-    <value>By type</value>
+    <value>Type</value>
   </data>
   <data name="LblOther" xml:space="preserve">
     <value>Other</value>
@@ -160,7 +169,7 @@
     <value>Status</value>
   </data>
   <data name="LblTerminated" xml:space="preserve">
-    <value>Terminated</value>
+    <value>Disabled</value>
   </data>
   <data name="People" xml:space="preserve">
     <value>People</value>

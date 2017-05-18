@@ -93,6 +93,10 @@ namespace ASC.Web.CRM.Controls.Common
             {
                 CurrentPage = "contacts";
             }
+            else if (currentPath.IndexOf("calls.aspx", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                CurrentPage = "calls";
+            }
             else
             {
                 CurrentPage = "contacts";

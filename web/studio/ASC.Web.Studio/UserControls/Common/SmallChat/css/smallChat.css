@@ -637,10 +637,6 @@
     -moz-appearance: none;
 }
 
-.message_input_area_autosizejs { 
-    line-height: 17px;
-}
-
 .small_chat_message {
     padding: 0 3px 12px 12px;
     min-height: 50px;

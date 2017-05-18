@@ -24,13 +24,13 @@
 */
 
 
-using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Core;
+using ASC.Core.Common.Settings;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.WhiteLabel
 {

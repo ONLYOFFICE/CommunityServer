@@ -39,8 +39,8 @@ namespace ASC.Web.Studio.UserControls.Common.PersonalFooter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/common/personalfooter/css/personalfooter.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/personalfooter/js/personalfooter.js");
+            Page.RegisterStyle("~/usercontrols/common/personalfooter/css/personalfooter.less")
+                .RegisterBodyScripts("~/usercontrols/common/personalfooter/js/personalfooter.js");
         }
     }
 }

@@ -46,7 +46,10 @@ namespace ASC.Mail.Aggregator
                     calendarContentType != "text/calendar")
                     return;
 
-                var calendar = MailUtil.ParseValidCalendar(calendarIcs);
+                var calendar = MailUtil.ParseValidCalendar(calendarIcs, log);
+
+                if(calendar == null)
+                    return;
 
                 var alienEvent = true;
 

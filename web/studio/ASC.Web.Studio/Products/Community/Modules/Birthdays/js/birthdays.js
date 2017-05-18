@@ -33,8 +33,8 @@ if (typeof ASC.Community === "undefined")
 ASC.Community.Birthdays = (function() {
     return {
         openContact: function(obj) {
-            var name = jq(obj).attr("username");
-            var tcExist = false;
+            var name = jq(obj).attr("username"),
+                tcExist = false;
             try {
                 tcExist = !!ASC.Controls.JabberClient;
             } catch (err) {
@@ -49,34 +49,39 @@ ASC.Community.Birthdays = (function() {
         },
 
         remind: function(obj) {
-            var userCard = jq(obj).parents(".small-user-card");
-            var userId = jq(userCard).find("input[type=hidden]").val();
+            var userCard = jq(obj).parents(".small-user-card"),
+                userId = jq(userCard).find("input[type=hidden]").val();
 
-            window.AjaxPro.onLoading = function(b) { };
-
-            window.AjaxPro.Birthdays.RemindAboutBirthday(userId, true, function(result) {
-                if (result.error != null) {
-                    alert(result.error.Message);
-                    return false;
-                }
-                jq(userCard).addClass("active");
-            });
+            Teamlab.subscribeCmtBirthday(
+                { userCard: userCard },
+                { userid: userId, onRemind: true },
+                {
+                    error: function(params, errors) {
+                        toastr.error(errors[0]);
+                        return false;
+                    },
+                    success: function(params, response){
+                        jq(params.userCard).addClass("active");
+                    }
+                });
         },
 
         clearRemind: function(obj) {
-            var userCard = jq(obj).parents(".small-user-card");
-            var userId = jq(userCard).find("input[type=hidden]").val();
+            var userCard = jq(obj).parents(".small-user-card"),
+                userId = jq(userCard).find("input[type=hidden]").val();
 
-            window.AjaxPro.onLoading = function(b) { };
-
-            window.AjaxPro.Birthdays.RemindAboutBirthday(userId, false, function(result) {
-                if (result.error != null) {
-                    alert(result.error.Message);
-                    return false;
-                }
-                jq(userCard).removeClass("active");
-            });
+            Teamlab.subscribeCmtBirthday(
+               { userCard: userCard },
+               { userid: userId, onRemind: false },
+               {
+                   error: function (params, errors) {
+                       toastr.error(errors[0]);
+                       return false;
+                   },
+                   success: function (params, response) {
+                       jq(params.userCard).removeClass("active");
+                   }
+               });
         }
-
     };
 })(jQuery);

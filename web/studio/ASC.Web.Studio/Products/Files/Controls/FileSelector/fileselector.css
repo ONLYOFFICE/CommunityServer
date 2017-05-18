@@ -63,6 +63,7 @@
 
 #fileSelectorDialog .pencil,
 #fileSelectorDialog .menu-small,
+#fileSelectorDialog .file-lock,
 #fileSelectorDialog .version {
     display: none !important;
 }

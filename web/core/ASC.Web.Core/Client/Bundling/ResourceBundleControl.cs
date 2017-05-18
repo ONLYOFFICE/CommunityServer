@@ -25,35 +25,39 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI;
 
 namespace ASC.Web.Core.Client.Bundling
 {
-    public class ResourceBundleControl : UserControl
+    public abstract class ResourceBundleControl : UserControl
     {
-        public List<string> Scripts { get; private set; }
-        public List<string> Styles { get; private set; }
-        public String CategoryName { get; set; }
+        protected BundleData bundleData;
 
-
-        public ResourceBundleControl()
+        protected ResourceBundleControl()
         {
-            Scripts = new List<string>();
-            Styles = new List<string>();
+            bundleData = CreateNewBundleData("", "");
         }
+
+        public void AddSource(Func<string, string> converter, params string[] src)
+        {
+            bundleData.AddSource(converter, src);
+        }
+
+        protected void SetData(BundleData data)
+        {
+            bundleData = CreateNewBundleData(data.FileName, data.CategoryName).AddSource(r => r, data.GetSource().ToArray());
+        }
+
+        protected abstract BundleData CreateNewBundleData(string path, string categoryName);
 
         protected override void Render(HtmlTextWriter writer)
         {
+            if (!bundleData.GetSource().Any()) return;
+
             if (ClientSettings.BundlingEnabled)
             {
-                writer.Write(BundleHtml());
+                writer.Write(GetLink());
             }
             else
             {
@@ -64,90 +68,49 @@ namespace ASC.Web.Core.Client.Bundling
         private void Write(HtmlTextWriter writer)
         {
             base.Render(writer);
-            foreach (var s in Scripts)
+
+            foreach (var s in bundleData.GetSource())
             {
-                writer.WriteLine(BundleHelper.HtmlScript(ClientSettings.BundlingEnabled ? s : VirtualPathUtility.ToAbsolute(s), false, true));
-            }
-            foreach (var s in Styles)
-            {
-                writer.WriteLine(BundleHelper.HtmlLink(ClientSettings.BundlingEnabled ? s : VirtualPathUtility.ToAbsolute(s), false));
+                writer.WriteLine(bundleData.GetLink(s, false));
             }
         }
 
-        private string BundleHtml()
+        private string GetLink()
         {
-            var result = new StringBuilder();
-            var hash = "";
+            var path = bundleData.GetStorageVirtualPath(ClientSettings.ResetCacheKey);
 
-            if (Scripts.Any())
+            if (DiscTransform.SuccessInitialized && DiscTransform.IsFile(path))
             {
-                hash = GetHash(Scripts);
-            } else if (Styles.Any())
-            {
-                hash = GetHash(Styles);
+                return bundleData.GetLink(DiscTransform.GetUri(path), false);
             }
 
-            var path = string.Format("~{0}{1}-{2}", BundleHelper.BUNDLE_VPATH, GetCategory(CategoryName), hash);
-            var pathcss = path + ".css";
-            var pathjs = path + ".js";
+            return BundleHelper.AddBundle(bundleData);
+        }
+    }
 
-            var bundlecss = BundleHelper.GetCssBundle(pathcss);
-            var bundlejs = BundleHelper.GetJsBundle(pathjs);
-
-            if (bundlecss == null && bundlejs == null)
-            {
-                if (Styles.Any())
-                {
-                    bundlecss = BundleHelper.CssBundle(pathcss);
-                    foreach (var style in Styles)
-                    {
-                        bundlecss.Include(style);
-                    }
-                    BundleHelper.AddBundle(bundlecss);
-                }
-
-                if (Scripts.Any())
-                {
-                    bundlejs = BundleHelper.JsBundle(pathjs);
-                    foreach (var script in Scripts)
-                    {
-                        bundlejs.Include(script, true);
-                    }
-                    BundleHelper.AddBundle(bundlejs);
-                }
-            }
-
-            if (bundlecss != null)
-            {
-                result.AppendLine(BundleHelper.HtmlLink(pathcss));
-            }
-            if (bundlejs != null)
-            {
-                result.AppendLine(BundleHelper.HtmlScript(pathjs));
-            }
-            return result.ToString();
+    public class ResourceStyleBundleControl : ResourceBundleControl
+    {
+        public void SetData(StyleBundleData data)
+        {
+            base.SetData(data);
         }
 
-        private string GetHash(IEnumerable<string> hashSet)
+        protected override BundleData CreateNewBundleData(string path, string categoryName)
         {
-            return HttpServerUtility.UrlTokenEncode(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(string.Join(",", hashSet))));
+            return new StyleBundleData(path, categoryName);
+        }
+    }
+
+    public class ResourceScriptBundleControl : ResourceBundleControl
+    {
+        public void SetData(ScriptBundleData data)
+        {
+            base.SetData(data);
         }
 
-        private string GetCategory(string category)
+        protected override BundleData CreateNewBundleData(string path, string categoryName)
         {
-            if (string.IsNullOrEmpty(category))
-            {
-                category = "common";
-                if (HttpContext.Current.Request.Url != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Url.AbsolutePath))
-                {
-                    var matches = Regex.Match(HttpContext.Current.Request.Url.AbsolutePath, "(products|addons)/(\\w+)/?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    if (matches.Success && 2 < matches.Groups.Count && matches.Groups[2].Success)
-                    {
-                        category = matches.Groups[2].Value;
-                    }
-                }
-            }
-            return category;
+            return new ScriptBundleData(path, categoryName);
         }
     }
 }

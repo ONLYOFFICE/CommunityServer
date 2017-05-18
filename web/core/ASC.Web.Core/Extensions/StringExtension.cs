@@ -56,16 +56,17 @@ namespace System
 
         public static bool TestEmailRegex(this string emailAddress)
         {
-            return !string.IsNullOrEmpty(emailAddress) ? reStrict.IsMatch(emailAddress) : false;
+            emailAddress = (emailAddress ?? "").Trim();
+            return !string.IsNullOrEmpty(emailAddress) && reStrict.IsMatch(emailAddress);
         }
 
         public static string GetMD5Hash(this string str)
         {
-            byte[] bytes = Encoding.Unicode.GetBytes(str);
+            var bytes = Encoding.Unicode.GetBytes(str);
 
             var CSP = new MD5CryptoServiceProvider();
 
-            byte[] byteHash = CSP.ComputeHash(bytes);
+            var byteHash = CSP.ComputeHash(bytes);
 
             return byteHash.Aggregate(String.Empty, (current, b) => current + String.Format("{0:x2}", b));
         }

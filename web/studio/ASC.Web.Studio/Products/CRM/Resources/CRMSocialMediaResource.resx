@@ -117,22 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Back" xml:space="preserve">
+    <value>Return</value>
+  </data>
   <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
     <value>Be aware of what your clients think about your produce and brand in the social network. Simply link the twitter account with the contact and follow the tweet news feed right on your portal.</value>
   </data>
   <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
-    <value>No linked twitter accounts</value>
+    <value>No linked Twitter accounts</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>The information is taken from the following source</value>
   </data>
   <data name="LinkTwitterAccount" xml:space="preserve">
-    <value>Link twitter account</value>
+    <value>Link Twitter account</value>
   </data>
   <data name="NoAccountsHasBeenFound" xml:space="preserve">
-    <value>Аккаунты не найдены</value>
+    <value>No accounts could be found</value>
   </data>
   <data name="NoCompaniesHasBeenFound" xml:space="preserve">
-    <value>Компании не найдены</value>
+    <value>No companies could be found</value>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>Пожалуйста, подождите...</value>
+    <value>Please wait...</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Enter a text to search</value>
   </data>
 </root>

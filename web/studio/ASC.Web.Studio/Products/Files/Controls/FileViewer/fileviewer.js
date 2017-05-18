@@ -57,8 +57,8 @@ window.ASC.Files.ImageViewer = (function () {
             imgRef = jq("#imageViewerContainer");
             imgRef.dblclick(mouseDoubleClickEvent);
             imgRef.mousedown(mouseDownEvent);
-            imgRef.load(imageOnLoad);
-            imgRef.error(imageOnError);
+            imgRef.on("load", imageOnLoad);
+            imgRef.on("error", imageOnError);
         }
 
         prepareWorkspace();
@@ -337,8 +337,8 @@ window.ASC.Files.ImageViewer = (function () {
         }
         imgRef.attr("src", ASC.Files.Utility.GetFileViewUrl(imageCollection[imageCollection.selectedIndex].fileId, imageCollection[imageCollection.selectedIndex].version));
 
-        jq("#imagePrev").attr("href", "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(imageCollection[prevImageIndex()].fileId)));
-        jq("#imageNext").attr("href", "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(imageCollection[nextImageIndex()].fileId)));
+        jq("#imagePrev").attr("href", ASC.Files.UI.getEntryLink("file", imageCollection[prevImageIndex()].fileId, imageCollection[prevImageIndex()].title));
+        jq("#imageNext").attr("href", ASC.Files.UI.getEntryLink("file", imageCollection[nextImageIndex()].fileId, imageCollection[nextImageIndex()].title));
 
         var fileObj = ASC.Files.UI.getEntryObject("file", imageCollection[imageCollection.selectedIndex].fileId);
 
@@ -657,16 +657,16 @@ window.ASC.Files.ImageViewer = (function () {
         var imageCollectionTmp = new Array();
 
         for (var i = 0; i < data.length; i++) {
-            var title = data[i].Value.split("&")[1];
-            var version = data[i].Value.split("&")[0];
+            var title = data[i].title;
+            var version = data[i].version;
             if (ASC.Files.Utility.CanImageView(title)) {
                 imageCollectionTmp.push(
                     {
-                        fileId: data[i].Key,
+                        fileId: data[i].id,
                         version: version,
                         title: title
                     });
-                if (data[i].Key == params.fileId) {
+                if (data[i].id == params.fileId) {
                     selectedIndex = imageCollectionTmp.length - 1;
                 }
             }
@@ -701,6 +701,10 @@ window.ASC.Files.ImageViewer = (function () {
 })();
 
 (function ($) {
+
+    if (jq("#fileViewerDialog").length == 0)
+        return;
+
     jq.dropdownToggle({
         switcherSelector: "#viewerOtherActionsSwitch",
         dropdownID: "viewerOtherActions"

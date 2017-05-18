@@ -207,12 +207,8 @@ window.mailAlerts = (function($) {
                 buttons = [{ href: "#accounts", text: MailScriptResource.ChangeAccountSettingsBtn, css_class: "blue manage_account_settings" }, closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: window.MailScriptResource.AuthErrorPopupBodyHeader,
-                    errorBody: window.MailScriptResource.AuthErrorPopupBody
-                        .replace('{0}', '<b>' + TMMail.htmlEncode(accountEmail) + '</b>')
-                        .replace('{1}', '<br><br>'),
-                    errorBodyFooter: window.MailScriptResource.AuthErrorPopupBodyFooter
-                        .replace('{2}', '<a class=\"linkDescribe\" target=\"blank\" href="' + TMMail.getFaqLink(accountEmail) + '">')
-                        .replace('{3}', '</a>'),
+                    errorBody: window.MailScriptResource.AuthErrorPopupBody.format('<b>' + TMMail.htmlEncode(accountEmail) + '</b>', '<br><br>'),
+                    errorBodyFooter: TMMail.getAccountErrorFooter(accountEmail),
                     buttons: buttons
                 }));
 

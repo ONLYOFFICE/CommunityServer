@@ -38,30 +38,36 @@ namespace ASC.Web.Community
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(GetFileStaticRelativePath, "common.js");
+            //Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/community/master/Styles.ascx")));
+            Page.RegisterBodyScripts(ResolveUrl, "~/products/community/js/common.js");
+
 
             _sideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));
+
+            Master.AddClientScript(
+                new ClientScripts.ClientLocalizationResources(),
+                new ClientScripts.ClientTemplateResources());
         }
 
-        protected string GetFileStaticRelativePath(String fileName)
-        {
-            if (fileName.EndsWith(".js"))
-            {
-                return ResolveUrl("~/products/community/js/" + fileName);
-            }
-            if (fileName.EndsWith(".ascx"))
-            {
-                return VirtualPathUtility.ToAbsolute("~/products/community/controls/" + fileName);
-            }
-            if (fileName.EndsWith(".css"))
-            {
-                return ResolveUrl("~/products/community/app_themes/default/" + fileName);
-            }
-            if (fileName.EndsWith(".png") || fileName.EndsWith(".gif") || fileName.EndsWith(".jpg"))
-            {
-                return WebPath.GetPath("/products/community/app_themes/default/images/" + fileName);
-            }
-            return fileName;
-        }
+        //protected string GetFileStaticRelativePath(String fileName)
+        //{
+        //    if (fileName.EndsWith(".js"))
+        //    {
+        //        return ResolveUrl("~/products/community/js/" + fileName);
+        //    }
+        //    if (fileName.EndsWith(".ascx"))
+        //    {
+        //        return VirtualPathUtility.ToAbsolute("~/products/community/controls/" + fileName);
+        //    }
+        //    if (fileName.EndsWith(".css"))
+        //    {
+        //        return ResolveUrl("~/products/community/app_themes/default/" + fileName);
+        //    }
+        //    if (fileName.EndsWith(".png") || fileName.EndsWith(".gif") || fileName.EndsWith(".jpg"))
+        //    {
+        //        return WebPath.GetPath("/products/community/app_themes/default/images/" + fileName);
+        //    }
+        //    return fileName;
+        //}
     }
 }

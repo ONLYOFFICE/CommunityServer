@@ -1,7 +1,11 @@
 ﻿<%@ Assembly Name="ASC.Web.People" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SideNavigationPanel.ascx.cs" Inherits="ASC.Web.People.UserControls.SideNavigationPanel" %>
+<%@ Import Namespace="ASC.Web.People" %>
+<%@ Import Namespace="ASC.Web.People.Classes" %>
 <%@ Import Namespace="ASC.Web.People.Core" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 <!-- is first button -->
@@ -24,13 +28,13 @@
     <ul class="dropdown-content">
       <li>
         <% if (EnableAddUsers) { %>
-          <a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=user"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %></a>
+          <a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=user"><%= CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %></a>
         <% } else { %>
-          <span class="dropdown-item disable"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %></span>
+          <span class="dropdown-item disable"><%= CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %></span>
         <% } %>
       </li>
-      <li><a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=guest"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Guest").HtmlEncode()%></a></li>
-      <li><a class="dropdown-item add-group"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Department").HtmlEncode()%></a></li>
+      <li><a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=guest"><%= CustomNamingPeople.Substitute<Resources.Resource>("Guest").HtmlEncode() %></a></li>
+      <li><a class="dropdown-item add-group"><%= CustomNamingPeople.Substitute<Resources.Resource>("Department").HtmlEncode() %></a></li>
     </ul>
   </div>
 
@@ -48,15 +52,15 @@
   <ul class="menu-list">
     <%if (Profiles.Count > 0)
       {%>
-      <li class="menu-item <%= (Groups.Count == 0) ? "none-" : ""%>sub-list <%= Page is ASC.Web.People.Help ? "" : "currentCategory active" %>" data-id="@persons">
+      <li class="menu-item <%= (Groups.Count == 0) ? "none-" : ""%>sub-list <%= Page is Help ? "" : "currentCategory active" %>" data-id="@persons">
         <div class="category-wrapper">
           <%if (Groups.Count > 0)
             {%>
           <span class="expander"></span>
           <% } %>
-          <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %>" href="#sortorder=ascending">
+          <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %>" href="#sortorder=ascending">
             <span class="menu-item-icon people"></span>
-            <span class="menu-item-label inner-text"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode()%></span>
+            <span class="menu-item-label inner-text"><%= CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %></span>
           </a>
         </div>
     <%}%>
@@ -65,8 +69,8 @@
         <ul id="groupList" class="menu-sub-list">
       </HeaderTemplate>
       <ItemTemplate>
-        <li class="menu-sub-item" data-id="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Id%>">
-          <a class="menu-item-label outer-text text-overflow" title="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%>" href="#sortorder=ascending&group=<%# ((ASC.Web.People.Classes.MyGroup)Container.DataItem).Id%>"><%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%></a>
+        <li class="menu-sub-item" data-id="<%#((MyGroup)Container.DataItem).Id%>">
+          <a class="menu-item-label outer-text text-overflow" title="<%#((MyGroup)Container.DataItem).Title%>" href="#sortorder=ascending&status=active&group=<%# ((MyGroup)Container.DataItem).Id%>"><%#((MyGroup)Container.DataItem).Title%></a>
         </li>
       </ItemTemplate>
       <FooterTemplate>
@@ -97,12 +101,12 @@
     --%>
 
     <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
-    <% if (CurrentUserAdmin)
+    <% if (CurrentUserFullAdmin)
        { %>
         <li id="menuSettings" class="menu-item sub-list add-block">
             <div class="category-wrapper">
                 <span class="expander"></span>
-                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights)%>">
+                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) %>">
                     <span class="menu-item-icon settings"></span>
                     <span class="menu-item-label inner-text gray-text"><%= PeopleResource.Settings %></span>
                 </a>
@@ -122,7 +126,7 @@
          <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
 
   </ul>
-    <% if (CurrentUserAdmin)
+    <% if (CurrentUserAdmin && !string.IsNullOrEmpty(SetupInfo.GetImportServiceUrl()))
        { %>
     <div class="people-import-banner">
         <div class="people-import-banner_text"><%=PeopleResource.ImportPeople %></div>

@@ -3,12 +3,19 @@
         checkMessagesTimeout: 1000,
         currentValue: -1,
         init: function (timeout) {
+
+            if (jq("#studioPageContent li.talk").length == 0)
+                return;
+
             if (isFinite(+timeout)) {
                 this.checkMessagesTimeout = +timeout * 1000;
-                setTimeout(this.checkNewMessages, 3000);
-                if (+timeout > 0) {
-                    setInterval(this.checkNewMessages, this.checkMessagesTimeout);
-                }
+
+                StudioManager.addPendingRequest(function () {
+                    ASC.Controls.TalkNavigationItem.checkNewMessages();
+                    if (+timeout > 0) {
+                        setInterval(ASC.Controls.TalkNavigationItem.checkNewMessages, ASC.Controls.TalkNavigationItem.checkMessagesTimeout);
+                    }
+                });
             }
             Teamlab.bind(Teamlab.events.getTalkUnreadMessages, ASC.Controls.TalkNavigationItem.getResponce);
         },
@@ -46,6 +53,10 @@ if (!ASC.Controls.JabberClient) {
         pathCmdHandler: '',
         pathWebTalk: '',
         init: function (name, talkpath, cmdpath) {
+
+            if (jq("#studioPageContent li.talk").length == 0)
+                return;
+
             if (typeof name === 'string' && name.length > 0) {
                 this.username = name.toLowerCase();
             }

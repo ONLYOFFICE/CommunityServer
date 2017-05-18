@@ -136,7 +136,7 @@
     <value>Введите название для номера</value>
   </data>
   <data name="BuyNumberBtn" xml:space="preserve">
-    <value>Купить номер</value>
+    <value>Buy phone number</value>
   </data>
   <data name="BuyNumberHeader" xml:space="preserve">
     <value>Покупка номера</value>
@@ -154,7 +154,7 @@
     <value>Cost</value>
   </data>
   <data name="CallDatetime" xml:space="preserve">
-    <value>Datetime</value>
+    <value>Date/Time</value>
   </data>
   <data name="CallDuration" xml:space="preserve">
     <value>Duration</value>
@@ -171,7 +171,13 @@
   <data name="DeleteBtn" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>Номер сохранится в twilio, но будет недоступен в рамках текущего портала</value>
+  </data>
   <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Удалить номер</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
     <value>Удалить номер</value>
   </data>
   <data name="DeleteRingtoneBtn" xml:space="preserve">
@@ -179,6 +185,34 @@
   </data>
   <data name="EditBtn" xml:space="preserve">
     <value>Редактировать</value>
+  </data>
+  <data name="EmptyScreenEnter" xml:space="preserve">
+    <value>Enter Credentials</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>IP Telephony Setup</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Buy a new IP phone number to add it to the ONLYOFFICE portal. Once added you can use this phone number with portal CRM.
+</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Note: the phone numbers you already have at Twilio website cannot be transferred to the portal.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>No IP telephony numbers have been added yet</value>
+  </data>
+  <data name="EmptyScreenRegister" xml:space="preserve">
+    <value>Register Account</value>
+  </data>
+  <data name="EmptyScreenText1" xml:space="preserve">
+    <value>Click the 'Register Account' button to go to Twilio website for registration to be able to use the IP telephony feature.</value>
+  </data>
+  <data name="EmptyScreenText2" xml:space="preserve">
+    <value>If you already have a Twilio account, enter the API credentials: Account SID and Auth token, which can be found at the {0}settings{1} page.</value>
+  </data>
+  <data name="EnterCredentialsHeader" xml:space="preserve">
+    <value>Enter Credentials</value>
   </data>
   <data name="GeneralSettings" xml:space="preserve">
     <value>Общие настройки</value>
@@ -194,6 +228,18 @@
   </data>
   <data name="IncomingCallsQueueSize" xml:space="preserve">
     <value>Размер очереди входящих звонков</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>После привязки все вызовы будут обрабатываться текущим порталом.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Привязать купленный номер</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Привязка номера</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>Номер успешно привязан</value>
   </data>
   <data name="LoadingMsg" xml:space="preserve">
     <value>Идет загрузка, пожалуйста подождите</value>
@@ -273,6 +319,12 @@
   <data name="TuningNumber" xml:space="preserve">
     <value>Настройка номера</value>
   </data>
+  <data name="TwilioAccountSid" xml:space="preserve">
+    <value>Account Sid</value>
+  </data>
+  <data name="TwilioAuthToken" xml:space="preserve">
+    <value>Auth Token</value>
+  </data>
   <data name="UnspecifiedOption" xml:space="preserve">
     <value>Не выбрано</value>
   </data>
@@ -293,6 +345,12 @@
   </data>
   <data name="VoicemailRingtones" xml:space="preserve">
     <value>Мелодии голосового письма</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
   </data>
   <data name="WaitingRingtones" xml:space="preserve">
     <value>Мелодии ожидания</value>
@@ -316,7 +374,7 @@
     <value>Рабочие часы</value>
   </data>
   <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
-    <value>Некорректный формат, чувак</value>
+    <value>Некорректный интервал</value>
   </data>
   <data name="WorkingHoursFormatTip" xml:space="preserve">
     <value>Введите время в формате ##:##</value>

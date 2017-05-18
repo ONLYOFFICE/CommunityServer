@@ -139,17 +139,17 @@ namespace ASC.Web.Core.Files
                         var list = dbManager.ExecuteList(sqlQuery);
 
                         list.ForEach(item =>
-                                         {
-                                             var input = item[0] as string;
-                                             var output = item[1] as string;
-                                             if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
-                                                 return;
-                                             input = input.ToLower().Trim();
-                                             output = output.ToLower().Trim();
-                                             if (!_extsConvertible.ContainsKey(input))
-                                                 _extsConvertible[input] = new List<string>();
-                                             _extsConvertible[input].Add(output);
-                                         });
+                            {
+                                var input = item[0] as string;
+                                var output = item[1] as string;
+                                if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
+                                    return;
+                                input = input.ToLower().Trim();
+                                output = output.ToLower().Trim();
+                                if (!_extsConvertible.ContainsKey(input))
+                                    _extsConvertible[input] = new List<string>();
+                                _extsConvertible[input].Add(output);
+                            });
                     }
                 }
                 return _extsConvertible;
@@ -175,12 +175,12 @@ namespace ASC.Web.Core.Files
         }
 
 
-        private readonly static List<string> extsImagePreviewed = (WebConfigurationManager.AppSettings["files.viewed-images"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        private readonly static List<string> extsWebPreviewed = (WebConfigurationManager.AppSettings["files.docservice.viewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        private readonly static List<string> extsWebEdited = (WebConfigurationManager.AppSettings["files.docservice.edited-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        private readonly static List<string> extsWebReviewed = (WebConfigurationManager.AppSettings["files.docservice.reviewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        private readonly static List<string> extsMustConvert = (WebConfigurationManager.AppSettings["files.docservice.convert-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        private readonly static List<string> extsCoAuthoring = (WebConfigurationManager.AppSettings["files.docservice.coauthor-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsImagePreviewed = (WebConfigurationManager.AppSettings["files.viewed-images"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsWebPreviewed = (WebConfigurationManager.AppSettings["files.docservice.viewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsWebEdited = (WebConfigurationManager.AppSettings["files.docservice.edited-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsWebReviewed = (WebConfigurationManager.AppSettings["files.docservice.reviewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsMustConvert = (WebConfigurationManager.AppSettings["files.docservice.convert-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private static readonly List<string> extsCoAuthoring = (WebConfigurationManager.AppSettings["files.docservice.coauthor-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
 
         public static List<string> ExtsImagePreviewed
@@ -279,10 +279,13 @@ namespace ASC.Web.Core.Files
             None = 0,
             Tab = 1,
             Semicolon = 2,
-            Сolon = 3,
+            Colon = 3,
             Comma = 4,
             Space = 5
         }
+
+        public static readonly string SignatureSecret = WebConfigurationManager.AppSettings["files.docservice.secret"] ?? "";
+        public static readonly string SignatureHeader = WebConfigurationManager.AppSettings["files.docservice.secret.header"] ?? "Authorization";
 
         #endregion
     }

@@ -24,12 +24,11 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.UI;
 using ASC.Web.Files.Classes;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Files.Resources;
+using ASC.Web.Studio.Controls.Common;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -42,11 +41,11 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/products/files/controls/thirdparty/thirdparty.js");
-
             ThirdPartyEditorTemp.Options.IsPopup = true;
             ThirdPartyDeleteTmp.Options.IsPopup = true;
             ThirdPartyNewAccountTmp.Options.IsPopup = true;
+            ThirPartyConfirmMoveTmp.Options.IsPopup = true;
+            thirdpartyToDocuSignDialog.Options.IsPopup = true;
 
             EmptyScreenThirdParty.Controls.Add(new EmptyScreenControl
                 {
@@ -56,6 +55,11 @@ namespace ASC.Web.Files.Controls
                     HeaderDescribe = FilesUCResource.EmptyScreenThirdPartyDscr,
                     ButtonHTML = string.Format(@"<div class=""account-connect""><a class=""link dotline plus"">{0}</a></div>", FilesUCResource.AddAccount)
                 });
+
+            var docuSignSelectorContainer = (Tree)LoadControl(Tree.Location);
+            docuSignSelectorContainer.ID = "docuSignFolderSelector";
+            docuSignSelectorContainer.WithoutTrash = true;
+            DocuSignFolderSelectorHolder.Controls.Add(docuSignSelectorContainer);
         }
     }
 }

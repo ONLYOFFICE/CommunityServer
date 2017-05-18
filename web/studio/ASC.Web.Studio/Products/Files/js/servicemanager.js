@@ -410,6 +410,7 @@ window.ASC.Files.ServiceManager = (function () {
         GetItems: "getitems",
         GetFolderItemsTree: "getfolderitemstree",
 
+        SetAceLink: "setacelink",
         GetSharedInfo: "getsharedinfo",
         GetSharedInfoShort: "getsharedinfoshort",
         SetAceObject: "setaceobject",
@@ -419,6 +420,8 @@ window.ASC.Files.ServiceManager = (function () {
 
         MarkAsRead: "markasread",
         GetNews: "getnews",
+
+        ChangeOwner: "changeowner",
 
         FolderRename: "folderrename",
         FileRename: "filerename",
@@ -445,6 +448,7 @@ window.ASC.Files.ServiceManager = (function () {
         SaveThirdParty: "savethirdparty",
         DeleteThirdParty: "deletethirdparty",
         ChangeAccessToThirdparty: "changeaccesstothirdparty",
+        SendDocuSign: "senddocusign",
 
         UpdateIfExist: "updateifexist",
         GetHelpCenter: "gethelpcenter",
@@ -461,6 +465,7 @@ window.ASC.Files.ServiceManager = (function () {
 
         GetEditHistory: "getedithistory",
         GetDiffUrl: "getdiffurl",
+        RestoreVersion: "restoreversion",
 
         GetMails: "getmails",
         StartMailMerge: "startmailmerge",
@@ -561,19 +566,19 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var trackEditFile = function (eventType, params) {
-        request("get", "json", eventType, params, "trackeditfile?fileId=" + encodeURIComponent(params.fileID) + "&tabId=" + params.tabId + "&docKeyForTrack=" + params.docKeyForTrack + "&isFinish=" + (params.finish == true) + "&fixedVersion=" + (params.fixedVersion == true) + params.shareLinkParam);
+        request("get", "json", eventType, params, "trackeditfile?fileId=" + encodeURIComponent(params.fileID) + "&tabId=" + params.tabId + "&docKeyForTrack=" + params.docKeyForTrack + "&isFinish=" + (params.finish == true) + params.shareLinkParam);
     };
 
     var checkEditing = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "checkediting");
     };
 
-    var saveEditing = function (eventType, params) {
-        request("get", "json", eventType, params, "saveediting?fileId=" + encodeURIComponent(params.fileID) + "&version=" + params.version + "&tabId=" + params.tabId + "&fileuri=" + encodeURIComponent(params.fileUri) + "&asNew=" + (params.asNew == true) + params.shareLinkKey);
+    var startEdit = function (eventType, params) {
+        request("get", "json", eventType, params, "startEdit?fileId=" + encodeURIComponent(params.fileID) + params.shareLinkParam);
     };
 
-    var startEdit = function (eventType, params) {
-        request("get", "json", eventType, params, "startEdit?fileId=" + encodeURIComponent(params.fileID) + "&docKeyForTrack=" + params.docKeyForTrack + "&asNew=" + (params.asNew == true) + params.shareLinkKey);
+    var setAceLink = function (eventType, params) {
+        request("get", "json", eventType, params, "setacelink?fileId=" + encodeURIComponent(params.fileId) + "&share=" + params.share);
     };
 
     var getSharedInfo = function (eventType, params, data) {
@@ -630,6 +635,14 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "thirdparty?enable=" + (params.enable === true));
     };
 
+    var deleteDocuSign = function (eventType, params) {
+        request("get", "json", eventType, params, "docusign-delete");
+    };
+
+    var sendDocuSign = function (eventType, params, data) {
+        request("post", "json", eventType, params, data, "docusign?fileId=" + encodeURIComponent(params.fileId));
+    };
+
     var markAsRead = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "markasread");
     };
@@ -650,12 +663,20 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "edit-diff-url?fileId=" + encodeURIComponent(params.fileID) + "&version=" + params.version + params.shareLinkParam);
     };
 
+    var restoreVersion = function (eventType, params) {
+        request("get", "json", eventType, params, "restore-version?fileId=" + encodeURIComponent(params.fileID) + "&version=" + params.version + "&url=" + encodeURIComponent(params.url) + params.shareLinkParam);
+    };
+
     var getMailAccounts = function (eventType, params) {
         request("get", "json", eventType, params, "mailaccounts");
     };
 
     var getHelpCenter = function (eventType, params) {
         request("get", "json", eventType, params, "gethelpcenter");
+    };
+
+    var changeOwner = function (eventType, params, data) {
+        request("post", "json", eventType, params, data, "changeowner?userId=" + params.userId);
     };
 
     return {
@@ -682,7 +703,8 @@ window.ASC.Files.ServiceManager = (function () {
 
         renameFolder: renameFolder,
         renameFile: renameFile,
-
+        
+        changeOwner: changeOwner,
         moveFilesCheck: moveFilesCheck,
         moveItems: moveItems,
         deleteItem: deleteItem,
@@ -694,9 +716,9 @@ window.ASC.Files.ServiceManager = (function () {
 
         trackEditFile: trackEditFile,
         checkEditing: checkEditing,
-        saveEditing: saveEditing,
         startEdit: startEdit,
 
+        setAceLink: setAceLink,
         getSharedInfo: getSharedInfo,
         getSharedInfoShort: getSharedInfoShort,
         setAceObject: setAceObject,
@@ -712,6 +734,8 @@ window.ASC.Files.ServiceManager = (function () {
         saveThirdParty: saveThirdParty,
         deleteThirdParty: deleteThirdParty,
         changeAccessToThirdparty: changeAccessToThirdparty,
+        deleteDocuSign: deleteDocuSign,
+        sendDocuSign: sendDocuSign,
 
         markAsRead: markAsRead,
         getNews: getNews,
@@ -720,6 +744,7 @@ window.ASC.Files.ServiceManager = (function () {
 
         getEditHistory: getEditHistory,
         getDiffUrl: getDiffUrl,
+        restoreVersion: restoreVersion,
 
         getMailAccounts: getMailAccounts,
 

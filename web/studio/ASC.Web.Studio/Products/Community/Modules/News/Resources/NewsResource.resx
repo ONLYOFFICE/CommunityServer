@@ -175,7 +175,7 @@
     <value>No polls have been added yet</value>
   </data>
   <data name="EmptyScreenText" xml:space="preserve">
-    <value>Сreate your own events, post important announcements, share the latest news and add polls to collect your colleagues' opinions directly on your portal.</value>
+    <value>Create your own events, post important announcements, share the latest news and add polls to collect your colleagues' opinions directly on your portal.</value>
   </data>
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>Access denied</value>
@@ -201,14 +201,23 @@
   <data name="HideButton" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="NewsAdd" xml:space="preserve">
-    <value>Add new event</value>
+  <data name="In" xml:space="preserve">
+    <value>in</value>
   </data>
-  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Corporate feeds</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Feeds</value>
+  </data>
+  <data name="NewsAdd" xml:space="preserve">
     <value>New Event</value>
   </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Create new event</value>
+  </data>
   <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
-    <value>New Poll</value>
+    <value>Create new poll</value>
   </data>
   <data name="NewsAnnouncementsTypeName" xml:space="preserve">
     <value>Announcements</value>
@@ -235,13 +244,19 @@
     <value>Event Type</value>
   </data>
   <data name="NotificationOnNewComments" xml:space="preserve">
-    <value>Notify about new comments</value>
+    <value>Event comments</value>
   </data>
   <data name="NotifyOnNewFeed" xml:space="preserve">
-    <value>Events Subscriptions</value>
+    <value>New events</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
   </data>
   <data name="PostButton" xml:space="preserve">
     <value>Publish</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Total events</value>
   </data>
   <data name="PostedBy" xml:space="preserve">
     <value>Author</value>

@@ -258,6 +258,9 @@ window.ASC.Files.FileSelector = (function () {
 
 (function ($) {
     $(function () {
+        if (jq("#fileSelectorDialog").length == 0)
+            return;
+
         ASC.Files.FileSelector.init();
     });
 })(jQuery);

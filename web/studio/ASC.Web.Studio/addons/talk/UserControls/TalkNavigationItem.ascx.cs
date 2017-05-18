@@ -94,7 +94,9 @@ namespace ASC.Web.Talk.UserControls
         protected override void Render(HtmlTextWriter writer)
         {
             base.Render(writer);
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.navigationitem.js");
+
+            // Migrate to CommonBodyScripts
+           // Page.RegisterBodyScripts("~/addons/talk/js/talk.navigationitem.js");
             RegisterScript();
         }
 
@@ -102,8 +104,7 @@ namespace ASC.Web.Talk.UserControls
         {
             var sb = new StringBuilder();
 
-            sb.AppendFormat(@"
-                    ASC.Controls.JabberClient.init('{0}','{1}','{2}');",
+            sb.AppendFormat("\r\nASC.Controls.JabberClient.init('{0}','{1}','{2}');",
                 GetUserName(),
                 GetJabberClientPath(),
                 GetOpenContactHandler()
@@ -112,7 +113,7 @@ namespace ASC.Web.Talk.UserControls
             var hubUrl = ConfigurationManager.AppSettings["web.hub"] ?? string.Empty;
             if (hubUrl == string.Empty)
             {
-                sb.AppendFormat(@"ASC.Controls.TalkNavigationItem.init('{0}');", GetUpdateInterval());
+                sb.AppendFormat("\r\nASC.Controls.TalkNavigationItem.init('{0}');", GetUpdateInterval());
             }
             Page.RegisterInlineScript(sb.ToString());
         }

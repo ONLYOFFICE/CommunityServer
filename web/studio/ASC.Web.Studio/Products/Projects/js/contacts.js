@@ -24,9 +24,18 @@
 */
 
 
-ASC.Projects.Contacts = (function() {
-    var projectTeam, currentProjectId;
+ASC.Projects.Contacts = (function($) {
+    var baseObject = ASC.Projects,
+        currentProjectId,
+        resources = baseObject.Resources.ProjectsJSResource,
+        displayNoneClass = "display-none";
+
+    var teamlab;
+    var $contactsForProjectPanel = $("#contactsForProjectPanel"),
+        $escNoContacts = $("#escNoContacts");
+
     var init = function () {
+        teamlab = Teamlab;
         currentProjectId = jq.getURLParam("prjID");
 
         if (!currentProjectId)
@@ -38,13 +47,13 @@ ASC.Projects.Contacts = (function() {
             EntityID: 0,
 
             ShowOnlySelectorContent: true,
-            DescriptionText: ASC.Projects.Resources.ProjectsJSResource.CRMDescrForSelector,
+            DescriptionText: resources.CRMDescrForSelector,
             DeleteContactText: "",
             AddContactText: "",
             IsInPopup: false,
-            NewCompanyTitleWatermark: ASC.Projects.Resources.ProjectsJSResource.CRMCompanyName,
-            NewContactFirstNameWatermark: ASC.Projects.Resources.ProjectsJSResource.CRMFirstName,
-            NewContactLastNameWatermark: ASC.Projects.Resources.ProjectsJSResource.CRMLastName,
+            NewCompanyTitleWatermark: resources.CRMCompanyName,
+            NewContactFirstNameWatermark: resources.CRMFirstName,
+            NewContactLastNameWatermark: resources.CRMLastName,
 
             ShowChangeButton: false,
             ShowAddButton: false,
@@ -57,48 +66,41 @@ ASC.Projects.Contacts = (function() {
             HTMLParent: "#projContactSelectorParent"
         };
 
-        if (typeof (ASC.Projects.Master.Team) != 'undefined') {
-            projectTeam = ASC.Projects.Master.Team;
-        } else {
-            Teamlab.getPrjTeam({}, currentProjectId, {
+        if (typeof (ASC.Projects.Master.Team) == 'undefined') {
+            teamlab.getPrjTeam({}, currentProjectId, {
                 success: function(param, team) {
                     ASC.Projects.Master.Team = team;
-                    projectTeam = team;
                 }
             });
         }
 
-        var params = {};
-        params.showCompanyLink = true;
-        if (jq("#contactsForProjectPanel").length) {
-            params.showUnlinkBtn = true;
-        } else {
-            params.showUnlinkBtn = false;
-        }
-        Teamlab.getCrmContactsForProject(params, currentProjectId, {
-            success: function(param, data) {
+        teamlab.bind(teamlab.events.getCrmContactsForProject,
+            function(param, data) {
                 if (data.length != 0) {
                     jq.extend(dataForContactSelectorInit, { presetSelectedContactsJson: jq.toJSON(data) });
                 }
-                window["projContactSelector"] = new ASC.CRM.ContactSelector.ContactSelector("projContactSelector", dataForContactSelectorInit);
+                window["projContactSelector"] = new ASC.CRM.ContactSelector
+                    .ContactSelector("projContactSelector", dataForContactSelectorInit);
 
                 if (data.length == 0) {
-                    jq("#escNoContacts.display-none").removeClass("display-none").show();
+                    $escNoContacts.removeClass(displayNoneClass).show();
                 } else {
-                    ASC.Projects.projectNavPanel.changeModuleItemsCount(ASC.Projects.projectNavPanel.projectModulesNames.contacts, data.length);
-                    jq("#contactsForProjectPanel").show();
+                    $contactsForProjectPanel.show();
                 }
 
                 window.projContactSelector.SelectItemEvent = addContactToProject;
                 ASC.CRM.ListContactView.removeMember = removeContactFromProject;
 
                 ASC.CRM.ListContactView.CallbackMethods.render_simple_content(param, data);
-            }
-        });
+            });
+        //remove success
+        setTimeout(function() {
+            teamlab.getCrmContactsForProject(makeParams(), currentProjectId)
+        }, 0);
 
         jq("#escNoContacts .emptyScrBttnPnl>a").bind("click", function() {
-            jq("#escNoContacts").addClass("display-none");
-            jq("#contactsForProjectPanel").show();
+            $escNoContacts.addClass(displayNoneClass);
+            $contactsForProjectPanel.show();
         });
     };
 
@@ -115,30 +117,23 @@ ASC.Projects.Contacts = (function() {
             var dataRights = {
                     contactid: [obj.id],
                     isShared: false,
-                    managerList: new Array(Teamlab.profile.id)
+                    managerList: new Array(teamlab.profile.id)
                 };
 
-            Teamlab.updateCrmContactRights({}, dataRights, {});
+            teamlab.updateCrmContactRights({}, dataRights, {});
         }
-        var param = {};
-        param.showCompanyLink = true;
-        if (jq("#contactsForProjectPanel").length) {
-            param.showUnlinkBtn = true;
-        } else {
-            param.showUnlinkBtn = false;
-        }
-        Teamlab.addCrmEntityMember(param, "project", data.projectid, data.contactid, data, {
+
+        teamlab.addCrmEntityMember(makeParams(), "project", data.projectid, data.contactid, data, {
             success: function(par, contact) {
                 ASC.CRM.ListContactView.CallbackMethods.addMember(par, contact);
                 window.projContactSelector.SelectedContacts.push(contact.id);
-                ASC.Projects.projectNavPanel.changeModuleItemsCount(ASC.Projects.projectNavPanel.projectModulesNames.contacts, "add");
             }
         });
 
     };
 
     var removeContactFromProject = function(id) {
-        Teamlab.removeCrmEntityMember({ contactID: id }, "project", currentProjectId, id, {
+        teamlab.removeCrmEntityMember({ contactID: id }, "project", currentProjectId, id, {
             before: function(params) {
                 jq("#trashImg_" + params.contactID).hide();
                 jq("#loaderImg_" + params.contactID).show();
@@ -152,16 +147,27 @@ ASC.Projects.Contacts = (function() {
 
                 setTimeout(function() {
                     jq("#contactItem_" + params.contactID).remove();
-                    ASC.Projects.projectNavPanel.changeModuleItemsCount(ASC.Projects.projectNavPanel.projectModulesNames.contacts, "delete");
                     if (window.projContactSelector.SelectedContacts.length == 0) {
-                        jq("#contactsForProjectPanel").hide();
-                        jq("#escNoContacts.display-none").removeClass("display-none").show();
+                        $contactsForProjectPanel.hide();
+                        $escNoContacts.removeClass(displayNoneClass).show();
                     }
                 }, 500);
 
             }
         });
     };
+
+    function makeParams() {
+        var param = {
+            showCompanyLink: true,
+            showUnlinkBtn: false
+        };
+
+        if ($contactsForProjectPanel.length) {
+            param.showUnlinkBtn = true;
+        }
+        return param;
+    }
 
     return {
         init: init

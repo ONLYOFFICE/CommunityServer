@@ -61,10 +61,6 @@
     margin-left: 24px;
 }
 
-#timeSpendsList {
-    margin: 0 0 15px 0;
-}
-
 #deselectAllTimers {
     margin-left:10px;
 }
@@ -200,7 +196,7 @@
 }
 #timeSpendsList tbody td {
     color:#333;
-    height: 49px;
+    height: 40px;
 }
 #timeSpendsList .timeSpendRecord:hover,
 #timeSpendsList .timeSpendRecord.checked-row:hover,

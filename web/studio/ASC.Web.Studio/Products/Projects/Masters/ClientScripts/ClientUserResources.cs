@@ -49,70 +49,71 @@ namespace ASC.Web.Projects.Masters.ClientScripts
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
             var filter = new TaskFilter
-                {
-                    SortBy = "title",
-                    SortOrder = true,
-                    ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
-                };
+            {
+                SortBy = "title",
+                SortOrder = true,
+                ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
+            };
 
             var projects = Global.EngineFactory.ProjectEngine.GetByFilter(filter)
-                                 .Select(pr => new
-                                     {
-                                         id = pr.ID,
-                                         title = pr.Title,
-                                         responsible = pr.Responsible,
-                                         //created = (ApiDateTime) pr.CreateOn,
-                                         security = new
-                                             {
-                                                 canCreateMilestone = ProjectSecurity.CanCreateMilestone(pr),
-                                                 canCreateMessage = ProjectSecurity.CanCreateMessage(pr),
-                                                 canCreateTask = ProjectSecurity.CanCreateTask(pr),
-                                                 canEditTeam = ProjectSecurity.CanEditTeam(pr),
-                                                 canReadFiles = ProjectSecurity.CanReadFiles(pr),
-                                                 canReadMilestones = ProjectSecurity.CanReadMilestones(pr),
-                                                 canReadMessages = ProjectSecurity.CanReadMessages(pr),
-                                                 canReadTasks = ProjectSecurity.CanReadTasks(pr),
-                                                 isInTeam = ProjectSecurity.IsInTeam(pr, SecurityContext.CurrentAccount.ID, false),
-                                                 canLinkContact = ProjectSecurity.CanLinkContact(pr),
-                                             },
-                                         isPrivate = pr.Private,
-                                         status = pr.Status
-                                     }).ToList();
+                .Select(pr => new
+                {
+                    id = pr.ID,
+                    title = pr.Title,
+                    responsible = pr.Responsible,
+                    //created = (ApiDateTime) pr.CreateOn,
+                    security = new
+                    {
+                        canCreateMilestone = ProjectSecurity.CanCreateMilestone(pr),
+                        canCreateMessage = ProjectSecurity.CanCreateMessage(pr),
+                        canCreateTask = ProjectSecurity.CanCreateTask(pr),
+                        canCreateTimeSpend = ProjectSecurity.CanCreateTimeSpend(pr),
+                        canEditTeam = ProjectSecurity.CanEditTeam(pr),
+                        canReadFiles = ProjectSecurity.CanReadFiles(pr),
+                        canReadMilestones = ProjectSecurity.CanReadMilestones(pr),
+                        canReadMessages = ProjectSecurity.CanReadMessages(pr),
+                        canReadTasks = ProjectSecurity.CanReadTasks(pr),
+                        isInTeam = ProjectSecurity.IsInTeam(pr, SecurityContext.CurrentAccount.ID, false),
+                        canLinkContact = ProjectSecurity.CanLinkContact(pr)
+                    },
+                    isPrivate = pr.Private,
+                    status = pr.Status,
+                    taskCountTotal = pr.TaskCountTotal
+                }).ToList();
 
             var tags = Global.EngineFactory.TagEngine.GetTags().Select(r => new {value = r.Key, title = r.Value.HtmlEncode()}).ToList();
 
             var result = new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               Global.EntryCountOnPage,
-                               Global.VisiblePageCount,
-                               Projects = new {response = projects},
-                               Tags = new {response = tags}
-                           })
-                   };
-
-            if (context.Request.UrlReferrer != null && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.GetUrlRewriter().Query)["prjID"]) && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.UrlReferrer.Query)["prjID"]))
             {
-                filter = new TaskFilter
+                RegisterObject(
+                    new
                     {
-                        SortBy = "deadline",
-                        SortOrder = false,
-                        MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open}
-                    };
+                        Global.EntryCountOnPage,
+                        Global.VisiblePageCount,
+                        Projects = new {response = projects},
+                        Tags = new {response = tags},
+                        ProjectsCount = Global.EngineFactory.ProjectEngine.GetByFilterCount(new TaskFilter())
+                    })
+            };
 
-                var milestones = Global.EngineFactory.MilestoneEngine.GetByFilter(filter)
-                                       .Select(m => new
-                                           {
-                                               id = m.ID,
-                                               title = m.Title,
-                                               deadline = SetDate(m.DeadLine, TimeZoneInfo.Local),
-                                               projectOwner = new {id = m.Project.ID}
-                                           }).ToList();
+            filter = new TaskFilter
+            {
+                SortBy = "deadline",
+                SortOrder = false,
+                MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open}
+            };
 
-                result.Add(RegisterObject(new { Milestones = new { response = milestones } }));
-            }
+            var milestones = Global.EngineFactory.MilestoneEngine.GetByFilter(filter)
+                .Select(m => new
+                {
+                    id = m.ID,
+                    title = m.Title,
+                    deadline = SetDate(m.DeadLine, TimeZoneInfo.Local),
+                    projectOwner = new {id = m.Project.ID},
+                    status = (int) m.Status
+                }).ToList();
+
+            result.Add(RegisterObject(new {Milestones = new {response = milestones}}));
 
             return result;
         }
@@ -171,23 +172,6 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                 }
             }
 
-            var filter = new TaskFilter
-                {
-                    SortBy = "deadline",
-                    SortOrder = false,
-                    MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open},
-                    ProjectIds = new List<int> {Convert.ToInt32(currentProject)}
-                };
-
-            var milestones = Global.EngineFactory.MilestoneEngine.GetByFilter(filter)
-                                   .Select(m => new
-                                       {
-                                           id = m.ID,
-                                           title = m.Title,
-                                           deadline = ClientUserResources.SetDate(m.DeadLine, TimeZoneInfo.Local),
-                                           projectOwner = new {id = m.Project.ID}
-                                       }).ToList();
-
             var team = Global.EngineFactory.ProjectEngine.GetTeam(Convert.ToInt32(currentProject))
                              .Select(r => new
                                  {
@@ -221,7 +205,6 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                        RegisterObject(
                            new
                            {
-                               Milestones = new {response = milestones},
                                Team = new {response = team}
                            })
                    };
@@ -246,9 +229,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
             var teamMaxLastModified = DateTime.UtcNow;
             teamMaxLastModified = teamMaxLastModified.AddSeconds(-teamMaxLastModified.Second);
 
-            var milestoneMaxLastModified = Global.EngineFactory.MilestoneEngine.GetLastModified();
-
-            return string.Format("{0}|{1}|{2}|{3}", currentUserId.ToString(), currentProject, teamMaxLastModified, milestoneMaxLastModified);
+            return string.Format("{0}|{1}|{2}", currentUserId.ToString(), currentProject, teamMaxLastModified);
         }
     }
 
@@ -266,7 +247,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                        RegisterObject(
                            new
                            {
-                               IsModuleAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, EngineFactory.ProductId)
+                               IsModuleAdmin = ProjectSecurity.CurrentUserAdministrator
                            })
                    };
         }

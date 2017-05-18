@@ -49,7 +49,7 @@ window.ASC.Files.Converter = (function () {
         }
 
         jq("#progressCopyConvertId").val(fileId);
-        jq("#progressCopyConvertVersion").val(version || -1);
+        jq("#progressCopyConvertVersion").val(version);
         jq("#progressCopyConvertView").val(forEdit == false);
 
         if (!ASC.Files.Utility.FileIsDocument(fileTitle)
@@ -59,6 +59,8 @@ window.ASC.Files.Converter = (function () {
         }
 
         ASC.Files.UI.blockUI("#confirmCopyConvert", 500, 0, -120);
+
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#confirmCopyConvert .blue:visible:not(.disable):first\").click()";
 
         jq("#progressCopyConvert, #copyAndConvertOpen").hide();
         jq("#copyConvertDescript, #confirmCopyAndConvert").show();
@@ -185,6 +187,8 @@ window.ASC.Files.Converter = (function () {
             presentations: [],
             other: []
         };
+
+        jq("#convertFileZip").toggle(jq(selectedElements).length > 1);
 
         jq(selectedElements).each(function () {
             var entryObj = ASC.Files.UI.getObjectData(this);

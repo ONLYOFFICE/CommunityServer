@@ -28,12 +28,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
 using ASC.Core;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Import.DocuSign;
+using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -50,14 +53,16 @@ namespace ASC.Web.Files.Masters.ClientScripts
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
             return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
+                {
+                    RegisterObject(
+                        new
+                            {
                                 URL_OAUTH_BOX = Import.Box.Box.Location.ToLower(),
                                 URL_OAUTH2_GOOGLE = Import.Google.Google.Location.ToLower(),
-                                URL_OAUTH_DROPBOX = Import.DropBox.Dropbox.Location.ToLower(),
+                                URL_OAUTH_DROPBOXV2 = Import.DropBox.DropboxV2.Location.ToLower(),
                                 URL_OAUTH_SKYDRIVE = Import.OneDrive.OneDriveOAuth.Location.ToLower(),
+                                URL_OAUTH_DOCUSIGN = Import.DocuSign.DocuSign.Location.ToLower(),
+                                URL_OAUTH_DOCUSIGN_LINK = DocuSignLoginProvider.DocuSignHost,
 
                                 URL_BASE = FilesLinkUtility.FilesBaseAbsolutePath,
                                 URL_WCFSERVICE = PathProvider.GetFileServicePath,
@@ -78,31 +83,42 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                 FileConstant.ShareLinkId,
 
                                 AceStatusEnum = new
-                                                {
-                                                    FileShare.None,
-                                                    FileShare.ReadWrite, 
-                                                    FileShare.Read,
-                                                    FileShare.Restrict,
-                                                    FileShare.Varies,
-                                                    FileShare.Review  
-                                                },
+                                    {
+                                        FileShare.None,
+                                        FileShare.ReadWrite,
+                                        FileShare.Read,
+                                        FileShare.Restrict,
+                                        FileShare.Varies,
+                                        FileShare.Review
+                                    },
 
                                 FilterType = new
-                                             {
-                                                FilterType.None,
-                                                FilterType.FilesOnly,
-                                                FilterType.FoldersOnly,
-                                                FilterType.DocumentsOnly,
-                                                FilterType.PresentationsOnly,
-                                                FilterType.SpreadsheetsOnly,
-                                                FilterType.ImagesOnly,
-                                                FilterType.ArchiveOnly,
-                                                FilterType.ByUser,
-                                                FilterType.ByDepartment,
-                                                FilterType.ByExtension  
-                                             }
-                           })
-                   };
+                                    {
+                                        FilterType.None,
+                                        FilterType.FilesOnly,
+                                        FilterType.FoldersOnly,
+                                        FilterType.DocumentsOnly,
+                                        FilterType.PresentationsOnly,
+                                        FilterType.SpreadsheetsOnly,
+                                        FilterType.ImagesOnly,
+                                        FilterType.ArchiveOnly,
+                                        FilterType.ByUser,
+                                        FilterType.ByDepartment,
+                                        FilterType.ByExtension
+                                    },
+
+                                ConflictResolveType = new
+                                    {
+                                        FileConflictResolveType.Skip,
+                                        FileConflictResolveType.Overwrite,
+                                        FileConflictResolveType.Duplicate
+                                    },
+
+                                DocuSignFormats = DocuSignHelper.SupportedFormats,
+
+                                UrlShareLink = ShareLink.Location + "?" + FilesLinkUtility.FileId + "={0}",
+                            })
+                };
         }
 
         protected override string GetCacheHash()

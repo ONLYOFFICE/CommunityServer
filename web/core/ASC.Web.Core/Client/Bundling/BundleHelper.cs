@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Optimization;
@@ -40,65 +39,54 @@ namespace ASC.Web.Core.Client.Bundling
         public const string BUNDLE_VPATH = "/bundle/";
         public const string CLIENT_SCRIPT_VPATH = "/clientscript/";
 
-
-        public static ASCStyleBundle GetCssBundle(string path)
+        public static string AddBundle(BundleData bundleData)
         {
-            return (ASCStyleBundle)BundleTable.Bundles.GetBundleFor(ToVirtualPath(path));
+            var path = bundleData.GetBundleVirtualPath(BUNDLE_VPATH, ClientSettings.ResetCacheKey);
+            var virtualPath = ToVirtualPath(path);
+            var bundle = (ASCBundle)BundleTable.Bundles.GetBundleFor(virtualPath);
+            if (bundle == null)
+            {
+                bundle = bundleData.CreateAscBundle(virtualPath);
+                foreach (var script in bundleData.GetSource())
+                {
+                    bundle.Include(script);
+                }
+                AddBundle(bundle);
+            }
+            
+            return bundle.GetLink(path);
         }
 
-        public static ASCJsBundle GetJsBundle(string path)
-        {
-            return (ASCJsBundle)BundleTable.Bundles.GetBundleFor(ToVirtualPath(path));
-        }
+
 
         public static void AddBundle(Bundle bundle)
         {
             BundleTable.Bundles.Add(bundle);
-            if (((ASCBundle)bundle).UseDisc)
+            if (DiscTransform.SuccessInitialized)
             {
                 bundle.GenerateBundleResponse(new BundleContext(new HttpContextWrapper(HttpContext.Current), BundleTable.Bundles, bundle.Path));
             }
         }
 
-        public static ASCStyleBundle CssBundle(string virtualPath)
-        {
-            return new ASCStyleBundle(ToVirtualPath(virtualPath));
-        }
-
-        public static ASCJsBundle JsBundle(string virtualPath)
-        {
-            return new ASCJsBundle(ToVirtualPath(virtualPath));
-        }
-
-        public static string HtmlLink(string uri)
-        {
-            return HtmlLink(uri, true);
-        }
-
-        public static string HtmlScript(string uri)
-        {
-            return HtmlScript(uri, true, false);
-        }
-
-        public static string HtmlLink(string uri, bool resolve)
+        public static string GetCssLink(string uri, bool resolve = true)
         {
             return string.Format("<link type='text/css' href='{0}' rel='stylesheet' />", GetUrl(uri, resolve));
         }
 
-        public static string HtmlScript(string uri, bool resolve, bool notobfuscate)
+        public static string GetJavascriptLink(string uri, bool resolve = true)
         {
-            return string.Format("<script type='text/javascript' src='{0}'{1}></script>", GetUrl(uri, resolve), notobfuscate ? " notobfuscate='true'" : string.Empty);
+            return string.Format("<script type='text/javascript' src='{0}'></script>", GetUrl(uri, resolve));
         }
 
-        public static string GetUrl(string path, bool resolve)
+        private static string GetUrl(string uri, bool resolve)
         {
-            var resolved = path;
+            var resolved = uri;
             if (resolve)
             {
-                resolved = BundleTable.Bundles.ResolveBundleUrl(ToVirtualPath(path), false);
-                if (path.Contains('?'))
+                resolved = BundleTable.Bundles.ResolveBundleUrl(ToVirtualPath(uri), false);
+                if (uri.Contains('?'))
                 {
-                    resolved += path.Substring(path.LastIndexOf('?'));
+                    resolved += uri.Substring(uri.LastIndexOf('?'));
                 }
             }
 
@@ -114,7 +102,7 @@ namespace ASC.Web.Core.Client.Bundling
             return resolved;
         }
 
-        public static string ToVirtualPath(string uri)
+        private static string ToVirtualPath(string uri)
         {
             if (uri.Contains('?'))
             {
@@ -146,7 +134,6 @@ namespace ASC.Web.Core.Client.Bundling
         internal class ASCBundle : Bundle
         {
             protected virtual string ContentType { get { return ""; } }
-            public bool UseDisc;
 
             protected ASCBundle(string virtualPath, params IBundleTransform[] transforms)
                 : base(virtualPath, transforms)
@@ -157,7 +144,6 @@ namespace ASC.Web.Core.Client.Bundling
 
                 if (CoreContext.Configuration.Standalone)
                 {
-                    UseDisc = true;
                     Transforms.Add(new DiscTransform());
                     CdnPath = DiscTransform.GetUri(Path, ContentType);
                 }
@@ -166,6 +152,16 @@ namespace ASC.Web.Core.Client.Bundling
                     Transforms.Add(new CdnTransform());
                 }
             }
+
+            public virtual Bundle Include(string path)
+            {
+                throw new NotImplementedException();
+            }
+
+            internal virtual string GetLink(string uri)
+            {
+                return uri;
+            }
         }
 
         internal class ASCStyleBundle : ASCBundle
@@ -173,13 +169,18 @@ namespace ASC.Web.Core.Client.Bundling
             protected override string ContentType { get { return "text/css"; } }
 
             public ASCStyleBundle(string virtualPath)
-                : base(virtualPath, new CssMinify())
+                : base(virtualPath, new CssTransform())
             {
             }
 
-            public Bundle Include(string path)
+            public override Bundle Include(string path)
             {
-                return Include(ToVirtualPath(path), new CssTransform(UseDisc ? CdnPath : Path));
+                return Include(ToVirtualPath(path), new CssTransform(DiscTransform.SuccessInitialized ? CdnPath : Path));
+            }
+
+            internal override string GetLink(string uri)
+            {
+                return GetCssLink(uri);
             }
         }
 
@@ -196,9 +197,9 @@ namespace ASC.Web.Core.Client.Bundling
                 UseCache = true;
             }
 
-            public ASCJsBundle Include(string path, bool obfuscate)
+            public override Bundle Include(string path)
             {
-                return (ASCJsBundle)Include(ToVirtualPath(path), new JsTransform(obfuscate));
+                return Include(ToVirtualPath(path), new JsTransform());
             }
 
             public override void UpdateCache(BundleContext context, BundleResponse response)
@@ -212,6 +213,11 @@ namespace ASC.Web.Core.Client.Bundling
             public override BundleResponse CacheLookup(BundleContext context)
             {
                 return UseCache ? base.CacheLookup(context) : null;
+            }
+
+            internal override string GetLink(string uri)
+            {
+                return GetJavascriptLink(uri);
             }
         }
     }

@@ -132,14 +132,23 @@
   <data name="AllProjectTmpl" xml:space="preserve">
     <value>All Project Templates</value>
   </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Choose Responsible</value>
+  </data>
   <data name="CreateProject" xml:space="preserve">
     <value>Create Project</value>
   </data>
   <data name="CreateProjTmpl" xml:space="preserve">
-    <value>Create Project Template</value>
+    <value>Create new project template</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>Create from Template - {0}</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -150,14 +159,47 @@
   <data name="EditProjTmpl" xml:space="preserve">
     <value>Edit Project Template</value>
   </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>Create the First Template</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>Project templates help you create similar projects with associated stuff like building a project team, planning milestones, tasks and discussions saving time spent each time on entering the same data.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>There are no project templates</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>Each milestone must have a title</value>
+  </data>
   <data name="Milestones" xml:space="preserve">
     <value>milestones</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Nobody</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Project Manager</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Are you sure you want to delete this template?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>Remove Template</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>Save &amp; Create project from template</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
   </data>
   <data name="SaveTemplate" xml:space="preserve">
-    <value>Save Template</value>
+    <value>Save</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>Each task must have a title</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>tasks</value>
@@ -168,43 +210,7 @@
   <data name="TemplateTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="ChooseResponsible" xml:space="preserve">
-    <value>Choose Responsible</value>
-  </data>
   <data name="TitleErrorTemplate" xml:space="preserve">
     <value>Each template must have a title</value>
-  </data>
-  <data name="EmptyListTemplateButton" xml:space="preserve">
-    <value>Create the First Template</value>
-  </data>
-  <data name="EmptyListTemplateDescr" xml:space="preserve">
-    <value>Project templates help you create similar projects with associated stuff like building a project team, planning milestones, tasks and discussions saving time spent each time on entering the same data.</value>
-  </data>
-  <data name="EmptyListTemplateHeader" xml:space="preserve">
-    <value>There are no project templates</value>
-  </data>
-  <data name="DefaultProjTitle" xml:space="preserve">
-    <value>Create from Template - {0}</value>
-  </data>
-  <data name="NoResponsible" xml:space="preserve">
-    <value>Nobody</value>
-  </data>
-  <data name="MilestoneError" xml:space="preserve">
-    <value>Milestone have to be named!</value>
-  </data>
-  <data name="RemoveQuestion" xml:space="preserve">
-    <value>Are you sure you want to delete this template?</value>
-  </data>
-  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
-    <value>Remove Template</value>
-  </data>
-  <data name="Task" xml:space="preserve">
-    <value>Task</value>
-  </data>
-  <data name="TaskError" xml:space="preserve">
-    <value>Task have to be named!</value>
-  </data>
-  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
-    <value>Save &amp; Create project </value>
   </data>
 </root>

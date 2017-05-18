@@ -32,248 +32,319 @@ if (typeof ASC.Projects === "undefined")
     ASC.Projects = {};
 
 ASC.Projects.Common = (function () {
-    this.prjId = jq.getURLParam("prjID");
-    this.allUsers = [];
-    this.allUsersHash = { allUsersCount: 0 };
-    this.initApi = false;
-    this.initMobileBanner = false;
-    this.ckEditor = null;
+    var allUsers = [],
+        allUsersHash = { allUsersCount: 0 },
+        initApi = false,
+        isInitMobileBanner = false,
+        baseObject = ASC.Projects,
+        teamlab = Teamlab,
+        cPage,
+        emptyGuid = "00000000-0000-0000-0000-000000000000",
+        projectsForFilter = [],
+        projectCache = [],
+        emptyScreenShowed = false,
+        handlers = [],
+        master = baseObject.Master;
 
     var init = function () {
-        if (ASC.Projects.Base) {
-            ASC.Projects.Base.clearTables();
-        }
-
-        if (!this.initMobileBanner && jq(".mobileApp-banner").length) {
-            initMobileBanner();
-            this.initMobileBanner = true;
-        }
-
-        bindApi();
+        initMobileBanner();
         initApiData();
-        initPages();
         bindCommonEvents();
-        MoveTaskQuestionPopup.init();
+        initPages();
+        showEmptyScreen();
     };
 
-
-
-    var bindApi = function () {
-        jq('body').off('click.milestonesInit');
-        jq('body').off('click.projectsInit');
-        jq('body').off('click.tasksInit');
+    function initMobileBanner() {
+        if (isInitMobileBanner || !jq(".mobileApp-banner").length) return;
+        isInitMobileBanner = true;
+        jq(".mobileApp-banner_btn.app-store").trackEvent("mobileApp-banner", "action-click", "app-store");
+        jq(".mobileApp-banner_btn.google-play").trackEvent("mobileApp-banner", "action-click", "google-play");
     };
 
-    var bindCommonEvents = function () {
-        if (ASC.Projects.ProjectsAdvansedFilter) {
-            ASC.Projects.ProjectsAdvansedFilter.bindEvents();
-        }
-        Teamlab.unbind(Teamlab.events.getException);
-        Teamlab.bind(Teamlab.events.getException, function(params, errors) {
-            if (errors && errors[0] == "unauthorized request") {
-                window.location = "/auth.aspx";
-            }
-        });
-    };
+    function initApiData() {
+        if (initApi) return;
 
-    var unbindEvents = function () {
-        if (location.href.indexOf("ganttchart.aspx") > 0) return;
-        ASC.Projects.ProjectsAdvansedFilter.unbindEvents();
-        ASC.Projects.PageNavigator.unbindListEvents();
-        ASC.Projects.AllProject.unbindListEvents();
-        ASC.Projects.AllMilestones.unbindListEvents();
-        ASC.Projects.Discussions.unbindListEvents();
-        ASC.Projects.TasksManager.unbindListEvents();
-        ASC.Projects.TimeSpendActionPage.unbindListEvents();
-    };
+        initApi = true;
 
-    var initPages = function () {
-        var action = jq.getURLParam('action');
-        var id = jq.getURLParam('id');
-
-        unbindEvents(); // remove events handlers for previos pages
-
-        if (typeof ASC.Projects.TaskAction != "undefined") {
-            ASC.Projects.TaskAction.init();
-        }
-
-        if (typeof ASC.Projects.MilestoneAction != "undefined") {
-            ASC.Projects.MilestoneAction.init();
-        }
-
-        if (typeof ASC.Projects.navSidePanel != "undefined") {
-            ASC.Projects.navSidePanel.init();
-        }
-
-        //init projNavPanel
-        if (jq.getURLParam('prjId') && location.href.indexOf("ganttchart.aspx") == -1) {
-            ASC.Projects.projectNavPanel.init();
-        }
-
-        if (location.href.indexOf("tasks.aspx") > 0) {
-            if (id) {
-                ASC.Projects.TaskDescroptionPage.init();
-            } else {
-                ASC.Projects.TasksManager.init();
-            }
-        }
-
-        if (location.href.indexOf("messages.aspx") > 0) {
-            if (action) {
-                ASC.Projects.DiscussionAction.init();
-                ckeditorConnector.onReady(function () {
-                    ASC.Projects.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut,codemirror', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=projects_comments' }).editor;
-                    ASC.Projects.Common.ckEditor.on("change", ASC.Projects.DiscussionAction.showHidePreview);
-                });
-            }
-            if (id && action == null) {
-                ASC.Projects.DiscussionDetails.init();
-            }
-            if (id == null && action == null) {
-                ASC.Projects.Discussions.init();
-            }
-        }
-
-        if (location.href.indexOf("milestones.aspx") > 0) {
-            ASC.Projects.AllMilestones.init();
-        }
-
-        if (location.href.indexOf("projects.aspx") > 0) {
-            if (action == null) {
-                ASC.Projects.AllProject.init(false);
-            }
-            jq('#projectTitleContainer .inputTitleContainer').css('width', '100%');
-            if (action == "edit") {
-                jq('.dottedHeader').removeClass('dottedHeader');
-                jq('#projectDescriptionContainer').show();
-                jq('#notifyManagerCheckbox').attr('disabled', 'disabled');
-                jq('#projectTagsContainer').show();
-            }
-        }
-
-        if (location.href.toLowerCase().indexOf("projectteam.aspx") > 0) {
-            ASC.Projects.ProjectTeam.init();
-            jq('#PrivateProjectHelp').click(function () {
-                jq(this).helper({ BlockHelperID: 'AnswerForPrivateProjectTeam' });
-            });
-            jq('#RestrictAccessHelp').click(function () {
-                jq(this).helper({ BlockHelperID: 'AnswerForRestrictAccessTeam' });
-            });
-        }
-
-        if (location.href.indexOf("timer.aspx") > 0) {
-            ASC.Projects.TimeTraking.init();
-        }
-
-        if (location.href.toLowerCase().indexOf("timetracking.aspx") > 0) {
-            ASC.Projects.TimeTrakingEdit.init();
-            ASC.Projects.TimeSpendActionPage.init();
-        }
-
-        if (location.href.toLowerCase().indexOf("projecttemplates.aspx") > 0) {
-            ASC.Projects.Templates.init();
-        }
-
-        jq(function () {
-            jq('#content .close').on('click', function () {
-                jq('[blank-page]').remove();
-            });
-        });
-
-        if (location.href.indexOf("generatedreport.aspx") > 0) {
-            ASC.Projects.GeneratedReportView.init();
-            ASC.Projects.ReportView.init();
-        }
-
-        if (location.href.indexOf("reports.aspx") > 0) {
-            ASC.Projects.ReportView.init();
-        }
-        
-        if (location.href.indexOf("contacts.aspx") > 0) {
-            ASC.Projects.Contacts.init();
-        }
-    };
-
-    var initApiData = function () {
-        if (!this.initApi) {
-            this.initApi = true;
-        } else {
-            return;
-        }
-
-        if (typeof (ASC.Projects.Master) != 'undefined') {
-            if (typeof (ASC.Projects.Master.Projects) != 'undefined' && ASC.Projects.Master.Projects != null) {
-                ASC.Projects.Master.Projects = Teamlab.create('prj-projects', null, ASC.Projects.Master.Projects.response);
+        if (typeof (master) != 'undefined') {
+            if (typeof (master.Projects) != 'undefined' && master.Projects != null) {
+                master.Projects = teamlab.create('prj-projects', null, master.Projects.response);
             }
             
-            if (typeof (ASC.Projects.Master.Tags) != 'undefined' && ASC.Projects.Master.Tags != null) {
-                ASC.Projects.Master.Tags = ASC.Projects.Master.Tags.response;
-                
+            if (typeof (master.Tags) != 'undefined' && master.Tags != null) {
+                master.Tags = master.Tags.response;
             }
             
-            if (typeof (ASC.Projects.Master.Team) != 'undefined' && ASC.Projects.Master.Team != null) {
-                ASC.Projects.Master.TeamWithBlockedUsers = Teamlab.create('prj-projectpersons', null, ASC.Projects.Master.Team.response);
-                ASC.Projects.Master.Team = ASC.Projects.Common.removeBlockedUsersFromTeam(ASC.Projects.Master.TeamWithBlockedUsers);
+            if (typeof (master.Team) != 'undefined' && master.Team != null) {
+                master.TeamWithBlockedUsers = teamlab.create('prj-projectpersons', null, master.Team.response);
+                master.Team = baseObject.Common.removeBlockedUsersFromTeam(master.TeamWithBlockedUsers);
             }
             
-            if (typeof (ASC.Projects.Master.Milestones) != 'undefined' && ASC.Projects.Master.Milestones != null) {
-                ASC.Projects.Master.Milestones = Teamlab.create('prj-milestones', null, ASC.Projects.Master.Milestones.response);
-                ASC.Projects.Master.Milestones = ASC.Projects.Master.Milestones.sort(milestoneSort);
+            if (typeof (master.Milestones) != 'undefined' && master.Milestones != null) {
+                master.Milestones = teamlab.create('prj-milestones', null, master.Milestones.response);
+                master.Milestones = master.Milestones.sort(milestoneSort);
             } 
         } else {
             ASC.Projects.Master = {};
         }
     };
+    
+    function initPages() {
+        var action = jq.getURLParam('action'),
+            id = jq.getURLParam('id'),
+            prjId =jq.getURLParam('prjID'),
+            href = location.href;
 
-    var initMobileBanner = function () {
-        jq(".mobileApp-banner_btn.app-store").trackEvent("mobileApp-banner", "action-click", "app-store");
-        jq(".mobileApp-banner_btn.google-play").trackEvent("mobileApp-banner", "action-click", "google-play");
+        var currentPage = document.location.pathname.match(/[^\/]+$/);
+
+        if (currentPage === null) {
+            currentPage = master.Projects.length !== 0 ? "tasks.aspx" : "projects.aspx";
+            href = document.location.pathname + currentPage;
+            history.pushState({ href: href }, { href: href }, href);
+        } else {
+            currentPage = currentPage[0].toLowerCase();
+        }
+
+        unbindEvents(); // remove events handlers for previos pages
+
+        initControl(baseObject.TaskAction);
+        initControl(baseObject.MilestoneAction);
+
+        //init projNavPanel
+        if (jq.getURLParam('prjId') && href.indexOf("ganttchart.aspx") == -1 && href.indexOf("timer.aspx") == -1) {
+            baseObject.projectNavPanel.init();
+        } else {
+            baseObject.projectNavPanel.hide();
+        }
+
+        initControl(baseObject.navSidePanel);
+
+
+        switch (currentPage) {
+            case "tasks.aspx":
+                cPage = id ? baseObject.TaskDescriptionPage : baseObject.TasksManager;
+                break;
+            case "messages.aspx":
+                if (action) {
+                    cPage = baseObject.DiscussionAction;
+                    ckeditorConnector.load(function () {
+                        baseObject.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut,codemirror', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=projects_comments' }).editor;
+                        baseObject.Common.ckEditor.on("change", cPage.showHidePreview);
+                    });
+                }
+                if (id && action == null) {
+                    cPage = baseObject.DiscussionDetails;
+                }
+                if (id == null && action == null) {
+                    cPage = baseObject.Discussions;
+                }
+                break;
+            case "milestones.aspx":
+                cPage = baseObject.AllMilestones;
+                break;
+            case "projects.aspx":
+                if (action == null) {
+                    if (prjId == null) {
+                        cPage = ASC.Projects.AllProject;
+                    } else {
+                        cPage = ASC.Projects.Description;
+                    }
+                } else {
+                    cPage = ASC.Projects.ProjectAction;
+                    jq(".mainPageContent").children(".loader-page").hide();
+                }
+
+                jq('#projectTitleContainer .inputTitleContainer').css('width', '100%');
+                if (action == "edit") {
+                    jq('.dottedHeader').removeClass('dottedHeader');
+                    jq('#projectDescriptionContainer').show();
+                    jq('#notifyManagerCheckbox').attr('disabled', 'disabled');
+                    jq('#projectTagsContainer').show();
+                }
+                break;
+            case "projectteam.aspx":
+                cPage = baseObject.ProjectTeam;
+                break;
+            case "timer.aspx":
+                cPage = baseObject.TimeTraking;
+                break;
+            case "timetracking.aspx":
+                baseObject.TimeTrakingEdit.init();
+                cPage = baseObject.TimeSpendActionPage;
+                break;
+            case "projecttemplates.aspx":
+                cPage = baseObject.Templates;
+                break;
+            case "generatedreport.aspx":
+                cPage = baseObject.GeneratedReportView;
+                break;
+            case "reports.aspx":
+                cPage = baseObject.ReportView;
+                break;
+            case "contacts.aspx":
+                cPage = baseObject.Contacts;
+                break;
+            case "import.aspx":
+                cPage = baseObject.Import;
+                break;
+            case "ganttchart.aspx":
+                cPage = baseObject.GantChartPage;
+                break;
+        }
+
+        if (cPage && cPage.hasOwnProperty("init")) {
+            cPage.init();
+        }
+
+        if (id === null && action === null && prjId) {
+            var project = projectCache[Number(prjId)];
+            if (typeof project !== "undefined") {
+                teamlab.call(teamlab.events.getPrjProject, this, [null, project]);
+            } else {
+                teamlab.bind(teamlab.events.getPrjProject, function(params, prj) {
+                     projectCache[prj.id] = prj;
+                });
+                teamlab.getPrjProject({}, prjId);
+            }
+        }
     };
 
-    var bind = function (eventName, handler) {
-        jq(document).bind(eventName, handler);
+    function unbindEvents() {
+        if (location.href.indexOf("ganttchart.aspx") > 0) return;
+        if (typeof cPage !== "undefined" && typeof cPage.unbindListEvents === "function") {
+            cPage.unbindListEvents();
+        }
+    };
+
+    function initControl(control) {
+        if (control && control.hasOwnProperty('init')) {
+            control.init();
+        }
+    }
+
+    function bindCommonEvents() {
+        if (handlers.length) return;
+        handlers.push(teamlab.bind(teamlab.events.getException, function (params, errors) {
+            if (errors && errors[0] == "unauthorized request") {
+                window.location = "/auth.aspx";
+            }
+        }));
+
+        handlers.push(teamlab.bind(teamlab.events.updatePrjProjectStatus, function (params, project) {
+            projectsForFilter = [];
+            if (project.status === 0) {
+                if (typeof getProjectById(project.id) === "undefined") {
+                    master.Projects.push(project);
+                }
+            } else {
+                master.Projects = master.Projects.filter(function (item) {
+                    return item.id !== project.id;
+                });
+            }
+
+            projectCache[project.id] = project;
+        }));
     };
     
+    function showEmptyScreen() {
+        if (master.ProjectsCount !== 0 || emptyScreenShowed ||
+            cPage === baseObject.ProjectAction ||
+            cPage === baseObject.Import ||
+            cPage === baseObject.GantChartPage ||
+            cPage === baseObject.ReportView ||
+            cPage === baseObject.Templates 
+            ) return;
+
+        function newBlock(image, title, ul) {
+            return { image: image, title: title, ul: ul };
+        }
+        function onGetPrjSecurityinfo(params, data) {
+            if (!data.canCreateProject) return;
+            var commonResource = baseObject.Resources.CommonResource;
+
+            var tmplObj = {
+                blocks: [
+                    newBlock("icon-tasks.png", commonResource.TasksModuleTitle,
+                        [
+                            commonResource.TasksModuleFirstLine,
+                            commonResource.TasksModuleSecondLine,
+                            commonResource.TasksModuleThirdLine
+                        ]),
+                    newBlock("icon-milestones.png", commonResource.MilestonesModuleTitle,
+                        [
+                            commonResource.MilestonesModuleFirstLine,
+                            commonResource.MilestonesModuleSecondLine,
+                            commonResource.MilestonesModuleThirdLine
+                        ]),
+                    newBlock("icon-document.png", commonResource.DocsModuleTitle,
+                        [
+                            commonResource.DocsModuleFirstLine,
+                            commonResource.DocsModuleSecondLine,
+                            commonResource.DocsModuleThirdLine
+                        ]),
+                    newBlock("icon-discussion.png", commonResource.DiscussionModuleTitle,
+                        [
+                            commonResource.DiscussionModuleFirstLine,
+                            commonResource.DiscussionModuleSecondLine,
+                            commonResource.DiscussionModuleThirdLine
+                        ]),
+                    newBlock("icon-report.png", commonResource.ReportsModuleTitle,
+                        [
+                            commonResource.ReportsModuleFirstLine,
+                            commonResource.ReportsModuleSecondLine,
+                            commonResource.ReportsModuleThirdLine
+                        ])
+                ]
+            };
+            jq.tmpl("projects_dashboard_empty_screen", tmplObj).appendTo("body");
+            var $emptyScreenContainer = jq("#projects_dashboard_empty_screen_container");
+            $emptyScreenContainer.on("click", ".close", function () {
+                $emptyScreenContainer.remove();
+            });
+
+            emptyScreenShowed = true;
+        };
+
+        teamlab.getPrjSecurityinfo({}, { success: onGetPrjSecurityinfo });
+    }
+
     var removeBlockedUsersFromTeam = function (team) {
         return team.filter(function(item) {
             return item.status == 1;
         });
     };
-    var removeComment = function () {
-        if (location.href.toLowerCase().indexOf("tasks.aspx") > 0) {
-            ASC.Projects.TaskDescroptionPage.onDeleteComment();
-        }
 
-        if (location.href.toLowerCase().indexOf("messages.aspx") > 0) {
-            ASC.Projects.DiscussionDetails.removeComment();
-        }
+    var removeComment = function () {
+        cPage.onDeleteComment();
     };
 
-    var showTimer = function (url) {
+    var showTimer = function (projectId, taskId, userId) {
         var width = 288;
         var height = 638;
+        var jqbrowser = jq.browser;
 
-        if (jq.browser.safari) {
+        if (jqbrowser.safari) {
             height = 584;
-        } else if (jq.browser.opera) {
+        } else if (jqbrowser.opera) {
             height = 620;
         }
 
-        if (jq.browser.msie) {
+        if (jqbrowser.msie) {
             width = 284;
             height = 614;
         }
         
-        if (jq.browser.chrome) {
+        if (jqbrowser.chrome) {
             height = 658;
         }
 
         var params = "width=" + width + ",height=" + height + ",resizable=yes";
+        var windowName = "displayTimerWindow";
         var hWnd = null;
         var isExist = false;
 
         try {
-            hWnd = window.open('', "displayTimerWindow", params);
+            hWnd = window.open('', windowName, params);
         } catch (err) {
         }
 
@@ -283,8 +354,21 @@ ASC.Projects.Common = (function () {
             isExist = true;
         }
 
+        var url = "timer.aspx";
+
+        if (projectId) {
+            url += "?prjID=" + projectId;
+            if (taskId) {
+                url += "&taskId=" + taskId;
+
+                if (userId) {
+                    url += "&userID=" + userId;
+                }
+            }
+        }
+
         if (!isExist) {
-            hWnd = window.open(url, "displayTimerWindow", params);
+            hWnd = window.open(url, windowName, params);
             isExist = true;
         }
 
@@ -306,7 +390,8 @@ ASC.Projects.Common = (function () {
     };
 
     var userInProjectTeam = function (userId) {
-        return ASC.Projects.Master.Team.find(function(item) {
+        if (typeof master.Team === "undefined") return false;
+        return master.Team.find(function (item) {
             return item.id == userId;
         });
     };
@@ -329,7 +414,7 @@ ASC.Projects.Common = (function () {
     };
 
     var currentUserIsModuleAdmin = function () {
-        return Teamlab.profile.isAdmin || ASC.Projects.Master.IsModuleAdmin;
+        return teamlab.profile.isAdmin || master.IsModuleAdmin;
     };
 
     var linkTypeEnum = {
@@ -340,32 +425,33 @@ ASC.Projects.Common = (function () {
     };
 
     var getPossibleTypeLink = function (firstTaskStart, firstTaskDeadline, secondTaskStart, secondTaskDeadline, relatedTaskObject) {
+        var common = baseObject.Common;
         var possibleTypeLinks = [-1, -1, -1, -1];
-        possibleTypeLinks[0] = ASC.Projects.Common.linkTypeEnum.start_start; // possible for all tasks
+        possibleTypeLinks[0] = common.linkTypeEnum.start_start; // possible for all tasks
 
         if (firstTaskDeadline && secondTaskDeadline) {
-            possibleTypeLinks[1] = ASC.Projects.Common.linkTypeEnum.end_end; // possible for tasks with deadline
+            possibleTypeLinks[1] = common.linkTypeEnum.end_end; // possible for tasks with deadline
 
             if (firstTaskDeadline <= secondTaskStart) {
-                possibleTypeLinks[3] = ASC.Projects.Common.linkTypeEnum.end_start;
+                possibleTypeLinks[3] = common.linkTypeEnum.end_start;
             } else if (secondTaskDeadline <= firstTaskStart) {
-                possibleTypeLinks[2] = ASC.Projects.Common.linkTypeEnum.start_end;
+                possibleTypeLinks[2] = common.linkTypeEnum.start_end;
             } else {
                 relatedTaskObject.invalidLink = true;
                 if (firstTaskStart <= secondTaskStart) {
-                    possibleTypeLinks[3] = ASC.Projects.Common.linkTypeEnum.end_start;
+                    possibleTypeLinks[3] = common.linkTypeEnum.end_start;
                 } else {
-                    possibleTypeLinks[2] = ASC.Projects.Common.linkTypeEnum.start_end;
+                    possibleTypeLinks[2] = common.linkTypeEnum.start_end;
                 }
             }
         } else {
             if (secondTaskDeadline) {
-                possibleTypeLinks[2] = ASC.Projects.Common.linkTypeEnum.start_end;
+                possibleTypeLinks[2] = common.linkTypeEnum.start_end;
                 if (secondTaskDeadline > firstTaskStart) {
                     relatedTaskObject.invalidLink = true;
                 }
             } else if (firstTaskDeadline) {
-                possibleTypeLinks[3] = ASC.Projects.Common.linkTypeEnum.end_start;
+                possibleTypeLinks[3] = common.linkTypeEnum.end_start;
                 if (firstTaskDeadline < secondTaskStart) {
                     relatedTaskObject.invalidLink = true;
                 }
@@ -386,16 +472,12 @@ ASC.Projects.Common = (function () {
         }
     };
 
-    var emptyGuid = "00000000-0000-0000-0000-000000000000";
-    var defaultPageURL = "projects.aspx";
-
-    var projectsForFilter;
     var getProjectsForFilter = function () {
-        if (projectsForFilter) return projectsForFilter;
+        if (projectsForFilter.length) return projectsForFilter;
         var currentUserProjects = [];
         var otherProjects = [];
 
-        var projects = ASC.Projects.Master.Projects;
+        var projects = master.Projects;
         if (!projects) return [];
         var projectsCount = projects.length;
         for (var i = 0; i < projectsCount; i++) {
@@ -414,27 +496,95 @@ ASC.Projects.Common = (function () {
         return projectsForFilter;
     };
 
+    var defaultSort = function (a, b, asc) {
+        if (asc) return (a < b) ? -1 : (a > b) ? 1 : 0;
+        return (a < b) ? 1 : (a > b) ? -1 : 0;
+    };
+
     var milestoneSort = function (a, b) {
         var deadlineSort = defaultSort(a.deadline, b.deadline);
         return deadlineSort ? deadlineSort : defaultSort(a.title, b.title, true);
     };
 
-    var defaultSort = function (a, b, asc) {
-        if (asc) return (a < b) ? -1 : (a > b) ? 1 : 0;
-        return (a < b) ? 1 : (a > b) ? -1 : 0;
-    };
-    
-    return {
-        bind: bind,
+    function createActionPanel($container, panelId, actionMenuItems) {
+        $container.append(jq.tmpl("projects_panelFrame", { panelId: panelId }));
+        var $actionPanel = jq('#' + panelId);
+        $actionPanel.find(".panel-content").html(jq.tmpl("projects_actionMenuContent", actionMenuItems));
+        return $actionPanel;
+    }
 
+    function getProjectById(projectId) {
+        for (var i = 0, max = master.Projects.length; i < max; i++) {
+            if (master.Projects[i].id == projectId) {
+                return master.Projects[i];
+            }
+        }
+    };
+
+    function getProjectByIdFromCache(projectId) {
+        return projectCache[projectId];
+    };
+
+    function changeTaskCountInProjectsCache(task, action) {
+        var project = projectCache[task.projectOwner.id];
+        if (project) {
+            switch(action) {
+                case 0://add
+                    project.taskCount++;
+                    project.taskCountTotal++;
+                    break;
+                case 1://update
+                    if (task.status === 2) {
+                        project.taskCount--;
+                    } else {
+                        project.taskCount++;
+                    }
+                    break;
+                case 2://remove
+                    if (task.status === 1) {
+                        project.taskCount--;
+                        project.taskCountTotal--;
+                    }
+                    break;
+            }
+
+            baseObject.projectNavPanel.rewriteTaskTab();
+        }
+    }
+
+    function changeMilestoneCountInProjectsCache(milestone, action) {
+        var project = projectCache[milestone.projectId];
+        if (project) {
+            switch (action) {
+                case 0://add
+                    project.milestoneCount++;
+                    break;
+                case 1://update
+                    if (milestone.status === 1) {
+                        project.milestoneCount--;
+                    } else {
+                        project.milestoneCount++;
+                    }
+                    break;
+                case 2://remove
+                    if (milestone.status === 0) {
+                        project.milestoneCount--;
+                    }
+                    break;
+            }
+            baseObject.projectNavPanel.rewriteMilestoneTab();
+        }
+    }
+
+    return {
+        createActionPanel: createActionPanel,
         currentUserIsModuleAdmin: currentUserIsModuleAdmin,
         currentUserIsProjectManager: function (projectId) {
-            return ASC.Projects.Master.Projects.some(function(item) {
-                return item.id == projectId && item.responsibleId === Teamlab.profile.id;
+            return master.Projects.some(function (item) {
+                return item.id == projectId && item.responsibleId === teamlab.profile.id;
             });
         },
 
-        defaultPageURL: defaultPageURL,
         displayInfoPanel: displayInfoPanel,
         
         emptyGuid: emptyGuid,
@@ -448,7 +598,11 @@ ASC.Projects.Common = (function () {
         getPossibleTypeLink: getPossibleTypeLink,
         getProjectsForFilter: getProjectsForFilter,
         getUserById: getUserById,
-        
+        getProjectById: getProjectById,
+        getProjectByIdFromCache: getProjectByIdFromCache,
+        changeTaskCountInProjectsCache: changeTaskCountInProjectsCache,
+        changeMilestoneCountInProjectsCache: changeMilestoneCountInProjectsCache,
+
         baseInit: init,
         
         linkTypeEnum: linkTypeEnum,
@@ -458,55 +612,10 @@ ASC.Projects.Common = (function () {
         removeComment: removeComment,
 
         showTimer: showTimer,
-        
+
         userInProjectTeam: userInProjectTeam
     };
 
-})();
-
-var MoveTaskQuestionPopup = (function () {
-    var isInit = false,
-        links = [],
-        firstBlockId = "",
-        blockId;
-    var successFunc = function () { };
-    var cancelFunc = function () { };
-
-    var init = function () {
-        if (isInit) return;
-        isInit = true;
-
-        jq("#removeTaskLinksQuestionPopup .one-move, #removeTaskLinksQuestionPopupDeadLine .one-move").click(function () {
-            for (var j = 0; j < links.length; ++j) {
-                var data = { dependenceTaskId: links[j].dependenceTaskId, parentTaskId: links[j].parentTaskId };
-                Teamlab.removePrjTaskLink({}, links[j].dependenceTaskId, data, { success: function () { } });
-            }
-            successFunc();
-        });
-        jq("#removeTaskLinksQuestionPopup .cancel, #removeTaskLinksQuestionPopupDeadLine .cancel").click(function () {
-            jq.unblockUI();
-            cancelFunc();
-        });
-    };
-
-    var setParametrs = function (firstBlockId, tasklinks, success, cancel, block) {
-        links = tasklinks;
-        firstBlockId = firstBlockId;
-        successFunc = success;
-        cancelFunc = cancel;
-        blockId = block;
-    };
-
-    var showDialog = function () {
-        jq.unblockUI();
-        StudioBlockUIManager.blockUI(blockId, "auto", 200, 0, "absolute");
-    };
-
-    return {
-        init: init,
-        setParametrs: setParametrs,
-        showDialog: showDialog
-    };
 })();
 
 jq(document).ready(function () {

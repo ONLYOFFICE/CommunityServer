@@ -1,0 +1,35 @@
+﻿<script id="domainTableTmpl" type="text/x-jquery-tmpl">
+    <div id="domains_container">
+        <div class="domain_table_container">
+            {{tmpl(linked_domains) "domainTableRowTmpl"}}
+        </div>
+    </div>
+</script>
+
+
+<script id="domainTableRowTmpl" type="text/x-jquery-tmpl">
+    <div class="domain" domain_id="${id}">
+        <table class="domain_menu">
+            <tr>
+                <td class="name_column" onclick="javascript:administrationPage.showDomainContent('${id}');">
+                    {{if dns.isVerified == true}}<span class="arrow left"></span>{{/if}}
+                    <span class="name bold">${name}</span>
+                </td>
+                <td class="menu_column">
+                    <div class="menu" title="Actions" data_id="${id}"></div>
+                </td>
+            </tr>
+        </table>
+        {{if dns.isVerified == false}}
+        <span class="unerified_reason">${ASC.Mail.Resources.MailAdministrationResource.UnverifiedDomainRecordExplain}</span>
+        {{/if}}
+        <div>
+            <span class="addUserLink create_new_mailbox">
+                <a class="link dotline">Add new mailbox</a>
+            </span>
+            <span class="addUserLink create_new_mailgroup">
+                <a class="link dotline">Add new mailgroup</a>
+            </span>
+        </div>
+    </div>
+</script>

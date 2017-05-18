@@ -90,10 +90,13 @@ if (typeof window.serviceManager === 'undefined') {
         function checkNew(params, options) {
             if (options)
                 window.Teamlab.getMailFolders(params, options);
-            else {
+            else
                 window.Teamlab.getMailFolders();
-            }
-            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+
+            if (commonSettingsPage.isConversationsEnabled())
+                window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+            else
+                window.Teamlab.getMailFilteredMessages({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
         }
 
         var updateFolders = wrapper(2, function (params, options) {
@@ -186,6 +189,10 @@ if (typeof window.serviceManager === 'undefined') {
 
         var getMailFilteredConversations = wrapper(2, function(params, options) {
             window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+        });
+
+        var getMailFilteredMessages = wrapper(2, function (params, options) {
+            window.Teamlab.getMailFilteredMessages({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
         });
 
         var getMessage = wrapper(4, function (id, loadImages, params, options) {
@@ -500,6 +507,26 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getDomainDnsSettings(params, domainId, options);
         });
 
+        var setConversationEnabledFlag = wrapper(3, function(enabled, params, options) {
+            window.Teamlab.setMailConversationEnabledFlag(params, enabled, options);
+        });
+
+        var setAlwaysDisplayImagesFlag = wrapper(3, function (enabled, params, options) {
+            window.Teamlab.setMailAlwaysDisplayImagesFlag(params, enabled, options);
+        });
+
+        var setCacheUnreadMessagesFlag = wrapper(3, function (enabled, params, options) {
+            window.Teamlab.setMailCacheUnreadMessagesFlag(params, enabled, options);
+        });
+
+        var setEnableGoNextAfterMove = wrapper(3, function (enabled, params, options) {
+            window.Teamlab.setMailEnableGoNextAfterMove(params, enabled, options);
+        });
+
+        var getMailOperationStatus = wrapper(3, function (id, params, options) {
+            window.Teamlab.getMailOperationStatus(params, id, options);
+        });
+
         return {
             init: init,
             bind: bind,
@@ -595,7 +622,15 @@ if (typeof window.serviceManager === 'undefined') {
             isDomainExists: isDomainExists,
             checkDomainOwnership: checkDomainOwnership,
             getDomainDnsSettings: getDomainDnsSettings,
-            getMailFilteredConversations: getMailFilteredConversations
+            getMailFilteredConversations: getMailFilteredConversations,
+            getMailFilteredMessages: getMailFilteredMessages,
+
+            setConversationEnabledFlag: setConversationEnabledFlag,
+            setAlwaysDisplayImagesFlag: setAlwaysDisplayImagesFlag,
+            setCacheUnreadMessagesFlag: setCacheUnreadMessagesFlag,
+            setEnableGoNextAfterMove: setEnableGoNextAfterMove,
+
+            getMailOperationStatus: getMailOperationStatus
         };
     })(jQuery);
 }

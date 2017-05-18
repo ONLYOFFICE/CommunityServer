@@ -41,7 +41,11 @@ namespace ASC.VoipService.Dao
 
         public int? Client { get; set; }
 
-        public object[] Ids { get; set; }
+        public int? ContactID { get; set; }
+
+        public string Id { get; set; }
+
+        public string ParentId { get; set; }
 
         public string SortBy { get; set; }
 

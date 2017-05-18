@@ -156,8 +156,8 @@ namespace ASC.Web.Community.Forum
                 Name = Resources.ForumResource.NewTopicOnForumSubscriptionTitle,
                 NotifyAction = SubscriptionConstants.NewTopicInForum,
                 Single = true,
-                IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType)
-
+                IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType),
+                CanSubscribe = true
             });
 
             subscriptionTypes.Add(new SubscriptionType()

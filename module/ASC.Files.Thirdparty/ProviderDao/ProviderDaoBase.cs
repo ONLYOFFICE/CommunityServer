@@ -24,11 +24,11 @@
 */
 
 
-using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
 using ASC.Files.Thirdparty.Box;
+using ASC.Files.Thirdparty.Dropbox;
 using ASC.Files.Thirdparty.GoogleDrive;
 using ASC.Files.Thirdparty.SharePoint;
 using ASC.Files.Thirdparty.Sharpbox;
@@ -59,6 +59,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             Selectors.Add(new SharePointDaoSelector());
             Selectors.Add(new GoogleDriveDaoSelector());
             Selectors.Add(new BoxDaoSelector());
+            Selectors.Add(new DropboxDaoSelector());
         }
 
         protected bool IsCrossDao(object id1, object id2)
@@ -73,18 +74,18 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return Selectors.FirstOrDefault(selector => selector.IsMatch(id)) ?? Default;
         }
 
-        protected void SetSharedByMeProperty(IEnumerable<FileEntry> entries)
+        protected void SetSharedProperty(IEnumerable<FileEntry> entries)
         {
             TryGetSecurityDao()
                 .GetPureShareRecords(entries.ToArray())
-                .Where(x => x.Owner == SecurityContext.CurrentAccount.ID)
+                //.Where(x => x.Owner == SecurityContext.CurrentAccount.ID)
                 .Select(x => x.EntryId).Distinct().ToList()
                 .ForEach(id =>
                              {
                                  var firstEntry = entries.FirstOrDefault(y => y.ID.Equals(id));
 
                                  if (firstEntry != null)
-                                     firstEntry.SharedByMe = true;
+                                     firstEntry.Shared = true;
                              });
         }
 
@@ -211,7 +212,6 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 }
 
                 //Delete source file if needed
-                fromFileDao.DeleteFileStream(fromSelector.ConvertId(fromFileId));
                 fromFileDao.DeleteFile(fromSelector.ConvertId(fromFileId));
             }
 

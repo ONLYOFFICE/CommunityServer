@@ -30,6 +30,7 @@ using ASC.Core.Tenants;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
+using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Utils;
@@ -82,7 +83,7 @@ namespace ASC.Web.Files.HttpHandlers
 
                     case ChunkedRequestType.Upload:
                         var resumedSession = FileUploader.UploadChunk(request.UploadId, request.ChunkStream, request.ChunkSize);
-
+                        
                         if (resumedSession.BytesUploaded == resumedSession.BytesTotal)
                         {
                             WriteSuccess(context, ToResponseObject(resumedSession.File), (int) HttpStatusCode.Created);
@@ -112,7 +113,8 @@ namespace ASC.Web.Files.HttpHandlers
             {
                 CoreContext.TenantManager.SetCurrentTenant(request.TenantId);
                 SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(request.AuthKey));
-                Thread.CurrentThread.CurrentUICulture = request.CultureInfo;
+                if (request.CultureInfo != null)
+                    Thread.CurrentThread.CurrentUICulture = request.CultureInfo;
                 return true;
             }
 
@@ -123,7 +125,9 @@ namespace ASC.Web.Files.HttpHandlers
                 {
                     CoreContext.TenantManager.SetCurrentTenant(uploadSession.TenantId);
                     SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(uploadSession.UserId));
-                    Thread.CurrentThread.CurrentUICulture = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, uploadSession.CultureName, StringComparison.InvariantCultureIgnoreCase));
+                    var culture = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, uploadSession.CultureName, StringComparison.InvariantCultureIgnoreCase));
+                    if (culture != null)
+                        Thread.CurrentThread.CurrentUICulture = culture;
                     return true;
                 }
             }
@@ -145,6 +149,7 @@ namespace ASC.Web.Files.HttpHandlers
         {
             context.Response.StatusCode = statusCode;
             context.Response.Write(JsonConvert.SerializeObject(new {success, data, message}));
+            context.Response.ContentType = "application/json";
         }
 
         public static object ToResponseObject(ChunkedUploadSession session, bool appendBreadCrumbs = false)
@@ -258,17 +263,17 @@ namespace ASC.Web.Files.HttpHandlers
 
             public string FolderId
             {
-                get { return _request["folderid"]; }
+                get { return _request[FilesLinkUtility.FolderId]; }
             }
 
             public string FileId
             {
-                get { return _request["fileid"]; }
+                get { return _request[FilesLinkUtility.FileId]; }
             }
 
             public string FileName
             {
-                get { return _request["name"]; }
+                get { return _request[FilesLinkUtility.FileTitle]; }
             }
 
             public long FileSize

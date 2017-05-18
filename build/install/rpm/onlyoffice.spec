@@ -7,7 +7,7 @@ Group: Applications/Internet
 URL: http://onlyoffice.com/
 Vendor: ONLYOFFICE (Online documents editor)
 Packager: ONLYOFFICE (Online documents editor) <support@onlyoffice.com>
-Requires: mono >= 4.2.0, xsp, mono-locale-extras, nginx >= 0.8.21, mysql-server, wget, redis, ruby, mono-webserver-hyperfastcgi
+Requires: mono >= 4.2.0, xsp, mono-locale-extras, nginx >= 0.8.21, mysql-server, wget, redis, mono-webserver-hyperfastcgi
 BuildArch: noarch
 AutoReq: no
 AutoProv: no
@@ -27,16 +27,19 @@ mkdir -p "$RPM_BUILD_ROOT/var/www/onlyoffice/"
 cp -r ../../Files/onlyoffice/. "$RPM_BUILD_ROOT/var/www/onlyoffice/"
 mkdir -p "$RPM_BUILD_ROOT/var/www/onlyoffice/WebStudio2/"
 cp -r ../../Files/onlyoffice/WebStudio/. "$RPM_BUILD_ROOT/var/www/onlyoffice/WebStudio2/"
+sed '/conversionPattern\s*value=\"%folder{LogDirectory}/s!web!web2!g' -i $RPM_BUILD_ROOT/var/www/onlyoffice/WebStudio2/web.log4net.config;
 mkdir -p "$RPM_BUILD_ROOT/var/log/onlyoffice/"
 
 #install init scripts
 mkdir -p "$RPM_BUILD_ROOT/usr/lib/systemd/system/"
 cp ../../Files/init/*.service "$RPM_BUILD_ROOT/usr/lib/systemd/system/"
-cp ../../Files/onlyoffice/onlyoffice.service "$RPM_BUILD_ROOT/var/www/onlyoffice/"
 
 #install nginx config
 mkdir -p "$RPM_BUILD_ROOT/etc/nginx/conf.d/"
+mkdir -p "$RPM_BUILD_ROOT/etc/nginx/includes/"
 cp ../../Files/nginx/onlyoffice.conf "$RPM_BUILD_ROOT/etc/nginx/conf.d/"
+cp ../../Files/nginx/onlyoffice-apisystem.conf "$RPM_BUILD_ROOT/etc/nginx/conf.d/"
+cp ../../Files/nginx/includes/* "$RPM_BUILD_ROOT/etc/nginx/includes/"
 
 #install hyperfastcgi config
 mkdir -p "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
@@ -78,6 +81,9 @@ rm -rf "$RPM_BUILD_ROOT"
 %attr(-, onlyoffice, onlyoffice) /var/log/onlyoffice/
 %config %attr(-, root, root) /usr/lib/systemd/system/*.service
 %config %attr(-, root, root) /etc/nginx/conf.d/onlyoffice.conf
+%config %attr(-, root, root) /etc/nginx/conf.d/onlyoffice-apisystem.conf
+%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-common.conf
+%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-services.conf
 %config %attr(-, root, root) /etc/hyperfastcgi/onlyoffice
 %config %attr(-, root, root) /etc/hyperfastcgi/onlyoffice2
 %config %attr(-, root, root) /etc/hyperfastcgi/onlyofficeApiSystem
@@ -100,10 +106,9 @@ mkdir -p -m 700 /var/run/onlyoffice/.config/.mono/keypairs
 chown nginx:nginx /var/cache/nginx/onlyoffice
 chown onlyoffice:nginx /var/run/onlyoffice
 chmod g+s+w /var/run/onlyoffice
-chmod +x /var/www/onlyoffice/onlyoffice.service
 
 # fix for mono 4.4.2.11
-ln -s /usr/lib64/libMonoPosixHelper.so /usr/lib/libMonoPosixHelper.so
+# ln -s /usr/lib64/libMonoPosixHelper.so /usr/lib/libMonoPosixHelper.so
 
 #register all services
 systemctl daemon-reload
@@ -111,7 +116,7 @@ systemctl enable redis
 systemctl enable nginx
 systemctl start redis
 
-for SVC in monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+for SVC in monoserve monoserve2 monoserveApiSystem onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 	if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 		systemctl enable $SVC
 	fi
@@ -129,7 +134,7 @@ semanage port --add --type http_port_t --proto tcp 8086-8087 || true
 %preun
 #if it is deinstallation then we stop and deregister all services
 if [ $1 -eq 0 ]; then
-	for SVC in monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+	for SVC in monoserve monoserve2 monoserveApiSystem onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 			systemctl stop $SVC
 			systemctl disable $SVC
@@ -141,7 +146,7 @@ fi
 %postun
 #if it was update then we can restart all services including nginx
 if [ $1 -ge 1 ]; then
-	for SVC in redis monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+	for SVC in redis monoserve monoserve2 monoserveApiSystem onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 			systemctl stop $SVC
 			systemctl start $SVC

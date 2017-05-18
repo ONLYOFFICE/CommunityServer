@@ -54,7 +54,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 return
                     !string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
                     || !string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId)
-                    || !string.IsNullOrEmpty(KeyStorage.Get("twitterKey"))
+                    || !string.IsNullOrEmpty(TwitterLoginProvider.TwitterKey)
                     || !string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId);
             }
         }
@@ -71,8 +71,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/accountlink_style.less");
-            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/accountlinker.js");
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/accountlink_style.less")
+                .RegisterBodyScripts("~/usercontrols/users/userprofile/js/accountlinker.js");
             InitProviders();
 
             Page.RegisterInlineScript(String.Format(@" AccountLinkControl_Providers = {0};
@@ -102,7 +102,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             if (!string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "facebook"))
                 AddProvider(ProviderConstants.Facebook, linkedAccounts);
 
-            if (!string.IsNullOrEmpty(KeyStorage.Get("twitterKey")) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "twitter"))
+            if (!string.IsNullOrEmpty(TwitterLoginProvider.TwitterKey) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "twitter"))
                 AddProvider(ProviderConstants.Twitter, linkedAccounts);
 
             if (!string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "linkedin"))

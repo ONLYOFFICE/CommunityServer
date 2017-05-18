@@ -118,43 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddThisAndCreateCaseButton" xml:space="preserve">
-    <value>Добавить и Создать мероприятие</value>
+    <value>Save and Create New Case</value>
   </data>
   <data name="AllCases" xml:space="preserve">
-    <value>Все мероприятия</value>
+    <value>All Cases</value>
   </data>
   <data name="Case" xml:space="preserve">
-    <value>Мероприятие</value>
+    <value>Case</value>
   </data>
   <data name="CasesAccessRightsLimit" xml:space="preserve">
-    <value>Права будут установлены только на те мероприятия, для которых вы являетесь автором</value>
+    <value>The permissions will be set to the cases where you are the author</value>
   </data>
   <data name="CasesByStatus" xml:space="preserve">
-    <value>По статусу</value>
+    <value>Status</value>
   </data>
   <data name="CasesParticipant" xml:space="preserve">
-    <value>Cases Participant</value>
+    <value>Case Participant</value>
   </data>
   <data name="CasesParticipants" xml:space="preserve">
-    <value>Cases Participants</value>
+    <value>Case Participants</value>
   </data>
   <data name="CasesTag" xml:space="preserve">
-    <value>Cases Tag</value>
+    <value>Case Tag</value>
   </data>
   <data name="CasesTagList" xml:space="preserve">
-    <value>Cases Tag List</value>
+    <value>Case Tag List</value>
   </data>
   <data name="CaseStatus" xml:space="preserve">
-    <value>Статус</value>
+    <value>Status</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="CaseTitle" xml:space="preserve">
-    <value>Название мероприятия</value>
+    <value>Case title</value>
   </data>
   <data name="CloseCase" xml:space="preserve">
     <value>Close case</value>
   </data>
   <data name="CreateCaseProggress" xml:space="preserve">
-    <value>Создание мероприятия...</value>
+    <value>Creating case...</value>
   </data>
   <data name="CreateFirstCase" xml:space="preserve">
     <value>Create the first case</value>
@@ -163,19 +169,19 @@
     <value>Create new case</value>
   </data>
   <data name="CreateThisCaseButton" xml:space="preserve">
-    <value>Создать это мероприятие</value>
+    <value>Save</value>
   </data>
   <data name="DeleteThisCase" xml:space="preserve">
-    <value>Удалить это мероприятие</value>
+    <value>Delete case</value>
   </data>
   <data name="DeletingCases" xml:space="preserve">
     <value>Deleting cases</value>
   </data>
   <data name="EditCase" xml:space="preserve">
-    <value>Редактировать мероприятие</value>
+    <value>Edit case</value>
   </data>
   <data name="EditCaseHeader" xml:space="preserve">
-    <value>Отредактировать мероприятие «{0}»</value>
+    <value>Edit the «{0}» case</value>
   </data>
   <data name="EmptyContentCasesDescribe" xml:space="preserve">
     <value>Cases allow you to keep in one and the same place all the correspondence history, assign tasks, upload documents for the contacts who take part in a common event. For instance, it can be a team training or exhibition organization.</value>
@@ -199,13 +205,13 @@
     <value>Import cases</value>
   </data>
   <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
-    <value>Необходимо выбрать правильно оформленный CSV-файл на жёстком диске Вашего компьютера. Он должен содержать поля или столбцы, разделённые запятой, которые будут использоваться для импорта мероприятий.  Файлы, содержащие более {0} строк, следует разделить на меньшие части для правильного импортирования. Убедитесь, что Вы выбрали только тех пользователей портала, которым необходимо иметь доступ к этой импортируемой информации, иначе данные из CSV-файла станут доступны всем пользователям портала.</value>
+    <value>A properly formed CSV file should be selected on your computer HDD. It must contain the fields or columns separated by the selected delimiter which will be used to import cases. The files containing more than {0} rows should be divided into smaller parts for proper importing. Make sure you selected the portal users who need to be granted access to the information to be imported, otherwise the data from the CSV file will be available to all portal users.</value>
   </data>
   <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
-    <value>Выберите CSV файл и настройте права доступа для импорта мероприятий</value>
+    <value>Select a CSV file and set access rights before you import cases</value>
   </data>
   <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
-    <value>Сопоставьте колонки из своего файла с соответствующими полями в TeamLab CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта мероприятий вы должны найти соответствие по крайней мере полю 'Название мероприятия' из Teamlab CRM столбцу из вашего файла. Только после этого Вы сможете перейти к следующему шагу. Поля содержащие дату должны быть заданы форматом {0}. </value>
+    <value>Match your file columns with the corresponding ONLYOFFICE™ CRM fields. Please pay your attention to the fact that to import cases correctly you need to have at least one column from your file matched with the 'Case Title' field of the ONLYOFFICE™ CRM. The fields containing the dates must have the following format: {0}.</value>
   </data>
   <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
     <value>Please, verify the fields</value>
@@ -217,33 +223,33 @@
     <value>Import of  cases can take several minutes depending on the amount of your data.</value>
   </data>
   <data name="ImportStartingPanelHeader" xml:space="preserve">
-    <value>Import started</value>
+    <value>Importing started</value>
   </data>
   <data name="MembersCase" xml:space="preserve">
-    <value>Участники мероприятия</value>
+    <value>Case participants</value>
   </data>
   <data name="OpenCase" xml:space="preserve">
-    <value>Open a case</value>
+    <value>Open case</value>
   </data>
   <data name="PeopleInCase" xml:space="preserve">
-    <value>Участники</value>
+    <value>Participants</value>
   </data>
   <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
-    <value>Ограничить доступ к мероприятию</value>
+    <value>Restrict access to the case</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
-    <value>Сохранить изменения</value>
+    <value>Save Changes</value>
   </data>
   <data name="ShowCaseProfile" xml:space="preserve">
-    <value>Перейти в профиль</value>
+    <value>Go to profile</value>
   </data>
   <data name="ShowCaseProfileNewTab" xml:space="preserve">
-    <value>Открыть в новой вкладке</value>
+    <value>Open in a new tab</value>
   </data>
   <data name="StartImport" xml:space="preserve">
-    <value>Start Import</value>
+    <value>Start Importing</value>
   </data>
   <data name="TotalCases" xml:space="preserve">
-    <value>Total cases</value>
+    <value>All cases</value>
   </data>
 </root>

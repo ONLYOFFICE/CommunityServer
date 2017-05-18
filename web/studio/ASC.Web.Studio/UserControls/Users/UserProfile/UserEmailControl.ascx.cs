@@ -28,6 +28,7 @@ using System;
 using System.Web;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
@@ -46,9 +47,13 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         /// </summary>
         public UserInfo Viewer { get; set; }
 
+        protected bool IsAdmin { get; private set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(typeof(EmailOperationService));
+
+            IsAdmin = Viewer.IsAdmin() || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, Viewer.ID);
         }
 
         protected string RenderMailLinkAttribute()

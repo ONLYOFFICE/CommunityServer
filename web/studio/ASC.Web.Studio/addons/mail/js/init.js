@@ -55,6 +55,7 @@
         folderFilter.init();
         contactsPage.init();
         contactsPanel.init();
+        commonSettingsPage.init();
 
         if (ASC.Mail.Presets.Accounts && ASC.Mail.Presets.Accounts.length) {
             contactsManager.init();
@@ -104,21 +105,24 @@
             }
         });
 
-        $('#foldersContainer').find('a[folderid="1"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "inbox");
-        $('#foldersContainer').find('a[folderid="2"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "sent");
-        $('#foldersContainer').find('a[folderid="3"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "drafts");
-        $('#foldersContainer').find('a[folderid="4"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "trash");
-        $('#foldersContainer').find('a[folderid="5"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "spam");
+        var foldersContainer = $('#foldersContainer');
+        var messagesListGroupButtons = $('#MessagesListGroupButtons');
+
+        foldersContainer.find('a[folderid="1"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "inbox");
+        foldersContainer.find('a[folderid="2"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "sent");
+        foldersContainer.find('a[folderid="3"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "drafts");
+        foldersContainer.find('a[folderid="4"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "trash");
+        foldersContainer.find('a[folderid="5"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "spam");
         $('#teamlab').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "teamlab-contacts");
         $('#crm').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "crm-contacts");
         $('#accountsSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "accounts-settings");
         $('#tagsSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "tags-settings");
-        $('#MessagesListGroupButtons .menuActionDelete').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "delete");
-        $('#MessagesListGroupButtons .menuActionSpam').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "spam");
-        $('#MessagesListGroupButtons .menuActionRead').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "read");
-        $('#MessagesListGroupButtons .menuActionNotSpam').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "not-spam");
-        $('#MessagesListGroupButtons .menuActionRestore').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "not-spam");
-
+        $('#commonSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "common-settings");
+        messagesListGroupButtons.find('.menuActionDelete').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "delete");
+        messagesListGroupButtons.find('.menuActionSpam').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "spam");
+        messagesListGroupButtons.find('.menuActionRead').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "read");
+        messagesListGroupButtons.find('.menuActionNotSpam').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "not-spam");
+        messagesListGroupButtons.find('.menuActionRestore').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "not-spam");
 
         mailBox.groupButtonsMenuHandlers();
 

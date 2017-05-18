@@ -44,7 +44,7 @@
         <ul class="dropdown-content mobile-overflow"></ul>
     </div>
 
-    <table id="invoiceItemsTable" class="table-list" cellpadding="4" cellspacing="0">
+    <table id="invoiceItemsTable" class="table-list padding4" cellpadding="0" cellspacing="0">
         <colgroup>
             <%--<col style="width: 30px;"/>--%>
             <col style="width: 1%;"/>

@@ -28,10 +28,8 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using ASC.VoipService.Twilio;
 using RestSharp;
-using Yahoo.Yui.Compressor;
 
 namespace ASC.VoipService.VoxImplant
 {
@@ -134,15 +132,20 @@ namespace ASC.VoipService.VoxImplant
                 };
         }
 
+        public decimal GetPrice(string callId)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetToken(Agent agent, int seconds = 86400)
         {
             throw new NotImplementedException();
         }
         
 
-        public string GetRecord(string callId)
+        public VoipRecord GetRecord(string callId)
         {
-            return GetCallHistory().SelectMany(r => r.Calls).First(r => r.CallID == callId).RecordURL;
+            throw new NotImplementedException();
         }
 
         public void UpdateSettings(VoipPhone phone)
@@ -369,7 +372,7 @@ namespace ASC.VoipService.VoxImplant
                 Parameters =
                         {
                             new Parameter { Name = "scenario_name", Value = scenario.ScenarioName, Type = ParameterType.QueryString },
-                            new Parameter { Name = "scenario_script", Value = Compress(scenario.ScenarioScript), Type = ParameterType.QueryString }
+                            new Parameter { Name = "scenario_script", Value = scenario.ScenarioScript, Type = ParameterType.QueryString }
                         }
             };
 
@@ -405,7 +408,7 @@ namespace ASC.VoipService.VoxImplant
                         {
                             new Parameter { Name = "scenario_id", Value = scenario.ScenarioID, Type = ParameterType.QueryString },
                             new Parameter { Name = "scenario_name", Value = scenario.ScenarioName, Type = ParameterType.QueryString },
-                            new Parameter { Name = "scenario_script", Value = Compress(scenario.ScenarioScript), Type = ParameterType.QueryString }
+                            new Parameter { Name = "scenario_script", Value = scenario.ScenarioScript, Type = ParameterType.QueryString }
                         }
             };
 
@@ -485,18 +488,6 @@ namespace ASC.VoipService.VoxImplant
         {
             if (response == null || response.Error == null) return;
             throw new Exception(response.Error.Msg);
-        }
-
-        private string Compress(string input)
-        {
-            var compressor = new JavaScriptCompressor
-            {
-                CompressionType = CompressionType.Standard,
-                Encoding = Encoding.UTF8,
-                ObfuscateJavascript = true,
-            };
-
-            return compressor.Compress(input);
         }
 
         #endregion

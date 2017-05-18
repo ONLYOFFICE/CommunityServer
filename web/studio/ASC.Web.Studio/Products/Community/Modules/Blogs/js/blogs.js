@@ -58,26 +58,22 @@ var BlogsManager = new function() {
     };
     this.ShowPreview = function (titleid) {
         if (jq("#btnPreview").hasClass("disable")) return;
-        
-        var html = BlogsManager.blogsEditor.getData();
 
-        var title = jq('#' + titleid).val();
-
-        AjaxPro.onLoading = function(b) {
-            if (b) { BlogsManager.BlockButtons(); }
-            else { BlogsManager.UnBlockButtons(); }
-        };
-
-        BlogsPage.GetPreview(title, html, this.CallBackPreview);
+        Teamlab.getCmtPreview({},
+            { title: jq('#' + titleid).val(), content: BlogsManager.blogsEditor.getData() },
+            {
+                before: function () { BlogsManager.BlockButtons(); },
+                after: function () { BlogsManager.UnBlockButtons(); },
+                success: function (params, response) {
+                    jq('#previewBody').html(response.content);
+                    jq('#previewTitle').html(response.title);
+                    jq('#previewHolder').show();
+                    var scroll_to = jq('#previewHolder').position();
+                    jq.scrollTo(scroll_to.top, { speed: 500 });
+                }
+            });
     };
 
-    this.CallBackPreview = function(result) {
-        jq('#previewBody').html(result.value[1]);
-        jq('#previewTitle').html(result.value[0]);
-        jq('#previewHolder').show();
-        var scroll_to = jq('#previewHolder').position();
-        jq.scrollTo(scroll_to.top, { speed: 500 });
-    };
 
     this.HidePreview = function() {
         jq('#previewHolder').hide();
@@ -340,9 +336,17 @@ jq(document).ready(function() {
         jq(".menu-small").hide();
     }
     var anchor = ASC.Controls.AnchorController.getAnchor();
-    if (anchor == "addcomment" && CommentsManagerObj) {
-        ckeditorConnector.onReady(CommentsManagerObj.AddNewComment);
 
+    if (anchor && CommentsManagerObj) {
+        CommentsManagerObj.onLoadComplete = function() {
+            if (anchor == "addcomment") {
+                ckeditorConnector.load(CommentsManagerObj.AddNewComment());
+            } else if (anchor == "comments") {
+                jq(window).scrollTop(jq('#commentsTitle').position().top, { speed: 500 });
+            } else {
+                jq(window).scrollTop(jq('#' + anchor).position().top, { speed: 500 });
+            }
+        };
     }
 
     if (jq("#actionBlogPage").length) {

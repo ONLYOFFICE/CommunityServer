@@ -264,9 +264,7 @@ namespace ASC.CRM.Core.Dao
             {
                 foreach (var file in files)
                 {
-                    dao.DeleteFolder(file.ID);
                     dao.DeleteFile(file.ID);
-
                 }
             }
         }

@@ -6,9 +6,9 @@
 
 <%-- Link To Parent --%>
 <div class="folder-row-toparent">
-    <div class="to-parent-folder">
-        <a class="link up">...</a>
-    </div>
+    <a class="to-parent-folder">
+        <span class="link up">...</span>
+    </a>
 </div>
 
 <%-- Main Content --%>

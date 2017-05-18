@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -24,34 +24,33 @@
 */
 
 
-using System.Collections.Generic;
-using System.Web;
 using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Studio.Masters.MasterResources
 {
-    public class MasterTemplateResources : ClientScriptLocalization
+    public class MasterTemplateResources : ClientScriptTemplate
     {
-        protected override string BaseNamespace
+        protected override string[] Links
         {
-            get { return "ASC.Resources.Master"; }
-        }
-
-        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
-        {
-            return RegisterClientTemplatesPath(context,
-                "~/templates/UserProfileCardTemplate.ascx",
-                "~/templates/AdvansedFilterTemplate.ascx",
-                "~/templates/FeedListTemplate.ascx", 
-                "~/templates/DropFeedTemplate.ascx",
-                "~/templates/DropMailTemplate.ascx",
-                "~/templates/GroupSelectorTemplate.ascx", 
-                "~/templates/SharingSettingsTemplate.ascx",
-                "~/templates/AdvansedSelectorTemplate.ascx",
-                "~/templates/AdvansedEmailSelectorTemplate.ascx",
-                "~/templates/CommonTemplates.ascx", 
-                "~/templates/ManagementTemplates.ascx",
-                "~/templates/CommentsTemplates.ascx");
+            get
+            {
+                return new[]
+                {
+                    "~/templates/UserProfileCardTemplate.html",
+                    "~/templates/AdvansedFilterTemplate.html",
+                    "~/templates/FeedListTemplate.html",
+                    "~/templates/DropFeedTemplate.html",
+                    "~/templates/DropMailTemplate.html",
+                    "~/templates/GroupSelectorTemplate.html",
+                    "~/templates/SharingSettingsTemplate.html",
+                    "~/templates/AdvansedSelectorTemplate.html",
+                    "~/templates/AdvansedEmailSelectorTemplate.html",
+                    "~/templates/CommonTemplates.html",
+                    "~/templates/ManagementTemplates.html",
+                    "~/templates/CommentsTemplates.html",
+                    "~/templates/ContainerTemplate.html"
+                };
+            }
         }
     }
 }

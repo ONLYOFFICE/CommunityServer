@@ -28,8 +28,9 @@
 
 using System;
 using System.Runtime.Serialization;
+using ASC.Core.Common.Settings;
 using ASC.CRM.Core;
-using ASC.Web.Core.Utility.Settings;
+
 
 #endregion
 

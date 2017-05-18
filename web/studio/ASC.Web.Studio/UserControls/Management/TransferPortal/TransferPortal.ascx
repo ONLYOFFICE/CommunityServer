@@ -40,7 +40,7 @@
             <div>
                 <input id="notifyAboutMigration" type="checkbox" checked="checked" />
                 <label for="notifyAboutMigration">
-                    <%: CustomNamingPeople.Substitute<Resource>("NotifyPortalMigration") %></label>
+                    <%= CustomNamingPeople.Substitute<Resource>("NotifyPortalMigration").HtmlEncode() %></label>
             </div>
         </div>
         <div class="header-base red-text"><%= Resource.Warning %></div>

@@ -133,20 +133,6 @@
             $html.css({ left: x, top: methods._getY(apData.options.horizontal_target ? $this.find(apData.options.horizontal_target) : $this, $html) });
             $html.click(menuClick);
 
-            var arrow = $this.find('.arrow-down');
-            if (0 == arrow.length) {
-                arrow = $this.find('.down_arrow');
-            }
-
-            if (0 != arrow.length) {
-                var right = $html[0].offsetWidth - arrow.offset().left - Math.ceil(arrow[0].offsetWidth / 2) + x;
-                // right minus magic 1px for some browsers
-                if (!$.browser.mozilla) {
-                    right = right - 1;
-                }
-
-            }
-
             apData['$html'] = $html;
             $html.css({ opacity: 1 });
 

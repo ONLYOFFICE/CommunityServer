@@ -65,6 +65,7 @@
     height: 17px;
     position: relative;
     border-bottom: 1px solid #C8C8C8;
+    overflow: hidden;
 }
 .gantt-chart-top-panel .menu-actions {
     float: left;

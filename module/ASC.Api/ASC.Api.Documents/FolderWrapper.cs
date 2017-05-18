@@ -104,7 +104,7 @@ namespace ASC.Api.Documents
                     CreatedBy = EmployeeWraper.GetSample(),
                     Id = new Random().Next(),
                     RootFolderType = FolderType.BUNCH,
-                    SharedByMe = false,
+                    Shared = false,
                     Title = "Some titile",
                     UpdatedBy = EmployeeWraper.GetSample(),
                     FilesCount = new Random().Next(),

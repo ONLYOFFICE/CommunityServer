@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using ASC.Mail.Aggregator.Common;
@@ -16,6 +17,7 @@ using MailKit.Net.Smtp;
 using MailKit.Search;
 using MailKit.Security;
 using MimeKit;
+using AuthenticationException = MailKit.Security.AuthenticationException;
 using EncryptionType = ASC.Mail.Aggregator.Common.EncryptionType;
 using MailFolder = ASC.Mail.Aggregator.Common.MailFolder;
 using Pop3Client = MailKit.Net.Pop3.Pop3Client;
@@ -94,7 +96,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         public MailClient(MailBox mailbox, CancellationToken cancelToken, int tcpTimeout = 30000,
             bool certificatePermit = false, string protocolLogPath = "",
-            ILogger log = null)
+            ILogger log = null, bool skipSmtp = false)
         {
             var protocolLogger = !string.IsNullOrEmpty(protocolLogPath)
                 ? (IProtocolLogger)
@@ -130,6 +132,12 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     Timeout = tcpTimeout
                 };
                 Imap = null;
+            }
+
+            if (skipSmtp)
+            {
+                Smtp = null;
+                return;
             }
 
             Smtp = new SmtpClient(protocolLogger)
@@ -231,26 +239,44 @@ namespace ASC.Mail.Aggregator.Core.Clients
             {
                 if (Imap != null)
                 {
-                    if (Imap.IsConnected)
-                        Imap.Disconnect(true, CancelToken);
+                    lock (Imap.SyncRoot)
+                    {
+                        if (Imap.IsConnected)
+                        {
+                            Log.Debug("Imap->Disconnect()");
+                            Imap.Disconnect(true, CancelToken);
+                        }
 
-                    Imap.Dispose();
+                        Imap.Dispose();
+                    }
                 }
 
                 if (Pop != null)
                 {
-                    if (Pop.IsConnected)
-                        Pop.Disconnect(true, CancelToken);
+                    lock (Pop.SyncRoot)
+                    {
+                        if (Pop.IsConnected)
+                        {
+                            Log.Debug("Pop->Disconnect()");
+                            Pop.Disconnect(true, CancelToken);
+                        }
 
-                    Pop.Dispose();
+                        Pop.Dispose();
+                    }
                 }
 
                 if (Smtp != null)
                 {
-                    if (Smtp.IsConnected)
-                        Smtp.Disconnect(true, CancelToken);
+                    lock (Smtp.SyncRoot)
+                    {
+                        if (Smtp.IsConnected)
+                        {
+                            Log.Debug("Smtp->Disconnect()");
+                            Smtp.Disconnect(true, CancelToken);
+                        }
 
-                    Smtp.Dispose();
+                        Smtp.Dispose();
+                    }
                 }
 
                 Authenticated = null;
@@ -360,17 +386,21 @@ namespace ASC.Mail.Aggregator.Core.Clients
         private void LoginImap(bool enableUtf8 = true)
         {
             var secureSocketOptions = SecureSocketOptions.Auto;
+            var sslProtocols = SslProtocols.Default;
 
             switch (Account.Encryption)
             {
                 case EncryptionType.StartTLS:
                     secureSocketOptions = SecureSocketOptions.StartTlsWhenAvailable;
+                    sslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
                     break;
                 case EncryptionType.SSL:
                     secureSocketOptions = SecureSocketOptions.SslOnConnect;
+                    sslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
                     break;
                 case EncryptionType.None:
                     secureSocketOptions = SecureSocketOptions.None;
+                    sslProtocols = SslProtocols.None;
                     break;
             }
 
@@ -379,6 +409,8 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
             try
             {
+                Imap.SslProtocols = sslProtocols;
+
                 var t = Imap.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
 
                 if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
@@ -421,7 +453,11 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
             catch (AggregateException aggEx)
             {
-                throw aggEx.InnerException;
+                if (aggEx.InnerException != null)
+                {
+                    throw aggEx.InnerException;
+                }
+                throw new Exception("LoginImap failed", aggEx);
             }
         }
 
@@ -483,7 +519,11 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
             catch (AggregateException aggEx)
             {
-                throw aggEx.InnerException;
+                if (aggEx.InnerException != null)
+                {
+                    throw aggEx.InnerException;
+                }
+                throw new Exception("AggregateImap failed", aggEx);
             }
         }
 
@@ -759,7 +799,6 @@ namespace ASC.Mail.Aggregator.Core.Clients
             if ((folder.Attributes &
                  (FolderAttributes.All |
                   FolderAttributes.NoSelect |
-                  FolderAttributes.NoInferiors |
                   FolderAttributes.NonExistent |
                   FolderAttributes.Trash |
                   FolderAttributes.Archive |
@@ -851,17 +890,21 @@ namespace ASC.Mail.Aggregator.Core.Clients
         private void LoginPop3(bool enableUtf8 = true)
         {
             var secureSocketOptions = SecureSocketOptions.Auto;
+            var sslProtocols = SslProtocols.Default;
 
             switch (Account.Encryption)
             {
                 case EncryptionType.StartTLS:
                     secureSocketOptions = SecureSocketOptions.StartTlsWhenAvailable;
+                    sslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
                     break;
                 case EncryptionType.SSL:
                     secureSocketOptions = SecureSocketOptions.SslOnConnect;
+                    sslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
                     break;
                 case EncryptionType.None:
                     secureSocketOptions = SecureSocketOptions.None;
+                    sslProtocols = SslProtocols.None;
                     break;
             }
 
@@ -869,6 +912,8 @@ namespace ASC.Mail.Aggregator.Core.Clients
                 Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
             try
             {
+                Pop.SslProtocols = sslProtocols;
+
                 var t = Pop.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
 
                 if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
@@ -911,7 +956,11 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
             catch (AggregateException aggEx)
             {
-                throw aggEx.InnerException;
+                if (aggEx.InnerException != null)
+                {
+                    throw aggEx.InnerException;
+                }
+                throw new Exception("LoginPop3 failed", aggEx);
             }
         }
 
@@ -1007,7 +1056,11 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
             catch (AggregateException aggEx)
             {
-                throw aggEx.InnerException;
+                if (aggEx.InnerException != null)
+                {
+                    throw aggEx.InnerException;
+                }
+                throw new Exception("AggregatePop3 failed", aggEx);
             }
         }
 
@@ -1131,24 +1184,30 @@ namespace ASC.Mail.Aggregator.Core.Clients
         private void LoginSmtp()
         {
             var secureSocketOptions = SecureSocketOptions.Auto;
+            var sslProtocols = SslProtocols.Default;
 
             switch (Account.SmtpEncryption)
             {
                 case EncryptionType.StartTLS:
                     secureSocketOptions = SecureSocketOptions.StartTlsWhenAvailable;
+                    sslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
                     break;
                 case EncryptionType.SSL:
                     secureSocketOptions = SecureSocketOptions.SslOnConnect;
+                    sslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
                     break;
                 case EncryptionType.None:
                     secureSocketOptions = SecureSocketOptions.None;
+                    sslProtocols = SslProtocols.None;
                     break;
             }
+
 
             Log.Debug("Smtp.Connect({0}:{1}, {2})", Account.SmtpServer, Account.SmtpPort,
                 Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
             try
             {
+                Smtp.SslProtocols = sslProtocols;
 
                 var t = Smtp.ConnectAsync(Account.SmtpServer, Account.SmtpPort, secureSocketOptions, CancelToken);
 
@@ -1190,7 +1249,11 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
             catch (AggregateException aggEx)
             {
-                throw aggEx.InnerException;
+                if (aggEx.InnerException != null)
+                {
+                    throw aggEx.InnerException;
+                }
+                throw new Exception("LoginSmtp failed", aggEx);
             }
         }
 

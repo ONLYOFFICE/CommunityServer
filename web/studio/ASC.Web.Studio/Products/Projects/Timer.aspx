@@ -22,7 +22,10 @@
         .mainContainerClass {
             border: medium none;
         }
-    </style>
+        body {
+            overflow:hidden;
+        }
+</style>
 
 <% if (Project != null)
 { %>                   
@@ -144,7 +147,4 @@
    </div>
 <% } %>
 
-</asp:Content>
-
-<asp:Content ID="projectsClientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="projectsClientTemplatesResourcesPlaceHolder" runat="server">
 </asp:Content>

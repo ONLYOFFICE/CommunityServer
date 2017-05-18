@@ -123,14 +123,17 @@
   <data name="AddAliasSuccess" xml:space="preserve">
     <value>Alias "{0}" was added successfully.</value>
   </data>
+  <data name="AddContactSuccess" xml:space="preserve">
+    <value>New contact was added successfully.</value>
+  </data>
   <data name="AddMailboxSuccess" xml:space="preserve">
     <value>Mailbox "{0}" was added successfully.</value>
   </data>
   <data name="AddMailGroupSuccess" xml:space="preserve">
-    <value>Mailgroup "{0}" was added successfully.</value>
+    <value>Mail group "{0}" was added successfully.</value>
   </data>
   <data name="clearFolder" xml:space="preserve">
-    <value>The %folder% has been cleaned.</value>
+    <value>The %folder% has been emptied.</value>
   </data>
   <data name="deleteFilteredConversations" xml:space="preserve">
     <value>All selected conversations have been deleted.</value>
@@ -138,11 +141,17 @@
   <data name="deleteFilteredMessages" xml:space="preserve">
     <value>All selected messages have been deleted.</value>
   </data>
+  <data name="DeleteManyContacts" xml:space="preserve">
+    <value>%count% contacts have been deleted.</value>
+  </data>
   <data name="deleteManyConversations" xml:space="preserve">
     <value>%count% conversations have been deleted.</value>
   </data>
   <data name="deleteManyMessages" xml:space="preserve">
     <value>%count% messages have been deleted.</value>
+  </data>
+  <data name="DeleteOneContact" xml:space="preserve">
+    <value>The contact has been deleted.</value>
   </data>
   <data name="deleteOneConversation" xml:space="preserve">
     <value>The conversation has been deleted.</value>
@@ -150,8 +159,11 @@
   <data name="deleteOneMessage" xml:space="preserve">
     <value>The message has been deleted.</value>
   </data>
+  <data name="EditContactSuccess" xml:space="preserve">
+    <value>The contact has been successfully changed.</value>
+  </data>
   <data name="moveFilteredConversationsTo" xml:space="preserve">
-    <value>All selected converstaions have been moved to the %folder%.</value>
+    <value>All selected conversations have been moved to the %folder%.</value>
   </data>
   <data name="moveFilteredMessagesTo" xml:space="preserve">
     <value>All selected messages have been moved to the %folder%.</value>
@@ -181,7 +193,7 @@
     <value>Mailbox "{0}" was removed successfully.</value>
   </data>
   <data name="RemoveMailGroupSuccess" xml:space="preserve">
-    <value>Mailgroup "{0}" was removed successfully.</value>
+    <value>Mail group "{0}" was removed successfully.</value>
   </data>
   <data name="restoreFilteredConversations" xml:space="preserve">
     <value>All selected conversations have been restored.</value>
@@ -200,18 +212,6 @@
   </data>
   <data name="restoreOneMessageTo" xml:space="preserve">
     <value>The message has been restored to the %folder%.</value>
-  </data>
-  <data name="AddContactSuccess" xml:space="preserve">
-    <value>New contact was added successfully.</value>
-  </data>
-  <data name="DeleteOneContact" xml:space="preserve">
-    <value>The contact has been deleted.</value>
-  </data>
-  <data name="DeleteManyContacts" xml:space="preserve">
-    <value>%count% contacts have been deleted.</value>
-  </data>
-  <data name="EditContactSuccess" xml:space="preserve">
-    <value>The contact was successfully changed.</value>
   </data>
   <data name="updateMailboxSuccess" xml:space="preserve">
     <value>Mailbox "{0}" was updated successfully.</value>

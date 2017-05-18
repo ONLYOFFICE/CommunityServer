@@ -1,0 +1,140 @@
+﻿<script id="crmLinkPopupTmpl" type="text/x-jquery-tmpl">
+    ${crmIntegrationHeaderInfo          = ASC.Mail.Resources.MailResource.LinkConversationPopupInfoMessage, ""}
+    ${crmIntegrationHeaderInfoExt       = ASC.Mail.Resources.MailResource.LinkConversationPopupChooseMessage, ""}
+    ${crmIntegrationSelectEntityLabel   = ASC.Mail.Resources.MailResource.LinkConversationPopupLinkLabel, ""}
+    ${crmIntegrationSaveBtnLabel        = ASC.Mail.Resources.MailResource.LinkConversationLinkButtonLabel, ""}
+    ${crmIntegrationUnSaveBtnLabel      = ASC.Mail.Resources.MailResource.LinkConversationUnlinkAllBtnLabel, ""}
+
+    <div id="crm_link_popup_container" class="popup popupMailBox crm_popup">
+        {{tmpl({
+            crmIntegrationHeaderInfo            : crmIntegrationHeaderInfo,
+            crmIntegrationHeaderInfoExt         : crmIntegrationHeaderInfoExt,
+            crmIntegrationSelectEntityLabel     : crmIntegrationSelectEntityLabel,
+            crmIntegrationSaveBtnLabel          : crmIntegrationSaveBtnLabel,
+            crmIntegrationUnSaveBtnLabel        : crmIntegrationUnSaveBtnLabel,
+            needLoader                          : true
+       }) "crmIntegrationBodyTmpl"}}
+    </div>
+</script>
+
+<script id="crmUnlinkAllPopupTmpl" type="text/x-jquery-tmpl">
+    <div id="crm_unlink_all_popup_message" class="popup popupMailBox crm_popup">
+        <span>${ASC.Mail.Resources.MailResource.UnlinkAllInformationMessage}</span>
+        <p>${ASC.Mail.Resources.MailResource.UnlinkAllConfirmationMessage}</p>
+        <div class="buttons">
+            <button class="button middle blue unlink" type="button">${ASC.Mail.Resources.MailResource.UnlinkAllPopupUnlinkBtnLabel}</button>
+            <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
+        </div>
+    </div>
+</script>
+
+<script id="crmLinkConfirmPopupTmpl" type="text/x-jquery-tmpl">
+    <div id="crm_link_confirm_popup_message" class="popup popupMailBox crm_popup">
+        <span>${ASC.Mail.Resources.MailResource.LinkConversationPopupInfoMessage}</span>
+        <p>${ASC.Mail.Resources.MailResource.CreateAndLinkToCrmConfirmMessage}</p>
+        <div class="buttons">
+            <button class="button middle blue createAndLink" type="button">${ASC.Mail.Resources.MailResource.CreateCrmContactAndLinkPopupBtnLabel}</button>
+            <button class="button middle gray justCreate" type="button">${ASC.Mail.Resources.MailResource.CreateCrmWithoutLinkPopupBtnLabel}</button>
+        </div>
+    </div>
+</script>
+
+<script id="crmExportPopupTmpl" type="text/x-jquery-tmpl">
+    ${crmIntegrationHeaderInfo          = ASC.Mail.Resources.MailResource.ExportMessagePopupInfoMessage, ""}
+    ${crmIntegrationHeaderInfoExt       = ASC.Mail.Resources.MailResource.ExportMessagePopupChooseMessage, ""}
+    ${crmIntegrationSelectEntityLabel   = ASC.Mail.Resources.MailResource.ExportMessagePopupExportLabel, ""}
+    ${crmIntegrationSaveBtnLabel        = ASC.Mail.Resources.MailResource.ExportMessagePopupExportBtnLbl, ""}
+
+    <div id="crm_export_popup_container" class="popup popupMailBox crm_popup">
+        {{tmpl({
+            crmIntegrationHeaderInfo            : crmIntegrationHeaderInfo,
+            crmIntegrationHeaderInfoExt         : crmIntegrationHeaderInfoExt,
+            crmIntegrationSelectEntityLabel     : crmIntegrationSelectEntityLabel,
+            crmIntegrationSaveBtnLabel          : crmIntegrationSaveBtnLabel,
+            crmIntegrationUnSaveBtnLabel        : undefined,
+            needLoader                          : false
+       }) "crmIntegrationBodyTmpl"}}
+    </div>
+</script>
+
+<script id="crmIntegrationBodyTmpl" type="text/x-jquery-tmpl">
+    <div>
+        <span>${crmIntegrationHeaderInfo}</span>
+        <p>${crmIntegrationHeaderInfoExt}</p>
+        <div class="bold">${crmIntegrationSelectEntityLabel}</div>
+        <div>
+            <select id="entity-type" class="entity-type">
+                <option value="1" selected="selected">${ASC.Mail.Resources.MailResource.LinkConversationOptionContactsLbl}</option>
+                <option value="2">${ASC.Mail.Resources.MailResource.LinkConversationOptionCasesLbl}</option>
+                <option value="3">${ASC.Mail.Resources.MailResource.LinkConversationOptionOpportunitiesLbl}</option>
+            </select>
+        </div>
+        <div class="choose_contact bold">${ASC.Mail.Resources.MailResource.LinkConversationChooseContactsLabel}</div>
+        <div>
+            <table cellspacing="0" cellpadding="1" class="search_panel">
+                <tbody>
+                    <tr>
+                        <td width="16px" style="border-right: 0 none;">
+                            <img align="absmiddle" src="/skins/default/imagescss/search_16.png" class="crm_search_contact_icon"/>
+                            <img align="absmiddle" src="/skins/default/images/loader_16.gif" class="crm_search_loading_icon" style="display: none"/>
+                        </td>
+                        <td style="border-left: 0 none">
+                            <div>
+                                <input id="link_search_panel" class="search_input" placeholder="${ASC.Mail.Resources.MailResource.LinkConversationSearchPlaceHolderLabel}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="linked_table_parent" style="display: none;">
+        <table class="linked_contacts_table" cellspacing="0" cellpadding="0">
+        </table>
+    </div>
+    {{if needLoader == true}}
+        <div class="loader">
+            <img src="/skins/default/images/loader_32.gif"/>
+            <div>${ASC.Mail.Resources.MailResource.LoadingLabel}</div>
+        </div>
+    {{/if}}
+    <div class="buttons">
+        <button class="button middle blue link_btn" type="button">${crmIntegrationSaveBtnLabel}</button>
+        {{if crmIntegrationUnSaveBtnLabel != undefined}}
+            <button class="button middle gray unlink_all" type="button">${crmIntegrationUnSaveBtnLabel}</button>
+        {{/if}}
+        <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
+    </div>
+</script>
+
+<script id="crmContactItemTmpl" type="text/x-jquery-tmpl">
+    <tr data-entity_id="${entity_id}" entity_type="${entity_type}" class='linked_entity_row'>
+        <td class="linked_entity_row_avatar_column">
+        {{if entity_type == 1}}
+            <img src="${avatarLink}" class="crm_avatar_img"/>
+        {{/if}}
+        {{if entity_type == 2}}
+            <div class="crm_avatar_img case"/>
+        {{/if}}
+        {{if entity_type == 3}}
+            <div class="crm_avatar_img opportunities"/>
+        {{/if}}
+        </td>
+        <td class="linked_entity_row_title_column">
+            <span>
+                {{if entity_type == 1}}
+                <a href="/products/crm/default.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
+                {{/if}}
+                {{if entity_type == 2}}
+                <a href="/products/crm/cases.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
+                {{/if}}
+                {{if entity_type == 3}}
+                <a href="/products/crm/deals.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
+                {{/if}}
+            </span>
+        </td>
+        <td class="linked_entity_row_button_column">
+            <div class="unlink_entity"></div>
+        </td>
+    </tr>
+</script>

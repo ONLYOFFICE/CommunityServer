@@ -41,7 +41,7 @@ namespace ASC.CRM.Core.Entities
         public string Description { get; set; }
 
         [DataMember(Name = "rate")]
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
         
         
         [DataMember(Name = "createOn")]

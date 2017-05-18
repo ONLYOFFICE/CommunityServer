@@ -24,12 +24,6 @@
 */
 
 
-using System.Web;
-using ASC.Core;
-using ASC.Core.Users;
-
-using ASC.Projects.Engine;
-
 using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Resources;
 
@@ -38,65 +32,9 @@ namespace ASC.Web.Projects
     public partial class ProjectTeam : BasePage
     {
 
-        #region Properties
-
-        public UserInfo Manager { get; set; }
-
-        public bool CanEditTeam { get; set; }
-
-        public string UserProfileLink
-        {
-            get { return CommonLinkUtility.GetUserProfile(); }
-        }
-
-        public string ManagerName { get; set; }
-
-        public string ManagerAvatar { get; set; }
-
-        public string ManagerProfileUrl { get; set; }
-
-        public string ManagerDepartmentUrl { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        protected void InitView()
-        {
-            CanEditTeam = ProjectSecurity.CanEditTeam(Project);
-        }
-
-        public bool CanCreateTask()
-        {
-            return ProjectSecurity.CanCreateTask(Project);
-        }
-
-
-        #endregion
-
-        #region Events
-
         protected override void PageLoad()
         {
-            InitView();
-
-            Manager = EngineFactory.ParticipantEngine.GetByID(Project.Responsible).UserInfo;
-            ManagerName = Manager.DisplayUserName();
-            ManagerAvatar = Manager.GetBigPhotoURL();
-            ManagerProfileUrl = Manager.GetUserProfilePageURL();
-            foreach (var g in CoreContext.UserManager.GetUserGroups(Manager.ID))
-            {
-                ManagerDepartmentUrl += string.Format("<a href=\"{0}\" class=\"linkMedium\">{1}</a>, ", CommonLinkUtility.GetDepartment(g.ID), HttpUtility.HtmlEncode(g.Name));
-            }
-            if (!string.IsNullOrEmpty(ManagerDepartmentUrl))
-            {
-                ManagerDepartmentUrl = ManagerDepartmentUrl.Substring(0, ManagerDepartmentUrl.Length - 2);
-            }
-
             Title = HeaderStringHelper.GetPageTitle(ProjectResource.ProjectTeam);
-
         }
-
-        #endregion
     }
 }

@@ -32,9 +32,9 @@ using ASC.Api.Attributes;
 using ASC.Api.MailServer.DataContracts;
 using ASC.Api.MailServer.Extensions;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Server.DnsChecker;
 using ASC.Mail.Server.Utils;
 using System.Security;
+using ASC.Common.Utils;
 
 namespace ASC.Api.MailServer
 {
@@ -123,7 +123,9 @@ namespace ASC.Api.MailServer
             if (freeDns.Id != id_dns)
                 throw new InvalidDataException("This dkim public key is already in use. Please reopen wizard again.");
 
-            if (!DnsChecker.IsTxtRecordCorrect(domainName, freeDns.DomainCheckRecord, Logger))
+            var dnsLookup = new DnsLookup();
+
+            if (!dnsLookup.IsDomainTxtRecordExists(domainName, freeDns.DomainCheckRecord))
                 throw new InvalidOperationException("txt record is not correct.");
 
             var isVerified = freeDns.CheckDnsStatus(domainName);
@@ -246,7 +248,9 @@ namespace ASC.Api.MailServer
 
             var dns = GetUnusedDnsRecords();
 
-            return DnsChecker.IsTxtRecordCorrect(domainName, dns.DomainCheckRecord.Value, Logger);
+            var dnsLookup = new DnsLookup();
+
+            return dnsLookup.IsDomainTxtRecordExists(domainName, dns.DomainCheckRecord.Value);
         }
     }
 }

@@ -26,6 +26,8 @@
 
 using System.Collections.Generic;
 using ASC.Web.Core.ModuleManagement.Common;
+using ASC.Web.Studio.Core.Users;
+using Resources;
 
 namespace ASC.Web.Studio.Core.Search
 {
@@ -35,7 +37,7 @@ namespace ASC.Web.Studio.Core.Search
         {
             if (x.Name == y.Name)
                 return 0;
-            if(y.Name == Users.CustomNamingPeople.Substitute<Resources.Resource>("Employees"))
+            if(y.Name == CustomNamingPeople.Substitute<Resource>("Employees"))
                 return 1;
             return -1;
         }

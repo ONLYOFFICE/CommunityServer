@@ -96,8 +96,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
-            Page.RegisterBodyScripts("~/usercontrols/management/TransferPortal/js/transferportal.js");
-            Page.RegisterStyle("~/usercontrols/management/transferportal/css/transferportal.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/TransferPortal/js/transferportal.js")
+                .RegisterStyle("~/usercontrols/management/transferportal/css/transferportal.less");
 
             popupTransferStart.Options.IsPopup = true;
         }

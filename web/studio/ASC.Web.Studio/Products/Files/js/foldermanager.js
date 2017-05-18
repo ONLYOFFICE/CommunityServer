@@ -102,7 +102,7 @@ window.ASC.Files.Folders = (function () {
 
         var fileId = fileData.id;
         var fileTitle = fileData.title || ASC.Files.UI.getEntryTitle("file", fileId);
-        version = version || fileData.version || -1;
+        version = version || fileData.version || 0;
 
         if (ASC.Files.Utility.CanWebView(fileTitle) || ASC.Files.Utility.CanWebEdit(fileTitle)) {
             return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false);
@@ -292,7 +292,7 @@ window.ASC.Files.Folders = (function () {
         newFolderObj.append(getActionHtml());
         newFolderObj.find(".name-aplly").click(saveFolder);
 
-        jq("#promptCreateFolder").bind(jq.browser.webkit || jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptCreateFolder").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
             if (jq("#promptCreateFolder").length == 0) {
                 return;
             }
@@ -418,11 +418,20 @@ window.ASC.Files.Folders = (function () {
             var rowLink = newFileSaveObj.find(".entry-title .name a");
             ASC.Files.UI.highlightExtension(rowLink, newName);
 
+            var winEditor = window.open("");
+            try {
+                if (winEditor) {
+                    winEditor.document.write(ASC.Resources.Master.Resource.LoadingPleaseWait);
+                    winEditor.document.close();
+                }
+            } catch (e) {
+            }
+
             var params =
                 {
                     folderID: ASC.Files.Folders.currentFolder.id,
                     fileTitle: newName,
-                    winEditor: window.open("")
+                    winEditor: winEditor,
                 };
 
             ASC.Files.UI.blockObject(newFileObj, true, ASC.Files.FilesJSResources.DescriptCreate);
@@ -432,7 +441,7 @@ window.ASC.Files.Folders = (function () {
         newFileObj.append(getActionHtml());
         newFileObj.find(".name-aplly").click(saveFile);
 
-        jq("#promptCreateFile").bind(jq.browser.webkit || jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptCreateFile").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
             if (jq("#promptCreateFile").length == 0) {
                 return;
             }
@@ -539,7 +548,7 @@ window.ASC.Files.Folders = (function () {
 
         entryObj.removeClass("row-selected");
 
-        jq("#promptRename").bind(jq.browser.webkit || jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptRename").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
             if (jq("#promptRename").length === 0) {
                 return;
             }
@@ -692,7 +701,7 @@ window.ASC.Files.Folders = (function () {
 
         commentObj.append(getActionHtml());
         commentObj.find(".name-aplly").click(saveComment);
-        jq("#promptVersionComment").bind(jq.browser.webkit || jq.browser.msie ? "keydown" : "keypress", function (event) {
+        jq("#promptVersionComment").bind(jq.browser.msie ? "keydown" : "keypress", function (event) {
             if (jq("#promptVersionComment").length == 0) {
                 return;
             }
@@ -753,45 +762,39 @@ window.ASC.Files.Folders = (function () {
             for (var i = 0; i < data.length; i++) {
                 files += "<li title=\"{0}\">{0}</li>".format(data[i].Value);
             }
-            message = "<b>" + ASC.Files.FilesJSResources.FilesAlreadyExist.format(data.length, folderTitle) + "</b>";
-            jq("#overwriteList").html(files).show();
+            jq("#overwriteList").html(files);
+            jq("#overwriteListShow").show();
+
+            message = ASC.Files.FilesJSResources.FilesAlreadyExist.format(data.length, "<b title=\"" + folderTitle + "\">" + folderTitle + "</b>");
         } else {
-            jq("#overwriteList").hide();
-            message = ASC.Files.FilesJSResources.FileAlreadyExist.format("<span title=\"" + data[0].Value + "\">" + data[0].Value + "</span>", "<b>" + folderTitle + "</b>");
+            jq("#overwriteListShow").hide();
+
+            message = ASC.Files.FilesJSResources.FileAlreadyExist.format("<span title=\"" + data[0].Value + "\">" + data[0].Value + "</span>", "<b title=\"" + folderTitle + "\">" + folderTitle + "</b>");
         }
+        jq("#overwriteList, #overwriteListHide").hide();
 
         jq("#overwriteMessage").html(message);
 
-        jq("#buttonOverwrite").unbind("click").click(function () {
-            PopupKeyUpActionProvider.CloseDialogAction = "";
-            PopupKeyUpActionProvider.CloseDialog();
-            ASC.Files.ServiceManager.moveItems(ASC.Files.ServiceManager.events.MoveItems,
-                {
-                    folderToId: folderId,
-                    resolve: 1,
-                    isCopyOperation: (isCopyOperation == true),
-                    doNow: true
-                },
-                { stringList: listData });
-        });
+        jq("#buttonConfirmResolve").unbind("click").click(function () {
+            var resolve = jq(".overwrite-resolve input:checked").val();
 
-        jq("#buttonSkipOverwrite").unbind("click").click(function () {
-
-            for (i = 0; i < data.length; i++) {
-                ASC.Files.UI.blockObjectById("file", data[i].Key, false, null, true);
-                var pos = jq.inArray("file_" + data[i].Key, listData.entry);
-                if (pos != -1) {
-                    listData.entry.splice(pos, 1);
+            if (resolve == ASC.Files.Constants.ConflictResolveType.Skip) {
+                for (i = 0; i < data.length; i++) {
+                    ASC.Files.UI.blockObjectById("file", data[i].Key, false, null, true);
+                    var pos = jq.inArray("file_" + data[i].Key, listData.entry);
+                    if (pos != -1) {
+                        listData.entry.splice(pos, 1);
+                    }
                 }
+                ASC.Files.UI.updateMainContentHeader();
             }
-            ASC.Files.UI.updateMainContentHeader();
 
             PopupKeyUpActionProvider.CloseDialogAction = "";
             PopupKeyUpActionProvider.CloseDialog();
             ASC.Files.ServiceManager.moveItems(ASC.Files.ServiceManager.events.MoveItems,
                 {
                     folderToId: folderId,
-                    resolve: 0,
+                    resolve: resolve,
                     isCopyOperation: (isCopyOperation == true),
                     doNow: true
                 },
@@ -809,9 +812,9 @@ window.ASC.Files.Folders = (function () {
             PopupKeyUpActionProvider.CloseDialog();
         });
 
-        ASC.Files.UI.blockUI("#confirmOverwriteFiles", 420, 300);
+        ASC.Files.UI.blockUI("#confirmOverwriteFiles", 465, 550);
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#buttonOverwrite\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#buttonConfirmResolve\").click();";
         PopupKeyUpActionProvider.CloseDialogAction = "jq(\"#buttonCancelOverwrite\").click();";
     };
 
@@ -918,6 +921,41 @@ window.ASC.Files.Folders = (function () {
         jq("#pageNavigatorHolder a").text(ASC.Files.FilesJSResources.ButtonShowMoreLoad);
 
         ASC.Files.Folders.getFolderItems(true);
+    };
+
+    var changeOwnerDialog = function (entryData) {
+        jq("#ownerSelector .change-owner-selector").text(entryData.create_by);
+
+        jq("#ownerSelector")
+            .attr("data-id", entryData.create_by_id)
+            .useradvancedSelector("reset")
+            .useradvancedSelector("disable", [entryData.create_by_id]);
+
+        jq("#changeOwnerTitle").text(entryData.title);
+        jq("#buttonSaveChangeOwner").addClass("disable");
+
+        jq("#changeOwner").off("click").on("click", "#buttonSaveChangeOwner:not(.disable)", function () {
+            var userId = jq("#ownerSelector").attr("data-id");
+
+            PopupKeyUpActionProvider.CloseDialog();
+            ASC.Files.Folders.changeOwner([entryData.entryType + "_" + entryData.entryId], userId);
+        });
+
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#buttonSaveChangeOwner\").click();";
+
+        ASC.Files.UI.blockUI("#changeOwner", 420, 0, -150);
+    };
+
+    var changeOwner = function (entries, userId) {
+        var data = {entry: entries};
+
+        ASC.Files.ServiceManager.changeOwner(ASC.Files.ServiceManager.events.ChangeOwner,
+            {
+                list: entries,
+                userId: userId,
+                parentFolderID: ASC.Files.Folders.currentFolder.id,
+            },
+            {stringList: data});
     };
 
     var emptyTrash = function () {
@@ -1109,6 +1147,9 @@ window.ASC.Files.Folders = (function () {
         curItemFolderMoveTo: curItemFolderMoveTo,
         createDuplicate: createDuplicate,
 
+        changeOwnerDialog: changeOwnerDialog,
+        changeOwner: changeOwner,
+
         rename: rename,
         deleteItem: deleteItem,
         emptyTrash: emptyTrash,
@@ -1166,7 +1207,10 @@ window.ASC.Files.Folders = (function () {
             ASC.Files.Folders.download();
         });
 
-        jq("#filesSelectAllCheck").click(function () {
+        jq("#filesSelectAllCheck").click(function (e) {
+            e.stopPropagation();
+
+            ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.UI.checkSelectAll(jq("#filesSelectAllCheck").prop("checked") == true);
             jq(this).blur();
         });
@@ -1291,6 +1335,37 @@ window.ASC.Files.Folders = (function () {
         jq("#filesMainContent").on("click", ".version-comment .name-cancel", ASC.Files.Folders.eraseComment);
 
         jq("#filesMainContent").on("click", ".file-row > .rename-action > .name-cancel", ASC.Files.Folders.cancelEnter);
+
+        jq(".overwrite-resolve").on("click", "input", function () {
+            jq(".overwrite-resolve.selected").removeClass("selected");
+            jq(this).closest(".overwrite-resolve").addClass("selected");
+        });
+
+        jq("#overwriteListShow").click(function () {
+            jq("#overwriteList, #overwriteListHide").show();
+            jq("#overwriteListShow").hide();
+        });
+
+        jq("#overwriteListHide").click(function () {
+            jq("#overwriteListShow").show();
+            jq("#overwriteList, #overwriteListHide").hide();
+        });
+
+        jq("#ownerSelector")
+            .useradvancedSelector({
+                inPopup: true,
+                itemsChoose: [],
+                canadd: false,
+                showGroups: true,
+                onechosen: true,
+                withGuests: false,
+            })
+            .on("showList", function (event, item) {
+                jq(this)
+                    .attr("data-id", item.id)
+                    .find(".change-owner-selector").html(item.title);
+                jq("#buttonSaveChangeOwner").removeClass("disable");
+            });
 
         jq(".update-if-exist").change(function () {
             ASC.Files.Folders.updateIfExist(this);

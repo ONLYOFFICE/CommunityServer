@@ -25,18 +25,14 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Web;
 using System.Web.UI;
-using ASC.Core.Tenants;
-using ASC.Data.Storage;
-using ASC.Web.Core.Client;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
-    public partial class VoipPhoneControl : UserControl
+    public partial class VoipPhoneControl : UserControl, IStaticBundle
     {
         public static string Location
         {
@@ -45,34 +41,40 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientScript(typeof(VoipPhoneClientScript));
+            Page.RegisterStaticScripts(GetStaticJavaScript())
+                .RegisterBodyScripts(
+                    "~/js/third-party/jquery/jquery.signalr.js",
+                    "~/js/asc/plugins/jquery.hubs.js")
+                .RegisterClientScript(new VoipNumberData());
+        }
+
+        public ScriptBundleData GetStaticJavaScript()
+        {
+            var result = new ScriptBundleData("voip", "studio");
+            result.AddSource(ResolveUrl, new ClientTemplateResources());
+            result.AddSource(ResolveUrl,
+                "~/js/asc/core/voip.countries.js",
+                "~/js/asc/core/voip.phone.js");
+            return result;
+        }
+
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return null;
         }
     }
 
-    public class VoipPhoneClientScript : ClientScript
+    public class ClientTemplateResources : ClientScriptTemplate
     {
-        protected override string BaseNamespace
+        protected override string[] Links
         {
-            get { return "ASC.Resources.Master.VoipPhone"; }
-        }
-
-        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
-        {
-            var storage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_voip");
-
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(new
-                                      {
-                                          IncomingRingtoneMp3 = storage.GetUri("incoming_ringtone.mp3"),
-                                          IncomingRingtoneWav = storage.GetUri("incoming_ringtone.wav")
-                                      })
-                   };
-        }
-
-        protected override string GetCacheHash()
-        {
-            return Guid.NewGuid().ToString();
+            get
+            {
+                return new[]
+                {
+                    "~/templates/VoipTemplate.html"
+                };
+            }
         }
     }
 }

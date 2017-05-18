@@ -32,6 +32,8 @@ namespace ASC.Web.Files.Services.NotifyService
     {
         #region Events
 
+        public static readonly INotifyAction Event_DocuSignComplete = new NotifyAction("DocuSignComplete", "docusign complete");
+        public static readonly INotifyAction Event_DocuSignStatus = new NotifyAction("DocuSignStatus", "docusign status");
         public static readonly INotifyAction Event_MailMergeEnd = new NotifyAction("MailMergeEnd", "mail merge end");
         public static readonly INotifyAction Event_ShareDocument = new NotifyAction("ShareDocument", "share document");
         public static readonly INotifyAction Event_ShareFolder = new NotifyAction("ShareFolder", "share folder");

@@ -131,7 +131,8 @@ namespace ASC.Api.Projects
         [Read(@"{id:[0-9]+}")]
         public ProjectWrapperFull GetProject(int id)
         {
-            return new ProjectWrapperFull(EngineFactory.ProjectEngine.GetFullProjectByID(id).NotFoundIfNull(), EngineFactory.FileEngine.GetRoot(id));
+            var isFollow = EngineFactory.ProjectEngine.IsFollow(id, CurrentUserId);
+            return new ProjectWrapperFull(EngineFactory.ProjectEngine.GetFullProjectByID(id).NotFoundIfNull(), EngineFactory.FileEngine.GetRoot(id), isFollow);
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace ASC.Api.Projects
             var projectIds = projects.Select(p => p.ID).ToList();
             var projectRoots = EngineFactory.FileEngine.GetRoots(projectIds).ToList();
 
-            return projects.Select((t, i) => new ProjectWrapperFull(t, projectRoots[i]));
+            return projects.Select((t, i) => new ProjectWrapperFull(t, projectRoots[i])).ToList();
         }
 
         ///<summary>
@@ -370,7 +371,7 @@ namespace ASC.Api.Projects
         public ProjectWrapperFull UpdateProject(int id, ProjectStatus status)
         {
             var projectEngine = EngineFactory.ProjectEngine;
-            var project = projectEngine.GetByID(id).NotFoundIfNull();
+            var project = projectEngine.GetFullProjectByID(id).NotFoundIfNull();
 
             projectEngine.ChangeStatus(project, status);
             MessageService.Send(Request, MessageAction.ProjectUpdatedStatus, project.Title, LocalizedEnumConverter.ConvertToString(project.Status));
@@ -400,10 +401,11 @@ namespace ASC.Api.Projects
             var project = projectEngine.GetByID(id).NotFoundIfNull();
             ProjectSecurity.DemandEdit(project);
 
+            var folderId = EngineFactory.FileEngine.GetRoot(id);
             projectEngine.Delete(id);
             MessageService.Send(Request, MessageAction.ProjectDeleted, project.Title);
 
-            return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(id));
+            return new ProjectWrapperFull(project, folderId);
         }
 
         #endregion
@@ -480,6 +482,20 @@ namespace ASC.Api.Projects
         {
             if (!EngineFactory.ProjectEngine.IsExists(id)) throw new ItemNotFoundException();
             return EngineFactory.TimeTrackingEngine.GetByProject(id).Select(x => new TimeWrapper(x));
+        }
+
+        ///<summary>
+        ///
+        ///</summary>
+        /// <category>Projects</category>
+        ///<param name="id">Project ID</param>
+        ///<returns>List of time spent</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        [Read(@"{id:[0-9]+}/time/total")]
+        public string GetTotalProjectTime(int id)
+        {
+            if (!EngineFactory.ProjectEngine.IsExists(id)) throw new ItemNotFoundException();
+            return EngineFactory.TimeTrackingEngine.GetTotalByProject(id);
         }
 
         #endregion
@@ -614,7 +630,7 @@ namespace ASC.Api.Projects
         {
             return EngineFactory.ProjectEngine.GetTeam(ids)
                                 .Select(x => new ParticipantWrapper(x))
-                                .OrderBy(r => r.DisplayName);
+                                .OrderBy(r => r.DisplayName).ToList();
         }
 
         ///<summary>
@@ -1211,7 +1227,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Templates
         ///</short>
-        /// <category>Projects</category>
+        /// <category>Template</category>
         ///<returns>List of templates</returns>
         [Read("template")]
         public IEnumerable<ObjectWrapperBase> GetAllTemplates()
@@ -1225,7 +1241,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Template by ID
         ///</short>
-        /// <category>Projects</category>
+        /// <category>Template</category>
         ///<param name="id">Template ID</param>
         ///<returns>Template</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1242,9 +1258,9 @@ namespace ASC.Api.Projects
         ///<short>
         ///Create template
         ///</short>
-        /// <category>Projects</category>
+        /// <category>Template</category>
         ///<param name="title">Title</param>
-        ///<param name="description">Структура шаблона в формате json. Пример: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
+        ///<param name="description">JSON template structure. Sample: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
         ///<returns>Newly created template</returns>
         ///<exception cref="ArgumentException"></exception>
         [Create("template")]
@@ -1272,10 +1288,10 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update template
         ///</short>
-        /// <category>Projects</category>
+        /// <category>Template</category>
         ///<param name="id">Template ID</param>
         ///<param name="title">Title</param>
-        ///<param name="description">Структура шаблона в формате json. Пример: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
+        ///<param name="description">JSON template structure. Sample: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
         ///<returns>Updated template</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1303,7 +1319,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Delete template
         ///</short>
-        /// <category>Projects</category>
+        /// <category>Template</category>
         ///<param name="id">Project ID</param>
         ///<returns>Deleted template</returns>
         ///<exception cref="ItemNotFoundException"></exception>

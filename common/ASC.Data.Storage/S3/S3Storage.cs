@@ -48,11 +48,9 @@ namespace ASC.Data.Storage.S3
 {
     public class S3Storage : BaseStorage
     {
-        private readonly DataList _dataList;
         private readonly List<string> _domains = new List<string>();
         private readonly Dictionary<string, S3CannedACL> _domainsAcl;
         private readonly Dictionary<string, TimeSpan> _domainsExpires;
-        private readonly string _modulename;
         private readonly string _tenant;
         private readonly S3CannedACL _moduleAcl;
         private string _accessKeyId = "";
@@ -214,26 +212,11 @@ namespace ASC.Data.Storage.S3
         public Uri Save(string domain, string path, Stream stream, string contentType,
                                  string contentDisposition, ACL acl, string contentEncoding = null, int cacheDays = 5)
         {
-            bool postWriteCheck = false;
+            var buffered = stream.GetBuffered();
             if (QuotaController != null)
             {
-                try
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), stream.Length);
-                }
-                catch (TenantQuotaException)
-                {
-                    //this exception occurs only if tenant has no free space
-                    //or if file size larger than allowed by quota
-                    //so we can exit this function without stream buffering etc
-                    throw;
-                }
-                catch (Exception)
-                {
-                    postWriteCheck = true;
-                }
+                QuotaController.QuotaUsedCheck(buffered.Length);
             }
-
 
             using (var client = GetClient())
             using (var uploader = new TransferUtility(client))
@@ -241,7 +224,6 @@ namespace ASC.Data.Storage.S3
                 var mime = string.IsNullOrEmpty(contentType)
                                   ? MimeMapping.GetMimeMapping(Path.GetFileName(path))
                                   : contentType;
-                var buffered = stream.GetBuffered();
 
                 var request = new TransferUtilityUploadRequest
                 {
@@ -274,15 +256,11 @@ namespace ASC.Data.Storage.S3
                     request.Headers.ContentEncoding = contentEncoding;
                 }
 
-                //Send body
-                if (postWriteCheck)
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), buffered.Length);
-                }
-
                 uploader.Upload(request);
 
                 InvalidateCloudFront(MakePath(domain, path));
+
+                QuotaUsedAdd(domain, buffered.Length);
 
                 return GetUri(domain, path);
             }
@@ -398,7 +376,7 @@ namespace ASC.Data.Storage.S3
                 if (QuotaController != null)
                 {
                     var size = GetFileSize(domain, path);
-                    QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), size);
+                    QuotaUsedAdd(domain, size);
                 }
 
                 return GetUri(domain, path);
@@ -440,11 +418,7 @@ namespace ASC.Data.Storage.S3
             using (var client = GetClient())
             {
                 var key = MakePath(domain, path);
-
-                if (QuotaController != null)
-                {
-                    QuotaDelete(domain, client, key);
-                }
+                var size = GetFileSize(domain, path);
 
                 Recycle(client, domain, key);
 
@@ -455,27 +429,9 @@ namespace ASC.Data.Storage.S3
                 };
 
                 client.DeleteObject(request);
-            }
-        }
 
-        private long QuotaDelete(string domain, IAmazonS3 client, string key)
-        {
-            if (QuotaController != null)
-            {
-                var responce = client.ListObjects(new ListObjectsRequest
-                {
-                    BucketName = _bucket,
-                    Prefix = key
-                });
-
-                if (responce.S3Objects != null && responce.S3Objects.Count > 0)
-                {
-                    var size = Convert.ToInt64(responce.S3Objects[0].Size);
-                    QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), size);
-                    return size;
-                }
+                QuotaUsedDelete(domain, size);
             }
-            return 0;
         }
 
         public override void DeleteFiles(string domain, List<string> paths)
@@ -512,11 +468,6 @@ namespace ASC.Data.Storage.S3
             if (!keysToDel.Any())
                 return;
 
-            if (QuotaController != null && quotaUsed > 0)
-            {
-                QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), quotaUsed);
-            }
-
             using (var client = GetClient())
             {
                 var deleteRequest = new DeleteObjectsRequest
@@ -526,6 +477,11 @@ namespace ASC.Data.Storage.S3
                 };
 
                 client.DeleteObjects(deleteRequest);
+            }
+
+            if (quotaUsed > 0)
+            {
+                QuotaUsedDelete(domain, quotaUsed);
             }
         }
 
@@ -538,11 +494,6 @@ namespace ASC.Data.Storage.S3
             {
                 foreach (var s3Object in objToDel)
                 {
-                    if (QuotaController != null)
-                    {
-                        QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), Convert.ToInt64(s3Object.Size));
-                    }
-
                     Recycle(client, domain, s3Object.Key);
 
                     var deleteRequest = new DeleteObjectRequest
@@ -552,6 +503,8 @@ namespace ASC.Data.Storage.S3
                     };
 
                     client.DeleteObject(deleteRequest);
+
+                    QuotaUsedDelete(domain, Convert.ToInt64(s3Object.Size));
                 }
             }
         }
@@ -597,11 +550,8 @@ namespace ASC.Data.Storage.S3
             {
                 var srcKey = MakePath(srcdomain, srcpath);
                 var dstKey = MakePath(newdomain, newpath);
-                var size = QuotaDelete(srcdomain, client, srcKey);
-                if (QuotaController != null)
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), size);
-                }
+                var size = GetFileSize(srcdomain, srcpath);
+
                 var request = new CopyObjectRequest
                 {
                     SourceBucket = _bucket,
@@ -615,6 +565,10 @@ namespace ASC.Data.Storage.S3
 
                 client.CopyObject(request);
                 Delete(srcdomain, srcpath);
+
+                QuotaUsedDelete(srcdomain, size);
+                QuotaUsedAdd(newdomain, size);
+
                 return GetUri(newdomain, newpath);
             }
         }
@@ -841,7 +795,8 @@ namespace ASC.Data.Storage.S3
                         try
                         {
                             var size = GetFileSize(domain, domainpath);
-                            QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), size);
+                            QuotaUsedAdd(domain, size);
+
                             if (HttpContext.Current.Session != null)
                             {
                                 HttpContext.Current.Session.Add(etag, size);
@@ -932,11 +887,8 @@ namespace ASC.Data.Storage.S3
             {
                 var srcKey = MakePath(srcdomain, srcpath);
                 var dstKey = MakePath(newdomain, newpath);
-                var size = QuotaDelete(srcdomain, client, srcKey);
-                if (QuotaController != null)
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), size);
-                }
+                var size = GetFileSize(srcdomain, srcpath);
+
                 var request = new CopyObjectRequest
                 {
                     SourceBucket = _bucket,
@@ -949,6 +901,9 @@ namespace ASC.Data.Storage.S3
                 };
 
                 client.CopyObject(request);
+
+                QuotaUsedAdd(newdomain, size);
+
                 return GetUri(newdomain, newpath);
             }
         }
@@ -965,11 +920,6 @@ namespace ASC.Data.Storage.S3
                 var response = client.ListObjects(request);
                 foreach (var s3Object in response.S3Objects)
                 {
-                    if (QuotaController != null)
-                    {
-                        QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), s3Object.Size);
-                    }
-
                     client.CopyObject(new CopyObjectRequest
                     {
                         SourceBucket = _bucket,
@@ -979,6 +929,8 @@ namespace ASC.Data.Storage.S3
                         CannedACL = GetDomainACL(newdomain),
                         ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
                     });
+
+                    QuotaUsedAdd(newdomain, s3Object.Size);
                 }
             }
         }

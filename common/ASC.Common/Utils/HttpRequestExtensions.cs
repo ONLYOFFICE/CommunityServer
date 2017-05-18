@@ -47,24 +47,43 @@ namespace System.Web
 
         public static Uri GetUrlRewriter(NameValueCollection headers, Uri requestUri)
         {
-            if (headers == null || headers.Count == 0 || requestUri == null)
+            if (requestUri == null)
             {
-                return requestUri;
+                return null;
             }
 
-            var rewriterUri = ParseRewriterUrl(headers[UrlRewriterHeader]);
-            if (rewriterUri != null)
+            if (!string.IsNullOrEmpty(requestUri.Query))
             {
-                var result = new UriBuilder(requestUri);
-                result.Scheme = rewriterUri.Scheme;
-                result.Host = rewriterUri.Host;
-                result.Port = rewriterUri.Port;
-                return result.Uri;
+                var urlRewriterQuery = HttpUtility.ParseQueryString(requestUri.Query);
+                var rewriterUri = ParseRewriterUrl(urlRewriterQuery[UrlRewriterHeader]);
+                if (rewriterUri != null)
+                {
+                    var result = new UriBuilder(requestUri)
+                    {
+                        Scheme = rewriterUri.Scheme,
+                        Host = rewriterUri.Host,
+                        Port = rewriterUri.Port
+                    };
+                    return result.Uri;
+                }
             }
-            else
+
+            if (headers != null && !string.IsNullOrEmpty(headers[UrlRewriterHeader]))
             {
-                return requestUri;
+                var rewriterUri = ParseRewriterUrl(headers[UrlRewriterHeader]);
+                if (rewriterUri != null)
+                {
+                    var result = new UriBuilder(requestUri)
+                    {
+                        Scheme = rewriterUri.Scheme,
+                        Host = rewriterUri.Host,
+                        Port = rewriterUri.Port
+                    };
+                    return result.Uri;
+                }
             }
+
+            return requestUri;
         }
 
         public static Uri PushRewritenUri(this HttpContext context)
@@ -93,15 +112,15 @@ namespace System.Web
                         if (rewrittenUri.IsDefaultPort)
                         {
                             request.ServerVariables.Set("HTTP_HOST",
-                                                    rewrittenUri.Host);
+                                                        rewrittenUri.Host);
                         }
                         else
                         {
                             request.ServerVariables.Set("HTTP_HOST",
-                                                    rewrittenUri.Host + ":" + requestUri.Port);
+                                                        rewrittenUri.Host + ":" + requestUri.Port);
                         }
                         //Hack:
-                        typeof(HttpRequest).InvokeMember("_url",
+                        typeof (HttpRequest).InvokeMember("_url",
                                                           BindingFlags.NonPublic | BindingFlags.SetField |
                                                           BindingFlags.Instance,
                                                           null, HttpContext.Current.Request,
@@ -112,7 +131,6 @@ namespace System.Web
                     }
                     catch (Exception)
                     {
-
                     }
                 }
             }
@@ -140,13 +158,12 @@ namespace System.Web
 
         private static Uri ParseRewriterUrl(string s)
         {
-            Uri result = null;
-            var cmp = StringComparison.OrdinalIgnoreCase;
-
             if (string.IsNullOrEmpty(s))
             {
-                return result;
+                return null;
             }
+
+            const StringComparison cmp = StringComparison.OrdinalIgnoreCase;
             if (0 < s.Length && (s.StartsWith("0", cmp)))
             {
                 s = Uri.UriSchemeHttp + s.Substring(1);
@@ -168,6 +185,7 @@ namespace System.Web
                 s = HttpUtility.UrlDecode(s);
             }
 
+            Uri result;
             Uri.TryCreate(s, UriKind.Absolute, out result);
             return result;
         }

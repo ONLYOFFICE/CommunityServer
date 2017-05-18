@@ -59,26 +59,31 @@ ASC.Controls.EmailAndPasswordManager = new function() {
     };
 
     var uploadInit = function () {
-        var upload =
-            new AjaxUpload("licenseKey", {
-                action: 'ajaxupload.ashx?type=ASC.Web.Studio.HttpHandlers.LicenseUploader,ASC.Web.Studio',
-                onChange: function (file, ext) {
-                    jq("#licenseKeyText").removeClass("error");
-                    LoadingBanner.showLoaderBtn(".step");
-                },
-                onComplete: function (file, response) {
-                    LoadingBanner.hideLoaderBtn(".step");
-                    try {
-                        var result = jq.parseJSON(response);
-                    } catch (e) {
-                        result = { Success: false };
-                    }
 
-                    if (result.Success) {
-                        jq("#licenseKeyText").text(result.Message);
-                    } else {
-                        jq("#licenseKeyText").text(ASC.Resources.Master.Resource.LicenseKeyError).addClass("error");
-                    }
+        jq("#licenseKey").click(function (e) {
+            e.preventDefault();
+            jq("#uploadButton").click();
+        });
+
+        var upload = jq("#uploadButton")
+            .fileupload({
+                url: "ajaxupload.ashx?type=ASC.Web.Studio.HttpHandlers.LicenseUploader,ASC.Web.Studio",
+            })
+            .bind("fileuploadstart", function () {
+                jq("#licenseKeyText").removeClass("error");
+                LoadingBanner.showLoaderBtn(".step");
+            })
+            .bind("fileuploaddone", function (e, data) {
+                LoadingBanner.hideLoaderBtn(".step");
+                try {
+                    var result = jq.parseJSON(data.result);
+                } catch (e) {
+                    result = {Success: false};
+                }
+
+                jq("#licenseKeyText").text(result.Message);
+                if (!result.Success) {
+                    jq("#licenseKeyText").addClass("error");
                 }
             });
     };

@@ -107,6 +107,16 @@ namespace ASC.Projects.Engine
             return GetTasks(timeSpend).FindAll(r => ProjectSecurity.CanRead(r.Task));
         }
 
+        public string GetTotalByProject(int projectId)
+        {
+            var time = GetByFilterTotal(new TaskFilter { ProjectIds = new List<int> { projectId } });
+            var hours = (int)time;
+            var minutes = (int)(Math.Round((time - hours) * 60));
+            var result = hours + ":" + minutes.ToString("D2");
+
+            return !result.Equals("0:00", StringComparison.InvariantCulture) ? result : "";
+        }
+
         public TimeSpend GetByID(int id)
         {
             var timeSpend = timeSpendDao.GetById(id);

@@ -37,6 +37,7 @@ namespace ASC.VoipService.Twilio
         public TwilioPhone(TwilioRestClient twilio) 
         {
             this.twilio = twilio;
+            Settings = new TwilioVoipSettings();
         }
 
         #region Calls
@@ -50,7 +51,6 @@ namespace ASC.VoipService.Twilio
                 SendDigits = number.Length > 1 ? number[1] + "#" : string.Empty,
                 To = number[0],
                 From = Number,
-                Method = "GET",
                 Record = Settings.Caller.Record,
                 Url = Settings.Connect(contactId: contactId)
             });
@@ -67,7 +67,7 @@ namespace ASC.VoipService.Twilio
 
         public override VoipCall RedirectCall(string callId, string to)
         {
-            var call = twilio.RedirectCall(callId, Settings.Redirect(to), "GET");
+            var call = twilio.RedirectCall(callId, Settings.Redirect(to), "POST");
             TwilioProvider.ThrowIfError(call);
             return new VoipCall {Id = call.Sid, To = to};
         }
@@ -83,8 +83,13 @@ namespace ASC.VoipService.Twilio
 
         public Queue CreateQueue(string name, int size, string waitUrl, int waitTime)
         {
-            var queue = twilio.CreateQueue(name);
-            TwilioProvider.ThrowIfError(queue);
+            var queues = twilio.ListQueues();
+            var queue = queues.Queues.FirstOrDefault(r => r.FriendlyName == name);
+            if (queue == null)
+            {
+                queue = twilio.CreateQueue(name);
+                TwilioProvider.ThrowIfError(queue);
+            }
             return new Queue(queue.Sid, name, size, waitUrl, waitTime);
         }
 
@@ -102,16 +107,16 @@ namespace ASC.VoipService.Twilio
             return calls.QueueMembers.Select(r => r.CallSid);
         }
 
-        private void AnswerQueueCall(string queueId, string callId, bool reject)
+        private void AnswerQueueCall(string queueId, string callId, bool reject = false)
         {
             var calls = QueueCalls(queueId);
             if (calls.Contains(callId))
-                twilio.DequeueQueueMember(queueId, callId, Settings.Dequeue(reject), "GET");
+                twilio.DequeueQueueMember(queueId, callId, Settings.Dequeue(reject), "POST");
         }
 
         public override void AnswerQueueCall(string callId)
         {
-            AnswerQueueCall(Settings.Queue.Id, callId, false);
+            AnswerQueueCall(Settings.Queue.Id, callId);
         }
 
         public override void RejectQueueCall(string callId)

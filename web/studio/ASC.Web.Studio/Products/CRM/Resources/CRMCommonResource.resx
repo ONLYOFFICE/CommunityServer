@@ -124,7 +124,7 @@
     <value>for reading/writing</value>
   </data>
   <data name="AccessRightsLimit" xml:space="preserve">
-    <value>Права будут установлены только на те контакты, для которых вы являетесь автором.</value>
+    <value>The access rights will be set only for the contacts which were created by you.</value>
   </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
@@ -142,13 +142,13 @@
     <value>Add mail account</value>
   </data>
   <data name="AddNewTag" xml:space="preserve">
-    <value>Add tag</value>
+    <value>Add Tag</value>
   </data>
   <data name="AddParticipant" xml:space="preserve">
     <value>Add participant</value>
   </data>
   <data name="AddThisNote" xml:space="preserve">
-    <value>Add this event</value>
+    <value>Add This Event</value>
   </data>
   <data name="AddThisNoteProggress" xml:space="preserve">
     <value>Adding the note...</value>
@@ -157,13 +157,13 @@
     <value>Add {!user}</value>
   </data>
   <data name="AdvansedFilterInfoText" xml:space="preserve">
-    <value>Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the terms similar in spelling use the {0}~{1} symbol at the end of a word.{2}Learn more...{3}</value>
+    <value>Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. It's not recommended to use these symbols at the beginning of your query. To search for the exact phrase use the quotation marks.{2}Learn more...{3}</value>
   </data>
   <data name="Alert" xml:space="preserve">
     <value>Alert</value>
   </data>
   <data name="AssignedField" xml:space="preserve">
-    <value>Corresponding TeamLab CRM field</value>
+    <value>Corresponding ONLYOFFICE™ CRM field</value>
   </data>
   <data name="Attachments" xml:space="preserve">
     <value>Attachments</value>
@@ -181,7 +181,10 @@
     <value>Learn more...</value>
   </data>
   <data name="ByCategory" xml:space="preserve">
-    <value>By category</value>
+    <value>Category</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>By title</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -214,19 +217,19 @@
     <value>Close window</value>
   </data>
   <data name="Colon" xml:space="preserve">
-    <value>Двоеточие</value>
+    <value>Colon</value>
   </data>
   <data name="Column" xml:space="preserve">
     <value>File column</value>
   </data>
   <data name="Comma" xml:space="preserve">
-    <value>Запятая</value>
+    <value>Comma</value>
   </data>
   <data name="ComposeMail" xml:space="preserve">
     <value>Compose Mail</value>
   </data>
   <data name="ComposeMailDescription" xml:space="preserve">
-    <value>Compose a letter to be sent to all the clients selected in the contact list. You can check the number of selected clients in the 'To' field, enter a common 'Subject' and use the 'Personal tags' to include all the necessary information to your letter.</value>
+    <value>Compose a letter to be sent to all the clients selected in the contact list. You can check the number of selected clients in the 'To' field, enter a common 'Subject' and use the 'Personal tags' to include all the necessary information to your letter. This is a beta version for those who want to try out new features of ONLYOFFICE™ CRM.</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
@@ -235,7 +238,7 @@
     <value>Are you sure you want to delete these elements?</value>
   </data>
   <data name="ContactCategoriesHelpInfo" xml:space="preserve">
-    <value>Изменить список стадий теплоты контакта можно {0}тут{1}</value>
+    <value>To change the list of the contact temperature levels, refer to the CRM {0}Settings{1} section</value>
   </data>
   <data name="ContactSettings" xml:space="preserve">
     <value>Contact settings</value>
@@ -252,8 +255,11 @@
   <data name="ConversionRates" xml:space="preserve">
     <value>Currency convertor</value>
   </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Convert</value>
+  </data>
   <data name="Count" xml:space="preserve">
-    <value>Кол-во</value>
+    <value>Quantity</value>
   </data>
   <data name="Country_Andorra" xml:space="preserve">
     <value>Andorra</value>
@@ -278,6 +284,12 @@
   </data>
   <data name="Country_IvoryCoast" xml:space="preserve">
     <value>Ivory Coast</value>
+  </data>
+  <data name="Country_RepublicOfCongo" xml:space="preserve">
+    <value>Democratic Republic of the Congo</value>
+  </data>
+  <data name="Country_RepublicOfCuba" xml:space="preserve">
+    <value>Republic of Cuba</value>
   </data>
   <data name="Country_RepublicOfCyprus" xml:space="preserve">
     <value>Republic of Cyprus</value>
@@ -322,7 +334,7 @@
     <value>Create New</value>
   </data>
   <data name="CreateNewContact" xml:space="preserve">
-    <value>Create new contact</value>
+    <value>Create New Contact</value>
   </data>
   <data name="CreateNewProject" xml:space="preserve">
     <value>Create project</value>
@@ -331,7 +343,7 @@
     <value>Add new tag</value>
   </data>
   <data name="CRMProductIsDisabled" xml:space="preserve">
-    <value>Product CRM is not enabled</value>
+    <value>The CRM module is not enabled</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>Currency</value>
@@ -378,8 +390,17 @@
   <data name="Currency_ChineseYuan" xml:space="preserve">
     <value>Chinese Yuan</value>
   </data>
+  <data name="Currency_ColombianPeso" xml:space="preserve">
+    <value>Colombian Peso</value>
+  </data>
   <data name="Currency_CostaRicanColon" xml:space="preserve">
     <value>Costa Rican Colón</value>
+  </data>
+  <data name="Currency_CroatianKuna" xml:space="preserve">
+    <value>Croatian Kuna</value>
+  </data>
+  <data name="Currency_CubanPeso" xml:space="preserve">
+    <value>Cuban Peso</value>
   </data>
   <data name="Currency_CzechKoruna" xml:space="preserve">
     <value>Czech Koruna</value>
@@ -417,11 +438,14 @@
   <data name="Currency_KazakhstaniTenge" xml:space="preserve">
     <value>Kazakhstani Tenge</value>
   </data>
+  <data name="Currency_KenyanShilling" xml:space="preserve">
+    <value>Kenyan Shilling</value>
+  </data>
   <data name="Currency_KuwaitiDinar" xml:space="preserve">
     <value>Kuwaiti Dinar</value>
   </data>
   <data name="Currency_LatvianLats" xml:space="preserve">
-    <value>Latvian Lats</value>
+    <value>Latvian Lat</value>
   </data>
   <data name="Currency_LithuanianLitas" xml:space="preserve">
     <value>Lithuanian Litas</value>
@@ -438,14 +462,23 @@
   <data name="Currency_MexicanPeso" xml:space="preserve">
     <value>Mexican Peso</value>
   </data>
+  <data name="Currency_MoldovanLeu" xml:space="preserve">
+    <value>Moldovan Leu</value>
+  </data>
   <data name="Currency_MoroccanDirham" xml:space="preserve">
     <value>Moroccan Dirham</value>
   </data>
   <data name="Currency_NewZealandDollar" xml:space="preserve">
     <value>New Zealand Dollar</value>
   </data>
+  <data name="Currency_NigerianNaira" xml:space="preserve">
+    <value>Nigerian Naira</value>
+  </data>
   <data name="Currency_NorwegianKrone" xml:space="preserve">
     <value>Norwegian Krone</value>
+  </data>
+  <data name="Currency_OmaniRial" xml:space="preserve">
+    <value>Omani Rial</value>
   </data>
   <data name="Currency_Other" xml:space="preserve">
     <value>Other currencies</value>
@@ -520,10 +553,10 @@
     <value>Custom</value>
   </data>
   <data name="CustomDateFilter" xml:space="preserve">
-    <value>Custom</value>
+    <value>Custom period</value>
   </data>
   <data name="CustomResponsibleFilter" xml:space="preserve">
-    <value>Custom</value>
+    <value>Other users</value>
   </data>
   <data name="DashboardTitle" xml:space="preserve">
     <value>Manage Relations with Customers</value>
@@ -550,7 +583,7 @@
     <value>Simplify invoice creation adding products and services.</value>
   </data>
   <data name="DashInvoiceTaxes" xml:space="preserve">
-    <value>Add taxes specific to certain countries and use them with invoices.</value>
+    <value>Add taxes specific to certain countries and use them in invoices.</value>
   </data>
   <data name="DashIssueInvoices" xml:space="preserve">
     <value>Issue invoices to your clients right from the portal interface.</value>
@@ -571,7 +604,7 @@
     <value>Due in {0} day(s)</value>
   </data>
   <data name="DateOverueByDays" xml:space="preserve">
-    <value>Overdue by {0} day(s)</value>
+    <value>{0} day(s) overdue</value>
   </data>
   <data name="DealModuleName" xml:space="preserve">
     <value>Opportunities</value>
@@ -579,8 +612,11 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteContact" xml:space="preserve">
+    <value>Delete contact</value>
+  </data>
   <data name="DeleteHistoryEvent" xml:space="preserve">
-    <value>Delete this event</value>
+    <value>Delete event</value>
   </data>
   <data name="DeleteParticipant" xml:space="preserve">
     <value>Delete participant</value>
@@ -604,10 +640,19 @@
     <value>Do the same for all future occurrences</value>
   </data>
   <data name="DoubleQuote" xml:space="preserve">
-    <value>Двойная кавычка</value>
+    <value>Double quote</value>
   </data>
   <data name="DuplicateRecords" xml:space="preserve">
     <value>Duplicate Records</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
+    <value>Be aware of what your clients think about your produce and brand in the social network.</value>
+  </data>
+  <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
+    <value>No linked twitter accounts</value>
   </data>
   <data name="EmptyFileErrorMsg" xml:space="preserve">
     <value>Empty file</value>
@@ -617,6 +662,9 @@
   </data>
   <data name="EmptyHistoryHeader" xml:space="preserve">
     <value>No records for this filter can be found here</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>The opportunity participant list is empty</value>
   </data>
   <data name="EnterAmount" xml:space="preserve">
     <value>Enter amount</value>
@@ -630,17 +678,23 @@
   <data name="ExportCurrentListToCsvFile" xml:space="preserve">
     <value>Export current list to CSV-file</value>
   </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
   <data name="FileSizeErrorMsg" xml:space="preserve">
     <value>The maximum file size is exceeded</value>
   </data>
   <data name="FilterByCreationDate" xml:space="preserve">
-    <value>By creation date</value>
+    <value>Creation date</value>
   </data>
   <data name="FilterByDate" xml:space="preserve">
-    <value>By date</value>
+    <value>Due date</value>
   </data>
   <data name="FilterByResponsible" xml:space="preserve">
-    <value>By responsible</value>
+    <value>Responsible</value>
   </data>
   <data name="FilterWithTag" xml:space="preserve">
     <value>With tag</value>
@@ -661,7 +715,7 @@
     <value>History</value>
   </data>
   <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
-    <value>Изменить список категорий для событий истории можно {0}тут{1}</value>
+    <value>You can change the list for categories of history events {0}here{1}</value>
   </data>
   <data name="HistoryCategory_Call" xml:space="preserve">
     <value>Phone call</value>
@@ -676,10 +730,10 @@
     <value>Note</value>
   </data>
   <data name="HistoryEventInboxMail" xml:space="preserve">
-    <value> was received</value>
+    <value>has been received</value>
   </data>
   <data name="HistoryEventOutboxMail" xml:space="preserve">
-    <value>was sent</value>
+    <value>has been sent</value>
   </data>
   <data name="HistoryLongDataMsg" xml:space="preserve">
     <value>Max. number of characters exceeded: {0}</value>
@@ -688,46 +742,52 @@
     <value>Ignore the first row when importing</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
-    <value>Дублировать</value>
+    <value>Duplicate</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
-    <value>Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
-Выбрав опцию "Дублировать",  при импорте  будет создан дубликат записи B</value>
+    <value>Use this option to import contacts duplicating the coinciding contacts. E.g. there are two records - 'A' and 'B' - in your ONLYOFFICE™ CRM. You want to import 'B' and 'C' records. In case you select the 'Duplicate' option, a duplicate record to 'B' will be created while importing.</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
-    <value>Duplicate check will be performed based on the Email field.</value>
+    <value>Check for duplicates will be performed based on the Email field.</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
-    <value>Перезаписать</value>
+    <value>Overwrite</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
-    <value>Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
-Выбрав опцию "Перезаписать",  при импорте запись B будет заменена существующей.</value>
+    <value>Use this option to import contacts overwriting the existing contacts. E.g. there are two records - 'A' and 'B' - in your ONLYOFFICE™ CRM. You want to import 'B' and 'C' records. In case you select the 'Overwrite' option, the existing 'B' will be overwritten by the imported one while importing.</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
-    <value>Пропустить</value>
+    <value>Skip</value>
   </data>
   <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
-    <value>Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
-Выбрав опцию "Пропустить", при импорте запись B будет пропущена</value>
+    <value>Use this option to import contacts keeping the existing contacts. E.g. there are two records - 'A' and 'B' - in your ONLYOFFICE™ CRM. You want to import 'B' and 'C' records. In case you select the 'Skip' option, the existing 'B' will be preserved while importing.</value>
   </data>
   <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
-    <value>Символ разделитель</value>
+    <value>Delimiter</value>
   </data>
   <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
-    <value>Кодировка</value>
+    <value>Encoding</value>
   </data>
   <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
-    <value>Настройки CSV файла</value>
+    <value>CSV File Settings</value>
   </data>
   <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
-    <value>Разделитель текста</value>
+    <value>Text Delimiter</value>
   </data>
   <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
     <value>Scanning the file...</value>
   </data>
   <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
     <value>Start importing data</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Go to Contact List</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Import of contacts can take several minutes depending on the amount of your data. You will be informed when it is done.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importing started</value>
   </data>
   <data name="InformationProvidedBy" xml:space="preserve">
     <value>Information is submitted</value>
@@ -753,11 +813,14 @@
   <data name="LinkTo" xml:space="preserve">
     <value>Link with</value>
   </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value />
+  </data>
   <data name="LoadingWait" xml:space="preserve">
-    <value>Please, wait.</value>
+    <value>Please wait ...</value>
   </data>
   <data name="MailBody" xml:space="preserve">
-    <value>Тело письма</value>
+    <value>Email body</value>
   </data>
   <data name="MailCopyTo" xml:space="preserve">
     <value>Copy</value>
@@ -766,22 +829,22 @@
     <value>From</value>
   </data>
   <data name="MailHistoryEventTemplate" xml:space="preserve">
-    <value>Teamlab Mass Send Feature: "{0}"</value>
+    <value>ONLYOFFICE™ Mass Send Feature: "{0}"</value>
   </data>
   <data name="MailSend" xml:space="preserve">
-    <value>Mail Send</value>
+    <value>Sending Mail</value>
   </data>
   <data name="MailSender_FailedDeliverException" xml:space="preserve">
     <value>Failed to deliver message to {0}</value>
   </data>
   <data name="MailSender_InvalidEmail" xml:space="preserve">
-    <value>Invalid email: {0}</value>
+    <value>Invalid email address: {0}</value>
   </data>
   <data name="MailSender_MailboxBusyException" xml:space="preserve">
-    <value>Delivery failed - retrying in {0} seconds.</value>
+    <value>Delivery failed - will retry in {0} seconds.</value>
   </data>
   <data name="MailSubject" xml:space="preserve">
-    <value>Заголовок письма</value>
+    <value>Email subject</value>
   </data>
   <data name="MailTo" xml:space="preserve">
     <value>To</value>
@@ -789,14 +852,23 @@
   <data name="ManageContacts" xml:space="preserve">
     <value>Manage Contacts</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="MoneyCalculator" xml:space="preserve">
     <value>Calculator</value>
   </data>
   <data name="My" xml:space="preserve">
     <value>My</value>
   </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>My opportunities</value>
+  </data>
   <data name="MyEventsFilter" xml:space="preserve">
-    <value>My</value>
+    <value>My events</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>My tasks</value>
   </data>
   <data name="NextSample" xml:space="preserve">
     <value>Next record</value>
@@ -832,7 +904,7 @@
     <value>Open current list in DocEditor</value>
   </data>
   <data name="OrganisationProfile" xml:space="preserve">
-    <value>Organisation Profile</value>
+    <value>Organization Profile</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
@@ -840,8 +912,17 @@
   <data name="OtherSettings" xml:space="preserve">
     <value>Other settings</value>
   </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
   <data name="Part" xml:space="preserve">
     <value>Share</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Please wait</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Portal name</value>
   </data>
   <data name="PreviewMail" xml:space="preserve">
     <value>Preview Mail</value>
@@ -872,7 +953,7 @@
     <value>Access rights</value>
   </data>
   <data name="ProductAdminOpportunities" xml:space="preserve">
-    <value>Делать все то же, что и пользователь CRM|Импортировать, экспортировать данные|Рассылать письма контактам|Задавать настройки|Управлять любым контактом, задачей, мероприятием, сделкой</value>
+    <value>Do the same as CRM user|Import, export data|Send emails to CRM contacts|Manage settings|Manage any contact, task, case, opportunity</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
     <value>Manage your customer relations, identify priority contacts, track communication history and sales performance.</value>
@@ -887,7 +968,7 @@
     <value>Products &amp; Services</value>
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Создавать контакт, задачу, мероприятие, сделку с возможностью ограничения доступа к ним|Редактировать контакт, задачу, мероприятие, сделке к которым предоставлен доступ</value>
+    <value>Create contact, task, case, opportunity with a possibility to limit access to them|Edit contact, task, case, opportunity with the access rights set up</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
@@ -917,13 +998,13 @@
     <value>Select</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>SelectAll</value>
+    <value>Select All</value>
   </data>
   <data name="SelectUsersToNotify" xml:space="preserve">
     <value>Notify users</value>
   </data>
   <data name="Semicolon" xml:space="preserve">
-    <value>Точка с запятой</value>
+    <value>Semicolon</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
@@ -932,7 +1013,7 @@
     <value>Send Email</value>
   </data>
   <data name="SetPermissions" xml:space="preserve">
-    <value>Set permissions</value>
+    <value>Set Permissions</value>
   </data>
   <data name="SettingModuleName" xml:space="preserve">
     <value>Settings</value>
@@ -949,29 +1030,32 @@
   <data name="ShowInformation" xml:space="preserve">
     <value>Show information</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
   <data name="ShowOnPage" xml:space="preserve">
     <value>Show on page</value>
   </data>
   <data name="SingleQuote" xml:space="preserve">
-    <value>Одиночная кавычка</value>
+    <value>Single quote </value>
   </data>
   <data name="Space" xml:space="preserve">
-    <value>Пробел</value>
+    <value>Space</value>
   </data>
   <data name="StoreThisLetterInHistory" xml:space="preserve">
-    <value>Store this letter in History</value>
+    <value>Store this message in History</value>
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>
   </data>
   <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
-    <value>Add Relationship Event</value>
+    <value>New events</value>
   </data>
   <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
-    <value>Create new contact</value>
+    <value>New contacts</value>
   </data>
   <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
-    <value>Export Completed</value>
+    <value>Export completed</value>
   </data>
   <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
     <value>Import completed</value>
@@ -980,16 +1064,16 @@
     <value>Responsible for opportunity</value>
   </data>
   <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
-    <value>Responsible for task</value>
+    <value>Tasks assigned to you</value>
   </data>
   <data name="SubscriptionType_SetAccess" xml:space="preserve">
-    <value>Set Access</value>
+    <value>Access granted</value>
   </data>
   <data name="SummaryTable" xml:space="preserve">
     <value>Summary table</value>
   </data>
   <data name="Tabulation" xml:space="preserve">
-    <value>Табуляция</value>
+    <value>Tabulation</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
@@ -1040,13 +1124,13 @@
     <value>View mailing history with this participant</value>
   </data>
   <data name="VoIPCallsSettings" xml:space="preserve">
-    <value>Звонки</value>
+    <value>Calls</value>
   </data>
   <data name="VoIPCommonSettings" xml:space="preserve">
-    <value>Общие</value>
+    <value>Common</value>
   </data>
   <data name="VoIPNumbersSettings" xml:space="preserve">
-    <value>Номера</value>
+    <value>Numbers</value>
   </data>
   <data name="VoIPSettings" xml:space="preserve">
     <value>VoIP Settings</value>
@@ -1057,34 +1141,13 @@
   <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
   </data>
-  <data name="Currency_MoldovanLeu" xml:space="preserve">
-    <value>Moldovan Leu</value>
-  </data>
-  <data name="Currency_ColombianPeso" xml:space="preserve">
-    <value>Colombian Peso</value>
-  </data>
-  <data name="Country_RepublicOfCongo" xml:space="preserve">
-    <value>Democratic Republic of the Congo</value>
-  </data>
-  <data name="Currency_CroatianKuna" xml:space="preserve">
-    <value>Croatian Kuna</value>
-  </data>
-  <data name="Country_RepublicOfCuba" xml:space="preserve">
-    <value>Republic of Cuba</value>
-  </data>
-  <data name="Currency_NigerianNaira" xml:space="preserve">
-    <value>Nigerian Naira</value>
-  </data>
-  <data name="Currency_CubanPeso" xml:space="preserve">
-    <value>Cuban Peso</value>
-  </data>
-  <data name="Currency_OmaniRial" xml:space="preserve">
-    <value>Omani Rial</value>
-  </data>
-  <data name="Currency_KenyanShilling" xml:space="preserve">
-    <value>Kenyan Shilling</value>
-  </data>
   <data name="Currency_RomanianLeu" xml:space="preserve">
     <value>Romanian Leu</value>
+  </data>
+  <data name="Currency_NewBelarusianRuble" xml:space="preserve">
+    <value>New Belarusian Ruble</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Creation date</value>
   </data>
 </root>

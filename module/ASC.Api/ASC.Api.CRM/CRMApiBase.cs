@@ -51,7 +51,7 @@ namespace ASC.Api.CRM
 
         protected IVoipProvider VoipProvider
         {
-            get { return VoipDao.GetVoipProvider(); }
+            get { return VoipDao.GetProvider(); }
         }
 
         protected Projects.Data.DaoFactory ProjectsDaoFactory

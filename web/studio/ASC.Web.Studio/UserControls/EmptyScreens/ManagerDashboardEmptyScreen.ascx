@@ -15,7 +15,7 @@
         <a href="<%= VirtualPathUtility.ToAbsolute(PeopleProduct.GetStartURL()) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_PeopleLink %>
         </a>
-        <div class="module-link-dscr"><%= CustomNamingPeople.Substitute<Resource>("ManagerEmptyScreen_PeopleLinkDscr") %></div>
+        <div class="module-link-dscr"><%= CustomNamingPeople.Substitute<Resource>("ManagerEmptyScreen_PeopleLinkDscr").HtmlEncode() %></div>
     </div>
     <% } %>
 

@@ -24,18 +24,19 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Web.Core;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ASC.Core;
+using ASC.Core.Common.Settings;
+using ASC.Core.Users;
+using ASC.Web.Core;
+using ASC.Web.Core.Files;
+using ASC.Web.Core.Mail;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
+using Resources;
 
 namespace ASC.Web.Studio
 {
@@ -51,6 +52,8 @@ namespace ASC.Web.Studio
             if (CoreContext.Configuration.Personal)
                 Context.Response.Redirect(FilesLinkUtility.FilesBaseAbsolutePath);
         }
+
+
         protected bool? IsAutorizePartner { get; set; }
         protected Partner Partner { get; set; }
 
@@ -126,17 +129,6 @@ namespace ASC.Web.Studio
                 .Where(p => priority.Keys.Contains(p.ID))
                 .OrderBy(p => priority[p.ID])
                 .ToList();
-
-            if (CoreContext.Configuration.PartnerHosted)
-            {
-                IsAutorizePartner = false;
-                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (partner != null)
-                {
-                    IsAutorizePartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
-                    Partner = partner;
-                }
-            }
         }
 
         private static Dictionary<Guid, Int32> GetStartProductsPriority()
@@ -203,7 +195,7 @@ namespace ASC.Web.Studio
             if (product.ID == WebItemManager.MailProductID &&
                 SetupInfo.IsVisibleSettings("AdministrationPage") &&
                 CurrentUser.IsAdmin() &&
-                UserControls.Management.MailService.MailServiceHelper.GetMailServerInfo() != null)
+                (!CoreContext.Configuration.Standalone || MailServiceHelper.IsMailServerAvailable()))
                 return Resource.AdministrationLabel;
 
             return HttpUtility.HtmlEncode(product.Name);

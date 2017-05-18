@@ -24,13 +24,11 @@
 */
 
 
-using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.Utility;
 using ASC.Projects.Engine;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects
 {
@@ -70,37 +68,15 @@ namespace ASC.Web.Projects
             {
                 if (action.HasValue && action.Value == UrlAction.Edit)
                 {
-                    _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectAction.ascx")));
-                    Master.DisabledPrjNavPanel = true;
-                    return;
+                    Master.AddControl(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectAction.ascx")));
                 }
-
-                Response.Redirect(string.Concat(PathProvider.BaseAbsolutePath, "tasks.aspx?prjID=", RequestContext.GetCurrentProjectId().ToString()));
             }
             else
             {
                 if (action.HasValue && action.Value == UrlAction.Add)
                 {
-                    _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectAction.ascx")));
-                    return;
+                    Master.AddControl(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectAction.ascx")));
                 }
-            }
-
-            RenderControls();
-
-            Title = HeaderStringHelper.GetPageTitle(ProjectResource.Projects);
-        }
-
-        private void RenderControls()
-        {
-            _content.Controls.Add(LoadControl(CommonList.Location));
-            loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
-
-            if (ProjectSecurity.CanCreateProject() && EngineFactory.ProjectEngine.Count() <= 0)
-            {
-                var emptyScreen = (ProjectsDashboardEmptyScreen)Page.LoadControl(ProjectsDashboardEmptyScreen.Location);
-                emptyScreen.IsAdmin = Participant.IsAdmin;
-                _content.Controls.Add(emptyScreen);
             }
         }
     }

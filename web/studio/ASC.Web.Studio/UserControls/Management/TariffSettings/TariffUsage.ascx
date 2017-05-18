@@ -29,36 +29,6 @@
 </style>
 <% } %>
 
-<% if (Partner != null)
-   { %>
-<div class="partner-is-label">
-    <% if (Partner.DisplayType == PartnerDisplayType.LogoOnly && !string.IsNullOrEmpty(Partner.LogoUrl))
-       { %>
-    <%: Resource.PartnerIs %>
-    <img src="<%= Partner.LogoUrl %>" align="middle" />
-    <% } %>
-
-    <% if (Partner.DisplayType == PartnerDisplayType.DisplayNameOnly && !string.IsNullOrEmpty(Partner.DisplayName))
-       { %>
-    <%: Resource.PartnerIs %>
-    <%: Partner.DisplayName %>
-    <% } %>
-
-    <% if (Partner.DisplayType == PartnerDisplayType.All && (!string.IsNullOrEmpty(Partner.LogoUrl) || !string.IsNullOrEmpty(Partner.DisplayName)))
-       { %>
-    <%: Resource.PartnerIs %>
-    <% if (!string.IsNullOrEmpty(Partner.LogoUrl))
-       { %>
-    <img src="<%= Partner.LogoUrl %>" align="middle" />
-    <% } %>
-    <% if (!string.IsNullOrEmpty(Partner.DisplayName))
-       { %>
-    <%: Partner.DisplayName %>
-    <% } %>
-    <% } %>
-</div>
-<% } %>
-
 <div class="current-tariff-desc">
     <%= TariffDescription() %>
     <br />
@@ -78,12 +48,6 @@
        { %>
     <br />
     <asp:PlaceHolder runat="server" ID="SmsBuyHolder"></asp:PlaceHolder>
-    <% } %>
-
-    <% if (VoipEnable)
-       { %>
-    <br />
-    <asp:PlaceHolder runat="server" ID="VoipBuyHolder"></asp:PlaceHolder>
     <% } %>
 </div>
 
@@ -349,13 +313,6 @@
     </tbody>
 </table>
 
-<% if (Partner != null && false) //todo:!!!
-   { %>
-<div class="tariffs-button-block clearFix">
-    <asp:PlaceHolder runat="server" ID="PaymentsCodeHolder"></asp:PlaceHolder>
-</div>
-<% } %>
-
 <% var linkList = new Dictionary<string, string>
        {
            {"fr", "http://onlyo.co/1LlMqkT"},
@@ -389,9 +346,9 @@
         <input type="text" maxlength="64" tabindex="2" class="text-edit-lname text-edit" required="required" placeholder="<%= Resource.LastName %>" value="<%= userInfo.LastName %>">
 
         <p class="confirm-block-text gray-text">
-            <%= CustomNamingPeople.Substitute<Resource>("UserPost") %>
+            <%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>
         </p>
-        <input type="text" maxlength="64" tabindex="3" class="text-edit-title text-edit" required="required" placeholder="<%= CustomNamingPeople.Substitute<Resource>("UserPost") %>" value="<%= userInfo.Title %>">
+        <input type="text" maxlength="64" tabindex="3" class="text-edit-title text-edit" required="required" placeholder="<%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>" value="<%= userInfo.Title %>">
 
         <p class="confirm-block-text gray-text">
             <%= Resource.Email %><span class="required-mark">*</span>
@@ -449,8 +406,7 @@
     </div>
 </div>
 
-<% if (Partner == null)
-   { %>
+
 <div class="support-block clearFix">
     <div class="support-photo"></div>
     <div class="support-actions">
@@ -465,7 +421,6 @@
         </div>
     </div>
 </div>
-<% } %>
 
 <div class="tariff-remark">
     <%= GetRemarks() %>
@@ -527,8 +482,6 @@
 </div>
 <% } %>
 
-<% if (Partner == null)
-   { %>
 <!-- BEGIN livechatinc.com Code -->
 <div class="livechat online" style="display: none; margin-top: 24px;">
     <a href="javascript:window.LC_API.open_chat_window();">
@@ -536,4 +489,3 @@
     </a>
 </div>
 <!-- END livechatinc.com Code -->
-<% } %>

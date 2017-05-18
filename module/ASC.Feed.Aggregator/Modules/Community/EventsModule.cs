@@ -27,15 +27,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Web.Community.News.Code;
-using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using Event = ASC.Web.Community.News.Code.Feed;
 using EventComment = ASC.Web.Community.News.Code.FeedComment;
-using System.Linq;
 
 namespace ASC.Feed.Aggregator.Modules.Community
 {
@@ -198,7 +198,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
                     Module = Name,
                     Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
                     Title = evt.Caption,
-                    Description = HtmlSanitizer.Sanitize(evt.Text),
+                    Description = HtmlUtility.GetFull(evt.Text),
                     HasPreview = false,
                     CanComment = true,
                     CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
@@ -218,7 +218,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
             return new FeedComment(new Guid(comment.Creator))
                 {
                     Id = comment.Id.ToString(CultureInfo.InvariantCulture),
-                    Description = HtmlSanitizer.Sanitize(comment.Comment),
+                    Description = HtmlUtility.GetFull(comment.Comment),
                     Date = comment.Date
                 };
         }

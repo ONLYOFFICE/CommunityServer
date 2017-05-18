@@ -53,7 +53,7 @@ jq(document).ready(function () {
                         ASC.InvitePanel.bindClipboardEvent();
                     });
                 } else {
-                    ASC.Clipboard.destroy(window.menuInviteUsersClip);
+                    window.menuInviteUsersClip = ASC.Clipboard.destroy(window.menuInviteUsersClip);
 
                     var url = jq("#shareInviteUserLink").val();
                     window.menuInviteUsersClip = ASC.Clipboard.create(url, "menuInviteUsersBtn", {

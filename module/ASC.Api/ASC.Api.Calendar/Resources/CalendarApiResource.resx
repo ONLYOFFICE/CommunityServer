@@ -129,6 +129,9 @@
   <data name="DefaultCalendarName" xml:space="preserve">
     <value>My calendar</value>
   </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
   <data name="ErrorEmptyName" xml:space="preserve">
     <value>Name can't be empty</value>
   </data>
@@ -157,7 +160,7 @@
     <value>Personal calendars</value>
   </data>
   <data name="ReadOption" xml:space="preserve">
-    <value>Read only</value>
+    <value>Read Only</value>
   </data>
   <data name="SharedCalendarsGroup" xml:space="preserve">
     <value>Calendars shared with me</value>
@@ -170,8 +173,5 @@
   </data>
   <data name="WrongiCalFeedLink" xml:space="preserve">
     <value>An invalid reference to iCal</value>
-  </data>
-  <data name="ErrorAccessDenied" xml:space="preserve">
-    <value>Access Denied</value>
   </data>
 </root>

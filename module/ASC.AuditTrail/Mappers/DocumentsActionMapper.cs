@@ -90,6 +90,15 @@ namespace ASC.AuditTrail.Mappers
                             }
                     },
                     {
+                        MessageAction.FileRestoreVersion, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "CreateActionType",
+                                ActionTextResourceName = "FileRestoreVersion",
+                                ProductResourceName = "DocumentsProduct",
+                                ModuleResourceName = "FilesModule"
+                            }
+                    },
+                    {
                         MessageAction.FileUpdatedRevisionComment, new MessageMaps
                             {
                                 ActionTypeTextResourceName = "UpdateActionType",
@@ -364,6 +373,33 @@ namespace ASC.AuditTrail.Mappers
                             {
                                 ActionTypeTextResourceName = "SendActionType",
                                 ActionTextResourceName = "FileSendAccessLink",
+                                ProductResourceName = "DocumentsProduct",
+                                ModuleResourceName = "FilesModule"
+                            }
+                    },
+                    {
+                        MessageAction.FileChangeOwner, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "SendActionType",
+                                ActionTextResourceName = "FileChangeOwner",
+                                ProductResourceName = "DocumentsProduct",
+                                ModuleResourceName = "FilesModule"
+                            }
+                    },
+                    {
+                        MessageAction.DocumentSignComplete, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "SendActionType",
+                                ActionTextResourceName = "FilesDocumentSigned",
+                                ProductResourceName = "DocumentsProduct",
+                                ModuleResourceName = "FilesModule"
+                            }
+                    },
+                    {
+                        MessageAction.DocumentSendToSign, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "SendActionType",
+                                ActionTextResourceName = "FilesRequestSign",
                                 ProductResourceName = "DocumentsProduct",
                                 ModuleResourceName = "FilesModule"
                             }

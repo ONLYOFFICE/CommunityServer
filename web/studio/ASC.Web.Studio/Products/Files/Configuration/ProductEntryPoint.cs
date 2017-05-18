@@ -51,6 +51,8 @@ namespace ASC.Web.Files.Configuration
 
         #endregion
 
+        public override bool Visible { get { return true; } }
+
         public override void Init()
         {
             _productContext =
@@ -173,10 +175,17 @@ namespace ASC.Web.Files.Configuration
         {
             get { return PathProvider.StartURL; }
         }
+
+        public override string HelpURL
+        {
+            get { return PathProvider.StartURL; }
+        }
+
         public override string ProductClassName
         {
             get { return "documents"; }
         }
+
         public override ProductContext Context
         {
             get { return _productContext; }

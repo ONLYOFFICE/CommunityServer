@@ -21,7 +21,7 @@
             </a>-->
         </div>
     </div>
-    <div style="margin: 23px 0 0 1px;">
+    <div class="middle-button-container">
         <a href="javascript:void(0);" onclick="ASC.CRM.SettingsPage.saveSMTPSettings();" class="button blue middle">
             <%=CRMCommonResource.Save%>
         </a>
@@ -36,7 +36,7 @@
 <div>
     <p><%: CRMSettingResource.CurrencySettingsDescription%></p>
     <p><%: CRMSettingResource.CurrencySettingsInvoiceDescription%></p>
-    <div class="header-base-small headerTitle">
+    <div class="header-base-small headerPanelSmall">
         <%= CRMSettingResource.DefaultCurrency%>:
     </div>
     <div>

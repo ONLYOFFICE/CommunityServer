@@ -30,6 +30,7 @@ using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
+using Google;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
@@ -88,7 +89,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 {
                     AccessToken = _token.AccessToken,
                     RefreshToken = _token.RefreshToken,
-                    Issued = _token.Timestamp,
+                    IssuedUtc = _token.Timestamp,
                     ExpiresInSeconds = _token.ExpiresIn,
                     TokenType = "Bearer"
                 };
@@ -128,11 +129,22 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public DriveFile GetEntry(string entryId)
         {
-            var request = _driveService.Files.Get(entryId);
+            try
+            {
+                var request = _driveService.Files.Get(entryId);
 
-            request.Fields = GoogleLoginProvider.FilesField;
+                request.Fields = GoogleLoginProvider.FilesField;
 
-            return request.Execute();
+                return request.Execute();
+            }
+            catch (GoogleApiException ex)
+            {
+                if (ex.HttpStatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                throw;
+            }
         }
 
         public List<DriveFile> GetEntries(string folderId, bool? folders = null)
@@ -314,7 +326,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (driveFile.Id != null)
             {
                 fileId = "/" + driveFile.Id;
-                method = "PUT";
+                method = "PATCH";
             }
             else
             {

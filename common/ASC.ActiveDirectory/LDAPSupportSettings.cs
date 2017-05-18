@@ -24,14 +24,14 @@
 */
 
 
-﻿using ASC.ActiveDirectory.BuiltIn;
+﻿using System;
+using System.DirectoryServices.ActiveDirectory;
+using System.Runtime.Serialization;
+using ASC.ActiveDirectory.BuiltIn;
 using ASC.ActiveDirectory.DirectoryServices;
 using ASC.ActiveDirectory.Novell;
 using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
-using System;
-using System.DirectoryServices.ActiveDirectory;
-using System.Runtime.Serialization;
+using ASC.Core.Common.Settings;
 
 namespace ASC.ActiveDirectory
 {

@@ -25,14 +25,17 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
+using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
+using ASC.Mail.Aggregator.ComplexOperations.Base;
 using ASC.Web.Studio.Core;
 
 namespace ASC.Api.Mail
@@ -43,6 +46,8 @@ namespace ASC.Api.Mail
 
         private MailBoxManager _mailBoxManager;
         private ILogger _log;
+
+        public const int DEFAULT_PAGE_SIZE = 25;
 
         ///<summary>
         /// Api name entry
@@ -164,6 +169,95 @@ namespace ASC.Api.Mail
         public MailApi(ApiContext context)
         {
             _context = context;
+        }
+
+        /// <summary>
+        /// Returns all Mail runnung operations (only complex)
+        /// </summary>
+        /// <short>
+        /// Get all Mail running complex operations
+        /// </short>
+        /// <returns>list of MailOperationResult</returns>
+        [Read("operations")]
+        public List<MailOperationStatus> GetMailOperations()
+        {
+            var list = MailBoxManager.GetMailOperations(TranslateMailOperationStatus);
+            return list;
+        }
+
+        /// <summary>
+        /// Returns Mail complex operation status
+        /// </summary>
+        /// <short>
+        /// Get Mail complex operation status
+        /// </short>
+        /// <param name="operationId">Id of operation</param>
+        /// <returns>MailOperationResult</returns>
+        [Read("operations/{operationId}")]
+        public MailOperationStatus GetMailOperation(string operationId)
+        {
+            return MailBoxManager.GetMailOperationStatus(operationId, TranslateMailOperationStatus);
+        }
+
+        /// <summary>
+        /// Method for translation mail operation statuses
+        /// </summary>
+        /// <param name="op">instance of DistributedTask</param>
+        /// <returns>translated status text</returns>
+        private static string TranslateMailOperationStatus(DistributedTask op)
+        {
+            var type = op.GetProperty<MailOperationType>(MailOperation.OPERATION_TYPE);
+            var status = op.GetProperty<string>(MailOperation.STATUS);
+            //TODO: Move strings to Resource file
+            switch (type)
+            {
+                case MailOperationType.RemoveMailbox:
+                {
+                    var progress = op.GetProperty<MailOperationRemoveMailboxProgress>(MailOperation.PROGRESS);
+                    switch (progress)
+                    {
+                        case MailOperationRemoveMailboxProgress.Init:
+                            return "Setup tenant and user";
+                        case MailOperationRemoveMailboxProgress.RemoveFromDb:
+                            return "Remove mailbox from Db";
+                        case MailOperationRemoveMailboxProgress.FreeQuota:
+                            return "Decrease newly freed quota space";
+                        case MailOperationRemoveMailboxProgress.RecalculateFolder:
+                            return "Recalculate folders counters";
+                        case MailOperationRemoveMailboxProgress.ClearCache:
+                            return "Clear accounts cache";
+                        case MailOperationRemoveMailboxProgress.Finished:
+                            return "Finished";
+                        default:
+                            return status;
+                    }
+                }
+                case MailOperationType.RecalculateFolders:
+                {
+                    var progress = op.GetProperty<MailOperationRecalculateMailboxProgress>(MailOperation.PROGRESS);
+                    switch (progress)
+                    {
+                        case MailOperationRecalculateMailboxProgress.Init:
+                            return "Setup tenant and user";
+                        case MailOperationRecalculateMailboxProgress.CountUnreadMessages:
+                            return "Calculate unread messages";
+                        case MailOperationRecalculateMailboxProgress.CountTotalMessages:
+                            return "Calculate total messages";
+                        case MailOperationRecalculateMailboxProgress.CountUreadConversation:
+                            return "Calculate unread conversations";
+                        case MailOperationRecalculateMailboxProgress.CountTotalConversation:
+                            return "Calculate total conversations";
+                        case MailOperationRecalculateMailboxProgress.UpdateFoldersCounters:
+                            return "Update folders counters";
+                        case MailOperationRecalculateMailboxProgress.Finished:
+                            return "Finished";
+                        default:
+                            return status;
+                    }
+                }
+                default:
+                    return status;
+            }
         }
     }
 }

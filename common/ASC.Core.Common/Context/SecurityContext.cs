@@ -30,6 +30,7 @@ using ASC.Common.Security.Authorizing;
 using ASC.Core.Billing;
 using ASC.Core.Security.Authentication;
 using ASC.Core.Security.Authorizing;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Security.Cryptography;
 using log4net;
@@ -87,9 +88,24 @@ namespace ASC.Core
                 Guid userid;
                 string login;
                 string password;
-                if (CookieStorage.DecryptCookie(cookie, out tenant, out userid, out login, out password))
+                int indexTenant;
+                DateTime expire;
+                int indexUser;
+
+                if (CookieStorage.DecryptCookie(cookie, out tenant, out userid, out login, out password, out indexTenant, out expire, out indexUser))
                 {
                     if (tenant != CoreContext.TenantManager.GetCurrentTenant().TenantId)
+                    {
+                        return false;
+                    }
+
+                    var settingsTenant = TenantCookieSettings.GetForTenant(tenant);
+                    if (!settingsTenant.IsDefault() && indexTenant != settingsTenant.Index)
+                    {
+                        return false;
+                    }
+
+                    if (expire != DateTime.MaxValue && expire < DateTime.UtcNow)
                     {
                         return false;
                     }
@@ -98,6 +114,12 @@ namespace ASC.Core
                     {
                         if (userid != Guid.Empty)
                         {
+                            var settingsUser = TenantCookieSettings.GetForUser(userid);
+                            if (!settingsUser.IsDefault() && indexUser != settingsUser.Index)
+                            {
+                                return false;
+                            }
+
                             AuthenticateMe(new UserAccount(new UserInfo { ID = userid }, tenant));
                         }
                         else
@@ -170,7 +192,7 @@ namespace ASC.Core
                 roles.Add(Role.Users);
 
                 account = new UserAccount(u, CoreContext.TenantManager.GetCurrentTenant().TenantId);
-                cookie = CookieStorage.EncryptCookie(CoreContext.TenantManager.GetCurrentTenant().TenantId, account.ID, null, null);
+                cookie = CookieStorage.EncryptCookie(CoreContext.TenantManager.GetCurrentTenant().TenantId, account.ID);
             }
 
             Principal = new GenericPrincipal(account, roles.ToArray());

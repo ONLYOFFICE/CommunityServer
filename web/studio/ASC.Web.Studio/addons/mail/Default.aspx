@@ -21,8 +21,6 @@
     <% } %>
     
     <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
-    
-    <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/js/third-party/ical.js") %>" type="text/javascript"></script>
 </asp:Content>
 
 <asp:Content ID="MailSideContent" ContentPlaceHolderID="SidePanel" runat="server">
@@ -186,6 +184,11 @@
                     </a>
                 </div>
                 <ul class="menu-sub-list" id="settingsContainer">
+                    <li class="menu-sub-item">
+                        <a class="menu-item-label outer-text text-overflow" id="commonSettings" href="#common">
+                            <span class="menu-item-label inner-text"><%: MailResource.CommonSettingsLabel %></span>
+                        </a>
+                    </li>
                     <% if (IsAdministrator && !IsPersonal && IsTurnOnServer())
                        { %>
                         <li class="menu-sub-item">
@@ -251,7 +254,4 @@
             </div>
         </div>
     </div>
-</asp:Content>
-
-<asp:Content ID="clientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="clientTemplatesResourcesPlaceHolder" runat="server">
 </asp:Content>

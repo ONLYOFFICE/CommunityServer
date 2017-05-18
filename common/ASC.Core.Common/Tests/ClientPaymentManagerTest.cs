@@ -41,18 +41,6 @@ namespace ASC.Core.Common.Tests
             CoreContext.TenantManager.SetCurrentTenant(0);
             paymentManager.ActivateKey("IAALKCPBRY9ZSDLJZ4E2");
         }
-
-        [TestMethod]
-        public void GetPartnerByCupon()
-        {
-            paymentManager.GetPartner("WRFWGF6H2S7LBVS7WB01");
-        }
-
-        [TestMethod]
-        public void CreateButton()
-        {
-            //var url = paymentManager.GetButton(-48, "f4cd3678-4725-4826-ab50-a0704d3295c2");
-        }
     }
 }
 #endif

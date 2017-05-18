@@ -112,67 +112,52 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BuildingReport" xml:space="preserve">
-    <value>Построение отчета</value>
+    <value>Building report</value>
   </data>
   <data name="ChangeFilterData" xml:space="preserve">
-    <value>Изменить фильтр отчета</value>
+    <value>Change report filter</value>
   </data>
   <data name="ChooseTimeInterval" xml:space="preserve">
-    <value>Период</value>
+    <value>Period</value>
   </data>
   <data name="CreateNewReport" xml:space="preserve">
-    <value>Создать новый отчет</value>
+    <value>Create new report</value>
   </data>
   <data name="ExportToCSV" xml:space="preserve">
-    <value>Экспортировать в csv</value>
+    <value>Export to csv</value>
   </data>
   <data name="Filter" xml:space="preserve">
-    <value>Фильтр</value>
+    <value>Filter</value>
   </data>
   <data name="GenerateFromTemplate" xml:space="preserve">
-    <value>Генерировать по шаблону</value>
+    <value>Generate using template</value>
   </data>
   <data name="GenerateReport" xml:space="preserve">
-    <value>Сгенерировать отчет</value>
+    <value>Generate report</value>
   </data>
   <data name="Managers" xml:space="preserve">
-    <value>Менеджеры</value>
+    <value>Managers</value>
   </data>
   <data name="PrintReport" xml:space="preserve">
-    <value>Печать отчета</value>
+    <value>Print report</value>
   </data>
-  <data name="Report_SalesByStage_Description" xml:space="preserve">
-    <value>Report_PipelineByMilestone_Description</value>
+  <data name="Report_ContactPopulate_Description" xml:space="preserve">
+    <value />
   </data>
-  <data name="Report_SalesByStage_Title" xml:space="preserve">
-    <value>Отчет «Воронка продаж»</value>
-  </data>
-  <data name="SaveAsTemplate" xml:space="preserve">
-    <value>Сохранить как шаблон</value>
-  </data>
-  <data name="UseTemplate" xml:space="preserve">
-    <value>Использовать шаблон</value>
-  </data>
-  <data name="ViewInfo" xml:space="preserve">
-    <value>Показать информацию об отчете</value>
+  <data name="Report_ContactPopulate_Title" xml:space="preserve">
+    <value />
   </data>
   <data name="Report_SalesByContact_Description" xml:space="preserve">
     <value>Report_SalesByClient_Description</value>
   </data>
   <data name="Report_SalesByContact_Title" xml:space="preserve">
-    <value>Отчет «Продажи в срезе по контактам»</value>
-  </data>
-  <data name="Report_SalesForecastByMonth_Description" xml:space="preserve">
-    <value>Report_SalesForecastByMonth_Description</value>
-  </data>
-  <data name="Report_SalesForecastByMonth_Title" xml:space="preserve">
-    <value>Отчет «Прогнозирования продаж в срезе за месяц»</value>
+    <value>"Sales forecast by contacts" report</value>
   </data>
   <data name="Report_SalesByManager_Description" xml:space="preserve">
     <value>Report_SalesByManager_Description</value>
@@ -186,6 +171,12 @@
   <data name="Report_SalesByMonth_Title" xml:space="preserve">
     <value>Report_SalesByMonth_Title</value>
   </data>
+  <data name="Report_SalesByStage_Description" xml:space="preserve">
+    <value>Report_PipelineByMilestone_Description</value>
+  </data>
+  <data name="Report_SalesByStage_Title" xml:space="preserve">
+    <value>"Sales funnel" report</value>
+  </data>
   <data name="Report_SalesForecastByClient_Description" xml:space="preserve">
     <value>Report_SalesForecastByClient_Description</value>
   </data>
@@ -198,10 +189,16 @@
   <data name="Report_SalesForecastByManager_Title" xml:space="preserve">
     <value>Report_SalesForecastByManager_Title</value>
   </data>
-  <data name="Report_ContactPopulate_Description" xml:space="preserve">
+  <data name="Report_SalesForecastByMonth_Description" xml:space="preserve">
+    <value>Report_SalesForecastByMonth_Description</value>
+  </data>
+  <data name="Report_SalesForecastByMonth_Title" xml:space="preserve">
+    <value>"Monthly sales forecast" report</value>
+  </data>
+  <data name="Report_UserTasks_Description" xml:space="preserve">
     <value />
   </data>
-  <data name="Report_ContactPopulate_Title" xml:space="preserve">
+  <data name="Report_UserTasks_Title" xml:space="preserve">
     <value />
   </data>
   <data name="Report_WorkLoad_Description" xml:space="preserve">
@@ -210,16 +207,19 @@
   <data name="Report_WorkLoad_Title" xml:space="preserve">
     <value />
   </data>
+  <data name="SaveAsTemplate" xml:space="preserve">
+    <value>Save as template</value>
+  </data>
   <data name="TagName" xml:space="preserve">
-    <value>Название тэга</value>
+    <value>Tag name</value>
   </data>
   <data name="Type" xml:space="preserve">
-    <value>Тип</value>
+    <value>Type</value>
   </data>
-  <data name="Report_UserTasks_Description" xml:space="preserve">
-    <value />
+  <data name="UseTemplate" xml:space="preserve">
+    <value>Use template</value>
   </data>
-  <data name="Report_UserTasks_Title" xml:space="preserve">
-    <value />
+  <data name="ViewInfo" xml:space="preserve">
+    <value>Show report information</value>
   </data>
 </root>

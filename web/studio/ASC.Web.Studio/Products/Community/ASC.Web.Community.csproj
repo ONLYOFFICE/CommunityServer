@@ -57,11 +57,11 @@
       <HintPath>..\..\..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -101,6 +101,8 @@
     <Compile Include="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Master\ClientScripts\ClientLocalizationResources.cs" />
+    <Compile Include="Master\ClientScripts\ClientTemplateResources.cs" />
     <Compile Include="Master\Community.Master.cs">
       <DependentUpon>Community.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -129,7 +131,6 @@
     <Compile Include="Modules\Blogs\Common\BlogsSearchHandler.cs" />
     <Compile Include="Modules\Blogs\Common\BlogsShortcutProvider.cs" />
     <Compile Include="Modules\Blogs\Common\BlogsSubscriptionManager.cs" />
-    <Compile Include="Modules\Blogs\Common\ImageHTMLHelper.cs" />
     <Compile Include="Modules\Blogs\Common\Subscriber.cs" />
     <Compile Include="Modules\Blogs\Core\BlogsEngine.cs" />
     <Compile Include="Modules\Blogs\Core\BlogsSettings.cs" />
@@ -989,6 +990,8 @@
     <Content Include="Default.aspx" />
     <Content Include="Help.aspx" />
     <Content Include="js\common.js" />
+    <Content Include="js\tagsAutocompleteBox.js" />
+    <Content Include="Master\Styles.ascx" />
     <Content Include="Modules\Birthdays\App_Themes\Default\birthdays.css" />
     <Content Include="Modules\Birthdays\App_Themes\Default\images\white_cross.png" />
     <Content Include="Modules\Birthdays\Default.aspx" />
@@ -1593,6 +1596,7 @@
     <Content Include="Modules\Wiki\WikiUC\ViewFile.ascx" />
     <Content Include="Modules\Wiki\WikiUC\ViewPage.ascx" />
     <Content Include="Photos.aspx" />
+    <Content Include="Templates\CommonTemplates.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">

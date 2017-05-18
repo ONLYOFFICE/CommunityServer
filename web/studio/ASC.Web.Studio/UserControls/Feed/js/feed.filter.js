@@ -97,9 +97,9 @@ var FeedFilter = (function() {
 
         //Author
         if (author.length > 0) {
-            filters.push({ type: "person", id: massNameFilters.author, isset: true, params: { id: author } });
+            filters.push({ type: "person", id: massNameFilters.author, isset: true, showme: false, params: { id: author } });
         } else {
-            filters.push({ type: "person", id: massNameFilters.author, reset: true });
+            filters.push({ type: "person", id: massNameFilters.author, reset: true, showme: false });
         }
 
         // Text

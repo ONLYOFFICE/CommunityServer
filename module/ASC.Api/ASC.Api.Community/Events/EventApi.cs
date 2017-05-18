@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
@@ -33,18 +34,16 @@ using ASC.Api.Events;
 using ASC.Api.Exceptions;
 using ASC.Api.Utils;
 using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Notify.Recipients;
 using ASC.Web.Community.News;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
-using ASC.Web.Community.Product;
 using ASC.Web.Community.News.Code.Module;
-using ASC.Notify.Recipients;
-using ASC.Web.Studio.UserControls.Common.Comments;
-using ASC.Core.Tenants;
-using System.Globalization;
+using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
+using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Community.Blogs;
 using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Api.Community
@@ -100,7 +99,7 @@ namespace ASC.Api.Community
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException("Can't create feed with empty title", "title");
 
-            var feed = new Web.Community.News.Code.Feed
+            var feed = new Feed
                            {
                                Caption = title,
                                Text = content,
@@ -400,8 +399,10 @@ namespace ASC.Api.Community
         {
             if (String.IsNullOrEmpty(content)) throw new ArgumentException();
 
-            var comment = new FeedComment(long.Parse(entityid));
-            comment.Comment = content;
+            var comment = new FeedComment(long.Parse(entityid))
+                {
+                    Comment = content
+                };
             var storage = FeedStorageFactory.Create();
             if (!string.IsNullOrEmpty(parentcommentid))
                 comment.ParentId = Convert.ToInt64(parentcommentid);
@@ -440,7 +441,7 @@ namespace ASC.Api.Community
                 TimeStampStr = comment.Date.Ago(),
                 IsRead = true,
                 Inactive = comment.Inactive,
-                CommentBody = comment.Comment,
+                CommentBody = HtmlUtility.GetFull(comment.Comment),
                 UserFullName = DisplayUserSettings.GetFullUserName(new Guid(comment.Creator)),
                 UserProfileLink = CommonLinkUtility.GetUserProfile(comment.Creator),
                 UserAvatarPath = UserPhotoManager.GetBigPhotoURL(new Guid(comment.Creator)),

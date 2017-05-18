@@ -67,23 +67,25 @@ namespace ASC.Mail.Aggregator.Extension
                 conditions &= Exp.Eq(MailTable.Columns.Unread.Prefix(alias), filter.Unread);
             }
 
-            if (filter.Attachments)
+            if (filter.Attachments.HasValue)
                 conditions &= Exp.Gt(MailTable.Columns.AttachCount.Prefix(alias), 0);
 
-            if (filter.PeriodFrom > 0)
+            if (filter.PeriodFrom.HasValue && filter.PeriodTo.HasValue)
             {
-                var from = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodFrom*10000);
-                var to = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodTo*10000) +
+                var from = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodFrom.Value*10000);
+
+                var to = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodTo.Value*10000) +
                          new TimeSpan(1, 0, 0, 0, 0); // 1 day was added to make the "To" date limit inclusive
+
                 conditions &= Exp.Between(MailTable.Columns.DateSent.Prefix(alias), from, to);
             }
 
-            if (filter.Important)
+            if (filter.Important.HasValue)
             {
                 conditions &= Exp.Eq(MailTable.Columns.Importance.Prefix(alias), true);
             }
 
-            if (filter.WithCalendar)
+            if (filter.WithCalendar.HasValue)
             {
                 conditions &= !Exp.Eq(MailTable.Columns.CalendarUid.Prefix(alias), null);
             }
@@ -102,19 +104,19 @@ namespace ASC.Mail.Aggregator.Extension
                 conditions &= Exp.Eq(MailTable.Columns.MailboxId.Prefix(alias), filter.MailboxId.Value);
             }
 
-            if (!string.IsNullOrEmpty(filter.SearchFilter) && !FullTextSearch.SupportModule(FullTextSearch.MailModule))
+            if (!string.IsNullOrEmpty(filter.SearchText) && !FullTextSearch.SupportModule(FullTextSearch.MailModule))
             {
                 conditions &=
-                    Exp.Or(Exp.Like(MailTable.Columns.From.Prefix(alias), filter.SearchFilter, SqlLike.AnyWhere),
+                    Exp.Or(Exp.Like(MailTable.Columns.From.Prefix(alias), filter.SearchText, SqlLike.AnyWhere),
                         Exp.Or(
-                            Exp.Like(MailTable.Columns.To.Prefix(alias), filter.SearchFilter, SqlLike.AnyWhere),
+                            Exp.Like(MailTable.Columns.To.Prefix(alias), filter.SearchText, SqlLike.AnyWhere),
                             Exp.Or(
-                                Exp.Like(MailTable.Columns.Cc.Prefix(alias), filter.SearchFilter,
+                                Exp.Like(MailTable.Columns.Cc.Prefix(alias), filter.SearchText,
                                     SqlLike.AnyWhere),
                                 Exp.Or(
-                                    Exp.Like(MailTable.Columns.Bcc.Prefix(alias), filter.SearchFilter,
+                                    Exp.Like(MailTable.Columns.Bcc.Prefix(alias), filter.SearchText,
                                         SqlLike.AnyWhere),
-                                    Exp.Like(MailTable.Columns.Subject.Prefix(alias), filter.SearchFilter,
+                                    Exp.Like(MailTable.Columns.Subject.Prefix(alias), filter.SearchText,
                                         SqlLike.AnyWhere)))));
             }
 

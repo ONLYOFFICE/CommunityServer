@@ -911,12 +911,7 @@ ASC.CRM.ListInvoiceView = (function () {
         jq("#invoiceActionMenu").hide();
         jq("#invoiceTable .entity-menu.active").removeClass("active");
 
-        if (jq.browser.mobile == false) {
-            var newTab = window.open("", "_blank");
-            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", newTab, ASC.CRM.Common.createInvoiceMail);
-        } else {
-            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", null, ASC.CRM.Common.createInvoiceMail);
-        }
+        ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", null, ASC.CRM.Common.createInvoiceMail);
     };
 
     function _downloadFile(invoice) {
@@ -1840,7 +1835,8 @@ ASC.CRM.InvoiceActionView = (function () {
             parent: "#selectItemDialog",
             input: "#newItemPrice",
             integerOnly: false,
-            positiveOnly: true
+            positiveOnly: true,
+            lengthAfterSeparator: 2
         });
 
         jq("#selectItemDialog ").on("keyup change", "#newItemName, #newItemPrice", function () {
@@ -1850,8 +1846,9 @@ ASC.CRM.InvoiceActionView = (function () {
         jq.forceNumber({
             parent: "#selectTaxDialog",
             input: "#newTaxRate",
-            integerOnly: true,
-            positiveOnly: false
+            integerOnly: false,
+            positiveOnly: false,
+            lengthAfterSeparator: 2
         });
 
         jq("#selectTaxDialog ").on("keyup change", "#newTaxName, #newTaxRate", function () {
@@ -2009,8 +2006,8 @@ ASC.CRM.InvoiceActionView = (function () {
 
     var initDescriptionAutosize = function (objects) {
         jq.each(objects, function () {
-            jq(this).autosize();
-            jq(this).trigger("autosize.resize");
+            autosize(jq(this));
+            autosize.update(jq(this));
         });
     };
 
@@ -2477,7 +2474,7 @@ ASC.CRM.InvoiceActionView = (function () {
                 itemId = getValueFromCustomInput(obj).id,
                 invoiceItem = getInvoiceItem(itemId);
 
-            $line.find(".description textarea").val(invoiceItem.description).trigger("autosize.resize");
+            autosize.update($line.find(".description textarea").val(invoiceItem.description));
             $line.find(".price input").val(roundTo(invoiceItem.price / exRate, 2).toFixed(2));
 
             var tax = getInvoiceTax(invoiceItem.invoiceTax1ID);
@@ -2518,7 +2515,7 @@ ASC.CRM.InvoiceActionView = (function () {
 
     var removeLine = function (obj) {
         var line = getParentObj(obj, ".tbl-body-row");
-        line.find(".description textarea").trigger("autosize.destroy");
+        autosize.destroy(line.find(".description textarea"));
         line.remove();
         recalculateInvoiceLines();
     };
@@ -2908,11 +2905,11 @@ ASC.CRM.InvoiceActionView = (function () {
 
     var disableDialog = function (dialog, disable) {
         if (disable) {
-            dialog.find(".left-side input").prop("readonly", "readonly").addClass('disabled');
+            dialog.find(".left-side input").prop("readonly", true).addClass('disabled');
             LoadingBanner.strLoading = ASC.CRM.Resources.CRMJSResource.PleaseWait;
             LoadingBanner.showLoaderBtn("#" + dialog.attr("id"));
         } else {
-            dialog.find(".left-side input").removeProp("readonly").removeClass('disabled');
+            dialog.find(".left-side input").prop("readonly", false).removeClass('disabled');
             LoadingBanner.hideLoaderBtn("#" + dialog.attr("id"));
         }
     };
@@ -3840,12 +3837,7 @@ ASC.CRM.InvoiceDetailsView = (function () {
     var sendByEmail = function () {
         LoadingBanner.displayLoading();
 
-        if (jq.browser.mobile == false) {
-            var newTab = window.open("", "_blank");
-            checkPdfFile(window.invoice.id, "", "", newTab, ASC.CRM.Common.createInvoiceMail);
-        } else {
-            checkPdfFile(window.invoice.id, "", "", null, ASC.CRM.Common.createInvoiceMail);
-        }
+        checkPdfFile(window.invoice.id, "", "", null, ASC.CRM.Common.createInvoiceMail);
     };
 
     function downloadFile () {

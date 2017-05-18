@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -34,17 +33,20 @@ using System.Web;
 using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
+using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WebZones;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.Banner;
+using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -79,10 +81,6 @@ namespace ASC.Web.Studio.Masters
         public bool IsMobile { get; set; }
 
         public TopStudioPanel TopStudioPanel;
-
-        protected bool DisablePartnerPanel { get; set; }
-        private bool? IsAuthorizedPartner { get; set; }
-        protected Partner Partner { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -140,12 +138,16 @@ namespace ASC.Web.Studio.Masters
                 BannerHolder.Controls.Add(LoadControl(Banner.Location));
             }
 
+            if (ThirdPartyBanner.Display)
+            {
+                BannerHolder.Controls.Add(LoadControl(ThirdPartyBanner.Location));
+            }
+
             var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
             if (DisabledSidePanel)
             {
                 DisableTariffNotify = true;
-                DisablePartnerPanel = true;
             }
             else
             {
@@ -160,18 +162,6 @@ namespace ASC.Web.Studio.Masters
                     if (TariffNotify == null)
                         DisableTariffNotify = true;
                 }
-
-                if (CoreContext.Configuration.PartnerHosted)
-                {
-                    IsAuthorizedPartner = false;
-                    var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                    if (partner != null)
-                    {
-                        IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
-                        Partner = partner;
-                    }
-                }
-                DisablePartnerPanel = !(IsAuthorizedPartner.HasValue && !IsAuthorizedPartner.Value);
             }
 
             if (curUser.IsVisitor() && !curUser.IsOutsider())
@@ -365,18 +355,18 @@ namespace ASC.Web.Studio.Masters
 
         private void InitScripts()
         {
-            AddStyles("~/skins/<theme_folder>/main.less");
+            AddStyles(r => r, "~/skins/<theme_folder>/main.less");
 
-            AddClientScript(typeof (MasterResources.MasterSettingsResources));
-            AddClientScript(typeof (MasterResources.MasterUserResources));
-            AddClientScript(typeof (MasterResources.MasterFileUtilityResources));
-            AddClientScript(typeof (MasterResources.MasterCustomResources));
+            AddClientScript(
+                new MasterResources.MasterSettingsResources(),
+                new MasterResources.MasterUserResources(),
+                new MasterResources.MasterFileUtilityResources(),
+                new MasterResources.MasterCustomResources(),
+                new MasterResources.MasterLocalizationResources()
+                );
 
             InitProductSettingsInlineScript();
             InitStudioSettingsInlineScript();
-
-            AddClientLocalizationScript(typeof (MasterResources.MasterLocalizationResources));
-            AddClientLocalizationScript(typeof (MasterResources.MasterTemplateResources));
         }
 
         private void InitStudioSettingsInlineScript()
@@ -388,101 +378,101 @@ namespace ASC.Web.Studio.Masters
             script.AppendFormat("window.ASC.Resources.Master.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
             script.AppendFormat("window.ASC.Resources.Master.ShowTips={0};", showTips.ToString().ToLowerInvariant());
 
-            Page.RegisterInlineScript(script.ToString(), true, false);
+            RegisterInlineScript(script.ToString(), true, false);
         }
 
         private void InitProductSettingsInlineScript()
         {
             var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
 
-            var script = new StringBuilder();
-            script.AppendFormat("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant());
-
-            Page.RegisterInlineScript(script.ToString(), true, false);
+            RegisterInlineScript(string.Format("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant()), true, false);
         }
 
         #region Style
 
-        public void AddStyles(params string[] src)
+        public BaseTemplate AddStyles(Func<string, string> converter, params string[] src)
         {
             foreach (var s in src)
-            {
-                AddStyles(s);
+            {                
+                if (s.Contains(ColorThemesSettings.ThemeFolderTemplate))
+                {
+                    if (ThemeStyles == null) continue;
+
+                    ThemeStyles.AddSource(r => ResolveUrl(ColorThemesSettings.GetThemeFolderName(converter(r))), s);
+                }
+                else
+                {
+                    if (HeadStyles == null) continue;
+
+                    HeadStyles.AddSource(converter, s);
+                }
             }
-        }
 
-        public void AddStyles(Func<string, string> converter, params string[] src)
-        {
-            AddStyles(src.Select(converter).ToArray());
-        }
-
-        public void AddStyles(string src)
-        {
-            if (src.Contains(ColorThemesSettings.ThemeFolderTemplate))
-            {
-                if (ThemeStyles == null) return;
-
-                ThemeStyles.Styles.Add(ResolveUrl(ColorThemesSettings.GetThemeFolderName(src)));
-            }
-            else
-            {
-                if (HeadStyles == null) return;
-
-                HeadStyles.Styles.Add(src);
-            }
+            return this;
         }
 
         #endregion
 
         #region Scripts
 
-        public void AddBodyScripts(params string[] src)
+        public BaseTemplate AddBodyScripts(Func<string, string> converter, params string[] src)
         {
-            if (BodyScripts == null) return;
-            BodyScripts.Scripts.AddRange(src);
+            if (BodyScripts == null) return this;
+            BodyScripts.AddSource(converter, src);
+
+            return this;
         }
 
-        public void AddBodyScripts(Func<string, string> converter, params string[] src)
+        public BaseTemplate AddStaticBodyScripts(ScriptBundleData bundleData)
         {
-            AddBodyScripts(src.Select(converter).ToArray());
+            StaticScript.SetData(bundleData);
+
+            return this;
         }
 
-
-        public void RegisterInlineScript(string script, bool beforeBodyScripts, bool onReady)
+        public BaseTemplate AddStaticStyles(StyleBundleData bundleData)
         {
+            StaticStyle.SetData(bundleData);
+
+            return this;
+        }
+
+        public BaseTemplate RegisterInlineScript(string script, bool beforeBodyScripts = false, bool onReady = true)
+        {
+            var tuple = new Tuple<string, bool>(script, onReady);
             if (!beforeBodyScripts)
-                InlineScript.Scripts.Add(new Tuple<string, bool>(script, onReady));
+                InlineScript.Scripts.Add(tuple);
             else
-                InlineScriptBefore.Scripts.Add(new Tuple<string, bool>(script, onReady));
-        }
+                InlineScriptBefore.Scripts.Add(tuple);
 
-        #endregion
-
-        #region Content
-
-        public void AddBodyContent(Control control)
-        {
-            PageContent.Controls.Add(control);
-        }
-
-        public void SetBodyContent(Control control)
-        {
-            PageContent.Controls.Clear();
-            AddBodyContent(control);
+            return this;
         }
 
         #endregion
 
         #region ClientScript
 
-        public void AddClientScript(Type type)
+        public BaseTemplate AddClientScript(ClientScript clientScript)
         {
-            baseTemplateMasterScripts.Includes.Add(type);
+            var localizationScript = clientScript as ClientScriptLocalization;
+            if (localizationScript != null)
+            {
+                clientLocalizationScript.AddScript(clientScript);
+                return this;
+            }
+
+            baseTemplateMasterScripts.AddScript(clientScript);
+            return this;
         }
 
-        public void AddClientLocalizationScript(Type type)
+        public BaseTemplate AddClientScript(params ClientScript[] clientScript)
         {
-            clientLocalizationScript.Includes.Add(type);
+            foreach (var script in clientScript)
+            {
+                AddClientScript(script);
+            }
+
+            return this;
         }
 
         #endregion

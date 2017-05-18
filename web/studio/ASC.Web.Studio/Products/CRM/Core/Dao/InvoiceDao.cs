@@ -28,21 +28,19 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Caching;
+using System.Text.RegularExpressions;
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.FullTextIndex;
 using ASC.Web.CRM.Classes;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
-using SecurityContext = ASC.Core.SecurityContext;
-using System.Security;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.CRM.Core.Dao
 {

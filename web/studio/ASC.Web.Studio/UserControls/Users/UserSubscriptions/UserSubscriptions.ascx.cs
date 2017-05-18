@@ -65,12 +65,9 @@ namespace ASC.Web.Studio.UserControls.Users
             base.OnInit(e);
             try
             {
-                Page.RegisterBodyScripts("~/usercontrols/users/usersubscriptions/js/subscription_manager.js");
-
-                Page.RegisterInlineScript("CommonSubscriptionManager.InitNotifyByComboboxes();");
-
-                //styles
-                Page.RegisterStyle("~/usercontrols/users/usersubscriptions/css/subscriptions.less");
+                Page.RegisterBodyScripts("~/usercontrols/users/usersubscriptions/js/subscription_manager.js")
+                    .RegisterInlineScript("CommonSubscriptionManager.InitNotifyByComboboxes();")
+                    .RegisterStyle("~/usercontrols/users/usersubscriptions/css/subscriptions.less");
             }
             catch
             {

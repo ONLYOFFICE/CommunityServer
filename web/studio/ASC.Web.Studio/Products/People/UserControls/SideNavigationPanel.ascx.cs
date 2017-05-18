@@ -26,6 +26,7 @@
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.People.Classes;
 using ASC.Web.People.Core;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
@@ -51,6 +52,7 @@ namespace ASC.Web.People.UserControls
 
         protected bool HasPendingProfiles;
         protected bool EnableAddUsers;
+        protected bool CurrentUserFullAdmin;
         protected bool CurrentUserAdmin;
 
         public static string Location
@@ -61,8 +63,6 @@ namespace ASC.Web.People.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             InitData();
-
-            Page.RegisterBodyScripts("~/products/people/js/sideNavigationPanel.js");
 
             GroupRepeater.DataSource = Groups;
             GroupRepeater.DataBind();
@@ -85,7 +85,8 @@ namespace ASC.Web.People.UserControls
 
             HasPendingProfiles = Profiles.FindAll(u => u.ActivationStatus == EmployeeActivationStatus.Pending).Count > 0;
             EnableAddUsers =  TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
-            CurrentUserAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            CurrentUserFullAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            CurrentUserAdmin = CurrentUserFullAdmin || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
         }
     }
 }

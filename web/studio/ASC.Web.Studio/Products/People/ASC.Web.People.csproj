@@ -3,6 +3,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,8 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\MyGroup.cs">
@@ -89,7 +92,6 @@
     </Compile>
     <Compile Include="ProfileAction.aspx.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProfileAction.aspx.designer.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
@@ -124,7 +126,7 @@
     <Content Include="js\navigatorHandler.js" />
     <Content Include="js\peopleController.js" />
     <Content Include="Profile.aspx" />
-    <Content Include="Templates\PeopleTemplates.ascx" />
+    <Content Include="Templates\PeopleTemplates.html" />
     <Content Include="UserControls\SideNavigationPanel.ascx" />
   </ItemGroup>
   <ItemGroup>

@@ -106,21 +106,21 @@ jq(function () {
 
     if (jq("#studio_emailChangeDialog").length == 0) {
         jq(".profile-status.pending div").css("cursor", "default");
+    } else {
+        jq("#imageNotActivatedActivation, #linkNotActivatedActivation").on("click", function() {
+            var userEmail = jq("#studio_userProfileCardInfo").attr("data-email");
+            var userId = jq("#studio_userProfileCardInfo").attr("data-id");
+            ASC.EmailOperationManager.sendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
+            return false;
+        });
+
+        jq("#imagePendingActivation, #linkPendingActivation").on("click", function() {
+            var userEmail = jq("#studio_userProfileCardInfo").attr("data-email");
+            var userId = jq("#studio_userProfileCardInfo").attr("data-id");
+            ASC.EmailOperationManager.showResendInviteWindow(userEmail, userId, Teamlab.profile.isAdmin, onActivateEmail.bind(null, userEmail));
+            return false;
+        });
     }
-
-    jq("#imageNotActivatedActivation, #linkNotActivatedActivation").on("click", function () {
-        var userEmail = jq("#studio_userProfileCardInfo").attr("data-email");
-        var userId = jq("#studio_userProfileCardInfo").attr("data-id");
-        EmailOperationManager.SendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
-        return false;
-    });
-
-    jq("#imagePendingActivation, #linkPendingActivation").on("click", function () {
-        var userEmail = jq("#studio_userProfileCardInfo").attr("data-email");
-        var userId = jq("#studio_userProfileCardInfo").attr("data-id");
-        EmailOperationManager.ShowResendInviteWindow(userEmail, userId, Teamlab.profile.isAdmin, onActivateEmail.bind(null, userEmail));
-        return false;
-    });
 
     jq.switcherAction("#switcherAccountLinks", ".account-links");
     jq.switcherAction("#switcherCommentButton", "#commentContainer");
@@ -177,10 +177,10 @@ function initActionMenu() {
             PasswordTool.ShowPwdReminderDialog("1", userEmail);
         }
         if (jq(parent).hasClass("email-change")) {
-            EmailOperationManager.ShowEmailChangeWindow(userEmail, userId);
+            ASC.EmailOperationManager.showEmailChangeWindow(userEmail, userId);
         }
         if (jq(parent).hasClass("email-activate")) {
-            EmailOperationManager.SendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
+            ASC.EmailOperationManager.sendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
         }
         if (jq(parent).hasClass("edit-photo")) {
             UserPhotoThumbnail.ShowDialog();

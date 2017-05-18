@@ -1,0 +1,165 @@
+﻿<script id="projects_projectTmpl" type="text/x-jquery-tmpl">
+
+    <tr {{if statusList.cls !='open'}} class="noActiveProj" {{/if}} id="${id}">
+        {{if !isSimpleView}}
+        <td class="status">
+            <div class="changeStatusCombobox {{if canEdit && !Teamlab.profile.isVisitor}}canEdit{{else}}noEdit{{/if}}" data-id="${id}">
+                <span class="${statusList.cls}" title="${statusList.title}"></span>
+                {{if canEdit && !Teamlab.profile.isVisitor}}
+                <span class="arrow"></span>
+                {{/if}}
+            </div>
+        </td>
+        {{/if}}
+    <td class="nameProject stretch">
+        {{if isPrivate}}
+            <span title="${ASC.Projects.Resources.ProjectResource.HiddenProject}" class="private"></span>
+        {{/if}}
+        <a href="${projLink}" class="linkHeaderMedium {{if statusList.cls != 'open'}} gray-text{{/if}}">${title}</a>
+    </td>
+    <td class="taskCount">
+        {{if taskCount != 0}}
+            <a href="${linkTasks}" title="${ASC.Projects.Resources.ProjectResource.TitleProjectOpenTasks}">${taskCount}</a>
+        {{/if}}
+    </td>
+    <td class="responsible">
+        <span class='userLink{{if responsible.id=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}} not-action{{/if}}' title="{{if !isSimpleView}}${ASC.Projects.Resources.ProjectResource.TitleProjectManager}{{/if}}">${responsible.displayName}</span>
+        {{if participants != 0}}
+            <a class="participants" title="${ASC.Projects.Resources.ProjectResource.TitleProjectTeam}" href="${linkParticip}">+${participants}</a>
+        {{/if}}
+    </td>
+    {{if isSimpleView}}
+        <td class="trash">
+            {{if canEdit || canLinkContact}}
+                <img src="${StudioManager.GetImage('unlink_16.png')}"
+                    title="${ASC.Projects.Resources.CommonResource.UnlinkProjects}" class="trash_delete" />
+                <div class="trash_progress loader-middle" title=""></div>
+            {{/if}}
+        </td>
+    {{/if}}
+</tr>
+</script>
+
+<script id="memberTemplate" type="text/x-jquery-tmpl">
+    <tbody>
+        {{each team}}
+        <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isAdministrator || isManager}} disable{{/if}}" data-partisipantId="${id}">
+            <td style="" class="user-info">
+                <div class="pm-projectTeam-userPhotoContainer">
+                    <img src="${avatarSmall}" />
+                    {{if status == 2}}
+                    <span class="status-blocked"></span>
+                    {{/if}}
+                    {{if project.canEditTeam}}
+                    {{if isVisitor}}
+                    <span class="role collaborator"></span>
+                    {{/if}}
+                    {{if (isAdmin || isAdministrator) && status!=2}}
+                    <span class="role admin"></span>
+                    {{/if}}
+                    {{/if}}
+                </div>
+                <div class="user-info-container">
+                    <a class="user-name {{if typeof title === 'undefined' }} without-title{{/if}}" href="${profileUrl}" title="${displayName}">
+                        ${displayName}
+                    </a>
+                    {{if typeof title !== 'undefined'}}
+                    <span title="${title}">${title}</span>
+                    {{/if}}
+
+                </div>
+            </td>
+            {{if project.canEditTeam && project.isPrivate}}
+            <td class="right-settings">
+                {{if status!=2}}
+                <div>
+                    {{each security}}
+                    {{tmpl(security[$index], {showSplitter: $index !== security.length - 1}) 'projects_securityItem'}}
+                    {{/each}}
+                </div>
+                {{/if}}
+            </td>
+            {{/if}}
+
+            <td class="menupoint-container">
+                <div class="entity-menu"></div>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</script>
+
+<script id="projects_securityItem" type="text/x-jquery-tmpl">
+    <span class="right-checker pm-projectTeam-modulePermission{{if check}}On{{else}}Off{{/if}}" data-flag="${flag}">
+        <span>${title}</span>
+    </span>
+    {{if $item.showSplitter}}
+    <span class="splitter"></span>
+    {{/if}}
+</script>
+
+<script id="projectParticipant" type="text/x-jquery-tmpl">
+    <li class="items-display-list_i" participantid="${id}">
+        <span class="item-name"><a class="link" href="${profileUrl}" target="_blank">${title}</a></span>
+        <div class="reset-action" data-userid="${id}" title="$ASC.Projects.Resources.CommonResource.Delete"></div>
+    </li>
+</script>
+
+<script id="projects_team" type="text/x-jquery-tmpl">
+    <div class="header-base block-cnt-splitter">
+        ${ASC.Projects.Resources.ProjectResource.ProjectLeader}
+    </div>
+
+    <div class="block-cnt-splitter clearFix">
+        <div class="pm-projectTeam-projectLeaderCard" style="float: left;">
+            <img class="managerAvatar" src="${manager.avatar}"/>
+            <div class="manager-info" data-manager-guid="${manager.id}">
+                <div><a class="link header-base middle bold" href="${manager.profileUrl}">${manager.displayName}</a>
+                </div>
+                {{if manager.groups && manager.groups.length}}
+                <div>${manager.groups[0].name}</div>
+                {{/if}}
+                <div>${Encoder.htmlEncode(manager.title)}</div>
+            </div>
+        </div>
+        <div style="margin-left: 380px; padding: 0 20px;">
+            <div>${ASC.Projects.Resources.ProjectResource.ClosedProjectTeamManagerPermission}:</div>
+            <div class="simple-marker-list">${ASC.Projects.Resources.ProjectResource.ClosedProjectTeamManagerPermissionArticleA}</div>
+
+            <!--<% if (!ProjectSecurity.IsPrivateDisabled) { %>-->
+            <div class="simple-marker-list">{{html jq.format(ASC.Projects.Resources.ProjectResource.ClosedProjectTeamManagerPermissionArticleB, "<span id='PrivateProjectHelp' class='baseLinkAction'>", "</span>")}}
+            </div>
+            <div class="simple-marker-list">{{html jq.format(ASC.Projects.Resources.ProjectResource.ClosedProjectTeamManagerPermissionArticleC, "<span id='RestrictAccessHelp' class='baseLinkAction'>", "</span>", "<br/>")}}
+            </div>
+            <div class="popup_helper" id="AnswerForPrivateProjectTeam">
+                <p>
+                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerPrivateProjectTeam), "<br/>", "<b>", "</b>")}}
+                    {{if ASC.Resources.Master.HelpLink}}
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    {{/if}}
+                </p>
+            </div>
+            <div class="popup_helper" id="AnswerForRestrictAccessTeam">
+                <p>
+                    {{html ASC.Projects.Resources.CommonResource.HelpAnswerRestrictAccessTeam}}
+                    {{if ASC.Resources.Master.HelpLink}}
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    {{/if}}
+                </p>
+            </div>
+            <!--<% } else { %>
+            <div class="simple-marker-list">${ASC.Projects.Resources.ProjectResource.ClosedProjectTeamManagerPermissionArticleForOpen}</div>
+            <% } %>-->
+        </div>
+    </div>
+
+    <div class="block-cnt-splitter">
+        {{if project.canEditTeam}}
+        <div id="pm-projectTeam-Selector" class="link dotline plus">${ASC.Projects.Resources.ProjectResource.ManagmentTeam}</div>
+        {{/if}}
+    </div>
+
+    <table id="team_container" class="block-cnt-splitter {{if !project.canEditTeam}} no-access{{/if}}  listContainer">
+        {{tmpl 'memberTemplate'}}
+    </table>
+</script>

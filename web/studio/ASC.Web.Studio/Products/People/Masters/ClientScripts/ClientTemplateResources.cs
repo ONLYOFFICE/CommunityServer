@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -43,7 +43,7 @@ namespace ASC.Web.People.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return RegisterClientTemplatesPath(context, "~/products/people/templates/PeopleTemplates.ascx");
+            return RegisterClientTemplatesPath(context, "~/products/people/templates/PeopleTemplates.html");
         }
 
         protected override string GetCacheHash()

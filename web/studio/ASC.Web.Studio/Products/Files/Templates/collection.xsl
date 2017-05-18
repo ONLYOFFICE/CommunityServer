@@ -18,4 +18,6 @@
 
   <xsl:include href="getnewitems.xsl"/>
 
+  <xsl:include href="getuser.xsl"/>
+
 </xsl:stylesheet>

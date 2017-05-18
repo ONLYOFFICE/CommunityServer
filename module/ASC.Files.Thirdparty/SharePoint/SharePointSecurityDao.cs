@@ -110,6 +110,11 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
         }
 
+        public bool IsShared(object entryId, FileEntryType type)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Dispose()
         {
             ProviderInfo.Dispose();

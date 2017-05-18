@@ -27,6 +27,7 @@
 using System;
 using System.Web.UI;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.MessagingSystem;
 using AjaxPro;
 using ASC.Web.Core.Utility.Settings;
@@ -51,9 +52,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts("~/usercontrols/Management/AdminMessageSettings/js/admmess.js");
-
-            Page.RegisterStyle("~/usercontrols/management/AdminMessageSettings/css/admmess.less");
+            Page.RegisterBodyScripts("~/usercontrols/Management/AdminMessageSettings/js/admmess.js")
+                .RegisterStyle("~/usercontrols/management/AdminMessageSettings/css/admmess.less");
 
             _studioAdmMessNotifSettings = SettingsManager.Instance.LoadSettings<StudioAdminMessageSettings>(TenantProvider.CurrentTenantID);
 

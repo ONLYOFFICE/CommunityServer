@@ -26,16 +26,22 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using ASC.FederatedLogin.LoginProviders;
+using ASC.VoipService.Twilio;
+using ASC.Web.Core.WhiteLabel;
+using AjaxPro;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Data.Storage;
 using ASC.MessagingSystem;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
+using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -54,6 +60,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected string HelpLink { get; set; }
 
+        protected string SupportLink { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
@@ -61,6 +69,18 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "authorizationkeys_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/authorizationkeys/css/authorizationkeys.css") + "\">", false);
 
             HelpLink = CommonLinkUtility.GetHelpLink();
+
+            SupportLink = GetFeedbackAndSupportUrl();
+        }
+
+        private static string GetFeedbackAndSupportUrl()
+        {
+            var settings = AdditionalWhiteLabelSettings.Instance;
+
+            if (!settings.FeedbackAndSupportEnabled || String.IsNullOrEmpty(settings.FeedbackAndSupportUrl))
+                return string.Empty;
+
+            return CommonLinkUtility.GetRegionalUrl(settings.FeedbackAndSupportUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
         }
 
         private static IEnumerable<AuthService> GetAuthServices()
@@ -71,33 +91,124 @@ namespace ASC.Web.Studio.UserControls.Management
                    into keyGroup
                    let consumerKey = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.Key)
                    let consumerSecret = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.Secret)
-                   select ToAuthService(keyGroup.Key, consumerKey, consumerSecret);
+                   let consumerKeyDefault = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.KeyDefault)
+                   let consumerSecretDefault = keyGroup.FirstOrDefault(key => key.Type == KeyElement.KeyType.SecretDefault)
+                   select ToAuthService(keyGroup.Key, consumerKey, consumerSecret, consumerKeyDefault, consumerSecretDefault)
+                   into services
+                   orderby services.Order
+                   select services;
         }
 
-        private static AuthService ToAuthService(string consumerName, KeyElement consumerKey, KeyElement consumerSecret)
+        private static AuthService ToAuthService(string consumerName, KeyElement consumerKey, KeyElement consumerSecret, KeyElement consumerKeyDefault, KeyElement consumerSecretDefault)
         {
             var authService = new AuthService(consumerName);
             if (consumerKey != null)
-                authService.WithId(consumerKey.Name, KeyStorage.Get(consumerKey.Name));
+            {
+                authService.WithKey(consumerKey.Name, KeyStorage.Get(consumerKey.Name));
+                if (KeyStorage.CanSet(consumerKey.Name)) authService.CanSet = true;
+                if (consumerKey.Order.HasValue) authService.Order = consumerKey.Order;
+            }
             if (consumerSecret != null)
-                authService.WithKey(consumerSecret.Name, KeyStorage.Get(consumerSecret.Name));
+            {
+                authService.WithSecret(consumerSecret.Name, KeyStorage.Get(consumerSecret.Name));
+                if (!authService.CanSet && KeyStorage.CanSet(consumerSecret.Name)) authService.CanSet = true;
+                if (!authService.Order.HasValue && consumerSecret.Order.HasValue) authService.Order = consumerSecret.Order;
+            }
+            if (consumerKeyDefault != null)
+            {
+                authService.WithKeyDefault(consumerKeyDefault.Name, KeyStorage.Get(consumerKeyDefault.Name));
+                if (!authService.CanSet && KeyStorage.CanSet(consumerKeyDefault.Name)) authService.CanSet = true;
+                if (!authService.Order.HasValue && consumerKeyDefault.Order.HasValue) authService.Order = consumerKeyDefault.Order;
+            }
+            if (consumerSecretDefault != null)
+            {
+                authService.WithSecretDefault(consumerSecretDefault.Name, KeyStorage.Get(consumerSecretDefault.Name));
+                if (!authService.CanSet && KeyStorage.CanSet(consumerSecretDefault.Name)) authService.CanSet = true;
+                if (!authService.Order.HasValue && consumerSecretDefault.Order.HasValue) authService.Order = consumerSecretDefault.Order;
+            }
+
+            if (!authService.Order.HasValue) authService.Order = int.MaxValue;
+
             return authService;
         }
 
-        #region Ajax
+        private static readonly Dictionary<string, IValidateKeysProvider> Providers = new Dictionary<string, IValidateKeysProvider>
+            {
+                {
+                    "Bitly",
+                    new BitlyLoginProvider()
+                },
+                {
+                    "Twilio",
+                    new TwilioLoginProvider()
+                },
+            };
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public void SaveAuthKeys(List<AuthKey> authKeys)
+        public bool SaveAuthKeys(List<AuthKey> authKeys)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+            if (!SetupInfo.IsVisibleSettings(ManagementType.ThirdPartyAuthorization.ToString()))
+                throw new BillingException(Resource.ErrorNotAllowedOption, "ThirdPartyAuthorization");
+
+            var changed = false;
+
+            var mapKeys = new Dictionary<string, List<KeyElement>>();
             foreach (var authKey in authKeys.Where(authKey => KeyStorage.Get(authKey.Name) != authKey.Value))
             {
+                var keyElement = ConsumerConfigurationSection.GetSection().Keys.GetKey(authKey.Name);
+
+                if (keyElement != null && Providers.ContainsKey(keyElement.ConsumerName))
+                {
+                    RemoveOldNumberFromTwilio(Providers[keyElement.ConsumerName]);
+
+                    if (!string.IsNullOrEmpty(authKey.Value))
+                    {
+                        if (!mapKeys.ContainsKey(keyElement.ConsumerName))
+                        {
+                            mapKeys.Add(keyElement.ConsumerName, new List<KeyElement>());
+                        }
+                        mapKeys[keyElement.ConsumerName].Add(keyElement);
+                    }
+                }
+
+
                 KeyStorage.Set(authKey.Name, authKey.Value);
+                changed = true;
             }
 
-            MessageService.Send(HttpContext.Current.Request, MessageAction.AuthorizationKeysSetting);
+            foreach (var providerKeys in mapKeys)
+            {
+                if (!Providers[providerKeys.Key].ValidateKeys())
+                {
+                    foreach (var providerKey in providerKeys.Value)
+                    {
+                        KeyStorage.Set(providerKey.Name, null);
+                    }
+                    throw new ArgumentException(Resource.ErrorBadKeys);
+                }
+            }
+
+            if (changed)
+                MessageService.Send(HttpContext.Current.Request, MessageAction.AuthorizationKeysSetting);
+
+            return changed;
         }
 
-        #endregion
+        private void RemoveOldNumberFromTwilio(IValidateKeysProvider provider)
+        {
+            try
+            {
+                var twilioLoginProvider = provider as TwilioLoginProvider;
+                if (twilioLoginProvider != null)
+                {
+                    twilioLoginProvider.ClearOldNumbers();
+                }
+            }
+            catch (Exception e)
+            {
+                log4net.LogManager.GetLogger("ASC").Error(e);
+            }
+        }
     }
 }

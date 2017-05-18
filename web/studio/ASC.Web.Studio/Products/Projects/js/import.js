@@ -24,81 +24,137 @@
 */
 
 
-ASC.Projects.Import = (function() {
+ASC.Projects.Import = (function($) {
     var quotaEndFlag = false;
+    var resources = ASC.Projects.Resources.ImportResource;
+    var $chooseProjects,
+        $importClosed,
+        $sendInvitations,
+        $agreement,
+        $importAsCollaborators,
+        $startImportButton,
+        $importTools,
+        $popupPanelBodyError,
+        $popupImportErrorContainer,
+        $popupImportErrorContainerHeader,
+        $popupImportErrorContainerMessage,
+        $importPeopleStatus,
+        $importProjectsStatus,
+        $importFilesStatus,
+        $importProgress,
+        $basecampProjectsContainer,
+        $tbxURL,
+        $tbxUserName,
+        $tbxPassword;
+
+    var disabledAttr = 'disabled',
+        readonlyAttr = "readonly",
+        disableClass = "disable",
+        uncheckedClass = "unchecked",
+        checkedClass = "checked",
+        importStatusClosed = 'importStatusClosed',
+        importStatus = 'importStatus';
+
+    var loadingBanner = LoadingBanner;
 
     var init = function() {
-        jq("#chooseProjects, #importClosed, #sendInvitations, #agreement").removeAttr("checked");
 
-        if (jq("#importAsCollaborators").attr("disabled") != "disabled") {
-            jq("#importAsCollaborators").removeAttr("checked");
+        $chooseProjects = $("#chooseProjects");
+        $importClosed = $("#importClosed");
+        $sendInvitations = $("#sendInvitations");
+        $agreement = $("#agreement");
+        $importAsCollaborators = $("#importAsCollaborators");
+        $startImportButton = $("#startImportButton");
+        $importTools = $("#importTools");
+        $popupPanelBodyError = $("#popupPanelBodyError");
+        $popupImportErrorContainer = $("#popupImportErrorContainer");
+        $popupImportErrorContainerHeader = $popupImportErrorContainer.find(".popup-header");
+        $popupImportErrorContainerMessage = $popupImportErrorContainer.find(".error-message");
+        $importPeopleStatus = $("#importPeopleStatus");
+        $importProjectsStatus = $("#importProjectsStatus");
+        $importFilesStatus = $("#importFilesStatus");
+        $importProgress = $("#importProgress");
+        $basecampProjectsContainer = $(".basecamp-projects-container");
+        $tbxURL = jq("#tbxURL");
+        $tbxUserName = jq("#tbxUserName");
+        $tbxPassword = jq("#tbxPassword");
+
+        $chooseProjects.removeAttr(checkedClass);
+        $importClosed.removeAttr(checkedClass);
+        $sendInvitations.removeAttr(checkedClass);
+        $agreement.removeAttr(checkedClass);
+
+        if ($importAsCollaborators.attr(disabledAttr) != disabledAttr) {
+            $importAsCollaborators.removeAttr(checkedClass);
         } else {
             quotaEndFlag = true;
         }
-        jq('#tbxURL').focus();
+        $tbxURL.focus();
 
         checkImportStatus(true);
 
-        jq('#startImportButton').on('click', function() {
-            if (jq(this).hasClass("disable")) return;
+        $startImportButton.click(function () {
+            if (jq(this).hasClass(disableClass)) return;
 
             if (!validateData()) return;
 
-            if (jq("#importAsCollaborators").is(":checked"))
+            if ($importAsCollaborators.is(":checked"))
                 beforeStartImport();
             else
                 Teamlab.checkPrjImportQuota({}, getDataForImport(), { success: onCheckQuota, error: showOverLimitPopup });
         });
 
-        jq('#agreement').on('click', function() {
+        $agreement.click(function () {
             changeAgreementCheckBox(this);
         });
 
-        jq('#importTools').on('click', ".view-import", function () {
+        $importTools.on('click', ".view-import", function () {
             viewImportInfoPanel(jq("#import_info_popup"));
         });
 
-        jq(".basecamp-projects-container").on("click", "input", function(event) {
+        $basecampProjectsContainer.on("click", "input", function (event) {
             var row = jq(this).parents("li");
             onProjectClick(row);
             event.stopPropagation();
         });
-        jq(".basecamp-projects-container").on("click", "label", function(event) {
+
+        $basecampProjectsContainer.on("click", "label", function (event) {
             event.stopPropagation();
         });
-        jq(".basecamp-projects-container").on("click", "li", function() {
+
+        $basecampProjectsContainer.on("click", "li", function () {
             var input = jq(this).children("input");
             if (input.is(":checked")) {
-                input.removeAttr("checked");
+                input.removeAttr(checkedClass);
             } else {
-                input.attr("checked", "checked");
+                input.attr(checkedClass, checkedClass);
             }
             onProjectClick(this);
         });
         jq("#checkArchivedProj").change(function() {
             var archivedProjCont = jq("#archivedProjects");
             if (!jq(this).is(":checked")) {
-                archivedProjCont.find("input").removeAttr("checked");
-                archivedProjCont.find("li").addClass("unchecked");
+                archivedProjCont.find("input").removeAttr(checkedClass);
+                archivedProjCont.find("li").addClass(uncheckedClass);
             } else {
-                archivedProjCont.find("input").attr("checked", "checked");
-                archivedProjCont.find("li").removeClass("unchecked");
+                archivedProjCont.find("input").attr(checkedClass, checkedClass);
+                archivedProjCont.find("li").removeClass(uncheckedClass);
             }
         });
         jq("#checkActiveProj").change(function() {
             var activeProjCont = jq("#activeProjects");
             if (!jq(this).is(":checked")) {
-                activeProjCont.find("input").removeAttr("checked");
-                activeProjCont.find("li").addClass("unchecked");
+                activeProjCont.find("input").removeAttr(checkedClass);
+                activeProjCont.find("li").addClass(uncheckedClass);
             } else {
-                activeProjCont.find("input").attr("checked", "checked");
-                activeProjCont.find("li").removeClass("unchecked");
+                activeProjCont.find("input").attr(checkedClass, checkedClass);
+                activeProjCont.find("li").removeClass(uncheckedClass);
             }
         });
         jq("#importCheckedProjects").click(function() {
-            if (jq(this).hasClass("disable")) return;
+            if (jq(this).hasClass(disableClass)) return;
 
-            var projects = jq(".basecamp-projects-container li input");
+            var projects = $basecampProjectsContainer.find("li input");
             importCheckedProjects(projects);
         });
         jq("#continueImport").click(function() {
@@ -107,15 +163,15 @@ ASC.Projects.Import = (function() {
         });
     };
 
-    beforeStartImport = function() {
-        if (jq("#chooseProjects").is(":checked")) {
+    function beforeStartImport() {
+        if ($chooseProjects.is(":checked")) {
             getBasecampProjects();
         } else {
             startImport();
         }
     };
 
-    onCheckQuota = function(params, response) {
+    function onCheckQuota(params, response) {
         if (response < 0) {
             jq("#userLimit").text(-response);
             viewImportInfoPanel(jq("#popupUsersQuotaEnds"));
@@ -124,7 +180,7 @@ ASC.Projects.Import = (function() {
         beforeStartImport();
     };
 
-    showOverLimitPopup = function(params, response) {
+    function showOverLimitPopup(params, response) {
         if (response[0] != "empty response") {
             showErrorPopup(response);
             return;
@@ -139,15 +195,15 @@ ASC.Projects.Import = (function() {
         viewImportInfoPanel(jq("#popupUsersQuotaEnds"));
     }
 
-    var onProjectClick = function(row) {
-        if (jq(row).hasClass("unchecked")) {
-            jq(row).removeClass("unchecked");
+    function onProjectClick(row) {
+        if (jq(row).hasClass(uncheckedClass)) {
+            jq(row).removeClass(uncheckedClass);
         } else {
-            jq(row).addClass("unchecked");
+            jq(row).addClass(uncheckedClass);
         }
         var importButton = jq("#importCheckedProjects");
         var checkedFlag = false;
-        var inputs = jq(".basecamp-projects-container input");
+        var inputs = $basecampProjectsContainer.find("input");
         for (var i = 0; i < inputs.length; i++) {
             if (!checkedFlag) {
                 checkedFlag = jq(inputs[i]).is(":checked");
@@ -155,13 +211,13 @@ ASC.Projects.Import = (function() {
         };
 
         if (checkedFlag) {
-            importButton.removeClass("disable");
+            importButton.removeClass(disableClass);
         } else {
-            importButton.addClass("disable");
+            importButton.addClass(disableClass);
         }
     };
 
-    var importCheckedProjects = function(projects) {
+    function importCheckedProjects(projects) {
         var projIds = [];
         for (var i = 0; i < projects.length; i++) {
             if (jq(projects[i]).is(":checked")) {
@@ -171,14 +227,14 @@ ASC.Projects.Import = (function() {
         startImport(projIds);
     };
 
-    var getBasecampProjects = function() {
+    function getBasecampProjects() {
         var data = getDataForImport();
         if (!data) return;
-        LoadingBanner.displayLoading();
+        loadingBanner.displayLoading();
         Teamlab.getPrjImportProjects({ getProjects: true, isInit: true }, data, { success: onGetImportedProjects, error: onGetImportStatus });
     };
 
-    var onGetImportedProjects = function(params, data) {
+    function onGetImportedProjects(params, data) {
         var activeProjCont = jq("#activeProjects");
         var archivedProjCont = jq("#archivedProjects");
         var template = "<li><input type='checkbox' id='${id}' checked='checked'/><label for='${id}' title='${title}'>${title}</label></li>";
@@ -199,86 +255,87 @@ ASC.Projects.Import = (function() {
         jq.tmpl(template, activeProjs).appendTo(activeProjCont);
         jq.tmpl(template, archevedProjs).appendTo(archivedProjCont);
 
-        LoadingBanner.hideLoading();
-        jq("#checkArchivedProj").removeAttr("disabled");
-        jq("#checkActiveProj").attr("checked", "checked");
-        archivedProjCont.find("input").removeAttr("checked");
-        archivedProjCont.find("li").addClass("unchecked");
+        loadingBanner.hideLoading();
+        jq("#checkArchivedProj").removeAttr(disabledAttr);
+        jq("#checkActiveProj").attr(checkedClass, checkedClass);
+        archivedProjCont.find("input").removeAttr(checkedClass);
+        archivedProjCont.find("li").addClass(uncheckedClass);
         viewImportInfoPanel(jq("#chooseProjectsPopup"));
     };
 
-    var validateData = function() {
+    function validateData() {
+        var $urlTbContainer = jq("#companyUrl"), $emailTbContainer = jq("#companyEmail"), $passwordTbContainer = jq("#companyPassword");
+        var requiredFieldErrorClass = "requiredFieldError";
+        var requiredErrorTextClass = ".requiredErrorText";
 
-        if (jq("#tbxURL").val().trim() == "") {
-            jq("#companyUrl").addClass("requiredFieldError");
-            jq("#companyUrl").find(".requiredErrorText").text(ASC.Projects.Resources.ImportResource.EmptyURL);
+        if ($tbxURL.val().trim() == "") {
+            $urlTbContainer.addClass(requiredFieldErrorClass);
+            $urlTbContainer.find(requiredErrorTextClass).text(resources.EmptyURL);
             return false;
         } else {
-            jq("#companyUrl").removeClass("requiredFieldError");
+            $urlTbContainer.removeClass(requiredFieldErrorClass);
         }
-        if (jq("#tbxUserName").val().trim() == "") {
-            jq("#companyEmail").addClass("requiredFieldError");
-            jq("#companyEmail").find(".requiredErrorText").text(ASC.Projects.Resources.ImportResource.EmptyEmail);
+        if ($tbxUserName.val().trim() == "") {
+            $emailTbContainer.addClass(requiredFieldErrorClass);
+            $emailTbContainer.find(requiredErrorTextClass).text(resources.EmptyEmail);
             return false;
         } else {
-            jq("#companyEmail").removeClass("requiredFieldError");
+            $emailTbContainer.removeClass(requiredFieldErrorClass);
         }
-        if (jq("#tbxPassword").val().trim() == "") {
-            jq("#companyPassword").addClass("requiredFieldError");
+        if ($tbxPassword.val().trim() == "") {
+            $passwordTbContainer.addClass(requiredFieldErrorClass);
             return false;
         } else {
-            jq("#companyPassword").removeClass("requiredFieldError");
+            $passwordTbContainer.removeClass(requiredFieldErrorClass);
         }
 
         var regExpForCompanyUrl = /^(https:\/\/basecamp.com)\/([0-9]{6,8})(\/?)$/;
         var regExpForEmail = /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/;
 
         // company url
-        var urlTbContainer = jq("#companyUrl");
-        var url = jq("#tbxURL").val().trim();
+        var url = $tbxURL.val().trim();
         if (!regExpForCompanyUrl.test(url)) {
-            urlTbContainer.addClass("requiredFieldError");
-            urlTbContainer.find(".requiredErrorText").text(ASC.Projects.Resources.ImportResource.InvalidCompaniUrl);
+            $urlTbContainer.addClass(requiredFieldErrorClass);
+            $urlTbContainer.find(requiredErrorTextClass).text(resources.InvalidCompaniUrl);
             return false;
         }
         // company url
-        var emailTbContainer = jq("#companyEmail");
-        var email = jq("#tbxUserName").val().trim();
+        var email = $tbxUserName.val().trim();
         if (!regExpForEmail.test(email)) {
-            emailTbContainer.addClass("requiredFieldError");
-            emailTbContainer.find(".requiredErrorText").text(ASC.Projects.Resources.ImportResource.InvalidEmail);
+            $emailTbContainer.addClass(requiredFieldErrorClass);
+            $emailTbContainer.find(requiredErrorTextClass).text(resources.InvalidEmail);
             return false;
         }
         return true;
     };
 
-    var getDataForImport = function() {
+    function getDataForImport() {
         if (validateData()) {
-            jq('#importPeopleStatus').removeClass('importStatusClosed');
-            jq('#importProjectsStatus').removeClass('importStatusClosed');
-            jq('#importFilesStatus').removeClass('importStatusClosed');
+            $importPeopleStatus.removeClass(importStatusClosed);
+            $importProjectsStatus.removeClass(importStatusClosed);
+            $importFilesStatus.removeClass(importStatusClosed);
 
-            var data = {};
-            data.url = jq("[id$=tbxURL]").val();
-            data.userName = jq("[id$=tbxUserName]").val();
-            data.password = jq("[id$=tbxPassword]").val();
-            data.importClosed = jq("#importClosed").is(':checked');
-            data.importUsersAsCollaborators = jq("#importAsCollaborators").is(":checked");
-            data.disableNotifications = !jq("#sendInvitations").is(':checked');
-
-            return data;
+            return {
+                url: $tbxURL.val(),
+                userName: $tbxUserName.val(),
+                password: $tbxPassword.val(),
+                importClosed: jq("#importClosed").is(':checked'),
+                importUsersAsCollaborators: $importAsCollaborators.is(":checked"),
+                disableNotifications: !$sendInvitations.is(':checked')
+            }
         }
+    
         return false;
     };
 
-    var startImport = function(projects) {
+    function startImport(projects) {
         var data = getDataForImport();
         if (!data) return;
         if (projects) data.projects = projects;
         Teamlab.addPrjImport({}, data, { success: onStartImport });
     };
 
-    var showErrorPopup = function(response) {
+    function showErrorPopup(response) {
         var errorText = "";
         if (!response.error) {
             errorText = response[0];
@@ -286,14 +343,14 @@ ASC.Projects.Import = (function() {
             errorText = response.error.Message;
         }
         if (errorText.indexOf("404") < 0) {
-            errorText = ASC.Projects.Resources.ImportResource.ImportFailed + ":" + errorText;
-            jq("#popupImportErrorContainer .popup-header").text(ASC.Projects.Resources.ImportResource.ImportFailed);
-            jq("#popupImportErrorContainer .error-message").text(errorText);
+            errorText = resources.ImportFailed + ":" + errorText;
+            $popupImportErrorContainerHeader.text(resources.ImportFailed);
+            $popupImportErrorContainerMessage.text(errorText);
         }
-        viewImportInfoPanel(jq("#popupImportErrorContainer"));
+        viewImportInfoPanel($popupImportErrorContainer);
     };
 
-    var onStartImport = function(params, status) {
+    function onStartImport(params, status) {
         if (status.error != null) {
             showErrorPopup(status);
             return;
@@ -301,19 +358,20 @@ ASC.Projects.Import = (function() {
         else {
             lockImportTools();
             viewImportInfoPanel(jq("#import_info_popup"));
-            jq('#importPeopleStatus').html("<span class='gray-text'>" + ASC.Projects.Resources.ImportResource.StatusAwaiting + " </span>");
-            jq('#importProjectsStatus').html("<span class='gray-text'>" + ASC.Projects.Resources.ImportResource.StatusAwaiting + " </span>");
-            jq('#importFilesStatus').html("<span class='gray-text'>" + ASC.Projects.Resources.ImportResource.StatusAwaiting + " </span>");
-            jq('#importProgress').html('0');
-            jq('#popupPanelBodyError').hide();
-            setTimeout("ASC.Projects.Import.checkImportStatus()", 5000);
+            var spanStatusAwaiting = "<span class='gray-text'>" + resources.StatusAwaiting + " </span>";
+            $importPeopleStatus.html(spanStatusAwaiting);
+            $importProjectsStatus.html(spanStatusAwaiting);
+            $importFilesStatus.html(spanStatusAwaiting);
+            $importProgress.html('0');
+            $popupPanelBodyError.hide();
+            setTimeout(checkImportStatus, 5000);
         }
     };
 
-    var onGetImportStatus = function (params, status) {
+    function onGetImportStatus(params, status) {
         if (!status.started) return;
         if (params.getProjects) {
-            LoadingBanner.hideLoading();
+            loadingBanner.hideLoading();
             showErrorPopup(status);
             unlockImportTools();
             return;
@@ -321,23 +379,23 @@ ASC.Projects.Import = (function() {
         if (status.error != null) {
             if (!params.isInit && !jq("#import_info_popup").is(":visible")) {
                 showErrorPopup(status);
-                jq('#popupPanelBodyError').hide();
+                $popupPanelBodyError.hide();
             }
             unlockImportTools();
             buildErrorList(status);
         }
         else if (status != null && status.completed && status.error == null) {
-            jq('#importPeopleStatus').html('').removeClass('importStatus').addClass('importStatusClosed');
-            jq('#importProjectsStatus').html('').removeClass('importStatus').addClass('importStatusClosed');
-            jq('#importFilesStatus').html('').removeClass('importStatus').addClass('importStatusClosed'); ;
-            jq('#importProgress').html('3');
-            jq('#popupPanelBodyError').hide();
+            $importPeopleStatus.html('').removeClass(importStatus).addClass(importStatusClosed);
+            $importProjectsStatus.html('').removeClass(importStatus).addClass(importStatusClosed);
+            $importFilesStatus.html('').removeClass(importStatus).addClass(importStatusClosed);;
+            $importProgress.html('3');
+            $popupPanelBodyError.hide();
             buildErrorList(status);
             unlockImportTools();
             if (!jq("#import_info_popup").is(":visible")) {
-                jq("#popupImportErrorContainer .popup-header").text(ASC.Projects.Resources.ImportResource.PopupPanelHeader);
-                jq("#popupImportErrorContainer .error-message").text(ASC.Projects.Resources.ImportResource.ImportCompleted);
-                viewImportInfoPanel(jq("#popupImportErrorContainer"));
+                $popupImportErrorContainerHeader.text(resources.PopupPanelHeader);
+                $popupImportErrorContainerMessage.text(resources.ImportCompleted);
+                viewImportInfoPanel($popupImportErrorContainer);
             }
         }
         else if (status != null && status.error != null) {
@@ -346,39 +404,39 @@ ASC.Projects.Import = (function() {
         }
         else {
             lockImportTools();
-            setTimeout("ASC.Projects.Import.checkImportStatus()", 5000);
+            setTimeout(checkImportStatus, 5000);
             buildErrorList(status);
             if (status != null) {
                 if (status.userProgress > 0) {
-                    jq('#importPeopleStatus').html(Math.round(status.userProgress) + '%');
+                    $importPeopleStatus.html(Math.round(status.userProgress) + '%');
                     if (status.userProgress == 100) {
-                        jq('#importPeopleStatus').html('').removeClass('importStatus').addClass('importStatusClosed'); ;
-                        jq('#importProgress').html('1');
+                        $importPeopleStatus.html('').removeClass(importStatus).addClass(importStatusClosed);
+                        $importProgress.html('1');
                     }
                 }
                 if (status.projectProgress > 0) {
-                    jq('#importProjectsStatus').html(Math.round(status.projectProgress) + '%');
+                    $importProjectsStatus.html(Math.round(status.projectProgress) + '%');
                     if (status.projectProgress == 100) {
-                        jq('#importProjectsStatus').html('').removeClass('importStatus').addClass('importStatusClosed'); ;
-                        jq('#importProgress').html('2');
+                        $importProjectsStatus.html('').removeClass(importStatus).addClass(importStatusClosed);
+                        $importProgress.html('2');
                     }
                 }
                 if (status.fileProgress > 0) {
-                    jq('#importFilesStatus').html(Math.round(status.fileProgress) + '%');
+                    $importFilesStatus.html(Math.round(status.fileProgress) + '%');
                     if (status.fileProgress == 100) {
-                        jq('#importFilesStatus').html('').removeClass('importStatus').addClass('importStatusClosed'); ;
-                        jq('#importProgress').html('3');
+                        $importFilesStatus.html('').removeClass(importStatus).addClass(importStatusClosed);;
+                        $importProgress.html('3');
                     }
                 }
             }
         }
     };
 
-    var checkImportStatus = function(isInit) {
+    function checkImportStatus(isInit) {
         Teamlab.getPrjImport({ isInit: isInit }, { success: onGetImportStatus });
     };
 
-    var buildErrorList = function(res) {
+    function buildErrorList(res) {
         if (!res || !res.log || !res.log.length)
             return;
 
@@ -396,72 +454,65 @@ ASC.Projects.Import = (function() {
         }
 
         if (statusStr != "") {
-            jq('#popupPanelBodyError').html(statusStr);
-            jq('#popupPanelBodyError').show();
+            $popupPanelBodyError.html(statusStr);
+            $popupPanelBodyError.show();
         }
         else {
-            jq('#popupPanelBodyError').hide();
+            $popupPanelBodyError.hide();
         }
     };
 
-    var lockImportTools = function() {
-        jq('#tbxURL').attr("readonly", "readonly").addClass("disabled");
-        jq('#tbxUserName').attr("readonly", "readonly").addClass("disabled");
-        jq('#tbxPassword').attr("readonly", "readonly").addClass("disabled");
+    function lockImportTools() {
+        $tbxURL.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
+        $tbxUserName.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
+        $tbxPassword.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
 
-        jq("#importClosed").attr('disabled', 'disabled');
-        jq("#sendInvitations").attr('disabled', 'disabled');
-        jq("#chooseProjects").attr('disabled', 'disabled');
-        jq("#importAsCollaborators").attr('disabled', 'disabled');
-        LoadingBanner.showLoaderBtn("#importTools");
+        $importClosed.attr(disabledAttr, disabledAttr);
+        $sendInvitations.attr(disabledAttr, disabledAttr);
+        $chooseProjects.attr(disabledAttr, disabledAttr);
+        $importAsCollaborators.attr(disabledAttr, disabledAttr);
+        loadingBanner.showLoaderBtn($importTools);
 
-        if (!jq("#importTools .loader-container a").length) {
-            jq("#importTools .loader-container").append(jq("#viewDetailsImport").html());
+        if (! $importTools.find(".loader-container a").length) {
+            $importTools.find(".loader-container").append(jq("#viewDetailsImport").html());
         }
 
         jq('#importCompletedContent').hide();
     };
 
-    var unlockImportTools = function() {
+    function unlockImportTools() {
+        $tbxURL.removeAttr(readonlyAttr).removeClass(disabledAttr);
+        $tbxUserName.removeAttr(readonlyAttr).removeClass(disabledAttr);
+        $tbxPassword.removeAttr(readonlyAttr).removeClass(disabledAttr);
 
-        jq('#tbxURL').removeAttr("readonly").removeClass("disabled");
-        jq('#tbxUserName').removeAttr("readonly").removeClass("disabled");
-        jq('#tbxPassword').removeAttr("readonly").removeClass("disabled");
-
-        jq("#importClosed").removeAttr('disabled');
-        jq("#sendInvitations").removeAttr('disabled');
-        jq("#chooseProjects").removeAttr('disabled');
+        $importClosed.removeAttr(disabledAttr);
+        $sendInvitations.removeAttr(disabledAttr);
+        $chooseProjects.removeAttr(disabledAttr);
         if (!quotaEndFlag) {
-            jq("#importAsCollaborators").removeAttr('disabled');
+            $importAsCollaborators.removeAttr(disabledAttr);
         }
 
-        LoadingBanner.hideLoaderBtn("#importTools");
+        loadingBanner.hideLoaderBtn($importTools);
 
         jq('#importCompletedContent').show();
     };
 
-    var viewImportInfoPanel = function(popup) {
+    function viewImportInfoPanel(popup) {
         jq("#import_info_attention_popup").hide();
-        jq("#importCheckedProjects").removeClass("disable");
+        jq("#importCheckedProjects").removeClass(disableClass);
         StudioBlockUIManager.blockUI(popup, 480, 420, 0, "absolute");
     };
 
-    var changeAgreementCheckBox = function(obj) {
+    function changeAgreementCheckBox(obj) {
         if (jq(obj).is(':checked')) {
-            jq("#startImportButton").removeClass('disable');
+            $startImportButton.removeClass(disableClass);
         }
         else {
-            jq("#startImportButton").addClass('disable');
+            $startImportButton.addClass(disableClass);
         }
     };
+
     return {
-        init: init,
-        checkImportStatus: checkImportStatus
+        init: init
     };
 })(jQuery);
-
-jq(document).ready(function() {
-    if (location.href.indexOf("import.aspx") > 0) {
-        ASC.Projects.Import.init();
-    }
-});

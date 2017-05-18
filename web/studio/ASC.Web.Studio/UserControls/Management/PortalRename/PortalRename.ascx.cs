@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/Management/PortalRename/js/portalrename.js");
-            Page.RegisterStyle("~/usercontrols/management/PortalRename/css/portalrename.less");
+            Page.RegisterBodyScripts("~/usercontrols/Management/PortalRename/js/portalrename.js")
+                .RegisterStyle("~/usercontrols/management/PortalRename/css/portalrename.less");
 
             Enabled = SetupInfo.IsVisibleSettings("PortalRename");
         }

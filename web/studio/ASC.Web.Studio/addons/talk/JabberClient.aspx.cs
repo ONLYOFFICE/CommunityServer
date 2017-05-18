@@ -67,22 +67,24 @@ namespace ASC.Web.Talk
 
             Master.DisabledSidePanel = true;
             Master.DisabledTopStudioPanel = true;
-            Page.RegisterBodyScripts("~/addons/talk/js/gears.init.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/gears.init.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/iscroll.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.customevents.js");
-            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.notification.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.common.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.navigationitem.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.msmanager.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.mucmanager.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.roomsmanager.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.contactsmanager.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.messagesmanager.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.connectiomanager.js");
-            Page.RegisterBodyScripts("~/addons/talk/js/talk.default.js");
 
-            Page.RegisterStyle("~/addons/talk/css/default/talk.style.css");
+            Page
+                .RegisterBodyScripts("~/addons/talk/js/gears.init.js",
+                    "~/addons/talk/js/gears.init.js",
+                    "~/addons/talk/js/iscroll.js",
+                    "~/addons/talk/js/talk.customevents.js",
+                    "~/js/third-party/jquery/jquery.notification.js",
+                    "~/addons/talk/js/talk.common.js",
+                    "~/addons/talk/js/talk.navigationitem.js",
+                    "~/addons/talk/js/talk.msmanager.js",
+                    "~/addons/talk/js/talk.mucmanager.js",
+                    "~/addons/talk/js/talk.roomsmanager.js",
+                    "~/addons/talk/js/talk.contactsmanager.js",
+                    "~/addons/talk/js/talk.messagesmanager.js",
+                    "~/addons/talk/js/talk.connectiomanager.js",
+                    "~/addons/talk/js/talk.default.js")
+                .RegisterStyle("~/addons/talk/css/default/talk.style.css");
+
             var virtPath = "~/addons/talk/css/default/talk.style." + CultureInfo.CurrentCulture.Name.ToLower() + ".css";
             if (File.Exists(Server.MapPath(virtPath)))
             {
@@ -94,24 +96,25 @@ namespace ASC.Web.Talk
             switch (_cfg.RequestTransportType.ToLower())
             {
                 case "flash":
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/plugins/strophe.flxhr.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/plugins/strophe.flxhr.js",
 
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/checkplayer.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/flensed.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/flxhr.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/swfobject.js");
+                        "~/addons/talk/js/jlib/flxhr/checkplayer.js",
+                        "~/addons/talk/js/jlib/flxhr/flensed.js",
+                        "~/addons/talk/js/jlib/flxhr/flxhr.js",
+                        "~/addons/talk/js/jlib/flxhr/swfobject.js",
 
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/base64.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/md5.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/core.js");
+                        "~/addons/talk/js/jlib/strophe/base64.js",
+                        "~/addons/talk/js/jlib/strophe/md5.js",
+                        "~/addons/talk/js/jlib/strophe/core.js");
 
                     break;
                 default:
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/base64.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/md5.js");
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/core.js");
+                    Page.RegisterBodyScripts(
+                        "~/addons/talk/js/jlib/strophe/base64.js",
+                        "~/addons/talk/js/jlib/strophe/md5.js",
+                        "~/addons/talk/js/jlib/strophe/core.js",
 
-                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/swfobject.js");
+                        "~/addons/talk/js/jlib/flxhr/swfobject.js");
                     break;
             }
 
@@ -183,7 +186,7 @@ namespace ASC.Web.Talk
 
             try
             {
-                Page.Title = TalkResource.ProductName + " - " + CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).DisplayUserName();
+                Page.Title = TalkResource.ProductName + " - " + CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).DisplayUserName(false);
             }
             catch (System.Security.SecurityException)
             {

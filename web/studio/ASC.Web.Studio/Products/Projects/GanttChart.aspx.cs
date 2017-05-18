@@ -40,19 +40,13 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             Master.DisabledSidePanel = true;
-            Master.DisabledPrjNavPanel = true;
-            Master.DisabledEmptyScreens = true;
 
             _hintPopupTaskRemove.Options.IsPopup = true;
             _hintPopupMilestoneRemove.Options.IsPopup = true;
             _hintPopupMilestoneTasks.Options.IsPopup = true;
             _hintPopupTaskWithSubtasks.Options.IsPopup = true;
-            _newLinkError.Options.IsPopup = true;
             _moveTaskOutMilestone.Options.IsPopup = true;
             _addNewLinkPopup.Options.IsPopup = true;
-
-            _taskAction.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Tasks/TaskAction.ascx")));
-            _milestoneAction.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Milestones/MilestoneAction.ascx")));
 
             Page.RegisterStyle("~/products/projects/app_themes/default/css/common.css",
                 "~/products/projects/app_themes/default/css/ganttchart.css");

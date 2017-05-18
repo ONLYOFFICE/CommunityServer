@@ -208,16 +208,13 @@ namespace ASC.Web.Studio.Core.Notify
                          var tags = r.Arguments;
 
                          var logoTextTag = tags.FirstOrDefault(a => a.Tag == Constants.LetterLogoText);
-                         var logoTextTagTM = tags.FirstOrDefault(a => a.Tag == Constants.LetterLogoTextTM);
-
                          var logoText = logoTextTag != null ? (String)logoTextTag.Value : string.Empty;
-                         var logoTextTM = logoTextTagTM != null ? (String)logoTextTagTM.Value : string.Empty;
 
-                         if (!string.IsNullOrEmpty(logoText) && !string.IsNullOrEmpty(logoTextTM))
+                         if (!string.IsNullOrEmpty(logoText))
                          {
                              var body = r.CurrentMessage.Body
-                                     .Replace(string.Format("${{{0}}}", Constants.LetterLogoTextTM), logoTextTM)
-                                     .Replace(string.Format("${{{0}}}", Constants.LetterLogoText), logoText);
+                                         .Replace(string.Format("${{{0}}}", Constants.LetterLogoTextTM), logoText)
+                                         .Replace(string.Format("${{{0}}}", Constants.LetterLogoText), logoText);
                              r.CurrentMessage.Body = body;
 
                          }
@@ -231,117 +228,6 @@ namespace ASC.Web.Studio.Core.Notify
             client.AddInterceptor(whiteLabel);
 
             #endregion
-        }
-
-        private static string GetPartnerInfo()
-        {
-            var partner = CoreContext.PaymentManager.GetApprovedPartner();
-            if (partner == null || !partner.CustomEmailSignature) return string.Empty;
-
-            var footerStart = "<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin: 0; border-spacing: 0; empty-cells: show;\">";
-            footerStart += "<tbody>";
-            footerStart += "<tr style=\"height: 10px\">";
-            footerStart += "<td colspan=\"2\" style=\"width: 40px; background-color: #09669C;\"><div style=\"width: 40px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "<td style=\"width: 600px; background-color: #fff;\"><div style=\"width: 600px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "<td colspan=\"2\" style=\"width: 40px; background-color: #09669C;\"><div style=\"width: 40px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "</tr>";
-            footerStart += "<tr style=\"height: 10px\">";
-            footerStart += "<td colspan=\"5\" style=\"width: 680px; background-color: #09669C;\"><div style=\"width: 680px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "</tr>";
-            footerStart += "<tr style=\"height: 10px\">";
-            footerStart += "<td style=\"width: 33px; background-color: #09669C;\"><div style=\"width: 33px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "<td style=\"width: 7px; background-color: #09669C;\"><div style=\"width: 7px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "<td style=\"width: 600px; background-color: #fff;\"><div style=\"width: 600px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "<td style=\"width: 7px; background-color: #09669C;\"><div style=\"width: 7px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "<td style=\"width: 33px; background-color: #09669C;\"><div style=\"width: 33px; height: 10px;\">&nbsp;</div></td>";
-            footerStart += "</tr>";
-            footerStart += "</tbody>";
-            footerStart += "</table>";
-            footerStart += "<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin: 0; border-spacing: 0; empty-cells: show;\">";
-            footerStart += "<tbody>";
-            footerStart += "<tr style=\"color: #333;\">";
-            footerStart += "<td style=\"width: 33px; background-color: #09669C;\"><div style=\"width: 33px;\"> </div></td>";
-            footerStart += "<td style=\"width: 7px; background-color: #f5942d\"><div style=\"width: 7px;\"> </div></td>";
-            footerStart += "<td style=\"width: 600px; background-color: #fff;\">";
-            footerStart += "<div style=\"width: 540px; padding: 5px 30px 10px; overflow: hidden;\">";
-            footerStart += "<table cellspacing=\"0\" cellpadding=\"0\">";
-            footerStart += "<tbody>";
-            footerStart += "<tr>";
-
-            var footerEnd = "</tr>";
-            footerEnd += "</tbody>";
-            footerEnd += "</table>";
-            footerEnd += "</div>";
-            footerEnd += "</td>";
-            footerEnd += "<td style=\"width: 7px; background-color: #f5942d\"><div style=\"width: 7px;\"> </div></td>";
-            footerEnd += "<td style=\"width: 33px; background-color: #09669C;\"><div style=\"width: 33px;\"> </div></td>";
-            footerEnd += "</tr>";
-            footerEnd += "</tbody>";
-            footerEnd += "</table>";
-
-            var partnerInfo = string.Empty;
-            if ((partner.DisplayType == PartnerDisplayType.All || partner.DisplayType == PartnerDisplayType.LogoOnly) && !string.IsNullOrEmpty(partner.LogoUrl))
-            {
-                partnerInfo += "<td rowspan=\"2\" align=\"center\" style=\"width:180px; max-width:180px;\"><img src=\"" + partner.LogoUrl + "\" style=\"max-width:180px;\" /></td>";
-            }
-
-            partnerInfo += "<td colspan=\"3\" style=\"padding-left: 10px;\">";
-
-            if ((partner.DisplayType == PartnerDisplayType.All || partner.DisplayType == PartnerDisplayType.DisplayNameOnly) && !string.IsNullOrEmpty(partner.DisplayName))
-            {
-                partnerInfo += "<div style=\"font-size: 22px;\">" + partner.DisplayName + "</div>";
-            }
-            partnerInfo += "<i style=\"color: #808080; font-size: 13px;\">" + WebstudioNotifyPatternResource.TextForPartnerFooter + "</i>";
-            partnerInfo += "</td></tr><tr>";
-
-            if (!string.IsNullOrEmpty(partner.Address) || !string.IsNullOrEmpty(partner.SupportPhone) ||
-                !string.IsNullOrEmpty(partner.Phone) || !string.IsNullOrEmpty(partner.Url))
-            {
-                partnerInfo += "<td style=\"width:180px; padding:8px 0 0 10px; vertical-align: top;\">";
-
-                if (!string.IsNullOrEmpty(partner.Address))
-                {
-                    partnerInfo += "<div style=\"max-width: 180px; overflow: hidden; text-overflow: ellipsis; font-size: 12px; padding-bottom: 5px;\">" + partner.Address + "</div>";
-                }
-                if (!string.IsNullOrEmpty(partner.SupportPhone))
-                {
-                    partnerInfo += "<div style=\"max-width: 180px; overflow: hidden; text-overflow: ellipsis; font-size: 12px;\">" + partner.SupportPhone + "</div>";
-                }
-                else if (!string.IsNullOrEmpty(partner.Phone))
-                {
-                    partnerInfo += "<div style=\"max-width: 180px; overflow: hidden; text-overflow: ellipsis; font-size: 12px;\">" + partner.Phone + "</div>";
-                }
-                if (!string.IsNullOrEmpty(partner.Url))
-                {
-                    var fullUrl = partner.Url.StartsWith("http:") || partner.Url.StartsWith("https:") ? partner.Url : string.Concat("http://", partner.Url);
-                    partnerInfo += "<a style=\"font-size:12px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display:inline-block;\" target=\"_blank\" href=\"" + fullUrl + "\">" + partner.Url + "</a>";
-                }
-                partnerInfo += "</td>";
-            }
-            if (!string.IsNullOrEmpty(partner.SupportEmail) || !string.IsNullOrEmpty(partner.SalesEmail) || !string.IsNullOrEmpty(partner.Email))
-            {
-                partnerInfo += "<td style=\"width:180px; padding:8px 0 0 10px; vertical-align: top;\">";
-                if (!string.IsNullOrEmpty(partner.SupportEmail) || !string.IsNullOrEmpty(partner.SalesEmail))
-                {
-                    if (!string.IsNullOrEmpty(partner.SalesEmail))
-                    {
-                        partnerInfo += "<p style=\"font-size:12px; color:#808080; margin:0; padding:0;\">" + WebstudioNotifyPatternResource.SalesDepartment + ":</p>";
-                        partnerInfo += "<a style=\"font-size:12px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display:inline-block; margin-bottom: 8px;\" href=\"mailto:" + partner.SalesEmail + "\">" + partner.SalesEmail + "</a>";
-                    }
-                    if (!string.IsNullOrEmpty(partner.SupportEmail))
-                    {
-                        partnerInfo += "<p style=\"font-size:12px; color:#808080; margin:0; padding:0;\">" + WebstudioNotifyPatternResource.TechnicalSupport + ":</p>";
-                        partnerInfo += "<a style=\"font-size:12px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display:inline-block;\" href=\"mailto:" + partner.SupportEmail + "\">" + partner.SupportEmail + "</a>";
-                    }
-                }
-                else if (!string.IsNullOrEmpty(partner.Email))
-                {
-                    partnerInfo += "<a style=\"font-size:12px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display:inline-block;\" href=\"mailto:" + partner.Email + "\">" + partner.Email + "</a><br />";
-                }
-                partnerInfo += "</td>";
-            }
-            partnerInfo = footerStart + partnerInfo + footerEnd;
-            return partnerInfo;
         }
 
 
@@ -368,10 +254,11 @@ namespace ASC.Web.Studio.Core.Notify
                 product = WebItemManager.Instance[(Guid)CallContext.GetData("asc.web.product_id")] as IProduct;
             }
 
-            var logoText = TenantLogoManager.GetLogoText();
-            var logoTextTM = String.Equals(logoText, TenantWhiteLabelSettings.DefaultLogoText, StringComparison.Ordinal)
-                ? String.Format("{0}™", logoText.ToUpper())
-                : logoText;
+            var logoText = TenantWhiteLabelSettings.DefaultLogoText;
+            if ((TenantExtra.Enterprise || TenantExtra.Hosted) && !MailWhiteLabelSettings.Instance.IsDefault)
+            {
+                logoText = TenantLogoManager.GetLogoText();
+            }
 
             request.Arguments.Add(new TagValue(CommonTags.AuthorID, aid));
             request.Arguments.Add(new TagValue(CommonTags.AuthorName, aname));
@@ -384,9 +271,8 @@ namespace ASC.Web.Studio.Core.Notify
             request.Arguments.Add(new TagValue(CommonTags.Helper, new PatternHelper()));
             request.Arguments.Add(new TagValue(CommonTags.RecipientID, Context.SYS_RECIPIENT_ID));
             request.Arguments.Add(new TagValue(CommonTags.RecipientSubscriptionConfigURL, CommonLinkUtility.GetMyStaff()));
-            request.Arguments.Add(new TagValue("Partner", GetPartnerInfo()));
             request.Arguments.Add(new TagValue(Constants.LetterLogoText, logoText));
-            request.Arguments.Add(new TagValue(Constants.LetterLogoTextTM, logoTextTM));
+            request.Arguments.Add(new TagValue(Constants.LetterLogoTextTM, logoText));
             request.Arguments.Add(new TagValue(Constants.MailWhiteLabelSettings, MailWhiteLabelSettings.Instance));
 
             if (!request.Arguments.Any(x => CommonTags.SendFrom.Equals(x.Tag)))

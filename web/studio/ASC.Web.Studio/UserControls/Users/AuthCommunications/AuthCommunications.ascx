@@ -15,7 +15,7 @@
             <div id="studio_admMessInfo">
             </div>
             <div class="desc">
-                <%= CustomNamingPeople.Substitute<Resource>("AdminMessageTitle") %>
+                <%= CustomNamingPeople.Substitute<Resource>("AdminMessageTitle").HtmlEncode() %>
             </div>
             <div>
                 <div class="label">
@@ -42,7 +42,7 @@
 
 <asp:Panel ID="_joinBlock" runat="server" CssClass="signUpBlock join">
 <div class="overview">
-<%: CustomNamingPeople.Substitute<Resource>("SendInviteToJoinDescription") %>
+<%= CustomNamingPeople.Substitute<Resource>("SendInviteToJoinDescription").HtmlEncode() %>
 </div>
     <a class="signUp join" href="javascript:void(0);" onclick="AuthCommunications.ShowInviteJoinDialog(); return false;">
         <%= Resource.SendInviteToJoinButtonBlock %></a>

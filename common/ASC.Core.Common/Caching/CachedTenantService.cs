@@ -127,9 +127,9 @@ namespace ASC.Core.Caching
             return tenant;
         }
 
-        public void RemoveTenant(int id)
+        public void RemoveTenant(int id, bool auto = false)
         {
-            service.RemoveTenant(id);
+            service.RemoveTenant(id, auto);
             cacheNotify.Publish(new Tenant() { TenantId = id }, CacheNotifyAction.InsertOrUpdate);
         }
 
@@ -156,7 +156,6 @@ namespace ASC.Core.Caching
             var cacheKey = string.Format("settings/{0}/{1}", tenant, key);
             cacheNotify.Publish(new TenantSetting { Key = cacheKey }, CacheNotifyAction.Any);
         }
-
 
         private TenantStore GetTenantStore()
         {

@@ -14,24 +14,30 @@
 <%@ MasterType TypeName="ASC.Web.Files.Masters.BasicTemplate" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTHeaderContent">
+    <% var uri = new UriBuilder(Request.Url)
+       {
+           Path = "",
+           Query = "email=" + HttpUtility.UrlEncode(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email),
+       };
+    %>
+    <meta name="apple-itunes-app" content="app-id=944896972, app-argument=<%= HttpUtility.HtmlEncode(uri) %>" />
+
     <% if (Desktop)
        { %>
     <script type="text/javascript">
         if (window.AscDesktopEditor) {
             var regDesktop = function () {
-                jq(document).ready(function () {
-                    try {
-                        var data = {
-                            displayName: Teamlab.profile.displayName,
-                            domain: new RegExp("^http(s)?:\/\/[^\/]+\/").exec(location)[0],
-                            email: Teamlab.profile.email,
-                        };
+                try {
+                    var data = {
+                        displayName: Teamlab.profile.displayName,
+                        domain: new RegExp("^http(s)?:\/\/[^\/]+\/").exec(location)[0],
+                        email: Teamlab.profile.email,
+                    };
 
-                        window.AscDesktopEditor.execCommand("portal:login", JSON.stringify(data));
-                    } catch (e) {
-                        console.log(e);
-                    }
-                });
+                    window.AscDesktopEditor.execCommand("portal:login", JSON.stringify(data));
+                } catch (e) {
+                    console.log(e);
+                }
             };
 
             if (window.addEventListener) {
@@ -73,8 +79,8 @@
         <span class="header-base"><%= FilesUCResource.ThirdPartyAccounts %></span>
         <br />
         <br />
-        <label>
-            <input type="checkbox" id="cbxEnableSettings" class="checkbox" <%= FilesSettings.EnableThirdParty ? "checked='checked'" : "" %> />
+        <input type="checkbox" id="cbxEnableSettings" class="on-off-checkbox" <%= FilesSettings.EnableThirdParty ? "checked='checked'" : "" %> />
+        <label for="cbxEnableSettings">
             <%= FilesUCResource.ThirdPartyEnableSettings %>
         </label>
         <br />
@@ -85,16 +91,16 @@
         <span class="header-base"><%= FilesUCResource.SettingUpdateIfExist %></span>
         <br />
         <br />
-        <label>
-            <input type="checkbox" class="update-if-exist float-left checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %> />
+        <input type="checkbox" id="cbxUpdateIfExist" class="update-if-exist on-off-checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxUpdateIfExist">
             <%= string.Format(FilesUCResource.ConfirmUpdateIfExist, "<br/><span class=\"text-medium-describe\">", "</span>")%>
         </label>
         <% if (FileConverter.EnableAsUploaded)
            { %>
         <br />
         <br />
-        <label>
-            <input type="checkbox" class="store-original checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
+        <input type="checkbox" id="cbxStoreOriginal" class="store-original on-off-checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxStoreOriginal">
             <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
         </label>
         <% } %>

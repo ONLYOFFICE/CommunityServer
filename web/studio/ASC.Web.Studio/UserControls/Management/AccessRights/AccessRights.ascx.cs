@@ -30,8 +30,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
@@ -50,25 +50,6 @@ using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
-    public class Item
-    {
-        public bool Disabled { get; set; }
-        public bool DisplayedAlways { get; set; }
-        public bool HasPermissionSettings { get; set; }
-        public bool CanNotBeDisabled { get; set; }
-        public string Name { get; set; }
-        public string ItemName { get; set; }
-        public string IconUrl { get; set; }
-        public string DisabledIconUrl { get; set; }
-        public string AccessSwitcherLabel { get; set; }
-        public string UserOpportunitiesLabel { get; set; }
-        public List<string> UserOpportunities { get; set; }
-        public Guid ID { get; set; }
-        public List<Item> SubItems { get; set; }
-        public List<UserInfo> SelectedUsers { get; set; }
-        public List<GroupInfo> SelectedGroups { get; set; }
-    }
-
     [ManagementControl(ManagementType.AccessRights, Location)]
     [AjaxNamespace("AccessRightsController")]
     public partial class AccessRights : UserControl
@@ -81,30 +62,17 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected bool EnableAR = true;
 
-        private List<IProduct> products;
+        private List<IProduct> _products;
+
         protected List<IProduct> Products
         {
             get
             {
-                return products ?? (products = WebItemManager.Instance.GetItemsAll<IProduct>());
-            }
-        }
-
-        private List<IProduct> productsForAccessSettings;
-        protected List<IProduct> ProductsForAccessSettings
-        {
-            get
-            {
-                return productsForAccessSettings ??
-                       (productsForAccessSettings =
-                           Products.Where(n => String.Compare(n.GetSysName(), "people") != 0).ToList());
+                return _products ?? (_products = WebItemManager.Instance.GetItemsAll<IProduct>());
             }
         }
 
         protected string[] FullAccessOpportunities { get; set; }
-
-
-
 
         protected string PeopleImgSrc
         {
@@ -156,8 +124,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private void RegisterClientScript()
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/accessrights/js/accessrights.js");
-            Page.RegisterStyle("~/usercontrols/management/accessrights/css/accessrights.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/accessrights/js/accessrights.js")
+                .RegisterStyle("~/usercontrols/management/accessrights/css/accessrights.less");
 
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
             var currentOwner = CoreContext.UserManager.GetUsers(curTenant.OwnerId);
@@ -179,9 +147,6 @@ namespace ASC.Web.Studio.UserControls.Management
                                 }))
                 );
 
-
-
-
             var managementPage = Page as Studio.Management;
             var tenantAccess = managementPage != null ? managementPage.TenantAccess : SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
 
@@ -189,13 +154,13 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 var productItemList = GetProductItemListForSerialization();
 
-                foreach (var ProductItem in productItemList)
+                foreach (var productItem in productItemList)
                 {
-                    var ids = ProductItem.SelectedUsers.Select(i => i.ID).ToArray();
-                    var names = ProductItem.SelectedUsers.Select(i => i.DisplayUserName()).ToArray();
+                    var ids = productItem.SelectedUsers.Select(i => i.ID).ToArray();
+                    var names = productItem.SelectedUsers.Select(i => i.DisplayUserName()).ToArray();
 
                     sb.AppendFormat("SelectedUsers_{0} = {1};",
-                        ProductItem.ItemName,
+                        productItem.ItemName,
                         JavaScriptSerializer.Serialize(
                         new
                         {
@@ -203,16 +168,16 @@ namespace ASC.Web.Studio.UserControls.Management
                             Names = names,
                             PeopleImgSrc = PeopleImgSrc,
                             TrashImgSrc = TrashImgSrc,
-                            TrashImgTitle = Resources.Resource.DeleteButton,
+                            TrashImgTitle = Resource.DeleteButton,
                             CurrentUserID = SecurityContext.CurrentAccount.ID
                         })
                     );
 
-                    ids = ProductItem.SelectedGroups.Select(i => i.ID).ToArray();
-                    names = ProductItem.SelectedGroups.Select(i => i.Name.HtmlEncode()).ToArray();
+                    ids = productItem.SelectedGroups.Select(i => i.ID).ToArray();
+                    names = productItem.SelectedGroups.Select(i => i.Name.HtmlEncode()).ToArray();
 
                     sb.AppendFormat("SelectedGroups_{0} = {1};",
-                        ProductItem.ItemName,
+                        productItem.ItemName,
                         JavaScriptSerializer.Serialize(
                         new
                         {
@@ -220,14 +185,14 @@ namespace ASC.Web.Studio.UserControls.Management
                             Names = names,
                             GroupImgSrc = GroupImgSrc,
                             TrashImgSrc = TrashImgSrc,
-                            TrashImgTitle = Resources.Resource.DeleteButton
+                            TrashImgTitle = Resource.DeleteButton
                         })
                     );
 
-                    if (!ProductItem.CanNotBeDisabled)
+                    if (!productItem.CanNotBeDisabled)
                     {
                         sb.AppendFormat("ASC.Settings.AccessRights.initProduct('{0}');",
-                            Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ProductItem))));
+                            Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(productItem))));
                     }
                 }
             }
@@ -240,7 +205,7 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.RegisterInlineScript(sb.ToString());
         }
 
-        private List<Item> GetProductItemListForSerialization()
+        private IEnumerable<Item> GetProductItemListForSerialization()
         {
             var data = new List<Item>();
 
@@ -290,7 +255,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         }
                 };
 
-            foreach (var p in ProductsForAccessSettings)
+            foreach (var p in Products)
                 res.Add(new
                     {
                         pId = p.ID,
@@ -364,5 +329,24 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         #endregion
+    }
+
+    public class Item
+    {
+        public bool Disabled { get; set; }
+        public bool DisplayedAlways { get; set; }
+        public bool HasPermissionSettings { get; set; }
+        public bool CanNotBeDisabled { get; set; }
+        public string Name { get; set; }
+        public string ItemName { get; set; }
+        public string IconUrl { get; set; }
+        public string DisabledIconUrl { get; set; }
+        public string AccessSwitcherLabel { get; set; }
+        public string UserOpportunitiesLabel { get; set; }
+        public List<string> UserOpportunities { get; set; }
+        public Guid ID { get; set; }
+        public List<Item> SubItems { get; set; }
+        public List<UserInfo> SelectedUsers { get; set; }
+        public List<GroupInfo> SelectedGroups { get; set; }
     }
 }

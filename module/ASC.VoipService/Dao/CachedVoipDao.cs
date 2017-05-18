@@ -41,7 +41,13 @@ namespace ASC.VoipService.Dao
 
         static CachedVoipDao()
         {
-            notify.Subscribe<CachedVoipItem>((c, a) => ResetCache(c.Tenant));
+            try
+            {
+                notify.Subscribe<CachedVoipItem>((c, a) => ResetCache(c.Tenant));
+            }
+            catch (Exception)
+            {
+            }
         }
 
 
@@ -52,34 +58,39 @@ namespace ASC.VoipService.Dao
 
         public override VoipPhone SaveOrUpdateNumber(VoipPhone phone)
         {
+            var result = base.SaveOrUpdateNumber(phone);
             notify.Publish(new CachedVoipItem { Tenant = TenantID }, CacheNotifyAction.InsertOrUpdate);
-            return base.SaveOrUpdateNumber(phone);
+            return result;
         }
 
-        public override void DeleteNumber(VoipPhone phone)
+        public override void DeleteNumber(string phoneId = "")
         {
+            base.DeleteNumber(phoneId);
             notify.Publish(new CachedVoipItem { Tenant = TenantID }, CacheNotifyAction.Remove);
-            base.DeleteNumber(phone);
         }
 
         public override IEnumerable<VoipPhone> GetNumbers(params object[] ids)
         {
-            var numbers = cache.Get<List<VoipPhone>>(TenantID.ToString(CultureInfo.InvariantCulture));
+            var numbers = cache.Get<List<VoipPhone>>(GetCacheKey(TenantID));
             if (numbers == null)
             {
                 numbers = new List<VoipPhone>(base.GetNumbers());
-                cache.Insert(TenantID.ToString(CultureInfo.InvariantCulture), numbers, DateTime.UtcNow.Add(timeout));
+                cache.Insert(GetCacheKey(TenantID), numbers, DateTime.UtcNow.Add(timeout));
             }
 
-            return ids.Any() ? numbers.Where(r => ids.Contains(r.Id) || ids.Contains(r.Number)) : numbers;
+            return ids.Any() ? numbers.Where(r => ids.Contains(r.Id) || ids.Contains(r.Number)).ToList() : numbers;
         }
 
 
         private static void ResetCache(int tenant)
         {
-            cache.Remove(tenant.ToString(CultureInfo.InvariantCulture));
+            cache.Remove(GetCacheKey(tenant));
         }
 
+        private static string GetCacheKey(int tenant)
+        {
+            return "voip" + tenant.ToString(CultureInfo.InvariantCulture);
+        }
 
         [Serializable]
         class CachedVoipItem

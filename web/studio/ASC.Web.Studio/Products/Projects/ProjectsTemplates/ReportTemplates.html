@@ -1,0 +1,36 @@
+﻿<script id="projects_reportFilterList" type="text/x-jquery-tmpl">
+    {{if radio.length}}
+    <div class="filter-option-container">
+        {{each radio}}
+        {{tmpl($item.data.radio[$index]) 'projects_reportFilterRadio'}}
+        {{/each}}
+    </div>
+    {{/if}}
+    {{each combo}}
+    {{tmpl($item.data.combo[$index]) 'projects_reportFilterCombo'}}
+    {{/each}}
+    {{each check}}
+    {{tmpl($item.data.check[$index]) 'projects_reportFilterCheck'}}
+    {{/each}}
+</script>
+
+<script id="projects_reportFilterCombo" type="text/x-jquery-tmpl">
+    <div class="filter-item-container {{if hidden}} display-none {{/if}}">
+        <span class="describe-text">${describe}:</span>
+        <span class="splitter"></span>
+        <span id="${id}" class="link dotline">${defaultText}</span>
+    </div>
+</script>
+
+<script id="projects_reportFilterRadio" type="text/x-jquery-tmpl">
+    <input id="${id}" name="${name}" {{if checked}} checked="checked" {{/if}} value="${value}" type="radio">
+    <label for="${id}">${describe}</label>
+    <span class="splitter"></span>
+</script>
+
+<script id="projects_reportFilterCheck" type="text/x-jquery-tmpl">
+    <div class="filter-item-container">
+        <input id="${id}" {{if checked}} checked="checked" {{/if}} type="checkbox">
+        <label for="${id}">${describe}</label>
+    </div>
+</script>

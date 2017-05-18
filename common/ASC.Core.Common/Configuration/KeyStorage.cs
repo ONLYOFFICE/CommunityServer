@@ -26,41 +26,60 @@
 
 using System;
 using ASC.Core;
+using ASC.Core.Tenants;
 
 namespace ASC.Thrdparty.Configuration
 {
     public static class KeyStorage
     {
-        public static string Get(string key)
+        public static string Get(string name)
         {
-            var value = string.Empty;
-            if (CoreContext.Configuration.Standalone)
-            {
-                value = CoreContext.Configuration.GetSetting(GetSettingsKey(key));
-            }
+            var tenant = CoreContext.Configuration.Standalone
+                             ? Tenant.DEFAULT_TENANT
+                             : CoreContext.TenantManager.GetCurrentTenant().TenantId;
+            var value = CoreContext.Configuration.GetSetting(GetSettingsKey(name), tenant);
+
             if (string.IsNullOrEmpty(value))
             {
                 var section = ConsumerConfigurationSection.GetSection();
                 if (section != null)
                 {
-                    value = section.Keys.GetKeyValue(key);
+                    value = section.Keys.GetKeyValue(name);
                 }
             }
             return value;
         }
 
-        public static void Set(string key, string value)
+        public static bool CanSet(string name)
         {
-            if (!CoreContext.Configuration.Standalone)
+            var value = string.Empty;
+            var section = ConsumerConfigurationSection.GetSection();
+            if (section != null)
             {
-                throw new NotSupportedException("Method for server edition only.");
+                var r = section.Keys.GetKey(name);
+                if (r == null || string.IsNullOrEmpty(r.ConsumerName)) return false;
+                value = section.Keys.GetKeyValue(name);
             }
-            CoreContext.Configuration.SaveSetting(GetSettingsKey(key), value);
+
+            return string.IsNullOrEmpty(value);
         }
 
-        private static string GetSettingsKey(string key)
+        public static void Set(string name, string value)
         {
-            return "AuthKey_" + key;
+            if (!CanSet(name))
+            {
+                throw new NotSupportedException("Key for read only.");
+            }
+
+            var tenant = CoreContext.Configuration.Standalone
+                             ? Tenant.DEFAULT_TENANT
+                             : CoreContext.TenantManager.GetCurrentTenant().TenantId;
+            CoreContext.Configuration.SaveSetting(GetSettingsKey(name), value, tenant);
+        }
+
+        private static string GetSettingsKey(string name)
+        {
+            return "AuthKey_" + name;
         }
     }
 }

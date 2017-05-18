@@ -39,7 +39,12 @@ window.createDomainModal = (function($) {
     }
 
     function showStepPopup(step) {
-        var html = $.tmpl('createDomainWizardTmpl', { step: step, require_dns_info: requireDnsInfo, faq_url: TMMail.getFaqLink(), domain_name: domainName });
+        var html = $.tmpl('createDomainWizardTmpl',
+        {
+            step: step,
+            require_dns_info: requireDnsInfo,
+            domain_name: domainName
+        });
 
         $(html).find('.next').unbind('click').bind('click', function() {
             if ($(this).hasClass('disable')) {

@@ -680,7 +680,7 @@ namespace ASC.Api.Calendar
         /// <param name="signature">Signature</param>
         /// <remarks>To get the feed you need to use the method returning the iCal feed link (it will generate the necessary signature)</remarks>
         /// <returns>Calendar iCal feed</returns>
-        [Read("{calendarId}/ical/{signature}", false)]
+        [Read("{calendarId}/ical/{signature}", false)] //NOTE: this method doesn't requires auth!!!
         public iCalApiContentResponse GetCalendariCalStream(string calendarId, string signature)
         {
             iCalApiContentResponse resp = null;
@@ -772,8 +772,8 @@ namespace ASC.Api.Calendar
                     else
                     {
                         var convertedEvent = DDayICalParser.ConvertEvent(e as BaseEvent);
-                        if (string.IsNullOrEmpty(convertedEvent.UID))
-                            convertedEvent.UID = DataProvider.GetEventUid(e.Uid, e.Id);
+                        if (string.IsNullOrEmpty(convertedEvent.Uid))
+                            convertedEvent.Uid = DataProvider.GetEventUid(e.Uid, e.Id);
                         ddayCalendar.Events.Add(convertedEvent);
                     }
                 }
@@ -878,7 +878,7 @@ namespace ASC.Api.Calendar
         }
 
 
-        private int ImportEvents(int calendarId, DDay.iCal.IICalendarCollection cals)
+        private int ImportEvents(int calendarId, Ical.Net.Interfaces.IICalendarCollection cals)
         {
             var counter = 0;
 
@@ -886,10 +886,10 @@ namespace ASC.Api.Calendar
 
             if (cals == null) return counter;
 
-            var calendars = cals.Where(x => x.Method == DDay.iCal.CalendarMethods.Publish ||
-                                            x.Method == DDay.iCal.CalendarMethods.Request ||
-                                            x.Method == DDay.iCal.CalendarMethods.Reply ||
-                                            x.Method == DDay.iCal.CalendarMethods.Cancel).ToList();
+            var calendars = cals.Where(x => x.Method == Ical.Net.CalendarMethods.Publish ||
+                                            x.Method == Ical.Net.CalendarMethods.Request ||
+                                            x.Method == Ical.Net.CalendarMethods.Reply ||
+                                            x.Method == Ical.Net.CalendarMethods.Cancel).ToList();
 
             foreach (var calendar in calendars)
             {
@@ -899,21 +899,21 @@ namespace ASC.Api.Calendar
                 {
                     if (eventObj == null) continue;
 
-                    var tmpCalendar = calendar.Copy<DDay.iCal.IICalendar>();
+                    var tmpCalendar = calendar.Copy<Ical.Net.Interfaces.ICalendar>();
                     tmpCalendar.Events.Clear();
                     tmpCalendar.Events.Add(eventObj);
 
                     var rrule = string.Empty;
                     var ics = DDayICalParser.SerializeCalendar(tmpCalendar);
 
-                    var eventHistory = _dataProvider.GetEventHistory(eventObj.UID);
+                    var eventHistory = _dataProvider.GetEventHistory(eventObj.Uid);
 
                     if (eventHistory == null)
                     {
                         rrule = GetRRuleString(eventObj);
 
-                        var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : eventObj.Start.IsUniversalTime ? eventObj.Start.Value : eventObj.Start.UTC;
-                        var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : eventObj.End.IsUniversalTime ? eventObj.End.Value : eventObj.End.UTC;
+                        var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : eventObj.Start.IsUniversalTime ? eventObj.Start.Value : eventObj.Start.AsUtc;
+                        var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : eventObj.End.IsUniversalTime ? eventObj.End.Value : eventObj.End.AsUtc;
 
                         if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                             utcEndDate = utcEndDate.AddDays(-1);
@@ -927,14 +927,14 @@ namespace ASC.Api.Calendar
                                                  EventAlertType.Default,
                                                  eventObj.IsAllDay,
                                                  null,
-                                                 eventObj.UID,
-                                                 calendar.Method == DDay.iCal.CalendarMethods.Cancel ? EventStatus.Cancelled : (EventStatus)eventObj.Status);
+                                                 eventObj.Uid,
+                                                 calendar.Method == Ical.Net.CalendarMethods.Cancel ? EventStatus.Cancelled : (EventStatus)eventObj.Status);
 
                         var eventId = result != null && result.Any() ? Int32.Parse(result.First().Id) : 0;
 
                         if (eventId > 0)
                         {
-                            _dataProvider.AddEventHistory(calendarId, eventObj.UID, eventId, ics);
+                            _dataProvider.AddEventHistory(calendarId, eventObj.Uid, eventId, ics);
                             counter++;
                         }
                     }
@@ -953,8 +953,8 @@ namespace ASC.Api.Calendar
 
                         rrule = GetRRuleString(mergedEvent);
 
-                        var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : mergedEvent.Start.IsUniversalTime ? mergedEvent.Start.Value : mergedEvent.Start.UTC;
-                        var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : mergedEvent.End.IsUniversalTime ? mergedEvent.End.Value : mergedEvent.End.UTC;
+                        var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : mergedEvent.Start.IsUniversalTime ? mergedEvent.Start.Value : mergedEvent.Start.AsUtc;
+                        var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : mergedEvent.End.IsUniversalTime ? mergedEvent.End.Value : mergedEvent.End.AsUtc;
 
                         if (mergedEvent.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                             utcEndDate = utcEndDate.AddDays(-1);
@@ -979,7 +979,7 @@ namespace ASC.Api.Calendar
                                     EventAlertType.Default,
                                     mergedEvent.IsAllDay,
                                     sharingOptions,
-                                    mergedEvent.UID,
+                                    mergedEvent.Uid,
                                     (EventStatus)mergedEvent.Status);
 
                         counter++;
@@ -1054,7 +1054,7 @@ namespace ASC.Api.Calendar
 
             if (int.TryParse(calendar.Id, out calendarId))
             {
-                var cal = new DDay.iCal.iCalendar();
+                var cal = new Ical.Net.Calendar();
                 cal.Events.Add(DDayICalParser.CreateEvent(name, description, startDate.UtcTime, endDate.UtcTime, repeatType, isAllDayLong, EventStatus.Confirmed));
                 return AddEvent(calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
             }
@@ -1081,7 +1081,7 @@ namespace ASC.Api.Calendar
         [Create("{calendarId}/event")]
         public List<EventWrapper> AddEvent(int calendarId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions)
         {
-            var cal = new DDay.iCal.iCalendar();
+            var cal = new Ical.Net.Calendar();
             cal.Events.Add(DDayICalParser.CreateEvent(name, description, startDate.UtcTime, endDate.UtcTime, repeatType, isAllDayLong, EventStatus.Confirmed));
             return AddEvent(calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
         }
@@ -1165,7 +1165,7 @@ namespace ASC.Api.Calendar
         [Update("{calendarId}/{eventId}")]
         public List<EventWrapper> Update(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status)
         {
-            var cal = new DDay.iCal.iCalendar();
+            var cal = new Ical.Net.Calendar();
             cal.Events.Add(DDayICalParser.CreateEvent(name, description, startDate.UtcTime, endDate.UtcTime, repeatType, isAllDayLong, status));
             return UpdateEvent(eventId, calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
         }
@@ -1268,8 +1268,8 @@ namespace ASC.Api.Calendar
 
             var rrule = GetRRuleString(eventObj);
 
-            var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : eventObj.Start.IsUniversalTime ? eventObj.Start.Value : eventObj.Start.UTC;
-            var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : eventObj.End.IsUniversalTime ? eventObj.End.Value : eventObj.End.UTC;
+            var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : eventObj.Start.IsUniversalTime ? eventObj.Start.Value : eventObj.Start.AsUtc;
+            var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : eventObj.End.IsUniversalTime ? eventObj.End.Value : eventObj.End.AsUtc;
 
             if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
@@ -1290,11 +1290,11 @@ namespace ASC.Api.Calendar
             
             var evt = result.First();
 
-            eventObj.UID = evt.Uid;
+            eventObj.Uid = evt.Uid;
             eventObj.Sequence = 0;
-            eventObj.Status = DDay.iCal.EventStatus.Confirmed;
+            eventObj.Status = Ical.Net.EventStatus.Confirmed;
 
-            targetCalendar.Method = DDay.iCal.CalendarMethods.Request;
+            targetCalendar.Method = Ical.Net.CalendarMethods.Request;
             targetCalendar.Events.Clear();
             targetCalendar.Events.Add(eventObj);
 
@@ -1380,11 +1380,11 @@ namespace ASC.Api.Calendar
 
             if (targetCalendar == null) return null;
 
-            eventObj.UID = evt.Uid;
+            eventObj.Uid = evt.Uid;
             eventObj.Sequence = sequence;
             eventObj.ExceptionDates.Clear();
 
-            targetCalendar.Method = DDay.iCal.CalendarMethods.Request;
+            targetCalendar.Method = Ical.Net.CalendarMethods.Request;
             targetCalendar.Events.Clear();
             targetCalendar.Events.Add(eventObj);
 
@@ -1402,8 +1402,8 @@ namespace ASC.Api.Calendar
 
             var rrule = GetRRuleString(mergedEvent);
 
-            var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : mergedEvent.Start.IsUniversalTime ? mergedEvent.Start.Value : mergedEvent.Start.UTC;
-            var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : mergedEvent.End.IsUniversalTime ? mergedEvent.End.Value : mergedEvent.End.UTC;
+            var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : mergedEvent.Start.IsUniversalTime ? mergedEvent.Start.Value : mergedEvent.Start.AsUtc;
+            var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : mergedEvent.End.IsUniversalTime ? mergedEvent.End.Value : mergedEvent.End.AsUtc;
 
             if (mergedEvent.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
@@ -1522,11 +1522,11 @@ namespace ASC.Api.Calendar
 
                             foreach (var exDate in evt.RecurrenceRule.ExDates)
                             {
-                                mergedCalendar.Events[0].ExceptionDates.Add(new DDay.iCal.PeriodList
+                                mergedCalendar.Events[0].ExceptionDates.Add(new Ical.Net.DataTypes.PeriodList
                                     {
                                         exDate.isDateTime ?
-                                            new DDay.iCal.iCalDateTime(exDate.Date.Year, exDate.Date.Month, exDate.Date.Day, exDate.Date.Hour, exDate.Date.Minute, exDate.Date.Second) :
-                                            new DDay.iCal.iCalDateTime(exDate.Date.Year, exDate.Date.Month, exDate.Date.Day, false)
+                                            new Ical.Net.DataTypes.CalDateTime(exDate.Date.Year, exDate.Date.Month, exDate.Date.Day, exDate.Date.Hour, exDate.Date.Minute, exDate.Date.Second) :
+                                            new Ical.Net.DataTypes.CalDateTime(exDate.Date.Year, exDate.Date.Month, exDate.Date.Day)
                                     });
                             }
 
@@ -1696,7 +1696,7 @@ namespace ASC.Api.Calendar
 
             return canNotify;
         }
-        private string GetRRuleString(DDay.iCal.IEvent evt)
+        private string GetRRuleString(Ical.Net.Interfaces.Components.IEvent evt)
         {
             var rrule = string.Empty;
 
@@ -1726,7 +1726,7 @@ namespace ASC.Api.Calendar
                                 DateTime dt;
                                 if (DateTime.TryParseExact(date.ToUpper(), "yyyyMMdd'T'HHmmssK", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out dt))
                                 {
-                                    var tzid = periodList.TZID ?? evt.Start.TZID;
+                                    var tzid = periodList.TzId ?? evt.Start.TzId;
                                     if (!String.IsNullOrEmpty(tzid))
                                     {
                                         dt = TimeZoneInfo.ConvertTime(dt, TimeZoneConverter.GetTimeZone(tzid), TimeZoneInfo.Utc);

@@ -25,7 +25,7 @@
         <div class="bold" style="margin-bottom:5px;"><%= CRMContactResource.AssignPersonFromExisting%>:</div>
     </div>
     <div id="contactListBox">
-        <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
+        <table id="contactTable" class="table-list padding4" cellpadding="0" cellspacing="0">
             <tbody>
             </tbody>
         </table>
@@ -62,7 +62,7 @@
     </div>
 </div>
 <div id="invoicesTab" class="display-none">
-    <table id="invoiceTable" class="table-list" cellpadding="4" cellspacing="0">
+    <table id="invoiceTable" class="table-list padding4" cellpadding="0" cellspacing="0">
         <colgroup>
             <col style="width: 1%;"/>
             <col/>

@@ -145,11 +145,17 @@ namespace ASC.Files.Core
         {
             get
             {
-                return string.IsNullOrEmpty(_name)
-                           ? Id.Equals(Guid.Empty) || Id.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                                 ? FilesCommonResource.Guest
-                                 : CoreContext.UserManager.GetUsers(Id).DisplayUserName(false)
-                           : _name;
+                UserInfo user;
+                return
+                    Id.Equals(SecurityContext.CurrentAccount.ID)
+                        ? FilesCommonResource.Author_Me
+                        : Id.Equals(Guid.Empty)
+                          || Id.Equals(ASC.Core.Configuration.Constants.Guest.ID)
+                          || (user = CoreContext.UserManager.GetUsers(Id)).Equals(Constants.LostUser)
+                              ? string.IsNullOrEmpty(_name)
+                                    ? FilesCommonResource.Guest
+                                    : _name
+                              : user.DisplayUserName(false);
             }
             set { _name = value; }
         }
@@ -186,6 +192,8 @@ namespace ASC.Files.Core
         [DataMember(Name = "key")] public string Key;
 
         [DataMember(Name = "previous", EmitDefaultValue = false)] public EditHistoryUrl Previous;
+
+        [DataMember(Name = "token", EmitDefaultValue = false)] public string Token;
 
         [DataMember(Name = "url")] public string Url;
 

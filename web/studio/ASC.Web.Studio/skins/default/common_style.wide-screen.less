@@ -356,6 +356,19 @@ blockquote {
     margin-left: 15px;
     padding: 3px 5px 0 7px;
 }
+.menu-action-on-close {
+    padding-left: 8px;
+    margin-top: -10px;
+}
+.on-close-link,
+.on-close-link:hover,
+.on-close-link:visited,
+.on-close-link:active {
+    cursor: pointer;
+    color: @textColorBlackDark;
+    font-size: 28px;
+    text-decoration: none;
+}
 
 .header-menu-spacer
 {
@@ -481,6 +494,13 @@ body.media-width-0-1200 {
         background-position: 0 -19px;
     }
 }
+
+.file-lock {
+    background: url("@{img-change-url}edit_lock.png") no-repeat 0 0 transparent;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+}
 /*******************************************************************************
     Other icons
 *******************************************************************************/
@@ -495,7 +515,7 @@ body.media-width-0-1200 {
     display: block;
     height: 16px;
     width: 16px;
-    background: url("@{img-change-url}search_16.png") center no-repeat;
+    background: url("@{imagesBaseUrl}search_16.png") center no-repeat;
 }
 
 /*******************************************************************************

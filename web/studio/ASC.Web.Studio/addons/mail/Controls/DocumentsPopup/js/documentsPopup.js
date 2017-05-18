@@ -303,6 +303,7 @@ window.DocumentsPopup = (function($) {
     function selectFile(id) {
         var checkbox = elFiles.find('input[id="' + id + '"]');
         if (checkbox.prop("checked")) {
+            checkbox.prop("checked", false);
             checkbox.removeAttr("checked");
         } else {
             checkbox.prop("checked", true);

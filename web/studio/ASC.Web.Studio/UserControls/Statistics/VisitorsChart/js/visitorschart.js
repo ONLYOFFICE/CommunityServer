@@ -222,10 +222,16 @@
 
         $("#studio_chart_FromDate")
           .datepicker({
-              onSelect: function () {
+              onSelect: function (strDate) {
                   var date = jq(this).datepicker("getDate");
+
+                  if (!date) {
+                      jq(this).datepicker("setDate", strDate || "");
+                      return;
+                  }
+
                   date.setDate(date.getDate() + 1);
-                  $("#studio_chart_ToDate").datepicker("option", "minDate", date || null);
+                  $("#studio_chart_ToDate").datepicker("option", "minDate", date);
                   changePeriod();
               }
           })
@@ -234,10 +240,16 @@
 
         $("#studio_chart_ToDate")
           .datepicker({
-              onSelect: function () {
+              onSelect: function (strDate) {
                   var date = jq(this).datepicker("getDate");
+
+                  if (!date) {
+                      jq(this).datepicker("setDate", strDate || "");
+                      return;
+                  }
+
                   date.setDate(date.getDate() - 1);
-                  $("#studio_chart_FromDate").datepicker("option", "maxDate", date || null);
+                  $("#studio_chart_FromDate").datepicker("option", "maxDate", date);
                   changePeriod();
               }
           })

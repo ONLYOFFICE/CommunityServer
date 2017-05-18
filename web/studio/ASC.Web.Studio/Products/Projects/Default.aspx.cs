@@ -30,7 +30,7 @@ namespace ASC.Web.Projects
     {
         protected override void PageLoad()
         {
-            Response.Redirect("projects.aspx", true);
+            //Response.Redirect("projects.aspx", true);
         }
     }
 }

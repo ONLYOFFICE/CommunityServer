@@ -70,7 +70,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error has happened during contact deletion! Please, check your network connection, or ask for help your network or portal administrator!.
+        ///   Looks up a localized string similar to An error has occurred during contact deletion. Please, check your network connection or contact your network or portal administrator..
         /// </summary>
         public static string ErrorDeleteContact {
             get {
@@ -79,7 +79,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This dkim public key is already in use. Please reopen wizard again..
+        ///   Looks up a localized string similar to This DKIM public key is already in use. Please reopen the wizard..
         /// </summary>
         public static string ErrorDkimPublicKeyInUse {
             get {
@@ -88,7 +88,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You want to create alias with already existing address..
+        ///   Looks up a localized string similar to You want to create an alias with already existing address..
         /// </summary>
         public static string ErrorDuplicateAlias {
             get {
@@ -106,7 +106,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You want to create mailgroup with already existing address..
+        ///   Looks up a localized string similar to You want to create a mail group with already existing address..
         /// </summary>
         public static string ErrorDuplicateGroup {
             get {
@@ -115,7 +115,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You want to create mailbox with already existing address..
+        ///   Looks up a localized string similar to You want to create a mailbox with already existing address..
         /// </summary>
         public static string ErrorDuplicateMailbox {
             get {
@@ -124,7 +124,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You want to add already existed address..
+        ///   Looks up a localized string similar to You want to add already existing address..
         /// </summary>
         public static string ErrorDuplicateMailGroupAddress {
             get {
@@ -205,7 +205,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid opearation for shared domain.
+        ///   Looks up a localized string similar to Invalid operation for shared domain.
         /// </summary>
         public static string InvalidOpearationForSharedDomain {
             get {

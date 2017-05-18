@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -45,7 +45,7 @@ namespace ASC.Web.Studio
                 CoreContext.TenantManager.SetCurrentTenant(tenant);
                 SecurityContext.AuthenticateMe(tenant.OwnerId);
 
-                WarmUp.Instance.Start();
+                WarmUpController.Instance.Start();
             }
             catch (Exception exc)
             {

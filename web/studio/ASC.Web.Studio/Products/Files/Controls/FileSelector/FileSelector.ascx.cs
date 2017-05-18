@@ -24,12 +24,11 @@
 */
 
 
-using System;
 using System.Web;
-using System.Web.UI;
-using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -48,23 +47,19 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientLocalizationScript(typeof(Masters.ClientScripts.FilesLocalizationResources));
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("ui.js"));
-            Page.RegisterBodyScripts("~/products/files/controls/fileselector/fileselector.js");
-
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/fileselector/fileselector.css");
+            Page.RegisterClientScript(new Masters.ClientScripts.FilesLocalizationResources());
 
             FileSelectorTemp.Options.IsPopup = !IsFlat;
             FileSelectorTemp.Options.OnCancelButtonClick = "ASC.Files.FileSelector.onCancel();";
 
-            var tree = (Tree)LoadControl(Tree.Location);
+            var tree = (Tree) LoadControl(Tree.Location);
             tree.ID = "fileSelectorTree";
             tree.WithoutTrash = true;
             TreeHolder.Controls.Add(tree);
 
             if (!OnlyFolder)
             {
-                var contentList = (ContentList)LoadControl(ContentList.Location);
+                var contentList = (ContentList) LoadControl(ContentList.Location);
                 contentList.HideAddActions = true;
                 ContentHolder.Controls.Add(contentList);
             }

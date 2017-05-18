@@ -27,6 +27,7 @@
 using System;
 using System.Linq;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Data;
@@ -397,7 +398,8 @@ namespace ASC.Projects.Engine
         public static bool CanCreateComment(ProjectEntity entity)
         {
             var message = entity as Message;
-            return (message == null || message.Status == MessageStatus.Open) && 
+            return CanRead(entity) && 
+                (message == null || message.Status == MessageStatus.Open) && 
                 IsProjectsEnabled(CurrentUserId) && 
                 SecurityContext.IsAuthenticated && 
                 !CurrentUserIsOutsider;
@@ -486,8 +488,27 @@ namespace ASC.Projects.Engine
 
         public static bool CanEditComment(ProjectEntity entity, Comment comment)
         {
+            if (entity == null) return false;
+
             var message = entity as Message;
             return (message == null || message.Status == MessageStatus.Open) && CanEditComment(entity.Project, comment);
+        }
+
+        public static bool CanEditFiles(Message entity)
+        {
+            if (!IsProjectsEnabled(CurrentUserId)) return false;
+            if (entity.Status == MessageStatus.Archived || entity.Project.Status != ProjectStatus.Open) return false;
+            if (IsProjectManager(entity.Project)) return true;
+
+            return IsInTeam(entity.Project);
+        }
+
+        public static bool CanEditFiles(Task entity)
+        {
+            if (!IsProjectsEnabled(CurrentUserId)) return false;
+            if (IsProjectManager(entity.Project)) return true;
+
+            return CanEdit(entity) && entity.Project.Status == ProjectStatus.Open;
         }
 
         public static bool CanEdit(TimeSpend timeSpend)

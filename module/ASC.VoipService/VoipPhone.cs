@@ -74,4 +74,15 @@ namespace ASC.VoipService
             throw new NotImplementedException();
         }
     }
+
+    public class VoipRecord
+    {
+        public string Id { get; set; }
+
+        public string Uri { get; set; }
+
+        public int Duration { get; set; }
+
+        public decimal Price { get; set; }
+    }
 }

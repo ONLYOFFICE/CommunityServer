@@ -117,16 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Files" xml:space="preserve">
-    <value>Files</value>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Attach file</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
   </data>
   <data name="B" xml:space="preserve">
     <value>B</value>
   </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
   </data>
-  <data name="ButtonUpload" xml:space="preserve">
-    <value>Upload</value>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Note: the file size cannot exceed {1}{0}MB{2}.</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Overall progress</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
   </data>
 </root>

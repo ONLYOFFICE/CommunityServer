@@ -58,7 +58,7 @@
         </div>
         <div class="settings-help-block">
             <p>
-                <%: CustomNamingPeople.Substitute<Resource>("ProductsAndInstruments_Info") %>
+                <%= CustomNamingPeople.Substitute<Resource>("ProductsAndInstruments_Info").HtmlEncode() %>
             </p>
         </div>
     </div>

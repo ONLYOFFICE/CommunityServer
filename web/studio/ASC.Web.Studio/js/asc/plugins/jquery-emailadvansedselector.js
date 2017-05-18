@@ -487,7 +487,10 @@
                 minLength: 2,
                 delay: 300,
 
-                select: function(event, ui) {
+                select: function (event, ui) {
+                    if (ui.item.name)
+                        ui.item.name = Encoder.htmlDecode(ui.item.name);
+
                     self.addItem([ui.item], true);
                     return false;
                 },

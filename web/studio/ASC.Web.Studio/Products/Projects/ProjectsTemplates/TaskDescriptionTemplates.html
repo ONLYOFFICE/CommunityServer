@@ -1,0 +1,65 @@
+﻿<script id="projects_taskDescriptionSubtasksContainerTmpl" type="text/x-jquery-tmpl">
+    {{tmpl "projects_subtasksTemplate"}}
+    {{if canEdit || canCreateSubtask}}
+        <div class="quickAddSubTaskLink icon-link plus" {{if status == 1 || status == 4}} visible="true" {{else}}visible="false" style="display:none;"{{/if}}>
+            <span class="link dotline">${ASC.Projects.Resources.TasksResource.AddNewSubtask}</span>
+        </div>
+    {{/if}}  
+    <div class="st_separater"></div>
+</script>
+
+<script id="projects_taskLinks" type="text/x-jquery-tmpl">
+    <tr data-taskid="${id}" class="linked-task with-entity-menu{{if relatedTaskObject.invalidLink}} invalid-link{{/if}} {{if status==2}} gray-text{{/if}}">
+        <td class="title stretch">
+            {{if relatedTaskObject.invalidLink}}<span class="attantion">&nbsp;</span>{{/if}}
+            <a class="task-name {{if status==2}} gray-text{{/if}}" href="tasks.aspx?prjID=${projectId}&id=${id}" target="_blank">${title}</a>
+        </td>
+        <td class="start-date" title="${ASC.Projects.Resources.TasksResource.TaskStartDate}">{{if displayDateStart != ""}}${displayDateStart}{{/if}}</td>
+        <td class="end-date" title="${ASC.Projects.Resources.TasksResource.EndDate}">{{if displayDateDeadline != ""}}${displayDateDeadline}{{/if}}</td>
+        <td class="link-type" title="${ASC.Projects.Resources.ProjectResource.GanttLinkType}" data-type="${relatedTaskObject.linkType}">${relatedTaskObject.linkTypeText}</td>
+        <td class="duration{{if relatedTaskObject.invalidLink}} red-text{{/if}}" title="${ASC.Projects.Resources.TasksResource.RelatedTaskIntervalDesc}"> {{if relatedTaskObject.invalidLink}}-{{/if}}{{if relatedTaskObject.delay!=0}}${relatedTaskObject.delay}{{/if}}</td>
+        <td class="actions">{{if canEdit}}
+            <div class="entity-menu" data-taskid="${id}"></div>{{/if}}</td>
+    </tr>
+</script>
+
+<script id="projects_taskLinksContainer" type="text/x-jquery-tmpl">
+    <div class="popup_helper" id="hintInvalidLink">
+        <p>
+            ${ASC.Projects.Resources.TasksResource.RelatedLinkInvalid}
+            {{if ASC.Resources.Master.HelpLink}}
+            <a href="${ASC.Resources.Master.HelpLink.concat('/guides/link-tasks.aspx')}" target="_blank">${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+            {{/if}}
+        </p>
+    </div>
+    <div id="linkedTasksContainer" class="display-none">
+        <table id="relatedTasks" class="task-links">
+            {{each tasks}}
+            {{tmpl($item.data.tasks[$index]) 'projects_taskLinks'}}
+            {{/each}}
+        </table>
+        <table id="editTable" class="task-links display-none">
+            <tbody>
+            <tr class="linked-task edit-link-container">
+                <td class="title stretch">
+                    <select id="taskSelector">
+                        <option value="-1" selected="selected">${ASC.Projects.Resources.TasksResource.ChooseTaskForLink}</option>
+                    </select>
+                </td>
+                <td class="link-type" colspan="4">
+                    <span id="linkTypeSelector"></span>
+                </td>
+                <td class="actions">
+                    <a id="addLink" class="button gray small">${ASC.Projects.Resources.ProjectResource.OkButton}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="linked-tasks-buttons{{if !canEdit}} display-none{{/if}}">
+            <span class="icon-link plus">
+                <a id="addNewLink" class="baseLinkAction">${ASC.Projects.Resources.TasksResource.CreateNewLink}</a>
+            </span>
+            <span class="splitter-buttons"></span>
+        </div>
+    </div>
+</script>

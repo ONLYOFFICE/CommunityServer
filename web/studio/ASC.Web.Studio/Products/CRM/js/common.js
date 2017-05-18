@@ -184,6 +184,12 @@ jQuery.extend({
 }
 );
 
+jQuery.extend(StudioManager, {
+    GetCRMImage: function (imageName) {
+        return ASC.CRM.Data.ImageWebPath + "/" + imageName;
+    }
+});
+
 jq.fn.datepickerWithButton = function(options) {
     return this.datepicker(jQuery.extend({
         showOn: "both",
@@ -1457,12 +1463,7 @@ ASC.CRM.HistoryView = (function () {
         ASC.CRM.HistoryView.advansedFilter = jq("#eventsAdvansedFilter")
                 .advansedFilter({
                     anykey: false,
-                    hint: ASC.CRM.Resources.CRMCommonResource.AdvansedFilterInfoText.format(
-                                '<b>',
-                                '</b>',
-                                '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
-                                '</a>'),
-                    hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
+                    hintDefaultDisable: true,
                     maxfilters: 3,
                     maxlength: "100",
                     store: false,
@@ -3445,16 +3446,16 @@ ASC.CRM.ImportEntities = (function ($) {
                 autoSubmit: false,
                 onChange: function (file, extension) {
                     _CSVFileURI = "";
-                    if (extension == "") {
-                        jq("#uploadCSVFile").removeClass("edit_button").addClass("import_button");
-                        jq("#uploadCSVFile").text(ASC.CRM.Resources.CRMJSResource.SelectCSVFileButton);
-                        jq("#uploadCSVFile").prev().hide();
-                        ASC.CRM.ImportEntities.prevStep(0);
-                        return false;
-                    }
 
-                    if (extension[0].toLowerCase() != "csv") {
+                    if (!extension || extension[0].toLowerCase() != "csv") {
                         _showErrorPanel(ASC.CRM.Resources.CRMJSResource.ErrorMessage_NotSupportedFileFormat);
+                        jq("#importFromCSVSteps dd:first .middle-button-container a.button.blue.middle:first").addClass("disable");
+                        jq("#uploadCSVFile")
+                            .removeClass("edit_button")
+                            .addClass("import_button")
+                            .text(ASC.CRM.Resources.CRMJSResource.SelectCSVFileButton)
+                            .prev().hide();
+                        ASC.CRM.ImportEntities.prevStep(0);
                         return false;
                     }
 
@@ -3629,7 +3630,10 @@ ASC.CRM.ImportEntities = (function ($) {
                 });
         },
 
-        startUploadCSVFile: function () {
+        startUploadCSVFile: function (obj) {
+            if (jq(obj).hasClass("disable"))
+                return;
+
             if (_CSVFileURI == "") {
                 _ajaxUploader.submit();
             } else {
@@ -3944,7 +3948,6 @@ ASC.CRM.UserSelectorListView = new function() {
     };
 };
 
-// Google Analytics const
 var ga_Categories = {
     contacts: "crm_contacts",
     cases: "crm_cases",
@@ -3965,4 +3968,3 @@ var ga_Actions = {
     actionClick: "action-click",
     quickAction: "quick-action"
 };
-// end Google Analytics

@@ -1,0 +1,27 @@
+﻿<script id="dropMailsTmpl" type="text/x-jquery-tmpl">
+    {{tmpl($data, {}) "dropMailTmpl"}}
+</script>
+
+<script id="dropMailTmpl" type="text/x-jquery-tmpl">
+    <div class="item" data-id="${id}">
+
+        <div class="content-box">
+            <div class="description">
+                <span>${from}</span>
+            </div>
+            <div class="header">
+                <a class="title" href="${itemUrl}" title="${subject}" target="_blank">${subject}</a>
+            </div>
+            <div class="date">
+                {{if isToday}}
+                <span>${ASC.Resources.Master.FeedResource.TodayAt}, ${displayTime}</span>
+                {{else isYesterday}}
+                <span>${ASC.Resources.Master.FeedResource.YesterdayAt}, ${displayTime}</span>
+                {{else}}
+                <span>${displayDate}, ${displayTime}</span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    
+</script>

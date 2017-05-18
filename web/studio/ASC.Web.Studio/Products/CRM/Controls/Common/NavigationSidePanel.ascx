@@ -5,10 +5,12 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Voip" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
+<%@ Import Namespace="ASC.Web.Core" %>
+<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
+<%@ Import Namespace="ASC.Web.Studio" %>
 
 
 <div class="page-menu">
@@ -138,12 +140,12 @@
             </a>
             <span id="feed-new-cases-count" class="feed-new-count"></span>
         </li>
-        <% if (CRMSecurity.IsAdmin && VoipPaymentSettings.IsEnabled) %>
+        <% if ((CRMSecurity.IsAdmin || VoipNumberData.CanMakeOrReceiveCall) && VoipNumberData.Allowed) %>
         <% { %>
-            <li id="nav-menu-voip-calls" class="menu-item  none-sub-list<% if (CurrentPage == "settings_voip.calls")
+            <li id="nav-menu-voip-calls" class="menu-item  none-sub-list<% if (CurrentPage == "calls")
                                                                             { %> active<% } %>">
-                <a class="menu-item-label outer-text text-overflow" href="settings.aspx?type=voip.calls">
-                    <span class="menu-item-icon cases"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.VoIPCallsSettings %></span>
+                <a class="menu-item-label outer-text text-overflow" href="calls.aspx">
+                    <span class="menu-item-icon calls"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.VoIPCallsSettings %></span>
                 </a>
                 <span id="feed-new-voip-calls-count" class="feed-new-count"></span>
             </li>
@@ -222,7 +224,7 @@
                         </ul>
                     </li>
 
-                    <% if (VoipPaymentSettings.IsEnabled)
+                    <% if (VoipNumberData.Allowed)
                        { %>
 
                         <li class="menu-sub-item menu-item<% if (CurrentPage == "settings_voip.common" || CurrentPage == "settings_voip.numbers")

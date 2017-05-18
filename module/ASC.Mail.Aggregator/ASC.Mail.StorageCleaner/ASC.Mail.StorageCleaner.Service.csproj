@@ -12,10 +12,8 @@
     <AssemblyName>ASC.Mail.StorageCleaner</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -55,10 +53,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ASC.Mail.GarbageEraser\ASC.Mail.GarbageEraser.csproj">
-      <Project>{F94B1E30-6309-4DF9-B793-CECAEE6FA95E}</Project>
-      <Name>ASC.Mail.GarbageEraser</Name>
-    </ProjectReference>
     <Reference Include="ASC.Common">
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
     </Reference>
@@ -68,17 +62,13 @@
     <Reference Include="ASC.Data.Storage">
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Mail.Aggregator.DataStorage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AWSSDK">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Aggregator.DataStorage.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK, Version=1.3.4.1, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
+      <HintPath>..\..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
@@ -140,6 +130,10 @@
     <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
       <Name>ASC.Mail.Aggregator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail.GarbageEraser\ASC.Mail.GarbageEraser.csproj">
+      <Project>{f94b1e30-6309-4df9-b793-cecaee6fa95e}</Project>
+      <Name>ASC.Mail.GarbageEraser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

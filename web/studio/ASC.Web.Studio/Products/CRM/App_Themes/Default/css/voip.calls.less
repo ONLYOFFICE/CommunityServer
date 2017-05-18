@@ -27,6 +27,40 @@
 @import "base.less";
 
 #voip-calls-view {
+    .call-type-icon {
+        display: block;
+        float: left;
+        width: 16px;
+        height: 16px;
+        background: url("../images/voip_call_icons_sprite.png") no-repeat;
+        margin-right: 3px;
+
+        &.answered {
+            background-position: 0 0;
+        }
+
+        &.missed {
+            background-position: 0 -16px;
+        }
+
+        &.outgoing {
+            background-position: -16px 0;
+        }
+
+        &.play {
+            position: relative;
+            background-position: 0 -32px;
+            cursor: pointer;
+            &:hover {
+                background-position: -16px -32px;
+            }
+        }
+
+        &.pause {
+            background-position: -16px -16px;
+        }
+    }
+
     #call-info-box {
         margin-top: 20px;
 
@@ -87,39 +121,6 @@
             padding-left: 5px;
             text-align: left;
 
-            .call-type-icon {
-                display: block;
-                float: left;
-                width: 16px;
-                height: 16px;
-                background: url("../images/voip_call_icons_sprite.png") no-repeat;
-                margin-right: 3px;
-
-                &.answered {
-                    background-position: 0 0;
-                }
-
-                &.missed {
-                    background-position: 0 -16px;
-                }
-
-                &.outgoing {
-                    background-position: -16px 0;
-                }
-
-                &.play {
-                    position: relative;
-                    background-position: 0 -32px;
-                    cursor: pointer;
-                    &:hover {
-                        background-position: -16px -32px;
-                    }
-                }
-
-                &.pause {
-                    background-position: -16px -16px;
-                }
-            }
         }
 
         .call-date {

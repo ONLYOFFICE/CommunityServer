@@ -37,8 +37,8 @@ namespace ASC.Web.Projects.Controls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/products/projects/js/addmilestonecontainer.js");
-            Page.RegisterStyle("~/products/projects/app_themes/default/css/addmilestonecontainer.css");
+            Page.RegisterBodyScripts("~/products/projects/js/addmilestonecontainer.js")
+                .RegisterStyle("~/products/projects/app_themes/default/css/addmilestonecontainer.css");
         }
 
         protected string ChooseMonthNumeralCase(double count)

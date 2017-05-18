@@ -66,10 +66,17 @@ namespace ASC.Web.Community.Product
             get { return "~/products/community/"; }
         }
 
+        public override string HelpURL
+        {
+            get { return "~/products/community/help.aspx"; }
+        }
+
         public override string ProductClassName
         {
             get { return "community"; }
         }
+
+        public override bool Visible { get { return true; } }
 
         public override ProductContext Context
         {

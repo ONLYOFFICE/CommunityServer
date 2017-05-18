@@ -25,13 +25,10 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Web.Configuration;
 using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Utility;
-using System.Globalization;
 
 namespace ASC.Web.Files.Classes
 {
@@ -39,8 +36,6 @@ namespace ASC.Web.Files.Classes
     [DataContract]
     public class FilesSettings : ISettings
     {
-        private static readonly CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("en-US");
-
         [DataMember(Name = "EnableThirdpartySettings")]
         public bool EnableThirdpartySetting { get; set; }
 
@@ -49,9 +44,6 @@ namespace ASC.Web.Files.Classes
 
         [DataMember(Name = "UpdateIfExist")]
         public bool UpdateIfExistSetting { get; set; }
-
-        [DataMember(Name = "ExternalIP")]
-        public KeyValuePair<bool, string> CheckExternalIPSetting { get; set; }
 
         [DataMember(Name = "ConvertNotify")]
         public bool ConvertNotifySetting { get; set; }
@@ -63,7 +55,6 @@ namespace ASC.Web.Files.Classes
                     EnableThirdpartySetting = true,
                     StoreOriginalFilesSetting = true,
                     UpdateIfExistSetting = false,
-                    CheckExternalIPSetting = new KeyValuePair<bool, string>(true, DateTime.MinValue.ToString(CultureInfo)),
                     ConvertNotifySetting = true,
                 };
         }
@@ -108,23 +99,6 @@ namespace ASC.Web.Files.Classes
                 SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
             }
             get { return SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID).UpdateIfExistSetting; }
-        }
-
-        public static KeyValuePair<bool, DateTime> CheckHaveExternalIP
-        {
-            set
-            {
-                var setting = new FilesSettings
-                    {
-                        CheckExternalIPSetting = new KeyValuePair<bool, string>(value.Key, DateTime.UtcNow.ToString(CultureInfo))
-                    };
-                SettingsManager.Instance.SaveSettings(setting, -1);
-            }
-            get
-            {
-                var pair = SettingsManager.Instance.LoadSettings<FilesSettings>(-1).CheckExternalIPSetting;
-                return new KeyValuePair<bool, DateTime>(pair.Key, Convert.ToDateTime(pair.Value, CultureInfo));
-            }
         }
 
         public static bool ConvertNotify

@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdvertCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к объявлению</value>
+    <value>Comments added to the announcement</value>
   </data>
   <data name="AdvertCreatedText" xml:space="preserve">
-    <value>Добавлено объявление</value>
+    <value>Advertisement has been added</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
   <data name="BlogCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к посту</value>
+    <value>Post comment has been added</value>
   </data>
   <data name="BlogCreatedText" xml:space="preserve">
-    <value>Добавлен пост</value>
+    <value>Post has been added</value>
   </data>
   <data name="BlogsModule" xml:space="preserve">
     <value>Blogs</value>
@@ -139,10 +139,10 @@
     <value>Bookmark</value>
   </data>
   <data name="BookmarkCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к закладке</value>
+    <value>Bookmark comment has been added</value>
   </data>
   <data name="BookmarkCreatedText" xml:space="preserve">
-    <value>Добавлена закладка</value>
+    <value>Bookmark has been added</value>
   </data>
   <data name="BookmarksModule" xml:space="preserve">
     <value>Bookmarks</value>
@@ -157,13 +157,13 @@
     <value>Case</value>
   </data>
   <data name="CaseCreatedText" xml:space="preserve">
-    <value>Добавлено мероприятие</value>
+    <value>Case has been added</value>
   </data>
   <data name="CasesModule" xml:space="preserve">
     <value>Cases</value>
   </data>
   <data name="CommentErrorMsg" xml:space="preserve">
-    <value>Ошибка доступа при добавлении комментария</value>
+    <value>Access error while adding a comment</value>
   </data>
   <data name="CommunityProduct" xml:space="preserve">
     <value>Community</value>
@@ -172,7 +172,7 @@
     <value>Company</value>
   </data>
   <data name="CompanyCreatedText" xml:space="preserve">
-    <value>Добавлена компания</value>
+    <value>Company has been added</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
@@ -183,11 +183,14 @@
   <data name="ContactsModule" xml:space="preserve">
     <value>Contacts</value>
   </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
   <data name="CrmProduct" xml:space="preserve">
     <value>CRM</value>
   </data>
   <data name="CrmTaskCreatedText" xml:space="preserve">
-    <value>Добавлена задача</value>
+    <value>Task has been added</value>
   </data>
   <data name="CrmTaskModule" xml:space="preserve">
     <value>Tasks</value>
@@ -205,19 +208,22 @@
     <value>Deadline</value>
   </data>
   <data name="Deal" xml:space="preserve">
-    <value>Deal</value>
+    <value>Opportunity</value>
   </data>
   <data name="DealCreatedText" xml:space="preserve">
-    <value>Добавлена сделка</value>
+    <value>Opportunity has been added</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Discussion" xml:space="preserve">
     <value>Discussion</value>
   </data>
   <data name="DiscussionCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к дискуссии</value>
+    <value>Discussion comment has been added</value>
   </data>
   <data name="DiscussionCreatedText" xml:space="preserve">
-    <value>Добавлена дискуссия</value>
+    <value>Discussion has been added</value>
   </data>
   <data name="DiscussionsModule" xml:space="preserve">
     <value>Discussions</value>
@@ -232,49 +238,52 @@
     <value>Events</value>
   </data>
   <data name="FeedsReadedMsg" xml:space="preserve">
-    <value>Новостей пока нет. Перейдите на страницу ленты, чтобы увидеть историю последних новостей.</value>
+    <value>No news so far. Please go to the feed to see the latest news history.</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="FileCreatedText" xml:space="preserve">
-    <value>Добавлен файл</value>
+    <value>File has been added</value>
   </data>
   <data name="FilesModule" xml:space="preserve">
     <value>Files</value>
   </data>
   <data name="FileUpdatedText" xml:space="preserve">
-    <value>Обновлен файл</value>
+    <value>File updated</value>
   </data>
   <data name="Folder" xml:space="preserve">
     <value>Folder</value>
   </data>
   <data name="FolderCreatedText" xml:space="preserve">
-    <value>Добавлена папка</value>
+    <value>Folder has been added</value>
   </data>
   <data name="FoldersModule" xml:space="preserve">
     <value>Folders</value>
   </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
   <data name="ForumPollCreatedText" xml:space="preserve">
-    <value>Добавлен опрос</value>
+    <value>Poll has been added</value>
   </data>
   <data name="ForumPostCreatedText" xml:space="preserve">
-    <value>Добавлен пост</value>
+    <value>Post added</value>
   </data>
   <data name="ForumsModule" xml:space="preserve">
     <value>Forums</value>
   </data>
   <data name="ForumTopicCreatedText" xml:space="preserve">
-    <value>Добавлена тема</value>
+    <value>Topic added</value>
   </data>
   <data name="HideAdditionalCommentsBtn" xml:space="preserve">
-    <value>Скрыть дополнительные комментарии</value>
+    <value>Hide additional comments</value>
   </data>
   <data name="HideGroupedFeedsBtn" xml:space="preserve">
-    <value>Скрыть дополнительные события</value>
+    <value>Hide additional events</value>
   </data>
   <data name="LoadingMsg" xml:space="preserve">
-    <value>Loading, Please wait</value>
+    <value>Loading, please wait</value>
   </data>
   <data name="Me" xml:space="preserve">
     <value>Me</value>
@@ -286,7 +295,7 @@
     <value>Milestone</value>
   </data>
   <data name="MilestoneCreatedText" xml:space="preserve">
-    <value>Добавлена веха</value>
+    <value>Milestone has been added</value>
   </data>
   <data name="MilestonesModule" xml:space="preserve">
     <value>Milestones</value>
@@ -295,49 +304,49 @@
     <value>new</value>
   </data>
   <data name="NewsCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к новости</value>
+    <value>Comments added to the news</value>
   </data>
   <data name="NewsCreatedText" xml:space="preserve">
-    <value>Добавлена новость</value>
+    <value>News has been added</value>
   </data>
   <data name="OpportunitiesModule" xml:space="preserve">
     <value>Opportunities</value>
   </data>
   <data name="OrderCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к приказу</value>
+    <value>Comments added to the order</value>
   </data>
   <data name="OrderCreatedText" xml:space="preserve">
-    <value>Добавлен приказ</value>
+    <value>Order has been added</value>
   </data>
   <data name="OtherFeedsCountMsg" xml:space="preserve">
-    <value>+еще {0}</value>
+    <value>+{0} more</value>
   </data>
   <data name="OtherUsers" xml:space="preserve">
     <value>Other users</value>
   </data>
   <data name="ParticipantCreatedText" xml:space="preserve">
-    <value>Добавлен участник</value>
+    <value>Participant has been added</value>
   </data>
   <data name="Person" xml:space="preserve">
     <value>Person</value>
   </data>
   <data name="PersonCreatedText" xml:space="preserve">
-    <value>Добавлена персона</value>
+    <value>Person has been added</value>
   </data>
   <data name="PollCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к опросу</value>
+    <value>Comments added to the poll</value>
   </data>
   <data name="PollCreatedText" xml:space="preserve">
-    <value>Добавлен опрос</value>
+    <value>Poll has been added</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Product</value>
+    <value>Module</value>
   </data>
   <data name="Project" xml:space="preserve">
     <value>Project</value>
   </data>
   <data name="ProjectCreatedText" xml:space="preserve">
-    <value>Добавлен проект</value>
+    <value>Project has been added</value>
   </data>
   <data name="ProjectManager" xml:space="preserve">
     <value>Manager</value>
@@ -355,28 +364,28 @@
     <value>Responsible</value>
   </data>
   <data name="Responsibles" xml:space="preserve">
-    <value>Responsibles</value>
+    <value>Responsible users</value>
   </data>
   <data name="SeeAllFeedsBtn" xml:space="preserve">
     <value>See all</value>
   </data>
   <data name="SharedFileCreatedInFolderText" xml:space="preserve">
-    <value>Вам расшарили документ в папке</value>
+    <value>You were given access to a document in folder</value>
   </data>
   <data name="SharedFileCreatedText" xml:space="preserve">
-    <value>Вам расшарили документ</value>
+    <value>You were given access to document</value>
   </data>
   <data name="SharedFolderCreatedText" xml:space="preserve">
-    <value>Вам расшарили папку</value>
+    <value>You were given access to folder</value>
   </data>
   <data name="ShowAll" xml:space="preserve">
-    <value>Показать полностью</value>
+    <value>Show all</value>
   </data>
   <data name="ShowGroupedFeedsBtn" xml:space="preserve">
-    <value>Показать остальные события</value>
+    <value>Show other events</value>
   </data>
   <data name="ShowOthersCommentsBtn" xml:space="preserve">
-    <value>Показать остальные комментарии</value>
+    <value>Show other comments</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
@@ -385,10 +394,10 @@
     <value>Task</value>
   </data>
   <data name="TaskCommentedText" xml:space="preserve">
-    <value>Добавлены комментарии к задаче</value>
+    <value>Task comment has been added</value>
   </data>
   <data name="TaskCreatedText" xml:space="preserve">
-    <value>Добавлена задача</value>
+    <value>Task has been added</value>
   </data>
   <data name="TasksModule" xml:space="preserve">
     <value>Tasks</value>
@@ -403,7 +412,7 @@
     <value>Today at</value>
   </data>
   <data name="WriteComment" xml:space="preserve">
-    <value>Написать комментарий</value>
+    <value>Add comment</value>
   </data>
   <data name="YesterdayAt" xml:space="preserve">
     <value>Yesterday at</value>

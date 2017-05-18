@@ -25,230 +25,203 @@
 
 
 ASC.Projects.ProjectTeam = (function() {
-    var projectId = null;
-    var managerId = null;
-    var myGUID = null;
-    var canCreateTask = false;
+    var projectId = null,
+        managerId = null,
+        myGUID = null,
+        baseObject,
+        master,
+        pmProjectTeamModulePermissionOffClass = "pm-projectTeam-modulePermissionOff",
+        $teamContainer,
+        teamlab,
+        loadingBanner,
+        clickEventName = "click",
+        project,
+        handler;
 
-
-    var init = function() {
-        myGUID = Teamlab.profile.id;
+    var init = function () {
+        teamlab = Teamlab;
+        loadingBanner = LoadingBanner;
+        baseObject = ASC.Projects;
+        master = baseObject.Master;
+        myGUID = teamlab.profile.id;
         projectId = parseInt(jq.getURLParam("prjID"));
-        managerId = jq(".pm-projectTeam-projectLeaderCard").find(".manager-info").attr("data-manager-guid");
 
-        // calculate width
-        jq(window).resize(function() {
+        baseObject.ProjectsAdvansedFilter.hide();
+        baseObject.Base.clearTables();
+
+        handler = teamlab.bind(teamlab.events.getPrjProject, function (params, prj) {
+            managerId = prj.responsibleId;
+            var team = baseObject.Master.TeamWithBlockedUsers.sort(function(item1, item2) {
+                return item1.isTerminated - item2.isTerminated;
+            }).map(mapTeamMember);
+
+            jq(".tab1").html(jq.tmpl("projects_team",
+            {
+                project: prj,
+                team: team,
+                manager: prj.responsible
+            })).show();
+            jq("#descriptionTab").show();
+            project = prj;
+
+            // calculate width
+            jq(window).resize(calculateWidthBlockUserInfo);
+
+
+            //--change partisipant security
+            $teamContainer = jq("#team_container");
+
+            jq("#CommonListContainer").show();
+            ASC.Projects.Base.initActionPanel(showEntityMenu, $teamContainer);
+
+            $teamContainer.on(clickEventName, ".right-checker", function () {
+                var cheker = jq(this);
+                if (cheker.closest("tr").hasClass("disable") || cheker.hasClass("no-dotted")) {
+                    return;
+                }
+                var data = {
+                    userId: jq(this).closest(".pm-projectTeam-participantContainer").attr("data-partisipantId"),
+                    security: cheker.attr("data-flag"),
+                    visible: cheker.hasClass(pmProjectTeamModulePermissionOffClass)
+                };
+                teamlab.setTeamSecurity({ partisipant: data.userId, securityFlag: data.security }, projectId, data, { success: onUpdateTeam });
+            });
+
+            //--menu actions
+            function manageTeam(event, team) {
+                var userIDs = new Array();
+
+                jq(team).each(function (i, el) { userIDs.push(el.id); });
+
+                var data = {
+                    participants: userIDs,
+                    notify: true
+                };
+
+                teamlab.updatePrjTeam({}, projectId, data,
+                    {
+                        before: loadingBanner.displayLoading,
+                        success: onUpdateTeam,
+                        after: loadingBanner.hideLoading
+                    });
+            };
+
             calculateWidthBlockUserInfo();
+
+            var teamUserIds = master.TeamWithBlockedUsers.map(function (item) { return item.id; });
+
+            // userselector for the team
+
+            jq("#pm-projectTeam-Selector").useradvancedSelector({
+                showGroups: true,
+                itemsSelectedIds: teamUserIds,
+                itemsDisabledIds: [managerId]
+            }).on("showList", manageTeam);
+
+            jq('#PrivateProjectHelp').off("click").on("click", function () {
+                jq(this).helper({ BlockHelperID: 'AnswerForPrivateProjectTeam' });
+            });
+            jq('#RestrictAccessHelp').off("click").on("click", function () {
+                jq(this).helper({ BlockHelperID: 'AnswerForRestrictAccessTeam' });
+            });
         });
-
-
-        //--change partisipant security
-        $teamContainer = jq("#team_container");
-        $actionPanel = jq("#userActionPanel");
-
-        jq.dropdownToggle({
-            dropdownID: "userActionPanel",
-            switcherSelector: "#team_container .entity-menu",
-            addTop: 0,
-            addLeft: 10,
-            rightPos: true,
-            showFunction: function (switcherObj, dropdownItem) {
-                var $container = jq(switcherObj).closest('tr'),
-                    $openItem = jq("#team_container tr.open"),
-                    userId = $container.attr("data-partisipantid"),
-                    userName = jq.trim($container.find(".user-name").text()),
-                    email = $container.attr("data-email"),
-                    jabber = $container.attr("data-user");
-
-                if (jq(switcherObj).attr("data-status") == "2") {
-                    jq("#addNewTask, #writeJabber, #sendEmail").hide();
-                } else {
-                    if (Teamlab.profile.id == userId) {
-                        jq("#writeJabber, #sendEmail").hide();
-                    } else {
-                        jq("#writeJabber, #sendEmail").show();
-                    }
-                    if (jq(switcherObj).attr("data-isVisitor") == "true") {
-                        jq("#addNewTask, #reportOpenTasks, #reportClosedTasks, #viewOpenTasks").hide();
-                    } else {
-                        jq("#addNewTask, #reportOpenTasks, #reportClosedTasks, #viewOpenTasks").show();
-                    }
-                }
-
-                dropdownItem.attr("data-userid", userId);
-                dropdownItem.attr("data-username", userName);
-                dropdownItem.attr("data-email", email);
-                dropdownItem.find("#writeJabber").attr("data-username", jabber);
-                if (managerId == userId) {
-                    dropdownItem.find("#removeFromTeam").hide();
-                } else {
-                    dropdownItem.find("#removeFromTeam").show();
-                }
-
-                $openItem.removeClass("open");
-                if (!$openItem.is($container)) {
-                    dropdownItem.hide();
-                }
-                if (dropdownItem.is(":hidden")) {
-                    $container.addClass("open");
-                }
-            },
-            hideFunction: function () {
-                jq("#team_container tr.open").removeClass("open");
-            }
-        });
-
-
-        $teamContainer.on("click", ".right-checker", function() {
-            var cheker = jq(this);
-            if (cheker.closest("tr").hasClass("disable") || cheker.hasClass("no-dotted")) {
-                return;
-            }
-            var data = {};
-            data.userId = jq(this).closest(".pm-projectTeam-participantContainer").attr("data-partisipantId");
-            data.security = cheker.attr("data-flag");
-            if (cheker.hasClass("pm-projectTeam-modulePermissionOff")) {
-                data.visible = true;
-            } else {
-                data.visible = false;
-            }
-            Teamlab.setTeamSecurity({ partisipant: data.userId, securityFlag: data.security }, projectId, data, { success: onSetTeamSecurity });
-        });
-
-        //--menu actions
-        $actionPanel.on("click", "#addNewTask", function () {
-            $actionPanel.hide();
-            var actionPanel = jq(this).closest("#userActionPanel");
-            var userId = jq(actionPanel).attr("data-userid");
-            var userName = jq(actionPanel).attr("data-username");
-            showAddNewTaskPopup(userId, userName);
-            return false;
-        });
-        $actionPanel.on("click", "#viewOpenTasks", function () {
-            $actionPanel.hide();
-            var actionPanel = jq(this).closest("#userActionPanel");
-            var userId = jq(actionPanel).attr("data-userid");
-            var url = "tasks.aspx#sortBy=deadline&sortOrder=ascending&tasks_responsible=" + userId;
-            window.open(url, "displayOpenUserTasks", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
-            return false;
-        });
-        $actionPanel.on("click", "#writeJabber", function() {
-            $actionPanel.hide();
-            jq("#team_container tr.open").removeClass("open");
-            var userName = jq(this).attr("data-username");
-            ASC.Controls.JabberClient.open(userName);
-            return false;
-        });
-        $actionPanel.on("click", "#reportOpenTasks", function() {
-            $actionPanel.hide();
-            jq("#team_container tr.open").removeClass("open");
-            var actionPanel = jq(this).closest("#userActionPanel");
-            var userId = jq(actionPanel).attr("data-userid");
-            var url = "generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=open";
-            jq("#userActionPanel").hide();
-            window.open(url, "displayReportWindow", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
-            return false;
-        });
-
-        $actionPanel.on("click", "#reportClosedTasks", function() {
-            $actionPanel.hide();
-            jq("#team_container tr.open").removeClass("open");
-            var actionPanel = jq(this).closest("#userActionPanel");
-            var userId = jq(actionPanel).attr("data-userid");
-            var url = "generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=closed";
-            jq("#userActionPanel").hide();
-            window.open(url, "displayReportWindow", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
-            return false;
-        });
-
-        $actionPanel.on("click", "#sendEmail", function() {
-            $actionPanel.hide();
-            jq("#team_container tr.open").removeClass("open");
-            var actionPanel = jq(this).closest("#userActionPanel");
-            var userEmail = jq(actionPanel).attr("data-email");
-            window.location.href = "mailto:" + userEmail;
-            return false;
-        });
-
-        $actionPanel.on("click", "#removeFromTeam", function() {
-            $actionPanel.hide();
-            jq("#team_container tr.open").removeClass("open");
-            var actionPanel = jq(this).closest("#userActionPanel");
-            var userId = jq(actionPanel).attr("data-userid");
-            Teamlab.removePrjProjectTeamPerson({ userId: userId }, projectId, { userId: userId }, { success: onRemoveMember });
-            return false;
-        });
-
-        function manageTeam(event, team) {
-            var userIDs = new Array();
-
-            jq(team).each(function (i, el) { userIDs.push(el.id); });
-
-            var projId = parseInt(jq.getURLParam("prjID"));
-            var data = {};
-            data.participants = userIDs;
-            data.notify = true;
-
-            Teamlab.updatePrjTeam({}, projId, data, { before: function () { LoadingBanner.displayLoading(); }, success: onUpdateTeam, after: function () { LoadingBanner.hideLoading(); } });
-        };
-
-
-        jq("body").click(function(event) {
-            var elt = event.target;
-            if (!jq(elt).is("#userActionPanel") && !jq(elt).is(".entity-menu")) {
-                $actionPanel.hide();
-                jq("#team_container tr.open").removeClass("open");
-            }
-            if (jq(elt).is(".dropdown-item")) {
-                $actionPanel.hide();
-                jq("#team_container tr.open").removeClass("open");
-            }
-        });
-        
-        displayTeam(ASC.Projects.Master.TeamWithBlockedUsers);
-        calculateWidthBlockUserInfo();
-
-        var teamUserIds = [];
-        jq(ASC.Projects.Master.TeamWithBlockedUsers).each(function (i, el) { teamUserIds.push(el.id) });
-
-        // userselector for the team
-
-        jq("#pm-projectTeam-Selector").useradvancedSelector({
-            showGroups: true,
-            itemsSelectedIds: teamUserIds,
-            itemsDisabledIds: [managerId]
-        }).on("showList", manageTeam);
     };
 
-    var onRemoveMember = function (params, user) {
+    function showEntityMenu(selectedActionCombobox) {
+        var userId = selectedActionCombobox.attr("data-partisipantid"),
+            user = master.TeamWithBlockedUsers.find(function (item) { return item.id === userId });
+        var ActionMenuItem = ASC.Projects.ActionMenuItem;
+        var resources = ASC.Projects.Resources;
+        var menuItems = [];
+
+        if (!user.isVisitor){
+            if (project.canCreateTask) {
+                menuItems.push(new ActionMenuItem("team_task", resources.TasksResource.AddNewTask, teamAddNewTask.bind(null, userId)));
+            }
+            if (!teamlab.profile.isVisitor) {
+                menuItems.push(new ActionMenuItem("team_reportOpen", resources.ReportResource.ReportOpenTasks, teamReportOpenTasksHandler.bind(null, userId)));
+                menuItems.push(new ActionMenuItem("team_reportClosed", resources.ReportResource.ReportClosedTasks, teamReportClosedTasksHandler.bind(null, userId)));
+            }
+
+            menuItems.push(new ActionMenuItem("team_view", resources.ProjectsJSResource.ViewAllOpenTasks, teamViewOpenTasksHandler.bind(null, userId)));
+        }
+
+        if (teamlab.profile.id !== userId) {
+            menuItems.push(new ActionMenuItem("team_email", resources.ProjectResource.ClosedProjectTeamWriteMail, teamSendEmailHandler.bind(null, user.email)));
+            menuItems.push(new ActionMenuItem("team_jabber", resources.ProjectResource.ClosedProjectTeamWriteInMessenger, teamWriteJabberHandler.bind(null, user.userName)));
+
+            if (project.security.canEditTeam) {
+                menuItems.push(new ActionMenuItem("team_remove", resources.CommonResource.RemoveMemberFromTeam, teamRemoveHanlder.bind(null, userId)));
+            }
+        }
+
+        return { menuItems: menuItems };
+    }
+
+    function teamAddNewTask(userId) {
+        var user = master.TeamWithBlockedUsers.find(function (item) { return item.id === userId });
+        baseObject.TaskAction.showCreateNewTaskForm({ responsibles: [user] });
+        return false;
+    };
+
+    function teamViewOpenTasksHandler(userId) {
+        var url = "tasks.aspx#sortBy=deadline&sortOrder=ascending&tasks_responsible=" + userId;
+        window.open(url, "displayOpenUserTasks", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
+        return false;
+    };
+
+    function teamWriteJabberHandler(userName) {
+        ASC.Controls.JabberClient.open(userName);
+        return false;
+    };
+
+    function teamReportOpenTasksHandler(userId) {
+        var url = "generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=open";
+        window.open(url, "displayReportWindow", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
+        return false;
+    };
+
+    function teamReportClosedTasksHandler(userId) {
+        var url = "generatedreport.aspx?reportType=10&ftime=absolute&fu=" + userId + "&fms=open|closed&fts=closed";
+        window.open(url, "displayReportWindow", "status=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,location=yes,directories=yes,menubar=yes,copyhistory=yes");
+        return false;
+    };
+
+    function teamSendEmailHandler(userEmail) {
+        window.location.href = "mailto:" + userEmail;
+        return false;
+    };
+
+    function teamRemoveHanlder(userId) {
+        teamlab.removePrjProjectTeamPerson({ userId: userId }, projectId, { userId: userId }, { success: onRemoveMember });
+        return false;
+    };
+
+    function onRemoveMember(params, user) {
         jq("tr[data-partisipantid='" + params.userId + "']").remove();
 
         jq("#pm-projectTeam-Selector").useradvancedSelector("unselect", [params.userId]);
 
-
-        ASC.Projects.projectNavPanel.changeModuleItemsCount(ASC.Projects.projectNavPanel.projectModulesNames.team, "delete");
-
-        for (var i = 0; i < ASC.Projects.Master.Team.length; i++) {
-            if (ASC.Projects.Master.Team[i].id == params.userId) {
-                ASC.Projects.Master.Team.splice([i], 1);
+        for (var i = 0, teamLength = master.Team.length; i < teamLength; i++) {
+            if (master.Team[i].id == params.userId) {
+                master.Team.splice([i], 1);
             }
         }
-        ASC.Projects.TaskAction.onUpdateProjectTeam();
+        baseObject.TaskAction.onUpdateProjectTeam();
     };
 
-    var updateCommonData = function (team) {
-        ASC.Projects.Master.TeamWithBlockedUsers = team;
-        ASC.Projects.Master.Team = ASC.Projects.Common.removeBlockedUsersFromTeam(ASC.Projects.Master.TeamWithBlockedUsers);
-        ASC.Projects.TaskAction.onUpdateProjectTeam();
+    function updateCommonData(team) {
+        master.TeamWithBlockedUsers = team;
+        master.Team = baseObject.Common.removeBlockedUsersFromTeam(master.TeamWithBlockedUsers);
+        baseObject.TaskAction.onUpdateProjectTeam();
     };
 
-    var onUpdateTeam = function(params, team) {
-        ASC.Projects.projectNavPanel.changeModuleItemsCount(ASC.Projects.projectNavPanel.projectModulesNames.team, team.length);
+    function onUpdateTeam(params, team) {
         displayTeam(team);
         updateCommonData(team);
     };
 
-    var calculateWidthBlockUserInfo = function() {
+    function calculateWidthBlockUserInfo(){
         var windowWidth = jq(window).width() - 24 * 2,
             mainBlockWidth = parseInt(jq(".mainPageLayout").css("min-width"), 10),
             newWidth = (windowWidth < mainBlockWidth) ? mainBlockWidth : windowWidth;
@@ -257,7 +230,7 @@ ASC.Projects.ProjectTeam = (function() {
         if (rightSettingCell.length) {
             newWidth -= rightSettingCell.width();
         }
-        jq("#team_container .user-info-container").each(
+        $teamContainer.find(".user-info-container").each(
                 function() {
                     jq(this).css("max-width", newWidth
                         - 24 * 2 - 24  // padding in blocks
@@ -269,12 +242,12 @@ ASC.Projects.ProjectTeam = (function() {
         );
 
         if (jq.browser.msie) {
-            jq("#team_container .user-info-container").each(
+            $teamContainer.find(".user-info-container").each(
                 function() {
                     jq(this).css("width", newWidth + "px");
                 }
             );
-            jq("#team_container .user-info").each(
+            $teamContainer.find(".user-info").each(
                 function() {
                     jq(this).css("width", newWidth + 50 + "px");
                 }
@@ -282,48 +255,40 @@ ASC.Projects.ProjectTeam = (function() {
         }
     };
 
-    var displayTeam = function(team) {
-        for (var i = 0; i < team.length; i++) {
-            team[i].isManager = managerId == team[i].id;
-            team[i].title = team[i].title ? team[i].title : "";
-            
-            if (myGUID == team[i].id) {
-                canCreateTask = team[i].canReadTasks;
-            }
-        }
-        jq("#team_container").empty();
-        jq('#memberTemplate').tmpl(team).prependTo("#team_container");
+    function displayTeam(team) {
+        $teamContainer.html(jq.tmpl('memberTemplate',
+        {
+            team: team.map(mapTeamMember),
+            project: project
+        }));
     };
 
-    var onSetTeamSecurity = function(params, data) {
-        var userId = params.partisipant;
-        var flagCont = jq(".pm-projectTeam-participantContainer[data-partisipantId='" + userId + "']").find("span[data-flag='" + params.securityFlag + "']");
-        if (flagCont.hasClass("pm-projectTeam-modulePermissionOff")) {
-            flagCont.removeClass("pm-projectTeam-modulePermissionOff");
-            flagCont.addClass("pm-projectTeam-modulePermissionOn");
-        } else {
-            flagCont.removeClass("pm-projectTeam-modulePermissionOn");
-            flagCont.addClass("pm-projectTeam-modulePermissionOff");
-        }
-    };
-    var showAddNewTaskPopup = function(userId) {
-        ASC.Projects.TaskAction.showCreateNewTaskForm();
-        jq('#fullFormUserList').show();
-        jq('#fullFormUserList div').remove();
+    function mapTeamMember(item) {
+        var resources = ASC.Projects.Resources;
+        item.isManager = managerId === item.id;
+        return jq.extend({
+            security: [
+                security(item.canReadMessages, "Messages", resources.MessageResource.Messages),
+                security(item.canReadFiles, "Files", resources.ProjectsFileResource.Documents),
+                security(item.canReadTasks, "Tasks", resources.TasksResource.AllTasks),
+                security(item.canReadMilestones, "Milestone", resources.MilestoneResource.Milestones),
+                security(item.canReadContacts, "Contacts", resources.CommonResource.ModuleContacts)
+            ]
+        }, item);
+    }
 
-        jq("#taskResponsible option[value=" + userId + "]").attr("selected", "selected");
-        jq("#taskResponsible").change();
+    function security(check, flag, title) {
+        return { check: check, flag: flag, title: title };
+    }
 
-        if (jq("#addTaskPanel #fullFormUserList div.user").length == jq("#addTaskPanel #fullFormUserList div.user[data-value=" + Teamlab.profile.id + "]").length) {
-            jq('#addTaskPanel #notify').attr('disabled', 'true');
-        } else {
-            jq('#addTaskPanel #notify').removeAttr('disabled');
-        }
+    function unbindListEvents() {
+        teamlab.unbind(handler);
+        $teamContainer.off(clickEventName);
+    }
 
-        return false;
-    };
     return {
-        init: init
+        init: init,
+        unbindListEvents: unbindListEvents
     };
 })(jQuery);
 

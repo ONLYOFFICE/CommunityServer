@@ -1,5 +1,6 @@
 ﻿
-(function ($, win, doc, body) {
+(function ($) {
+    var resources = ASC.Resources.Master.Resource, teamlab = Teamlab;
 
     var useradvancedSelector = function (element, options) {
         this.$element = $(element);
@@ -27,17 +28,17 @@
 
             opts.newoptions =
                     [
-                        { title: ASC.Resources.Master.Resource.SelectorType, type: "choice", tag: "type", items: [
-                                        { type: "user", title: ASC.Resources.Master.Resource.SelectorUser },
-                                        { type: "visitor", title: ASC.Resources.Master.Resource.SelectorVisitor }
+                        { title: resources.SelectorType, type: "choice", tag: "type", items: [
+                                        { type: "user", title: resources.SelectorUser },
+                                        { type: "visitor", title: resources.SelectorVisitor }
                             ]
                         },
-                        { title: ASC.Resources.Master.Resource.SelectorFirstName, type: "input", tag: "first-name" },
-                        { title: ASC.Resources.Master.Resource.SelectorLastName, type: "input", tag: "last-name" },
-                        { title: ASC.Resources.Master.Resource.SelectorEmail, type: "input", tag: "email" },
-                        { title: ASC.Resources.Master.Resource.SelectorGroup, type: "select", tag: "group" }
+                        { title: resources.SelectorFirstName, type: "input", tag: "first-name" },
+                        { title: resources.SelectorLastName, type: "input", tag: "last-name" },
+                        { title: resources.SelectorEmail, type: "input", tag: "email" },
+                        { title: resources.SelectorGroup, type: "select", tag: "group" }
                     ],
-            opts.newbtn = ASC.Resources.Master.Resource.InviteButton;
+            opts.newbtn = resources.InviteButton;
 
             that.displayAddItemBlock.call(that, opts);
             that.initDataSimpleSelector.call(that, { tag: "group", items: itemsSimpleSelect });
@@ -45,7 +46,7 @@
             var $addPanel = that.$advancedSelector.find(".advanced-selector-add-new-block");
 
             if (that.options.withGuests) {
-                Teamlab.getQuotas({}, {
+                teamlab.getQuotas({}, {
                     success: function (params, data) {
                         if (data.availableUsersCount == 0) {
                             $addPanel.find(".type select").val("visitor").attr("disabled", "disabled");
@@ -73,7 +74,7 @@
             //if (!that.options.withGuests) {
             //    filter.employeeType = 1;
             //}
-            //Teamlab.getProfilesByFilter({}, {
+            //teamlab.getProfilesByFilter({}, {
             //    before: function () {
             //        that.showLoaderListAdvSelector.call(that, 'items');
             //    },
@@ -108,7 +109,7 @@
                 });
             }
 
-            //Teamlab.getGroups({}, {
+            //teamlab.getGroups({}, {
             //    before: function () {
             //        that.showLoaderListAdvSelector.call(that, 'groups');
             //    },
@@ -195,27 +196,27 @@
             };
 
             if (!newUser.firstname) {
-                that.showErrorField.call(that, { field: $addPanel.find(".first-name"), error: ASC.Resources.Master.Resource.ErrorEmptyUserFirstName });
+                that.showErrorField.call(that, { field: $addPanel.find(".first-name"), error: resources.ErrorEmptyUserFirstName });
                 isError = true;
             }
             if (!newUser.lastname) {
-                that.showErrorField.call(that, { field: $addPanel.find(".last-name"), error: ASC.Resources.Master.Resource.ErrorEmptyUserLastName });
+                that.showErrorField.call(that, { field: $addPanel.find(".last-name"), error: resources.ErrorEmptyUserLastName });
                 isError = true;
             }
             if (newUser.firstname && newUser.firstname.length > 64) {
-                that.showErrorField.call(that, { field: $addPanel.find(".first-name"), error: ASC.Resources.Master.Resource.ErrorMesLongField64 });
+                that.showErrorField.call(that, { field: $addPanel.find(".first-name"), error: resources.ErrorMesLongField64 });
                 isError = true;
             }
             if (newUser.lastname && newUser.lastname.length > 64) {
-                that.showErrorField.call(that, { field: $addPanel.find(".last-name"), error: ASC.Resources.Master.Resource.ErrorMesLongField64 });
+                that.showErrorField.call(that, { field: $addPanel.find(".last-name"), error: resources.ErrorMesLongField64 });
                 isError = true;
             }
             if (!jq.isValidEmail(newUser.email)) {
-                that.showErrorField.call(that, { field: $addPanel.find(".email"), error: ASC.Resources.Master.Resource.ErrorNotCorrectEmail });
+                that.showErrorField.call(that, { field: $addPanel.find(".email"), error: resources.ErrorNotCorrectEmail });
                 isError = true;
             }
             if (!newUser.department.length && $addPanel.find(".group input").val()) {
-                that.showErrorField.call(that, { field: $addPanel.find(".group"), error: ASC.Resources.Master.Resource.ErrorGroupNotExist });
+                that.showErrorField.call(that, { field: $addPanel.find(".group"), error: resources.ErrorGroupNotExist });
                 isError = true;
             }
 
@@ -224,16 +225,16 @@
                 return;
             }
 
-            Teamlab.getQuotas({}, {
+            teamlab.getQuotas({}, {
                 success: function (params, data) {
                     if (data.availableUsersCount == 0 && !newUser.isVisitor) {
-                        that.showServerError.call(that, { field: $btn, error: ASC.Resources.Master.Resource.UserSelectorErrorLimitUsers + data.maxUsersCount });
+                        that.showServerError.call(that, { field: $btn, error: resources.UserSelectorErrorLimitUsers + data.maxUsersCount });
                         return;
                     }
 
-                    Teamlab.addProfile({}, newUser, {
+                    teamlab.addProfile({}, newUser, {
                         before: function () {
-                            that.displayLoadingBtn.call(that, { btn: $btn, text: ASC.Resources.Master.Resource.LoadingProcessing });
+                            that.displayLoadingBtn.call(that, { btn: $btn, text: resources.LoadingProcessing });
                         },
                         success: function (params, profile) {
                             profile = this.__responses[0];
@@ -246,7 +247,7 @@
                                 groups: []
                             };
 
-                            toastr.success(ASC.Resources.Master.Resource.UserSelectorAddSuccess.format("<b>" + newuser.title + "</b>"));
+                            toastr.success(resources.UserSelectorAddSuccess.format("<b>" + newuser.title + "</b>"));
                             that.actionsAfterCreateItem.call(that, { newitem: newuser, response: profile, nameProperty: "groups" });
                         },
                         error: function () {
@@ -290,15 +291,15 @@
   }
     $.fn.useradvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
         showme: true,
-        addtext: ASC.Resources.Master.Resource.UserSelectorAddText,
-        noresults: ASC.Resources.Master.Resource.UserSelectorNoResults,
-        noitems: ASC.Resources.Master.Resource.UserSelectorNoItems,
-        nogroups: ASC.Resources.Master.Resource.UserSelectorNoGroups,
-        emptylist: ASC.Resources.Master.Resource.UserSelectorEmptyList,
+        addtext: resources.UserSelectorAddText,
+        noresults: resources.UserSelectorNoResults,
+        noitems: resources.UserSelectorNoItems,
+        nogroups: resources.UserSelectorNoGroups,
+        emptylist: resources.UserSelectorEmptyList,
         isAdmin: false,
         withGuests: true,
         isInitializeItems: true
     });
 
 
-})(jQuery, window, document, document.body);
+})(jQuery);

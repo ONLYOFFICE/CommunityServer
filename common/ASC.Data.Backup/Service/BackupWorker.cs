@@ -132,6 +132,30 @@ namespace ASC.Data.Backup.Service
             }
         }
 
+        public static void ResetBackupError(int tenantId)
+        {
+            lock (tasks.SynchRoot)
+            {
+                var progress = tasks.GetItems().OfType<BackupProgressItem>().FirstOrDefault(t => t.TenantId == tenantId);
+                if (progress != null)
+                {
+                    progress.Error = null;
+                }
+            }
+        }
+
+        public static void ResetRestoreError(int tenantId)
+        {
+            lock (tasks.SynchRoot)
+            {
+                var progress = tasks.GetItems().OfType<RestoreProgressItem>().FirstOrDefault(t => t.TenantId == tenantId);
+                if (progress != null)
+                {
+                    progress.Error = null;
+                }
+            }
+        }
+
         public static BackupProgress StartRestore(int tenantId, BackupStorageType storageType, string storagePath, bool notify)
         {
             lock (tasks.SynchRoot)

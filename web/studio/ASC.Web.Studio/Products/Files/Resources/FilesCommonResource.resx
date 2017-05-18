@@ -117,209 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ProductDescription" xml:space="preserve">
-    <value>Create, edit, save and share documents directly on your portal.  Import docs base from Google Docs, Zoho, Box.net</value>
-  </data>
-  <data name="ProductName" xml:space="preserve">
-    <value>Documents</value>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>ver.</value>
-  </data>
-  <data name="ShowVersions" xml:space="preserve">
-    <value>Show Versions</value>
-  </data>
-  <data name="TitleShowActions" xml:space="preserve">
-    <value>Show File Actions</value>
-  </data>
-  <data name="TitleShowFolderActions" xml:space="preserve">
-    <value>Show Folder Actions</value>
-  </data>
-  <data name="ErrorMassage_StartEditing" xml:space="preserve">
-    <value>Ошибка начала редактирования файла</value>
-  </data>
-  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
-    <value>The file was corrupted when you save</value>
-  </data>
-  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
-    <value>Author of saving is unknown</value>
-  </data>
-  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
-    <value>Failed to get file to save</value>
-  </data>
-  <data name="ErrorMassage_SecurityException" xml:space="preserve">
-    <value>You don't have enough permission to perform the operation</value>
-  </data>
-  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
-    <value>Sorry, this file format isn't supported</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
-    <value>Cannot delete the file because it is opened for editing</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
-    <value>Cannot delete the folder because one of the files is opened for editing</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
-    <value>You don't have enough permission to delete the file</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
-    <value>You don't have enough permission to delete the folder</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
-    <value>You don't have enough permission to view the file</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
-    <value>You don't have enough permission to view the folder content</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
-    <value>Cannot update the file because it's opened for editing</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
-    <value>You don't have enough permission to view the folder content</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
-    <value>You don't have enough permission to rename the file</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
-    <value>You don't have enough permission to rename the folder</value>
-  </data>
-  <data name="ErrorMassage_CreateNewFolderInTrash" xml:space="preserve">
-    <value>You are not allowed to create folders in the Trash</value>
-  </data>
-  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
-    <value>You are not allowed to preview the elements in the Trash</value>
-  </data>
-  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
-    <value>The required folder was not found</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
-    <value>Can't authorize at {0} provider with given credentials.</value>
-  </data>
-  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
-    <value>The content of third party folder are not available. Try to reconnect the account.</value>
-  </data>
-  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
-    <value>Conversion takes too long.</value>
-  </data>
-  <data name="IsNew" xml:space="preserve">
-    <value>new</value>
-  </data>
-  <data name="RemoveIsNew" xml:space="preserve">
-    <value>Mark as read</value>
-  </data>
-  <data name="MakeCurrent" xml:space="preserve">
-    <value>Restore</value>
-  </data>
-  <data name="EnterComment" xml:space="preserve">
-    <value>Enter a comment</value>
-  </data>
-  <data name="TitleCreated" xml:space="preserve">
-    <value>Created</value>
-  </data>
-  <data name="TitleFiles" xml:space="preserve">
-    <value>Documents</value>
-  </data>
-  <data name="TitleRemoved" xml:space="preserve">
-    <value>Deleted</value>
-  </data>
-  <data name="TitleSelectFile" xml:space="preserve">
-    <value>Select</value>
-  </data>
-  <data name="TitleShareFile" xml:space="preserve">
-    <value>Permission Settings</value>
-  </data>
-  <data name="TitleSubfolders" xml:space="preserve">
-    <value>Subfolders</value>
-  </data>
-  <data name="TitleUploaded" xml:space="preserve">
-    <value>Uploaded</value>
-  </data>
-  <data name="Size" xml:space="preserve">
-    <value>Size</value>
-  </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
-  </data>
-  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
-    <value>You cannot update a file which is opened for editing</value>
-  </data>
-  <data name="TitlePage" xml:space="preserve">
-    <value>Documents</value>
-  </data>
-  <data name="TitleModified" xml:space="preserve">
-    <value>Updated</value>
-  </data>
-  <data name="Author" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="DocumentName" xml:space="preserve">
-    <value>Document Name</value>
-  </data>
-  <data name="FolderName" xml:space="preserve">
-    <value>Folder Name</value>
-  </data>
-  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
-    <value>Empty file</value>
-  </data>
-  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
-    <value>The required file was not found</value>
-  </data>
-  <data name="Author_Me" xml:space="preserve">
-    <value>Me</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
-    <value>Недостаточно прав для редактирования файла</value>
-  </data>
-  <data name="ErrorMassage_LockedFile" xml:space="preserve">
-    <value>Файл заблокирован другим пользователем</value>
-  </data>
-  <data name="UnlockComment" xml:space="preserve">
-    <value>Файл разблокирован</value>
-  </data>
-  <data name="TitleVersionHistory" xml:space="preserve">
-    <value>Version history:</value>
-  </data>
-  <data name="TitleVersionComplete" xml:space="preserve">
-    <value>Отметить как версию</value>
-  </data>
-  <data name="TitleVersionContinue" xml:space="preserve">
-    <value>Отметить как ревизию</value>
-  </data>
-  <data name="ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="ButtonConvertOpen" xml:space="preserve">
-    <value>Convert &amp; Open</value>
-  </data>
-  <data name="ButtonDownload" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="OpenFile" xml:space="preserve">
-    <value>Preview</value>
-  </data>
-  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
-    <value>Too many downloads.</value>
-  </data>
-  <data name="ErrorMassage_Reconverting" xml:space="preserve">
-    <value>The file is already in the queue for conversion.</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
-    <value>You don't have enough permission to create</value>
-  </data>
-  <data name="ErrorMassage_BadRequest" xml:space="preserve">
-    <value>Bad request.</value>
-  </data>
-  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
-    <value>Invalid title</value>
-  </data>
   <data name="Access" xml:space="preserve">
     <value>Access</value>
   </data>
-  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
-    <value>You cannot copy the folder to its subfolder</value>
-  </data>
-  <data name="SubscriptForAccess" xml:space="preserve">
-    <value>Оповещать при расшаривании</value>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Outside portal</value>
   </data>
   <data name="AceStatusEnum_Read" xml:space="preserve">
     <value>Read Only</value>
@@ -333,107 +135,14 @@
   <data name="AceStatusEnum_Review" xml:space="preserve">
     <value>Review</value>
   </data>
-  <data name="AceShareLink" xml:space="preserve">
-    <value>Outside portal</value>
+  <data name="Action" xml:space="preserve">
+    <value>Operation</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
-  <data name="Everyone" xml:space="preserve">
-    <value>Everyone</value>
-  </data>
-  <data name="Guest" xml:space="preserve">
-    <value>Guest</value>
-  </data>
-  <data name="ErrorEntry" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="ProductDescriptionEx" xml:space="preserve">
-    <value>Create, edit, save and share documents directly on your portal.</value>
-  </data>
-  <data name="ProductAdminOpportunities" xml:space="preserve">
-    <value>Делать все то же, что и пользователь|Подключать аккаунты dropbox, boxnet и т.д. в разделе "Общие документы"|Настраивать права доступа к документам и папкам в разделе "Общие документы"</value>
-  </data>
-  <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Создавать и редактировать документы, как свои, так и те к которым предоставлен доступ с соответствующими правами|Предоставлять доступ другим пользователям к документам и папкам с правами на чтение/редатирование|Подключать аккаунты dropbox, boxnet и т.д. в разделе "Мои документы"</value>
-  </data>
-  <data name="ShareFolder" xml:space="preserve">
-    <value>Notify when shared folder</value>
-  </data>
-  <data name="ConvertTo" xml:space="preserve">
-    <value>Конвертировать в</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="Folder" xml:space="preserve">
-    <value>Folder</value>
-  </data>
-  <data name="Share" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="CopyForEdit" xml:space="preserve">
-    <value>The document converted copy has been created to allow its editing</value>
-  </data>
-  <data name="ConnectionUrl" xml:space="preserve">
-    <value>Connection url</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="ThirdPartyFolderTitle" xml:space="preserve">
-    <value>Folder title</value>
-  </data>
-  <data name="ThirdPartySetCorporate" xml:space="preserve">
-    <value>Make a shared and put into Shared Documents</value>
-  </data>
-  <data name="ButtonSave" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="ButtonCancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ProfileRemoved" xml:space="preserve">
-    <value>{!User} removed</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="ErrorMassage_FileSizeZip" xml:space="preserve">
-    <value>File larger than {0} will not be archived</value>
-  </data>
-  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
-    <value>File larger than {0} will not be converted</value>
-  </data>
-  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
-    <value>File larger than {0} will not be edited</value>
-  </data>
-  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
-    <value>File larger than {0} will not be moved</value>
-  </data>
-  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
-    <value>File larger than {0} will not be copied</value>
-  </data>
-  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
-    <value>Error occurred in the Documents Service</value>
-  </data>
-  <data name="UnknownFirstName" xml:space="preserve">
-    <value>FirstName</value>
-  </data>
-  <data name="UnknownLastName" xml:space="preserve">
-    <value>LastName</value>
-  </data>
   <data name="AppAccessDenied" xml:space="preserve">
-    <value>You must grant access for work with the file</value>
-  </data>
-  <data name="AppConvertCopy" xml:space="preserve">
-    <value>Opening this file in Teamlab will create a new copy of this file into Office Open XML format in your Google Drive. By this way, the original file will not be modified. For further edits in Teamlab, you have to open the new copy.</value>
-  </data>
-  <data name="AppConvertCopyHide" xml:space="preserve">
-    <value>Do not show this again</value>
+    <value>To work with the file you must grant access to it</value>
   </data>
   <data name="AppButtonConvert" xml:space="preserve">
     <value>CONTINUE</value>
@@ -441,23 +150,47 @@
   <data name="AppButtonCreate" xml:space="preserve">
     <value>CREATE FILE</value>
   </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Opening this file in ONLYOFFICE™ will create a new copy of this file in Office Open XML format in your Google Drive. This way the original file will not be modified. To further edit the file in ONLYOFFICE™ you will have to open a new copy.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Do not show this again</value>
+  </data>
   <data name="AppEnterName" xml:space="preserve">
     <value>Enter Filename</value>
   </data>
   <data name="AppEnterType" xml:space="preserve">
-    <value>Select Filetype</value>
+    <value>Select File Type</value>
   </data>
-  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
-    <value>This document is being edited</value>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
   </data>
-  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
-    <value>{0} opened the file for editing in a mobile application</value>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Me</value>
   </data>
-  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
-    <value>There are no available account to send a message. Go to the Mail and connect the mailbox.</value>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="CommentUpload" xml:space="preserve">
-    <value>Uploaded</value>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Convert &amp; Open</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
   </data>
   <data name="CommentConvert" xml:space="preserve">
     <value>Converted from {0}</value>
@@ -468,10 +201,379 @@
   <data name="CommentCreate" xml:space="preserve">
     <value>Created</value>
   </data>
-  <data name="CommentRevert" xml:space="preserve">
-    <value>Restored from revision of {0}</value>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Created by DocuSign</value>
   </data>
   <data name="CommentEdit" xml:space="preserve">
     <value>Edited</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Overwrited</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Restored from revision of {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Restored from editing session revision of {0}</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Changed owner</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Connection url</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Convert into</value>
+  </data>
+  <data name="CopyForEdit" xml:space="preserve">
+    <value>The document converted copy has been created to allow its editing</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Document Name</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Declined</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>There was an error during the send operation</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Sending the document via DocuSign has been canceled</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Document was sent to sign via DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Voided</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Enter a comment</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Bad request.</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Conversion takes too much time.</value>
+  </data>
+  <data name="ErrorMassage_CreateNewFolderInTrash" xml:space="preserve">
+    <value>You are not allowed to create folders in the Recycle Bin</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Error occurred in the Documents Service</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>The file is open for editing by {0}. Currently, the co-editing feature is not supported for this file format.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>The file is open for editing in a mobile application by {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Empty file</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>The required file was not found</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>File larger than {0} will not be converted</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>File larger than {0} will not be copied</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>File larger than {0} will not be edited</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>File larger than {0} will not be moved</value>
+  </data>
+  <data name="ErrorMassage_FileSizeZip" xml:space="preserve">
+    <value>File larger than {0} will not be archived</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>You cannot copy the folder to its subfolder</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>The required folder was not found</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Incorrect title</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>The file is currently locked by another user</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>There are no available accounts to send the message. Go to Mail and connect a mailbox.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>At least {0} mail messages could not be sent. Please visit the Mail module to see what the reason for the failure could be.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Too many downloads.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Sorry, this file format isn't supported</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Author of the save is unknown</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>The file was corrupted when you tried to save it</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Failed to get the file to be saved</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>You don't have enough permission to perform the operation</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Can't authorize at {0} provider with given credentials.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>You don't have enough permission to create</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Cannot delete the file because it is opened for editing</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Cannot delete the folder because one of the files is opened for editing</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>You don't have enough permission to delete the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>You don't have enough permission to delete the folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>You do not have enough permissions to edit the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>This document is being edited by you in another tab</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>You don't have enough permission to view the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>You don't have enough permission to view the folder content</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>You don't have enough permission to rename the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>You don't have enough permission to rename the folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Cannot update the file because it's opened for editing</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>You don't have enough permission to view the folder content</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>The content of third party folder are not available. Try to reconnect the account.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>File editing start error</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>You cannot update a file which is opened for editing</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>You are not allowed to preview the elements in the Recycle Bin</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>You can not select this user</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>b,KB,MB,GB</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Folder Name</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonymous</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Import from Google Drive</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>new</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>File created in folder "{0}"</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Do the same as a user|Link Dropbox, Box and other accounts in the 'Common Documents' section|Set up access rights to the documents and folders in the 'Common Documents' section</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Create, edit, save and share documents. Connect your Google Drive, Dropbox and Box accounts and have all documents in one place.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Create and edit own documents as well as the shared documents with the proper access rights|Give reading/editing access to other users to the documents and folders|Link Dropbox, Box and other accounts in the 'My documents' section</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} removed</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Mark as Read</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Make sure all words are spelled correctly. Try using different keywords.</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="ShareLinkMail" xml:space="preserve">
+    <value>Sending link</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Shared with Me</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Notify when a folder is shared</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Show Versions</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Notify when a document is shared</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Notify when document signed via DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Notify when document in DocuSign changed status</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Notify when mailing is complete</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Folder title</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Make shared and put into the 'Common Documents' folder</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>It is currently being edited</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Permission Settings</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Show File Actions</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Show Folder Actions</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Subfolders</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Mark as version</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Mark as revision</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Version history:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>The file is unlocked</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
   </data>
 </root>

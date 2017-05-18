@@ -29,15 +29,17 @@ using System.Net;
 using System.Text;
 using System.Web;
 using ASC.Files.Core;
+using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio;
+using Global = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Web.Files
 {
-    public partial class Share : MainPage
+    public partial class Share : MainPage, IStaticBundle
     {
         public static string Location
         {
@@ -60,8 +62,11 @@ namespace ASC.Web.Files
         {
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
+            Master.Master
+                  .AddStaticStyles(GetStaticStyleSheet())
+                  .AddStaticBodyScripts(GetStaticJavaScript());
 
-            var accessRights = (AccessRights) LoadControl(AccessRights.Location);
+            var accessRights = (AccessRights)LoadControl(AccessRights.Location);
             accessRights.IsPopup = false;
             CommonContainerHolder.Controls.Add(accessRights);
 
@@ -70,30 +75,31 @@ namespace ASC.Web.Files
 
         private void InitScript()
         {
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/accessrights/accessrights.css");
-            Page.RegisterBodyScripts("~/js/third-party/zeroclipboard.js");
-
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
-                "common.js", 
-                "templatemanager.js",
-                "servicemanager.js", 
-                "ui.js");
-
             var fileId = Request[FilesLinkUtility.FileId];
             File file;
-            using (var fileDao = Classes.Global.DaoFactory.GetFileDao())
+            try
             {
-                file = fileDao.GetFile(fileId);
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    file = fileDao.GetFile(fileId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Error("ShareLink", ex);
+
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return;
             }
 
             if (file == null)
             {
-                Response.StatusCode = (int) HttpStatusCode.NotFound;
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return;
             }
-            if (!Classes.Global.GetFilesSecurity().CanRead(file))
+            if (!Global.GetFilesSecurity().CanRead(file))
             {
-                Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 return;
             }
 
@@ -103,6 +109,35 @@ namespace ASC.Web.Files
                                 file.Title,
                                 (file.RootFolderType == FolderType.COMMON).ToString().ToLower());
             Page.RegisterInlineScript(script.ToString());
+        }
+
+
+        public ScriptBundleData GetStaticJavaScript()
+        {
+            return (ScriptBundleData)
+                   new ScriptBundleData("filesshare", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath,
+                                  "common.js",
+                                  "templatemanager.js",
+                                  "servicemanager.js",
+                                  "ui.js"
+                       )
+                       .AddSource(ResolveUrl,
+                                  "~/js/third-party/clipboard.js"
+                       )
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "controls/accessrights/accessrights.js"
+                       );
+        }
+
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return (StyleBundleData)
+                   new StyleBundleData("filesshare", "files")
+                       .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                  "controls/accessrights/accessrights.css"
+                       );
         }
     }
 }

@@ -215,9 +215,9 @@
 			var isElement = isHtmlElement(label[0]);
 			var anchor = this.options.anchor.match(/^\s*(left|right)\s*,\s*(top|bottom)/i);
 			var dir = this.options.direction.match(/^\s*(left|right)\s*,\s*(up|down)/i);
-			var offs = this.options.offset.match(/^\s*([+-]?\d+)\s*(px)?\s*,\s*([+-]?\d+)\s*(px)?/i);
+			var offs = this.options.offset.match(/^\s*([+-]?\d+(\.\d+)?)\s*(px)?\s*,\s*([+-]?\d+(\.\d+)?)\s*(px)?/i);
 			var arr = this.options.arrow.match(/^\s*(left|right|up|down)/i);
-			var arrPos = this.options.arrowPosition.match(/^\s*([+-]?\d+)\s*(%)?/i);
+			var arrPos = this.options.arrowPosition.match(/^\s*([+-]?\d+(\.\d+)?)\s*(%)?/i);
 			if (!anchor || !dir || !offs || !arr) {return;}
 
 			if (!label || label.length < 1 || !isElement) {
@@ -231,7 +231,7 @@
 			var dirY = dir[2].toLowerCase();
 			var offset = {
 				x: (offs[1] != undefined ? parseInt(offs[1]) : 0),
-				y: (offs[3] != undefined ? parseInt(offs[3]) : 0)
+				y: (offs[4] != undefined ? parseInt(offs[4]) : 0)
 			};
 			var arrow = arr[1];
 			var arrowPosition = (arrPos[1] != undefined ? parseInt(arrPos[1]) : -1);

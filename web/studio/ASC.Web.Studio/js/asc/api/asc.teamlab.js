@@ -25,71 +25,20 @@
 
 
 ;
-window.Teamlab = (function() {
-    var isInit = false,
-        eventManager = null;
-
-    var customEvents = {
+window.Teamlab = (function () {
+    var ADD = 'post',
+        UPDATE = 'put',
+        REMOVE = 'delete',
+        GET = 'get',
+        helper = ServiceHelper,
+        isInit = false,
+        customEvents = {
         getException: 'ongetexception',
         getAuthentication: 'ongetauthentication',
 
-        addComment: 'onaddcomment',
-        updateComment: 'onupdatecomment',
-        removeComment: 'onremovecomment',
-
-        getCmtBlog: 'ongetcmtyblog',
-
-        subscribeProject: 'subscribeproject',
         addPrjComment: 'onaddprjcomment',
-        updatePrjComment: 'onupdateprjcomment',
-        removePrjComment: 'onremoveprjcomment',
-        updatePrjTask: 'onupdateprjtask',
-        addPrjTask: 'onaddprjtask',
-        getPrjTask: 'ongetprjtask',
-        getPrjTasks: 'ongetprjtasks',
-        addPrjSubtask: 'onaddprjsubtask',
-        removePrjSubtask: 'onremoveprjsubtask',
-        updatePrjSubtask: 'onupdateprjsubtask',
-        removePrjTask: 'onremoveprjtask',
-        getPrjDiscussion: 'ongetprjdiscussion',
-        getPrjDiscussions: 'ongetprjdiscussions',
-        getPrjProjects: 'ongetprjprojects',
-        getPrjTeam: 'ongetprjteam',
-        setTeamSecurity: 'setteamsecurity',
-        getPrjTemplates: 'getprjtemplates',
-        getPrjTemplate: 'getprjtemplate',
-        updatePrjTemplate: 'updateprjtemplate',
-        createPrjTemplate: 'createprjtemplate',
-        removePrjTemplate: 'removeprjtemplate',
-        getPrjMilestones: 'ongetprjmilestones',
-        updatePrjProjectStatus: 'onupdateprjprojectstatus',
-        addPrjTime: 'onaddprjtime',
-        getPrjTime: 'ongetprjtime',
         updatePrjTime: 'onupdateprjtime',
         removePrjTime: 'onremoveprjtime',
-
-        getCrmContact: 'ongetcrmcontact',
-        getCrmOpportunity: 'ongetcrmopportunity',
-        getCrmCase: 'ongetcrmcase',
-        getCrmContactsByPrefix: 'ongetcrmcontactbyprefix',
-        getCrmOpportunitiesByPrefix: 'ongetcrmopportunitybyprefix',
-        getCrmCasesByPrefix: 'ongetcrmcasebyprefix',
-        getContactsByContactInfo: 'ongetcontactsbycontactinfo',
-        getCrmContactTweets: 'ongetcrmcontacttweets',
-        updateWebToLeadFormKey: 'onupdatewebtoleadformkey',
-        updateCRMSMTPSettings: 'onupdatesmtpsettings',
-        sendSMTPTestMail: 'onsendsmtptestmail',
-        sendSMTPMailToContacts: 'onsendsmtpmailtocontacts',
-        getPreviewSMTPMailToContacts: 'ongetpreviewsmtpmailtocontacts',
-        getStatusSMTPMailToContacts: 'ongetstatussmtpmailtocontacts',
-        cancelSMTPMailToContacts: 'oncancelsmtpmailtocontacts',
-        getStatusExportToCSV: 'ongetstatusexporttocsv',
-        cancelExportToCSV: 'oncancelexporttocsv',
-        startCrmExportToCSV: 'onstartcrmexporttocsv',
-        startCrmImportFromCSV: 'onstartcrmimportfromcsv',
-        getStatusCrmImportFromCSV: 'ongetstatuscrmimportfromcsv',
-        getCrmImportFromCSVSampleRow: 'ongetcrmimportfromcsvsamplerow',
-        uploadFakeCrmImportFromCSV: 'onuploadfakecrmimportfromcsv',
 
         getMailFilteredMessages: 'ongetmailmessages',
         getMailFolders: 'ongetmailfolders',
@@ -179,25 +128,46 @@ window.Teamlab = (function() {
         createNotificationAddress: 'createnotificationaddress',
         removeNotificationAddress: 'removenotificationaddress',
         addCalendarBody: 'addcalendarbody',
-
-        getFolderPath: 'ongetfolderpath',
+        setMailConversationEnabledFlag: 'setmailconversationenabledflag',
+        setMailAlwaysDisplayImagesFlag: 'setmailalwaysdisplayimagesflag',
+        setMailCacheUnreadMessagesFlag: 'setmailcacheunreadmessagesflag',
+        setMailEnableGoNextAfterMove: 'setmailenablegonextaftermove',
+        getMailOperationStatus: 'getmailoperationstatus',
 
         getTalkUnreadMessages: 'gettalkunreadmessages',
-        registerUserOnPersonal: 'registeruseronpersonal',
-        saveWhiteLabelSettings: 'onsavewhitelabelsettings',
-        restoreWhiteLabelSettings: 'onrestorewhitelabelsettings',
 
-        getCalendars: 'getcalendars',
-        getCalendarEventByUid: 'getcalendareventbyuid',
-        getCalendarEventById: 'getcalendareventbyid',
-        importCalendarEventIcs: 'importcalendareventics'
+        addSubtask: 'addsubtask',
+        removeSubtask: 'removesubtask',
+        updateSubtask: 'updateSubtask',
+        removePrjTask: 'removePrjTask',
+        updatePrjTask: 'updatePrjTask',
+        updatePrjTaskStatus: 'updatePrjTaskStatus',
+        addPrjTask: 'addPrjTask',
+        copyPrjTask: 'copyPrjTask',
+        addPrjMilestone: 'addPrjMilestone',
+        updatePrjMilestone: 'updatePrjMilestone',
+        updatePrjMilestoneStatus: 'updatePrjMilestoneStatus',
+        removePrjMilestone: 'removePrjMilestone',
+        updatePrjTeam: 'updatePrjTeam',
+        removePrjTeam: 'removePrjTeam',
+        getPrjProject: 'getPrjProject',
+        updatePrjProjectStatus: 'updatePrjProjectStatus',
+        getCrmContactsForProject: 'getCrmContactsForProject',
+        addCrmContactForProject: 'addCrmContactForProject',
+        removeCrmContactFromProject: 'removeCrmContactFromProject',
+        getDocFolder: 'getDocFolder'
     },
         customEventsHash = {},
         eventManager = new CustomEvent(customEvents);
+
     extendCustomEventsHash();
 
     function isArray(o) {
         return o ? o.constructor.toString().indexOf("Array") != -1 : false;
+    }
+
+    function getQuery(o) {
+        return o && typeof o === 'object' && o.hasOwnProperty('query') ? o.query : null;
     }
 
     function extendCustomEventsHash() {
@@ -224,10 +194,10 @@ window.Teamlab = (function() {
         }
         isInit = true;
 
-        ServiceManager.bind(null, onGetResponse);
-        ServiceManager.bind('event', onGetEvent);
-        ServiceManager.bind('extention', onGetExtention);
-        //ServiceManager.bind('me', onGetOwnProfile);
+        helper.bind(null, onGetResponse);
+        helper.bind('event', onGetEvent);
+        helper.bind('extention', onGetExtention);
+        //serviceManager.bind('me', onGetOwnProfile);
     };
 
     var bind = function(eventname, handler, params) {
@@ -240,16 +210,6 @@ window.Teamlab = (function() {
 
     var call = function(eventname, self, args) {
         eventManager.call(eventname, self, args);
-    };
-
-    var extendEventManager = function(events) {
-        for (var fld in events) {
-            if (events.hasOwnProperty(fld)) {
-                customEvents[fld] = events[fld];
-            }
-        }
-        eventManager.extend(customEvents);
-        extendCustomEventsHash();
     };
 
     function onGetEvent(eventname, self, args) {
@@ -272,2090 +232,6430 @@ window.Teamlab = (function() {
         }
     }
 
-    function onGetOwnProfile(params, profile) {
-        //console.log('me: ', profile);
-    }
-
     var joint = function() {
-        ServiceManager.joint();
+        helper.joint();
         return window.Teamlab;
     };
 
     var start = function(params, options) {
-        return ServiceManager.start(params, options);
+        return helper.start(params, options);
     };
+
+    function addRequest(eventname, params, type, url, data, options) {
+        return returnValue(helper.request(
+            eventname,
+            params,
+            type,
+            url,
+            data,
+            options
+        ));
+    }
 
     /* <common> */
-    var getQuotas = function(params, options) {
-        return returnValue(ServiceManager.getQuotas(customEvents.getQuotas, params, options));
+    var getQuotas = function (params, options) {
+        return addRequest(
+            customEvents.getQuotas,
+            params,
+            GET,
+            'settings/quota.json',
+            null,
+            options
+        );
     };
 
-    /* </Common> */
+    var recalculateQuota = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/recalculatequota.json',
+            null,
+            options
+        );
+    };
+
+    var checkRecalculateQuota = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/checkrecalculatequota.json',
+            null,
+            options
+        );
+    };
+
+    /* </common> */
 
     /* <people> */
-    
-    var remindPwd = function(params, email, options) {
-        return returnValue(ServiceManager.remindPwd(customEvents.remindPwd, params, email, options));
-    };
-    
-    var thirdPartyLinkAccount = function(params, data, options) {
-        return returnValue(ServiceManager.thirdPartyLinkAccount(customEvents.thirdPartyLinkAccount, params, data, options));
+
+    var remindPwd = function (params, email, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'people/password.json',
+            { email: email },
+            options
+        );
     };
 
-    var thirdPartyUnLinkAccount = function(params, data, options) {
-        return returnValue(ServiceManager.thirdPartyUnLinkAccount(customEvents.thirdPartyUnLinkAccount, params, data, options));
+    var thirdPartyLinkAccount = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/thirdparty/linkaccount.json',
+            data,
+            options
+        );
     };
 
-    var addProfile = function(params, data, options) {
-        return returnValue(ServiceManager.addProfile(customEvents.addProfile, params, data, options));
+    var thirdPartyUnLinkAccount = function (params, data, options) {
+        return addRequest(
+            customEvents.thirdPartyUnLinkAccount,
+            params,
+            REMOVE,
+            'people/thirdparty/unlinkaccount.json',
+            data,
+            options
+        );
     };
 
-    var getProfile = function(params, id, options) {
-        return returnValue(ServiceManager.getProfile(customEvents.getProfile, params, id, options));
+    var addProfile = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'people.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getProfiles = function(params, options) {
-        return returnValue(ServiceManager.getProfiles(customEvents.getProfiles, params, options));
+    var getProfile = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'people/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getProfilesByFilter = function(params, options) {
-        return returnValue(ServiceManager.getProfilesByFilter(customEvents.getProfilesByFilter, params, options));
+    var getProfiles = function (params, options) {
+        var status = null;
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            status = options.filter.hasOwnProperty('status') ? options.filter.status : status;
+        }
+
+        var query = getQuery(options),
+            url = 'people' + (status !== null ? '/status/' + status : '') + '.json';
+
+        if (query) {
+            if (options.filter) {
+                options.filter.query = query;
+
+            } else {
+                options.filter = { query: query };
+            }
+            url = 'people' + (status !== null ? '/status/' + status : '') + '/search.json';
+        }
+
+        return addRequest(
+            null,
+            params,
+            GET,
+            url,
+            null,
+            options
+        );
     };
 
-    var addGroup = function(params, data, options) {
-        return returnValue(ServiceManager.addGroup(customEvents.addGroup, params, data, options));
+    var getProfilesByFilter = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'people/filter.json',
+            null,
+            options
+        );
     };
 
-    var updateGroup = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateGroup(customEvents.updateGroup, params, id, data, options));
+    var addGroup = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'group.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getGroup = function(id, options) {
-        return returnValue(ServiceManager.getGroup(customEvents.getGroup, null, id, options));
+    var getGroup = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'group/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getGroups = function(params, options) {
-        return returnValue(ServiceManager.getGroups(customEvents.getGroups, params, options));
+    var getGroups = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'group.json',
+            null,
+            options
+        );
     };
 
-    var deleteGroup = function(id, options) {
-        return returnValue(ServiceManager.deleteGroup(customEvents.deleteGroup, null, id, options));
+    var updateGroup = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'group/' + id + '.json',
+            data,
+            options
+        );
     };
 
-    var updateProfile = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateProfile(customEvents.updateProfile, params, id, data, options));
+    var deleteGroup = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'group/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var updateUserType = function(params, type, data, options) {
-        return returnValue(ServiceManager.updateUserType(customEvents.updateUserType, params, type, data, options));
+    var updateProfile = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/' + id + '.json',
+            data,
+            options
+        );
     };
 
-    var updateUserStatus = function(params, status, data, options) {
-        return returnValue(ServiceManager.updateUserStatus(customEvents.updateUserStatus, params, status, data, options));
-    };
-    var updateUserPhoto = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateUserPhoto(customEvents.updateUserPhoto, params, id, data, options));
-    };
-
-    var removeUserPhoto = function(params, id, data, options) {
-        return returnValue(ServiceManager.removeUserPhoto(customEvents.removeUserPhoto, params, id, data, options));
-    };
-
-    var sendInvite = function(params, data, options) {
-        return returnValue(ServiceManager.sendInvite(customEvents.sendInvite, params, data, options));
+    var updateUserType = function (params, type, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/type/' + type + '.json',
+            data,
+            options
+        );
     };
 
-    var removeUsers = function(params, data, options) {
-        return returnValue(ServiceManager.removeUsers(customEvents.removeUsers, params, data, options));
+    var updateUserStatus = function (params, status, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/status/' + status + '.json',
+            data,
+            options
+        );
+    };
+    var updateUserPhoto = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/' + id + '/photo.json',
+            data,
+            options
+        );
+    };
+
+    var removeUserPhoto = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'people/' + id + '/photo.json',
+            data,
+            options
+        );
+    };
+
+    var sendInvite = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/invite.json',
+            data,
+            options
+        );
+    };
+
+    var removeUsers = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/delete.json',
+            data,
+            options
+        );
     };
 
     var getUserGroups = function (id, options) {
-        return returnValue(ServiceManager.getUserGroups(customEvents.getUserGroups, null, id, options));
-    };
-    
-    var removeSelf = function(params, options) {
-        return returnValue(ServiceManager.removeSelf(customEvents.removeSelf, params, options));
+        return addRequest(
+            null,
+            null,
+            GET,
+            'group/user/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var joinAffiliate = function(params, options) {
-        return returnValue(ServiceManager.joinAffiliate(customEvents.joinAffiliate, params, options));
+    var removeSelf = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/self/delete.json',
+            null,
+            options
+        );
     };
-    
+
+    var joinAffiliate = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/self/joinaffiliate.json',
+            null,
+            options
+        );
+    };
+
+
     /* </people> */
 
     /* <community> */
-    var addCmtBlog = function(params, data, options) {
-        return returnValue(ServiceManager.addCmtBlog(customEvents.addCmtBlog, params, data, options));
+    var addCmtBlog = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/blog.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCmtBlog = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtBlog(customEvents.getCmtBlog, params, id, options));
+    var getCmtBlog = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/blog/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCmtBlogs = function(params, options) {
-        return returnValue(ServiceManager.getCmtBlogs(customEvents.getCmtBlogs, params, options));
+    var getCmtBlogs = function (params, options) {
+        var query = getQuery(options);
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/blog' + (query ? '/@search/' + query : '') + '.json',
+            null,
+            options
+        );
     };
 
-    var addCmtForumTopic = function(params, threadid, data, options) {
-        if (arguments.length === 3) {
-            options = arguments[2];
-            data = arguments[1];
-            threadid = data && typeof data === 'object' && data.hasOwnProperty('threadid') ? data.threadid : null;
-        }
-
-        return returnValue(ServiceManager.addCmtForumTopic(customEvents.addCmtForumTopic, params, threadid, data, options));
+    var addCmtForumTopic = function (params, threadid, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/forum/' + threadid + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCmtForumTopic = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtForumTopic(customEvents.getCmtForumTopic, params, id, options));
+    var getCmtForumTopic = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/forum/topic/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCmtForumTopics = function(params, options) {
-        return returnValue(ServiceManager.getCmtForumTopics(customEvents.getCmtForumTopics, params, options));
+    var getCmtForumTopics = function (params, options) {
+        var query = getQuery(options);
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/forum' + (query ? '/@search/' + query : '/topic/recent') + '.json',
+            null,
+            options
+        );
     };
 
-    var getCmtForumCategories = function(params, options) {
-        return returnValue(ServiceManager.getCmtForumCategories(customEvents.getCmtForumCategories, params, options));
+    var getCmtForumCategories = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/forum.json',
+            null,
+            options
+        );
     };
 
-    var addCmtForumToCategory = function(params, data, options) {
-        return returnValue(ServiceManager.addCmtForumToCategory(customEvents.addCmtForumToCategory, params, data, options));
+    var addCmtForumToCategory = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'community/forum.json',
+            data,
+            options
+        );
     };
 
-    var addCmtEvent = function(params, data, options) {
-        return returnValue(ServiceManager.addCmtEvent(customEvents.addCmtEvent, params, data, options));
+    var addCmtEvent = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/event.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCmtEvent = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtEvent(customEvents.getCmtEvent, params, id, options));
+    var getCmtEvent = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/event/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCmtEvents = function(params, options) {
-        return returnValue(ServiceManager.getCmtEvents(customEvents.getCmtEvents, params, options));
+    var getCmtEvents = function (params, options) {
+        var query = getQuery(options);
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/event' + (query ? '/@search/' + query : '') + '.json',
+            null,
+            options
+        );
     };
 
-    var addCmtBookmark = function(params, data, options) {
-        return returnValue(ServiceManager.addCmtBookmark(customEvents.addCmtBookmark, params, data, options));
+    var addCmtBookmark = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/bookmark.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCmtBookmark = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtBookmark(customEvents.getCmtBookmark, params, id, options));
+    var getCmtBookmark = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/bookmark/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCmtBookmarks = function(params, options) {
-        return returnValue(ServiceManager.getCmtBookmarks(customEvents.getCmtBookmarks, params, options));
+    var getCmtBookmarks = function (params, options) {
+        var query = getQuery(options);
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/bookmark' + (query ? '/@search/' + query : '/top/recent') + '.json',
+            null,
+            options
+        );
     };
 
-    var addCmtForumTopicPost = function(params, id, data, options) {
-        return returnValue(ServiceManager.addCmtForumTopicPost(customEvents.addCmtForumTopicPost, params, id, data, options));
+    var addCmtForumTopicPost = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/forum/topic/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var addCmtBlogComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.addCmtBlogComment(customEvents.addCmtBlogComment, params, id, data, options));
+    var addCmtBlogComment = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/blog/' + id + '/comment.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCmtBlogComments = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtBlogComments(customEvents.getCmtBlogComments, params, id, options));
+    var getCmtBlogComments = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/blog/' + id + '/comment.json',
+            null,
+            options
+        );
     };
 
-    var addCmtEventComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.addCmtEventComment(customEvents.addCmtEventComment, params, id, data, options));
+    var addCmtEventComment = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/event/' + id + '/comment.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCmtEventComments = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtEventComments(customEvents.getCmtEventComments, params, id, options));
-    };
-    
-    var subscribeCmtEventComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.subscribeCmtEventComment(customEvents.subscribeCmtEventComment, params, id, data, options));
-    };
-    
-    var addCmtBookmarkComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.addCmtBookmarkComment(customEvents.addCmtBookmarkComment, params, id, data, options));
+    var getCmtEventComments = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/event/' + id + '/comment.json',
+            null,
+            options
+        );
     };
 
-    var getCmtBookmarkComments = function(params, id, options) {
-        return returnValue(ServiceManager.getCmtBookmarkComments(customEvents.getCmtBookmarkComments, params, id, options));
+    var subscribeCmtEventComment = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/event/' + id + '/subscribe.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addCmtBookmarkComment = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/bookmark/' + id + '/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getCmtBookmarkComments = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'community/bookmark/' + id + '/comment.json',
+            null,
+            options
+        );
+    };
+
+    var subscribeCmtBirthday = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/birthday.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getCmtPreview = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'community/preview.json',
+            data,
+            options
+        );
     };
     /* </community> */
 
     /* <projects> */
 
-    var subscribeProject = function(params, id, options) {
-        return returnValue(ServiceManager.subscribeProject(customEvents.subscribeProject, params, id, options));
+    var subscribeProject = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/' + id + '/follow.json',
+            id,
+            options
+        );
+        return true;
     };
 
-    var getFeeds = function(params, options) {
-        return returnValue(ServiceManager.getFeeds(customEvents.getFeeds, params, options));
+    var getFeeds = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'feed/filter.json',
+            null,
+            options
+        );
     };
 
-    var getNewFeedsCount = function(params, options) {
-        return returnValue(ServiceManager.getNewFeedsCount(customEvents.getNewFeedsCount, params, options));
+    var getNewFeedsCount = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'feed/newfeedscount.json',
+            null,
+            options
+        );
     };
 
-    var readFeeds = function(params, options) {
-        return returnValue(ServiceManager.readFeeds(customEvents.readFeeds, params, options));
+    var readFeeds = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'feed/read.json',
+            null,
+            options
+        );
     };
 
-    var getPrjTags = function(params, options) {
-        return returnValue(ServiceManager.getPrjTags(customEvents.getPrjTags, params, options));
+    var getPrjTags = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            'get',
+            'project/tag.json',
+            null,
+            options
+        );
     };
 
-    var getPrjTagsByName = function(params, name, data, options) {
-        return returnValue(ServiceManager.getPrjTagsByName(customEvents.getPrjTagsByName, params, name, data, options));
+    var getPrjSecurityinfo = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            'get',
+            'project/securityinfo.json',
+            null,
+            options
+        );
     };
 
-    var getPrjComments = function(params, type, id, options) {
+    var getPrjTagsByName = function (params, name, data, options) {
+        return addRequest(
+            null,
+            params,
+            'get',
+            'project/tag/search.json',
+            data,
+            options
+        );
+    };
+
+    var getPrjComments = function (params, type, id, options) {
         var fn = null;
         switch (type.toLowerCase()) {
             case 'discussion':
-                fn = ServiceManager.getPrjDiscussionComments;
+                fn = getPrjDiscussionComments;
                 break;
         }
         if (typeof fn === 'function') {
-            return returnValue(fn(customEvents.getPrjComments, params, id, options));
+            return returnValue(fn(params, id, options));
         }
         return false;
     };
 
-    var addPrjTaskComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.addPrjTaskComment(customEvents.addPrjTaskComment, params, id, data, options));
+    var addPrjSubtask = function (params, id, data, options) {
+        addRequest(
+            customEvents.addSubtask,
+            params,
+            ADD,
+            'project/task/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var updatePrjTaskComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjTaskComment(customEvents.updatePrjTaskComment, params, id, data, options));
+    var copyPrjSubtask = function (params, taskid, id, options) {
+        addRequest(
+            customEvents.addSubtask,
+            params,
+            ADD,
+            'project/task/' + taskid + '/' + id + '/copy.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var getPrjTaskComments = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjTaskComments(customEvents.getPrjTaskComments, params, id, options));
-    };
-
-    var addPrjDiscussionComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.addPrjDiscussionComment(customEvents.addPrjDiscussionComment, params, id, data, options));
-    };
-
-    var updatePrjDiscussionComment = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjDiscussionComment(customEvents.updatePrjDiscussionComment, params, id, data, options));
-    };
-
-    var removePrjDiscussionComment = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjDiscussionComment(customEvents.removePrjDiscussionComment, params, id, options));
-    };
-
-    var getPrjDiscussionComments = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjDiscussionComments(customEvents.getPrjDiscussionComments, params, id, options));
-    };
-    
-    var getPrjDiscussionPreview = function(params, htmltext, options) {
-        return returnValue(ServiceManager.getPrjDiscussionPreview(customEvents.getPrjDiscussionPreview, params, htmltext, options));
-    };
-    
-    var getPrjCommentPreview = function(params, commentid, htmltext, options) {
-        return returnValue(ServiceManager.getPrjCommentPreview(customEvents.getPrjCommentPreview, params, commentid, htmltext, options));
-    };
-    
-    var getWikiCommentPreview = function(params, commentid, htmltext, options) {
-        return returnValue(ServiceManager.getWikiCommentPreview(customEvents.getWikiCommentPreview, params, commentid, htmltext, options));
-    };
-
-    var getBlogCommentPreview = function(params, commentid, htmltext, options) {
-        return returnValue(ServiceManager.getBlogCommentPreview(customEvents.getBlogCommentPreview, params, commentid, htmltext, options));
-    };
-
-    var getNewsCommentPreview = function(params, commentid, htmltext, options) {
-        return returnValue(ServiceManager.getNewsCommentPreview(customEvents.getNewsCommentPreview, params, commentid, htmltext, options));
-    };
-
-    var getBookmarksCommentPreview = function(params, commentid, htmltext, options) {
-        return returnValue(ServiceManager.getBookmarksCommentPreview(customEvents.getBookmarksCommentPreview, params, commentid, htmltext, options));
-    };
-    
-    var removePrjComment = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjComment(customEvents.removePrjComment, params, id, options));
-    };
-    
-    var removeWikiComment = function(params, id, options) {
-        return returnValue(ServiceManager.removeWikiComment(customEvents.removeWikiComment, params, id, options));
-    };
-    
-    var removeBlogComment = function(params, id, options) {
-        return returnValue(ServiceManager.removeBlogComment(customEvents.removeBlogComment, params, id, options));
-    };
-    
-    var removeNewsComment = function(params, id, options) {
-        return returnValue(ServiceManager.removeNewsComment(customEvents.removeNewsComment, params, id, options));
-    };
-    
-    var removeBookmarksComment = function(params, id, options) {
-        return returnValue(ServiceManager.removeBookmarksComment(customEvents.removeBookmarksComment, params, id, options));
-    };
-
-    var addPrjComment = function(params, data, options) {
-        return returnValue(ServiceManager.addPrjComment(customEvents.addPrjComment, params, data, options));
-    };
-    
-    var addWikiComment = function(params, data, options) {
-        return returnValue(ServiceManager.addWikiComment(customEvents.addWikiComment, params, data, options));
-    };
-
-    var addBlogComment = function(params, data, options) {
-        return returnValue(ServiceManager.addBlogComment(customEvents.addBlogComment, params, data, options));
-    };
-
-    var addNewsComment = function(params, data, options) {
-        return returnValue(ServiceManager.addNewsComment(customEvents.addNewsComment, params, data, options));
-    };
-
-    var addBookmarksComment = function(params, data, options) {
-        return returnValue(ServiceManager.addBookmarksComment(customEvents.addBookmarksComment, params, data, options));
-    };
-    
-    
-    var updatePrjComment = function(params, commentid, data, options) {
-        return returnValue(ServiceManager.updatePrjComment(customEvents.updatePrjComment, params, commentid, data, options));
-    };
-    
-    var updateWikiComment = function(params, commentid, data, options) {
-        return returnValue(ServiceManager.updateWikiComment(customEvents.updateWikiComment, params, commentid, data, options));
-    };
-
-    var updateBlogComment = function(params, commentid, data, options) {
-        return returnValue(ServiceManager.updateBlogComment(customEvents.updateBlogComment, params, commentid, data, options));
-    };
-
-    var updateNewsComment = function(params, commentid, data, options) {
-        return returnValue(ServiceManager.updateNewsComment(customEvents.updateNewsComment, params, commentid, data, options));
-    };
-
-    var updateBookmarksComment = function(params, commentid, data, options) {
-        return returnValue(ServiceManager.updateBookmarksComment(customEvents.updateBookmarksComment, params, commentid, data, options));
-    };
-    
-    var fckeRemoveCommentComplete = function(params, data, options) {
-        return returnValue(ServiceManager.fckeRemoveCommentComplete(customEvents.fckeRemoveCommentComplete, params, data, options));
-    };
-    
-    var fckeCancelCommentComplete = function(params, data, options) {
-        return returnValue(ServiceManager.fckeCancelCommentComplete(customEvents.fckeCancelCommentComplete, params, data, options));
-    };
-
-    var fckeEditCommentComplete = function(params, data, options) {
-        return returnValue(ServiceManager.fckeEditCommentComplete(customEvents.fckeEditCommentComplete, params, data, options));
-    };
-
-    var getShortenLink = function (params, link, options) {
-        return returnValue(ServiceManager.getShortenLink(customEvents.getShortenLink, params, link, options));
-    };
-
-    var updatePortalName = function (params, alias, options) {
-        return returnValue(ServiceManager.updatePortalName(customEvents.updatePortalName, params, alias, options));
-    };
-
-    var addPrjSubtask = function(params, taskid, data, options) {
-        return returnValue(ServiceManager.addPrjSubtask(customEvents.addPrjSubtask, params, taskid, data, options));
-    };
-
-    var updatePrjSubtask = function(params, taskid, subtaskid, data, options) {
-        return returnValue(ServiceManager.updatePrjSubtask(customEvents.updatePrjSubtask, params, taskid, subtaskid, data, options));
-    };
-
-    var removePrjSubtask = function(params, taskid, subtaskid, options) {
-        return returnValue(ServiceManager.removePrjSubtask(customEvents.removePrjSubtask, params, taskid, subtaskid, options));
-    };
-
-    var addPrjTask = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.addPrjTask(customEvents.addPrjTask, params, projectid, data, options));
-    };
-
-    var addPrjTaskByMessage = function(params, projectId, massegeId, options) {
-        return returnValue(ServiceManager.addPrjTaskByMessage(customEvents.addPrjTaskByMessage, params, projectId, massegeId, options));
-    };
-
-    var updatePrjTask = function(params, taskid, data, options) {
-        return returnValue(ServiceManager.updatePrjTask(customEvents.updatePrjTask, params, taskid, data, options));
-    };
-
-    var removePrjTask = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjTask(customEvents.removePrjTask, params, id, options));
-    };
-
-    var getPrjTask = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjTask(customEvents.getPrjTask, params, id, options));
-    };
-
-    var getPrjTasksById = function(params, ids, options) {
-        return returnValue(ServiceManager.getPrjTasksById(customEvents.getPrjTasksById, params, ids, options));
-    };
-
-    var getPrjTasks = function(params, projectid, type, status, options) {
-        return returnValue(ServiceManager.getPrjTasks(customEvents.getPrjTasks, params, projectid, type, status, options));
-    };
-
-    var getPrjTasksSimpleFilter = function(params, options) {
-        return returnValue(ServiceManager.getPrjTasksSimpleFilter(customEvents.getPrjTasksSimpleFilter, params, options));
-    };
-
-    var getPrjTeam = function(params, ids, options) {
-        return returnValue(ServiceManager.getPrjTeam(customEvents.getPrjTeam, params, ids, options));
-    };
-
-    var updatePrjTeam = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.updatePrjTeam(customEvents.updatePrjTeam, params, projectid, data, options));
-    };
-
-    var setTeamSecurity = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.setTeamSecurity(customEvents.setTeamSecurity, params, projectid, data, options));
-    };
-
-    var getPrjTaskFiles = function(params, taskid, options) {
-        return returnValue(ServiceManager.getPrjTaskFiles(customEvents.getPrjTaskFiles, params, taskid, options));
-    };
-
-    var subscribeToPrjTask = function(params, taskid, options) {
-        return returnValue(ServiceManager.subscribeToPrjTask(customEvents.subscribeToPrjTask, params, taskid, options));
-    };
-
-    var notifyPrjTaskResponsible = function(params, taskid, options) {
-        return returnValue(ServiceManager.notifyPrjTaskResponsible(customEvents.notifyPrjTaskResponsible, params, taskid, options));
-    };
-
-    var addPrjTaskLink = function(params, taskid, data, options) {
-        return returnValue(ServiceManager.addPrjTaskLink(customEvents.addPrjTaskLink, params, taskid, data, options));
-    };
-
-    var removePrjTaskLink = function(params, taskid, data, options) {
-        return returnValue(ServiceManager.removePrjTaskLink(customEvents.removePrjTaskLink, params, taskid, data, options));
-    };
-
-    var getPrjProjectFolder = function(params, taskid, options) {
-        return returnValue(ServiceManager.getPrjProjectFolder(customEvents.getPrjProjectFolder, params, taskid, options));
-    };
-
-    var addPrjEntityFiles = function(params, entityid, entitytype, data, options) {
-        return returnValue(ServiceManager.addPrjEntityFiles(customEvents.addPrjEntityFiles, params, entityid, entitytype, data, options));
-    };
-
-    var removePrjEntityFiles = function(params, entityid, entitytype, data, options) {
-        return returnValue(ServiceManager.removePrjEntityFiles(customEvents.removePrjEntityFiles, params, entityid, entitytype, data, options));
-    };
-
-    var getPrjEntityFiles = function(params, entityid, entitytype, options) {
-        return returnValue(ServiceManager.getPrjEntityFiles(customEvents.getPrjEntityFiles, params, entityid, entitytype, options));
-    };
-
-    var addPrjMilestone = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.addPrjMilestone(customEvents.addPrjMilestone, params, projectid, data, options));
-    };
-
-    var updatePrjMilestone = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjMilestone(customEvents.updatePrjMilestone, params, id, data, options));
-    };
-
-    var removePrjMilestone = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjMilestone(customEvents.removePrjMilestone, params, id, options));
-    };
-
-    var getPrjMilestone = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjMilestone(customEvents.getPrjMilestone, params, id, options));
-    };
-
-    var getPrjMilestones = function(params, projectid, options) {
-        if (arguments.length < 3) {
-            options = arguments[1];
-            projectid = null;
+    var updatePrjSubtask = function (params, parentid, id, data, options) {
+        var updateStatus = false;
+        for (var fld in data) {
+            if (data.hasOwnProperty(fld)) {
+                switch (fld) {
+                    case 'status':
+                        updateStatus = true;
+                        break;
+                }
+            }
         }
 
-        return returnValue(ServiceManager.getPrjMilestones(customEvents.getPrjMilestones, params, projectid, options));
+        addRequest(
+            customEvents.updateSubtask,
+            params,
+            UPDATE,
+            'project/task/' + parentid + '/' + id + (updateStatus ? '/status' : '') + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var addPrjDiscussion = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.addPrjDiscussion(customEvents.addPrjDiscussion, params, projectid, data, options));
+    var removePrjSubtask = function (params, parentid, id, options) {
+        addRequest(
+            customEvents.removeSubtask,
+            params,
+            REMOVE,
+            'project/task/' + parentid + '/' + id + '.json',
+            id,
+            options
+        );
+        return true;
     };
 
-    var updatePrjDiscussion = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjDiscussion(customEvents.updatePrjDiscussion, params, id, data, options));
+    var addPrjTask = function (params, id, data, options) {
+        addRequest(
+            customEvents.addPrjTask,
+            params,
+            ADD,
+            'project/' + id + '/task.json',
+            data,
+            options
+        );
+        return true;
     };
-    
+
+    var copyPrjTask = function (params, id, data, options) {
+        addRequest(
+            customEvents.copyPrjTask,
+            params,
+            ADD,
+            'project/task/' + data.copyFrom + '/copy.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addPrjTaskByMessage = function (params, prjId, messageId, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/' + prjId + '/task/' + messageId + '.json',
+            null,
+            options
+        );
+    };
+
+    var updatePrjTask = function (params, id, data, options) {
+        var updateStatus = false,
+            updateMilestone = false,
+            event = customEvents.updatePrjTask;
+
+        for (var fld in data) {
+            if (data.hasOwnProperty(fld)) {
+                switch (fld) {
+                    case 'status':
+                        updateStatus = true;
+                        event = customEvents.updatePrjTaskStatus;
+                        break;
+                    case 'newMilestoneID':
+                        updateMilestone = true;
+                        data.milestoneid = data.newMilestoneID;
+                        break;
+                }
+            }
+        }
+
+        addRequest(
+            event,
+            params,
+            UPDATE,
+            'project/task/' + id + (updateStatus ? '/status' : '') + (updateMilestone ? '/milestone' : '') + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjTask = function (params, id, options) {
+        addRequest(
+            customEvents.removePrjTask,
+            params,
+            REMOVE,
+            'project/task/' + id + '.json',
+            id,
+            options
+        );
+        return true;
+    };
+
+    var getPrjTask = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getPrjTasksById = function (params, ids, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task.json',
+            ids,
+            options
+        );
+    };
+
+    var getPrjTasks = function (params, options) {
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            filter = options.filter;
+        }
+
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task/filter.json',
+            null,
+            options
+        );
+    };
+
+    var getPrjTasksSimpleFilter = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task/filter/simple.json',
+            null,
+            options
+        );
+    };
+
+    var getPrjTaskFiles = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task/' + id + '/files.json',
+            null,
+            options
+        );
+    };
+
+    var subscribeToPrjTask = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/task/' + id + '/subscribe.json',
+            id,
+            options
+        );
+    };
+
+    var notifyPrjTaskResponsible = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task/' + id + '/notify.json',
+            null,
+            options
+        );
+    };
+
+    var addPrjTaskLink = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/task/' + id + '/link.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjTaskLink = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/task/' + id + '/link.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getPrjTeam = function (params, ids, options) {
+        var isId = ids && (typeof ids === 'number' || typeof ids === 'string');
+        return addRequest(
+            null,
+            params,
+            isId ? GET : ADD,
+            'project' + (isId ? '/' + ids : '') + '/team.json',
+            isId ? null : { ids: ids },
+            options
+        );
+    };
+
+    var updatePrjTeam = function (params, id, data, options) {
+        return addRequest(
+            customEvents.updatePrjTeam,
+            params,
+            UPDATE,
+            'project/' + id + '/team.json',
+            data,
+            options
+        );
+    };
+
+    var setTeamSecurity = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/' + id + '/team/security.json',
+            data,
+            options
+        );
+    };
+
+    var getPrjProjectFolder = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/' + id + '/files.json',
+            null,
+            options
+        );
+    };
+
+    var addPrjEntityFiles = function (params, id, type, data, options) {
+        options = options || {};
+        if (typeof options === 'function') {
+            options = { success: options };
+        }
+        if (!options.hasOwnProperty('filter')) {
+            options.filter = {};
+        }
+        if (!options.filter.hasOwnProperty('entityType')) {
+            options.filter.entityType = type;
+        }
+
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/' + id + '/entityfiles.json',
+            isArray(data) ? { files: data } : data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjEntityFiles = function (params, id, type, data, options) {
+        options = options || {};
+        if (typeof options === 'function') {
+            options = { success: options };
+        }
+        if (!options.hasOwnProperty('filter')) {
+            options.filter = {};
+        }
+        if (!options.filter.hasOwnProperty('entityType')) {
+            options.filter.entityType = type;
+        }
+
+        if (data && typeof data === 'object' && !data.hasOwnProperty('entityType')) {
+            data.entityType = type;
+        }
+
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/' + id + '/entityfiles.json',
+            typeof data === 'number' || typeof data === 'string' ? { entityType: type, fileid: data } : data,
+            options
+        );
+        return true;
+    };
+
+    var getPrjEntityFiles = function (params, id, type, options) {
+        options = options || {};
+        if (typeof options === 'function') {
+            options = { success: options };
+        }
+        if (!options.hasOwnProperty('filter')) {
+            options.filter = {};
+        }
+        if (!options.filter.hasOwnProperty('entityType')) {
+            options.filter.entityType = type;
+        }
+
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/' + id + '/entityfiles.json',
+            null,
+            options
+        );
+    };
+
+    var addPrjMilestone = function (params, id, data, options) {
+        addRequest(
+            customEvents.addPrjMilestone,
+            params,
+            ADD,
+            'project/' + id + '/milestone.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updatePrjMilestone = function (params, id, data, options) {
+        var fldInd = 0,
+            updateItem = null,
+            event = customEvents.updatePrjMilestone;
+        for (var fld in data) {
+            if (data.hasOwnProperty(fld)) {
+                fldInd++;
+                switch (fld) {
+                    case 'status':
+                        event = customEvents.updatePrjMilestoneStatus;
+                        updateItem = 'status';
+                        break;
+                }
+            }
+        }
+        if (fldInd > 1) {
+            updateItem = null;
+        }
+
+        addRequest(
+            event,
+            params,
+            UPDATE,
+            'project/milestone/' + id + (updateItem ? '/' + updateItem : '') + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjMilestone = function (params, id, options) {
+        addRequest(
+            customEvents.removePrjMilestone,
+            params,
+            REMOVE,
+            'project/milestone/' + id + '.json',
+            id,
+            options
+        );
+        return true;
+    };
+
+    var getPrjMilestone = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/milestone/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getPrjMilestones = function (params, id, options) {
+        if (arguments.length < 3) {
+            options = arguments[1];
+            id = null;
+        }
+        var type = null;
+
+        var _id = id, _type = type;
+        switch (id) {
+            case 'late':
+                _type = id;
+                _id = null;
+                break;
+        }
+
+        if (id instanceof Date) {
+            _type = id.getFullYear() + '/' + (id.getMonth() + 1);
+            _id = null;
+        }
+
+        id = _id;
+        type = _type;
+
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            var filter = options.filter;
+            for (var fld in filter) {
+                switch (fld) {
+                    case 'participant':
+                    case 'tag':
+                    case 'projectId':
+                    case 'status':
+                    case 'deadlineStart':
+                    case 'deadlineStop':
+                    case 'sortBy':
+                    case 'sortOrder':
+                        type = type || 'filter';
+                        break;
+                }
+            }
+        }
+
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project' + (id ? '/' + id : '') + '/milestone' + (type ? '/' + type : '') + '.json',
+            null,
+            options
+        );
+    };
+
+    var addPrjDiscussion = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/' + id + '/message.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updatePrjDiscussion = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/message/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
     var updatePrjDiscussionStatus = function (params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjDiscussionStatus(customEvents.updatePrjDiscussionStatus, params, id, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/message/' + id + '/status.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var removePrjDiscussion = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjDiscussion(customEvents.removePrjDiscussion, params, id, options));
+    var removePrjDiscussion = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/message/' + id + '.json',
+            id,
+            options
+        );
+        return true;
     };
 
-    var getPrjDiscussion = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjDiscussion(customEvents.getPrjDiscussion, params, id, options));
+    var getPrjDiscussion = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/message/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getPrjDiscussions = function(params, projectid, options) {
-        if (arguments.length < 3) {
-            options = arguments[1];
-            projectid = null;
+    var getPrjDiscussions = function (params, options) {
+        var type = null;
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            var filter = options.filter;
+            for (var fld in filter) {
+                switch (fld) {
+                    case 'participant':
+                    case 'tag':
+                    case 'projectId':
+                    case 'sortBy':
+                    case 'sortOrder':
+                        type = type || 'filter';
+                        break;
+                }
+            }
         }
 
-        return returnValue(ServiceManager.getPrjDiscussions(customEvents.getPrjDiscussions, params, projectid, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/message' + (type ? '/' + type : '') + '.json',
+            null,
+            options
+        );
     };
 
-    var subscribeToPrjDiscussion = function(params, taskid, options) {
-        return returnValue(ServiceManager.subscribeToPrjDiscussion(customEvents.subscribeToPrjDiscussion, params, taskid, options));
-    };
-    
-    var getSubscribesToPrjDiscussion = function (params, messageid, options) {
-        return returnValue(ServiceManager.getSubscribesToPrjDiscussion(customEvents.getSubscribesToPrjDiscussion, params, messageid, options));
-    };
-
-    var addPrjProject = function(params, data, options) {
-        return returnValue(ServiceManager.addPrjProject(customEvents.addPrjProject, params, data, options));
-    };
-
-    var updatePrjProject = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjProject(customEvents.updatePrjProject, params, id, data, options));
+    var subscribeToPrjDiscussion = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/message/' + id + '/subscribe.json',
+            id,
+            options
+        );
     };
 
-    var updatePrjProjectStatus = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjProjectStatus(customEvents.updatePrjProjectStatus, params, id, data, options));
+    var getSubscribesToPrjDiscussion = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/message/' + id + '/subscribes.json',
+            id,
+            options
+        );
     };
 
-    var removePrjProject = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjProject(customEvents.removePrjProject, params, id, options));
+    var addPrjProject = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var followingPrjProject = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.followingPrjProject(customEvents.followingPrjProject, params, projectid, data, options));
+    var updatePrjProject = function (params, id, data, options) {
+        var fldInd = 0,
+            updateItem = null;
+        for (var fld in data) {
+            if (data.hasOwnProperty(fld)) {
+                fldInd++;
+                switch (fld) {
+                    case 'tags':
+                        updateItem = 'tag';
+                        break;
+                    case 'status':
+                        updateItem = 'status';
+                        break;
+                }
+            }
+        }
+        if (fldInd > 1) {
+            updateItem = null;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/' + id + (updateItem ? '/' + updateItem : '') + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getPrjProject = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjProject(customEvents.getPrjProject, params, id, options));
+    var updatePrjProjectStatus = function (params, id, data, options) {
+        addRequest(
+            customEvents.updatePrjProjectStatus,
+            params,
+            UPDATE,
+            'project/' + id + '/status.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getPrjProjects = function(params, options) {
-        return returnValue(ServiceManager.getPrjProjects(customEvents.getPrjProjects, params, options));
+    var removePrjProject = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/' + id + '.json',
+            id,
+            options
+        );
+        return true;
     };
 
-    var getPrjSelfProjects = function(params, options) {
-        return returnValue(ServiceManager.getPrjSelfProjects(customEvents.getPrjProjects, params, options));
+    var followingPrjProject = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/' + id + '/follow.json',
+            data,
+            options
+        );
     };
 
-    var getPrjFollowProjects = function(params, options) {
-        return returnValue(ServiceManager.getPrjFollowProjects(customEvents.getPrjProjects, params, options));
+    var getPrjProject = function (params, id, options) {
+        return addRequest(
+            customEvents.getPrjProject,
+            params,
+            GET,
+            'project/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getProjectsForCrmContact = function(params, contactid, options) {
-        return returnValue(ServiceManager.getProjectsForCrmContact(customEvents.getProjectsForCrmContact, params, contactid, options));
-    };
-
-    var addProjectForCrmContact = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.addProjectForCrmContact(customEvents.addProjectForCrmContact, params, projectid, data, options));
-    };
-
-    var removeProjectFromCrmContact = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.removeProjectFromCrmContact(customEvents.removeProjectFromCrmContact, params, projectid, data, options));
-    };
-
-    var addPrjProjectTeamPerson = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.addPrjProjectTeamPerson(customEvents.addPrjProjectTeamPerson, params, projectid, data, options));
-    };
-
-    var removePrjProjectTeamPerson = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.removePrjProjectTeamPerson(customEvents.removePrjProjectTeamPerson, params, projectid, data, options));
-    };
-
-    var getPrjProjectTeamPersons = function(params, projectid, options) {
-        return returnValue(ServiceManager.getPrjProjectTeamPersons(customEvents.getPrjProjectTeamPersons, params, projectid, options));
-    };
-
-    var getPrjProjectFiles = function(params, projectid, options) {
-        return returnValue(ServiceManager.getPrjProjectFiles(customEvents.getPrjProjectFiles, params, projectid, options));
-    };
-
-    var addPrjTime = function(params, taskid, data, options) {
-        return returnValue(ServiceManager.addPrjTime(customEvents.addPrjTime, params, taskid, data, options));
-    };
-
-    var getPrjTime = function(params, taskid, options) {
-        return returnValue(ServiceManager.getPrjTime(customEvents.getPrjTime, params, taskid, options));
-    };
-
-    var getTotalTimeByFilter = function(params, options) {
-        return returnValue(ServiceManager.getTotalTaskTimeByFilter(customEvents.getTotalTaskTimeByFilter, params, options));
-    };
-
-    var updatePrjTime = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjTime(customEvents.updatePrjTime, params, id, data, options));
-    };
-
-    var changePaymentStatus = function(params, id, data, options) {
-        return returnValue(ServiceManager.changePaymentStatus(customEvents.changePaymentStatus, params, id, data, options));
-    };
-
-    var removePrjTime = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjTime(customEvents.removePrjTime, params, id, options));
-    };
-
-    var getPrjTemplates = function(params, options) {
-        return returnValue(ServiceManager.getPrjTemplates(customEvents.getPrjTemplates, params, options));
-    };
-
-    var getPrjTemplate = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjTemplate(customEvents.getPrjTemplate, params, id, options));
-    };
-
-    var updatePrjTemplate = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjTemplate(customEvents.updatePrjTemplate, params, id, data, options));
-    };
-
-    var createPrjTemplate = function(params, data, options) {
-        return returnValue(ServiceManager.createPrjTemplate(customEvents.createPrjTemplate, params, data, options));
-    };
-
-    var removePrjTemplate = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjTemplate(customEvents.removePrjTemplate, params, id, options));
-    };
-
-    var getPrjActivities = function(params, options) {
-        return returnValue(ServiceManager.getPrjActivities(customEvents.getPrjActivities, params, options));
-    };
-
-    var addPrjImport = function(params, data, options) {
-        return returnValue(ServiceManager.addPrjImport(customEvents.addPrjImport, params, data, options));
-    };
-
-    var getPrjImport = function(params, options) {
-        return returnValue(ServiceManager.getPrjImport(customEvents.getPrjImport, params, options));
-    };
-
-    var getPrjImportProjects = function(params, data, options) {
-        return returnValue(ServiceManager.getPrjImportProjects(customEvents.getPrjImportProjects, params, data, options));
-    };
-
-    var checkPrjImportQuota = function(params, data, options) {
-        return returnValue(ServiceManager.checkPrjImportQuota(customEvents.checkPrjImportQuota, params, data, options));
-    };
-
-    var addPrjReportTemplate = function(params, data, options) {
-        return returnValue(ServiceManager.addPrjReportTemplate(customEvents.addPrjReportTemplate, params, data, options));
-    };
-
-    var updatePrjReportTemplate = function(params, id, data, options) {
-        return returnValue(ServiceManager.updatePrjReportTemplate(customEvents.updatePrjReportTemplate, params, id, data, options));
-    };
-
-    var deletePrjReportTemplate = function(params, id, options) {
-        return returnValue(ServiceManager.deletePrjReportTemplate(customEvents.deletePrjReportTemplate, params, id, options));
-    };
-
-    var uploadFilesToPrjEntity = function(params, entityId, data, options) {
-        return returnValue(ServiceManager.uploadFilesToPrjEntity(customEvents.uploadFilesToPrjEntity, params, entityId, data, options));
-    };
-
-    var getPrjGanttIndex = function(params, id, options) {
-        return returnValue(ServiceManager.getPrjGanttIndex(customEvents.getPrjGanttIndex, params, id, options));
-    };
-
-    var setPrjGanttIndex = function(params, id, data, options) {
-        return returnValue(ServiceManager.setPrjGanttIndex(customEvents.setPrjGanttIndex, params, id, data, options));
-    };
-    /* </projects> */
-
-    /* <documents> */
-    var createDocUploadFile = function(params, id, data, options) {
-        return returnValue(ServiceManager.createDocUploadFile(customEvents.uploadDocFile, params, id, data, options));
-    };
-
-    var addDocFile = function(params, id, type, data, options) {
-        if (arguments.length < 5) {
-            options = arguments[3];
-            data = arguments[3];
+    var getPrjProjects = function (params, type, options) {
+        if (arguments.length < 4) {
+            options = type;
             type = null;
         }
 
-        return returnValue(ServiceManager.addDocFile(customEvents.addDocFile, params, id, type, data, options));
+        var filter = null;
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            filter = options.filter;
+            for (var fld in filter) {
+                switch (fld) {
+                    case 'tag':
+                    case 'follow':
+                    case 'status':
+                    case 'participant':
+                    case 'sortBy':
+                    case 'sortOrder':
+                        type = type || 'filter';
+                        break;
+                }
+            }
+        }
+
+        var query = getQuery(options);
+
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project' + (type ? '/' + type : '') + (query ? '/@search/' + query : '') + '.json',
+            null,
+            options
+        );
     };
 
-    var getDocFile = function(params, id, options) {
-        return returnValue(ServiceManager.getDocFile(customEvents.getDocFile, params, id, options));
+    var getPrjSelfProjects = function (params, options) {
+        return getPrjProjects(params, '@self', options);
     };
 
-    var addDocFolder = function(params, id, data, options) {
-        return returnValue(ServiceManager.addDocFolder(customEvents.addDocFolder, params, id, data, options));
+    var getPrjFollowProjects = function (params, options) {
+        return getPrjProjects(params, '@follow', options);
     };
 
-    var getDocFolder = function(params, folderid, options) {
-        return returnValue(ServiceManager.getDocFolder(customEvents.getDocFolder, params, folderid, options));
+    var getProjectsForCrmContact = function (params, contactid, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/contact/' + contactid + '.json',
+            null,
+            options
+        );
     };
 
-    var removeDocFile = function(params, fileId, options) {
-        return returnValue(ServiceManager.removeDocFile(customEvents.removeDocFile, params, fileId, options));
+    var addProjectForCrmContact = function (params, projectid, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/' + projectid + '/contact.json',
+            data,
+            options
+        );
     };
 
-    var createDocUploadSession = function(params, folderId, data, options) {
-        return returnValue(ServiceManager.createDocUploadSession(customEvents.createDocUploadSession, params, folderId, data, options));
+    var removeProjectFromCrmContact = function (params, projectid, data, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/' + projectid + '/contact.json',
+            data,
+            options
+        );
     };
 
-    var getFolderPath = function (folderId, options) {
-        return returnValue(ServiceManager.getFolderPath(customEvents.getFolderPath, folderId, options));
+    var addPrjTaskComment = function (params, id, data, options) {
+        if (!data.parentid) {
+            data.parentid = '00000000-0000-0000-0000-000000000000';
+        }
+
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/task/' + id + '/comment.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getFileSecurityInfo = function(fileId, options) {
-        return returnValue(ServiceManager.getFileSecurityInfo(customEvents.getFileSecurityInfo, fileId, options));
+    var getPrjTaskComments = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/task/' + id + '/comment.json',
+            null,
+            options
+        );
     };
 
-    var generateSharedLink = function(fileId, data, options) {
-        return returnValue(ServiceManager.generateSharedLink(customEvents.generateSharedLink, fileId, data, options));
+    var addPrjDiscussionComment = function (params, id, data, options) {
+        if (!data.parentid) {
+            data.parentid = '00000000-0000-0000-0000-000000000000';
+        }
+
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/message/' + id + '/comment.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var copyBatchItems = function(data, options) {
-        return returnValue(ServiceManager.copyBatchItems(customEvents.copyBatchItems, data, options));
+    var getPrjDiscussionComments = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/message/' + id + '/comment.json',
+            null,
+            options
+        );
     };
 
-    var getOperationStatuses = function(options) {
-        return returnValue(ServiceManager.getOperationStatuses(customEvents.getOperationStatuses, options));
+    var getPrjDiscussionPreview = function (params, htmltext, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/message/discussion/preview.json',
+            { htmltext: htmltext },
+            options
+        );
     };
 
-    var getPresignedUri = function (fileId, options) {
-        return returnValue(ServiceManager.getPresignedUri(customEvents.getPresignedUri, fileId, options));
+    var getPrjCommentPreview = function (params, commentid, htmltext, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/comment/preview.json',
+            { commentid: commentid, htmltext: htmltext },
+            options
+        );
+    };
+    var getWikiCommentPreview = function (params, commentid, htmltext, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'community/wiki/comment/preview.json',
+            { commentid: commentid, htmltext: htmltext },
+            options
+        );
+    };
+
+    var getBlogCommentPreview = function (params, commentid, htmltext, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'community/blog/comment/preview.json',
+            { commentid: commentid, htmltext: htmltext },
+            options
+        );
+    };
+    var getNewsCommentPreview = function (params, commentid, htmltext, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'community/event/comment/preview.json',
+            { commentid: commentid, htmltext: htmltext },
+            options
+        );
+    };
+    var getBookmarksCommentPreview = function (params, commentid, htmltext, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'community/bookmark/comment/preview.json',
+            { commentid: commentid, htmltext: htmltext },
+            options
+        );
+    };
+
+
+    var removePrjComment = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var removeWikiComment = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'community/wiki/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var removeBlogComment = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'community/blog/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var removeNewsComment = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'community/event/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var removeBookmarksComment = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'community/bookmark/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var addPrjComment = function (params, data, options) {
+        addRequest(
+            customEvents.addPrjComment,
+            params,
+            ADD,
+            'project/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addWikiComment = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/wiki/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addBlogComment = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/blog/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addNewsComment = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/event/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addBookmarksComment = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'community/bookmark/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+
+    var updatePrjComment = function (params, commentid, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateWikiComment = function (params, commentid, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'community/wiki/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateBlogComment = function (params, commentid, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'community/blog/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateNewsComment = function (params, commentid, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'community/event/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateBookmarksComment = function (params, commentid, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'community/bookmark/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var fckeRemoveCommentComplete = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'portal/fcke/comment/removecomplete.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var fckeCancelCommentComplete = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'portal/fcke/comment/cancelcomplete.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var fckeEditCommentComplete = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'portal/fcke/comment/editcomplete.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getShortenLink = function (params, link, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'portal/getshortenlink.json',
+            { link: link },
+            options
+        );
+    };
+
+    var updatePortalName = function (params, alias, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'portal/portalrename.json',
+            { alias: alias },
+            options
+        );
+        return true;
+    };
+
+
+    var addPrjProjectTeamPerson = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/' + id + '/team.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjProjectTeamPerson = function (params, id, data, options) {
+        addRequest(
+            customEvents.removePrjTeam,
+            params,
+            REMOVE,
+            'project/' + id + '/team.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getPrjProjectTeamPersons = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/' + id + '/team.json',
+            null,
+            options
+        );
+    };
+
+    var getPrjProjectFiles = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/' + id + '/entityfiles.json',
+            null,
+            options
+        );
+    };
+
+    // tasks index for gantt
+    var getPrjGanttIndex = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/' + id + '/order.json',
+            null,
+            options
+        );
+    };
+
+    var setPrjGanttIndex = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/' + id + '/order.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    // time-traking
+
+    var addPrjTime = function (params, taskid, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/task/' + taskid + '/time.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getPrjTime = function (params, options) {
+        return getPrjTaskTime(params, null, options);
+    };
+
+    var getPrjTimeById = function (params, projectId, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/' + projectId + '/time/total.json',
+            null,
+            options
+        );
+    };
+
+    var getPrjTaskTime = function (params, taskid, options) {
+
+        if (!taskid || !options) {
+            var filter = null, _taskid = null, _options = null;
+            for (var i = 2, n = arguments.length; i < n; i++) {
+                _options = _options || (typeof arguments[i] === 'function' || typeof arguments[i] === 'object' ? arguments[i] : _options);
+                _taskid = _taskid || (isFinite(+arguments[i]) ? +arguments[i] : _taskid);
+            }
+
+            options = _options;
+            taskid = _taskid;
+        }
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            filter = options.filter;
+        }
+
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project' + (taskid ? '/task/' + taskid : '') + '/time' + (filter ? '/filter' : '') + '.json',
+            null,
+            options
+        );
+    };
+    
+    var getTotalTimeByFilter = function (params, options) {
+        var data = null;
+        if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
+            data = options.filter;
+        }
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/time/filter/total.json',
+            null,
+            options
+        );
+    };
+
+    var updatePrjTime = function (params, id, data, options) {
+        addRequest(
+            customEvents.updatePrjTime,
+            params,
+            UPDATE,
+            'project/time/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var changePaymentStatus = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/time/times/status.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjTime = function (params, data, options) {
+        addRequest(
+            customEvents.removePrjTime,
+            params,
+            REMOVE,
+            'project/time/times/remove.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    // project templates
+
+    var getPrjTemplates = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'project/template.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getPrjTemplate = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'project/template/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var updatePrjTemplate = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/template/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var createPrjTemplate = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'project/template.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removePrjTemplate = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/template/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    //activities
+    var getPrjActivities = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/activities/filter.json',
+            null,
+            options
+        );
+    };
+
+    //import
+    var checkPrjImportQuota = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/import/quota.json',
+            data,
+            options
+        );
+    };
+    var addPrjImport = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/import.json',
+            data,
+            options
+        );
+    };
+    var getPrjImport = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/import.json',
+            null,
+            options
+        );
+    };
+    var getPrjImportProjects = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/import/projects.json',
+            data,
+            options
+        );
+    };
+    //reports
+    var getPrjReportTemplate = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'project/report/' + id + '.json',
+            null,
+            options
+        );
+    };
+    var addPrjReportTemplate = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'project/report.json',
+            data,
+            options
+        );
+    };
+    var updatePrjReportTemplate = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'project/report/' + id + '.json',
+            data,
+            options
+        );
+    };
+    var deletePrjReportTemplate = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'project/report/' + id + '.json',
+            null,
+            options
+        );
+    };
+    // upload files
+    var uploadFilesToPrjEntity = function (params, entityId, data, options) {
+        return helper.uploader(
+            null,
+            params,
+            'file',
+            'project/' + entityId + '/entityfiles/upload.tml',
+            data,
+            options
+        );
+    };
+
+    /* </projects> */
+
+    /* <documents> */
+    var createDocUploadFile = function (params, id, data, options) {
+        return helper.uploader(
+            null,
+            params,
+            'file',
+            'files/' + id + '/upload.tml',
+            data,
+            options
+        );
+    };
+
+    var addDocFile = function (params, id, type, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/' + id + (type ? '/' + type : '') + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getDocFile = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'files/file/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var addDocFolder = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getDocFolder = function (params, id, options) {
+        return addRequest(
+            customEvents.getDocFolder,
+            params,
+            GET,
+            'files/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var removeDocFile = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'files/file/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var createDocUploadSession = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'files/' + id + '/upload/create_session.json',
+            data,
+            options
+        );
+    };
+
+    var getFolderPath = function (id, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'files/folder/' + id + '/path.json',
+            null,
+            options
+        );
+    };
+
+    var getFileSecurityInfo = function (id, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'files/file/' + id + '/share.json',
+            null,
+            options
+        );
+    };
+
+    var generateSharedLink = function (id, data, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'files/' + id + '/sharedlink.json',
+            data,
+            options
+        );
+    };
+
+    var copyBatchItems = function (data, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'files/fileops/copy.json',
+            data,
+            options
+        );
+    };
+
+    var getOperationStatuses = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'files/fileops.json',
+            null,
+            options
+        );
+    };
+
+    var getPresignedUri = function (id, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'files/file/' + id + '/presigned.json',
+            null,
+            options
+        );
     };
 
     var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, options) {
-        return returnValue(ServiceManager.saveDocServiceUrl(customEvents.saveDocServiceUrl, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, options));
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'files/docservice.json',
+            {
+                docServiceUrlApi: docServiceUrlApi,
+                docServiceUrlCommand: docServiceUrlCommand,
+                docServiceUrlStorage: docServiceUrlStorage,
+                docServiceUrlConverter: docServiceUrlConverter,
+                docServiceUrlPortal: docServiceUrlPortal,
+            },
+            options
+        );
     };
-
     /* </documents> */
 
     /* <crm> */
-    var createCrmUploadFile = function(params, type, id, data, options) {
-        return returnValue(ServiceManager.createCrmUploadFile(customEvents.uploadCrmFile, params, type, id, data, options));
+    var createCrmUploadFile = function (params, type, id, data, options) {
+        return helper.uploader(
+            null,
+            params,
+            'file',
+            'crm/' + type + '/' + id + '/files/upload.tml',
+            data,
+            options
+        );
     };
 
     var getCrmContactInfo = function (params, contactid, options) {
-        return returnValue(ServiceManager.getCrmContactInfo(customEvents.getCrmContactInfo, params, contactid, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/' + contactid + '/data.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var addCrmContactInfo = function(params, contactid, data, options) {
-        return returnValue(ServiceManager.addCrmContactInfo(customEvents.addCrmContactInfo, params, contactid, data, options));
+    var addCrmContactInfo = function (params, contactid, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/' + contactid + '/data.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmContactInfo = function(params, contactid, data, options) {
-        return returnValue(ServiceManager.updateCrmContactInfo(customEvents.updateCrmContactInfo, params, contactid, data, options));
+    var updateCrmContactInfo = function (params, contactid, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/' + contactid + '/data/' + data.id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var deleteCrmContactInfo = function(params, contactid, id, options) {
-        return returnValue(ServiceManager.deleteCrmContactInfo(customEvents.deleteCrmContactInfo, params, contactid, id, options));
+    var deleteCrmContactInfo = function (params, contactid, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/contact/' + contactid + '/data/' + id + '.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var addCrmContactData = function(params, id, data, options) {
-        return returnValue(ServiceManager.addCrmContactData(customEvents.addCrmContactData, params, id, data, options));
+    var addCrmContactData = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/' + id + '/batch.json',
+            isArray(data) ? { data: data } : data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmContactData = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactData(customEvents.updateCrmContactData, params, id, data, options));
+    var updateCrmContactData = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/' + id + '/batch.json',
+            isArray(data) ? { data: data } : data,
+            options
+        );
+        return true;
     };
 
-    var addCrmContactTwitter = function(params, contactid, data, options) {
-        return returnValue(ServiceManager.addCrmContactTwitter(customEvents.addCrmContactTwitter, params, contactid, data, options));
+    var addCrmContactTwitter = function (params, contactid, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/' + contactid + '/data.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var addCrmEntityNote = function(params, type, id, data, options) {
-        return returnValue(ServiceManager.addCrmEntityNote(customEvents.addCrmEntityNote, params, type, id, data, options));
+    var addCrmEntityNote = function (params, type, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + type + '/' + id + '/files/text.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var addCrmContact = function(params, isCompany, data, options) {
+    var addCrmContact = function (params, isCompany, data, options) {
         if (isCompany === true) {
-            return returnValue(ServiceManager.addCrmCompany(customEvents.addCrmCompany, params, data, options));
+            return addCrmCompany(params, data, options);
         } else {
-            return returnValue(ServiceManager.addCrmPerson(customEvents.addCrmContact, params, data, options));
+            return addCrmPerson(params, data, options);
         }
     };
 
-    var addCrmCompany = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmCompany(customEvents.addCrmCompany, params, data, options));
+    var addCrmCompany = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/company' + (isArray(data) ? '/quick' : '') + '.json',
+            isArray(data) ? { data: data } : data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmCompany = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmCompany(customEvents.updateCrmCompany, params, id, data, options));
+    var updateCrmCompany = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/company/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmContactContactStatus = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactContactStatus(customEvents.updateCrmContactContactStatus, params, id, data, options));
+    var updateCrmCompanyContactStatus = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/company/' + id + '/status.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmCompanyContactStatus = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmCompanyContactStatus(customEvents.updateCrmCompanyContactStatus, params, id, data, options));
+    var updateCrmPersonContactStatus = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/person/' + id + '/status.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmPersonContactStatus = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmPersonContactStatus(customEvents.updateCrmPersonContactStatus, params, id, data, options));
+    var updateCrmContactContactStatus = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/' + id + '/status.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var addCrmPerson = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmPerson(customEvents.addCrmPerson, params, data, options));
+    var addCrmPerson = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/person' + (isArray(data) ? '/quick' : '') + '.json',
+            isArray(data) ? { data: data } : data,
+            options
+        );
+        return true;
     };
 
-    var updateCrmPerson = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmPerson(customEvents.updateCrmPerson, params, id, data, options));
+    var updateCrmPerson = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/person/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var removeCrmContact = function(params, ids, options) {
-        if (arguments.length === 2) {
-            options = arguments[1];
-            ids = null;
+    var removeCrmContact = function (params, ids, options) {
+        var isNumberOrString = ids && (typeof ids === 'number' || typeof ids === 'string');
+        var isObject = ids && typeof ids === 'object';
+        addRequest(
+            null,
+            params,
+            isNumberOrString ? REMOVE : UPDATE,
+            'crm/contact' + (isNumberOrString ? '/' + ids : '') + '.json',
+            isObject ? { contactids: ids } : null,
+            options
+        );
+        return true;
+    };
+
+    var mergeCrmContacts = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/merge.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getCrmContactsForProject = function (params, id, options) {
+        return addRequest(
+            customEvents.getCrmContactsForProject,
+            params,
+            GET,
+            'crm/contact/project/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var addCrmTag = function (params, type, ids, tagname, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + type + (typeof ids === 'object' ? '/taglist' : '/' + ids + '/tag') + '.json',
+            { entityid: ids, tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var addCrmContactTagToGroup = function (params, type, id, tagname, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + type + '/' + id + '/tag/group.json',
+            { entityid: id, entityType: type, tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var deleteCrmContactTagFromGroup = function (params, type, id, tagname, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/' + type + '/' + id + '/tag/group.json',
+            { entityid: id, entityType: type, tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var removeCrmTag = function (params, type, id, tagname, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/' + type + '/' + id + '/tag.json',
+            { tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var getCrmTags = function (params, type, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + type + '/' + id + '/tag.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmEntityTags = function (params, type, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + type + '/tag.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var addCrmEntityTag = function (params, type, tagname, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + type + '/tag.json',
+            { entityType: type, tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var removeCrmEntityTag = function (params, type, tagname, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/' + type + '/tag.json',
+            { tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var removeCrmUnusedTag = function (params, type, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/' + type + '/tag/unused.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmCustomFields = function (params, type, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + type + '/customfield/definitions.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var addCrmCustomField = function (params, type, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + type + '/customfield.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmCustomField = function (params, type, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/' + type + '/customfield/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmCustomField = function (params, type, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/' + type + '/customfield/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var reorderCrmCustomFields = function (params, type, ids, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/' + type + '/customfield/reorder.json',
+            { fieldids: ids, entityType: type },
+            options
+        );
+        return true;
+    };
+
+    var getCrmDealMilestones = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/opportunity/stage.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var addCrmDealMilestone = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/opportunity/stage.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmDealMilestone = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/opportunity/stage/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmDealMilestoneColor = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/opportunity/stage/' + id + '/color.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmDealMilestone = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/opportunity/stage/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var reorderCrmDealMilestones = function (params, ids, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/opportunity/stage/reorder.json',
+            { ids: ids },
+            options
+        );
+        return true;
+    };
+
+    var addCrmContactStatus = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/status.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmContactStatus = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/status/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmContactStatusColor = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/status/' + id + '/color.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmContactStatus = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/contact/status/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+
+    var addCrmContactType = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/type.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmContactType = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/type/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmContactType = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/contact/type/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmListItem = function (params, type, options) {
+        var path = "";
+        switch (type) {
+            case 1:
+                //ContactStatus
+                path = 'crm/contact/status.json';
+                break;
+            case 2:
+                //TaskCategory
+                path = 'crm/task/category.json';
+                break;
+            case 3:
+                //HistoryCategory
+                path = 'crm/history/category.json';
+                break;
+            case 4:
+                //ContactType
+                path = 'crm/contact/type.json';
+                break;
+            default:
+                return false;
         }
 
-        return returnValue(ServiceManager.removeCrmContact(customEvents.removeCrmContact, params, ids, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            path,
+            null,
+            options
+        );
+        return true;
     };
 
-    var mergeCrmContacts = function(params, data, options) {
-        return returnValue(ServiceManager.mergeCrmContacts(customEvents.mergeCrmContacts, params, data, options));
-    };
-
-    var addCrmTag = function(params, type, ids, tagname, options) {
-        if (arguments.length === 4) {
-            options = arguments[3];
-            tagname = arguments[2];
-            ids = null;
+    var addCrmListItem = function (params, type, data, options) {
+        var path = "";
+        switch (type) {
+            case 1:
+                //ContactStatus
+                path = 'crm/contact/status.json';
+                break;
+            case 2:
+                //TaskCategory
+                path = 'crm/task/category.json';
+                break;
+            case 3:
+                //HistoryCategory
+                path = 'crm/history/category.json';
+                break;
+            case 4:
+                //ContactType
+                path = 'crm/contact/type.json';
+                break;
+            default:
+                return false;
         }
 
-        return returnValue(ServiceManager.addCrmTag(customEvents.addCrmTag, params, type, ids, tagname, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            path,
+            data,
+            options
+        );
+        return true;
     };
 
-    var addCrmContactTagToGroup = function(params, type, id, tagname, options) {
-        return returnValue(ServiceManager.addCrmContactTagToGroup(customEvents.addCrmContactTagToGroup, params, type, id, tagname, options));
+    var updateCrmListItem = function (params, type, id, data, options) {
+        var path = "";
+        switch (type) {
+            case 1:
+                //ContactStatus
+                path = 'crm/contact/status/' + id + '.json';
+                break;
+            case 2:
+                //TaskCategory
+                path = 'crm/task/category/' + id + '.json';
+                break;
+            case 3:
+                //HistoryCategory
+                path = 'crm/history/category/' + id + '.json';
+                break;
+            case 4:
+                //ContactType
+                path = 'crm/contact/type/' + id + '.json';
+                break;
+            default:
+                return false;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            path,
+            data,
+            options
+        );
+        return true;
     };
 
-    var deleteCrmContactTagFromGroup = function(params, type, id, tagname, options) {
-        return returnValue(ServiceManager.deleteCrmContactTagFromGroup(customEvents.deleteCrmContactTagFromGroup, params, type, id, tagname, options));
+    var updateCrmListItemIcon = function (params, type, id, data, options) {
+        var path = "";
+        switch (type) {
+            case 2:
+                //TaskCategory
+                path = 'crm/task/category/' + id + '/icon.json';
+                break;
+            case 3:
+                //HistoryCategory
+                path = 'crm/history/category/' + id + '/icon.json';
+                break;
+            default:
+                return false;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            path,
+            data,
+            options
+        );
+        return true;
     };
 
-    var addCrmEntityTag = function(params, type, tagname, options) {
-        return returnValue(ServiceManager.addCrmEntityTag(customEvents.addCrmEntityTag, params, type, tagname, options));
+    var removeCrmListItem = function (params, type, id, toid, options) {
+        var path = "",
+            data = {
+                newcategoryid: toid
+            };
+        switch (type) {
+            case 1:
+                //ContactStatus
+                path = 'crm/contact/status/' + id + '.json';
+                break;
+            case 2:
+                //TaskCategory
+                path = 'crm/task/category/' + id + '.json';
+                break;
+            case 3:
+                //HistoryCategory
+                path = 'crm/history/category/' + id + '.json';
+                break;
+            case 4:
+                //ContactType
+                path = 'crm/contact/type/' + id + '.json';
+                break;
+            default:
+                return false;
+        }
+
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            path,
+            data,
+            options
+        );
+        return true;
     };
 
-    var removeCrmTag = function(params, type, id, tagname, options) {
-        return returnValue(ServiceManager.removeCrmTag(customEvents.removeCrmTag, params, type, id, tagname, options));
+    var reorderCrmListItems = function (params, type, titles, options) {
+        var path = "";
+        switch (type) {
+            case 1:
+                //ContactStatus
+                path = 'crm/contact/status/reorder.json';
+                break;
+            case 2:
+                //TaskCategory
+                path = 'crm/task/category/reorder.json';
+                break;
+            case 3:
+                //HistoryCategory
+                path = 'crm/history/category/reorder.json';
+                break;
+            case 4:
+                //ContactType
+                path = 'crm/contact/type/reorder.json';
+                break;
+            default:
+                return false;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            path,
+            { titles: titles },
+            options
+        );
+        return true;
     };
 
-    var removeCrmEntityTag = function(params, type, tagname, options) {
-        return returnValue(ServiceManager.removeCrmEntityTag(customEvents.removeCrmEntityTag, params, type, tagname, options));
+    var addCrmTask = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/task.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var removeCrmUnusedTag = function(params, type, options) {
-        return returnValue(ServiceManager.removeCrmUnusedTag(customEvents.removeCrmUnusedTag, params, type, options));
+    var addCrmTaskGroup = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/task/group.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getCrmCustomFields = function(params, type, options) {
-        return returnValue(ServiceManager.getCrmCustomFields(customEvents.getCrmCustomFields, params, type, options));
+    var getCrmTask = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/task/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var addCrmCustomField = function(params, type, data, options) {
-        return returnValue(ServiceManager.addCrmCustomField(customEvents.addCrmCustomField, params, type, data, options));
+    var updateCrmTask = function (params, id, data, options) {
+        var isUpdateStatusAction = data.hasOwnProperty('isClosed');
+
+        if (isUpdateStatusAction) {
+            addRequest(
+                null,
+                params,
+                UPDATE,
+                !!data.isClosed ? 'crm/task/' + id + '/close.json' : 'crm/task/' + id + '/reopen.json',
+                data,
+                options
+            );
+        } else {
+            addRequest(
+                null,
+                params,
+                UPDATE,
+                'crm/task/' + id + '.json',
+                data,
+                options
+            );
+        }
+
+        return true;
     };
 
-    var updateCrmCustomField = function(params, type, id, data, options) {
-        return returnValue(ServiceManager.updateCrmCustomField(customEvents.updateCrmCustomField, params, type, id, data, options));
+    var removeCrmTask = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/task/' + id + '.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var removeCrmCustomField = function(params, type, id, options) {
-        return returnValue(ServiceManager.removeCrmCustomField(customEvents.removeCrmCustomField, params, type, id, options));
+    var addCrmContactForProject = function (params, type, entityid, id, data, options) {
+        addRequest(
+            customEvents.addCrmContactForProject,
+            params,
+            ADD,
+            'crm/contact/' + id + '/project/' + entityid + '.json',
+            data,
+            options
+        );
     };
 
-    var reorderCrmCustomFields = function(params, type, ids, options) {
-        return returnValue(ServiceManager.reorderCrmCustomFields(customEvents.reorderCrmCustomFields, params, type, ids, options));
+    var addCrmContactsForProject = function (params, projectid, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/project/' + projectid + '.json',
+            data,
+            options
+        );
     };
 
-    var getCrmDealMilestones = function(params, options) {
-        return returnValue(ServiceManager.getCrmDealMilestones(customEvents.getCrmDealMilestones, params, options));
+    var removeCrmContactFromProject = function (params, type, entityid, id, options) {
+        addRequest(
+            customEvents.removeCrmContactFromProject,
+            params,
+            REMOVE,
+            'crm/contact/' + id + '/project/' + entityid + '.json',
+            null,
+            options
+        );
     };
 
-    var addCrmDealMilestone = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmDealMilestone(customEvents.addCrmDealMilestone, params, data, options));
+    var addCrmDealForContact = function (params, contactid, opportunityid, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/' + contactid + '/opportunity/' + opportunityid + '.json',
+            {
+                contactid: contactid,
+                opportunityid: opportunityid
+            },
+            options
+        );
     };
 
-    var updateCrmDealMilestone = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmDealMilestone(customEvents.updateCrmDealMilestone, params, id, data, options));
+    var removeCrmDealFromContact = function (params, contactid, opportunityid, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/contact/' + contactid + '/opportunity/' + opportunityid + '.json',
+            {
+                contactid: contactid,
+                opportunityid: opportunityid
+            },
+            options
+        );
     };
 
-    var updateCrmDealMilestoneColor = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmDealMilestoneColor(customEvents.updateCrmDealMilestoneColor, params, id, data, options));
+    var addCrmContactMember = function (params, type, entityid, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + type + '/' + entityid + '/contact' + (type === 'opportunity' ? '/' + id : '') + '.json',
+            data,
+            options
+        );
     };
 
-    var removeCrmDealMilestone = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmDealMilestone(customEvents.removeCrmDealMilestone, params, id, options));
+    var removeCrmContactMember = function (params, type, entityid, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/' + type + '/' + entityid + '/contact/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var reorderCrmDealMilestones = function(params, ids, options) {
-        return returnValue(ServiceManager.reorderCrmDealMilestones(customEvents.reorderCrmDealMilestones, params, ids, options));
+    var getCrmContactMembers = function (params, type, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + type + '/' + id + '/contact.json',
+            null,
+            options
+        );
     };
 
-    var addCrmContactStatus = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmContactStatus(customEvents.addCrmContactStatus, params, data, options));
+    var addCrmPersonMember = function (params, type, entityid, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/' + type + '/' + entityid + '/person.json',
+            data,
+            options
+        );
     };
 
-    var updateCrmContactStatus = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactStatus(customEvents.updateCrmContactStatus, params, id, data, options));
+    var removeCrmPersonMember = function (params, type, entityid, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/contact/' + type + '/' + entityid + '/person.json',
+            { personid: id },
+            options
+        );
     };
 
-    var updateCrmContactStatusColor = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactStatusColor(customEvents.updateCrmContactStatusColor, params, id, data, options));
+    var getCrmPersonMembers = function (params, type, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/' + type + '/' + id + '/person.json',
+            null,
+            options
+        );
     };
 
-    var removeCrmContactStatus = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmContactStatus(customEvents.removeCrmContactStatus, params, id, options));
-    };
-
-    var addCrmContactType = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmContactType(customEvents.addCrmContactType, params, data, options));
-    };
-
-    var updateCrmContactType = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactType(customEvents.updateCrmContactType, params, id, data, options));
-    };
-
-    var removeCrmContactType = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmContactType(customEvents.removeCrmContactType, params, id, options));
-    };
-
-    var getCrmListItem = function(params, type, options) {
-        return returnValue(ServiceManager.getCrmListItem(customEvents.getCrmListItem, params, type, options));
-    };
-
-    var addCrmListItem = function(params, type, data, options) {
-        return returnValue(ServiceManager.addCrmListItem(customEvents.addCrmListItem, params, type, data, options));
-    };
-
-    var updateCrmListItem = function(params, type, id, data, options) {
-        return returnValue(ServiceManager.updateCrmListItem(customEvents.updateCrmListItem, params, type, id, data, options));
-    };
-
-    var updateCrmListItemIcon = function(params, type, id, data, options) {
-        return returnValue(ServiceManager.updateCrmListItemIcon(customEvents.updateCrmListItemIcon, params, type, id, data, options));
-    };
-
-    var removeCrmListItem = function(params, type, id, toid, options) {
-        return returnValue(ServiceManager.removeCrmListItem(customEvents.removeCrmListItem, params, type, id, toid, options));
-    };
-
-    var reorderCrmListItems = function(params, type, titles, options) {
-        return returnValue(ServiceManager.reorderCrmListItems(customEvents.reorderCrmListItems, params, type, titles, options));
-    };
-
-    var addCrmTask = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmTask(customEvents.addCrmTask, params, data, options));
-    };
-
-    var addCrmTaskGroup = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmTaskGroup(customEvents.addCrmTaskGroup, params, data, options));
-    };
-
-    var getCrmTask = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmTask(customEvents.getCrmTask, params, id, options));
-    };
-
-    var updateCrmTask = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmTask(customEvents.updateCrmTask, params, id, data, options));
-    };
-
-    var removeCrmTask = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmTask(customEvents.removeCrmTask, params, id, options));
-    };
-
-    var addCrmEntityMember = function(params, type, entityid, id, data, options) {
+    var getCrmEntityMembers = function (params, type, id, options) {
         var fn = null;
         switch (type) {
             case 'company':
-                fn = ServiceManager.addCrmPersonMember;
+                fn = getCrmPersonMembers;
+                break;
+            default:
+                fn = getCrmContactMembers;
+                break;
+        }
+        if (fn) {
+            return returnValue(fn(params, type, id, options));
+        }
+        return false;
+    };
+
+    var addCrmEntityMember = function (params, type, entityid, id, data, options) {
+        var fn = null;
+        switch (type) {
+            case 'company':
+                fn = addCrmPersonMember;
                 break;
             case 'project':
-                fn = ServiceManager.addCrmContactForProject;
+                fn = addCrmContactForProject;
                 break;
             default:
-                fn = ServiceManager.addCrmContactMember;
+                fn = addCrmContactMember;
                 break;
         }
         if (fn) {
-            return returnValue(fn(customEvents.addCrmEntityMember, params, type, entityid, id, data, options));
+            return returnValue(fn(params, type, entityid, id, data, options));
         }
         return false;
     };
 
-    var addCrmContactsForProject = function(params, projectid, data, options) {
-        return returnValue(ServiceManager.addCrmContactsForProject(customEvents.addCrmContactsForProject, params, projectid, data, options));
-    };
-
-    var addCrmDealForContact = function(params, contactid, opportunityid, options) {
-        return returnValue(ServiceManager.addCrmDealForContact(customEvents.addCrmDealForContact, params, contactid, opportunityid, options));
-    };
-
-    var removeCrmDealFromContact = function(params, contactid, opportunityid, options) {
-        return returnValue(ServiceManager.removeCrmDealFromContact(customEvents.removeCrmDealFromContact, params, contactid, opportunityid, options));
-    };
-
-    var removeCrmEntityMember = function(params, type, entityid, id, options) {
+    var removeCrmEntityMember = function (params, type, entityid, id, options) {
         var fn = null;
         switch (type) {
             case 'company':
-                fn = ServiceManager.removeCrmPersonMember;
+                fn = removeCrmPersonMember;
                 break;
             case 'project':
-                fn = ServiceManager.removeCrmContactFromProject;
+                fn = removeCrmContactFromProject;
                 break;
             default:
-                fn = ServiceManager.removeCrmContactMember;
+                fn = removeCrmContactMember;
                 break;
         }
         if (fn) {
-            return returnValue(fn(customEvents.removeCrmEntityMember, params, type, entityid, id, options));
+            return returnValue(fn(params, type, entityid, id, options));
         }
         return false;
     };
 
-    var getCrmCases = function(params, options) {
-        return returnValue(ServiceManager.getCrmCases(customEvents.getCrmCases, params, options));
+    var getCrmCases = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/case/filter.json',
+            null,
+            options
+        );
     };
 
-    var getCrmCasesByPrefix = function(params, options) {
-        return returnValue(ServiceManager.getCrmCasesByPrefix(customEvents.getCrmCasesByPrefix, params, options));
+    var getCrmCasesByPrefix = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/case/byprefix.json',
+            null,
+            options
+        );
     };
 
-    var removeCrmCase = function(params, ids, options) {
-        if (arguments.length === 2) {
-            options = arguments[1];
-            ids = null;
+    var removeCrmCase = function (params, ids, options) {
+        var isNumberOrString = ids && (typeof ids === 'number' || typeof ids === 'string'),
+            isObject = ids && typeof ids === 'object';
+        addRequest(
+            null,
+            params,
+            isNumberOrString ? REMOVE : UPDATE,
+            'crm/case' + (isNumberOrString ? '/' + ids : '') + '.json',
+            isObject ? { casesids: ids } : null,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmCase = function (params, id, data, options) {
+        var isUpdateStatusAction = data.hasOwnProperty('isClosed');
+
+        if (isUpdateStatusAction) {
+            addRequest(
+                null,
+                params,
+                UPDATE,
+                !!data.isClosed ? 'crm/case/' + id + '/close.json' : 'crm/case/' + id + '/reopen.json',
+                data,
+                options
+            );
+        } else {
+            addRequest(
+                null,
+                params,
+                UPDATE,
+                'crm/case/' + id + '.json',
+                data,
+                options
+            );
         }
-        return returnValue(ServiceManager.removeCrmCase(customEvents.removeCrmCase, params, ids, options));
+        return true;
     };
 
-    var updateCrmCase = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmCase(customEvents.updateCrmCase, params, id, data, options));
+    var getCrmContacts = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/filter.json',
+            null,
+            options
+        );
     };
 
-    var getCrmContacts = function(params, options) {
-        return returnValue(ServiceManager.getCrmContacts(customEvents.getCrmContacts, params, options));
+    var getCrmSimpleContacts = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/simple/filter.json',
+            null,
+            options
+        );
     };
 
-    var getCrmSimpleContacts = function(params, options) {
-        return returnValue(ServiceManager.getCrmSimpleContacts(customEvents.getCrmSimpleContacts, params, options));
+    var getCrmContactsForMail = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/mail.json',
+            typeof data === 'number' || typeof data === 'string' ? { contactids: [data] } : data,
+            options
+        );
     };
 
-    var getCrmContactsForMail = function(params, data, options) {
-        return returnValue(ServiceManager.getCrmContactsForMail(customEvents.getCrmContactsForMail, params, data, options));
+    var getCrmContactsByPrefix = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/byprefix.json',
+            null,
+            options
+        );
     };
 
-    var getCrmContactsByPrefix = function(params, options) {
-        return returnValue(ServiceManager.getCrmContactsByPrefix(customEvents.getCrmContactsByPrefix, params, options));
+    var getCrmContact = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCrmContact = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmContact(customEvents.getCrmContact, params, id, options));
+    var getCrmTasks = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/task/filter.json',
+            null,
+            options
+        );
     };
 
-    var getCrmTags = function(params, type, id, options) {
-        return returnValue(ServiceManager.getCrmTags(customEvents.getCrmTags, params, type, id, options));
+    var getCrmOpportunity = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/opportunity/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCrmEntityTags = function(params, type, options) {
-        return returnValue(ServiceManager.getCrmEntityTags(customEvents.getCrmEntityTags, params, type, options));
+    var getCrmCase = function (params, id, options) {
+        return addRequest(
+          null,
+          params,
+          GET,
+          'crm/case/' + id + '.json',
+          null,
+          options
+        );
     };
 
-    var getCrmContactsForProject = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmContactsForProject(customEvents.getCrmContactsForProject, params, id, options));
+    var getContactsByContactInfo = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/bycontactinfo.json',
+            data,
+            options
+        );
     };
 
-    var getCrmEntityMembers = function(params, type, id, options) {
-        var fn = null;
-        switch (type) {
-            case 'company':
-                fn = ServiceManager.getCrmPersonMembers;
-                break;
-            default:
-                fn = ServiceManager.getCrmContactMembers;
-                break;
-        }
-        if (fn) {
-            return returnValue(fn(customEvents.getCrmEntityMembers, params, type, id, options));
-        }
-        return false;
+    var getCrmOpportunities = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/opportunity/filter.json',
+            null,
+            options
+        );
     };
 
-    var getCrmTasks = function(params, options) {
-        return returnValue(ServiceManager.getCrmTasks(customEvents.getCrmTasks, params, options));
-    };
-
-    var getCrmOpportunity = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmOpportunity(customEvents.getCrmOpportunity, params, id, options));
-    };
-
-    var getCrmCase = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmCase(customEvents.getCrmCase, params, id, options));
-    };
-
-    var getContactsByContactInfo = function(params, data, options) {
-        return returnValue(ServiceManager.getContactsByContactInfo(customEvents.getContactsByContactInfo, params, data, options));
-    };
-
-    var getCrmOpportunities = function(params, options) {
-        return returnValue(ServiceManager.getCrmOpportunities(customEvents.getCrmOpportunities, params, options));
-    };
-    
     var getCrmOpportunitiesByContact = function (params, id, options) {
-        return returnValue(ServiceManager.getCrmOpportunitiesByContact(customEvents.getCrmOpportunitiesByContact, params, id, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/opportunity/bycontact/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getCrmInvoices = function(params, options) {
-        return returnValue(ServiceManager.getCrmInvoices(customEvents.getCrmInvoices, params, options));
+    var getCrmOpportunitiesByPrefix = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/opportunity/byprefix.json',
+            null,
+            options
+        );
     };
-    
+
+    var removeCrmOpportunity = function (params, ids, options) {
+        var isNumberOrString = ids && (typeof ids === 'number' || typeof ids === 'string'),
+            isObject = ids && typeof ids === 'object';
+        addRequest(
+            null,
+            params,
+            isNumberOrString ? REMOVE : UPDATE,
+            'crm/opportunity' + (isNumberOrString ? '/' + ids : '') + '.json',
+            isObject ? { opportunityids: ids } : null,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmOpportunityMilestone = function (params, opportunityid, stageid, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/opportunity/' + opportunityid + '/stage/' + stageid + '.json',
+            { opportunityid: opportunityid, stageid: stageid },
+            options
+        );
+    };
+
+    var getCrmCurrencyConvertion = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/settings/currency/convert.json',
+            data,
+            options
+        );
+    };
+
+    var getCrmCurrencySummaryTable = function (params, currency, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/settings/currency/summarytable.json',
+            { currency: currency },
+            options
+        );
+    };
+
+    var updateCrmCurrency = function (params, currency, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/settings/currency.json',
+            { currency: currency },
+            options
+        );
+    };
+
+    var updateCRMContactStatusSettings = function (params, changeContactStatusGroupAuto, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/status/settings.json',
+            { changeContactStatusGroupAuto: changeContactStatusGroupAuto },
+            options
+        );
+    };
+
+    var updateCRMContactTagSettings = function (params, addTagToContactGroupAuto, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/tag/settings.json',
+            { addTagToContactGroupAuto: addTagToContactGroupAuto },
+            options
+        );
+    };
+
+    var updateCRMContactMailToHistorySettings = function (params, writeMailToHistoryAuto, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/mailtohistory/settings.json',
+            { writeMailToHistoryAuto: writeMailToHistoryAuto },
+            options
+        );
+    };
+
+    var updateOrganisationSettingsCompanyName = function (params, companyName, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/settings/organisation/base.json',
+            { companyName: companyName },
+            options
+        );
+    };
+
+    var updateOrganisationSettingsAddresses = function (params, addresses, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/settings/organisation/address.json',
+            { companyAddress: addresses },
+            options
+        );
+    };
+
+    var updateOrganisationSettingsLogo = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/settings/organisation/logo.json',
+            data,
+            options
+        );
+    };
+
+    var getOrganisationSettingsLogo = function (params, logoid, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/settings/organisation/logo.json',
+            { id: logoid },
+            options
+        );
+    };
+
+    var updateWebToLeadFormKey = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/settings/webformkey/change.json',
+            null,
+            options
+        );
+    };
+
+    var updateCRMSMTPSettings = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/settings/smtp.json',
+            data,
+            options
+        );
+    };
+
+    var sendSMTPTestMail = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/settings/testmail.json',
+            data,
+            options
+        );
+    };
+
+    var sendSMTPMailToContacts = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/mailsmtp/send.json',
+            data,
+            options
+        );
+    };
+
+    var getPreviewSMTPMailToContacts = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/mailsmtp/preview.json',
+            data,
+            options
+        );
+    };
+
+    var getStatusSMTPMailToContacts = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/mailsmtp/status.json',
+            null,
+            options
+        );
+    };
+
+    var cancelSMTPMailToContacts = function (params, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/mailsmtp/cancel.json',
+            null,
+            options
+        );
+    };
+
+    var addCrmHistoryEvent = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/history.json',
+            data,
+            options
+        );
+    };
+
+    var removeCrmHistoryEvent = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/history/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmHistoryEvents = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/history/filter.json',
+            null,
+            options
+        );
+    };
+
+    var removeCrmFile = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/files/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmFolder = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/files/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var updateCrmContactRights = function (params, id, data, options) {
+        if (!data || !options) {
+            options = data;
+            data = id;
+            id = null;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact' + (id ? '/' + id : '') + '/access.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmCaseRights = function (params, id, data, options) {
+        if (!data || !options) {
+            options = data;
+            data = id;
+            id = null;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/case' + (id ? '/' + id : '') + '/access.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmOpportunityRights = function (params, id, data, options) {
+        if (!data || !options) {
+            options = data;
+            data = id;
+            id = null;
+        }
+
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/opportunity' + (id ? '/' + id : '') + '/access.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var addCrmEntityFiles = function (params, id, type, data, options) {
+        if (data && typeof data === 'object' && !data.hasOwnProperty('entityType')) {
+            data.entityType = type;
+        }
+
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm' + (type ? '/' + type : '') + '/' + id + '/files.json',
+            isArray(data) ? { entityType: type, entityid: id, fileids: data } : data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmEntityFiles = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/files/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmEntityFiles = function (params, id, type, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm' + (type ? '/' + type : '') + '/' + id + '/files.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmTaskCategories = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/task/category.json',
+            null,
+            options
+        );
+    };
+
+    var addCrmEntityTaskTemplateContainer = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + data.entityType + '/tasktemplatecontainer.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmEntityTaskTemplateContainer = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/tasktemplatecontainer/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmEntityTaskTemplateContainer = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/tasktemplatecontainer/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmEntityTaskTemplateContainer = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/tasktemplatecontainer/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmEntityTaskTemplateContainers = function (params, type, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + type + '/tasktemplatecontainer.json',
+            null,
+            options
+        );
+    };
+
+    var addCrmEntityTaskTemplate = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/tasktemplatecontainer/' + data.containerid + '/tasktemplate.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmEntityTaskTemplate = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/tasktemplatecontainer/' + data.containerid + '/tasktemplate.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmEntityTaskTemplate = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/tasktemplatecontainer/tasktemplate/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmEntityTaskTemplate = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/tasktemplatecontainer/tasktemplate/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmEntityTaskTemplates = function (params, containerid, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/tasktemplatecontainer/' + containerid + '/tasktemplate.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmInvoices = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/filter.json',
+            null,
+            options
+        );
+    };
+
     var getCrmEntityInvoices = function (params, type, id, options) {
-        return returnValue(ServiceManager.getCrmEntityInvoices(customEvents.getCrmEntityInvoices, params, type, id, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + type + '/invoicelist/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var updateCrmInvoicesStatusBatch = function(params, status, ids, options) {
-        return returnValue(ServiceManager.updateCrmInvoicesStatusBatch(customEvents.updateCrmInvoicesStatusBatch, params, status, ids, options));
+    var updateCrmInvoicesStatusBatch = function (params, status, ids, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoice/status/' + status + '.json',
+            { invoiceids: ids },
+            options
+        );
     };
 
-    var getCrmInvoiceByNumber = function(params, number, options) {
-        return returnValue(ServiceManager.getCrmInvoiceByNumber(customEvents.getCrmInvoiceByNumber, params, number, options));
+    var getCrmInvoiceByNumber = function (params, number, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/bynumber.json',
+            { number: number },
+            options
+        );
     };
 
-    var getCrmInvoiceByNumberExistence = function(params, number, options) {
-        return returnValue(ServiceManager.getCrmInvoiceByNumberExistence(customEvents.getCrmInvoiceByNumberExistence, params, number, options));
+    var getCrmInvoiceByNumberExistence = function (params, number, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/bynumber/exist.json',
+            { number: number },
+            options
+        );
     };
 
-    var getCrmInvoiceItems = function(params, options) {
-        return returnValue(ServiceManager.getCrmInvoiceItems(customEvents.getCrmInvoiceItems, params, options));
+    var getCrmInvoiceItems = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoiceitem/filter.json',
+            null,
+            options
+        );
     };
 
     var addCrmInvoiceItem = function (params, data, options) {
-        return returnValue(ServiceManager.addCrmInvoiceItem(customEvents.addCrmInvoiceItem, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/invoiceitem.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var updateCrmInvoiceItem = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmInvoiceItem(customEvents.updateCrmInvoiceItem, params, id, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoiceitem/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var removeCrmInvoiceItem = function (params, ids, options) {
-        if (arguments.length === 2) {
-            options = arguments[1];
-            ids = null;
-        }
-        return returnValue(ServiceManager.removeCrmInvoiceItem(customEvents.removeCrmInvoiceItem, params, ids, options));
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/invoiceitem' + (ids && (typeof ids === 'number' || typeof ids === 'string') ? '/' + ids : '') + '.json',
+            ids && typeof ids === 'object' ? { ids: ids } : null,
+            options
+        );
+        return true;
     };
 
-    var getCrmInvoiceTaxes = function(params, options) {
-        return returnValue(ServiceManager.getCrmInvoiceTaxes(customEvents.getCrmInvoiceTaxes, params, options));
+    var getCrmInvoiceTaxes = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/tax.json',
+            null,
+            options
+        );
     };
-    
+
     var addCrmInvoiceTax = function (params, data, options) {
-        return returnValue(ServiceManager.addCrmInvoiceTax(customEvents.addCrmInvoiceTax, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/invoice/tax.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var updateCrmInvoiceTax = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmInvoiceTax(customEvents.updateCrmInvoiceTax, params, id, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoice/tax/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var removeCrmInvoiceTax = function (params, id, options) {
-        return returnValue(ServiceManager.removeCrmInvoiceTax(customEvents.removeCrmInvoiceTax, params, id, options));
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/invoice/tax/' + id + '.json',
+            null,
+            options
+        );
+        return true;
     };
 
     var getCrmInvoice = function (params, id, options) {
-        return returnValue(ServiceManager.getCrmInvoice(customEvents.getCrmInvoice, params, id, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/' + id + '.json',
+            null,
+            options
+        );
     };
-    
+
     var getCrmInvoiceSample = function (params, options) {
-        return returnValue(ServiceManager.getCrmInvoiceSample(customEvents.getCrmInvoiceSample, params, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/sample.json',
+            null,
+            options
+        );
     };
-    
+
     var getCrmInvoiceJsonData = function (params, id, options) {
-        return returnValue(ServiceManager.getCrmInvoiceJsonData(customEvents.getCrmInvoiceJsonData, params, id, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/jsondata/' + id + '.json',
+            null,
+            options
+        );
     };
 
     var addCrmInvoice = function (params, data, options) {
-        return returnValue(ServiceManager.addCrmInvoice(customEvents.addCrmInvoice, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/invoice.json',
+            data,
+            options
+        );
+        return true;
     };
-    
+
     var updateCrmInvoice = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmInvoice(customEvents.updateCrmInvoice, params, id, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoice/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var removeCrmInvoice = function (params, ids, options) {
-        return returnValue(ServiceManager.removeCrmInvoice(customEvents.removeCrmInvoice, params, ids, options));
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/invoice' + (ids && (typeof ids === 'number' || typeof ids === 'string') ? '/' + ids : '') + '.json',
+            ids && typeof ids === 'object' ? { invoiceids: ids } : null,
+            options
+        );
+        return true;
     };
 
     var getInvoicePdfExistingOrCreate = function (params, id, options) {
-        return returnValue(ServiceManager.getInvoicePdfExistingOrCreate(customEvents.getInvoicePdfExistingOrCreate, params, id, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/' + id + '/pdf.json',
+            null,
+            options
+        );
+        return true;
     };
 
     var getInvoiceConverterData = function (params, data, options) {
-        return returnValue(ServiceManager.getInvoiceConverterData(customEvents.getInvoiceConverterData, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/invoice/converter/data.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var addCrmInvoiceLine = function (params, data, options) {
-        return returnValue(ServiceManager.addCrmInvoiceLine(customEvents.addCrmInvoiceLine, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/invoiceline.json',
+            data,
+            options
+        );
+        return true;
     };
-    
-    var updateCrmInvoiceLine = function (params, data, options) {
-        return returnValue(ServiceManager.updateCrmInvoiceLine(customEvents.updateCrmInvoiceLine, params, id, data, options));
+
+    var updateCrmInvoiceLine = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoiceline/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var removeCrmInvoiceLine = function (params, id, options) {
-        return returnValue(ServiceManager.removeCrmInvoiceLine(customEvents.removeCrmInvoiceLine, params, id, options));
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/invoiceline/' + id + '.json',
+            null,
+            options
+        );
+        return true;
     };
 
     var getCrmInvoiceSettings = function (params, options) {
-        return returnValue(ServiceManager.getCrmInvoiceSettings(customEvents.getCrmInvoiceSettings, params, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/invoice/settings.json',
+            null,
+            options
+        );
     };
-    
+
     var updateCrmInvoiceSettingsName = function (params, data, options) {
-        return returnValue(ServiceManager.updateCrmInvoiceSettingsName(customEvents.updateCrmInvoiceSettingsName, params, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoice/settings/name.json',
+            data,
+            options
+        );
+        return true;
     };
-    
+
     var updateCrmInvoiceSettingsTerms = function (params, data, options) {
-        return returnValue(ServiceManager.updateCrmInvoiceSettingsTerms(customEvents.updateCrmInvoiceSettingsTerms, params, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/invoice/settings/terms.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var getCrmCurrencyRates = function (params, options) {
-        return returnValue(ServiceManager.getCrmCurrencyRates(customEvents.getCrmCurrencyRates, params, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/currency/rates.json',
+            null,
+            options
+        );
     };
-    
+
     var getCrmCurrencyRateById = function (params, id, options) {
-        return returnValue(ServiceManager.getCrmCurrencyRateById(customEvents.getCrmCurrencyRateById, params, id, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/currency/rates/' + id + '.json',
+            null,
+            options
+        );
+        return true;
     };
-    
+
     var getCrmCurrencyRateByCurrencies = function (params, from, to, options) {
-        return returnValue(ServiceManager.getCrmCurrencyRateByCurrencies(customEvents.getCrmCurrencyRateByCurrencies, params, from, to, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/currency/rates/' + from + '/' + to + '.json',
+            null,
+            options
+        );
+        return true;
     };
 
     var addCrmCurrencyRate = function (params, data, options) {
-        return returnValue(ServiceManager.addCrmCurrencyRate(customEvents.addCrmCurrencyRate, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/currency/rates.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var updateCrmCurrencyRate = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmCurrencyRate(customEvents.updateCrmCurrencyRate, params, id, data, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/currency/rates/' + id + '.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var removeCrmCurrencyRate = function (params, id, options) {
-        return returnValue(ServiceManager.removeCrmCurrencyRate(customEvents.removeCrmCurrencyRatex, params, id, options));
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/currency/rates/' + id + '.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var getCrmContactTweets = function (params, id, count, options) {
-        return returnValue(ServiceManager.getCrmContactTweets(customEvents.getCrmContactTweets, params, id, count, options));
+    var getCrmContactTweets = function (params, contactid, count, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/' + contactid + '/tweets.json',
+            { contactid: contactid, count: count },
+            options
+        );
     };
 
     var getCrmContactTwitterProfiles = function (params, searchText, options) {
-        return returnValue(ServiceManager.getCrmContactTwitterProfiles(customEvents.getCrmContactTwitterProfiles, params, searchText, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/twitterprofile.json',
+            { searchText: searchText },
+            options
+        );
     };
 
     var getCrmContactFacebookProfiles = function (params, searchText, isUser, options) {
-        return returnValue(ServiceManager.getCrmContactFacebookProfiles(customEvents.getCrmContactFacebookProfiles, params, searchText, isUser, options));
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/contact/facebookprofile.json',
+            { searchText: searchText, isUser: isUser },
+            options
+        );
     };
 
-    var removeCrmContactAvatar = function (params, id, data, options) {
-        return returnValue(ServiceManager.removeCrmContactAvatar(customEvents.removeCrmContactAvatar, params, id, data, options));
+    var removeCrmContactAvatar = function (params, contactid, data, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/contact/' + contactid + '/avatar.json',
+            data,
+            options
+        );
     };
 
-    var updateCrmContactAvatar = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactAvatar(customEvents.updateCrmContactAvatar, params, id, data, options));
+    var updateCrmContactAvatar = function (params, contactid, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/contact/' + contactid + '/avatar.json',
+            data,
+            options
+        );
     };
 
     var getCrmContactSocialMediaAvatar = function (params, data, options) {
-        return returnValue(ServiceManager.getCrmContactSocialMediaAvatar(customEvents.getCrmContactSocialMediaAvatar, params, data, options));
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'crm/contact/socialmediaavatar.json',
+            { socialNetworks: data },
+            options
+        );
     };
 
     var startCrmImportFromCSV = function (params, data, options) {
-        return returnValue(ServiceManager.startCrmImportFromCSV(customEvents.startCrmImportFromCSV, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/' + data.entityType + '/import/start.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var getStatusCrmImportFromCSV = function (params, data, options) {
-        return returnValue(ServiceManager.getStatusCrmImportFromCSV(customEvents.getStatusCrmImportFromCSV, params, data, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/' + data.entityType + '/import/status.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var getCrmImportFromCSVSampleRow = function (params, data, options) {
-        return returnValue(ServiceManager.getCrmImportFromCSVSampleRow(customEvents.getCrmImportFromCSVSampleRow, params, data, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/import/samplerow.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var uploadFakeCrmImportFromCSV = function (params, data, options) {
-        return returnValue(ServiceManager.uploadFakeCrmImportFromCSV(customEvents.uploadFakeCrmImportFromCSV, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/import/uploadfake.json',
+            data,
+            options
+        );
+        return true;
     };
 
-    var getStatusExportToCSV = function(params, options) {
-        return returnValue(ServiceManager.getStatusExportToCSV(customEvents.getStatusExportToCSV, params, options));
+    var getStatusExportToCSV = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/export/status.json',
+            null,
+            options
+        );
     };
 
-    var cancelExportToCSV = function(params, options) {
-        return returnValue(ServiceManager.cancelExportToCSV(customEvents.cancelExportToCSV, params, options));
+    var cancelExportToCSV = function (params, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/export/cancel.json',
+            null,
+            options
+        );
     };
 
-    var startCrmExportToCSV = function(params, options) {
-        return returnValue(ServiceManager.startCrmExportToCSV(customEvents.startCrmExportToCSV, params, options));
+    var startCrmExportToCSV = function (params, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/export/start.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var getCrmOpportunitiesByPrefix = function(params, options) {
-        return returnValue(ServiceManager.getCrmOpportunitiesByPrefix(customEvents.getCrmOpportunitiesByPrefix, params, options));
-    };
-
-    var removeCrmOpportunity = function(params, ids, options) {
-        if (arguments.length === 2) {
-            options = arguments[1];
-            ids = null;
-        }
-        return returnValue(ServiceManager.removeCrmOpportunity(customEvents.removeCrmOpportunity, params, ids, options));
-    };
-
-    var updateCrmOpportunityMilestone = function(params, opportunityid, stageid, options) {
-        return returnValue(ServiceManager.updateCrmOpportunityMilestone(customEvents.updateCrmOpportunityMilestone, params, opportunityid, stageid, options));
-    };
-
-    var getCrmCurrencyConvertion = function(params, data, options) {
-        return returnValue(ServiceManager.getCrmCurrencyConvertion(customEvents.getCrmCurrencyConvertion, params, data, options));
-    };
-
-    var getCrmCurrencySummaryTable = function(params, currency, options) {
-        return returnValue(ServiceManager.getCrmCurrencySummaryTable(customEvents.getCrmCurrencySummaryTable, params, currency, options));
-    };
-
-    var updateCrmCurrency = function(params, currency, options) {
-        return returnValue(ServiceManager.updateCrmCurrency(customEvents.updateCrmCurrency, params, currency, options));
-    };
-
-    var updateCRMContactStatusSettings = function(params, changeContactStatusGroupAuto, options) {
-        return returnValue(ServiceManager.updateCRMContactStatusSettings(customEvents.updateCRMContactStatusSettings, params, changeContactStatusGroupAuto, options));
-    };
-
-    var updateCRMContactTagSettings = function(params, addTagToContactGroupAuto, options) {
-        return returnValue(ServiceManager.updateCRMContactTagSettings(customEvents.updateCRMContactTagSettings, params, addTagToContactGroupAuto, options));
-    };
-
-    var updateCRMContactMailToHistorySettings = function(params, writeMailToHistoryAuto, options) {
-        return returnValue(ServiceManager.updateCRMContactMailToHistorySettings(customEvents.updateCRMContactMailToHistorySettings, params, writeMailToHistoryAuto, options));
-    };
-
-    var updateOrganisationSettingsCompanyName = function(params, companyName, options) {
-        return returnValue(ServiceManager.updateOrganisationSettingsCompanyName(customEvents.updateOrganisationSettingsCompanyName, params, companyName, options));
-    };
-
-    var updateOrganisationSettingsAddresses = function(params, addresses, options) {
-        return returnValue(ServiceManager.updateOrganisationSettingsAddresses(customEvents.updateOrganisationSettingsAddresses, params, addresses, options));
-    };
-
-    var updateOrganisationSettingsLogo = function(params, data, options) {
-        return returnValue(ServiceManager.updateOrganisationSettingsLogo(customEvents.updateOrganisationSettingsLogo, params, data, options));
-    };
-
-    var getOrganisationSettingsLogo = function(params, id, options) {
-        return returnValue(ServiceManager.getOrganisationSettingsLogo(customEvents.getOrganisationSettingsLogo, params, id, options));
-    };
-
-    var updateWebToLeadFormKey = function(params, options) {
-        return returnValue(ServiceManager.updateWebToLeadFormKey(customEvents.updateWebToLeadFormKey, params, options));
-    };
-
-    var updateCRMSMTPSettings = function(params, data, options) {
-        return returnValue(ServiceManager.updateCRMSMTPSettings(customEvents.updateCRMSMTPSettings, params, data, options));
-    };
-
-    var sendSMTPTestMail = function(params, data, options) {
-        return returnValue(ServiceManager.sendSMTPTestMail(customEvents.sendSMTPTestMail, params, data, options));
-    };
-
-    var sendSMTPMailToContacts = function(params, data, options) {
-        return returnValue(ServiceManager.sendSMTPMailToContacts(customEvents.sendSMTPMailToContacts, params, data, options));
-    };
-
-    var getPreviewSMTPMailToContacts = function(params, data, options) {
-        return returnValue(ServiceManager.getPreviewSMTPMailToContacts(customEvents.getPreviewSMTPMailToContacts, params, data, options));
-    };
-
-    var getStatusSMTPMailToContacts = function(params, options) {
-        return returnValue(ServiceManager.getStatusSMTPMailToContacts(customEvents.getStatusSMTPMailToContacts, params, options));
-    };
-
-    var cancelSMTPMailToContacts = function(params, options) {
-        return returnValue(ServiceManager.cancelSMTPMailToContacts(customEvents.cancelSMTPMailToContacts, params, options));
-    };
-
-    var addCrmHistoryEvent = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmHistoryEvent(customEvents.addCrmHistoryEvent, params, data, options));
-    };
-
-    var removeCrmHistoryEvent = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmHistoryEvent(customEvents.removeCrmHistoryEvent, params, id, options));
-    };
-
-    var getCrmHistoryEvents = function(params, options) {
-        return returnValue(ServiceManager.getCrmHistoryEvents(customEvents.getCrmHistoryEvents, params, options));
-    };
-
-    var removeCrmFile = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmFile(customEvents.removeCrmFile, params, id, options));
-    };
-
-    var getCrmFolder = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmFolder(customEvents.getCrmFolder, params, id, options));
-    };
-
-    var updateCrmContactRights = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmContactRights(customEvents.updateCrmContactRights, params, id, data, options));
-    };
-
-    var updateCrmCaseRights = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmCaseRights(customEvents.updateCrmCaseRights, params, id, data, options));
-    };
-
-    var updateCrmOpportunityRights = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmOpportunityRights(customEvents.updateCrmOpportunityRights, params, id, data, options));
-    };
-
-    var addCrmEntityFiles = function(params, id, type, data, options) {
-        return returnValue(ServiceManager.addCrmEntityFiles(customEvents.addCrmEntityFiles, params, id, type, data, options));
-    };
-
-    var removeCrmEntityFiles = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmEntityFiles(customEvents.removeCrmEntityFiles, params, id, options));
-    };
-
-    var getCrmEntityFiles = function(params, id, type, options) {
-        return returnValue(ServiceManager.getCrmEntityFiles(customEvents.getCrmEntityFiles, params, id, type, options));
-    };
-
-    var getCrmTaskCategories = function(params, options) {
-        return returnValue(ServiceManager.getCrmTaskCategories(customEvents.getCrmTaskCategories, params, options));
-    };
-
-    var addCrmEntityTaskTemplateContainer = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmEntityTaskTemplateContainer(customEvents.addCrmEntityTaskTemplateContainer, params, data, options));
-    };
-
-    var updateCrmEntityTaskTemplateContainer = function(params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmEntityTaskTemplateContainer(customEvents.updateCrmEntityTaskTemplateContainer, params, id, data, options));
-    };
-
-    var removeCrmEntityTaskTemplateContainer = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmEntityTaskTemplateContainer(customEvents.removeCrmEntityTaskTemplateContainer, params, id, options));
-    };
-
-    var getCrmEntityTaskTemplateContainer = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmEntityTaskTemplateContainer(customEvents.getCrmEntityTaskTemplateContainer, params, id, options));
-    };
-
-    var getCrmEntityTaskTemplateContainers = function(params, type, options) {
-        return returnValue(ServiceManager.getCrmEntityTaskTemplateContainers(customEvents.getCrmEntityTaskTemplateContainers, params, type, options));
-    };
-
-    var addCrmEntityTaskTemplate = function(params, data, options) {
-        return returnValue(ServiceManager.addCrmEntityTaskTemplate(customEvents.addCrmEntityTaskTemplate, params, data, options));
-    };
-
-    var updateCrmEntityTaskTemplate = function(params, data, options) {
-        return returnValue(ServiceManager.updateCrmEntityTaskTemplate(customEvents.updateCrmEntityTaskTemplate, params, data, options));
-    };
-
-    var removeCrmEntityTaskTemplate = function(params, id, options) {
-        return returnValue(ServiceManager.removeCrmEntityTaskTemplate(customEvents.removeCrmEntityTaskTemplate, params, id, options));
-    };
-
-    var getCrmEntityTaskTemplate = function(params, id, options) {
-        return returnValue(ServiceManager.getCrmEntityTaskTemplate(customEvents.getCrmEntityTaskTemplate, params, id, options));
-    };
-
-    var getCrmEntityTaskTemplates = function(params, containerid, options) {
-        return returnValue(ServiceManager.getCrmEntityTaskTemplates(customEvents.getCrmEntityTaskTemplates, params, containerid, options));
-    };
-    
     //#region VoIP
-    
+
     var getCrmVoipAvailableNumbers = function (params, options) {
-        return returnValue(ServiceManager.getCrmVoipAvailableNumbers(customEvents.getCrmVoipAvailableNumbers, params, options));
-    };
-    
-    var getCrmVoipExistingNumbers = function (params, options) {
-        return returnValue(ServiceManager.getCrmVoipExistingNumbers(customEvents.getCrmVoipExistingNumbers, params, options));
-    };
-    
-    var getCrmCurrentVoipNumber = function (params, options) {
-        return returnValue(ServiceManager.getCrmCurrentVoipNumber(customEvents.getCrmCurrentVoipNumber, params, options));
-    };
-    
-    var createCrmVoipNumber = function (params, data, options) {
-        return returnValue(ServiceManager.createCrmVoipNumber(customEvents.createCrmVoipNumber, params, data, options));
-    };
-    
-    var removeCrmVoipNumber = function (params, id, options) {
-        return returnValue(ServiceManager.removeCrmVoipNumber(customEvents.removeCrmVoipNumber, params, id, options));
-    };
-    
-    var updateCrmVoipNumberSettings = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmVoipNumberSettings(customEvents.updateCrmVoipNumberSettings, params, id, data, options));
-    };
-    
-    var getCrmVoipSettings = function (params, options) {
-        return returnValue(ServiceManager.getCrmVoipSettings(customEvents.getCrmVoipSettings, params, options));
-    };
-    
-    var updateCrmVoipSettings = function (params, data, options) {
-        return returnValue(ServiceManager.updateCrmVoipSettings(customEvents.updateCrmVoipSettings, params, data, options));
-    };
-    
-    var addCrmVoipNumberOperators = function (params, id, data, options) {
-        return returnValue(ServiceManager.addCrmVoipNumberOperators(customEvents.addCrmVoipNumberOperators, params, id, data, options));
-    };
-    
-    var updateCrmVoipOperator = function (params, id, data, options) {
-        return returnValue(ServiceManager.updateCrmVoipOperator(customEvents.updateCrmVoipOperator, params, id, data, options));
-    };
-    
-    var removeCrmVoipNumberOperators = function (params, id, data, options) {
-        return returnValue(ServiceManager.removeCrmVoipNumberOperators(customEvents.removeCrmVoipNumberOperators, params, id, data, options));
-    };
-    
-    var getCrmVoipNumberOperators = function (params, id, options) {
-        return returnValue(ServiceManager.getCrmVoipNumberOperators(customEvents.getCrmVoipNumberOperators, params, id, options));
-    };
-    
-    var callVoipNumber = function (params, data, options) {
-        return returnValue(ServiceManager.callVoipNumber(customEvents.callVoipNumber, params, data, options));
-    };
-    
-    var answerVoipCall = function (params, id, options) {
-        return returnValue(ServiceManager.answerVoipCall(customEvents.answerVoipCall, params, id, options));
-    };
-    
-    var rejectVoipCall = function (params, id, options) {
-        return returnValue(ServiceManager.rejectVoipCall(customEvents.rejectVoipCall, params, id, options));
-    };
-    
-    var redirectVoipCall = function (params, id, data, options) {
-        return returnValue(ServiceManager.redirectVoipCall(customEvents.redirectVoipCall, params, id, data, options));
-    };
-    
-    var saveVoipCall = function (params, id, data, options) {
-        return returnValue(ServiceManager.saveVoipCall(customEvents.saveVoipCall, params, id, data, options));
-    };
-    
-    var getVoipCalls = function (params, data, options) {
-        return returnValue(ServiceManager.getVoipCalls(customEvents.getVoipCalls, params, data, options));
-    };
-    
-    var getVoipMissedCalls = function (params, options) {
-        return returnValue(ServiceManager.getVoipMissedCalls(customEvents.getVoipMissedCalls, params, options));
-    };
-    
-    var getVoipCall = function(params, id, options) {
-        return returnValue(ServiceManager.getVoipCall(customEvents.getVoipCall, params, id, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/numbers/available.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    var getVoipToken = function(params, options) {
-        return returnValue(ServiceManager.getVoipToken(customEvents.getVoipToken, params, options));
+    var getCrmVoipExistingNumbers = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/numbers/existing.json',
+            null,
+            options
+        );
+        return true;
     };
-    
+
+    var getCrmVoipUnlinkedNumbers = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/numbers/unlinked.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmCurrentVoipNumber = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/numbers/current.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var createCrmVoipNumber = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/numbers.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var linkCrmVoipNumber = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/numbers/link.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmVoipNumber = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/voip/numbers/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmVoipNumberSettings = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/voip/numbers/' + id + '/settings.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmVoipSettings = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/voip/numbers/settings.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getCrmVoipSettings = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/numbers/settings.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmVoipNumberOperators = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/numbers/' + id + '/oper.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var addCrmVoipNumberOperators = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/voip/numbers/' + id + '/oper.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updateCrmVoipOperator = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'crm/voip/opers/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var removeCrmVoipNumberOperators = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/voip/numbers/' + id + '/oper.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var callVoipNumber = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/call.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var answerVoipCall = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '/answer.json',
+            id,
+            options
+        );
+        return true;
+    };
+
+    var rejectVoipCall = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '/reject.json',
+            id,
+            options
+        );
+        return true;
+    };
+
+    var redirectVoipCall = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '/redirect.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var saveVoipCall = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var saveVoipCallPrice = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/voip/price/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getVoipMissedCalls = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/call/missed.json',
+            null,
+            options
+        );
+    };
+
+    var getVoipCalls = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/call.json',
+            data,
+            options
+        );
+    };
+
+    var getVoipCall = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/call/' + id + '.json',
+            null,
+            options
+        );
+    };
+
+    var getVoipToken = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/token.json',
+            null,
+            options
+        );
+        return true;
+    };
+
     var getVoipUploads = function (params, options) {
-        return returnValue(ServiceManager.getVoipUploads(customEvents.getVoipUploads, params, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/voip/uploads.json',
+            null,
+            options
+        );
+        return true;
     };
-    
+
     var deleteVoipUploads = function (params, data, options) {
-        return returnValue(ServiceManager.deleteVoipUploads(customEvents.deleteVoipUploads, params, data, options));
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/voip/uploads.json',
+            data,
+            options
+        );
+        return true;
     };
     
     //#endregion
 
     /* </crm> */
+
     /* <mail> */
-    var _single_sm_request = function() {
-        // sm methods and event names are equal
-        var method = ServiceManager[arguments[0]];
-        // get event string value by its name
-        arguments[0] = customEvents[arguments[0]];
-        // just 1 request
-        arguments[arguments.length - 1] = arguments[arguments.length - 1] || {};
-        arguments[arguments.length - 1].max_request_attempts = 1;
-        return returnValue(method.apply(this, arguments));
+    var getMailFilteredMessages = function (params, filter_data, options) {
+        return addRequest(
+            customEvents.getMailFilteredMessages,
+            params,
+            GET,
+            'mail/messages.json',
+            filter_data,
+            options
+        );
     };
 
-    var getMailFilteredMessages = function(params, filter_data, options) {
-        return _single_sm_request('getMailFilteredMessages', params, filter_data, options);
-    };
-
-    var getMailFolders = function(params, options) {
-        return _single_sm_request('getMailFolders', params, options);
+    var getMailFolders = function (params, options) {
+        return addRequest(
+            customEvents.getMailFolders,
+            params,
+            GET,
+            'mail/folders.json',
+            null,
+            options
+        );
     };
 
     var getAccounts = function (params, options) {
-        return _single_sm_request('getAccounts', params, options);
+        return addRequest(
+            customEvents.getAccounts,
+            params,
+            GET,
+            'mail/accounts.json',
+            null,
+            options
+        );
     };
 
-    var getMailTags = function(params, options) {
-        return _single_sm_request('getMailTags', params, options);
+    var getMailTags = function (params, options) {
+        return addRequest(
+            customEvents.getMailTags,
+            params,
+            GET,
+            'mail/tags.json',
+            null,
+            options
+        );
     };
 
-    var getMailMessage = function(params, id, data, options) {
-        return _single_sm_request('getMailMessage', params, id, data, options);
+    var getMailMessage = function (params, id, data, options) {
+        return addRequest(
+            customEvents.getMailMessage,
+            params,
+            GET,
+            'mail/messages/' + id + '.json',
+            data,
+            options
+        );
     };
-    
+
     var getMailboxSignature = function (params, id, data, options) {
-        return _single_sm_request('getMailboxSignature', params, id, data, options);
+        return addRequest(
+            customEvents.getMailboxSignature,
+            params,
+            GET,
+            'mail/signature/' + id + '.json',
+            data,
+            options
+        );
     };
-    
-    var updateMailboxSignature = function(params, id, data, options) {
-        return _single_sm_request('updateMailboxSignature', params, id, data, options);
-    }
+
+    var updateMailboxSignature = function (params, id, data, options) {
+        return addRequest(
+            customEvents.updateMailboxSignature,
+            params,
+            ADD,
+            'mail/signature/update/' + id + '.json',
+            data,
+            options
+        );
+    };
 
     var updateMailboxAutoreply = function (params, id, data, options) {
-        return _single_sm_request('updateMailboxAutoreply', params, id, data, options);
-    }
-
-    var getLinkedCrmEntitiesInfo = function(params, data, options) {
-        return _single_sm_request('getLinkedCrmEntitiesInfo', params, data, options);
+        return addRequest(
+            customEvents.updateMailboxAutoreply,
+            params,
+            ADD,
+            'mail/autoreply/update/' + id + '.json',
+            data,
+            options
+        );
     };
 
-    var getNextMailMessageId = function(params, id, filter_data, options) {
-        return _single_sm_request('getNextMailMessageId', params, id, filter_data, options);
+    var getLinkedCrmEntitiesInfo = function (params, data, options) {
+        return addRequest(
+      customEvents.getLinkedCrmEntitiesInfo,
+      params,
+      GET,
+      'mail/crm/linked/entities.json',
+      data,
+      options
+    );
     };
 
-    var getPrevMailMessageId = function(params, id, filter_data, options) {
-        return _single_sm_request('getPrevMailMessageId', params, id, filter_data, options);
+    var getNextMailMessageId = function (params, id, filter_data, options) {
+        return addRequest(
+            customEvents.getNextMailMessageId,
+            params,
+            GET,
+            'mail/messages/' + id + '/next.json',
+            filter_data,
+            options
+        );
     };
 
-    var getMailConversation = function(params, id, data, options) {
-        return _single_sm_request('getMailConversation', params, id, data, options);
+    var getPrevMailMessageId = function (params, id, filter_data, options) {
+        return addRequest(
+            customEvents.getPrevMailMessageId,
+            params,
+            GET,
+            'mail/messages/' + id + '/prev.json',
+            filter_data,
+            options
+        );
     };
 
-    var getNextMailConversationId = function(params, id, filter_data, options) {
-        return _single_sm_request('getNextMailConversationId', params, id, filter_data, options);
+    var getMailConversation = function (params, id, data, options) {
+        return addRequest(
+            customEvents.getMailConversation,
+            params,
+            GET,
+            'mail/conversation/' + id + '.json',
+            data,
+            options
+        );
     };
 
-    var getPrevMailConversationId = function(params, id, filter_data, options) {
-        return _single_sm_request('getPrevMailConversationId', params, id, filter_data, options);
+    var getNextMailConversationId = function (params, id, filter_data, options) {
+        return addRequest(
+            customEvents.getNextMailConversationId,
+            params,
+            GET,
+            'mail/conversation/' + id + '/next.json',
+            filter_data,
+            options
+        );
     };
 
-    var removeMailFolderMessages = function(params, folder_id, options) {
-        return _single_sm_request('removeMailFolderMessages', params, folder_id, options);
+    var getPrevMailConversationId = function (params, id, filter_data, options) {
+        return addRequest(
+            customEvents.getPrevMailConversationId,
+            params,
+            GET,
+            'mail/conversation/' + id + '/prev.json',
+            filter_data,
+            options
+        );
+    };
+
+    var removeMailFolderMessages = function (params, id, options) {
+        return addRequest(
+            customEvents.removeMailFolderMessages,
+            params,
+            REMOVE,
+            'mail/folders/' + id + '/messages.json',
+            null,
+            options
+        );
     };
 
     var restoreMailMessages = function (params, data, options) {
-        return _single_sm_request('restoreMailMessages', params, data, options);
+        return addRequest(
+            customEvents.restoreMailMessages,
+            params,
+            UPDATE,
+            'mail/messages/restore.json',
+            data,
+            options
+        );
     };
 
-    var moveMailMessages = function(params, ids, folder, options) {
-        return _single_sm_request('moveMailMessages', params, ids, folder, options);
+    var moveMailMessages = function (params, ids, folder, options) {
+        return addRequest(
+            customEvents.moveMailMessages,
+            params,
+            UPDATE,
+            'mail/messages/move.json',
+            { ids: ids, folder: folder },
+            options
+        );
     };
 
-    var removeMailMessages = function(params, ids, options) {
-        return _single_sm_request('removeMailMessages', params, ids, options);
+    var removeMailMessages = function (params, ids, options) {
+        return addRequest(
+            customEvents.removeMailMessages,
+            params,
+            UPDATE,
+            'mail/messages/remove.json',
+            { ids: ids },
+            options
+        );
     };
 
-    var markMailMessages = function(params, ids, status, options) {
-        return _single_sm_request('markMailMessages', params, ids, status, options);
+    var markMailMessages = function (params, ids, status, options) {
+        return addRequest(
+            customEvents.markMailMessages,
+            params,
+            UPDATE,
+            'mail/messages/mark.json',
+            { ids: ids, status: status },
+            options
+        );
     };
 
-    var createMailTag = function(params, name, style, addresses, options) {
-        return _single_sm_request('createMailTag', params, name, style, addresses, options);
+    var createMailTag = function (params, name, style, addresses, options) {
+        return addRequest(
+            customEvents.createMailTag,
+            params,
+            ADD,
+            'mail/tags.json',
+            { name: name, style: style, addresses: addresses },
+            options
+        );
     };
 
-    var updateMailTag = function(params, id, name, style, addresses, options) {
-        return _single_sm_request('updateMailTag', params, id, name, style, addresses, options);
+    var updateMailTag = function (params, id, name, style, addresses, options) {
+        return addRequest(
+            customEvents.updateMailTag,
+            params,
+            UPDATE,
+            'mail/tags/' + id + '.json',
+            { name: name, style: style, addresses: addresses },
+            options
+        );
     };
 
-    var removeMailTag = function(params, id, options) {
-        return _single_sm_request('removeMailTag', params, id, options);
+    var removeMailTag = function (params, id, options) {
+        return addRequest(
+            customEvents.removeMailTag,
+            params,
+            REMOVE,
+            'mail/tags/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var setMailTag = function(params, messages_ids, tag_id, options) {
-        return _single_sm_request('setMailTag', params, messages_ids, tag_id, options);
+    var setMailTag = function (params, messages_ids, tag_id, options) {
+        return addRequest(
+            customEvents.setMailTag,
+            params,
+            UPDATE,
+            'mail/tags/' + tag_id + '/set.json',
+            { messages: messages_ids },
+            options
+        );
     };
 
-    var setMailConversationsTag = function(params, messages_ids, tag_id, options) {
-        return _single_sm_request('setMailConversationsTag', params, messages_ids, tag_id, options);
+    var setMailConversationsTag = function (params, messages_ids, tag_id, options) {
+        return addRequest(
+            customEvents.setMailConversationsTag,
+            params,
+            UPDATE,
+            'mail/conversations/tag/' + tag_id + '/set.json',
+            { messages: messages_ids },
+            options
+        );
     };
 
-    var unsetMailTag = function(params, messages_ids, tag_id, options) {
-        return _single_sm_request('unsetMailTag', params, messages_ids, tag_id, options);
+    var unsetMailTag = function (params, messages_ids, tag_id, options) {
+        return addRequest(
+            customEvents.unsetMailTag,
+            params,
+            UPDATE,
+            'mail/tags/' + tag_id + '/unset.json',
+            { messages: messages_ids },
+            options
+        );
     };
 
-    var unsetMailConversationsTag = function(params, messages_ids, tag_id, options) {
-        return _single_sm_request('unsetMailConversationsTag', params, messages_ids, tag_id, options);
+    var unsetMailConversationsTag = function (params, messages_ids, tag_id, options) {
+        return addRequest(
+            customEvents.unsetMailConversationsTag,
+            params,
+            UPDATE,
+            'mail/conversations/tag/' + tag_id + '/unset.json',
+            { messages: messages_ids },
+            options
+        );
     };
 
-    var addMailDocument = function(params, id, data, options) {
-        return _single_sm_request('addMailDocument', params, id, data, options);
+    var addMailDocument = function (params, id, data, options) {
+        return addRequest(
+            customEvents.addMailDocument,
+            params,
+            ADD,
+            'mail/messages/' + id + '/document.json',
+            data,
+            options
+        );
     };
 
-    var removeMailMailbox = function(params, email, options) {
-        return _single_sm_request('removeMailMailbox', params, email, options);
+    var removeMailMailbox = function (params, email, options) {
+        return addRequest(
+            customEvents.removeMailMailbox,
+            params,
+            REMOVE,
+            'mail/accounts.json',
+            { email: email },
+            options
+        );
     };
 
-    var getMailDefaultMailboxSettings = function(params, email, options) {
-        return _single_sm_request('getMailDefaultMailboxSettings', params, email, options);
+    var getMailDefaultMailboxSettings = function (params, email, options) {
+        return addRequest(
+            customEvents.getMailDefaultMailboxSettings,
+            params,
+            GET,
+            'mail/accounts/setups.json',
+            { email: email, action: params.action },
+            options
+        );
     };
 
-    var getMailMailbox = function(params, email, options) {
-        return _single_sm_request('getMailMailbox', params, email, options);
+    var getMailMailbox = function (params, email, options) {
+        return addRequest(
+            customEvents.getMailMailbox,
+            params,
+            GET,
+            'mail/accounts/single.json',
+            { email: email },
+            options
+        );
     };
 
-    var setDefaultAccount = function (params, setDefault, email) {
-        return _single_sm_request('setDefaultAccount', params, setDefault, email);
+    var setDefaultAccount = function (params, isDefault, email, options) {
+        return addRequest(
+            customEvents.setDefaultAccount,
+            params,
+            UPDATE,
+            'mail/accounts/default.json',
+            { email: email, isDefault: isDefault },
+            options
+        );
     };
 
-    var createMailMailboxSimple = function(params, email, password, options) {
-        return _single_sm_request('createMailMailboxSimple', params, email, password, options);
+    var createMailMailboxSimple = function (params, email, password, options) {
+        return addRequest(
+            customEvents.createMailMailboxSimple,
+            params,
+            ADD,
+            'mail/accounts/simple.json',
+            { email: email, password: password },
+            options
+        );
     };
 
-    var createMailMailboxOAuth = function(params, code, serviceType, options) {
-        return _single_sm_request('createMailMailboxOAuth', params, code, serviceType, options);
+    var createMailMailboxOAuth = function (params, code, serviceType, options) {
+        return addRequest(
+            customEvents.createMailMailboxOAuth,
+            params,
+            ADD,
+            'mail/accounts/oauth.json',
+            { code: code, type: serviceType },
+            options
+        );
     };
 
-    var createMailMailbox = function(params, name, email, ssl, pop3_account, pop3_password, pop3_port, pop3_server,
-                                     smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, imap, restrict, ssl_outgoing, incoming_encryption_type, outcoming_encryption_type, auth_type_in, auth_type_smtp, options) {
-        return _single_sm_request('createMailMailbox', params, name, email, ssl, pop3_account, pop3_password, pop3_port, pop3_server,
-            smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, imap, restrict, ssl_outgoing, incoming_encryption_type, outcoming_encryption_type, auth_type_in, auth_type_smtp, options);
+    var createMailMailbox = function (params, name, email, pop3_account, pop3_password, pop3_port, pop3_server,
+                                     smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, imap, restrict, incoming_encryption_type,
+                                     outcoming_encryption_type, auth_type_in, auth_type_smtp, options) {
+        var data = {
+            name: name,
+            email: email,
+            account: pop3_account,
+            password: pop3_password,
+            port: pop3_port,
+            server: pop3_server,
+            smtp_account: smtp_account,
+            smtp_password: smtp_password,
+            smtp_port: smtp_port,
+            smtp_server: smtp_server,
+            smtp_auth: smtp_auth,
+            imap: imap,
+            restrict: restrict,
+            incoming_encryption_type: incoming_encryption_type,
+            outcoming_encryption_type: outcoming_encryption_type,
+            auth_type_in: auth_type_in,
+            auth_type_smtp: auth_type_smtp
+        };
+
+        return addRequest(
+            customEvents.createMailMailbox,
+            params,
+            ADD,
+            'mail/accounts.json',
+            data,
+            options
+        );
     };
 
-    var updateMailMailbox = function(params, name, email, ssl, pop3_account, pop3_password, pop3_port, pop3_server,
-                                     smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, restrict, ssl_outgoing, incoming_encryption_type, outcoming_encryption_type, auth_type_in, auth_type_smtp, options) {
-        return _single_sm_request('updateMailMailbox', params, name, email, ssl, pop3_account, pop3_password, pop3_port, pop3_server,
-            smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, restrict, ssl_outgoing, incoming_encryption_type, outcoming_encryption_type, auth_type_in, auth_type_smtp, options);
+    var updateMailMailbox = function (params, name, email, pop3_account, pop3_password, pop3_port, pop3_server,
+                                     smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, restrict, incoming_encryption_type,
+                                     outcoming_encryption_type, auth_type_in, auth_type_smtp, options) {
+        var data = {
+            name: name,
+            email: email,
+            account: pop3_account,
+            password: pop3_password,
+            port: pop3_port,
+            server: pop3_server,
+            smtp_account: smtp_account,
+            smtp_password: smtp_password,
+            smtp_port: smtp_port,
+            smtp_server: smtp_server,
+            smtp_auth: smtp_auth,
+            restrict: restrict,
+            incoming_encryption_type: incoming_encryption_type,
+            outcoming_encryption_type: outcoming_encryption_type,
+            auth_type_in: auth_type_in,
+            auth_type_smtp: auth_type_smtp
+        };
+
+        return addRequest(
+            customEvents.updateMailMailbox,
+            params,
+            UPDATE,
+            'mail/accounts.json',
+            data,
+            options
+        );
     };
 
-    var setMailMailboxState = function(params, email, state, options) {
-        return _single_sm_request('setMailMailboxState', params, email, state, options);
+    var setMailMailboxState = function (params, email, state, options) {
+        return addRequest(
+            customEvents.setMailMailboxState,
+            params,
+            UPDATE,
+            'mail/accounts/state.json',
+            { email: email, state: state },
+            options
+        );
     };
 
-    var removeMailMessageAttachment = function(params, message_id, attachment_id, options) {
-        return _single_sm_request('removeMailMessageAttachment', params, message_id, attachment_id, options);
+    var removeMailMessageAttachment = function (params, message_id, attachment_id, options) {
+        return addRequest(
+            customEvents.removeMailMessageAttachment,
+            params,
+            REMOVE,
+            'mail/messages/' + message_id + '/attachments/' + attachment_id + '.json',
+            null,
+            options
+        );
     };
 
     var sendMailMessage = function (params, message, options) {
-        return _single_sm_request('sendMailMessage', params, message, options);
+        if (!(message instanceof ASC.Mail.Message)) {
+            console.error("Unsupported message format");
+            return null;
+        }
+
+        return addRequest(
+            customEvents.sendMailMessage,
+            params,
+            UPDATE,
+            'mail/messages/send.json',
+            message.ToData(),
+            options
+        );
     };
 
     var saveMailMessage = function (params, message, options) {
-        return _single_sm_request('saveMailMessage', params, message, options);
+        if (!(message instanceof ASC.Mail.Message)) {
+            console.error("Unsupported message format");
+            return null;
+        }
+
+        return addRequest(
+            customEvents.saveMailMessage,
+            params,
+            UPDATE,
+            'mail/messages/save.json',
+            message.ToData(),
+            options
+        );
     };
 
-    var searchEmails = function (params, term, options) {
-        return _single_sm_request('searchEmails', params, term, options);
+    var searchEmails = function (params, data, options) {
+        return addRequest(
+            customEvents.searchEmails,
+            params,
+            GET,
+            'mail/emails/search.json',
+            data,
+            options
+        );
     };
 
-    var getMailContacts = function (params, filter_data, options) {
-        return _single_sm_request('getMailContacts', params, filter_data, options);
+    var getMailContacts = function (params, filterData, options) {
+        return addRequest(
+            customEvents.getMailContacts,
+            params,
+            GET,
+            'mail/contacts.json',
+            filterData,
+            options
+        );
     };
 
     var getMailContactsByInfo = function (params, data, options) {
-        return _single_sm_request('getMailContactsByInfo', params, data, options);
+        return addRequest(
+            customEvents.getMailContactsByInfo,
+            params,
+            GET,
+            'mail/contacts/bycontactinfo.json',
+            data,
+            options
+        );
     };
 
     var createMailContact = function (params, name, description, emails, phoneNumbers, options) {
-        return _single_sm_request('createMailContact', params, name, description, emails, phoneNumbers, options);
+        return addRequest(
+            customEvents.createMailContact,
+            params,
+            ADD,
+            'mail/contact/add.json',
+            { name: name, description: description, emails: emails, phoneNumbers: phoneNumbers },
+            options
+        );
     };
 
     var deleteMailContacts = function (params, ids, options) {
-        return _single_sm_request('deleteMailContacts', params, ids, options);
+        return addRequest(
+            customEvents.deleteMailContacts,
+            params,
+            UPDATE,
+            'mail/contacts/remove.json',
+            { ids: ids },
+            options
+        );
     };
 
     var updateMailContact = function (params, id, name, description, emails, phoneNumbers, options) {
-        return _single_sm_request('updateMailContact', params, id, name, description, emails, phoneNumbers, options);
+        return addRequest(
+            customEvents.updateMailContact,
+            params,
+            UPDATE,
+            'mail/contact/update.json',
+            { id: id, name: name, description: description, emails: emails, phoneNumbers: phoneNumbers },
+            options
+        );
     };
 
-    var getMailAlerts = function(params, options) {
-        return _single_sm_request('getMailAlerts', params, options);
+    var getMailAlerts = function (params, options) {
+        return addRequest(
+            customEvents.getMailAlerts,
+            params,
+            GET,
+            'mail/alert.json',
+            null,
+            options
+        );
     };
 
-    var deleteMailAlert = function(params, id, options) {
-        return _single_sm_request('deleteMailAlert', params, id, options);
+    var deleteMailAlert = function (params, id, options) {
+        return addRequest(
+            customEvents.deleteMailAlert,
+            params,
+            REMOVE,
+            'mail/alert/' + id + '.json',
+            null,
+            options
+        );
     };
 
-    var getMailFilteredConversations = function(params, filter_data, options) {
-        return _single_sm_request('getMailFilteredConversations', params, filter_data, options);
+    var getMailFilteredConversations = function (params, filter_data, options) {
+        return addRequest(
+            customEvents.getMailFilteredConversations,
+            params,
+            GET,
+            'mail/conversations.json',
+            filter_data,
+            options
+        );
     };
 
-    var moveMailConversations = function(params, ids, folder, options) {
-        return _single_sm_request('moveMailConversations', params, ids, folder, options);
+    var moveMailConversations = function (params, ids, folder, options) {
+        return addRequest(
+            customEvents.moveMailConversations,
+            params,
+            UPDATE,
+            'mail/conversations/move.json',
+            { ids: ids, folder: folder },
+            options
+        );
     };
 
-    var restoreMailConversations = function(params, data, options) {
-        return _single_sm_request('restoreMailConversations', params, data, options);
+    var restoreMailConversations = function (params, data, options) {
+        return addRequest(
+            customEvents.restoreMailConversations,
+            params,
+            UPDATE,
+            'mail/conversations/restore.json',
+            data,
+            options
+        );
     };
 
-    var removeMailConversations = function(params, ids, options) {
-        return _single_sm_request('removeMailConversations', params, ids, options);
+    var removeMailConversations = function (params, ids, options) {
+        return addRequest(
+            customEvents.removeMailConversations,
+            params,
+            UPDATE,
+            'mail/conversations/remove.json',
+            { ids: ids },
+            options
+        );
     };
 
-    var markMailConversations = function(params, ids, status, options) {
-        return _single_sm_request('markMailConversations', params, ids, status, options);
+    var markMailConversations = function (params, ids, status, options) {
+        return addRequest(
+            customEvents.markMailConversations,
+            params,
+            UPDATE,
+            'mail/conversations/mark.json',
+            { ids: ids, status: status },
+            options
+        );
     };
 
-    var getMailDisplayImagesAddresses = function(params, options) {
-        return _single_sm_request('getMailDisplayImagesAddresses', params, options);
+    var getMailDisplayImagesAddresses = function (params, options) {
+        return addRequest(
+            customEvents.getMailDisplayImagesAddresses,
+            params,
+            GET,
+            'mail/display_images/addresses.json',
+            null,
+            options
+        );
     };
 
-    var createDisplayImagesAddress = function(params, email, options) {
-        return _single_sm_request('createDisplayImagesAddress', params, email, options);
+    var createDisplayImagesAddress = function (params, email, options) {
+        return addRequest(
+            customEvents.createDisplayImagesAddress,
+            params,
+            ADD,
+            'mail/display_images/address.json',
+            { address: email },
+            options
+        );
     };
 
-    var removeDisplayImagesAddress = function(params, email, options) {
-        return _single_sm_request('removeDisplayImagesAddress', params, email, options);
+    var removeDisplayImagesAddress = function (params, email, options) {
+        return addRequest(
+            customEvents.removeDisplayImagesAddress,
+            params,
+            REMOVE,
+            'mail/display_images/address.json',
+            { address: email },
+            options
+        );
     };
 
-    var linkChainToCrm = function (params, id_message, crm_contact_ids, options) {
-        return _single_sm_request('linkChainToCrm', params, id_message, crm_contact_ids, options);
-    };
-    
-    var markChainAsCrmLinked = function(params, id_message, crm_contact_ids, options) {
-        return _single_sm_request('markChainAsCrmLinked', params, id_message, crm_contact_ids, options);
-    };
-
-    var unmarkChainAsCrmLinked = function(params, id_message, crm_contact_ids, options) {
-        return _single_sm_request('unmarkChainAsCrmLinked', params, id_message, crm_contact_ids, options);
-    };
-
-    var exportMessageToCrm = function(params, id_message, crm_contact_ids, options) {
-        return _single_sm_request('exportMessageToCrm', params, id_message, crm_contact_ids, options);
+    var linkChainToCrm = function (params, message_id, crm_contacts_id, options) {
+        return addRequest(
+            customEvents.linkChainToCrm,
+            params,
+            UPDATE,
+            'mail/conversations/crm/link.json',
+            {
+                id_message: message_id,
+                crm_contact_ids: crm_contacts_id
+            },
+            options
+        );
     };
 
-    var isConversationLinkedWithCrm = function(params, messageId, options) {
-        return _single_sm_request('isConversationLinkedWithCrm', params, messageId, options);
+    var markChainAsCrmLinked = function (params, message_id, crm_contacts_id, options) {
+        return addRequest(
+            customEvents.markChainAsCrmLinked,
+            params,
+            UPDATE,
+            'mail/conversations/crm/mark.json',
+            {
+                id_message: message_id,
+                crm_contact_ids: crm_contacts_id
+            },
+            options
+        );
     };
 
-    var getMailHelpCenterHtml = function(params, options) {
-        return _single_sm_request('getMailHelpCenterHtml', params, options);
+    var unmarkChainAsCrmLinked = function (params, message_id, crm_contacts_id, options) {
+        return addRequest(
+            customEvents.unmarkChainAsCrmLinked,
+            params,
+            UPDATE,
+            'mail/conversations/crm/unmark.json',
+            {
+                id_message: message_id,
+                crm_contact_ids: crm_contacts_id
+            },
+            options
+        );
     };
 
-    var exportAllAttachmentsToMyDocuments = function (params, id_message, options) {
-        return _single_sm_request('exportAllAttachmentsToMyDocuments', params, id_message, options);
+    var exportMessageToCrm = function (params, message_id, crm_contacts_id, options) {
+        return addRequest(
+            customEvents.exportMessageToCrm,
+            params,
+            UPDATE,
+            'mail/messages/crm/export.json',
+            {
+                id_message: message_id,
+                crm_contact_ids: crm_contacts_id
+            },
+            options
+        );
     };
 
-    var exportAllAttachmentsToDocuments = function (params, id_message, id_folder, options) {
-        return _single_sm_request('exportAllAttachmentsToDocuments', params, id_message, id_folder, options);
+    var isConversationLinkedWithCrm = function (params, messageId, options) {
+        return addRequest(
+            customEvents.isConversationLinkedWithCrm,
+            params,
+            GET,
+            'mail/conversations/link/crm/status.json',
+            {
+                message_id: messageId
+            },
+            options
+        );
     };
 
-    var exportAttachmentToMyDocuments = function (params, id_attachment, options) {
-        return _single_sm_request('exportAttachmentToMyDocuments', params, id_attachment, options);
+    var getMailHelpCenterHtml = function (params, options) {
+        return addRequest(
+            customEvents.getMailHelpCenterHtml,
+            params,
+            GET,
+            'mail/helpcenter.json',
+            null,
+            options
+        );
     };
 
-    var exportAttachmentToDocuments = function (params, id_attachment, id_folder, options) {
-        return _single_sm_request('exportAttachmentToDocuments', params, id_attachment, id_folder, options);
+    var exportAllAttachmentsToMyDocuments = function (params, message_id, options) {
+        return addRequest(
+            customEvents.exportAllAttachmentsToMyDocuments,
+            params,
+            UPDATE,
+            'mail/messages/attachments/export.json',
+            {
+                id_message: message_id
+            },
+            options
+        );
     };
-    var setEMailInFolder = function (params, id_account, email_in_folder, options) {
-        return _single_sm_request('setEMailInFolder', params, id_account, email_in_folder, options);
+
+    var exportAllAttachmentsToDocuments = function (params, message_id, folder_id, options) {
+        return addRequest(
+            customEvents.exportAllAttachmentsToDocuments,
+            params,
+            UPDATE,
+            'mail/messages/attachments/export.json',
+            {
+                id_message: message_id,
+                id_folder: folder_id
+            },
+            options
+        );
     };
-    var getMailServer = function(params, options) {
-        return _single_sm_request('getMailServer', params, options);
+
+    var exportAttachmentToMyDocuments = function (params, attachment_id, options) {
+        return addRequest(
+            customEvents.exportAttachmentToMyDocuments,
+            params,
+            UPDATE,
+            'mail/messages/attachment/export.json',
+            {
+                id_attachment: attachment_id
+            },
+            options
+        );
     };
-    
+
+    var exportAttachmentToDocuments = function (params, attachment_id, folder_id, options) {
+        return addRequest(
+            customEvents.exportAttachmentToDocuments,
+            params,
+            UPDATE,
+            'mail/messages/attachment/export.json',
+            {
+                id_attachment: attachment_id,
+                id_folder: folder_id
+            },
+            options
+        );
+    };
+
+    var setEMailInFolder = function (params, mailbox_id, email_in_folder, options) {
+        return addRequest(
+            customEvents.setEMailInFolder,
+            params,
+            UPDATE,
+            'mail/accounts/emailinfolder.json',
+            {
+                mailbox_id: mailbox_id,
+                email_in_folder: email_in_folder
+            },
+            options
+        );
+    };
+
+    var getMailServer = function (params, options) {
+        return addRequest(
+            customEvents.getMailServer,
+            params,
+            GET,
+            'mailserver/server.json',
+            null,
+            options
+        );
+    };
+
     var getMailServerFullInfo = function (params, options) {
-        return _single_sm_request('getMailServerFullInfo', params, options);
+        return addRequest(
+            customEvents.getMailServerFullInfo,
+            params,
+            GET,
+            'mailserver/serverinfo/get.json',
+            null,
+            options
+        );
     };
-    
+
     var getMailServerFreeDns = function (params, options) {
-        return _single_sm_request('getMailServerFreeDns', params, options);
+        return addRequest(
+            customEvents.getMailServerFreeDns,
+            params,
+            GET,
+            'mailserver/freedns/get.json',
+            null,
+            options
+        );
     };
 
     var getMailDomains = function (params, options) {
-        return _single_sm_request('getMailDomains', params, options);
+        return addRequest(
+            customEvents.getMailDomains,
+            params,
+            GET,
+            'mailserver/domains/get.json',
+            null,
+            options
+        );
     };
-    
+
     var getCommonMailDomain = function (params, options) {
-        return _single_sm_request('getCommonMailDomain', params, options);
+        return addRequest(
+            customEvents.getCommonMailDomain,
+            params,
+            GET,
+            'mailserver/domains/common.json',
+            null,
+            options
+        );
     };
 
     var addMailDomain = function (params, domain_name, dns_id, options) {
-        return _single_sm_request('addMailDomain', params, domain_name, dns_id, options);
+        return addRequest(
+            customEvents.addMailDomain,
+            params,
+            ADD,
+            'mailserver/domains/add.json',
+            { name: domain_name, id_dns: dns_id },
+            options
+        );
     };
 
     var removeMailDomain = function (params, id_domain, options) {
-        return _single_sm_request('removeMailDomain', params, id_domain, options);
+        return addRequest(
+            customEvents.removeMailDomain,
+            params,
+            REMOVE,
+            'mailserver/domains/remove/' + id_domain + '.json',
+            null,
+            options
+        );
     };
 
     var addMailbox = function (params, name, local_part, domain_id, user_id, options) {
-        return _single_sm_request('addMailbox', params, name, local_part, domain_id, user_id, options);
+        return addRequest(
+            customEvents.addMailbox,
+            params,
+            ADD,
+            'mailserver/mailboxes/add.json',
+            { name: name, local_part: local_part, domain_id: domain_id, user_id: user_id },
+            options
+        );
     };
 
     var addMyMailbox = function (params, mailbox_name, options) {
-        return _single_sm_request('addMyMailbox', params, mailbox_name, options);
+        return addRequest(
+            customEvents.addMyMailbox,
+            params,
+            ADD,
+            'mailserver/mailboxes/addmy.json',
+            { name: mailbox_name },
+            options
+        );
     };
 
     var getMailboxes = function (params, options) {
-        return _single_sm_request('getMailboxes', params, options);
+        return addRequest(
+            customEvents.getMailboxes,
+            params,
+            GET,
+            'mailserver/mailboxes/get.json',
+            null,
+            options
+        );
     };
 
     var removeMailbox = function (params, id_mailbox, options) {
-        return _single_sm_request('removeMailbox', params, id_mailbox, options);
-    };
-
-    var addMailBoxAlias = function (params, mailbox_id, alias_name, options) {
-        return _single_sm_request('addMailBoxAlias', params, mailbox_id, alias_name, options);
+        return addRequest(
+            customEvents.removeMailbox,
+            params,
+            REMOVE,
+            'mailserver/mailboxes/remove/' + id_mailbox + '.json',
+            null,
+            options
+        );
     };
 
     var updateMailbox = function (params, mailbox_id, name, options) {
-        return _single_sm_request('updateMailbox', params, mailbox_id, name, options);
+        return addRequest(
+            customEvents.updateMailbox,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/update.json',
+            { mailbox_id: mailbox_id, name: name },
+            options
+        );
+    };
+
+    var addMailBoxAlias = function (params, mailbox_id, address_name, options) {
+        return addRequest(
+            customEvents.addMailBoxAlias,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/alias/add.json',
+            { mailbox_id: mailbox_id, alias_name: address_name },
+            options
+        );
     };
 
     var removeMailBoxAlias = function (params, mailbox_id, address_id, options) {
-        return _single_sm_request('removeMailBoxAlias', params, mailbox_id, address_id, options);
+        return addRequest(
+            customEvents.removeMailBoxAlias,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/alias/remove.json',
+            { mailbox_id: mailbox_id, address_id: address_id },
+            options
+        );
     };
 
     var addMailGroup = function (params, group_name, domain_id, address_ids, options) {
-        return _single_sm_request('addMailGroup', params, group_name, domain_id, address_ids, options);
+        return addRequest(
+            customEvents.addMailGroup,
+            params,
+            ADD,
+            'mailserver/groupaddress/add.json',
+            { name: group_name, domain_id: domain_id, address_ids: address_ids },
+            options
+        );
     };
 
     var addMailGroupAddress = function (params, group_id, address_id, options) {
-        return _single_sm_request('addMailGroupAddress', params, group_id, address_id, options);
+        return addRequest(
+            customEvents.addMailGroupAddress,
+            params,
+            UPDATE,
+            'mailserver/groupaddress/address/add.json',
+            { mailgroup_id: group_id, address_id: address_id },
+            options
+        );
     };
 
     var removeMailGroupAddress = function (params, group_id, address_id, options) {
-        return _single_sm_request('removeMailGroupAddress', params, group_id, address_id, options);
+        return addRequest(
+            customEvents.removeMailGroupAddress,
+            params,
+            REMOVE,
+            'mailserver/groupaddress/addresses/remove.json',
+            { mailgroup_id: group_id, address_id: address_id },
+            options
+        );
     };
 
     var getMailGroups = function (params, options) {
-        return _single_sm_request('getMailGroups', params, options);
+        return addRequest(
+            customEvents.getMailGroups,
+            params,
+            GET,
+            'mailserver/groupaddress/get.json',
+            null,
+            options
+        );
     };
 
     var removeMailGroup = function (params, id_group, options) {
-        return _single_sm_request('removeMailGroup', params, id_group, options);
+        return addRequest(
+            customEvents.removeMailGroup,
+            params,
+            REMOVE,
+            'mailserver/groupaddress/remove/' + id_group + '.json',
+            null,
+            options
+        );
     };
 
     var isDomainExists = function (params, domain_name, options) {
-        return _single_sm_request('isDomainExists', params, domain_name, options);
+        return addRequest(
+            customEvents.isDomainExists,
+            params,
+            GET,
+            'mailserver/domains/exists.json',
+            { name: domain_name },
+            options
+        );
     };
 
     var checkDomainOwnership = function (params, domain_name, options) {
-        return _single_sm_request('checkDomainOwnership', params, domain_name, options);
+        return addRequest(
+            customEvents.checkDomainOwnership,
+            params,
+            GET,
+            'mailserver/domains/ownership/check.json',
+            { name: domain_name },
+            options
+        );
     };
 
     var getDomainDnsSettings = function (params, domain_id, options) {
-        return _single_sm_request('getDomainDnsSettings', params, domain_id, options);
-    };
-
-    var checkDomainDnsStatus = function (params, domain_id, options) {
-        return _single_sm_request('checkDomainDnsStatus', params, domain_id, options);
+        return addRequest(
+            customEvents.getDomainDnsSettings,
+            params,
+            GET,
+            'mailserver/domains/dns/get.json',
+            { id: domain_id },
+            options
+        );
     };
 
     var createNotificationAddress = function (params, address_username, password, domain_id, options) {
-        return _single_sm_request('createNotificationAddress', params, address_username, password, domain_id, options);
+        return addRequest(
+            customEvents.createNotificationAddress,
+            params,
+            ADD,
+            'mailserver/notification/address/add.json',
+            { name: address_username, password: password, domain_id: domain_id },
+            options
+        );
     };
 
     var removeNotificationAddress = function (params, address, options) {
-        return _single_sm_request('removeNotificationAddress', params, address, options);
+        return addRequest(
+            customEvents.removeNotificationAddress,
+            params,
+            REMOVE,
+            'mailserver/notification/address/remove.json',
+            { address: address },
+            options
+        );
     };
 
     var addCalendarBody = function (params, id_message, ical_body, options) {
-        return _single_sm_request('addCalendarBody', params, id_message, ical_body, options);
+        return addRequest(
+            customEvents.addCalendarBody,
+            params,
+            ADD,
+            'mail/messages/calendarbody/add',
+            { id_message: id_message, ical_body: ical_body },
+            options
+        );
+    };
+
+    var setMailConversationEnabledFlag = function (params, enabled, options) {
+        return addRequest(
+            customEvents.setMailConversationEnabledFlag,
+            params,
+            UPDATE,
+            'mail/settings/conversationsEnabled',
+            { enabled: enabled },
+            options
+        );
+    };
+
+    var setMailAlwaysDisplayImagesFlag = function (params, enabled, options) {
+        return addRequest(
+            customEvents.setMailAlwaysDisplayImagesFlag,
+            params,
+            UPDATE,
+            'mail/settings/alwaysDisplayImages',
+            { enabled: enabled },
+            options
+        );
+    };
+
+    var setMailCacheUnreadMessagesFlag = function (params, enabled, options) {
+        return addRequest(
+            customEvents.setMailCacheUnreadMessagesFlag,
+            params,
+            UPDATE,
+            'mail/settings/cacheMessagesEnabled',
+            { enabled: enabled },
+            options
+        );
+    };
+
+    var setMailEnableGoNextAfterMove = function (params, enabled, options) {
+        return addRequest(
+            customEvents.setMailEnableGoNextAfterMove,
+            params,
+            UPDATE,
+            'mail/settings/goNextAfterMoveEnabled',
+            { enabled: enabled },
+            options
+        );
+    };
+    
+
+    var getMailServerInfo = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'mail/mailservice/get.json',
+            null,
+            options
+        );
+    };
+
+    var connectMailServerInfo = function (params, ip, user, password, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'mail/mailservice/connect.json',
+            {
+                ip: ip,
+                user: user,
+                password: password
+            },
+            options
+        );
+    };
+
+    var saveMailServerInfo = function (params, ip, user, password, token, host, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'mail/mailservice/save.json',
+            {
+                ip: ip,
+                user: user,
+                password: password,
+                token: token,
+                host: host
+            },
+            options
+        );
+    };
+
+    var getMailOperationStatus = function (params, id, options) {
+        return addRequest(
+            customEvents.getMailOperationStatus,
+            null,
+            GET,
+            'mail/operations/' + id + '.json',
+            null,
+            options
+        );
     };
 
     /* </mail> */
 
     /* <settings> */
-    var getWebItemSecurityInfo = function(params, data, options) {
-        return returnValue(ServiceManager.getWebItemSecurityInfo(customEvents.getWebItemSecurityInfo, params, data, options));
+    var getWebItemSecurityInfo = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/security.json',
+            typeof data === 'number' || typeof data === 'string' ? { ids: [data] } : data,
+            options
+        );
     };
 
-    var setWebItemSecurity = function(params, data, options) {
-        return returnValue(ServiceManager.setWebItemSecurity(customEvents.setWebItemSecurity, params, data, options));
+    var setWebItemSecurity = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/security.json',
+            data,
+            options
+        );
     };
 
-    var setAccessToWebItems = function(params, data, options) {
-        return returnValue(ServiceManager.setAccessToWebItems(customEvents.setAccessToWebItems, params, data, options));
+    var setAccessToWebItems = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/security/access.json',
+            data,
+            options
+        );
     };
 
-    var setProductAdministrator = function(params, data, options) {
-        return returnValue(ServiceManager.setProductAdministrator(customEvents.setProductAdministrator, params, data, options));
+    var setProductAdministrator = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/security/administrator.json',
+            data,
+            options
+        );
     };
 
-    var isProductAdministrator = function(params, data, options) {
-        return returnValue(ServiceManager.isProductAdministrator(customEvents.isProductAdministrator, params, data, options));
+    var isProductAdministrator = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/security/administrator.json',
+            data,
+            options
+        );
     };
-    var getPortalSettings = function(params, options) {
-        return returnValue(ServiceManager.getPortalSettings(customEvents.getPortalSettings, params, options));
+    var getPortalSettings = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings.json',
+            null,
+            options
+        );
     };
 
-    var getPortalLogo = function(params, options) {
-        return returnValue(ServiceManager.getPortalLogo(customEvents.getPortalLogo, params, options));
+    var getPortalLogo = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'settings/logo.json',
+            null,
+            options
+        );
+    };
+
+    var getIpRestrictions = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'settings/iprestrictions.json',
+            null,
+            options
+        );
+    };
+
+    var saveIpRestrictions = function (data, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/iprestrictions.json',
+            data,
+            options
+        );
+    };
+
+    var updateIpRestrictionsSettings = function (data, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/iprestrictions/settings.json',
+            data,
+            options
+        );
+    };
+
+    var updateTipsSettings = function (data, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/tips.json',
+            data,
+            options
+        );
+    };
+
+    var smsValidationSettings = function (enable, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/sms.json',
+            { enable: enable },
+            options
+        );
+    };
+
+    var closeWelcomePopup = function () {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/welcome/close.json',
+            null,
+            null
+        );
+    };
+
+    var setColorTheme = function (params, theme, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/colortheme.json',
+            { theme: theme },
+            options
+        );
+    };
+
+    var setTimaAndLanguage = function (lng, timeZoneID, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "settings/timeandlanguage.json",
+            { lng: lng, timeZoneID: timeZoneID },
+            options
+        );
+    };
+
+    var setDefaultpage = function (params, defaultProductID, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/defaultpage.json',
+            { defaultProductID: defaultProductID },
+            options
+        );
+
+    };
+
+    // LDAP
+
+    var saveLdapSettings = function (params, settings, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'settings/ldap.json',
+            {settings: settings},
+            options
+        );
+        return true;
+    };
+
+    var getLdapSettings = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/ldap.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getLdapDefaultSettings = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/ldap/default.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getLdapStatus = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/ldap/status.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var syncLdap = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/ldap/sync.json',
+            null,
+            options
+        );
+        return true;
     };
 
     /* </settings> */
 
-    //#region security
+    //#region Security
 
-    var getLoginEvents = function(options) {
-        return returnValue(ServiceManager.getLoginEvents(customEvents.getLoginEvents, options));
-    };
-    
-    var getAuditEvents = function(params, id, options) {
-        return returnValue(ServiceManager.getAuditEvents(customEvents.getAuditEvents, params, id, options));
-    };
-
-    var createLoginHistoryReport = function(params, options) {
-        return returnValue(ServiceManager.createLoginHistoryReport(customEvents.createLoginHistoryReport, params, options));
-    };
-    
-    var createAuditTrailReport = function(params, options) {
-        return returnValue(ServiceManager.createAuditTrailReport(customEvents.createAuditTrailReport, params, options));
-    };
-    
-    var getIpRestrictions = function(options) {
-        return returnValue(ServiceManager.getIpRestrictions(options));
-    };
-    
-    var saveIpRestrictions = function(data, options) {
-        return returnValue(ServiceManager.saveIpRestrictions(data, options));
+    var getLoginEvents = function (options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'security/audit/login/last.json',
+            null,
+            options
+        );
     };
 
-    var updateIpRestrictionsSettings = function(data, options) {
-        return returnValue(ServiceManager.updateIpRestrictionsSettings(data, options));
+    var getAuditEvents = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'security/audit/events/last.json',
+            null,
+            options
+        );
     };
 
-    var updateTipsSettings = function(data, options) {
-        return returnValue(ServiceManager.updateTipsSettings(data, options));
+    var createLoginHistoryReport = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'security/audit/login/report.json',
+            null,
+            options
+        );
     };
 
-    var smsValidationSettings = function (enable, options) {
-        return returnValue(ServiceManager.smsValidationSettings(enable, options));
+    var createAuditTrailReport = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'security/audit/events/report.json',
+            null,
+            options
+        );
     };
 
-    var closeWelcomePopup = function () {
-        return returnValue(ServiceManager.closeWelcomePopup());
-    };
-    
-    var setColorTheme = function(params, theme, options) {
-        return returnValue(ServiceManager.setColorTheme(customEvents.setColorTheme, params, theme, options));
-    };
-
-    var setDefaultpage = function (params, defaultProductID, options) {
-        return returnValue(ServiceManager.setDefaultpage(customEvents.setDefaultpage, params, defaultProductID, options));
-    };
     //#endregion
 
-    var getTalkUnreadMessages = function(params, options) {
-        return returnValue(ServiceManager.getTalkUnreadMessages(customEvents.getTalkUnreadMessages, params, options));
+    var getTalkUnreadMessages = function (params, options) {
+        addRequest(
+            customEvents.getTalkUnreadMessages,
+            params,
+            GET,
+            'portal/talk/unreadmessages.json',
+            null,
+            options
+        );
+        return true;
     };
 
     var registerUserOnPersonal = function (data, options) {
-        return returnValue(ServiceManager.registerUserOnPersonal(customEvents.registerUserOnPersonal, data, options));
+        addRequest(
+            null,
+            null,
+            ADD,
+            'authentication/register.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var saveWhiteLabelSettings = function (params, data, options) {
-        return returnValue(ServiceManager.saveWhiteLabelSettings(customEvents.saveWhiteLabelSettings, params, data, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            'settings/whitelabel/save.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var restoreWhiteLabelSettings = function (params, options) {
-        return returnValue(ServiceManager.restoreWhiteLabelSettings(customEvents.restoreWhiteLabelSettings, params, options));
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'settings/whitelabel/restore.json',
+            null,
+            options
+        );
+        return true;
     };
 
-    /* <calendar> */
     var getCalendars = function (params, dateStart, dateEnd, options) {
-        return returnValue(ServiceManager.getCalendars(customEvents.getCalendars, params, dateStart, dateEnd, options));
+        var start = dateStart instanceof Date ? Teamlab.serializeTimestamp(dateStart, true) : dateStart;
+        var end = dateEnd instanceof Date ? Teamlab.serializeTimestamp(dateEnd, true) : dateEnd;
+
+        addRequest(
+            null,
+            params,
+            GET,
+            "calendar/calendars/" + start + "/" + end + ".json",
+            null,
+            options
+        );
+        return true;
     };
 
     var getCalendarEventByUid = function (params, eventUid, options) {
-        return returnValue(ServiceManager.getCalendarEventByUid(customEvents.getCalendarEventByUid, params, eventUid, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            "calendar/events/{0}/historybyuid.json".format(eventUid),
+            null,
+            options
+        );
+        return true;
     };
 
     var getCalendarEventById = function (params, eventId, options) {
-        return returnValue(ServiceManager.getCalendarEventById(customEvents.getCalendarEventById, params, eventId, options));
+        addRequest(
+            null,
+            params,
+            GET,
+            "calendar/events/{0}/historybyid.json".format(eventId),
+            null,
+            options
+        );
+        return true;
     };
 
     var importCalendarEventIcs = function (params, calendarId, ics, options) {
-        return returnValue(ServiceManager.importCalendarEventIcs(customEvents.importCalendarEventIcs, params, calendarId, ics, options));
+        addRequest(
+            null,
+            params,
+            ADD,
+            "calendar/importIcs.json",
+            { iCalString: ics, calendarId: calendarId },
+            options
+        );
+        return true;
     };
-    /* </calendar> */
 
     return {
         events: customEvents,
@@ -2384,9 +6684,10 @@ window.Teamlab = (function() {
         bind: bind,
         unbind: unbind,
         call: call,
-        extendEventManager: extendEventManager,
 
         getQuotas: getQuotas,
+        recalculateQuota: recalculateQuota,
+        checkRecalculateQuota: checkRecalculateQuota,
 
         remindPwd: remindPwd,
         thirdPartyLinkAccount: thirdPartyLinkAccount,
@@ -2435,6 +6736,8 @@ window.Teamlab = (function() {
         subscribeCmtEventComment: subscribeCmtEventComment,
         addCmtBookmarkComment: addCmtBookmarkComment,
         getCmtBookmarkComments: getCmtBookmarkComments,
+        subscribeCmtBirthday: subscribeCmtBirthday,
+        getCmtPreview: getCmtPreview,
 
         subscribeProject: subscribeProject,
         getFeeds: getFeeds,
@@ -2445,11 +6748,8 @@ window.Teamlab = (function() {
 
         getPrjComments: getPrjComments,
         addPrjTaskComment: addPrjTaskComment,
-        updatePrjTaskComment: updatePrjTaskComment,
         getPrjTaskComments: getPrjTaskComments,
         addPrjDiscussionComment: addPrjDiscussionComment,
-        updatePrjDiscussionComment: updatePrjDiscussionComment,
-        removePrjDiscussionComment: removePrjDiscussionComment,
         getPrjDiscussionComments: getPrjDiscussionComments,
 
         getPrjDiscussionPreview: getPrjDiscussionPreview,
@@ -2483,15 +6783,18 @@ window.Teamlab = (function() {
         getShortenLink: getShortenLink,
         updatePortalName: updatePortalName,
 
+        getPrjSecurityinfo: getPrjSecurityinfo,
         addPrjEntityFiles: addPrjEntityFiles,
         uploadFilesToPrjEntity: uploadFilesToPrjEntity,
         removePrjEntityFiles: removePrjEntityFiles,
         getPrjEntityFiles: getPrjEntityFiles,
         addPrjSubtask: addPrjSubtask,
+        copyPrjSubtask: copyPrjSubtask,
         updatePrjSubtask: updatePrjSubtask,
         updatePrjTask: updatePrjTask,
         removePrjSubtask: removePrjSubtask,
         addPrjTask: addPrjTask,
+        copyPrjTask: copyPrjTask,
         getPrjTask: getPrjTask,
         addPrjTaskByMessage: addPrjTaskByMessage,
         getPrjTasks: getPrjTasks,
@@ -2544,6 +6847,8 @@ window.Teamlab = (function() {
         getPrjProjectFiles: getPrjProjectFiles,
         addPrjTime: addPrjTime,
         getPrjTime: getPrjTime,
+        getPrjTaskTime: getPrjTaskTime,
+        getPrjTimeById: getPrjTimeById,
         getTotalTimeByFilter: getTotalTimeByFilter,
         updatePrjTime: updatePrjTime,
         removePrjTime: removePrjTime,
@@ -2558,6 +6863,7 @@ window.Teamlab = (function() {
         getPrjImport: getPrjImport,
         getPrjImportProjects: getPrjImportProjects,
         checkPrjImportQuota: checkPrjImportQuota,
+        getPrjReportTemplate: getPrjReportTemplate,
         addPrjReportTemplate: addPrjReportTemplate,
         updatePrjReportTemplate: updatePrjReportTemplate,
         deletePrjReportTemplate: deletePrjReportTemplate,
@@ -2565,12 +6871,6 @@ window.Teamlab = (function() {
         createDocUploadFile: createDocUploadFile,
         addDocFile: addDocFile,
         removeDocFile: removeDocFile,
-        getDocFile: getDocFile,
-        addDocFolder: addDocFolder,
-        addDocFile: addDocFile,
-        getDocFile: getDocFile,
-        addDocFolder: addDocFolder,
-        addDocFile: addDocFile,
         getDocFile: getDocFile,
         addDocFolder: addDocFolder,
         getDocFolder: getDocFolder,
@@ -2767,8 +7067,10 @@ window.Teamlab = (function() {
 
         getCrmVoipAvailableNumbers: getCrmVoipAvailableNumbers,
         getCrmVoipExistingNumbers: getCrmVoipExistingNumbers,
+        getCrmVoipUnlinkedNumbers: getCrmVoipUnlinkedNumbers,
         getCrmCurrentVoipNumber: getCrmCurrentVoipNumber,
         createCrmVoipNumber: createCrmVoipNumber,
+        linkCrmVoipNumber: linkCrmVoipNumber,
         removeCrmVoipNumber: removeCrmVoipNumber,
         updateCrmVoipNumberSettings: updateCrmVoipNumberSettings,
         updateCrmVoipSettings: updateCrmVoipSettings,
@@ -2782,6 +7084,7 @@ window.Teamlab = (function() {
         rejectVoipCall: rejectVoipCall,
         redirectVoipCall: redirectVoipCall,
         saveVoipCall: saveVoipCall,
+        saveVoipCallPrice: saveVoipCallPrice,
         getVoipCalls: getVoipCalls,
         getVoipMissedCalls: getVoipMissedCalls,
         getVoipCall: getVoipCall,
@@ -2880,6 +7183,14 @@ window.Teamlab = (function() {
         createNotificationAddress: createNotificationAddress,
         removeNotificationAddress: removeNotificationAddress,
         addCalendarBody: addCalendarBody,
+        setMailConversationEnabledFlag: setMailConversationEnabledFlag,
+        setMailAlwaysDisplayImagesFlag: setMailAlwaysDisplayImagesFlag,
+        setMailCacheUnreadMessagesFlag: setMailCacheUnreadMessagesFlag,
+        setMailEnableGoNextAfterMove: setMailEnableGoNextAfterMove,
+        getMailServerInfo: getMailServerInfo,
+        connectMailServerInfo: connectMailServerInfo,
+        saveMailServerInfo: saveMailServerInfo,
+        getMailOperationStatus: getMailOperationStatus,
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
@@ -2900,6 +7211,7 @@ window.Teamlab = (function() {
         smsValidationSettings: smsValidationSettings,
         closeWelcomePopup: closeWelcomePopup,
         setColorTheme: setColorTheme,
+        setTimaAndLanguage: setTimaAndLanguage,
         setDefaultpage: setDefaultpage,
 
         getTalkUnreadMessages: getTalkUnreadMessages,
@@ -2913,5 +7225,11 @@ window.Teamlab = (function() {
         getCalendarEventByUid: getCalendarEventByUid,
         getCalendarEventById: getCalendarEventById,
         importCalendarEventIcs: importCalendarEventIcs,
+
+        saveLdapSettings: saveLdapSettings,
+        getLdapSettings: getLdapSettings,
+        getLdapDefaultSettings: getLdapDefaultSettings,
+        getLdapStatus: getLdapStatus,
+        syncLdap: syncLdap
     };
 })();

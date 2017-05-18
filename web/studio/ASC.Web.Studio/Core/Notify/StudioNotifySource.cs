@@ -42,13 +42,7 @@ namespace ASC.Web.Studio.Core.Notify
         protected override IActionProvider CreateActionProvider()
         {
             return new ConstActionProvider(
-                    Constants.ActionPasswordChanged,
-
-                    Constants.ActionYouAddedAfterInvite,
-                    Constants.ActionYouAddedLikeGuest,
-
                     Constants.ActionSelfProfileUpdated,
-                    Constants.ActionSendPassword,
                     Constants.ActionInviteUsers,
                     Constants.ActionJoinUsers,
                     Constants.ActionSendWhatsNew,
@@ -58,8 +52,6 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionPortalDelete,
                     Constants.ActionDnsChange,
                     Constants.ActionConfirmOwnerChange,
-                    Constants.ActionActivateUsers,
-                    Constants.ActionActivateGuests,
                     Constants.ActionEmailChange,
                     Constants.ActionPasswordChange,
                     Constants.ActionActivateEmail,
@@ -71,18 +63,91 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionMigrationPortalServerFailure,
 
                     Constants.ActionUserMessageToAdmin,
-                    Constants.ActionCongratulations,
 
                     Constants.ActionSmsBalance,
                     Constants.ActionVoipWarning,
                     Constants.ActionVoipBlocked,
 
-                    Constants.ActionCongratulationsFreeCloud,
-                    Constants.ActionYouAddedAfterInviteFreeCloud,
-                    Constants.ActionYouAddedLikeGuestFreeCloud,
-                    Constants.ActionActivateUsersFreeCloud,
-                    Constants.ActionActivateGuestsFreeCloud
-                   
+                    Constants.ActionSaasAdminActivation,
+                    Constants.ActionEnterpriseAdminActivation,
+                    Constants.ActionEnterpriseWhitelabelAdminActivation,
+                    Constants.ActionHostedAdminActivation,
+                    Constants.ActionHostedWhitelabelAdminActivation,
+                    Constants.ActionFreeCloudAdminActivation,
+
+                    Constants.ActionSaasAdminWellcome,
+                    Constants.ActionEnterpriseAdminWellcome,
+                    Constants.ActionEnterpriseWhitelabelAdminWellcome,
+                    Constants.ActionHostedAdminWellcome,
+                    Constants.ActionHostedWhitelabelAdminWellcome,
+
+                    Constants.ActionSaasUserActivation,
+                    Constants.ActionEnterpriseUserActivation,
+                    Constants.ActionEnterpriseWhitelabelUserActivation,
+                    Constants.ActionHostedUserActivation,
+                    Constants.ActionHostedWhitelabelUserActivation,
+                    Constants.ActionFreeCloudUserActivation,
+
+                    Constants.ActionSaasUserWellcome,
+                    Constants.ActionEnterpriseUserWellcome,
+                    Constants.ActionEnterpriseWhitelabelUserWellcome,
+                    Constants.ActionHostedUserWellcome,
+                    Constants.ActionHostedWhitelabelUserWellcome,
+                    Constants.ActionFreeCloudUserWellcome,
+
+                    Constants.ActionSaasGuestActivation,
+                    Constants.ActionEnterpriseGuestActivation,
+                    Constants.ActionEnterpriseWhitelabelGuestActivation,
+                    Constants.ActionHostedGuestActivation,
+                    Constants.ActionHostedWhitelabelGuestActivation,
+                    Constants.ActionFreeCloudGuestActivation,
+
+                    Constants.ActionSaasGuestWellcome,
+                    Constants.ActionEnterpriseGuestWellcome,
+                    Constants.ActionEnterpriseWhitelabelGuestWellcome,
+                    Constants.ActionHostedGuestWellcome,
+                    Constants.ActionHostedWhitelabelGuestWellcome,
+                    Constants.ActionFreeCloudGuestWellcome,
+
+                    Constants.ActionHostedAdminInviteTeammates,
+
+                    Constants.ActionEnterpriseUserOrganizeWorkplace,
+                    Constants.ActionEnterpriseAdminCustomizePortal,
+                    Constants.ActionEnterpriseAdminInviteTeammates,
+                    Constants.ActionEnterpriseAdminWithoutActivity,
+                    Constants.ActionEnterpriseAdminUserDocsTips,
+                    Constants.ActionEnterpriseAdminUserMailTips,
+                    Constants.ActionEnterpriseAdminUserCrmTips,
+                    Constants.ActionEnterpriseAdminUserTeamTips,
+
+                    Constants.ActionEnterpriseAdminTrialWarningBefore7,
+                    Constants.ActionEnterpriseAdminTrialWarning,
+
+                    Constants.ActionEnterpriseAdminPaymentWarningBefore7,
+                    Constants.ActionEnterpriseWhitelabelAdminPaymentWarningBefore7,
+                    Constants.ActionEnterpriseAdminPaymentWarning,
+                    Constants.ActionEnterpriseWhitelabelAdminPaymentWarning,
+
+                    Constants.ActionSaasUserOrganizeWorkplace,
+                    Constants.ActionSaasAdminInviteTeammates,
+                    Constants.ActionSaasAdminWithoutActivity,
+                    Constants.ActionSaasAdminUserDocsTips,
+                    Constants.ActionSaasAdminUserMailTips,
+                    Constants.ActionSaasAdminUserCrmTips,
+                    Constants.ActionSaasAdminUserTeamTips,
+
+                    Constants.ActionSaasAdminTrialWarningBefore5,
+                    Constants.ActionSaasAdminTrialWarning,
+                    Constants.ActionSaasAdminTrialWarningAfter5,
+                    Constants.ActionSaasAdminTrialWarningAfter30,
+                    Constants.ActionSaasAdminTrialWarningAfterHalfYear,
+
+                    Constants.ActionSaasAdminPaymentWarningBefore7,
+                    Constants.ActionSaasAdminPaymentWarning,
+                    Constants.ActionSaasAdminPaymentWarningAfter3,
+                    Constants.ActionSaasAdminPaymentWarningDelayDue,
+
+                    Constants.ActionSaasAdminPaymentAfterMonthlySubscriptions
                 );
         }
 

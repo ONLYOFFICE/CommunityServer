@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI;
+using ASC.Core.Common.Settings;
 using ASC.MessagingSystem;
 using AjaxPro;
 using ASC.Core;
@@ -58,8 +59,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/management/maildomainsettings/js/maildomainsettings.js");
-            Page.RegisterStyle("~/usercontrols/management/maildomainsettings/css/maildomainsettings.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/maildomainsettings/js/maildomainsettings.js")
+                .RegisterStyle("~/usercontrols/management/maildomainsettings/css/maildomainsettings.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
             _studioTrustedDomainSettings = SettingsManager.Instance.LoadSettings<StudioTrustedDomainSettings>(TenantProvider.CurrentTenantID);

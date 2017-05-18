@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2016
+ * (c) Copyright Ascensio System Limited 2010-2017
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -38,11 +38,10 @@ using System.Xml;
 using ASC.Core;
 using ASC.Mail.Aggregator.Common.Imap;
 using ASC.Mail.Aggregator.Common.Logging;
-using DDay.iCal;
 using HtmlAgilityPack;
 using MimeKit;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.X509.Qualified;
+using File = System.IO.File;
 
 namespace ASC.Mail.Aggregator.Common.Utils
 {
@@ -184,48 +183,70 @@ namespace ASC.Mail.Aggregator.Common.Utils
             return result;
         }
 
-        public static IICalendarCollection ParseICalendar(string icalFormat)
+        public static Ical.Net.Interfaces.IICalendarCollection ParseICalendar(string icalFormat)
         {
             using (TextReader sr = new StringReader(icalFormat))
             {
-                return iCalendar.LoadFromStream(sr);
+                return Ical.Net.Calendar.LoadFromStream(sr);
             }
         }
 
-        public static IICalendar ParseValidCalendar(string icalFormat)
+        public static Ical.Net.Interfaces.ICalendar ParseValidCalendar(string icalFormat, ILogger log = null)
         {
+            log = log ?? new NullLogger();
+
             try
             {
                 var calendars = ParseICalendar(icalFormat);
 
-                if (calendars.Count == 1 &&
-                    calendars[0].Version == "2.0" &&
-                    (calendars[0].Method == "REQUEST" ||
-                     calendars[0].Method == "REPLY" ||
-                     calendars[0].Method == "CANCEL") &&
-                    calendars[0].Events.Count == 1 &&
-                    !string.IsNullOrEmpty(calendars[0].Events[0].UID))
+                if (!calendars.Any())
+                    throw new InvalidDataException("Calendars not found");
+
+                if(calendars.Count > 1)
+                    throw new InvalidDataException("Too many calendars");
+
+                var calendar = calendars.First();
+
+                if (calendar.Version != "2.0")
+                    throw new InvalidDataException(string.Format("Calendar version is not supported (version == {0})",
+                        calendar.Version));
+
+                if (string.IsNullOrEmpty(calendar.Method)
+                    || (!calendar.Method.Equals(Defines.ICAL_REQUEST, StringComparison.InvariantCultureIgnoreCase)
+                    && !calendar.Method.Equals(Defines.ICAL_REPLY, StringComparison.InvariantCultureIgnoreCase)
+                    && !calendar.Method.Equals(Defines.ICAL_CANCEL, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    return calendars[0];
+                    throw new InvalidDataException(string.Format("Calendar method is not supported (method == {0})",
+                        calendar.Method));
                 }
 
+                if(!calendar.Events.Any())
+                    throw new InvalidDataException("Calendar events not found");
+
+                if (calendar.Events.Count > 1)
+                    throw new InvalidDataException("Too many calendar events");
+
+                var icalEvent = calendar.Events.First();
+
+                if(string.IsNullOrEmpty(icalEvent.Uid))
+                    throw new InvalidDataException("Calendar event uid is empty");
+
+                return calendar;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                log.Error("ParseValidCalendar() Exception: {0}", ex.ToString());
             }
 
             return null;
         }
 
-        public static string SerializeCalendar(IICalendar calendar)
+        public static string SerializeCalendar(Ical.Net.Interfaces.ICalendar calendar)
         {
             try
             {
-                var context = new DDay.iCal.Serialization.SerializationContext();
-                var factory = new DDay.iCal.Serialization.iCalendar.SerializerFactory();
-                var serializer = factory.Build(calendar.GetType(), context) as DDay.iCal.Serialization.IStringSerializer;
-                return serializer != null ? serializer.SerializeToString(calendar) : null;
+                var serializer = new Ical.Net.Serialization.iCalendar.Serializers.CalendarSerializer(calendar);
+                return serializer.SerializeToString(calendar);
             }
             catch (Exception)
             {
@@ -721,5 +742,63 @@ namespace ASC.Mail.Aggregator.Common.Utils
                 return (T)ser.ReadObject(stream);
             }
         }
+
+        public static string GetIntroduction(string htmlBody)
+        {
+            var introduction = string.Empty;
+
+            if (string.IsNullOrEmpty(htmlBody))
+                return introduction;
+
+            try
+            {
+                introduction = ExtractTextFromHtml(htmlBody, 200);
+            }
+            catch (RecursionDepthException)
+            {
+                throw;
+            }
+            catch
+            {
+                introduction = (htmlBody.Length > 200 ? htmlBody.Substring(0, 200) : htmlBody);
+            }
+
+            introduction = introduction.Replace("\n", " ").Replace("\r", " ").Trim();
+
+            return introduction;
+        }
+
+        private static readonly DateTime DefaultMysqlMinimalDate = new DateTime(1975, 01, 01, 0, 0, 0); // Common decision of TLMail developers 
+
+        public static bool IsDateCorrect(DateTime date)
+        {
+            return date >= DefaultMysqlMinimalDate && date <= DateTime.Now;
+        }
+
+        public static void SkipErrors(Action method)
+        {
+            try
+            {
+                method();
+            }
+            catch
+            {
+                // Skips
+            }
+        }
+
+        public static T ExecuteSafe<T>(Func<T> func)
+        {
+            try
+            {
+                return func();
+            }
+            catch
+            {
+                // Skip
+            }
+
+            return default(T);
+        }  
     }
 }

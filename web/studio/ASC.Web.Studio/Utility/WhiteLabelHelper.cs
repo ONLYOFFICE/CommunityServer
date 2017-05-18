@@ -27,19 +27,18 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Configuration;
 using ASC.Core.Tenants;
 using ASC.Data.Storage;
-using System.Linq;
-using ASC.Web.Core.Client;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using log4net;
 
 namespace ASC.Web.Studio.Utility
 {
@@ -57,7 +56,7 @@ namespace ASC.Web.Studio.Utility
 
         public static void ApplyPartnerWhiteLableSettings()
         {
-            if (!CoreContext.Configuration.Standalone) return;
+            if (!TenantExtra.Enterprise && !TenantExtra.Hosted) return;
 
             var firstVisit = CompanyWhiteLabelSettings.Instance.IsDefault &&
                              AdditionalWhiteLabelSettings.Instance.IsDefault &&

@@ -25,57 +25,25 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using ASC.Core.ChunkedUploader;
 
 namespace ASC.Files.Core
 {
     [DebuggerDisplay("{Id} into {FolderId}")]
     [Serializable]
-    public class ChunkedUploadSession : ICloneable
+    public class ChunkedUploadSession : CommonChunkedUploadSession
     {
-        public string Id { get; set; }
-
         public string FolderId { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public DateTime Expired { get; set; }
-
-        public string Location { get; set; }
-
-        public long BytesUploaded { get; set; }
-
-        public long BytesTotal { get; set; }
 
         public File File { get; set; }
 
-        public int TenantId { get; set; }
-
-        public Guid UserId { get; set; }
-
-        public bool UseChunks { get; set; }
-
-        public string CultureName { get; set; }
-
-        public readonly Dictionary<string, object> Items = new Dictionary<string, object>();
-
-        public ChunkedUploadSession(File file, long bytesTotal)
+        public ChunkedUploadSession(File file, long bytesTotal) : base(bytesTotal)
         {
-            Id = Guid.NewGuid().ToString("N");
-            Created = DateTime.UtcNow;
-            BytesUploaded = 0;
-            BytesTotal = bytesTotal;
             File = file;
-            UseChunks = true;
         }
 
-        public T GetItemOrDefault<T>(string key)
-        {
-            return Items.ContainsKey(key) && Items[key] is T ? (T)Items[key] : default(T);
-        }
-
-        public object Clone()
+        public override object Clone()
         {
             var clone = (ChunkedUploadSession) MemberwiseClone();
             clone.File = (File) File.Clone();

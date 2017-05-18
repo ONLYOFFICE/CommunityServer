@@ -28,6 +28,7 @@ using System;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
 using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
@@ -56,11 +57,15 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 13)]
         public bool Inactive { get; set; }
 
+        [DataMember(Order = 14)]
+        public bool CanEdit { get; set; }
+
+
         private CommentWrapper()
         {
         }
 
-        public CommentWrapper(Comment comment)
+        public CommentWrapper(Comment comment, ProjectEntity entity)
         {
             Id = comment.OldGuidId;
             ParentId = comment.Parent;
@@ -68,6 +73,7 @@ namespace ASC.Api.Projects.Wrappers
             Created = Updated = (ApiDateTime)comment.CreateOn;
             CreatedBy = EmployeeWraper.Get(comment.CreateBy);
             Inactive = comment.Inactive;
+            CanEdit = ProjectSecurity.CanEditComment(entity, comment);
         }
 
 

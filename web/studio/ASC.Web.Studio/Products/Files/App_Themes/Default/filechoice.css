@@ -51,3 +51,7 @@ body.only-folder #studioPageContent {
 body.only-folder .mainPageLayout {
     min-width: 0;
 }
+
+.folder-row .checkbox {
+    visibility: hidden;
+}

@@ -18,6 +18,7 @@ if "%~1" == "--install-all" (
 	sc create OnlyofficeBackup%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Backup.Service.BackupServiceLauncher, ASC.Data.Backup\" --log Backup"
 	sc create OnlyofficeAutoreplay%version%       start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Mail.Autoreply.AutoreplyServiceController, ASC.Mail.Autoreply\" --log Autoreply"
 	sc create OnlyofficeSignalR%version%          start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.SignalR.Base.SignalRLauncher, ASC.SignalR.Base\" --log SignalR"
+	sc create OnlyofficeHealthCheck%version%      start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.HealthCheck.Infrastructure.HealthCheckLauncher, ASC.HealthCheck\" --log HealthCheck"
 	goto Exit
 )
 if "%~1" == "--uninstall" (
@@ -41,6 +42,8 @@ if "%~1" == "--uninstall-all" (
 	sc delete OnlyofficeAutoreplay%version%
 	net stop  OnlyofficeSignalR%version%
 	sc delete OnlyofficeSignalR%version%
+	net stop  OnlyofficeHealthCheck%version%
+	sc delete OnlyofficeHealthCheck%version%
 	goto Exit
 )
 

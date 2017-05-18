@@ -56,8 +56,6 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         public bool CanAddFile { get; set; }
 
-        public int ProjectId { get; set; }
-
         public bool EmptyScreenVisible { get; set; }
 
         protected string HelpLink { get; set; }
@@ -85,8 +83,8 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         private void InitScripts()
         {
-            Page.RegisterStyle("~/usercontrols/common/attachments/css/attachments.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/attachments/js/attachments.js");
+            Page.RegisterStyle("~/usercontrols/common/attachments/css/attachments.less")
+                .RegisterBodyScripts("~/usercontrols/common/attachments/js/attachments.js");
         }
 
         private void CreateEmptyPanel()
@@ -119,9 +117,7 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         private void InitProjectDocumentsPopup()
         {
-            var projectDocumentsPopup = (ProjectDocumentsPopup.ProjectDocumentsPopup)LoadControl(ProjectDocumentsPopup.ProjectDocumentsPopup.Location);
-            projectDocumentsPopup.ProjectId = ProjectId;
-            _phDocUploader.Controls.Add(projectDocumentsPopup);
+            _phDocUploader.Controls.Add(LoadControl(ProjectDocumentsPopup.ProjectDocumentsPopup.Location));
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -133,16 +129,7 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
             if (ModuleName != "crm")
             {
-                var projId = Request["prjID"];
-                if (!String.IsNullOrEmpty(projId))
-                {
-                    ProjectId = Convert.ToInt32(projId);
-                    InitProjectDocumentsPopup();
-                }
-                else
-                {
-                    ProjectId = 0;
-                }
+                InitProjectDocumentsPopup();
             }
             else
             {

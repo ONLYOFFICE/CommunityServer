@@ -30,28 +30,28 @@ using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
 {
-    public class ClientTemplateResources : ClientScriptLocalization
+    public class ClientTemplateResources : ClientScriptTemplate
     {
-        protected override string BaseNamespace
+        protected override string[] Links
         {
-            get { return "ASC.CRM.Master"; }
-        }
-
-        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
-        {
-            return RegisterClientTemplatesPath(context,
-                "~/products/crm/templates/CasesTemplates.ascx",
-                "~/products/crm/templates/CommonCustomFieldsTemplates.ascx",
-                "~/products/crm/templates/CommonTemplates.ascx",
-                "~/products/crm/templates/ContactsTemplates.ascx",
-                "~/products/crm/templates/DealsTemplates.ascx",
-                "~/products/crm/templates/SimpleContactListTemplate.ascx",
-                "~/products/crm/templates/TasksTemplates.ascx",
-                "~/products/crm/templates/ContactSelectorTemplates.ascx",
-                "~/products/crm/templates/ContactInfoCardTemplate.ascx",
-                "~/products/crm/templates/SettingsTemplates.ascx",
-                "~/products/crm/templates/InvoicesTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx");
+            get
+            {
+                return new[] {
+                "~/products/crm/templates/CasesTemplates.html",
+                "~/products/crm/templates/CommonCustomFieldsTemplates.html",
+                "~/products/crm/templates/CommonTemplates.html",
+                "~/products/crm/templates/ContactsTemplates.html",
+                "~/products/crm/templates/DealsTemplates.html",
+                "~/products/crm/templates/SimpleContactListTemplate.html",
+                "~/products/crm/templates/TasksTemplates.html",
+                "~/products/crm/templates/ContactSelectorTemplates.html",
+                "~/products/crm/templates/ContactInfoCardTemplate.html",
+                "~/products/crm/templates/SettingsTemplates.html",
+                "~/products/crm/templates/InvoicesTemplates.html",
+                "~/products/crm/templates/VoipTemplates.html",
+                "~/products/projects/ProjectsTemplates/ListProjectsTemplates.html"
+                };
+            }
         }
     }
 }

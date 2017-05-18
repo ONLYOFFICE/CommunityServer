@@ -28,24 +28,19 @@ using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Controls.Messages;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects
 {
     public partial class Messages : BasePage
     {
-        protected bool CanCreate { get; set; }
-
         protected override bool CanRead { get { return !RequestContext.IsInConcreteProject || ProjectSecurity.CanReadMessages(Project); } }
 
         protected override void PageLoad()
         {
             var action = UrlParameters.ActionType;
-            CanCreate = RequestContext.CanCreateDiscussion(true);
 
             var discussionId = UrlParameters.EntityID;
             if (discussionId >= 0)
@@ -62,29 +57,26 @@ namespace ASC.Web.Projects
                     {
                         Response.Redirect("messages.aspx", true);
                     }
-
-                    Title = HeaderStringHelper.GetPageTitle(discussion.Title);
-                }
-                else if (discussion != null && ProjectSecurity.CanRead(discussion.Project) && discussion.Project.ID == Project.ID)
-                {
-                    LoadDiscussionDetailsControl(discussion);
-
-                    IsSubcribed = EngineFactory.MessageEngine.IsSubscribed(discussion);
-                    EssenceTitle = discussion.Title;
-
-                    Title = HeaderStringHelper.GetPageTitle(discussion.Title);
                 }
                 else
                 {
-                    RedirectNotFound(string.Format("messages.aspx?prjID={0}", Project.ID));
+                    if (discussion != null && (!ProjectSecurity.CanRead(discussion.Project) ||
+                        discussion.Project.ID != Project.ID))
+                    {
+                        RedirectNotFound(string.Format("messages.aspx?prjID={0}", Project.ID));
+                    }
                 }
 
+                if (discussion != null)
+                {
+                    Title = HeaderStringHelper.GetPageTitle(discussion.Title);
+                }
             }
             else
             {
                 if (action.HasValue && action.Value == UrlAction.Add)
                 {
-                    if (CanCreate)
+                    if (!RequestContext.IsInConcreteProject || ProjectSecurity.CanCreateMessage(RequestContext.GetCurrentProject(false)))
                     {
                         LoadDiscussionActionControl(null);
 
@@ -95,28 +87,15 @@ namespace ASC.Web.Projects
                         Response.Redirect("messages.aspx", true);
                     }
                 }
-                else
-                {
-                    contentHolder.Controls.Add(LoadControl(CommonList.Location));
-                    loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
-                }
-            }
-        }
 
-        private void LoadDiscussionDetailsControl(Message discussion)
-        {
-            var discussionDetails = (DiscussionDetails)LoadControl(PathProvider.GetFileStaticRelativePath("Messages/DiscussionDetails.ascx"));
-            discussionDetails.Discussion = discussion;
-            contentHolder.Controls.Add(discussionDetails);
+            }
         }
 
         private void LoadDiscussionActionControl(Message discussion)
         {
             var discussionAction = (DiscussionAction)LoadControl(PathProvider.GetFileStaticRelativePath("Messages/DiscussionAction.ascx"));
             discussionAction.Discussion = discussion;
-            contentHolder.Controls.Add(discussionAction);
-
-            Master.DisabledPrjNavPanel = true;
+            Master.AddControl(discussionAction);
         }
     }
 }

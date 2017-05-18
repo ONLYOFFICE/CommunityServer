@@ -98,6 +98,11 @@ namespace ASC.Web.Core
             get { return new Guid("{BF88953E-3C43-4850-A3FB-B1E43AD53A3E}"); }
         }
 
+        public static Guid VoipModuleID
+        {
+            get { return new Guid("{46CFA73A-F320-46CF-8D5B-CD82E1D67F26}"); }
+        }
+
         public static WebItemManager Instance { get; private set; }
 
         public IWebItem this[Guid id]

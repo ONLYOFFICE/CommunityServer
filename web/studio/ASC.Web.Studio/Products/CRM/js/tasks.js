@@ -403,7 +403,7 @@ ASC.CRM.ListTaskView = new function() {
                             '</b>',
                             '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
                             '</a>'),
-                hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
+                hintDefaultDisable: true,
                 maxfilters  : 3,
                 colcount    : 2,
                 maxlength   : "100",
@@ -1441,13 +1441,13 @@ ASC.CRM.TaskActionView = new function() {
             jq("#taskDeadline").mask(ASC.Resources.Master.DatePatternJQ);
             jq("#taskDeadline").datepickerWithButton({
                 onSelect: function(date) {
-                    var selectedDate = jq("#taskDeadline").datepicker("getDate"),
+                    var selectedDate = jq("#taskDeadline").datepicker("getDate") || new Date(),
                         tmpDate = new Date(),
                         today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0),
                         daysCount = Math.floor((selectedDate.getTime() - today.getTime()) / (24 * 60 * 60 * 1000));
                     _changeSelectionDeadlineButtons(daysCount);
                     setTimeout(function () {
-                        jq("#taskDeadline").datepicker("hide");
+                        jq("#taskDeadline").datepicker("setDate", selectedDate).datepicker("hide");
                         jq('<input type="text" />').insertAfter("#taskDeadline").focus().remove();
                     }, 100);
                 }

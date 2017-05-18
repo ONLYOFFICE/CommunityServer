@@ -49,12 +49,5 @@ namespace HelpUtilsTests
         {
             Assert.AreEqual("a.", "".Prefix("a"));
         }
-
-        [Test]
-        public void PrefixWorksCorrectWithCustomSeparator()
-        {
-            Assert.AreEqual("a,test", "test".Prefix("a", ","));
-        }
-
     }
 }

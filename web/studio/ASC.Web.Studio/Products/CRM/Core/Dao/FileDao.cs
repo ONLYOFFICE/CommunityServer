@@ -55,7 +55,6 @@ namespace ASC.CRM.Core.Dao
             using (var dao = FilesIntegration.GetFileDao())
             {
                 dao.DeleteFile(id);
-                dao.DeleteFolder(id);
             }
         }
 

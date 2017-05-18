@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%: Resource.HelpAnswerPortalRename %></p>
+        <p><%= string.Format(Resource.HelpAnswerPortalRename.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
     </div>
 </div>
 <% } %>

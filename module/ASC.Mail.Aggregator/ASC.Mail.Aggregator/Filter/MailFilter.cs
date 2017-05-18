@@ -24,7 +24,9 @@
 */
 
 
+using System.Linq;
 using System.Runtime.Serialization;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
 
 namespace ASC.Mail.Aggregator.Filter
@@ -44,16 +46,16 @@ namespace ASC.Mail.Aggregator.Filter
         public bool? Unread { get; set; }
 
         [DataMember(Name = "Attachments")]
-        public bool Attachments { get; set; }
+        public bool? Attachments { get; set; }
 
         [DataMember(Name = "Period_from")]
-        public long PeriodFrom { get; set; }
+        public long? PeriodFrom { get; set; }
 
         [DataMember(Name = "Period_to")]
-        public long PeriodTo { get; set; }
+        public long? PeriodTo { get; set; }
 
         [DataMember(Name = "Important")]
-        public bool Important { get; set; }
+        public bool? Important { get; set; }
 
         [DataMember(Name = "FindAddress")]
         public string FindAddress { get; set; }
@@ -71,10 +73,10 @@ namespace ASC.Mail.Aggregator.Filter
         public string SortOrder { get; set; }
 
         [DataMember(Name = "SearchFilter")]
-        public string SearchFilter { get; set; }
+        public string SearchText { get; set; }
 
         [DataMember(Name = "Page")]
-        public int Page { get; set; }
+        public int? Page { get; set; }
 
         [DataMember(Name = "PageSize")]
         public int PageSize { get; set; }
@@ -82,11 +84,25 @@ namespace ASC.Mail.Aggregator.Filter
         public int? SetLabel { get; set; }
 
         [DataMember(Name = "WithCalendar")]
-        public bool WithCalendar { get; set; }
+        public bool? WithCalendar { get; set; }
 
         public MailFilter()
         {
             CustomLabels = new ItemList<int>();
+        }
+
+        public bool IsDefault()
+        {
+            return !Unread.HasValue && 
+                   !Attachments.HasValue &&
+                   !PeriodFrom.HasValue &&
+                   !PeriodTo.HasValue &&
+                   !Important.HasValue &&
+                   string.IsNullOrEmpty(FindAddress) &&
+                   !MailboxId.HasValue && 
+                   (CustomLabels == null || !CustomLabels.Any()) && 
+                   string.IsNullOrEmpty(SearchText) &&
+                   !WithCalendar.HasValue;
         }
     }
 }

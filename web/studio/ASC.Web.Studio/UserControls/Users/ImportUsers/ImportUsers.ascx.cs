@@ -34,6 +34,7 @@ using System.Web;
 using ASC.Common.Threading.Progress;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
+using ASC.Web.Studio.Core;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Users;
@@ -47,66 +48,12 @@ using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
-    internal class ContactsUploader : IFileUploadHandler
-    {
-        public FileUploadResult ProcessUpload(HttpContext context)
-        {
-            var result = new FileUploadResult();
-            try
-            {
-                SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser);
-
-                if (context.Request.Files.Count != 0)
-                {
-                    var logo = context.Request.Files[0];
-                    var ext = FileUtility.GetFileExtension(logo.FileName);
-
-                    if (ext != ".csv")
-                    {
-                        result.Success = false;
-                        result.Message = Resource.ErrorEmptyUploadFileSelected;
-                        return result;
-                    }
-
-                    IUserImporter importer = context.Request["obj"] == "txt"
-                                                 ? new TextFileUserImporter(logo.InputStream) {DefaultHeader = "Email;FirstName;LastName",}
-                                                 : new OutlookCSVUserImporter(logo.InputStream);
-
-                    var users = importer.GetDiscoveredUsers();
-
-                    result.Success = true;
-                    result.Message = JsonContacts(users);
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Message = Resource.ErrorEmptyUploadFileSelected;
-                }
-            }
-            catch(Exception ex)
-            {
-                result.Success = false;
-                result.Message = ex.Message.HtmlEncode();
-            }
-
-            return result;
-        }
-
-        private static string JsonContacts(IEnumerable<ContactInfo> contacts)
-        {
-            var serializer = new DataContractJsonSerializer(contacts.GetType());
-            using (var ms = new MemoryStream())
-            {
-                serializer.WriteObject(ms, contacts);
-                return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
-            }
-        }
-    }
-
     [AjaxNamespace("ImportUsersController")]
     public partial class ImportUsers : System.Web.UI.UserControl
     {
         protected bool EnableInviteLink = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
+
+        protected string ImportServiceUrl = SetupInfo.GetImportServiceUrl();
 
         private static readonly ProgressQueue progressQueue = new ProgressQueue(1, TimeSpan.FromMinutes(5), true);
 
@@ -157,9 +104,8 @@ namespace ASC.Web.Studio.UserControls.Users
 
         private void RegisterScript()
         {
-            Page.RegisterStyle("~/usercontrols/users/importusers/css/import.less");
-
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+            Page.RegisterStyle("~/usercontrols/users/importusers/css/import.less")
+                .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
                 "~/usercontrols/users/ImportUsers/js/ImportUsers.js");
 
             var script = new StringBuilder();
@@ -337,6 +283,62 @@ namespace ASC.Web.Studio.UserControls.Users
                 }
 
                 IsCompleted = true;
+            }
+        }
+    }
+
+    internal class ContactsUploader : IFileUploadHandler
+    {
+        public FileUploadResult ProcessUpload(HttpContext context)
+        {
+            var result = new FileUploadResult();
+            try
+            {
+                SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser);
+
+                if (context.Request.Files.Count != 0)
+                {
+                    var logo = context.Request.Files[0];
+                    var ext = FileUtility.GetFileExtension(logo.FileName);
+
+                    if (ext != ".csv")
+                    {
+                        result.Success = false;
+                        result.Message = Resource.ErrorEmptyUploadFileSelected;
+                        return result;
+                    }
+
+                    IUserImporter importer = context.Request["obj"] == "txt"
+                                                 ? new TextFileUserImporter(logo.InputStream) { DefaultHeader = "Email;FirstName;LastName", }
+                                                 : new OutlookCSVUserImporter(logo.InputStream);
+
+                    var users = importer.GetDiscoveredUsers();
+
+                    result.Success = true;
+                    result.Message = JsonContacts(users);
+                }
+                else
+                {
+                    result.Success = false;
+                    result.Message = Resource.ErrorEmptyUploadFileSelected;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.Message.HtmlEncode();
+            }
+
+            return result;
+        }
+
+        private static string JsonContacts(IEnumerable<ContactInfo> contacts)
+        {
+            var serializer = new DataContractJsonSerializer(contacts.GetType());
+            using (var ms = new MemoryStream())
+            {
+                serializer.WriteObject(ms, contacts);
+                return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
             }
         }
     }

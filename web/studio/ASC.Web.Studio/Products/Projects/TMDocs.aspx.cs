@@ -25,12 +25,12 @@
 
 
 using ASC.Projects.Engine;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
 using System.Web;
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Projects
 {
@@ -43,51 +43,58 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
-            var mainContent = (MainContent)LoadControl(MainContent.Location);
-            mainContent.FolderIDCurrentRoot = Project == null ? Files.Classes.Global.FolderProjects : EngineFactory.FileEngine.GetRoot(Project.ID);
+            var mainContent = (MainContent) LoadControl(MainContent.Location);
+            mainContent.FolderIDCurrentRoot = Project == null ? Global.FolderProjects : EngineFactory.FileEngine.GetRoot(Project.ID);
             mainContent.TitlePage = ProjectsCommonResource.ModuleName;
             CommonContainerHolder.Controls.Add(mainContent);
 
-            Master.DisabledEmptyScreens = true;
-
             Title = HeaderStringHelper.GetPageTitle(ProjectsFileResource.Files);
 
-            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("common.css"));
-            Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                "controls/maincontent/maincontent.css",
-                "controls/contentlist/contentlist.css",
-                "controls/accessrights/accessrights.css",
-                "controls/fileviewer/fileviewer.css",
-                "controls/thirdparty/thirdparty.css",
-                "controls/convertfile/convertfile.css",
-                "controls/chunkuploaddialog/chunkuploaddialog.css");
-
-            Page.RegisterBodyScripts(ResolveUrl,
-                "~/js/third-party/jquery/jquery.mousewheel.js",
-                "~/js/third-party/jquery/jquery.uri.js",
-                "~/js/third-party/sorttable.js");
-
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath,
-                "auth.js",
-                "common.js",
-                "filter.js",
-                "templatemanager.js",
-                "servicemanager.js",
-                "ui.js",
-                "mousemanager.js",
-                "markernew.js",
-                "actionmanager.js",
-                "anchormanager.js",
-                "foldermanager.js");
-
-            Page.RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                "controls/createmenu/createmenu.js",
-                "controls/fileviewer/fileviewer.js",
-                "controls/convertfile/convertfile.js",
-                "controls/chunkuploaddialog/chunkuploadmanager.js");
-
-            Page.RegisterClientLocalizationScript(typeof(Files.Masters.ClientScripts.FilesLocalizationResources));
-            Page.RegisterClientScript(typeof(Files.Masters.ClientScripts.FilesConstantsResources));
+            Page
+                .RegisterStyle(PathProvider.GetFileStaticRelativePath("common.css"))
+                .RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                               "controls/maincontent/maincontent.css",
+                               "controls/contentlist/contentlist.css",
+                               "controls/accessrights/accessrights.css",
+                               "controls/fileviewer/fileviewer.css",
+                               "controls/thirdparty/thirdparty.css",
+                               "controls/convertfile/convertfile.css",
+                               "controls/emptyfolder/emptyfolder.css",
+                               "controls/chunkuploaddialog/chunkuploaddialog.css",
+                               "controls/tree/treebuilder.css",
+                               "controls/tree/tree.css"
+                )
+                .RegisterBodyScripts(ResolveUrl,
+                                     "~/js/third-party/jquery/jquery.mousewheel.js",
+                                     "~/js/third-party/jquery/jquery.uri.js",
+                                     "~/js/third-party/sorttable.js",
+                                     "~/js/uploader/jquery.fileupload.js"
+                )
+                .RegisterBodyScripts(PathProvider.GetFileStaticRelativePath,
+                                     "auth.js",
+                                     "common.js",
+                                     "filter.js",
+                                     "templatemanager.js",
+                                     "servicemanager.js",
+                                     "ui.js",
+                                     "mousemanager.js",
+                                     "markernew.js",
+                                     "actionmanager.js",
+                                     "anchormanager.js",
+                                     "foldermanager.js",
+                                     "eventhandler.js"
+                )
+                .RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                     "controls/createmenu/createmenu.js",
+                                     "controls/fileviewer/fileviewer.js",
+                                     "controls/convertfile/convertfile.js",
+                                     "controls/emptyfolder/emptyfolder.js",
+                                     "controls/chunkuploaddialog/chunkuploadmanager.js",
+                                     "controls/tree/treebuilder.js",
+                                     "controls/tree/tree.js"
+                )
+                .RegisterClientScript(new Files.Masters.ClientScripts.FilesLocalizationResources())
+                .RegisterClientScript(new Files.Masters.ClientScripts.FilesConstantsResources());
         }
     }
 }

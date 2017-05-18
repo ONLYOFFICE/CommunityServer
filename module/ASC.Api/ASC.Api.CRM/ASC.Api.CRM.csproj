@@ -56,7 +56,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -107,7 +107,6 @@
     <Compile Include="Wrappers\Subject.cs" />
     <Compile Include="Wrappers\TaskTemplateContainerWrapper.cs" />
     <Compile Include="Wrappers\TaskWrapper.cs" />
-    <Compile Include="Wrappers\VoipCallHistoryWrapper.cs" />
     <Compile Include="Wrappers\VoipCallWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +161,10 @@
     <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
       <Name>ASC.MessagingSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>

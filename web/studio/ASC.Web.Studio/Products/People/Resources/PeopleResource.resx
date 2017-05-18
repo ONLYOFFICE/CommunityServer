@@ -117,14 +117,159 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portal Access Rights</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Add {!group}</value>
+  </data>
+  <data name="AddImage" xml:space="preserve">
+    <value>Add Image</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Add members</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Change status</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Change user status</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>If this number exceeds the current pricing plan you will need to upgrade your plan and repeat the operation or other users status will not be changed.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Change user status</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>You cannot change the status for portal owner and for yourself</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>The users with the 'Disabled' status will be enabled.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>The users with the 'Active' status will be disabled.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Change type</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Upgrade your plan and repeat the operation or other users type will not be changed.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Change user type</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>You cannot change the type for portal administrators and for yourself</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Users with the '{!User}' type will be moved to '{!Guest}' type</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Users with the '{!Guest}' type will be moved to '{!User}' type</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Choose {!user}</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Reset filter</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Create New User</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Only users or guests with the 'Disabled' status can be deleted</value>
+  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Delete the users from portal</value>
+  </data>
+  <data name="DeleteUsersDescription" xml:space="preserve">
+    <value>The selected disabled users will be deleted from the portal. Please note that this action cannot be undone.
+You cannot delete the users if they have 'Active' or 'Pending' status, they need to be disabled first.</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
   </data>
   <data name="DisableUserButton" xml:space="preserve">
     <value>Disable</value>
   </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>The {!user} will not be displayed in the list of active {!users}</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditImage" xml:space="preserve">
+    <value>Edit Image</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="EnableUserButton" xml:space="preserve">
     <value>Enable</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>The {!user} will be displayed as active again</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Enter a name</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>The uploaded file could not be found</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Image size is too large</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Image file size is too large</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Unknown image file type</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Hide the selected users list</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Import People</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Invitation Link</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="LblByName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LblByType" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="LblCancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -144,14 +289,29 @@
   <data name="LblEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="LblSendActivation" xml:space="preserve">
-    <value>Send activation again</value>
-  </data>
   <data name="LblImportAccounts" xml:space="preserve">
     <value>Import accounts</value>
   </data>
+  <data name="LblMobilePhone" xml:space="preserve">
+    <value>Primary Mobile Phone</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="LblPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LblPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
   <data name="LblResendInvites" xml:space="preserve">
-    <value>Resend invites</value>
+    <value>Send invitations once again</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Send activation link once again</value>
   </data>
   <data name="LblSendEmail" xml:space="preserve">
     <value>Send email</value>
@@ -159,17 +319,20 @@
   <data name="LblSendMessage" xml:space="preserve">
     <value>Send message</value>
   </data>
+  <data name="LblStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="LblSubscriptions" xml:space="preserve">
     <value>Subscriptions</value>
   </data>
   <data name="LblTerminated" xml:space="preserve">
-    <value>Terminated</value>
+    <value>Disabled</value>
   </data>
-  <data name="ProductDescription" xml:space="preserve">
-    <value>This product  provides information about people and their relationships</value>
+  <data name="LblTips" xml:space="preserve">
+    <value>Tooltips</value>
   </data>
-  <data name="ProductName" xml:space="preserve">
-    <value>People</value>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
   </data>
   <data name="NotFoundDescription" xml:space="preserve">
     <value>No people matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the people in this section.</value>
@@ -177,83 +340,23 @@
   <data name="NotFoundTitle" xml:space="preserve">
     <value>No results matching your search could be found</value>
   </data>
-  <data name="ClearButton" xml:space="preserve">
-    <value>Reset filter</value>
+  <data name="OnTop" xml:space="preserve">
+    <value>On top</value>
   </data>
-  <data name="WaitingForConfirmation" xml:space="preserve">
-    <value>Waiting for confirmation</value>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Делать все то же, что и пользователь|Создавать профили и отделы|Импортировать профили|Приглашвть пользователей</value>
   </data>
-  <data name="BlockedMessage" xml:space="preserve">
-    <value>Blocked</value>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Add new users, invite or import them. Manage users and view their detailed information.</value>
   </data>
-  <data name="Actions" xml:space="preserve">
-    <value>Actions</value>
+  <data name="ProductName" xml:space="preserve">
+    <value>People</value>
   </data>
-  <data name="AccessRightsSettings" xml:space="preserve">
-    <value>Portal. Access Rights.</value>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Просматривать профили и отделы</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Confirmation" xml:space="preserve">
-    <value>Confirmation</value>
-  </data>
-  <data name="LblOKButton" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="ChangeStatusButton" xml:space="preserve">
-    <value>Change users status</value>
-  </data>
-  <data name="LblActive" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="AddButton" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="ChangeStatus" xml:space="preserve">
-    <value>Change status</value>
-  </data>
-  <data name="ChangeType" xml:space="preserve">
-    <value>Change type</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
-  </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
-    <value>Upgrade your plan and repeat the operation or other users status will not be changed.</value>
-  </data>
-  <data name="ChangeStatusDialogHeader" xml:space="preserve">
-    <value>Change user status</value>
-  </data>
-  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
-    <value>You cannot change the status for portal owner and yourself</value>
-  </data>
-  <data name="ChangeStatusDialogToActive" xml:space="preserve">
-    <value>The users with the 'Disabled' status will be enabled.</value>
-  </data>
-  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
-    <value>The users with the 'Active' status will be disabled.</value>
-  </data>
-  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
-    <value>Upgrade your plan and repeat the operation or other users type will not be changed.</value>
-  </data>
-  <data name="ChangeTypeDialogHeader" xml:space="preserve">
-    <value>Change user type</value>
-  </data>
-  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
-    <value>You cannot change the type for portal administrators and yourself</value>
-  </data>
-  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
-    <value>Users with the '{!User}' type will be moved to '{!Guest}' type</value>
-  </data>
-  <data name="ChangeTypeDialogToUser" xml:space="preserve">
-    <value>Users with the '{!Guest}' type will be moved to '{!User}' type</value>
-  </data>
-  <data name="HideSelectedUserList" xml:space="preserve">
-    <value>Hide the selected users list</value>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Or {0}read about non-profit usage{1}.</value>
   </data>
   <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
     <value>After the users confirm the invitation to the portal their status will change to 'Active'</value>
@@ -264,77 +367,52 @@
   <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
     <value>The invitation to the portal will be sent once again to the selected users with the 'Pending' status who are not disabled.</value>
   </data>
-  <data name="ShowSelectedUserList" xml:space="preserve">
-    <value>View the selected users list</value>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="OnTop" xml:space="preserve">
-    <value>On top</value>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="SelectedCount" xml:space="preserve">
+    <value>{0} selected</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
   </data>
   <data name="ShowOnPage" xml:space="preserve">
     <value>Show on page</value>
   </data>
-  <data name="TotalCount" xml:space="preserve">
-    <value>Total count</value>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>View the selected users list</value>
   </data>
-  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
-    <value>The uploaded file could not be found</value>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Social Profiles</value>
   </data>
-  <data name="ErrorImageSizetLimit" xml:space="preserve">
-    <value>Image size is too large</value>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>User has been successfully deleted</value>
   </data>
-  <data name="ErrorImageWeightLimit" xml:space="preserve">
-    <value>Image weight is too large</value>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>The instructions for your profile deletion have been sent to email address</value>
   </data>
-  <data name="ErrorUnknownFileImageType" xml:space="preserve">
-    <value>Unknown image file type</value>
-  </data>
-  <data name="DeleteUserProfiles" xml:space="preserve">
-    <value>Delete the users from portal</value>
-  </data>
-  <data name="DeleteUsersDescription" xml:space="preserve">
-    <value>The selected disabled users will be deleted from the portal. Please note that this action cannot be undone.
-You cannot delete the users if they have 'Active' or 'Pending' status, they need to be disabled first.</value>
-  </data>
-  <data name="WriteButton" xml:space="preserve">
-    <value>Write Letter</value>
-  </data>
-  <data name="AddDepartmentDlgTitle" xml:space="preserve">
-    <value>Add {!group}</value>
+  <data name="TariffActiveUserLimit" xml:space="preserve">
+    <value>Your current pricing plan allows you to add {0}{1} active users{2}.</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="DepartmentMaster" xml:space="preserve">
-    <value>{!Head}</value>
+  <data name="TitleThumbnailPhoto" xml:space="preserve">
+    <value>Change Thumbnails</value>
   </data>
-  <data name="ChooseUser" xml:space="preserve">
-    <value>Choose {!user}</value>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Total count</value>
   </data>
-  <data name="CancelButton" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Waiting for confirmation</value>
   </data>
-  <data name="ErrorEmptyName" xml:space="preserve">
-    <value>Enter a name</value>
-  </data>
-  <data name="DeleteBtnHint" xml:space="preserve">
-    <value>Only users or guests with the 'Disabled' status can be deleted</value>
-  </data>
-  <data name="AddMembers" xml:space="preserve">
-    <value>Add members</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>Members</value>
-  </data>
-  <data name="ImportPeople" xml:space="preserve">
-    <value>Import People</value>
-  </data>
-  <data name="InviteLink" xml:space="preserve">
-    <value>Invitation Link</value>
-  </data>
-  <data name="ReadAboutNonProfit" xml:space="preserve">
-    <value>Or {0}read about non-profit usage{1}.</value>
-  </data>
-  <data name="LblTips" xml:space="preserve">
-    <value>Всплывающие подсказки</value>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Write Letter</value>
   </data>
 </root>

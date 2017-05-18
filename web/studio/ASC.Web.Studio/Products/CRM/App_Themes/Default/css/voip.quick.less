@@ -30,7 +30,8 @@
     display: none;
 }
 
-#buy-phone-popup {
+.phone-popup
+{
     display: none;
 }
 
@@ -124,8 +125,8 @@
 
             .actions {
                 margin-top: 6px;
-                width: 30px;
-                height: 20px;
+                width: 14px;
+                height: 14px;
 
                 .studio-action-panel {
                     .dropdown-item a {
@@ -139,6 +140,10 @@
             display: none;
             border-bottom: 1px solid #d1d1d1;
             padding-left: 30px;
+
+            &:last-child {
+                border-bottom: none;
+            }
 
             .add-operators-box {
                 height: 32px;
@@ -163,10 +168,6 @@
 
                 &:hover {
                     background-color: #f2f2f2;
-                }
-
-                &:last-child {
-                    border-bottom: none;
                 }
 
                 .title {
@@ -195,8 +196,8 @@
 
                 .actions {
                     margin-top: 6px;
-                    width: 30px;
-                    height: 20px;
+                    width: 14px;
+                    height: 14px;
                 }
             }
         }
@@ -269,7 +270,7 @@
     cursor: pointer;
 }
 
-#available-numbers-box {
+.numbers-box {
     margin: 10px 0 40px;
     border-top: 1px solid #dadada;
     height: 250px;
@@ -285,7 +286,7 @@
         }
 
         input[type=radio] {
-            margin: -3px 5px 0 0;
+            margin: -3px 5px 0 5px;
             vertical-align: middle;
         }
 
@@ -294,7 +295,7 @@
         }
     }
 
-    #available-numbers-loader {
+    .numbers-loader {
         display: none;
         background: url("../images/loader_24.gif") no-repeat scroll left center transparent;
         font-size: 14px;
@@ -302,19 +303,13 @@
         padding: 10px 0 10px 40px;
     }
 
-    #available-numbers-empty-msg, #available-numbers-empty-search-msg {
+    .numbers-empty-msg, #available-numbers-empty-search-msg {
         display: none;
         font-size: 14px;
         margin: 50px 0 0 50px;
     }
 }
 
-#buy-phone-btn {
-    margin-right: 10px;
-}
-
-#buy-phone-loader {
-    display: none;
-    margin-left: 10px;
-    vertical-align: middle;
+#show-link-phone-popup-btn{
+    margin-left: 25px;
 }

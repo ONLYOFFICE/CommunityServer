@@ -124,13 +124,16 @@
     <value>Create New Task</value>
   </data>
   <data name="ByDueDate" xml:space="preserve">
-    <value>By due date</value>
+    <value>Due date</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="ClosedTask" xml:space="preserve">
     <value>Closed task</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Closed tasks</value>
   </data>
   <data name="ConnectWithAContact" xml:space="preserve">
     <value>Link with contact</value>
@@ -142,10 +145,13 @@
     <value>Create task</value>
   </data>
   <data name="CustomDateFilter" xml:space="preserve">
-    <value>Custom</value>
+    <value>Custom period</value>
   </data>
   <data name="CustomResponsibleFilter" xml:space="preserve">
-    <value>Custom</value>
+    <value>Other users</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Deadline</value>
   </data>
   <data name="DeleteTask" xml:space="preserve">
     <value>Delete task</value>
@@ -157,10 +163,10 @@
     <value>Due date</value>
   </data>
   <data name="EditTask" xml:space="preserve">
-    <value>Update task</value>
+    <value>Edit task</value>
   </data>
   <data name="EmptyContentTasksDescribe" xml:space="preserve">
-    <value>Tasks are easy way to create a reminder of what is to be done. For example, a task can be used o remind of an appointment, or a phone call. You can create tasks of {0}different categories{1}, link them with a contact, opportunity or case, or create a simple reminder for yourself.</value>
+    <value>Tasks are easy way to create a reminder of what is to be done. For example, a task can be used to remind of an appointment, or a phone call. You can create tasks of {0}different categories{1}, link them with a contact, opportunity or case, or create a simple reminder for yourself.</value>
   </data>
   <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
     <value>No tasks matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the tasks in this section. You can also look for the tasks you need in contacts, opportunities or cases tabs.</value>
@@ -169,19 +175,22 @@
     <value>No tasks to be displayed for this filter here</value>
   </data>
   <data name="EmptyContentTasksHeader" xml:space="preserve">
-    <value>Task list is empty</value>
+    <value>The task list is empty</value>
   </data>
   <data name="ExportTaskListEmptyError" xml:space="preserve">
     <value>No tasks to be exported for this filter</value>
   </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Find a company or a person by name</value>
+  </data>
   <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
-    <value>Необходимо выбрать правильно оформленный CSV-файл на жёстком диске Вашего компьютера. Он должен содержать поля или столбцы, разделённые запятой, которые будут использоваться для импорта задач.  Файлы, содержащие более {0} строк, следует разделить на меньшие части для правильного импортирования. </value>
+    <value>A properly formed CSV file should be selected on your computer HDD. It must contain the fields or columns separated by the selected delimiter which will be used to import tasks. The files containing more than {0} rows should be divided into smaller parts for proper importing.</value>
   </data>
   <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
-    <value>Выберите CSV файл</value>
+    <value>Select a CSV file</value>
   </data>
   <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
-    <value>Сопоставьте колонки из своего файла с соответствующими полями в TeamLab CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта задач вы должны найти соответствие по крайней мере полям 'Название задачи', 'Ответственный', 'Срок выполнения' из Teamlab CRM столбцам из вашего файла. Только после этого Вы сможете перейти к следующему шагу. Поля содержащие дату должны быть заданы форматом {0}.</value>
+    <value>Match your file columns with the corresponding ONLYOFFICE™ CRM fields. Please pay your attention to the fact that to import tasks correctly you need to have at least the following columns from your file matched with the fields of the ONLYOFFICE™ CRM: 'Task Title', 'Responsible', 'Due Date'. The fields containing the dates must have the following format: {0}.</value>
   </data>
   <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
     <value>Please, verify the fields</value>
@@ -193,43 +202,46 @@
     <value>Import of tasks can take several minutes depending on the amount of your data.</value>
   </data>
   <data name="ImportStartingPanelHeader" xml:space="preserve">
-    <value>Import started</value>
+    <value>Importing started</value>
   </data>
   <data name="ImportTasks" xml:space="preserve">
     <value>Import tasks</value>
   </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>My Tasks</value>
+  </data>
   <data name="MyTasksFilter" xml:space="preserve">
-    <value>My</value>
+    <value>My tasks</value>
   </data>
   <data name="Never" xml:space="preserve">
-    <value>Никогда</value>
+    <value>never</value>
   </data>
   <data name="OnlyClosedTasks" xml:space="preserve">
-    <value>Closed tasks</value>
+    <value>Closed</value>
   </data>
   <data name="OnlyOpenTasks" xml:space="preserve">
-    <value>Open tasks</value>
+    <value>Open</value>
   </data>
   <data name="OverdueTasksFilter" xml:space="preserve">
     <value>Overdue</value>
   </data>
   <data name="PerFifteenMinutes" xml:space="preserve">
-    <value>За 15 минут</value>
+    <value>15 minutes</value>
   </data>
   <data name="PerFiveMinutes" xml:space="preserve">
-    <value>За 5 минут</value>
+    <value>5 minutes</value>
   </data>
   <data name="PerHalfHour" xml:space="preserve">
-    <value>За полчаса</value>
+    <value>half an hour</value>
   </data>
   <data name="PerHour" xml:space="preserve">
-    <value>За час</value>
+    <value>an hour</value>
   </data>
   <data name="PerNight" xml:space="preserve">
-    <value>За день</value>
+    <value>a day</value>
   </data>
   <data name="PerTwoHours" xml:space="preserve">
-    <value>За 2 часа</value>
+    <value>2 hours</value>
   </data>
   <data name="Responsible" xml:space="preserve">
     <value>Responsible</value>
@@ -237,8 +249,11 @@
   <data name="SavingTask" xml:space="preserve">
     <value>Saving task</value>
   </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
   <data name="StartImport" xml:space="preserve">
-    <value>Start Import</value>
+    <value>Start Importing</value>
   </data>
   <data name="Task" xml:space="preserve">
     <value>Task</value>
@@ -288,6 +303,9 @@
   <data name="TaskDescription" xml:space="preserve">
     <value>Task description</value>
   </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>Task «{0}» is closed</value>
+  </data>
   <data name="TaskResponsible" xml:space="preserve">
     <value>Assign to</value>
   </data>
@@ -295,7 +313,7 @@
     <value>Tasks</value>
   </data>
   <data name="TasksByStatus" xml:space="preserve">
-    <value>By status</value>
+    <value>Status</value>
   </data>
   <data name="TaskStatus" xml:space="preserve">
     <value>Task status</value>
@@ -310,7 +328,7 @@
     <value>Task title</value>
   </data>
   <data name="TheNextTasksFilter" xml:space="preserve">
-    <value>The next</value>
+    <value>Upcoming</value>
   </data>
   <data name="ThreeDays" xml:space="preserve">
     <value>3 days</value>
@@ -328,9 +346,12 @@
     <value>Task categories let you divide your tasks into groups depending on the goals you intend to achieve. The default task categories are phone call, opportunity, demo, email, fax, execution control, lunch, appointment, note, delivery, social networks, expression of gratitude. To be able to edit them, the administrator rights are needed.</value>
   </data>
   <data name="TotalTasks" xml:space="preserve">
-    <value>Total tasks</value>
+    <value>All tasks</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Week</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Nobody</value>
   </data>
 </root>

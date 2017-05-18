@@ -25,8 +25,10 @@
 
 
 using System;
+using System.Linq;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
+using ASC.Web.People.Resources;
 
 namespace ASC.Web.People.Core
 {
@@ -41,6 +43,8 @@ namespace ASC.Web.People.Core
             get { return new Guid("{F4D98AFD-D336-4332-8778-3C6945C81EA0}"); }
         }
 
+        public override bool Visible { get { return true; } }
+
         public override ProductContext Context
         {
             get { return _context; }
@@ -48,17 +52,17 @@ namespace ASC.Web.People.Core
 
         public override string Name
         {
-            get { return Resources.PeopleResource.ProductName; }
+            get { return PeopleResource.ProductName; }
         }
 
         public override string Description
         {
-            get { return Resources.PeopleResource.ProductDescription; }
+            get { return PeopleResource.ProductDescription; }
         }
 
         public override string ExtendedDescription
         {
-            get { return Resources.PeopleResource.ProductDescription; }
+            get { return PeopleResource.ProductDescription; }
         }
 
         public override Guid ProductID
@@ -69,6 +73,11 @@ namespace ASC.Web.People.Core
         public override string StartURL
         {
             get { return ProductPath; }
+        }
+
+        public override string HelpURL
+        {
+            get { return string.Concat(ProductPath, "help.aspx"); }
         }
 
         public static string GetStartURL()
@@ -90,6 +99,8 @@ namespace ASC.Web.People.Core
                     IconFileName = "product_logo.png",
                     LargeIconFileName = "product_logolarge.png",
                     DefaultSortOrder = 50,
+                    AdminOpportunities = () => PeopleResource.ProductAdminOpportunities.Split('|').ToList(),
+                    UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList()
                 };
 
             SearchHandlerManager.Registry(new SearchHandler());

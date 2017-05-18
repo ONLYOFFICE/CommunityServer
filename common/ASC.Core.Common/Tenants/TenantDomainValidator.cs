@@ -24,28 +24,46 @@
 */
 
 
+using System;
 using System.Text.RegularExpressions;
+using System.Web.Configuration;
 
 namespace ASC.Core.Tenants
 {
     public class TenantDomainValidator
     {
-        private static readonly Regex validDomain =
-            new Regex("^[a-z0-9]([a-z0-9-]){1,98}[a-z0-9]$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        private static readonly Regex ValidDomain = new Regex("^[a-z0-9]([a-z0-9-]){1,98}[a-z0-9]$",
+                                                              RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-        public static void ValidateDomainLength(string domain) {
+        private static readonly int MinLength;
+        private const int MaxLength = 100;
+
+        static TenantDomainValidator()
+        {
+            MinLength = 6;
+
+            int defaultMinLength;
+            if (int.TryParse(WebConfigurationManager.AppSettings["web.alias.min"], out defaultMinLength))
+            {
+                MinLength = Math.Max(1, Math.Min(MaxLength, defaultMinLength));
+            }
+        }
+
+        public static void ValidateDomainLength(string domain)
+        {
             if (string.IsNullOrEmpty(domain))
             {
                 throw new TenantTooShortException("Tenant domain can not be empty.");
             }
-            if (domain.Length < 6 || 100 < domain.Length)
+            if (domain.Length < MinLength || MaxLength < domain.Length)
             {
-                throw new TenantTooShortException("The domain name must be between 6 and 100 characters long.");
+                throw new TenantTooShortException("The domain name must be between " + MinLength + " and " + MaxLength + " characters long.");
             }
         }
 
-        public static void ValidateDomainCharacters(string domain) {
-            if (!validDomain.IsMatch(domain))
+        public static void ValidateDomainCharacters(string domain)
+        {
+            if (!ValidDomain.IsMatch(domain))
             {
                 throw new TenantIncorrectCharsException("Domain contains invalid characters.");
             }

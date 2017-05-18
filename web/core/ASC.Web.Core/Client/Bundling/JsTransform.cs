@@ -24,41 +24,30 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web.Optimization;
-using Yahoo.Yui.Compressor;
+using ASC.Web.Core.Client.HttpHandlers;
+using HtmlAgilityPack;
+using Microsoft.Ajax.Utilities;
 
 namespace ASC.Web.Core.Client.Bundling
 {
     class JsTransform : IItemTransform, IBundleTransform
     {
-        private readonly bool obfuscate = false;
-
-
-        public JsTransform()
-            : this(true)
-        {
-        }
-
-        public JsTransform(bool obfuscate)
-        {
-            this.obfuscate = obfuscate;
-        }
-
-
         public string Process(string includedVirtualPath, string input)
         {
-            if (BundleTable.EnableOptimizations)
+            if (!BundleTable.EnableOptimizations) return input;
+
+            if (includedVirtualPath.EndsWith("html"))
             {
-                var compressor = new JavaScriptCompressor
-                {
-                    Encoding = Encoding.UTF8,
-                    ObfuscateJavascript = obfuscate,
-                    PreserveAllSemicolons = true,
-                };
-                input = compressor.Compress(input);
+                input = ClientScript.GetTemplateData(input);
             }
-            return input;
+
+            return new Minifier().MinifyJavaScript(input);
         }
 
         public void Process(BundleContext context, BundleResponse response)

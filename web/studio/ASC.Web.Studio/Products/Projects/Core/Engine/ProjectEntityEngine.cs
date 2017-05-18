@@ -67,7 +67,7 @@ namespace ASC.Projects.Engine
 
             if (recipient == null) return;
 
-            if (!IsUnsubscribed(entity, recipientID))
+            if (!IsUnsubscribed(entity, recipientID) || entity.CanEdit())
                 SubscriptionProvider.Subscribe(NotifyAction, entity.NotifyId, recipient);
         }
 

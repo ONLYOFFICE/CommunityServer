@@ -112,57 +112,57 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ErrorFacebookAccountNotFound" xml:space="preserve">
-    <value>Необходимо подключить Facebook аккаунт.</value>
+    <value>It is necessary to connect a Facebook account.</value>
   </data>
   <data name="ErrorFacebookAPILimit" xml:space="preserve">
-    <value>Превышено допустимое количество запросов к Facebook. Повторите операцию позднее</value>
+    <value>Maximal allowed number of requests to Facebook is exceeded. Try again later.</value>
   </data>
   <data name="ErrorFacebookOAuth" xml:space="preserve">
-    <value>Произошла ошибка при работе с Facebook.</value>
+    <value>An error occurred during access to Facebook.</value>
   </data>
   <data name="ErrorInternalServer" xml:space="preserve">
-    <value>Внутренняя ошибка</value>
+    <value>Internal error</value>
   </data>
   <data name="ErrorLinkedInUnauthorized" xml:space="preserve">
-    <value>У приложения нет доступа к аккаунту LinkedIn. Переподключите LinkedIn аккаунт</value>
+    <value>The application has no LinkedIn access. Please reconnect the LinkedIn account.</value>
   </data>
   <data name="ErrorTwitterAccountNotFound" xml:space="preserve">
-    <value>Твиттер аккаунт не найден</value>
+    <value>Twitter account could not be found</value>
   </data>
   <data name="ErrorTwitterConnectionFailure" xml:space="preserve">
-    <value>Не удалось соединиться с Twitter</value>
+    <value>Could not connect to Twitter</value>
   </data>
   <data name="ErrorTwitterIsDown" xml:space="preserve">
-    <value>Твиттер перегружен</value>
+    <value>Twitter is overloaded</value>
   </data>
   <data name="ErrorTwitterRateLimit" xml:space="preserve">
-    <value>Превышено допустимое количество запросов к Twitter. Повторите операцию позднее</value>
+    <value>Maximal allowed number of requests to Twitter is exceeded. Try again later.</value>
   </data>
   <data name="ErrorTwitterUnauthorized" xml:space="preserve">
-    <value>У приложения нет доступа к аккаунту Twitter. Переподключите Twitter аккаунт</value>
+    <value>The application has no Twitter access. Please reconnect the Twitter account.</value>
   </data>
   <data name="ErrorUnknownTwitterAccount" xml:space="preserve">
-    <value>Неизвестный Twitter аккаунт</value>
+    <value>Unknown Twitter account</value>
   </data>
   <data name="MessageCount" xml:space="preserve">
-    <value>Сообщений на странице</value>
+    <value>Messages on page</value>
   </data>
   <data name="SocialMediaAccountNotFound" xml:space="preserve">
-    <value>Аккаунт не подключен</value>
+    <value>Account is not connected</value>
   </data>
   <data name="SocialMediaAccountNotFoundFacebook" xml:space="preserve">
-    <value>Facebook аккаунт не подключен</value>
+    <value>Facebook account is not connected</value>
   </data>
   <data name="SocialMediaAccountNotFoundLinkedIn" xml:space="preserve">
-    <value>LinkedIn аккаунт не подлючен</value>
+    <value>LinkedIn account is not connected</value>
   </data>
   <data name="SocialMediaAccountNotFoundTwitter" xml:space="preserve">
-    <value>Twitter аккаунт не подключен</value>
+    <value>Twitter account is not connected</value>
   </data>
 </root>

@@ -82,9 +82,16 @@ namespace ASC.Projects.Engine
             var folderId = GetRoot(projectId);
 
             //requet long operation
-            var docService = ServiceLocator.Current.GetInstance<IFileStorageService>();
+            try
+            {
+                var docService = ServiceLocator.Current.GetInstance<IFileStorageService>();
 
-            docService.DeleteItems("delete", new ItemList<string> {"folder_" + folderId}, true);
+                docService.DeleteItems("delete", new ItemList<string> {"folder_" + folderId}, true);
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         public static void RegisterFileSecurityProvider()

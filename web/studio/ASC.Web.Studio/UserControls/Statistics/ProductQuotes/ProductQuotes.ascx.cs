@@ -47,7 +47,9 @@ namespace ASC.Web.Studio.UserControls.Statistics
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/statistics/productquotes/css/productquotes_style.less");
+            Page
+                .RegisterStyle("~/usercontrols/statistics/productquotes/css/productquotes_style.less")
+                .RegisterBodyScripts("~/usercontrols/statistics/productquotes/js/product_quotes.js");
 
             var data = new List<object>();
             foreach (var item in WebItemManager.Instance.GetItems(Web.Core.WebZones.WebZoneType.All, ItemAvailableState.All))
@@ -61,8 +63,6 @@ namespace ASC.Web.Studio.UserControls.Statistics
             _itemsRepeater.ItemDataBound += _itemsRepeater_ItemDataBound;
             _itemsRepeater.DataSource = data;
             _itemsRepeater.DataBind();
-
-            RegisterScript();
         }
 
         private void _itemsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -124,20 +124,6 @@ namespace ASC.Web.Studio.UserControls.Statistics
         {
             var used = TenantStatisticsProvider.GetUsedSize();
             return FileSizeComment.FilesSizeToString(used);
-        }
-
-        private void RegisterScript()
-        {
-            var sb = new StringBuilder();
-
-            sb.Append(@"
-                    jq('.moreBox a.topTitleLink').click(function () {
-                        jq(jq(this).parent().prev()).find('tr').show();
-                        jq(this).parent().hide();
-                    });"
-                );
-
-            Page.RegisterInlineScript(sb.ToString());
         }
 
         protected sealed class Product

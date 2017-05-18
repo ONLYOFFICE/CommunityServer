@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AddonDescription" xml:space="preserve">
     <value>Corporate forum discussions</value>
   </data>
@@ -127,7 +130,7 @@
     <value>Create New Forum</value>
   </data>
   <data name="AddThreadCategoryTitle" xml:space="preserve">
-    <value>New Forum</value>
+    <value>Create new forum</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>All</value>
@@ -143,6 +146,9 @@
   </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="EditShortButton" xml:space="preserve">
     <value>Edit</value>
@@ -211,7 +217,7 @@
     <value>Enter a name</value>
   </data>
   <data name="NewPollButton" xml:space="preserve">
-    <value>Add new poll</value>
+    <value>Create new poll</value>
   </data>
   <data name="NewPostButton" xml:space="preserve">
     <value>Add new post</value>
@@ -220,10 +226,22 @@
     <value>Create new topic</value>
   </data>
   <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
-    <value>Subscription to new forum topics </value>
+    <value>New forum topics </value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
   </data>
   <data name="PostCount" xml:space="preserve">
     <value>Posts</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Enter your question</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Latest Posts in Topic</value>
   </data>
   <data name="RecentUpdate" xml:space="preserve">
     <value>Latest Update</value>
@@ -234,8 +252,17 @@
   <data name="SearchDefaultString" xml:space="preserve">
     <value>Forum Search</value>
   </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Nothing has been found.</value>
+  </data>
   <data name="ShotPostCount" xml:space="preserve">
     <value>Posts</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Attach</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Enter the topic name</value>
   </data>
   <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
     <value>Subscribe to new topics</value>
@@ -248,6 +275,12 @@
   </data>
   <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
     <value>The forum has been successfully created</value>
+  </data>
+  <data name="TagName" xml:space="preserve">
+    <value>Tag Name</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
   <data name="Thread" xml:space="preserve">
     <value>Forum</value>
@@ -274,7 +307,7 @@
     <value>Forum Name</value>
   </data>
   <data name="ThreadSubscriptionTitle" xml:space="preserve">
-    <value>Subscription to forums</value>
+    <value>Forums</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>Topic</value>
@@ -283,10 +316,13 @@
     <value>Topics</value>
   </data>
   <data name="TopicSubscriptionTitle" xml:space="preserve">
-    <value>Subscription to topics</value>
+    <value>New topic posts</value>
   </data>
   <data name="TypeCategoryName" xml:space="preserve">
     <value>Create a new category</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Unsubscribe from notification</value>
   </data>
   <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
     <value>Unsubscribe from new topics</value>

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -27,13 +27,13 @@
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
-
 using ASC.Core;
-using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.FederatedLogin.Profile;
 using ASC.Geolocation;
@@ -42,6 +42,7 @@ using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Statistic;
+using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
@@ -74,7 +75,7 @@ namespace ASC.Web.Studio
             get
             {
                 if (!CoreContext.Configuration.Standalone) return false;
-                return !(WarmUp.Instance.CheckCompleted() || WarmUpSettings.GetCompleted() || Request.QueryString["warmup"] == "true");
+                return !(WarmUpController.Instance.CheckCompleted() || WarmUpSettings.GetCompleted() || Request.QueryString["warmup"] == "true");
             }
         }
 
@@ -116,9 +117,19 @@ namespace ASC.Web.Studio
                 }
             }
 
+            var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
             if (!MayNotPaid && TenantStatisticsProvider.IsNotPaid())
             {
-                Response.Redirect(TenantExtra.GetTariffPageLink(), true);
+                if (TariffSettings.HidePricingPage && !user.IsAdmin())
+                {
+                    Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                    Response.End();
+                }
+                else
+                {
+                    Response.Redirect(TenantExtra.GetTariffPageLink(), true);
+                }
             }
 
             if (SecurityContext.IsAuthenticated
@@ -126,8 +137,6 @@ namespace ASC.Web.Studio
                 && StudioSmsNotificationSettings.Enable
                 && !MayPhoneNotActivate)
             {
-                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-
                 if (!CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID)
                     && (string.IsNullOrEmpty(user.MobilePhone)
                         || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated))

@@ -24,17 +24,17 @@
 */
 
 
+using System;
 using ASC.ActiveDirectory;
 using ASC.ActiveDirectory.BuiltIn;
 using ASC.ActiveDirectory.DirectoryServices;
 using ASC.ActiveDirectory.Novell;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 using log4net;
-using System;
 using Constants = ASC.ActiveDirectory.Constants;
 
 namespace ASC.Web.Studio.Core.Import

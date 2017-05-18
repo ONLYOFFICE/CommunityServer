@@ -83,6 +83,146 @@ var calculateWidthTitleBlock = function() {
     jq(".BlogsHeaderBlock").width(titleWidth);
 };
 
+
+ASC.Community.Wiki = (function () {
+    listByLiteral = {};
+    listByLiteralCount = 0;
+    maxColumnCount = 3;
+
+    subscribeNotyfy = false;
+    subscribePageId = '';
+
+    function insertInListByLiteral(letter, element) {
+        if (!listByLiteral.hasOwnProperty(letter)) {
+            listByLiteral[letter] = [element];
+            listByLiteralCount++;
+        } else {
+            listByLiteral[letter] = jq.merge(listByLiteral[letter], [element]);
+        }
+    }
+
+    function InitListPagesByLetter() {
+        var aList = wikiCategoryAlfaList.split(','),
+            pagesCount = wikiPages.length,
+            resultSortedList = [],
+            curLetter = '',
+            pageLetter = '';
+
+        if (pagesCount == 0) {
+            jq("#wikiListPagesByLetterEmpty").removeClass("display-none");
+            return;
+        }
+
+        for (var i = 0, n = aList.length; i < n; i++) {
+            curLetter = aList[i];
+            for (var pi = 0; pi < pagesCount; pi++) {
+                pageLetter = (wikiPages[pi].PageName[0] || "").toUpperCase();
+
+                if (i === 0 && aList.indexOf(pageLetter) === -1 //special symbols
+                    || pageLetter === curLetter)
+                {
+                    insertInListByLiteral(curLetter, wikiPages[pi]);
+                }
+            }
+        }
+
+        if (listByLiteralCount <= maxColumnCount) {
+            for (var j in listByLiteral) {
+                resultSortedList.push([{ headName: j, pages: listByLiteral[j] }]);
+            }
+        } else {
+            var elementsInColumn = Math.round((listByLiteralCount * 3 + pagesCount) / maxColumnCount),
+                currentColumnInd = 0,
+                count = 0;
+
+            resultSortedList = [[], [], []];
+
+            for (var j in listByLiteral) {
+                count += 3 + listByLiteral[j].length;
+
+                resultSortedList[currentColumnInd].push({ headName: j, pages: listByLiteral[j] });
+
+                if (count > elementsInColumn) {
+                    count = 0;
+                    currentColumnInd++;
+                }
+            }
+        }
+
+        jq.tmpl("wikiListPagesByLetterTmpl", { mainlist: resultSortedList }).appendTo("#listWikiPages");
+
+    };
+
+    function InitListPages() {
+        var pagesCount = wikiPages.length;
+
+        if (pagesCount == 0) {
+            jq("#wikiListPagesEmpty").removeClass("display-none");
+            return;
+        }
+
+        jq.tmpl("wikiListPagesTmpl", { list: wikiPages }).appendTo("#listWikiPages");
+    };
+
+    function BindSubscribeEvent(notyfy, pageId, unNotifyOnEditPageText, notifyOnEditPageText) {
+        subscribeNotyfy = notyfy;
+        subscribePageId = pageId;
+
+        jq("#statusSubscribe").on("click", function () {
+            AjaxPro.onLoading = function (b) {
+                if (b) LoadingBanner.displayLoading();
+                else LoadingBanner.hideLoading();
+            }
+            MainWikiAjaxMaster.SubscribeOnEditPage(subscribeNotyfy, pageId, function (result) {
+
+                subscribeNotyfy = result.value;
+                if (!subscribeNotyfy) {
+                    jq("#statusSubscribe").removeClass("subscribed").addClass("unsubscribed");
+                    jq("#statusSubscribe").attr("title", notifyOnEditPageText);
+                } else {
+                    jq("#statusSubscribe").removeClass("unsubscribed").addClass("subscribed");
+                    jq("#statusSubscribe").attr("title", unNotifyOnEditPageText);
+                }
+            });
+        });
+    };
+
+    function PageHistoryVersionSelected(obj) {
+        var isNewClicked = obj.id.indexOf('rbNewDiff') > 0;
+        var version = obj.parentNode.getAttribute('_Version');
+        var spans = document.getElementsByTagName('span');
+        var curVersion;
+
+        for (var i = 0; i < spans.length; i++) {
+
+            if (spans[i].getAttribute('_Version')) {
+                curVersion = spans[i].getAttribute('_Version') * 1;
+
+                var thisColumn = (!isNewClicked && spans[i].firstChild.id.indexOf('rbNewDiff') < 0) || (isNewClicked && spans[i].firstChild.id.indexOf('rbNewDiff') > 0)
+                if (thisColumn) {
+                    spans[i].firstChild.checked = (curVersion == version);
+                }
+                else {
+                    if ((isNewClicked && curVersion >= version) ||
+                    (!isNewClicked && curVersion <= version)) {
+                        spans[i].style.display = 'none';
+                    }
+                    else {
+                        spans[i].style.display = '';
+                    }
+                }
+            }
+        }
+    }
+
+    return {
+        InitListPagesByLetter: InitListPagesByLetter,
+        InitListPages: InitListPages,
+        BindSubscribeEvent: BindSubscribeEvent,
+        PageHistoryVersionSelected: PageHistoryVersionSelected
+    };
+})(jQuery);
+
 if (typeof window.__doPostBack !== "function") {
     function __doPostBack(eventTarget, eventArgument) {
         var theForm = document.forms['aspnetForm'];

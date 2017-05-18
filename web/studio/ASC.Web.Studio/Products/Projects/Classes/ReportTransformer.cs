@@ -28,16 +28,15 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
-using System.Reflection;
-
+using ASC.Core.Common.Settings;
 using ASC.Projects.Core.Domain.Reports;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Core;
-using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Projects.Classes

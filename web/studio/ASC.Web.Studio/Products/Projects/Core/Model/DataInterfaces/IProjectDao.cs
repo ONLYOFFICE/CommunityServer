@@ -54,8 +54,6 @@ namespace ASC.Projects.Core.DataInterfaces
             
         Project GetById(int projectId);
 
-        Project GetFullProjectById(int projectId);
-
         List<Project> GetById(ICollection projectIDs);
 
         bool IsExists(int projectId);

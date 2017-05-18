@@ -81,7 +81,7 @@
                     <%= Resource.AccessRightsFullAccess %>
                     <div class="HelpCenterSwitcher" onclick=" jq(this).helper({ BlockHelperID: 'full_panelQuestion' }); "></div>
                 </th>
-                <% foreach (var p in ProductsForAccessSettings) %>
+                <% foreach (var p in Products) %>
                 <% { %>
                     <th class="cbxHeader">
                         <%= p.Name %>
@@ -96,7 +96,7 @@
         <tbody></tbody>
     </table>
     <div id="adminAdvancedSelector" class="advanced-selector-select">
-          <%= CustomNamingPeople.Substitute<Resource>("ChooseUser") %>
+          <%= CustomNamingPeople.Substitute<Resource>("ChooseUser").HtmlEncode() %>
      </div>
     <div>
         <div id="full_panelQuestion" class="popup_helper">

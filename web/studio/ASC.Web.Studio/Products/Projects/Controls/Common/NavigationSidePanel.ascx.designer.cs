@@ -13,24 +13,6 @@ namespace ASC.Web.Projects.Controls.Common {
     public partial class NavigationSidePanel {
         
         /// <summary>
-        /// _taskAction control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _taskAction;
-        
-        /// <summary>
-        /// _milestoneAction control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _milestoneAction;
-        
-        /// <summary>
         /// CreateDocsHolder control.
         /// </summary>
         /// <remarks>

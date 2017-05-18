@@ -1,1 +1,1 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceBundleControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceScriptBundleControl" %>

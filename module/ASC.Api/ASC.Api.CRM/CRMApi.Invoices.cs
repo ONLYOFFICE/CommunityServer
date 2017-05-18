@@ -1219,7 +1219,7 @@ namespace ASC.Api.CRM
         public InvoiceTaxWrapper CreateInvoiceTax(
             string name,
             string description,
-            int rate)
+            decimal rate)
         {
             if (!CRMSecurity.IsAdmin) {
                 throw CRMSecurity.CreateSecurityException();
@@ -1256,7 +1256,7 @@ namespace ASC.Api.CRM
             int id,
             string name,
             string description,
-            int rate)
+            decimal rate)
         {
             if (!CRMSecurity.IsAdmin) {
                 throw CRMSecurity.CreateSecurityException();

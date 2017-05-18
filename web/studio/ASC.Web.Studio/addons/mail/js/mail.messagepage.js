@@ -59,7 +59,7 @@ window.messagePage = (function ($) {
 
             serviceManager.bind(window.Teamlab.events.saveMailMessage, onSaveMessage);
             serviceManager.bind(window.Teamlab.events.markChainAsCrmLinked, onMarkChainAsCrmLinked);
-            serviceManager.bind(window.Teamlab.events.createMailContact, onСreateMailContact);
+            serviceManager.bind(window.Teamlab.events.createMailContact, onCreateMailContact);
         }
 
         attachmentMenuItems = [
@@ -161,13 +161,34 @@ window.messagePage = (function ($) {
     }
 
     function view(id, noBlock) {
-        checkCrmLinked(id);
+        var content = null;
+        if(!commonSettingsPage.isConversationsEnabled())
+            content = mailCache.get(id);
 
-        serviceManager.getMessage(id, noBlock, { action: 'view', loadImages: noBlock },
-        {
-            success: onGetMailMessage,
-            error: onOpenMessageError
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        if (!content) {
+            checkCrmLinked(id);
+
+            serviceManager.getMessage(id,
+                noBlock,
+                { action: 'view', loadImages: noBlock },
+                {
+                    success: onGetMailMessage,
+                    error: onOpenMessageError
+                },
+                ASC.Resources.Master.Resource.LoadingProcessing);
+        } else {
+            console.log("%s found in cache", id);
+
+            var rootMessage = content.messages[0];
+            if (rootMessage && rootMessage.wasNew) {
+                mailBox.setMessagesReadUnread([id], true, true);
+            }
+
+            var params = { action: 'view', id: id, loadImages: noBlock, conversation_message: false };
+            hasLinked = content.hasLinked;
+            params.notRememberContent = true;
+            onGetMailMessage(params, rootMessage);
+        }
     }
 
     function conversation(id, loadAllContent) {
@@ -258,7 +279,6 @@ window.messagePage = (function ($) {
 
     function edit(id) {
         mailBox.currentMessageId = id;
-        ASC.Controls.AnchorController.safemove('draftitem/' + id);
         serviceManager.getMessage(id, true, { action: 'draft', loadImages: true },
         {
             success: onGetMailMessage,
@@ -398,13 +418,17 @@ window.messagePage = (function ($) {
             LoadingBanner.displayLoading(window.MailScriptResource.SavingMessage);
 
         ASC.Mail.Utility.SaveMessageInDrafts(message)
-            .fail(onErrorSendMessage)
+            .then(function() {
+                    if (message_id === 0)
+                        serviceManager.updateFolders();
+                },
+                onErrorSendMessage)
             .always(function() {
                 LoadingBanner.hideLoading();
             });
 
         if (message_id === 0)
-            serviceManager.updateFolders();
+            mailBox.markFolderAsChanged(TMMail.sysfolders.drafts.id);
     }
 
     function saveMessagePomise() {
@@ -529,10 +553,7 @@ window.messagePage = (function ($) {
 
         ASC.Mail.Utility.SendMessage(message, { skipAccountsCheck: true, skipSave: true })
             .done(onSendMessage)
-            .fail(onErrorSendMessage)
-            .always(function() {
-                LoadingBanner.hideLoading();
-            });
+            .fail(onErrorSendMessage);
     }
 
     function getMessageFileLinks() {
@@ -644,7 +665,7 @@ window.messagePage = (function ($) {
         if (message.isBodyCorrupted) {
             html = $.tmpl('errorBodyTmpl', {
                 errorBodyHeader: ASC.Mail.Resources.MailScriptResource.ErrorOpenMessage,
-                errorBody: $.trim($.tmpl("messageOpenErrorBodyTmpl").html())
+                errorBody: $.trim($.tmpl("messageOpenErrorBodyTmpl").text())
             });
 
             $messageBody.html(html);
@@ -653,7 +674,7 @@ window.messagePage = (function ($) {
         } else if (message.hasParseError) {
             html = $.tmpl('errorBodyTmpl', {
                 errorBodyHeader: ASC.Mail.Resources.MailScriptResource.ErrorOpenMessage,
-                errorBody: $.trim($.tmpl("messageParseErrorBodyTmpl").html())
+                errorBody: $.trim($.tmpl("messageParseErrorBodyTmpl").text())
             });
 
             $messageBody.html(html);
@@ -684,6 +705,7 @@ window.messagePage = (function ($) {
                 $messageBody.find('.tl-controll-blockquote').each(function () {
                     $(this).click(function () {
                         $(this).next('blockquote').toggle();
+                        return false;
                     });
                 });
 
@@ -728,6 +750,7 @@ window.messagePage = (function ($) {
                                 contentIsHidden = false;
                             }
                             $blockquote.toggle();
+                            return false;
                         });
                     }
                 }
@@ -964,8 +987,14 @@ window.messagePage = (function ($) {
             }
 
             if (senderAddress) {
-                if (trustedAddresses.isTrusted(senderAddress)) {
-                    buttons.push({ text: window.MailScriptResource.HideImagesLabel + ' "' + senderAddress + '"', handler: hideImagesAction, address: senderAddress });
+                if (!commonSettingsPage.AlwaysDisplayImages()) {
+                    if (trustedAddresses.isTrusted(senderAddress)) {
+                        buttons.push({
+                            text: window.MailScriptResource.HideImagesLabel + ' "' + senderAddress + '"',
+                            handler: hideImagesAction,
+                            address: senderAddress
+                        });
+                    }
                 }
             }
 
@@ -1061,7 +1090,7 @@ window.messagePage = (function ($) {
                 var i, len;
                 for (i = 0, len = conversationMessages.length; i < len; i++) {
                     var currentMessage = $(conversationMessages[i]);
-                    if (currentMessage.find('.full-view[loaded="true"]').size() == 1) {
+                    if (currentMessage.find('.full-view[loaded="true"]').length === 1) {
                         // message is loaded
                         var messageId = currentMessage.attr('message_id');
                         var senderAddress = ASC.Mail.Utility.ParseAddress(getFromAddress(messageId));
@@ -1412,6 +1441,7 @@ window.messagePage = (function ($) {
                 updateEditAttachmentsActionMenu();
             }, 10); // Dirty trick for Opera 12
 
+            $('#editMessagePageHeader .on-close-link').bind("click", messagePage.onLeaveMessage);
             $('#tags_panel div.tag').bind("click", messagePage.onLeaveMessage);
             $('#tags_panel div.tag').each(function () {
                 var elementData = $._data(this),
@@ -1591,6 +1621,7 @@ window.messagePage = (function ($) {
         TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
         TMMail.disableButton($('#editMessagePage .btnDelete'), false);
         releaseSavingLock();
+        LoadingBanner.hideLoading();
     }
 
     function onSendMessage(options, messageId) {
@@ -1607,9 +1638,9 @@ window.messagePage = (function ($) {
 
         mailBox.markFolderAsChanged(TMMail.sysfolders.sent.id);
 
-        mailBox.updateAnchor(true);
+        LoadingBanner.hideLoading();
 
-        serviceManager.updateFolders();
+        ASC.Controls.AnchorController.move(TMMail.sysfolders.inbox.name);
     }
 
     function refreshMailAfterSent(state) {
@@ -1764,11 +1795,11 @@ window.messagePage = (function ($) {
             } else {
                 var $messageBody = $('#itemContainer .itemWrapper .body[message_id=' + message.id + ']');
 
-                if ($messageBody.size() > 0) {
+                if ($messageBody.length > 0) {
                     var $fullView = $messageBody.parent();
 
-                    if ($fullView.size() > 0) {
-                        if ($fullView.children('.error-popup').size() < 1 && message.contentIsBlocked) {
+                    if ($fullView.length > 0) {
+                        if ($fullView.children('.error-popup').length < 1 && message.contentIsBlocked) {
                             message.sender_address = ASC.Mail.Utility.ParseAddress(message.from).email;
                             if (!trustedAddresses.isTrusted(message.sender_address)) {
                                 $messageBody.before($.tmpl("messageBlockContent", message, {}));
@@ -1778,6 +1809,15 @@ window.messagePage = (function ($) {
                 }
             }
 
+        }
+
+        if (!commonSettingsPage.isConversationsEnabled() &&
+            MailFilter.getFolder() === TMMail.sysfolders.inbox.id &&
+            !params.notRememberContent) {
+            var messagesAllRead = $.extend(true, [], [message]);
+            $.each(messagesAllRead, function(i, m) { m.wasNew = false });
+            var content = $.extend(true, {}, { messages: messagesAllRead, hasLinked: hasLinked });
+            mailCache.set(message.id, content);
         }
 
         showMessagesCommon([message], params.action);
@@ -1994,7 +2034,7 @@ window.messagePage = (function ($) {
         }
     }
 
-    function onСreateMailContact(params, contact) {
+    function onCreateMailContact(params, contact) {
         $.each(contact.emails, function (i, v) {
             updateMessagesSender(v.value, 'is_personal', true);
         });
@@ -2208,7 +2248,7 @@ window.messagePage = (function ($) {
                 }
             }
 
-            newAddresses.push(addresses[i].ToString(addresses[i].name.indexOf(",") !== -1 ? false : true));
+            newAddresses.push(addresses[i].ToString(addresses[i].isValid ? false : (addresses[i].name.indexOf(",") !== -1 ? false : true)));
         }
         return newAddresses.join(", ");
     }
@@ -2500,8 +2540,8 @@ window.messagePage = (function ($) {
         var menuCrmPerson = $("#" + dropdownItemId + " .createCrmPerson");
         var menuCrmCompany = $("#" + dropdownItemId + " .createCrmCompany");
 
-        if (menuHideImages.size() == 1) {
-            if ($('#id_block_content_popup_' + id).size() > 0) {
+        if (menuHideImages.length == 1) {
+            if ($('#id_block_content_popup_' + id).length > 0) {
                 menuHideImages.hide();
             } else {
                 if (trustedAddresses.isTrusted(senderAddress)) {
@@ -2839,6 +2879,14 @@ window.messagePage = (function ($) {
         }
     }
 
+    function closeCompose() {
+        var lastAnchor = ASC.Controls.AnchorController.getLastAnchor();
+        if (!lastAnchor) {
+            lastAnchor = "inbox";
+        }
+        window.location.href = "#" + lastAnchor;
+    }
+
     return {
         init: init,
         hide: hide,
@@ -2887,7 +2935,8 @@ window.messagePage = (function ($) {
         sendAction: sendAction,
         updateFromAccountField: updateFromAccountField,
         cancelSending: cancelSending,
-        saveMessagePomise: saveMessagePomise
+        saveMessagePomise: saveMessagePomise,
+        closeCompose: closeCompose
     };
 
 })(jQuery);

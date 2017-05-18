@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
   <data name="cfmDeleteFile" xml:space="preserve">
     <value>Delete file?</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="cmdVersionTemplate" xml:space="preserve">
     <value>Version {0}</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
     <value>No categories have been created yet</value>
@@ -262,16 +271,19 @@
     <value>Add page to category</value>
   </data>
   <data name="NotifyAction_ChangePage" xml:space="preserve">
-    <value>Edit/Comment on Page</value>
+    <value>Page updates/comments</value>
   </data>
   <data name="NotifyAction_NewPage" xml:space="preserve">
-    <value>New Page</value>
+    <value>New Pages</value>
   </data>
   <data name="NotifyOnEditPage" xml:space="preserve">
     <value>Subscribe to page</value>
   </data>
   <data name="PagePreview" xml:space="preserve">
     <value>Preview</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
   </data>
   <data name="SearchDefaultString" xml:space="preserve">
     <value>Wiki Search</value>

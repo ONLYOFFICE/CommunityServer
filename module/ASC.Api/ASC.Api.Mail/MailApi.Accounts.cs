@@ -36,14 +36,15 @@ using ASC.Api.Mail.DataContracts;
 using ASC.Api.Mail.Extensions;
 using ASC.Api.Mail.Resources;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Utils;
+using ASC.Mail.Aggregator.ComplexOperations.Base;
 using ASC.Mail.Aggregator.Core.Clients;
-using ASC.Web.Core.Utility.Settings;
 using EncryptionType = ASC.Mail.Aggregator.Common.EncryptionType;
 using SaslMechanism = ASC.Mail.Aggregator.Common.SaslMechanism;
 
@@ -489,28 +490,25 @@ namespace ASC.Api.Mail
         ///    Deletes account by email.
         /// </summary>
         /// <param name="email">Email the account to delete</param>
-        /// <returns>Account email address</returns>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
-        /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't founded by email.</exception>
+        /// <returns>MailOperationResult object</returns>
+        /// <exception cref="ArgumentException">Exception happens when some parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't found.</exception>
         /// <short>Delete account</short> 
         /// <category>Accounts</category>
         [Delete(@"accounts")]
-        public string DeleteAccount(string email)
+        public MailOperationStatus DeleteAccount(string email)
         {
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentException(@"Email empty", "email");
 
             var mailbox = MailBoxManager.GetMailBox(TenantId, Username, new MailAddress(email));
             if (mailbox == null)
-                throw new NullReferenceException(String.Format("Account wasn't founded by email: {0}", email));
+                throw new NullReferenceException(string.Format("Account wasn't founded by email: {0}", email));
 
             if (mailbox.IsTeamlab)
                 throw new ArgumentException("Mailbox with specified email can't be deleted");
 
-            MailBoxManager.RemoveMailBox(mailbox);
-            MailBoxManager.CachedAccounts.Clear(Username);
-
-            return email;
+            return MailBoxManager.RemoveMailbox(mailbox, TranslateMailOperationStatus);
         }
 
         /// <summary>

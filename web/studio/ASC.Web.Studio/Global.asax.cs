@@ -26,6 +26,7 @@
 
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Web.Core;
 using ASC.Web.Core.Client;
@@ -150,7 +151,7 @@ namespace ASC.Web.Studio
                         break;
                 }
 
-                if (!(String.Compare(value.ToLower(), subkey, StringComparison.Ordinal) == 0
+                if (!(String.Compare((value ?? "").ToLower(), subkey, StringComparison.Ordinal) == 0
                       || String.IsNullOrEmpty(subkey))) continue;
 
                 result += "|" + value;

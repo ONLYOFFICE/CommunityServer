@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmInviteActivation.ascx.cs"
     Inherits="ASC.Web.Studio.UserControls.Management.ConfirmInviteActivation" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
+<%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -69,7 +69,7 @@
                         <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'InvitePasswordHelp'});"></span>
                     </div>
                     <div class="value">
-                        <input type="password" maxlength="64" id="studio_confirm_pwd" value="" name="pwdInput" class="textEdit" autocomplete="off"/>
+                        <input type="password" maxlength="<%= PasswordSettings.MaxLength %>" id="studio_confirm_pwd" value="" name="pwdInput" class="textEdit" autocomplete="off"/>
                     </div>
                     <div class="popup_helper" id="InvitePasswordHelp">
                         <%= UserManagerWrapper.GetPasswordHelpMessage() %>

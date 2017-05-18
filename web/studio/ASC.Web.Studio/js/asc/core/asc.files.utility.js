@@ -41,7 +41,8 @@ ASC.Files.Utility.FileExtensionLibrary = {
     AviExts: [".avi"],
     CsvExts: [".csv"],
     DjvuExts: [".djvu"],
-    DocExts: [".doc", ".docx"],
+    DocExts: [".doc"],
+    DocxExts: [".docx"],
     DoctExts: [".doct"],
     EbookExts: [".epub", ".fb2"],
     FlvExts: [".flv", ".fla"],
@@ -57,15 +58,18 @@ ASC.Files.Utility.FileExtensionLibrary = {
     OdsExts: [".ods"],
     OdtExts: [".odt"],
     PdfExts: [".pdf"],
-    PpsExts: [".pps", ".ppsx"],
-    PptExts: [".ppt", ".pptx"],
+    PpsExts: [".pps"],
+    PpsxExts: [".ppsx"],
+    PptExts: [".ppt"],
+    PptxExts: [".pptx"],
     PpttExts: [".pptt"],
     RtfExts: [".rtf"],
     SoundExts: [".mp3", ".wav", ".pcm", ".aiff", ".3gp", ".flac", ".fla", ".cda"],
     SvgExts: [".svg"],
     TxtExts: [".txt"],
     DvdExts: [".vob"],
-    XlsExts: [".xls", ".xlsx"],
+    XlsExts: [".xls"],
+    XlsxExts: [".xlsx"],
     XlstExts: [".xlst"],
     XmlExts: [".xml"],
     XpsExts: [".xps"],
@@ -76,81 +80,94 @@ ASC.Files.Utility.FileExtensionLibrary = {
 };
 
 ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
-    var fileExt = ASC.Files.Utility.GetFileExtension(fileTitle);
+    var utility = ASC.Files.Utility,
+        fileExtensionLibrary = utility.FileExtensionLibrary,
+        fileExt = utility.GetFileExtension(fileTitle),
+        ext = "file",
+        checkInArray = function(extsArray) {
+            return jq.inArray(fileExt, extsArray) != -1;
+        };
 
-    var ext = "file";
 
-    if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.ArchiveExts) != -1)
+    if (checkInArray(fileExtensionLibrary.ArchiveExts))
         ext = "Archive";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.AviExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.AviExts))
         ext = "Avi";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.CsvExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.CsvExts))
         ext = "Csv";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.DjvuExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.DjvuExts))
         ext = "Djvu";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.DocExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.DocExts))
         ext = "Doc";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.DoctExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.DocxExts))
+        ext = "Docx";
+    else if (checkInArray(fileExtensionLibrary.DoctExts))
         ext = "Doct";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.EbookExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.EbookExts))
         ext = "Ebook";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.FlvExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.FlvExts))
         ext = "Flv";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.HtmlExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.HtmlExts))
         ext = "Html";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.IafExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.IafExts))
         ext = "Iaf";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.ImgExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.ImgExts))
         ext = "Image";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.M2tsExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.M2tsExts))
         ext = "M2ts";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.MkvExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.MkvExts))
         ext = "Mkv";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.MovExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.MovExts))
         ext = "Mov";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.Mp4Exts) != -1)
+    else if (checkInArray(fileExtensionLibrary.Mp4Exts))
         ext = "Mp4";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.MpgExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.MpgExts))
         ext = "Mpg";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.OdpExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.OdpExts))
         ext = "Odp";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.OdtExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.OdtExts))
         ext = "Odt";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.OdsExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.OdsExts))
         ext = "Ods";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.PdfExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.PdfExts))
         ext = "Pdf";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.PpsExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.PpsExts))
         ext = "Pps";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.PptExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.PpsxExts))
+        ext = "Ppsx";
+    else if (checkInArray(fileExtensionLibrary.PptExts))
         ext = "Ppt";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.PpttExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.PptxExts))
+        ext = "Pptx";
+    else if (checkInArray(fileExtensionLibrary.PpttExts))
         ext = "Pptt";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.RtfExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.RtfExts))
         ext = "Rtf";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.SoundExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.SoundExts))
         ext = "Sound";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.SvgExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.SvgExts))
         ext = "Svg";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.TxtExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.TxtExts))
         ext = "Txt";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.DvdExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.DvdExts))
         ext = "Dvd";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.XlsExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.XlsExts))
         ext = "Xls";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.XlstExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.XlsxExts))
+        ext = "Xlsx";
+    else if (checkInArray(fileExtensionLibrary.XlstExts))
         ext = "Xlst";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.XmlExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.XmlExts))
         ext = "Xml";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.XpsExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.XpsExts))
         ext = "Xps";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.GdocExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.GdocExts))
         ext = "Gdoc";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.GsheetExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.GsheetExts))
         ext = "Gsheet";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.GslidesExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.GslidesExts))
         ext = "Gslides";
-    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.CalendarExts) != -1)
+    else if (checkInArray(fileExtensionLibrary.CalendarExts))
         ext = "Cal";
 
     return "ftFile_" + (compact === true ? 21 : 32) + " ft_" + ext;
@@ -194,11 +211,10 @@ ASC.Files.Utility.CanWebView = function (fileTitle) {
     return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebPreviewed) != -1;
 };
 
-ASC.Files.Utility.CanWebEdit = function (fileTitle, withoutMobileDetect) {
+ASC.Files.Utility.CanWebEdit = function (fileTitle) {
     return (
         ASC.Files.Utility.CanWebEditBrowser && Teamlab.profile.isVisitor !== true
             ? jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebEdited) != -1
-                && (!jq.browser.mobile || withoutMobileDetect === true)
             : false
     );
 };

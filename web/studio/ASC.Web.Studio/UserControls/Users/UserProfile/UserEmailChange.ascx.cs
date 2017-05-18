@@ -41,13 +41,18 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         public UserInfo UserInfo { get; set; }
 
+        public bool RegisterStylesAndScripts { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             _emailChangerContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(typeof(EmailOperationService));
 
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less");
-            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofilecontrol.js");
+            if (RegisterStylesAndScripts)
+            {
+                Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less")
+                    .RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofilecontrol.js");
+            }
         }
     }
 }

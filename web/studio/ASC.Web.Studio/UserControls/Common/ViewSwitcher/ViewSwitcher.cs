@@ -163,8 +163,8 @@ namespace ASC.Web.Studio.UserControls.Common.ViewSwitcher
 
         public void InitViewSwitcherScripts(Page p, List<ViewSwitcherTabItem> tabs)
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/viewswitcher/js/viewswitcher.js");
-            Page.RegisterStyle("~/usercontrols/common/viewswitcher/css/viewswitcher.css");
+            Page.RegisterBodyScripts("~/usercontrols/common/viewswitcher/js/viewswitcher.js")
+                .RegisterStyle("~/usercontrols/common/viewswitcher/css/viewswitcher.css");
 
             if (tabs != null && tabs.Count > 0)
             {

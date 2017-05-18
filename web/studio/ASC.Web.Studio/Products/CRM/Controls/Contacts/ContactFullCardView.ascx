@@ -118,6 +118,12 @@
                         <td id="contactManagerList"></td>
                     </tr>
 
+                    <tr>
+                        <td class="describe-text" style="white-space:nowrap;"><%= CRMCommonResource.CreationDate %>:</td>
+                        <td></td>
+                        <td><%= TargetContact.CreateOn.ToShortDateString() %></td>
+                    </tr>
+
                     <tr class="">
                         <td colspan="3">
                             <div class="small-button-container">

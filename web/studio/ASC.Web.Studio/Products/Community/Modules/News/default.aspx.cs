@@ -29,24 +29,22 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Web;
+using ASC.Core;
 using ASC.Notify.Model;
 using ASC.Notify.Recipients;
-using ASC.Web.Community.News.Code.Module;
-using ASC.Web.Studio.UserControls.Common.Comments;
-using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
+using ASC.Web.Community.News.Code.Module;
 using ASC.Web.Community.News.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using FeedNS = ASC.Web.Community.News.Code;
-using Newtonsoft.Json;
 
 namespace ASC.Web.Community.News
 {
@@ -201,7 +199,7 @@ namespace ASC.Web.Community.News
                     TimeStampStr = comment.Date.Ago(),
                     IsRead = true,
                     Inactive = comment.Inactive,
-                    CommentBody = comment.Comment,
+                    CommentBody = HtmlUtility.GetFull(comment.Comment),
                     UserFullName = DisplayUserSettings.GetFullUserName(new Guid(comment.Creator)),
                     UserProfileLink = CommonLinkUtility.GetUserProfile(comment.Creator),
                     UserAvatarPath = UserPhotoManager.GetBigPhotoURL(new Guid(comment.Creator)),

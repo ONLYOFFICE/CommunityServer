@@ -44,20 +44,41 @@ PasswordSettingsManager = new function () {
 
             var jsonObj = JSON.parse(res);
 
-            jq('#slider').slider({
-                range: "max",
-                min: 6,
-                max: 16,
-                value: jsonObj.MinLength,
-                slide: function (event, ui) {
-                    jq("#count").html(ui.value);
+            var onSlide = function (event, ui) {
+                var value = jq("#slider").slider("value");
+                jq("#count").html(value);
+            };
+            var calcMin = function () {
+                var min = 0;
+
+                min += jq("#chkUpperCase").is(":checked") ? 1 : 0;
+                min += jq("#chkDigits").is(":checked") ? 1 : 0;
+                min += jq("#chkSpecSymbols").is(":checked") ? 1 : 0;
+                min = Math.max(1, min);
+                var value = jq("#slider").slider("value");
+
+                jq('#slider').slider({min: min});
+                if (value < min) {
+                    jq('#slider').slider("value", min);
                 }
+            };
+
+            jq("#slider").slider({
+                range: "max",
+                max: (jq("#slider").attr("data-max") | 0) || 30,
+                value: jsonObj.MinLength,
+                change: onSlide,
+                slide: onSlide,
             });
 
-            jq("#count").html(jsonObj.MinLength);
-            jq("input#chkUpperCase").prop("checked", jsonObj.UpperCase);
-            jq("input#chkDigits").prop("checked", jsonObj.Digits);
-            jq("input#chkSpecSymbols").prop("checked", jsonObj.SpecSymbols);
+            jq("#chkUpperCase").prop("checked", jsonObj.UpperCase);
+            jq("#chkDigits").prop("checked", jsonObj.Digits);
+            jq("#chkSpecSymbols").prop("checked", jsonObj.SpecSymbols);
+
+            jq("#chkUpperCase, #chkDigits, #chkSpecSymbols").change(calcMin);
+            
+            calcMin();
+            onSlide();
         });
     };
 
@@ -71,7 +92,7 @@ PasswordSettingsManager = new function () {
         };
 
         var jsonObj = {
-            "MinLength": jq('#count').html(),
+            "MinLength": jq("#slider").slider("value"),
             "UpperCase": jq("input#chkUpperCase").is(":checked"),
             "Digits": jq("input#chkDigits").is(":checked"),
             "SpecSymbols": jq("input#chkSpecSymbols").is(":checked")

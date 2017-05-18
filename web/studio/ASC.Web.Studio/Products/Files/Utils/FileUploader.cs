@@ -193,7 +193,7 @@ namespace ASC.Web.Files.Utils
                 var uploadSession = dao.CreateUploadSession(file, contentLength);
 
                 uploadSession.Expired = uploadSession.Created + ChunkedUploadSessionHolder.SlidingExpiration;
-                uploadSession.Location = FilesLinkUtility.GetUploadChunkLocationUrl(uploadSession.Id, contentLength > 0);
+                uploadSession.Location = FilesLinkUtility.GetUploadChunkLocationUrl(uploadSession.Id);
                 uploadSession.TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 uploadSession.UserId = SecurityContext.CurrentAccount.ID;
                 uploadSession.FolderId = folderId;
@@ -215,7 +215,7 @@ namespace ASC.Web.Files.Utils
                 throw new Exception(FilesCommonResource.ErrorMassage_EmptyFile);
             }
 
-            if (chunkLength > SetupInfo.MaxUploadSize)
+            if (chunkLength > SetupInfo.ChunkUploadSize)
             {
                 throw FileSizeComment.GetFileSizeException(SetupInfo.MaxUploadSize);
             }

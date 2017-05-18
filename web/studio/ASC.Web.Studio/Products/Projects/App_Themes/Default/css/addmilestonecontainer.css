@@ -340,11 +340,7 @@ body.media-width-0-1200 .task .title
 	width: 145px;
 	text-align: right
 }
-.chooseResponsible .dottedLink {
-	max-width: 140px;
-	display: inline-block;
-	overflow: hidden;
-}
+
 .chooseResponsible.nobody {
 	display: none;
 }
@@ -361,4 +357,11 @@ body.media-width-0-1200 .task .title
 #addTaskContainer .chooseResponsible {
 	margin-right: 51px;
 	display: inline-block;
+}
+
+.chooseResponsible .link.dotline {
+    max-width: 140px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
 }

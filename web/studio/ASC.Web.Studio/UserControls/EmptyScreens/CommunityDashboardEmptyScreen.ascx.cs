@@ -61,6 +61,9 @@ namespace ASC.Web.Studio.UserControls.EmptyScreens
         {
             HelpLink = CommonLinkUtility.GetHelpLink();
             InitPermission();
+
+            if (!IsBlogsAvailable && !IsEventsAvailable && !IsBookmarksAvailable && string.IsNullOrEmpty(HelpLink))
+                Response.Redirect(ProductStartUrl);
         }
 
 

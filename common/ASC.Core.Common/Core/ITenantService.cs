@@ -44,7 +44,7 @@ namespace ASC.Core
 
         Tenant SaveTenant(Tenant tenant);
 
-        void RemoveTenant(int id);
+        void RemoveTenant(int id, bool auto = false);
 
         byte[] GetTenantSettings(int tenant, string key);
 

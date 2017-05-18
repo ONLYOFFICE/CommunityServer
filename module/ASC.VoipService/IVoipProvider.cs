@@ -41,10 +41,18 @@ namespace ASC.VoipService
 
         VoipPhone GetPhone(object[] r);
 
+        VoipPhone GetPhone(string id);
+
+        VoipCall GetCall(string callId);
+
         string GetToken(Agent agent, int seconds = 60*60*24);
 
         void UpdateSettings(VoipPhone phone);
 
-        string GetRecord(string callId);
+        VoipRecord GetRecord(string recordId);
+
+        void CreateQueue(VoipPhone newPhone);
+
+        void DisablePhone(VoipPhone phone);
     }
 }

@@ -16,7 +16,7 @@
     <NuGetCommand Condition=" '$(OS)' != 'Windows_NT' ">mono $(ASCDir).nuget\NuGet.exe</NuGetCommand>
     <PackagesConfig>$(ASCDir).nuget\packages.config</PackagesConfig>
     <NuGetConfig>$(ASCDir).nuget\NuGet.Config</NuGetConfig>
-    <RestoreCommand>$(NuGetCommand) install $(PackagesConfig) -ConfigFile $(NuGetConfig) -SolutionDirectory $(ASCDir) -OutputDirectory $(ASCDir)packages -NonInteractive -NoCache</RestoreCommand>
+    <RestoreCommand>$(NuGetCommand) install $(PackagesConfig) -ConfigFile $(NuGetConfig) -SolutionDirectory $(ASCDir) -OutputDirectory $(ASCDir)packages -NonInteractive -NoCache -PackageSaveMode nuspec</RestoreCommand>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,7 +50,6 @@
     <ProjectToBuild Include="$(ASCDir)common\TMResourceManager\ASC.Resource.Upload\ASC.Resource.Upload.csproj" Condition=" Exists( '$(ASCDir)common\TMResourceManager\ASC.Resource.Upload\ASC.Resource.Upload.csproj' ) "/>
     <ProjectToBuild Include="$(ASCDir)web\core\ASC.Web.Core\ASC.Web.Core.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService\ASC.VoipService.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService.Application\ASC.VoipService.Application.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.SingleSignOn\ASC.SingleSignOn.csproj" Condition=" Exists('$(ASCDir)common\ASC.SingleSignOn\') "/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj"/>
 
@@ -110,7 +109,6 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\AdministrationModel\AdministrationModel.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\MockAdministration\MockAdministration.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\PostfixAdministration\PostfixAdministration.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\DnsChecker\DnsChecker.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\DnsCheckerService\ASC.MailServer.DnsCheckerService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
 
     <!-- Mail Site -->
@@ -146,6 +144,7 @@
     <!-- SignalR service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj" Condition=" Exists( '$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj' ) "/>
 
+	<ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj"/>
     <!-- ThumbnailHelper -->
     <ProjectToBuild Include="$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj" Condition=" Exists( '$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj' ) "/>
 

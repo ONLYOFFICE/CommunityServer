@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Core.Common.Settings;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -62,8 +63,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/Management/PortalAccessSettings/js/portalAccess.js");
-            Page.RegisterStyle("~/usercontrols/management/PortalAccessSettings/css/portalAccess.less");
+            Page.RegisterBodyScripts("~/usercontrols/Management/PortalAccessSettings/js/portalAccess.js")
+                .RegisterStyle("~/usercontrols/management/PortalAccessSettings/css/portalAccess.less");
 
             var managementPage = Page as Studio.Management;
 

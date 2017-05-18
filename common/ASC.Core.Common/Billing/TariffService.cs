@@ -492,9 +492,20 @@ namespace ASC.Core.Billing
 
                 if ((q == null || !q.Trial) && config.Standalone)
                 {
-                    var licenseDate = tariff.DueDate;
-                    tariff = Tariff.CreateDefault();
-                    tariff.LicenseDate = licenseDate;
+                    if (q != null)
+                    {
+                        var defaultQuota = quotaService.GetTenantQuota(Tenant.DEFAULT_TENANT);
+                        if (defaultQuota.CountPortals != q.CountPortals)
+                        {
+                            defaultQuota.CountPortals = q.CountPortals;
+                            quotaService.SaveTenantQuota(defaultQuota);
+                        }
+                    }
+
+                    var unlimTariff = Tariff.CreateDefault();
+                    unlimTariff.LicenseDate = tariff.DueDate;
+
+                    tariff = unlimTariff;
                 }
             }
 

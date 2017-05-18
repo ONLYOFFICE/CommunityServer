@@ -45,5 +45,6 @@ body #fileSelectorTree {
 }
 
 #mailMergeTitle {
+    margin-top: 8px;
     width: 370px;
 }

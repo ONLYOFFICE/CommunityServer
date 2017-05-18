@@ -34,6 +34,7 @@ using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
 
 using AjaxPro;
+using Resources;
 
 namespace ASC.Web.Studio.Core
 {
@@ -93,23 +94,25 @@ namespace ASC.Web.Studio.Core
         public string SendEmailActivationInstructions(Guid userID, string email)
         {
             if (userID == Guid.Empty) throw new ArgumentNullException("userID");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentNullException(Resources.Resource.ErrorEmailEmpty);
-            if (!email.TestEmailRegex()) throw new InvalidEmailException(Resources.Resource.ErrorNotCorrectEmail);
+
+            email = (email ?? "").Trim();
+            if (String.IsNullOrEmpty(email)) throw new ArgumentNullException(Resource.ErrorEmailEmpty);
+            if (!email.TestEmailRegex()) throw new InvalidEmailException(Resource.ErrorNotCorrectEmail);
 
             try
             {
                 var viewer = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
                 var user = CoreContext.UserManager.GetUsers(userID);
 
-                if (user == null) throw new UserNotFoundException(Resources.Resource.ErrorUserNotFound);
+                if (user == null) throw new UserNotFoundException(Resource.ErrorUserNotFound);
 
-                if (viewer == null) throw new AccessDeniedException(Resources.Resource.ErrorAccessDenied);
+                if (viewer == null) throw new AccessDeniedException(Resource.ErrorAccessDenied);
 
                 if (viewer.IsAdmin() || viewer.ID == user.ID)
                 {
                     var existentUser = CoreContext.UserManager.GetUserByEmail(email);
                     if (existentUser.ID != ASC.Core.Users.Constants.LostUser.ID && existentUser.ID != userID)
-                        throw new InputException(CustomNamingPeople.Substitute<Resources.Resource>("ErrorEmailAlreadyExists"));
+                        throw new InputException(CustomNamingPeople.Substitute<Resource>("ErrorEmailAlreadyExists"));
 
                     user.Email = email;
                     if (user.ActivationStatus == EmployeeActivationStatus.Activated)
@@ -141,7 +144,7 @@ namespace ASC.Web.Studio.Core
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, user.DisplayUserName(false));
 
-                return String.Format(Resources.Resource.MessageEmailActivationInstuctionsSentOnEmail, "<b>" + email + "</b>");
+                return String.Format(Resource.MessageEmailActivationInstuctionsSentOnEmail, "<b>" + email + "</b>");
             }
             catch(UserNotFoundException)
             {
@@ -157,7 +160,7 @@ namespace ASC.Web.Studio.Core
             }
             catch(Exception)
             {
-                throw new Exception(Resources.Resource.UnknownError);
+                throw new Exception(Resource.UnknownError);
             }
         }
 
@@ -169,14 +172,11 @@ namespace ASC.Web.Studio.Core
         [AjaxMethod]
         public string SendEmailChangeInstructions(Guid userID, string email)
         {
-            if (userID == Guid.Empty)
-                throw new ArgumentNullException("userID");
+            if (userID == Guid.Empty) throw new ArgumentNullException("userID");
 
-            if (String.IsNullOrEmpty(email))
-                throw new Exception(Resources.Resource.ErrorEmailEmpty);
-
-            if (!email.TestEmailRegex())
-                throw new Exception(Resources.Resource.ErrorNotCorrectEmail);
+            email = (email ?? "").Trim();
+            if (String.IsNullOrEmpty(email)) throw new Exception(Resource.ErrorEmailEmpty);
+            if (!email.TestEmailRegex()) throw new Exception(Resource.ErrorNotCorrectEmail);
 
             try
             {
@@ -184,14 +184,14 @@ namespace ASC.Web.Studio.Core
                 var user = CoreContext.UserManager.GetUsers(userID);
 
                 if (user == null)
-                    throw new UserNotFoundException(Resources.Resource.ErrorUserNotFound);
+                    throw new UserNotFoundException(Resource.ErrorUserNotFound);
 
                 if (viewer == null || (user.IsOwner() && viewer.ID != user.ID))
-                    throw new AccessDeniedException(Resources.Resource.ErrorAccessDenied);
+                    throw new AccessDeniedException(Resource.ErrorAccessDenied);
 
                 var existentUser = CoreContext.UserManager.GetUserByEmail(email);
                 if (existentUser.ID != ASC.Core.Users.Constants.LostUser.ID)
-                    throw new InputException(CustomNamingPeople.Substitute<Resources.Resource>("ErrorEmailAlreadyExists"));
+                    throw new InputException(CustomNamingPeople.Substitute<Resource>("ErrorEmailAlreadyExists"));
 
                 if (!viewer.IsAdmin())
                 {
@@ -200,7 +200,7 @@ namespace ASC.Web.Studio.Core
                 else
                 {
                     if (email == user.Email)
-                        throw new InputException(Resources.Resource.ErrorEmailsAreTheSame);
+                        throw new InputException(Resource.ErrorEmailsAreTheSame);
 
                     user.Email = email;
                     user.ActivationStatus = EmployeeActivationStatus.NotActivated;
@@ -210,7 +210,7 @@ namespace ASC.Web.Studio.Core
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentEmailChangeInstructions, user.DisplayUserName(false));
 
-                return String.Format(Resources.Resource.MessageEmailChangeInstuctionsSentOnEmail, "<b>" + email + "</b>");
+                return String.Format(Resource.MessageEmailChangeInstuctionsSentOnEmail, "<b>" + email + "</b>");
             }
             catch(AccessDeniedException)
             {
@@ -226,7 +226,7 @@ namespace ASC.Web.Studio.Core
             }
             catch(Exception)
             {
-                throw new Exception(Resources.Resource.UnknownError);
+                throw new Exception(Resource.UnknownError);
             }
         }
     }

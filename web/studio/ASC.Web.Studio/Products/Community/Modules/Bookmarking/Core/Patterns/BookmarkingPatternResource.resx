@@ -112,41 +112,35 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
-    <value>Community. New Comment to Bookmark: $BookmarkTitle</value>
-  </data>
   <data name="pattern_BookmarkCommentCreatedID" xml:space="preserve">
     <value>h1.New Comment to Bookmark: "$BookmarkTitle":"$BookmarkUrl"
 
-$Date "$__AuthorName":"$__AuthorUrl" has added a comment to the bookmark:
+$Date "$__AuthorName":"$__AuthorUrl" has added a comment to the bookmark:"$BookmarkTitle":"$BookmarkUrl"
 
 $CommentBody
 
 "Read More":"$BookmarkUrl"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
-  </data>
-  <data name="subject_BookmarkCreatedID" xml:space="preserve">
-    <value>Community. New Bookmark Added: $BookmarkTitle</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this bookmark, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_BookmarkCreatedID" xml:space="preserve">
     <value>h1.New Bookmark Added: "$BookmarkTitle":"$BookmarkUrl"
 
-$Date "$__AuthorName":"$__AuthorUrl" has added a bookmark:
+$Date "$__AuthorName":"$__AuthorUrl" has added a new bookmark:"$BookmarkTitle":"$BookmarkUrl"
 
 $BookmarkDescription
 
-"Read More":"$BookmarkUrl"
-
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new bookmarks added, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
+    <value>Community. New comment to bookmark: $BookmarkTitle</value>
+  </data>
+  <data name="subject_BookmarkCreatedID" xml:space="preserve">
+    <value>Community. New bookmark added: $BookmarkTitle</value>
   </data>
 </root>

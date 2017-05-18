@@ -340,7 +340,7 @@ namespace ASC.Blogs.Core
                         new TagValue(Constants.TagCommentBody, comment.Content),
 
                         new TagValue(Constants.TagURL, CommonLinkUtility.GetFullAbsolutePath(Constants.ViewBlogPageUrl + "?blogid=" + post.ID.ToString())),
-                        new TagValue(Constants.TagCommentURL, CommonLinkUtility.GetFullAbsolutePath(Constants.ViewBlogPageUrl + "?blogid=" + post.ID.ToString() + "#" + comment.ID.ToString())),
+                        new TagValue(Constants.TagCommentURL, CommonLinkUtility.GetFullAbsolutePath(Constants.ViewBlogPageUrl + "?blogid=" + post.ID.ToString() + "#container_" + comment.ID.ToString())),
                         GetReplyToTag(comment.ID, post)
                     };
 

@@ -249,14 +249,13 @@
             elemPosLeft = elemPos.left,
             elemPosTop = elemPos.top + $elem.outerHeight() + 4, // 4 - the top padding
             $w = $(window),
-            docWidth = $(document).width(),
+            windowWidth = $(window).width(),
             scrHeight = $w.height(),
             topPadding = $w.scrollTop(),
             leftPadding = $w.scrollLeft(),
-            $addPanel = that.$advancedSelector.find(".advanced-selector-add-new-block")
+            $addPanel = that.$advancedSelector.find(".advanced-selector-add-new-block");
 
-
-        if ((elemPosLeft + that.$advancedSelector.outerWidth() - (!$addPanel.hasClass("right-position") ? $addPanel.outerWidth() : 0) ) > (leftPadding + docWidth)) {
+        if (($elem.offset().left + that.$advancedSelector.outerWidth() - ($addPanel.length && !$addPanel.hasClass("right-position") ? $addPanel.outerWidth() : 0)) > (leftPadding + windowWidth)) {
             elemPosLeft = Math.max(0, elemPosLeft + that.$element.outerWidth() - that.$advancedSelector.outerWidth());
         }
 
@@ -487,10 +486,11 @@
 
             if (!flag) {
                 $itemList.closest("li").addClass("selected").removeClass("chosen");
-                $this.addClass("chosen");
             } else {
                 $itemList.closest("li").removeClass("selected");
             }
+            $this.toggleClass("chosen", !flag);
+
             itemsList = that.$itemsListSelector.find("li:not(.disabled)");
             that.$advancedSelector.find(".advanced-selector-no-items").hide();
             itemsList.show();
@@ -771,7 +771,7 @@
             that.$itemsListSelector.find("li[data-id='" + itemsGroupList[j] + "']").show();
         }
 
-        if (!itemsList.filter(":visible").length) {
+        if (that.$itemsListSelector.is(":visible") && !itemsList.filter(":visible").length) {
             noItems.show();
         }
 
@@ -933,13 +933,15 @@
 
             that.heightListWithoutCreate = 225;
             that.heightListChooseOne = 200;
-            that.widthSelector = 211;
+            that.widthSelector = that.options.width ? that.options.width : 211;
             that.widthAddBlock = 216,
             that.items = [];
             that.groups = [];
             that.nameSimpleSelectorGroup = "";
             that.selectedItems = [];
             that.cache = {};
+
+            var advancedSelectorWidthAppender = 5;
 
 
             var $o = $.tmpl(that.options.templates.selectorContainer, { opts: that.options });
@@ -954,7 +956,30 @@
                 that.$groupsListSelector = that.$advancedSelector.find(".advanced-selector-list-groups");
             }
 
-            that.$advancedSelector.css({ width: (that.options.showGroups ? that.widthSelector * 2 : that.widthSelector + 5) + "px" });
+            that.$advancedSelector.css({
+                width: that.options.showGroups ? that.widthSelector * 2 : that.widthSelector + advancedSelectorWidthAppender
+            });
+
+            if (that.options.height || that.options.width) {
+                var $listBlock = that.$advancedSelector.find(".advanced-selector-list-block");
+
+                if (that.options.height) {
+                    var listBlockHeightPadding = $listBlock.innerHeight() - $listBlock.height();
+
+                    that.$advancedSelector.css({
+                        height: that.options.height + listBlockHeightPadding
+                    });
+                }
+
+                if (that.options.width) {
+                    var listWidthPadding = $listBlock.innerWidth() - $listBlock.width();
+
+                    that.$advancedSelector.find(".advanced-selector-block-list").css({
+                        width: ((that.options.showGroups ? that.widthSelector : that.widthSelector + advancedSelectorWidthAppender) - listWidthPadding) + "px"
+                    });
+                }
+            }
+
             setEvents.call(that);
         },
 
@@ -1179,6 +1204,10 @@
 
             if (!that.options.onechosen && that.options.canadd && !that.options.showGroups) {
                 height = 131;
+            }
+
+            if (that.options.height) {
+                height = that.options.height;
             }
 
             if (height) {

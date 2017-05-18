@@ -17,11 +17,13 @@
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
     <link href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/app_themes/default/css/wikicssprint.css")%>"
         rel="stylesheet" type="text/css" media="print" />
-
 </asp:Content>
+
 <asp:Content ContentPlaceHolderID="WikiContents" runat="Server">
- <div id="actionWikiPage" >
-   <asp:PlaceHolder ID="WikiSideHolder" runat="server">
+    <div id="actionWikiPage">
+
+
+    <asp:PlaceHolder ID="WikiSideHolder" runat="server">
   
     <div class="WikiHeaderBlock header-with-menu" style="margin-bottom: 16px;">
         <span class="header"><%=HttpUtility.HtmlEncode(WikiPageName)%></span>
@@ -31,19 +33,25 @@
         <span class="menu-small topic"></span>
     </div>
     </asp:PlaceHolder>
-    <%-- asp:LinkButton id="cmdInternal" Text="DoIt" runat="server" OnClick="cmdInternal_Click" /--%>
+
+
+
     <asp:Panel ID="pView" runat="Server" CssClass="wikiBody">
         <asp:Panel ID="PrintHeader" runat="Server" CssClass="PrintHeader">
             <%=PrintPageNameEncoded%>
         </asp:Panel>
         <wiki:ucViewPage runat="Server" ID="wikiViewPage" OnPageEmpty="OnPageEmpty" OnPublishVersionInfo="On_PublishVersionInfo"
             OnWikiPageLoaded="wikiViewPage_WikiPageLoaded" />
+
         <wiki:ucViewFile runat="Server" ID="wikiViewFile" OnPageEmpty="OnPageEmpty" OnPublishVersionInfo="On_PublishVersionInfo"
             OnWikiPageLoaded="wikiViewPage_WikiPageLoaded" />
+
         <asp:Panel runat="Server" ID="pPageIsNotExists">
             <asp:Label ID="txtPageEmptyLabel" CssClass="lblNotExists" runat="Server" />
         </asp:Panel>
+
     </asp:Panel>
+
     <asp:Literal ID="ActionPanel" runat="server"></asp:Literal>
     <div id="edit_container">
         <wiki:ucEditPage runat="Server" PreviewContainer="_PrevContainer" PreviewView="_PrevValue"
@@ -129,8 +137,7 @@
         </asp:Repeater>
     </asp:PlaceHolder>
     <div id="wikiCommentsDiv">
-        <scl:Commentslist id="commentList" runat="server" style="width: 100%;" Visible="false">
-        </scl:Commentslist>
+        <scl:Commentslist id="commentList" runat="server" style="width: 100%;" Visible="false"> </scl:Commentslist>
     </div>
 </div>
 </asp:Content>

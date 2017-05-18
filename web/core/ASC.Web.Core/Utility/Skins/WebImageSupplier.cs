@@ -44,9 +44,14 @@ namespace ASC.Web.Core.Utility.Skins
 
         public static string GetImageFolderAbsoluteWebPath()
         {
+            return GetImageFolderAbsoluteWebPath(Guid.Empty);
+        }
+
+        public static string GetImageFolderAbsoluteWebPath(Guid moduleID)
+        {
             if (HttpContext.Current == null) return string.Empty;
 
-            var currentThemePath = GetPartImageFolderRel(Guid.Empty);
+            var currentThemePath = GetPartImageFolderRel(moduleID);
             return WebPath.GetPath(currentThemePath.ToLower());
         }
 

@@ -29,7 +29,9 @@ window.administrationPage = (function($) {
         page,
         mailboxActionButtons = [],
         groupActionButtons = [],
-        domainActionButtons = [];
+        domainActionButtons = [],
+        progressBarIntervalId = null,
+        GET_STATUS_TIMEOUT = 10000;
 
     function init() {
         if (isInit === false) {
@@ -282,9 +284,44 @@ window.administrationPage = (function($) {
         var mailboxElement = $('.mailbox_table_container tr[data_id=' + id + ']');
 
         if (mailboxElement.length > 0) {
-            serviceManager.removeMailbox(id, {}, { error: administrationError.getErrorHandler("removeMailbox") },
+            serviceManager.removeMailbox(id,
+                { id: id },
+                {
+                    success: function(params, operation) {
+                        window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
+                        window.LoadingBanner.displayMailLoading(true, true);
+
+                        progressBarIntervalId = setInterval(function() {
+                            return checkRemoveMailboxStatus(operation, id);
+                            },
+                            GET_STATUS_TIMEOUT);
+                    },
+                    error: administrationError.getErrorHandler("removeMailbox")
+                },
                 ASC.Resources.Master.Resource.LoadingProcessing);
         }
+    }
+
+    function checkRemoveMailboxStatus(operation, id) {
+        serviceManager.getMailOperationStatus(operation.id,
+        null,
+        {
+            success: function (params, data) {
+                if (data.completed) {
+                    clearInterval(progressBarIntervalId);
+                    progressBarIntervalId = null;
+                    window.administrationManager.removeMailbox(id);
+                    window.LoadingBanner.hideLoading();
+                }
+            },
+            error: function (e, error) {
+                console.error("checkRemoveMailboxStatus", e, error);
+                clearInterval(progressBarIntervalId);
+                progressBarIntervalId = null;
+                administrationError.getErrorHandler("removeMailbox");
+                window.LoadingBanner.hideLoading();
+            }
+        });
     }
 
     function onRemoveMailbox(params, mailbox) {

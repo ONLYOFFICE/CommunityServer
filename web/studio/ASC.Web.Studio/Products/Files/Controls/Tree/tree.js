@@ -52,8 +52,8 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         if (htmlData != "") {
             treeNode.removeClass("jstree-empty").append("<ul>" + htmlData + "</ul>");
             treeNode.find("ul a").each(function () {
-                var hash = getFolderId(this);
-                hash = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(hash);
+                var entryId = getFolderId(this);
+                var hash = ASC.Files.UI.getEntryLink("folder", entryId);
                 jq(this).attr("href", hash);
             });
         } else {

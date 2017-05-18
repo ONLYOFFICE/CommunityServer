@@ -24,13 +24,13 @@
 */
 
 
-using ASC.Common.Threading;
-using ASC.Core;
-using ASC.Web.Files.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ASC.Common.Threading;
+using ASC.Core;
+using ASC.Web.Files.Resources;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
@@ -42,36 +42,33 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         public ItemList<FileOperationResult> GetOperationResults()
         {
             var operations = tasks.GetTasks();
-            foreach (var o in operations)
+            foreach (var o in operations.Where(o => string.IsNullOrEmpty(o.InstanseId)
+                                                    || Process.GetProcesses().All(p => p.Id != int.Parse(o.InstanseId))))
             {
-                if (string.IsNullOrEmpty(o.InstanseId) || !Process.GetProcesses().Any(p => p.Id == int.Parse(o.InstanseId)))
-                {
-                    o.SetProperty(FileOperation.PROGRESS, 100);
-                    tasks.RemoveTask(o.Id);
-                }
+                o.SetProperty(FileOperation.PROGRESS, 100);
+                tasks.RemoveTask(o.Id);
             }
 
             operations = operations.Where(t => t.GetProperty<Guid>(FileOperation.OWNER) == SecurityContext.CurrentAccount.ID);
-            foreach (var o in operations)
+            foreach (var o in operations.Where(o => DistributedTaskStatus.Running < o.Status))
             {
-                if (DistributedTaskStatus.Running < o.Status)
-                {
-                    o.SetProperty(FileOperation.PROGRESS, 100);
-                    tasks.RemoveTask(o.Id);
-                }
+                o.SetProperty(FileOperation.PROGRESS, 100);
+                tasks.RemoveTask(o.Id);
             }
 
-            var results = operations.Select(o => new FileOperationResult
-            {
-                Id = o.Id,
-                OperationType = o.GetProperty<FileOperationType>(FileOperation.OPERATION_TYPE),
-                Source = o.GetProperty<string>(FileOperation.SOURCE),
-                Progress = o.GetProperty<int>(FileOperation.PROGRESS),
-                Processed = o.GetProperty<int>(FileOperation.PROCESSED).ToString(),
-                Result = o.GetProperty<string>(FileOperation.RESULT),
-                Error = o.GetProperty<string>(FileOperation.ERROR),
-                Finished = o.GetProperty<bool>(FileOperation.FINISHED),
-            });
+            var results = operations
+                .Where(o => o.GetProperty<bool>(FileOperation.HOLD) || o.GetProperty<int>(FileOperation.PROGRESS) != 100)
+                .Select(o => new FileOperationResult
+                    {
+                        Id = o.Id,
+                        OperationType = o.GetProperty<FileOperationType>(FileOperation.OPERATION_TYPE),
+                        Source = o.GetProperty<string>(FileOperation.SOURCE),
+                        Progress = o.GetProperty<int>(FileOperation.PROGRESS),
+                        Processed = o.GetProperty<int>(FileOperation.PROCESSED).ToString(),
+                        Result = o.GetProperty<string>(FileOperation.RESULT),
+                        Error = o.GetProperty<string>(FileOperation.ERROR),
+                        Finished = o.GetProperty<bool>(FileOperation.FINISHED),
+                    });
 
             return new ItemList<FileOperationResult>(results);
         }
@@ -111,15 +108,15 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             return QueueTask(op);
         }
 
-        public ItemList<FileOperationResult> MoveOrCopy(List<object> folders, List<object> files, string destFolderId, bool copy, FileConflictResolveType resolveType, Dictionary<string, string> headers)
+        public ItemList<FileOperationResult> MoveOrCopy(List<object> folders, List<object> files, string destFolderId, bool copy, FileConflictResolveType resolveType, bool holdResult, Dictionary<string, string> headers)
         {
-            var op = new FileMoveCopyOperation(folders, files, destFolderId, copy, resolveType, headers);
+            var op = new FileMoveCopyOperation(folders, files, destFolderId, copy, resolveType, holdResult, headers);
             return QueueTask(op);
         }
 
-        public ItemList<FileOperationResult> Delete(List<object> folders, List<object> files, bool ignoreException, Dictionary<string, string> headers)
+        public ItemList<FileOperationResult> Delete(List<object> folders, List<object> files, bool ignoreException, bool holdResult, Dictionary<string, string> headers)
         {
-            var op = new FileDeleteOperation(folders, files, ignoreException, headers);
+            var op = new FileDeleteOperation(folders, files, ignoreException, holdResult, headers);
             return QueueTask(op);
         }
 

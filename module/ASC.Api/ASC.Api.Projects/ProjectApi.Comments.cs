@@ -25,21 +25,21 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
-using ASC.Projects.Core.Domain;
-using ASC.Web.Studio.UserControls.Common.Comments;
-using ASC.Projects.Engine;
-using ASC.Core.Tenants;
 using ASC.Core;
-using ASC.Web.Core.Users;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
-using ASC.Web.Studio.Utility;
+using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using System.Collections.Generic;
 
 namespace ASC.Api.Projects
 {
@@ -60,7 +60,10 @@ namespace ASC.Api.Projects
         [Read(@"comment/{commentid}")]
         public CommentWrapper GetComment(Guid commentid)
         {
-            return new CommentWrapper(EngineFactory.CommentEngine.GetByID(commentid).NotFoundIfNull());
+            var comment = EngineFactory.CommentEngine.GetByID(commentid).NotFoundIfNull();
+            var entity = EngineFactory.CommentEngine.GetEntityByTargetUniqId(comment).NotFoundIfNull();
+
+            return new CommentWrapper(comment, entity);
         }
 
         /////<summary>
@@ -140,7 +143,7 @@ namespace ASC.Api.Projects
                 TimeStampStr = comment.CreateOn.Ago(),
                 UserPost = creator.Title,
                 Inactive = comment.Inactive,
-                CommentBody = comment.Content,
+                CommentBody = HtmlUtility.GetFull(comment.Content),
                 UserFullName = DisplayUserSettings.GetFullUserName(creator),
                 UserProfileLink = creator.GetUserProfilePageURL(),
                 UserAvatarPath = creator.GetBigPhotoURL()
@@ -199,7 +202,7 @@ namespace ASC.Api.Projects
             comment = commentEngine.SaveOrUpdateComment(entity, comment);
             MessageService.Send(Request, MessageAction.TaskCommentCreated, entity.Project.Title, entity.Title);
 
-            return GetCommentInfo(comment, entity);
+            return GetCommentInfo(null, comment, entity);
         }
 
         /// <category>Comments</category>
@@ -221,25 +224,32 @@ namespace ASC.Api.Projects
             return HtmlUtility.GetFull(content);
         }
 
-        private CommentInfo GetCommentInfo(Comment comment, ProjectEntity entity)
+        internal CommentInfo GetCommentInfo(IEnumerable<Comment> allComments, Comment comment, ProjectEntity entity)
         {
             var creator = EngineFactory.ParticipantEngine.GetByID(comment.CreateBy).UserInfo;
             var oCommentInfo = new CommentInfo
             {
                 TimeStamp = comment.CreateOn,
                 TimeStampStr = comment.CreateOn.Ago(),
-                CommentBody = comment.Content,
+                CommentBody = HtmlUtility.GetFull(comment.Content),
                 CommentID = comment.OldGuidId.ToString(),
                 UserID = comment.CreateBy,
                 UserFullName = creator.DisplayUserName(),
                 UserProfileLink = creator.GetUserProfilePageURL(),
                 Inactive = comment.Inactive,
-                IsEditPermissions = ProjectSecurity.CanEditComment(entity != null ? entity.Project : null, comment),
+                IsEditPermissions = ProjectSecurity.CanEditComment(entity, comment),
                 IsResponsePermissions = ProjectSecurity.CanCreateComment(entity),
                 IsRead = true,
                 UserAvatarPath = creator.GetBigPhotoURL(),
-                UserPost = creator.Title
+                UserPost = creator.Title,
+                CommentList = new List<CommentInfo>()
             };
+
+            if (allComments != null)
+                foreach (var com in allComments.Where(com => com.Parent == comment.OldGuidId))
+                {
+                    oCommentInfo.CommentList.Add(GetCommentInfo(allComments, com, entity));
+                }
 
             return oCommentInfo;
         }

@@ -24,11 +24,9 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.UI;
-using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using System;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -45,9 +43,6 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("eventhandler.js"));
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/contentlist/contentlist.css");
-
             var emptyFolder = (EmptyFolder)LoadControl(EmptyFolder.Location);
             emptyFolder.AllContainers = FolderIDCurrentRoot == null;
             emptyFolder.HideAddActions = HideAddActions;

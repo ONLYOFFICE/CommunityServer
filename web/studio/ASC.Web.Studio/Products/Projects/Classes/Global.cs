@@ -39,8 +39,6 @@ namespace ASC.Web.Projects.Classes
 
         public static readonly string DbID = "projects";
 
-        public static readonly String FileKeyFormat = "{0}/{1}/{2}/{3}"; // ProjectID/FileID/FileVersion/FileTitle
-
         public static readonly int EntryCountOnPage = 25;
         public static readonly int VisiblePageCount = 3;
 

@@ -25,18 +25,17 @@
 
 
 using System;
-using System.Web;
 using System.Web.UI;
-using ASC.Projects.Engine;
-using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Core;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Configuration;
-using ASC.Web.Projects.Resources;
-using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Projects.Controls.Common;
+using ASC.Web.Projects.Masters.ClientScripts;
+using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects.Masters
 {
-    public partial class BasicTemplate : MasterPage
+    public partial class BasicTemplate : MasterPage, IStaticBundle
     {
         #region Properties
 
@@ -61,13 +60,9 @@ namespace ASC.Web.Projects.Masters
             set { Master.DisabledSidePanel = value; }
         }
 
-        public bool DisabledPrjNavPanel { get; set; }
-
         public bool DisabledEmptyScreens { get; set; }
 
         #endregion
-
-        #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -78,188 +73,111 @@ namespace ASC.Web.Projects.Masters
             Page.EnableViewState = false;
         }
 
-        #endregion
-
         #region Methods
 
         protected void InitControls()
         {
-            var requestContext = ((BasePage)Page).RequestContext;
             if (!Master.DisabledSidePanel)
             {
                 projectsNavigationPanel.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Common/NavigationSidePanel.ascx")));
             }
 
-            if (!DisabledPrjNavPanel && requestContext.IsInConcreteProject)
-            {
-                _projectNavigatePanel.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectNavigatePanel.ascx")));
-            }
-
-            _commonPopupHolder.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Common/CommonPopupContainer.ascx")));
-
-            if (!(DisabledEmptyScreens))
-                InitEmptyScreens();
+            _projectNavigatePanel.Controls.Add(LoadControl(CommonList.Location));
+            _projectNavigatePanel.Controls.Add(LoadControl(LoaderPage.Location));
         }
 
-        private void InitEmptyScreens()
+        public void AddControl(Control control)
         {
-            var requestContext = ((BasePage)Page).RequestContext;
-            emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(MessageResource.FilterNoDiscussions, MessageResource.DescrEmptyListMilFilter, "discEmptyScreenForFilter"));
-            emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(TaskResource.NoTasks, TaskResource.DescrEmptyListTaskFilter, "tasksEmptyScreenForFilter"));
-            emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(MilestoneResource.FilterNoMilestones, MilestoneResource.DescrEmptyListMilFilter, "mileEmptyScreenForFilter"));
-            emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(ProjectsCommonResource.Filter_NoProjects, ProjectResource.DescrEmptyListProjFilter, "prjEmptyScreenForFilter"));
-            emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(TimeTrackingResource.NoTimersFilter, TimeTrackingResource.DescrEmptyListTimersFilter, "timeEmptyScreenForFilter"));
-
-            emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
-                {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_tasks.png", ProductEntryPoint.ID),
-                    Header = TaskResource.NoTasksCreated,
-                    Describe = String.Format(TaskResource.TasksHelpTheManage, TaskResource.DescrEmptyListTaskFilter),
-                    ID = "emptyListTask",
-                    ButtonHTML = requestContext.CanCreateTask(true) ? String.Format("<span class='link dotline addFirstElement'>{0}</span>", TaskResource.AddFirstTask) : string.Empty
-                });
-
-            emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
-                {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_discussions.png", ProductEntryPoint.ID),
-                    Header = MessageResource.DiscussionNotFound_Header,
-                    Describe = MessageResource.DiscussionNotFound_Describe,
-                    ID = "emptyListDiscussion",
-                    ButtonHTML = requestContext.CanCreateDiscussion(true) ?
-                                     (requestContext.IsInConcreteProject
-                                          ? String.Format("<a href='messages.aspx?prjID={0}&action=add' class='link dotline addFirstElement'>{1}</a>", requestContext.GetCurrentProjectId(), MessageResource.StartFirstDiscussion)
-                                          : String.Format("<a href='messages.aspx?action=add' class='link dotline addFirstElement'>{0}</a>", MessageResource.StartFirstDiscussion))
-                                     : string.Empty
-                });
-
-            emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
-                {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_milestones.png", ProductEntryPoint.ID),
-                    Header = MilestoneResource.MilestoneNotFound_Header,
-                    Describe = String.Format(MilestoneResource.MilestonesMarkMajorTimestamps),
-                    ID = "emptyListMilestone",
-                    ButtonHTML = requestContext.CanCreateMilestone(true) ? String.Format("<a class='link dotline addFirstElement'>{0}</a>", MilestoneResource.PlanFirstMilestone) : string.Empty
-                });
-
-            emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
-                {
-                    Header = ProjectResource.EmptyListProjHeader,
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.png", ProductEntryPoint.ID),
-                    Describe = ProjectSecurity.CanCreateProject() ? ProjectResource.EmptyListProjDescribe : string.Empty,
-                    ID = "emptyListProjects",
-                    ButtonHTML = ProjectSecurity.CanCreateProject() ? string.Format("<a href='projects.aspx?action=add' class='projectsEmpty link dotline addFirstElement'>{0}<a>", ProjectResource.CreateFirstProject) : string.Empty
-                });
-
-            emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
-                {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_time_tracking.png", ProductEntryPoint.ID),
-                    Header = TimeTrackingResource.NoTtimers,
-                    Describe = String.Format(TimeTrackingResource.NoTimersNote),
-                    ID = "emptyListTimers",
-                    ButtonHTML = String.Format("<span class='link dotline addFirstElement {1}'>{0}</span>", TimeTrackingResource.StartTimer, requestContext.CanCreateTime(true) ? string.Empty : "display-none")
-                });
-
-            emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
-                {
-                    Header = ProjectTemplatesResource.EmptyListTemplateHeader,
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("project-templates_logo.png", ProductEntryPoint.ID),
-                    Describe = ProjectTemplatesResource.EmptyListTemplateDescr,
-                    ID = "emptyListTemplates",
-                    ButtonHTML = string.Format("<a href='projectTemplates.aspx?action=add' class='projectsEmpty link dotline addFirstElement'>{0}<a>", ProjectTemplatesResource.EmptyListTemplateButton)
-                });
+            commonHolder.Controls.Add(control);
         }
 
         protected void WriteClientScripts()
         {
             WriteProjectResources();
 
-            if (Page is GanttChart)
-            {
-                Master.AddBodyScripts(ResolveUrl, "~/js/third-party/jquery/jquery.autosize.js");
-                Master.AddBodyScripts(PathProvider.GetFileStaticRelativePath,
-                                          "jq_projects_extensions.js",
-                                          "common.js",
-                                          "taskaction.js",
-                                          "milestoneaction.js",
-                                          "ganttchart_min.js",
-                                          "ganttchartpage.js");
-                return;
-            }
-
-            Master.AddStyles(PathProvider.GetFileStaticRelativePath, 
-                                 "common.css",
-                                 "allprojects.less",
-                                 "projectaction.css",
-                                 "milestones.less",
-                                 "tasks.css",
-                                 "alltasks.less",
-                                 "discussions.css",
-                                 "timetracking.css",
-                                 "projectteam.less",
-                                 "projecttemplates.css",
-                                 "import.css",
-                                 "reports.css");
-
-            Master.AddBodyScripts(PathProvider.GetFileStaticRelativePath, 
-                                      "jq_projects_extensions.js",
-                                      "common.js",
-                                      "base.js",
-                                      "navsidepanel.js",
-                                      "taskaction.js",
-                                      "milestoneaction.js",
-                                      "projectnavpanel.js",
-                                      "common_filter_projects.js",
-                                      "subtasks.js",
-                                      "tasks.js",
-                                      "taskdescription.js",
-                                      "projects.js",
-                                      "projecttemplates.js",
-                                      "projectteam.js",
-                                      "milestones.js",
-                                      "discussions.js",
-                                      "timetracking.js",
-                                      "apitimetraking.js");
-
-            Master.AddBodyScripts(ResolveUrl, "~/js/third-party/jquery/jquery.autosize.js","~/js/uploader/ajaxupload.js");
+            Master
+                .AddStaticStyles(GetStaticStyleSheet())
+                .AddStaticBodyScripts(GetStaticJavaScript());
         }
 
         public void RegisterCRMResources()
         {
-            Page.RegisterStyle("~/products/crm/app_themes/default/css/common.less",
-                "~/products/crm/app_themes/default/css/contacts.less");
-
-            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.watermarkinput.js",
-                "~/products/crm/js/contacts.js",
-                "~/products/crm/js/common.js");
+            Master
+                .AddStyles(ResolveUrl, "~/products/crm/app_themes/default/css/common.less",
+                    "~/products/crm/app_themes/default/css/contacts.less")
+                .AddBodyScripts(ResolveUrl,
+                    "~/products/crm/js/contacts.js",
+                    "~/products/crm/js/common.js");
         }
 
         public void WriteProjectResources()
         {
             var requestContext = ((BasePage)Page).RequestContext;
-            Page.RegisterClientLocalizationScript(typeof(ClientScripts.ClientLocalizationResources));
-            Page.RegisterClientLocalizationScript(typeof(ClientScripts.ClientTemplateResources));
-
-            Page.RegisterClientScript(typeof(ClientScripts.ClientUserResources));
-            Page.RegisterClientScript(typeof(ClientScripts.ClientCurrentUserResources));
+            Master
+                .AddClientScript(
+                    ((Product)WebItemManager.Instance[WebItemManager.ProjectsProductID]).ClientScriptLocalization,
+                    ((Product)WebItemManager.Instance[WebItemManager.CRMProductID]).ClientScriptLocalization,
+                    new CRMDataResources(),
+                    new ClientUserResources(),
+                    new ClientCurrentUserResources());
 
             if (requestContext.IsInConcreteProject)
             {
-                Page.RegisterClientScript(typeof(ClientScripts.ClientProjectResources));
+                Master.AddClientScript(new ClientProjectResources());
             }
         }
 
-        private static EmptyScreenControl RenderEmptyScreenForFilter(string headerText, string description, string id = "emptyScreenForFilter")
+        #endregion
+
+        public ScriptBundleData GetStaticJavaScript()
         {
-            return new EmptyScreenControl
-                {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png"),
-                    Header = headerText,
-                    Describe = description,
-                    ID = id,
-                    ButtonHTML = String.Format("<a class='clearFilterButton link dotline'>{0}</a>", ProjectsFilterResource.ClearFilter)
-                };
+            return (ScriptBundleData)
+                new ScriptBundleData("projects", "projects")
+                    .AddSource(ResolveUrl, new ClientTemplateResources())
+                    .AddSource(ResolveUrl,
+                        "~/js/asc/plugins/jquery-projectadvansedselector.js",
+                        "~/js/third-party/autosize.js",
+                        "~/js/uploader/ajaxupload.js")
+                    .AddSource(PathProvider.GetFileStaticRelativePath,
+                        "jq_projects_extensions.js",
+                        "helper.js",
+                        "common.js",
+                        "navsidepanel.js",
+                        "taskaction.js",
+                        "milestoneaction.js",
+                        "projectnavpanel.js",
+                        "common_filter_projects.js",
+                        "base.js",
+                        "subtasks.js",
+                        "tasks.js",
+                        "taskdescription.js",
+                        "projects.js",
+                        "projecttemplates.js",
+                        "projectteam.js",
+                        "milestones.js",
+                        "discussions.js",
+                        "timetracking.js",
+                        "apitimetraking.js",
+                        "ganttchart_min.js",
+                        "ganttchartpage.js");
         }
 
-        #endregion
+        public StyleBundleData GetStaticStyleSheet()
+        {
+            return (StyleBundleData)
+                new StyleBundleData("projects", "projects")
+                    .AddSource(PathProvider.GetFileStaticRelativePath,
+                        "allprojects.less",
+                        "projectaction.css",
+                        "milestones.less",
+                        "alltasks.less",
+                        "discussions.css",
+                        "timetracking.css",
+                        "projectteam.less",
+                        "projecttemplates.css",
+                        "import.css",
+                        "reports.css",
+                        "common.less");
+        }
     }
 }

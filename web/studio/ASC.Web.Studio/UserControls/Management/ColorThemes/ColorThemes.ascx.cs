@@ -47,8 +47,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/Management/ColorThemes/js/colorthemes.js");
-            Page.RegisterStyle("~/usercontrols/management/ColorThemes/css/colorthemes.css");
+            Page.RegisterBodyScripts("~/usercontrols/Management/ColorThemes/js/colorthemes.js")
+                .RegisterStyle("~/usercontrols/management/ColorThemes/css/colorthemes.css");
 
             ChosenTheme = ColorThemesSettings.GetColorThemesSettings();
 

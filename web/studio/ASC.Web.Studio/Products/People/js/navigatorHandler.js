@@ -25,7 +25,8 @@
 
 
 ;
-jq(document).ready(function() {
+jq(document).ready(function () {
+    if (!window.peoplePageNavigator) return;
     setTimeout(function() {
         window.peoplePageNavigator.NavigatorParent = '#tableForPeopleNavigation td:first';
 

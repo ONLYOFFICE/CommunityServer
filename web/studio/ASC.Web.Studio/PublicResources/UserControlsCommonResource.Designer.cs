@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавить сопроводительный текст.
+        ///   Looks up a localized string similar to Add message.
         /// </summary>
         public static string AddShareMessage {
             get {
@@ -111,6 +111,15 @@ namespace Resources {
         public static string Admin {
             get {
                 return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new announcement in Community.
+        /// </summary>
+        public static string AdvertCreatedText {
+            get {
+                return ResourceManager.GetString("AdvertCreatedText", resourceCulture);
             }
         }
         
@@ -142,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attach files.
+        ///   Looks up a localized string similar to Attach Files.
         /// </summary>
         public static string AttachFiles {
             get {
@@ -151,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attach File from Your Documents.
+        ///   Looks up a localized string similar to Attach file from Documents.
         /// </summary>
         public static string AttachFromDocuments {
             get {
@@ -160,11 +169,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attach File from Project Documents.
+        ///   Looks up a localized string similar to Attach file from project documents.
         /// </summary>
         public static string AttachOfProjectDocuments {
             get {
                 return ResourceManager.GetString("AttachOfProjectDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
             }
         }
         
@@ -174,6 +192,69 @@ namespace Resources {
         public static string BackupSpaceExceed {
             get {
                 return ResourceManager.GetString("BackupSpaceExceed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shorten portal invitation links and links for shared documents using Bitly.
+        /// </summary>
+        public static string BannerBitly {
+            get {
+                return ResourceManager.GetString("BannerBitly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign the documents electronically using DocuSign technology.
+        /// </summary>
+        public static string BannerDocuSign {
+            get {
+                return ResourceManager.GetString("BannerDocuSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to the portal using your social accounts and search for contacts.
+        /// </summary>
+        public static string BannerSocial {
+            get {
+                return ResourceManager.GetString("BannerSocial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect your favorite cloud storage services and store all your files in one place.
+        /// </summary>
+        public static string BannerStorage {
+            get {
+                return ResourceManager.GetString("BannerStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call the CRM contacts right from the portal with Twilio API.
+        /// </summary>
+        public static string BannerTwilio {
+            get {
+                return ResourceManager.GetString("BannerTwilio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmark.
+        /// </summary>
+        public static string Bookmark {
+            get {
+                return ResourceManager.GetString("Bookmark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new bookmark in Community.
+        /// </summary>
+        public static string BookmarkCreatedText {
+            get {
+                return ResourceManager.GetString("BookmarkCreatedText", resourceCulture);
             }
         }
         
@@ -223,11 +304,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string ByDate {
+            get {
+                return ResourceManager.GetString("ByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string ByUser {
+            get {
+                return ResourceManager.GetString("ByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelButton {
             get {
                 return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Case.
+        /// </summary>
+        public static string Case {
+            get {
+                return ResourceManager.GetString("Case", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new case in CRM.
+        /// </summary>
+        public static string CaseCreatedText {
+            get {
+                return ResourceManager.GetString("CaseCreatedText", resourceCulture);
             }
         }
         
@@ -255,6 +372,33 @@ namespace Resources {
         public static string ClearFilter {
             get {
                 return ResourceManager.GetString("ClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string CommunityProduct {
+            get {
+                return ResourceManager.GetString("CommunityProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new company in CRM.
+        /// </summary>
+        public static string CompanyCreatedText {
+            get {
+                return ResourceManager.GetString("CompanyCreatedText", resourceCulture);
             }
         }
         
@@ -295,11 +439,137 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        public static string Contacts {
+            get {
+                return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created by.
+        /// </summary>
+        public static string CreatedBy {
+            get {
+                return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM.
+        /// </summary>
+        public static string CrmProduct {
+            get {
+                return ResourceManager.GetString("CrmProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new task in CRM.
+        /// </summary>
+        public static string CrmTaskCreatedText {
+            get {
+                return ResourceManager.GetString("CrmTaskCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current month.
+        /// </summary>
+        public static string CurrentMonth {
+            get {
+                return ResourceManager.GetString("CurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current week.
+        /// </summary>
+        public static string CurrentWeek {
+            get {
+                return ResourceManager.GetString("CurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom period.
+        /// </summary>
+        public static string CustomPeriod {
+            get {
+                return ResourceManager.GetString("CustomPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opportunity.
+        /// </summary>
+        public static string Deal {
+            get {
+                return ResourceManager.GetString("Deal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new opportunity in CRM.
+        /// </summary>
+        public static string DealCreatedText {
+            get {
+                return ResourceManager.GetString("DealCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete File.
         /// </summary>
         public static string DeleteFile {
             get {
                 return ResourceManager.GetString("DeleteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discussion.
+        /// </summary>
+        public static string Discussion {
+            get {
+                return ResourceManager.GetString("Discussion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new discussion in Projects.
+        /// </summary>
+        public static string DiscussionCreatedText {
+            get {
+                return ResourceManager.GetString("DiscussionCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents.
+        /// </summary>
+        public static string DocumentsProduct {
+            get {
+                return ResourceManager.GetString("DocumentsProduct", resourceCulture);
             }
         }
         
@@ -322,11 +592,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The documents and image files you create or upload for your 
-        ///project are kept in this section. These documents are available 
-        ///to all project participants immediately after they are created. 
-        ///Attach files from your computer to the task and they 
-        ///will appear in this list..
+        ///   Looks up a localized string similar to Comment cannot be empty.
+        /// </summary>
+        public static string EmptyCommentErrorMessage {
+            get {
+                return ResourceManager.GetString("EmptyCommentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The documents and image files you create or upload for your project are kept in this section. These documents are available to all project participants immediately after they are created. Attach files from your computer to the task and they will appear in this list..
         /// </summary>
         public static string EmptyDocsDescription {
             get {
@@ -353,7 +628,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}Create{1} files right on your portal or {2}upload{3} them here to be able to {4}open{5} and {6}edit{7} them using the TeamLab portal editor, share them with friends or colleagues, organize into folders..
+        ///   Looks up a localized string similar to {0}Create{1} files right on your portal or {2}upload{3} them here to be able to {4}open{5} and {6}edit{7} them using the ONLYOFFICE™ portal editor..
         /// </summary>
         public static string EmptyListDocumentsDescr {
             get {
@@ -398,11 +673,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title can&apos;t contain any of the following characters:.
+        ///   Looks up a localized string similar to Title cannot contain any of the following characters:.
         /// </summary>
         public static string ErrorMassage_SpecCharacter {
             get {
                 return ResourceManager.GetString("ErrorMassage_SpecCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.
+        /// </summary>
+        public static string Event {
+            get {
+                return ResourceManager.GetString("Event", resourceCulture);
             }
         }
         
@@ -443,7 +727,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Common Documents.
+        ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string FeedCorporateFiles {
             get {
@@ -452,7 +736,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create the first company.
+        ///   Looks up a localized string similar to Create a new company.
         /// </summary>
         public static string FeedCreateFirstCompany {
             get {
@@ -461,7 +745,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create the first person.
+        ///   Looks up a localized string similar to Create a new person.
         /// </summary>
         public static string FeedCreateFirstPerson {
             get {
@@ -470,7 +754,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create the First Project.
+        ///   Looks up a localized string similar to Create a new project.
         /// </summary>
         public static string FeedCreateFirstProject {
             get {
@@ -479,7 +763,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create your own page to share the interesting information, thoughts and experiences with others, express your opinions, get feedback from the users&apos; comments..
+        ///   Looks up a localized string similar to Anything added to the Community module will be shown here. Users can share interesting information, thoughts and experiences with others, express their opinions, get feedback from the others&apos; comments..
         /// </summary>
         public static string FeedEmptyCommunityDescription {
             get {
@@ -497,7 +781,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keep all the contacts your company works with in one place. Add new companies and persons, divide them into types, link with each other, add personal information. Import multiple contacts that you already have from a CSV file at one go..
+        ///   Looks up a localized string similar to The events for the CRM module available to you will be shown here. New companies and persons added or the existing edited, new cases, opportunities and tasks created - everything concerning CRM will go to this tab..
         /// </summary>
         public static string FeedEmptyContactListDescription {
             get {
@@ -506,7 +790,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The contact list is empty.
+        ///   Looks up a localized string similar to No CRM events have added yet.
         /// </summary>
         public static string FeedEmptyContactListHeader {
             get {
@@ -515,7 +799,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create the projects and work effectively.
+        ///   Looks up a localized string similar to The changes in the Projects module available to you will be shown here. The projects which you are a member or a follower of, your new tasks or changes to the existing ones will help you not to miss anything..
         /// </summary>
         public static string FeedEmptyListProjDescribe {
             get {
@@ -524,7 +808,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Projects list is empty.
+        ///   Looks up a localized string similar to No projects have been added yet.
         /// </summary>
         public static string FeedEmptyListProjHeader {
             get {
@@ -533,7 +817,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &apos;Common Documents&apos; section shows all the documents shared by portal administrator for common access. Only portal administrator can create folders in this section, but with the access granted the portal users can also upload their files here..
+        ///   Looks up a localized string similar to The changes to the portal documents available to you will be shown here. New documents shared with you, changes to the existing documents that you have access to, documents common for all portal users are all displayed here..
         /// </summary>
         public static string FeedEmptyScreenDescrCorporate {
             get {
@@ -565,6 +849,24 @@ namespace Resources {
         public static string FewAnswerVariant {
             get {
                 return ResourceManager.GetString("FewAnswerVariant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new file in Documents.
+        /// </summary>
+        public static string FileCreatedText {
+            get {
+                return ResourceManager.GetString("FileCreatedText", resourceCulture);
             }
         }
         
@@ -605,6 +907,78 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder.
+        /// </summary>
+        public static string Folder {
+            get {
+                return ResourceManager.GetString("Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new folder in Documents.
+        /// </summary>
+        public static string FolderCreatedText {
+            get {
+                return ResourceManager.GetString("FolderCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forum.
+        /// </summary>
+        public static string Forum {
+            get {
+                return ResourceManager.GetString("Forum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new forum poll in Community.
+        /// </summary>
+        public static string ForumPollCreatedText {
+            get {
+                return ResourceManager.GetString("ForumPollCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new forum post in Community.
+        /// </summary>
+        public static string ForumPostCreatedText {
+            get {
+                return ResourceManager.GetString("ForumPostCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new forum topic in Community.
+        /// </summary>
+        public static string ForumTopicCreatedText {
+            get {
+                return ResourceManager.GetString("ForumTopicCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to from.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link for Portal Users.
+        /// </summary>
+        public static string GetPortalLink {
+            get {
+                return ResourceManager.GetString("GetPortalLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you want to pay for your ONLYOFFICE portal, click the Buy Now button..
         /// </summary>
         public static string HostedBuyDescr {
@@ -632,29 +1006,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Портал не авторизован, редактирование и просмотр документов не доступны..
+        ///   Looks up a localized string similar to This month.
         /// </summary>
-        public static string HostedUnauthorizedEditing {
+        public static string LastMonth {
             get {
-                return ResourceManager.GetString("HostedUnauthorizedEditing", resourceCulture);
+                return ResourceManager.GetString("LastMonth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Для возобновления работы с офисными приложениями TeamLab {0}обратитесь{1} к своему поставщику TeamLab..
+        ///   Looks up a localized string similar to This week.
         /// </summary>
-        public static string HostedUnauthorizedEditingReason {
+        public static string LastWeek {
             get {
-                return ResourceManager.GetString("HostedUnauthorizedEditingReason", resourceCulture);
+                return ResourceManager.GetString("LastWeek", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неавторизованная версия.
+        ///   Looks up a localized string similar to This year.
         /// </summary>
-        public static string HostedUnauthorizedTitle {
+        public static string LastYear {
             get {
-                return ResourceManager.GetString("HostedUnauthorizedTitle", resourceCulture);
+                return ResourceManager.GetString("LastYear", resourceCulture);
             }
         }
         
@@ -668,7 +1042,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to enter the text.
+        ///   Looks up a localized string similar to enter your query.
         /// </summary>
         public static string LblFilterPlaceholder {
             get {
@@ -695,7 +1069,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort By.
+        ///   Looks up a localized string similar to Sort by.
         /// </summary>
         public static string LblSort {
             get {
@@ -740,6 +1114,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activate ONLYOFFICE Enterprise Edition.
+        /// </summary>
+        public static string LicenseActivateHeader {
+            get {
+                return ResourceManager.GetString("LicenseActivateHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By checking this box you accept the terms of the {0}License Agreements{1}.
         /// </summary>
         public static string LicenseAgreements {
@@ -758,7 +1141,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to License expired or users quota does not match the license.
+        ///   Looks up a localized string similar to License expired or user quota does not match the license.
         /// </summary>
         public static string LicenseException {
             get {
@@ -785,7 +1168,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activation license file.
+        ///   Looks up a localized string similar to License Activation File.
         /// </summary>
         public static string LicenseKeyHeader {
             get {
@@ -812,7 +1195,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must put license key.
+        ///   Looks up a localized string similar to You must enter a license key.
         /// </summary>
         public static string LicenseKeyNotFound {
             get {
@@ -947,7 +1330,43 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change number.
+        ///   Looks up a localized string similar to Me.
+        /// </summary>
+        public static string Me {
+            get {
+                return ResourceManager.GetString("Me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members.
+        /// </summary>
+        public static string Members {
+            get {
+                return ResourceManager.GetString("Members", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Milestone.
+        /// </summary>
+        public static string Milestone {
+            get {
+                return ResourceManager.GetString("Milestone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new milestone in Projects.
+        /// </summary>
+        public static string MilestoneCreatedText {
+            get {
+                return ResourceManager.GetString("MilestoneCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter number.
         /// </summary>
         public static string MobileChangeButton {
             get {
@@ -965,7 +1384,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your current mobile number: {0}.
+        ///   Looks up a localized string similar to Your current mobile phone number: {0}.
         /// </summary>
         public static string MobileCurrentNumber {
             get {
@@ -974,7 +1393,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You change your mobile number.
+        ///   Looks up a localized string similar to Enter mobile phone number.
         /// </summary>
         public static string MobilePhoneCaption {
             get {
@@ -983,11 +1402,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a new phone number to continue to work on the portal. Mobile phone number using an international format with country code..
+        ///   Looks up a localized string similar to The two-factor authentication is enabled to provide additional portal security. Enter your mobile phone number to continue work on the portal. Mobile phone number must be entered using an international format with country code..
         /// </summary>
         public static string MobilePhoneDescription {
             get {
                 return ResourceManager.GetString("MobilePhoneDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More.
+        /// </summary>
+        public static string More {
+            get {
+                return ResourceManager.GetString("More", resourceCulture);
             }
         }
         
@@ -1001,7 +1429,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New File.
+        ///   Looks up a localized string similar to new.
+        /// </summary>
+        public static string NewFeedIndicator {
+            get {
+                return ResourceManager.GetString("NewFeedIndicator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New file.
         /// </summary>
         public static string NewFile {
             get {
@@ -1015,6 +1452,15 @@ namespace Resources {
         public static string News {
             get {
                 return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created news in Community.
+        /// </summary>
+        public static string NewsCreatedText {
+            get {
+                return ResourceManager.GetString("NewsCreatedText", resourceCulture);
             }
         }
         
@@ -1055,7 +1501,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: This action cannot be undone..
+        ///   Looks up a localized string similar to Note: this action cannot be undone..
         /// </summary>
         public static string NotBeUndone {
             get {
@@ -1073,11 +1519,83 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new order in Community.
+        /// </summary>
+        public static string OrderCreatedText {
+            get {
+                return ResourceManager.GetString("OrderCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other users.
+        /// </summary>
+        public static string OtherUsers {
+            get {
+                return ResourceManager.GetString("OtherUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to People.
+        /// </summary>
+        public static string PeopleProduct {
+            get {
+                return ResourceManager.GetString("PeopleProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Person.
+        /// </summary>
+        public static string Person {
+            get {
+                return ResourceManager.GetString("Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new person in CRM.
+        /// </summary>
+        public static string PersonCreatedText {
+            get {
+                return ResourceManager.GetString("PersonCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Poll.
         /// </summary>
         public static string Poll {
             get {
                 return ResourceManager.GetString("Poll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new poll in Community.
+        /// </summary>
+        public static string PollCreatedText {
+            get {
+                return ResourceManager.GetString("PollCreatedText", resourceCulture);
             }
         }
         
@@ -1109,11 +1627,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Module.
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new project in Projects.
+        /// </summary>
+        public static string ProjectCreatedText {
+            get {
+                return ResourceManager.GetString("ProjectCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Documents.
         /// </summary>
         public static string ProjectDocuments {
             get {
                 return ResourceManager.GetString("ProjectDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manager.
+        /// </summary>
+        public static string ProjectManager {
+            get {
+                return ResourceManager.GetString("ProjectManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects.
+        /// </summary>
+        public static string ProjectsProduct {
+            get {
+                return ResourceManager.GetString("ProjectsProduct", resourceCulture);
             }
         }
         
@@ -1145,7 +1708,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from list.
+        ///   Looks up a localized string similar to Remove from this list.
         /// </summary>
         public static string RemoveFromList {
             get {
@@ -1154,7 +1717,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Убрать сопроводительный текст.
+        ///   Looks up a localized string similar to Remove message.
         /// </summary>
         public static string RemoveShareMessage {
             get {
@@ -1168,6 +1731,24 @@ namespace Resources {
         public static string ResetFilter {
             get {
                 return ResourceManager.GetString("ResetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsible.
+        /// </summary>
+        public static string Responsible {
+            get {
+                return ResourceManager.GetString("Responsible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsible users.
+        /// </summary>
+        public static string Responsibles {
+            get {
+                return ResourceManager.GetString("Responsibles", resourceCulture);
             }
         }
         
@@ -1199,7 +1780,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Искать в модуле.
+        ///   Looks up a localized string similar to Search in module.
         /// </summary>
         public static string SeeInModulesHdr {
             get {
@@ -1217,7 +1798,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отправить уведомление.
+        ///   Looks up a localized string similar to Send notification.
         /// </summary>
         public static string SendShareNotify {
             get {
@@ -1226,11 +1807,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set up the access rights for users or groups.
+        ///   Looks up a localized string similar to shared file for you in Documents.
         /// </summary>
-        public static string SharingSettingsItemsTitle {
+        public static string SharedFileCreatedText {
             get {
-                return ResourceManager.GetString("SharingSettingsItemsTitle", resourceCulture);
+                return ResourceManager.GetString("SharedFileCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shared folder for you in Documents.
+        /// </summary>
+        public static string SharedFolderCreatedText {
+            get {
+                return ResourceManager.GetString("SharedFolderCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add users or groups and give them the right..
+        /// </summary>
+        public static string SharingSettingsEmpty {
+            get {
+                return ResourceManager.GetString("SharingSettingsEmpty", resourceCulture);
             }
         }
         
@@ -1240,6 +1839,15 @@ namespace Resources {
         public static string SharingSettingsTitle {
             get {
                 return ResourceManager.GetString("SharingSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show all.
+        /// </summary>
+        public static string ShowAll {
+            get {
+                return ResourceManager.GetString("ShowAll", resourceCulture);
             }
         }
         
@@ -1262,11 +1870,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source code is availible on {0}GitHub{1}.
         /// </summary>
         public static string SourceCode {
             get {
                 return ResourceManager.GetString("SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtask.
+        /// </summary>
+        public static string Subtask {
+            get {
+                return ResourceManager.GetString("Subtask", resourceCulture);
             }
         }
         
@@ -1280,7 +1906,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The full list of currencies see Awangate.
+        ///   Looks up a localized string similar to See Avangate for the full list of currencies.
         /// </summary>
         public static string TariffCurrencyHelp {
             get {
@@ -1289,7 +1915,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to On your tariff plan strong restrictions on file size..
+        ///   Looks up a localized string similar to Your pricing plan has major restrictions for the file size..
         /// </summary>
         public static string TariffFileSizeLimitReason {
             get {
@@ -1379,7 +2005,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are using non-profit plan..
+        ///   Looks up a localized string similar to You are using a plan for nonprofit organization..
         /// </summary>
         public static string TariffNonProfit {
             get {
@@ -1397,7 +2023,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using Teamlab Office, prolong the existing plan or change it using the table below..
+        ///   Looks up a localized string similar to You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using ONLYOFFICE, prolong the existing plan or change it using the table below..
         /// </summary>
         public static string TariffOverduePlan {
             get {
@@ -1514,7 +2140,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content of request.
+        ///   Looks up a localized string similar to Request contents.
         /// </summary>
         public static string TariffRequestContent {
             get {
@@ -1523,7 +2149,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please describe here the details of your request.
+        ///   Looks up a localized string similar to Please describe your request details here.
         /// </summary>
         public static string TariffRequestContentHolder {
             get {
@@ -1604,7 +2230,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adding new users will exceed the maxumum number of portal members allowed by your current pricing plan..
+        ///   Looks up a localized string similar to Adding new users will exceed the maximum number of portal members allowed by your current pricing plan..
         /// </summary>
         public static string TariffUserLimitReason {
             get {
@@ -1631,7 +2257,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot downgrade a tariff plan..
+        ///   Looks up a localized string similar to You cannot downgrade a pricing plan..
         /// </summary>
         public static string TariffUserWarnDescr {
             get {
@@ -1645,6 +2271,87 @@ namespace Resources {
         public static string TariffUserWarnRead {
             get {
                 return ResourceManager.GetString("TariffUserWarnRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        public static string Task {
+            get {
+                return ResourceManager.GetString("Task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to created new task in Projects.
+        /// </summary>
+        public static string TaskCreatedText {
+            get {
+                return ResourceManager.GetString("TaskCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Period.
+        /// </summary>
+        public static string TimeDistance {
+            get {
+                return ResourceManager.GetString("TimeDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select time period.
+        /// </summary>
+        public static string TimePeriod {
+            get {
+                return ResourceManager.GetString("TimePeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is currently being edited.
+        /// </summary>
+        public static string TitleEditingFile {
+            get {
+                return ResourceManager.GetString("TitleEditingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today at.
+        /// </summary>
+        public static string TodayAt {
+            get {
+                return ResourceManager.GetString("TodayAt", resourceCulture);
             }
         }
         
@@ -1676,7 +2383,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can upload to Documents any files you want..
+        ///   Looks up a localized string similar to You can upload any files you want to the Documents..
         /// </summary>
         public static string TooltipUpload {
             get {
@@ -1685,7 +2392,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FirstName.
+        ///   Looks up a localized string similar to Topic.
+        /// </summary>
+        public static string Topic {
+            get {
+                return ResourceManager.GetString("Topic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string UnknownFirstName {
             get {
@@ -1694,7 +2410,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LastName.
+        ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string UnknownLastName {
             get {
@@ -1712,7 +2428,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload File.
+        ///   Looks up a localized string similar to Upload file.
         /// </summary>
         public static string UploadFile {
             get {
@@ -1771,6 +2487,33 @@ namespace Resources {
         public static string WhatsNew {
             get {
                 return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add comment.
+        /// </summary>
+        public static string WriteComment {
+            get {
+                return ResourceManager.GetString("WriteComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday at.
+        /// </summary>
+        public static string YesterdayAt {
+            get {
+                return ResourceManager.GetString("YesterdayAt", resourceCulture);
             }
         }
     }

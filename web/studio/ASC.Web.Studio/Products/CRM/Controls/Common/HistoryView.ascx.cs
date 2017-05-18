@@ -57,7 +57,7 @@ namespace ASC.Web.CRM.Controls.Common
 
         private void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.HistoryViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.HistoryViewData());
 
             _phfileUploader.Controls.Add(LoadControl(FileUploader.Location));
 
@@ -114,7 +114,7 @@ namespace ASC.Web.CRM.Controls.Common
         private void RegisterScript()
         {
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
-            Page.RegisterInlineScript("ckeditorConnector.onReady(function () { ASC.CRM.HistoryView.historyCKEditor = jq('#historyCKEditor').ckeditor(function() { ASC.CRM.HistoryView.bindCKEditorEvents(); },{ toolbar: 'CrmHistory', height: '150'}).editor;});");
+            Page.RegisterInlineScript("ckeditorConnector.load(function () { ASC.CRM.HistoryView.historyCKEditor = jq('#historyCKEditor').ckeditor(function() { ASC.CRM.HistoryView.bindCKEditorEvents(); },{ toolbar: 'CrmHistory', height: '150'}).editor;});");
         }
 
         #endregion

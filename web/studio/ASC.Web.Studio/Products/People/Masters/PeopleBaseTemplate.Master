@@ -4,6 +4,8 @@
 <%@ Import Namespace="ASC.Data.Storage" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
+<%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 
@@ -20,7 +22,4 @@
     <div class="display-block">
         <asp:PlaceHolder ID="ControlHolder" runat="server" />
     </div>
-</asp:Content>
-
-<asp:Content ID="clientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="clientTemplatesResourcesPlaceHolder" runat="server">
 </asp:Content>

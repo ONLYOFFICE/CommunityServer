@@ -61,6 +61,8 @@
             </a>
         </div>
         <% } %>
+        <% if (!string.IsNullOrEmpty(HelpLink)) %>
+        <% { %>
         <div class="module-block">
             <div class="img helpcenter"></div>
             <div class="title"><%= CommunityResource.HelpModuleTitle %></div>
@@ -68,12 +70,10 @@
                 <li><%= CommunityResource.HelpModuleFirstLine %></li>
                 <li><%= CommunityResource.HelpModuleSecondLine %></li>
             </ul>
-            <% if (!string.IsNullOrEmpty(HelpLink))
-               { %>
-                <a href="<%= HelpLink %>" target="_blank" class="link underline">
-                    <%= CommunityResource.HelpModuleLink %>
-                </a>
-            <% } %>
+            <a href="<%= HelpLink %>" target="_blank" class="link underline">
+                <%= CommunityResource.HelpModuleLink %>
+            </a>
         </div>
+        <% } %>
     </div>
 </div>

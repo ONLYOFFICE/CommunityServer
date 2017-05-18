@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -24,35 +24,34 @@
 */
 
 
-using System.Collections.Generic;
-using System.Web;
 using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Projects.Masters.ClientScripts
 {
-    public class ClientTemplateResources : ClientScriptLocalization
+    public class ClientTemplateResources : ClientScriptTemplate
     {
-        protected override string BaseNamespace
+        protected override string[] Links
         {
-            get { return "ASC.Projects.Resources"; }
-        }
-
-        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
-        {
-            return RegisterClientTemplatesPath(context,
-                "~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/ListMilestonesTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/TimeTrackingTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/ListTasksTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/SubtaskTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/ActionPanelsTemplates.ascx",
-                "~/products/projects/ProjectsTemplates/PopupContentTemplates.ascx",
-                "~/products/crm/templates/SimpleContactListTemplate.ascx",
-                "~/products/crm/templates/ContactSelectorTemplates.ascx",
-                "~/products/crm/templates/ContactInfoCardTemplate.ascx");
+            get
+            {
+                return new[]
+                {
+                    "~/products/projects/ProjectsTemplates/ListProjectsTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ListMilestonesTemplates.html",
+                    "~/products/projects/ProjectsTemplates/TimeTrackingTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ListTasksTemplates.html",
+                    "~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.html",
+                    "~/products/projects/ProjectsTemplates/SubtaskTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ActionPanelsTemplates.html",
+                    "~/products/projects/ProjectsTemplates/PopupContentTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ReportTemplates.html",
+                    "~/products/crm/templates/SimpleContactListTemplate.html",
+                    "~/products/crm/templates/ContactSelectorTemplates.html",
+                    "~/products/crm/templates/ContactInfoCardTemplate.html"
+                };
+            }
         }
     }
 }

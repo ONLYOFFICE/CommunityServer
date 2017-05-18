@@ -30,26 +30,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
-      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.444\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.445\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="Box.V2">
-      <HintPath>..\..\packages\Box.V2.2.6.2\lib\portable-net40+sl50+win+wp80\Box.V2.dll</HintPath>
+      <HintPath>..\..\packages\Box.V2.2.14.0\lib\portable-net40+sl50+win+wp80\Box.V2.dll</HintPath>
+    </Reference>
+    <Reference Include="Dropbox.Api">
+      <HintPath>..\..\packages\Dropbox.Api.4.1.3\lib\net45\Dropbox.Api.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis">
-      <HintPath>..\..\packages\Google.Apis.1.10.0\lib\netcore45\Google.Apis.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.1.21.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Auth">
-      <HintPath>..\..\packages\Google.Apis.Auth.1.10.0\lib\netcore45\Google.Apis.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Auth.1.21.0\lib\net45\Google.Apis.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Core">
-      <HintPath>..\..\packages\Google.Apis.Core.1.10.0\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Core.1.21.0\lib\net45\Google.Apis.Core.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Drive.v3">
-      <HintPath>..\..\packages\Google.Apis.Drive.v3.1.10.0.10\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Drive.v3.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Drive.v3.1.21.0.761\lib\net45\Google.Apis.Drive.v3.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,7 +66,7 @@
       <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Nito.AsyncEx">
@@ -71,8 +74,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
@@ -89,6 +93,14 @@
     <Compile Include="Box\BoxFileDao.cs" />
     <Compile Include="Box\BoxSecurityDao.cs" />
     <Compile Include="Box\BoxTagDao.cs" />
+    <Compile Include="Dropbox\DropboxDaoBase.cs" />
+    <Compile Include="Dropbox\DropboxDaoSelector.cs" />
+    <Compile Include="Dropbox\DropboxFileDao.cs" />
+    <Compile Include="Dropbox\DropboxFolderDao.cs" />
+    <Compile Include="Dropbox\DropboxProviderInfo.cs" />
+    <Compile Include="Dropbox\DropboxSecurityDao.cs" />
+    <Compile Include="Dropbox\DropboxStorage.cs" />
+    <Compile Include="Dropbox\DropboxTagDao.cs" />
     <Compile Include="GoogleDrive\GoogleDriveDaoBase.cs" />
     <Compile Include="GoogleDrive\GoogleDriveDaoSelector.cs" />
     <Compile Include="GoogleDrive\GoogleDriveFileDao.cs" />
@@ -133,6 +145,10 @@
     <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>

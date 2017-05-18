@@ -31,18 +31,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Timers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Script.Serialization;
 using ASC.Common.Caching;
-using ASC.Common.Threading;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core.Client;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
 using log4net;
+using Timer = System.Timers.Timer;
 
 namespace ASC.Web.Studio.Core
 {
@@ -53,29 +54,32 @@ namespace ASC.Web.Studio.Core
         Full
     }
 
-    public class WarmUp
+    public class WarmUpController
     {
         private int TenantId { get; set; }
-        private List<string> Urls { get; set; }
-        private readonly object locker = new object();
+        private List<string> Pages { get; set; }
+        private string WarmUpUrl { get; set; }
         private readonly CancellationTokenSource tokenSource;
-        private readonly ParallelOptions parallelOptions;
+        private readonly int timeout;
         private readonly ICacheNotify cacheNotify = AscCache.Notify;
         private readonly Dictionary<string, StartupProgress> startupProgresses;
+        private readonly ILog logger;
         private StartupProgress progress;
-        private bool successInitialized = false;
-
+        private readonly bool successInitialized = false;
+        private readonly PerformanceCounter cpuCounter;
         internal bool Started { get; private set; }
+        private Timer Timer { get; set; }
 
-        private static readonly string instanseId = Process.GetCurrentProcess().Id.ToString();
-        private static readonly WarmUp instance = new WarmUp();
-        public static WarmUp Instance { get { return instance; } }
+        private static readonly string InstanseId = Process.GetCurrentProcess().Id.ToString();
+        private static readonly WarmUpController instance = new WarmUpController();
+        private static int instanceCount = 1;
+        public static WarmUpController Instance { get { return instance; } }
 
-        private WarmUp()
+        private WarmUpController()
         {
             try
             {
-                int timeout;
+                logger = LogManager.GetLogger("ASC");
 
                 if (!int.TryParse(ConfigurationManager.AppSettings["web.warmup.timeout"], out timeout))
                 {
@@ -83,41 +87,96 @@ namespace ASC.Web.Studio.Core
                 }
 
                 tokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(timeout));
-                parallelOptions = new ParallelOptions
-                {
-                    MaxDegreeOfParallelism = Environment.ProcessorCount,
-                    CancellationToken = tokenSource.Token
-                };
-
                 TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
 
-                int instanceCount;
                 if (!int.TryParse(ConfigurationManager.AppSettings["web.warmup.count"], out instanceCount))
                 {
                     instanceCount = 1;
                 }
 
+                bool enabled;
+                if (!bool.TryParse(ConfigurationManager.AppSettings["web.warmup.enabled"] ?? "false", out enabled))
+                {
+                    enabled = false;
+                }
+                try
+                {
+                    cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+                }
+                catch (Exception e)
+                {
+                    logger.Error("new PerformanceCounter error", e);
+                }
+
                 startupProgresses = new Dictionary<string, StartupProgress>(instanceCount);
 
-                Urls = GetUrlsForRequests();
+                Pages = GetPagesForWarmup();
+                WarmUpUrl = GetFullAbsolutePath("~/Warmup.aspx");
+                progress = new StartupProgress(Pages.Count);
 
-                progress = new StartupProgress(Urls.Count);
+                if (CoreContext.Configuration.Standalone)
+                {
+                    Timer = new Timer();
+                    Timer.Elapsed += Timer_Elapsed;
+                    Timer.Interval = TimeSpan.FromMinutes(15).TotalMilliseconds;
+                }
 
-                Subscribe();
+                cacheNotify.Subscribe<KeyValuePair<string, StartupProgress>>(
+                    (kv, action) =>
+                    {
+                        switch (action)
+                        {
+                            case CacheNotifyAction.Remove:
+                                tokenSource.Cancel();
+
+                                progress.Complete();
+
+                                break;
+
+                            case CacheNotifyAction.InsertOrUpdate:
+                                if (!startupProgresses.ContainsKey(kv.Key))
+                                {
+                                    startupProgresses.Add(kv.Key, kv.Value);
+                                }
+                                else
+                                {
+                                    startupProgresses[kv.Key] = kv.Value;
+                                }
+                                break;
+                        }
+                    });
 
                 Publish();
-
-                successInitialized = true;
+                successInitialized = enabled;
             }
             catch (Exception e)
             {
                 LogManager.GetLogger("ASC.Web").Error("Warmup error", e);
             }
-            
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            foreach (var page in Pages.Take(7))
+            {
+                try
+                {
+                    MakeRequest(GetFullAbsolutePath(page));
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Timer Warmup Page:" + page, ex);
+                }
+            }
         }
 
         public bool CheckCompleted()
         {
+            if (!successInitialized)
+            {
+                return true;
+            }
+
             return startupProgresses.All(pair => pair.Value.Completed);
         }
 
@@ -131,141 +190,86 @@ namespace ASC.Web.Studio.Core
             return new JavaScriptSerializer().Serialize(combinedProgress);
         }
 
-        private void Subscribe()
+        public void Execute()
         {
-            cacheNotify.Subscribe<KeyValuePair<string, StartupProgress>>(
-                (kv, action) =>
+            if (progress.Completed) return;
+
+            foreach (var page in Pages)
+            {
+                logger.DebugFormat("Warmup Page:{0}", page);
+                try
                 {
-                    switch (action)
-                    {
-                        case CacheNotifyAction.Remove:
-                            tokenSource.Cancel();
-
-                            lock (locker)
-                            {
-                                progress.Complete();
-                                Publish();
-                            }
-                            break;
-
-                        case CacheNotifyAction.InsertOrUpdate:
-                            if (!startupProgresses.ContainsKey(kv.Key))
-                            {
-                                startupProgresses.Add(kv.Key, kv.Value);
-                            }
-                            else
-                            {
-                                startupProgresses[kv.Key] = kv.Value;
-                            }
-                            break;
-                    }
-                });
+                    CheckCPU(page);
+                    HttpContext.Current.Server.Execute(page);
+                }
+                catch (ThreadAbortException e)
+                {
+                    Terminate();
+                    logger.Error("ThreadAbortException Warmup Page:" + page, e);
+                }
+                catch (Exception e)
+                {
+                    logger.Error("Warmup Page:" + page, e);
+                }
+                finally
+                {
+                    progress.Increment();
+                    Publish();
+                }
+            }
         }
 
-        private static List<string> GetUrlsForRequests()
+        private static List<string> GetPagesForWarmup()
         {
-            var result = new List<string>();
-            var warmUpType = (WarmUpType)Enum.Parse(typeof(WarmUpType), ConfigurationManager.AppSettings["web.warmup.type"] ?? "none", true);
-
-            if (warmUpType >= WarmUpType.Basic)
+            return new List<string>
             {
-                result.AddRange(new List<string>
-                                  {
-                                      "~/wizard.aspx",
-                                      "~/auth.aspx",
-                                      "~/confirm.aspx",
-                                      "~/default.aspx",
-                                      "~/feed.aspx",
-                                      "~/my.aspx",
-                                      "~/preparationportal.aspx",
-                                      "~/search.aspx",
-                                      "~/servererror.aspx",
-                                      "~/startscriptsstyles.aspx",
-                                      "~/tariffs.aspx",
-                                      "~/products/files/default.aspx",
-                                      "~/products/crm/cases.aspx",
-                                      "~/products/crm/deals.aspx",
-                                      "~/products/crm/default.aspx",
-                                      "~/products/crm/help.aspx",
-                                      "~/products/crm/invoices.aspx",
-                                      "~/products/crm/mailviewer.aspx",
-                                      "~/products/crm/sender.aspx",
-                                      "~/products/crm/settings.aspx",
-                                      "~/products/crm/tasks.aspx",
-                                      "~/products/projects/contacts.aspx",
-                                      "~/products/projects/default.aspx",
-                                      "~/products/projects/ganttchart.aspx",
-                                      "~/products/projects/GeneratedReport.aspx",
-                                      "~/products/projects/help.aspx",
-                                      "~/products/projects/import.aspx",
-                                      "~/products/projects/messages.aspx",
-                                      "~/products/projects/milestones.aspx",
-                                      "~/products/projects/projects.aspx",
-                                      //"~/products/projects/projectteam.aspx",
-                                      "~/products/projects/projecttemplates.aspx",
-                                      "~/products/projects/reports.aspx",
-                                      "~/products/projects/tasks.aspx",
-                                      "~/products/projects/timer.aspx",
-                                      "~/products/projects/timetracking.aspx",
-                                      "~/products/projects/tmdocs.aspx",
-                                      "~/products/people/default.aspx",
-                                      "~/products/people/help.aspx",
-                                      "~/products/people/profile.aspx",
-                                      "~/products/people/profileaction.aspx",
-                                      "~/addons/mail/default.aspx",
-                                      "~/addons/calendar/default.aspx"
-                                  });
-            }
+                "Products/Files/default.aspx",
+                "Products/Projects/Tasks.aspx",
+                "Products/CRM/Default.aspx",
+                "Addons/mail/default.aspx",
+                "Addons/calendar/default.aspx",
+                "Products/People/Default.aspx",
+                "Default.aspx",
 
-            if (warmUpType == WarmUpType.Full)
-            {
-                result.AddRange(new List<string>
-                                  {
-                                      "~/management.aspx?type=1",
-                                      "~/management.aspx?type=2",
-                                      "~/management.aspx?type=3",
-                                      "~/management.aspx?type=4",
-                                      "~/management.aspx?type=5",
-                                      "~/management.aspx?type=6",
-                                      "~/management.aspx?type=7",
-                                      "~/management.aspx?type=10",
-                                      "~/management.aspx?type=11",
-                                      "~/management.aspx?type=15",
-                                      "~/products/community/default.aspx",
-                                      "~/products/community/help.aspx",
-                                      "~/products/community/modules/birthdays/default.aspx",
-                                      "~/products/community/modules/blogs/addblog.aspx",
-                                      "~/products/community/modules/blogs/default.aspx",
-                                      "~/products/community/modules/blogs/editblog.aspx",
-                                      "~/products/community/modules/blogs/viewblog.aspx",
-                                      "~/products/community/modules/bookmarking/default.aspx",
-                                      "~/products/community/modules/bookmarking/createbookmark.aspx",
-                                      "~/products/community/modules/bookmarking/bookmarkinfo.aspx",
-                                      "~/products/community/modules/bookmarking/favouritebookmarks.aspx",
-                                      "~/products/community/modules/bookmarking/userbookmarks.aspx",
-                                      "~/products/community/modules/forum/default.aspx",
-                                      "~/products/community/modules/forum/edittopic.aspx",
-                                      "~/products/community/modules/forum/managementcenter.aspx",
-                                      "~/products/community/modules/forum/newforum.aspx",
-                                      "~/products/community/modules/forum/newpost.aspx",
-                                      "~/products/community/modules/forum/posts.aspx",
-                                      "~/products/community/modules/forum/search.aspx",
-                                      "~/products/community/modules/forum/topics.aspx",
-                                      "~/products/community/modules/forum/usertopics.aspx",
-                                      "~/products/community/modules/news/default.aspx",
-                                      "~/products/community/modules/news/editnews.aspx",
-                                      "~/products/community/modules/news/editpoll.aspx",
-                                      "~/products/community/modules/news/news.aspx",
-                                      //"~/products/community/modules/wiki/default.aspx",
-                                      "~/products/community/modules/wiki/diff.aspx",
-                                      "~/products/community/modules/wiki/listcategories.aspx",
-                                      "~/products/community/modules/wiki/listfiles.aspx",
-                                      "~/products/community/modules/wiki/listpages.aspx",
-                                      //"~/products/community/modules/wiki/pagehistorylist.aspx",
-                                  });
-            }
-
-            return result.Select(GetFullAbsolutePath).ToList();
+                "Products/Projects/GanttChart.aspx",
+                "Products/Projects/Default.aspx",
+                "Products/Projects/Tasks.aspx",
+                "Products/Projects/Messages.aspx",
+                "Products/Projects/Milestones.aspx",
+                "Products/Projects/Projects.aspx",
+                "Products/Projects/Contacts.aspx",
+                "Products/Projects/Reports.aspx?reportType=0",
+                "Products/Projects/GeneratedReport.aspx",
+                "Products/Projects/Help.aspx",
+                "Products/Projects/Timetracking.aspx",
+                "Products/Projects/TMDocs.aspx",
+                "Products/CRM/Cases.aspx",
+                "Products/CRM/Deals.aspx",
+                "Products/CRM/Help.aspx",
+                "Products/CRM/Invoices.aspx",
+                "Products/CRM/Settings.aspx",
+                "Products/CRM/Tasks.aspx",
+                "Products/People/Help.aspx",
+                "Products/People/Profile.aspx",
+                "Products/People/ProfileAction.aspx",
+                "Feed.aspx",
+                "My.aspx",
+                "Preparationportal.aspx",
+                "Search.aspx",
+                "ServerError.aspx",
+                "StartScriptsStyles.aspx",
+                //"Tariffs.aspx",
+                "Management.aspx?type=1",
+                "Management.aspx?type=2",
+                "Management.aspx?type=3",
+                "Management.aspx?type=4",
+                "Management.aspx?type=5",
+                "Management.aspx?type=6",
+                "Management.aspx?type=7",
+                "Management.aspx?type=10",
+                "Management.aspx?type=11",
+                "Management.aspx?type=15"
+            }.ToList();
         }
 
         private static string GetFullAbsolutePath(string virtualPath)
@@ -290,25 +294,32 @@ namespace ASC.Web.Studio.Core
 
         internal void Start()
         {
-            if(!successInitialized) return;
+            if (!successInitialized)
+            {
+                Terminate();
+                return;
+            }
 
             if (!Started)
             {
                 Started = true;
-
-                Task.Run(() =>
+                try
                 {
-                    try
+                    progress = new StartupProgress(Pages.Count);
+                    Task.Run(() =>
                     {
-                        Parallel.ForEach(Urls, parallelOptions, MakeRequest);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        Terminate();
-                        LogManager.GetLogger("ASC.Web").Error("Warmup canceled");
-                    }
-                    
-                }, tokenSource.Token);
+                        MakeRequest(WarmUpUrl);
+                        if (Timer != null)
+                        {
+                            Timer.Start();
+                        }
+                    }, tokenSource.Token);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Error", ex);
+                    Terminate();
+                }
             }
         }
 
@@ -316,7 +327,8 @@ namespace ASC.Web.Studio.Core
         {
             Started = false;
             WarmUpSettings.SetCompleted(false);
-            progress = new StartupProgress(Urls.Count);
+            progress = new StartupProgress(Pages.Count);
+
             Publish();
             Start();
         }
@@ -324,40 +336,33 @@ namespace ASC.Web.Studio.Core
         internal void Terminate()
         {
             cacheNotify.Publish(GetNotifyKey(), CacheNotifyAction.Remove);
+            if (Timer != null)
+            {
+                Timer.Stop();
+            }
         }
 
-        private void MakeRequest(string requestUrl)
+        private void MakeRequest(string url)
         {
             try
             {
-                if(tokenSource.IsCancellationRequested) return;
-
-                CoreContext.TenantManager.SetCurrentTenant(TenantId);
                 if (WorkContext.IsMono)
                     ServicePointManager.ServerCertificateValidationCallback = (s, c, h, p) => true;
 
-                var currentUserId = SecurityContext.CurrentAccount.ID;
-                if (!SecurityContext.IsAuthenticated)
-                    currentUserId = CoreContext.TenantManager.GetCurrentTenant().OwnerId;
+                CoreContext.TenantManager.SetCurrentTenant(TenantId);
+                var auth = SecurityContext.AuthenticateMe(CoreContext.TenantManager.GetCurrentTenant().OwnerId);
 
-                using (var webClient = new WebClient())
+                using (var webClient = new MyWebClient(timeout))
                 {
                     webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36");
-                    webClient.Headers.Add("Authorization", SecurityContext.AuthenticateMe(currentUserId));
-                    webClient.DownloadData(requestUrl);
+                    webClient.Headers.Add("Authorization", auth);
+                    webClient.DownloadData(url);
                 }
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error(string.Format("Page is not avaliable by url {0}", requestUrl), exception);
-            }
-            finally
-            {
-                lock (locker)
-                {
-                    progress.Increment();
-                    Publish();
-                }
+                logger.Error("Error", ex);
+                Terminate();
             }
         }
 
@@ -368,7 +373,44 @@ namespace ASC.Web.Studio.Core
 
         private KeyValuePair<string, StartupProgress> GetNotifyKey()
         {
-            return new KeyValuePair<string, StartupProgress>(instanseId, progress);
+            return new KeyValuePair<string, StartupProgress>(InstanseId, progress);
+        }
+
+        private void CheckCPU(string page)
+        {
+            if (cpuCounter == null) return;
+
+            var tries = 5;
+            while (tries-- > 0)
+            {
+                var counter = cpuCounter.NextValue();
+                logger.DebugFormat("Page: {0}, CPU:{1}%", page, counter);
+                if (counter > 80)
+                {
+                    Thread.Sleep(10000);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        private class MyWebClient : WebClient
+        {
+            private readonly int timeout;
+
+            public MyWebClient(int timeout)
+            {
+                this.timeout = timeout * 60 * 1000;
+            }
+
+            protected override WebRequest GetWebRequest(Uri uri)
+            {
+                var w = base.GetWebRequest(uri);
+                w.Timeout = timeout;
+                return w;
+            }
         }
     }
 
@@ -410,13 +452,15 @@ namespace ASC.Web.Studio.Core
             Error = new List<string>();
         }
 
-        public void Increment()
+        public void Increment(int incrementProgress = 1)
         {
+            var logger = LogManager.GetLogger("ASC");
+
             if (!Completed)
             {
-                Progress += 1;
+                Progress += incrementProgress;
             }
-
+            logger.DebugFormat("Progress: {0}, Total:{1}", Progress, Total);
             if (Completed)
             {
                 OnComplete();

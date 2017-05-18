@@ -46,7 +46,7 @@ using System.Linq;
 
 namespace ASC.Web.Community.Birthdays
 {
-    class BirthdaysNotifyClient
+    public class BirthdaysNotifyClient
     {
         private readonly INotifyClient client;
 

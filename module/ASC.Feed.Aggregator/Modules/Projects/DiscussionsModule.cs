@@ -34,8 +34,8 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Entities.Feed;
 using ASC.Projects.Engine;
-using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
 {
@@ -256,7 +256,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                     Module = Name,
                     Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
                     Title = discussion.Title,
-                    Description = HtmlSanitizer.Sanitize(discussion.Description),
+                    Description = HtmlUtility.GetFull(discussion.Description),
                     ExtraLocation = discussion.Project.Title,
                     ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
                     HasPreview = discussion.Description.Contains("class=\"asccut\""),
@@ -277,8 +277,8 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         {
             return new FeedComment(comment.Comment.CreateBy)
                 {
-                    Id = comment.Comment.ID.ToString(),
-                    Description = HtmlSanitizer.Sanitize(comment.Comment.Content),
+                    Id = comment.Comment.OldGuidId.ToString(),
+                    Description = HtmlUtility.GetFull(comment.Comment.Content),
                     Date = comment.Comment.CreateOn
                 };
         }

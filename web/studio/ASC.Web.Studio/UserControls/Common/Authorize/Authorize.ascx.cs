@@ -24,15 +24,20 @@
 */
 
 
+using System;
+using System.Security.Authentication;
+using System.Threading;
+using System.Web;
+using System.Web.UI;
 using ASC.Common.Caching;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.FederatedLogin.Profile;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.SMS;
@@ -40,11 +45,6 @@ using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using Resources;
-using System;
-using System.Security.Authentication;
-using System.Threading;
-using System.Web;
-using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -83,8 +83,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyle("~/usercontrols/common/authorize/css/authorize.less");
-            Page.RegisterBodyScripts("~/usercontrols/common/authorize/js/authorize.js");
+            Page.RegisterStyle("~/usercontrols/common/authorize/css/authorize.less")
+                .RegisterBodyScripts("~/usercontrols/common/authorize/js/authorize.js");
 
             Login = "";
             Password = "";
@@ -197,7 +197,6 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 if (string.IsNullOrEmpty(HashId))
                 {
-                    // защита от перебора: на 5-ый неправильный ввод делать Sleep
                     int counter;
 
                     int.TryParse(cache.Get<String>("loginsec/" + Login), out counter);
@@ -210,7 +209,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
 
                 var userInfo = GetUser(out authMethod);
-                if (!CoreContext.UserManager.UserExists(userInfo.ID))
+                if (!CoreContext.UserManager.UserExists(userInfo.ID) || userInfo.Status != EmployeeStatus.Active)
                 {
                     throw new InvalidCredentialException();
                 }
@@ -320,7 +319,7 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             if (IsPostBack) return;
 
-            var confirmedEmail = Request.QueryString["confirmed-email"];
+            var confirmedEmail = (Request.QueryString["confirmed-email"] ?? "").Trim();
 
             if (String.IsNullOrEmpty(confirmedEmail) || !confirmedEmail.TestEmailRegex()) return;
 

@@ -49,7 +49,9 @@ namespace ASC.Web.Studio
             if (CoreContext.Configuration.Personal)
                 Context.Response.Redirect(FilesLinkUtility.FilesBaseAbsolutePath);
 
-            if (!TenantExtra.EnableTarrifSettings)
+            if (!TenantExtra.EnableTarrifSettings ||
+                (TariffSettings.HidePricingPage &&
+                 !CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID)))
                 Response.Redirect("~/", true);
         }
 

@@ -23,31 +23,41 @@
  *
 */
 
+if (typeof ASC === "undefined") {
+    ASC = {};
+}
 
-window.VoipCommonView = new function() {
-    var $ = jq;
+if (typeof ASC.CRM === "undefined") {
+    ASC.CRM = function () { return {} };
+}
 
-    var numbers = [];
-    var settings = null;
-    var ringtones = [];
+if (typeof ASC.CRM.Voip === "undefined") {
+    ASC.CRM.Voip = function () { return {} };
+}
 
-    var headerTmpl;
-    var settingsTmpl;
-    var ringtonesTmpl;
-    var ringtoneTmpl;
+ASC.CRM.Voip.CommonView = (function ($) {
+    var numbers = [],
+        settings = null,
+        ringtones = [],
+        $view,
+        ringtonePlayer,
+        $headerMsg,
+        $settingsList,
+        $ringtonesList,
+        $currentPlayBtn;
 
-    var $view;
-    var ringtonePlayer;
+    var loadingBanner = LoadingBanner,
+        master = ASC.Resources.Master,
+        resource = master.Resource,
+        toastrLocal = toastr;
 
-    var $headerMsg;
-    var $settingsList;
-    var $ringtonesList;
-
-    var $currentPlayBtn;
-    
     function init() {
         cacheElements();
         bindEvents();
+
+        if (!master.Voip.enabled) {
+            return;
+        }
 
         showLoader();
         getData(function(data) {
@@ -59,11 +69,6 @@ window.VoipCommonView = new function() {
     }
 
     function cacheElements() {
-        headerTmpl = $('#header-tmpl');
-        settingsTmpl = $('#settings-tmpl');
-        ringtonesTmpl = $('#ringtones-tmpl');
-        ringtoneTmpl = $('#ringtone-tmpl');
-
         $view = $('#voip-common-view');
 
         ringtonePlayer = $view.find('#ringtone-player').get(0);
@@ -74,22 +79,25 @@ window.VoipCommonView = new function() {
     }
 
     function bindEvents() {
-        $('body').on('click', clickHandler);
+        var clickEventName = 'click',
+            changeEventName = 'change';
+
+        $('body').on(clickEventName, clickHandler);
 
         ringtonePlayer.addEventListener('loadeddata', playRingtone);
         ringtonePlayer.addEventListener('ended', completePlayRingtone);
 
-        $settingsList.on('change', '#queue-size-selector', settingsUpdatedHandler);
-        $settingsList.on('change', '#queue-wait-time-selector', settingsUpdatedHandler);
-        $settingsList.on('change', '#operator-pause-selector', settingsUpdatedHandler);
+        $settingsList.on(changeEventName, '#queue-size-selector', settingsUpdatedHandler);
+        $settingsList.on(changeEventName, '#queue-wait-time-selector', settingsUpdatedHandler);
+        $settingsList.on(changeEventName, '#operator-pause-selector', settingsUpdatedHandler);
 
-        $ringtonesList.on('click', '.ringtone-group .ringtone-group-box .switcher', toggleRingtoneGroupHandler);
-        $ringtonesList.on('click', '.ringtone-group .ringtones-box .ringtone-play-btn', startPlayRingtone);
+        $ringtonesList.on(clickEventName, '.ringtone-group .ringtone-group-box .switcher', toggleRingtoneGroupHandler);
+        $ringtonesList.on(clickEventName, '.ringtone-group .ringtones-box .ringtone-play-btn', startPlayRingtone);
 
-        $ringtonesList.on('click', '.ringtone-group-box .actions', toggleRingtoneGroupActionsHandler);
+        $ringtonesList.on(clickEventName, '.ringtone-group-box .actions', toggleRingtoneGroupActionsHandler);
 
-        $ringtonesList.on('click', '.ringtone .actions', toggleRingtoneActionsHandler);
-        $ringtonesList.on('click', '.ringtone .actions .delete-ringtone-btn', ringtoneDeletedHandler);
+        $ringtonesList.on(clickEventName, '.ringtone .actions', toggleRingtoneActionsHandler);
+        $ringtonesList.on(clickEventName, '.ringtone .actions .delete-ringtone-btn', ringtoneDeletedHandler);
     }
 
     //#region data
@@ -115,7 +123,8 @@ window.VoipCommonView = new function() {
                             cb(err);
                         }
                     });
-                }, function(cb) {
+                },
+                function(cb) {
                     Teamlab.getVoipUploads({}, {
                         success: function(params, data) {
                             cb(null, data);
@@ -124,13 +133,15 @@ window.VoipCommonView = new function() {
                             cb(err);
                         }
                     });
-                }], function(err, data) {
-                    if (err) {
-                        showErrorMessage();
-                    } else {
-                        callback(data);
-                    }
-                });
+                }
+            ],
+            function(err, data) {
+                if (err) {
+                    showErrorMessage();
+                } else {
+                    callback(data);
+                }
+            });
     }
 
     function saveData(data) {
@@ -139,45 +150,20 @@ window.VoipCommonView = new function() {
         ringtones = getTypedRingtones(data[2]);
     }
 
+    function ringtoneFactory(audioType, name) {
+        return { audioType: audioType, name: name, ringtones: [] };
+    }
+
     function getTypedRingtones(rawRingtones) {
         var result = [
-            {
-                audioType: 0,
-                name: ASC.Resources.Master.Resource.GreetingRingtones,
-                ringtones: []
-            },
-            {
-                audioType: 3,
-                name: ASC.Resources.Master.Resource.QueueRingtones,
-                ringtones: []
-            },
-            {
-                audioType: 1,
-                name: ASC.Resources.Master.Resource.WaitingRingtones,
-                ringtones: []
-            },
-            {
-                audioType: 2,
-                name: ASC.Resources.Master.Resource.VoicemailRingtones,
-                ringtones: []
-            }
+            ringtoneFactory(0, resource.GreetingRingtones),
+            ringtoneFactory(1, resource.WaitingRingtones),
+            ringtoneFactory(2, resource.VoicemailRingtones),
+            ringtoneFactory(3, resource.QueueRingtones)
         ];
 
         for (var i = 0; i < rawRingtones.length; i++) {
-            var ringtone = rawRingtones[i];
-            var targetRingtones;
-
-            if (ringtone.audioType == 0) {
-                targetRingtones = result[0].ringtones;
-            } else if (ringtone.audioType == 3) {
-                targetRingtones = result[1].ringtones;
-            } else if (ringtone.audioType == 1) {
-                targetRingtones = result[2].ringtones;
-            } else {
-                targetRingtones = result[3].ringtones;
-            }
-
-            targetRingtones.push(ringtone);
+            result[rawRingtones[i].audioType].ringtones.push(rawRingtones[i]);
         }
 
         return result;
@@ -187,13 +173,14 @@ window.VoipCommonView = new function() {
 
     function createFileuploadInput(browseButtonId, audioType) {
         var buttonObj = jq("#" + browseButtonId);
-        
+
         var inputObj = jq("<input/>")
             .attr("id", "fileupload_" + audioType)
             .attr("type", "file")
             .attr("multiple", "multiple")
             .css("width", "0")
-            .css("height", "0");
+            .css("height", "0")
+            .addClass("display-none");
 
         inputObj.appendTo(buttonObj.parent());
 
@@ -216,17 +203,17 @@ window.VoipCommonView = new function() {
 
     function correctFile (file) {
         if (getFileExtension(file.name) != ".mp3") {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileFormatErrorMsg);
+            toastrLocal.error(resource.UploadVoipRingtoneFileFormatErrorMsg);
             return false;
         }
 
         if (file.size <= 0) {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneEmptyFileErrorMsg);
+            toastrLocal.error(resource.UploadVoipRingtoneEmptyFileErrorMsg);
             return false;
         }
 
         if (file.size > 20 * 1024 * 1024) {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileSizeErrorMsg);
+            toastrLocal.error(resource.UploadVoipRingtoneFileSizeErrorMsg);
             return false;
         }
 
@@ -249,7 +236,8 @@ window.VoipCommonView = new function() {
                     name: "audioType",
                     value: audioType
                 }
-            ]
+            ],
+            dropZone: jq("#" + browseButtonId).parents(".ringtone-group-box")
         });
 
         uploader
@@ -272,17 +260,17 @@ window.VoipCommonView = new function() {
     }
 
     function renderHeader() {
-        var $header = headerTmpl.tmpl(numbers.length);
+        var $header = jq.tmpl("voip-header-tmpl", numbers.length);
         $headerMsg.append($header);
     }
 
     function renderSettings() {
-        var $settings = settingsTmpl.tmpl(settings);
+        var $settings = jq.tmpl("voip-common-settings-tmpl", settings);
         $settingsList.append($settings);
     }
 
     function renderRingtones() {
-        var $ringtones = ringtonesTmpl.tmpl(ringtones);
+        var $ringtones = jq.tmpl("voip-ringtones-tmpl", ringtones);
         $ringtonesList.append($ringtones);
 
         for (var i = 0; i < ringtones.length; i++) {
@@ -353,10 +341,9 @@ window.VoipCommonView = new function() {
             $panel.hide();
             $ringtoneGroup.removeClass('selected');
         } else {
-            var offset = $this.offset();
             $panel.css({
-                top: offset.top + 20,
-                left: offset.left - $panel.width() + 26
+                top: ($this.outerHeight() + $this.height()) / 2,
+                left: $this.outerWidth() - $panel.width()
             });
             $panel.show();
             $ringtoneGroup.addClass('selected');
@@ -378,10 +365,9 @@ window.VoipCommonView = new function() {
             $ringtoneGroup.removeClass('ringtone-selected');
             $ringtone.removeClass('selected');
         } else {
-            var offset = $this.offset();
             $panel.css({
-                top: offset.top + 20,
-                left: offset.left - $panel.width() + 26
+                top: ($this.outerHeight() + $this.height()) / 2,
+                left: $this.outerWidth() - $panel.width()
             });
             $panel.show();
             $ringtoneGroup.addClass('ringtone-selected');
@@ -445,28 +431,35 @@ window.VoipCommonView = new function() {
     function ringtoneUploadedHandler(e, data) {
         var response = $.parseJSON(data.result);
         if (!response.Success || !response.Data) {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileErrorMsg);
+            if (response.Message) {
+                toastrLocal.error(response.Message);
+            } else {
+                toastrLocal.error(resource.UploadVoipRingtoneFileErrorMsg);
+            }
             return;
         }
 
         var newRingtone = {
             name: response.Data.Name,
             path: response.Data.Path,
-            audioType: response.Data.AudioType
+            audioType: response.Data.AudioType,
+            isDefault: response.Data.isDefault
         };
+
+        ringtones[newRingtone.audioType].ringtones.push(newRingtone);
 
         var $ringtoneGroup = $("#" + data.paramName);
 
-        var $newRingtone = ringtoneTmpl.tmpl(newRingtone);
+        var $newRingtone = jq.tmpl("voip-ringtone-tmpl", newRingtone);
         $ringtoneGroup.find(".ringtones-box").append($newRingtone);
 
-        $ringtoneGroup.find(".ringtone-group-box .switcher .expander-icon").addClass("open");
+        $ringtoneGroup.find(".ringtone-group-box .switcher .expander-icon").removeClass("display-none").addClass("open");
         $ringtoneGroup.find(".ringtones-box").show();
     }
 
     function ringtoneUploadedErrorHandler() {
         hideLoader();
-        toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileErrorMsg);
+        toastrLocal.error(resource.UploadVoipRingtoneFileErrorMsg);
     }
 
     function ringtoneDeletedHandler(e) {
@@ -482,17 +475,19 @@ window.VoipCommonView = new function() {
             ringtonePlayer.setAttribute('src', '');
         }
 
-        showLoader();
-
         Teamlab.deleteVoipUploads(null, { audioType: audioType, fileName: fileName }, {
+            before: showLoader,
+            after: hideLoader,
             success: function() {
+                ringtones[audioType].ringtones = ringtones[audioType].ringtones.filter(function(r) {
+                    return !(r.audioType == audioType && r.name === fileName);
+                });
+                if (!ringtones[audioType].ringtones.length) {
+                    $(e.target).closest('.ringtone-group').find('.expander-icon').addClass("display-none");
+                }
                 $ringtone.remove();
-                hideLoader();
             },
-            error: function() {
-                hideLoader();
-                showErrorMessage();
-            }
+            error: showErrorMessage
         });
     }
 
@@ -501,19 +496,19 @@ window.VoipCommonView = new function() {
     //#region utils
 
     function showLoader() {
-        LoadingBanner.displayLoading();
+        loadingBanner.displayLoading();
     }
 
     function hideLoader() {
-        LoadingBanner.hideLoading();
+        loadingBanner.hideLoading();
     }
 
     function showSuccessOpearationMessage() {
-        toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
+        toastrLocal.success(resource.ChangesSuccessfullyAppliedMsg);
     }
 
     function showErrorMessage() {
-        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+        toastrLocal.error(resource.CommonJSErrorMsg);
     }
     
     //#endregion
@@ -521,8 +516,8 @@ window.VoipCommonView = new function() {
     return {
         init: init
     };
-};
+})(jq);
 
 jq(function() {
-    VoipCommonView.init();
+    ASC.CRM.Voip.CommonView.init();
 });

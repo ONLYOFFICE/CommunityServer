@@ -87,6 +87,9 @@ window.trustedAddresses = (function() {
     }
 
     function isTrusted(address) {
+        if(commonSettingsPage.AlwaysDisplayImages())
+            return true;
+
         var i, len, addresses = getAddresses();
         for (i = 0, len = addresses.length; i < len; i++) {
             if (addresses[i] == address) {

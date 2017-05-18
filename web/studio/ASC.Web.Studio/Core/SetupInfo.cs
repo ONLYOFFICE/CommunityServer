@@ -245,19 +245,6 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-
-        public static string ApiSystemUrl
-        {
-            get;
-            private set;
-        }
-
-        public static string ApiCacheUrl
-        {
-            get;
-            private set;
-        }
-
         public static string ControlPanelUrl
         {
             get;
@@ -269,6 +256,13 @@ namespace ASC.Web.Studio.Core
             get;
             private set;
         }
+
+        public static string VoipEnabled
+        {
+            get;
+            private set;
+        }
+
 
         public static string StartProductList
         {
@@ -322,10 +316,9 @@ namespace ASC.Web.Studio.Core
             ShareGooglePlusUrl = GetAppSettings("web.share.google-plus", "https://plus.google.com/share?url={0}");
             ShareTwitterUrl = GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}");
             ShareFacebookUrl = GetAppSettings("web.share.facebook", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}");
-            ApiSystemUrl = GetAppSettings("web.api-system", "");
-            ApiCacheUrl = GetAppSettings("web.api-cache", "");
             ControlPanelUrl = GetAppSettings("web.controlpanel.url", "");
             FontOpenSansUrl = GetAppSettings("web.font.opensans.url", "");
+            VoipEnabled = GetAppSettings("voip.enabled", "false");
             StartProductList = GetAppSettings("web.start.product.list", "");
 
             hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries);

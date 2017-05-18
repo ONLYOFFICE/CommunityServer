@@ -85,6 +85,8 @@ namespace ASC.Feed.Aggregator.Modules.Projects
 
         public override IEnumerable<Tuple<Feed, object>> GetFeeds(FeedFilter filter)
         {
+            var filterTimeInterval = TimeSpan.FromTicks(filter.Time.To.Ticks - filter.Time.From.Ticks).TotalMinutes;
+
             var q = new SqlQuery("projects_project_participant" + " pp")
                 .Select("pp.participant_id", "pp.created", "pp.updated")
                 .InnerJoin("projects_projects" + " p",
@@ -94,7 +96,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 .Where("pp.removed", 0)
                 .Where("pp.tenant", filter.Tenant)
                 .Where(Exp.Between("pp.created", filter.Time.From, filter.Time.To) &
-                       !Exp.Between("p.create_on - pp.created", -10, 10));
+                       !Exp.Between("TIMESTAMPDIFF(MINUTE,p.create_on, pp.created)", -filterTimeInterval, filterTimeInterval));
 
             using (var db = new DbManager(DbId))
             {

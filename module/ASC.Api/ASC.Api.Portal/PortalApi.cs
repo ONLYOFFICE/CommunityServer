@@ -24,7 +24,12 @@
 */
 
 
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Security;
+using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
@@ -35,24 +40,18 @@ using ASC.Core.Common.Notify.Push;
 using ASC.Core.Notify.Jabber;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.FederatedLogin.LoginProviders;
+using ASC.Security.Cryptography;
+using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
-using ASC.Web.Studio.Utility;
-using System;
-using System.Linq;
-using Resources;
-using System.Security;
-using SecurityContext = ASC.Core.SecurityContext;
-using System.Net;
-using System.IO;
-using Newtonsoft.Json.Linq;
-using System.Configuration;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.FirstTime;
+using ASC.Web.Studio.Utility;
+using Resources;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Portal
 {
@@ -140,7 +139,15 @@ namespace ASC.Api.Portal
         [Update("getshortenlink")]
         public String GetShortenLink(string link)
         {
-            return ASC.Common.Utils.LinkShorterUtil.GetShortenLink(link, log4net.LogManager.GetLogger("ASC.Web"));
+            try
+            {
+                return BitlyLoginProvider.GetShortenLink(link);
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Web").Error("getshortenlink", ex);
+                return link;
+            }
         }
 
 
@@ -375,7 +382,7 @@ namespace ASC.Api.Portal
         /// </summary>
         /// <category>Backup</category>
         /// <returns>Restore Progress</returns>
-        [Read("getrestoreprogress")]
+        [Read("getrestoreprogress", true, false)]  //NOTE: this method doesn't check payment!!!
         public BackupProgress GetRestoreProgress()
         {
             return backupHandler.GetRestoreProgress();
@@ -389,7 +396,7 @@ namespace ASC.Api.Portal
         {
             var enabled = SetupInfo.IsVisibleSettings("PortalRename");
             if (!enabled)
-                throw new SecurityException(Resources.Resource.PortalAccessSettingsTariffException);
+                throw new SecurityException(Resource.PortalAccessSettingsTariffException);
 
             if (CoreContext.Configuration.Personal)
                 throw new Exception(Resource.ErrorAccessDenied);
@@ -409,9 +416,9 @@ namespace ASC.Api.Portal
             if (!String.Equals(newAlias, oldAlias, StringComparison.InvariantCultureIgnoreCase))
             {
                 var hostedSolution = new HostedSolution(ConfigurationManager.ConnectionStrings["default"]);
-                if (!String.IsNullOrEmpty(SetupInfo.ApiSystemUrl))
+                if (!String.IsNullOrEmpty(ApiSystemHelper.ApiSystemUrl))
                 {
-                    ValidatePortalName(newAlias);
+                    ApiSystemHelper.ValidatePortalName(newAlias);
                 }
                 else
                 {
@@ -419,18 +426,18 @@ namespace ASC.Api.Portal
                 }
 
 
-                if (!String.IsNullOrEmpty(SetupInfo.ApiCacheUrl))
+                if (!String.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
                 {
-                    AddTenantToCache(newAlias);
+                    ApiSystemHelper.AddTenantToCache(newAlias);
                 }
 
                 tenant.TenantAlias = alias;
                 tenant = hostedSolution.SaveTenant(tenant);
 
 
-                if (!String.IsNullOrEmpty(SetupInfo.ApiCacheUrl))
+                if (!String.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
                 {
-                    RemoveTenantFromCache(oldAlias);
+                    ApiSystemHelper.RemoveTenantFromCache(oldAlias);
                 }
 
                 StudioNotifyService.Instance.PortalRenameNotify(oldVirtualRootPath);
@@ -443,111 +450,11 @@ namespace ASC.Api.Portal
             var reference = CreateReference(Request, tenant.TenantDomain, tenant.TenantId, user.Email);
 
             return new {
-                message = Resources.Resource.SuccessfullyPortalRenameMessage,
+                message = Resource.SuccessfullyPortalRenameMessage,
                 reference = reference
             };
         }
 
-
-        private void ValidatePortalName(string domain)
-        {
-            var absoluteApiSystemUrl = SetupInfo.ApiSystemUrl;
-            Uri uri;
-            if (!Uri.TryCreate(absoluteApiSystemUrl, UriKind.Absolute, out uri))
-            {
-                var appUrl = CommonLinkUtility.GetFullAbsolutePath("/");
-                absoluteApiSystemUrl = string.Format("{0}/{1}", appUrl.TrimEnd('/'), absoluteApiSystemUrl.TrimStart('/')).TrimEnd('/');
-            }
-
-            var data = string.Format("portalName={0}", domain);
-            var url = String.Format("{0}/registration/validateportalname", absoluteApiSystemUrl);
-
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Method = WebRequestMethods.Http.Post;
-            webRequest.ContentType = "application/x-www-form-urlencoded";
-            webRequest.ContentLength = data.Length;
-
-            using (var writer = new StreamWriter(webRequest.GetRequestStream()))
-            {
-                writer.Write(data);
-            }
-
-            var result = "";
-
-            using (var response = webRequest.GetResponse())
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                result = reader.ReadToEnd();
-
-                var resObj = JObject.Parse(result);
-                if (resObj["errors"] != null && resObj["errors"].HasValues)
-                {
-                    throw new Exception(result);
-                }
-            }
-        }
-
-        #region api cache
-
-        private static string CreateApiCacheAuthToken(string pkey)
-        {
-            var skey = ConfigurationManager.AppSettings["core.machinekey"];
-
-            using (var hasher = new HMACSHA1(Encoding.UTF8.GetBytes(skey)))
-            {
-                var now = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-                var hash = HttpServerUtility.UrlTokenEncode(hasher.ComputeHash(Encoding.UTF8.GetBytes(string.Join("\n", now, pkey))));
-                return string.Format("ASC {0}:{1}:{2}", pkey, now, hash);
-            }
-        }
-
-        private void AddTenantToCache(string domain)
-        {
-            SendApiToCache("addportal", WebRequestMethods.Http.Post, string.Format("={0}", domain));
-        }
-
-        private void RemoveTenantFromCache(string domain)
-        {
-            SendApiToCache("removeportal", WebRequestMethods.Http.Post, string.Format("={0}", domain));
-        }
-
-        private void SendApiToCache(string apiPath, string httpMethod, string data)
-        {
-            var absoluteApiCacheUrl = SetupInfo.ApiCacheUrl;
-            Uri uri;
-            if (!Uri.TryCreate(absoluteApiCacheUrl, UriKind.Absolute, out uri)) {
-                var appUrl = CommonLinkUtility.GetFullAbsolutePath("/");
-                absoluteApiCacheUrl = string.Format("{0}/{1}", appUrl.TrimEnd('/'), absoluteApiCacheUrl.TrimStart('/')).TrimEnd('/');
-            }
-
-            var url = String.Format("{0}/cache/{1}", absoluteApiCacheUrl, apiPath);
-
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Method = httpMethod;
-            webRequest.ContentType = "application/x-www-form-urlencoded";
-            webRequest.ContentLength = data.Length;
-
-            webRequest.Headers.Add(HttpRequestHeader.Authorization, CreateApiCacheAuthToken(SecurityContext.CurrentAccount.ID.ToString()));
-
-            using (var writer = new StreamWriter(webRequest.GetRequestStream()))
-            {
-                writer.Write(data);
-            }
-
-            using (var webResponse = webRequest.GetResponse())
-            using (var reader = new StreamReader(webResponse.GetResponseStream()))
-            {
-                var response = reader.ReadToEnd();
-                var resObj = JObject.Parse(response);
-                if (resObj["errors"] != null && resObj["errors"].HasValues)
-                {
-                    throw new Exception(response);
-                }
-            }
-        }
-
-        #endregion
 
         #region create reference for auth on renamed tenant
 
@@ -562,6 +469,25 @@ namespace ASC.Api.Portal
         }
 
         #endregion
+
+        ///<visible>false</visible>
+        [Create("sendcongratulations", false)] //NOTE: this method doesn't requires auth!!!
+        public void SendCongratulations(Guid userid, string key)
+        {
+            var authInterval = TimeSpan.FromHours(1);
+            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(userid.ToString() + ConfirmType.Auth, key, authInterval);
+
+            switch (checkKeyResult)
+            {
+                case EmailValidationKeyProvider.ValidationResult.Ok:
+                    var currentUser = CoreContext.UserManager.GetUsers(userid);
+                    StudioNotifyService.Instance.SendCongratulations(currentUser);
+                    FirstTimeTenantSettings.SendInstallInfo(currentUser);
+                    break;
+                default:
+                    throw new SecurityException("Access Denied.");
+            }
+        }
 
 
         ///<visible>false</visible>

@@ -309,7 +309,7 @@ namespace ASC.Api.CRM.Wrappers
         public string Description { get; set; }
 
         [DataMember]
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
 
         [DataMember]
         public ApiDateTime CreateOn { get; set; }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CommonAddUsers" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
   <data name="CommonGroup" xml:space="preserve">
     <value>Group</value>
   </data>
@@ -126,6 +129,12 @@
   <data name="CommonGroups" xml:space="preserve">
     <value>Groups</value>
   </data>
+  <data name="CommonGuest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="CommonGuests" xml:space="preserve">
+    <value>Guests</value>
+  </data>
   <data name="CommonRegDate" xml:space="preserve">
     <value>Registration Date</value>
   </data>
@@ -133,13 +142,16 @@
     <value>Common</value>
   </data>
   <data name="CommonUser" xml:space="preserve">
-    <value>Member</value>
+    <value>User</value>
   </data>
   <data name="CommonUsers" xml:space="preserve">
-    <value>Members</value>
+    <value>Users</value>
   </data>
   <data name="CommonUserTitle" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="DefaultAddUsers" xml:space="preserve">
+    <value>Add Employees</value>
   </data>
   <data name="DefaultGroup" xml:space="preserve">
     <value>Department</value>
@@ -149,6 +161,12 @@
   </data>
   <data name="DefaultGroups" xml:space="preserve">
     <value>Departments</value>
+  </data>
+  <data name="DefaultGuest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="DefaultGuests" xml:space="preserve">
+    <value>Guests</value>
   </data>
   <data name="DefaultRegDate" xml:space="preserve">
     <value>Employed since</value>
@@ -165,27 +183,9 @@
   <data name="DefaultUserTitle" xml:space="preserve">
     <value>Position</value>
   </data>
-  <data name="CommonAddUsers" xml:space="preserve">
-    <value>Add Members</value>
-  </data>
-  <data name="DefaultAddUsers" xml:space="preserve">
-    <value>Add Employees</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="PeopleNames" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>PeopleNames.xml;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="CommonGuest" xml:space="preserve">
-    <value>Guest</value>
-  </data>
-  <data name="CommonGuests" xml:space="preserve">
-    <value>Guests</value>
-  </data>
-  <data name="DefaultGuest" xml:space="preserve">
-    <value>Guest</value>
-  </data>
-  <data name="DefaultGuests" xml:space="preserve">
-    <value>Guests</value>
   </data>
   <data name="EducationAddUsers" xml:space="preserve">
     <value>Add Teachers/Students</value>

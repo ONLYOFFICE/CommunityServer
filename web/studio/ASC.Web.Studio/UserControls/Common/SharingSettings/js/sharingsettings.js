@@ -51,6 +51,12 @@ var SharingSettingsManager = function (elementId, sharingData) {
     var shareUserSelector = jq("#shareUserSelector");
     var shareGroupSelector = jq("#shareGroupSelector");
 
+    var sharingUserProfileInfo = new PopupBox("pb_SharingUserProfileInfo", 320, 140, "tintLight", "borderBaseShadow", "",
+        {
+            apiMethodName: "Teamlab.getProfile",
+            tmplName: "userProfileCardTmpl"
+        });
+
     var clone = function (o) {
         if (!o || "object" !== typeof o) {
             return o;
@@ -72,10 +78,13 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     this.OnSave = null;
+    this.OnCopyLink = null;
+    this.OnChange = null;
 
     var _data = sharingData;
     var _workData = clone(sharingData);
     var _changed = false;
+    var _clipLink = null;
 
     var _manager = this;
 
@@ -137,6 +146,54 @@ var SharingSettingsManager = function (elementId, sharingData) {
             .on("showList", addGroups);
 
         hideShareMessage();
+
+        if (!ASC.Clipboard.enable) {
+            jq("#shareGetLink").remove();
+        }
+
+        jq.dropdownToggle(
+            {
+                switcherSelector: "#shareUserDefAction",
+                dropdownID: "shareUserDefSelect",
+                inPopup: true,
+                addLeft: -5,
+                addTop: 4,
+            });
+
+        jq("#shareUserDefSelect").on("click", ".dropdown-item", function () {
+            jq("#shareUserDefSelect .dropdown-item.active").removeClass("active");
+            jq(this).addClass("active");
+            jq("#shareUserDefSelect").hide();
+
+            var actionId = jq(this).attr("data-id");
+            for (var i = 0; i < _workData.actions.length; i++) {
+                _workData.actions[i].defaultUserAction = (_workData.actions[i].id == actionId);
+            }
+
+            setDefActions();
+        });
+
+        jq.dropdownToggle(
+            {
+                switcherSelector: "#shareGroupDefAction",
+                dropdownID: "shareGroupDefSelect",
+                inPopup: true,
+                addLeft: -5,
+                addTop: 4,
+            });
+
+        jq("#shareGroupDefSelect").on("click", ".dropdown-item", function () {
+            jq("#shareGroupDefSelect .dropdown-item.active").removeClass("active");
+            jq(this).addClass("active");
+            jq("#shareGroupDefSelect").hide();
+
+            var actionId = jq(this).attr("data-id");
+            for (var i = 0; i < _workData.actions.length; i++) {
+                _workData.actions[i].defaultGroupAction = (_workData.actions[i].id == actionId);
+            }
+
+            setDefActions();
+        });
     });
 
     var hideShareMessage = function () {
@@ -192,6 +249,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
         jq("#sharing_item_" + itemId).remove();
         jq("#sharingSettingsItems div.sharingItem.tintMedium").removeClass("tintMedium");
         jq("#sharingSettingsItems div.sharingItem:even").addClass("tintMedium");
+        jq(".sharing-empty").toggle(_workData.items.length <= 1);
         return true;
     };
 
@@ -220,15 +278,19 @@ var SharingSettingsManager = function (elementId, sharingData) {
                 addUserItem(user.id, user.title);
             }
         });
+        jq(".sharing-empty").toggle(_workData.items.length <= 1);
     };
 
     var addUserItem = function (userId, userName) {
         changeStatus(true);
         var defAct = null;
         for (var i = 0; i < _workData.actions.length; i++) {
-            if (_workData.actions[i].defaultAction) {
+            if (_workData.actions[i].defaultUserAction) {
                 defAct = _workData.actions[i];
                 break;
+            }
+            if (_workData.actions[i].defaultAction) {
+                defAct = _workData.actions[i];
             }
         }
         var newItem = { id: userId, name: userName, selectedAction: defAct, isGroup: false, canEdit: true };
@@ -236,6 +298,12 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
         jq("#sharingSettingsItems").append(jq.tmpl("sharingListTemplate", { items: [newItem], actions: _workData.actions }));
         jq("#studio_sharingSettingsDialog .action select:last").tlcombobox();
+
+        var latUserLink = jq("#studio_sharingSettingsDialog .userLink:last");
+        var id = latUserLink.attr("id");
+        if (id != null && id != "") {
+            sharingUserProfileInfo.RegistryElement(id, "\"" + latUserLink.attr("data-uid") + "\"");
+        }
 
         jq("#sharingSettingsItems div.sharingItem.tintMedium").removeClass("tintMedium");
         jq("#sharingSettingsItems div.sharingItem:even").addClass("tintMedium");
@@ -266,15 +334,19 @@ var SharingSettingsManager = function (elementId, sharingData) {
                 addGroupItem(group.id, group.title);
             }
         });
+        jq(".sharing-empty").toggle(_workData.items.length <= 1);
     };
 
     var addGroupItem = function (groupId, groupName) {
         changeStatus(true);
         var defAct = null;
         for (var i = 0; i < _workData.actions.length; i++) {
-            if (_workData.actions[i].defaultAction) {
+            if (_workData.actions[i].defaultGroupAction) {
                 defAct = _workData.actions[i];
                 break;
+            }
+            if (_workData.actions[i].defaultAction) {
+                defAct = _workData.actions[i];
             }
         }
         var newItem = { id: groupId, name: groupName, selectedAction: defAct, isGroup: true, canEdit: true };
@@ -289,6 +361,8 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
     var reDrawItems = function () {
         jq("#sharingSettingsItems").html(jq.tmpl("sharingListTemplate", _workData));
+
+        jq(".sharing-empty").toggle(_workData.items.length <= 1);
 
         if (jq.browser.mobile) {
             jq("#sharingSettingsItems").addClass("isMobileAgent");
@@ -326,40 +400,105 @@ var SharingSettingsManager = function (elementId, sharingData) {
         shareGroupSelector.groupadvancedSelector("disable", disableGroupIds);
     };
 
+    var reDrawDefActions = function () {
+        jq("#shareUserDefSelect").html(jq.tmpl("sharingActionsTemplate", _workData));
+        jq("#shareGroupDefSelect").html(jq.tmpl("sharingActionsTemplate", _workData));
+        setDefActions();
+    };
+
+    var setDefActions = function () {
+        var setUser = true;
+        var setGroup = true;
+        var defStyle = "";
+        for (var i = 0; i < _workData.actions.length; i++) {
+            if (_workData.actions[i].defaultUserAction && setUser) {
+                jq("#shareUserDefAction").addClass("share-def-action-" + _workData.actions[i].defaultStyle);
+                setUser = false;
+            } else {
+                jq("#shareUserDefAction").removeClass("share-def-action-" + _workData.actions[i].defaultStyle);
+            }
+            if (_workData.actions[i].defaultGroupAction && setGroup) {
+                jq("#shareGroupDefAction").addClass("share-def-action-" + _workData.actions[i].defaultStyle);
+                setGroup = false;
+            } else {
+                jq("#shareGroupDefAction").removeClass("share-def-action-" + _workData.actions[i].defaultStyle);
+            }
+            if (_workData.actions[i].defaultAction) {
+                defStyle = _workData.actions[i].defaultStyle;
+            }
+        }
+        if (setUser) {
+            jq("#shareUserDefAction").addClass("share-def-action-" + defStyle);
+        }
+        if (setGroup) {
+            jq("#shareGroupDefAction").addClass("share-def-action-" + defStyle);
+        }
+    };
+
     var changeStatus = function (value) {
         _changed = value;
 
         jq(".sharing-notchanged-buttons").toggleClass("display-none", value);
         jq(".sharing-changed-buttons").toggleClass("display-none", !value);
+
+        if (_manager.OnChange != null) {
+            _manager.OnChange(_changed);
+        }
     };
 
-    this.WhereChanges = function () {
+    this.WhereChanges = function (ch) {
+        if (ch) {
+            changeStatus(true);
+        }
         return _changed;
     };
 
-    this.UpdateSharingData = function (data) {
+    this.UpdateSharingData = function (data, link) {
         changeStatus(false);
         _data = data;
         _workData = clone(data);
+
+        if (link && jq("#shareGetLink").length) {
+            jq("#shareGetLink").show();
+            ASC.Clipboard.destroy(_clipLink);
+            _clipLink = ASC.Clipboard.create(link, "shareGetLink", {
+                onComplete: _manager.OnCopyLink
+            });
+        } else {
+            jq("#shareGetLink").hide();
+        }
     };
 
     this.GetSharingData = function () {
         return _data;
     };
 
-    this.ShowDialog = function (width, asFlat) {
+    this.ShowDialog = function (width, height, asFlat) {
         reDrawItems();
+        reDrawDefActions();
         hideShareMessage();
+
+        jq("#studio_sharingSettingsDialog .userLink").each(function () {
+            var id = jq(this).attr("id");
+            if (id != null && id != "") {
+                sharingUserProfileInfo.RegistryElement(id, "\"" + jq(this).attr("data-uid") + "\"");
+            }
+        });
+
         jq("#shareMessage").val("");
         jq("#shareMessageSend").prop("checked", true);
 
         width = width || 600;
+        height = height || 470;
 
         if (!asFlat) {
-            StudioBlockUIManager.blockUI("#studio_sharingSettingsDialog", width, 0, -300, "absolute");
+            StudioBlockUIManager.blockUI("#studio_sharingSettingsDialog", width, 0, -height/2, "absolute");
         } else {
             jq("#studio_sharingSettingsDialog").show()
-                .css({ "display": "block" });
+                .css({
+                    "display": "block",
+                    "width": width - 48
+                });
         }
 
         PopupKeyUpActionProvider.EnterAction = "jq(\".sharing-save-button:visible\").click();";
@@ -376,6 +515,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     this.CloseDialog = function () {
+        ASC.Clipboard.destroy(_clipLink);
         return PopupKeyUpActionProvider.CloseDialog();
     };
 };

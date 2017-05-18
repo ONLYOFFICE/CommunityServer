@@ -32,231 +32,180 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 530px;
-}
-.with-link .share-container-head,
-.with-link .share-container-head-corporate {
-    width: 760px;
-}
-#shareSelectorBody {
-    display: none;
-    float: left;
-}
-#studio_sharingSettingsDialog.with-link #shareSelectorBody {
-    display: block;
-}
-#shareSidePanel {
-    float: left;
-    margin-right: 24px;
-    width: 180px;
-}
-#shareSidePanel.menu-list .menu-item .menu-item-label.outer-text {
-    white-space: normal;
-}
-.only-outside #shareSidePortal {
-    display: none;
-}
-#sharingSettingsDialogBody {
-    float: left;
-    width: 550px;
+    width: 370px;
 }
 
-#studio_sharingSettingsDialog.with-link.outside-panel #sharingSettingsDialogBody,
-#studio_sharingSettingsDialog.with-link.embedded-panel #sharingSettingsDialogBody,
-#studio_sharingSettingsDialog.with-link.outside-panel #shareEmbeddedPanel,
-#studio_sharingSettingsDialog.with-link.embedded-panel #shareLinkPanel,
-#studio_sharingSettingsDialog.with-link.deny-access #shareEmbeddedPanel,
-#studio_sharingSettingsDialog.with-link.deny-access #shareLinkPanel {
-    display: none;
-}
-#studio_sharingSettingsDialog.with-link.outside-panel #shareLinkBody,
-#studio_sharingSettingsDialog.with-link.embedded-panel #shareLinkBody {
-    display: block;
+#sharingSettingsDialogBody .change-owner-selector {
+    max-width: 300px;
 }
 
-#studio_sharingSettingsDialog.with-link #shareLinkBody {
+#shareLinkBody {
     display: none;
-    float: left;
-    padding-left: 24px;
-    width: 550px;
-}
-#studio_sharingSettingsDialog.with-link #sharingSettingsDialogBody {
-    padding-left: 24px;
+    margin-bottom: 16px;
 }
 .sharing-link-items {
-    padding: 16px 0 24px;
-}
-.share-link-label {
-    border: 1px solid #e2e2e2;
-    cursor: pointer;
-    margin-right: 16px;
-    padding: 3px 24px 4px;
-}
-#chareLinkClose {
-    padding-left: 3px;
-}
-.share-link-label.checked {
-    background-color: #e2e2e2;
-}
-.share-link-label .link-share-opt {
-    visibility: hidden;
-}
-#sharingAcePanel {
-    float: right;
-}
-#sharingLinkDeny {
-    margin: 28px 0;
+    float: left;
+    padding: 0 0 12px;
 }
 
-#shareLinkPanel .textEdit {
-    border-color: #DFDFDF;
-    padding: 5px;
-    width: 98%;
+#sharingLinkAce {
+    float: left;
+    width: 140px;
+    padding: 1px 0 12px 10px;
+}
+#sharingLinkAce .combobox-container {
+    min-width: 120px;
+}
+#shareLinkDescr {
+    float: left;
+    margin: 1px 0 0 12px;
+}
+.sharelink-around {
+    float: left;
+    margin-bottom: 16px;
+    padding: 0 0 0 8px;
+    position: relative;
+    width: 340px;
+}
+.without-emb .sharelink-around {
+    width: 100%;
 }
 #shareLink {
-    color: #7A7A7A;
-    height: 32px;
-    margin: 8px 0;
-    max-height: 32px;
-    min-height: 32px;
-    resize: none;
+    border: none;
+    font-size: 14px;
+    height: 16px;
+    margin: 4px 0;
+    text-overflow: ellipsis;
+    width: 238px;
+}
+.without-emb #shareLink {
+    width: 448px;
 }
 #shareLinkCopy {
-    float: left;
-    margin-top: 2px;
-    margin-right: 14px;
+    background: white;
+    cursor: pointer;
+    right: 98px;
+    padding: 4px 8px 6px;
+    position: absolute;
+    top: 0;
 }
-#getShortenLink {
-    display: inline-block;
-    margin-top: 2px;
+.without-emb #shareLinkCopy {
+    left: 418px;
 }
 #shareViaSocPanel {
-    height: 24px;
+    float: right;
     list-style: none;
-    margin: 8px 0 0;
+    margin: 2px 0 0;
     padding: 0;
 }
 #shareViaSocPanel > li {
     float: left;
 }
 #shareViaSocPanel a {
-    background: url("images/link_via.png") no-repeat 0 0 transparent;
+    background-color: #ccc;
     cursor: pointer;
     display: block;
-    height: 16px;
-    margin-right: 4px;
-    width: 16px;
+    margin-right: 2px;
+    
+    border-radius: 2px;
+    -moz-topright: 2px;
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
 }
-#shareViaSocPanel .google {
-    background-position: -40px 0;
+#shareViaSocPanel a:hover {
+    background-color: #83888d;
 }
-#shareViaSocPanel .facebook {
-    background-position: 0 0;
+#shareViaSocPanel a span {
+    background: url("images/link_via.png") no-repeat 0 0 transparent;
+    display: block;
+    height: 22px;
+    width: 22px;
 }
-#shareViaSocPanel .twitter {
-    background-position: -20px 0;
+#shareViaSocPanel .mail span {
+    background-position-x: 0;
 }
-#shareViaSocPanel .mail {
-    background-position: -60px 0;
+#shareViaSocPanel .google span {
+    background-position-x: -22px;
 }
-
-/*************************************\
-    shareMailPanel 
-\**************************************/
-#shareMailPanel {
-    display: none;
-    margin-top: 28px;
+#shareViaSocPanel .facebook span {
+    background-position-x: -44px;
 }
-.share-mail-list {
-    max-height: 147px;
-    overflow: auto;
-}
-.recipient-mail {
-    margin: 3px 0 8px 3px;
-}
-#shareMailPanel .recipient-email-input {
-    width: 180px;
-}
-.recipient-mail-action {
-    cursor: pointer;
-    margin-left: 1px;
-}
-.recipient-mail-add {
-    margin: 0 0 4px;
-}
-#shareMailPanel > table {
-    margin-left: 3px;
-}
-.recipient-mail-text {
-    padding-right: 20px;
-    width: 100%;
-}
-#shareMailPanel #shareMailText {
-    float: left;
-    min-height: 32px;
-    max-height: 60px;
-    resize: none;
-    width: 100%;
+#shareViaSocPanel .twitter span {
+    background-position-x: -66px;
 }
 
 /*******************************************************************************
     Embedded panel
 *******************************************************************************/
-#shareEmbedded {
-    border-color: #DFDFDF;
-    color: #7A7A7A;
-    height: 60px;
-    margin: 8px 0;
-    max-height: 60px;
-    min-height: 60px;
-    padding: 5px;
-    resize: none;
-    width: 98%;
+#toggleEmbeddPanel {
+    cursor: pointer;
+    float: right;
+    margin: 6px 0 0 0;
+    max-width: 150px;
+    padding-right: 13px;
+    position: relative;
 }
-#embeddedSizeTemplate {
-    list-style: none;
-    margin: 8px 0 24px;
-    padding: 0;
+#toggleEmbeddPanel::after {
+    border-color: #212121 transparent transparent;
+    border-style: solid solid outset;
+    border-width: 4px 4px 0;
+    content: "";
+    height: 0;
+    margin-top: -2px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+.without-emb #toggleEmbeddPanel {
+    display: none;
+}
+#shareEmbeddedPanel {
+    padding: 17px 24px 24px;
+}
+#shareEmbeddedPanel th {
+    font-weight: normal;
+    padding-bottom: 4px;
+    text-align: left;
+}
+.embedd-space {
+    width: 50px;
 }
 .embedded-size-item {
     cursor: pointer;
-    float: left;
-    margin: 0 16px 0 0;
-    padding: 2px 10px 10px;
-}
-.embedded-size-item.selected {
-    background-color: #f2f2f2;
+    margin-right: 2px;
+    padding: 2px 6px;
 }
 .embedded-size-item:hover{
     background-color: #e5e5e5;
 }
-.embedded-size-template {
-    border: 1px solid #c7c7c7;
-    background-color: #fff;
-    height: 82px;
-    margin-top: 2px;
-    width: 62px;
+.embedded-size-item.selected {
+    background-color: #f2f2f2;
 }
-.embedded-size-8x6 .embedded-size-template {
-    height: 78px;
-    width: 58px;
-}
-.embedded-size-6x4 .embedded-size-template {
-    height: 58px;
-    width: 38px;
+.embedded-size-item.selected span {
+    border-bottom: none;
 }
 .embedded-size-custom {
-    float: left;
-    margin: 0 0 0 40px;
-    padding: 2px 0 0;
+    padding: 3px;
+    width: 45px;
 }
-.embedded-size-descr {
-    line-height: 20px;
-    margin-top: 8px;
-    overflow: hidden;
-    width: 120px;
+.share-embed-around {
+    margin-top: 16px;
+    padding: 0 8px;
+    position: relative;
 }
-.embedded-size-descr input {
-    float: right;
-    width: 56px;
+#shareEmbedded {
+    border: none;
+    font-size: 14px;
+    height: 16px;
+    margin: 4px 0;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+#shareEmbedCopy {
+    background: white;
+    cursor: pointer;
+    padding: 4px 8px 6px;
+    position: absolute;
+    right: 0;
+    top: 0;
 }

@@ -24,11 +24,9 @@
 */
 
 
-using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
 using ASC.Projects.Core.Domain;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects
 {
@@ -44,17 +42,7 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
-            _content.Controls.Add(LoadControl(CommonList.Location));
-
-            if (RequestContext.IsInConcreteProject)
-            {
-                EssenceTitle = Project.Title;
-                EssenceStatus = Project.Status != ProjectStatus.Open
-                    ? LocalizedEnumConverter.ConvertToString(Project.Status).ToLower()
-                    : "";
-            }
             Title = HeaderStringHelper.GetPageTitle(ProjectsCommonResource.TimeTracking);
-            loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
         }
 
         #endregion

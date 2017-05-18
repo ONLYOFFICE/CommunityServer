@@ -24,67 +24,93 @@
 */
 
 
-ASC.Projects.TimeTraking = (function() {
+ASC.Projects.TimeTraking = (function($) {
     var timer,
         seconds = 0,
         timerHours = 0,
         timerMin = 0,
         timerSec = 0,
         startTime = null,
-        focusTime = null,
         pausedTime = null,
         clickPauseFlag = false,
         isPlay = true,
-        inputMinutes,
-        inputHours,
-        inputDate,
-        errorPanel;
+        $inputMinutes,
+        $inputHours,
+        $inputDate,
+        $errorPanel,
+        $addLog,
+        resources = ASC.Projects.Resources.ProjectsJSResource;
+
+    var teamlab = Teamlab;
+    var $hours, $minutes, $seconds, $startButton, $resetButton, $textareaTimeDesc, $openTasks, $closedTasks;
+    var clickEvent = "click", disableClass = "disable", errorClass = "error", successClass = "success", disabledAttr = "disabled", stopClass = "stop";
 
     var init = function () {
-        inputMinutes = jq("#inputTimeMinutes");
-        inputHours = jq("#inputTimeHours");
-        inputDate = jq('#inputDate');
-        errorPanel = jq("#timeTrakingErrorPanel");
-        
+        $inputMinutes = $("#inputTimeMinutes");
+        $inputHours = $("#inputTimeHours");
+        $inputDate = $("#inputDate");
+        $errorPanel = $("#timeTrakingErrorPanel");
+
+        var $timerTime = $("#timerTime");
+        $startButton = $timerTime.find(".start");
+        $resetButton = $timerTime.find(".reset");
+        $addLog = $("#addLog");
+
+        var $firstViewStyle = $("#firstViewStyle");
+        $hours = $firstViewStyle.find(".h");
+        $minutes = $firstViewStyle.find(".m");
+        $seconds = $firstViewStyle.find(".s");
+        $textareaTimeDesc = $("#textareaTimeDesc");
+
+        $openTasks = $('#openTasks');
+        $closedTasks = $('#closedTasks');
+
         window.onfocus = function () {
             var diffTime = {};
             if (startTime && seconds > 0 && !isPlay) {
+
                 var focusTime = new Date();
-                if (focusTime.getHours() > startTime.getHours()) {
-                    diffTime.h = focusTime.getHours() - startTime.getHours();
+                var focusTimeHours = focusTime.getHours();
+                var focusTimeMinutes = focusTime.getMinutes();
+                var focusTimeSeconds = focusTime.getSeconds();
+
+                var startTimeHours = startTime.getHours();
+                var startTimeMinutes = startTime.getMinutes();
+                var startTimeSeconds = startTime.getSeconds();
+
+                if (focusTimeHours > startTimeHours) {
+                    diffTime.h = focusTimeHours - startTimeHours;
                 } else {
                     diffTime.h = 0;
                 }
-                if (focusTime.getMinutes() >= startTime.getMinutes()) {
-                    diffTime.m = focusTime.getMinutes() - startTime.getMinutes(); 
+
+                if (focusTimeMinutes >= startTimeMinutes) {
+                    diffTime.m = focusTimeMinutes - startTimeMinutes;
                 } else if (diffTime.h > 0) {
-                    diffTime.m = (focusTime.getMinutes() + 60) - startTime.getMinutes();
+                    diffTime.m = (focusTimeMinutes + 60) - startTimeMinutes;
                     diffTime.h--;
-                    if (diffTime.m == 60) {
+                    if (diffTime.m === 60) {
                         diffTime.m = 0;
                         diffTime.h++;
                     }
                 } else {
                     diffTime.m = 0;
                 }
-                if (focusTime.getSeconds() >= startTime.getSeconds()) {
-                    diffTime.s = focusTime.getSeconds() - startTime.getSeconds();
+
+                if (focusTimeSeconds >= startTimeSeconds) {
+                    diffTime.s = focusTimeSeconds - startTimeSeconds;
                 } else if (diffTime.m > 0) {
-                    diffTime.s = (focusTime.getSeconds() + 60) - startTime.getSeconds();
+                    diffTime.s = (focusTimeSeconds + 60) - startTimeSeconds;
                     diffTime.m--;
-                    if (diffTime.s == 60) {
+                    if (diffTime.s === 60) {
                         diffTime.s = 0;
                         diffTime.m++;
                     }
                 } else {
                     diffTime.s = 0;
                 }
-                var time = {};
-                if (clickPauseFlag) {
-                    time = timeSum(pausedTime, diffTime);
-                } else {
-                    time = diffTime;
-                }
+
+                var time = clickPauseFlag ? timeSum(pausedTime, diffTime) : diffTime;
                 timerHours = time.h;
                 timerMin = time.m;
                 timerSec = time.s;
@@ -92,150 +118,158 @@ ASC.Projects.TimeTraking = (function() {
             }
         };
 
-        if (jq("#addLog").length) {
-            window.onbeforeunload = function(evt) {
-                if (jq("#timerTime .start").hasClass("stop")) {
-                    window.ASC.Projects.TimeTraking.playPauseTimer();
-                    return '';
-                }
+        if (!$addLog.length)
+            return;
 
-                if (window.ASC.Projects.TimeTraking.ifNotAdded()) {
-                    return '';
-                }
-                return;
-            };
-
-            unlockElements();
-            inputHours.focus();
-            
-            if (jq("#teamList option").length == 0 || jq("#selectUserTasks option").length == 0) {
-                lockStartAndAddButtons();
-            }
-
-            if (!inputDate.hasClass('hasDatepicker')) {
-                inputDate.datepicker({ selectDefaultDate: false, onSelect: function () { inputDate.blur(); } });
-            }
-
-            inputDate.mask(ASC.Resources.Master.DatePatternJQ);
-            inputDate.datepicker('setDate', Teamlab.getDisplayDate(new Date()));
-
-            jq('#timerTime #selectUserProjects').bind('change', function(event) {
-                var prjid = parseInt(jq("#selectUserProjects option:selected").val());
-
-                Teamlab.getPrjTeam({}, prjid, {
-                    before: function() {
-                        jq("#teamList").attr("disabled", "disabled");
-                        jq("#selectUserTasks").attr("disabled", "disabled");
-                    },
-                    success: onGetTeam,
-                    after: function() {
-                        jq("#teamList").removeAttr("disabled");
-                        jq("#selectUserTasks").removeAttr("disabled"); ;
-                    }
-                });
-
-                Teamlab.getPrjTasks({}, null, null, null, { success: onGetTasks, filter: { sortBy: 'title', sortOrder: 'ascending', projectId: prjid} });
-            });
-
-            jq('#timerTime .start').bind('click', function(event) {
-                if (jq(this).hasClass("disable")) return;
+        window.onbeforeunload = function(evt) {
+            if ($startButton.hasClass(stopClass)) {
                 playPauseTimer();
-            });
+                return '';
+            }
 
-            jq('#timerTime .reset').bind('click', function (event) {
-                if (jq(this).hasClass("disable")) return;
-                resetTimer();
-            });
+            if (ifNotAdded()) {
+                return '';
+            }
+            return;
+        };
 
-            jq('#timerTime #addLog').bind('click', function (event) {
-                if (jq(this).hasClass("disable")) return;
-                lockStartAndAddButtons();
-                var h, m, s;
-                var prjid = parseInt(jq("#selectUserProjects option:selected").attr("value"));
-                var personid = jq("#teamList option:selected").attr("value");
-                var taskid = parseInt(jq("#selectUserTasks option:selected").attr("value"));
-                var description = jq.trim(jq("#textareaTimeDesc").val());
-                inputHours.removeClass('error');
-                inputMinutes.removeClass('error');
-                errorPanel.empty();
-                var invalidTime = false;
-
-                if (seconds > 0) {
-                    h = parseInt(jq("#firstViewStyle .h").text(), 10);
-                    m = parseInt(jq("#firstViewStyle .m").text(), 10);
-                    s = parseInt(jq("#firstViewStyle .s").text(), 10);
-                    if (!(h > 0)) h = 0;
-                    if (!(m > 0)) m = 0;
-                    if (!(s > 0)) s = 0;
-                    var hours = h + m / 60 + s / 3600;
-
-                    resetTimer();
-                } else {
-                    if (inputHours.val() == "" && inputMinutes.val() == "") {
-                        errorPanel.addClass('error').removeClass("success");
-                        errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.TimerNoData);
-                        unlockStartAndAddButtons();
-                        return;
-                    }
-                    h = parseInt(inputHours.val(), 10);
-                    m = parseInt(inputMinutes.val(), 10);
-
-                    if (h < 0 || !isInt(h)) {
-                        inputHours.addClass('error');
-                        invalidTime = true;
-                    }
-
-                    if (m > 59 || m < 0 || !isInt(m)) {
-                        inputMinutes.addClass('error');
-                        invalidTime = true;
-                    }
-
-                    if (invalidTime) {
-                        errorPanel.addClass('error').removeClass("success");
-                        errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime).show();
-                        unlockStartAndAddButtons();
-                        return;
-                    }
-
-                    if (!(h > 0)) h = 0;
-                    if (!(m > 0)) m = 0;
-
-                    var hours = h + m / 60;
-                }
-
-                var data = { hours: hours, note: description, personId: personid, projectId: prjid };
-                data.date = inputDate.datepicker('getDate');
-                data.date.setHours(0);
-                data.date.setMinutes(0);
-                data.date = Teamlab.serializeTimestamp(data.date);
-
-                Teamlab.addPrjTime({}, taskid, data, { success: onAddTaskTime });
-            });
-
-            inputMinutes.on("blur", function (e) {
-                var min = jq(this).val();
-                if (min.length == 1) {
-                    jq(this).val("0" + min);
-                }
-            });
+        unlockElements();
+        $inputHours.focus();
+            
+        if ($("#teamList option").length == 0 || $("#selectUserTasks option").length == 0) {
+            lockStartAndAddButtons();
         }
+
+        if (!$inputDate.hasClass('hasDatepicker')) {
+            $inputDate.datepicker({ selectDefaultDate: false, onSelect: function () { $inputDate.blur(); } });
+        }
+
+        $inputDate.mask(ASC.Resources.Master.DatePatternJQ);
+        $inputDate.datepicker('setDate', teamlab.getDisplayDate(new Date()));
+
+        $('#timerTime #selectUserProjects').bind('change', function(event) {
+            var prjid = parseInt($("#selectUserProjects option:selected").val());
+
+            teamlab.getPrjTeam({}, prjid, {
+                before: function() {
+                    $("#teamList").attr(disabledAttr, disabledAttr);
+                    $("#selectUserTasks").attr(disabledAttr, disabledAttr);
+                },
+                success: onGetTeam,
+                after: function() {
+                    $("#teamList").removeAttr(disabledAttr);
+                    $("#selectUserTasks").removeAttr(disabledAttr); ;
+                }
+            });
+
+            teamlab.getPrjTasks({}, {
+                success: onGetTasks,
+                filter: { sortBy: 'title', sortOrder: 'ascending', projectId: prjid }
+            });
+        });
+
+        $startButton.bind(clickEvent, function () {
+            if ($startButton.hasClass(disableClass)) return;
+            playPauseTimer();
+        });
+
+        $resetButton.bind(clickEvent, function () {
+            if ($resetButton.hasClass(disableClass)) return;
+            resetTimer();
+        });
+
+        $addLog.bind(clickEvent, function () {
+            if ($addLog.hasClass(disableClass)) return;
+            lockStartAndAddButtons();
+            var h, m, s;
+            var prjid = parseInt($("#selectUserProjects option:selected").attr("value"));
+            var personid = $("#teamList option:selected").attr("value");
+            var taskid = parseInt($("#selectUserTasks option:selected").attr("value"));
+            var description = $.trim($textareaTimeDesc.val());
+            var invalidTime = false;
+            var hours;
+
+            $inputHours.removeClass(errorClass);
+            $inputMinutes.removeClass(errorClass);
+            $errorPanel.empty();
+
+            
+
+            if (seconds > 0) {
+                h = parseInt($hours.text(), 10);
+                m = parseInt($minutes.text(), 10);
+                s = parseInt($seconds.text(), 10);
+                if (!(h > 0)) h = 0;
+                if (!(m > 0)) m = 0;
+                if (!(s > 0)) s = 0;
+                hours = h + m / 60 + s / 3600;
+
+                resetTimer();
+            } else {
+                if ($inputHours.val() === "" && $inputMinutes.val() === "") {
+                    $errorPanel.addClass(errorClass).removeClass(successClass);
+                    $errorPanel.text(resources.TimerNoData);
+                    unlockStartAndAddButtons();
+                    return;
+                }
+                h = parseInt($inputHours.val(), 10);
+                m = parseInt($inputMinutes.val(), 10);
+
+                if (h < 0 || !isInt(h)) {
+                    $inputHours.addClass(errorClass);
+                    invalidTime = true;
+                }
+
+                if (m > 59 || m < 0 || !isInt(m)) {
+                    $inputMinutes.addClass(errorClass);
+                    invalidTime = true;
+                }
+
+                if (invalidTime) {
+                    $errorPanel.addClass(errorClass).removeClass(successClass);
+                    $errorPanel.text(resources.InvalidTime).show();
+                    unlockStartAndAddButtons();
+                    return;
+                }
+
+                if (!(h > 0)) h = 0;
+                if (!(m > 0)) m = 0;
+
+                hours = h + m / 60;
+            }
+
+            var data = { hours: hours, note: description, personId: personid, projectId: prjid };
+            data.date = $inputDate.datepicker('getDate');
+            data.date.setHours(0);
+            data.date.setMinutes(0);
+            data.date = teamlab.serializeTimestamp(data.date);
+
+            teamlab.addPrjTime({}, taskid, data, { success: onAddTaskTime });
+        });
+
+        $inputMinutes.on("blur", function (e) {
+            var min = $inputMinutes.val();
+            if (min.length == 1) {
+                $inputMinutes.val("0" + min);
+            }
+        });
     };
 
-    var isInt = function(input) {
+    function isInt(input) {
         return parseInt(input, 10) == input;
     };
 
-    var playTimer = function() {
+    function playTimer() {
         lockElements(true);
 
-        inputHours.val('').removeClass('error');
-        inputMinutes.val('').removeClass('error');
-        errorPanel.empty();
+        $inputHours.val('').removeClass(errorClass);
+        $inputMinutes.val('').removeClass(errorClass);
+        $errorPanel.empty();
 
         timer = setInterval(timerTick, 1000);
     };
 
-    var timerTick = function () {
+    function timerTick() {
         timerSec++;
         if (timerSec == 60) {
             timerSec = 0;
@@ -245,60 +279,63 @@ ASC.Projects.TimeTraking = (function() {
                 timerHours++;
             }
         }
-        var time = { h: timerHours, m: timerMin, s: timerSec };
-        updateTimer(time);
+
+        updateTimer({ h: timerHours, m: timerMin, s: timerSec });
     };
 
-    var pauseTimer = function () {
+    function pauseTimer() {
         pausedTime = getCurrentTime();
         window.clearTimeout(timer);
     };
 
-    var updateTimer = function (time) {
+    function updateTimer(time) {
         seconds = time.h * 60 * 60 + time.m * 60 + time.s;      // refactor?
-        if (time.h < 10) showHours = "0" + time.h; else showHours = time.h;
-        if (time.m < 10) showMin = "0" + time.m; else showMin = time.m;
-        if (time.s < 10) showSec = "0" + time.s; else showSec = time.s;
-
-        jq("#firstViewStyle .h").text(showHours);
-        jq("#firstViewStyle .m").text(showMin);
-        jq("#firstViewStyle .s").text(showSec);
+        $hours.text(getTextImpl(time.h));
+        $minutes.text(getTextImpl(time.m));
+        $seconds.text(getTextImpl(time.s));
     };
 
-    var getCurrentTime = function () {
-        var time = {};
-        time.h = parseInt(jq("#firstViewStyle .h").text(), 10);
-        time.m = parseInt(jq("#firstViewStyle .m").text(), 10);
-        time.s = parseInt(jq("#firstViewStyle .s").text(), 10);
-        return time;
+    function getTextImpl(val) {
+        return val < 10 ? "0" + val : val;
+    }
+
+    function getCurrentTime() {
+        return {
+            h: parseInt($hours.text(), 10),
+            m: parseInt($minutes.text(), 10),
+            s: parseInt($seconds.text(), 10)
+        };
     };
 
-    var timeSum = function (firstTime, secondTime) {
-        var resultTime = {};
-        resultTime.h = firstTime.h + secondTime.h;
-        resultTime.m = firstTime.m + secondTime.m;
-        if (resultTime.m >= 60) {
-            resultTime.h++;
-            resultTime.m -= 60;
-        }
-        resultTime.s = firstTime.s + secondTime.s;
+    function timeSum(firstTime, secondTime) {
+        var resultTime = {
+            h: firstTime.h + secondTime.h,
+            m: firstTime.m + secondTime.m,
+            s: firstTime.s + secondTime.s
+        };
+
         if (resultTime.s >= 60) {
             resultTime.m++;
             resultTime.s -= 60;
         }
+
+        if (resultTime.m >= 60) {
+            resultTime.h++;
+            resultTime.m -= 60;
+        }
+
         return resultTime;
     };
 
-    var resetTimer = function() {
+    function resetTimer() {
         unlockElements();
         pauseTimer();
 
-        jq("#firstViewStyle .h").text('00');
-        jq("#firstViewStyle .m").text('00');
-        jq("#firstViewStyle .s").text('00');
+        var zeroText = '00';
+        $hours.text(zeroText);
+        $minutes.text(zeroText);
+        $seconds.text(zeroText);
 
-        var startButton = jq("#timerTime .start");
-        startButton.removeClass("stop").attr("title", startButton.attr("data-title-start"));
         isPlay = true;
         seconds = 0;
         timerSec = 0;
@@ -306,44 +343,46 @@ ASC.Projects.TimeTraking = (function() {
         timerHours = 0;
         startTime = null;
         clickPauseFlag = false;
+
+        $startButton.removeClass(stopClass).attr("title", $startButton.attr("data-title-start"));
     };
 
-    var lockElements = function(onlyManualInput) {
-        inputHours.attr("disabled", "true");
-        inputMinutes.attr("disabled", "true");
+    function lockElements(onlyManualInput) {
+        var trueStr = "true";
+        $inputHours.attr(disabledAttr, trueStr);
+        $inputMinutes.attr(disabledAttr, trueStr);
         if (!onlyManualInput) {
-            inputDate.attr("disabled", "true");
-            jq("#textareaTimeDesc").attr("disabled", "true");
+            $inputDate.attr(disabledAttr, trueStr);
+            $textareaTimeDesc.attr(disabledAttr, trueStr);
         }
     };
 
-    var unlockElements = function() {
-        inputHours.removeAttr("disabled");
-        inputMinutes.removeAttr("disabled");
-        inputDate.removeAttr("disabled");
-        jq("#textareaTimeDesc").removeAttr("disabled");
+    function unlockElements() {
+        $inputHours.removeAttr(disabledAttr);
+        $inputMinutes.removeAttr(disabledAttr);
+        $inputDate.removeAttr(disabledAttr);
+        $textareaTimeDesc.removeAttr(disabledAttr);
     };
 
-    var lockStartAndAddButtons = function() {
-        jq("#firstViewStyle .start, #firstViewStyle .reset, #addLog").addClass("disable");
+    function lockStartAndAddButtons() {
+        $startButton.add($resetButton).add($addLog).addClass(disableClass);
         lockElements();
     };
 
-    var unlockStartAndAddButtons = function() {
-        jq("#firstViewStyle .start, #firstViewStyle .reset, #addLog").removeClass("disable");
+    function unlockStartAndAddButtons() {
+        $startButton.add($resetButton).add($addLog).removeClass(disableClass);
         unlockElements();
     };
 
-    var playPauseTimer = function() {
-        var startButton = jq("#timerTime .start");
+    function playPauseTimer() {
         if (isPlay) {
-            startButton.addClass("stop").attr("title", startButton.attr("data-title-pause"));
+            $startButton.addClass(stopClass).attr("title", $startButton.attr("data-title-pause"));
             isPlay = false;
             startTime = new Date();
             playTimer();
         }
         else {
-            startButton.removeClass("stop").attr("title", startButton.attr("data-title-start"));
+            $startButton.removeClass(stopClass).attr("title", $startButton.attr("data-title-start"));
             isPlay = true;
             clickPauseFlag = true;
             startTime = null;
@@ -351,18 +390,18 @@ ASC.Projects.TimeTraking = (function() {
         }
     };
 
-    var onAddTaskTime = function(data) {
-        errorPanel.removeClass("error").addClass("success");
-        errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.SuccessfullyAdded);
-        jq("#textareaTimeDesc").val('');
-        inputHours.val('');
-        inputMinutes.val('');
-        jq("#firstViewStyle .h,#firstViewStyle .m,#firstViewStyle .s").val('00');
+    function onAddTaskTime(data) {
+        $errorPanel.removeClass(errorClass).addClass(successClass);
+        $errorPanel.text(resources.SuccessfullyAdded);
+        $textareaTimeDesc.val('');
+        $inputHours.val('');
+        $inputMinutes.val('');
+        $hours.add($minutes).add($seconds).val('00');
         unlockStartAndAddButtons();
     };
 
-    var onGetTeam = function(params, team) {
-        var teamList = jq('#teamList');
+    function onGetTeam(params, team) {
+        var teamList = $('#teamList');
         teamList.find('option').remove();
         
         team = ASC.Projects.Common.excludeVisitors(team);
@@ -380,59 +419,71 @@ ASC.Projects.TimeTraking = (function() {
         }
     };
 
-    var onGetTasks = function(params, tasks) {
-        var taskInd = tasks ? tasks.length : 0;
-        jq('#selectUserTasks option').remove();
+    function onGetTasks(params, tasks) {
+        $('#selectUserTasks option').remove();
 
-        var openTasks = jq('#openTasks');
-        var closedTasks = jq('#closedTasks');
-
-        tasks.forEach(function(item) {
+        tasks.forEach(function (item) {
+            var opt = '<option value="' + item.id + '" id="optionUser_' + item.id + '">' + $.htmlEncodeLight(item.title) + '</option>';
             if (item.status == 1) {
-                openTasks.append('<option value="' + item.id + '" id="optionUser_' + item.id + '">' + jq.htmlEncodeLight(item.title) + '</option>');
+                $openTasks.append(opt);
             }
             if (item.status == 2) {
-                closedTasks.append('<option value="' + item.id + '" id="optionUser_' + item.id + '">' + jq.htmlEncodeLight(item.title) + '</option>');
+                $closedTasks.append(opt);
             }
         });
         
-        if (jq("#selectUserTasks option").length == 0) {
+        if ($("#selectUserTasks option").length === 0) {
             lockStartAndAddButtons();
         } else {
             unlockStartAndAddButtons();
         }
     };
 
-    var ifNotAdded = function() {
-        return seconds > 0 || inputHours.val() != '' || inputMinutes.val() != '';
+    function ifNotAdded() {
+        return seconds > 0 || $inputHours.val() != '' || $inputMinutes.val() != '';
     };
 
     return {
-        init: init,
-        playPauseTimer: playPauseTimer,
-        ifNotAdded: ifNotAdded
+        init: init
     };
 })(jQuery);
 
-ASC.Projects.TimeTrakingEdit = (function () {
+ASC.Projects.TimeTrakingEdit = (function ($) {
     var timeCreator,
         isInit,
         oldTime = {},
         loadListTeamFlag = false,
-        commonPopupContainer = jq("#commonPopupContainer"),
+        commonPopupContainer = $("#commonPopupContainer"),
         $popupContainer,
         inputMinutes,
         inputHours,
-        errorPanel;
+        errorPanel,
+        resources = ASC.Projects.Resources.ProjectsJSResource;
 
-    var initPopup = function () {
+    var teamlab = Teamlab;
+
+    function initPopup() {
         if (isInit) return;
         var clonedPopup = commonPopupContainer.clone();
         clonedPopup.attr("id", "timeTrakingPopup");
-        jq("#CommonListContainer").append(clonedPopup);
+        $("#CommonListContainer").append(clonedPopup);
         $popupContainer = clonedPopup;
-        $popupContainer.find(".commonPopupContent").append(jq.tmpl("projects_editTimerPopup", {}));
-        $popupContainer.find(".commonPopupHeaderTitle").empty().text($popupContainer.find(".hidden-title-text").text());
+        $popupContainer.html(jq.tmpl("common_containerTmpl",
+        {
+            options: {
+                PopupContainerCssClass: "popupContainerClass",
+                OnCancelButtonClick: "PopupKeyUpActionProvider.CloseDialog();",
+                IsPopup: true
+            },
+            header: {
+                data: { title: ASC.Projects.Resources.CommonResource.TimeTracking },
+                title: "projects_common_popup_header"
+            },
+            body: {
+                data: {},
+                title: "projects_editTimerPopup"
+            }
+        }));
     };
 
     var init = function () {
@@ -442,26 +493,23 @@ ASC.Projects.TimeTrakingEdit = (function () {
             isInit = true;
         }
         
-        inputMinutes = jq("#inputTimeMinutes");
-        inputHours = jq("#inputTimeHours");
-        errorPanel = jq("#timeTrakingErrorPanel");
+        inputMinutes = $("#inputTimeMinutes");
+        inputHours = $("#inputTimeHours");
+        errorPanel = $("#timeTrakingErrorPanel");
         
         inputMinutes.on("blur", function (e) {
-            var min = jq(this).val();
+            var min = inputMinutes.val();
             if (min.length == 1) {
-                jq(this).val("0" + min);
+                inputMinutes.val("0" + min);
             }
         });
-        
-        if (jq.getURLParam("prjID"))
-                loadListTeamFlag = true;
 
-        jq('#timeTrakingPopup .middle-button-container a.button.blue.middle').bind('click', function (event) {
-            var data = {};
+        $('#timeTrakingPopup .middle-button-container a.button.blue.middle').bind('click', function (event) {
+            
             var h = inputHours.val();
             var m = inputMinutes.val();
 
-            if (checkError(h, m, jq('#timeTrakingPopup #timeTrakingDate').val())) {
+            if (checkError(h, m, $('#timeTrakingPopup #timeTrakingDate').val())) {
                 return;
             }
            
@@ -470,109 +518,111 @@ ASC.Projects.TimeTrakingEdit = (function () {
 
             if (!(h > 0)) h = 0;
             if (!(m > 0)) m = 0;
-
-            data.hours = h + m / 60;
             
-            var timeid = jq("#timeTrakingPopup").attr('timeid');
-            
-            data.date = Teamlab.serializeTimestamp(jq('#timeTrakingPopup #timeTrakingDate').datepicker('getDate'));
-            data.note = jq('#timeTrakingPopup #timeDescription').val();
-            data.personId = jq('#teamList option:selected').attr('value');
+            var timeid = $("#timeTrakingPopup").attr('timeid');
 
-            Teamlab.updatePrjTime({ oldTime: oldTime, timeid: timeid }, timeid, data, { error: onUpdatePrjTimeError });
+            teamlab.updatePrjTime({ oldTime: oldTime, timeid: timeid },
+                timeid,
+                {
+                    hours: h + m / 60,
+                    date: teamlab.serializeTimestamp($('#timeTrakingPopup #timeTrakingDate').datepicker('getDate')),
+                    note: $('#timeTrakingPopup #timeDescription').val(),
+                    personId: $('#teamList option:selected').attr('value')
+                },
+                { error: onUpdatePrjTimeError });
 
-            jq.unblockUI();
+            $.unblockUI();
 
         });
     };
 
-    var checkError = function (h, m, d) {
+    function checkError(h, m, d) {
         var error = false;
         
         if (parseInt(m, 10) > 59 || parseInt(m, 10) < 0 || !isInt(m)) {
-            errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
+            errorPanel.text(resources.InvalidTime);
             inputMinutes.focus();
             error = true;
         }
         if (parseInt(h, 10) < 0 || !isInt(h)) {
-            errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
+            errorPanel.text(resources.InvalidTime);
             inputHours.focus();
             error = true;
         }
         
-        if (jq.trim(d) == "" || d == null || !jq.isDateFormat(d)) {
-            errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.IncorrectDate);
-            jq('#timeTrakingPopup #timeTrakingDate').focus();
+        if ($.trim(d) == "" || d == null || !$.isDateFormat(d)) {
+            errorPanel.text(resources.IncorrectDate);
+            $('#timeTrakingPopup #timeTrakingDate').focus();
             error = true;
         }
 
         if (error) {
             errorPanel.show();
-            setInterval('jq("#timeTrakingErrorPanel").hide();', 5000);
+            setInterval(function() { $("#timeTrakingErrorPanel").hide(); }, 5000);
         }
 
         return error;
     };
     
-    var isInt = function (input) {
+    function isInt(input) {
         return parseInt(input, 10) == input;
     };
     
     var showPopup = function (prjid, taskid, taskName, timeId, time, date, description, responsible) {
-        $timerDate = jq("#timeTrakingDate");
+        $timerDate = $("#timeTrakingDate");
         timeCreator = responsible;
         $popupContainer.attr('timeid', timeId);
-        jq("#timeDescription").val(description);
-        jq("#TimeLogTaskTitle").text(taskName);
-        jq("#TimeLogTaskTitle").attr('taskid', taskid);
+        $("#timeDescription").val(description);
+        $("#TimeLogTaskTitle").text(taskName);
+        $("#TimeLogTaskTitle").attr('taskid', taskid);
 
         oldTime = time;
         inputHours.val(time.hours);
         if (time.minutes > 9) inputMinutes.val(time.minutes);
         else inputMinutes.val("0" + time.minutes);
 
-        date = Teamlab.getDisplayDate(new Date(date));
+        date = teamlab.getDisplayDate(new Date(date));
         $timerDate.mask(ASC.Resources.Master.DatePatternJQ);
         $timerDate.datepicker({ popupContainer: "#timeTrakingPopup", selectDefaultDate: true });
         $timerDate.datepicker('setDate', date);
-        jq('select#teamList option').remove();
+        $('select#teamList option').remove();
 
-        Teamlab.getPrjTime({}, taskid, { success: onGetTimeSpend });
+        teamlab.getPrjTaskTime({}, taskid, { success: onGetTimeSpend });
         if (loadListTeamFlag) {
-            jq('select#teamList option').remove();
+            $('select#teamList option').remove();
             if (ASC.Projects.Master.Team.length) {
                 appendListOptions(ASC.Projects.Common.excludeVisitors(ASC.Projects.Master.Team));
             }
         } else {
-            Teamlab.getPrjProjectTeamPersons({}, prjid, { success: onGetTeamByProject });
+            teamlab.getPrjProjectTeamPersons({}, prjid, { success: onGetTeamByProject });
         }
 
         StudioBlockUIManager.blockUI($popupContainer, 550, 400, 0, "absolute");
         inputHours.focus();
     };
 
-    var onGetTimeSpend = function (params, data) {
+    function onGetTimeSpend(params, data) {
         var hours = data.reduce(function (a, b) { return a + b.hours; }, 0);
         
-        var time = jq.timeFormat(hours);
-        jq(".addLogPanel-infoPanelBody #TotalHoursCount").text(time);
+        var time = $.timeFormat(hours);
+        $(".addLogPanel-infoPanelBody #TotalHoursCount").text(time);
     };
 
-    var appendListOptions = function (team) {
-        var teamListSelect = jq('select#teamList');
+    function appendListOptions(team) {
+        var teamListSelect = $('select#teamList');
         team.forEach(function (item) {
             if (timeCreator == item.id) {
-                teamListSelect.append(jq('<option value="' + item.id + '" selected="selected"></option>').html(item.displayName));
+                teamListSelect.append($('<option value="' + item.id + '" selected="selected"></option>').html(item.displayName));
             } else {
-                teamListSelect.append(jq('<option value="' + item.id + '"></option>').html(item.displayName));
+                teamListSelect.append($('<option value="' + item.id + '"></option>').html(item.displayName));
             }
         });
     };
-    var onUpdatePrjTimeError = function (params, data) {
-        jq("div.entity-menu[timeid=" + params.timeid + "]").hide();
+    function onUpdatePrjTimeError(params, data) {
+        $("div.entity-menu[timeid=" + params.timeid + "]").hide();
     };
 
-    var onGetTeamByProject = function (params, data) {
+    function onGetTeamByProject(params, data) {
         var team = data;
         if (team.length) {
             appendListOptions(ASC.Projects.Common.excludeVisitors(team));

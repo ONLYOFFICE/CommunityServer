@@ -55,8 +55,6 @@ namespace ASC.Web.Projects
                 }
             }
 
-            _hintPopup.Options.IsPopup = true;
-
             Title = HeaderStringHelper.GetPageTitle(ProjectTemplatesResource.AllProjectTmpl);
         }
     }

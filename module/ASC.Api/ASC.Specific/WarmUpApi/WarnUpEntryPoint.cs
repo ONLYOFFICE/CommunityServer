@@ -68,7 +68,7 @@ namespace ASC.Specific.WarmUpApi
         {
             try
             {
-                return WarmUp.Instance.GetSerializedProgress();
+                return WarmUpController.Instance.GetSerializedProgress();
             }
             catch (Exception ex)
             {

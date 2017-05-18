@@ -36,6 +36,7 @@ using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.Community.Product;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Community.Wiki
 {
@@ -99,16 +100,14 @@ namespace ASC.Web.Community.Wiki
 
             if (!IsPostBack)
             {
-                BindRepeater();
+                InitPageData();
             }
         }
 
-        private void BindRepeater()
+        private void InitPageData()
         {
-            phListResult.Visible = phTableResult.Visible = false;
             if (isByUser || isShowNew || isShowFresh)
             {
-                phListResult.Visible = true;
                 List<Page> dataSource;
                 var emptyScreenCaption = string.Empty;
                 var emptyScreenText = string.Empty;
@@ -130,157 +129,68 @@ namespace ASC.Web.Community.Wiki
                     emptyScreenText = WikiResource.EmptyScreenWikiRecentlyEditedText;
                 }
 
-                //foreach (Pages p in dataSource)
-                //{
-                //    p.PageName = HttpUtility.HtmlEncode(p.PageName);
-                //}
 
-                if (dataSource.Count > 0)
-                {
-                    rptPageList.DataSource = dataSource;
-                    rptPageList.DataBind();
-                }
-                else
-                {
-                    var emptyScreenControl = new EmptyScreenControl
-                        {
-                            ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
-                            Header = emptyScreenCaption,
-                            Describe = emptyScreenText
-                        };
+                Page.RegisterInlineScript(String.Format(" wikiPages = {0}; ASC.Community.Wiki.InitListPages();",
+                                               JsonConvert.SerializeObject(dataSource.ConvertAll(p =>
+                                                   new {
+                                                       PageName = GetPageName(p),
+                                                       ID = p.ID,
+                                                       PageLink = GetPageViewLink(p),
+                                                       Author = CoreContext.UserManager.GetUsers(p.UserID).RenderCustomProfileLink("", "linkMedium"),
+                                                       PageDate = GetDate(p)
+                                                   }))
+                                               ), onReady: true);
 
-                    if (CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_AddPage))
+
+                var emptyScreenControl = new EmptyScreenControl
                     {
-                        emptyScreenControl.ButtonHTML = String.Format("<a class='link underline blue plus' href='default.aspx?action=New'>{0}</a>", WikiResource.menu_AddNewPage);
-                    }
+                        ID = "wikiListPagesEmpty",
+                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
+                        Header = emptyScreenCaption,
+                        Describe = emptyScreenText,
+                        CssClass = "display-none"
+                    };
 
-                    phListResult.Controls.Add(emptyScreenControl);
+                if (CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_AddPage))
+                {
+                    emptyScreenControl.ButtonHTML = String.Format("<a class='link underline blue plus' href='default.aspx?action=New'>{0}</a>", WikiResource.menu_AddNewPage);
                 }
+
+                phListEmptyScreen.Controls.Add(emptyScreenControl);
+
             }
             else
             {
-                phTableResult.Visible = true;
                 List<Page> result;
                 result = isShowCat ? Wiki.GetPages(categoryName) : Wiki.GetPages();
 
                 result.RemoveAll(pemp => string.IsNullOrEmpty(pemp.PageName));
 
-                var letters = new List<string>(WikiResource.wikiCategoryAlfaList.Split(','));
 
-                var otherSymbol = string.Empty;
-                if (letters.Count > 0)
+                Page.RegisterInlineScript(String.Format(" wikiCategoryAlfaList = '{0}'; wikiPages = {1}; ASC.Community.Wiki.InitListPagesByLetter();",
+                                                WikiResource.wikiCategoryAlfaList,
+                                                JsonConvert.SerializeObject(result.ConvertAll(p => new { PageName = p.PageName, ID = p.ID, PageLink = GetPageViewLink(p) }))
+                                                ), onReady: true);
+
+
+                var emptyScreenControl = new EmptyScreenControl
+                    {
+                        ID = "wikiListPagesByLetterEmpty",
+                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
+                        Header = WikiResource.EmptyScreenWikiIndexCaption,
+                        Describe = WikiResource.EmptyScreenWikiIndexText,
+                        CssClass = "display-none"
+                    };
+
+                if (CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_AddPage))
                 {
-                    otherSymbol = letters[0];
-                    letters.Remove(otherSymbol);
+                    emptyScreenControl.ButtonHTML = String.Format("<a class='link underline blue plus' href='default.aspx?action=New'>{0}</a>", WikiResource.menu_AddNewPage);
                 }
 
-                var dictList = new List<PageDictionary>();
-                foreach (var page in result)
-                {
-                    page.PageName = HttpUtility.HtmlEncode(page.PageName);
-
-                    var firstLetter = new string(page.PageName[0], 1);
-
-                    if (!letters.Exists(lt => lt.Equals(firstLetter, StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        firstLetter = otherSymbol;
-                    }
-
-                    PageDictionary pageDic;
-                    if (!dictList.Exists(dl => dl.HeadName.Equals(firstLetter, StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        pageDic = new PageDictionary { HeadName = firstLetter };
-                        pageDic.Pages.Add(page);
-                        dictList.Add(pageDic);
-                    }
-                    else
-                    {
-                        pageDic = dictList.Find(dl => dl.HeadName.Equals(firstLetter, StringComparison.InvariantCultureIgnoreCase));
-                        pageDic.Pages.Add(page);
-                    }
-                }
-
-                dictList.Sort(SortPageDict);
-
-                var countAll = dictList.Count*3 + result.Count; //1 letter is like 2 links to category
-                var perColumn = (int)(Math.Round((decimal)countAll/3));
-
-                var mainDictList = new List<List<PageDictionary>>();
-
-                int index = 0, lastIndex = 0, count = 0;
-
-                for (int i = 0; i < dictList.Count; i++)
-                {
-                    var p = dictList[i];
-
-                    count += 3;
-                    count += p.Pages.Count;
-                    index++;
-                    if (count >= perColumn || i == dictList.Count - 1)
-                    {
-                        count = count - perColumn;
-                        mainDictList.Add(dictList.GetRange(lastIndex, index - lastIndex));
-                        lastIndex = index;
-                    }
-                }
-
-                if (mainDictList.Count > 0)
-                {
-                    rptMainPageList.DataSource = mainDictList;
-                    rptMainPageList.DataBind();
-                }
-                else
-                {
-                    var emptyScreenControl = new EmptyScreenControl
-                        {
-                            ImgSrc = WebImageSupplier.GetAbsoluteWebPath("WikiLogo150.png", WikiManager.ModuleId),
-                            Header = WikiResource.EmptyScreenWikiIndexCaption,
-                            Describe = WikiResource.EmptyScreenWikiIndexText
-                        };
-
-                    if (CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_AddPage))
-                    {
-                        emptyScreenControl.ButtonHTML = String.Format("<a class='link underline blue plus' href='default.aspx?action=New'>{0}</a>", WikiResource.menu_AddNewPage);
-                    }
-
-                    phTableResult.Controls.Add(emptyScreenControl);
-                }
+                phListEmptyScreen.Controls.Add(emptyScreenControl);
             }
         }
 
-        private int SortPageDict(PageDictionary cd1, PageDictionary cd2)
-        {
-            return cd1.HeadName.CompareTo(cd2.HeadName);
-        }
-
-        //protected void cmdDelete_Click(object sender, EventArgs e)
-        //{
-        //    PagesProvider.PagesDelete((sender as LinkButton).CommandName);
-        //    BindRepeater();
-        //}
-
-
-
-        //protected string GetPageEditLink(Pages page)
-        //{
-        //    return ActionHelper.GetEditPagePath(this.ResolveUrlLC("Default.aspx"), page.PageName);
-        //}
-
-        //protected string GetPageInfo(Pages page)
-        //{
-        //    if (page.UserID.Equals(Guid.Empty))
-        //    {
-        //        return string.Empty;
-        //    }
-
-
-        //    return ProcessVersionInfo(page.PageName, page.UserID, page.Date, page.Version, false);
-        //}
-
-        protected string GetAuthor(Page page)
-        {
-            return CoreContext.UserManager.GetUsers(page.UserID).RenderCustomProfileLink("", "linkMedium");
-        }
 
         protected string GetDate(Page page)
         {

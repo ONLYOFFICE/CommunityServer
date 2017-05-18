@@ -48,9 +48,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagInviteLink = "InviteLink";
         public static string TagDate = "Date";
         public static string TagIP = "IP";
-        public static string TagPassword = "Password";
         public static string TagWebStudioLink = "WebStudioLink";
-        public static string TagAuthor = "Author";
         public static string TagAuthorLink = "AuthorLink";
         public static string TagActivities = "Activities";
         public static string TagBackupUrl = "BackupUrl";
@@ -62,6 +60,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagAutoRenew = "AutoRenew";
         public static string TagOwnerName = "OwnerName";
         public static string TagRegionName = "RegionName";
+        public static string TagFeedBackUrl = "FeedBackUrl";
 
         public static string TagActiveUsers = "ActiveUsers";
         public static string TagPrice = "Price";
@@ -91,10 +90,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionRequestTariff = new NotifyAction("request_tariff", "request_tariff");
         public static INotifyAction ActionRequestLicense = new NotifyAction("request_license", "request_license");
 
-        public static INotifyAction ActionYouAddedLikeGuest = new NotifyAction("you_added_like_guest", "You added like guest");
-        public static INotifyAction ActionYouAddedAfterInvite = new NotifyAction("you_added_after_invite", "You added after invite");
         public static INotifyAction ActionYourProfileUpdated = new NotifyAction("profile_updated", "profile updated");
-        public static INotifyAction ActionSendPassword = new NotifyAction("send_pwd", "send password");
         public static INotifyAction ActionInviteUsers = new NotifyAction("invite", "invite users");
         public static INotifyAction ActionJoinUsers = new NotifyAction("join", "join users");
         public static INotifyAction ActionSendWhatsNew = new NotifyAction("send_whats_new", "send whats new");
@@ -109,40 +105,16 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionDnsChange = new NotifyAction("dns_change", "dns_change");
 
         public static INotifyAction ActionConfirmOwnerChange = new NotifyAction("owner_confirm_change", "owner_confirm_change");
-        public static INotifyAction ActionActivateUsers = new NotifyAction("activate", "activate");
-        public static INotifyAction ActionActivateGuests = new NotifyAction("activate_guest", "activate_guest");
         public static INotifyAction ActionActivateUsersPersonal = new NotifyAction("activate_personal", "activate_personal");
         public static INotifyAction ActionActivateEmail = new NotifyAction("activate_email", "activate_email");
         public static INotifyAction ActionEmailChange = new NotifyAction("change_email", "change_email");
         public static INotifyAction ActionPasswordChange = new NotifyAction("change_password", "change_password");
-        public static INotifyAction ActionPasswordChanged = new NotifyAction("change_pwd", "password changed");
         public static INotifyAction ActionPhoneChange = new NotifyAction("change_phone", "change_phone");
-        public static INotifyAction ActionCongratulations = new NotifyAction("congratulations");
         public static INotifyAction ActionMigrationPortalStart = new NotifyAction("migration_start", "migration start");
         public static INotifyAction ActionMigrationPortalSuccess = new NotifyAction("migration_success", "migration success");
         public static INotifyAction ActionMigrationPortalError = new NotifyAction("migration_error", "migration error");
         public static INotifyAction ActionMigrationPortalServerFailure = new NotifyAction("migration_server_failure", "migration_server_failure");
         public static INotifyAction ActionPortalRename = new NotifyAction("portal_rename", "portal_rename");
-        
-
-        public static INotifyAction ActionAfterCreation1 = new NotifyAction("after_creation1");
-        public static INotifyAction ActionAfterCreation2 = new NotifyAction("after_creation2");
-        public static INotifyAction ActionAfterCreation3 = new NotifyAction("after_creation3");
-        public static INotifyAction ActionAfterCreation4 = new NotifyAction("after_creation4");
-        public static INotifyAction ActionAfterCreation5 = new NotifyAction("after_creation5");
-        public static INotifyAction ActionAfterCreation6 = new NotifyAction("after_creation6");
-        public static INotifyAction ActionAfterCreation7 = new NotifyAction("after_creation7");
-
-        public static INotifyAction ActionAfterCreation1FreeCloud = new NotifyAction("after_creation1_freecloud");
-        public static INotifyAction ActionAfterCreation30FreeCloud = new NotifyAction("after_creation30_freecloud");
-
-        public static INotifyAction ActionTariffWarningTrial = new NotifyAction("tariff_warning_trial");
-        public static INotifyAction ActionTariffWarningTrial2 = new NotifyAction("tariff_warning_trial2");
-        public static INotifyAction ActionTariffWarningTrial3 = new NotifyAction("tariff_warning_trial3");
-        public static INotifyAction ActionTariffWarningTrial4 = new NotifyAction("tariff_warning_trial4");
-
-        public static INotifyAction ActionTariffWarningTrialEnterprise = new NotifyAction("tariff_warning_trial_enterprise");
-        public static INotifyAction ActionTariffWarningTrial2Enterprise = new NotifyAction("tariff_warning_trial2_enterprise");
 
         public static INotifyAction ActionAfterRegistrationPersonal1 = new NotifyAction("after_registration_personal1");
         public static INotifyAction ActionAfterRegistrationPersonal7 = new NotifyAction("after_registration_personal7");
@@ -153,44 +125,89 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionPasswordChangePersonal = new NotifyAction("change_password_personal");
         public static INotifyAction ActionEmailChangePersonal = new NotifyAction("change_email_personal");
 
-        public static INotifyAction ActionAfterPayment1 = new NotifyAction("after_payment1");
-        public static INotifyAction ActionPaymentWarningBefore7 = new NotifyAction("payment_warning_before7");
-        public static INotifyAction ActionPaymentWarning = new NotifyAction("payment_warning");
-        public static INotifyAction ActionPaymentWarningAfter3 = new NotifyAction("payment_warning_after3");
-        public static INotifyAction ActionPaymentWarningDelayDue = new NotifyAction("payment_warning_delaydue");
-
-
-        public static INotifyAction ActionCongratulationsFreeCloud = new NotifyAction("congratulations_freecloud");
-        public static INotifyAction ActionYouAddedAfterInviteFreeCloud = new NotifyAction("you_added_after_invite_freecloud", "you_added_after_invite_freecloud");
-        public static INotifyAction ActionYouAddedLikeGuestFreeCloud = new NotifyAction("you_added_like_guest_freecloud", "You added like guest");
-        public static INotifyAction ActionActivateUsersFreeCloud = new NotifyAction("activate_freecloud", "activate_freecloud");
-        public static INotifyAction ActionActivateGuestsFreeCloud = new NotifyAction("activate_guest_freecloud", "activate_guest_freecloud");
         public static INotifyAction ActionPortalDeleteSuccessFreeCloud = new NotifyAction("portal_delete_success_freecloud", "portal_delete_success_freecloud");
 
-        public static INotifyAction ActionAdminWellcome = new NotifyAction("admin_welcome", "admin_welcome");
+        public static INotifyAction ActionSaasAdminActivation = new NotifyAction("saas_admin_activation");
+        public static INotifyAction ActionEnterpriseAdminActivation = new NotifyAction("enterprise_admin_activation");
+        public static INotifyAction ActionEnterpriseWhitelabelAdminActivation = new NotifyAction("enterprise_whitelabel_admin_activation");
+        public static INotifyAction ActionHostedAdminActivation = new NotifyAction("hosted_admin_activation");
+        public static INotifyAction ActionHostedWhitelabelAdminActivation = new NotifyAction("hosted_whitelabel_admin_activation");
+        public static INotifyAction ActionFreeCloudAdminActivation = new NotifyAction("freecloud_admin_activation");
 
-        public static INotifyAction ActionAdminWellcomeEnterprise = new NotifyAction("admin_welcome_enterprise", "admin_welcome_enterprise");
-        public static INotifyAction ActionCongratulationsEnterprise = new NotifyAction("congratulations_enterprise");
-        public static INotifyAction ActionActivateUsersEnterprise = new NotifyAction("activate_enterprise", "activate_enterprise");
-        public static INotifyAction ActionYouAddedAfterInviteEnterprise = new NotifyAction("you_added_after_invite_enterprise", "you_added_after_invite_enterprise");
-        public static INotifyAction ActionActivateGuestsEnterprise = new NotifyAction("activate_guest_enterprise", "activate_guest_enterprise");
-        public static INotifyAction ActionYouAddedLikeGuestEnterprise = new NotifyAction("you_added_like_guest_enterprise", "You added like guest");
-        public static INotifyAction ActionAfterCreation4Enterprise = new NotifyAction("after_creation4_enterprise");
-        public static INotifyAction ActionAfterCreation1Enterprise = new NotifyAction("after_creation1_enterprise");
-        public static INotifyAction ActionAfterCreation8Enterprise = new NotifyAction("after_creation8_enterprise");
-        public static INotifyAction ActionAfterCreation6Enterprise = new NotifyAction("after_creation6_enterprise");
-        public static INotifyAction ActionAfterCreation2Enterprise = new NotifyAction("after_creation2_enterprise");
-        public static INotifyAction ActionAfterCreation3Enterprise = new NotifyAction("after_creation3_enterprise");
-        public static INotifyAction ActionAfterCreation7Enterprise = new NotifyAction("after_creation7_enterprise");
+        public static INotifyAction ActionSaasAdminWellcome = new NotifyAction("saas_admin_welcome");
+        public static INotifyAction ActionEnterpriseAdminWellcome = new NotifyAction("enterprise_admin_welcome");
+        public static INotifyAction ActionEnterpriseWhitelabelAdminWellcome = new NotifyAction("enterprise_whitelabel_admin_welcome");
+        public static INotifyAction ActionHostedAdminWellcome = new NotifyAction("hosted_admin_welcome");
+        public static INotifyAction ActionHostedWhitelabelAdminWellcome = new NotifyAction("hosted_whitelabel_admin_welcome");
 
-        public static INotifyAction ActionCongratulationsWhitelabel = new NotifyAction("congratulations_whitelabel");
-        public static INotifyAction ActionAdminWellcomeWhitelabel = new NotifyAction("admin_welcome_whitelabel", "admin_welcome_whitelabel");
-        public static INotifyAction ActionActivateUsersWhitelabel = new NotifyAction("activate_whitelabel", "activate_whitelabel");
-        public static INotifyAction ActionYouAddedAfterInviteWhitelabel = new NotifyAction("you_added_after_invite_whitelabel", "you_added_after_invite_whitelabel");
-        public static INotifyAction ActionActivateGuestsWhitelabel = new NotifyAction("activate_guest_whitelabel", "activate_guest_whitelabel");
-        public static INotifyAction ActionYouAddedLikeGuestWhitelabel = new NotifyAction("you_added_like_guest_whitelabel", "You added like guest");
-        public static INotifyAction ActionPaymentWarningBefore7Whitelabel = new NotifyAction("payment_warning_before7_whitelabel");
-        public static INotifyAction ActionPaymentWarningWhitelabel = new NotifyAction("payment_warning_whitelabel");
+        public static INotifyAction ActionSaasUserActivation = new NotifyAction("saas_user_activation");
+        public static INotifyAction ActionEnterpriseUserActivation = new NotifyAction("enterprise_user_activation");
+        public static INotifyAction ActionEnterpriseWhitelabelUserActivation = new NotifyAction("enterprise_whitelabel_user_activation");
+        public static INotifyAction ActionHostedUserActivation = new NotifyAction("hosted_user_activation");
+        public static INotifyAction ActionHostedWhitelabelUserActivation = new NotifyAction("hosted_whitelabel_user_activation");
+        public static INotifyAction ActionFreeCloudUserActivation = new NotifyAction("freecloud_user_activation");
+
+        public static INotifyAction ActionSaasUserWellcome = new NotifyAction("saas_user_welcome");
+        public static INotifyAction ActionEnterpriseUserWellcome = new NotifyAction("enterprise_user_welcome");
+        public static INotifyAction ActionEnterpriseWhitelabelUserWellcome = new NotifyAction("enterprise_whitelabel_user_welcome");
+        public static INotifyAction ActionHostedUserWellcome = new NotifyAction("hosted_user_welcome");
+        public static INotifyAction ActionHostedWhitelabelUserWellcome = new NotifyAction("hosted_whitelabel_user_welcome");
+        public static INotifyAction ActionFreeCloudUserWellcome = new NotifyAction("freecloud_user_welcome");
+
+        public static INotifyAction ActionSaasGuestActivation = new NotifyAction("saas_guest_activation");
+        public static INotifyAction ActionEnterpriseGuestActivation = new NotifyAction("enterprise_guest_activation");
+        public static INotifyAction ActionEnterpriseWhitelabelGuestActivation = new NotifyAction("enterprise_whitelabel_guest_activation");
+        public static INotifyAction ActionHostedGuestActivation = new NotifyAction("hosted_guest_activation");
+        public static INotifyAction ActionHostedWhitelabelGuestActivation = new NotifyAction("hosted_whitelabel_guest_activation");
+        public static INotifyAction ActionFreeCloudGuestActivation = new NotifyAction("freecloud_guest_activation");
+
+        public static INotifyAction ActionSaasGuestWellcome = new NotifyAction("saas_guest_welcome");
+        public static INotifyAction ActionEnterpriseGuestWellcome = new NotifyAction("enterprise_guest_welcome");
+        public static INotifyAction ActionEnterpriseWhitelabelGuestWellcome = new NotifyAction("enterprise_whitelabel_guest_welcome");
+        public static INotifyAction ActionHostedGuestWellcome = new NotifyAction("hosted_guest_welcome");
+        public static INotifyAction ActionHostedWhitelabelGuestWellcome = new NotifyAction("hosted_whitelabel_guest_welcome");
+        public static INotifyAction ActionFreeCloudGuestWellcome = new NotifyAction("freecloud_guest_welcome");
+
+        public static INotifyAction ActionHostedAdminInviteTeammates = new NotifyAction("hosted_admin_invite_teammates");
+
+        public static INotifyAction ActionEnterpriseUserOrganizeWorkplace = new NotifyAction("enterprise_user_organize_workplace");
+        public static INotifyAction ActionEnterpriseAdminCustomizePortal = new NotifyAction("enterprise_admin_customize_portal");
+        public static INotifyAction ActionEnterpriseAdminInviteTeammates = new NotifyAction("enterprise_admin_invite_teammates");
+        public static INotifyAction ActionEnterpriseAdminWithoutActivity = new NotifyAction("enterprise_admin_without_activity");
+        public static INotifyAction ActionEnterpriseAdminUserDocsTips = new NotifyAction("enterprise_admin_user_docs_tips");
+        public static INotifyAction ActionEnterpriseAdminUserMailTips = new NotifyAction("enterprise_admin_user_mail_tips");
+        public static INotifyAction ActionEnterpriseAdminUserCrmTips = new NotifyAction("enterprise_admin_user_crm_tips");
+        public static INotifyAction ActionEnterpriseAdminUserTeamTips = new NotifyAction("enterprise_admin_user_team_tips");
+
+        public static INotifyAction ActionEnterpriseAdminTrialWarningBefore7 = new NotifyAction("enterprise_admin_trial_warning_before7");
+        public static INotifyAction ActionEnterpriseAdminTrialWarning = new NotifyAction("enterprise_admin_trial_warning");
+
+        public static INotifyAction ActionEnterpriseAdminPaymentWarningBefore7 = new NotifyAction("enterprise_admin_payment_warning_before7");
+        public static INotifyAction ActionEnterpriseWhitelabelAdminPaymentWarningBefore7 = new NotifyAction("enterprise_whitelabel_admin_payment_warning_before7");
+        public static INotifyAction ActionEnterpriseAdminPaymentWarning = new NotifyAction("enterprise_admin_payment_warning");
+        public static INotifyAction ActionEnterpriseWhitelabelAdminPaymentWarning = new NotifyAction("enterprise_whitelabel_admin_payment_warning");
+
+        public static INotifyAction ActionSaasUserOrganizeWorkplace = new NotifyAction("saas_user_organize_workplace");
+        public static INotifyAction ActionSaasAdminInviteTeammates = new NotifyAction("saas_admin_invite_teammates");
+        public static INotifyAction ActionSaasAdminWithoutActivity = new NotifyAction("saas_admin_without_activity");
+        public static INotifyAction ActionSaasAdminUserDocsTips = new NotifyAction("saas_admin_user_docs_tips");
+        public static INotifyAction ActionSaasAdminUserMailTips = new NotifyAction("saas_admin_user_mail_tips");
+        public static INotifyAction ActionSaasAdminUserCrmTips = new NotifyAction("saas_admin_user_crm_tips");
+        public static INotifyAction ActionSaasAdminUserTeamTips = new NotifyAction("saas_admin_user_team_tips");
+
+        public static INotifyAction ActionSaasAdminTrialWarningBefore5 = new NotifyAction("saas_admin_trial_warning_before5");
+        public static INotifyAction ActionSaasAdminTrialWarning = new NotifyAction("saas_admin_trial_warning");
+        public static INotifyAction ActionSaasAdminTrialWarningAfter5 = new NotifyAction("saas_admin_trial_warning_after5");
+        public static INotifyAction ActionSaasAdminTrialWarningAfter30 = new NotifyAction("saas_admin_trial_warning_after30");
+        public static INotifyAction ActionSaasAdminTrialWarningAfterHalfYear = new NotifyAction("saas_admin_trial_warning_after_half_year");
+
+        public static INotifyAction ActionSaasAdminPaymentWarningBefore7 = new NotifyAction("saas_admin_payment_warning_before7");
+        public static INotifyAction ActionSaasAdminPaymentWarning = new NotifyAction("saas_admin_payment_warning");
+        public static INotifyAction ActionSaasAdminPaymentWarningAfter3 = new NotifyAction("saas_admin_payment_warning_after3");
+        public static INotifyAction ActionSaasAdminPaymentWarningDelayDue = new NotifyAction("saas_admin_payment_warning_delaydue");
+
+        public static INotifyAction ActionSaasAdminPaymentAfterMonthlySubscriptions = new NotifyAction("saas_admin_payment_after_monthly_subscriptions");
+
 
         public static ITagValue UnsubscribeLink
         {

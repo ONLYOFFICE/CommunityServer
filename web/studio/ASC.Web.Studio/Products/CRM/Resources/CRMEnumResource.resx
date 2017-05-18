@@ -132,6 +132,9 @@
   <data name="AddressCategory_Postal" xml:space="preserve">
     <value>Delivery</value>
   </data>
+  <data name="AddressCategory_Work" xml:space="preserve">
+    <value>Work</value>
+  </data>
   <data name="AddressPart_City" xml:space="preserve">
     <value>City</value>
   </data>
@@ -210,14 +213,14 @@
   <data name="ContactListViewType_All" xml:space="preserve">
     <value>All companies and persons</value>
   </data>
-  <data name="ContactListViewType_WithOpportunity" xml:space="preserve">
-    <value>With opportunities</value>
-  </data>
   <data name="ContactListViewType_Company" xml:space="preserve">
     <value>Companies</value>
   </data>
   <data name="ContactListViewType_Person" xml:space="preserve">
     <value>Persons</value>
+  </data>
+  <data name="ContactListViewType_WithOpportunity" xml:space="preserve">
+    <value>With opportunities</value>
   </data>
   <data name="CustomFieldType_CheckBox" xml:space="preserve">
     <value>Flag</value>
@@ -255,11 +258,14 @@
   <data name="EntityType_Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
-  <data name="EntityType_Opportunity" xml:space="preserve">
-    <value>Opportunity</value>
-  </data>
   <data name="EntityType_File" xml:space="preserve">
     <value>File</value>
+  </data>
+  <data name="EntityType_Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="EntityType_Opportunity" xml:space="preserve">
+    <value>Opportunity</value>
   </data>
   <data name="EntityType_Person" xml:space="preserve">
     <value>Person</value>
@@ -273,8 +279,29 @@
   <data name="HistoryCategorySystem_FilesUpload" xml:space="preserve">
     <value>Files are uploaded</value>
   </data>
+  <data name="HistoryCategorySystem_MailMessage" xml:space="preserve">
+    <value>Mail Message</value>
+  </data>
   <data name="HistoryCategorySystem_TaskClosed" xml:space="preserve">
     <value>Task is closed</value>
+  </data>
+  <data name="InvoiceStatus_Archived" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="InvoiceStatus_Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="InvoiceStatus_Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="InvoiceStatus_Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="InvoiceStatus_Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="InvoiceStatus_Sent" xml:space="preserve">
+    <value>Billed</value>
   </data>
   <data name="PhoneCategory_Direct" xml:space="preserve">
     <value>Direct</value>
@@ -293,32 +320,5 @@
   </data>
   <data name="PhoneCategory_Work" xml:space="preserve">
     <value>Work</value>
-  </data>
-  <data name="AddressCategory_Work" xml:space="preserve">
-    <value>Work</value>
-  </data>
-  <data name="HistoryCategorySystem_MailMessage" xml:space="preserve">
-    <value>Mail Message</value>
-  </data>
-  <data name="InvoiceStatus_Draft" xml:space="preserve">
-    <value>Черновик</value>
-  </data>
-  <data name="InvoiceStatus_Rejected" xml:space="preserve">
-    <value>Отклонен</value>
-  </data>
-  <data name="InvoiceStatus_Paid" xml:space="preserve">
-    <value>Оплачен</value>
-  </data>
-  <data name="InvoiceStatus_Sent" xml:space="preserve">
-    <value>Выставлен</value>
-  </data>
-  <data name="InvoiceStatus_Archived" xml:space="preserve">
-    <value>Архивный</value>
-  </data>
-  <data name="InvoiceStatus_Overdue" xml:space="preserve">
-    <value>Просрочен</value>
-  </data>
-  <data name="EntityType_Invoice" xml:space="preserve">
-    <value>Invoice</value>
   </data>
 </root>

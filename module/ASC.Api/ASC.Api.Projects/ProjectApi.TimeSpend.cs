@@ -168,7 +168,9 @@ namespace ASC.Api.Projects
         public IEnumerable<TimeWrapper> GetTaskTime(int taskid)
         {
             if (!EngineFactory.TaskEngine.IsExists(taskid)) throw new ItemNotFoundException();
-            return EngineFactory.TimeTrackingEngine.GetByTask(taskid).NotFoundIfNull().Select(x => new TimeWrapper(x));
+            var times = EngineFactory.TimeTrackingEngine.GetByTask(taskid).NotFoundIfNull();
+            _context.SetTotalCount(times.Count);
+            return times.Select(x => new TimeWrapper(x));
         }
 
         ///<summary>

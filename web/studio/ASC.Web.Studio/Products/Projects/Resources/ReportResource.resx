@@ -117,215 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChooseTimeInterval" xml:space="preserve">
-    <value>Time Period</value>
-  </data>
-  <data name="LastMonth" xml:space="preserve">
-    <value>Previous month</value>
-  </data>
-  <data name="LastWeek" xml:space="preserve">
-    <value>Previous week</value>
-  </data>
-  <data name="LastYear" xml:space="preserve">
-    <value>Previous year</value>
-  </data>
-  <data name="Other" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="Project" xml:space="preserve">
-    <value>Project</value>
-  </data>
-  <data name="Reports" xml:space="preserve">
-    <value>Reports</value>
-  </data>
-  <data name="ThisMonth" xml:space="preserve">
-    <value>Current month</value>
-  </data>
-  <data name="ThisWeek" xml:space="preserve">
-    <value>Current week</value>
-  </data>
-  <data name="ThisYear" xml:space="preserve">
-    <value>Current year</value>
-  </data>
-  <data name="Today" xml:space="preserve">
-    <value>Today</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>User</value>
-  </data>
-  <data name="ViewByDepartments" xml:space="preserve">
-    <value>View by {!group}</value>
-  </data>
-  <data name="ViewByProjects" xml:space="preserve">
-    <value>View by project</value>
-  </data>
-  <data name="ViewByUsers" xml:space="preserve">
-    <value>View by user</value>
-  </data>
-  <data name="Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
-  </data>
-  <data name="Any" xml:space="preserve">
-    <value>Any</value>
-  </data>
-  <data name="GenerateReport" xml:space="preserve">
-    <value>Generate Report</value>
-  </data>
-  <data name="ReportEmployment_Title" xml:space="preserve">
-    <value>Workload</value>
-  </data>
-  <data name="ReportProjectList_Title" xml:space="preserve">
-    <value>Project List</value>
-  </data>
-  <data name="ReportTaskList_Title" xml:space="preserve">
-    <value>Project Tasks</value>
-  </data>
-  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
-    <value>Time Tracking Report</value>
-  </data>
-  <data name="ViewClosedProjects" xml:space="preserve">
-    <value>Show closed projects</value>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
   </data>
   <data name="ActiveTasks" xml:space="preserve">
     <value>Active Tasks</value>
   </data>
-  <data name="DeadLine" xml:space="preserve">
-    <value>Deadline</value>
+  <data name="ActiveTaskStatus" xml:space="preserve">
+    <value>Open</value>
   </data>
-  <data name="Participiants" xml:space="preserve">
-    <value>Members</value>
-  </data>
-  <data name="ReportEmployment_Description" xml:space="preserve">
-    <value>{0}{2}The Workload report will display the number of tasks assigned to a user, grouped according to their status.{3}{2}To view the data for all the users, click on Generate Report right away. {3}{2}To select a particular group or user, configure the report parameters in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportProjectList_Description" xml:space="preserve">
-    <value>{0}{2}The Project List report will display a list of projects.{3}{2}To view all active projects with their respective manager, number of tasks, milestones, actions, and team members, click on Generate Report right away.{3}{2}To view projects within a particular group and/or view both active and completed projects, configure the report parameters in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportTaskList_Description" xml:space="preserve">
-    <value>{0}{2}The Project Tasks report will display a list of tasks grouped according to the project and milestone they are attached to. {3}{2}To view the list of all tasks across all projects with the responsible party and status indicated, cick on Generate Report right away.{3}{2}To view only the tasks for a particular project or of a given status, configure the report parameters in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportUserActivity_Descripton" xml:space="preserve">
-    <value>{0}{2}The User Activity report will display a particular actions of users inside Projects for a given time period.{3}{2}To display your own activity for the previous week, click on Generate Report right away.{3}{2}To set another time period or select another user, configure the report parameters in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportUserActivity_Title" xml:space="preserve">
-    <value>User Activity</value>
-  </data>
-  <data name="ReportUserTasks_Description" xml:space="preserve">
-    <value>{0}{2}The User Tasks report will display the list of tasks grouped according to the user they are assigned to.{3}{2}To view all tasks of users with their status indicated, click on Generate Report right away.{3}{2}To view only the tasks for a particular project or of a given status, configure the report parameters in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportUserTasks_Title" xml:space="preserve">
-    <value>User Tasks</value>
-  </data>
-  <data name="ReportLateMilestones_Description" xml:space="preserve">
-    <value>{0}{2}The Overdue Milestones report will display a list of overdue milestones.{3}{2}To view the overdue milestones across all projects, click on Generate Report right away.{3}{2}To view the overdue milestones for a given project only, select the desired project from the drop-down list in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
-    <value>{0}{2}The Upcoming Milestones report will display a list of upcoming milestones.{3}{2}To view the upcoming milestones across all projects for a week's period, click on Generate Report right away.{3}{2}To view the upcoming milestones for a given project and/or another time period, select the desired project from the drop-down list and/or set another margin date in the Up to date field first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportLateMilestones_Title" xml:space="preserve">
-    <value>Overdue Milestones</value>
-  </data>
-  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
-    <value>Upcoming Milestones</value>
-  </data>
-  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
-    <value>{0}{2}The Users with No Active Tasks report will display a list of the users who have no active tasks at the moment. {3}{2}To view all users with no active tasks across all projects, click on Generate Report right away.{3}{2}To select a particular group or check a particular user, configure the report parameters in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
-    <value>{!Users} with no active tasks</value>
-  </data>
-  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
-    <value>{0}{2}The Projects with No Open Milestones report will display a list of projects with no open milestones attached.{3}{2}To view all projects with no open milestones, click on Generate Report right away.{3}{2}To check such projects within a particular group or check a particular user, select the desired group and/or user in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
-    <value>Projects with no active milestones</value>
-  </data>
-  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
-    <value>{0}{2}The Projects with No Active Tasks report will display a list of projects with no active tasks assigned.{3}{2}To view all projects with no active tasks, click on Generate Report right away.{3}{2}To check such projects within a particular group or check a particular user, select the desired group and/or user in the Filter section first, and then click on Generate Report.{3}{1}</value>
-  </data>
-  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
-    <value>Projects with no active tasks</value>
-  </data>
-  <data name="ExportToCSV" xml:space="preserve">
-    <value>Export to .csv</value>
-  </data>
-  <data name="PrintReport" xml:space="preserve">
-    <value>Print Report</value>
-  </data>
-  <data name="ReportClosedTasks" xml:space="preserve">
-    <value>Closed Tasks Report</value>
-  </data>
-  <data name="ReportOpenTasks" xml:space="preserve">
-    <value>Open Tasks Report</value>
-  </data>
-  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
-    <value>{0}{2}The Time Tracking Report displays a list of users with their total work time calculated basing on a time register.{3}{2}This report helps track the total amount of time spent by a user on performing his tasks.{3}{1}</value>
-  </data>
-  <data name="ViewByUserTasks" xml:space="preserve">
-    <value>View by user tasks</value>
-  </data>
-  <data name="AutomaticallyGenerate" xml:space="preserve">
-    <value>Generate such report automatically</value>
-  </data>
-  <data name="Generate" xml:space="preserve">
-    <value>Generate</value>
-  </data>
-  <data name="CrteateTemplate" xml:space="preserve">
-    <value>Create Template</value>
-  </data>
-  <data name="EveryDay" xml:space="preserve">
-    <value>Every day</value>
-  </data>
-  <data name="EveryMonth" xml:space="preserve">
-    <value>Every month</value>
-  </data>
-  <data name="EveryWeek" xml:space="preserve">
-    <value>Every week</value>
-  </data>
-  <data name="Templates" xml:space="preserve">
-    <value>Templates</value>
-  </data>
-  <data name="TemplateTitle" xml:space="preserve">
-    <value>Template  Title</value>
-  </data>
-  <data name="EmptyTemplateTitle" xml:space="preserve">
-    <value>You need to assign a name to the template</value>
-  </data>
-  <data name="Week" xml:space="preserve">
-    <value>Week</value>
-  </data>
-  <data name="Weeks" xml:space="preserve">
-    <value>Weeks</value>
-  </data>
-  <data name="Empty" xml:space="preserve">
-    <value>No templates could be found</value>
+  <data name="Any" xml:space="preserve">
+    <value>Any</value>
   </data>
   <data name="At" xml:space="preserve">
     <value>at</value>
   </data>
-  <data name="ReportPageTitle" xml:space="preserve">
-    <value>Report «{0}»</value>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Generate such report automatically</value>
   </data>
-  <data name="ShowTasks" xml:space="preserve">
-    <value>Show Tasks</value>
+  <data name="BuildingReport" xml:space="preserve">
+    <value>Creating report...</value>
   </data>
-  <data name="ReportLateTasks_Description" xml:space="preserve">
-    <value>{0}{2}The Overdue Tasks report will display a list of overdue tasks.{3}{2}To view the overdue tasks across all projects, click the Generate Report link.{3}{2}To view the overdue tasks for a given project only, select the desired project from the dropdown list in the Filter section first, and then click the Generate Report link.{3}{1}</value>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
   </data>
-  <data name="ReportLateTasks_Title" xml:space="preserve">
-    <value>Overdue Tasks</value>
-  </data>
-  <data name="NoMilestonesAndTasks" xml:space="preserve">
-    <value>This project contains no milestones and tasks</value>
+  <data name="ChangeFilterData" xml:space="preserve">
+    <value>Change the report filter</value>
   </data>
   <data name="ChangeSettings" xml:space="preserve">
     <value>change the report settings</value>
   </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Time Period</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Time period</value>
+  </data>
   <data name="ClickToSortByThisColumn" xml:space="preserve">
     <value>Click to sort by this column</value>
   </data>
-  <data name="ChangeFilterData" xml:space="preserve">
-    <value>Change the report filter</value>
+  <data name="ClosedTaskStatus" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="CreateNewReport" xml:space="preserve">
+    <value>Create new report</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Create Template</value>
   </data>
   <data name="CsvColumnMilestoneDeadline" xml:space="preserve">
     <value>Milestone Deadline</value>
@@ -351,31 +192,226 @@
   <data name="CsvColumnUserName" xml:space="preserve">
     <value>User Name</value>
   </data>
-  <data name="ActiveTaskStatus" xml:space="preserve">
-    <value>In progress</value>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Deadline</value>
   </data>
-  <data name="ClosedTaskStatus" xml:space="preserve">
-    <value>Closed</value>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
   </data>
-  <data name="IncorrectDateRage" xml:space="preserve">
-    <value>Incorrect date range</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>No templates could be found</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>You need to assign a name to the template</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Every day</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Every month</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Every week</value>
+  </data>
+  <data name="ExportToCSV" xml:space="preserve">
+    <value>Export to .csv</value>
   </data>
   <data name="ExportToCSVCheckboxLabel" xml:space="preserve">
     <value>Do not show again</value>
   </data>
   <data name="ExportToCSVNote" xml:space="preserve">
-    <value>The generated report will be opened by TeamLab Spreadsheet Editor and saved in the My Documents folder.</value>
+    <value>The generated report will be opened by ONLYOFFICE™ Spreadsheet Editor and saved in the My Documents folder.</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="GenerateFromTemplate" xml:space="preserve">
+    <value>Generate from Template</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generate Report</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Incorrect date range</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Previous month</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Previous week</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Previous year</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>This project contains no milestones and tasks</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Members</value>
   </data>
   <data name="PaymentStatuses" xml:space="preserve">
     <value>Payment Statuses</value>
   </data>
-  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
-    <value>Deadline for the next</value>
+  <data name="PrintReport" xml:space="preserve">
+    <value>Print Report</value>
   </data>
-  <data name="ChooseTasksTimePeriod" xml:space="preserve">
-    <value>Created over the last</value>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Closed Tasks Report</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}The Users with No Open Tasks report will display a list of the users who have no open tasks at the moment. {3}{2}To view all users with no open tasks across all projects, click the Generate Report button right away.{3}{2}To select a particular group or a particular project, configure the report parameters below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} with No Open Tasks</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}The Workload report will display the number of tasks assigned to a user, grouped according to their status.{3}{2}To view the data for all the users, click the Generate Report button right away. {3}{2}To select a particular group or user, configure the report parameters below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Workload</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}The Overdue Milestones report will display a list of overdue milestones.{3}{2}To view the overdue milestones across all projects, click on Generate Report right away.{3}{2}To view the overdue milestones for a given project only, select the desired project from the drop-down list, and then click on Generate Report.{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Overdue Milestones</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}The Overdue Tasks report will display a list of overdue tasks.{3}{2}To view the overdue tasks across all projects, click the Generate Report button.{3}{2}To view the overdue tasks for a given project only, select the desired project from the drop-down list below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Overdue Tasks</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Open Tasks Report</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Report «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}The Project List report will display a list of projects.{3}{2}To view all active projects with their respective manager, number of tasks, milestones, actions, and team members, click the Generate Report button right away.{3}{2}To view projects of a particular group and/or view both active and closed projects, configure the report parameters below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Project List</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}The Projects with No Open Milestones report will display a list of projects with no open milestones attached.{3}{2}To view all projects with no open milestones, click the Generate Report button right away.{3}{2}To check such projects within a particular group or check a particular user, select the desired group and user, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Projects with No Open Milestones</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}The Projects with No Open Tasks report will display a list of projects with no open tasks assigned.{3}{2}To view all projects with no open tasks, click the Generate Report button right away.{3}{2}To check such projects within a particular group or check a particular user, select the desired group and/or user below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Projects with No Open Tasks</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}The Project Tasks report will display a list of tasks grouped according to the project and milestone they are attached to. {3}{2}To view the list of all tasks across all projects with the responsible person and status indicated, click the Generate Report button right away.{3}{2}To view only the tasks for a particular project or of a given status, or the tasks created over the specified number of last weeks, configure the report parameters below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Project Tasks</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}The Time Tracking report displays a list of users with their total work time calculated basing on a time register.{3}{2}This report helps track the total amount of time spent by a user on performing his tasks.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Time Tracking</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}The Upcoming Milestones report will display a list of upcoming milestones.{3}{2}To view the upcoming milestones across all projects for a week's period, click on Generate Report right away.{3}{2}To view the upcoming milestones for a given project and/or another time period, select the desired project from the drop-down list and/or another margin date from the Time Period list first, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Upcoming Milestones</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}The User Activity report will display all the actions of a particular user within Projects for a given time period.{3}{2}To display your own activity for the previous week, click the Generate Report button right away.{3}{2}To set another time period or select another user, configure the report parameters below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>User Activity</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}The User Tasks report will display the list of tasks grouped according to the user they are assigned to.{3}{2}To view all tasks of users with their status indicated, click the Generate Report button right away.{3}{2}To view only the tasks for a particular user/group or of a given status, or the tasks created over the specified number of last weeks, configure the report parameters below, and then click the Generate Report button.{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>User Tasks</value>
+  </data>
+  <data name="SaveAsTemplate" xml:space="preserve">
+    <value>Save as template</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Show tasks</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Template  Title</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Current week</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Current year</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>View by user</value>
+  </data>
+  <data name="UseTemplate" xml:space="preserve">
+    <value>Use template</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>View by {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>View by project</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>View by user</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>View by user tasks</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Show closed projects</value>
+  </data>
+  <data name="ViewInfo" xml:space="preserve">
+    <value>Show report information</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Weeks</value>
   </data>
   <data name="Weeks2" xml:space="preserve">
     <value>Weeks</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
 </root>

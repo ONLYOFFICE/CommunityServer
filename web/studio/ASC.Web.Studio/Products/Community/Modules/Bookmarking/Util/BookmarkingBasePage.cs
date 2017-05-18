@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -47,9 +47,9 @@ namespace ASC.Web.Community.Bookmarking.Util
         {
             BookmarkingBusinessConstants.CommunityProductID = CommunityProduct.ID;
 
-            Page.RegisterStyle("~/products/community/modules/bookmarking/app_themes/default/css/bookmarkingstyle.css");
-            Page.RegisterBodyScripts("~/products/community/modules/bookmarking/js/bookmarking.js",
-                "~/js/asc/plugins/tagsautocompletebox.js");
+            Page.RegisterStyle("~/products/community/modules/bookmarking/app_themes/default/css/bookmarkingstyle.css")
+                .RegisterBodyScripts("~/products/community/modules/bookmarking/js/bookmarking.js",
+                "~/products/community/js/tagsautocompletebox.js");
 
             ServiceHelper = BookmarkingServiceHelper.GetCurrentInstanse();
 

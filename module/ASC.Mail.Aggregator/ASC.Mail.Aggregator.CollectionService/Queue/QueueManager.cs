@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Runtime.Caching;
 using System.Threading;
 using ASC.Core;
@@ -37,7 +36,7 @@ using ASC.Mail.Aggregator.CollectionService.Queue.Data;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
-using ASC.Mail.Aggregator.Common.Utils;
+using LiteDB;
 
 namespace ASC.Mail.Aggregator.CollectionService.Queue
 {
@@ -51,8 +50,16 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         private readonly ILogger _log;
         private DateTime _loadQueueTime;
         private MemoryCache _tenantMemCache;
-        private readonly string _queueDumpPath;
-        private readonly string _tenantDumpPath;
+
+        private const string DBC_MAILBOXES = "mailboxes";
+        private const string DBC_TENANTS = "tenants";
+        private const string DBC_FILE = "dump.db";
+
+        private readonly object _locker = new object();
+
+        private LiteDatabase _db;
+        private LiteCollection<MailboxData> _mailboxes;
+        private LiteCollection<TenantData> _tenants;
 
         public ManualResetEvent CancelHandler { get; set; }
 
@@ -74,27 +81,25 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                 AuthErrorDisableTimeout = _tasksConfig.AuthErrorDisableMailboxTimeout
             };
 
-            var dir = AppDomain.CurrentDomain.BaseDirectory;
-            _queueDumpPath = Path.Combine(dir, "dump.queue.json");
-            _tenantDumpPath = Path.Combine(dir, "dump.tenants.json");
+            LoadDump();
         }
 
         #region - public methods -
 
         public IEnumerable<MailBox> GetLockedMailboxes(int needTasks)
         {
-            var mailboxes = new List<MailBox>();
+            var mbList = new List<MailBox>();
             do
             {
                 var mailBox = GetLockedMailbox();
                 if (mailBox == null)
                     break;
 
-                mailboxes.Add(mailBox);
+                mbList.Add(mailBox);
 
-            } while (mailboxes.Count < needTasks);
+            } while (mbList.Count < needTasks);
 
-            return mailboxes;
+            return mbList;
         }
 
         public MailBox GetLockedMailbox()
@@ -107,11 +112,14 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
             } while (mailBox != null && !TryLockMailbox(mailBox));
 
-            if (mailBox != null)
-            {
-                _lockedMailBoxList.Add(mailBox);
-                CancelHandler.Reset();
-            }
+            if (mailBox == null)
+                return null;
+
+            _lockedMailBoxList.Add(mailBox);
+
+            CancelHandler.Reset();
+
+            AddMailboxToDumpDb(mailBox.ToMailboxData());
 
             return mailBox;
         }
@@ -149,6 +157,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                 _manager.SetMailboxProcessed(mailBox);
 
                 _lockedMailBoxList.Remove(mailBox);
+
+                DeleteMailboxFromDumpDb(mailBox.MailBoxId);
             }
             catch (Exception ex)
             {
@@ -162,68 +172,27 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             get { return _lockedMailBoxList.Count; }
         }
 
-        public void LoadQueueFromDump()
+        public void LoadMailboxesFromDump()
         {
-            if (_lockedMailBoxList.Any() || !File.Exists(_queueDumpPath))
+            if (_lockedMailBoxList.Any())
                 return;
 
             try
             {
-                _log.Debug("LoadQueueFromDump('{0}')", _queueDumpPath);
+                _log.Debug("LoadMailboxesFromDump()");
 
-                var list = MailUtil.RestoreFromJson<List<MailboxData>>(_queueDumpPath);
-
-                _lockedMailBoxList = list.ConvertAll(m => new MailBox
-                    {
-                        TenantId = m.TenantId,
-                        UserId = m.UserId,
-                        MailBoxId = m.MailBoxId,
-                        EMail = new MailAddress(m.EMail),
-                        Imap = m.Imap,
-                        IsTeamlab = m.IsTeamlab,
-                        Size = m.Size,
-                        MessagesCount = m.MessagesCount
-                    }).ToList();
-            }
-            catch (Exception ex)
-            {
-                _log.Error("LoadQueueFromDump: {0}", ex.ToString());
-                RemoveDump(_queueDumpPath);
-            }
-        }
-
-        public void SaveQueueToDump()
-        {
-            try
-            {
-                _log.Debug("SaveQueueToDump()");
-
-                if (!_lockedMailBoxList.Any())
+                lock (_locker)
                 {
-                    RemoveDump(_queueDumpPath);
-                    return;
+                    var list = _mailboxes.FindAll().ToList();
+
+                    _lockedMailBoxList = list.ConvertAll(m => m.ToMailbox()).ToList();
                 }
-
-                var list = _lockedMailBoxList
-                    .ConvertAll(m =>
-                        new MailboxData
-                        {
-                            TenantId = m.TenantId,
-                            UserId = m.UserId,
-                            MailBoxId = m.MailBoxId,
-                            EMail = m.EMail.Address,
-                            Imap = m.Imap,
-                            IsTeamlab = m.IsTeamlab,
-                            MessagesCount = m.MessagesCount,
-                            Size = m.Size
-                        });
-
-                MailUtil.SaveToJson(_queueDumpPath, list);
             }
             catch (Exception ex)
             {
-                _log.Error("SaveQueueToDump: {0}", ex.ToString());
-                RemoveDump(_queueDumpPath);
+                _log.Error("LoadMailboxesFromDump: {0}", ex.ToString());
+
+                ReCreateDump();
             }
         }
 
@@ -231,27 +200,24 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             try
             {
-                if (!File.Exists(_tenantDumpPath))
-                    return;
+                _log.Debug("LoadTenantsFromDump()");
 
-                _log.Debug("LoadTenantsFromDump('{0}')", _tenantDumpPath);
-
-                var list = MailUtil.RestoreFromJson<List<TenantData>>(_tenantDumpPath);
-
-                foreach (var tenantData in list)
+                lock (_locker)
                 {
-                    AddTenantToCache(tenantData);
+                    var list = _tenants.FindAll().ToList();
+
+                    foreach (var tenantData in list)
+                    {
+                        AddTenantToCache(tenantData, false);
+                    }
                 }
 
-                if (_tenantMemCache.Any())
-                    return;
-
-                RemoveDump(_tenantDumpPath);
             }
             catch (Exception ex)
             {
                 _log.Error("LoadTenantsFromDump: {0}", ex.ToString());
-                RemoveDump(_tenantDumpPath);
+
+                ReCreateDump();
             }
         }
 
@@ -259,16 +225,150 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         #region - private methods -
 
-        private void AddTenantToCache(TenantData tenantData)
+        private void ReCreateDump()
+        {
+            try
+            {
+                if (File.Exists(DBC_FILE))
+                {
+                    _log.Debug("Dump file '{0}' exists, trying delete", DBC_FILE);
+
+                    File.Delete(DBC_FILE);
+
+                    _log.Debug("Dump file '{0}' deleted", DBC_FILE);
+                }
+
+                _db = new LiteDatabase(DBC_FILE);
+
+                lock (_locker)
+                {
+                    _mailboxes = _db.GetCollection<MailboxData>(DBC_MAILBOXES);
+                    _tenants = _db.GetCollection<TenantData>(DBC_TENANTS);
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("ReCreateDump() failed Exception: {0}", ex.ToString());
+            }
+        }
+
+        private void AddMailboxToDumpDb(MailboxData mailboxData)
+        {
+            try
+            {
+                lock (_locker)
+                {
+                    var mailbox = _mailboxes.FindOne(Query.EQ("MailboxId", mailboxData.MailboxId));
+
+                    if (mailbox != null)
+                        return;
+
+                    _mailboxes.Insert(mailboxData);
+
+                    // Create, if not exists, new index on Name field
+                    _mailboxes.EnsureIndex(x => x.MailboxId);
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("AddMailboxToDumpDb(id={0}) Exception: {1}", mailboxData.MailboxId, ex.ToString());
+
+                ReCreateDump();
+            }
+        }
+
+        private void DeleteMailboxFromDumpDb(int mailBoxId)
+        {
+            try
+            {
+                lock (_locker)
+                {
+                    _mailboxes.Delete(Query.EQ("MailboxId", mailBoxId));
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("DeleteMailboxFromDumpDb(mailboxId={0}) Exception: {1}", mailBoxId, ex.ToString());
+
+                ReCreateDump();
+            }
+        }
+
+        private void LoadDump()
+        {
+            try
+            {
+                _db = new LiteDatabase(DBC_FILE);
+
+                lock (_locker)
+                {
+                    _tenants = _db.GetCollection<TenantData>(DBC_TENANTS);
+                    _mailboxes = _db.GetCollection<MailboxData>(DBC_MAILBOXES);
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("LoadDump() failed Exception: {0}", ex.ToString());
+
+                ReCreateDump();
+            }
+        }
+
+        private void AddTenantToDumpDb(TenantData tenantData)
+        {
+            try
+            {
+                lock (_locker)
+                {
+                    var tenant = _tenants.FindOne(Query.EQ("Tenant", tenantData.Tenant));
+
+                    if(tenant != null)
+                        return;
+                     
+                    _tenants.Insert(tenantData);
+
+                    // Create, if not exists, new index on Name field
+                    _tenants.EnsureIndex(x => x.Tenant);
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("AddTenantToDumpDb(tenantId={0}) Exception: {1}", tenantData.Tenant, ex.ToString());
+
+                ReCreateDump();
+            }
+        }
+
+        private void DeleteTenantFromDumpDb(int tenantId)
+        {
+            try
+            {
+                lock (_locker)
+                {
+                    _tenants.Delete(Query.EQ("Tenant", tenantId));
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Error("DeleteTenantFromDumpDb(tenant={0}) Exception: {1}", tenantId, ex.ToString());
+
+                ReCreateDump();
+            }
+        }
+
+        private void AddTenantToCache(TenantData tenantData, bool needDump = true)
         {
             var now = DateTime.UtcNow;
 
-            if (tenantData.ExpiredDate < now)
+            if (tenantData.Expired < now)
+            {
+                DeleteTenantFromDumpDb(tenantData.Tenant);
                 return; // Skip Expired tenant
+            }
 
-            var cacheItem = new CacheItem(tenantData.TenantId.ToString(CultureInfo.InvariantCulture), tenantData);
+            var cacheItem = new CacheItem(tenantData.Tenant.ToString(CultureInfo.InvariantCulture), tenantData);
 
-            var nowOffset = tenantData.ExpiredDate - now;              
+            var nowOffset = tenantData.Expired - now;              
 
             var absoluteExpiration = DateTime.UtcNow.Add(nowOffset);
 
@@ -279,45 +379,11 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             };
 
             _tenantMemCache.Add(cacheItem, cacheItemPolicy);
-        }
 
-        private void SaveTenantsToDump()
-        {
-            try
-            {
-                if (!_tenantMemCache.Any())
-                {
-                    RemoveDump(_tenantDumpPath);
-                    return;
-                }
+            if (!needDump)
+                return;
 
-                _log.Debug("SaveTenantsToDump()");
-
-                var list = _tenantMemCache.ToList()
-                    .ConvertAll(t => t.Value as TenantData);
-
-                MailUtil.SaveToJson(_tenantDumpPath, list);
-            }
-            catch (Exception ex)
-            {
-                _log.Error("SaveTenantsToDump: {0}", ex.ToString());
-                RemoveDump(_tenantDumpPath);
-            }
-        }
-
-        private void RemoveDump(string path)
-        {
-            try
-            {
-                if (!File.Exists(path)) return;
-
-                _log.Debug("Dump file found. Removing '{0}'", path);
-                File.Delete(path);
-            }
-            catch (Exception ex)
-            {
-                _log.Error("RemoveDump(\"{0}\"): {1}", path, ex.ToString());
-            }
+            AddTenantToDumpDb(tenantData);
         }
 
         private bool QueueIsEmpty
@@ -334,8 +400,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             try
             {
-                var mailboxes = _manager.GetMailboxesForProcessing(_tasksConfig, _maxItemsLimit);
-                ReloadQueue(mailboxes);
+                var mbList = _manager.GetMailboxesForProcessing(_tasksConfig, _maxItemsLimit);
+                ReloadQueue(mbList);
             }
             catch (Exception ex)
             {
@@ -357,20 +423,20 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void RemoveFromQueue(int tenant)
         {
-            var mailboxes = _mailBoxQueue.Where(mb => mb.TenantId != tenant).Select(mb => mb).ToList();
-            ReloadQueue(mailboxes);
+            var mbList = _mailBoxQueue.Where(mb => mb.TenantId != tenant).Select(mb => mb).ToList();
+            ReloadQueue(mbList);
         }
 
         private void RemoveFromQueue(int tenant, string user)
         {
-            var mailboxes = _mailBoxQueue.Where(mb => mb.TenantId != tenant && mb.UserId != user).Select(mb => mb).ToList();
-            ReloadQueue(mailboxes);
+            var mbList = _mailBoxQueue.Where(mb => mb.TenantId != tenant && mb.UserId != user).Select(mb => mb).ToList();
+            ReloadQueue(mbList);
         }
 
-        private void ReloadQueue(IEnumerable<MailBox> mailboxes)
+        private void ReloadQueue(IEnumerable<MailBox> mbList)
         {
             _mailBoxQueue.Clear();
-            _mailBoxQueue.PushRange(mailboxes);
+            _mailBoxQueue.PushRange(mbList);
             _loadQueueTime = DateTime.UtcNow;
         }
 
@@ -418,14 +484,12 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
                                 var tenantData = new TenantData
                                 {
-                                    TenantId = mailbox.TenantId,
+                                    Tenant = mailbox.TenantId,
                                     TariffType = type,
-                                    ExpiredDate = expired
+                                    Expired = expired
                                 };
 
                                 AddTenantToCache(tenantData);
-
-                                SaveTenantsToDump();
 
                                 break;
                         }
@@ -468,12 +532,14 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private void CacheEntryRemove(CacheEntryRemovedArguments arguments)
         {
-            if (arguments.RemovedReason != CacheEntryRemovedReason.CacheSpecificEviction)
-            {
-                _log.Info("Tenant {0} payment cache is expired.", Convert.ToInt32(arguments.CacheItem.Key));
+            if (arguments.RemovedReason == CacheEntryRemovedReason.CacheSpecificEviction)
+                return;
 
-                SaveTenantsToDump();
-            }
+            var tenantId = Convert.ToInt32(arguments.CacheItem.Key);
+
+            _log.Info("Tenant {0} payment cache is expired.", tenantId);
+
+            DeleteTenantFromDumpDb(tenantId);
         }
 
         #endregion
@@ -482,6 +548,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             _tenantMemCache.Dispose();
             _tenantMemCache = null;
+
+            _db.Dispose();
         }
     }
 

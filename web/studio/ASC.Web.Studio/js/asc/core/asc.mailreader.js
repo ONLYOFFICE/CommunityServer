@@ -133,5 +133,6 @@ ASC.Controls.MailReader = function () {
 }();
 
 jq(document).ready(function () {
-    ASC.Controls.MailReader.mailStart();
+    if (jq("#studioPageContent li.mail a.mailActiveBox").length > 0)
+         ASC.Controls.MailReader.mailStart();
 });

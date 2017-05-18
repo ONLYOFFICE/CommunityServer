@@ -103,7 +103,7 @@ namespace ASC.Web.CRM.Controls.Common
         {
             var sb = new StringBuilder();
 
-            sb.AppendFormat(@"ASC.CRM.PrivatePanel.init({0},ASC.CRM.Resources.CRMCommonResource.Notify,{1},null,{2});",
+            sb.AppendFormat(@"ASC.CRM.PrivatePanel.init({0}, ASC.CRM.Resources.CRMCommonResource.Notify, {1}, null, {2});",
                 (!HideNotifyPanel).ToString().ToLower(),
                 JsonConvert.SerializeObject(UsersWhoHasAccess),
                 JsonConvert.SerializeObject(DisabledUsers)

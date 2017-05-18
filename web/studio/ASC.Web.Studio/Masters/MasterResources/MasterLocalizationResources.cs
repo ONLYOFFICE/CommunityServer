@@ -32,6 +32,7 @@ using System.Web;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
+using Microsoft.Ajax.Utilities;
 using Resources;
 
 namespace ASC.Web.Studio.Masters.MasterResources
@@ -65,38 +66,77 @@ namespace ASC.Web.Studio.Masters.MasterResources
             var dateTimeFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
 
             return new List<KeyValuePair<string, object>>(5)
-                   {
-                       RegisterResourceSet("Resource", ResourceJS.ResourceManager),
-                       RegisterResourceSet("FeedResource", FeedResource.ResourceManager),
-                       RegisterResourceSet("ChatResource", ChatResource.ResourceManager),
-                       RegisterResourceSet("UserControlsCommonResource", UserControlsCommonResource.ResourceManager),
-                       RegisterObject(
-                            new
-                                {
-                                    DatePattern = dateTimeFormat.ShortDatePattern,
-                                    TimePattern = dateTimeFormat.ShortTimePattern,
-                                    DateTimePattern = dateTimeFormat.FullDateTimePattern,
-                                    DatePatternJQ = DateTimeExtension.DateMaskForJQuery,
-                                    //.Replace(" ", string.Empty) -  remove because, crash date in datepicker on czech language (bug 21954)
-                                    DatepickerDatePattern = GetDatepikerDateFormat(dateTimeFormat.ShortDatePattern),
-                                    DatepickerTimePattern = GetDatepikerDateFormat(dateTimeFormat.ShortTimePattern),
-                                    DatepickerDateTimePattern = GetDatepikerDateFormat(dateTimeFormat.FullDateTimePattern),
-                                    FirstDay = (int) dateTimeFormat.FirstDayOfWeek,
-                                    DayNames = dateTimeFormat.AbbreviatedDayNames,
-                                    DayNamesFull = dateTimeFormat.DayNames,
-                                    MonthNames = Thread.CurrentThread.CurrentUICulture.DateTimeFormat.AbbreviatedMonthGenitiveNames,
-                                    MonthNamesFull = Thread.CurrentThread.CurrentUICulture.DateTimeFormat.MonthNames,
-                                    Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName,
-                                    CurrentCultureName = Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant(),
-                                    CurrentCulture = CultureInfo.CurrentCulture.Name,
-                                    Resource.FileSizePostfix,
-                                    Resource.AccessRightsAccessToProduct,
-                                    Resource.AccessRightsDisabledProduct,
-									Resource.LdapUsersListLockTitle,
-									Resource.LdapUserEditCanOnlyAdminTitle,
-                                    Resource.LdapSettingsSuccess
-                                })
-                   };
+            {
+                RegisterResourceSet("Resource", ResourceJS.ResourceManager),
+                RegisterResourceSet("FeedResource", FeedResource.ResourceManager),
+                RegisterResourceSet("ChatResource", ChatResource.ResourceManager),
+                RegisterResourceSet("UserControlsCommonResource", UserControlsCommonResource.ResourceManager),
+                RegisterObject(
+                    new
+                    {
+                        TemplateResource = new
+                        {
+                            Resource.Administrator,
+                            Resource.Owner,
+                            Resource.Comments,
+                            Resource.AddNewCommentButton,
+                            Resource.PublishButton,
+                            Resource.PreviewButton,
+                            Resource.CancelButton,
+                            Resource.AddButton,
+                            Resource.CloseButton,
+                            Resource.AnswerButton,
+                            Resource.EditButton,
+                            Resource.DeleteButton,
+                            Resource.CommentWasRemoved,
+                            Resource.AssociateAccountConnected,
+                            Resource.AssociateAccountNotConnected,
+                            Resource.AssociateAccountDisconnect,
+                            Resource.AssociateAccountConnect,
+                            Resource.MailIcsCalendarWhenLabel,
+                            Resource.MailIcsCalendarRecurrenceLabel,
+                            Resource.MailIcsCalendarWhereLabel,
+                            Resource.MailIcsCalendarMapLabel,
+                            Resource.MailIcsCalendarNoLocationLabel,
+                            Resource.MailIcsCalendarWhoLabel,
+                            Resource.MailIcsCalendarOrganizerLabel,
+                            Resource.MailAutoGeneratedText,
+                            Resource.ClearFilterButton,
+                            Resource.Show,
+                            Resource.Hide,
+                            Resource.DrnToday,
+                            Resource.DrnTomorrow,
+                            Resource.In,
+                            Yet2 = DateTimeExtension.Yet(2),
+                            Yet3 = DateTimeExtension.Yet(3),
+                            AllRightsReservedText = Resource.AllRightsReservedText.FormatInvariant(DateTime.UtcNow.Year),
+                            Resource.LdapUsersListLockTitle,
+                            Resource.LdapUserEditCanOnlyAdminTitle,
+                            Resource.LdapSettingsSuccess,
+                            Resource.Browser
+                        },
+
+                        DatePattern = dateTimeFormat.ShortDatePattern,
+                        TimePattern = dateTimeFormat.ShortTimePattern,
+                        DateTimePattern = dateTimeFormat.FullDateTimePattern,
+                        DatePatternJQ = DateTimeExtension.DateMaskForJQuery,
+                        //.Replace(" ", string.Empty) -  remove because, crash date in datepicker on czech language (bug 21954)
+                        DatepickerDatePattern = GetDatepikerDateFormat(dateTimeFormat.ShortDatePattern),
+                        DatepickerTimePattern = GetDatepikerDateFormat(dateTimeFormat.ShortTimePattern),
+                        DatepickerDateTimePattern = GetDatepikerDateFormat(dateTimeFormat.FullDateTimePattern),
+                        FirstDay = (int) dateTimeFormat.FirstDayOfWeek,
+                        DayNames = dateTimeFormat.AbbreviatedDayNames,
+                        DayNamesFull = dateTimeFormat.DayNames,
+                        MonthNames = Thread.CurrentThread.CurrentUICulture.DateTimeFormat.AbbreviatedMonthGenitiveNames,
+                        MonthNamesFull = Thread.CurrentThread.CurrentUICulture.DateTimeFormat.MonthNames,
+                        Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName,
+                        CurrentCultureName = Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant(),
+                        CurrentCulture = CultureInfo.CurrentCulture.Name,
+                        Resource.FileSizePostfix,
+                        Resource.AccessRightsAccessToProduct,
+                        Resource.AccessRightsDisabledProduct
+                    })
+            };
         }
     }
 
@@ -124,8 +164,12 @@ namespace ASC.Web.Studio.Masters.MasterResources
                                 EditDepartmentHeader = CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode(),
                                 EmployeeAllDepartments = CustomNamingPeople.Substitute<Resource>("EmployeeAllDepartments").HtmlEncode(),
                                 AddEmployees = CustomNamingPeople.Substitute<UserControlsCommonResource>("AddEmployees").HtmlEncode(),
-                                AccessRightsAddUser = CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddUser").HtmlEncode(),
-                                AccessRightsAddGroup = CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddGroup").HtmlEncode()
+                                AccessRightsAddUser = CustomNamingPeople.Substitute<Resource>("AccessRightsAddUser").HtmlEncode(),
+                                AccessRightsAddGroup = CustomNamingPeople.Substitute<Resource>("AccessRightsAddGroup").HtmlEncode(),
+                                AccessRightsAllUsers = CustomNamingPeople.Substitute<Resource>("AccessRightsAllUsers"),
+                                AccessRightsUsersFromList = CustomNamingPeople.Substitute<Resource>("AccessRightsUsersFromList"),
+                                AccessRightsEmptyUserList = CustomNamingPeople.Substitute<Resource>("AccessRightsEmptyUserList"),
+                                ChooseUser = CustomNamingPeople.Substitute<Resource>("ChooseUser"),
                             })
                    };
         }

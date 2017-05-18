@@ -1,0 +1,32 @@
+upstream fastcgi_backend_apisystem {
+	server unix:/var/run/onlyoffice/onlyofficeApiSystem.socket;
+	keepalive 64;
+}
+server {
+	listen 8080;
+
+	location / {
+		root    /var/www/onlyoffice/ApiSystem/;
+		index    index.html index.htm default.aspx Default.aspx;
+
+		add_header    Access-Control-Allow-Origin *;
+
+		client_max_body_size	4G;
+
+		access_log    /var/log/onlyoffice/nginx.apisystem.access.log;
+		error_log     /var/log/onlyoffice/nginx.apisystem.error.log;
+
+		fastcgi_keep_conn on;
+		fastcgi_pass fastcgi_backend_apisystem;
+
+		include fastcgi_params;	
+	
+        fastcgi_param   HTTP_X_REWRITER_URL $http_x_rewriter_url;
+		fastcgi_param   SERVER_NAME                     $host;
+		fastcgi_param   SCRIPT_FILENAME                 $document_root$fastcgi_script_name;
+		fastcgi_param   PATH_INFO                       "";
+		
+		fastcgi_read_timeout    600;
+		fastcgi_send_timeout    600;
+	}
+}

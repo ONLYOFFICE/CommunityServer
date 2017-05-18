@@ -29,6 +29,7 @@ window.ASC.Files.Anchor = (function () {
 
     var anchorRegExp = {
         error: new RegExp("^error(?:\/(\\S+))?"),
+        message: new RegExp("^message(?:\/(\\S+))?"),
         preview: new RegExp("^preview(?:\/|%2F)" + ASC.Files.Constants.entryIdRegExpStr),
         setting: new RegExp("^setting(?:=?(\\w+)?)?"),
         folder: new RegExp("^" + ASC.Files.Constants.entryIdRegExpStr),
@@ -41,13 +42,16 @@ window.ASC.Files.Anchor = (function () {
         if (isInit === false) {
             isInit = true;
 
-            ASC.Controls.AnchorController.bind(anchorRegExp.anyanchor, onValidation);
-            ASC.Controls.AnchorController.bind(anchorRegExp.error, onError);
-            ASC.Controls.AnchorController.bind(anchorRegExp.folder, onFolderSelect);
-            ASC.Controls.AnchorController.bind(anchorRegExp.preview, onPreview);
-            ASC.Controls.AnchorController.bind(anchorRegExp.setting, onSetting);
-            ASC.Controls.AnchorController.bind(anchorRegExp.help, onHelp);
-            ASC.Controls.AnchorController.bind(anchorRegExp.more, onMore);
+            if (ASC.Files.Folders) {
+                ASC.Controls.AnchorController.bind(anchorRegExp.anyanchor, onValidation);
+                ASC.Controls.AnchorController.bind(anchorRegExp.error, onError);
+                ASC.Controls.AnchorController.bind(anchorRegExp.message, onMessage);
+                ASC.Controls.AnchorController.bind(anchorRegExp.folder, onFolderSelect);
+                ASC.Controls.AnchorController.bind(anchorRegExp.preview, onPreview);
+                ASC.Controls.AnchorController.bind(anchorRegExp.setting, onSetting);
+                ASC.Controls.AnchorController.bind(anchorRegExp.help, onHelp);
+                ASC.Controls.AnchorController.bind(anchorRegExp.more, onMore);
+            }
         }
     };
 
@@ -55,6 +59,7 @@ window.ASC.Files.Anchor = (function () {
 
     var onValidation = function (hash) {
         if (anchorRegExp.error.test(hash)
+            || anchorRegExp.message.test(hash)
             || anchorRegExp.preview.test(hash)
             || anchorRegExp.setting.test(hash)
             || anchorRegExp.folder.test(hash)
@@ -68,6 +73,17 @@ window.ASC.Files.Anchor = (function () {
 
     var onError = function (errorString) {
         ASC.Files.UI.displayInfoPanel(decodeURIComponent(errorString || ASC.Files.FilesJSResources.UnknownErrorText).replace(/\+/g, " "), true);
+        if (jq.browser.msie) {
+            setTimeout(ASC.Files.Anchor.defaultFolderSet, 3000);
+        } else {
+            ASC.Files.Anchor.defaultFolderSet();
+        }
+    };
+
+    var onMessage = function (messageString) {
+        if (messageString.length) {
+            ASC.Files.UI.displayInfoPanel(decodeURIComponent(messageString).replace(/\+/g, " "));
+        }
         if (jq.browser.msie) {
             setTimeout(ASC.Files.Anchor.defaultFolderSet, 3000);
         } else {

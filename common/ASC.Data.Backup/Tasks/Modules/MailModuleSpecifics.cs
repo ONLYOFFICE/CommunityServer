@@ -62,7 +62,10 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new TableInfo("mail_mailbox_signature", "tenant"),
                 new TableInfo("mail_mailbox_autoreply", "tenant"),
                 new TableInfo("mail_mailbox_autoreply_history", "tenant"),
-                new TableInfo("mail_contact_info", "tenant", "id") {UserIDColumns = new[] {"id_user"}}
+                new TableInfo("mail_contact_info", "tenant", "id") {UserIDColumns = new[] {"id_user"}},
+                new TableInfo("mail_mailbox_provider", idColumn: "id"),
+                new TableInfo("mail_mailbox_domain", idColumn: "id"),
+                new TableInfo("mail_mailbox_server", idColumn: "id")
             };
 
         private readonly RelationInfo[] _tableRelations = new[]
@@ -86,7 +89,10 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new RelationInfo("files_folder", "id", "mail_mailbox", "email_in_folder", typeof(FilesModuleSpecifics)),
                 new RelationInfo("mail_mailbox", "id", "mail_mailbox_autoreply", "id_mailbox"),
                 new RelationInfo("mail_mailbox", "id", "mail_mailbox_autoreply_history", "id_mailbox"),
-                new RelationInfo("mail_contacts", "id", "mail_contact_info", "id_contact")
+                new RelationInfo("mail_contacts", "id", "mail_contact_info", "id_contact"),
+                new RelationInfo("mail_mailbox_provider", "id", "mail_mailbox_domain", "id_provider"),
+                new RelationInfo("mail_mailbox_server", "id", "mail_mailbox", "id_smtp_server"),
+                new RelationInfo("mail_mailbox_server", "id", "mail_mailbox", "id_in_server")
             };
 
         public override ModuleName ModuleName
@@ -109,6 +115,10 @@ namespace ASC.Data.Backup.Tasks.Modules
             //optimization: 1) do not include "deleted" rows, 2) backup mail only for the last 30 days
             switch (table.Name)
             {
+                case "mail_mailbox_provider":
+                case "mail_mailbox_domain":
+                case "mail_mailbox_server":
+                    return "";
                 case "mail_mailbox":
                     return string.Format("where t.is_removed = 0 and t.tenant = {0} and t.is_removed = 0", tenantId);
 

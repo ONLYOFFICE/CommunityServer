@@ -44,7 +44,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             if (result != null && !Default.IsMatch(folderId))
             {
-                SetSharedByMeProperty(new[] {result});
+                SetSharedProperty(new[] {result});
             }
 
             return result;
@@ -84,7 +84,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             if (!Default.IsMatch(parentId))
             {
-                SetSharedByMeProperty(result);
+                SetSharedProperty(result);
             }
 
             return result;

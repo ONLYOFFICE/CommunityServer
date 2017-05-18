@@ -31,6 +31,7 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using System.Net;
 using ASC.Data.Backup.Logging;
+using Amazon.S3.Transfer;
 
 namespace ASC.Data.Backup.Storage
 {
@@ -58,16 +59,27 @@ namespace ASC.Data.Backup.Storage
 
         public string Upload(string storageBasePath, string localPath, Guid userId)
         {
-            var key = GetKey(localPath);
-            using (var s3 = GetClient())
+            String key = String.Empty;
+
+            if (String.IsNullOrEmpty(storageBasePath))
+                key = "backup/" + Path.GetFileName(localPath);
+            else                        
+                key = String.Concat(storageBasePath.Trim(new char[] {' ', '/', '\\'}), "/", Path.GetFileName(localPath));
+
+            using (var fileTransferUtility = new TransferUtility(accessKeyId, secretAccessKey, RegionEndpoint.GetBySystemName(region)))
             {
-                s3.PutObject(new PutObjectRequest
+                fileTransferUtility.Upload(
+                    new TransferUtilityUploadRequest
                     {
                         BucketName = bucket,
                         FilePath = localPath,
+                        StorageClass = S3StorageClass.StandardInfrequentAccess,
+                        PartSize = 6291456, // 6 MB.
                         Key = key
                     });
             }
+
+
             return key;
         }
 
@@ -131,15 +143,16 @@ namespace ASC.Data.Backup.Storage
                         });
             }
         }
-        
+
         private string GetKey(string fileName)
         {
-            return "backup/" + Path.GetFileName(fileName);
+           // return "backup/" + Path.GetFileName(fileName);
+            return fileName;
         }
 
         private AmazonS3Client GetClient()
         {
-            return new AmazonS3Client(accessKeyId, secretAccessKey, new AmazonS3Config {RegionEndpoint = RegionEndpoint.GetBySystemName(region)});
+            return new AmazonS3Client(accessKeyId, secretAccessKey, new AmazonS3Config { RegionEndpoint = RegionEndpoint.GetBySystemName(region) });
         }
     }
 }

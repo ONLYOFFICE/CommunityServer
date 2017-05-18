@@ -61,14 +61,3 @@
     <script type="text/javascript" src="<%= SetupInfo.UserVoiceURL %>"></script>
     <% } %>
 </asp:Content>
-
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="FooterContent" runat="server">
-    <%if (IsAutorizePartner.HasValue && Partner != null) { %>
-    <div class="footerAuth">
-        <span class="float-right">
-            <%= IsAutorizePartner.Value ? (Partner.DisplayName ?? Partner.CompanyName).HtmlEncode() + " • <a class=\"link\" href=\"" + (Partner.Url.StartsWith("http:") || Partner.Url.StartsWith("https:") ? Partner.Url : string.Concat("http://", Partner.Url)) +"\" target=\"_blank\">" + Partner.Url + "</a>" 
-            : Resource.HostedNonAuthorizedVersion%>
-        </span>
-    </div>
-    <%} %>
-</asp:Content>--%>

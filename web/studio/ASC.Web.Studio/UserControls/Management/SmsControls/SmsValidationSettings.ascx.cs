@@ -45,7 +45,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             get
             {
-                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>() && CoreContext.PaymentManager.GetApprovedPartner() == null;
+                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>();
             }
         }
 

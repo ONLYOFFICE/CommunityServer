@@ -181,6 +181,7 @@ namespace ASC.Web.UserControls.Forum
         private string _tagString = "";
         private ForumManager _forumManager;
         private bool _isSelectForum;
+        private List<ThreadCategory> _categories = null;
         private List<Thread> _threads = null;
 
         private List<FileObj> Attachments { get; set; }
@@ -197,8 +198,8 @@ namespace ASC.Web.UserControls.Forum
         {
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
-            //Page.RegisterInlineScript("ckeditorConnector.onReady(function () {ForumManager.forumEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComForum', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
-            Page.RegisterInlineScript("ckeditorConnector.onReady(function () {" +
+            //Page.RegisterInlineScript("ckeditorConnector.load(function () {ForumManager.forumEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComForum', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
+            Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
               "ForumManager.forumEditor = CKEDITOR.replace('ckEditor', { toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + "'});" +
               "ForumManager.forumEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});" +
                "});");
@@ -341,8 +342,7 @@ namespace ASC.Web.UserControls.Forum
                 }
                 else
                 {
-                    List<ThreadCategory> categories;
-                    ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out categories, out _threads);
+                    ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out _categories, out _threads);
 
 
                     foreach (var thread in _threads)
@@ -875,8 +875,7 @@ namespace ASC.Web.UserControls.Forum
 
             if (_threads == null)
             {
-                List<ThreadCategory> categories;
-                ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out categories, out _threads);
+                ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out _categories, out _threads);
 
                 _threads.RemoveAll(t => !t.Visible);
             }
@@ -890,16 +889,29 @@ namespace ASC.Web.UserControls.Forum
             sb.Append("<div>");
             sb.Append("<select name=\"forum_thread_id\" class=\"comboBox\" style='width:400px;'>");
 
-            foreach (var forum in _threads)
-            {
-                bool isAllow = false;
-                if (PostType == NewPostType.Topic)
-                    isAllow = _forumManager.ValidateAccessSecurityAction(ForumAction.TopicCreate, forum);
-                else if (PostType == NewPostType.Poll)
-                    isAllow = _forumManager.ValidateAccessSecurityAction(ForumAction.PollCreate, forum);
+            var grouppedThread = _threads.GroupBy(t => t.CategoryID);
 
-                if (isAllow)
-                    sb.Append("<option value=\"" + forum.ID + "\">" + forum.Title.HtmlEncode() + "</option>");
+            foreach (var forumGroup in grouppedThread)
+            {
+                var category = _categories.FirstOrDefault(c => c.ID == forumGroup.Key);
+
+                if(category != null)
+                    sb.Append("<optgroup label=\"" + category.Title  + "\">");
+
+                foreach (var forum in forumGroup)
+                {
+                    bool isAllow = false;
+                    if (PostType == NewPostType.Topic)
+                        isAllow = _forumManager.ValidateAccessSecurityAction(ForumAction.TopicCreate, forum);
+                    else if (PostType == NewPostType.Poll)
+                        isAllow = _forumManager.ValidateAccessSecurityAction(ForumAction.PollCreate, forum);
+
+                    if (isAllow)
+                        sb.Append("<option value=\"" + forum.ID + "\">" + forum.Title.HtmlEncode() + "</option>");
+                }
+
+                if (category != null)
+                    sb.Append("</optgroup>");
             }
 
             sb.Append("</select>");

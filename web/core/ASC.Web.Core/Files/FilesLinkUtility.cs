@@ -24,13 +24,14 @@
 */
 
 
-using ASC.Core;
-using ASC.Security.Cryptography;
-using ASC.Web.Studio.Utility;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Core;
+using ASC.Security.Cryptography;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.Files
 {
@@ -38,8 +39,7 @@ namespace ASC.Web.Core.Files
     {
         public const string FilesBaseVirtualPath = "~/products/files/";
         public const string EditorPage = "doceditor.aspx";
-        private static readonly string files_uploader_url = WebConfigurationManager.AppSettings["files.uploader.url"] ?? "~";
-        private static readonly string files_uploader_url_local = WebConfigurationManager.AppSettings["files.uploader.url.local"] ?? "~/products/files";
+        private static readonly string FilesUploaderURL = WebConfigurationManager.AppSettings["files.uploader.url"] ?? "~";
 
         public static string FilesBaseAbsolutePath
         {
@@ -209,33 +209,39 @@ namespace ASC.Web.Core.Files
 
         public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength)
         {
-            var queryString = string.Format("?initiate=true&name={0}&fileSize={1}&tid={2}&userid={3}&culture={4}",
-                                            fileName, contentLength, TenantProvider.CurrentTenantID,
+            var queryString = string.Format("?initiate=true&{0}={1}&fileSize={2}&tid={3}&userid={4}&culture={5}",
+                                            FileTitle,
+                                            HttpUtility.UrlEncode(fileName),
+                                            contentLength,
+                                            TenantProvider.CurrentTenantID,
                                             HttpUtility.UrlEncode(InstanceCrypto.Encrypt(SecurityContext.CurrentAccount.ID.ToString())),
                                             Thread.CurrentThread.CurrentUICulture.Name);
 
             if (fileId != null)
-                queryString = queryString + "&fileid=" + fileId;
+                queryString = queryString + "&" + FileId + "=" + fileId;
 
             if (folderId != null)
-                queryString = queryString + "&folderid=" + folderId;
+                queryString = queryString + "&" + FolderId + "=" + folderId;
 
-            return CommonLinkUtility.GetFullAbsolutePath(GetFileUploaderHandlerVirtualPath(contentLength > 0) + queryString);
+            return CommonLinkUtility.GetFullAbsolutePath(GetFileUploaderHandlerVirtualPath() + queryString);
         }
 
-        public static string GetUploadChunkLocationUrl(string uploadId, bool serviceUrl)
+        public static string GetUploadChunkLocationUrl(string uploadId)
         {
             var queryString = "?uid=" + uploadId;
-            return CommonLinkUtility.GetFullAbsolutePath(GetFileUploaderHandlerVirtualPath(serviceUrl) + queryString);
+            return CommonLinkUtility.GetFullAbsolutePath(GetFileUploaderHandlerVirtualPath() + queryString);
         }
 
-
-        private static string GetFileUploaderHandlerVirtualPath(bool getServiceUrl)
+        public static bool IsLocalFileUploader
         {
-            string virtualPath = getServiceUrl ? files_uploader_url : files_uploader_url_local;
+            get { return !Regex.IsMatch(FilesUploaderURL, "^http(s)?://\\.*"); }
+        }
+
+        private static string GetFileUploaderHandlerVirtualPath()
+        {
+            var virtualPath = FilesUploaderURL;
             return virtualPath.EndsWith(".ashx") ? virtualPath : virtualPath.TrimEnd('/') + "/ChunkedUploader.ashx";
         }
-
 
         private static string GetUrlSetting(string key, string appSettingsKey = null)
         {
@@ -258,6 +264,7 @@ namespace ASC.Web.Core.Files
                 throw new NotSupportedException("Method for server edition only.");
             }
             value = (value ?? "").Trim();
+            if (string.IsNullOrEmpty(value)) value = null;
             if (GetUrlSetting(key) != value)
                 CoreContext.Configuration.SaveSetting(GetSettingsKey(key), value);
         }

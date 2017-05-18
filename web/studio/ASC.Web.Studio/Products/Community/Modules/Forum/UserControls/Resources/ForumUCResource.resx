@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="ApproveButton" xml:space="preserve">
     <value>Allow</value>
   </data>
@@ -190,7 +193,7 @@
     <value>Enter a name</value>
   </data>
   <data name="NewPostButton" xml:space="preserve">
-    <value>Add New Post</value>
+    <value>Add new post</value>
   </data>
   <data name="OpenTopicButton" xml:space="preserve">
     <value>Open</value>
@@ -200,6 +203,9 @@
   </data>
   <data name="PagePreview" xml:space="preserve">
     <value>Preview</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
   </data>
   <data name="PostCount" xml:space="preserve">
     <value>Posts</value>

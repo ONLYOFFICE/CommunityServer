@@ -170,15 +170,9 @@ namespace ASC.Web.Files.Utils
             else if (parent.FolderType == FolderType.SHARE)
             {
                 //share
-                var shared = (IEnumerable<FileEntry>) fileSecurity.GetSharesForMe(searchText, !string.IsNullOrEmpty(searchText));
-                if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
-                {
-                    shared = shared.Where(r => !r.ProviderEntry);
-                }
+                var shared = (IEnumerable<FileEntry>)fileSecurity.GetSharesForMe(searchText);
 
-                shared = FilterEntries(shared, filter, subjectId, searchText)
-                    .Where(f => f.CreateBy != SecurityContext.CurrentAccount.ID && // don't show my files
-                                f.RootFolderType == FolderType.USER); // don't show common files (common files can read)
+                shared = FilterEntries(shared, filter, subjectId, searchText);
                 entries = entries.Concat(shared);
 
                 parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f is Folder ? ((Folder)f).TotalFiles : 1));
@@ -225,7 +219,7 @@ namespace ASC.Web.Files.Utils
                 if (0 < count) entries = entries.Take(count);
             }
 
-            SetFileStatus(entries.Select(r => r as File).Where(r => r != null && r.ID != null));
+            SetFileStatus(entries.Where(r => r != null && r.ID != null && r is File).Select(r => r as File).ToList());
 
             return entries;
         }
@@ -275,11 +269,11 @@ namespace ASC.Web.Files.Utils
                     using (var securityDao = Global.DaoFactory.GetSecurityDao())
                     {
                         securityDao.GetPureShareRecords(folderList.Cast<FileEntry>().ToArray())
-                                   .Where(x => x.Owner == SecurityContext.CurrentAccount.ID)
+                                   //.Where(x => x.Owner == SecurityContext.CurrentAccount.ID)
                                    .Select(x => x.EntryId).Distinct().ToList()
                                    .ForEach(id =>
                                        {
-                                           folderList.First(y => y.ID.Equals(id)).SharedByMe = true;
+                                           folderList.First(y => y.ID.Equals(id)).Shared = true;
                                        });
                     }
             }
@@ -320,12 +314,12 @@ namespace ASC.Web.Files.Utils
 
             if (where != null)
             {
-                entries = entries.Where(where);
+                entries = entries.Where(where).ToList();
             }
 
             if (!string.IsNullOrEmpty(searchText = (searchText ?? string.Empty).ToLower().Trim()))
             {
-                entries = entries.Where(f => f.Title.ToLower().Contains(searchText));
+                entries = entries.Where(f => f.Title.ToLower().Contains(searchText)).ToList();
             }
             return entries;
         }
@@ -532,7 +526,7 @@ namespace ASC.Web.Files.Utils
         }
 
 
-        public static File SaveEditing(String fileId, int version, Guid tabId, string fileExtension, string downloadUri, Stream stream, bool asNew, String shareLinkKey, string comment = null, bool checkRight = true)
+        public static File SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc, string comment = null, bool checkRight = true)
         {
             var newExtension = string.IsNullOrEmpty(fileExtension)
                               ? FileUtility.GetFileExtension(downloadUri)
@@ -548,7 +542,7 @@ namespace ASC.Web.Files.Utils
             File file;
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                var editLink = FileShareLink.Check(shareLinkKey, false, fileDao, out file);
+                var editLink = FileShareLink.Check(doc, false, fileDao, out file);
                 if (file == null)
                 {
                     file = fileDao.GetFile(fileId);
@@ -558,24 +552,15 @@ namespace ASC.Web.Files.Utils
                 var fileSecurity = Global.GetFilesSecurity();
                 if (checkRight && !editLink && (!(fileSecurity.CanEdit(file) || fileSecurity.CanReview(file)) || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_EditFile);
                 if (checkRight && FileLockedForMe(file.ID)) throw new Exception(FilesCommonResource.ErrorMassage_LockedFile);
+                if (checkRight && FileTracker.IsEditing(file.ID)) throw new Exception(FilesCommonResource.ErrorMassage_SecurityException_UpdateEditingFile);
                 if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
                 var currentExt = file.ConvertedExtension;
                 if (string.IsNullOrEmpty(newExtension)) newExtension = FileUtility.GetInternalExtension(file.Title);
 
-                if ((file.Version <= version || !newExtension.Equals(currentExt) || version < 1)
-                    && (file.Version > 1 || !asNew)
-                    && !FileTracker.FixedVersion(file.ID))
-                {
-                    file.Version++;
-                    if (string.IsNullOrEmpty(comment))
-                        comment = FilesCommonResource.CommentEdit;
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(comment))
-                        comment = FilesCommonResource.CommentCreate;
-                }
+                file.Version++;
+                if (string.IsNullOrEmpty(comment))
+                    comment = FilesCommonResource.CommentEdit;
 
                 file.ConvertedType = FileUtility.GetFileExtension(file.Title) != newExtension ? newExtension : null;
 
@@ -635,20 +620,17 @@ namespace ASC.Web.Files.Utils
                 }
             }
 
-            checkRight = FileTracker.ProlongEditing(file.ID, tabId, true, SecurityContext.CurrentAccount.ID);
-            if (checkRight) FileTracker.ChangeRight(file.ID, SecurityContext.CurrentAccount.ID, false);
-
             FileMarker.MarkAsNew(file);
             FileMarker.RemoveMarkAsNew(file);
             return file;
         }
 
-        public static void TrackEditing(string fileId, Guid tabId, Guid userId, bool fixedVersion, string shareLinkKey, bool editingAlone = false)
+        public static void TrackEditing(string fileId, Guid tabId, Guid userId, string doc, bool editingAlone = false)
         {
             bool checkRight;
             if (FileTracker.GetEditingBy(fileId).Contains(userId))
             {
-                checkRight = FileTracker.ProlongEditing(fileId, tabId, fixedVersion, userId, editingAlone);
+                checkRight = FileTracker.ProlongEditing(fileId, tabId, userId, editingAlone);
                 if (!checkRight) return;
             }
 
@@ -656,7 +638,7 @@ namespace ASC.Web.Files.Utils
             bool editLink;
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                editLink = FileShareLink.Check(shareLinkKey, false, fileDao, out file);
+                editLink = FileShareLink.Check(doc, false, fileDao, out file);
                 if (file == null)
                     file = fileDao.GetFile(fileId);
             }
@@ -667,7 +649,7 @@ namespace ASC.Web.Files.Utils
             if (FileLockedForMe(file.ID, userId)) throw new Exception(FilesCommonResource.ErrorMassage_LockedFile);
             if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
-            checkRight = FileTracker.ProlongEditing(fileId, tabId, fixedVersion, userId, editingAlone);
+            checkRight = FileTracker.ProlongEditing(fileId, tabId, userId, editingAlone);
             if (checkRight)
             {
                 FileTracker.ChangeRight(fileId, userId, false);
@@ -675,23 +657,29 @@ namespace ASC.Web.Files.Utils
         }
 
 
-        public static File UpdateToVersionFile(object fileId, int version, bool checkRight = true)
+        public static File UpdateToVersionFile(object fileId, int version, String doc = null, bool checkRight = true)
         {
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
                 if (version < 1) throw new ArgumentNullException("version");
 
-                var fromFile = fileDao.GetFile(fileId);
+                File fromFile;
+                var editLink = FileShareLink.Check(doc, false, fileDao, out fromFile);
+
+                if (fromFile == null)
+                    fromFile = fileDao.GetFile(fileId);
+
                 if (fromFile == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
 
                 if (fromFile.Version != version)
                     fromFile = fileDao.GetFile(fromFile.ID, Math.Min(fromFile.Version, version));
 
                 if (fromFile == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
-                if (checkRight && (!Global.GetFilesSecurity().CanEdit(fromFile) || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_EditFile);
+                if (checkRight && !editLink && (!Global.GetFilesSecurity().CanEdit(fromFile) || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_EditFile);
                 if (FileLockedForMe(fromFile.ID)) throw new Exception(FilesCommonResource.ErrorMassage_LockedFile);
                 if (checkRight && FileTracker.IsEditing(fromFile.ID)) throw new Exception(FilesCommonResource.ErrorMassage_SecurityException_UpdateEditingFile);
                 if (fromFile.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
+                if (fromFile.ProviderEntry) throw new Exception(FilesCommonResource.ErrorMassage_BadRequest);
 
                 var exists = cache.Get<string>(UPDATE_LIST + fileId.ToString()) != null;
                 if (exists)
@@ -763,8 +751,11 @@ namespace ASC.Web.Files.Utils
 
                 if (continueVersion)
                 {
-                    fileDao.ContinueVersion(fileVersion.ID, fileVersion.Version);
-                    lastVersionFile.VersionGroup--;
+                    if (lastVersionFile.VersionGroup > 1)
+                    {
+                        fileDao.ContinueVersion(fileVersion.ID, fileVersion.Version);
+                        lastVersionFile.VersionGroup--;
+                    }
                 }
                 else
                 {
@@ -772,7 +763,7 @@ namespace ASC.Web.Files.Utils
                     {
                         if (fileVersion.Version == lastVersionFile.Version)
                         {
-                            lastVersionFile = UpdateToVersionFile(fileVersion.ID, fileVersion.Version, checkRight);
+                            lastVersionFile = UpdateToVersionFile(fileVersion.ID, fileVersion.Version, null, checkRight);
                         }
 
                         fileDao.CompleteVersion(fileVersion.ID, fileVersion.Version);
@@ -783,6 +774,46 @@ namespace ASC.Web.Files.Utils
                 SetFileStatus(lastVersionFile);
 
                 return lastVersionFile;
+            }
+        }
+
+        public static bool FileRename(object fileId, String title, out File file)
+        {
+            using (var fileDao = Global.DaoFactory.GetFileDao())
+            {
+                file = fileDao.GetFile(fileId);
+                if (file == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
+                if (!Global.GetFilesSecurity().CanEdit(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_RenameFile);
+                if (FileLockedForMe(file.ID)) throw new Exception(FilesCommonResource.ErrorMassage_LockedFile);
+                if (file.ProviderEntry && FileTracker.IsEditing(file.ID)) throw new Exception(FilesCommonResource.ErrorMassage_UpdateEditingFile);
+                if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
+
+                title = Global.ReplaceInvalidCharsAndTruncate(title);
+
+                var ext = FileUtility.GetFileExtension(file.Title);
+                if (string.Compare(ext, FileUtility.GetFileExtension(title), true) != 0)
+                {
+                    title += ext;
+                }
+
+                var fileAccess = file.Access;
+
+                var renamed = false;
+                if (String.Compare(file.Title, title, false) != 0)
+                {
+                    var newFileID = fileDao.FileRename(file, title);
+
+                    file = fileDao.GetFile(newFileID);
+                    file.Access = fileAccess;
+
+                    DocumentServiceHelper.RenameFile(file);
+
+                    renamed = true;
+                }
+
+                SetFileStatus(file);
+
+                return renamed;
             }
         }
     }

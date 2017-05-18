@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using ASC.Data.Storage.Configuration;
 
@@ -35,6 +34,9 @@ namespace ASC.Data.Storage
     public abstract class BaseStorage : IDataStore
     {
         #region IDataStore Members
+
+        internal string _modulename;
+        internal DataList _dataList;
 
         public IQuotaController QuotaController { get; set; }
 
@@ -215,5 +217,21 @@ namespace ASC.Data.Storage
                                              string contentDisposition);
 
         #endregion
+
+        internal void QuotaUsedAdd(string domain, long size)
+        {
+            if (QuotaController != null)
+            {
+                QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), size);
+            }
+        }
+
+        internal void QuotaUsedDelete(string domain, long size)
+        {
+            if (QuotaController != null)
+            {
+                QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), size);
+            }
+        }
     }
 }

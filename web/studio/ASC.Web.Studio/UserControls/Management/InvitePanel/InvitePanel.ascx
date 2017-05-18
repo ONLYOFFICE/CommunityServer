@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvitePanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.InvitePanel" %>
+<%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -12,7 +13,7 @@
         <% } else { %>
         <p>
             <%= UserControlsCommonResource.TariffUserLimitReason%>
-            <%= CustomNamingPeople.Substitute<Resource>("KeepTariffInviteGuests") %>
+            <%= CustomNamingPeople.Substitute<Resource>("KeepTariffInviteGuests").HtmlEncode() %>
         </p>
         <% if (TenantExtra.EnableTarrifSettings) { %>
         <a href="<%= TenantExtra.GetTariffPageLink() %>">
@@ -29,13 +30,14 @@
 
                     <span id="shareInviteUserLinkCopy" class="baseLinkAction text-medium-describe"><%= Resource.CopyToClipboard %></span>
 
-                    <% if (!String.IsNullOrEmpty(ASC.Common.Utils.LinkShorterUtil.BitlyUrl)) { %>
+                    <% if (BitlyLoginProvider.Enabled)
+                       { %>
                     <span id="getShortenInviteLink" class="baseLinkAction text-medium-describe"><%= Resource.GetShortenLink %></span>
                     <% } %>
 
                     <div id="chkVisitorContainer" class="clearFix">
                         <input type="checkbox" id="chkVisitor" <%= EnableInviteLink ? "" : "disabled=\"disabled\" checked=\"checked\"" %> />
-                        <label for="chkVisitor"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %></label>
+                        <label for="chkVisitor"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators").HtmlEncode() %></label>
 
                         <input id="hiddenVisitorLink" type="hidden" value="<%= GeneratedVisitorLink%>" />
                         <% if (EnableInviteLink) { %>
@@ -44,7 +46,7 @@
                     </div>  
                     
                     <textarea id="shareInviteUserLink" class="textEdit" cols="10" rows="2" <% if (!ASC.Web.Core.Mobile.MobileDetector.IsMobile)
-                                                                                    { %> readonly="readonly" <%} %>><%= EnableInviteLink ? GeneratedUserLink : GeneratedVisitorLink%></textarea>
+                                                                                    { %> readonly="readonly" <%} %>><%= HttpUtility.HtmlEncode(EnableInviteLink ? GeneratedUserLink : GeneratedVisitorLink) %></textarea>
                 </div>
             </div>
         </div>

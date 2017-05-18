@@ -30,10 +30,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Administration.ServerModel.Base;
 using ASC.Mail.Server.Dal;
-using ASC.Web.Core.Utility.Settings;
 using ServerType = ASC.Mail.Server.Administration.Interfaces.ServerType;
 
 namespace ASC.Mail.Server.Administration.ServerModel

@@ -34,6 +34,7 @@ window.filterCache = (function() {
     function init() {
         cache = {};
         serviceManager.bind(window.Teamlab.events.getMailFilteredConversations, onGetMailConversations);
+        serviceManager.bind(window.Teamlab.events.getMailFilteredMessages, onGetMailConversations);
     }
 
     function filterHash(filter) {
@@ -73,7 +74,7 @@ window.filterCache = (function() {
 
     // get next or previous conversation id, or 0
 
-    function getNextPrevConversation(filter, id, next) {
+    function getId(filter, id, next) {
         try {
             return cache[filter.getFolder()][filterHash(filter)]['conversations'][id][true === next ? 'next' : 'prev'] || 0;
         } catch(e) {
@@ -84,14 +85,14 @@ window.filterCache = (function() {
 
     // try to get next conversation id from cache or return 0
 
-    function getNextConversation(filter, id) {
-        return getNextPrevConversation(filter, id, true);
+    function getNextId(filter, id) {
+        return getId(filter, id, true);
     }
 
     // try to get prev conversation id from cache or return 0
 
-    function getPrevConversation(filter, id) {
-        return getNextPrevConversation(filter, id, false);
+    function getPrevId(filter, id) {
+        return getId(filter, id, false);
     }
 
     // get cached filter info
@@ -103,21 +104,17 @@ window.filterCache = (function() {
         return {};
     }
 
-    ;
-
     // drop folder cached values for filter
 
     function drop(folder) {
         cache[folder] = {};
     }
 
-    ;
-
     return {
         init: init,
         drop: drop,
         getCache: getCache,
-        getNextConversation: getNextConversation,
-        getPrevConversation: getPrevConversation
+        getNextId: getNextId,
+        getPrevId: getPrevId
     };
 })();

@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WebZones;
@@ -73,7 +74,7 @@ namespace ASC.Web.Studio.UserControls.Management
                                      SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
 
             var webItems = WebItemManager.Instance.GetItems(WebZoneType.All, ItemAvailableState.All)
-                                         .Where(item => !item.IsSubItem() && !item.CanNotBeDisabled())
+                                         .Where(item => !item.IsSubItem() && !item.CanNotBeDisabled() && item.Visible)
                                          .ToList();
 
             foreach (var webItem in webItems)
@@ -114,8 +115,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private void RegisterClientScript()
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/productsandinstruments/js/productsandinstruments.js");
-            Page.RegisterStyle("~/usercontrols/management/productsandinstruments/css/productsandinstruments.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/productsandinstruments/js/productsandinstruments.js")
+                .RegisterStyle("~/usercontrols/management/productsandinstruments/css/productsandinstruments.less");
         }
 
         #endregion

@@ -25,7 +25,11 @@
 
 
 using System;
+using System.Globalization;
+using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Studio.UserControls.Common.Attachments;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Projects.Controls.Common
 {
@@ -35,7 +39,18 @@ namespace ASC.Web.Projects.Controls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            var discussionFilesControl = (Attachments)LoadControl(Attachments.Location);
+            discussionFilesControl.EmptyScreenVisible = false;
+            discussionFilesControl.ModuleName = "projects";
+            phAttachmentsControl.Controls.Add(discussionFilesControl);
 
+            CommonControlsConfigurer.CommentsConfigure(commonComments);
+            commonComments.ObjectID = "common";
+            commonComments.ShowCaption = false;
+            commonComments.BehaviorID = "commentsObj";
+            commonComments.FckDomainName = "projects_comments";
+            commonComments.OnRemovedCommentJS = "ASC.Projects.Common.removeComment";
+            commonComments.InitJS = false;
         }
     }
 }

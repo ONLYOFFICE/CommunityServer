@@ -27,6 +27,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -51,8 +52,8 @@ namespace ASC.Web.Studio.UserControls.Management.IpSecurity
         {
             if (!Enabled) return;
 
-            Page.RegisterBodyScripts("~/usercontrols/management/ipsecurity/js/ipsecurity.js");
-            Page.RegisterStyle("~/usercontrols/management/ipsecurity/css/ipsecurity.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/ipsecurity/js/ipsecurity.js")
+                .RegisterStyle("~/usercontrols/management/ipsecurity/css/ipsecurity.less");
 
             var managementPage = Page as Studio.Management;
             TenantAccessAnyone = managementPage != null ?

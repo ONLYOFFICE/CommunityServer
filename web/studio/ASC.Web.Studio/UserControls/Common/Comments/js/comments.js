@@ -46,6 +46,8 @@ var CommentsManagerObj = new function() {
 
     this._jsObjName = "";
 
+    this.onLoadComplete = null;
+
     function hideAddButton() {
         jq('#add_comment_btn').addClass("display-none");
     };
@@ -270,7 +272,7 @@ var CommentsManagerObj = new function() {
             CommentsManagerObj.currentCommentID = "";
             jq('#hdnCommentID').val('');
         } else {
-            setTimeout("addNewComment();", 500);
+            setTimeout(function() { addNewComment(); }, 100);
         }
     };
 
@@ -426,7 +428,7 @@ var CommentsManagerObj = new function() {
             CommentsManagerObj.comments = [];
         }
 
-        jq("#commentsTempContainer_" + CommentsManagerObj.objectID).replaceWith(jq.tmpl("template-commentsList", CommentsManagerObj));
+        jq("#commentsTempContainer_" + CommentsManagerObj.objectID).html(jq.tmpl("template-commentsList", CommentsManagerObj));
 
         jq("code").each(function () { hljs.highlightBlock(jq(this).get(0)); });
 
@@ -446,7 +448,7 @@ var CommentsManagerObj = new function() {
 
         jq("#mainCommentsContainer").on("click", "[id^=response_]", function () { responseCommentClick(this); });
 
-        ckeditorConnector.onReady(function () {
+        ckeditorConnector.load(function () {
             CommentsManagerObj.editorInstance =
                 jq("#commentEditor" + CommentsManagerObj._jsObjName)
                     .ckeditor(
@@ -473,6 +475,10 @@ var CommentsManagerObj = new function() {
                 }
             });
         });
+
+        if (CommentsManagerObj.onLoadComplete && typeof CommentsManagerObj.onLoadComplete == "function") {
+            CommentsManagerObj.onLoadComplete();
+        }
     };
 
     this.BlockCommentsBox = function() {
@@ -525,4 +531,6 @@ var CommentsManagerObj = new function() {
             CommentsManagerObj.CallActionHandlerJS('add', 'CommentsManagerObj.UnblockCommentsBox');
         }
     };
+
+    this.AddNewComment = addNewComment;
 };

@@ -44,7 +44,7 @@ namespace ASC.Web.CRM
 
         public static String StartURL()
         {
-            return "~/products/crm/";
+            return BaseVirtualPath;
         }
 
         public static string BaseSiteUrl

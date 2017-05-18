@@ -75,7 +75,7 @@ namespace ASC.Web.UserControls.Wiki
 
     public partial class HtmlWikiUtil
     {
-        private static string _imgExtensions = @"gif;jpg;jpeg;png";
+        private static string _imgExtensions = @"gif;jpg;jpeg;png;svg";
         private static string _validProtocols = @"http;https;ftp;mailto";
         private static string _urlChars = @"a-z0-9;/\?:@&=\+\$,\-_\.!~\*'\(\)#%\\";
         private static string _urlEndChars = @"a-z0-9;/\?:@&=\+\$\-_\\\)";

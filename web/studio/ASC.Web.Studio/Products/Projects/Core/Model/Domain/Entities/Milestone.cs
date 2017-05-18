@@ -26,6 +26,7 @@
 
 using System;
 using System.Diagnostics;
+using ASC.Projects.Engine;
 
 namespace ASC.Projects.Core.Domain
 {
@@ -51,5 +52,10 @@ namespace ASC.Projects.Core.Domain
         public int ClosedTaskCount { get; set; }
 
         public DateTime StatusChangedOn { get; set; }
+
+        public override bool CanEdit()
+        {
+            return ProjectSecurity.CanEdit(this);
+        }
     }
 }

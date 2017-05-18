@@ -56,6 +56,8 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                     {"empty_screen_products_services", WebImageSupplier.GetAbsoluteWebPath("empty_screen_products_services.png", ProductEntryPoint.ID)},
                     {"empty_screen_taxes", WebImageSupplier.GetAbsoluteWebPath("empty_screen_taxes.png", ProductEntryPoint.ID)},
                     {"empty_screen_persons", WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.png", ProductEntryPoint.ID)},
+                    {"empty_screen_phones", WebImageSupplier.GetAbsoluteWebPath("empty_screen_phones.png", ProductEntryPoint.ID)},
+                    {"empty_screen_voip_settings", WebImageSupplier.GetAbsoluteWebPath("empty_screen_voip_settings.png", ProductEntryPoint.ID)},
                     {"empty_people_logo_40_40", WebImageSupplier.GetAbsoluteWebPath("empty_people_logo_40_40.png", ProductEntryPoint.ID)},
                     {"empty_screen_opportunity_participants", WebImageSupplier.GetAbsoluteWebPath("empty_screen_opportunity_participants.png", ProductEntryPoint.ID)},
                     {"empty_screen_company_participants", WebImageSupplier.GetAbsoluteWebPath("empty_screen_company_participants.png", ProductEntryPoint.ID)},
@@ -71,6 +73,10 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                        RegisterObject(
                            new
                            {
+                               MediumSizePhotoCompany = ContactPhotoManager.GetMediumSizePhoto(0, true),
+                               MediumSizePhoto = ContactPhotoManager.GetMediumSizePhoto(0, false),
+                               SmallSizePhotoCompany = ContactPhotoManager.GetSmallSizePhoto(0, true),
+                               SmallSizePhoto = ContactPhotoManager.GetSmallSizePhoto(0, false),
                                ProfileRemoved = Constants.LostUser.DisplayUserName(),
                                System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator,
                                KeyCodeCurrencyDecimalSeparator = (int)System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator[0],
@@ -83,8 +89,10 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                                Global.MaxCustomFieldRows,
                                Global.MaxCustomFieldCols,
                                Global.MaxHistoryEventCharacters,
+                               Global.CanDownloadInvoices,
                                IsCRMAdmin = CRMSecurity.IsAdmin,
                                EmptyScrImgs = imgs,
+                               ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(ProductEntryPoint.ID),
 
                                ContactSelectorTypeEnum = 
                                     new Dictionary<string, int>

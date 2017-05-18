@@ -123,14 +123,20 @@
   <data name="AddMailboxLabel" xml:space="preserve">
     <value>Add new mailbox</value>
   </data>
+  <data name="AddMailboxToNewDomainInfo" xml:space="preserve">
+    <value>Add mailboxes to start using the new domain.</value>
+  </data>
   <data name="AddMailgroupLabel" xml:space="preserve">
-    <value>Add new mailgroup</value>
+    <value>Add new mail group</value>
   </data>
   <data name="AddNewDomainButton" xml:space="preserve">
     <value>Add your own domain</value>
   </data>
   <data name="AddUserLabel" xml:space="preserve">
     <value>Add user</value>
+  </data>
+  <data name="AliasesLabel" xml:space="preserve">
+    <value>Aliases</value>
   </data>
   <data name="AliasLabel" xml:space="preserve">
     <value>Alias</value>
@@ -139,13 +145,13 @@
     <value>Create new mailbox</value>
   </data>
   <data name="CreateMailboxPopupHeader" xml:space="preserve">
-    <value>You need to enter the mailbox address and choose the user who the mailbox will be created for.</value>
+    <value>You need to enter the mailbox address and choose the user you want to create the mailbox for.</value>
   </data>
   <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
-    <value>Create new mailgroup</value>
+    <value>Create new mail group</value>
   </data>
   <data name="CreateMailgroupPopupHeader" xml:space="preserve">
-    <value>You need to enter the mailgroup address and choose mailboxes that will be included in this mailgroup.</value>
+    <value>You need to enter the mail group address and choose mailboxes that will be included in this mailgroup.</value>
   </data>
   <data name="DeleteDomain" xml:space="preserve">
     <value>Delete domain</value>
@@ -154,13 +160,13 @@
     <value>If you delete your domain all mailboxes and groups with this domain will also be removed.</value>
   </data>
   <data name="DeleteGroupAttention" xml:space="preserve">
-    <value>Mail group deletion will not in any way affect the mailboxes within it</value>
+    <value>Mail group deletion will not affect the mailboxes within it in any way</value>
   </data>
   <data name="DeleteGroupLabel" xml:space="preserve">
-    <value>Delete mailgroup</value>
+    <value>Delete mail group</value>
   </data>
   <data name="DeleteMailboxAttention" xml:space="preserve">
-    <value>If you delete server mailbox all the letters removed from the mailbox.</value>
+    <value>If you delete server mailbox all the letters will be removed from the mailbox.</value>
   </data>
   <data name="DeleteMailboxLabel" xml:space="preserve">
     <value>Delete mailbox</value>
@@ -184,13 +190,13 @@
     <value>Complete</value>
   </data>
   <data name="DomainWizardCopyInfo" xml:space="preserve">
-    <value>Just open the control panel of your domain in another browser tab and simply copy the bold text info the appropriate fields or select the most suitable one from the available variants:</value>
+    <value>Just open the control panel of your domain in another browser tab and simply copy the bold text into the appropriate fields or select the most suitable variant from the available ones:</value>
   </data>
   <data name="DomainWizardDKIMRecord" xml:space="preserve">
     <value>DKIM (DomainKeys Identified Mail) record</value>
   </data>
   <data name="DomainWizardDomainAlreadyExists" xml:space="preserve">
-    <value>Domain "{0}" already in use.</value>
+    <value>Domain "{0}" is already in use.</value>
   </data>
   <data name="DomainWizardDomainNameSymbolInfo" xml:space="preserve">
     <value>In some cases DNS management service does not allow to use '@' as domain/subdomain name. Use your domain name with the '.' at the end, e.g.: '%1.'</value>
@@ -223,7 +229,7 @@
     <value>Priority:</value>
   </data>
   <data name="DomainWizardProveDomainOwnershipInfo" xml:space="preserve">
-    <value>Before you can start create your corporate email-addresses, you need to add TXT-record in the control panel of your own domain in order to prove your domain ownership.</value>
+    <value>Before you can start create your corporate email addresses, you need to add TXT record in the control panel of your own domain in order to prove your domain ownership.</value>
   </data>
   <data name="DomainWizardSPFRecord" xml:space="preserve">
     <value>SPF (Sender Policy Framework) record</value>
@@ -235,7 +241,7 @@
     <value>Text/Value:</value>
   </data>
   <data name="DomainWizardToFAQ" xml:space="preserve">
-    <value>You can also read the {0}FAQ{1} for step-by-step instructions to most popular hosting services.</value>
+    <value>You can also read the {0}FAQ{1} for step-by-step instructions for most popular hosting services.</value>
   </data>
   <data name="DomainWizardType" xml:space="preserve">
     <value>Type:</value>
@@ -247,10 +253,16 @@
     <value>Write your company domain name in the field below:</value>
   </data>
   <data name="EditGroupAddressesLabel" xml:space="preserve">
-    <value>Edit mailgroup addresses</value>
+    <value>Edit mail group addresses</value>
   </data>
   <data name="EditMailboxAliasesLabel" xml:space="preserve">
     <value>Edit mailbox aliases</value>
+  </data>
+  <data name="EditMailboxLabel" xml:space="preserve">
+    <value>Edit mailbox</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="GroupLabel" xml:space="preserve">
     <value>Group</value>
@@ -265,22 +277,28 @@
     <value>Mailbox user</value>
   </data>
   <data name="MailgroupAddressLabel" xml:space="preserve">
-    <value>Mailgroup address</value>
+    <value>Mail group address</value>
   </data>
   <data name="MailgroupMailboxesLabel" xml:space="preserve">
-    <value>Mailgroup mailboxes</value>
+    <value>Mail group mailboxes</value>
+  </data>
+  <data name="NewDomainAttention" xml:space="preserve">
+    <value>The mailboxes previously existing on this domain cannot be automatically transferred to the portal. You need to add them anew.</value>
   </data>
   <data name="NoDomainSetUpButton" xml:space="preserve">
     <value>Set up the first domain</value>
   </data>
   <data name="NoDomainSetUpDescription" xml:space="preserve">
-    <value>Set up your own domain to create and manage corporate mailboxes like username@yourcompany.com. You can create mailboxes for your employess, and they will see them in their Only Office Mail clients.</value>
+    <value>Set up your own domain to create and manage corporate mailboxes like username@yourcompany.com. You can create mailboxes for your employees, and they will see them in their ONLYOFFICE Mail clients.</value>
   </data>
   <data name="NoDomainSetUpHeader" xml:space="preserve">
     <value>No domain is set up yet</value>
   </data>
   <data name="NotInGroupLabel" xml:space="preserve">
     <value>not in group</value>
+  </data>
+  <data name="SenderNameLabel" xml:space="preserve">
+    <value>Sender name</value>
   </data>
   <data name="UnverifiedDomainAddedPopupBody" xml:space="preserve">
     <value>Now you can create mailboxes like {0}.</value>
@@ -293,6 +311,9 @@
   </data>
   <data name="UnverifiedDomainRecordWarning" xml:space="preserve">
     <value>The settings of one or several DNS records for your domain are incorrect. Please go to your domain settings panel and check the presence of the below records there.</value>
+  </data>
+  <data name="UserLabel" xml:space="preserve">
+    <value>User</value>
   </data>
   <data name="VerifiedDomainAddedPopupBody" xml:space="preserve">
     <value>We have added your domain to the mail domain list, but you cannot use it right now to create your mail boxes. The reason might be that the necessary time has not passed yet. Please wait a little, some servers can take up to 24 hours to update DNS information.</value>
@@ -308,26 +329,5 @@
   </data>
   <data name="WebDomainLabel" xml:space="preserve">
     <value>Domain</value>
-  </data>
-  <data name="SenderNameLabel" xml:space="preserve">
-    <value>Sender name</value>
-  </data>
-  <data name="AliasesLabel" xml:space="preserve">
-    <value>Aliases</value>
-  </data>
-  <data name="EmailLabel" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="UserLabel" xml:space="preserve">
-    <value>User</value>
-  </data>
-  <data name="EditMailboxLabel" xml:space="preserve">
-    <value>Edit mailbox</value>
-  </data>
-  <data name="AddMailboxToNewDomainInfo" xml:space="preserve">
-    <value>Add mailboxes to start using the new domain.</value>
-  </data>
-  <data name="NewDomainAttention" xml:space="preserve">
-    <value>The mailboxes previously existing on this domain cannot be automatically transferred to the portal. You need to add them anew.</value>
   </data>
 </root>

@@ -58,7 +58,7 @@ window.peopleActions = (function() {
     };
 
     var callbackAddUser = function(result) {
-        var $o = jq.tmpl("userListTemplate", { users: [result.Data], isAdmin: Teamlab.profile.isAdmin });
+        var $o = jq.tmpl("userListTemplate", { users: [result.Data], isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin });
 
         if (jq("#peopleData tr.profile").length == 0) {
             jq("#emptyContentForPeopleFilter").addClass("display-none");

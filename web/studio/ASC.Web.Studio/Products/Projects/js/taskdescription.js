@@ -24,68 +24,198 @@
 */
 
 
-ASC.Projects.TaskDescroptionPage = (function() {
+ASC.Projects.TaskDescriptionPage = (function() {
     var isInit = false,
         currentTask = {},
+        tasks = [],
         taskId = undefined,
         projId = undefined,
         currentUserId,
         commentIsEdit = false,
-        listResponsibles = [],
-        TaskTimeSpend = '0.00';
-    var listAllProjectTasks = {};
-    var listOpenTasks = [],
+        listAllProjectTasks = {},
+        listOpenTasks = [],
         listValidTaskForLink = [],
-        linkedTasksIds = [];
-    var relatedTasks = {};
-    var editedLink = null,
+        linkedTasksIds = [],
+        relatedTasks = {},
+        editedLink = null,
         reloadedTaskListFlag = false,
-        overInvalidLinkHint = false;
+        overInvalidLinkHint = false,
+        projectFolderId,
+        projectName;
 
-    var editLinkBox = jq("#editTable"),
-        relatedTasksCont = jq("#relatedTasks"),
-        taskSelector = jq("#taskSelector"),
-        linkTypeSelector = jq("#linkTypeSelector"),
-        relatedTaskLoader = jq(".related-task-loader"),
-        addTaskLinkButton = jq("#addLink"),
-        createAddTaskLinkButton = jq("#addNewLink"),
-        hintInvalidLink = jq("#hintInvalidLink");
+    var
+        overViewTab,
+        subtaskTab,
+        documentsTab,
+        linksTab,
+        commentsTab;
 
-    var projectFolderId, projectName;
+    var $editLinkBox,
+        $relatedTasksCont,
+        $taskSelector,
+        $linkTypeSelector,
+        $addTaskLinkButton,
+        $createAddTaskLinkButton,
+        $hintInvalidLink,
+        $followTaskActionTop,
+        $subtaskContainer,
+        $filesContainer,
+        $commentContainer,
+        $mainCommentContainer,
+        $subtasks,
+        $linkedTasksContainer,
+        $linkedTasksButtons;
 
-    var initAttachmentsControl = function() {
-        projectFolderId = parseInt(jq("#filesContainer").attr("data-projectfolderid"));
-        projectName = Encoder.htmlEncode(currentTask.projectTitle);
+    var baseObject = ASC.Projects,
+        resources = baseObject.Resources,
+        projectsJsResource = resources.ProjectsJSResource,
+        tasksResource = resources.TasksResource,
+        common = baseObject.Common,
+        teamlab,
+        attachments,
+        loadingBanner,
+        handlers = [];
 
-        ProjectDocumentsPopup.init(projectFolderId, projectName);
-        Attachments.init();
-        Attachments.setFolderId(projectFolderId);
-        Attachments.loadFiles();
+    var displayNoneClass = "display-none",
+        clickEventName = "click";
 
-        Attachments.bind("addFile", function(ev, file) {
-            if (file.attachFromPrjDocFlag || file.isNewFile) {
-                Teamlab.addPrjEntityFiles(null, taskId, "task", [file.id], function() { });
+    var init = function() {
+        if (isInit === false) {
+            isInit = true;
+        }
+
+        $subtaskContainer = jq("#subtaskContainer");
+        $filesContainer = jq("#filesContainer");
+        $commentContainer = jq("#commonCommentsContainer");
+        $mainCommentContainer = $commentContainer.find("#mainCommentsContainer");
+        $subtasks = $subtaskContainer.find(".subtasks");
+
+        teamlab = Teamlab;
+
+        loadingBanner = LoadingBanner;
+        loadingBanner.displayLoading();
+
+        currentUserId = Teamlab.profile.id;
+        jq("#CommonListContainer").show();
+
+        var events = teamlab.events;
+        bind(events.addSubtask, onAddSubtask);
+        bind(events.removeSubtask, onRemoveSubtask);
+        bind(events.updateSubtask, onUpdateSubtaskStatus);
+        //bind(events.addPrjTask, onAddTask);
+        bind(events.updatePrjTask, onUpdateTask);
+        bind(events.removePrjTask, onRemoveTask);
+        bind(events.addPrjComment, function () {
+            if (!commentIsEdit) {
+                if (CommentsManagerObj.editorInstance.getData()) {
+                    currentTask.commentsCount++;
+                    commentsTab.rewrite();
+                }
             }
-            changeCountInTab('add', "filesTab");
-            jq("#switcherTaskFilesButton").show();
+            else {
+                commentIsEdit = false;
+            }
         });
-        Attachments.bind("deleteFile", function(ev, fileId) {
-            Teamlab.removePrjEntityFiles({}, taskId, "task", fileId, function() {
+
+        baseObject.SubtasksManager.init();
+        ASC.Projects.Base.initActionPanel(baseObject.SubtasksManager.showEntityMenu, $subtasks);
+
+
+        projId = jq.getURLParam("prjID");
+
+        var id = jq.getURLParam("id");
+        if (id != null) {
+            teamlab.getPrjTask({}, id,
+                {
+                    success: onGetTaskDescription,
+                    error: function (params, errors) {
+                        if (errors[0] === "Item not found") {
+                            ASC.Projects.Base.setElementNotFound();
+                        }
+                    }
             });
-            Attachments.deleteFileFromLayout(fileId);
-            changeCountInTab('delete', "filesTab");
-        });
-        Attachments.bind("loadAttachments", function(ev, count) {
-            if (count < 1) {
-                jq("#filesContainer").show();
-            }
-            changeCountInTab(count, "filesTab");
-        });
+        } else {
+            $followTaskActionTop.remove();
+            loadingBanner.hideLoading();
+        }
     };
 
-    var getProjectTasks = function () {
+    function initAttachmentsControl() {
+        projectFolderId = currentTask.project.projectFolder;
+        projectName = Encoder.htmlEncode(currentTask.projectTitle);
 
-        var filter = ASC.Projects.Common.filterParamsForListTasks;
+        var entityType = "task";
+        attachments = Attachments;
+
+        if (!currentTask.canEdit) {
+            attachments.banOnEditing();
+        }
+
+        ProjectDocumentsPopup.init(projectFolderId, projectName);
+        attachments.isLoaded = false;
+        attachments.init(entityType, function() { return currentTask.id });
+        attachments.setFolderId(projectFolderId);
+        attachments.loadFiles(currentTask.files);
+
+        function addFileSuccess(file) {
+            currentTask.files.push(file);
+            documentsTab.rewrite();
+            ProjectDocumentsPopup.reset();
+        }
+
+        attachments.bind("addFile", function (ev, file) {
+            if (file.attachFromPrjDocFlag || file.isNewFile) {
+                teamlab.addPrjEntityFiles(null,
+                    taskId,
+                    entityType,
+                    [file.id],
+                    { success: function() { addFileSuccess(file); } });
+            } else {
+                addFileSuccess(file);
+            }
+        });
+
+        attachments.bind("deleteFile", function (ev, fileId) {
+            teamlab.removePrjEntityFiles({}, taskId, entityType, fileId, {
+                success: function () {
+                currentTask.files = currentTask.files.filter(function (item) { return item.id !== fileId });
+                attachments.deleteFileFromLayout(fileId);
+                documentsTab.rewrite();
+            }});
+        });
+
+        attachments.bind("loadAttachments", function (ev, count) {
+            if (count < 1) {
+                $filesContainer.show();
+            }
+        });
+
+        bind(teamlab.events.getDocFolder,
+            function () {
+                var $filesLists = jq(".fileList li");
+                for (var i = 0, j = currentTask.files.length; i < j; i++) {
+                    $filesLists.find("input#" + currentTask.files[i].id).prop("checked", true);
+                }
+            });
+    };
+
+    function hideRemovedComments(comments) {
+        comments.forEach(function (item) {
+            if (item.commentList.length) {
+                item.commentList = hideRemovedComments(item.commentList);
+            }
+        });
+
+        comments = comments.filter(function (item) {
+            return !(item.inactive && item.commentList.length === 0);
+        });
+
+        return comments;
+    }
+
+    function getProjectTasks() {
+        linkedTasksIds = [];
+        var filter = common.filterParamsForListTasks;
         filter.projectId = projId;
         filter.status = 1;
         filter.milestone = currentTask.milestone ? currentTask.milestoneId : 0;
@@ -101,373 +231,195 @@ ASC.Projects.TaskDescroptionPage = (function() {
                 linkedTasksIds.push(linkTaskId);
                 relatedTasks[linkTaskId] = currentTask.links[i];
             }
-            Teamlab.getPrjTasksById({}, {taskid: linkedTasksIds}, { success: onGetRelatedTasks });
         }
 
-        Teamlab.getPrjTasks({}, null, null, null, { success: onGetOpenTask, filter: filter });
+        teamlab.getPrjTasks({}, { success: onGetOpenTask, filter: filter });
     };
 
-    var hideGanttLink = function () {
-        var isPrivateProj = currentTask.projectOwner.isPrivate;
-        if (!isPrivateProj) return;
-        var partisipant = ASC.Projects.Common.userInProjectTeam(currentUserId);
-        if(!partisipant) return;
-        if (!partisipant.canReadTasks || !partisipant.canReadMilestones) {
-            jq(".linked-tasks-buttons .chart").remove();
-        }
-    };
-
-    var init = function() {
-        if (isInit === false) {
-            isInit = true;
-        }
-        LoadingBanner.displayLoading();
-
-        currentUserId = Teamlab.profile.id;
-
-        ASC.Projects.SubtasksManager.init();
-        ASC.Projects.SubtasksManager.onAddSubtaskHandler = onAddSubtask;
-        ASC.Projects.SubtasksManager.onRemoveSubtaskHandler = onRemoveSubtask;
-        ASC.Projects.SubtasksManager.onChangeTaskStatusHandler = onUpdateSubtaskStatus;
-
-        initCommentsBlock();
-
-        projId = jq.getURLParam("prjID");
-
-        setTimeSpent();
-
-        var id = jq.getURLParam("id");
-        if (id != null) {
-            Teamlab.getPrjTask({}, id, { success: onGetTaskDescription });
-        } else {
-            jq("#followTaskActionTop").remove();
-            LoadingBanner.hideLoading();
-        }
-
-        jq(function() {
-            if (jq('#taskActions .dropdown-content li a').length == 0) {
-                jq('.menu-small').addClass("visibility-hidden");
-            }
-        });
-
-        // task actions
-        jq("#taskActions").on("click", "#editTaskAction", function() {
-            jq("#taskActions").hide();
-            jq(".project-title .menu-small").removeClass("active");
-            editTask();
-        });
-
-        jq("#taskActions").on("click", "#removeTask", function() {
-            jq("#taskActions").hide();
-            jq(".project-title .menu-small").removeClass("active");
-            showQuestionWindowTaskRemove();
-        });
-
-        jq(".commonInfoTaskDescription").on('click', "#closeButton", function() {
-            if (jq(".subtasks .subtask").length != jq(".subtasks .subtask.closed").length) {
-                showQuestionWindow();
-            }
-            else {
-                closeTask();
-            }
-        });
-
-        jq(".commonInfoTaskDescription").on('click', "#resumeButton", function() {
-            resumeTask();
-        });
-
-        jq(".commonInfoTaskDescription").on('click', '#acceptButton', function() {
-            var data = {};
-            data.title = currentTask.title;
-            data.responsibles = [currentUserId];
-
-            data.description = currentTask.description;
-
-            if (currentTask.deadline) {
-                data.deadline = currentTask.deadline;
-            }
-
-            if (currentTask.milestoneId) {
-                data.milestoneid = currentTask.milestoneId;
-            }
-            data.priority = currentTask.priority;
-            Teamlab.updatePrjTask({}, taskId, data, { success: onUpdateTask });
-
-            return false;
-        });
-
-        jq("#startTaskTimer").bind('click', function() {
-            jq("#taskActions").hide();
-            jq(".project-title .menu-small").removeClass("active");
-            var taskId = jq(this).attr('taskid'),
-            prjid = jq(this).attr('projectid');
-            ASC.Projects.Common.showTimer('timer.aspx?prjID=' + prjid + '&taskId=' + taskId);
-        });
-
-        //-------------Comments-------------//
-        jq("#add_comment_btn").wrap("<span class='addcomment-button icon-link plus'></span>");
-
-        jq(document).on('click', "#btnCancel , #cancel_comment_btn", function() {
-            commentIsEdit = false;
-        });
-        Teamlab.bind(Teamlab.events.addPrjComment, function () {
-            if (!commentIsEdit) {
-                if (CommentsManagerObj.editorInstance.getData()) {
-                    changeCountInTab('add', "commentsTab");
-                    jq("#switcherTaskCommentsButton").show();
-                }
-            }
-            else {
-                commentIsEdit = false;
-            }
-        });
-
-        jq(document).on('click', "#mainCommentsContainer div[id^='container_'] a[id^='edit_']", function () {
-            commentIsEdit = true;
-        });
-
-        /*---close/remove task----*/
-        jq('#questionWindow .end').bind('click', function() {
-            closeTask();
-            jq.unblockUI();
-            return false;
-        });
-        jq('#questionWindow .cancel, #questionWindowTaskRemove .cancel, #createNewLinkError .cancel').bind('click', function () {
-            jq.unblockUI();
-            return false;
-        });
-        jq('#questionWindowTaskRemove .remove').bind('click', function() {
-            removeTask();
-            return false;
-        });
-
-        jq.switcherAction("#switcherSubtasksButton", "#subtaskContainer");
-        jq.switcherAction("#switcherTaskFilesButton", "#filesContainer");
-        jq.switcherAction("#switcherLinkedTasksButton", "#linkedTasksContainer");
-        jq.switcherAction("#switcherTaskCommentsButton", "#commentContainer");
-
-        // related tasks
-
-        relatedTasksCont.on("mouseenter", ".invalid-link", function () {
-            overInvalidLinkHint = true;
-            var elem = this;
-            setTimeout(function () {
-                if (!overInvalidLinkHint) return;
-            
-                jq(elem).helper({
-                    BlockHelperID: "hintInvalidLink",
-                    addLeft: 8,
-                    addTop: 14
-                });
-           }, 300);
-        });
-
-        relatedTasksCont.on("mouseleave", ".invalid-link", function () {
-            overInvalidLinkHint = false;
-            hideHintInvalidLink();
-        });
-
-        hintInvalidLink.mouseenter(function () {
-            overInvalidLinkHint = true;
-        });
-
-        hintInvalidLink.mouseleave(function () {
-            overInvalidLinkHint = false;
-            hideHintInvalidLink();
-        });
-
-        createAddTaskLinkButton.click(function(){
-            if (jq(this).hasClass("disabled")) return;
-            showEditLinkBox(false, {});
-        });
-
-        relatedTasksCont.on("click", ".entity-menu", function () {
-            var actionPanel = jq("#linkedTaskActionPanel");
-            if (actionPanel.is(":visible")) {
-                actionPanel.hide();
-                return;
-            }
-            actionPanel.data("taskid", jq(this).data("taskid"));
-            showActionsPanel("linkedTaskActionPanel", this); 
-        });
-
-        addTaskLinkButton.click(function () {
-            var link = {};
-            var linkType = parseInt(linkTypeSelector.data("value"));//linkTypeSelector.val()
-            
-            if (linkType == "-1" || taskSelector.val() == "-1") {
-                hideEditBox();
-                return;
-            }
-
-            if (linkType == 2) {
-                link = { parentTaskId: taskSelector.val(), dependenceTaskId: currentTask.id, linkType: linkType };
-            } else {
-                link = { parentTaskId: currentTask.id, dependenceTaskId: taskSelector.val(), linkType: linkType };
-            }
-
-            if(linkType == 3){
-                link.linkType = 2;
-            }
-
-            LoadingBanner.displayLoading();
-            if(!editedLink){
-                addTaskLink(link);
-            } else {
-                removeTaskLink(editedLink.targetTaskId, false);
-                addTaskLink(link, editedLink.targetTaskId);
-            }
-        });
-
-        jq("#linkEdit").click(function(){
-            jq('.studio-action-panel').hide();
-            showEditLinkBox(true, jq("#linkedTaskActionPanel").data("taskid"));
-        });
-
-        jq("#linkRemove").click(function(){
-            jq('.studio-action-panel').hide();
-            removeTaskLink(jq("#linkedTaskActionPanel").data("taskid"), true);
-        });
-
-        jq(document).keydown(function(e) {
-            if (e.keyCode == 27) {
-                hideEditBox(true);
-            } 
-        });
-
-        jq("body").click(function (event) {
-            var element = jq(event.target);
-            if (element.attr("id") && element.attr("id") == "addNewLink") return true;
-            if (element.closest(".studio-action-panel").length || element.hasClass("studio-action-panel")) {
-                return true;
-            }
-            if (element.closest(".task-links").length || element.hasClass("task-links")) {
-                return true;
-            }
-            if (editLinkBox.is(":visible")) {
-                hideEditBox(true);
-            }
-            return true;
-        });
-
-        taskSelector.change(function(){
-            var taskId = taskSelector.val();
-            if (taskId != "-1") {
-                checkValidLinkTypeForTask(taskId);
-                //linkTypeSelector.prop("disabled", false);
-            }
-        });
-    };
-
-    var hideHintInvalidLink = function () {
+    function hideHintInvalidLink() {
         setTimeout(function () {
-            if (!overInvalidLinkHint) hintInvalidLink.hide(100);
+            if (!overInvalidLinkHint) $hintInvalidLink.hide(100);
         }, 200);
     };
 
-    var initCommentsBlock = function() {
+    function initCommentsBlock(task) {
+        CommentsManagerObj.isShowAddCommentBtn = task.canCreateComment;
+        CommentsManagerObj.total = task.comments.length;
+        CommentsManagerObj.isEmpty = task.comments.length === 0;
+        CommentsManagerObj.moduleName = "projects_Task";
+        CommentsManagerObj.comments = jq.base64.encode(JSON.stringify(task.comments));
+        CommentsManagerObj.objectID = "common";
+        CommentsManagerObj.Init();
+        CommentsManagerObj.objectID = task.id;
+        jq("#hdnObjectID").val(task.id);
+
         jq("#commentsTitle").remove();
-        jq("#commentContainer #mainCommentsContainer").css("width", 100 + "%");
-        var count = jq("#commentContainer #mainCommentsContainer div[id^='container_']").length;
-        if (count != 0) {
-            changeCountInTab(count, "commentsTab");
-            jq("#switcherTaskCommentsButton").show();
-        }
-        else {
-            jq("#switcherTaskCommentsButton").hide();
-            jq("#commentContainer").show();
-            jq("#noComments").hide();
-        }
+        $mainCommentContainer.css("width", 100 + "%");
+
+        //-------------Comments-------------//
+        var commentsClick = clickEventName + ".comments";
+        jq("#btnCancel").off(commentsClick).on(commentsClick, function () {
+            commentIsEdit = false;
+            commentsTab.select();
+        });
+
+        jq("#mainCommentsContainer div[id^='container_'] a[id^='edit_']").off(commentsClick).on(commentsClick, function () {
+            commentIsEdit = true;
+        });
+
+
+        jq(document).off("keydown.taskdescr").on("keydown.taskdescr", function (e) {
+            if (e.keyCode == 27) {
+                hideEditBox(true);
+                $linkedTasksButtons.show();
+            }
+        });
     };
 
-    var setTimeSpent = function() {
-        TaskTimeSpend = jq(".commonInfoTaskDescription").attr("data-time-spend");
-    };
-
-    var displaySubtasks = function(task) {
-        jq('.subtasks').empty();
+    function displaySubtasks(task) {
+        $subtasks.empty();
+        $subtasks.attr("taskid", task.id);
+        var projectsTaskDescriptionSubtasksContainerTmplName = "projects_taskDescriptionSubtasksContainerTmpl";
         if (task.subtasks.length == 0) {
-            jq("#switcherSubtasksButton").hide();
-            jq("#subtaskContainer").show();
-            jq.tmpl("projects_taskDescriptionSubtasksContainerTmpl", task).prependTo('.subtasks');
+            jq.tmpl(projectsTaskDescriptionSubtasksContainerTmplName, task).prependTo($subtasks);
         }
         else {
-            jq.tmpl("projects_taskDescriptionSubtasksContainerTmpl", task).prependTo('.subtasks');
-            jq(".st_separater").after(jq('.subtasks .closed'));
+            jq.tmpl(projectsTaskDescriptionSubtasksContainerTmplName, task).prependTo($subtasks);
+            $subtasks.find(".st_separater").after($subtasks.find('.closed'));
 
-            var subtasksCount = 0;
-            for (var i = 0, n = task.subtasks.length; i < n; i++) {
-                if (task.subtasks[i].status != 2) subtasksCount++;
-            }
-
-            changeCountInTab(subtasksCount, "subtaskTab");
             if (task.status == 2) {
-                jq(".quickAddSubTaskLink").remove();
-                jq(".subtask .check input").attr('disabled', true);
+                $subtasks.find(".quickAddSubTaskLink").remove();
+                $subtasks.find(".subtask .check input").attr('disabled', true);
             }
-            jq('.subtasks').show();
+            if (subtaskTab.selected) {
+                $subtasks.show();
+            }
         }
 
-        jq('.taskTabs').show();
-        jq('#tabsContent').show();
-
+        jq(document).off("keydown.description").on("keydown.description", ".subtask-name-input", function (e) {
+            switch (e.which) {
+                case 27:
+                    subtaskTab.select();
+                    break;
+            }
+        });
     };
-    var displayTotalInfo = function(task) {
-        var deadline = "", displayDateDeadline = "", milestone = "", closedBy = "", closedDate = "", timeSpend = {};
+    
+    function taAcceptHandler() {
+        var data = {
+            title: currentTask.title,
+            responsibles: [currentUserId],
+            description: currentTask.description,
+            priority: currentTask.priority
+        };
 
-        if (task.deadline) {
-            displayDateDeadline = task.displayDateDeadline;
-            deadline = task.deadline;
+        if (currentTask.deadline) {
+            data.deadline = currentTask.deadline;
         }
 
-        var formatedTime = jq.timeFormat(TaskTimeSpend);
-        var time = formatedTime.split(":");
-        timeSpend.hours = time[0];
-        timeSpend.minutes = time[1];
+        if (currentTask.milestoneId) {
+            data.milestoneid = currentTask.milestoneId;
+        }
+
+        teamlab.updatePrjTask({}, taskId, data);
+
+        return false;
+    };
+
+    // task actions
+    function taCloseHandler() {
+        if ($subtasks.find(".subtask").length != $subtasks.find(".subtask.closed").length) {
+            showQuestionWindow();
+        }
+        else {
+            closeTask();
+        }
+    };
+
+    function taResumeHandler() {
+        jq("body").css("cursor", "wait");
+
+        teamlab.updatePrjTask({}, taskId, { 'status': 1 }, { success: onChangeTaskStatus });
+
+        jq(".pm_taskTitleClosedByPanel").hide();
+    };
+
+    function taEditHandler() {
+        baseObject.TaskAction.showUpdateTaskForm(currentTask);
+    };
+
+    function taRemoveHandler() {
+        ASC.Projects.Base.showCommonPopup("taskRemoveWarning", function () {
+            teamlab.removePrjTask({}, taskId);
+        });
+    };
+
+    function taStartTimerHandler() {
+        common.showTimer(currentTask.projectId, currentTask.id);
+    };
+
+
+    function ltaEditHandler(taskid) {
+        showEditLinkBox(true, taskid);
+    };
+
+    function ltaRemoveHandler(taskid) {
+        removeTaskLink(taskid, true);
+    };
+
+    function displayTotalInfo(task) {
+        var closedBy = "";
+
+        var time = jq.timeFormat(task.timeSpend).split(":");
+        var timeSpend = {
+            hours: time[0],
+            minutes: time[1]
+        };
 
         if (task.status == 2) {
             if (task.updatedBy != undefined)
                 closedBy = task.updatedBy.displayName;
             else
                 closedBy = task.createdBy.displayName;
+        }
+        var descriptionTab = ASC.Projects.DescriptionTab;
+        
+        descriptionTab.init()
+            .push(resources.ProjectResource.Project, formatDescription(task.projectOwner.title), "tasks.aspx?prjID=" + task.projectOwner.id)
+            .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}]{1}', task.milestone.displayDateDeadline, task.milestone.title) : '')
+            .push(tasksResource.TaskStartDate, task.displayDateStart)
+            .push(tasksResource.EndDate, task.displayDateDeadline, undefined, ASC.Projects.TasksManager.compareDates(task.deadline) ? "<span class='deadlineLate'>{0}</span>" : undefined)
+            .push(tasksResource.Priority, task.priority === 1 ? tasksResource.HighPriority : undefined, undefined, '<span class="colorPriority high"><span>{0}</span></span>')
+            .push(tasksResource.AssignedTo, task.responsibles.length === 0 ? tasksResource.WithoutResponsible : task.responsibles.map(function (item) { return item.displayName }).join(', '))
+            .push(resources.CommonResource.SpentTotally, task.canCreateTimeSpend && task.timeSpend ? jq.format("{0} {1}", timeSpend.hours + resources.TimeTrackingResource.ShortHours, timeSpend.minutes + resources.TimeTrackingResource.ShortMinutes) : '', "timetracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id)
+            .push(tasksResource.CreatingDate, task.displayDateCrtdate)
+            .push(tasksResource.TaskProducer, task.createdBy.displayName)
+            .push(tasksResource.ClosingDate, task.status === 2 ? task.displayDateUptdate : '')
+            .push(tasksResource.ClosedBy, closedBy)
+            .push(resources.CommonResource.Description, jq.linksParser(formatDescription(task.description)))
+            .pushStatus(tasksResource.Open, 1, taResumeHandler)
+            .pushStatus(tasksResource.Closed, 2, taCloseHandler)
+            .setCurrentStatus(task.status)
+            .setStatusRight(currentTask.canEdit)
+            .tmpl();
 
-            closedDate = task.displayDateUptdate;
+        if (overViewTab.selected) {
+            descriptionTab.show();
+        } else {
+            descriptionTab.hide();
         }
-        var responsibles = new Array();
-        listResponsibles.splice(0, listResponsibles.length);
-        if (task.responsibles.length) {
-            for (var i = 0; i < task.responsibles.length; i++) {
-                var person = { displayName: task.responsibles[i].displayName, id: task.responsibles[i].id };
-                listResponsibles.push(task.responsibles[i].id);
-                responsibles.push(person);
-            }
-        }
-        if (task.milestone) {
-            milestone = task.milestone.title;
-            milestone = "[ " + task.milestone.displayDateDeadline + " ] " + milestone;
-        }
-        var priority = task.priority;
-        var descriptionInfo = {
-            createdDate: task.displayDateCrtdate, createdBy: task.createdBy.displayName,
-            closedDate: closedDate, closedBy: closedBy,
-            timeSpend: timeSpend, deadline: deadline, displayDateDeadline: displayDateDeadline, milestone: milestone, description: task.description,
-            priority: priority, status: task.status, responsibles: responsibles, taskId: task.id, projId: projId, project: task.projectOwner.title,
-            canCreateTimeSpend: task.canCreateTimeSpend, displayDateStart: task.displayDateStart
-        };
-
-        jq.tmpl("projects_taskDescriptionTmpl", descriptionInfo).prependTo('.commonInfoTaskDescription');
 
         if (!task.canEdit) {
             jq("div.buttonContainer").remove();
         }
 
-        if (formatedTime != "0:00" && formatedTime != "") {
+        if (task.timeSpend) {
             jq(".timeSpend").show();
         }
         jq(".subscribeLink").show();
     };
 
-    var checkValidLinkTypeForTask = function(taskId){
+    function checkValidLinkTypeForTask(taskId){
         var task = listAllProjectTasks[taskId];
 
         var currentTaskStart = currentTask.startDate ? currentTask.startDate : currentTask.crtdate;
@@ -477,48 +429,27 @@ ASC.Projects.TaskDescroptionPage = (function() {
         var taskDeadline = task.deadline ? task.deadline : undefined;
 
         var validLinkFlag = true;
-        var possibleLinkTypes = ASC.Projects.Common.getPossibleTypeLink(currentTaskStart, currentTaskDeadline, taskStart, taskDeadline, validLinkFlag);
+        var possibleLinkTypes = common.getPossibleTypeLink(currentTaskStart, currentTaskDeadline, taskStart, taskDeadline, validLinkFlag);
 
-        if (possibleLinkTypes[2] == ASC.Projects.Common.linkTypeEnum.start_end) {
-            linkTypeSelector.text(ASC.Projects.Resources.ProjectsJSResource.RelatedLinkTypeSE).data("value", ASC.Projects.Common.linkTypeEnum.start_end);
+        if (possibleLinkTypes[2] == common.linkTypeEnum.start_end) {
+            $linkTypeSelector.text(projectsJsResource.RelatedLinkTypeSE).data("value", common.linkTypeEnum.start_end);
         } else {
-            linkTypeSelector.text(ASC.Projects.Resources.ProjectsJSResource.RelatedLinkTypeES).data("value", ASC.Projects.Common.linkTypeEnum.end_start);
+            $linkTypeSelector.text(projectsJsResource.RelatedLinkTypeES).data("value", common.linkTypeEnum.end_start);
         }
-
-        //linkTypeSelector.val("-1");
-
-        //if (possibleLinkTypes[1] == ASC.Projects.Common.linkTypeEnum.end_end) {
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.end_end + "]").show().prop("disabled", false);
-        //} else {
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.end_end + "]").hide().prop("disabled", true);
-        //}
-
-        //if (possibleLinkTypes[2] == -1 && possibleLinkTypes[3] == -1) {
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.start_end + "]").hide().prop("disabled", true);
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.end_start + "]").hide().prop("disabled", true);
-        //    return;
-        //}
-        //if (possibleLinkTypes[2] == ASC.Projects.Common.linkTypeEnum.start_end) {
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.end_start + "]").hide().prop("disabled", true);
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.start_end + "]").show().prop("disabled", false);
-        //} else {
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.start_end + "]").hide().prop("disabled", true);
-        //    linkTypeSelector.find("option[value=" + ASC.Projects.Common.linkTypeEnum.end_start + "]").show().prop("disabled", false);
-        //}
     };
 
-    var getDelay = function(firstDate, secondDate){
+    function getDelay(firstDate, secondDate){
         var delay = Math.abs(firstDate.getTime() - secondDate.getTime());
         delay = Math.floor(delay / 1000 / 60 / 60 / 24);
         if(delay == 0) return 0;
         if (delay == 1) {
-            return delay + " " + ASC.Projects.Resources.ProjectsJSResource.DelayDay;
+            return delay + " " + projectsJsResource.DelayDay;
         } else {
-            return delay + " " + ASC.Projects.Resources.ProjectsJSResource.DelayDays;
+            return delay + " " + projectsJsResource.DelayDays;
         }
     };
 
-    var getRelatedTaskObject = function (firstTask, secondTask, link) {
+    function getRelatedTaskObject(firstTask, secondTask, link) {
 
         var firstTaskStart = firstTask.startDate ? firstTask.startDate : firstTask.crtdate;
         var secondTaskStart = secondTask.startDate ? secondTask.startDate : secondTask.crtdate;
@@ -528,42 +459,42 @@ ASC.Projects.TaskDescroptionPage = (function() {
         var relatedTaskObject = {};
         relatedTaskObject.invalidLink = false;
         relatedTaskObject.delay = 0;
-        relatedTaskObject.possibleLinkType = ASC.Projects.Common.getPossibleTypeLink(firstTaskStart, firstTaskDeadline, secondTaskStart, secondTaskDeadline, relatedTaskObject);
+        relatedTaskObject.possibleLinkType = common.getPossibleTypeLink(firstTaskStart, firstTaskDeadline, secondTaskStart, secondTaskDeadline, relatedTaskObject);
 
 
         relatedTaskObject.linkType = link.linkType;
 
         if (link.linkType == 2) {
             if (link.parentTaskId == currentTask.id) {
-                relatedTaskObject.linkType = ASC.Projects.Common.linkTypeEnum.end_start;
-                if (relatedTaskObject.possibleLinkType[3] != ASC.Projects.Common.linkTypeEnum.end_start) {
+                relatedTaskObject.linkType = common.linkTypeEnum.end_start;
+                if (relatedTaskObject.possibleLinkType[3] != common.linkTypeEnum.end_start) {
                     relatedTaskObject.invalidLink = true;
                 }
             } else {
-                relatedTaskObject.linkType = ASC.Projects.Common.linkTypeEnum.start_end;
-                if (relatedTaskObject.possibleLinkType[2] != ASC.Projects.Common.linkTypeEnum.start_end) {
+                relatedTaskObject.linkType = common.linkTypeEnum.start_end;
+                if (relatedTaskObject.possibleLinkType[2] != common.linkTypeEnum.start_end) {
                     relatedTaskObject.invalidLink = true;
                 }
             }
         }
 
         switch (relatedTaskObject.linkType) {
-            case ASC.Projects.Common.linkTypeEnum.start_start:
-                relatedTaskObject.linkTypeText = ASC.Projects.Resources.ProjectsJSResource.RelatedLinkTypeSS;
+            case common.linkTypeEnum.start_start:
+                relatedTaskObject.linkTypeText = projectsJsResource.RelatedLinkTypeSS;
                 relatedTaskObject.delay = getDelay(firstTaskStart, secondTaskStart);
                 relatedTaskObject.invalidLink = false;
                 break;
-            case ASC.Projects.Common.linkTypeEnum.end_end:
-                relatedTaskObject.linkTypeText = ASC.Projects.Resources.ProjectsJSResource.RelatedLinkTypeEE;
+            case common.linkTypeEnum.end_end:
+                relatedTaskObject.linkTypeText = projectsJsResource.RelatedLinkTypeEE;
                 relatedTaskObject.delay = getDelay(firstTaskDeadline, secondTaskDeadline);
                 relatedTaskObject.invalidLink = false;
                 break;
-            case ASC.Projects.Common.linkTypeEnum.start_end:
-                relatedTaskObject.linkTypeText = ASC.Projects.Resources.ProjectsJSResource.RelatedLinkTypeSE;
+            case common.linkTypeEnum.start_end:
+                relatedTaskObject.linkTypeText = projectsJsResource.RelatedLinkTypeSE;
                 relatedTaskObject.delay = getDelay(secondTaskDeadline, firstTaskStart);
                 break;
-            case ASC.Projects.Common.linkTypeEnum.end_start:
-                relatedTaskObject.linkTypeText = ASC.Projects.Resources.ProjectsJSResource.RelatedLinkTypeES;
+            case common.linkTypeEnum.end_start:
+                relatedTaskObject.linkTypeText = projectsJsResource.RelatedLinkTypeES;
                 relatedTaskObject.delay = getDelay(firstTaskDeadline, secondTaskStart);
                 break;
             default: break;
@@ -572,7 +503,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
         return relatedTaskObject;
     };
 
-    var getRelatedTaskTmpl = function(taskId, link) {
+    function getRelatedTaskTmpl(taskId, link) {
         var task = listAllProjectTasks[taskId];
         
         if (task) {
@@ -583,82 +514,85 @@ ASC.Projects.TaskDescroptionPage = (function() {
         }
     };
 
-    var showEditLinkBox = function (editFlag, taskId) {
-        jq(".entity-menu").hide();
+    function showEditLinkBox(editFlag, taskId) {
         if (editFlag) {
-            var taskCont = relatedTasksCont.find("tr[data-taskid="+taskId+"]");
-            editLinkBox.css("position", "absolute");
-            var marginTop = taskCont.offset().top - jq("#linkedTasksContainer").offset().top - 17 + "px"
-            editLinkBox.css("top", marginTop);
-            editLinkBox.attr("data-edit", "edit");
-            var option = taskSelector.find("option[value="+taskId+"]");
-            option.removeClass("display-none");
+            var taskCont = $relatedTasksCont.find("tr[data-taskid="+taskId+"]");
+            $editLinkBox.css("position", "absolute");
+
+            var marginTop = taskCont.offset().top - jq("#linkedTasksContainer").offset().top - 1 + "px";
+            $editLinkBox.css("top", marginTop);
+            $editLinkBox.attr("data-edit", "edit");
+
+            var option = $taskSelector.find("option[value="+taskId+"]");
+            option.removeClass(displayNoneClass);
             option.prop("selected", true);
-            taskSelector.change();
+            $taskSelector.change();
+
             var link = relatedTasks[taskId];
             editedLink = link;
             editedLink.targetTaskId = taskId;
+
             var linkType = parseInt(taskCont.find(".link-type").data("type"));
-            linkTypeSelector.data("value", linkType);
+            $linkTypeSelector.data("value", linkType);
             //linkTypeSelector.val(linkType);
         } else {
-            if (editLinkBox.is(":visible")) {
+            if ($editLinkBox.is(":visible")) {
                 hideEditBox(true);
             }
-            editLinkBox.addClass("border-top");
-            if(!relatedTasksCont.find("tr").length){
-                editLinkBox.addClass("border-bottom");
-            }
-            relatedTasksCont.css("marginTop", "0");
-            taskSelector.val("-1");
-            linkTypeSelector.text("");
+            $editLinkBox.addClass("border-top");
+            $editLinkBox.addClass("border-bottom");
+            $relatedTasksCont.css("marginTop", "0");
+            $taskSelector.val("-1");
+            $linkTypeSelector.text("");
             //linkTypeSelector.prop("disabled", true);
         }
-        editLinkBox.removeClass("display-none");
+        $editLinkBox.removeClass(displayNoneClass);
     };
 
-    var hideEditBox = function(escapeFlag){
+    function hideEditBox(escapeFlag){
         if (editedLink) {
             if(escapeFlag){
-                taskSelector.find("option[value=" + editedLink.targetTaskId + "]").addClass("display-none");
+                $taskSelector.find("option[value=" + editedLink.targetTaskId + "]").addClass(displayNoneClass);
             }
             editedLink = null;
         }
-        taskSelector.val("-1");
+        $taskSelector.val("-1");
         //linkTypeSelector.val("-1");
         //linkTypeSelector.find("option").prop("disabled", false);
-        relatedTasksCont.css("marginTop", "16px");
-        editLinkBox.css("position", "static");
-        editLinkBox.css("marginTop", "16px");    
-        editLinkBox.removeClass("border-top");
-        editLinkBox.removeClass("border-bottom");
-        editLinkBox.addClass("display-none");
+        $editLinkBox.css("position", "static");
+        $editLinkBox.removeClass("border-top");
+        $editLinkBox.removeClass("border-bottom");
+        $editLinkBox.addClass(displayNoneClass);
+
+        if (linksTab.selected) {
+            linksTab.select();
+        }
     };
 
-    var initTaskLinkSelect = function(){
-        var option = taskSelector.find("option:first");
-        taskSelector.empty();
-        taskSelector.append(option);
+    function initTaskLinkSelect(){
+        var option = $taskSelector.find("option:first");
+        $taskSelector.empty();
+        $taskSelector.append(option);
         for (var i = 0, max = listValidTaskForLink.length; i < max; i++) {
             option = document.createElement('option');
             option.setAttribute("value", listValidTaskForLink[i].id);
             if (relatedTasks[listValidTaskForLink[i].id]) {
-                option.setAttribute("class", "display-none");
+                option.setAttribute("class", displayNoneClass);
             }
             option.appendChild(document.createTextNode(listValidTaskForLink[i].title));
-            taskSelector.append(option);
+            $taskSelector.append(option);
         }
     };
     
-    var disableCreateLinkButton = function () {
-        if (taskSelector.find(".display-none").length == taskSelector.find("option").length - 1 || currentTask.status == 2) {
-            createAddTaskLinkButton.addClass("disabled");
+    function disableCreateLinkButton() {
+        if ($taskSelector.find("." + displayNoneClass).length == $taskSelector.find("option").length - 1 || currentTask.status == 2) {
+            $createAddTaskLinkButton.addClass("disabled");
         } else {
-            createAddTaskLinkButton.removeClass("disabled");
+            $createAddTaskLinkButton.removeClass("disabled");
         }
     };
 
-    var displayRelatedTasks = function() {
+    function displayRelatedTasks() {
         var tasksForTmpl = [];
         var linksCount = currentTask.links.length;
         for (var i = 0; i < linksCount; i++) {          //TODO: rewrite for relatedTasks
@@ -670,14 +604,94 @@ ASC.Projects.TaskDescroptionPage = (function() {
             }
             tasksForTmpl.push(getRelatedTaskTmpl(linkTaskId, currentTask.links[i]));
         }
-        relatedTasksCont.empty();
-        jq.tmpl("projects_taskLinks", tasksForTmpl).appendTo(relatedTasksCont);
-        changeCountInTab(tasksForTmpl.length, "linkedTasksTab");
-        hideRelatedTaskLoader();
+
+        jq(".tab1").html(jq.tmpl("projects_taskLinksContainer", { canEdit: currentTask.canEdit, tasks: tasksForTmpl })).show();
+
+        $linkedTasksContainer = jq("#linkedTasksContainer");
+        linksTab.$container = $linkedTasksContainer;
+        $editLinkBox = jq("#editTable");
+        $relatedTasksCont = jq("#relatedTasks");
+        $taskSelector = jq("#taskSelector");
+        $linkTypeSelector = jq("#linkTypeSelector");
+        $addTaskLinkButton = jq("#addLink");
+        $createAddTaskLinkButton = jq("#addNewLink");
+        $hintInvalidLink = jq("#hintInvalidLink");
+        $linkedTasksButtons = jq(".linked-tasks-buttons");
+
+        ASC.Projects.Base.initActionPanel(showLinkEntityMenu, $linkedTasksContainer);
+
+        $relatedTasksCont.on("mouseenter", ".invalid-link", function () {
+            overInvalidLinkHint = true;
+            var elem = this;
+            setTimeout(function () {
+                if (!overInvalidLinkHint) return;
+                jq(elem).helper({
+                    BlockHelperID: "hintInvalidLink",
+                    addLeft: 8,
+                    addTop: 14
+                });
+            }, 1000);
+        });
+
+        $relatedTasksCont.on("mouseleave", ".invalid-link", function () {
+            overInvalidLinkHint = false;
+            hideHintInvalidLink();
+        });
+
+        $hintInvalidLink.mouseenter(function () {
+            overInvalidLinkHint = true;
+        });
+
+        $hintInvalidLink.mouseleave(function () {
+            overInvalidLinkHint = false;
+            hideHintInvalidLink();
+        });
+
+        $createAddTaskLinkButton.on(clickEventName, function () {
+            if ($createAddTaskLinkButton.hasClass("disabled")) return;
+            $linkedTasksButtons.hide();
+            showEditLinkBox(false, {});
+        });
+
+        $addTaskLinkButton.on(clickEventName, function () {
+            var link = {};
+            var linkType = parseInt($linkTypeSelector.data("value"));//linkTypeSelector.val()
+
+            if (linkType == "-1" || $taskSelector.val() == "-1") {
+                hideEditBox();
+                $linkedTasksButtons.show();
+                return;
+            }
+
+            if (linkType == 2) {
+                link = { parentTaskId: $taskSelector.val(), dependenceTaskId: currentTask.id, linkType: linkType };
+            } else {
+                link = { parentTaskId: currentTask.id, dependenceTaskId: $taskSelector.val(), linkType: linkType };
+            }
+
+            if (linkType == 3) {
+                link.linkType = 2;
+            }
+
+            loadingBanner.displayLoading();
+            if (!editedLink) {
+                addTaskLink(link);
+            } else {
+                removeTaskLink(editedLink.targetTaskId, false);
+                addTaskLink(link, editedLink.targetTaskId);
+            }
+        });
+        $taskSelector.change(function () {
+            var taskId = $taskSelector.val();
+            if (taskId != "-1") {
+                checkValidLinkTypeForTask(taskId);
+                //linkTypeSelector.prop("disabled", false);
+            }
+        });
     };
 
 
-    var displayNewRelatedTask = function(link, element){
+    function displayNewRelatedTask(link, element){
         if (currentTask.links) {
             currentTask.links.push(link);
         } else {
@@ -693,272 +707,301 @@ ASC.Projects.TaskDescroptionPage = (function() {
         relatedTasks[linkTaskId] = link;
         var taskForTmpl = getRelatedTaskTmpl(linkTaskId, link);
         if (element) {
-            element.after(jq.tmpl("projects_taskLinks", [taskForTmpl]))
+            element.after(jq.tmpl("projects_taskLinks", [taskForTmpl]));
         } else {
-            jq.tmpl("projects_taskLinks", [taskForTmpl]).prependTo(relatedTasksCont);
+            jq.tmpl("projects_taskLinks", [taskForTmpl]).prependTo($relatedTasksCont);
         }
-        taskSelector.find("option[value=" + linkTaskId + "]").addClass("display-none");
+        $taskSelector.find("option[value=" + linkTaskId + "]").addClass(displayNoneClass);
     };
 
-    var displayTaskDescription = function(task) {
-        jq(".commonInfoTaskDescription").empty();
-
+    function displayTaskDescription(task) {
         displayTotalInfo(task);
         displaySubtasks(task);
+        initCommentsBlock(task);
     };
 
-    var showQuestionWindow = function() {
-        jq('#questionWindow .end').attr('taskid', taskId);
-        jq('#questionWindow .cancel').attr('taskid', taskId);
-        StudioBlockUIManager.blockUI(jq("#questionWindow"), 480, 300, 0, "fixed");
+    function showQuestionWindow() {
+        ASC.Projects.Base.showCommonPopup("closedTaskQuestion", closeTask, cancelCloseTask);
     };
 
-    var showQuestionWindowTaskRemove = function() {
-        StudioBlockUIManager.blockUI(jq("#questionWindowTaskRemove"), 400, 300, 0, "fixed");
-    };
+    function subscribeTask() {
+        teamlab.subscribeToPrjTask({}, taskId, { success: function() {
+            currentTask.isSubscribed = !currentTask.isSubscribed;
 
-    var showActionsPanel = function (panelId, obj) {
-        var objid = '';
-        var x, y;
+            var subscribedClass = "subscribed", unsubscribedClass = "unsubscribed";
 
-        jq('.studio-action-panel').hide();
-        jq('#' + panelId).show();
-
-        if (panelId == 'linkedTaskActionPanel') {
-            x = jq(obj).offset().left - jq("#linkedTaskActionPanel").width() + 20;
-            y = jq(obj).offset().top + 20;
-        }
-
-        if (typeof y == 'undefined')
-            y = jq(obj).offset().top + 26; //TODO
-
-        jq('#' + panelId).css({ left: x, top: y });
-
-        jq('body').off("click.tasksShowActionsPanel");
-        jq('body').on("click.tasksShowActionsPanel", function (event) {
-            var elt = (event.target) ? event.target : event.srcElement;
-            var isHide = true;
-            if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == obj.id && obj.id.length) || jq(elt).is('.entity-menu')) {
-                isHide = false;
+            if (currentTask.isSubscribed) {
+                $followTaskActionTop.attr('title', tasksResource.UnfollowTask);
+                $followTaskActionTop.removeClass(unsubscribedClass).addClass(subscribedClass);
+            } else {
+                $followTaskActionTop.attr('title', tasksResource.FollowTask);
+                $followTaskActionTop.removeClass(subscribedClass).addClass(unsubscribedClass);
             }
-
-            if (isHide)
-                jq(elt).parents().each(function() {
-                    if (jq(this).is('[id="' + panelId + '"]')) {
-                        isHide = false;
-                        return false;
-                    }
-                });
-
-            if (isHide) {
-                jq('.studio-action-panel').hide();
-                jq('.menuopen').removeClass('menuopen');
-            }
-        });
+        }});
     };
 
-    var changeFollowLink = function() {
-        var currValue = jq("#followTaskActionTop").attr('title');
-        jq("#followTaskActionTop").attr('title', jq("#followTaskActionTop").attr("textValue"));
-        jq("#followTaskActionTop").attr('textValue', currValue);
-        if (jq("#followTaskActionTop").hasClass("subscribed")) {
-            jq("#followTaskActionTop").removeClass("subscribed").addClass("unsubscribed");
-        } else {
-            jq("#followTaskActionTop").removeClass("unsubscribed").addClass("subscribed");
-        }
-
-    };
-    var subscribeTask = function() {
-        jq("#taskActions").hide();
-        jq(".project-title .menu-small").removeClass("active");
-        Teamlab.subscribeToPrjTask({}, taskId);
-        changeFollowLink();
+    function addTaskLink(link, removedLinkTaskId){
+        teamlab.addPrjTaskLink({link: link, removedLinkTaskId: removedLinkTaskId }, link.parentTaskId, link, { success: onAddTaskLink, error: onAddTaskLinkError });
     };
 
-    var removeTask = function() {
-        Teamlab.removePrjTask({}, taskId, { success: onRemoveTask, error: onErrorRemoveTask });
-    };
-
-    var addTaskLink = function(link, removedLinkTaskId){
-        Teamlab.addPrjTaskLink({link: link, removedLinkTaskId: removedLinkTaskId }, link.parentTaskId, link, { success: onAddTaskLink, error: onAddTaskLinkError });
-    };
-
-    var removeTaskLink = function (taskId, removeElemFlag) {
+    function removeTaskLink(taskId, removeElemFlag) {
         var link = relatedTasks[taskId];
-        Teamlab.removePrjTaskLink({ taskId: taskId, removeElemFlag: removeElemFlag }, link.dependenceTaskId, { dependenceTaskId: link.dependenceTaskId, parentTaskId: link.parentTaskId }, { success: onRemoveTaskLink, error: function (params, error) { } });
+        teamlab.removePrjTaskLink({ taskId: taskId, removeElemFlag: removeElemFlag }, link.dependenceTaskId, { dependenceTaskId: link.dependenceTaskId, parentTaskId: link.parentTaskId }, { success: onRemoveTaskLink, error: function (params, error) { } });
     };
 
-    var showRelatedTaskLoader = function () {
-        relatedTaskLoader.removeClass("display-none");
-    };
+    function showEntityMenu() {
+        var menuItems = [],
+            ActionMenuItem = ASC.Projects.ActionMenuItem;
 
-    var hideRelatedTaskLoader = function () {
-        relatedTaskLoader.addClass("display-none");
-    };
+        if (currentTask.status !== 2 && currentTask.canEdit) {
+            if (currentTask.responsibles.length === 0) {
+                menuItems.push(new ActionMenuItem("ta_accept", tasksResource.Accept, taAcceptHandler));
+            }
+
+            menuItems.push(new ActionMenuItem("ta_edit", tasksResource.EditTask, taEditHandler));
+        }
+
+        if (currentTask.canDelete) {
+            menuItems.push(new ActionMenuItem("ta_remove", tasksResource.RemoveTask, taRemoveHandler));
+        }
+
+        if (currentTask.canCreateTimeSpend) {
+            menuItems.push(new ActionMenuItem("ta_startTimer", resources.CommonResource.AutoTimer, taStartTimerHandler));
+        }
+
+        return { menuItems: menuItems };
+    }
+
+    function showLinkEntityMenu(selectedActionCombobox) {
+        var taskid = selectedActionCombobox.data("taskid");
+
+        var menuItems = [
+            new ASC.Projects.ActionMenuItem("lta_edit", tasksResource.Edit, ltaEditHandler.bind(null, taskid)),
+            new ASC.Projects.ActionMenuItem("lta_remove", resources.CommonResource.Delete, ltaRemoveHandler.bind(null, taskid))
+        ];
+
+        return { menuItems: menuItems };
+    }
 
     /*--------event handlers--------*/
 
-    var onRemoveTaskLink = function (params, task) {
+    function onRemoveTaskLink(params, task) {
         if (params.removeElemFlag) {
-            relatedTasksCont.find("tr[data-taskid=" + params.taskId + "]").remove();
-            LoadingBanner.hideLoading();
-            changeCountInTab("delete", "linkedTasksTab");
-            if (relatedTasksCont.find("tr").length == 0) {
-                jq("#switcherLinkedTasksButton").hide();
-            }
+            $relatedTasksCont.find("tr[data-taskid=" + params.taskId + "]").remove();
+            loadingBanner.hideLoading();
         }
+
+        currentTask.links = currentTask.links.filter(function(item) {
+            return item.dependenceTaskId != params.taskId && item.parentTaskId != params.taskId;
+        });
+        if (params.removeElemFlag) {
+            linksTab.select();
+        }
+
         delete relatedTasks[params.taskId];
         editedLink = null;
-        taskSelector.find("option[value=" + params.taskId + "]").removeClass("display-none");
+        $taskSelector.find("option[value=" + params.taskId + "]").removeClass(displayNoneClass);
         disableCreateLinkButton();
     };
 
-    var onAddTaskLink = function (params, task) {
+    function onAddTaskLink(params, task) {
         hideEditBox();
         
         if (params.removedLinkTaskId) {
-            var removeElem = relatedTasksCont.find("tr[data-taskid=" + params.removedLinkTaskId + "]");
+            var removeElem = $relatedTasksCont.find("tr[data-taskid=" + params.removedLinkTaskId + "]");
             displayNewRelatedTask(params.link, removeElem);
             removeElem.remove();
         } else {
             displayNewRelatedTask(params.link);
-            changeCountInTab("add", "linkedTasksTab");            
         }
-        jq("#switcherLinkedTasksButton").show();
+
+        $linkedTasksButtons.show();
         disableCreateLinkButton();
-        LoadingBanner.hideLoading();
+        linksTab.select();
+        loadingBanner.hideLoading();
     };
 
-    var onAddTaskLinkError = function (params, error) {
-        LoadingBanner.hideLoading();
+    function onAddTaskLinkError(params, error) {
+        loadingBanner.hideLoading();
 
-        StudioBlockUIManager.blockUI(jq("#createNewLinkError"), 480, 300, 0, "fixed");
+        ASC.Projects.Base.showCommonPopup("createNewLinkError");
 
         hideEditBox();
         reloadedTaskListFlag = true;
         getProjectTasks();
     };
 
-    var onGetTaskDescription = function (params, task) {
-        displayTaskDescription(task);
+    function onGetTaskDescription(params, task) {
         currentTask = task;
-        if (jq("#filesContainer").length && !task.canEdit) {
-            Attachments.banOnEditing();
-        }
-        if (currentTask.projectOwner.status != 0) {
-            // remove Edit from task action menu
-        }
-        if (currentTask.links) {
-            showRelatedTaskLoader();
-        }
+
         getProjectTasks();
 
         taskId = task.id;
 
-        if (jq("#filesContainer").length && window.Attachments) {
-            initAttachmentsControl();
-            if (jq("#filesTab .count").text().trim() != "")
-                jq("#switcherTaskFilesButton").show();
-        }
-        if (task.canCreateTimeSpend) {
-            jq(".project-total-info .menu-small").removeClass("visibility-hidden");
-        }
-      
-        hideGanttLink();
+        initAttachmentsControl();
 
-        LoadingBanner.hideLoading();
-    };
+        task.comments = hideRemovedComments(task.comments);
 
-    var onUpdateTask = function(params, task) {
-        currentTask = task;
-        if (!task.canEdit) {
-            Attachments.banOnEditing();
+        var subtasksEmpty = 
+        {
+            img: "subtasks",
+            header: tasksResource.SubtasksEmptyScreen_Header,
+            description: tasksResource.SubtasksEmptyScreen_Describe,
+            button: {
+                title: tasksResource.AddNewSubtask,
+                onclick: function () {
+                    $subtaskContainer.find(".quickAddSubTaskLink .link").click();
+                },
+                canCreate: function () {
+                    return currentTask.status !== 2 && currentTask.canCreateSubtask;
+                }
+            }
+        };
+
+        var linksEmpty = 
+        {
+            img: "relatedtasks",
+            header: tasksResource.RelatedTasksEmptyScreen_Header,
+            description: tasksResource.RelatedTasksEmptyScreen_Describe,
+            button: {
+                title: tasksResource.CreateNewLink,
+                onclick: function () {
+                    $createAddTaskLinkButton.click();
+                },
+                canCreate: function () {
+                    return currentTask.status === 1 && currentTask.canEdit && listValidTaskForLink.length;
+                }
+            }
+        };
+
+        var commentsEmpty = 
+        {
+            img: "comments",
+            header: tasksResource.CommentsEmptyScreen_Header,
+            description: tasksResource.CommentsEmptyScreen_Describe,
+            button: {
+                title: ASC.Resources.Master.TemplateResource.AddNewCommentButton,
+                onclick: function () {
+                    jq("#add_comment_btn").click();
+                },
+                canCreate: function () {
+                    return currentTask.canCreateComment;
+                }
+            }
+        };
+
+        var Tab = ASC.Projects.Tab;
+        overViewTab = new Tab(resources.ProjectsJSResource.OverviewModule,
+            function() { return 0; },
+            "overViewModule",
+            jq(".tab"),
+            true);
+        subtaskTab = new Tab(tasksResource.Subtasks,
+            function() { return currentTask.subtasks.length; },
+            "subtasksModule",
+            $subtaskContainer,
+            false,
+            function() { return currentTask.canEdit || currentTask.subtasks.length },
+            subtasksEmpty);
+        documentsTab = new Tab(ASC.Projects.Resources.CommonResource.DocsModuleTitle,
+            function() { return currentTask.files.length; },
+            "documentsModule",
+            $filesContainer,
+            false,
+            function() { return currentTask.canReadFiles && (currentTask.canEditFiles || currentTask.files.length) });
+        linksTab = new Tab(tasksResource.RelatedTask,
+            function() { return currentTask.links.length; },
+            "linksModule",
+            $linkedTasksContainer,
+            false,
+            function() { return currentTask.canEdit || currentTask.links.length },
+            linksEmpty);
+        commentsTab = new Tab(resources.MessageResource.Comments,
+            function() { return currentTask.commentsCount; },
+            "commentsModule",
+            $commentContainer,
+            false,
+            function() { return true },
+            commentsEmpty);
+
+        var data = {
+            uplink: "tasks.aspx?prjID=" + task.projectId,
+            icon: "tasks",
+            title: task.title,
+            subscribed: task.isSubscribed,
+            subscribedTitle: task.isSubscribed ? tasksResource.UnfollowTask : tasksResource.FollowTask
+        };
+
+        if (!jq.browser.mobile && task.projectOwner.status === 0) {
+            data.ganttchart = "ganttchart.aspx?prjID=" + task.projectId;
         }
-        jq(".commonInfoTaskDescription").empty();
+
+        baseObject.InfoContainer.init(data, showEntityMenu, [overViewTab, subtaskTab, documentsTab, linksTab, commentsTab]);
+
+        $followTaskActionTop = jq('#subscribe');
+        $followTaskActionTop.on(clickEventName, subscribeTask);
+
+        jq("#descriptionTab").show();
+        loadingBanner.hideLoading();
+
+        tasks = [currentTask];
+        baseObject.SubtasksManager.setTasks(tasks);
+
         displayTaskDescription(task);
-        jq("#essenceTitle").text(task.title);
-        jq("#essenceTitle").attr("title", task.title);
-        jq.unblockUI();
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskUpdated);
     };
 
-    var onRemoveTask = function() {
+    function onUpdateTask(params, task) {
+        currentTask = task;
+        if (!task.canEdit && attachments) {
+            attachments.banOnEditing();
+        }
+
+        baseObject.InfoContainer.updateTitle(task.title);
+        displayTaskDescription(task);
+
+        jq.unblockUI();
+        common.displayInfoPanel(projectsJsResource.TaskUpdated);
+    };
+
+    function onRemoveTask() {
         jq.unblockUI();
         var newUrl = "tasks.aspx?prjID=" + projId;
         window.location.replace(newUrl);
     };
 
-    var onErrorRemoveTask = function(param, error) {
-        var removePopupErrorBox = jq("#questionWindowTaskRemove .errorBox");
-        removePopupErrorBox.text(error[0]);
-        removePopupErrorBox.removeClass("display-none");
-        jq("#questionWindowTaskRemove .middle-button-container").css('marginTop', '8px');
-        setTimeout(function() {
-            removePopupErrorBox.addClass("display-none");
-            jq("#questionWindowTaskRemove .middle-button-container").css('marginTop', '32px');
-        }, 3000);
+    function onRemoveSubtask(params, subtask) {
+        tasks[0].subtasks = tasks[0].subtasks.filter(function (t) { return t.id !== subtask.id });
+        subtaskTab.select();
     };
 
-    var onRemoveSubtask = function(params, subtask) {
-        if (subtask.status == 1) {
-            changeCountInTab("delete", "subtaskTab");
-        }
-        else {
-            if (jq(".subtasks").find(".subtask").length == 0) {
-                if (currentTask.status == 1) {
-                    jq("#subtaskTab").addClass("display-none");
-                }
+    function onAddSubtask(params, subtask) {
+        tasks[0].subtasks.push(subtask);
+        subtaskTab.rewrite();
+    };
+
+    function onUpdateSubtaskStatus(params, subtask) {
+        for (var i = 0, max = tasks[0].subtasks.length; i < max; i++) {
+            if (tasks[0].subtasks[i].id === subtask.id) {
+                tasks[0].subtasks[i] = subtask;
+                break;
             }
         }
-        if (!jq(".subtasks .subtask").length) {
-            jq("#switcherSubtasksButton").hide();
-        }
+        subtaskTab.rewrite();
     };
 
-    var onAddSubtask = function(params, subtask) {
-        jq("#switcherSubtasksButton").show();
-        changeCountInTab("add", "subtaskTab");
-    };
-
-    var onUpdateSubtask = function(params, subtask) {
-        ASC.Projects.SubtasksManager.updateSubtask(subtask);
-    };
-
-    var onUpdateSubtaskStatus = function(params, subtask) {
-        if (subtask.status == 2) {
-            changeCountInTab('delete', 'subtaskTab');
-        } else {
-            changeCountInTab('add', 'subtaskTab');
-        }
-    };
-
-    var onChangeTaskStatus = function(params, task) {
+    function onChangeTaskStatus(params, task) {
         currentTask = task;
+        tasks[0].subtasks = currentTask.subtasks;
+        subtaskTab.rewrite();
+
         displayTaskDescription(task);
+
         jq("body").css("cursor", "default");
-        var headerStatus = jq(".project-total-info .header-status");
-        if (task.status == 2) {
-            headerStatus.text("(" + ASC.Projects.Resources.TasksResource.Closed.toLowerCase() + ")");
-            headerStatus.show();
-            jq("#taskActions #editTaskAction").parent("li").hide();
-            if (task.subtasks.length == 0) {
-                jq("#subtaskTab").addClass("display-none");
-                jq("#subtaskContainer").addClass("display-none");
-            }
-        } else {
-            headerStatus.hide();
-            jq("#taskActions li").show();
-            jq("#subtaskTab").removeClass("display-none");
-            jq("#subtaskContainer").removeClass("display-none");
-        }
         disableCreateLinkButton();
+        jq.unblockUI();
     };
 
-    var onAddTask = function(params, task) {
-        document.location = "tasks.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id;
-    };
-
-    var onGetRelatedTasks = function(params, tasks){
+    function onGetRelatedTasks(params, tasks){
         var taskCount = tasks.length;
 
         if (taskCount) {
@@ -967,19 +1010,22 @@ ASC.Projects.TaskDescroptionPage = (function() {
                     listAllProjectTasks[tasks[i].id] = tasks[i];
                 }
             }
-            displayRelatedTasks();
         }
+
+        displayRelatedTasks();
+        initTaskLinkSelect();
+        disableCreateLinkButton();
     };
 
-    var onGetOpenTask = function (params, tasks) {
+    function onGetOpenTask(params, tasks) {
+        listOpenTasks = [];
+        listValidTaskForLink = [];
         var taskCount = tasks.length;
         if (taskCount) {
             for (var i = 0; i < taskCount; i++) {
                 if (tasks[i].id == currentTask.id) {
-                    currentTask = tasks[i];
                     if (reloadedTaskListFlag) {
-                        jq(".commonInfoTaskDescription").empty();
-                        displayTotalInfo(currentTask);
+                        //displayTotalInfo(currentTask);
                         reloadedTaskListFlag = false;
                     }
                 }
@@ -993,114 +1039,36 @@ ASC.Projects.TaskDescroptionPage = (function() {
             }
         }
 
-        if (currentTask.links) {
-            displayRelatedTasks();
-            jq("#switcherLinkedTasksButton").show();
-        }
-        initTaskLinkSelect();
-        disableCreateLinkButton();
+        teamlab.getPrjTasksById({}, { taskid: linkedTasksIds }, { success: onGetRelatedTasks });
     };
 
-    var onDeleteComment = function () {
-        changeCountInTab('delete', "commentsTab");
-        var count = jq("#commentContainer #mainCommentsContainer div[id^='container_']").length;
-        if (count - 1 == 0) {
-            jq("#commentContainer #mainCommentsContainer").attr('style', '');
-            jq("#commentContainer #mainCommentsContainer").empty();
-            jq("#commentContainer #mainCommentsContainer").hide();
+    function onDeleteComment() {
+        currentTask.commentsCount--;
+        commentsTab.select();
 
-            jq("#switcherTaskCommentsButton").hide();
+        if (currentTask.commentsCount === 0) {
+            commentsTab.select();
         }
     };
 
-    /*-------tabs-----*/
-
-    var createVisible = function(block) {
-        jq(block).toggle();
-    };
-
-    var showSubtasks = function() {
-        createVisible("#subtaskContainer");
-        jq("#commentBox").hide();
-        jq("#fckbodycontent").val("");
-
-    };
-
-    var showFiles = function() {
-        createVisible("#filesContainer");
-        jq("#commentBox").hide();
-        jq("#fckbodycontent").val("");
-
-    };
-
-    var showComments = function() {
-        createVisible("#commentContainer");
-        showEmptyCommentsPanel();
-    };
-
-    var showEmptyCommentsPanel = function() {
-        if (jq("#commentContainer #mainCommentsContainer div[id^='container_']").length == 0) {
-        }
-    };
-
-    var changeCountInTab = function(actionOrCount, tabAnchorId) {
-        var currentCount;
-        var text = jq.trim(jq("#" + tabAnchorId).find(".count").text());
-        if (text == "") currentCount = 0;
-        else {
-            text = text.substr(1, text.length - 2);
-            currentCount = parseInt(text);
-        }
-
-        if (typeof (actionOrCount) == "string") {
-            if (actionOrCount == "add") {
-                currentCount++;
-                jq("#" + tabAnchorId).find(".count").text("(" + currentCount + ")");
-            }
-            else if (actionOrCount == "delete") {
-                currentCount--;
-                if (currentCount != 0) {
-                    jq("#" + tabAnchorId).find(".count").text("(" + currentCount + ")");
-                }
-                else {
-                    jq("#" + tabAnchorId).find(".count").empty();
-                }
-            }
-        }
-        else if (typeof (actionOrCount) == "number") {
-            var count = parseInt(actionOrCount);
-            if (count > 0) {
-                jq("#" + tabAnchorId).find(".count").text("(" + count + ")");
-            } else {
-                jq("#" + tabAnchorId).find(".count").empty();
-            }
-        }
-    };
     /*---------actions--------*/
-    var closeTask = function() {
+    function closeTask() {
         jq("body").css("cursor", "wait");
 
-        Teamlab.updatePrjTask({}, taskId, { 'status': 2 }, { success: onChangeTaskStatus });
-    };
-    var resumeTask = function() {
-        jq("body").css("cursor", "wait");
-
-        Teamlab.updatePrjTask({}, taskId, { 'status': 1 }, { success: onChangeTaskStatus });
-
-        jq(".pm_taskTitleClosedByPanel").hide();
+        teamlab.updatePrjTask({}, taskId, { 'status': 2 }, { success: onChangeTaskStatus });
     };
 
-    var editTask = function() {
-        jq('.studio-action-panel').hide();
-        ASC.Projects.TaskAction.showUpdateTaskForm(currentTask.id, currentTask);
-    };
+    function cancelCloseTask() {
+        ASC.Projects.DescriptionTab.resetStatus(currentTask.status);
+        jq.unblockUI();
+    }
 
-    var formatDescription = function(descr) {
+    function formatDescription(descr) {
         var formatDescr = descr.replace(/</ig, '&lt;').replace(/>/ig, '&gt;').replace(/\n/ig, '<br/>');
         return formatDescr.replace('&amp;', '&');
     };
 
-    var compareDates = function(data) {
+    function compareDates(data) {
         var currentDate = new Date();
         if (currentDate > data) {
             return true;
@@ -1109,27 +1077,31 @@ ASC.Projects.TaskDescroptionPage = (function() {
             return false;
         }
     };
+
+    function unbindListEvents() {
+        jq(".project-info-container").hide();
+        jq("#descriptionTab").hide();
+        jq(document).off("keydown.taskdescr");
+        jq(document).off("keydown.description");
+        attachments.unbind();
+        unbind();
+    }
+
+    function bind(event, handler) {
+        handlers.push(teamlab.bind(event, handler));
+    }
+
+    function unbind() {
+        while (handlers.length) {
+            var handler = handlers.shift();
+            teamlab.unbind(handler);
+        }
+    }
+
     return {
         init: init,
-        onAddTask: onAddTask,
-        onUpdateTask: onUpdateTask,
         onDeleteComment: onDeleteComment,
-        showSubtasks: showSubtasks,
-        showFiles: showFiles,
-        showComments: showComments,
-        changeCountInTab: changeCountInTab,
-        subscribeTask: subscribeTask,
         compareDates: compareDates,
-
-        closeTask: closeTask,
-        resumeTask: resumeTask,
-        showQuestionWindowTaskRemove: showQuestionWindowTaskRemove,
-        editTask: editTask,
-        removeTask: removeTask,
-        formatDescription: formatDescription,
-        setTimeSpent: setTimeSpent,
-        showActionsPanel: showActionsPanel
+        unbindListEvents: unbindListEvents
     };
-
-
 })(jQuery);

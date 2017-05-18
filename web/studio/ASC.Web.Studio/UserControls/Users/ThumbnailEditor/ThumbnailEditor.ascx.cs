@@ -40,23 +40,6 @@ using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
-    public class ThumbnailItem
-    {
-        public string id { get; set; }
-        public Size size { get; set; }
-        public string imgUrl { get; set; }
-        public Bitmap bitmap { get; set; }
-    }
-
-    public interface IThumbnailsData
-    {
-        Guid UserID { get; set; }
-        string MainImgUrl { get; }
-        Bitmap MainImgBitmap { get; }
-        List<ThumbnailItem> ThumbnailList { get; }
-        void Save(List<ThumbnailItem> bitmaps);
-    }
-
     [AjaxNamespace("ThumbnailEditor")]
     public partial class ThumbnailEditor : UserControl
     {
@@ -111,9 +94,11 @@ namespace ASC.Web.Studio.UserControls.Users
 
             var saveClass = GetThumbnailsData(SaveFunctionType);
 
-            Page.RegisterBodyScripts("~/usercontrols/users/thumbnaileditor/js/thumbnaileditor.js");
-            Page.RegisterBodyScripts("~/usercontrols/users/thumbnaileditor/js/jquery.Jcrop.js");
-            Page.RegisterStyle("~/usercontrols/users/thumbnaileditor/css/thumbnaileditor.less");
+            Page
+                .RegisterBodyScripts(
+                    "~/usercontrols/users/thumbnaileditor/js/thumbnaileditor.js",
+                    "~/usercontrols/users/thumbnaileditor/js/jquery.Jcrop.js")
+                .RegisterStyle("~/usercontrols/users/thumbnaileditor/css/thumbnaileditor.less");
 
             var script = new StringBuilder();
             script.Append("window." + JsObjName + " = new ASC.Studio.ThumbnailEditor.ThumbnailEditorPrototype('" + SelectorID + "','" + JsObjName + "'); ");
@@ -247,5 +232,22 @@ namespace ASC.Web.Studio.UserControls.Users
         }
 
         #endregion
+    }
+
+    public class ThumbnailItem
+    {
+        public string id { get; set; }
+        public Size size { get; set; }
+        public string imgUrl { get; set; }
+        public Bitmap bitmap { get; set; }
+    }
+
+    public interface IThumbnailsData
+    {
+        Guid UserID { get; set; }
+        string MainImgUrl { get; }
+        Bitmap MainImgBitmap { get; }
+        List<ThumbnailItem> ThumbnailList { get; }
+        void Save(List<ThumbnailItem> bitmaps);
     }
 }

@@ -1,0 +1,43 @@
+﻿<script id="common_containerTmpl" type="text/x-jquery-tmpl">
+    <div class="{{if options.IsPopup && options.PopupContainerCssClass}} ${options.PopupContainerCssClass} {{else}} ${options.ContainerCssClass}{{/if}}" style="${options.ContainerStyle}">
+        {{if header || currentPageCaption || options.IsPopup}}
+        <div class="containerHeaderBlock">
+            <table cellspacing="0" cellpadding="0" border="0" style='width: 100%; height: 0px;'>
+                <tr valign="top">
+                    <td>
+                        {{if currentPageCaption}}
+                        <div>
+                            {{if options.HeaderBreadCrumbCaption}}
+                            ${options.HeaderBreadCrumbCaption}
+                            {{else}}
+                            ${Encoder.htmlEncode(currentPageCaption)}
+                            {{/if}}
+                        </div>
+                        {{else header}}
+                        {{tmpl(header.data) header.title}}
+                        {{/if}}
+                    </td>
+                    {{if options.IsPopup}}
+                    <td class="popupCancel">
+                        <div class="cancelButton" onclick="${options.OnCancelButtonClick}">&times;</div></td>
+                    {{/if}}
+                </tr>
+            </table>
+        </div>
+        {{/if}}
+        {{if options.IsPopup}}
+        <div {{if !options.InfoMessageText}}style="display:none" {{/if}} class="infoPanel {{if options.InfoType === 1}} warn{{else options.InfoType === 2}} alert{{/if}}">
+            <div>${options.InfoMessageText}</div>
+        </div>
+        {{else}}
+        <div class="infoPanel {{if options.InfoType === 1}} warn{{else options.InfoType === 2}} alert{{/if}}">
+            <div {{if !options.InfoMessageText}}style="display:none" {{/if}}>${options.InfoMessageText}</div>
+        </div>
+        {{/if}}
+        {{if body}}
+        <div class="containerBodyBlock">
+            {{tmpl(body.data) body.title}}
+        </div>
+        {{/if}}
+    </div>
+</script>

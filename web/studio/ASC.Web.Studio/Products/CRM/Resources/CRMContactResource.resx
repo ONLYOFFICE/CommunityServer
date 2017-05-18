@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbortMassSend" xml:space="preserve">
-    <value>Abort mass send</value>
+    <value>Abort Blanket Mailing</value>
   </data>
   <data name="About" xml:space="preserve">
     <value>Note</value>
@@ -141,29 +141,35 @@
   <data name="AddNewContact" xml:space="preserve">
     <value>Add new person</value>
   </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Add email</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Add phone</value>
+  </data>
   <data name="AddTagToContactGroupHelpForAdmin" xml:space="preserve">
-    <value>Изменить данное действие по умолчанию можно {0}тут{1}</value>
+    <value>This default action can be changed {0}here{1}</value>
   </data>
   <data name="AddTagToContactGroupHelpForUser" xml:space="preserve">
-    <value>В дальнейшем сбросить этот параметр сможет только администратор CRM</value>
+    <value>Only CRM administrator can reset this parameter afterwards</value>
   </data>
   <data name="AddThisAndCreateCompanyButton" xml:space="preserve">
-    <value>Add and Create New Company</value>
+    <value>Save and Create New Company</value>
   </data>
   <data name="AddThisAndCreatePeopleButton" xml:space="preserve">
-    <value>Add and Create New Person</value>
+    <value>Save and Create New Person</value>
   </data>
   <data name="AddThisCompanyButton" xml:space="preserve">
-    <value>Add This Company</value>
+    <value>Save</value>
   </data>
   <data name="AddThisPersonButton" xml:space="preserve">
-    <value>Add This Person</value>
+    <value>Save</value>
   </data>
   <data name="AddToLetterBody" xml:space="preserve">
     <value>Add to Letter Body</value>
   </data>
   <data name="AfterStage" xml:space="preserve">
-    <value>Стадия теплоты</value>
+    <value>Temperature level</value>
   </data>
   <data name="AllContacts" xml:space="preserve">
     <value>All Contacts</value>
@@ -172,16 +178,16 @@
     <value>All persons</value>
   </data>
   <data name="AssignContact" xml:space="preserve">
-    <value>Link person</value>
+    <value>Link or add person</value>
   </data>
   <data name="AssignContactFromExisting" xml:space="preserve">
     <value>Select from existing contacts</value>
   </data>
   <data name="AssignContactManager" xml:space="preserve">
-    <value>Assign manager to contact</value>
+    <value>Assign manager to this contact</value>
   </data>
   <data name="AssignPersonFromExisting" xml:space="preserve">
-    <value>Select from existing persons</value>
+    <value>Select from existing persons or add a new one</value>
   </data>
   <data name="AssignProject" xml:space="preserve">
     <value>Link or add project</value>
@@ -190,43 +196,43 @@
     <value>Batch size</value>
   </data>
   <data name="BatchSizeInfoText" xml:space="preserve">
-    <value>To enable your email program to work efficiently with the size of this list, we suggest sending in batches. You can change the number of recipients per batch if you wish.</value>
+    <value>We suggest that you send your emails in batch quantities for the mailing software to work efficiently. You can change the number of recipients per batch if you wish.</value>
   </data>
   <data name="BlindLinkInfoText" xml:space="preserve">
     <value>Hide email addresses from recipients?</value>
   </data>
   <data name="BreadCrumbsAddCompany" xml:space="preserve">
-    <value>Add company</value>
+    <value>Create new company</value>
   </data>
   <data name="BreadCrumbsAddPerson" xml:space="preserve">
-    <value>Add person</value>
+    <value>Create new person</value>
   </data>
   <data name="ByContactManager" xml:space="preserve">
-    <value>By manager</value>
+    <value>Manager</value>
   </data>
   <data name="CancelAddContactTagToGroupForCompany" xml:space="preserve">
-    <value>Add only to company</value>
+    <value>Add to company only</value>
   </data>
   <data name="CancelAddContactTagToGroupForPerson" xml:space="preserve">
-    <value>Add only to person</value>
+    <value>Add to person only</value>
   </data>
   <data name="CancelContactStatusGroupChange" xml:space="preserve">
-    <value>Нет, только у текущего контакта</value>
+    <value>No, for current contact only</value>
   </data>
   <data name="CancelDeleteContactTagFromGroupForCompany" xml:space="preserve">
-    <value>Delete only from company</value>
+    <value>Delete from company only</value>
   </data>
   <data name="CancelDeleteContactTagFromGroupForPerson" xml:space="preserve">
-    <value>Delete only from person</value>
+    <value>Delete from person only</value>
   </data>
   <data name="CategoryNotSpecified" xml:space="preserve">
-    <value>Category not specified</value>
+    <value>No category is specified</value>
   </data>
   <data name="ChangePhoto" xml:space="preserve">
     <value>Change photo</value>
   </data>
   <data name="ChangePhotoToDefault" xml:space="preserve">
-    <value>Заменить на фото по умолчанию</value>
+    <value>Change photo to default</value>
   </data>
   <data name="ChooseProfilePhoto" xml:space="preserve">
     <value>Choose a profile photo</value>
@@ -241,18 +247,18 @@
     <value>Company Name</value>
   </data>
   <data name="ConfirmationAddTagToCompanyGroup" xml:space="preserve">
-    <value>This company has linked persons.
-Do you want to add this tag also to all persons linked with this company?</value>
+    <value>Some persons are linked with this company.
+Do you want to add this tag to all these persons as well?</value>
   </data>
   <data name="ConfirmationAddTagToPersonGroup" xml:space="preserve">
     <value>This person belongs to a company.
-Do you want to add this tag also to the company and to all it's persons?</value>
+Do you want to add this tag also to the company and to all its persons?</value>
   </data>
   <data name="ConfirmationChangeCompanyStatus" xml:space="preserve">
-    <value>Do you want to change contact status for the parent company of this person?</value>
+    <value>Do you want to change the contact status of the company this person is linked with?</value>
   </data>
   <data name="ConfirmationChangePersonsStatus" xml:space="preserve">
-    <value>Do you want to change contact status for all the participants of this company?</value>
+    <value>Do you want to change the contact status of all the persons linked with this company?</value>
   </data>
   <data name="ConfirmationDeleteTagFromCompanyGroup" xml:space="preserve">
     <value>This company has linked persons.
@@ -260,10 +266,16 @@ Do you want to delete this tag also from all persons linked with this company?</
   </data>
   <data name="ConfirmationDeleteTagFromPersonGroup" xml:space="preserve">
     <value>This person belongs to a company.
-Do you want to delete this tag also from the company and from all it's persons?</value>
+Do you want to delete this tag also from the company and from all its persons?</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
+  </data>
+  <data name="ContactFacebookDescription" xml:space="preserve">
+    <value>Enter your Facebook account name. For example, teamlabdotcom</value>
+  </data>
+  <data name="ContactLinkedInDescription" xml:space="preserve">
+    <value>Enter your LinkedIn account name. For example, teamlabdotcom</value>
   </data>
   <data name="ContactManager" xml:space="preserve">
     <value>Contact manager</value>
@@ -275,25 +287,25 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Contacts</value>
   </data>
   <data name="ContactStage" xml:space="preserve">
-    <value>Стадия теплоты контакта</value>
+    <value>Contact Temperature Level</value>
   </data>
   <data name="ContactStages" xml:space="preserve">
-    <value>Стадии теплоты контакта</value>
+    <value>Contact Temperature Levels</value>
   </data>
   <data name="ContactStatus_Cold" xml:space="preserve">
-    <value>"Cold"</value>
+    <value>Cold</value>
   </data>
   <data name="ContactStatus_Hot" xml:space="preserve">
-    <value>"Hot"</value>
+    <value>Hot</value>
   </data>
   <data name="ContactStatus_Warm" xml:space="preserve">
-    <value>"Warm"</value>
+    <value>Warm</value>
   </data>
   <data name="ContactStatusGroupChangeHelpForAdmin" xml:space="preserve">
-    <value>Изменить данное действие по умолчанию можно {0}тут{1}</value>
+    <value>This default action can be changed {0}here{1}</value>
   </data>
   <data name="ContactStatusGroupChangeHelpForUser" xml:space="preserve">
-    <value>В дальнейшем сбросить этот параметр сможет только администратор CRM</value>
+    <value>Only CRM administrator can reset this parameter afterwards</value>
   </data>
   <data name="ContactTag" xml:space="preserve">
     <value>Contact Tag</value>
@@ -306,6 +318,9 @@ Do you want to delete this tag also from the company and from all it's persons?<
   </data>
   <data name="ContactTitle" xml:space="preserve">
     <value>Contact Name</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Enter your Twitter account name. For example, teamlabdotcom</value>
   </data>
   <data name="ContactType" xml:space="preserve">
     <value>Contact Type</value>
@@ -340,47 +355,59 @@ Do you want to delete this tag also from the company and from all it's persons?<
   <data name="CreateProject" xml:space="preserve">
     <value>Create project</value>
   </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Create task</value>
+  </data>
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Companies</value>
   </data>
   <data name="DeleteContact" xml:space="preserve">
     <value>Delete contact</value>
   </data>
   <data name="DeleteTagFromContactGroupHelpForAdmin" xml:space="preserve">
-    <value>Изменить данное действие по умолчанию можно {0}тут{1}</value>
+    <value>This default action can be changed {0}here{1}</value>
   </data>
   <data name="DeleteTagFromContactGroupHelpForUser" xml:space="preserve">
-    <value>В дальнейшем сбросить этот параметр сможет только администратор CRM</value>
+    <value>Only CRM administrator will be able to reset this parameter in future</value>
   </data>
   <data name="DeleteThisCompany" xml:space="preserve">
-    <value>Delete this company</value>
+    <value>Delete company</value>
   </data>
   <data name="DeleteThisPerson" xml:space="preserve">
-    <value>Delete this person</value>
+    <value>Delete person</value>
   </data>
   <data name="DeletingContacts" xml:space="preserve">
     <value>Deleting contacts</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
   </data>
   <data name="DoNotImportThisField" xml:space="preserve">
     <value>Do not import this field</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Update</value>
+    <value>Edit</value>
   </data>
   <data name="EditCompany" xml:space="preserve">
-    <value>Update company «{0}»</value>
+    <value>Edit company «{0}»</value>
   </data>
   <data name="EditContact" xml:space="preserve">
-    <value>Update contact</value>
+    <value>Edit contact</value>
   </data>
   <data name="EditPerson" xml:space="preserve">
-    <value>Update person «{0}»</value>
+    <value>Edit person «{0}»</value>
   </data>
   <data name="EditProfileCompany" xml:space="preserve">
-    <value>Update company</value>
+    <value>Edit company</value>
   </data>
   <data name="EditProfilePerson" xml:space="preserve">
-    <value>Update person</value>
+    <value>Edit person</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="EmptyContactListDescription" xml:space="preserve">
     <value>Keep all the contacts your company works with in one place. Add new companies and persons, divide them into {0}types{1}, link with each other, add personal information. Import multiple contacts that you already have from a {2}CSV file{3} at one go.</value>
@@ -398,7 +425,7 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Select the existing projects from the list to link them with the CRM contacts, or go to the Projects module to create new projects. This will help you organize your workflow and make plans. A deeper integration with the projects will help you manage your work more efficiently.</value>
   </data>
   <data name="EmptyContactProjectListDescriptionWithoutButton" xml:space="preserve">
-    <value>EmptyContactProjectListDescriptionWithoutButton???</value>
+    <value>You haven't got the permission to link contacts with projects. You need to be project manager or portal administrator to be able to do that.</value>
   </data>
   <data name="EmptyContactProjectListHeader" xml:space="preserve">
     <value>The project list is empty</value>
@@ -415,17 +442,26 @@ Do you want to delete this tag also from the company and from all it's persons?<
   <data name="ErrorEmptyContactFirstName" xml:space="preserve">
     <value>Enter a first name</value>
   </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>The uploaded file could not be found</value>
+  </data>
   <data name="ErrorInvalidEmail" xml:space="preserve">
-    <value>Email invalid</value>
+    <value>Invalid email</value>
   </data>
   <data name="ErrorInvalidPhone" xml:space="preserve">
-    <value>Phone invalid</value>
+    <value>Invalid phone number</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>all users (including the deleted users)</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
   </data>
   <data name="FilterByAccessibility" xml:space="preserve">
     <value>Accessibility</value>
   </data>
   <data name="FilterByContactManager" xml:space="preserve">
-    <value>By manager</value>
+    <value>Manager</value>
   </data>
   <data name="FindCompanyByName" xml:space="preserve">
     <value>Find a company by name...</value>
@@ -455,31 +491,31 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Incoming call. Duration: {0}</value>
   </data>
   <data name="HistoryVoipOutcomingNote" xml:space="preserve">
-    <value>Outcoming call. Duration: {0}</value>
+    <value>Outgoing call. Duration: {0}</value>
   </data>
   <data name="ImportContacts" xml:space="preserve">
     <value>Import contacts</value>
   </data>
   <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
-    <value>A properly formed CSV file should be selected on your computer HDD. It must contain the fields or columns separated by commas which will be used to import persons or companies - 'First Name' and 'Last Name' for persons, 'Company Name' for companies. The files containing more than {0} rows should be divided into smaller parts for proper importing. Make sure you selected the portal users who need to be granted access to the contact details, otherwise the data from the CSV file will be available to all portal users.</value>
+    <value>A properly formed CSV file should be selected on your computer HDD. It must contain the fields or columns separated by a delimiter which will be used to import persons or companies - 'First Name' and 'Last Name' for persons, 'Company Name' for companies. The files containing more than {0} rows should be divided into smaller parts for proper importing. Make sure you selected the portal users who need to be granted access to the contact details, otherwise the data from the CSV file will be available to you only.</value>
   </data>
   <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
     <value>Select a CSV file and set access rights before you import contacts</value>
   </data>
   <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
-    <value>Сопоставьте колонки из своего файла с соответствующими полями в TeamLab CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта персон по крайней мере один столбец из вашего файла должен соотноситься с полем 'Имя' в TeamLab CRM. То же самое для импорта компаний: Вам нужно, чтобы было соответствие полю 'Название компании' для того, чтобы была возможность импортировать компании. Только после этого Вы сможете перейти к следующему шагу. Поля содержащие дату должны быть заданы форматом {0}.</value>
+    <value>Match your file columns with the corresponding ONLYOFFICE™ CRM fields. Please pay your attention to the fact that to import persons correctly you need to have at least one column from your file matched with the 'First Name' field of the ONLYOFFICE™ CRM. The same is for the company import, you will need to match the 'Company Name' field to be able to import a company. The fields containing the dates must have the following format: {0}.</value>
   </data>
   <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
     <value>Please, verify the fields</value>
   </data>
   <data name="ImportStartingPanelButton" xml:space="preserve">
-    <value>Go to contact list</value>
+    <value>Go to Contact List</value>
   </data>
   <data name="ImportStartingPanelDescription" xml:space="preserve">
     <value>Import of contacts can take several minutes depending on the amount of your data.</value>
   </data>
   <data name="ImportStartingPanelHeader" xml:space="preserve">
-    <value>Import started</value>
+    <value>Importing started</value>
   </data>
   <data name="Industry" xml:space="preserve">
     <value>Industry</value>
@@ -500,25 +536,25 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Upload photo from PC</value>
   </data>
   <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
-    <value>Выбрать из соцсетей</value>
+    <value>Select from social networks</value>
   </data>
   <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
     <value>Allow access to the company for all CRM users</value>
   </data>
   <data name="MakePublicPanelCheckBoxLabelForImportContacts" xml:space="preserve">
-    <value>Allow access to this contacts for all CRM users</value>
+    <value>Allow all CRM users access this contact</value>
   </data>
   <data name="MakePublicPanelCheckBoxLabelForPerson" xml:space="preserve">
     <value>Allow access to the person for all CRM users</value>
   </data>
   <data name="MakePublicPanelDescrForContact" xml:space="preserve">
-    <value>The access is granted only to contact managers. To allow access to this contact for all users check the box below</value>
+    <value>The access is granted to contact managers only. To allow access to this contact for all users check the box below</value>
   </data>
   <data name="MakePublicPanelTitleForCompany" xml:space="preserve">
     <value>Make this company public</value>
   </data>
   <data name="MakePublicPanelTitleForImportContacts" xml:space="preserve">
-    <value>Make contacts public</value>
+    <value>Make contact public</value>
   </data>
   <data name="MakePublicPanelTitleForPerson" xml:space="preserve">
     <value>Make this person public</value>
@@ -527,16 +563,16 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Already sent</value>
   </data>
   <data name="MassSendEmailsTotal" xml:space="preserve">
-    <value>E-mails total</value>
+    <value>Total emails</value>
   </data>
   <data name="MassSendErrors" xml:space="preserve">
     <value>Errors</value>
   </data>
   <data name="MassSendEstimatedTime" xml:space="preserve">
-    <value>Estimated finish time</value>
+    <value>Estimated end time</value>
   </data>
   <data name="MassSendInfo" xml:space="preserve">
-    <value>Thank you for using our Mass Send Feature! {0} Your last send is dtill in progress! Please wait until it done and try again.</value>
+    <value>Your last mailing is in progress. Thank you for using our blanket mailing feature!</value>
   </data>
   <data name="MergeButtonText" xml:space="preserve">
     <value>This is a duplicate</value>
@@ -554,28 +590,31 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Merging contacts...</value>
   </data>
   <data name="NoMatchSelect" xml:space="preserve">
-    <value>No matches in TeamLab CRM, select from list</value>
+    <value>No matches in ONLYOFFICE™ CRM, select from list</value>
   </data>
   <data name="NoPhotoFromSocialMedia" xml:space="preserve">
-    <value>Нет доступных фотографий, соответствующих профилю</value>
+    <value>There are no available photos corresponding to the profile</value>
   </data>
   <data name="NotifyContactManager" xml:space="preserve">
     <value>Notify contact manager by email</value>
   </data>
   <data name="OKAddContactTagToGroup" xml:space="preserve">
-    <value>Add to linked contact</value>
+    <value>Add to linked contacts</value>
   </data>
   <data name="OKCompanyStatusGroupChange" xml:space="preserve">
-    <value>Да, изменить у сотрудников</value>
+    <value>Yes, change for the persons</value>
   </data>
   <data name="OKDeleteContactTagFromGroup" xml:space="preserve">
     <value>Delete from linked contact</value>
   </data>
   <data name="OKPersonStatusGroupChange" xml:space="preserve">
-    <value>Да, изменить у компании</value>
+    <value>Yes, change for the company</value>
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>People</value>
   </data>
   <data name="Person" xml:space="preserve">
     <value>Person</value>
@@ -613,20 +652,35 @@ Do you want to delete this tag also from the company and from all it's persons?<
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Enter a text to search</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Select a CSV file</value>
+  </data>
   <data name="Show" xml:space="preserve">
     <value>Show</value>
   </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Show all the results</value>
+  </data>
   <data name="ShowContactProfile" xml:space="preserve">
-    <value>Перейти в профиль</value>
+    <value>Go to profile</value>
   </data>
   <data name="ShowContactProfileNewTab" xml:space="preserve">
-    <value>Открыть в новой вкладке</value>
+    <value>Open in a new tab</value>
   </data>
   <data name="ShowOnMap" xml:space="preserve">
     <value>Show on the map</value>
   </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
   <data name="Staff" xml:space="preserve">
     <value>Staff</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Contact type</value>
   </data>
   <data name="StartImport" xml:space="preserve">
     <value>Start importing contacts</value>
@@ -641,16 +695,25 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>Tags</value>
   </data>
   <data name="TeamlabWatermarkInfo" xml:space="preserve">
-    <value>We will add the TeamLab text watermark to your letter like "Powered by TeamLab.com". You can see it in the next (message preview) step.</value>
+    <value>We will add the text watermark to your letter like "Powered by ONLYOFFICE.com". You can see it in the next (message preview) step.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Position</value>
   </data>
   <data name="TooltipCsv" xml:space="preserve">
-    <value>CSV (comma-separated values) files store tabular data in the plain-text form. You can create such files from any spreadsheets using TeamLab Documents.</value>
+    <value>CSV (comma-separated values) files store tabular data in the plain-text form. You can create such files from any spreadsheets using ONLYOFFICE™ Documents.</value>
   </data>
   <data name="TooltipTypes" xml:space="preserve">
     <value>Contact types let you characterize your potential customers in a certain way. The default contact types are cold, warm and hot which mean the contact's willingness to purchase your product. To be able to edit them, the administrator rights are needed.</value>
   </data>
   <data name="TotalContacts" xml:space="preserve">
-    <value>Total contacts</value>
+    <value>All contacts</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Total found</value>
+  </data>
+  <data name="ViewInfo" xml:space="preserve">
+    <value>Show info</value>
   </data>
   <data name="ViewMailingHistory" xml:space="preserve">
     <value>View mailing history</value>
@@ -659,7 +722,7 @@ Do you want to delete this tag also from the company and from all it's persons?<
     <value>No contact manager</value>
   </data>
   <data name="WriteEmail" xml:space="preserve">
-    <value>Write letter</value>
+    <value>Write message</value>
   </data>
   <data name="WriteEmailByMailProductDscr" xml:space="preserve">
     <value>Starting with this message its conversation thread will be displayed in the contact history.</value>

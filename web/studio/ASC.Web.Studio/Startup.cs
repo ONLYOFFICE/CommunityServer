@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -44,6 +44,7 @@ using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -77,6 +78,7 @@ namespace ASC.Web.Studio
             }
 
             AjaxSecurityChecker.Instance.CheckMethodPermissions += AjaxCheckMethodPermissions;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
 
             //try
             //{
@@ -95,7 +97,7 @@ namespace ASC.Web.Studio
             BundleConfig.Configure();
 
             if (CoreContext.Configuration.Standalone)
-                WarmUp.Instance.Start();
+                WarmUpController.Instance.Start();
 
             WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
 
@@ -140,6 +142,23 @@ namespace ASC.Web.Studio
                     }
                     return new KeyValuePair<string, ConfigurationOptions>();
                 };
+            }
+        }
+
+        private static Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            const string restSharpName = "RestSharp";
+            var fullyQualifiedName = args.Name;
+            if (!fullyQualifiedName.Contains(restSharpName)) return null;
+
+            try
+            {
+                var restSharpFilePath = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath, "bin", restSharpName + ".dll");
+                return Assembly.LoadFrom(restSharpFilePath);
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

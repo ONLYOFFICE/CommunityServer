@@ -24,130 +24,228 @@
 */
 
 
-ASC.Projects.ProjectsAdvansedFilter = (function() {
-    var anchorMoving = false,
-    firstload = true,
-    hashFilterChanged = true;
-    var basePath = "";
-    var baseSortBy = "";
-    var baseFilter = true;
-    var filter;
-    var massNameFilters = { 
-        team_member: "team_member",
-        me_team_member: "me_team_member",
+ASC.Projects.ProjectsAdvansedFilter = (function () {
+    var firstload = true,
+        basePath = "",
+        baseSortBy = "",
+        baseFilter = true,
+        filter,
+        currentSettings,
+        anchor = ASC.Controls.AnchorController;
 
-        me_responsible_for_milestone: "me_responsible_for_milestone",
-        responsible_for_milestone: "responsible_for_milestone",
+    var tasksAdditionalFilterId = "t_",
+        projectsAdditionalFilterId = "p_",
+        milestonesAdditionalFilterId = "m_",
+        discussionsAdditionalFilterId = "d_",
+        timeTrackingAdditionalFilterId = "r_";
 
-        me_project_manager: "me_project_manager",
-        project_manager: "project_manager",
+    var teamMemberFilter = "team_member",
+        meTeamMemberFilter = "me_team_member",
 
-        me_author: "me_author",
-        author: "author",
+        meResponsibleForMilestoneFilter = "me_responsible_for_milestone",
+        responsibleForMilestoneFilter = "responsible_for_milestone",
 
-        user: "user",
+        meProjectManagerFilter = "me_project_manager",
+        projectManagerFilter = "project_manager",
 
-        me_tasks_responsible: "me_tasks_responsible",
-        tasks_responsible: "tasks_responsible",
+        meAuthorFilter = "me_author",
+        authorFilter = "author",
 
-        me_tasks_creator: "me_tasks_creator",
-        tasks_creator: "tasks_creator",
+        userFilter = "user",
 
-        me_tasks: "me_tasks",
-        user_tasks: "user_tasks",
+        meTasksResponsibleFilter = "me_tasks_responsible",
+        tasksResponsibleFilter = "tasks_responsible",
 
-        noresponsible: "noresponsible",
+        meTasksCreatorFilter = "me_tasks_creator",
+        tasksCreatorFilter = "tasks_creator",
 
-        group: "group",
-        followed: "followed",
-        tag: "tag",
-        text: "text",
+        meTasksFilter = "me_tasks",
+        userTasksFilter = "user_tasks",
 
-        project: "project",
-        myprojects: "myprojects",
+        noresponsibleFilter = "noresponsible",
 
-        milestone: "milestone",
-        mymilestones: "mymilestones",
+        groupFilter = "group",
+        followedFilter = "followed",
+        tagFilter = "tag",
+        textFilter = "text",
 
-        status: "status",
-        open: "open",
-        closed: "closed",
-        archived: "archived",
-        paused: "paused",
+        projectFilter = "project",
+        myprojectsFilter = "myprojects",
 
-        payment_status: "payment_status",
-        not_chargeable: "notChargeable",
-        not_billed: "notBilled",
-        billed: "billed",
+        milestoneFilter = "milestone",
+        mymilestonesFilter = "mymilestones",
 
-        overdue: "overdue",
-        today: "today",
-        upcoming: "upcoming",
-        recent: "recent",
-        deadlineStart: "deadlineStart",
-        deadlineStop: "deadlineStop",
-        createdStart: "createdStart",
-        createdStop: "createdStop",
-        periodStart: "periodStart",
-        periodStop: "periodStop",
+        statusFilter = "status",
+        openFilter = "open",
+        closedFilter = "closed",
+        archivedFilter = "archived",
+        pausedFilter = "paused",
 
-        entity: "entity",
-        project_entity: "project_entity",
-        milestone_entity: "milestone_entity",
-        discussion_entity: "discussion_entity",
-        team_entity: "team_entity",
-        task_entity: "task_entity",
-        subtask_entity: "subtask_entity",
-        time_entity: "time_entity",
-        comment_entity: "comment_entity",
+        paymentStatusFilter = "payment_status",
+        notChargeableFilter = "notChargeable",
+        notBilledFilter = "notBilled",
+        billedFilter = "billed",
 
-        sortBy: "sortBy",
-        sortOrder: "sortOrder"
+        periodFilter = "period",
+        today2Filter = "today2",
+        createdFilter = "created",
+        previousweek2Filter = "previousweek2",
+        previousmonth2Filter = "previousmonth2",
+        period2Filter = "period2",
+        overdueFilter = "overdue",
+        todayFilter = "today",
+        upcomingFilter = "upcoming",
+        recentFilter = "recent",
+        today3Filter = "today3",
+        yesterdayFilter = "yesterday",
+        currentweekFilter = "currentweek",
+        previousweekFilter = "previousweek",
+        currentmonthFilter = "currentmonth",
+        previousmonthFilter = "previousmonth",
+        currentyearFilter = "currentyear",
+        previousyearFilter = "previousyear",
+        deadlineFilter = "deadline",
+        deadlineStartFilter = "deadlineStart",
+        deadlineStopFilter = "deadlineStop",
+        createdStartFilter = "createdStart",
+        createdStopFilter = "createdStop",
+        periodStartFilter = "periodStart",
+        periodStopFilter = "periodStop",
+
+        entityFilter = "entity",
+        projectEntityFilter = "project_entity",
+        milestoneEntityFilter = "milestone_entity",
+        discussionEntityFilter = "discussion_entity",
+        teamEntityFilter = "team_entity",
+        taskEntityFilter = "task_entity",
+        subtaskEntityFilter = "subtask_entity",
+        timeEntityFilter = "time_entity",
+        commentEntityFilter = "comment_entity",
+        sortByFilter = "sortBy",
+        sortOrderFilter = "sortOrder";
+
+    var typePerson = "person",
+        typeCombobox = "combobox",
+        typeFlag = "flag",
+        typeGroup = "group",
+        typeDaterange = "daterange",
+        typeSorter = "sorter";
+
+    var userIDgroup = "userid",
+        creatoridgroup = "creatorid",
+        taskuseridgroup = "taskuserid",
+        manageridGroup = "managerid",
+        projectGroup = "projectGroup",
+        statusGroup = "status",
+        createdGroup = "createdGroup",
+        deadlineGroup = "deadlineGroup",
+        periodGroup = "periodGroup",
+        format1 = "/{0}",
+        format2 = format1 + "/{1}",
+        personHashmark = typePerson + format1,
+        createdHashmark = createdFilter + format2,
+        comboboxHashmark = typeCombobox + format1,
+        deadlineHashmark = deadlineFilter + format2,
+        groupHashmark = groupFilter + format1,
+        projectHashmark = projectFilter + format1,
+        milestineHashmark = milestoneFilter + format1,
+        periodHashmark = periodFilter + format2;
+
+    var sortOrderAscending = "ascending",
+        sortOrderDescending = "descending",
+        sorterComments = "comments",
+        sorterCreateOn = "create_on",
+        sorterTitle = "title",
+        sorterDeadline = "deadline";
+
+    var massNameFilters = [
+        teamMemberFilter, meTeamMemberFilter, meResponsibleForMilestoneFilter,
+        responsibleForMilestoneFilter, meProjectManagerFilter, projectManagerFilter, meAuthorFilter, authorFilter,
+        userFilter, meTasksResponsibleFilter, tasksResponsibleFilter, meTasksCreatorFilter, tasksCreatorFilter,
+        meTasksFilter, userTasksFilter, noresponsibleFilter, groupFilter, followedFilter, tagFilter, textFilter, projectFilter,
+        myprojectsFilter, milestoneFilter, mymilestonesFilter, statusFilter, openFilter, closedFilter, archivedFilter, pausedFilter, paymentStatusFilter, notChargeableFilter, notBilledFilter, billedFilter, overdueFilter, todayFilter, upcomingFilter,
+        recentFilter, deadlineStartFilter, deadlineStopFilter, createdStartFilter, createdStopFilter, periodStartFilter, periodStopFilter, entityFilter, projectEntityFilter, milestoneEntityFilter, discussionEntityFilter, teamEntityFilter, taskEntityFilter, subtaskEntityFilter,
+        timeEntityFilter, commentEntityFilter, sortByFilter, sortOrderFilter
+    ];
+
+    var self, obj, teamlab = Teamlab;
+
+    var baseObj = ASC.Projects,
+        resources = baseObj.Resources,
+        projectsFilterResource = resources.ProjectsFilterResource,
+        common = baseObj.Common,
+        currentProjectId = jq.getURLParam('prjID'),
+        currentUserId = teamlab.profile.id;
+
+    var milestonesForFilter,
+        tagsForFilter,
+        teamForFilter;
+
+    var $body = jq("body"),
+        clickFilterEventName = "click.filter";
+
+    var currentAdditionalId;
+
+    var init = function (newCurrentAdditionalId, objct, settings) {
+        self = this;
+        currentProjectId = jq.getURLParam('prjID');
+        currentAdditionalId = newCurrentAdditionalId;
+
+        clear();
+        initialisation(objct);
+
+        if (typeof filter === "undefined") {
+            $body.on(clickFilterEventName, ".clearFilterButton", function () {
+                filter.advansedFilter(null);
+                return false;
+            });
+        }
+
+        filter = jq('#ProjectsAdvansedFilter').advansedFilter(
+                {
+                    store: true,
+                    anykey: true,
+                    hintDefaultDisable: true,
+                    colcount: 3,
+                    anykeytimeout: 1000,
+                    filters: settings.filters,
+                    sorters: settings.sorters
+                }
+            )
+            .unbind('setfilter')
+            .unbind('resetfilter')
+            .bind('setfilter', onSetFilter)
+            .bind('resetfilter', onResetFilter);
     };
-    
-    var self;
-    var isinit = false;
-    var obj;
-    var onMovedHash = function () {
-        if (!self.hashFilterChanged && !self.firstload) {
-            setFilterByUrl();
-        } 
-        self.hashFilterChanged = false;
+
+    function clear() {
+        firstload = true;
+        delete window.userSelector;
+
+        if (typeof filter == "undefined") return;
+
+        var visible = jq('#ProjectsAdvansedFilter').is(":visible");
+        if (visible) {
+            filter.attr("style", "visibility:visible");
+        }
+        
+        filter.removeClass("is-init");
+        /*        filter.empty();
+                filter.removeAttr("class");*/
     };
 
-    var initialisation = function(objct) {
+    function initialisation(objct) {
         basePath = objct.basePath;
         var res = /sortBy=(.+)\&sortOrder=(.+)/ig.exec(basePath);
         if (res && res.length == 3) {
             baseSortBy = res[1];
         }
-        if (!isinit) {
-            ASC.Controls.AnchorController.bind(/^(.+)*$/, onMovedHash);
-            isinit = true;
-        }
-        
-        self.obj = objct;
-        
-    };
-    var init = function (objct) {
-        self = this;
-        clear();
-        initialisation(objct);
-        self.filter = jq('#ProjectsAdvansedFilter').advansedFilter(
-                {
-                    store: true,
-                    anykey: true,
-                    colcount: objct.colCount,
-                    anykeytimeout: 1000,
-                    filters: objct.filters,
-                    sorters: objct.sorters
-                }
-            ).bind('setfilter', self.onSetFilter)
-            .bind('resetfilter', self.onResetFilter);
-        return self.filter;
+
+        obj = objct;
+
     };
 
-    var getUrlParam = function(name, str) {
+    var getUrlParam = function (name, str) {
         var regexS = "[#&]" + name + "=([^&]*)";
         var regex = new RegExp(regexS);
         var tmpUrl = "#";
@@ -163,19 +261,19 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
             return results[1];
     };
 
-    var coincidesWithFilter = function(filter) {
+    var coincidesWithFilter = function (filter) {
         var hash = ASC.Controls.AnchorController.getAnchor();
 
-        var sortOrder = getUrlParam(massNameFilters.sortOrder, hash);
-        var sortBy = getUrlParam(massNameFilters.sortBy, hash);
+        var sortOrder = getUrlParam(sortOrderFilter, hash);
+        var sortBy = getUrlParam(sortByFilter, hash);
 
         if (sortBy == "" && sortOrder == "") {
             hash = basePath + "&" + hash;
         }
-        
-        for (var paramName in massNameFilters) {
-            var filterParam = getUrlParam(massNameFilters[paramName], filter);
-            var hashParam = getUrlParam(massNameFilters[paramName], hash);
+
+        for (var i = massNameFilters.length; i--;) {
+            var filterParam = getUrlParam(massNameFilters[i], filter);
+            var hashParam = getUrlParam(massNameFilters[i], hash);
             if (filterParam != hashParam) {
                 return false;
             }
@@ -183,568 +281,1360 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         return true;
     };
 
-    var setFilterByUrl = function() {
+    function setFilterByUrl() {
         var hash = ASC.Controls.AnchorController.getAnchor();
         if (hash == "") {
             location.hash = basePath;
             return;
         }
-        var team_member = getUrlParam(massNameFilters.team_member),
-            project_manager = getUrlParam(massNameFilters.project_manager),
-            responsible_for_milestone = getUrlParam(massNameFilters.responsible_for_milestone),
-            tasks_responsible = getUrlParam(massNameFilters.tasks_responsible),
-            tasks_creator = getUrlParam(massNameFilters.tasks_creator),
-            author = getUrlParam(massNameFilters.author),
-            user = getUrlParam(massNameFilters.user),
+        var sortBy = getUrlParam(sortByFilter),
+            sortOrder = getUrlParam(sortOrderFilter);
 
-            user_tasks = getUrlParam(massNameFilters.user_tasks),
-            noresponsible = getUrlParam(massNameFilters.noresponsible),
-
-            group = getUrlParam(massNameFilters.group),
-
-            followed = getUrlParam(massNameFilters.followed),
-            tag = getUrlParam(massNameFilters.tag),
-            text = decodeURIComponent(getUrlParam(massNameFilters.text)),
-
-            project = getUrlParam(massNameFilters.project),
-            myprojects = getUrlParam(massNameFilters.myprojects),
-
-            mymilestones = getUrlParam(massNameFilters.mymilestones),
-            milestone = getUrlParam(massNameFilters.milestone),
-
-            status = getUrlParam(massNameFilters.status),
-            payment_status = getUrlParam(massNameFilters.payment_status),
-
-            overdue = getUrlParam(massNameFilters.overdue),
-            deadlineStart = getUrlParam(massNameFilters.deadlineStart),
-            deadlineStop = getUrlParam(massNameFilters.deadlineStop),
-            createdStart = getUrlParam(massNameFilters.createdStart),
-            createdStop = getUrlParam(massNameFilters.createdStop),
-            periodStart = getUrlParam(massNameFilters.periodStart),
-            periodStop = getUrlParam(massNameFilters.periodStop),
-
-            entity = getUrlParam(massNameFilters.entity),
-
-            sortBy = getUrlParam(massNameFilters.sortBy),
-            sortOrder = getUrlParam(massNameFilters.sortOrder);
-
-        filters = [];
-        sorters = [];
-
-        // Responsible
-        if (team_member.length > 0) {
-            filters.push({ type: "person", id: massNameFilters.team_member, isset: true, params: { id: team_member} });
-        } else {
-            filters.push({ type: "person", id: massNameFilters.me_team_member, reset: true });
-            filters.push({ type: "person", id: massNameFilters.team_member, reset: true });
-        }
-
-        if (project_manager.length > 0) {
-            filters.push({ type: "person", id: massNameFilters.project_manager, isset: true, params: { id: project_manager} });
-        } else {
-            filters.push({ type: "person", id: massNameFilters.me_project_manager, reset: true });
-            filters.push({ type: "person", id: massNameFilters.project_manager, reset: true });
-        }
-
-        if (tasks_responsible.length > 0) {
-            if (jq.getURLParam("prjID")) {
-                filters.push({ type: "combobox", id: massNameFilters.tasks_responsible, isset: true, params: { value: tasks_responsible} });
-            } else {
-                filters.push({ type: "person", id: massNameFilters.tasks_responsible, isset: true, params: { id: tasks_responsible} });
-            }
-        } else {
-            filters.push({ type: "person", id: massNameFilters.tasks_responsible, reset: true });
-            filters.push({ type: "person", id: massNameFilters.me_tasks_responsible, reset: true });
-        }
-
-        if (tasks_creator.length > 0) {
-            filters.push({ type: "person", id: massNameFilters.tasks_creator, isset: true, params: { id: tasks_creator} });
-        } else {
-            filters.push({ type: "person", id: massNameFilters.tasks_creator, reset: true });
-            filters.push({ type: "person", id: massNameFilters.me_tasks_creator, reset: true });
-        }
-
-        if (responsible_for_milestone.length > 0) {
-            if (jq.getURLParam("prjID")) {
-                filters.push({ type: "combobox", id: massNameFilters.responsible_for_milestone, isset: true, params: { value: responsible_for_milestone} });
-            } else {
-                filters.push({ type: "person", id: massNameFilters.responsible_for_milestone, isset: true, params: { id: responsible_for_milestone} });
-            }
-        } else {
-            filters.push({ type: "person", id: massNameFilters.me_responsible_for_milestone, reset: true });
-            filters.push({ type: "person", id: massNameFilters.responsible_for_milestone, reset: true });
-        }
-
-        if (author.length > 0) {
-            if (jq.getURLParam("prjID")) {
-                filters.push({ type: "combobox", id: massNameFilters.author, isset: true, params: { value: author} });
-            } else {
-                filters.push({ type: "person", id: massNameFilters.author, isset: true, params: { id: author} });
-            }
-        } else {
-            filters.push({ type: "person", id: massNameFilters.me_author, reset: true });
-            filters.push({ type: "person", id: massNameFilters.author, reset: true });
-        }
-
-        if (user.length > 0) {
-            filters.push({ type: "person", id: massNameFilters.user, isset: true, params: { id: user} });
-        } else {
-            filters.push({ type: "person", id: massNameFilters.user, reset: true });
-        }
-
-        if (noresponsible.length > 0) {
-            filters.push({ type: "flag", id: "noresponsible", isset: true, params: {} });
-        } else {
-            filters.push({ type: "flag", id: "noresponsible", reset: true });
-        }
-
-        if (group.length > 0) {
-            filters.push({ type: "group", id: massNameFilters.group, isset: true, params: { id: group} });
-        } else {
-            filters.push({ type: "group", id: massNameFilters.group, reset: true });
-        }
-
-        //Tasks
-        if (user_tasks.length > 0) {
-            if (jq.getURLParam("prjID")) {
-                filters.push({ type: "combobox", id: massNameFilters.user_tasks, isset: true, params: { value: user_tasks} });
-            } else {
-                filters.push({ type: "person", id: massNameFilters.user_tasks, isset: true, params: { id: user_tasks} });
-            }
-        } else {
-            filters.push({ type: "person", id: massNameFilters.me_tasks, reset: true });
-            filters.push({ type: "person", id: massNameFilters.user_tasks, reset: true });
-        }
-
-        // Milestone
-        if (mymilestones.length > 0) {
-            filters.push({ type: "flag", id: "mymilestones", isset: true, params: {} });
-        } else {
-            filters.push({ type: "flag", id: "mymilestones", reset: true });
-        }
-        if (milestone.length > 0) {
-            filters.push({ type: "combobox", id: "milestone", params: { value: milestone} });
-        } else {
-            filters.push({ type: "combobox", id: "milestone", reset: true });
-        }
-
-        // Project
-        if (project.length > 0) {
-            filters.push({ type: "combobox", id: "project", isset: true, params: { value: project} });
-        } else {
-            filters.push({ type: "combobox", id: "project", reset: true });
-        }
-        if (myprojects.length > 0) {
-            filters.push({ type: "flag", id: "myprojects", isset: true, params: {} });
-        } else {
-            filters.push({ type: "flag", id: "myprojects", reset: true });
-        }
-
-        // Tag
-        if (tag.length > 0) {
-            filters.push({ type: "combobox", id: "tag", isset: true, params: { value: tag} });
-        } else {
-            filters.push({ type: "combobox", id: "tag", reset: true });
-        }
-
-        // Status
-        if (status.length > 0) {
-            filters.push({ type: "combobox", id: status, isset: true, params: { value: status} });
-        } else {
-            filters.push({ type: "combobox", id: "open", reset: true });
-            filters.push({ type: "combobox", id: "paused", reset: true });
-            filters.push({ type: "combobox", id: "closed", reset: true });
-            filters.push({ type: "combobox", id: "archived", reset: true });
-        }
-
-        // Payment status
-        if (payment_status.length > 0) {
-            filters.push({ type: "combobox", id: status, isset: true, params: { value: payment_status} });
-        } else {
-            filters.push({ type: "combobox", id: "notChargeable", reset: true });
-            filters.push({ type: "combobox", id: "notBilled", reset: true });
-            filters.push({ type: "combobox", id: "billed", reset: true });
-        }
-
-        // due date
-        if (overdue.length > 0) {
-            filters.push({ type: "flag", id: "overdue", isset: true, params: {} });
-        } else {
-            filters.push({ type: "flag", id: "overdue", reset: true });
-        }
-        if (deadlineStart.length > 0 && deadlineStop.length > 0) {
-            filters.push({ type: "daterange", id: "deadline", isset: true, params: { from: deadlineStart, to: deadlineStop} });
-        } else {
-            filters.push({ type: "daterange", id: "today", reset: true });
-            filters.push({ type: "daterange", id: "upcoming", reset: true });
-            filters.push({ type: "daterange", id: "deadline", reset: true });
-        }
-        if (createdStart.length > 0 && createdStop.length > 0) {
-            filters.push({ type: "daterange", id: "created", isset: true, params: { from: createdStart, to: createdStop} });
-        } else {
-            filters.push({ type: "daterange", id: "today2", reset: true });
-            filters.push({ type: "daterange", id: "recent", reset: true });
-            filters.push({ type: "daterange", id: "created", reset: true });
-        }
-        if (periodStart.length > 0 && periodStop.length > 0) {
-            filters.push({ type: "daterange", id: "period", isset: true, params: { from: periodStart, to: periodStop} });
-        } else {
-            filters.push({ type: "daterange", id: "today3", reset: true });
-            filters.push({ type: "daterange", id: "yesterday", reset: true });
-            filters.push({ type: "daterange", id: "currentweek", reset: true });
-            filters.push({ type: "daterange", id: "previousweek", reset: true });
-            filters.push({ type: "daterange", id: "currentmonth", reset: true });
-            filters.push({ type: "daterange", id: "previousmonth", reset: true });
-            filters.push({ type: "daterange", id: "currentyear", reset: true });
-            filters.push({ type: "daterange", id: "previousyear", reset: true });
-        }
-
-        // Text
-        if (text.length > 0) {
-            filters.push({ type: "text", id: "text", isset: true, params: { value: text} });
-        } else {
-            filters.push({ type: "text", id: "text", reset: true, params: { value: null} });
-        }
-
-        // Other
-        if (followed.length > 0) {
-            filters.push({ type: "flag", id: "followed", isset: true, params: {} });
-        } else {
-            filters.push({ type: "flag", id: "followed", reset: true });
-        }
-
-        // Entity
-        if (entity.length > 0) {
-            filters.push({ type: "combobox", id: entity.toLowerCase() + "_entity", isset: true, params: { value: entity.toLowerCase()} });
-        } else {
-            filters.push({ type: "combobox", id: "project_entity", reset: true });
-            filters.push({ type: "combobox", id: "milestone_entity", reset: true });
-            filters.push({ type: "combobox", id: "discussion_entity", reset: true });
-            filters.push({ type: "combobox", id: "team_entity", reset: true });
-            filters.push({ type: "combobox", id: "task_entity", reset: true });
-            filters.push({ type: "combobox", id: "subtask_entity", reset: true });
-            filters.push({ type: "combobox", id: "comment_entity", reset: true });
-        }
-
-        // Sorters
-        if (sortBy.length > 0 && sortOrder.length > 0) {
-            sorters.push({ type: "sorter", id: sortBy, selected: true, sortOrder: sortOrder });
-        } else if (sortBy.length > 0) {
-            sorters.push({ type: "sorter", id: sortBy, selected: true, sortOrder: "descending" });
-        } else if (sortOrder.length > 0) {
+        if (!sortBy) {
             sortBy = baseSortBy;
-            sorters.push({ type: "sorter", id: sortBy, selected: true, sortOrder: sortOrder });
         }
 
-        self.filter.advansedFilter({ filters: filters, sorters: sorters });
+        for (var a = 0, b = currentSettings.filters.length; a < b; a++) {
+            var currentFilter = currentSettings.filters[a];
+
+            if (!currentFilter.visible) continue;
+
+            var selectedFilter;
+            if (currentFilter.id === "text") {
+                selectedFilter = getUrlParam(currentFilter.id);
+            } else {
+                var currentFilterId;
+                if (currentFilter.id.indexOf(currentAdditionalId) > -1) {
+                    currentFilterId = currentFilter.id.substring(currentAdditionalId.length);
+
+                    if (currentProjectId && currentFilterId.endsWith("_p")) {
+                        currentFilterId = currentFilterId.substring(0, currentFilterId.length - 2);
+                    }
+
+                    if (currentFilter.type === typeDaterange) {
+                        selectedFilter = getUrlParam(currentFilterId + "Start");
+                    } else {
+                        selectedFilter = getUrlParam(currentFilterId);
+                    }
+                }
+            }
+
+            var groupBy = getUrlParam(currentFilter.groupby);
+            if (selectedFilter || groupBy) {
+                switch (currentFilter.type) {
+                    case typePerson:
+                    case typeGroup:
+                        currentFilter.params = { id: selectedFilter.toLowerCase() };
+                        break;
+                    case typeCombobox:
+                    case "text":
+                        currentFilter.params = { value: (selectedFilter || groupBy).toLowerCase() };
+                        break;
+                    case typeFlag:
+                        currentFilter.params = {};
+                        break;
+                    case typeDaterange:
+                        currentFilter.params = { from: selectedFilter, to: getUrlParam(currentFilter.id.substring(2) + "Stop") };
+                        break;
+
+                }
+            } else {
+                currentFilter.reset = true;
+                delete currentFilter.params;
+            }
+        }
+
+        for (var i = 0, j = currentSettings.sorters.length; i < j; i++) {
+            currentSettings.sorters[i].selected = currentSettings.sorters[i].id === sortBy;
+            currentSettings.sorters[i].sortOrder = sortOrder;
+        }
+
+        filter.advansedFilter({ filters: currentSettings.filters, sorters: currentSettings.sorters });
     };
 
-    var makeData = function($container, type) {
-        var data = {}, anchor = "", filters = $container.advansedFilter();
-        var projectId = jq.getURLParam("prjID");
-        if (projectId) {
-            data.projectId = projectId;
+    var makeData = function ($container, type) {
+        var data = {}, anchor = "", filters = $container.advansedFilter(), from, to, trueString = "true";
+        if (currentProjectId) {
+            data.projectId = currentProjectId;
         }
-        
-        self.baseFilter = filters.length == 1 && filters[0].id == "sorter";
-        
-        for (var filterInd = 0; filterInd < filters.length; filterInd++) {
-            switch (filters[filterInd].id) {
-                case "me_team_member":
-                case "team_member":
-                    data.participant = filters[filterInd].params.id;
-                    anchor = jq.changeParamValue(anchor, "team_member", data.participant);
+        var filtersLength = filters.length;
+        self.baseFilter = filtersLength === 1 && filters[0].id == "sorter";
+
+        for (var filterInd = 0; filterInd < filtersLength; filterInd++) {
+            var params = filters[filterInd].params;
+            var id = params.id;
+            var val = params.value;
+            var filterid = filters[filterInd].id;
+
+            if (filterid !== "sorter" && filterid !== "text") {
+                filterid = filterid.substring(2);
+            }
+
+            switch (filterid) {
+                case meTeamMemberFilter:
+                case teamMemberFilter:
+                    data.participant = id;
+                    anchor = changeParamValue(anchor, teamMemberFilter, data.participant);
                     break;
-                case "me_project_manager":
-                case "project_manager":
-                    data.manager = filters[filterInd].params.id;
-                    anchor = jq.changeParamValue(anchor, "project_manager", data.manager);
+                case meProjectManagerFilter:
+                case projectManagerFilter:
+                    data.manager = id;
+                    anchor = changeParamValue(anchor, projectManagerFilter, data.manager);
                     break;
-                case "me_responsible_for_milestone":
-                case "responsible_for_milestone":
-                    if (filters[filterInd].params.id) {
-                        data.milestoneResponsible = filters[filterInd].params.id;
-                    } else {
-                        data.milestoneResponsible = filters[filterInd].params.value;
-                    }
-                    anchor = jq.changeParamValue(anchor, "responsible_for_milestone", data.milestoneResponsible);
+                case meResponsibleForMilestoneFilter:
+                case addProjectFilterId(meResponsibleForMilestoneFilter):
+                case responsibleForMilestoneFilter:
+                case addProjectFilterId(responsibleForMilestoneFilter):
+                    data.milestoneResponsible = getIdOrValue(params);
+                    anchor = changeParamValue(anchor, responsibleForMilestoneFilter, data.milestoneResponsible);
                     break;
-                case "me_tasks_responsible":
-                case "tasks_responsible":
-                    if (filters[filterInd].params.id) {
-                        data.participant = filters[filterInd].params.id;
-                    } else {
-                        data.participant = filters[filterInd].params.value;
-                    }
-                    anchor = jq.changeParamValue(anchor, "tasks_responsible", data.participant);
+                case meTasksResponsibleFilter:
+                case addProjectFilterId(meTasksResponsibleFilter):
+                case tasksResponsibleFilter:
+                case addProjectFilterId(tasksResponsibleFilter):
+                    data.participant = getIdOrValue(params);
+                    anchor = changeParamValue(anchor, tasksResponsibleFilter, data.participant);
                     break;
-                case "me_tasks_creator":
-                case "tasks_creator":
-                    data.creator = filters[filterInd].params.id;
-                    anchor = jq.changeParamValue(anchor, "tasks_creator", data.creator);
+                case meTasksCreatorFilter:
+                case tasksCreatorFilter:
+                    data.creator = id;
+                    anchor = changeParamValue(anchor, tasksCreatorFilter, data.creator);
                     break;
-                case "me_author":
-                case "author":
-                    if (filters[filterInd].params.id) {
-                        data.participant = filters[filterInd].params.id;
-                    } else {
-                        data.participant = filters[filterInd].params.value;
-                    }
-                    anchor = jq.changeParamValue(anchor, "author", data.participant);
+                case meAuthorFilter:
+                case authorFilter:
+                case addProjectFilterId(authorFilter):
+                    data.participant = getIdOrValue(params);
+                    anchor = changeParamValue(anchor, authorFilter, data.participant);
                     break;
-                case "user":
-                    data.user = filters[filterInd].params.id;
-                    anchor = jq.changeParamValue(anchor, "user", data.user);
+                case userFilter:
+                    data.user = id;
+                    anchor = changeParamValue(anchor, userFilter, data.user);
                     break;
-                case "group":
-                    data.departament = filters[filterInd].params.id;
-                    anchor = jq.changeParamValue(anchor, "group", data.departament);
+                case groupFilter:
+                    data.departament = id;
+                    anchor = changeParamValue(anchor, groupFilter, data.departament);
                     break;
-                case "mymilestones":
-                    data.mymilestones = "true";
-                    anchor = jq.changeParamValue(anchor, "mymilestones", "true");
+                case mymilestonesFilter:
+                    data.mymilestones = trueString;
+                    anchor = changeParamValue(anchor, mymilestonesFilter, trueString);
                     break;
-                case "milestone":
-                    data.milestone = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "milestone", data.milestone);
+                case milestoneFilter:
+                    data.milestone = val;
+                    anchor = changeParamValue(anchor, milestoneFilter, data.milestone);
                     break;
-                case "noresponsible":
+                case noresponsibleFilter:
                     data.participant = "00000000-0000-0000-0000-000000000000";
-                    anchor = jq.changeParamValue(anchor, "noresponsible", "true");
+                    anchor = changeParamValue(anchor, noresponsibleFilter, trueString);
                     break;
-                case "myprojects":
-                    data.myprojects = "true";
-                    anchor = jq.changeParamValue(anchor, "myprojects", "true");
+                case myprojectsFilter:
+                    data.myprojects = trueString;
+                    anchor = changeParamValue(anchor, myprojectsFilter, trueString);
                     break;
-                case "project":
-                    data.projectId = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "project", data.projectId);
+                case projectFilter:
+                    data.projectId = val;
+                    anchor = changeParamValue(anchor, projectFilter, data.projectId);
                     break;
-                case "me_tasks":
-                case "user_tasks":
-                    if (filters[filterInd].params.id) {
-                        data.taskResponsible = filters[filterInd].params.id;
-                    } else {
-                        data.taskResponsible = filters[filterInd].params.value;
-                    }
-                    anchor = jq.changeParamValue(anchor, "user_tasks", data.taskResponsible);
+                case meTasksFilter:
+                case addProjectFilterId(meTasksFilter):
+                case userTasksFilter:
+                case addProjectFilterId(userTasksFilter):
+                    data.taskResponsible = getIdOrValue(params);
+                    anchor = changeParamValue(anchor, userTasksFilter, data.taskResponsible);
                     break;
-                case "followed":
-                    data.follow = "true";
-                    anchor = jq.changeParamValue(anchor, "followed", "true");
+                case followedFilter:
+                    data.follow = trueString;
+                    anchor = jq.changeParamValue(anchor, followedFilter, trueString);
                     break;
-                case "tag":
-                    data.tag = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "tag", data.tag);
+                case tagFilter:
+                    data.tag = val;
+                    anchor = changeParamValue(anchor, tagFilter, data.tag);
                     break;
-                case "open":
-                case "paused":
-                case "archived":
-                case "closed":
-                case "status":
-                    data.status = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "status", data.status);
+                case openFilter:
+                case pausedFilter:
+                case archivedFilter:
+                case closedFilter:
+                case statusFilter:
+                case notChargeableFilter:
+                case notBilledFilter:
+                case billedFilter:
+                    data.status = val;
+                    anchor = changeParamValue(anchor, statusFilter, data.status);
                     break;
-                case "notChargeable":
-                case "notBilled":
-                case "billed":
-                case "payment_status":
-                    data.status = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "payment_status", data.status);
-                    break;
-                case "overdue":
+                case overdueFilter:
                     data.status = "open";
-                    data.deadlineStop = Teamlab.serializeTimestamp(new Date());
-                    anchor = jq.changeParamValue(anchor, "overdue", "true");
+                    data.deadlineStop = teamlab.serializeTimestamp(new Date());
+                    anchor = changeParamValue(anchor, overdueFilter, trueString);
                     break;
-                case "today":
-                case "upcoming":
-                case "deadline":
-                    data.deadlineStart = Teamlab.serializeTimestamp(new Date(filters[filterInd].params.from));
-                    data.deadlineStop = Teamlab.serializeTimestamp(new Date(filters[filterInd].params.to));
-                    anchor = jq.changeParamValue(anchor, "deadlineStart", filters[filterInd].params.from);
-                    anchor = jq.changeParamValue(anchor, "deadlineStop", filters[filterInd].params.to);
+                case todayFilter:
+                case upcomingFilter:
+                case deadlineFilter:
+                    from = params.from;
+                    to = params.to;
+                    data.deadlineStart = teamlab.serializeTimestamp(new Date(from));
+                    data.deadlineStop = teamlab.serializeTimestamp(new Date(to));
+                    anchor = changeParamValue(anchor, deadlineStartFilter, from);
+                    anchor = changeParamValue(anchor, deadlineStopFilter, to);
                     break;
-                case "today2":
-                case "recent":
-                case "created":
-                case "previousweek2":
-                case "previousmonth2":
-                case "period2":
-                    data.createdStart = Teamlab.serializeTimestamp(new Date(filters[filterInd].params.from));
-                    data.createdStop = Teamlab.serializeTimestamp(new Date(filters[filterInd].params.to));
-                    anchor = jq.changeParamValue(anchor, "createdStart", filters[filterInd].params.from);
-                    anchor = jq.changeParamValue(anchor, "createdStop", filters[filterInd].params.to);
+                case today2Filter:
+                case recentFilter:
+                case createdFilter:
+                case previousweek2Filter:
+                case previousmonth2Filter:
+                case period2Filter:
+                    from = params.from;
+                    to = params.to;
+                    data.createdStart = teamlab.serializeTimestamp(new Date(from));
+                    data.createdStop = teamlab.serializeTimestamp(new Date(to));
+                    anchor = changeParamValue(anchor, createdStartFilter, from);
+                    anchor = changeParamValue(anchor, createdStopFilter, to);
                     break;
-                case "today3":
-                case "yesterday":
-                case "currentweek":
-                case "previousweek":
-                case "currentmonth":
-                case "previousmonth":
-                case "currentyear":
-                case "previousyear":
-                case "period":
-                    data.periodStart = Teamlab.serializeTimestamp(new Date(filters[filterInd].params.from));
-                    data.periodStop = Teamlab.serializeTimestamp(new Date(filters[filterInd].params.to));
-                    anchor = jq.changeParamValue(anchor, "periodStart", filters[filterInd].params.from);
-                    anchor = jq.changeParamValue(anchor, "periodStop", filters[filterInd].params.to);
+                case today3Filter:
+                case yesterdayFilter:
+                case currentweekFilter:
+                case previousweekFilter:
+                case currentmonthFilter:
+                case previousmonthFilter:
+                case currentyearFilter:
+                case previousyearFilter:
+                case periodFilter:
+                    from = params.from;
+                    to = params.to;
+                    data.periodStart = teamlab.serializeTimestamp(new Date(from));
+                    data.periodStop = teamlab.serializeTimestamp(new Date(to));
+                    anchor = changeParamValue(anchor, periodStartFilter, from);
+                    anchor = changeParamValue(anchor, periodStopFilter, to);
                     break;
-                case "text":
-                    data.FilterValue = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "text", data.FilterValue);
+                case textFilter:
+                    data.FilterValue = val;
+                    anchor = changeParamValue(anchor, textFilter, data.FilterValue);
                     break;
-                case "project_entity":
-                case "milestone_entity":
-                case "discussion_entity":
-                case "team_entity":
-                case "task_entity":
-                case "subtask_entity":
-                case "timespend_entity":
-                case "comment_entity":
-                case "entity":
-                    data.entity = filters[filterInd].params.value;
-                    anchor = jq.changeParamValue(anchor, "entity", data.entity);
+                case projectEntityFilter:
+                case milestoneEntityFilter:
+                case discussionEntityFilter:
+                case teamEntityFilter:
+                case taskEntityFilter:
+                case subtaskEntityFilter:
+                case timeEntityFilter:
+                case commentEntityFilter:
+                case entityFilter:
+                    data.entity = val;
+                    anchor = changeParamValue(anchor, entityFilter, data.entity);
                     break;
                 case "sorter":
-                    data.sortBy = filters[filterInd].params.id;
-                    data.sortOrder = filters[filterInd].params.sortOrder;
-                    anchor = jq.changeParamValue(anchor, "sortBy", data.sortBy); ;
-                    anchor = jq.changeParamValue(anchor, "sortOrder", data.sortOrder);
+                    data.sortBy = id;
+                    data.sortOrder = params.sortOrder;
+                    anchor = changeParamValue(anchor, sortByFilter, data.sortBy);
+                    anchor = changeParamValue(anchor, sortOrderFilter, data.sortOrder);
                     break;
             }
         }
-        if (type == "anchor") {
-            return anchor;
-        } else {
-            return data;
-        }
+        return type === "anchor" ? anchor : data;
     };
 
-    var visibleFilterItem = function(type, filterId, visible) {
-        self.filter.advansedFilter({ filters: [{ type: type, id: filterId, visible: visible }] });
-    };
+    function getIdOrValue(params) {
+        return params.id || params.value;
+    }
 
-    var getMilestonesForFilter = function() {
+    function changeParamValue(anchor, name, value) {
+        return jq.changeParamValue(anchor, name, value);
+    }
+
+    var getMilestonesForFilter = function () {
         var milestones = ASC.Projects.Master.Milestones;
         if (!milestones) return [];
-        var milestonesForFilter = [];
-        milestonesForFilter.push({ 'value': 0, 'title': ASC.Projects.Resources.ProjectsJSResource.NoMilestone });
 
-        for (var i = 0, n = milestones.length; i < n; i++) {
-            milestonesForFilter.push({ 'value': milestones[i].id, 'title': milestones[i].displayDateDeadline + " " + milestones[i].title });
+        if (currentProjectId) {
+            milestones = milestones.filter(function(item) {
+                return item.status === 0 && item.projectId == currentProjectId;
+            });
         }
 
-        return milestonesForFilter;
+        var result = [{ 'value': 0, 'title': ASC.Projects.Resources.ProjectsJSResource.NoMilestone }];
+
+        for (var i = 0, n = milestones.length; i < n; i++) {
+            result.push({ 'value': milestones[i].id, 'title': jq.format("[{0}] {1}", milestones[i].displayDateDeadline, milestones[i].title) });
+        }
+
+        return result;
     };
 
     var getTagsForFilter = function () {
-        return ASC.Projects.Master.Tags;
+        return  ASC.Projects.Master.Tags;
     };
 
-    var getTeamForFilter = function() {
-        return ASC.Projects.Master.Team.map(function (item) {
+    var getTeamForFilter = function () {
+        if (typeof ASC.Projects.Master.Team === "undefined") return [];
+
+        return  ASC.Projects.Master.Team.map(function (item) {
             return { 'value': item.id, 'title': item.displayName };
         });
     };
 
-    var resize = function() {
-        self.filter.advansedFilter("resize");
+    var resize = function () {
+        if (typeof (filter) != "undefined" && typeof (filter.filter) != "undefined") {
+            filter.advansedFilter("resize");
+        }
     };
 
-    var onSetFilter = function (evt, $container) {
-        var path = self.makeData($container, 'anchor');
+    function onSetFilter(evt, $container) {
+        var path = makeData($container, 'anchor');
         var hash = ASC.Controls.AnchorController.getAnchor();
-        if (self.firstload && hash.length) {
-            if (!self.coincidesWithFilter(path)) {
-                self.firstload = false;
-                self.hashFilterChanged = true;
-                self.setFilterByUrl();
+        if (firstload && hash.length) {
+            if (!coincidesWithFilter(path)) {
+                firstload = false;
+                setFilterByUrl();
                 return;
             }
         }
-        if (self.firstload) {
-            self.firstload = false;
+        if (firstload) {
+            firstload = false;
         } else {
-            ASC.Projects.PageNavigator.currentPage = 0;
+            ASC.Projects.PageNavigator.reset();
         }
 
-        self.obj.currentFilter = self.makeData($container, 'data');
-        self.obj.getData();
+        obj.currentFilter = makeData($container, 'data');
+        obj.getData();
         if (path !== hash) {
-            self.hashFilterChanged = true;
             location.hash = path;
         }
     };
 
-    var onResetFilter = function (evt, $container) {
-        ASC.Projects.PageNavigator.currentPage = 0;
-        var path = self.makeData($container, 'anchor');
-        self.hashFilterChanged = true;
+    function onResetFilter(evt, $container) {
+        ASC.Projects.PageNavigator.reset();
+        var path = makeData($container, 'anchor');
         ASC.Controls.AnchorController.move(path);
-        self.obj.currentFilter = self.makeData($container, 'data');;
-        self.obj.getData();
+        obj.currentFilter = makeData($container, 'data');
+        obj.getData();
     };
 
     var hide = function () {
-        self.filter.hide();
+        if (typeof (filter) != "undefined") {
+            filter.hide();
+        }
     };
 
     var show = function () {
-        self.filter.show();
-        resize();
+        if (typeof (filter) != "undefined") {
+            var visible = jq('#ProjectsAdvansedFilter').is(":visible");
+            if (!visible) {
+                filter.show();
+                resize();
+            }
+        }
     };
 
-    var clear = function () {
-        self.firstload = true;
-        delete window.userSelector;
+    var getFilterForDiscussion = function (visible, settings) {
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        var lastWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        lastWeek.setDate(lastWeek.getDate() - 7);
 
-        if (typeof self.filter == "undefined") return;
-        self.filter.empty();
-        self.filter.removeAttr("class");
+        var filters = [];
+        if (settings && settings.filters) {
+            filters = settings.filters;
+        }
+        //Author
+
+        var startIndex = filters.length;
+
+        pushFilterItem(typeof common.userInProjectTeam(currentUserId) !== "undefined" && currentProjectId != null && visible,
+            filters,
+            typeCombobox,
+            addProjectFilterId(meAuthorFilter),
+            projectsFilterResource.MyDiscussions,
+            projectsFilterResource.Author + ":",
+            projectsFilterResource.Author,
+            personHashmark,
+            userIDgroup,
+            teamForFilter,
+            { value: currentUserId });
+
+        pushFilterItem((currentProjectId != null) && visible,
+            filters,
+            typeCombobox,
+            addProjectFilterId(authorFilter),
+            projectsFilterResource.OtherParticipant,
+            projectsFilterResource.Author + ":",
+            projectsFilterResource.ByParticipant,
+            personHashmark,
+            userIDgroup,
+            teamForFilter,
+            { value: currentUserId });
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typePerson,
+            meAuthorFilter,
+            projectsFilterResource.MyDiscussions,
+            projectsFilterResource.Author + ":",
+            projectsFilterResource.Author,
+            personHashmark,
+            userIDgroup,
+            null,
+            { id: currentUserId });
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typePerson,
+            authorFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.Author + ":",
+            projectsFilterResource.Author,
+            personHashmark,
+            userIDgroup);
+
+        //Projects
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeFlag,
+            myprojectsFilter,
+            projectsFilterResource.MyProjects,
+            '',
+            projectsFilterResource.ByProject,
+            myprojectsFilter,
+            projectGroup);
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeCombobox,
+            projectFilter,
+            projectsFilterResource.OtherProjects,
+            projectsFilterResource.ByProject + ":",
+            projectsFilterResource.ByProject,
+            '',
+            projectGroup,
+            common.getProjectsForFilter(),
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemsTags((currentProjectId == null) && visible, filters);
+
+        pushFilterItemsWithFixedOptions(visible, filters,
+        [
+            { value: openFilter, title: projectsFilterResource.StatusOpenDiscussion },
+            { value: archivedFilter, title: projectsFilterResource.StatusArchivedDiscussion }
+        ]);
+
+        //Creation date
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            today2Filter,
+            projectsFilterResource.Today,
+            " ",
+            projectsFilterResource.ByCreateDate,
+            createdHashmark,
+            createdGroup,
+            null,
+            { from: today.getTime(), to: today.getTime() });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            recentFilter,
+            projectsFilterResource.Recent,
+            " ",
+            projectsFilterResource.ByCreateDate,
+            createdHashmark,
+            createdGroup,
+            null,
+            { from: lastWeek.getTime(), to: today.getTime() });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            createdFilter,
+            projectsFilterResource.CustomPeriod,
+            " ",
+            projectsFilterResource.ByCreateDate,
+            createdHashmark,
+            createdGroup);
+
+        //Followed
+        pushFilterItem(visible, filters,
+            typeFlag,
+            followedFilter,
+            projectsFilterResource.FollowDiscussions,
+            "",
+            projectsFilterResource.Other,
+            followedFilter);
+
+        pushHiddenFilterItems(filters);
+
+        addAdditionalFilterId(filters, startIndex, discussionsAdditionalFilterId);
+
+        var sorters = [];
+        if (settings && settings.sorters) {
+            sorters = settings.sorters;
+        }
+
+        pushSorter(visible, sorters, sorterComments, projectsFilterResource.ByComments, sortOrderDescending, true);
+        pushSorter(visible, sorters, sorterCreateOn, projectsFilterResource.ByCreateDate, sortOrderDescending);
+        pushSorter(visible, sorters, sorterTitle, projectsFilterResource.ByTitle, sortOrderDescending);
+
+        return {
+            filters: filters,
+            sorters: sorters
+        };
     };
 
-    var bindEvents = function() {
-        jq("body").on("click.filter", ".clearFilterButton", function () {
-            self.filter.advansedFilter(null);
-            return false;
-        });
+    var getFilterForMilestones = function (visible, settings) {
+        var now = new Date();
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        var inWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        inWeek.setDate(inWeek.getDate() + 7);
+
+        var filters = [];
+        if (settings && settings.filters) {
+            filters = settings.filters;
+        }
+
+        var startIndex = filters.length;
+
+        // Responsible
+
+        pushFilterItemPersonMe(typeof common.userInProjectTeam(currentUserId) !== "undefined" && currentProjectId != null && visible,
+            filters,
+            addProjectFilterId(meResponsibleForMilestoneFilter),
+            projectsFilterResource.ByResponsible,
+            userIDgroup);
+
+        pushFilterItem(typeof common.userInProjectTeam(currentUserId) !== "undefined" && currentProjectId != null && visible,
+            filters,
+            typeCombobox,
+            addProjectFilterId(meTasksFilter),
+            projectsFilterResource.MyTasks,
+            projectsFilterResource.Tasks + ":",
+            projectsFilterResource.Tasks,
+            personHashmark,
+            taskuseridgroup,
+            teamForFilter,
+            { value: currentUserId });
+
+        pushFilterItem((currentProjectId != null) && visible,
+            filters,
+            typeCombobox,
+            addProjectFilterId(responsibleForMilestoneFilter),
+            projectsFilterResource.OtherParticipant,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.ByResponsible,
+            personHashmark,
+            userIDgroup,
+            teamForFilter,
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItem((currentProjectId != null) && visible,
+            filters,
+            typeCombobox,
+            addProjectFilterId(userTasksFilter),
+            projectsFilterResource.OtherParticipant,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.Tasks,
+            personHashmark,
+            userIDgroup,
+            teamForFilter,
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemPersonMe(currentProjectId == null && visible,
+            filters,
+            meResponsibleForMilestoneFilter,
+            projectsFilterResource.ByResponsible,
+            userIDgroup);
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typePerson,
+            responsibleForMilestoneFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.ByResponsible,
+            personHashmark,
+            userIDgroup);
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typePerson,
+            meTasksFilter,
+            projectsFilterResource.MyTasks,
+            projectsFilterResource.Tasks + ":",
+            projectsFilterResource.Tasks,
+            personHashmark,
+            taskuseridgroup,
+            null,
+            { id: currentUserId });
+
+            //Tasks
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typePerson,
+            userTasksFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.Tasks + ":",
+            projectsFilterResource.Tasks,
+            personHashmark,
+            taskuseridgroup);
+
+
+        // Status
+        pushFilterItemsWithFixedOptions(visible, filters,
+        [
+            { value: openFilter, title: projectsFilterResource.StatusOpenMilestone },
+            { value: closedFilter, title: projectsFilterResource.StatusClosedMilestone }
+        ]);
+
+        //Due date
+        pushFilterItem(visible, filters,
+            typeFlag,
+            overdueFilter,
+            projectsFilterResource.Overdue,
+            "",
+            projectsFilterResource.DueDate,
+            overdueFilter,
+            deadlineGroup);
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            todayFilter,
+            projectsFilterResource.Today,
+            " ",
+            projectsFilterResource.DueDate,
+            deadlineHashmark,
+            deadlineGroup,
+            null,
+            { from: today.getTime(), to: today.getTime() });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            upcomingFilter,
+            projectsFilterResource.UpcomingMilestones,
+            " ",
+            projectsFilterResource.DueDate,
+            deadlineHashmark,
+            deadlineFilter,
+            null,
+            { from: today.getTime(), to: inWeek.getTime() });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            deadlineFilter,
+            projectsFilterResource.CustomPeriod,
+            " ",
+            projectsFilterResource.DueDate,
+            deadlineHashmark,
+            deadlineGroup);
+
+        //Projects
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeFlag,
+            myprojectsFilter,
+            projectsFilterResource.MyProjects,
+            "",
+            projectsFilterResource.ByProject,
+            myprojectsFilter,
+            projectFilter);
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeCombobox,
+            projectFilter,
+            projectsFilterResource.OtherProjects,
+            projectsFilterResource.ByProject + ":",
+            projectsFilterResource.ByProject,
+            '',
+            projectFilter,
+            common.getProjectsForFilter(),
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemsTags((currentProjectId == null) && visible, filters);
+
+        pushHiddenFilterItems(filters);
+
+        addAdditionalFilterId(filters, startIndex, milestonesAdditionalFilterId);
+
+        var sorters = [];
+
+        if (settings && settings.sorters) {
+            sorters = settings.sorters;
+        }
+
+        pushSorter(visible, sorters, sorterDeadline, projectsFilterResource.ByDeadline, sortOrderAscending, true);
+        pushSorter(visible, sorters, sorterCreateOn, projectsFilterResource.ByCreateDate, sortOrderDescending);
+        pushSorter(visible, sorters, sorterTitle, projectsFilterResource.ByTitle, sortOrderAscending);
+
+        return {
+            filters: filters,
+            sorters: sorters
+        };
     };
 
-    var unbindEvents = function() {
-        jq("body").off("click.filter");
+    var getFilterForProjects = function (visible, settings) {
+        var filters = [];
+        if (settings && settings.filters) {
+            filters = settings.filters;
+        }
+
+        var startIndex = filters.length;
+
+        // Project manager
+        pushFilterItemPersonMe(visible, filters, meProjectManagerFilter, projectsFilterResource.ProjectMenager, manageridGroup);
+
+        pushFilterItem(visible, filters,
+            typePerson,
+            projectManagerFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.ProjectMenager + ":",
+            projectsFilterResource.ProjectMenager,
+            personHashmark,
+            manageridGroup);
+
+        // Team member
+        pushFilterItemPersonMe(visible, filters, meTeamMemberFilter, projectsFilterResource.TeamMember, userIDgroup);
+
+        pushFilterItem(visible, filters,
+            typePerson,
+            teamMemberFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.TeamMember + ":",
+            projectsFilterResource.TeamMember,
+            personHashmark,
+            userIDgroup);
+
+        pushFilterItem(visible, filters,
+            typeGroup,
+            typeGroup,
+            projectsFilterResource.Groups,
+            projectsFilterResource.Groups + ":",
+            projectsFilterResource.TeamMember,
+            groupHashmark,
+            userIDgroup);
+
+        //Status
+        pushFilterItemsWithFixedOptions(visible, filters,
+        [
+            { value: openFilter, title: projectsFilterResource.StatusOpenProject },
+            { value: pausedFilter, title: projectsFilterResource.StatusSuspend },
+            { value: closedFilter, title: projectsFilterResource.StatusClosedProject }
+        ]);
+
+        pushFilterItem(visible, filters,
+            typeFlag,
+            followedFilter,
+            projectsFilterResource.FollowProjects,
+            "",
+            projectsFilterResource.Other,
+            followedFilter);
+
+        if (tagsForFilter) {
+            pushFilterItem(visible, filters,
+                typeCombobox,
+                tagFilter,
+                projectsFilterResource.ByTag,
+                projectsFilterResource.Tag + ":",
+                projectsFilterResource.Other,
+                comboboxHashmark,
+                null,
+                tagsForFilter,
+                null,
+                projectsFilterResource.Select);
+        }
+
+        pushHiddenFilterItems(filters, 2);
+
+        addAdditionalFilterId(filters, startIndex, projectsAdditionalFilterId);
+
+        var sorters = [];
+
+        if (settings && settings.sorters) {
+            sorters = settings.sorters;
+        }
+
+        pushSorter(visible, sorters, sorterTitle, projectsFilterResource.ByTitle, sortOrderAscending, true);
+        pushSorter(visible, sorters, sorterCreateOn, projectsFilterResource.ByCreateDate, sortOrderDescending);
+
+        return {
+            filters: filters,
+            sorters: sorters
+        };
     };
+
+    var getFilterForTasks = function (visible, settings) {
+        var now = new Date(),
+            today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0),
+            inWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        inWeek.setDate(inWeek.getDate() + 7);
+
+        var filters = [];
+        if (settings && settings.filters) {
+            filters = settings.filters;
+        }
+
+        var startIndex = filters.length;
+
+        // Responsible
+
+        pushFilterItemPersonMe(typeof common.userInProjectTeam(currentUserId) !== "undefined" && currentProjectId != null && visible,
+            filters,
+            addProjectFilterId(meTasksResponsibleFilter),
+            projectsFilterResource.ByResponsible,
+            userIDgroup);
+
+        pushFilterItem(currentProjectId != null && visible,
+            filters,
+            typePerson,
+            addProjectFilterId(tasksResponsibleFilter),
+            projectsFilterResource.OtherParticipant,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.ByResponsible,
+            personHashmark,
+            userIDgroup,
+            teamForFilter,
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemPersonMe(currentProjectId == null && visible, filters, meTasksResponsibleFilter, projectsFilterResource.ByResponsible, userIDgroup);
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typePerson,
+            tasksResponsibleFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.ByResponsible,
+            personHashmark,
+            userIDgroup);
+
+        pushFilterItemGroup(visible, filters, projectsFilterResource.ByResponsible, userIDgroup);
+
+        pushFilterItem(visible, filters,
+            typeFlag,
+            noresponsibleFilter,
+            projectsFilterResource.NoResponsible,
+            "",
+            projectsFilterResource.ByResponsible,
+            "noresponsible",
+            userIDgroup);
+
+        // Creator
+        pushFilterItemPersonMe(visible, filters, meTasksCreatorFilter, projectsFilterResource.ByCreator, creatoridgroup);
+
+        pushFilterItem(visible, filters,
+            typePerson,
+            tasksCreatorFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.ByCreator + ":",
+            projectsFilterResource.ByCreator,
+            personHashmark,
+            creatoridgroup);
+
+        //Projects
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typeFlag,
+            myprojectsFilter,
+            projectsFilterResource.MyProjects,
+            "",
+            projectsFilterResource.ByProject,
+            "myprojects",
+            projectFilter);
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typeCombobox,
+            projectFilter,
+            projectsFilterResource.OtherProjects,
+            projectsFilterResource.ByProject + ":",
+            projectsFilterResource.ByProject,
+            projectHashmark,
+            projectFilter,
+            common.getProjectsForFilter(),
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemsTags(currentProjectId == null && visible, filters);
+
+        //Milestones
+        if (milestonesForFilter.length > 1) {
+            pushFilterItem(visible, filters,
+                typeFlag,
+                mymilestonesFilter,
+                projectsFilterResource.MyMilestones,
+                null,
+                projectsFilterResource.ByMilestone,
+                "mymilestones",
+                milestoneFilter);
+
+            pushFilterItem(visible, filters,
+                typeCombobox,
+                milestoneFilter,
+                projectsFilterResource.OtherMilestones,
+                projectsFilterResource.ByMilestone + ":",
+                projectsFilterResource.ByMilestone,
+                "milestone/{0}",
+                milestoneFilter,
+                milestonesForFilter,
+                null,
+                projectsFilterResource.Select);
+        }
+        // Status
+        pushFilterItemsWithFixedOptions(visible, filters,
+        [
+            { value: openFilter, title: projectsFilterResource.StatusOpenTask },
+            { value: closedFilter, title: projectsFilterResource.StatusClosedTask }
+        ]);
+
+        //Due date
+        pushFilterItem(visible, filters,
+            typeFlag,
+            overdueFilter,
+            projectsFilterResource.Overdue,
+            null,
+            projectsFilterResource.DueDate,
+            overdueFilter,
+            deadlineGroup);
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            todayFilter,
+            projectsFilterResource.Today,
+            " ",
+            projectsFilterResource.DueDate,
+            deadlineHashmark,
+            deadlineGroup,
+            null,
+            { from: today.getTime(), to: today.getTime() });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            upcomingFilter,
+            projectsFilterResource.UpcomingMilestones,
+            " ",
+            projectsFilterResource.DueDate,
+            deadlineHashmark,
+            deadlineGroup,
+            null,
+            { from: today.getTime(), to: inWeek.getTime() });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            deadlineFilter,
+            projectsFilterResource.CustomPeriod,
+            " ",
+            projectsFilterResource.DueDate,
+            deadlineHashmark,
+            deadlineGroup);
+
+        addAdditionalFilterId(filters, startIndex, tasksAdditionalFilterId);
+
+        var sorters = [];
+
+        if (settings && settings.sorters) {
+            sorters = settings.sorters;
+        }
+
+        pushSorter(visible, sorters, sorterDeadline, projectsFilterResource.ByDeadline, sortOrderAscending, true);
+        pushSorter(visible, sorters, "priority", projectsFilterResource.ByPriority, sortOrderDescending);
+        pushSorter(visible, sorters, sorterCreateOn, projectsFilterResource.ByCreateDate, sortOrderDescending);
+        pushSorter(visible, sorters, "start_date", projectsFilterResource.ByStartDate, sortOrderDescending);
+        pushSorter(visible, sorters, sorterTitle, projectsFilterResource.ByTitle, sortOrderAscending);
+
+
+        return {
+            filters: filters,
+            sorters: sorters
+        };
+    };
+
+    var getFilterForTimeTracking = function (visible, settings) {
+        var now = new Date();
+
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+
+        var startWeek = new Date(today);
+        startWeek.setDate(today.getDate() - today.getDay() + 1);
+
+        var endWeek = new Date(today);
+        endWeek.setDate(today.getDate() - today.getDay() + 7);
+
+        var startPreviousWeek = new Date(startWeek);
+        startPreviousWeek.setDate(startWeek.getDate() - 7);
+
+        var endPreviousWeek = new Date(startWeek);
+        endPreviousWeek.setDate(startWeek.getDate() - 1);
+
+        var startPreviousMonth = new Date(today);
+        startPreviousMonth.setMonth(today.getMonth() - 1);
+        startPreviousMonth.setDate(1);
+
+        var endPreviousMonth = new Date(startPreviousMonth);
+        endPreviousMonth.setMonth(startPreviousMonth.getMonth() + 1);
+        endPreviousMonth.setDate(endPreviousMonth.getDate() - 1);
+
+
+        startPreviousWeek = startPreviousWeek.getTime();
+        endPreviousWeek = endPreviousWeek.getTime();
+        startPreviousMonth = startPreviousMonth.getTime();
+        endPreviousMonth = endPreviousMonth.getTime();
+
+        var filters = [];
+        if (settings && settings.filters) {
+            filters = settings.filters;
+        }
+
+        var startIndex = filters.length;
+
+        //Projects
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typeFlag,
+            myprojectsFilter,
+            projectsFilterResource.MyProjects,
+            "",
+            projectsFilterResource.ByProject,
+            myprojectsFilter,
+            projectFilter);
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typeCombobox,
+            projectFilter,
+            projectsFilterResource.OtherProjects,
+            projectsFilterResource.ByProject + ":",
+            projectsFilterResource.ByProject,
+            projectHashmark,
+            projectFilter,
+            common.getProjectsForFilter(),
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemsTags(currentProjectId == null && visible, filters);
+
+        //Milestones
+        if (milestonesForFilter.length > 1) {
+            pushFilterItem(visible, filters,
+                typeFlag,
+                mymilestonesFilter,
+                projectsFilterResource.MyMilestones,
+                "",
+                projectsFilterResource.ByMilestone,
+                mymilestonesFilter,
+                milestoneFilter);
+
+            pushFilterItem(visible, filters,
+                typeCombobox,
+                milestoneFilter,
+                projectsFilterResource.OtherMilestones,
+                projectsFilterResource.ByMilestone + ":",
+                projectsFilterResource.ByMilestone,
+                milestineHashmark,
+                milestoneFilter,
+                milestonesForFilter,
+                null,
+                projectsFilterResource.Select);
+        }
+        // Responsible
+
+        pushFilterItemPersonMe(typeof common.userInProjectTeam(currentUserId) !== "undefined" && currentProjectId != null && visible,
+            filters,
+            addProjectFilterId(meTasksResponsibleFilter),
+            projectsFilterResource.ByResponsible,
+            userIDgroup);
+
+        pushFilterItem(currentProjectId != null && visible,
+            filters,
+            typePerson,
+            addProjectFilterId(tasksResponsibleFilter),
+            projectsFilterResource.OtherParticipant,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.ByResponsible,
+            personHashmark,
+            userIDgroup,
+            teamForFilter,
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItemPersonMe(currentProjectId == null && visible, filters, meTasksResponsibleFilter, projectsFilterResource.ByResponsible, userIDgroup);
+
+        pushFilterItem(currentProjectId == null && visible,
+            filters,
+            typePerson,
+            tasksResponsibleFilter,
+            projectsFilterResource.OtherUsers,
+            projectsFilterResource.ByResponsible + ":",
+            projectsFilterResource.ByResponsible,
+            personHashmark,
+            userIDgroup);
+
+        pushFilterItemGroup(visible, filters, projectsFilterResource.ByResponsible, userIDgroup);
+
+        //Payment status
+        pushFilterItemsWithFixedOptions(visible, filters,
+        [
+            { value: notChargeableFilter, title: projectsFilterResource.PaymentStatusNotChargeable },
+            { value: notBilledFilter, title: projectsFilterResource.PaymentStatusNotBilled },
+            { value: billedFilter, title: projectsFilterResource.PaymentStatusBilled }
+        ]);
+
+        //Create date
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            previousweek2Filter,
+            projectsFilterResource.PreviousWeek,
+            " ",
+            projectsFilterResource.TimePeriod,
+            periodHashmark,
+            periodGroup,
+            null,
+            { from: startPreviousWeek, to: endPreviousWeek });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            previousmonth2Filter,
+            projectsFilterResource.PreviousMonth,
+            " ",
+            projectsFilterResource.TimePeriod,
+            periodHashmark,
+            periodGroup,
+            null,
+            { from: startPreviousMonth, to: endPreviousMonth });
+
+        pushFilterItem(visible, filters,
+            typeDaterange,
+            period2Filter,
+            projectsFilterResource.CustomPeriod,
+            " ",
+            projectsFilterResource.TimePeriod,
+            periodHashmark,
+            periodGroup);
+
+        pushHiddenFilterItems(filters);
+
+        addAdditionalFilterId(filters, startIndex, timeTrackingAdditionalFilterId);
+
+        var sorters = [];
+
+        if (settings && settings.sorters) {
+            sorters = settings.sorters;
+        }
+
+        pushSorter(visible, sorters, "date", projectsFilterResource.ByDate, sortOrderDescending, true);
+        pushSorter(visible, sorters, "hours", projectsFilterResource.ByHours, sortOrderAscending);
+        pushSorter(visible, sorters, "note", projectsFilterResource.ByNote, sortOrderAscending);
+
+        return {
+            filters: filters,
+            sorters: sorters
+        };
+    };
+
+    function createAdvansedFilter(projects, milestones, tasks, discussions, timetracking) {
+        currentProjectId = jq.getURLParam('prjID');
+        milestonesForFilter = getMilestonesForFilter();
+        tagsForFilter = getTagsForFilter();
+        teamForFilter = getTeamForFilter();
+
+
+        var settings = getFilterForTasks(tasks);
+        getFilterForMilestones(milestones, settings);
+        getFilterForTimeTracking(timetracking, settings);
+        getFilterForDiscussion(discussions, settings);
+        getFilterForProjects(projects, settings);
+        currentSettings = settings;
+        return settings;
+    }
+
+    var createAdvansedFilterForDiscussion = function (disc) {
+        init.call(this, discussionsAdditionalFilterId, disc, createAdvansedFilter(false, false, false, true, false));
+    };
+
+    var createAdvansedFilterForMilestones = function (mil) {
+        init.call(this, milestonesAdditionalFilterId, mil, createAdvansedFilter(false, true, false, false, false));
+    };
+
+    var createAdvansedFilterForProjects = function (prj) {
+        init.call(this, projectsAdditionalFilterId, prj, createAdvansedFilter(true, false, false, false, false));
+    };
+
+    var createAdvansedFilterForTasks = function (task) {
+        init.call(this, tasksAdditionalFilterId, task, createAdvansedFilter(false, false, true, false, false));
+    };
+
+    var createAdvansedFilterForTimeTracking = function (timeTracking) {
+        init.call(this, timeTrackingAdditionalFilterId, timeTracking, createAdvansedFilter(false, false, false, false, true));
+    };
+
+
+    function pushFilterItem(visible, filters, type, id, title, filtertitle, group, hashmark, groupBy, options, bydefault, defaulttitle) {
+        var item = {
+            type: type,
+            id: id,
+            title: title,
+            filtertitle: filtertitle,
+            group: group,
+            hashmask: hashmark,
+            groupby: groupBy,
+            visible: visible,
+            enable: visible
+        };
+
+        if (typeof options != "undefined" && options != null) {
+            item.options = options;
+        }
+
+        if (typeof bydefault != "undefined" && bydefault != null) {
+            item.bydefault = bydefault;
+        }
+
+        if (typeof defaulttitle != "undefined" && defaulttitle != null) {
+            item.defaulttitle = defaulttitle;
+        }
+
+        filters.push(item);
+    }
+
+    function pushFilterItemPersonMe(visible, filters, id, group, groupBy) {
+        pushFilterItem(visible, filters,
+            currentProjectId ? typeCombobox : typePerson,
+            id,
+            projectsFilterResource.Me,
+            group + ":",
+            group,
+            personHashmark,
+            groupBy,
+            currentProjectId ? teamForFilter : null,
+            { id: currentUserId });
+    }
+
+    function pushFilterItemGroup(visible, filters, group, groupBy) {
+        pushFilterItem(visible, filters,
+            typeGroup,
+            groupFilter,
+            projectsFilterResource.Groups,
+            projectsFilterResource.Group + ":",
+            group,
+            groupHashmark,
+            groupBy);
+    }
+
+    function pushFilterItemsWithFixedOptions(visible, filters, options) {
+        for (var i = 0, j = options.length; i < j; i++) {
+            var copyOptions = options.map(function (item) { return jq.extend({}, item); });
+            copyOptions[i].def = true;
+
+            pushFilterItem(visible, filters,
+                typeCombobox,
+                copyOptions[i].value,
+                copyOptions[i].title,
+                projectsFilterResource.ByStatus + ":",
+                projectsFilterResource.ByStatus,
+                comboboxHashmark,
+                statusGroup,
+                copyOptions);
+        }
+    }
+
+    function pushFilterItemsTags(visible, filters) {
+        pushFilterItem(visible, filters,
+            typeCombobox,
+            tagFilter,
+            projectsFilterResource.ByTag,
+            projectsFilterResource.ByTag + ":",
+            projectsFilterResource.ByProject,
+            null,
+            projectGroup,
+            tagsForFilter,
+            null,
+            projectsFilterResource.Select);
+    }
+
+    function pushHiddenFilterItems(filters, count) {
+        var hiddenStr = "hidden";
+        count = count || 1;
+
+        for (var i = 0; i < count; i++) {
+            pushFilterItem(false, filters,
+                typeFlag,
+                hiddenStr + i,
+                hiddenStr,
+                "",
+                hiddenStr + i);
+        }
+    }
+
+    function pushSorter(visible, sorter, id, title, sortOrder, def) {
+        var sorterItem, i, j, finded = false;
+        for (i = 0, j = sorter.length; i < j; i++) {
+            sorterItem = sorter[i];
+            if (sorterItem.id === id) {
+                if (visible && !sorterItem.visible) {
+                    sorterItem.visible = true;
+                }
+                sorterItem.def = def;
+                finded = true;
+                break;
+            };
+        }
+        if (def) {
+            for (i = 0; i < j; i++) {
+                sorterItem = sorter[i];
+                if (sorterItem.id === id) continue;
+                if (sorterItem.def && !sorterItem.visible) {
+                    sorterItem.def = false;
+                }
+            }
+        }
+        if (!finded) {
+            sorter.push({ id: id, title: title, sortOrder: sortOrder, def: def, visible: visible });
+        }
+    }
+
+    function addAdditionalFilterId(filters, startIndex, additionalFilterId) {
+        for (var i = startIndex, j = filters.length; i < j; i++) {
+            filters[i].id = additionalFilterId + filters[i].id;
+            filters[i].groupid = additionalFilterId + filters[i].group;
+        }
+    }
+
+    function addProjectFilterId(id) {
+        return id + "_p";
+    }
+
+    function add(name, value, removeParams) {
+        var path = jq.changeParamValue(anchor.getAnchor(), name, value);
+
+        if (removeParams) {
+            for (var i = 0, j = removeParams.length; i < j; i++) {
+                path = jq.removeParam(removeParams[i], path);
+            }
+        }
+
+        anchor.move(path);
+        setFilterByUrl();
+    }
+
+    function addUser(name, value, removeParams) {
+        if (value != "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {
+            add(name, value, removeParams);
+        }
+    }
 
     return {
-        filter: filter,
-        obj: obj,
-        getUrlParam: getUrlParam,
-        basePath: basePath,
-        hashFilterChanged: hashFilterChanged,
-        massNameFilters: massNameFilters,
-        anchorMoving: anchorMoving,
-        firstload: firstload,
-        coincidesWithFilter: coincidesWithFilter,
-        init: init,
-        setFilterByUrl: setFilterByUrl,
-        makeData: makeData,
+        add: add,
+        addUser: addUser,
         baseFilter: baseFilter,
-        
-        getTagsForFilter: getTagsForFilter,
-        getMilestonesForFilter: getMilestonesForFilter,
-        getTeamForFilter: getTeamForFilter,
-
-        visibleFilterItem: visibleFilterItem,
-
-        onSetFilter: onSetFilter,
-        onResetFilter: onResetFilter,
 
         resize: resize,
 
         show: show,
         hide: hide,
 
-        bindEvents: bindEvents,
-        unbindEvents: unbindEvents
+        createAdvansedFilterForDiscussion: createAdvansedFilterForDiscussion,
+        createAdvansedFilterForMilestones: createAdvansedFilterForMilestones,
+        createAdvansedFilterForProjects: createAdvansedFilterForProjects,
+        createAdvansedFilterForTasks: createAdvansedFilterForTasks,
+        createAdvansedFilterForTimeTracking: createAdvansedFilterForTimeTracking
     };
 })();

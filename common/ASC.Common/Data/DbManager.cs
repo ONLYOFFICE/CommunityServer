@@ -46,6 +46,7 @@ namespace ASC.Common.Data
         private ISqlDialect dialect;
         private volatile bool disposed;
 
+        private readonly int? commandTimeout;
 
         private IDbCommand Command
         {
@@ -60,6 +61,12 @@ namespace ASC.Common.Data
                 {
                     command = OpenConnection().CreateCommand();
                 }
+
+                if (commandTimeout.HasValue)
+                {
+                    command.CommandTimeout = commandTimeout.Value;
+                }
+
                 return command;
             }
         }
@@ -77,12 +84,12 @@ namespace ASC.Common.Data
         }
 
 
-        public DbManager(string databaseId)
-            : this(databaseId, true)
+        public DbManager(string databaseId, int? commandTimeout = null)
+            : this(databaseId, true, commandTimeout)
         {
         }
 
-        public DbManager(string databaseId, bool shared)
+        public DbManager(string databaseId, bool shared, int? commandTimeout = null)
         {
             if (databaseId == null) throw new ArgumentNullException("databaseId");
             DatabaseId = databaseId;
@@ -91,6 +98,11 @@ namespace ASC.Common.Data
             if (logger.IsDebugEnabled)
             {
                 proxyContext = new ProxyContext(AdoProxyExecutedEventHandler);
+            }
+
+            if (commandTimeout.HasValue)
+            {
+                this.commandTimeout = commandTimeout;
             }
         }
 

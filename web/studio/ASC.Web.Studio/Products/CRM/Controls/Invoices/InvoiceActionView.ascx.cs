@@ -195,7 +195,7 @@ namespace ASC.Web.CRM.Controls.Invoices
 
         private void RegisterScript()
         {
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.ExchangeRateViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
 
             var sb = new StringBuilder();
 

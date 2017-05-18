@@ -25,8 +25,8 @@
 
 
 using System;
+using System.Globalization;
 using System.Web;
-using ASC.Core.Security.Authentication;
 using ASC.Security.Cryptography;
 using ASC.Core.Tenants;
 using log4net;
@@ -35,12 +35,17 @@ namespace ASC.Core.Security.Authentication
 {
     class CookieStorage
     {
-        public static bool DecryptCookie(string cookie, out int tenant, out Guid userid, out string login, out string password)
+        private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss,fff";
+
+        public static bool DecryptCookie(string cookie, out int tenant, out Guid userid, out string login, out string password, out int indexTenant, out DateTime expire, out int indexUser)
         {
             tenant = Tenant.DEFAULT_TENANT;
             userid = Guid.Empty;
             login = null;
             password = null;
+            indexTenant = 0;
+            expire = DateTime.MaxValue;
+            indexUser = 0;
 
             if (string.IsNullOrEmpty(cookie))
             {
@@ -49,31 +54,48 @@ namespace ASC.Core.Security.Authentication
 
             try
             {
-                cookie = HttpUtility.UrlDecode(cookie).Replace(' ', '+');
+                cookie = (HttpUtility.UrlDecode(cookie) ?? "").Replace(' ', '+');
                 var s = InstanceCrypto.Decrypt(cookie).Split('$');
 
                 if (0 < s.Length) login = s[0];
                 if (1 < s.Length) tenant = int.Parse(s[1]);
                 if (2 < s.Length) password = s[2];
                 if (4 < s.Length) userid = new Guid(s[4]);
+                if (5 < s.Length) indexTenant = int.Parse(s[5]);
+                if (6 < s.Length) expire = DateTime.ParseExact(s[6], DateTimeFormat, CultureInfo.InvariantCulture);
+                if (7 < s.Length) indexUser = int.Parse(s[7]);
+
                 return true;
             }
             catch(Exception err)
             {
-                LogManager.GetLogger("ASC.Core").ErrorFormat("Authenticate error: cookie {0}, tenant {1}, userid {2}, login {3}, pass {4}: {5}",
-                    cookie, tenant, userid, login, password, err);
+                LogManager.GetLogger("ASC.Core").ErrorFormat("Authenticate error: cookie {0}, tenant {1}, userid {2}, login {3}, pass {4}, indexTenant {5}, expire {6}: {7}",
+                    cookie, tenant, userid, login, password, indexTenant, expire.ToString(DateTimeFormat), err);
             }
             return false;
         }
 
-        public static string EncryptCookie(int tenant, Guid userid, string login, string password)
+
+        public static string EncryptCookie(int tenant, Guid userid, string login = null, string password = null)
         {
-            var s = string.Format("{0}${1}${2}${3}${4}",
+            var settingsTenant = TenantCookieSettings.GetForTenant(tenant);
+            var expires = settingsTenant.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(settingsTenant.LifeTime);
+            var settingsUser = TenantCookieSettings.GetForUser(userid);
+            return EncryptCookie(tenant, userid, login, password, settingsTenant.Index, expires, settingsUser.Index);
+        }
+
+        public static string EncryptCookie(int tenant, Guid userid, string login, string password, int indexTenant, DateTime expires, int indexUser)
+        {
+            var s = string.Format("{0}${1}${2}${3}${4}${5}${6}${7}",
                 (login ?? string.Empty).ToLowerInvariant(),
                 tenant,
                 password,
                 GetUserDepenencySalt(),
-                userid.ToString("N"));
+                userid.ToString("N"),
+                indexTenant,
+                expires.ToString(DateTimeFormat, CultureInfo.InvariantCulture),
+                indexUser);
+
             return InstanceCrypto.Encrypt(s);
         }
 

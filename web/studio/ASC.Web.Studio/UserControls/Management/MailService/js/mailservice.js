@@ -55,64 +55,68 @@ ASC.Settings.MailService = (function () {
 
     var connect = function () {
 
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                jq("#mailServiceBlock input").prop("disabled", true);
-                LoadingBanner.showLoaderBtn("#mailServiceBlock");
-            } else {
-                jq("#mailServiceBlock input").prop("disabled", false);
-                LoadingBanner.hideLoaderBtn("#mailServiceBlock");
-            }
-        };
-
         var serverIp = jq("#mailServiceIp").val().trim();
         var usr = jq("#mailServiceUser").val().trim();
         var pwd = jq("#mailServicePassword").val().trim();
 
         if (!serverIp || !usr || !pwd) return;
 
-        window.MailService.Connect(serverIp, usr, pwd, function (result) {
-            var res = result.value;
-            LoadingBanner.showMesInfoBtn("#mailServiceBlock", res.Message, res.Status);
-            if (res.Status == "success") {
-                ip = res.Ip;
-                user = res.User;
-                password = res.Password;
-                token = res.Token;
-                host = res.Host;
-                jq("#mailServiceSaveBtn").removeClass("disable");
-            } else {
-                ip = null;
-                user = null;
-                password = null;
-                token = null;
-                host = null;
-                jq("#mailServiceSaveBtn").addClass("disable");
+        Teamlab.connectMailServerInfo(null, serverIp, usr, pwd, {
+            before: function() {
+                jq("#mailServiceBlock input").prop("disabled", true);
+                LoadingBanner.showLoaderBtn("#mailServiceBlock");
+            },
+            success: function (params, res) {
+                LoadingBanner.showMesInfoBtn("#mailServiceBlock", res.message, res.status);
+                if (res.status == "success") {
+                    ip = res.ip;
+                    user = res.user;
+                    password = res.password;
+                    token = res.token;
+                    host = res.host;
+                    jq("#mailServiceSaveBtn").removeClass("disable");
+                } else {
+                    ip = null;
+                    user = null;
+                    password = null;
+                    token = null;
+                    host = null;
+                    jq("#mailServiceSaveBtn").addClass("disable");
+                }
+            },
+            error: function (params, error) {
+                LoadingBanner.showMesInfoBtn("#mailServiceBlock", error[0], "error");
+            },
+            after: function() {
+                jq("#mailServiceBlock input").prop("disabled", false);
+                LoadingBanner.hideLoaderBtn("#mailServiceBlock");
             }
         });
     };
 
     var save = function () {
 
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                jq("#mailServiceBlock input").prop("disabled", true);
-                LoadingBanner.showLoaderBtn("#mailServiceBlock");
-            } else {
-                jq("#mailServiceBlock input").prop("disabled", false);
-                LoadingBanner.hideLoaderBtn("#mailServiceBlock");
-            }
-        };
-
         if (!ip || !user || !password || !token || !host) return;
 
-        window.MailService.Save(ip, user, password, token, host, function (result) {
-            var res = result.value;
-            LoadingBanner.showMesInfoBtn("#mailServiceBlock", res.Message, res.Status);
-            if (res.Status == "success") {
-                jq("#mailServiceLink").removeClass("display-none");
-            } else {
-                jq("#mailServiceLink").addClass("display-none");
+        Teamlab.saveMailServerInfo(null, ip, user, password, token, host, {
+            before: function () {
+                jq("#mailServiceBlock input").prop("disabled", true);
+                LoadingBanner.showLoaderBtn("#mailServiceBlock");
+            },
+            success: function (params, res) {
+                LoadingBanner.showMesInfoBtn("#mailServiceBlock", res.message, res.status);
+                if (res.status == "success") {
+                    jq("#mailServiceLink").removeClass("display-none");
+                } else {
+                    jq("#mailServiceLink").addClass("display-none");
+                }
+            },
+            error: function (params, error) {
+                LoadingBanner.showMesInfoBtn("#mailServiceBlock", error[0], "error");
+            },
+            after: function () {
+                jq("#mailServiceBlock input").prop("disabled", false);
+                LoadingBanner.hideLoaderBtn("#mailServiceBlock");
             }
         });
     };

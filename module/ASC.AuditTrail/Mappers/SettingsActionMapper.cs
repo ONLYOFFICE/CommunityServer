@@ -377,6 +377,24 @@ namespace ASC.AuditTrail.Mappers
                                 ModuleResourceName = "ProductsModule"
                             }
                     },
+                    {
+                        MessageAction.CookieSettingsUpdated, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "CookieSettingsUpdated",
+                                ProductResourceName = "SettingsProduct",
+                                ModuleResourceName = "ProductsModule"
+                            }
+                    },
+                    {
+                        MessageAction.MailServiceSettingsUpdated, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "MailServiceSettingsUpdated",
+                                ProductResourceName = "SettingsProduct",
+                                ModuleResourceName = "ProductsModule"
+                            }
+                    }
                 };
         }
     }

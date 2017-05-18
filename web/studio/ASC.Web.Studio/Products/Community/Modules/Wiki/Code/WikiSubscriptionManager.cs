@@ -244,7 +244,8 @@ namespace ASC.Web.UserControls.Wiki
                 Name = WikiResource.NotifyAction_NewPage,
                 NotifyAction = Constants.NewPage,
                 Single = true,
-                IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType)
+                IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType),
+                CanSubscribe = true
             });
 
             subscriptionTypes.Add(new SubscriptionType()

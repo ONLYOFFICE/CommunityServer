@@ -98,35 +98,6 @@ namespace ASC.Web.Community.Wiki
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public bool SubscribeOnNewPage(bool isSubscribe)
-        {
-            var subscriptionProvider = WikiNotifySource.Instance.GetSubscriptionProvider();
-            if (IAmAsRecipient == null)
-            {
-                return false;
-            }
-            if (!isSubscribe)
-            {
-
-                subscriptionProvider.Subscribe(
-                    Constants.NewPage,
-                    null,
-                    IAmAsRecipient
-                    );
-                return true;
-            }
-            else
-            {
-                subscriptionProvider.UnSubscribe(
-                    Constants.NewPage,
-                    null,
-                    IAmAsRecipient
-                    );
-                return false;
-            }
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public bool SubscribeOnEditPage(bool isSubscribe, string pageName)
         {
             pageName = HttpUtility.HtmlDecode(pageName);
@@ -156,34 +127,5 @@ namespace ASC.Web.Community.Wiki
             }
         }
 
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public bool SubscribeOnPageToCat(bool isSubscribe, string catName)
-        {
-
-            var subscriptionProvider = WikiNotifySource.Instance.GetSubscriptionProvider();
-            if (IAmAsRecipient == null)
-            {
-                return false;
-            }
-            if (!isSubscribe)
-            {
-
-                subscriptionProvider.Subscribe(
-                    Constants.AddPageToCat,
-                    catName,
-                    IAmAsRecipient
-                    );
-                return true;
-            }
-            else
-            {
-                subscriptionProvider.UnSubscribe(
-                    Constants.AddPageToCat,
-                    catName,
-                    IAmAsRecipient
-                    );
-                return false;
-            }
-        }
     }
 }

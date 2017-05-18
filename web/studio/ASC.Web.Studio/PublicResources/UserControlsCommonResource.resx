@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>The active users are the portal members with the exception of guests and users with the "disabled" status</value>
+  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Add poll choice</value>
   </data>
@@ -127,10 +130,13 @@
     <value>Add New Social Profile</value>
   </data>
   <data name="AddShareMessage" xml:space="preserve">
-    <value>Добавить сопроводительный текст</value>
+    <value>Add message</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
+  </data>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>created new announcement in Community</value>
   </data>
   <data name="AllDepartments" xml:space="preserve">
     <value>All Departments</value>
@@ -142,16 +148,40 @@
     <value>Poll Choices</value>
   </data>
   <data name="AttachFiles" xml:space="preserve">
-    <value>Attach files</value>
+    <value>Attach Files</value>
   </data>
   <data name="AttachFromDocuments" xml:space="preserve">
-    <value>Attach File from Your Documents</value>
+    <value>Attach file from Documents</value>
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
-    <value>Attach File from Project Documents</value>
+    <value>Attach file from project documents</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
   </data>
   <data name="BackupSpaceExceed" xml:space="preserve">
     <value>The Backup function is not available as the storage space exceeds {0}. Go to the {1}Statistics section{2} to check the storage space used.</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Shorten portal invitation links and links for shared documents using Bitly</value>
+  </data>
+  <data name="BannerDocuSign" xml:space="preserve">
+    <value>Sign the documents electronically using DocuSign technology</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Log in to the portal using your social accounts and search for contacts</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Connect your favorite cloud storage services and store all your files in one place</value>
+  </data>
+  <data name="BannerTwilio" xml:space="preserve">
+    <value>Call the CRM contacts right from the portal with Twilio API</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>Bookmark</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>created new bookmark in Community</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -168,8 +198,23 @@
   <data name="ButtonLearnMore" xml:space="preserve">
     <value>Learn more...</value>
   </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>User</value>
+  </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>created new case in CRM</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>You can change the domain name later using the portal 'Settings' section.</value>
   </data>
   <data name="CheckAll" xml:space="preserve">
     <value>Check All</value>
@@ -177,14 +222,71 @@
   <data name="ClearFilter" xml:space="preserve">
     <value>Clear Filter</value>
   </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>created new company in CRM</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Company Size</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Company</value>
+  </data>
   <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
     <value>Upload the documents in original format as well</value>
   </data>
   <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
     <value>All the documents you upload will be converted to the Office Open XML format for faster editing.</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskCreatedText" xml:space="preserve">
+    <value>created new task in CRM</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Current week</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Custom period</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="DealCreatedText" xml:space="preserve">
+    <value>created new opportunity in CRM</value>
+  </data>
   <data name="DeleteFile" xml:space="preserve">
     <value>Delete File</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Discussion" xml:space="preserve">
+    <value>Discussion</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>created new discussion in Projects</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Documents</value>
   </data>
   <data name="DownloadFile" xml:space="preserve">
     <value>Download File</value>
@@ -192,12 +294,11 @@
   <data name="EditFile" xml:space="preserve">
     <value>Edit File</value>
   </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Comment cannot be empty</value>
+  </data>
   <data name="EmptyDocsDescription" xml:space="preserve">
-    <value>The documents and image files you create or upload for your 
-project are kept in this section. These documents are available 
-to all project participants immediately after they are created. 
-Attach files from your computer to the task and they 
-will appear in this list.</value>
+    <value>The documents and image files you create or upload for your project are kept in this section. These documents are available to all project participants immediately after they are created. Attach files from your computer to the task and they will appear in this list.</value>
   </data>
   <data name="EmptyDocsHeaderDescription" xml:space="preserve">
     <value>No files to be displayed in this section.</value>
@@ -206,7 +307,7 @@ will appear in this list.</value>
     <value>Empty</value>
   </data>
   <data name="EmptyListDocumentsDescr" xml:space="preserve">
-    <value>{0}Create{1} files right on your portal or {2}upload{3} them here to be able to {4}open{5} and {6}edit{7} them using the TeamLab portal editor, share them with friends or colleagues, organize into folders.</value>
+    <value>{0}Create{1} files right on your portal or {2}upload{3} them here to be able to {4}open{5} and {6}edit{7} them using the ONLYOFFICE™ portal editor.</value>
   </data>
   <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
     <value>{2}Upload{3} files right on your portal.</value>
@@ -221,7 +322,10 @@ will appear in this list.</value>
     <value>Select poll choice</value>
   </data>
   <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
-    <value>Title can't contain any of the following characters:</value>
+    <value>Title cannot contain any of the following characters:</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
   </data>
   <data name="Everyone" xml:space="preserve">
     <value>Everyone</value>
@@ -236,37 +340,37 @@ will appear in this list.</value>
     <value>Go to Documents</value>
   </data>
   <data name="FeedCorporateFiles" xml:space="preserve">
-    <value>Common Documents</value>
+    <value>Documents</value>
   </data>
   <data name="FeedCreateFirstCompany" xml:space="preserve">
-    <value>Create the first company</value>
+    <value>Create a new company</value>
   </data>
   <data name="FeedCreateFirstPerson" xml:space="preserve">
-    <value>Create the first person</value>
+    <value>Create a new person</value>
   </data>
   <data name="FeedCreateFirstProject" xml:space="preserve">
-    <value>Create the First Project</value>
+    <value>Create a new project</value>
   </data>
   <data name="FeedEmptyCommunityDescription" xml:space="preserve">
-    <value>Create your own page to share the interesting information, thoughts and experiences with others, express your opinions, get feedback from the users' comments.</value>
+    <value>Anything added to the Community module will be shown here. Users can share interesting information, thoughts and experiences with others, express their opinions, get feedback from the others' comments.</value>
   </data>
   <data name="FeedEmptyCommunityHeader" xml:space="preserve">
     <value>No events have been added yet</value>
   </data>
   <data name="FeedEmptyContactListDescription" xml:space="preserve">
-    <value>Keep all the contacts your company works with in one place. Add new companies and persons, divide them into types, link with each other, add personal information. Import multiple contacts that you already have from a CSV file at one go.</value>
+    <value>The events for the CRM module available to you will be shown here. New companies and persons added or the existing edited, new cases, opportunities and tasks created - everything concerning CRM will go to this tab.</value>
   </data>
   <data name="FeedEmptyContactListHeader" xml:space="preserve">
-    <value>The contact list is empty</value>
+    <value>No CRM events have added yet</value>
   </data>
   <data name="FeedEmptyListProjDescribe" xml:space="preserve">
-    <value>Create the projects and work effectively</value>
+    <value>The changes in the Projects module available to you will be shown here. The projects which you are a member or a follower of, your new tasks or changes to the existing ones will help you not to miss anything.</value>
   </data>
   <data name="FeedEmptyListProjHeader" xml:space="preserve">
-    <value>The Projects list is empty</value>
+    <value>No projects have been added yet</value>
   </data>
   <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
-    <value>The 'Common Documents' section shows all the documents shared by portal administrator for common access. Only portal administrator can create folders in this section, but with the access granted the portal users can also upload their files here.</value>
+    <value>The changes to the portal documents available to you will be shown here. New documents shared with you, changes to the existing documents that you have access to, documents common for all portal users are all displayed here.</value>
   </data>
   <data name="FeedEventsModuleLink" xml:space="preserve">
     <value>Add event</value>
@@ -276,6 +380,12 @@ will appear in this list.</value>
   </data>
   <data name="FewAnswerVariant" xml:space="preserve">
     <value>Allow multiple choices for this poll question</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>created new file in Documents</value>
   </data>
   <data name="FilterNoNews" xml:space="preserve">
     <value>There are no news matching this filter</value>
@@ -289,20 +399,44 @@ will appear in this list.</value>
   <data name="FilterNoVoipCallsDescription" xml:space="preserve">
     <value>No calls matching your filter can be displayed in this section.</value>
   </data>
-  <data name="HostedUnauthorizedEditing" xml:space="preserve">
-    <value>Портал не авторизован, редактирование и просмотр документов не доступны.</value>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
   </data>
-  <data name="HostedUnauthorizedEditingReason" xml:space="preserve">
-    <value>Для возобновления работы с офисными приложениями TeamLab {0}обратитесь{1} к своему поставщику TeamLab.</value>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>created new folder in Documents</value>
   </data>
-  <data name="HostedUnauthorizedTitle" xml:space="preserve">
-    <value>Неавторизованная версия</value>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>created new forum poll in Community</value>
+  </data>
+  <data name="ForumPostCreatedText" xml:space="preserve">
+    <value>created new forum post in Community</value>
+  </data>
+  <data name="ForumTopicCreatedText" xml:space="preserve">
+    <value>created new forum topic in Community</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>from</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Link for Portal Users</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>This month</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>This year</value>
   </data>
   <data name="LblFilter" xml:space="preserve">
     <value>Filter:</value>
   </data>
   <data name="LblFilterPlaceholder" xml:space="preserve">
-    <value>enter the text</value>
+    <value>enter your query</value>
   </data>
   <data name="LblFrom" xml:space="preserve">
     <value>From</value>
@@ -311,13 +445,28 @@ will appear in this list.</value>
     <value>Select</value>
   </data>
   <data name="LblSort" xml:space="preserve">
-    <value>Sort By</value>
+    <value>Sort by</value>
   </data>
   <data name="LblTo" xml:space="preserve">
     <value>To</value>
   </data>
+  <data name="LicenseActivateButton" xml:space="preserve">
+    <value>Activate Now</value>
+  </data>
+  <data name="LicenseActivateDescr" xml:space="preserve">
+    <value>To activate ONLYOFFICE Enterprise Edition you need to buy a license key.</value>
+  </data>
+  <data name="LicenseActivateHeader" xml:space="preserve">
+    <value>Activate ONLYOFFICE Enterprise Edition</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>By checking this box you accept the terms of the {0}License Agreements{1}</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>License expired or user quota does not match the license</value>
+  </data>
   <data name="LicenseKeyHeader" xml:space="preserve">
-    <value>Activation license file</value>
+    <value>License Activation File</value>
   </data>
   <data name="LicenseKeyLabel" xml:space="preserve">
     <value>Upload Your License File</value>
@@ -340,32 +489,17 @@ will appear in this list.</value>
   <data name="LicenseKeyBuyDescr" xml:space="preserve">
     <value>If you want to review or buy an ONLYOFFICE license, click the Buy Now button. You will be redirected to the ONLYOFFICE order page on the Avangate website.</value>
   </data>
-  <data name="LicenseKeyNotFound" xml:space="preserve">
-    <value>You must put license key</value>
-  </data>
   <data name="LicenseKeyNotCorrect" xml:space="preserve">
     <value>License key is not correct</value>
   </data>
-  <data name="LicenseException" xml:space="preserve">
-    <value>License expired or users quota does not match the license</value>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>You must enter a license key</value>
   </data>
   <data name="LicenseRequestQuota" xml:space="preserve">
     <value>{0} - {1} active users</value>
   </data>
   <data name="LicenseRequestQuotaMore" xml:space="preserve">
     <value>{0}+ active users</value>
-  </data>
-  <data name="LicenseAgreements" xml:space="preserve">
-    <value>By checking this box you accept the terms of the {0}License Agreements{1}</value>
-  </data>
-  <data name="CompanyTitle" xml:space="preserve">
-    <value>Company</value>
-  </data>
-  <data name="CompanySizeTitle" xml:space="preserve">
-    <value>Company Size</value>
-  </data>
-  <data name="SiteTitle" xml:space="preserve">
-    <value>Website</value>
   </data>
   <data name="LinkText" xml:space="preserve">
     <value>Add users</value>
@@ -376,29 +510,50 @@ will appear in this list.</value>
   <data name="LogoutButton" xml:space="preserve">
     <value>Sign Out</value>
   </data>
+  <data name="Me" xml:space="preserve">
+    <value>Me</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="MilestoneCreatedText" xml:space="preserve">
+    <value>created new milestone in Projects</value>
+  </data>
   <data name="MobileChangeButton" xml:space="preserve">
-    <value>Change number</value>
+    <value>Enter number</value>
   </data>
   <data name="MobileCodeDescription" xml:space="preserve">
     <value>An SMS with the portal access code has been sent to your {0}{1}{2} mobile phone number.{5}Please enter the code and click the "{3}" button. If no message is received for more than 3 minutes, click the "{4}" button.</value>
   </data>
   <data name="MobileCurrentNumber" xml:space="preserve">
-    <value>Your current mobile number: {0}</value>
+    <value>Your current mobile phone number: {0}</value>
   </data>
   <data name="MobilePhoneCaption" xml:space="preserve">
-    <value>You change your mobile number</value>
+    <value>Enter mobile phone number</value>
   </data>
   <data name="MobilePhoneDescription" xml:space="preserve">
-    <value>Enter a new phone number to continue to work on the portal. Mobile phone number using an international format with country code.</value>
+    <value>The two-factor authentication is enabled to provide additional portal security. Enter your mobile phone number to continue work on the portal. Mobile phone number must be entered using an international format with country code.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
   </data>
   <data name="NewDocument" xml:space="preserve">
     <value>New Document</value>
   </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>new</value>
+  </data>
   <data name="NewFile" xml:space="preserve">
-    <value>New File</value>
+    <value>New file</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>created news in Community</value>
   </data>
   <data name="NewsNotFound" xml:space="preserve">
     <value>There is nothing to be displayed here</value>
@@ -413,13 +568,37 @@ will appear in this list.</value>
     <value>No comments</value>
   </data>
   <data name="NotBeUndone" xml:space="preserve">
-    <value>Note: This action cannot be undone.</value>
+    <value>Note: this action cannot be undone.</value>
   </data>
   <data name="OneAnswerVariant" xml:space="preserve">
     <value>Allow only one choice for this poll question</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="OrderCreatedText" xml:space="preserve">
+    <value>created new order in Community</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Other users</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>created new person in CRM</value>
+  </data>
   <data name="Poll" xml:space="preserve">
     <value>Poll</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>created new poll in Community</value>
   </data>
   <data name="PollQuestion" xml:space="preserve">
     <value>Poll Question</value>
@@ -430,8 +609,23 @@ will appear in this list.</value>
   <data name="PreviousPage" xml:space="preserve">
     <value>Previous</value>
   </data>
+  <data name="Product" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ProjectCreatedText" xml:space="preserve">
+    <value>created new project in Projects</value>
+  </data>
   <data name="ProjectDocuments" xml:space="preserve">
     <value>Project Documents</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projects</value>
   </data>
   <data name="QuestionDeleteFile" xml:space="preserve">
     <value>Are you sure you want to delete this file?</value>
@@ -443,13 +637,19 @@ will appear in this list.</value>
     <value>Read about non-profit usage</value>
   </data>
   <data name="RemoveFromList" xml:space="preserve">
-    <value>Remove from list</value>
+    <value>Remove from this list</value>
   </data>
   <data name="RemoveShareMessage" xml:space="preserve">
-    <value>Убрать сопроводительный текст</value>
+    <value>Remove message</value>
   </data>
   <data name="ResetFilter" xml:space="preserve">
     <value>Reset filter</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Responsible users</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
@@ -458,25 +658,49 @@ will appear in this list.</value>
     <value>search</value>
   </data>
   <data name="SeeInModulesHdr" xml:space="preserve">
-    <value>Искать в модуле</value>
+    <value>Search in module</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Select all</value>
   </data>
   <data name="SendShareNotify" xml:space="preserve">
-    <value>Отправить уведомление</value>
+    <value>Send notification</value>
   </data>
-  <data name="SharingSettingsItemsTitle" xml:space="preserve">
-    <value>Set up the access rights for users or groups</value>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>shared file for you in Documents</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>shared folder for you in Documents</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Add users or groups and give them the right.</value>
   </data>
   <data name="SharingSettingsTitle" xml:space="preserve">
     <value>Sharing Settings</value>
   </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
   <data name="ShowNextNews" xml:space="preserve">
     <value>Show next news</value>
   </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Subtask</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Basic price</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>See Avangate for the full list of currencies</value>
+  </data>
   <data name="TariffFileSizeLimitReason" xml:space="preserve">
-    <value>On your tariff plan strong restrictions on file size.</value>
+    <value>Your pricing plan has major restrictions for the file size.</value>
   </data>
   <data name="TariffFileSizeLimitTitle" xml:space="preserve">
     <value>Large file size</value>
@@ -484,8 +708,14 @@ will appear in this list.</value>
   <data name="TariffFree" xml:space="preserve">
     <value>Free</value>
   </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Open full price list</value>
+  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Would you like to choose a new pricing plan?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Time limited offer</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Yes, upgrade plan</value>
@@ -499,17 +729,14 @@ will appear in this list.</value>
   <data name="TariffNameSYear3" xml:space="preserve">
     <value>{0}3 Year{1} Subscription</value>
   </data>
-  <data name="TariffPop" xml:space="preserve">
-    <value>Most Popular Subscription</value>
-  </data>
   <data name="TariffNonProfit" xml:space="preserve">
-    <value>You are using non-profit plan.</value>
+    <value>You are using a plan for nonprofit organization.</value>
   </data>
   <data name="TariffOverdueHosted" xml:space="preserve">
     <value>Your portal payment has expired.</value>
   </data>
   <data name="TariffOverduePlan" xml:space="preserve">
-    <value>You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using Teamlab Office, prolong the existing plan or change it using the table below.</value>
+    <value>You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using ONLYOFFICE, prolong the existing plan or change it using the table below.</value>
   </data>
   <data name="TariffOverdueStandalone" xml:space="preserve">
     <value>You are using ONLYOFFICE™ Enterprise Edition. {0}The payment is overdue or no license could be found.{1}{2} To continue using ONLYOFFICE™, upload license file below.</value>
@@ -532,6 +759,30 @@ will appear in this list.</value>
   <data name="TariffPerYearOnly" xml:space="preserve">
     <value>The offer is available for annual subscribers only. </value>
   </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Most Popular Subscription</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Adding a new portal will exceed the maximum number of portals allowed by your current pricing plan.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Save {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} per user/mo</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Send your request</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Request contents</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Please describe your request details here</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Please type your message here</value>
+  </data>
   <data name="TariffStorageLimitHeader" xml:space="preserve">
     <value>The portal storage space is exceeded</value>
   </data>
@@ -540,18 +791,6 @@ will appear in this list.</value>
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Not enough free storage space</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Adding a new portal will exceed the maximum number of portals allowed by your current pricing plan.</value>
-  </data>
-  <data name="TariffUserLimitHeader" xml:space="preserve">
-    <value>Cannot add new users</value>
-  </data>
-  <data name="TariffUserLimitReason" xml:space="preserve">
-    <value>Adding new users will exceed the maxumum number of portal members allowed by your current pricing plan.</value>
-  </data>
-  <data name="TariffUserLimitTitle" xml:space="preserve">
-    <value>Adding new users</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Choose the number of your teammates</value>
@@ -562,47 +801,50 @@ will appear in this list.</value>
   <data name="TariffUserDescr" xml:space="preserve">
     <value>The plan that fits your team is {0}{2} - {3} active users{7} + {4}{1} Disk Storage</value>
   </data>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>The active users are the portal members with the exception of guests and users with the "disabled" status</value>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Cannot add new users</value>
   </data>
-  <data name="TariffUserWarnDescr" xml:space="preserve">
-    <value>You cannot downgrade a tariff plan.</value>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Adding new users will exceed the maximum number of portal members allowed by your current pricing plan.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Adding new users</value>
   </data>
   <data name="TariffUserRequestDescr" xml:space="preserve">
     <value>The pricing plans with more than {0} active users{1} are available upon request only.</value>
   </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>You cannot downgrade a pricing plan.</value>
+  </data>
   <data name="TariffUserWarnRead" xml:space="preserve">
     <value>read more</value>
   </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Save {0}</value>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
   </data>
-  <data name="TariffRequestHeader" xml:space="preserve">
-    <value>Please type your message here</value>
+  <data name="TaskCreatedText" xml:space="preserve">
+    <value>created new task in Projects</value>
   </data>
-  <data name="TariffRequestContent" xml:space="preserve">
-    <value>Content of request</value>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
   </data>
-  <data name="TariffRequestContentHolder" xml:space="preserve">
-    <value>Please describe here the details of your request</value>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>Period</value>
   </data>
-  <data name="TariffRequestBtn" xml:space="preserve">
-    <value>Send your request</value>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Select time period</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Open full price list</value>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>It is currently being edited</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Basic price</value>
+  <data name="To" xml:space="preserve">
+    <value>to</value>
   </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Time limited offer</value>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
   </data>
-  <data name="TariffPricePer" xml:space="preserve">
-    <value>{0} per user/mo</value>
-  </data>
-  <data name="TariffCurrencyHelp" xml:space="preserve">
-    <value>The full list of currencies see Awangate</value>
+  <data name="TodayAt" xml:space="preserve">
+    <value>Today at</value>
   </data>
   <data name="LicenseActivateAndGet" xml:space="preserve">
     <value>Please activate ONLYOFFICE and get:</value>
@@ -650,19 +892,22 @@ will appear in this list.</value>
     <value>You can open the files with the following extentions: {0}.</value>
   </data>
   <data name="TooltipUpload" xml:space="preserve">
-    <value>You can upload to Documents any files you want.</value>
+    <value>You can upload any files you want to the Documents.</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Topic</value>
   </data>
   <data name="UnknownFirstName" xml:space="preserve">
-    <value>FirstName</value>
+    <value>First Name</value>
   </data>
   <data name="UnknownLastName" xml:space="preserve">
-    <value>LastName</value>
+    <value>Last Name</value>
   </data>
   <data name="UpgradeButton" xml:space="preserve">
     <value>Upgrade pricing plan</value>
   </data>
   <data name="UploadFile" xml:space="preserve">
-    <value>Upload File</value>
+    <value>Upload file</value>
   </data>
   <data name="Variant" xml:space="preserve">
     <value>Choice</value>
@@ -682,8 +927,14 @@ will appear in this list.</value>
   <data name="WhatsNew" xml:space="preserve">
     <value>What's New</value>
   </data>
-  <data name="ChangeAliasHelper" xml:space="preserve">
-    <value>You can change the domain name later using the portal 'Settings' section.</value>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>Yesterday at</value>
   </data>
   <data name="LicensedUnder" xml:space="preserve">
     <value>This software is licensed under {0}GNU GPL v.3{1}</value>

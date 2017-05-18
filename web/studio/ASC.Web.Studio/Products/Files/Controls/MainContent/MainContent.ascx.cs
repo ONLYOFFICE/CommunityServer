@@ -62,7 +62,7 @@ namespace ASC.Web.Files.Controls
         {
             confirmRemoveDialog.Options.IsPopup = true;
             confirmOverwriteDialog.Options.IsPopup = true;
-            ConfirmMoveThirPartyDialog.Options.IsPopup = true;
+            changeOwnerDialog.Options.IsPopup = true;
 
             var contenList = (ContentList)LoadControl(ContentList.Location);
             contenList.FolderIDCurrentRoot = FolderIDCurrentRoot;

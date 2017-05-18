@@ -163,7 +163,7 @@ namespace ASC.Data.Backup.Tasks.Modules
 
                 object folderId = null;
 
-                var sboxId = Regex.Replace(row[1].ToString(), @"(?<=(?:sbox-|box-|spoint-|drive-))\d+", match =>
+                var sboxId = Regex.Replace(row[1].ToString(), @"(?<=(?:sbox-|box-|dropbox-|spoint-|drive-))\d+", match =>
                 {
                     folderId = columnMapper.GetMapping("files_thirdparty_account", "id", match.Value);
                     return Convert.ToString(folderId);

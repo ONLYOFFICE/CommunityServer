@@ -30,7 +30,6 @@ using System.Text.RegularExpressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
-using ASC.Files.Thirdparty.ProviderDao;
 using ASC.Web.Files.Classes;
 
 namespace ASC.Files.Thirdparty.SharePoint

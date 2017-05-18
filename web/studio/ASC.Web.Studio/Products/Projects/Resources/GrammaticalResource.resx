@@ -120,6 +120,9 @@
   <data name="DayGenitiveSingular" xml:space="preserve">
     <value>days</value>
   </data>
+  <data name="MilestoneGenitivePlural" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
   <data name="MonthGenitivePlural" xml:space="preserve">
     <value>months</value>
   </data>
@@ -128,8 +131,5 @@
   </data>
   <data name="MonthNominative" xml:space="preserve">
     <value>month</value>
-  </data>
-  <data name="MilestoneGenitivePlural" xml:space="preserve">
-    <value>Milestones</value>
   </data>
 </root>

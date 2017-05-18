@@ -112,18 +112,17 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CalendarSharingEmailPattern" xml:space="preserve">
     <value>#if($SharingType == "calendar")
 h1.Access Granted to Calendar: $CalendarName
  
  
-"$UserName":"$UserLink" has granted you the access to the calendar: $CalendarName  "$UserName":"$UserLink" has granted you the access to the calendar: $CalendarName  
- 
+"$UserName":"$UserLink" has granted you the access to the calendar: $CalendarName 
  
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the calendars shared with you, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^
 #end
@@ -147,10 +146,10 @@ Calendar. Access Granted to Event: $EventName
   </data>
   <data name="CalendarSharingSubject" xml:space="preserve">
     <value>#if($SharingType == "calendar")
-Calendar. Access Granted to Calendar: $CalendarName
+Calendar. Access granted to calendar: $CalendarName
 #end
 #if($SharingType == "event")
-Calendar. Access Granted to Event: $EventName
+Calendar. Access granted to event: $EventName
 #end</value>
   </data>
   <data name="EventAlertEmailPattern" xml:space="preserve">
@@ -178,6 +177,6 @@ $EventDescription
 #end</value>
   </data>
   <data name="EventAlertSubject" xml:space="preserve">
-    <value>Calendar. Reminder about the Event: $EventName</value>
+    <value>Calendar. Reminder about the event: $EventName</value>
   </data>
 </root>

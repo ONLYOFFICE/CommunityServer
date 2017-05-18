@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -29,22 +29,23 @@ using System.IO;
 using System.Web;
 using ASC.CRM.Core;
 using ASC.VoipService;
-using ASC.Web.CRM.Classes;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
-using ASC.Web.Studio.Core.Voip;
+using ASC.Web.CRM.Configuration;
+using ASC.Web.Studio;
 using ASC.Web.Studio.Utility;
+using Global = ASC.Web.CRM.Classes.Global;
+using StudioResources = Resources;
 
 namespace ASC.Web.CRM.Controls.Settings
 {
     public class VoipUploadHandler : IFileUploadHandler
     {
-        private const long maxFileSize = 1024L * 1024L * 1024L;
+        private const long maxFileSize = 5;
 
         public FileUploadResult ProcessUpload(HttpContext context)
         {
-            if (!VoipPaymentSettings.IsEnabled
-                || !CRMSecurity.IsAdmin)
+            if (!VoipNumberData.Allowed || !CRMSecurity.IsAdmin)
                 throw CRMSecurity.CreateSecurityException();
 
             if (context.Request.Files.Count == 0)
@@ -54,9 +55,9 @@ namespace ASC.Web.CRM.Controls.Settings
 
             var file = context.Request.Files[0];
 
-            if (file.ContentLength <= 0 || file.ContentLength > maxFileSize)
+            if (file.ContentLength <= 0 || file.ContentLength > maxFileSize * 1024L * 1024L)
             {
-                return Error("File size must be greater than 0 and less than {0} bytes", maxFileSize);
+                return Error(StudioResources.Resource.FileSizeMaxExceed);
             }
 
             try
@@ -112,12 +113,14 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!VoipPaymentSettings.IsEnabled)
+            if (!VoipNumberData.Allowed || !CRMSecurity.IsAdmin)
             {
-                Response.Redirect(PathProvider.StartURL() + "settings.aspx");
+                Response.Redirect(PathProvider.StartURL() + "settings.aspx?type=voip.common");
             }
 
             buyNumberContainer.Options.IsPopup = true;
+            linkNumberContainer.Options.IsPopup = true;
+            deleteNumberContainer.Options.IsPopup = true;
             Page.RegisterBodyScripts("~/js/asc/core/voip.countries.js");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("voip.quick.js"));
         }

@@ -117,41 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete milestone</value>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Active Tasks</value>
   </data>
-  <data name="Milestone" xml:space="preserve">
-    <value>Milestone</value>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Add milestone</value>
   </data>
-  <data name="Milestones" xml:space="preserve">
-    <value>Milestones</value>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Add new task</value>
   </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status</value>
+  <data name="AddTask" xml:space="preserve">
+    <value>Add task</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Choose the project</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Choose the responsible</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Closed Tasks</value>
   </data>
   <data name="CloseMilestone" xml:space="preserve">
     <value>Close Milestone</value>
   </data>
-  <data name="RemindMe" xml:space="preserve">
-    <value>Remind me 48 hours before the deadline</value>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
   </data>
-  <data name="StatusClosed" xml:space="preserve">
-    <value>Closed</value>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Creation date</value>
   </data>
-  <data name="StatusOpen" xml:space="preserve">
-    <value>Open</value>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
   </data>
-  <data name="RootMilestone" xml:space="preserve">
-    <value>Key milestone</value>
-  </data>
-  <data name="MilestoneNotFound_Header" xml:space="preserve">
-    <value>No milestones have been planned yet</value>
-  </data>
-  <data name="ChooseProject" xml:space="preserve">
-    <value>Choose the project</value>
+  <data name="DeadLine" xml:space="preserve">
+    <value>due date</value>
   </data>
   <data name="DeadlineInMonth" xml:space="preserve">
     <value>Month</value>
@@ -162,38 +171,8 @@
   <data name="DeadlineInWeek" xml:space="preserve">
     <value>Week</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="FilterNoMilestones" xml:space="preserve">
-    <value>There are no milestones matching this filter</value>
-  </data>
-  <data name="MilestoneDeadline" xml:space="preserve">
-    <value>Due Date</value>
-  </data>
-  <data name="NoTitleMessage" xml:space="preserve">
-    <value>Each milestone must have a title</value>
-  </data>
-  <data name="Responsible" xml:space="preserve">
-    <value>Responsible</value>
-  </data>
-  <data name="ChooseResponsible" xml:space="preserve">
-    <value>Choose the responsible</value>
-  </data>
-  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
-    <value>Milestones mark the major timestamps in project planning process. Once a milestone is created you can fill it with tasks for all project participants. Plan a milestone and set a due date to make sure that the tasks are completed on time.</value>
-  </data>
-  <data name="PlanFirstMilestone" xml:space="preserve">
-    <value>Plan the first milestone</value>
-  </data>
-  <data name="AddMilestoneButton" xml:space="preserve">
-    <value>Add This Milestone</value>
-  </data>
-  <data name="DescrEmptyListMilFilter" xml:space="preserve">
-    <value>No milestones matching your filter can be displayed in this section.</value>
-  </data>
-  <data name="NotifyResponsible" xml:space="preserve">
-    <value>Notify</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete milestone</value>
   </data>
   <data name="DeleteMilestone" xml:space="preserve">
     <value>Delete Milestone</value>
@@ -201,7 +180,97 @@
   <data name="DeleteMilestonePopup" xml:space="preserve">
     <value>Are you sure you want to delete the milestone?</value>
   </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>No milestones matching your filter can be displayed in this section.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit </value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Edit milestone</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>There are no milestones matching this filter</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Adding milestone...</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>No milestones have been planned yet</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Milestones mark the major timestamps in project planning process. Once a milestone is created you can fill it with tasks for all project participants. Plan a milestone and set a due date to make sure that the tasks are completed on time.</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Move to milestone</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Me</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Upcoming</value>
+  </data>
   <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
-    <value>You can not close the milestone with active tasks.</value>
+    <value>You cannot close a milestone with open tasks.</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Notify</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Each milestone must have a title</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Plan the first milestone</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Remind me 48 hours before the due date</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Key milestone</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StatusClosed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="StatusOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
 </root>

@@ -12,56 +12,18 @@
 <div class="page-menu">
 <% if (ShowCreateButton)
  {%>
-<asp:PlaceHolder ID="_taskAction" runat="server"/>
-<asp:PlaceHolder ID="_milestoneAction" runat="server"/>
 <div id="createNewButton" class="studio-action-panel">
     <ul class="dropdown-content">
-        <% var showSeporator = false;
-           if (ParticipantSecurityInfo["Project"])
-           {
-               showSeporator = true; %>
         <li><a id="createNewProject" class="dropdown-item" href="projects.aspx?action=add"><%= ProjectResource.Project %></a></li>
-        <% }
-           if (ParticipantSecurityInfo["Milestone"])
-           {
-               showSeporator = true; %>
         <li><a id="createNewMilestone" class="dropdown-item" href="javascript:void(0)"><%= MilestoneResource.Milestone %></a></li>
-        <% }
-           if (ParticipantSecurityInfo["Task"])
-           {
-               showSeporator = true; %>
         <li><a id="createNewTask" class="dropdown-item" href="javascript:void(0)"><%= TaskResource.Task %></a></li>
-        <% }
-           if (ParticipantSecurityInfo["Discussion"])
-           {
-               showSeporator = true; %>
-               <% if (Page.RequestContext.IsInConcreteProject)
-                  { %>
-                    <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add&prjID=<%= Page.RequestContext.GetCurrentProjectId() %>"><%= MessageResource.Message %></a></li>
-                <% }
-                  else
-                  { %>
-                    <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add"><%= MessageResource.Message %></a></li>
-                <% } %>
-
-        <% }
-           if (ParticipantSecurityInfo["Time"])
-           {
-               showSeporator = true; %>
+        <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add"><%= MessageResource.Message %></a></li>
         <li><a id="createNewTimer" class="dropdown-item" href="javascript:void(0)"><%= ProjectsCommonResource.AutoTimer %></a></li>
-        <% }
-           if (ParticipantSecurityInfo["ProjectTemplate"])
-           {
-               showSeporator = true; %>
         <li><a id="createProjectTempl" class="dropdown-item" href="projectTemplates.aspx?action=add"><%= ProjectResource.ProjectTemplate %></a></li>
-        <% } %>
 
         <% if (Page is TMDocs)
            { %>
-        <% if (showSeporator)
-           { %>
             <li><div class="dropdown-item-seporator"></div></li>
-        <% } %>
             <asp:PlaceHolder runat="server" ID="CreateDocsHolder"></asp:PlaceHolder>
         <% } %>
     </ul>
@@ -73,7 +35,7 @@
     </li>
     <% if (Page is TMDocs)
        { %>
-    <li id="buttonUpload" class="menu-upload-button" title="<%= ProjectsFileResource.ButtonUpload %>">
+    <li id="buttonUpload" class="menu-upload-button not-ready" title="<%= ProjectsFileResource.ButtonUpload %>">
         <span class="menu-upload-icon">&nbsp;</span> 
     </li>
     <% } %>
@@ -231,36 +193,26 @@
                     </a>     
                 </li>
                 
-                <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
                 <% if (IsFullAdmin || IsProjectAdmin)
+                { %>
+                <li id="menuTemplates" class="menu-item none-sub-list">
+                    <a id="menuProjectTemplate" class="menu-item-label outer-text text-overflow" href="projectTemplates.aspx">
+                        <span class="menu-item-icon proj-templates"></span>
+                        <span class="menu-item-label inner-text"><%= ProjectResource.ProjectTemplates %></span>
+                    </a>
+                </li>
+            <% } %>
+
+                <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
+                <% if (IsFullAdmin)
                    { %>
-                    <li id="menuSettings" class="menu-item sub-list add-block">
+                    <li id="menuSettings" class="menu-item none-sub-list add-block">
                         <div class="category-wrapper">
-                            <span class="expander"></span>
-                            <a class="menu-item-label outer-text text-overflow" href="projectTemplates.aspx">
+                            <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) + "#projects" %>">
                                 <span class="menu-item-icon settings"></span>
-                                <span class="menu-item-label inner-text"><%= ProjectsCommonResource.Settings %></span>
+                                <span class="menu-item-label inner-text"><%= ProjectResource.AccessRightSettings %></span>
                             </a>
                         </div>
-                        <ul class="menu-sub-list">
-                            <% if (IsFullAdmin || IsProjectAdmin)
-                               { %>
-                                <li id="menuTemplates" class="menu-sub-item filter">
-                                    <a id="menuProjectTemplate" class="menu-item-label outer-text text-overflow" href="projectTemplates.aspx"><%= ProjectResource.ProjectTemplates %></a>
-                                </li>
-                            <% } %>
-                            <% if (IsFullAdmin)
-                               { %>
-                                <li id="menuImport" class="menu-sub-item filter">
-                                    <a id="menuImport" class="menu-item-label outer-text text-overflow" href="import.aspx"><%= ImportResource.Import %></a>
-                                </li>                   
-                              <li id="menuAccessRightsItem" class="menu-sub-item filter">
-                                    <a id="menuAccessRights" class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) + "#projects" %>">
-                                        <%= ProjectResource.AccessRightSettings %>
-                                    </a>
-                              </li>  
-                            <% } %>                          
-                        </ul>
                     </li>
             <% }
             } %>

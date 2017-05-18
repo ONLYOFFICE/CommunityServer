@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessRightsSettings" xml:space="preserve">
-    <value>Portal. Acess rights.</value>
+    <value>Portal Access Rights</value>
   </data>
   <data name="Announcement" xml:space="preserve">
     <value>Announcement</value>
@@ -126,8 +126,26 @@
   <data name="Announcements" xml:space="preserve">
     <value>Announcements</value>
   </data>
+  <data name="BirthdayCongratulateLinkTitle" xml:space="preserve">
+    <value>Send Your Greetings</value>
+  </data>
+  <data name="BirthdayRemindLinkTitle" xml:space="preserve">
+    <value>Remind about the birthday</value>
+  </data>
+  <data name="BirthdayRemindReadyLinkTitle" xml:space="preserve">
+    <value>Reminder enabled</value>
+  </data>
   <data name="Birthdays" xml:space="preserve">
-    <value>Дни рождения</value>
+    <value>Birthdays</value>
+  </data>
+  <data name="BirthdaysEmptyUpcomingTitle" xml:space="preserve">
+    <value>No birthdays for the nearest dates</value>
+  </data>
+  <data name="BirthdaysTodayTitle" xml:space="preserve">
+    <value>Today is the birthday</value>
+  </data>
+  <data name="BirthdaysUpcomingTitle" xml:space="preserve">
+    <value>Nearest dates</value>
   </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blogs</value>
@@ -156,8 +174,14 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Create New</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="DashboardTitle" xml:space="preserve">
     <value>Business Collaboration tools</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
   </data>
   <data name="Events" xml:space="preserve">
     <value>Events</value>
@@ -184,7 +208,7 @@
     <value>Forum</value>
   </data>
   <data name="ForumEditor" xml:space="preserve">
-    <value>Forum editor</value>
+    <value>Forum Editor</value>
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forums</value>
@@ -210,11 +234,26 @@
   <data name="InForParentPage" xml:space="preserve">
     <value>in</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
   <data name="NewPages" xml:space="preserve">
-    <value>New pages</value>
+    <value>New Pages</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
@@ -235,28 +274,31 @@
     <value>Post</value>
   </data>
   <data name="ProductAdminOpportunities" xml:space="preserve">
-    <value>Делать все то же, что и пользователь|Редактировать любой пост в блоге, вики-статью, сообщение на форуме и т.д.</value>
+    <value>Do the same as a user|Edit any post in Blogs, Wiki, Forum messages, etc.</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
-    <value>View user details, create posts in blogs and forums. Share photos, bookmarks and Wiki pages.</value>
+    <value>Create events and posts in blogs. Organize polls. Make bookmarks and share them with other users.</value>
   </data>
   <data name="ProductDescriptionExt" xml:space="preserve">
-    <value>View user details, create posts in blogs and forums. Share photos, bookmarks and Wiki pages.</value>
+    <value>Create events and posts in blogs. Organize polls. Make bookmarks and share them with other users.</value>
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>Community</value>
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Создавать и редактировать свой пост в блоге, вики-статью, сообщение на форуме и т.д.</value>
+    <value>Create and edit own posts in Blogs, share news, etc.</value>
   </data>
   <data name="RecentlyEdited" xml:space="preserve">
-    <value>Recently edited</value>
+    <value>Recently Edited</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="Subscribed" xml:space="preserve">
     <value>subscribed</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>Topic</value>

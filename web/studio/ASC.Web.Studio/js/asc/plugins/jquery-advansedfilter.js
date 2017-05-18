@@ -308,13 +308,22 @@
         var groupsInd = 0;
         groupsInd = groups ? groups.length : 0;
         while (groupsInd--) {
+            if (filtervalue.groupid) {
+                if (groups[groupsInd].id === filtervalue.groupid) {
+                    groups[groupsInd].items.push(filtervalue);
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
             if (groups[groupsInd].title === filtervalue.group) {
                 groups[groupsInd].items.push(filtervalue);
                 break;
             }
         }
         if (groupsInd === -1) {
-            groups.push({ title: filtervalue.group || '', items: [filtervalue] });
+            groups.push({ title: filtervalue.group || '', items: [filtervalue], id: filtervalue.groupid || '' });
         }
     }
 
@@ -694,32 +703,16 @@
         }
     }
 
-    function updateFiltersList($items) {
-        var
-          hasitems = false,
-          itemsInd = 0,
-          $item = null,
-          $group = null;
+    function updateFiltersList($container) {
+        var $groups = $container.find("li.item-group.filter-group");
 
-        if ($items.filter('.item-group').length === 0) {
-            return undefined;
-        }
+        for (var i = 0, j = $groups.length; i < j; i++) {
+            var $group = $($groups[i]);
+            $group.removeClass('hidden-item');
 
-        itemsInd = $items.length;
-        while (itemsInd--) {
-            $item = $($items[itemsInd]);
-            if ($item.hasClass('item-group')) {
-                $item.removeClass('hidden-item');
-                if (hasitems === false) {
-                    $item.addClass('hidden-item');
-                }
-                hasitems = false;
-                continue;
+            if ($group.find('.item-item:not(.hidden-item)').length === 0) {
+                $group.addClass('hidden-item');
             }
-            if ($item.hasClass('hidden-item')) {
-                continue;
-            }
-            hasitems = true;
         }
 
         //$items.filter('.item-group').removeClass('first-group').not('.disabled-item').filter(':first').addClass('first-group');
@@ -814,7 +807,7 @@
             } catch (err) { }
         }
 
-        onBodyClick();
+        //onBodyClick();
         jQuery(document.body).unbind('click', onBodyClick);
 
         resizeControlContainer($container, $filteritem, $container.find('div.advansed-filter-groupselector-container:first'));
@@ -882,13 +875,15 @@
     function customizeUserFilterPerson($container, $filteritem, filtervalue) {
         if (jQuery($filteritem).children(".advansed-filter-userselector").length == 0) {
             try {
+                var showme = filtervalue.hasOwnProperty('showme') ? Boolean(filtervalue.showme) : true;
                 $container.addClass("showed-userselector");
                 $filteritem.children(".selector-wrapper:first").useradvancedSelector(
                 {
-                    showme: true,
+                    showme: showme,
                     inPopup: true,
                     onechosen: true,
-                    showGroups: true
+                    showGroups: true,
+                    itemsDisabledIds: showme ? [] : [window.Teamlab.profile.id]
                 });
             } catch (err) { }
             
@@ -916,7 +911,7 @@
             } catch (err) { }
         }
 
-        onBodyClick();
+        //onBodyClick();
         jQuery(document.body).unbind('click', onBodyClick);
 
         resizeControlContainer($container, $filteritem, $container.find('div.advansed-filter-userselector-container:first'));
@@ -992,7 +987,7 @@
             return undefined;
         }
 
-        onBodyClick(evt);
+        //onBodyClick(evt);
         jQuery(document.body).unbind('click', onBodyClick);
 
         var $datepicker = $dateselector.addClass('showed-datepicker').find('span.advansed-filter-datepicker-container:first').css('display', 'block');
@@ -1184,62 +1179,43 @@
         }
     }
 
-    function showUserFilterByOption($container, filterid, nonetrigger) {
-        var
-          $selectedfilters = $container.find('div.advansed-filter-filters:first div.filter-item'),
-          $filteritems = $container.find('li.item-item.filter-item'),
-          $filter = null;
+    function showUserFilterByOption($filterItem) {
+        if (!$filterItem.hasClass('hidden-item')) return;
 
-        $filteritems.filter('[data-id="' + filterid + '"]').removeClass('hidden-item');
-        updateFiltersList($container.find('ul.filter-list:first li'));
+        $filterItem.removeClass('hidden-item');
     }
 
-    function hideUserFilterByOption($container, filterid, nonetrigger) {
-        var
-          $selectedfilters = $container.find('div.advansed-filter-filters:first div.filter-item'),
-          $filteritems = $container.find('li.item-item.filter-item'),
-          $filter = null;
+    function hideUserFilterByOption($container, $selectedfilterItem, $filterItem, nonetrigger) {
+        if ($filterItem.hasClass('hidden-item')) return false;
 
-        $filteritems.filter('[data-id="' + filterid + '"]').addClass('hidden-item');
-        updateFiltersList($container.find('ul.filter-list:first li'));
+        $filterItem.addClass('hidden-item');
 
-        if (($filter = $selectedfilters.filter('[data-id="' + filterid + '"]')).length > 0) {
-            removeUserFilterByObject($container, $filter, nonetrigger);
+        if ($selectedfilterItem.length > 0) {
+            removeUserFilterByObject($container, $selectedfilterItem, nonetrigger);
             return true;
         }
     }
 
-    function enableUserFilterByOption($container, filterid, nonetrigger) {
-        var
-          $selectedfilters = $container.find('div.advansed-filter-filters:first div.filter-item'),
-          $filteritems = $container.find('li.item-item.filter-item'),
-          $filter = null;
+    function enableUserFilterByOption($filterItem) {
+        if (!$filterItem.hasClass('disabled-item')) return;
 
-        $filteritems.filter('[data-id="' + filterid + '"]').removeClass('disabled-item');
-        updateFiltersList($container.find('ul.filter-list:first li'));
+        $filterItem.removeClass('disabled-item');
     }
 
-    function disableUserFilterByOption($container, filterid, nonetrigger) {
-        var
-          $selectedfilters = $container.find('div.advansed-filter-filters:first div.filter-item'),
-          $filteritems = $container.find('li.item-item.filter-item'),
-          $filter = null;
+    function disableUserFilterByOption($container, $selectedfilterItem, $filterItem, nonetrigger) {
+        if ($filterItem.hasClass('disabled-item')) return false;
 
-        $filteritems.filter('[data-id="' + filterid + '"]').addClass('disabled-item');
-        updateFiltersList($container.find('ul.filter-list:first li'));
+        $filterItem.addClass('disabled-item');
 
-        if (($filter = $selectedfilters.filter('[data-id="' + filterid + '"]')).length > 0) {
-            removeUserFilterByObject($container, $filter, nonetrigger);
+        if ($selectedfilterItem.length > 0) {
+            removeUserFilterByObject($container, $selectedfilterItem, nonetrigger);
             return true;
         }
     }
 
-    function resetUserFilterByOption($container, filterid, nonetrigger) {
-        var
-          $selectedfilters = $container.find('div.advansed-filter-filters:first div.filter-item'),
-          $filter = null;
-        if (($filter = $selectedfilters.filter('[data-id="' + filterid + '"]')).length > 0) {
-            removeUserFilterByObject($container, $filter, nonetrigger);
+    function resetUserFilterByOption($container, $selectedfilterItem, nonetrigger) {
+        if ($selectedfilterItem.length > 0) {
+            removeUserFilterByObject($container, $selectedfilterItem, nonetrigger);
             return true;
         }
     }
@@ -1508,7 +1484,7 @@
           $input = $container.find('div.advansed-filter-input:first'),
           $button = $container.find('div.advansed-filter-button:first'),
           $filters = $container.find('div.advansed-filter-filters:first'),
-          $hiddenfilterscontainer = $filters.find('div.hidden-filters-container:first')
+          $hiddenfilterscontainer = $filters.find('div.hidden-filters-container:first'),
           $hiddenfilteritems = $hiddenfilterscontainer.find('div.filter-item');
 
         if ($input.length === 0 || $filters.length === 0 || containerWidth === 0) {
@@ -2159,7 +2135,7 @@
             }
             if (sortervalue.def === true) {
                 setUserSorter($container, sortervalue.id, { dsc: sortervalue.dsc === true || sortervalue.sortOrder === 'descending' }, true);
-                break;
+                //break;
             }
         }
 
@@ -2169,28 +2145,39 @@
         }
 
         wasAdded = false;
+        
+        var $filterItems = $container.find('li.item-item.filter-item');
+        var $selectedFilters = $container.find('div.advansed-filter-filters:first div.filter-item');
         for (var i = 0, n = filtervalues.length; i < n; i++) {
             filtervalue = filtervalues[i];
+
+            var $filterItem, $selectedfilterItem;
+            if (filtervalue.hasOwnProperty("visible") || filtervalue.hasOwnProperty("enable") ||
+                filtervalue.hasOwnProperty("reset") || filtervalue.hasOwnProperty('params')) {
+                $filterItem = $filterItems.filter('[data-id="' + filtervalue.id + '"]');
+                $selectedfilterItem = $selectedFilters.filter('[data-id="' + filtervalue.id + '"]');
+            }
+
             if (filtervalue.visible === true) {
-                showUserFilterByOption($container, filtervalue.id, true);
-            }
-            if (filtervalue.visible === false) {
-                if (hideUserFilterByOption($container, filtervalue.id, true)) {
+                showUserFilterByOption($filterItem);
+            } else if (filtervalue.visible === false) {
+                if (hideUserFilterByOption($container, $selectedfilterItem, $filterItem, true)) {
                     wasAdded = true;
                 }
             }
+
             if (filtervalue.enable === true) {
-                enableUserFilterByOption($container, filtervalue.id, true);
-            }
-            if (filtervalue.enable === false) {
-                if (disableUserFilterByOption($container, filtervalue.id, true)) {
+                enableUserFilterByOption($filterItem);
+            } else if (filtervalue.enable === false) {
+                if (disableUserFilterByOption($container, $selectedfilterItem, $filterItem, true)) {
                     wasAdded = true;
                 }
             }
+
             if (filtervalue.type === 'combobox' && filtervalue.hasOwnProperty('options')) {
                 containerfiltervaluesInd = containerfiltervalues.length;
                 while (containerfiltervaluesInd--) {
-                    if (filtervalue.id == containerfiltervalues[containerfiltervaluesInd].id) {
+                    if (filtervalue.id === containerfiltervalues[containerfiltervaluesInd].id) {
                         break;
                     }
                 }
@@ -2209,6 +2196,7 @@
                     }
                 }
             }
+
             if (filtervalue.visible !== false && filtervalue.hasOwnProperty('params') && filtervalue.params) {
                 containerfiltervaluesInd = containerfiltervalues.length;
                 while (containerfiltervaluesInd--) {
@@ -2222,12 +2210,18 @@
                     }
                 }
             }
+
             if (filtervalue.reset === true || (filtervalue.hasOwnProperty('params') && filtervalue.params === null)) {
-                if (resetUserFilterByOption($container, filtervalue.id, true)) {
+                if (resetUserFilterByOption($container, $selectedfilterItem, true)) {
                     wasAdded = true;
                 }
             }
         }
+
+        if (filtervalue.hasOwnProperty("visible") || filtervalue.hasOwnProperty("enable")) {
+            updateFiltersList($container);
+        }
+
         if (opts.store === true) {
             if (!$container.hasClass('is-init')) {
                 readLastState(opts, $container, true);
@@ -2253,6 +2247,7 @@
                 wasCallTrigger = true;
             }
         }
+
         if (changeOptions == true) {
             onBodyClick(true);
             resizeUserFilterContainer($container);

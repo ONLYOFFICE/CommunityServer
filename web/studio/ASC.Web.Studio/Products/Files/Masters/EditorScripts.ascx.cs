@@ -5,22 +5,19 @@ using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Files.Masters
 {
-    public class EditorScripts : ResourceBundleControl
+    public class EditorScripts : ResourceScriptBundleControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Scripts.AddRange(new[]
-                             {
-                                 "~/js/third-party/jquery/jquery.core.js",
-                                 "~/js/asc/core/localstorage.js"
-                             }.Select(ResolveUrl));
+            AddSource(ResolveUrl,
+                "~/js/third-party/jquery/jquery.core.js",
+                "~/js/asc/core/localstorage.js"
+                );
 
-            Scripts.AddRange(new[]
-                             {
-                                 "common.js",
-                                 "servicemanager.js",
-                                 "editor.js"
-                             }.Select(PathProvider.GetFileStaticRelativePath));
+            AddSource(PathProvider.GetFileStaticRelativePath,
+                "common.js",
+                "servicemanager.js",
+                "editor.js");
         }
     }
 }

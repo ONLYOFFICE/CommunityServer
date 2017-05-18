@@ -95,8 +95,8 @@ namespace ASC.Web.Community.Blogs
         {
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
-            //Page.RegisterInlineScript("ckeditorConnector.onReady(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
-            Page.RegisterInlineScript("ckeditorConnector.onReady(function () {" +
+            //Page.RegisterInlineScript("ckeditorConnector.load(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
+            Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
                           "BlogsManager.blogsEditor = CKEDITOR.replace('ckEditor', { toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + "'});" +
                           "BlogsManager.blogsEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});" +
                            "});");

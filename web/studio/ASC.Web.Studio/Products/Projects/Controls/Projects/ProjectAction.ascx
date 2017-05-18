@@ -8,7 +8,6 @@
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
-<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 <div id="projectActionPage">
     <div id="pageHeader">
         <div class="pageTitle"><%= PageTitle %></div>
@@ -109,7 +108,7 @@
         <div class="headerPanelSmall"><%= ProjectsCommonResource.ProjectLinkedWithContacts %></div>
         <div class="no-linked-contacts"><%= ProjectsCommonResource.NoCRMContactsForLink %></div>
         <div id="contactListBox">
-            <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
+            <table id="contactTable" class="table-list padding4">
                 <tbody>
                 </tbody>
             </table>
@@ -198,56 +197,3 @@
         <% } %>
     </div>
 </div>
-<div id="questionWindowDeleteProject" style="display: none">
-    <sc:Container ID="_hintPopupDeleteProject" runat="server">
-        <header><%= ProjectResource.DeleteProject %></header>
-        <body>
-            <p><%= ProjectResource.DeleteProjectPopup %> </p>
-            <p><%= ProjectsCommonResource.PopupNoteUndone %></p>
-            <div class="middle-button-container">
-                <a class="button blue middle remove"><%= ProjectResource.DeleteProject %></a>
-                <span class="splitter-buttons"></span>
-                <a class="button gray middle cancel"><%= ProjectsCommonResource.Cancel %></a>
-            </div>
-        </body>
-    </sc:Container>
-</div>
-
-<div id="questionWindowActiveTasks" style="display: none">
-    <sc:Container ID="_hintPopupActiveTasks" runat="server">
-        <header>
-            <%= ProjectResource.CloseProject %>
-        </header>
-        <body>
-            <p><%= ProjectResource.NotClosePrjWithActiveTasks %></p>
-            <div class="middle-button-container">
-                <a class="button blue middle" href="<%= ActiveTasksUrl %>"><%= ProjectResource.ViewActiveTasks %></a>
-                <span class="splitter-buttons"></span>
-                <a class="button gray middle cancel"><%= ProjectsCommonResource.Cancel %></a>
-            </div>
-        </body>
-    </sc:Container>
-</div>
-
-<div id="questionWindowActiveMilestones" style="display: none">
-    <sc:Container ID="_hintPopupActiveMilestones" runat="server">
-        <header>
-            <%= ProjectResource.CloseProject %>
-        </header>
-        <body>
-            <p><%= ProjectResource.NotClosedPrjWithActiveMilestone %></p>
-            <div class="middle-button-container">
-                <a class="button blue middle" href="<%= ActiveMilestonesUrl %>"><%= ProjectResource.ViewActiveMilestones %></a>
-                <span class="splitter-buttons"></span>
-                <a class="button gray middle cancel"><%= ProjectsCommonResource.Cancel %></a>
-            </div>
-        </body>
-    </sc:Container>
-</div>
-
-<script id="projectParticipant" type="text/x-jquery-tmpl">
-    <li class="items-display-list_i" participantid="${id}">
-        <span class="item-name"><a class="link" href="${profileUrl}" target="_blank">${title}</a></span>
-        <div class="reset-action" data-userid="${id}" title="<%=ProjectsCommonResource.Delete %>"></div>
-    </li>
-</script>

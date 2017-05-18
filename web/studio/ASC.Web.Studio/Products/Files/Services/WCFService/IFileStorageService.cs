@@ -24,12 +24,14 @@
 */
 
 
-using ASC.Files.Core;
-using ASC.Web.Files.Services.WCFService.FileOperations;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ASC.Files.Core;
+using ASC.Web.Files.Import.DocuSign;
+using ASC.Web.Files.Services.WCFService.FileOperations;
 using File = ASC.Files.Core.File;
+using FileShare = ASC.Files.Core.Security.FileShare;
 
 namespace ASC.Web.Files.Services.WCFService
 {
@@ -55,11 +57,9 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemDictionary<String, String> MoveOrCopyFilesCheck(ItemList<String> items, String destFolderId);
 
-        ItemList<FileOperationResult> MoveOrCopyItems(ItemList<String> items, String destFolderId, FileConflictResolveType resolveType, bool isCopyOperation);
+        ItemList<FileOperationResult> MoveOrCopyItems(ItemList<String> items, String destFolderId, FileConflictResolveType resolveType, bool isCopyOperation, bool deleteAfter = false);
 
-        ItemList<FileOperationResult> DeleteItems(string action, ItemList<String> items);
-
-        ItemList<FileOperationResult> DeleteItems(string action, ItemList<String> items, bool ignoreException);
+        ItemList<FileOperationResult> DeleteItems(string action, ItemList<String> items, bool ignoreException = false, bool deleteAfter = false);
 
         #endregion
 
@@ -79,27 +79,31 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<File> GetFileHistory(String fileId);
 
-        KeyValuePair<String, ItemDictionary<String, String>> GetSiblingsFile(String fileId, FilterType filter, OrderBy orderBy, String subjectID, String searchText);
+        KeyValuePair<String, ItemList<File>> GetSiblingsFile(String fileId, FilterType filter, OrderBy orderBy, String subjectID, String searchText);
 
-        KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String shareLinkKey, bool isFinish, bool fixedVersion);
+        KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String doc, bool isFinish);
 
         ItemDictionary<String, String> CheckEditing(ItemList<String> filesId);
 
-        File SaveEditing(String fileId, int version, Guid tabId, string fileExtension, string fileuri, Stream stream, bool asNew, String shareLinkKey);
+        File SaveEditing(String fileId, string fileExtension, string fileuri, Stream stream, String doc);
 
-        string StartEdit(String fileId, String docKeyForTrack, bool asNew, bool editingAlone, String shareLinkKey);
+        string StartEdit(String fileId, bool editingAlone, String doc);
 
         ItemList<FileOperationResult> CheckConversion(ItemList<ItemList<String>> filesIdVersion);
 
         File LockFile(String fileId, bool lockFile);
 
-        ItemList<EditHistory> GetEditHistory(String fileId, String shareLinkKey);
+        ItemList<EditHistory> GetEditHistory(String fileId, String doc);
 
         EditHistoryData GetEditDiffUrl(String fileId, int version, String doc = null);
+
+        ItemList<EditHistory> RestoreVersion(String fileId, int version, String url, String doc = null);
 
         #endregion
 
         #region Utils
+
+        ItemList<FileEntry> ChangeOwner(ItemList<String> items, Guid userId);
 
         ItemList<FileOperationResult> BulkDownload(Dictionary<String, String> items);
 
@@ -135,6 +139,8 @@ namespace ASC.Web.Files.Services.WCFService
 
         object GetNewItems(String folderId);
 
+        bool SetAceLink(String fileId, FileShare share);
+
         #endregion
 
         #region ThirdParty
@@ -148,6 +154,10 @@ namespace ASC.Web.Files.Services.WCFService
         object DeleteThirdParty(String providerId);
 
         bool ChangeAccessToThirdparty(bool enableThirdpartySettings);
+
+        object DeleteDocuSign();
+
+        String SendDocuSign(string fileId, DocuSignData docuSignData);
 
         #endregion
 

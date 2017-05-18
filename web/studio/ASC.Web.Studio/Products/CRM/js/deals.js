@@ -369,16 +369,25 @@ ASC.CRM.ListDealView = (function() {
     var callback_delete_batch_opportunities = function(params, data) {
         var newDealsList = new Array();
         for (var i = 0, len_i = ASC.CRM.ListDealView.dealList.length; i < len_i; i++) {
+            var dealItem = ASC.CRM.ListDealView.dealList[i];
             var isDeleted = false;
-            for (var j = 0, len_j = params.dealsIDsForDelete.length; j < len_j; j++)
-                if (params.dealsIDsForDelete[j] == ASC.CRM.ListDealView.dealList[i].id) {
-                isDeleted = true;
-                break;
-            }
-            if (!isDeleted)
-                newDealsList.push(ASC.CRM.ListDealView.dealList[i]);
 
+            for (var j = 0, len_j = params.dealsIDsForDelete.length; j < len_j; j++)
+                if (params.dealsIDsForDelete[j] == dealItem.id) {
+                    isDeleted = true;
+                    break;
+                }
+
+            if (!isDeleted)
+                newDealsList.push(dealItem);
+            else if (dealItem.bidValue)
+                for (var k = 0, len_k = ASC.CRM.ListDealView.bidList.length; k < len_k; k++) 
+                    if (ASC.CRM.ListDealView.bidList[k].bidCurrencyAbbreviation == dealItem.bidCurrency.abbreviation) {
+                        ASC.CRM.ListDealView.bidList[k].bidValue -= dealItem.bidValue * (dealItem.perPeriodValue ? dealItem.perPeriodValue : 1);
+                        break;
+                    }
         }
+
         ASC.CRM.ListDealView.dealList = newDealsList;
 
         ASC.CRM.ListDealView.Total -= params.dealsIDsForDelete.length;
@@ -874,12 +883,7 @@ ASC.CRM.ListDealView = (function() {
         ASC.CRM.ListDealView.advansedFilter = jq("#dealsAdvansedFilter")
             .advansedFilter({
                 anykey      : false,
-                hint        : ASC.CRM.Resources.CRMCommonResource.AdvansedFilterInfoText.format(
-                            '<b>',
-                            '</b>',
-                            '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
-                            '</a>'),
-                hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
+                hintDefaultDisable: true,
                 maxfilters  : 3,
                 colcount    : 2,
                 maxlength   : "100",

@@ -34,10 +34,23 @@ namespace ASC.Web.Projects.Classes
 {
     public class PathProvider
     {
-        public static readonly String BaseVirtualPath = "~/Products/Projects/".ToLower();
-        public static readonly String BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BaseVirtualPath).ToLower();
+        public static readonly string BaseVirtualPath;
+        public static readonly string BaseAbsolutePath;
 
-        public static String GetFileStaticRelativePath(String fileName)
+        static PathProvider()
+        {
+            BaseVirtualPath = "~/Products/Projects/".ToLower();
+            try
+            {
+                BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BaseVirtualPath).ToLower();
+            }
+            catch (Exception)
+            {
+                BaseAbsolutePath = BaseVirtualPath;
+            }
+        }
+
+        public static string GetFileStaticRelativePath(String fileName)
         {
             var ext = FileUtility.GetFileExtension(fileName);
             switch (ext)

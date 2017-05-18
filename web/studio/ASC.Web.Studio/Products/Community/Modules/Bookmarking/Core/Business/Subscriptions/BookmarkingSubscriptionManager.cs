@@ -146,7 +146,8 @@ namespace ASC.Bookmarking.Business.Subscriptions
                 Name = BookmarkingBusinessResources.SubscriptionTypeNewBookmark,
                 GetSubscriptionObjects = GetNewBookmarkSubscriptionObjects,
                 IsEmptySubscriptionType = IsEmptyNewBookmarkSubscriptionType,
-                Single = true
+                Single = true,
+                CanSubscribe = true
             });
 
             subscriptionTypes.Add(new SubscriptionType()

@@ -42,5 +42,7 @@ namespace ASC.Files.Core.Security
         IEnumerable<FileShareRecord> GetPureShareRecords(params FileEntry[] entries);
 
         void DeleteShareRecords(params FileShareRecord[] records);
+
+        bool IsShared(object entryId, FileEntryType type);
     }
 }

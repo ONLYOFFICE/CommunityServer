@@ -225,8 +225,11 @@ var PhoneController = new function() {
                 _renderControl($input);
                 var startPhone = _purePhone();
                 _initCountryPhonesDropDown();
-                PhoneController.phoneControlContainer.find("input.phoneControlInput:first").val(startPhone);
-                _enterPhone(startPhone);
+                
+                if (startPhone != "") {
+                    PhoneController.phoneControlContainer.find("input.phoneControlInput:first").val(startPhone);
+                    _enterPhone(startPhone);
+                }
 
                 this.isInit = true;
             }

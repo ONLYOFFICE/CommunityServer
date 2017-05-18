@@ -87,12 +87,12 @@ namespace ASC.Projects.Engine
 
         public IEnumerable<Project> GetOpenProjectsWithTasks(Guid participantId)
         {
-            return projectDao.GetOpenProjectsWithTasks(participantId).Where(canReadDelegate);
+            return projectDao.GetOpenProjectsWithTasks(participantId).Where(canReadDelegate).ToList();
         }
 
         public IEnumerable<Project> GetByParticipant(Guid participant)
         {
-            return projectDao.GetByParticipiant(participant, ProjectStatus.Open).Where(canReadDelegate);
+            return projectDao.GetByParticipiant(participant, ProjectStatus.Open).Where(canReadDelegate).ToList();
         }
 
         public IEnumerable<Project> GetByFilter(TaskFilter filter)
@@ -107,7 +107,7 @@ namespace ASC.Projects.Engine
 
         public IEnumerable<Project> GetFollowing(Guid participant)
         {
-            return projectDao.GetFollowing(participant).Where(canReadDelegate);
+            return projectDao.GetFollowing(participant).Where(canReadDelegate).ToList();
         }
 
         public Project GetByID(int projectID)
@@ -134,11 +134,13 @@ namespace ASC.Projects.Engine
             var filter = new TaskFilter
             {
                 ProjectIds = new List<int> { projectID },
-                MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open },
-                TaskStatuses = new List<TaskStatus> { TaskStatus.Open }
+                MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open }
             };
+            var taskCount = factory.TaskEngine.GetByFilterCount(filter);
+
             project.MilestoneCount = factory.MilestoneEngine.GetByFilterCount(filter);
-            project.TaskCount = factory.TaskEngine.GetByFilterCount(filter);
+            project.TaskCount = taskCount.TasksOpen;
+            project.TaskCountTotal = taskCount.TasksTotal;
             project.DiscussionCount = factory.MessageEngine.GetByFilterCount(filter);
 
             using (var folderDao = FilesIntegration.GetFolderDao())
@@ -146,13 +148,8 @@ namespace ASC.Projects.Engine
                 var folderId = factory.FileEngine.GetRoot(projectID);
                 project.DocumentsCount = folderDao.GetItemsCount(folderId);
             }
-
-            var time = factory.TimeTrackingEngine.GetByProject(projectID).Sum(r => r.Hours);
-            var hours = (int)time;
-            var minutes = (int)(Math.Round((time - hours) * 60));
-            var result = hours + ":" + minutes.ToString("D2");
             
-            project.TimeTrackingTotal = !result.Equals("0:00", StringComparison.InvariantCulture) ? result : "";
+            project.TimeTrackingTotal = factory.TimeTrackingEngine.GetTotalByProject(projectID);
             project.ParticipantCount = GetTeam(projectID).Count();
 
 
@@ -336,13 +333,13 @@ namespace ASC.Projects.Engine
         public IEnumerable<Participant> GetTeam(int projectId)
         {
             var project = GetByID(projectId);
-            return projectDao.GetTeam(project).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser));
+            return projectDao.GetTeam(project).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser)).ToList();
         }
 
         public IEnumerable<Participant> GetTeam(List<int> projectIds)
         {
             var projects = GetByID(projectIds);
-            return projectDao.GetTeam(projects).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser));
+            return projectDao.GetTeam(projects).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser)).ToList();
         }
 
         public bool IsInTeam(int project, Guid participant)
@@ -386,10 +383,10 @@ namespace ASC.Projects.Engine
 
             ProjectSecurity.DemandEditTeam(project);
 
-            var newTeam = participants.Select(p => new Participant(p));
+            var newTeam = participants.Select(p => new Participant(p)).ToList();
             var oldTeam = GetTeam(project.ID);
 
-            var removeFromTeam = oldTeam.Where(p => !newTeam.Contains(p)).Where(p => p.ID != project.Responsible);
+            var removeFromTeam = oldTeam.Where(p => !newTeam.Contains(p) && p.ID != project.Responsible).ToList();
             var inviteToTeam = new List<Participant>();
 
             foreach (var participant in newTeam.Where(participant => !oldTeam.Contains(participant)))

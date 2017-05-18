@@ -117,33 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MilestoneStatus_Closed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
-  <data name="MilestoneStatus_Open" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="ProjectStatus_Closed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
-  <data name="ProjectStatus_Open" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="TaskPriority_High" xml:space="preserve">
-    <value>High</value>
-  </data>
-  <data name="TaskPriority_Low" xml:space="preserve">
-    <value>Low</value>
-  </data>
-  <data name="TaskPriority_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="TaskStatus_Closed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
-  <data name="TaskStatus_Open" xml:space="preserve">
-    <value>In progress</value>
-  </data>
   <data name="EntityType_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
@@ -159,6 +132,9 @@
   <data name="EntityType_Project" xml:space="preserve">
     <value>Project</value>
   </data>
+  <data name="EntityType_SubTask" xml:space="preserve">
+    <value>Subtask</value>
+  </data>
   <data name="EntityType_Task" xml:space="preserve">
     <value>Task</value>
   </data>
@@ -168,11 +144,11 @@
   <data name="EntityType_TimeSpend" xml:space="preserve">
     <value>Time</value>
   </data>
-  <data name="EntityType_SubTask" xml:space="preserve">
-    <value>Subtask</value>
+  <data name="MilestoneStatus_Closed" xml:space="preserve">
+    <value>Closed</value>
   </data>
-  <data name="ProjectStatus_Paused" xml:space="preserve">
-    <value>Paused</value>
+  <data name="MilestoneStatus_Open" xml:space="preserve">
+    <value>Active</value>
   </data>
   <data name="PaymentStatus_Billed" xml:space="preserve">
     <value>Billed</value>
@@ -182,5 +158,29 @@
   </data>
   <data name="PaymentStatus_NotChargeable" xml:space="preserve">
     <value>Not Chargeable</value>
+  </data>
+  <data name="ProjectStatus_Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ProjectStatus_Open" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="ProjectStatus_Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="TaskPriority_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="TaskPriority_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="TaskPriority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Open</value>
   </data>
 </root>

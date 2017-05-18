@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 using ASC.Core;
@@ -37,7 +36,6 @@ namespace ASC.Web.Projects.Classes
     public class RequestContext
     {
         public bool IsInConcreteProject { get; private set; }
-        public bool IsInConcreteProjectModule { get; private set; }
         private readonly EngineFactory engineFactory;
         private Project currentProject;
 
@@ -52,40 +50,11 @@ namespace ASC.Web.Projects.Classes
             }
         }
 
-        private int? allProjectsCount;
-        public int AllProjectsCount
-        {
-            get
-            {
-                if (!allProjectsCount.HasValue)
-                {
-                    allProjectsCount = engineFactory.ProjectEngine.CountOpen();
-                }
-
-                return allProjectsCount.Value;
-            }
-        }
-
-        private int? allTasksCount;
-        public int AllTasksCount
-        {
-            get
-            {
-                if (!allTasksCount.HasValue)
-                {
-                    allTasksCount = engineFactory.TaskEngine.GetByFilterCount(new TaskFilter());
-                }
-
-                return allTasksCount.Value;
-            }
-        }
-
         #region Project
 
         public RequestContext(EngineFactory engineFactory)
         {
             IsInConcreteProject = UrlParameters.ProjectID >= 0;
-            IsInConcreteProjectModule = IsInConcreteProject && UrlParameters.EntityID >= 0;
             this.engineFactory = engineFactory;
         }
 
@@ -114,45 +83,5 @@ namespace ASC.Web.Projects.Classes
         }
 
         #endregion
-
-        private bool CanCreate(Func<Project, bool> canCreate, bool checkConreteProject)
-        {
-            if (checkConreteProject && IsInConcreteProject)
-            {
-                var project = GetCurrentProject();
-                return project.Status != ProjectStatus.Closed && canCreate(project);
-            }
-
-            return ProjectSecurity.CurrentUserAdministrator
-                       ? AllProjectsCount > 0
-                       : CurrentUserProjects.Any(canCreate);
-        }
-
-        public bool CanCreateTask(bool checkConreteProject = false)
-        {
-            return CanCreate(ProjectSecurity.CanCreateTask, checkConreteProject);
-        }
-
-        public bool CanCreateMilestone(bool checkConreteProject = false)
-        {
-            return CanCreate(ProjectSecurity.CanCreateMilestone, checkConreteProject);   
-        }
-
-        public bool CanCreateDiscussion(bool checkConreteProject = false)
-        {
-            return CanCreate(ProjectSecurity.CanCreateMessage, checkConreteProject);
-        }
-
-        public bool CanCreateTime(bool checkConreteProject = false)
-        {
-            if (checkConreteProject && IsInConcreteProject)
-            {
-                var project = GetCurrentProject();
-                var taskCount = engineFactory.ProjectEngine.GetTaskCount(project.ID, null);
-                return taskCount > 0 && ProjectSecurity.CanCreateTimeSpend(project);
-            }
-
-            return CanCreate(ProjectSecurity.CanCreateTimeSpend, false) && AllTasksCount > 0;
-        }
     }
 }

@@ -57,10 +57,6 @@ namespace ASC.Web.Studio
 
         protected override bool RedirectToStartup { get { return false; } }
 
-        protected bool? IsAutorizePartner { get; set; }
-
-        protected Partner Partner { get; set; }
-
         protected string TenantName;
 
         protected override void OnPreInit(EventArgs e)
@@ -141,17 +137,6 @@ namespace ASC.Web.Studio
 
                 CommunitationsHolder.Controls.Add(LoadControl(AuthCommunications.Location));
                 withHelpBlock = true;
-            }
-
-            if (CoreContext.Configuration.PartnerHosted)
-            {
-                IsAutorizePartner = false;
-                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (partner != null)
-                {
-                    IsAutorizePartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
-                    Partner = partner;
-                }
             }
         }
 

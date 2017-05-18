@@ -166,7 +166,7 @@ namespace DotNetOpenAuth.ApplicationBlock
 
         public static JArray SearchUsers(WebConsumer consumer, String search, string accessToken)
         {
-            var endpoint = new MessageReceivingEndpoint("https://api.twitter.com/1.1/users/search.json?q=" + search, HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest);
+            var endpoint = new MessageReceivingEndpoint("https://api.twitter.com/1.1/users/search.json?q=" + Uri.EscapeDataString(search), HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest);
 
             IncomingWebResponse response = consumer.PrepareAuthorizedRequestAndSend(endpoint, accessToken);
 

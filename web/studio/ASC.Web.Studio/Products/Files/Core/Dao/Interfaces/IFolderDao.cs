@@ -149,7 +149,7 @@ namespace ASC.Files.Core
         int GetItemsCount(object folderId);
 
         /// <summary>
-        ///    Сheck folder on emptiness
+        ///    Check folder on emptiness
         /// </summary>
         /// <param name="folderId">folder id</param>
         /// <returns></returns>
@@ -171,7 +171,7 @@ namespace ASC.Files.Core
         bool UseRecursiveOperation(object folderId, object toRootFolderId);
 
         /// <summary>
-        /// Сheck the possibility to calculate the number of subitems
+        /// Check the possibility to calculate the number of subitems
         /// </summary>
         /// <param name="entryId"> </param>
         /// <returns></returns>

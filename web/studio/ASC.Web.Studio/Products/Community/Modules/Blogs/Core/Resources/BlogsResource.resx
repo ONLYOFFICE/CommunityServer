@@ -139,7 +139,7 @@
     <value>Cancel</value>
   </data>
   <data name="CommentsAddButtonTitle" xml:space="preserve">
-    <value>Write a comment</value>
+    <value>Add comment</value>
   </data>
   <data name="CommentsTitle" xml:space="preserve">
     <value>Comments</value>
@@ -171,6 +171,9 @@
   <data name="EnterTagsMessage" xml:space="preserve">
     <value>Enter the needed tags separating them with commas</value>
   </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
   <data name="HideButton" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -181,7 +184,10 @@
     <value>personal blog</value>
   </data>
   <data name="NewPost" xml:space="preserve">
-    <value>Add new post</value>
+    <value>Create new post</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
   </data>
   <data name="PostButton" xml:space="preserve">
     <value>Publish</value>
@@ -194,6 +200,9 @@
   </data>
   <data name="ReadMoreLink" xml:space="preserve">
     <value>Read more</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="SearchDefaultString" xml:space="preserve">
     <value>Search in blogs</value>
@@ -208,7 +217,7 @@
     <value>The subscription allows you to track new user posts in blogs</value>
   </data>
   <data name="SubscribeOnAuthorTitle" xml:space="preserve">
-    <value>Subscription to user posts</value>
+    <value>New user posts</value>
   </data>
   <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
     <value>Subscribe to post comments</value>
@@ -217,7 +226,7 @@
     <value>The subscription allows you to track new post comments</value>
   </data>
   <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
-    <value>Subscription to post comments</value>
+    <value>Post comments</value>
   </data>
   <data name="SubscribeOnNewPostAction" xml:space="preserve">
     <value>Subscribe to all posts</value>
@@ -226,16 +235,16 @@
     <value>The subscription allows you to track new posts in blogs</value>
   </data>
   <data name="SubscribeOnNewPostTitle" xml:space="preserve">
-    <value>Subscription to all posts</value>
+    <value>New blog posts</value>
   </data>
   <data name="TagsTitle" xml:space="preserve">
     <value>Tags</value>
   </data>
   <data name="TeamlabCutText" xml:space="preserve">
-    <value>Select the main part with the mouse and click "ONLYOFFICE Cut" so that only a short snippet of the post was shown at the discussion list and feed pages.</value>
+    <value>Select the text you want to be hidden from the feed pages and the blog list page and click the "Text Cut" button.</value>
   </data>
   <data name="TeamlabCutTitle" xml:space="preserve">
-    <value>TeamLab Cut</value>
+    <value>Text Cut</value>
   </data>
   <data name="TotalPages" xml:space="preserve">
     <value>Total</value>

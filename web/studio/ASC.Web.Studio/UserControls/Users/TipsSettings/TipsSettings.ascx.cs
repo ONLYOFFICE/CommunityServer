@@ -28,7 +28,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.UserControls.Users.TipsSettings
 {
@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Users.TipsSettings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/UserControls/Users/TipsSettings/js/tipsSettings.js");
-            Page.RegisterStyle("~/UserControls/Users/TipsSettings/css/tipsSettings.less");
+            Page.RegisterBodyScripts("~/UserControls/Users/TipsSettings/js/tipsSettings.js")
+                .RegisterStyle("~/UserControls/Users/TipsSettings/css/tipsSettings.less");
         }
     }
 }

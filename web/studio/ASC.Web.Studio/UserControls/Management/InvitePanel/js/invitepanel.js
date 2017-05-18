@@ -51,7 +51,7 @@ ASC.InvitePanel = (function () {
             var $target = jq(this),
                 defaultLink = "";
 
-            ASC.Clipboard.destroy(clip);
+            clip = ASC.Clipboard.destroy(clip);
 
             if ($target.is(".button.blue")) { PopupKeyUpActionProvider.CloseDialog(); }
 
@@ -101,11 +101,10 @@ ASC.InvitePanel = (function () {
             jq("#shareInviteUserLinkCopy").remove();
         } else {
 
-            ASC.Clipboard.destroy(clip);
+            clip = ASC.Clipboard.destroy(clip);
 
             var url = jq("#shareInviteUserLink").val();
             clip = ASC.Clipboard.create(url, "shareInviteUserLinkCopy", {
-                panelId: "shareInviteUserLinkPanel",
                 onComplete: function () {
                     if (typeof(window.toastr) !== "undefined") {
                         toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);

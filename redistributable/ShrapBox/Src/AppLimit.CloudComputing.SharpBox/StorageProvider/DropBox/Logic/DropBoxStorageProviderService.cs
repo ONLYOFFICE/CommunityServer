@@ -111,9 +111,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
             if (res.Length == 0)
             {
-                if (code != (int)HttpStatusCode.OK)
-                    throw new SharpBoxException(SharpBoxErrorCodes.ErrorCouldNotRetrieveDirectoryList,
-                                                new HttpException(Convert.ToInt32(code), "HTTP Error"));
+                if (code != (int) HttpStatusCode.OK)
+                    throw new SharpBoxException(
+                        code == (int) HttpStatusCode.NotFound
+                            ? SharpBoxErrorCodes.ErrorFileNotFound
+                            : SharpBoxErrorCodes.ErrorCouldNotRetrieveDirectoryList,
+                        new HttpException(Convert.ToInt32(code), "HTTP Error"));
                 throw new SharpBoxException(SharpBoxErrorCodes.ErrorCouldNotRetrieveDirectoryList);
             }
 

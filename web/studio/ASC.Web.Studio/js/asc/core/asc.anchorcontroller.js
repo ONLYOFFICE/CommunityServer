@@ -238,6 +238,7 @@ if (typeof window.ASC.Controls.AnchorController === 'undefined') {
                         iframe.open();
                         iframe.close();
                         iframe.location.hash = anchor;
+                        lastAnchor = currentAnchor;
                         currentAnchor = anchor;
                         var label = currentAnchor.substring(1);
                         execCustomEvent('onupdate', window, [label, getLabelObject(label)]);
@@ -250,6 +251,7 @@ if (typeof window.ASC.Controls.AnchorController === 'undefined') {
                     anchor = '#';
                 }
                 if (anchor !== currentAnchor) {
+                    lastAnchor = currentAnchor;
                     currentAnchor = anchor;
                     var label = currentAnchor.substring(1);
                     execCustomEvent('onupdate', window, [label, getLabelObject(label)]);

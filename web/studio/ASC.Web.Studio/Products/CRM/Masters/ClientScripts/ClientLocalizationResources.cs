@@ -29,6 +29,9 @@ using System.Collections.Generic;
 using System.Web;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.CRM.Classes;
+using ASC.Web.Studio.Core.Users;
+using ASC.Web.UserControls.SocialMedia.Resources;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
 {
@@ -41,17 +44,42 @@ namespace ASC.Web.CRM.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterResourceSet("CRMJSResource", CRMJSResource.ResourceManager);
-            yield return RegisterResourceSet("CRMCommonResource", CRMCommonResource.ResourceManager);
-            yield return RegisterResourceSet("CRMContactResource", CRMContactResource.ResourceManager);
-            yield return RegisterResourceSet("CRMDealResource", CRMDealResource.ResourceManager);
-            yield return RegisterResourceSet("CRMInvoiceResource", CRMInvoiceResource.ResourceManager);
-            yield return RegisterResourceSet("CRMTaskResource", CRMTaskResource.ResourceManager);
-            yield return RegisterResourceSet("CRMCasesResource", CRMCasesResource.ResourceManager);
-            yield return RegisterResourceSet("CRMEnumResource", CRMEnumResource.ResourceManager);
-            yield return RegisterResourceSet("CRMSettingResource", CRMSettingResource.ResourceManager);
-            yield return RegisterResourceSet("CRMSocialMediaResource", CRMSocialMediaResource.ResourceManager);
-
+            return new List<KeyValuePair<string, object>>(11)
+            {
+                RegisterResourceSet("CRMJSResource", CRMJSResource.ResourceManager),
+                RegisterResourceSet("CRMCommonResource", CRMCommonResource.ResourceManager),
+                RegisterResourceSet("CRMContactResource", CRMContactResource.ResourceManager),
+                RegisterResourceSet("CRMDealResource", CRMDealResource.ResourceManager),
+                RegisterResourceSet("CRMInvoiceResource", CRMInvoiceResource.ResourceManager),
+                RegisterResourceSet("CRMTaskResource", CRMTaskResource.ResourceManager),
+                RegisterResourceSet("CRMCasesResource", CRMCasesResource.ResourceManager),
+                RegisterResourceSet("CRMEnumResource", CRMEnumResource.ResourceManager),
+                RegisterResourceSet("CRMSettingResource", CRMSettingResource.ResourceManager),
+                RegisterResourceSet("CRMSocialMediaResource", CRMSocialMediaResource.ResourceManager),
+                RegisterResourceSet("CRMVoipResource", CRMVoipResource.ResourceManager),
+                RegisterObject(new
+                {
+                    DealMilestoneStatus = new
+                    {
+                        Open = new
+                        {
+                            num = (int)ASC.CRM.Core.DealMilestoneStatus.Open,
+                            str = ASC.CRM.Core.DealMilestoneStatus.Open.ToLocalizedString()
+                        },
+                        ClosedAndWon = new
+                        {
+                            num = (int)ASC.CRM.Core.DealMilestoneStatus.ClosedAndWon,
+                            str = ASC.CRM.Core.DealMilestoneStatus.ClosedAndWon.ToLocalizedString()
+                        },
+                        ClosedAndLost = new
+                        {
+                            num = (int)ASC.CRM.Core.DealMilestoneStatus.ClosedAndLost,
+                            str = ASC.CRM.Core.DealMilestoneStatus.ClosedAndLost.ToLocalizedString()
+                        }
+                    },
+                    smptQuotas = string.Format(CRMSettingResource.InternalSMTP, MailSender.GetQuotas())
+                })
+            };
         }
     }
 
@@ -69,12 +97,12 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                        RegisterObject(
                        new
                        {
-                           AddUser = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("AddUser").HtmlEncode(),
-                           AddGroup = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("AddGroup").HtmlEncode(),
-                           CurrentUser = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(),
-                           PrivatePanelAccessListLable = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode(),
-                           PrivatePanelDescription = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode(),
-                           SocialMediaAccountNotFoundTwitter = ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode()
+                           AddUser = CustomNamingPeople.Substitute<CRMCommonResource>("AddUser").HtmlEncode(),
+                           AddGroup = CustomNamingPeople.Substitute<CRMCommonResource>("AddGroup").HtmlEncode(),
+                           CurrentUser = CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(),
+                           PrivatePanelAccessListLable = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode(),
+                           PrivatePanelDescription = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode(),
+                           SocialMediaAccountNotFoundTwitter = SocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode()
                        })
                    };
         }

@@ -55,6 +55,7 @@ namespace ASC.Data.Backup.Service
             var progress = BackupWorker.GetBackupProgress(tenantId);
             if (progress != null && !string.IsNullOrEmpty(progress.Error))
             {
+                BackupWorker.ResetBackupError(tenantId);
                 throw new FaultException(progress.Error);
             }
             return progress;
@@ -162,6 +163,7 @@ namespace ASC.Data.Backup.Service
             var progress = BackupWorker.GetRestoreProgress(tenantId);
             if (progress != null && !string.IsNullOrEmpty(progress.Error))
             {
+                BackupWorker.ResetRestoreError(tenantId);
                 throw new FaultException(progress.Error);
             }
             return progress;

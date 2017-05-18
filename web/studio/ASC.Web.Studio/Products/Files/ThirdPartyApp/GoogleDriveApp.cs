@@ -218,7 +218,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             }
 
             var request = (HttpWebRequest) WebRequest.Create(GoogleLoginProvider.GoogleUrlFileUpload + "/{fileId}?uploadType=media".Replace("{fileId}", fileId));
-            request.Method = "PUT";
+            request.Method = "PATCH";
             request.Headers.Add("Authorization", "Bearer " + token);
             request.ContentType = MimeMapping.GetMimeMapping(currentType);
 
@@ -500,7 +500,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             var jsonFile = JObject.Parse(driveFile);
             var fileId = jsonFile.Value<string>("id");
 
-            context.Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(ThirdPartySelector.BuildAppFileId(AppAttr, fileId)) + "&new=true", true);
+            context.Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(ThirdPartySelector.BuildAppFileId(AppAttr, fileId)), true);
         }
 
         private static Token GetToken(string code)
@@ -583,12 +583,10 @@ namespace ASC.Web.Files.ThirdPartyApp
                     Global.Logger.DebugFormat("From google app new personal user '{0}' without culture {1}", userInfo.Email, cultureName);
                 }
 
-                var pwd = UserManagerWrapper.GeneratePassword();
-
                 try
                 {
                     SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                    userInfo = UserManagerWrapper.AddUser(userInfo, pwd);
+                    userInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword());
                 }
                 finally
                 {

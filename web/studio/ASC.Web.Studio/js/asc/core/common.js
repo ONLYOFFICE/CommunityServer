@@ -95,6 +95,31 @@ jQuery.fn.trackEvent = function (category, action, label, typeAction) { // only 
     }
 };
 
+if (!jQuery.fn.zIndex) {
+    jQuery.fn.zIndex = function(value) {
+        if (value) {
+            return this.css("z-index", value);
+        }
+        if (this.length) {
+            for (var item = jQuery(this[0]); item.length && item[0] !== document;) {
+                var position = item.css("position");
+                var zIndex = parseInt(item.css("z-index"), 10);
+                if (("absolute" === position || "relative" === position || "fixed" === position) && (!isNaN(zIndex) && 0 !== zIndex)) {
+                    return zIndex;
+                }
+                item = item.parent();
+            }
+        }
+        return 0;
+    };
+}
+
+if (!jQuery.fn.andSelf) {
+    jQuery.fn.andSelf = function () {
+        return this.add(this.prevObject);
+    };
+}
+
 jQuery.extend({
     loadTemplates: function(templateUrl) {
         jQuery.get(templateUrl, function(templates) {
@@ -149,11 +174,11 @@ jQuery.extend({
         });
     },
 
-    getURLParam: function(strParamName) {
+    getURLParam: function(strParamName, urlToParse) {
         strParamName = strParamName.toLowerCase();
 
         var strReturn = "";
-        var strHref = window.location.href.toLowerCase();
+        var strHref = urlToParse ? urlToParse : window.location.href.toLowerCase();
         var bFound = false;
 
         var cmpstring = strParamName + "=";
@@ -313,23 +338,22 @@ jQuery.extend({
         if (target.is(".entity-menu") || target.is(".menu-small")) {
             target.addClass("active");
 
-            var
-                baseTop = target.offset().top + target.outerHeight() - 2,
-                correctionY =
-                    ddiHeight > target.offset().top
+            var position = jq.browser.mobile ? target.position() : target.offset();
+            var baseTop = position.top + target.outerHeight() - 2;
+            var correctionY =
+                ddiHeight > position.top
                     ? 0
                     : (scrHeight + scrScrollTop - baseTop > ddiHeight ? 0 : ddiHeight);
 
             dropdownItem.css({
                 "top": baseTop - correctionY + (correctionY == 0 ? 2 : -target.outerHeight() - 2),
-                "left": target.offset().left + target.outerWidth() - ddiWidth + 10,
+                "left": position.left + target.outerWidth() - ddiWidth + 10,
                 "right": "auto"
             });
         } else {
-            var
-                correctionX = document.body.clientWidth - (evt.pageX - pageXOffset + ddiWidth) > 0 ? 0 : ddiWidth,
-                correctionY =
-                    ddiHeight > evt.pageY
+            var correctionX = document.body.clientWidth - (evt.pageX - pageXOffset + ddiWidth) > 0 ? 0 : ddiWidth;
+            correctionY =
+                ddiHeight > evt.pageY
                     ? 0
                     : (scrHeight + scrScrollTop - evt.pageY > ddiHeight ? 0 : ddiHeight);
 
@@ -745,6 +769,31 @@ var StudioManager = new function () {
 
         jq(".screenzoom").magnificPopup(setting);
     };
+
+    var pendingRequests = new Array();
+    var pendingRequestMade = false;
+    var pendingReqestTimer = null;
+    this.addPendingRequest = function (func) {
+        if (typeof func != "function") {
+            return;
+        }
+
+        if (pendingRequestMade) {
+            func.apply();
+            return;
+        }
+
+        pendingRequests.push(func);
+
+        if (pendingReqestTimer == null) {
+            pendingReqestTimer = setTimeout(function () {
+                pendingRequestMade = true;
+                for (var i = 0; i < pendingRequests.length; i++) {
+                    pendingRequests[i].apply();
+                }
+            }, 3600);
+        }
+    };
 };
 
 /**
@@ -799,9 +848,13 @@ function SortData(a, b) {
 /**
  * EmailOperationManager
  */
-var EmailOperationManager = new function () {
-    var self = this;
-    this.SendEmailActivationInstructions = function (userEmail, userID, responseAction) {
+
+if (typeof (ASC) === 'undefined') {
+    ASC = {};
+}
+
+ASC.EmailOperationManager = (function () {
+    function sendInstructionsHelper(emailOperationServiceSendInstruction, responseAction, reload) {
         AjaxPro.onLoading = function (b) {
             if (b) {
                 LoadingBanner.showLoaderBtn("#studio_emailChangeDialog");
@@ -809,49 +862,38 @@ var EmailOperationManager = new function () {
                 LoadingBanner.hideLoaderBtn("#studio_emailChangeDialog");
             }
         };
-        EmailOperationService.SendEmailActivationInstructions(userID, userEmail, function (response) {
+        emailOperationServiceSendInstruction(function (response) {
             if (responseAction) {
                 responseAction(response);
             }
-            EmailOperationManager._EmailOperationInstructionsServerResponse(response, false);
-        });
-    };
 
-    this.SendEmailChangeInstructions = function (userEmail, userID, responseAction) {
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                LoadingBanner.showLoaderBtn("#studio_emailChangeDialog");
+            if (response.error != null) {
+                toastr.error(response.error.Message);
             } else {
-                LoadingBanner.hideLoaderBtn("#studio_emailChangeDialog");
+                PopupKeyUpActionProvider.ClearActions();
+                jq.unblockUI();
+                toastr.success(response.value);
+                if (reload)
+                    setTimeout(function () { document.location.reload(true); }, 3000);
             }
-        };
-        EmailOperationService.SendEmailChangeInstructions(userID, userEmail, function (response) {
-            if (responseAction) {
-                responseAction(response);
-            }
-            EmailOperationManager._EmailOperationInstructionsServerResponse(response, Teamlab.profile.isAdmin);
         });
     };
 
-    this._EmailOperationInstructionsServerResponse = function (response, reload) {
-        if (response.error != null) {
-            toastr.error(response.error.Message);
-        } else {
-            PopupKeyUpActionProvider.ClearActions();
-            jq.unblockUI();
-            toastr.success(response.value);
-            if (reload)
-                setTimeout(function() { document.location.reload(true); }, 3000);
-        }
+    function sendEmailActivationInstructions(userEmail, userID, responseAction) {
+        sendInstructionsHelper(EmailOperationService.SendEmailActivationInstructions.bind(EmailOperationService, userID, userEmail), responseAction);
     };
 
-    this.ShowEmailChangeWindow = function (userEmail, userID, responseAction) {
+    function sendEmailChangeInstructions(userEmail, userID, responseAction) {
+        sendInstructionsHelper(EmailOperationService.SendEmailChangeInstructions.bind(EmailOperationService, userID, userEmail), responseAction, Teamlab.profile.isAdmin);
+    };
+
+    function showEmailChangeWindow (userEmail, userID, responseAction) {
         jq("#divEmailOperationError").html("").hide();
         jq("#studio_emailOperationResult").hide();
 
-            jq("#emailInputContainer").removeClass("display-none");
-            jq("#emailMessageContainer").addClass("display-none");
-            jq("#btEmailOperationSend").addClass("disable");
+        jq("#emailInputContainer").removeClass("display-none");
+        jq("#emailMessageContainer").addClass("display-none");
+        jq("#btEmailOperationSend").addClass("disable");
 
         jq("#resendInviteDialogPopupHeader").addClass("display-none");
         jq("#emailActivationDialogPopupHeader").addClass("display-none");
@@ -865,14 +907,14 @@ var EmailOperationManager = new function () {
 
         jq("#emailOperation_email").val(userEmail);
         
-        self.OpenPopupDialog();
+        openPopupDialog();
         
         jq("#btEmailOperationSend").unbind("click");
 
         jq("#btEmailOperationSend").click(function () {
             if (jq(this).hasClass("disable")) return false;
             var newEmail = jq("#emailOperation_email").val();
-            EmailOperationManager.SendEmailChangeInstructions(newEmail, userID, responseAction);
+            sendEmailChangeInstructions(newEmail, userID, responseAction);
             return false;
         });
         
@@ -896,51 +938,7 @@ var EmailOperationManager = new function () {
         };
     };
 
-    this.ShowEmailActivationWindow = function (userEmail, userID, adminMode, responseAction) {
-        jq("#divEmailOperationError").html("").hide();
-        jq("#studio_emailOperationResult").hide();
-
-        if (adminMode == true) {
-            jq("#emailInputContainer").removeClass("display-none");
-            jq("#emailMessageContainer").hide();
-        } else {
-            jq("#emailInputContainer").addClass("display-none");
-            jq("#emailMessageContainer").show();
-
-            jq("#resendInviteText").hide();
-            jq("#emailActivationText").show();
-            jq("#emailChangeText").hide();
-
-            jq("#emailMessageContainer [name='userEmail']").attr("href", "../../addons/mail/#composeto/email=" + userEmail).html(userEmail);
-        }
-
-        jq("#emailActivationDialogPopupHeader").show();
-        jq("#emailChangeDialogPopupHeader").hide();
-        jq("#resendInviteDialogPopupHeader").hide();
-
-        jq("#studio_emailOperationContent").removeClass("display-none");
-
-        jq("#emailChangeDialogText").hide();
-        jq("#resendInviteDialogText").hide();
-        jq("#emailActivationDialogText").show();
-
-        jq("#emailOperation_email").val(userEmail);
-        jq("#btEmailOperationSend").removeClass("disable");
-        jq("#emailOperation_email").unbind("onkeyup");
-        
-        self.OpenPopupDialog();
-
-        jq("#btEmailOperationSend").unbind("click");
-
-        jq("#btEmailOperationSend").click(function () {
-            var newEmail = jq("#emailOperation_email").val();
-            EmailOperationManager.SendEmailActivationInstructions(newEmail, userID, responseAction);
-            return false;
-        });
-
-    };
-
-    this.ShowResendInviteWindow = function (userEmail, userID, adminMode, responseAction) {
+    function showResendInviteWindow (userEmail, userID, adminMode, responseAction) {
         jq("#divEmailOperationError").html("").hide();
         jq("#studio_emailOperationResult").hide();
 
@@ -972,32 +970,32 @@ var EmailOperationManager = new function () {
         jq("#btEmailOperationSend").removeClass("disable");
         jq("#emailOperation_email").unbind("onkeyup");
         
-        self.OpenPopupDialog();
+        openPopupDialog();
 
         jq("#btEmailOperationSend").unbind("click");
 
         jq("#btEmailOperationSend").click(function () {
             var newEmail = jq("#emailOperation_email").val();
-            EmailOperationManager.SendEmailActivationInstructions(newEmail, userID, responseAction);
+            sendEmailActivationInstructions(newEmail, userID, responseAction);
             return false;
         });
 
     };
 
-    this.OpenPopupDialog = function () {
+    function openPopupDialog () {
         StudioBlockUIManager.blockUI("#studio_emailChangeDialog", 425, 300, 0);
 
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#btEmailOperationSend\").click();";
     };
 
-    this.CloseEmailOperationWindow = function () {
+    function closeEmailOperationWindow () {
         PopupKeyUpActionProvider.ClearActions();
         jq.unblockUI();
         document.location.reload(true);
     };
 
-    this.SendInstructions = function (userID, userEmail) {
+    function sendInstructions (userID, userEmail) {
         if (EmailOperationService) {
             EmailOperationService.SendEmailActivationInstructions(userID, userEmail, function (res) {
                 if (res.error != null) {
@@ -1008,7 +1006,15 @@ var EmailOperationManager = new function () {
             });
         }
     };
-};
+
+    return {
+        sendInstructions: sendInstructions,
+        sendEmailActivationInstructions: sendEmailActivationInstructions,
+        showResendInviteWindow: showResendInviteWindow,
+        showEmailChangeWindow: showEmailChangeWindow,
+        closeEmailOperationWindow: closeEmailOperationWindow
+    }
+})();
 
 /**
  * LoadingBanner
@@ -1315,9 +1321,8 @@ var ScrolledGroupMenu = new function () {
             return;
         }
 
-        var newTop = $boxTop.offset().top + $boxTop.outerHeight(),
-            winScrollTop = jq(window).scrollTop(),
-            tempTop = 0;
+        var winScrollTop = jq(window).scrollTop();
+        var tempTop = 0;
 
         if ($menuSpacerObj.css("display") == "none") {
             tempTop += $menuObj.offset().top;
@@ -1443,26 +1448,20 @@ var htmlUtility = new function () {
 
             doc.find("script").remove();
 
-            var blockedAttrs = [
-                "onload",
-                "onunload",
-                "onclick",
-                "ondblclick",
-                "onmousedown",
-                "onmouseup",
-                "onmouseover",
-                "onmousemove",
-                "onmouseout",
-                "onfocus",
-                "onblur",
-                "onkeypress",
-                "onkeydown",
-                "onkeyup",
-                "onsubmit",
-                "onreset",
-                "onselect",
-                "onchange"];
-            doc.find("[" + blockedAttrs.join("],[") + "]").removeAttr(blockedAttrs.join(" "));
+            doc.find("*").each(function () {
+                var elem = this;
+                jq.each(this.attributes, function () {
+                    var attr = this.name;
+                    var value = this.value;
+                    if (attr.indexOf("on") == 0
+                        || (typeof value == "string"
+                            && (value.trim().indexOf("javascript") == 0
+                                || value.trim().indexOf("data") == 0
+                                || value.trim().indexOf("vbscript") == 0))) {
+                        jq(elem).removeAttr(attr);
+                    }
+                });
+            });
 
             return doc.html();
         }

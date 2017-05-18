@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Wrappers\CommentWrapper.cs" />
+    <Compile Include="Wrappers\MessageWrapperFull.cs" />
     <Compile Include="Wrappers\MessageWrapper.cs" />
     <Compile Include="Wrappers\MilestoneWrapper.cs" />
     <Compile Include="Wrappers\ObjectWrapperBase.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Wrappers\SearchItemWrapper.cs" />
     <Compile Include="Wrappers\SearchWrapper.cs" />
     <Compile Include="Wrappers\SimpleProjectWrapper.cs" />
+    <Compile Include="Wrappers\TaskWrapperFull.cs" />
     <Compile Include="Wrappers\TaskWrapper.cs" />
     <Compile Include="Wrappers\TimeWrapper.cs" />
   </ItemGroup>

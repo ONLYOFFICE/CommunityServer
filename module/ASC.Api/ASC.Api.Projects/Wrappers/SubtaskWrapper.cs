@@ -39,6 +39,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public bool CanEdit { get; set; }
 
+        [DataMember]
+        public int TaskId { get; set; }
+
         private SubtaskWrapper()
         {
         }
@@ -60,6 +63,8 @@ namespace ASC.Api.Projects.Wrappers
                 UpdatedBy = EmployeeWraper.Get(subtask.LastModifiedBy);
             }
             CanEdit = ProjectSecurity.CanEdit(task, subtask);
+
+            TaskId = task.ID;
         }
 
 

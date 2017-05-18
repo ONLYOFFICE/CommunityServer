@@ -31,6 +31,7 @@ using System.Reflection;
 using System.Threading;
 
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
@@ -146,6 +147,16 @@ namespace ASC.Web.Studio
                     return Resource.WhiteLabel;
                 case ManagementType.MailService:
                     return Resource.MailService;
+                case ManagementType.Customization:
+                    return Resource.Customization;
+                case ManagementType.ThirdPartyAuthorization:
+                    return Resource.ThirdPartyAuthorization;
+                case ManagementType.AccessRights:
+                    return Resource.AccessRights;
+                case ManagementType.ProductsAndInstruments:
+                    return Resource.ProductsAndInstruments;
+                case ManagementType.Backup:
+                    return Resource.Backup;
                 default:
                     return Resource.ResourceManager.GetString(module.ToString()) ?? module.ToString();
             }

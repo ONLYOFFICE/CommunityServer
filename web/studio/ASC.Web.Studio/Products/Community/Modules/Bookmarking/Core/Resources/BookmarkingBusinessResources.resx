@@ -112,33 +112,33 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BookmarkAddedToFavouritesAction">
+  <data name="BookmarkAddedToFavouritesAction" xml:space="preserve">
     <value>bookmark added to favorites</value>
   </data>
-  <data name="BookmarkCreatedAction">
+  <data name="BookmarkCreatedAction" xml:space="preserve">
     <value>new bookmark created</value>
   </data>
-  <data name="BookmarkRemovedAction">
+  <data name="BookmarkRemovedAction" xml:space="preserve">
     <value>bookmark removed from favorites</value>
   </data>
-  <data name="CommentCreatedAction">
+  <data name="CommentCreatedAction" xml:space="preserve">
     <value>new comment added</value>
   </data>
-  <data name="CommentModifiedAction">
+  <data name="CommentModifiedAction" xml:space="preserve">
     <value>The comment has been edited</value>
   </data>
-  <data name="CommentRemovedAction">
+  <data name="CommentRemovedAction" xml:space="preserve">
     <value>The comment has been deleted</value>
   </data>
-  <data name="SubscriptionTypeNewBookmark">
-    <value>Subscription to bookmarks</value>
+  <data name="SubscriptionTypeNewBookmark" xml:space="preserve">
+    <value>New bookmarks</value>
   </data>
-  <data name="SubscriptionTypeNewComments">
-    <value>Subscription to comments</value>
+  <data name="SubscriptionTypeNewComments" xml:space="preserve">
+    <value>Bookmark comments</value>
   </data>
 </root>

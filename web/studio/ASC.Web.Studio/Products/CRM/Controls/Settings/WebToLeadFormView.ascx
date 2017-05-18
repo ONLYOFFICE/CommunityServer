@@ -143,10 +143,10 @@
             </td>
             <td style="padding-top: 8px;">
                 <span class="header-base">
-                    <%=HttpUtility.HtmlEncode(CustomNamingPeople.Substitute<CRMSettingResource>("NotifyUsers"))%>
+                    <%= CustomNamingPeople.Substitute<CRMSettingResource>("NotifyUsers").HtmlEncode() %>
                 </span>
                 <div class="describe-text">
-                    <%= HttpUtility.HtmlEncode(CustomNamingPeople.Substitute<CRMSettingResource>("NotifyUsersDescription"))%>
+                    <%= CustomNamingPeople.Substitute<CRMSettingResource>("NotifyUsersDescription").HtmlEncode() %>
                 </div>
             </td>
         </tr>

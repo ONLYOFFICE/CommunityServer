@@ -124,7 +124,7 @@ namespace ASC.Web.Files.Utils
                 var w = new AceWrapper
                     {
                         SubjectId = FileConstant.ShareLinkId,
-                        SubjectName = FileShareLink.GetLink((File)entry),
+                        Link = FileShareLink.GetLink((File)entry),
                         SubjectGroup = true,
                         Share = linkAccess,
                         Owner = false
@@ -147,8 +147,9 @@ namespace ASC.Web.Files.Utils
             }
 
             if (result.Any(w => w.SubjectId == SecurityContext.CurrentAccount.ID))
-                result.Single(w => w.SubjectId == SecurityContext.CurrentAccount.ID).LockedRights =
-                    true;
+            {
+                result.Single(w => w.SubjectId == SecurityContext.CurrentAccount.ID).LockedRights = true;
+            }
 
             if (entry.RootFolderType == FolderType.COMMON)
             {
@@ -183,7 +184,7 @@ namespace ASC.Web.Files.Utils
             return result;
         }
 
-        public static void SetAceObject(List<AceWrapper> aceWrappers, FileEntry entry, bool notify, string message)
+        public static bool SetAceObject(List<AceWrapper> aceWrappers, FileEntry entry, bool notify, string message)
         {
             if (entry == null) throw new ArgumentNullException(FilesCommonResource.ErrorMassage_BadRequest);
             if (!CanSetAccess(entry)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
@@ -196,13 +197,15 @@ namespace ASC.Web.Files.Utils
 
             var entryType = entry is File ? FileEntryType.File : FileEntryType.Folder;
             var recipients = new Dictionary<Guid, FileShare>();
+            var changed = false;
 
             foreach (var w in aceWrappers.OrderByDescending(ace => ace.SubjectGroup))
             {
                 var subjects = fileSecurity.GetUserSubjects(w.SubjectId);
 
-                if (entry.RootFolderType == FolderType.COMMON
-                    && subjects.Contains(Constants.GroupAdmin.ID))
+                var ownerId = entry.RootFolderType == FolderType.USER ? entry.RootFolderCreator : entry.CreateBy;
+                if (entry.RootFolderType == FolderType.COMMON && subjects.Contains(Constants.GroupAdmin.ID)
+                    || ownerId == w.SubjectId)
                     continue;
 
                 var ace = fileSecurity.GetShares(entry)
@@ -222,6 +225,7 @@ namespace ASC.Web.Files.Utils
                 }
 
                 fileSecurity.Share(entry.ID, entryType, w.SubjectId, share);
+                changed = true;
 
                 if (entryType == FileEntryType.File && share != FileShare.ReadWrite)
                 {
@@ -275,6 +279,7 @@ namespace ASC.Web.Files.Utils
                     NotifyClient.SendShareNotice(entry, recipients, message);
                 }
             }
+            return changed;
         }
 
         public static void RemoveAce(List<FileEntry> entries)

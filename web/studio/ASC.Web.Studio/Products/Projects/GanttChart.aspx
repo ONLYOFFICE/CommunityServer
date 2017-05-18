@@ -261,20 +261,6 @@
         </sc:Container>
     </div>
 
-    <div id="createNewLinkError" style="display: none">
-        <sc:Container ID="_newLinkError" runat="server">
-            <header>
-                <%= TaskResource.ErrorCreateNewLink %>
-            </header>
-            <body>
-                <p><%=TaskResource.ErrorCreateTaskLinkChart %></p>
-                <div class="middle-button-container">
-                    <a class="button gray middle cancel"><%= ProjectResource.OkButton %></a>
-                </div>
-            </body>
-        </sc:Container>
-    </div>
-
     <div id="moveTaskOutMilestone" style="display: none">
         <sc:Container ID="_moveTaskOutMilestone" runat="server">
             <Header>
@@ -342,6 +328,5 @@
         <canvas id="layer0" class="gantt-canvas layer0" width="640" height="480"> </canvas>
         <canvas id="layer1" class="gantt-canvas layer1" width="640" height="480"> </canvas>
     </div>
-        <asp:PlaceHolder ID="_taskAction" runat="server"/>
 <asp:PlaceHolder ID="_milestoneAction" runat="server"/>
 </asp:Content>

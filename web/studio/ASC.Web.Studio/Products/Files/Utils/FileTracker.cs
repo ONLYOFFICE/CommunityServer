@@ -45,7 +45,6 @@ namespace ASC.Web.Files.Utils
         public static readonly TimeSpan CheckRightTimeout = TimeSpan.FromMinutes(1);
 
         [DataMember] private readonly Dictionary<Guid, TrackInfo> _editingBy;
-        [DataMember] private bool _fixedVersion;
 
 
         private FileTracker()
@@ -58,14 +57,14 @@ namespace ASC.Web.Files.Utils
         }
 
 
-        public static Guid Add(object fileId, bool fixedVersion)
+        public static Guid Add(object fileId)
         {
             var tabId = Guid.NewGuid();
-            ProlongEditing(fileId, tabId, fixedVersion, SecurityContext.CurrentAccount.ID);
+            ProlongEditing(fileId, tabId, SecurityContext.CurrentAccount.ID);
             return tabId;
         }
 
-        public static bool ProlongEditing(object fileId, Guid tabId, bool fixedVersion, Guid userId, bool editingAlone = false)
+        public static bool ProlongEditing(object fileId, Guid tabId, Guid userId, bool editingAlone = false)
         {
             var checkRight = true;
             var tracker = GetTracker(fileId);
@@ -84,11 +83,6 @@ namespace ASC.Web.Files.Utils
             else
             {
                 tracker = new FileTracker(tabId, userId, tabId == userId, editingAlone);
-            }
-
-            if (fixedVersion)
-            {
-                tracker._fixedVersion = true;
             }
 
             SetTracker(fileId, tracker);
@@ -175,12 +169,6 @@ namespace ASC.Web.Files.Utils
         {
             var tracker = GetTracker(fileId);
             return tracker != null && tracker._editingBy.Count == 1 && tracker._editingBy.FirstOrDefault().Value.EditingAlone;
-        }
-
-        public static bool FixedVersion(object fileId)
-        {
-            var tracker = GetTracker(fileId);
-            return tracker != null && tracker._fixedVersion;
         }
 
         public static void ChangeRight(object fileId, Guid userId, bool check)

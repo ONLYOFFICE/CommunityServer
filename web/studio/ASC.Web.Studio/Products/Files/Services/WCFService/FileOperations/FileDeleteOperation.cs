@@ -46,9 +46,9 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             get { return FileOperationType.Delete; }
         }
 
-        
-        public FileDeleteOperation(List<object> folders, List<object> files, bool ignoreException = false, Dictionary<string, string> headers = null)
-            : base(folders, files)
+
+        public FileDeleteOperation(List<object> folders, List<object> files, bool ignoreException = false, bool holdResult = true, Dictionary<string, string> headers = null)
+            : base(folders, files, holdResult)
         {
             this.ignoreException = ignoreException;
             this.headers = headers;
@@ -83,20 +83,31 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 CancellationToken.ThrowIfCancellationRequested();
 
                 var folder = FolderDao.GetFolder(folderId);
+                object canCalculate = null;
                 if (folder == null)
                 {
                     Error = FilesCommonResource.ErrorMassage_FolderNotFound;
                 }
+                else if (folder.FolderType != FolderType.DEFAULT)
+                {
+                    Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFolder;
+                }
                 else if (!ignoreException && !FilesSecurity.CanDelete(folder))
                 {
+                    canCalculate = FolderDao.CanCalculateSubitems(folderId) ? null : folderId;
+
                     Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFolder;
                 }
                 else
                 {
+                    canCalculate = FolderDao.CanCalculateSubitems(folderId) ? null : folderId;
+
                     FileMarker.RemoveMarkAsNewForAll(folder);
                     if (folder.ProviderEntry && folder.ID.Equals(folder.RootFolderId))
                     {
                         ProviderDao.RemoveProviderInfo(folder.ProviderId);
+                        FilesMessageService.Send(folder, headers, MessageAction.ThirdPartyDeleted, folder.ID.ToString(), folder.ProviderKey);
+
                         ProcessedFolder(folderId);
                     }
                     else
@@ -137,7 +148,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         }
                     }
                 }
-                ProgressStep(FolderDao.CanCalculateSubitems(folderId) ? null : folderId);
+                ProgressStep(canCalculate);
             }
         }
 
@@ -177,7 +188,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         try
                         {
                             FileDao.DeleteFile(file.ID);
-                            FileDao.DeleteFolder(file.ID);
                         }
                         catch (Exception ex)
                         {

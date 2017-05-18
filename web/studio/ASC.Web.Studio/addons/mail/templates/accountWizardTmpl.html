@@ -1,0 +1,47 @@
+﻿<script id="accountWizardTmpl" type="text/x-jquery-tmpl">
+<div  id="account_simple_container" class="popup popupMailBox">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div id="mail_EMailContainer" class="requiredField">
+                        <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
+                        <div class="headerPanelSmall bold">${ASC.Mail.Resources.MailResource.EMailLabel}</div>
+                        <input id="email" type="email"  value="" class="textEdit" />
+                    </div>
+                    <div id="mail_PasswordContainer" class="requiredField">
+                        <span class="requiredErrorText">${ASC.Mail.Resources.MailScriptResource.ErrorEmptyField}</span>
+                        <div class="headerPanelSmall bold">
+                            ${ASC.Mail.Resources.MailResource.Password}
+                            <a class="link dotline password-view off">${ASC.Mail.Resources.MailScriptResource.ShowPasswordLinkLabel}</a>
+                        </div>
+                        <input id="password" type="password" value="" class="textEdit" />
+                    </div>
+                    <div class="progressContainer">
+                        <div class="loader" style="display: none"></div>
+                    </div>
+                    <div class="buttons new-account">
+                        <button id="save" class="button middle blue" type="button">${ASC.Mail.Resources.MailScriptResource.AddAccountBtnLabel}</button>
+                        <button id="cancel" class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
+                        <a id="advancedLinkButton" class="anchorLinkButton link dotline">${ASC.Mail.Resources.MailResource.AdvancedLinkLabel}</a>
+                    </div>
+                </td>
+                {{if ASC.Mail.Master.IsTurnOnOAuth == true }}
+                    <td></td>
+                    <td>
+                        <div class="headerPanelSmall bold">${ASC.Mail.Resources.MailResource.OAuthLabel}</div>
+                        <div id="oauth_frame_blocker"></div>
+                        <div class="oauth-block" data-url="${ASC.Mail.Master.OAuthLocation}">
+                            <div class="google-oauth-image"></div>
+                            <div>
+                                <span class="oauth-label">${ASC.Mail.Resources.MailResource.GoogleLabel}</span>
+                                <span class="oauth-connect-label">${ASC.Mail.Resources.MailResource.ConnectLabel}</span>
+                            </div>
+                        </div>
+                    </td>
+                {{/if}}
+            </tr>
+        </tbody>
+    </table>
+</div>
+</script>

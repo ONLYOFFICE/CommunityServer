@@ -26,13 +26,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.VoipService
 {
     public class VoipCall
     {
         public string Id { get; set; }
+
+        public string ParentID { get; set; }
 
         public string From { get; set; }
 
@@ -42,15 +43,11 @@ namespace ASC.VoipService
 
         public DateTime DialDate { get; set; }
 
-        public int DialDuration { get { return History.Any() ? History.Max(r => r.EndDialDate).Subtract(DialDate).Seconds : 0; } }
+        public int DialDuration { get; set; }
 
-        public VoipCallStatus Status { get; set; }
-
-        public decimal TotalPrice { get { return Price + History.Sum(r => r.Price); } }
+        public VoipCallStatus? Status { get; set; }
 
         public decimal Price { get; set; }
-
-        public List<VoipCallHistory> History { get; set; }
 
         public int ContactId { get; set; }
 
@@ -58,9 +55,18 @@ namespace ASC.VoipService
         
         public string ContactTitle { get; set; }
 
+        public DateTime Date { get; set; }
+
+        public DateTime EndDialDate { get; set; }
+
+        public VoipRecord VoipRecord { get; set; }
+
+        public List<VoipCall> ChildCalls { get; set; }
+
         public VoipCall()
         {
-            History = new List<VoipCallHistory>();
+            ChildCalls = new List<VoipCall>();
+            VoipRecord = new VoipRecord();
         }
     }
 

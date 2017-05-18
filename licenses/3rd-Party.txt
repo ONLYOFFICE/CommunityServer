@@ -10,7 +10,6 @@ License File:   AjaxMin .license
 License:        AS-IS
 License File:   AjaxPro.2.license
 
-
 3. AntiXssLibrary - AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools.
 
 License:        Microsoft Public License (Ms-PL)
@@ -61,10 +60,10 @@ License File:   CommandLine.license
 License:        Microsoft Public License (Ms-PL)
 License File:   CsvHelper.license
 
-13. DDay.iCal - DDay.iCal is an iCal (RFC 5545) class library for .NET 2.0 and above, Silverlight. It aims at being as RFC 5545 compliant as possible, while targeting compatibility with popular calendaring applications, like Apple iCal, Outlook 2007, etc.
+13. Ical.Net - An iCalendar (RFC 5545) control library for .NET. A fork and continuation of the original dday.ical library including bug fixes and many performance enhancements.
 
-License:        AS-IS
-License File:   DDay.iCal.license 
+License:        The MIT License (MIT)
+License File:   Ical.Net.license 
 
 14. Devart.Data.MySql - Connector/Net is a fully-managed ADO.NET driver for MySQL. (http://www.devart.com/dotconnect/mysql/download.html)
 
@@ -437,6 +436,7 @@ License:        MIT
 91. jquery-mousewheel - A jQuery plugin that adds cross-browser mouse wheel support. (https://github.com/brandonaaron/jquery-mousewheel)
 
 License:        MIT
+License File:   jquery.mousewheel.license
 
 92. AjaxUpload
 
@@ -473,3 +473,22 @@ License:        MIT
 100. flXHR - This plugin implements cross-domain XmlHttpRequests via an invisible Flash plugin.
 
 License:        MIT
+
+101. jQuery-CSSEmoticons - jQuery plugin to style emoticons with pure CSS3 properties (no images) (https://github.com/JangoSteve/jQuery-CSSEmoticons)
+
+License:        Dual licensed under the MIT and GPL licenses: http://www.opensource.org/licenses/mit-license.php http://www.gnu.org/licenses/gpl.html
+
+102. punycode - A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms.
+
+License:        MIT
+License File:   punycode.license
+
+103. clipboard - Modern copy to clipboard. No Flash. Just 3kb gzipped.
+
+License:        MIT
+License File:   clipboard.license
+
+104. Magnific Popup - Lightbox and modal dialog plugin. Can display inline HTML, iframes (YouTube video, Vimeo, Google Maps), or an image gallery. Animation effects are added with CSS3 transitions. For jQuery or Zepto.
+
+License:        MIT
+License File:   Magnific.Popup.license

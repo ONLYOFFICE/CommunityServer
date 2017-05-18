@@ -48,7 +48,8 @@ namespace ASC.Web.Studio.UserControls.Common.InviteLink
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/invitelink/js/invitelink.js");
+            // Move to CommonBodyScripts
+           // Page.RegisterBodyScripts("~/usercontrols/common/invitelink/js/invitelink.js");
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿<script id="editMailGroupTmpl" type="text/x-jquery-tmpl">
+    <div id="mail_server_edit_group">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="block-cnt-splitter header-address">
+                            <div class="bold">${ASC.Mail.Resources.MailAdministrationResource.MailgroupAddressLabel}:</div>
+                            <div>${address.email}</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="mailgroup_add_mailbox">
+                            <div class="headerPanelSmall bold">
+                                ${ASC.Mail.Resources.MailAdministrationResource.MailgroupMailboxesLabel}
+                            </div>
+                            <div>
+                                <span id="add_mailbox" class="link dotline plus">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxLabel}</span>
+                            </div>
+                            <div class="mailbox_table">
+                                <table>
+                                    {{tmpl(mailboxes) "addedMailboxTableRowTmpl"}}
+                                </table>
+                            </div>
+                        </div>
+                   </td>
+               </tr>
+            </tbody>
+        </table>
+        <div class="buttons">
+            <button class="button middle blue save" type="button">${ASC.Mail.Resources.MailResource.SaveBtnLabel}</button>
+            <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
+        </div>
+    </div>
+</script>
+
+<script id="addedMailboxTableRowTmpl" type="text/x-jquery-tmpl">
+    <tr class='mailbox_row' mailbox_id="${id}">
+        <td>
+            <span class="mailbox_address">${address.email}</span>
+            <div class="delete_entity"></div>
+        </td>
+    </tr>
+</script>

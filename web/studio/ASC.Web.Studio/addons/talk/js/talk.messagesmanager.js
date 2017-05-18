@@ -23,9 +23,9 @@ window.ASC.TMTalk.messagesManager = (function () {
       closeHistory : 'onclosehistory',
       // composing message
       composingMessageFromChat : 'oncomposingmessagefromchat',
-      // pauseв message
+      // pause message
       pausedMessageFromChat : 'onpausedmessagefromchat',
-      // оsent messsage to contact
+      // sent messsage to contact
       sentMessageToChat : 'onsentmessagetochat',
       // receiving message from contact
       recvMessageFromChat : 'onrecvmessagefromchar',

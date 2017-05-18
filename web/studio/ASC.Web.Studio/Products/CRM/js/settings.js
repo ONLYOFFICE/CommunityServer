@@ -761,9 +761,8 @@ ASC.CRM.SettingsPage = (function() {
             jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
 
             jq.tmpl("SMTPSettingsFormTemplate", null).appendTo("#SMTPSettingsPannel");
-            jq("#SMTPSettingsPannel").on("change", "#cbxAuthentication", function() {
-                ASC.CRM.SettingsPage.changeAuthentication();
-            });
+            jq("#SMTPSettingsPannel").on("change", "#cbxAuthentication", ASC.CRM.SettingsPage.changeAuthentication);
+            jq("#getDefaultSettings").on("click", ASC.CRM.SettingsPage.getDefaultSmtpSettings);
 
 
             ASC.CRM.SettingsPage.checkExportStatus(true);
@@ -787,12 +786,12 @@ ASC.CRM.SettingsPage = (function() {
                 jq("#cbxEnableSSL").prop("checked", window.SMTPSettings.EnableSSL);
                 if (window.SMTPSettings.RequiredHostAuthentication) {
                     jq("#cbxAuthentication").prop("checked", true);
-                    jq("#tbxHostLogin").removeAttr("disabled");
-                    jq("#tbxHostPassword").removeAttr("disabled");
+                    jq("#tbxHostLogin").removeAttr("disabled").parents("td:first").addClass("requiredField");
+                    jq("#tbxHostPassword").removeAttr("disabled").parents("td:first").addClass("requiredField");
                 } else {
                     jq("#cbxAuthentication").prop("checked", false);
-                    jq("#tbxHostLogin").prop("disabled", true);
-                    jq("#tbxHostPassword").prop("disabled", true);
+                    jq("#tbxHostLogin").prop("disabled", true).parents("td:first").removeClass("requiredField requiredFieldError");
+                    jq("#tbxHostPassword").prop("disabled", true).parents("td:first").removeClass("requiredField requiredFieldError");
                 }
                 jq("#showSendTestMailPanelBtn").removeClass("disable");
             }
@@ -808,18 +807,48 @@ ASC.CRM.SettingsPage = (function() {
 
         changeAuthentication: function() {
             if (jq("#cbxAuthentication").is(":checked")) {
-                jq("#tbxHostLogin").removeAttr("disabled");
-                jq("#tbxHostPassword").removeAttr("disabled");
+                jq("#tbxHostLogin").removeAttr("disabled").parents("td:first").addClass("requiredField");
+                jq("#tbxHostPassword").removeAttr("disabled").parents("td:first").addClass("requiredField");
             } else {
-                jq("#tbxHostLogin").prop("disabled", true);
-                jq("#tbxHostPassword").prop("disabled", true);
+                jq("#tbxHostLogin").prop("disabled", true).parents("td:first").removeClass("requiredField requiredFieldError");
+                jq("#tbxHostPassword").prop("disabled", true).parents("td:first").removeClass("requiredField requiredFieldError");
             }
         },
 
-        saveSMTPSettings: function() {
-            jq("#smtpSettingsContent div.errorBox").remove();
-            jq("#smtpSettingsContent div.okBox").remove();
+        getDefaultSmtpSettings: function() {
+            var input = jq("#tbxSenderEmailAddress");
+            var email = input.val().trim();
 
+            if (ASC.Mail.Utility.IsValidEmail(email)) {
+                input.parents("td:first").removeClass("requiredFieldError");
+            } else {
+                input.parents("td:first").addClass("requiredFieldError");
+                return;
+            }
+
+            window.Teamlab.getMailDefaultMailboxSettings({ action: "get_imap_server_full" }, email, {
+                before: function() {
+                    LoadingBanner.showLoaderBtn("#smtpSettingsContent");
+                },
+                after: function() {
+                    LoadingBanner.hideLoaderBtn("#smtpSettingsContent");
+                },
+                success: function(params, defaults) {
+                    jq("#tbxHost").val(defaults.smtp_server);
+                    jq("#tbxPort").val(defaults.smtp_port);
+                    jq("#tbxHostLogin").val(defaults.smtp_account);
+                    jq("#cbxAuthentication").prop("checked", defaults.smtp_auth);
+                    jq("#cbxEnableSSL").prop("checked", defaults.auth_type_smtp > 0);
+                    ASC.CRM.SettingsPage.changeAuthentication();
+                },
+                error: function(params, errors) {
+                    if (errors[0])
+                        toastr.error(errors[0]);
+                }
+            });
+        },
+
+        saveSMTPSettings: function() {
             var data = {
                 host: jq("#tbxHost").val().trim(),
                 port: jq("#tbxPort").val().trim(),
@@ -833,39 +862,65 @@ ASC.CRM.SettingsPage = (function() {
 
             isValid = true;
 
-            if (data.authentication
-                && (data.host == "" || data.port == "" || data.hostLogin == "" || data.hostPassword == "" || data.senderDisplayName == "" || data.senderEmailAddress == "")) {
-                    isValid = false;
-            }
-            if (!data.authentication
-                && (data.host == "" || data.port == "" || data.senderDisplayName == "" || data.senderEmailAddress == "")) {
-                    isValid = false;
+            if (ASC.Mail.Utility.IsValidEmail(data.senderEmailAddress)) {
+                jq("#tbxSenderEmailAddress").parents("td:first").removeClass("requiredFieldError");
+            } else {
+                jq("#tbxSenderEmailAddress").parents("td:first").addClass("requiredFieldError");
+                isValid = false;
             }
 
-            if (!isValid) {
-                jq("#smtpSettingsContent").prepend(
-                    jq("<div></div>").addClass("errorBox").text(ASC.CRM.Resources.CRMJSResource.EmptyFieldsOfSettings)
-                );
-                return;
+            if (data.senderDisplayName) {
+                jq("#tbxSenderDisplayName").parents("td:first").removeClass("requiredFieldError");
+            } else {
+                jq("#tbxSenderDisplayName").parents("td:first").addClass("requiredFieldError");
+                isValid = false;
             }
-            
+
+            if (data.host) {
+                jq("#tbxHost").parents("td:first").removeClass("requiredFieldError");
+            } else {
+                jq("#tbxHost").parents("td:first").addClass("requiredFieldError");
+                isValid = false;
+            }
+
+            if (data.port) {
+                jq("#tbxPort").parents("td:first").removeClass("requiredFieldError");
+            } else {
+                jq("#tbxPort").parents("td:first").addClass("requiredFieldError");
+                isValid = false;
+            }
+
+            if (data.authentication) {
+                if (data.hostLogin) {
+                    jq("#tbxHostLogin").parents("td:first").removeClass("requiredFieldError");
+                } else {
+                    jq("#tbxHostLogin").parents("td:first").addClass("requiredFieldError");
+                    isValid = false;
+                }
+                
+                if (data.hostPassword) {
+                    jq("#tbxHostPassword").parents("td:first").removeClass("requiredFieldError");
+                } else {
+                    jq("#tbxHostPassword").parents("td:first").addClass("requiredFieldError");
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) return;
 
             Teamlab.updateCRMSMTPSettings({}, data, {
-                success: function (params, response) {
-                    jq("#smtpSettingsContent div.errorBox").remove();
-                    jq("#smtpSettingsContent").prepend(
-                        jq("<div></div>").addClass("okBox").text(ASC.CRM.Resources.CRMJSResource.SettingsUpdated)
-                    );
-                    jq("#showSendTestMailPanelBtn").removeClass("disable");
-                    setTimeout(function () {
-                        jq("#smtpSettingsContent div.okBox").remove();
-                    }, 3000);
+                before: function () {
+                    LoadingBanner.showLoaderBtn("#smtpSettingsContent");
+                },
+                after: function () {
+                    LoadingBanner.hideLoaderBtn("#smtpSettingsContent");
+                },
+                success: function () {
+                    toastr.success(ASC.CRM.Resources.CRMJSResource.SettingsUpdated);
                 },
                 error: function (params, errors) {
-                    var err = errors[0];
-                    jq("#smtpSettingsContent").prepend(
-                                            jq("<div></div>").addClass("errorBox").text(err)
-                                        );
+                    if (errors[0])
+                        toastr.success(errors[0]);
                 }
             });
         },

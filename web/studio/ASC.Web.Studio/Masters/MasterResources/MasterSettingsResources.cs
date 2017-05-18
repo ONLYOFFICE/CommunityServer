@@ -34,6 +34,7 @@ using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using Resources;
@@ -50,8 +51,10 @@ namespace ASC.Web.Studio.Masters.MasterResources
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
             var curQuota = TenantExtra.GetTenantQuota();
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var helpLink = CommonLinkUtility.GetHelpLink();
 
-            var result = new List<KeyValuePair<string, object>>(32)
+            var result = new List<KeyValuePair<string, object>>(4)
             {
                 RegisterObject(
                 new { 
@@ -59,14 +62,14 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         IsAuthenticated = SecurityContext.IsAuthenticated,
                         IsAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID),
                         IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(),
-                        CurrentTenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
-                        CurrentTenantCreatedDate = CoreContext.TenantManager.GetCurrentTenant().CreatedDateTime,
-                        CurrentTenantVersion = CoreContext.TenantManager.GetCurrentTenant().Version,
-                        CurrentTenantUtcOffset = CoreContext.TenantManager.GetCurrentTenant().TimeZone,
-                        CurrentTenantUtcHoursOffset = CoreContext.TenantManager.GetCurrentTenant().TimeZone.BaseUtcOffset.Hours,
-                        CurrentTenantUtcMinutesOffset = CoreContext.TenantManager.GetCurrentTenant().TimeZone.BaseUtcOffset.Minutes,
-                        TimezoneDisplayName = CoreContext.TenantManager.GetCurrentTenant().TimeZone.DisplayName,
-                        TimezoneOffsetMinutes = CoreContext.TenantManager.GetCurrentTenant().TimeZone.GetUtcOffset(DateTime.UtcNow).TotalMinutes,
+                        CurrentTenantId = tenant.TenantId,
+                        CurrentTenantCreatedDate = tenant.CreatedDateTime,
+                        CurrentTenantVersion = tenant.Version,
+                        CurrentTenantUtcOffset = tenant.TimeZone,
+                        CurrentTenantUtcHoursOffset = tenant.TimeZone.BaseUtcOffset.Hours,
+                        CurrentTenantUtcMinutesOffset = tenant.TimeZone.BaseUtcOffset.Minutes,
+                        TimezoneDisplayName = tenant.TimeZone.DisplayName,
+                        TimezoneOffsetMinutes = tenant.TimeZone.GetUtcOffset(DateTime.UtcNow).TotalMinutes,
                         TenantIsPremium = curQuota.Trial ? "No" : "Yes",
                         TenantTariff = curQuota.Id,
                         EmailRegExpr = @"^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$",
@@ -82,7 +85,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         UrlShareGooglePlus = SetupInfo.ShareGooglePlusUrl,
                         UrlShareTwitter = SetupInfo.ShareTwitterUrl,
                         UrlShareFacebook = SetupInfo.ShareFacebookUrl,
-                        ZeroClipboardMoviePath = CommonLinkUtility.ToAbsolute("~/js/flash/zeroclipboard/zeroclipboard10.swf")
+                        LogoDarkUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true)),
+                        HelpLink = helpLink ?? ""
                 })
             };
 
@@ -95,8 +99,6 @@ namespace ASC.Web.Studio.Masters.MasterResources
             {
                 result.Add(RegisterObject(new { CoreContext.Configuration.Standalone }));
             }
-
-            var helpLink = CommonLinkUtility.GetHelpLink();
 
             if (!string.IsNullOrEmpty(helpLink))
             {

@@ -39,6 +39,19 @@ namespace ASC.Api.Projects
 {
     public partial class ProjectApi
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <category>Report</category>
+        /// <param name="reportid"></param>
+        /// <returns></returns>
+        [Read(@"report/{reportid:[0-9]+}")]
+        public ReportTemplateWrapper GetReportTemplate(int reportid)
+        {
+            ProjectSecurity.DemandAuthentication();
+            return new ReportTemplateWrapper(EngineFactory.ReportEngine.GetTemplate(reportid).NotFoundIfNull());
+        }
+
         ///<summary>
         /// Creates the project report template with the parameters specified in the request. Most of the parameters are optional and depend on the report type selected.
         ///</summary>

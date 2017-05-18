@@ -24,21 +24,20 @@
 */
 
 
-using ASC.ActiveDirectory.Expressions;
-using ASC.Common.Caching;
-using ASC.Core;
-using ASC.Data.Storage;
-using ASC.Web.Studio.Utility;
-using log4net;
-using Mono.Security.Cryptography;
-using Mono.Security.X509;
-using Novell.Directory.Ldap;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using ASC.ActiveDirectory.DirectoryServices;
+using ASC.ActiveDirectory.Expressions;
+using ASC.Common.Caching;
+using ASC.Core;
+using ASC.Data.Storage;
+using log4net;
+using Mono.Security.Cryptography;
+using Mono.Security.X509;
+using Novell.Directory.Ldap;
 using Syscert = System.Security.Cryptography.X509Certificates;
 
 namespace ASC.ActiveDirectory.Novell
@@ -46,7 +45,7 @@ namespace ASC.ActiveDirectory.Novell
     public class NovellLdapSearcher
     {
         private readonly ILog _log = LogManager.GetLogger(typeof(LdapSettingsChecker));
-        private readonly int _currentTenantId = TenantProvider.CurrentTenantID;
+        private readonly int _currentTenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         private readonly NovellLdapCertificateConfirmRequest _certificateConfirmRequest = new NovellLdapCertificateConfirmRequest();
         private static readonly ICache Cache = AscCache.Default;
         private static readonly object RootSync = new object();

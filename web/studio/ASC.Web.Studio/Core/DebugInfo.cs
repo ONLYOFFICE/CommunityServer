@@ -74,13 +74,13 @@ namespace ASC.Web.Studio.Core
                     fileContent = fileContent.Replace("{BuildDate}", new DateTime(1970, 1, 1).AddMilliseconds(Convert.ToInt64(xmlLog.GetElementsByTagName("timestamp")[0].InnerText)).ToString("yyyy-MM-dd hh:mm"));
                     fileContent = fileContent.Replace("{User}", SecurityContext.CurrentAccount.ToString().HtmlEncode());
                     fileContent = fileContent.Replace("{UserAgent}", HttpContext.Current.Request.UserAgent);
-                    fileContent = fileContent.Replace("{Url}", HttpContext.Current.Request.Url.ToString());
-                    fileContent = fileContent.Replace("{RewritenUrl}", HttpContext.Current.Request.GetUrlRewriter().ToString());
-                    fileContent = fileContent.Replace("{DocServiceApi}", FilesLinkUtility.DocServiceApiUrl);
-                    fileContent = fileContent.Replace("{DocServiceCommand}", FilesLinkUtility.DocServiceCommandUrl);
-                    fileContent = fileContent.Replace("{DocServiceConverter}", FilesLinkUtility.DocServiceConverterUrl);
-                    fileContent = fileContent.Replace("{DocServiceStorage}", FilesLinkUtility.DocServiceStorageUrl);
-                    fileContent += GetChangeLogData(logs.Cast<XmlNode>());
+                    fileContent = fileContent.Replace("{Url}", HttpContext.Current.Request.Url.ToString().HtmlEncode());
+                    fileContent = fileContent.Replace("{RewritenUrl}", HttpContext.Current.Request.GetUrlRewriter().ToString().HtmlEncode());
+                    fileContent = fileContent.Replace("{DocServiceApi}", FilesLinkUtility.DocServiceApiUrl.HtmlEncode());
+                    fileContent = fileContent.Replace("{DocServiceCommand}", FilesLinkUtility.DocServiceCommandUrl.HtmlEncode());
+                    fileContent = fileContent.Replace("{DocServiceConverter}", FilesLinkUtility.DocServiceConverterUrl.HtmlEncode());
+                    fileContent = fileContent.Replace("{DocServiceStorage}", FilesLinkUtility.DocServiceStorageUrl.HtmlEncode());
+                    fileContent += GetChangeLogData(logs.Cast<XmlNode>()).HtmlEncode();
                     return fileContent;
                 }
                 catch (Exception e)

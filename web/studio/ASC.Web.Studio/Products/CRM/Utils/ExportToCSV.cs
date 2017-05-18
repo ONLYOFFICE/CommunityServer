@@ -24,6 +24,7 @@
 */
 
 
+using System.Globalization;
 using ASC.Common.Caching;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Threading.Progress;
@@ -58,14 +59,24 @@ namespace ASC.Web.CRM.Classes
     {
         public static readonly ICache Cache = AscCache.Default;
 
-        public static String GetStateCacheKey()
+        public static String GetStateCacheKey(int tenantId = -1)
         {
-            return String.Format("{0}:crm:queue:exporttocsv", TenantProvider.CurrentTenantID.ToString());
+            if (tenantId == -1)
+            {
+                tenantId = TenantProvider.CurrentTenantID;
+            }
+
+            return String.Format("{0}:crm:queue:exporttocsv", tenantId.ToString(CultureInfo.InvariantCulture));
         }
 
-        public static String GetCancelCacheKey()
+        public static String GetCancelCacheKey(int tenantId = -1)
         {
-            return String.Format("{0}:crm:queue:exporttocsv:cancel", TenantProvider.CurrentTenantID.ToString());
+            if (tenantId == -1)
+            {
+                tenantId = TenantProvider.CurrentTenantID;
+            }
+
+            return String.Format("{0}:crm:queue:exporttocsv:cancel", tenantId.ToString(CultureInfo.InvariantCulture));
         }
 
         public static ExportDataOperation Get()
@@ -94,10 +105,10 @@ namespace ASC.Web.CRM.Classes
             Cache.Insert(GetCancelCacheKey(), true, TimeSpan.FromMinutes(1));
         }
 
-        public static void ResetAll()
+        public static void ResetAll(int tenantId = -1)
         {
-            Cache.Remove(GetStateCacheKey());
-            Cache.Remove(GetCancelCacheKey());
+            Cache.Remove(GetStateCacheKey(tenantId));
+            Cache.Remove(GetCancelCacheKey(tenantId));
         }
     }
 
@@ -190,7 +201,7 @@ namespace ASC.Web.CRM.Classes
 
         private static String WrapDoubleQuote(String value)
         {
-            return "\"" + value.Trim().Replace("\"", "\"\"").Replace(Environment.NewLine, "") + "\"";
+            return "\"" + value.Trim().Replace("\"", "\"\"") + "\"";
         }
 
         private static String DataTableToCSV(DataTable dataTable)
@@ -231,31 +242,20 @@ namespace ASC.Web.CRM.Classes
 
         public void RunJob()
         {
-            CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-
-            SecurityContext.AuthenticateMe(_author);
-
-            var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
-
-            System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
-
-
-            _log.Debug("Start Export Data");
-
-            ExportDataCache.Insert((ExportDataOperation)Clone());
-
-            //Fake http context allows fearlessly use shared DbManager.
-            bool fakeContext = HttpContext.Current == null;
-
             try
             {
-                if (fakeContext)
-                {
-                    HttpContext.Current = new HttpContext(
-                        new HttpRequest("fake", CommonLinkUtility.GetFullAbsolutePath(PathProvider.BaseAbsolutePath), string.Empty),
-                        new HttpResponse(new StringWriter()));
-                }
+                CoreContext.TenantManager.SetCurrentTenant(_tenantID);
+
+                SecurityContext.AuthenticateMe(_author);
+
+                var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
+
+                System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
+
+                _log.Debug("Start Export Data");
+
+                ExportDataCache.Insert((ExportDataOperation)Clone());
 
                 if (_externalData == null)
                     ExportAllData();
@@ -270,12 +270,7 @@ namespace ASC.Web.CRM.Classes
             finally
             {
                 System.Threading.Thread.Sleep(10000);
-                ExportDataCache.ResetAll();
-                if (fakeContext && HttpContext.Current != null)
-                {
-                    new DisposableHttpContext(HttpContext.Current).Dispose();
-                    HttpContext.Current = null;
-                }
+                ExportDataCache.ResetAll(_tenantID);
             }
         }
 

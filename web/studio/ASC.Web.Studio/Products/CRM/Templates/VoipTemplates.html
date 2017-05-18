@@ -1,0 +1,364 @@
+﻿<script id="voip-view-call-tmpl" type="text/x-jquery-tmpl">
+    <tr class="call-row">
+        <td class="call-type">
+            <span class="call-type-icon ${typeClass}"></span>
+            {{if supportsPlaying && recordUrl}}
+            <span class="call-type-icon play" data-recordUrl="${recordUrl}"></span>
+            {{/if}}
+        </td>
+        <td class="call-date"><span>${datetime}</span></td>
+        <td class="call-agent">
+            ${answeredBy.displayName}
+        </td>
+        <td class="call-client">${contactTitle}</td>
+        <td class="call-duration">${durationString}</td>
+        {{if ASC.CRM.Data.IsCRMAdmin}}
+        <td class="call-cost">${cost}</td>
+        {{/if}}
+    </tr>
+</script>
+
+<script id="voip-call-view-tmpl" type="text/x-jquery-tmpl">
+    <div class="header-with-menu">
+        <a href="settings.aspx?type=voip.calls" class="header-back-link"></a>
+        <span>${ASC.CRM.Resources.CRMVoipResource.Call} ${'#' + id}</span>
+    </div>
+    <div id="call-info-box">
+        <div class="call-info-row">
+            <span class="call-info-title">${ASC.CRM.Resources.CRMVoipResource.CallType}:</span>
+            <span class="call-info-value">${typeString}</span>
+        </div>
+        <div class="call-info-row">
+            <span class="call-info-title">${ASC.CRM.Resources.CRMVoipResource.CallDatetime}:</span>
+            <span class="call-info-value">${datetime}</span>
+        </div>
+        <div class="call-info-row">
+            <span class="call-info-title">${ASC.CRM.Resources.CRMVoipResource.CallClient}:</span>
+            <span class="call-info-value">${contact.displayName}</span>
+        </div>
+        <div class="call-info-row">
+            <span class="call-info-title">${ASC.CRM.Resources.CRMVoipResource.CallDuration}:</span>
+            <span class="call-info-value">${durationString}</span>
+        </div>
+        {{if ASC.CRM.Data.IsCRMAdmin}}
+        <div class="call-info-row">
+            <span class="call-info-title">${ASC.CRM.Resources.CRMVoipResource.CallCost}:</span>
+            <span class="call-info-value">${cost}$</span>
+        </div>
+        {{/if}}
+    </div>
+
+    <table id="call-redirections-list" class="table-list height32">
+        <thead>
+        <tr>
+            <th class="call-redirection-agent">${ASC.CRM.Resources.CRMVoipResource.CallAgent}</th>
+            <th class="call-redirection-waiting-time">${ASC.CRM.Resources.CRMVoipResource.CallWaitingTime}</th>
+            <th class="call-redirection-duration">${ASC.CRM.Resources.CRMVoipResource.CallDuration}</th>
+        </tr>
+        </thead>
+    </table>
+</script>
+
+<script id="voip-header-tmpl" type="text/x-jquery-tmpl">
+    {{if $data > 0}}
+    <div>
+        ${ASC.CRM.Resources.CRMVoipResource.NumbersCountMsg}: <strong>${$data}</strong>.
+        {{html jq.format(ASC.CRM.Resources.CRMVoipResource.NumbersCountDscrMsg, '<a href="settings.aspx?type=voip.numbers" class="link underline blue" target="_blank">', '</a>')}}
+    </div>
+    {{else}}
+    <div>
+        {{html jq.format(ASC.CRM.Resources.CRMVoipResource.NoNumbersMsg, '<a href="settings.aspx?type=voip.numbers" class="link underline blue" target="_blank">', '</a>')}}
+    </div>
+    {{/if}}
+</script>
+
+<script id="voip-common-settings-tmpl" type="text/x-jquery-tmpl">
+    <div class="common-setting-item">
+        <div class="header-base-small">${ASC.CRM.Resources.CRMVoipResource.IncomingCallsQueueSize}</div>
+        <select id="queue-size-selector" class="comboBox">
+            <option value="5" {{if queue.size == 5}} selected="selected" {{/if}}>5</option>
+            <option value="10" {{if queue.size == 10}} selected="selected" {{/if}}>10</option>
+            <option value="15" {{if queue.size == 15}} selected="selected" {{/if}}>15</option>
+        </select>
+    </div>
+
+    <div class="common-setting-item">
+        <div class="header-base-small">${ASC.CRM.Resources.CRMVoipResource.WaitingTimeout}</div>
+        <select id="queue-wait-time-selector" class="comboBox">
+            <option value="5" {{if queue.waitTime == 300}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.WaitingTimeout5Minutes}</option>
+            <option value="10" {{if queue.waitTime == 600}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.WaitingTimeout10Minutes}</option>
+            <option value="15" {{if queue.waitTime == 900}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.WaitingTimeout15Minutes}</option>
+        </select>
+    </div>
+
+    <div class="common-setting-item">
+        <div class="header-base-small">${ASC.CRM.Resources.CRMVoipResource.OperatorPause}</div>
+        <select id="operator-pause-selector" class="comboBox">
+            <option value="0" {{if !pause}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.OperatorPauseDisabled}</option>
+            <option value="1" {{if pause}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.OperatorPauseEnabled}</option>
+        </select>
+    </div>
+</script>
+
+<script id="voip-ringtones-tmpl" type="text/x-jquery-tmpl">
+    <div id="ringtone-group-${audioType}" class="ringtone-group" data-audiotype="${audioType}">
+        <div class="ringtone-group-box with-entity-menu clearFix">
+            <div class="cell switcher">
+                <div class="expander-icon {{if ringtones.length == 0}} display-none {{/if}}"></div>
+            </div>
+            <div class="cell title">
+                ${name}
+            </div>
+            <div class="cell actions entity-menu">
+                <div class="studio-action-panel">
+                    <ul class="dropdown-content">
+                        <li id="add-ringtone-${audioType}-btn" class="dropdown-item">${ASC.CRM.Resources.CRMVoipResource.AddRingtoneBtn}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ringtones-box">
+            {{tmpl(ringtones) "voip-ringtone-tmpl"}}
+        </div>
+    </div>
+</script>
+
+<script id="voip-ringtone-tmpl" type="text/x-jquery-tmpl">
+    <div class="ringtone with-entity-menu clearFix" data-filename="${name}">
+        <div class="cell title">
+            <div class="loader16"></div>
+            <button class="button gray btn-icon ringtone-play-btn __play" data-path="${path}"></button>
+            ${name}
+        </div>
+        {{if !isDefault }}
+        <div class="cell actions entity-menu">
+            <div class="studio-action-panel">
+                <ul class="dropdown-content">
+                    <li class="dropdown-item delete-ringtone-btn">${ASC.CRM.Resources.CRMVoipResource.DeleteRingtoneBtn}</li>
+                </ul>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</script>
+
+<script id="voip-number-selector-option-tmpl" type="text/x-jquery-tmpl">
+    <option value="${id}">${number}</option>
+</script>
+
+<script id="voip-settings-tmpl" type="text/x-jquery-tmpl">
+    <div id="alias-setting-box" class="clearFix">
+        <div class="settings-block">
+            <div class="header-base">${ASC.CRM.Resources.CRMVoipResource.Alias}</div>
+            <input type="text" value="${alias}" id="number-alias-input" class="textEdit" placeholder="${ASC.CRM.Resources.CRMVoipResource.AliasPlaceholder}" maxlength="30"/>
+        </div>
+        <div class="settings-help-block">
+            <p>{{html jq.format(ASC.CRM.Resources.CRMVoipResource.AliasDscrMsg, "<strong>", "</strong>")}}</p>
+        </div>
+    </div>
+
+    <div class="clearFix">
+        <div id="quick-setting" class="settings-block">
+            <div class="header-base">${ASC.CRM.Resources.CRMVoipResource.QuickTuning}</div>
+            <div class="quick-setting-item">
+                <a id="outgoing-calls-setting-btn" class="on_off_button ${settings.allowOutgoingCalls ? ' on' : 'off' }"></a>
+                ${ASC.CRM.Resources.CRMVoipResource.OutgoingCalls}
+            </div>
+            <div class="quick-setting-item">
+                <a id="record-incoming-setting-btn" class="on_off_button ${settings.record ? ' on' : 'off' }"></a>
+                ${ASC.CRM.Resources.CRMVoipResource.RecordingCalls}
+            </div>
+            <div class="quick-setting-item">
+                <a id="working-hours-setting-btn" class="on_off_button ${settings.workingHours && settings.workingHours.enabled ? ' on' : 'off' }"></a>
+                ${ASC.CRM.Resources.CRMVoipResource.WorkingHours}
+                <div class="working-hours-inputs-box">
+                    <div>
+                        <input type="text" class="textEdit" ${settings.workingHours && settings.workingHours.enabled ? "" : "disabled" } id="working-hours-from-input" value="${settings.workingHours && settings.workingHours.from ? settings.workingHours.from.slice(0, 5) : " "}" /> -
+                        <input type="text" class="textEdit" ${settings.workingHours && settings.workingHours.enabled ? "" : "disabled" } id="working-hours-to-input" value="${settings.workingHours && settings.workingHours.to ? settings.workingHours.to.slice(0, 5) : " "}" />
+                    </div>
+                    <span id="working-hours-invalid-format-error" class="working-hours-error">${ASC.CRM.Resources.CRMVoipResource.WorkingHoursFormatTip}</span>
+                    <span id="working-hours-invalid-interval-error" class="working-hours-error">${ASC.CRM.Resources.CRMVoipResource.WorkingHoursFormatErrorMsg}</span>
+                </div>
+            </div>
+        </div>
+        <div class="settings-help-block">
+            <p>{{html jq.format(ASC.CRM.Resources.CRMVoipResource.QuickTuningDscrMsg, "<strong>", "</strong>")}}</p>
+        </div>
+    </div>
+
+    <div id="ringtones-setting-box" class="clearFix">
+        <div class="settings-block">
+            <div class="header-base">${ASC.CRM.Resources.CRMVoipResource.RingtonesTuning}</div>
+
+            <div class="ringtone-setting-item">
+                <div class="header-base-small">
+                    ${ASC.CRM.Resources.CRMVoipResource.GreetingRingtones}
+                </div>
+                <select id="greeting-ringtone-selector" class="comboBox ringtone-selector">
+                    <option value="" {{if settings.greetingAudio === ""}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.UnspecifiedOption}</option>
+                    {{each settings.ringtones.greeting}}
+                    <option value="${path}" {{if settings.greetingAudio === path}} selected="selected" {{/if}}>${name}</option>
+                    {{/each}}
+                </select>
+
+                <button class="button gray btn-icon ringtone-play-btn __play {{if !settings.greetingAudio}} disable {{/if}}" id="greeting-ringtone-play-btn" data-src="${settings.greetingAudio}" data-type="greeting"></button>
+                <button class="button gray btn-icon __upload" id="greeting-ringtone-load-btn" onclick=" return false; "></button>
+            </div>
+
+            <div class="ringtone-setting-item">
+                <div class="header-base-small">
+                    ${ASC.CRM.Resources.CRMVoipResource.QueueRingtones}
+                </div>
+                <select id="queue-wait-ringtone-selector" class="comboBox ringtone-selector">
+                    <option value="" {{if settings.queue === ""}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.UnspecifiedOption}</option>
+                    {{each settings.ringtones.queue}}
+                    <option value="${path}" {{if settings.queue.waitUrl === path}} selected="selected" {{/if}}>${name}</option>
+                    {{/each}}
+                </select>
+
+                <button class="button gray btn-icon ringtone-play-btn __play" id="queue-wait-ringtone-play-btn" data-src="settings.queue.waitUrl" data-type="queue"></button>
+                <button class="button gray btn-icon __upload" id="queue-wait-ringtone-load-btn" onclick=" return false; "></button>
+            </div>
+
+            <div class="ringtone-setting-item">
+                <div class="header-base-small">
+                    ${ASC.CRM.Resources.CRMVoipResource.VoicemailRingtones}
+                </div>
+                <select id="voicemail-ringtone-selector" class="comboBox ringtone-selector">
+                    <option value="" {{if settings.voiceMail === ""}} selected="selected" {{/if}}>${ASC.CRM.Resources.CRMVoipResource.UnspecifiedOption}</option>
+                    {{each settings.ringtones.voicemail}}
+                    <option value="${path}" {{if settings.voiceMail === path}} selected="selected" {{/if}}>${name}</option>
+                    {{/each}}
+                </select>
+
+                <button class="button gray btn-icon ringtone-play-btn __play" id="voicemail-ringtone-play-btn" data-src="settings.voiceMail" data-type="voice"></button>
+                <button class="button gray btn-icon __upload" id="voicemail-ringtone-load-btn" onclick=" return false; "></button>
+            </div>
+        </div>
+        <div class="settings-help-block">
+            <p>{{html jq.format(ASC.CRM.Resources.CRMVoipResource.RingtonesTuningDscrMsg, "<strong>", "</strong>")}}</p>
+        </div>
+    </div>
+</script>
+
+<script id="voip-operator-tmpl" type="text/x-jquery-tmpl">
+    {{each settings.operators}}
+    <div class="operator with-entity-menu" data-operatorid="${id}">
+        <div class="cell code"></div>
+
+        <div class="cell title">
+            <img src="${userInfo.avatarSmall}" alt="${userInfo.displayName}" />
+            ${userInfo.displayName}
+        </div>
+
+        <div class="cell outgoing-calls">
+            <a class="on_off_button ${allowOutgoingCalls ? " on" : "off" } ${$data.settings.allowOutgoingCalls ? "" : "disable" }"></a>
+        </div>
+
+        <div class="cell incoming-recording">
+            <a class="on_off_button ${record ? " on" : "off" } ${$data.settings.record ? "" : "disable" }"></a>
+        </div>
+
+        <div class="cell actions entity-menu">
+            <div class="studio-action-panel">
+                <ul class="dropdown-content">
+                    <li class="dropdown-item delete-operator-btn">${ASC.CRM.Resources.CRMVoipResource.DeleteBtn}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="voip-ringtone-selector-option-tmpl" type="text/x-jquery-tmpl">
+    <option value="${path}">${name}</option>
+</script>
+
+<script id="voip-existing-number-tmpl" type="text/x-jquery-tmpl">
+    <div id="enumber${id}" class="number" data-numberid="${id}">
+
+        <div class="number-box with-entity-menu clearFix">
+            <div class="cell switcher">
+                <div class="expander-icon"></div>
+            </div>
+
+            <div class="cell title">
+                ${number}<span class="support-level">${alias}</span>
+            </div>
+
+            <div class="cell outgoing-calls">
+                <a class="on_off_button ${settings.allowOutgoingCalls ? " on" : "off" }" data-operator-btn-selector=".outgoing-calls"></a>
+            </div>
+
+            <div class="cell recording-calls">
+                <a class="on_off_button ${settings.record ? " on" : "off" }" data-operator-btn-selector=".recording-calls"></a>
+            </div>
+
+            <div class="cell actions entity-menu">
+                <div class="studio-action-panel">
+                    <ul class="dropdown-content">
+                        <li class="dropdown-item edit-number-btn">${ASC.CRM.Resources.CRMVoipResource.EditBtn}</li>
+                        <li class="dropdown-item show-remove-number-btn">${ASC.CRM.Resources.CRMVoipResource.DeleteBtn}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="operators-box">
+            <div class="add-operators-box">
+                <span class="add-operators-btn link dotline plus">${ASC.CRM.Resources.CRMVoipResource.AddOperatorsBtn}</span>
+            </div>
+            {{tmpl "voip-operators-tmpl"}}
+        </div>
+    </div>
+</script>
+
+<script id="voip-operators-tmpl" type="text/x-jquery-tmpl">
+    {{each settings.operators}}
+    <div class="operator with-entity-menu" data-operatorid="${id}">
+        <div class="cell code"></div>
+
+        <div class="cell title">
+            <img src="${userInfo.avatarSmall}" alt="${userInfo.displayName}" />
+            ${userInfo.displayName}
+        </div>
+
+        <div class="cell outgoing-calls">
+            <a class="on_off_button ${allowOutgoingCalls ? " on" : "off" } ${$data.settings.allowOutgoingCalls ? "" : "disable" }"></a>
+        </div>
+
+        <!--<div class="cell voicemail"></div>-->
+
+        <div class="cell recording-calls">
+            <a class="on_off_button ${record ? " on" : "off" } ${$data.settings.record ? "" : "disable" }"></a>
+        </div>
+
+        <div class="cell actions entity-menu">
+            <div class="studio-action-panel">
+                <ul class="dropdown-content">
+                    <li class="dropdown-item delete-operator-btn">${ASC.CRM.Resources.CRMVoipResource.DeleteBtn}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="voip-countries-list-tmpl" type="text/x-jquery-tmpl">
+    <div class="studio-action-panel">
+        <ul class="dropdown-content">
+            {{each countries}}
+            <li class="dropdown-item">
+                <span class="voip-flag ${iso}" data-iso="${iso}" data-code="${code}"></span>${title}
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</script>
+
+<script id="voip-available-number-tmpl" type="text/x-jquery-tmpl">
+    <div id="anumber${number}" class="number">
+        <input type="radio" name="buy-number-radio" data-number="${number}" {{if id}} data-numberId="${id}" {{/if}}/>
+        <div class="number-value">${number}</div>
+    </div>
+</script>
+

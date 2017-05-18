@@ -34,11 +34,11 @@ namespace ASC.Api.Impl.Routing
 {
     class ApiRouteRegistrator : ApiRouteRegistratorBase
     {
-        protected override void RegisterEntryPoints(RouteCollection routes,IEnumerable<IApiMethodCall> entryPoints, List<string> extensions)
+        protected override void RegisterEntryPoints(RouteCollection routes, IEnumerable<IApiMethodCall> entryPoints, List<string> extensions)
         {
-            foreach (IApiMethodCall apiMethodCall in entryPoints.OrderBy(x => x.RoutingUrl.IndexOf('{')).ThenBy(x => x.RoutingUrl.LastIndexOf('}')))
+            foreach (var apiMethodCall in entryPoints.OrderBy(x => x.RoutingUrl.IndexOf('{')).ThenBy(x => x.RoutingUrl.LastIndexOf('}')))
             {
-                foreach (string extension in extensions)
+                foreach (var extension in extensions)
                 {
                     routes.Add(GetRoute(Container.Resolve<IApiRouteHandler>(), apiMethodCall, extension));
                 }
@@ -54,9 +54,10 @@ namespace ASC.Api.Impl.Routing
         public Route GetRoute(IApiRouteHandler routeHandler, IApiMethodCall method, string extension)
         {
             var dataTokens = new RouteValueDictionary
-                                 {
-                                     {DataTokenConstants.RequiresAuthorization,method.RequiresAuthorization}
-                                 };
+                {
+                    { DataTokenConstants.RequiresAuthorization, method.RequiresAuthorization },
+                    { DataTokenConstants.CheckPayment, method.CheckPayment },
+                };
             return new Route(method.FullPath + extension, null, method.Constraints, dataTokens, routeHandler);
         }
     }

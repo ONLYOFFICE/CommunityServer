@@ -112,26 +112,23 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="subject_new_text" xml:space="preserve">
-    <value>Community. #if($FEED_TYPE == "poll")New Poll Added#end#if($FEED_TYPE == "feed")New Event Added#end: $Caption</value>
-  </data>
   <data name="pattern_new_text" xml:space="preserve">
-    <value>h1.#if($FEED_TYPE == "feed")New Event: "$Caption":"$URL"
+    <value>h1.#if($FEED_TYPE == "feed")New Event Added: "$Caption":"$URL"
 
-$Date "$UserName":"$UserURL" has added a new event:
+$Date "$UserName":"$UserURL" has added a new event: "$Caption":"$URL"
 
 $Text
 
 "Read more":"$URL"
 
-#end#if($FEED_TYPE == "poll")New Poll: "$Caption":"$URL"
+#end#if($FEED_TYPE == "poll")New Poll Added: "$Caption":"$URL"
 
-$Date "$UserName":"$UserURL" has added a new poll:
+$Date "$UserName":"$UserURL" has added a new poll: "$Caption":"$URL"
 
 #foreach($Answer in $Answers)
 
@@ -145,24 +142,23 @@ $Date "$UserName":"$UserURL" has added a new poll:
 
 #end
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
-  </data>
-  <data name="subject_new_text_comment" xml:space="preserve">
-    <value>Community. #if($FEED_TYPE == "poll")New Comment to Poll#end#if($FEED_TYPE == "feed")New Comment to Event#end: $Caption</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new added events, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_new_text_comment" xml:space="preserve">
     <value>h1.#if($FEED_TYPE == "poll")New Comment to Poll#end#if($FEED_TYPE == "feed")New Comment to Event#end: "$Caption":"$URL"
 
-"$UserName":"$UserURL" $Date
+$Date "$UserName":"$UserURL" has added a new comment to the "$Caption":"$URL" #if($FEED_TYPE == "poll")poll#end#if($FEED_TYPE == "feed")event#end:
 
 $CommentBody
 
 "Read More":"$CommentURL"
 
-Your portal address: "$__VirtualRootPath":"$__VirtualRootPath"
-
-"Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this event, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_new_text" xml:space="preserve">
+    <value>Community. #if($FEED_TYPE == "poll")New poll added#end#if($FEED_TYPE == "feed")New event added#end: $Caption</value>
+  </data>
+  <data name="subject_new_text_comment" xml:space="preserve">
+    <value>Community. #if($FEED_TYPE == "poll")New comment to poll#end#if($FEED_TYPE == "feed")New comment to event#end: $Caption</value>
   </data>
 </root>

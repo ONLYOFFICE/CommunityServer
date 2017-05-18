@@ -105,6 +105,10 @@ window.ASC.Files.Tree = (function () {
 
         treeViewContainer.resetFolder(folderId);
         treeViewSelector.resetFolder(folderId);
+
+        if (ASC.Files.ThirdParty) {
+            ASC.Files.ThirdParty.docuSignFolderSelectorReset(folderId);
+        }
     };
 
     var gotoFolder = function (folderId) {
@@ -182,6 +186,10 @@ window.ASC.Files.Tree = (function () {
 
 (function ($) {
     $(function () {
+
+        if (jq("#treeViewPanelSelector").length == 0)
+            return;
+
         ASC.Files.Tree.init();
     });
 })(jQuery);

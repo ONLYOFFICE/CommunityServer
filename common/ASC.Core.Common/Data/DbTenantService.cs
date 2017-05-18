@@ -194,16 +194,18 @@ namespace ASC.Core.Data
             return t;
         }
 
-        public void RemoveTenant(int id)
+        public void RemoveTenant(int id, bool auto = false)
         {
+            var postfix = auto ? "_auto_deleted" : "_deleted";
+
             using (var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
                 var alias = db.ExecuteScalar<string>(new SqlQuery("tenants_tenants").Select("alias").Where("id", id));
-                var count = db.ExecuteScalar<int>(new SqlQuery("tenants_tenants").SelectCount().Where(Exp.Like("alias", alias + "_deleted", SqlLike.StartWith)));
+                var count = db.ExecuteScalar<int>(new SqlQuery("tenants_tenants").SelectCount().Where(Exp.Like("alias", alias + postfix, SqlLike.StartWith)));
                 db.ExecuteNonQuery(
                     new SqlUpdate("tenants_tenants")
-                        .Set("alias", alias + "_deleted" + (count > 0 ? count.ToString() : ""))
+                        .Set("alias", alias + postfix + (count > 0 ? count.ToString() : ""))
                         .Set("status", TenantStatus.RemovePending)
                         .Set("statuschanged", DateTime.UtcNow)
                         .Set("last_modified", DateTime.UtcNow)
@@ -236,11 +238,10 @@ namespace ASC.Core.Data
             ExecNonQuery(i);
         }
 
-
         private IEnumerable<Tenant> GetTenants(Exp where)
         {
             var q = TenantsQuery(where);
-            return ExecList(q).ConvertAll(r => ToTenant(r));
+            return ExecList(q).ConvertAll(ToTenant);
         }
 
         private SqlQuery TenantsQuery(Exp where)

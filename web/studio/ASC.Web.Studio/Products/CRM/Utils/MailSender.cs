@@ -394,14 +394,13 @@ namespace ASC.Web.CRM.Classes
         {
             if (_fileID == null || _fileID.Count == 0) return;
 
-            foreach (var fileID in _fileID)
+            using (var fileDao = FilesIntegration.GetFileDao())
             {
-                using (var fileDao = FilesIntegration.GetFileDao())
+                foreach (var fileID in _fileID)
                 {
                     var fileObj = fileDao.GetFile(fileID);
                     if (fileObj == null) continue;
 
-                    fileDao.DeleteFileStream(fileObj.ID);
                     fileDao.DeleteFile(fileObj.ID);
                 }
             }

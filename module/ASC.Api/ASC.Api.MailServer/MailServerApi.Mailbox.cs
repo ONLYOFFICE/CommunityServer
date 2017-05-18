@@ -37,6 +37,13 @@ using ASC.Core.Users;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Server.Utils;
 using System.Security;
+using System.Threading;
+using System.Threading.Tasks;
+using ASC.Api.MailServer.Operations;
+using ASC.Common.Threading;
+using ASC.Mail.Aggregator.ComplexOperations;
+using ASC.Mail.Aggregator.ComplexOperations.Base;
+using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Web.Studio.Core;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -188,11 +195,13 @@ namespace ASC.Api.MailServer
         ///    Deletes the selected mailbox
         /// </summary>
         /// <param name="id">id of mailbox</param>
-        /// <returns>id of mailbox</returns>
+        /// <returns>MailOperationResult object</returns>
+        /// <exception cref="ArgumentException">Exception happens when some parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ItemNotFoundException">Exception happens when mailbox wasn't found.</exception>
         /// <short>Remove mailbox from mail server</short> 
         /// <category>Mailboxes</category>
         [Delete(@"mailboxes/remove/{id}")]
-        public int RemoveMailbox(int id)
+        public MailOperationStatus RemoveMailbox(int id)
         {
             if (id < 0)
                 throw new ArgumentException(@"Invalid domain id.", "id");
@@ -209,29 +218,47 @@ namespace ASC.Api.MailServer
 
             if (isSharedDomain && !IsAdmin && mailbox.Account.TeamlabAccount.ID != SecurityContext.CurrentAccount.ID)
                 throw new SecurityException("Removing of a shared mailbox is allowed only for the current account if user is not admin.");
-            
-            var groups = MailServer.GetMailGroups(MailServerFactory);
 
-            var groupsContainsMailbox = groups.Where(g => g.InAddresses.Contains(mailbox.Address))
-                  .Select(g => g);
+            return RemoveMailbox(mailbox);
+        }
 
-            foreach (var mailGroup in groupsContainsMailbox)
+        private MailOperationStatus RemoveMailbox(IMailbox mailbox)
+        {
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var user = SecurityContext.CurrentAccount;
+
+            var operations = MailBoxManager.MailOperations.GetTasks()
+                .Where(o =>
+                {
+                    var oTenant = o.GetProperty<int>(MailOperation.TENANT);
+                    var oUser = o.GetProperty<string>(MailOperation.OWNER);
+                    var oType = o.GetProperty<MailOperationType>(MailOperation.OPERATION_TYPE);
+                    return oTenant == tenant.TenantId &&
+                           oUser == user.ID.ToString() &&
+                           oType == MailOperationType.RemoveMailbox;
+                })
+                .ToList();
+
+            var sameOperation = operations.FirstOrDefault(o =>
             {
-                if (mailGroup.InAddresses.Count == 1)
-                {
-                    MailServer.DeleteMailGroup(mailGroup.Id, MailServerFactory);
-                }
-                else
-                {
-                    mailGroup.RemoveMember(mailbox.Address.Id);
-                }
+                var oSource = o.GetProperty<string>(MailOperation.SOURCE);
+                return oSource == mailbox.Id.ToString();
+            });
+
+            if (sameOperation != null)
+            {
+                return MailBoxManager.GetMailOperationStatus(sameOperation.Id);
             }
 
-            MailServer.DeleteMailbox(mailbox);
+            var runningOperation = operations.FirstOrDefault(o => o.Status <= DistributedTaskStatus.Running);
 
-            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
+            if (runningOperation != null)
+                throw new MailOperationAlreadyRunningException("Remove mailbox operation already running.");
 
-            return id;
+            var op = new MailRemoveMailserverMailboxOperation(tenant, user, mailbox, MailBoxManager, MailServer,
+                MailServerFactory);
+
+            return MailBoxManager.QueueTask(op);
         }
 
         /// <summary>

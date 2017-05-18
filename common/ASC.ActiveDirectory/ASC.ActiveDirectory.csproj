@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security">
       <HintPath>..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
@@ -73,10 +73,6 @@
     <Compile Include="BuiltIn\SystemLdapSettingsChecker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>

@@ -24,16 +24,15 @@
 */
 
 
-using System;
-using System.Globalization;
-using System.IO;
-using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Specific;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using System;
+using System.Globalization;
+using System.Runtime.Serialization;
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 
@@ -158,7 +157,7 @@ namespace ASC.Api.Documents
                     CreatedBy = EmployeeWraper.GetSample(),
                     Id = new Random().Next(),
                     RootFolderType = FolderType.BUNCH,
-                    SharedByMe = false,
+                    Shared = false,
                     Title = "Some titile.txt",
                     FileExst = ".txt",
                     FileType = FileType.Document,

@@ -25,17 +25,12 @@
 
 
 using System;
-using System.Web;
-using System.Linq;
 using System.Collections.Generic;
-using ASC.MessagingSystem;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.Core;
 using System.Text;
+using System.Web;
+using ASC.Core;
+using ASC.Web.CRM.Classes;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.CRM.Controls.Settings
 {
@@ -65,7 +60,7 @@ namespace ASC.Web.CRM.Controls.Settings
         {
             _webFormKey = Global.TenantSettings.WebFormKey.ToString();
 
-            Page.RegisterClientScript(typeof(Masters.ClientScripts.WebToLeadFormViewData));
+            Page.RegisterClientScript(new Masters.ClientScripts.WebToLeadFormViewData());
             RegisterScript();
 
 

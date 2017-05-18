@@ -25,30 +25,236 @@
 
 
 ASC.Projects.MilestoneAction = (function() {
-    var isInit, isInitData;
-    var isAdmin;
-    var myGuid;
-    var currentProjectId;
-    var filterProjectsIds = [];
-    var projectItems = [];
+    var isInit, isInitData, isAdmin, myGuid, currentProjectId, isInitMilestoneForm;
+    var filterProjectsIds = [], projectItems = [];
+
     // DOM variables
-    var milestoneProject;
-    var milestoneResponsible;
+    var $milestoneProject,
+        $milestoneResponsible,
+        $milestoneDeadlineInputBox,
+        $milestoneResponsibleContainer,
+        $notifyResponsibleContainer,
+        $milestoneDeadlineContainer,
+        $milestoneProjectContainer,
+        $milestoneTitleContainer,
+        $milestoneTitleInputBox,
+        $milestoneActionPanel,
+        $milestoneDeadlineLeft,
+        $milestoneDescriptionInputBox,
+        $milestoneKeyCheckBox,
+        $milestoneNotifyManagerCheckBox,
+        $milestoneActionButton,
+        $notifyResponsibleCheckbox;
+
+    var requiredFieldErrorClass = 'requiredFieldError',
+        disabledAttr = 'disabled',
+        displayNoneClass = "display-none",
+        disableClass = "disable",
+        ganttChartPage = "ganttchart.aspx";
+
+    var resources = ASC.Projects.Resources,
+        projectsJsResource = resources.ProjectsJSResource,
+        common = ASC.Projects.Common;
+
+    var teamlab, loadingBanner, selectedPrjId;
+
+    var init = function () {
+        if (isInit) {
+            return;
+        }
+
+        teamlab = Teamlab;
+        loadingBanner = LoadingBanner;
+
+        isInit = true;
+    };
+
+    function initMilestoneFormElementsAndConstants() {
+        if (isInitMilestoneForm) return;
+        isInitMilestoneForm = true;
+        var milesoneResource = resources.MilestoneResource;
+
+        jq("#milestoneActionPanel")
+            .html(jq.tmpl("common_containerTmpl",
+            {
+                options: {
+                    PopupContainerCssClass: "popupContainerClass",
+                    OnCancelButtonClick: "PopupKeyUpActionProvider.CloseDialog();",
+                    IsPopup: true
+                },
+                header: {
+                    data: { title: resources.ProjectResource.AddMilestone },
+                    title: "projects_common_popup_header"
+                },
+                body: {
+                    title: "projects_milestone_action",
+                    data: {
+                        title: {
+                            error: milesoneResource.NoTitleMessage,
+                            header: milesoneResource.Title
+                        },
+                        description: milesoneResource.Description,
+                        project: {
+                            header: resources.ProjectResource.Project,
+                            error: milesoneResource.ChooseProject
+                        }
+                    }
+                }
+            }));
+
+        // init DOM variables
+        $milestoneActionPanel = jq("#milestoneActionPanel");
+        $milestoneResponsibleContainer = jq("#milestoneResponsibleContainer");;
+        $milestoneResponsible = $milestoneResponsibleContainer.find("#milestoneResponsible");
+        $notifyResponsibleContainer = $milestoneResponsibleContainer.find(".notifyResponsibleContainer");
+        $milestoneDeadlineInputBox = jq("#milestoneDeadlineInputBox");
+        $milestoneDeadlineContainer = jq("#milestoneDeadlineContainer");
+        $milestoneProjectContainer = $milestoneActionPanel.find(".projectContaner");
+        $milestoneProject = $milestoneProjectContainer.find(".advansed-select-container");
+        $milestoneTitleContainer = $milestoneActionPanel.find(".titlePanel");
+        $milestoneTitleInputBox = $milestoneActionPanel.find(".textEdit");
+        $milestoneDescriptionInputBox = $milestoneActionPanel.find("textarea");
+        $milestoneKeyCheckBox = jq("#milestoneKeyCheckBox");
+        $milestoneNotifyManagerCheckBox = jq("#milestoneNotifyManagerCheckBox");
+        $milestoneActionButton = jq('#milestoneActionButton');
+        $milestoneDeadlineLeft = $milestoneActionPanel.find(".deadlineLeft");
+        $notifyResponsibleCheckbox = jq("#notifyResponsibleCheckbox");
+
+        myGuid = teamlab.profile.id;
+        currentProjectId = jq.getURLParam('prjID');
+
+        if (teamlab.profile.isAdmin) {
+            isAdmin = true;
+        }
+
+        $milestoneDeadlineInputBox.on("change", function () {
+            if (jq.trim($milestoneDeadlineInputBox.val()) != '') {
+                $milestoneDeadlineContainer.removeClass(requiredFieldErrorClass);
+            }
+            var date = getMilestoneDate();
+            var dateNow = new Date();
+            var week = teamlab.serializeTimestamp(new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() + 7, 0, 0, 0));
+            var month = teamlab.serializeTimestamp(new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, dateNow.getDate(), 0, 0, 0));
+            var twoMonth = teamlab.serializeTimestamp(new Date(dateNow.getFullYear(), dateNow.getMonth() + 2, dateNow.getDate(), 0, 0, 0));
+
+            if (date === week) {
+                boldDeadlineLeft(7);
+            } else if (date === month) {
+                boldDeadlineLeft(1);
+            } else if (date === twoMonth) {
+                boldDeadlineLeft(2);
+            } else {
+                boldDeadlineLeft(-1);
+            }
+        });
+        $milestoneTitleInputBox.keyup(function () {
+            if (jq.trim($milestoneTitleInputBox.val()) != '') {
+                $milestoneTitleContainer.removeClass(requiredFieldErrorClass);
+            }
+        });
+
+        $milestoneDeadlineLeft.click(function () {
+            var period = parseInt(jq(this).attr('data-value'));
+            boldDeadlineLeft(period);
+            var date = new Date();
+            if (period == 7) {
+                date.setDate(date.getDate() + period);
+            } else {
+                date.setMonth(date.getMonth() + period);
+            }
+            $milestoneDeadlineInputBox.datepicker('setDate', date);
+        });
+
+        $milestoneActionButton.on('click', function () {
+            if ($milestoneActionButton.hasClass(disableClass)) return;
+            $milestoneProjectContainer.removeClass(requiredFieldErrorClass);
+            $milestoneResponsibleContainer.removeClass(requiredFieldErrorClass);
+            $milestoneDeadlineContainer.removeClass(requiredFieldErrorClass);
+            $milestoneTitleContainer.removeClass(requiredFieldErrorClass);
+
+            currentProjectId = jq.getURLParam('prjID');
+            var milestoneId = $milestoneActionPanel.attr('milestoneId');
+            var data = {
+                projectId: $milestoneProject.attr("data-id") || currentProjectId,
+                responsible: $milestoneResponsible.attr("data-id"),
+                notifyResponsible: $notifyResponsibleCheckbox.is(':checked'),
+                title: jq.trim($milestoneTitleInputBox.val()),
+                description: $milestoneDescriptionInputBox.val(),
+                isKey: $milestoneKeyCheckBox.is(':checked'),
+                isNotify: $milestoneNotifyManagerCheckBox.is(':checked')
+            };
+
+            if ($milestoneDeadlineInputBox.val().length && jq.isDateFormat($milestoneDeadlineInputBox.val())) {
+                data.deadline = getMilestoneDate();
+            }
+
+            var isError = false;
+            if (!data.projectId) {
+                $milestoneProjectContainer.addClass(requiredFieldErrorClass);
+                isError = true;
+            }
+            if (!data.responsible) {
+                $notifyResponsibleContainer.hide();
+                $milestoneResponsibleContainer.addClass(requiredFieldErrorClass);
+                isError = true;
+            }
+            if (!data.deadline) {
+                $milestoneDeadlineContainer.addClass(requiredFieldErrorClass);
+                isError = true;
+            }
+            if (!data.title.length) {
+                $milestoneTitleContainer.addClass(requiredFieldErrorClass);
+                isError = true;
+            }
+            if (!data.projectId) {
+                $milestoneProjectContainer.addClass(requiredFieldErrorClass);
+                isError = true;
+            }
+            if (isError) { return false; }
+
+            loadingBanner.showLoaderBtn($milestoneActionPanel);
+
+            if ($milestoneActionPanel.attr('type') == 'update') {
+                updateMilestone(milestoneId, data);
+            }
+            else {
+                addMilestone(data);
+            }
+            return false;
+        });
+        jq('#milestoneActionCancelButton').click(function () {
+            if (location.href.indexOf(ganttChartPage) > 0) {
+                ASC.Projects.GantChartPage.enableChartEvents();
+            }
+        });
+
+        teamlab.bind(teamlab.events.updatePrjProjectStatus, function (params, project) {
+            if (!isInitData) return;
+            var sortedProjects = common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
+            $milestoneProject.projectadvancedSelector("rewriteItemList", sortedProjects, []);
+
+            if (selectedPrjId === project.id && project.status === 1 && sortedProjects.length) {
+                $milestoneProject.projectadvancedSelector("reset");
+                $milestoneProject.projectadvancedSelector("selectBeforeShow", sortedProjects[0]);
+            }
+        });
+    }
+
+    function getMilestoneDate() {
+        var result = $milestoneDeadlineInputBox.datepicker('getDate');
+        if (!result) return "";
+        result.setHours(0);
+        result.setMinutes(0);
+        result.setSeconds(0);
+        return teamlab.serializeTimestamp(result);
+    }
 
     var setProjectCombobox = function (milestone) {
-        jq(milestoneProject, milestoneResponsible).css('max-width', 300);
+        jq($milestoneProject, $milestoneResponsible).css('max-width', 300);
 
-        function sortPrj(item) {
-            return item.canCreateMilestone;
-        }
-
-        function mapPrj(item) {
-            return { id: item.value, title: item.title };
-        }
+        projectItems = common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
         
-        projectItems = ASC.Projects.Common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
-        
-        milestoneProject.projectadvancedSelector(
+        $milestoneProject.projectadvancedSelector(
             {
                 itemsChoose: projectItems,
                 onechosen: true,
@@ -57,11 +263,20 @@ ASC.Projects.MilestoneAction = (function() {
             }
         );
 
-        milestoneProject.on("showList", function (event, item, milestoneResponsibleId) {
-            jq("#milestoneProject").attr("data-id", item.id).text(item.title).attr("title", item.title);
+        $milestoneProject.on("showList", function (event, item, milestoneResponsibleId) {
+            $milestoneProject.attr("data-id", item.id).text(item.title).attr("title", item.title);
+            selectedPrjId = item.id;
             milestoneProjectOnChange(item, milestoneResponsibleId);
         });
     };
+
+    function sortPrj(item) {
+        return item.canCreateMilestone;
+    }
+
+    function mapPrj(item) {
+        return { id: item.value, title: item.title };
+    }
 
     var setResponsibleCombobox = function () {
         var selectorObj = {
@@ -69,21 +284,21 @@ ASC.Projects.MilestoneAction = (function() {
             inPopup: true,
             noresults: ASC.Resources.Master.Resource.UserSelectorNoResults
         };
-        
+        currentProjectId = jq.getURLParam('prjID');
         if (currentProjectId) {
-            selectorObj.itemsChoose = ASC.Projects.Common.excludeVisitors(ASC.Projects.Master.Team).map(function(item) {
+            selectorObj.itemsChoose = common.excludeVisitors(ASC.Projects.Master.Team).map(function(item) {
                 return { id: item.id, title: item.displayName };
             });
         }
         
-        milestoneResponsible.projectadvancedSelector(selectorObj);
+        $milestoneResponsible.projectadvancedSelector(selectorObj);
 
-        milestoneResponsible.on("showList", function (event, item) {
-            milestoneResponsible.attr("data-id", item.id).html(item.title).attr("title", item.title);
+        $milestoneResponsible.on("showList", function (event, item) {
+            $milestoneResponsible.attr("data-id", item.id).html(item.title).attr("title", item.title);
             milestoneResponsibleOnChange(item);
         });
         
-        jq("#milestoneResponsibleContainer").show();
+        $milestoneResponsibleContainer.show();
     };
 
     var initData = function (milestone) {
@@ -92,7 +307,7 @@ ASC.Projects.MilestoneAction = (function() {
             setProjectCombobox(milestone);
             setResponsibleCombobox(milestone);
         }
-        
+        currentProjectId = jq.getURLParam('prjID');
         var anchor = ASC.Controls.AnchorController.getAnchor();
         var curPrjId = currentProjectId || jq.getAnchorParam('project', anchor);
         var selectedPrj = projectItems.find(function (item) { return item.id == curPrjId; });
@@ -104,126 +319,15 @@ ASC.Projects.MilestoneAction = (function() {
             jq.getAnchorParam('team_member', anchor) ||
             jq.getAnchorParam('author', anchor);
         
-        if (selectedPrj) milestoneProject.projectadvancedSelector("selectBeforeShow", selectedPrj, milestone ? milestone.resposible : responsible);
+        if (selectedPrj) $milestoneProject.projectadvancedSelector("selectBeforeShow", selectedPrj, milestone ? milestone.resposible : responsible);
     };
 
-    var init = function() {
-        if (isInit) {
-            return;
-        }
 
-        isInit = true;
-
-        // init DOM variables
-        milestoneProject = jq('#milestoneProject');
-        milestoneResponsible = jq('#milestoneResponsibleContainer #milestoneResponsible');;
-
-        myGuid = Teamlab.profile.id;
+    function milestoneProjectOnChange(item, milestoneResponsibleid) {
+        $milestoneProjectContainer.removeClass(requiredFieldErrorClass);
+        $milestoneResponsibleContainer.show();
+        $notifyResponsibleContainer.hide();
         currentProjectId = jq.getURLParam('prjID');
-
-        if (Teamlab.profile.isAdmin) {
-            isAdmin = true;
-        }
-
-        jq("#milestoneDeadlineInputBox").mask(ASC.Resources.Master.DatePatternJQ);
-        
-        jq('#milestoneDeadlineInputBox').on("change",function () {
-            if (jq.trim(jq(this).val()) != '') {
-                jq('#milestoneDeadlineContainer').removeClass('requiredFieldError');
-            }
-        });
-        
-        jq('#milestoneTitleInputBox').keyup(function() {
-            if (jq.trim(jq(this).val()) != '') {
-                jq('#milestoneTitleContainer').removeClass('requiredFieldError');
-            }
-        });
-
-        jq('#milestoneActionPanel .deadlineLeft').on('click', function() {
-            jq('#milestoneActionPanel .deadlineLeft').css('border-bottom', '1px dotted').css('font-weight', 'normal');
-            jq(this).css('border-bottom', 'none').css('font-weight', 'bold');
-            var period = parseInt(jq(this).attr('data-value'));
-            var date = new Date();
-            if (period == 7) {
-                date.setDate(date.getDate() + period);
-            } else {
-                date.setMonth(date.getMonth() + period);
-            }
-            jq("#milestoneDeadlineInputBox").datepicker('setDate', date);
-        });
-
-        jq('#milestoneActionButton').on('click', function () {
-            if (jq(this).hasClass("disable")) return;
-            jq('#milestoneProjectContainer').removeClass('requiredFieldError');
-            jq('#milestoneResponsibleContainer').removeClass('requiredFieldError');
-            jq('#milestoneDeadlineContainer').removeClass('requiredFieldError');
-            jq('#milestoneTitleContainer').removeClass('requiredFieldError');
-
-            var data = {};
-            var milestoneId = jq('#milestoneActionPanel').attr('milestoneId');
-            data.projectId = milestoneProject.attr("data-id") || currentProjectId;
-            data.responsible = milestoneResponsible.attr("data-id");
-            data.notifyResponsible = jq('#notifyResponsibleCheckbox').is(':checked');
-
-            if (jq('#milestoneDeadlineInputBox').val().length && jq.isDateFormat(jq('#milestoneDeadlineInputBox').val())) {
-                data.deadline = jq('#milestoneDeadlineInputBox').datepicker('getDate');
-                data.deadline.setHours(0);
-                data.deadline.setMinutes(0);
-                data.deadline = Teamlab.serializeTimestamp(data.deadline);
-            }
-
-            data.title = jq.trim(jq('#milestoneTitleInputBox').val());
-            data.description = jq('#milestoneDescriptionInputBox').val();
-
-            data.isKey = jq('#milestoneKeyCheckBox').is(':checked');
-            data.isNotify = jq('#milestoneNotifyManagerCheckBox').is(':checked');
-
-            var isError = false;
-            if (!data.projectId) {
-                jq('#milestoneProjectContainer').addClass('requiredFieldError');
-                isError = true;
-            }
-            if (!data.responsible) {
-                jq('#milestoneResponsibleContainer .notifyResponsibleContainer').hide();
-                jq('#milestoneResponsibleContainer').addClass('requiredFieldError');
-                isError = true;
-            }
-            if (!data.deadline) {
-                jq('#milestoneDeadlineContainer').addClass('requiredFieldError');
-                isError = true;
-            }
-            if (!data.title.length) {
-                jq('#milestoneTitleContainer').addClass('requiredFieldError');
-                isError = true;
-            }
-            if (!data.projectId) {
-                jq('#milestoneProjectContainer').addClass('requiredFieldError');
-                isError = true;
-            }
-            if (isError) { return false; }
-
-            LoadingBanner.showLoaderBtn("#milestoneActionPanel");
-
-            if (jq('#milestoneActionPanel').attr('type') == 'update') {
-                updateMilestone(milestoneId, data);
-            }
-            else {
-                addMilestone(data);
-            }
-            return false;
-        });
-        jq('#milestoneActionCancelButton').on('click', function() {
-            if (location.href.indexOf("ganttchart.aspx") > 0) {
-                ASC.Projects.GantChartPage.enableChartEvents();
-            }
-        });
-    };
-
-
-    var milestoneProjectOnChange = function (item, milestoneResponsibleid) {
-        jq('#milestoneProjectContainer').removeClass('requiredFieldError');
-        jq('#milestoneResponsibleContainer').show();
-        jq('#milestoneResponsibleContainer .notifyResponsibleContainer').hide();
         if (currentProjectId == item.id) {
             onGetProjectParticipants({ serverData: true, responsible: milestoneResponsibleid });
         } else {
@@ -232,13 +336,13 @@ ASC.Projects.MilestoneAction = (function() {
     };
     
     var milestoneResponsibleOnChange = function (item) {
-        jq('#milestoneResponsibleContainer').removeClass('requiredFieldError');
+        $milestoneResponsibleContainer.removeClass(requiredFieldErrorClass);
         
         if (item.id && item.id != myGuid) {
-            jq('#milestoneResponsibleContainer .notifyResponsibleContainer').show();
-            jq('#notifyResponsibleCheckbox').attr('checked', true);
+            $notifyResponsibleContainer.show();
+            $notifyResponsibleCheckbox.attr('checked', true);
         } else {
-            jq('#milestoneResponsibleContainer .notifyResponsibleContainer').hide();
+            $notifyResponsibleContainer.hide();
         }
     };
     
@@ -246,14 +350,14 @@ ASC.Projects.MilestoneAction = (function() {
         lockMilestoneActionPage();
 
         var params = { projectId: milestone.projectId };
-        Teamlab.addPrjMilestone(params, milestone.projectId, milestone, { success: onAddMilestone, error: onAddMilestoneError });
+        teamlab.addPrjMilestone(params, milestone.projectId, milestone, { success: onAddMilestone, error: onAddMilestoneError });
     };
 
     var updateMilestone = function(milestoneId, milestone) {
         lockMilestoneActionPage();
 
         var params = {};
-        Teamlab.updatePrjMilestone(params, milestoneId, milestone,
+        teamlab.updatePrjMilestone(params, milestoneId, milestone,
             {
                 success: function (params, milestone) {
                     for (var i = 0; i < ASC.Projects.Master.Milestones.length; i++) {
@@ -262,122 +366,118 @@ ASC.Projects.MilestoneAction = (function() {
                             break;
                         }
                     }
-                    ASC.Projects.AllMilestones.onUpdateMilestone(params, milestone);
-                },
-                error: ASC.Projects.AllMilestones.onUpdateMilestoneError
+                }
             });
     };
 
     var lockMilestoneActionPage = function() {
-        jq('#milestoneDeadlineInputBox').attr('disabled', true);
-        jq('#milestoneTitleInputBox').attr('disabled', true);
-        jq('#milestoneDescriptionInputBox').attr('disabled', true);
-        jq('#milestoneKeyCheckBox').attr('disabled', true);
-        jq('#milestoneNotifyManagerCheckBox').attr('disabled', true);
+        $milestoneDeadlineInputBox.attr(disabledAttr, true);
+        $milestoneTitleInputBox.attr(disabledAttr, true);
+        $milestoneDescriptionInputBox.attr(disabledAttr, true);
+        $milestoneKeyCheckBox.attr(disabledAttr, true);
+        $milestoneNotifyManagerCheckBox.attr(disabledAttr, true);
     };
 
-    var unlockMilestoneActionPage = function() {
-        jq('#milestoneDeadlineInputBox').removeAttr('disabled');
-        jq('#milestoneTitleInputBox').removeAttr('disabled').val('');
-        jq('#milestoneDescriptionInputBox').removeAttr('disabled').val('');
-        jq('#milestoneKeyCheckBox').removeAttr('disabled').removeAttr("checked");
-        jq('#milestoneNotifyManagerCheckBox').removeAttr('disabled');
-        LoadingBanner.hideLoaderBtn("#milestoneActionPanel");
+    var unlockMilestoneActionPage = function () {
+        if (!isInitMilestoneForm) return;
+        $milestoneDeadlineInputBox.removeAttr(disabledAttr);
+        $milestoneTitleInputBox.removeAttr(disabledAttr).val('');
+        $milestoneDescriptionInputBox.removeAttr(disabledAttr).val('');
+        $milestoneKeyCheckBox.removeAttr(disabledAttr).removeAttr("checked");
+        $milestoneNotifyManagerCheckBox.removeAttr(disabledAttr);
+        loadingBanner.hideLoaderBtn($milestoneActionPanel);
     };
 
     var clearPanel = function() {
-        jq('#milestoneActionPanel').removeAttr('type');
-        jq('#notifyResponsibleCheckbox').attr('checked', true);
+        $milestoneActionPanel.removeAttr('type');
+        $notifyResponsibleCheckbox.attr('checked', true);
 
-        if (!milestoneProject.attr("data-id")) {
-            jq('#milestoneResponsibleContainer').hide();
-            jq('#milestoneResponsibleContainer .notifyResponsibleContainer').hide();
+        if (!$milestoneProject.attr("data-id")) {
+            $milestoneResponsibleContainer.hide();
+            $notifyResponsibleContainer.hide();
         }
 
-        jq('#milestoneProjectContainer').removeClass('requiredFieldError');
+        $milestoneProjectContainer.removeClass(requiredFieldErrorClass);
+        $milestoneDeadlineContainer.removeClass(requiredFieldErrorClass);
 
-        jq('#milestoneDeadlineContainer').removeClass('requiredFieldError');
-
-        jq('#milestoneActionPanel .deadlineLeft').css('border-bottom', '1px dotted').css('font-weight', 'normal');
-
-        var milestoneDeadline = jq('#milestoneDeadlineInputBox');
-        milestoneDeadline.datepicker({ popupContainer: '#milestoneActionPanel', selectDefaultDate: true });
-        jq(milestoneDeadline).on("keydown", function (e) { if (e.keyCode == 13) { milestoneDeadline.blur(); } });
-        jq(milestoneDeadline).on("change", function () { milestoneDeadline.blur(); });
+        $milestoneDeadlineInputBox.val('');
+        $milestoneDeadlineInputBox.datepicker({ popupContainer: '#milestoneActionPanel', selectDefaultDate: true });
+        $milestoneDeadlineInputBox.on("keydown", function (e) {
+            if (e.keyCode == 13) {
+                $milestoneDeadlineInputBox.unmask().blur().mask(ASC.Resources.Master.DatePatternJQ);
+        } });
+        $milestoneDeadlineInputBox.on("change", function() {
+            $milestoneDeadlineInputBox.unmask().blur().mask(ASC.Resources.Master.DatePatternJQ);
+        });
 
         if (jq.browser.mobile)
             jq("#ui-datepicker-div").addClass("blockMsg");
 
         var date = new Date();
         date.setDate(date.getDate() + 7);
-        milestoneDeadline.datepicker('setDate', date);
-        var elemDuration3Days = jq(milestoneDeadline).siblings(".dottedLink[data-value=7]");
-        jq(elemDuration3Days).css("border-bottom", "medium none");
-        jq(elemDuration3Days).css("font-weight", "bold");
+        $milestoneDeadlineInputBox.datepicker('setDate', date);
+        boldDeadlineLeft(7);
 
 
-        jq('#milestoneResponsibleContainer').removeClass('requiredFieldError');
-        milestoneResponsible.projectadvancedSelector("reset");
+        $milestoneResponsibleContainer.removeClass(requiredFieldErrorClass);
+        $milestoneResponsible.projectadvancedSelector("reset");
 
-        jq('#milestoneTitleContainer').removeClass('requiredFieldError');
-        jq('#milestoneTitleInputBox').val('');
+        $milestoneTitleContainer.removeClass(requiredFieldErrorClass);
+        $milestoneTitleInputBox.val('');
 
-        jq('#milestoneDescriptionInputBox').val('');
+        $milestoneDescriptionInputBox.val('');
 
-        jq('#milestoneKeyCheckBox').removeAttr('checked');
+        $milestoneKeyCheckBox.removeAttr('checked');
 
-        jq('#milestoneNotifyManagerCheckBox').removeAttr('checked');
-        LoadingBanner.hideLoaderBtn("#milestoneActionPanel");
+        $milestoneNotifyManagerCheckBox.removeAttr('checked');
+        loadingBanner.hideLoaderBtn($milestoneActionPanel);
     };
 
-    var onAddMilestone = function(params, milestone) {
+    function boldDeadlineLeft(dataValue) {
+        var dotline = "dotline", bold = "bold";
+        $milestoneActionPanel.find('.deadlineLeft').removeClass(bold).removeClass(dotline).addClass(dotline);
+        $milestoneActionPanel.find("[data-value=" + dataValue + "]").removeClass(dotline).addClass(bold);
+    }
+
+    function onAddMilestone(params, milestone) {
         unlockMilestoneActionPage();
-        if (location.href.indexOf("ganttchart.aspx") > 0) {
-            ASC.Projects.GantChartPage.addMilestoneToChart(milestone, true, true);
-        }
-        
-        if (ASC.Projects.projectNavPanel && currentProjectId == milestone.projectId) {
-            ASC.Projects.projectNavPanel.changeModuleItemsCount(ASC.Projects.projectNavPanel.projectModulesNames.milestones, "add");
-            ASC.Projects.Master.Milestones.push(milestone);
-            ASC.Projects.Master.Milestones = ASC.Projects.Master.Milestones.sort(ASC.Projects.Common.milestoneSort);
-        }
-        if (location.href.indexOf("milestones.aspx") > 0 && (currentProjectId == null || milestone.projectId == currentProjectId)) {
-            ASC.Projects.AllMilestones.onAddMilestone(params, milestone);
-        } else if (location.href.indexOf("tasks.aspx") > 0 && currentProjectId && milestone.projectId == currentProjectId) {
-            ASC.Projects.TasksManager.onAddMilestone();
-        } else {
-            jq.unblockUI();
-        }
-        ASC.Projects.TaskAction.onAddNewMileston(milestone);
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneAdded);
+        currentProjectId = jq.getURLParam('prjID');
+        ASC.Projects.Master.Milestones.push(milestone);
+        ASC.Projects.Master.Milestones = ASC.Projects.Master.Milestones.sort(common.milestoneSort);
+
+        jq.unblockUI();
+        common.displayInfoPanel(projectsJsResource.MilestoneAdded);
+        $milestoneDeadlineInputBox.unmask();
+
+        common.changeMilestoneCountInProjectsCache(milestone, 0);
     };
 
     var onAddMilestoneError = function(params, error) {
-        if (location.href.indexOf("ganttchart.aspx") > 0) {
+        if (location.href.indexOf(ganttChartPage) > 0) {
             ASC.Projects.GantChartPage.enableChartEvents();
         }
 
-        var errorBox = jq("#milestoneActionPanel .errorBox");
+        var errorBox = $milestoneActionPanel.find(".errorBox");
         var actionContainer = jq("#milestoneActionButtonsContainer");
         errorBox.text(error[0]);
-        errorBox.removeClass("display-none");
-        jq("#milestoneActionButton").addClass("disable");
-        LoadingBanner.hideLoaderBtn("#milestoneActionPanel");
+        errorBox.removeClass(displayNoneClass);
+        $milestoneActionButton.addClass(disableClass);
+        loadingBanner.hideLoaderBtn($milestoneActionPanel);
         actionContainer.css('marginTop', '8px');
         actionContainer.show();
 
 
         setTimeout(function() {
-            errorBox.addClass("display-none");
+            errorBox.addClass(displayNoneClass);
             actionContainer.css('marginTop', '43px');
 
-            jq('#milestoneDeadlineInputBox').removeAttr('disabled');
-            jq('#milestoneTitleInputBox').removeAttr('disabled');
-            jq('#milestoneDescriptionInputBox').removeAttr('disabled');
-            jq('#milestoneKeyCheckBox').removeAttr('disabled');
-            jq('#milestoneNotifyManagerCheckBox').removeAttr('disabled');
+            $milestoneDeadlineInputBox.removeAttr(disabledAttr);
+            $milestoneTitleInputBox.removeAttr(disabledAttr);
+            $milestoneDescriptionInputBox.removeAttr(disabledAttr);
+            $milestoneKeyCheckBox.removeAttr(disabledAttr);
+            $milestoneNotifyManagerCheckBox.removeAttr(disabledAttr);
         }, 3000);
-
+        currentProjectId = jq.getURLParam('prjID');
         if (location.href.indexOf("milestones.aspx") > 0 && (currentProjectId == params.projectId)) {
             ASC.Projects.AllMilestones.removeMilestonesActionsForManager();
         }
@@ -394,14 +494,14 @@ ASC.Projects.MilestoneAction = (function() {
             participants = ASC.Projects.Master.Team;
         }
         
-        participants = ASC.Projects.Common.excludeVisitors(participants);
-        participants = ASC.Projects.Common.removeBlockedUsersFromTeam(participants);
+        participants = common.excludeVisitors(participants);
+        participants = common.removeBlockedUsersFromTeam(participants);
         participants = participants
             .filter(function (item) {
                 return !item.isVisitor;
             })
             .map(function (item) {
-                return { id: item.id, title: item.id == Teamlab.profile.id ? ASC.Resources.Master.Resource.MeLabel : item.displayName };
+                return { id: item.id, title: item.id == teamlab.profile.id ? ASC.Resources.Master.Resource.MeLabel : item.displayName };
             });
         
         var mileResp = participants.find(function(item) {
@@ -413,102 +513,99 @@ ASC.Projects.MilestoneAction = (function() {
         if (mileResp) {
             respSelected = mileResp;
         } else {
+            var $noActiveParticipantsMilNote = jq("#noActiveParticipantsMilNote");
             if (!participants.length) {
-                jq("#noActiveParticipantsMilNote").removeClass("display-none");
-                jq("#milestoneActionButton").addClass("disable");
-                respSelected = [{ id: "", title: ASC.Projects.Resources.CommonResource.Select}];
+                $noActiveParticipantsMilNote.removeClass(displayNoneClass);
+                $milestoneActionButton.addClass(disableClass);
+                respSelected = [{ id: "", title: resources.CommonResource.Select }];
             } else {
-                jq("#noActiveParticipantsMilNote").addClass("display-none");
-                jq("#milestoneActionButton").removeClass("disable");
+                $noActiveParticipantsMilNote.addClass(displayNoneClass);
+                $milestoneActionButton.removeClass(disableClass);
                 respSelected = participants[0];
             }
         }
         
-        milestoneResponsible.projectadvancedSelector("rewriteItemList", participants, [respSelected.id]);
-        milestoneResponsible.projectadvancedSelector("selectBeforeShow", respSelected);
+        $milestoneResponsible.projectadvancedSelector("rewriteItemList", participants, [respSelected.id]);
+        $milestoneResponsible.projectadvancedSelector("selectBeforeShow", respSelected);
 
-        if (jq("#milestoneProjectContainer").is(":visible")) {
-            jq("#milestoneResponsibleContainer").show();
+        if ($milestoneProjectContainer.is(":visible")) {
+            $milestoneResponsibleContainer.show();
         }
-        showMilestoneActionPanel();
     };
 
     var onGetMilestoneBeforeUpdate = function (milestone) {
+        initMilestoneFormElementsAndConstants();
         initData(milestone);
         clearPanel();
         
-        jq('#milestoneActionPanel').attr('type', 'update');
-        jq('#milestoneActionPanel').attr('milestoneId', milestone.id);
+        $milestoneActionPanel.attr('type', 'update');
+        $milestoneActionPanel.attr('milestoneId', milestone.id);
 
-        var milestoneActionButton = jq('#milestoneActionButton');
-        milestoneActionButton.html(milestoneActionButton.attr('update'));
+        $milestoneActionButton.html($milestoneActionButton.attr('update'));
 
-        var milestoneActionHeader = jq('#milestoneActionPanel .containerHeaderBlock table td:first');
-        milestoneActionHeader.html(ASC.Projects.Resources.ProjectsJSResource.EditMilestone);
+        var milestoneActionHeader = $milestoneActionPanel.find(".containerHeaderBlock table td:first");
+        milestoneActionHeader.html(projectsJsResource.EditMilestone);
 
         if (milestone.deadline) {
-            jq('#milestoneDeadlineInputBox').datepicker("setDate", milestone.deadline);
-            var elemDurationDays = jq("#milestoneDeadlineInputBox").siblings(".dottedLink");
-            jq(elemDurationDays).css("border-bottom", "1px dotted");
-            jq(elemDurationDays).css("font-weight", "normal");
+            $milestoneDeadlineInputBox.datepicker("setDate", milestone.deadline);
+            $milestoneDeadlineInputBox.change();
         }
 
-        jq('#milestoneTitleInputBox').val(milestone.title);
-        jq('#milestoneDescriptionInputBox').val(milestone.description);
+        $milestoneTitleInputBox.val(milestone.title);
+        $milestoneDescriptionInputBox.val(milestone.description);
 
-        jq('#milestoneProjectContainer').hide();
+        $milestoneProjectContainer.hide();
 
-        if (!ASC.Projects.Common.currentUserIsModuleAdmin() && !ASC.Projects.Common.currentUserIsProjectManager(milestone.project)) {
-            jq('#milestoneResponsibleContainer').hide();
+        if (!common.currentUserIsModuleAdmin() && !common.currentUserIsProjectManager(milestone.project)) {
+            $milestoneResponsibleContainer.hide();
         }
 
-        if (milestone.isKey == 'true') {
-            jq('#milestoneKeyCheckBox').prop("checked", true);
-        }
+        $milestoneKeyCheckBox.prop("checked", milestone.isKey);
+        $milestoneNotifyManagerCheckBox.prop("checked", milestone.isNotify);
 
-        if (milestone.isNotify == 'true') {
-            jq('#milestoneNotifyManagerCheckBox').prop("checked", true);
-        }
-
-        if (currentProjectId == milestone.project && milestoneProject.attr("data-id") == currentProjectId) {
+        currentProjectId = jq.getURLParam('prjID');
+        if (currentProjectId == milestone.project && $milestoneProject.attr("data-id") == currentProjectId) {
             onGetProjectParticipants({ serverData: true, responsible: milestone.responsible });
         } else {
             var milePrj = projectItems.find(function(item) { return item.id == milestone.project; });
             if (milePrj) {
-                milestoneProject.trigger("showList", [milePrj, milestone.responsible]);
+                $milestoneProject.trigger("showList", [milePrj, milestone.responsible]);
             } else {
-                milestoneProject.attr("data-id", milestone.project);
+                $milestoneProject.attr("data-id", milestone.project);
                 getProjectParticipants(milestone.project, { responsible: milestone.responsible });
             }
         }
+        showMilestoneActionPanel();
     };
 
-    var getProjectParticipants = function(projectId, params) {
-        Teamlab.getPrjProjectTeamPersons(params, projectId, { success: onGetProjectParticipants });
+    function getProjectParticipants(projectId, params) {
+        teamlab.getPrjProjectTeamPersons(params, projectId, { success: onGetProjectParticipants });
     };
 
-    var showNewMilestonePopup = function() {
+    var showNewMilestonePopup = function () {
+        initMilestoneFormElementsAndConstants();
+        $milestoneDeadlineInputBox.mask(ASC.Resources.Master.DatePatternJQ);
         initData();
-        ASC.Projects.MilestoneAction.clearPanel();
-        var milestoneActionButton = jq('#milestoneActionButton');
-        milestoneActionButton.html(milestoneActionButton.attr('add'));
+        clearPanel();
 
-        var milestoneActionHeader = jq('#milestoneActionPanel .containerHeaderBlock table td:first');
-        milestoneActionHeader.html(ASC.Projects.Resources.ProjectsJSResource.AddMilestone);
+        $milestoneActionButton.html($milestoneActionButton.attr('add'));
 
-        jq('#milestoneProjectContainer').show();
+        var milestoneActionHeader = $milestoneActionPanel.find(".containerHeaderBlock table td:first");
+        milestoneActionHeader.html(projectsJsResource.AddMilestone);
 
-        if (jq("#milestoneProject").attr("data-id")) {
-            jq('#milestoneResponsibleContainer').show();
+        $milestoneProjectContainer.show();
+
+        if ($milestoneProject.attr("data-id")) {
+            $milestoneResponsibleContainer.show();
         }
 
         showMilestoneActionPanel();
         return false;
     };
 
-    var showMilestoneActionPanel = function () {
-        StudioBlockUIManager.blockUI(jq("#milestoneActionPanel"), 550, 550, 0);
-        jq('#milestoneTitleInputBox').focus();
+    function showMilestoneActionPanel() {
+        StudioBlockUIManager.blockUI($milestoneActionPanel, 550, 550, 0);
+        $milestoneTitleInputBox.focus();
     };
 
     var filterProjectsByIdInCombobox = function(ids) {  // only for gantt chart
@@ -530,7 +627,7 @@ ASC.Projects.MilestoneAction = (function() {
 
         var length = filterProjectsIds.length;
 
-        var sortedProjects = ASC.Projects.Common.getProjectsForFilter();
+        var sortedProjects = common.getProjectsForFilter();
 
         function sortPrj(item) {
             return item.canCreateMilestone && (!length || filterProjectsIds.some(function (fitem) {
@@ -542,21 +639,18 @@ ASC.Projects.MilestoneAction = (function() {
             return { id: item.value, title: item.title };
         }
 
-        milestoneProject.projectadvancedSelector("rewriteItemList", sortedProjects.filter(sortPrj).map(mapPrj), []);
+        $milestoneProject.projectadvancedSelector("rewriteItemList", sortedProjects.filter(sortPrj).map(mapPrj), []);
     };
-    
+
     return {
         init: init,
         showNewMilestonePopup: showNewMilestonePopup,
-        updateMilestone: updateMilestone,
-        onGetProjectParticipants: onGetProjectParticipants,
         onGetMilestoneBeforeUpdate: onGetMilestoneBeforeUpdate,
-        clearPanel: clearPanel,
         unlockMilestoneActionPage: unlockMilestoneActionPage,
         filterProjectsByIdInCombobox: filterProjectsByIdInCombobox
     };
 })(jQuery);
 
 jq(document).ready(function() {
-    jq('textarea').autosize();
+    autosize(jq('textarea'));
 });

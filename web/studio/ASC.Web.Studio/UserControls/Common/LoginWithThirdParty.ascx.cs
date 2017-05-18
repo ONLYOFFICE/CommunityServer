@@ -223,13 +223,11 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             var userInfo = ProfileToUserInfo(loginProfile);
 
-            var pwd = UserManagerWrapper.GeneratePassword();
-
             UserInfo newUserInfo;
             try
             {
                 SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                newUserInfo = UserManagerWrapper.AddUser(userInfo, pwd);
+                newUserInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword());
             }
             finally
             {

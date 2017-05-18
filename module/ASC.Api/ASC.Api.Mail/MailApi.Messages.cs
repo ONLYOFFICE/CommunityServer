@@ -36,7 +36,6 @@ using ASC.Api.Exceptions;
 using ASC.Api.Mail.Extensions;
 using ASC.Api.Mail.Resources;
 using ASC.Files.Core.Security;
-using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Common.Exceptions;
@@ -65,9 +64,8 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="tags">Message tags</param>
         /// <param optional="true" name="search">Text to search in messages</param>
         /// <param optional="true" name="page">Page number</param>
-        /// <param optional="true" name="with_calendar">Message has сalendar flag. bool flag.</param>
+        /// <param optional="true" name="with_calendar">Message has calendar flag. bool flag.</param>
         /// <param optional="true" name="page_size">Number of messages on page</param>
-        /// <param name="sort">Sort</param>
         /// <param name="sortorder">Sort order</param>
         /// <returns>Messages list</returns>
         /// <short>Get filtered messages</short> 
@@ -85,7 +83,6 @@ namespace ASC.Api.Mail
             string search,
             int? page,
             int? page_size,
-            string sort,
             string sortorder,
             bool? with_calendar)
         {
@@ -93,21 +90,22 @@ namespace ASC.Api.Mail
             {
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
-                Attachments = attachments.GetValueOrDefault(false),
-                PeriodFrom = period_from.GetValueOrDefault(0),
-                PeriodTo = period_to.GetValueOrDefault(0),
-                Important = important.GetValueOrDefault(false),
+                Attachments = attachments,
+                PeriodFrom = period_from,
+                PeriodTo = period_to,
+                Important = important,
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
                 CustomLabels = new ItemList<int>(tags),
-                SearchFilter = search,
+                SearchText = search,
+                Page = page,
                 PageSize = page_size.GetValueOrDefault(25),
                 SortOrder = sortorder,
-                WithCalendar = with_calendar.GetValueOrDefault(false)
+                WithCalendar = with_calendar
             };
 
             long totalMessages;
-            var messages = MailBoxManager.GetSingleMailsFiltered(TenantId, Username, filter, out totalMessages);
+            var messages = MailBoxManager.GetFilteredMessages(TenantId, Username, filter, out totalMessages);
             CorrectPageValue(filter, totalMessages);
             _context.SetTotalCount(totalMessages);
             return messages;
@@ -182,7 +180,8 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="tags">Messages tags. Id of tags linked with target messages.</param>
         /// <param optional="true" name="search">Text to search in messages body and subject.</param>
         /// <param optional="true" name="page_size">Count on messages on page</param>
-        /// <param name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param> 
+        /// <param optional="true" name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param>
+        /// <param optional="true" name="with_calendar">Message has with_calendar flag. bool flag.</param>
         /// <returns>Previous or next message id</returns>
         /// <short>Get previous or next message id</short> 
         /// <category>Messages</category>
@@ -200,7 +199,8 @@ namespace ASC.Api.Mail
             IEnumerable<int> tags,
             string search,
             int? page_size,
-            string sortorder)
+            string sortorder,
+            bool? with_calendar)
         {
             // inverse sort order if prev message require
             if ("prev" == direction)
@@ -210,19 +210,22 @@ namespace ASC.Api.Mail
             {
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
-                Attachments = attachments.GetValueOrDefault(false),
-                PeriodFrom = period_from.GetValueOrDefault(0),
-                PeriodTo = period_to.GetValueOrDefault(0),
-                Important = important.GetValueOrDefault(false),
+                Attachments = attachments,
+                PeriodFrom = period_from,
+                PeriodTo = period_to,
+                Important = important,
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
                 CustomLabels = new ItemList<int>(tags),
-                SearchFilter = search,
+                SearchText = search,
                 PageSize = page_size.GetValueOrDefault(25),
-                SortOrder = sortorder
+                SortOrder = sortorder,
+                WithCalendar = with_calendar
             };
 
-            return MailBoxManager.GetNextMessageId(TenantId, Username, id, filter);
+            var nextId = MailBoxManager.GetNextMessageId(TenantId, Username, id, filter);
+
+            return nextId;
         }
 
         /// <summary>
@@ -737,9 +740,10 @@ namespace ASC.Api.Mail
             crmDal.AddRelationshipEvents(messageItem);
         }
 
-        private void CorrectPageValue(MailFilter filter, long totalMessages)
+        private static void CorrectPageValue(MailFilter filter, long totalMessages)
         {
-            var maxPage = (int)Math.Ceiling((double)totalMessages / filter.PageSize);
+            var pageSize = filter.PageSize;
+            var maxPage = (int)Math.Ceiling((double)totalMessages / pageSize);
             if (filter.Page > maxPage) filter.Page = maxPage;
             if (filter.Page < 1) filter.Page = 1;
         }

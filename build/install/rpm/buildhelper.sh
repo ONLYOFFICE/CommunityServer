@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 DIR=$(readlink -f $(dirname $0))
 BUILDDIR=$DIR/builddir
 REPODIR=$DIR/repodir
@@ -109,5 +111,5 @@ if [ "$PUBLISH" = "1" ]; then
 		S3PATH=s3://static.teamlab.com/repo/centos/
 	fi
 
-	[ "$S3PATH" != "" ] && s3cmd --delete-removed --acl-public --cf-invalidate sync $REPODIR/ $S3PATH
+	[ "$S3PATH" != "" ] && s3cmd --delete-removed --acl-public  sync $REPODIR/ $S3PATH
 fi

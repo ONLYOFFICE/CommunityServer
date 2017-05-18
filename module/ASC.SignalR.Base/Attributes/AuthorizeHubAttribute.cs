@@ -41,6 +41,7 @@ namespace ASC.SignalR.Base.Hubs
     public class AuthorizeHubAttribute : AuthorizeAttribute
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AuthorizeHubAttribute));
+        const string tokenKey = "token";
 
         public override bool AuthorizeHubConnection(HubDescriptor hubDescriptor, IRequest request)
         {
@@ -81,7 +82,14 @@ namespace ASC.SignalR.Base.Hubs
 
         public static bool Authorize(IRequest request)
         {
-            var data = Signature.Read<string>(request.QueryString["token"]);
+            var token = request.QueryString[tokenKey];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                token = request.Headers[tokenKey];
+            }
+
+            var data = Signature.Read<string>(token);
 
             if (string.IsNullOrEmpty(data))
             {

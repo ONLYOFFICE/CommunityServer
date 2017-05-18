@@ -780,7 +780,7 @@ jq(document).ready(function() {
         
         var anchor = ASC.Controls.AnchorController.getAnchor();
         if (anchor == "addcomment" && CommentsManagerObj) {
-            ckeditorConnector.onReady(CommentsManagerObj.AddNewComment);
+            ckeditorConnector.load(CommentsManagerObj.AddNewComment);
         }
     }
     var textInput = jq("#BookmarkUrl");

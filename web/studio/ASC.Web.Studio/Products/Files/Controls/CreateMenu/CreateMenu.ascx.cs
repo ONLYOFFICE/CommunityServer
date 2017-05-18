@@ -27,7 +27,6 @@
 using System;
 using System.Web.UI;
 using ASC.Web.Core.Files;
-using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Files.Controls
@@ -45,8 +44,7 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            EnableCreateFile = !MobileDetector.IsMobile
-                               && FileUtility.ExtsWebEdited.Count != 0;
+            EnableCreateFile = FileUtility.ExtsWebEdited.Count != 0;
         }
     }
 }

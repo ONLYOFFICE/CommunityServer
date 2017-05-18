@@ -42,16 +42,25 @@ window.PagesNavigation = (function($) {
             prevFlag = true;
         }
 
-        var date = el.attr('chain_date');
-        var message = el.attr('data_id');
+        if (commonSettingsPage.isConversationsEnabled()) {
+            var date = el.attr('chain_date');
+            var message = el.attr('data_id');
 
-        anchor += MailFilter.toAnchor(
-            true,
-            {
-                from_date: new Date(date),
-                from_message: +message,
-                prev_flag: prevFlag
-            });
+            anchor += MailFilter.toAnchor(
+                true,
+                {
+                    from_date: new Date(date),
+                    from_message: +message,
+                    prev_flag: prevFlag
+                });
+        } else {
+            anchor += MailFilter.toAnchor(
+                true,
+                {
+                    page: number
+                });
+        }
+
 
         mailBox.keepSelection(true);
         ASC.Controls.AnchorController.move(anchor);
@@ -60,13 +69,19 @@ window.PagesNavigation = (function($) {
     var redrawFolderNavigationBar = function(pagerNavigator, pageSize, changePageSizeCallback, hasNext, hasPrev) {
         var page = 1;
         var pageCount = 1;
-        // fake second page for previos button if has prev
-        if (true === hasPrev) {
-            pageCount++;
-            page = 2;
-        }
-        if (true === hasNext) {
-            pageCount++;
+
+        if (commonSettingsPage.isConversationsEnabled()) {
+            // fake second page for previos button if has prev
+            if (true === hasPrev) {
+                pageCount++;
+                page = 2;
+            }
+            if (true === hasNext) {
+                pageCount++;
+            }
+        } else {
+            page = +MailFilter.getPage();
+            pageCount = hasNext ? page + 1 : page;
         }
 
         var total = pageCount * pageSize;
@@ -95,7 +110,8 @@ window.PagesNavigation = (function($) {
 
         pagerNavigator.changePageCallback = changePageCallback;
         pagerNavigator.NavigatorParent = $navigationBarDiv.find('#divForMessagesPager');
-        pagerNavigator.VisiblePageCount = +visiblePageCount;
+        if (commonSettingsPage.isConversationsEnabled())
+            pagerNavigator.VisiblePageCount = +visiblePageCount;
         pagerNavigator.EntryCountOnPage = +pageSize;
 
         pagerNavigator.drawPageNavigator(+page, +totalItemsCount);

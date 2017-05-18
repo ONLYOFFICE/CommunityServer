@@ -67,8 +67,16 @@ namespace ASC.Projects.Core.Domain
         public Guid LastModifiedBy { get; set; }
 
         public DateTime LastModifiedOn { get; set; }
-
+        
+        /// <summary>
+        /// Opened
+        /// </summary>
         public int TaskCount { get; set; }
+
+        /// <summary>
+        /// Total
+        /// </summary>
+        public int TaskCountTotal { get; set; }
 
         public int MilestoneCount { get; set; }
 

@@ -114,6 +114,10 @@ window.ASC.Files.EmptyScreen = (function () {
 })();
 
 (function ($) {
+
+    if (jq("#hintCreatePanel").length == 0)
+        return;
+
     ASC.Files.EmptyScreen.init();
     $(function () {
     });

@@ -24,24 +24,19 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Data.Storage.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.Hosting;
-using System.Web.Routing;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Data.Storage.Configuration;
 
 namespace ASC.Data.Storage.DiscStorage
 {
     public class DiscDataStore : BaseStorage
     {
         private const int BufferSize = 4096;
-
-        private readonly string _modulename;
-        private readonly DataList _dataList;
         private readonly Dictionary<string, MappedPath> _mappedPaths = new Dictionary<string, MappedPath>();
 
 
@@ -135,33 +130,19 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override Uri Save(string domain, string path, Stream stream)
         {
-            var postWriteCheck = false;
+            var buffered = stream.GetBuffered();
             if (QuotaController != null)
             {
-                try
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), stream.Length);
-                }
-                catch (TenantQuotaException)
-                {
-                    //this exception occurs only if tenant has no free space
-                    //or if file size larger than allowed by quota
-                    //so we can exit this function without stream buffering etc
-                    throw;
-                }
-                catch (Exception)
-                {
-                    postWriteCheck = true;
-                }
+                QuotaController.QuotaUsedCheck(buffered.Length);
             }
 
             if (path == null) throw new ArgumentNullException("path");
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (buffered == null) throw new ArgumentNullException("stream");
 
             //Try seek to start
-            if (stream.CanSeek)
+            if (buffered.CanSeek)
             {
-                stream.Seek(0, SeekOrigin.Begin);
+                buffered.Seek(0, SeekOrigin.Begin);
             }
             //Lookup domain
             var target = GetTarget(domain, path);
@@ -169,8 +150,8 @@ namespace ASC.Data.Storage.DiscStorage
             //Copy stream
 
             //optimaze disk file copy
-            var fileStream = stream as FileStream;
-            var fslen = 0L;
+            var fileStream = buffered as FileStream;
+            long fslen;
             if (fileStream != null && WorkContext.IsMono)
             {
                 File.Copy(fileStream.Name, target, true);
@@ -182,17 +163,16 @@ namespace ASC.Data.Storage.DiscStorage
                 {
                     var buffer = new byte[BufferSize];
                     int readed;
-                    while ((readed = stream.Read(buffer, 0, BufferSize)) != 0)
+                    while ((readed = buffered.Read(buffer, 0, BufferSize)) != 0)
                     {
                         fs.Write(buffer, 0, readed);
                     }
                     fslen = fs.Length;
                 }
             }
-            if (postWriteCheck)
-            {
-                QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), fslen);
-            }
+
+            QuotaUsedAdd(domain, fslen);
+
             return GetUri(domain, path);
         }
 
@@ -231,7 +211,7 @@ namespace ASC.Data.Storage.DiscStorage
             if (QuotaController != null)
             {
                 var size = GetFileSize(domain, path);
-                QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), size);
+                QuotaUsedAdd(domain, size);
             }
             return GetUri(domain, path);
         }
@@ -259,11 +239,10 @@ namespace ASC.Data.Storage.DiscStorage
 
             if (File.Exists(target))
             {
-                if (QuotaController != null)
-                {
-                    QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), new FileInfo(target).Length);
-                }
+                var size = new FileInfo(target).Length;
                 File.Delete(target);
+
+                QuotaUsedDelete(domain, size);
             }
             else
             {
@@ -284,12 +263,9 @@ namespace ASC.Data.Storage.DiscStorage
 
                 var obj = new FileInfo(target);
 
-                if (QuotaController != null)
-                {
-                    QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), obj.Length);
-                }
-
                 File.Delete(target);
+
+                QuotaUsedDelete(domain, obj.Length);
             }
         }
 
@@ -304,11 +280,9 @@ namespace ASC.Data.Storage.DiscStorage
                 var entries = Directory.GetFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
                 foreach (var entry in entries)
                 {
-                    if (QuotaController != null)
-                    {
-                        QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), new FileInfo(entry).Length);
-                    }
+                    var size = new FileInfo(entry).Length;
                     File.Delete(entry);
+                    QuotaUsedDelete(domain, size);
                 }
             }
             else
@@ -343,18 +317,18 @@ namespace ASC.Data.Storage.DiscStorage
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(newtarget));
                 }
-                if (QuotaController != null)
-                {
-                    var flength = new FileInfo(target).Length;
-                    QuotaController.QuotaUsedDelete(_modulename, srcdomain, _dataList.GetData(srcdomain), flength);
-                    QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), flength);
-                }
+
+                var flength = new FileInfo(target).Length;
+
                 //Delete file if exists
                 if (File.Exists(newtarget))
                 {
                     File.Delete(newtarget);
                 }
                 File.Move(target, newtarget);
+               
+                QuotaUsedDelete(srcdomain, flength);
+                QuotaUsedAdd(newdomain, flength);
             }
             else
             {
@@ -401,10 +375,7 @@ namespace ASC.Data.Storage.DiscStorage
 
             Directory.Delete(targetDir, true);
 
-            if (QuotaController != null)
-            {
-                QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), size);
-            }
+            QuotaUsedDelete(domain, size);
         }
 
         public override long GetFileSize(string domain, string path)
@@ -448,11 +419,9 @@ namespace ASC.Data.Storage.DiscStorage
                 var finfo = new FileInfo(entry);
                 if ((DateTime.UtcNow - finfo.CreationTimeUtc) > oldThreshold)
                 {
-                    if (QuotaController != null)
-                    {
-                        QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), new FileInfo(entry).Length);
-                    }
                     File.Delete(entry);
+
+                    QuotaUsedDelete(domain, finfo.Length);
                 }
             }
         }
@@ -563,12 +532,11 @@ namespace ASC.Data.Storage.DiscStorage
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(newtarget));
                 }
-                if (QuotaController != null)
-                {
-                    var flength = new FileInfo(target).Length;
-                    QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), flength);
-                }
+
                 File.Copy(target, newtarget, true);
+
+                var flength = new FileInfo(target).Length;
+                QuotaUsedAdd(newdomain, flength);
             }
             else
             {
@@ -597,20 +565,16 @@ namespace ASC.Data.Storage.DiscStorage
             }
 
             // Copy each file into it's new directory.
-            foreach (FileInfo fi in source.GetFiles())
+            foreach (var fi in source.GetFiles())
             {
-                if (QuotaController != null)
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), fi.Length);
-                }
                 fi.CopyTo(Path.Combine(target.ToString(), fi.Name), true);
+                QuotaUsedAdd(newdomain, fi.Length);
             }
 
             // Copy each subdirectory using recursion.
             foreach (var diSourceSubDir in source.GetDirectories())
             {
-                var nextTargetSubDir =
-                    target.CreateSubdirectory(diSourceSubDir.Name);
+                var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
                 CopyAll(diSourceSubDir, nextTargetSubDir, newdomain);
             }
         }
@@ -666,7 +630,6 @@ namespace ASC.Data.Storage.DiscStorage
                 throw new ArgumentException("bad path");
             }
         }
-
 
         private class MonoUri : Uri
         {

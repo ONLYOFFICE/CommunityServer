@@ -30,8 +30,8 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Data.Storage;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Utility;
 

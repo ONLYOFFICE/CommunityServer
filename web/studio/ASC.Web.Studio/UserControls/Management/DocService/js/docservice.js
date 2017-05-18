@@ -48,7 +48,7 @@ jq(function () {
         var testApiResult = function () {
             var result = typeof DocsAPI != "undefined";
 
-            if (result) {
+            if (result || !jq("#docServiceUrlApi").val().length) {
                 saveUrls();
             } else {
                 LoadingBanner.showMesInfoBtn("#docServiceBlock", "Api url: Service is not defined", "error");
@@ -67,7 +67,7 @@ jq(function () {
 
         var scriptAddress = jq("#scripDocServiceAddress");
 
-        scriptAddress.load(testApiResult).error(testApiResult);
+        scriptAddress.on("load", testApiResult).on("error", testApiResult);
 
         var docServiceUrlApi = jq("#docServiceUrlApi").val();
 

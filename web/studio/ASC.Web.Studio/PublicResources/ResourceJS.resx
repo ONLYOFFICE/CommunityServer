@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
-    <value>Validation code cannot be empty</value>
+    <value>Validation code field cannot be empty</value>
   </data>
   <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
     <value>Enter mobile phone number</value>
@@ -127,7 +127,7 @@
     <value>Add</value>
   </data>
   <data name="AdvansedFilterInfoText" xml:space="preserve">
-    <value>Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the terms similar in spelling use the {0}~{1} symbol at the end of a word.{2}Learn more...{3}</value>
+    <value>Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the exact phrase use the quotation marks.{2}Learn more...{3}</value>
   </data>
   <data name="BackupMakeCopySuccess" xml:space="preserve">
     <value>The backup copy has been successfully created.</value>
@@ -136,7 +136,10 @@
     <value>Busy</value>
   </data>
   <data name="BuyNumberSuccessMsg" xml:space="preserve">
-    <value>Покупка номера успешно завершена</value>
+    <value>Successful purchase of number</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="CancelConfirmMessage" xml:space="preserve">
     <value>All the data you entered will be lost. Are you sure you want to continue?</value>
@@ -145,7 +148,7 @@
     <value>Changes are applied</value>
   </data>
   <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
-    <value>Изменения успешно применены.</value>
+    <value>Changes are successfully applied.</value>
   </data>
   <data name="ChooseOwner" xml:space="preserve">
     <value>Choose owner</value>
@@ -160,7 +163,7 @@
     <value>Close</value>
   </data>
   <data name="CommonJSErrorMsg" xml:space="preserve">
-    <value>Упс... Ошибочка вышла. Обратитесь к администратору.</value>
+    <value>An error has been encountered. Please contact your administrator.</value>
   </data>
   <data name="ConfirmMessage" xml:space="preserve">
     <value>Do you want to continue?</value>
@@ -175,13 +178,16 @@
     <value>Enter the company title</value>
   </data>
   <data name="ContactSelectorNoItems" xml:space="preserve">
-    <value>There are not contacts</value>
+    <value>There are no contacts</value>
   </data>
   <data name="ContactSelectorNoResult" xml:space="preserve">
     <value>No such contact</value>
   </data>
   <data name="ContactSelectorNotFoundError" xml:space="preserve">
-    <value>There's not such company</value>
+    <value>There is no such company</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Continue</value>
   </data>
   <data name="CreateButton" xml:space="preserve">
     <value>Create</value>
@@ -189,20 +195,23 @@
   <data name="CreateReportError" xml:space="preserve">
     <value>Error while generating report</value>
   </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="EditButton" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="Empty" xml:space="preserve">
     <value>Empty</value>
   </data>
-  <data name="ErrorEmptyField" xml:space="preserve">
-    <value>Please enter field</value>
-  </data>
   <data name="EmptyCommentErrorMessage" xml:space="preserve">
     <value>Comment cannot be empty</value>
   </data>
   <data name="ErrorEmptyEmail" xml:space="preserve">
     <value>Enter the email</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Please fill in this field</value>
   </data>
   <data name="ErrorEmptyGroupTitle" xml:space="preserve">
     <value>Enter the group title</value>
@@ -214,13 +223,10 @@
     <value>Enter the last name</value>
   </data>
   <data name="ErrorGroupNotExist" xml:space="preserve">
-    <value>There is not such group</value>
+    <value>There is no such group</value>
   </data>
   <data name="ErrorHeadNotExist" xml:space="preserve">
     <value>There is not such person</value>
-  </data>
-  <data name="ErrorKeyActivation" xml:space="preserve">
-    <value>You have entered the wrong key.</value>
   </data>
   <data name="ErrorMesLongField64" xml:space="preserve">
     <value>64 chars maximum</value>
@@ -235,13 +241,25 @@
     <value>You can only enter up to 64 characters for this field.</value>
   </data>
   <data name="ErrorNotCorrectEmail" xml:space="preserve">
-    <value>Invalid email</value>
+    <value>Incorrect email</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Portal name is already taken</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Not allowed characters in portal name</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Portal name is too short</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Portal name has not been changed</value>
   </data>
   <data name="FinishImportUserTitle" xml:space="preserve">
     <value>The users have been successfully added.</value>
   </data>
   <data name="GreetingRingtones" xml:space="preserve">
-    <value>Мелодии приветствия</value>
+    <value>Greeting ringtones</value>
   </data>
   <data name="GroupSelectorAddSuccess" xml:space="preserve">
     <value>Group {0} was created successfully.</value>
@@ -261,8 +279,11 @@
   <data name="ImportUserOverlimitHeader" xml:space="preserve">
     <value>Your pricing plan does not allow you to add any more users</value>
   </data>
+  <data name="ImportUserOverlimitReason" xml:space="preserve">
+    <value>The selected users will be added as guests. You will be able to change their roles later in the 'People' module.</value>
+  </data>
   <data name="IncorrectIPAddressFormatError" xml:space="preserve">
-    <value>Неверный формат IP-адреса</value>
+    <value>Incorrect IP address format</value>
   </data>
   <data name="InviteButton" xml:space="preserve">
     <value>Invite</value>
@@ -276,11 +297,20 @@
   <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
     <value>Incorrect port number</value>
   </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>You need to read and agree with the License Agreement</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>License is not correct</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Link has been copied to the clipboard</value>
+  </data>
   <data name="LoadingDescription" xml:space="preserve">
     <value>Please wait...</value>
   </data>
   <data name="LoadingPleaseWait" xml:space="preserve">
-    <value>Loading, Please wait.</value>
+    <value>Loading, please wait.</value>
   </data>
   <data name="LoadingProcessing" xml:space="preserve">
     <value>Loading...</value>
@@ -290,6 +320,165 @@
   </data>
   <data name="MagnificImageError" xml:space="preserve">
     <value>{0}The image{1} could not be loaded.</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>all day</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Event has been canceled.</value>
+  </data>
+  <data name="MailIcsCancelDescriptionMerged" xml:space="preserve">
+    <value>Event "{0}" has been canceled.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Canceled: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Event has been finished.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} tentatively accepted the invitation to</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} declined the invitation to</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Reply: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} accepted the invitation to</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} invites you to</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Invitation: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>approximate</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>at</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>every</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>for</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>last</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>month</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>months</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>on</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>on the</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>unknown format</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value>the</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>times</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>until</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>weekday</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>weekdays</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>weeks</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>year</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>years</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Event has been changed.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Update: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>You tentatively accepted the invitation to</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>You declined the invitation to</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>You accepted the invitation to</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>You sent the invitation to</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>A problem has occurred while trying to send this message.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Event cancellation notification has been sent to attendees.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Your request has been sent to attendees.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Your response has been sent to the organizer.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Message has been sent.</value>
   </data>
   <data name="MeLabel" xml:space="preserve">
     <value>Me</value>
@@ -339,8 +528,20 @@
   <data name="OnlineStatus" xml:space="preserve">
     <value>Online</value>
   </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Error while executing the operation.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Operation has been successfully completed.</value>
+  </data>
   <data name="People" xml:space="preserve">
     <value>People</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}You are about to rename your portal.{1}{0}Are you sure you want to continue?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Portal renaming confirmation</value>
   </data>
   <data name="ProjectSelectorAddText" xml:space="preserve">
     <value>Create new project</value>
@@ -364,13 +565,13 @@
     <value>No such person</value>
   </data>
   <data name="QueueRingtones" xml:space="preserve">
-    <value>Мелодии очереди</value>
+    <value>Queue ringtones</value>
   </data>
   <data name="SameIPRestrictionError" xml:space="preserve">
-    <value>Одинаковые ограничения</value>
+    <value>Same restrictions</value>
   </data>
   <data name="SavedTitle" xml:space="preserve">
-    <value>Сохранено</value>
+    <value>The settings are successfully saved</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>Select file</value>
@@ -433,7 +634,13 @@
     <value>User</value>
   </data>
   <data name="SelectorVisitor" xml:space="preserve">
-    <value>Visitor</value>
+    <value>Guest</value>
+  </data>
+  <data name="SendTariffRequest" xml:space="preserve">
+    <value>Request was sent successfully</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>I created my own web-office. Join me here: {0} #ONLYOFFICE #WebOffice</value>
   </data>
   <data name="ShowNext" xml:space="preserve">
     <value>Show Next</value>
@@ -454,25 +661,25 @@
     <value>Empty file</value>
   </data>
   <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
-    <value>Ошибка при загрузке файла</value>
+    <value>Error while uploading file</value>
   </data>
   <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
-    <value>Поддерживаемые форматы файлов: mp3</value>
+    <value>Supported file format: mp3</value>
   </data>
   <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
-    <value>Размер файла не должен превышать 5MB </value>
+    <value>File size cannot exceed 5MB </value>
   </data>
   <data name="UserSelectorAddSuccess" xml:space="preserve">
-    <value>User {0} was created successfully</value>
+    <value>The profile for {0} was created successfully</value>
   </data>
   <data name="UserSelectorAddText" xml:space="preserve">
-    <value>Create new user</value>
+    <value>Create new profile</value>
   </data>
   <data name="UserSelectorEmptyList" xml:space="preserve">
     <value>No users in this list</value>
   </data>
   <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
-    <value>Exceeds the maximum active users</value>
+    <value>Exceeds the number of maximum active users</value>
   </data>
   <data name="UserSelectorNoGroups" xml:space="preserve">
     <value>No groups have been created at the portal so far. Go to the People module to group users.</value>
@@ -484,46 +691,13 @@
     <value>No such user</value>
   </data>
   <data name="VoicemailRingtones" xml:space="preserve">
-    <value>Мелодии голосовой почты</value>
+    <value>Voice mail ringtones</value>
   </data>
   <data name="WaitingRingtones" xml:space="preserve">
-    <value>Мелодии ожидания</value>
+    <value>Waiting ringtones</value>
   </data>
   <data name="WarningMessageBeforeUnload" xml:space="preserve">
     <value>If you leave now all the entered or unsaved data will be lost.</value>
-  </data>
-  <data name="WizardCancelConfirmMessage" xml:space="preserve">
-    <value>You haven't set up any password. You will be able to do it later using the 'Forgot your password?' link at the portal login page. Are you sure you want to continue?</value>
-  </data>
-  <data name="LinkCopySuccess" xml:space="preserve">
-    <value>Link has been copied to the clipboard</value>
-  </data>
-  <data name="ShareInviteLinkDscr" xml:space="preserve">
-    <value>I created my own web-office. Join me here: {0} #ONLYOFFICE #WebOffice</value>
-  </data>
-  <data name="ErrorPortalNameExist" xml:space="preserve">
-    <value>Portal name is already busy</value>
-  </data>
-  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
-    <value>Unallowable symbols in portal name</value>
-  </data>
-  <data name="ErrorPortalNameTooShort" xml:space="preserve">
-    <value>Portal name too short</value>
-  </data>
-  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
-    <value>Portal name was not changed</value>
-  </data>
-  <data name="CancelButton" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ContinueButton" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
-    <value>{0}You are about to rename your portal.{1}{0}Are you sure you want to continue?{1}</value>
-  </data>
-  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
-    <value>Portal renaming confirmation</value>
   </data>
   <data name="WelcomeCollaboratorCan" xml:space="preserve">
     <value>{0}This means that you can: {1}view portal content open for all portal users,{2}leave comments,{3}attach and download files.{4}</value>
@@ -532,7 +706,7 @@
     <value>In case you need some additional rights please contact your portal administrator.</value>
   </data>
   <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
-    <value>Welcome to TeamLab</value>
+    <value>Welcome to ONLYOFFICE</value>
   </data>
   <data name="WelcomeCollaboratorRole" xml:space="preserve">
     <value>The portal administrator invited you as guest user to the portal.</value>
@@ -541,180 +715,15 @@
     <value>Start work</value>
   </data>
   <data name="WelcomeToTeamlab" xml:space="preserve">
-    <value>Welcome to Teamlab!</value>
+    <value>Welcome to ONLYOFFICE!</value>
   </data>
-  <data name="OperationFailedMsg" xml:space="preserve">
-    <value>Ошибка при выполнении операции.</value>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>You haven't set up any password. You will be able to do it later using the 'Forgot your password?' link at the portal login page. Are you sure you want to continue?</value>
   </data>
-  <data name="OperationSuccededMsg" xml:space="preserve">
-    <value>Операция успешно выполнена.</value>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Incoming call</value>
   </data>
-  <data name="SendTariffRequest" xml:space="preserve">
-    <value>Request was sent</value>
-  </data>
-  <data name="LicenseKeyError" xml:space="preserve">
-    <value>License not correct</value>
-  </data>
-  <data name="LicenseAgreementsError" xml:space="preserve">
-    <value>You need read and agree License Agreement</value>
-  </data>
-  <data name="MailIcsRequestSubject" xml:space="preserve">
-    <value>Invitation: {0}</value>
-  </data>
-  <data name="MailIcsRequestDescription" xml:space="preserve">
-    <value>{0} invites you to</value>
-  </data>
-  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
-    <value>You sent the invitation to</value>
-  </data>
-  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
-    <value>You accepted the invitation to</value>
-  </data>
-  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
-    <value>You tentatively accepted the invitation to</value>
-  </data>
-  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
-    <value>You declined the invitation to</value>
-  </data>
-  <data name="MailIcsUpdateSubject" xml:space="preserve">
-    <value>Update: {0}</value>
-  </data>
-  <data name="MailIcsUpdateDescription" xml:space="preserve">
-    <value>Event has been changed.</value>
-  </data>
-  <data name="MailIcsFinishDescription" xml:space="preserve">
-    <value>Event has been finished.</value>
-  </data>
-  <data name="MailIcsReplySubject" xml:space="preserve">
-    <value>Reply: {0}</value>
-  </data>
-  <data name="MailIcsReplyYesDescription" xml:space="preserve">
-    <value>{0} accepted the invitation to</value>
-  </data>
-  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
-    <value>{0} tentatively accepted the invitation to</value>
-  </data>
-  <data name="MailIcsReplyNoDescription" xml:space="preserve">
-    <value>{0} declined the invitation to</value>
-  </data>
-  <data name="MailIcsCancelSubject" xml:space="preserve">
-    <value>Canceled: {0}</value>
-  </data>
-  <data name="MailIcsCancelDescription" xml:space="preserve">
-    <value>Event has been cancelled.</value>
-  </data>
-  <data name="MailIcsCancelDescriptionMerged" xml:space="preserve">
-    <value>Event "{0}" has been cancelled.</value>
-  </data>
-  <data name="MailSentIcalRequestText" xml:space="preserve">
-    <value>Your request has been sent to attendees.</value>
-  </data>
-  <data name="MailSentIcalResponseText" xml:space="preserve">
-    <value>Your response has been sent to the organizer.</value>
-  </data>
-  <data name="MailSentIcalCancelText" xml:space="preserve">
-    <value>Event cancellation notification has been sent to attendees.</value>
-  </data>
-  <data name="MailSentMessageText" xml:space="preserve">
-    <value>Message has been sent.</value>
-  </data>
-  <data name="MailSendMessageError" xml:space="preserve">
-    <value>A problem has occurred while trying to send this message.</value>
-  </data>
-  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
-    <value>all day</value>
-  </data>
-  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
-    <value>every</value>
-  </data>
-  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
-    <value>until</value>
-  </data>
-  <data name="MailIcsRRuleForLabel" xml:space="preserve">
-    <value>for</value>
-  </data>
-  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
-    <value>times</value>
-  </data>
-  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
-    <value>time</value>
-  </data>
-  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
-    <value>approximate</value>
-  </data>
-  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
-    <value>hour</value>
-  </data>
-  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
-    <value>weekdays</value>
-  </data>
-  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
-    <value>weekday</value>
-  </data>
-  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
-    <value>days</value>
-  </data>
-  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
-    <value>day</value>
-  </data>
-  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
-    <value>weeks</value>
-  </data>
-  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
-    <value>week</value>
-  </data>
-  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
-    <value>months</value>
-  </data>
-  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
-    <value>month</value>
-  </data>
-  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
-      <value>years</value>
-  </data>
-  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
-      <value>year</value>
-  </data>
-  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
-      <value>on</value>
-  </data>
-  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
-      <value>on the</value>
-  </data>
-  <data name="MailIcsRRuleInLabel" xml:space="preserve">
-      <value>in</value>
-  </data>
-  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
-      <value>at</value>
-  </data>
-  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
-      <value>the</value>
-  </data>
-  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
-      <value>and</value>
-  </data>
-  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
-      <value>or</value>
-  </data>
-  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
-      <value>last</value>
-  </data>
-  <data name="MailIcsRRuleStLabel" xml:space="preserve">
-      <value>st</value>
-  </data>
-  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
-      <value>nd</value>
-  </data>
-  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
-      <value>rd</value>
-  </data>
-  <data name="MailIcsRRuleThLabel" xml:space="preserve">
-      <value>th</value>
-  </data>
-  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
-      <value>unknown format</value>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Missed call</value>
   </data>
 </root>

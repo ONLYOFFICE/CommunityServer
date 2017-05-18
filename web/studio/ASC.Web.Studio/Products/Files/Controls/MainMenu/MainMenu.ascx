@@ -13,7 +13,7 @@
         <span class="main-button-text"><%= FilesUCResource.ButtonCreate %></span>
         <span class="white-combobox">&nbsp;</span>
     </li>
-    <li id="buttonUpload" class="menu-upload-button disable" title="<%= FilesUCResource.ButtonUpload %>">
+    <li id="buttonUpload" class="menu-upload-button disable not-ready" title="<%= FilesUCResource.ButtonUpload %>">
         <span class="menu-upload-icon">&nbsp;</span>
     </li>
 </ul>
@@ -84,7 +84,7 @@
         <% } %>
         <% if (ImportConfiguration.SupportDropboxInclusion)
            { %>
-        <li class="add-account-button DropBox" data-provider="DropBox" title="<%= FilesUCResource.ButtonAddDropBox %>"></li>
+        <li class="add-account-button DropboxV2" data-provider="DropboxV2" title="<%= FilesUCResource.ButtonAddDropBox %>"></li>
         <% } %>
         <% if (ImportConfiguration.SupportOneDriveInclusion)
            { %>
@@ -92,9 +92,9 @@
         <% } %>
         <% if (ImportConfiguration.SupportWebDavInclusion)
            { %>
-        <li class="add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ButtonAddOwnCloud %>"></li>
+        <li class="add-account-button Nextcloud" data-provider="WebDav" title="<%= FilesUCResource.ButtonAddNextcloud %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportWebDavInclusion)
+        <% if (ImportConfiguration.SupportInclusion)
            { %>
         <li class="account-connect add-account-button WebDav" title="<%= FilesUCResource.AddAccount %>"></li>
         <% } %>

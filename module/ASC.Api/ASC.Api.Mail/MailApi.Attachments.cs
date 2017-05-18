@@ -112,7 +112,7 @@ namespace ASC.Api.Mail
             if (string.IsNullOrEmpty(ical_body))
                 throw new ArgumentException(@"Empty calendar body", "ical_body");
 
-            var calendar = MailUtil.ParseValidCalendar(ical_body);
+            var calendar = MailUtil.ParseValidCalendar(ical_body, _log);
 
             if (calendar == null)
                 throw new ArgumentException(@"Invalid calendar body", "ical_body");

@@ -1,0 +1,95 @@
+﻿<script id="operator-status-switcher-options-tmpl" type="text/x-jquery-tmpl">
+    <ul class="dropdown-content ">
+        <li id="operator-online-btn" class="dropdown-item">${ASC.Resources.Master.Resource.OnlineStatus}</li>
+        <li id="operator-offline-btn" class="dropdown-item">${ASC.Resources.Master.Resource.OfflineStatus}</li>
+    </ul>
+</script>
+
+<script id="options-box-tmpl" type="text/x-jquery-tmpl">
+    <select id="call-type-selector" class="comboBox">
+        <option value="2" class="browser-type-call" {{if answer== 2}} selected="selected" {{/if}}>${ASC.Resources.Master.TemplateResource.Browser}</option>
+        {{each phones}}
+        <option value="0" class="phone-type-call" data-number="${title}" {{if answer== 0 && redirectToNumber== title}} selected="selected" {{/if}}>${title}</option>
+        {{/each}}
+    </select>
+    <div id="toggle-missed-box-btn" class="disable">
+        <div class="voip-missed"></div>
+    </div>
+    <div id="toggle-phone-box-btn" class="disable">
+        <div class="voip-tastatura"></div>
+    </div>
+</script>
+
+<script id="countries-panel-tmpl" type="text/x-jquery-tmpl">
+    <div id="countries-panel" class="studio-action-panel">
+        <ul class="dropdown-content">
+            {{each countries}}
+            <li class="dropdown-item">
+                <span class="voip-flag ${iso}" data-iso="${iso}" data-code="${code}"></span>${title}
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</script>
+
+<script id="contact-phone-switcher-item-tmpl" type="text/x-jquery-tmpl">
+    <li class="dropdown-item">
+        <div class="data">${data}</div>
+        <div class="category">${categoryName}</div>
+    </li>
+</script>
+
+<script id="missed-call-tmpl" type="text/x-jquery-tmpl">
+    <div class="missed-call" data-number="${lastCall.from}">
+        <div class="missed-call-avatar">
+            {{if lastCall.contact != null}}
+            <a href="${'/products/crm/default.aspx?id=' + lastCall.contact.id}" target="_blank">
+                <img src="${lastCall.contact.smallFotoUrl}" alt="${lastCall.contact.displayName}" />
+            </a>
+            {{/if}}
+            {{if callsCount > 1}}
+            <div class="missed-call-group-count">${callsCount}</div>
+            {{/if}}
+        </div>
+        <div class="missed-call-contact">
+            {{if lastCall.contact && lastCall.contact.displayName}}
+            <a href="${'/products/crm/default.aspx?id=' + lastCall.contact.id}" target="_blank" class="missed-call-name" title="${lastCall.contact.displayName}">
+                ${lastCall.contact.displayName}
+            </a>
+            <div class="missed-call-number">${lastCall.from}</div>
+            {{else}}
+            <div class="missed-call-number-single">${lastCall.from}</div>
+            {{/if}}
+
+        </div>
+        <div class="recall-btn" data-number="${lastCall.from}">
+            <div></div>
+        </div>
+        <div class="missed-call-date">${lastCall.time}</div>
+        <div class="missed-call-icon"></div>
+    </div>
+</script>
+
+<script id="operators-redirect-option-tmpl" type="text/x-jquery-tmpl">
+    <option value="${id}">${displayName}</option>
+</script>
+
+<script id="call-tmpl" type="text/x-jquery-tmpl">
+    {{if contact != null}}
+    <div id="call-avatar">
+        <a href="${'/products/crm/default.aspx?id=' + contact.id}" target="_blank">
+            <img src="${contact.mediumFotoUrl}" alt="${contact.displayName}" />
+        </a>
+    </div>
+    <div id="call-dude">
+        <a href="${'/products/crm/default.aspx?id=' + contact.id}" target="_blank" id="dude-name">
+            ${contact.displayName}
+        </a>
+        <div id="dude-company"></div>
+    </div>
+    {{/if}}
+    <div id="call-number">
+        <div id="number-value">{{if status === 0 || status === 2}}${from}{{else}}${to}{{/if}}</div>
+        <div id="number-location"></div>
+    </div>
+</script>

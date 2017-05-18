@@ -37,6 +37,7 @@ namespace ASC.Api
     public static class DataTokenConstants
     {
         public const string RequiresAuthorization = "authorization";
+        public const string CheckPayment = "checkpayment";
         public const string Poll = "poll";
     }
 }

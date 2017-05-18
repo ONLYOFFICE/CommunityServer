@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddBookmarkLink" xml:space="preserve">
-    <value>Create bookmark</value>
+    <value>Create new bookmark</value>
   </data>
   <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
     <value>Add bookmark to favorites</value>
   </data>
   <data name="AddToFavourite" xml:space="preserve">
-    <value>Add to favorites</value>
+    <value>Add to Favorites</value>
   </data>
   <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
     <value>Creating Bookmark...</value>
@@ -219,6 +219,9 @@
   <data name="MostRecentLabel" xml:space="preserve">
     <value>Most Recent</value>
   </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
   <data name="PopularityLabel" xml:space="preserve">
     <value>Most Popular</value>
   </data>
@@ -227,6 +230,9 @@
   </data>
   <data name="RemoveButton" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to remove the bookmark?</value>
   </data>
   <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to remove the {0} bookmark from favorites?</value>
@@ -269,8 +275,5 @@
   </data>
   <data name="YearLabel" xml:space="preserve">
     <value>Year</value>
-  </data>
-  <data name="RemoveConfirmMessage" xml:space="preserve">
-    <value>Are you sure you want to remove the bookmark?</value>
   </data>
 </root>

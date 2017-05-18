@@ -24,7 +24,7 @@
 */
 
 
-(function (window) {
+ASC.Projects.GantChart = (function (window) {
 
     'use strict';
 
@@ -21571,4 +21571,4 @@
     prot = UserDefaults.prototype;
     prot['setFontFamily'] = prot.setFontFamily;
 
-})(window);
+});

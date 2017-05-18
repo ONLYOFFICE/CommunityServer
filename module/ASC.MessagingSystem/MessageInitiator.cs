@@ -29,6 +29,7 @@ namespace ASC.MessagingSystem
     public enum MessageInitiator
     {
         System,
-        DocsService
+        DocsService,
+        ThirdPartyProvider,
     }
 }

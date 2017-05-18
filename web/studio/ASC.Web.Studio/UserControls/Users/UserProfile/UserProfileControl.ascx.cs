@@ -27,6 +27,7 @@
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Core.SMS;
@@ -45,20 +46,6 @@ using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
-    public class AllowedActions
-    {
-        public bool AllowEdit { get; private set; }
-        public bool AllowAddOrDelete { get; private set; }
-
-        public AllowedActions(UserInfo userInfo)
-        {
-            var isOwner = userInfo.IsOwner();
-            var isMe = userInfo.IsMe();
-            AllowAddOrDelete = SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser) && (!isOwner || isMe);
-            AllowEdit = SecurityContext.CheckPermissions(new UserSecurityProvider(userInfo.ID), Constants.Action_EditUser) && (!isOwner || isMe);
-        }
-    }
-
     public partial class UserProfileControl : UserControl
     {
         #region SavePhotoThumbnails
@@ -220,7 +207,9 @@ namespace ASC.Web.Studio.UserControls.Users
             UserInfo = UserProfileHelper.UserInfo;
             ShowSocialLogins = UserInfo.IsMe();
 
-            IsAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            IsAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
+                      WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
+
             IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor();
 
             if (!IsAdmin && (UserInfo.Status != EmployeeStatus.Active))
@@ -246,8 +235,8 @@ namespace ASC.Web.Studio.UserControls.Users
 
             _deleteProfileContainer.Options.IsPopup = true;
 
-            Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less");
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userprofilecontrol.js"));
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less")
+                .RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userprofilecontrol.js"));
 
             if (Actions.AllowEdit)
             {
@@ -257,6 +246,7 @@ namespace ASC.Web.Studio.UserControls.Users
             {
                 var control = (UserEmailChange)LoadControl(UserEmailChange.Location);
                 control.UserInfo = UserInfo;
+                control.RegisterStylesAndScripts = false;
                 userEmailChange.Controls.Add(control);
             }
 
@@ -352,6 +342,20 @@ namespace ASC.Web.Studio.UserControls.Users
 
             if (days < 0) days += 365;
             return days;
+        }
+    }
+
+    public class AllowedActions
+    {
+        public bool AllowEdit { get; private set; }
+        public bool AllowAddOrDelete { get; private set; }
+
+        public AllowedActions(UserInfo userInfo)
+        {
+            var isOwner = userInfo.IsOwner();
+            var isMe = userInfo.IsMe();
+            AllowAddOrDelete = SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser) && (!isOwner || isMe);
+            AllowEdit = SecurityContext.CheckPermissions(new UserSecurityProvider(userInfo.ID), Constants.Action_EditUser) && (!isOwner || isMe);
         }
     }
 }

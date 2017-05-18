@@ -32,36 +32,40 @@ var TariffStandalone = new function () {
             isInit = true;
         }
 
-        jq.switcherAction("#switcherRequest", "#requestPanel");
 
         uploadInit();
     };
 
     var uploadInit = function () {
-        var upload =
-            new AjaxUpload("licenseKey", {
-                action: 'ajaxupload.ashx?type=ASC.Web.Studio.HttpHandlers.LicenseUploader,ASC.Web.Studio',
-                onChange: function (file, ext) {
-                    jq("#licenseKeyText").removeClass("error");
-                    LoadingBanner.showLoaderBtn(".step");
-                },
-                onComplete: function (file, response) {
-                    LoadingBanner.hideLoaderBtn(".step");
-                    try {
-                        var result = jq.parseJSON(response);
-                    } catch (e) {
-                        result = { Success: false };
-                    }
+        jq("#licenseKey").click(function (e) {
+            e.preventDefault();
+            jq("#uploadButton").click();
+        });
 
-                    var licenseResult = result.Message;
-                    if (!result.Success) {
-                        licenseResult = "";
-                        toastr.error(ASC.Resources.Master.Resource.LicenseKeyError);
-                    }
-                    jq("#licenseKeyText").text(licenseResult);
-
-                    licenseKeyEdit();
+        var upload = jq("#uploadButton")
+            .fileupload({
+                url: "ajaxupload.ashx?type=ASC.Web.Studio.HttpHandlers.LicenseUploader,ASC.Web.Studio",
+            })
+            .bind("fileuploadstart", function () {
+                jq("#licenseKeyText").removeClass("error");
+                LoadingBanner.showLoaderBtn(".step");
+            })
+            .bind("fileuploaddone", function (e, data) {
+                LoadingBanner.hideLoaderBtn(".step");
+                try {
+                    var result = jq.parseJSON(data.result);
+                } catch (e) {
+                    result = {Success: false};
                 }
+
+                var licenseResult = result.Message;
+                if (!result.Success) {
+                    toastr.error(licenseResult);
+                    licenseResult = "";
+                }
+                jq("#licenseKeyText").text(licenseResult);
+
+                licenseKeyEdit();
             });
     };
 
@@ -109,52 +113,11 @@ var TariffStandalone = new function () {
         toastr.error(res.Message);
     };
 
-    var request = function () {
-        var fname = jq(".text-edit-fname").val().trim();
-        var lname = jq(".text-edit-lname").val().trim();
-        var title = jq(".text-edit-title").val().trim();
-        var email = jq(".text-edit-email").val().trim();
-        var phone = jq(".text-edit-phone").val().trim();
-        var ctitle = jq(".text-edit-ctitle").val().trim();
-        var csize = jq(".text-edit-csize").val();
-        var site = jq(".text-edit-site").val().trim();
-        var message = jq(".text-edit-message").val().trim();
-
-        if (!fname.length
-            || !lname.length
-            || !email.length
-            || !phone.length
-            || !ctitle.length
-            || !csize.length
-            || !site.length) {
-            toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
-            return;
-        }
-
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                LoadingBanner.showLoaderBtn("#requestPanel");
-            } else {
-                LoadingBanner.hideLoaderBtn("#requestPanel");
-            }
-        };
-        TariffStandaloneController.SendRequest(fname, lname, title, email, phone, ctitle, csize, site, message,
-            function (result) {
-                if (result.error != null) {
-                    toastr.error(result.error.Message);
-                    return;
-                }
-                toastr.success(ASC.Resources.Master.Resource.SendTariffRequest);
-            });
-    };
-
     return {
         init: init,
 
         activate: activate,
         licenseKeyEdit: licenseKeyEdit,
-
-        request: request,
     };
 };
 
@@ -162,8 +125,6 @@ jq(function () {
     TariffStandalone.init();
 
     jq("#activatePanel").on("click", "#activateButton:not(.disable)", TariffStandalone.activate);
-
-    jq("#licenseRequest").click(TariffStandalone.request);
 
     jq("#policyAccepted").click(TariffStandalone.licenseKeyEdit);
 });

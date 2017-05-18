@@ -28,7 +28,9 @@ window.accountsModal = (function($) {
     var isInit = false,
         accountEmail = '',
         wndQuestion = undefined,
-        onSuccessOperationCallback;
+        onSuccessOperationCallback,
+        progressBarIntervalId = null,
+        GET_STATUS_TIMEOUT = 10000;
 
     var ids = {
         'email': 'email',
@@ -95,9 +97,14 @@ window.accountsModal = (function($) {
 
                 if (account.is_teamlab && (account.is_shared_domain || Teamlab.profile.isAdmin)) {
                     serviceManager.removeMailbox(account.mailbox_id, { account: account }, {
-                        success: function (params) {
-                            accountsManager.removeAccount(params.account.email);
-                            serviceManager.getAccounts();
+                        success: function(params, data) {
+                            window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
+                            window.LoadingBanner.displayMailLoading(true, true);
+
+                            progressBarIntervalId = setInterval(function() {
+                                    return checkRemoveMailboxStatus(data, params.account);
+                                },
+                                GET_STATUS_TIMEOUT);
                         },
                         error: function (params, error) {
                             administrationError.showErrorToastr("getCommonMailDomain", error);
@@ -106,8 +113,14 @@ window.accountsModal = (function($) {
 
                 } else {
                     serviceManager.removeBox(account.email, { account: account }, {
-                        success: function (params, data) {
-                            accountsManager.removeAccount(params.account.email);
+                        success: function(params, data) {
+                            window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
+                            window.LoadingBanner.displayMailLoading(true, true);
+
+                            progressBarIntervalId = setInterval(function() {
+                                    return checkRemoveMailboxStatus(data, params.account);
+                                },
+                                GET_STATUS_TIMEOUT);
                         },
                         error: function (params, error) {
                             administrationError.showErrorToastr("getCommonMailDomain", error);
@@ -115,8 +128,6 @@ window.accountsModal = (function($) {
                     }, ASC.Resources.Master.Resource.LoadingProcessing);
                 }
 
-                serviceManager.updateFolders();
-                serviceManager.getTags();
                 return false;
             });
 
@@ -150,8 +161,34 @@ window.accountsModal = (function($) {
             $('#manageWindow .cancelButton').click(function() {
                 hide(true);
             });
+
+            ckeditorConnector.load();
         }
     };
+
+    function checkRemoveMailboxStatus(operation, account) {
+        serviceManager.getMailOperationStatus(operation.id,
+        null,
+        {
+            success: function(params, data) {
+                if (data.completed) {
+                    clearInterval(progressBarIntervalId);
+                    progressBarIntervalId = null;
+                    accountsManager.removeAccount(account.email);
+                    serviceManager.updateFolders();
+                    serviceManager.getTags();
+                    serviceManager.getAccounts();
+                    window.LoadingBanner.hideLoading();
+                }
+            },
+            error: function (e, error) {
+                console.error("checkRemoveMailboxStatus", e, error);
+                clearInterval(progressBarIntervalId);
+                progressBarIntervalId = null;
+                window.LoadingBanner.hideLoading();
+            }
+        });
+    }
 
     function activateAccountWithoutQuestion(email) {
         var account = accountsManager.getAccountByAddress(email);
@@ -1093,15 +1130,10 @@ window.accountsModal = (function($) {
         }
     }
 
-    function getAccountErrorFooter(address) {
-        return window.MailScriptResource.AccountCreationErrorGmailFooter
-            .replace('{0}', '<a target="blank" class="linkDescribe" href="' + TMMail.getFaqLink(address) + '">').replace('{1}', '</a>');
-    }
-
     function showErrorModal(params, error) {
         // ToDo: Reimplement to popup mechanism instead of #manageWindow
         hideLoader();
-        var footer = getAccountErrorFooter(params.email),
+        var footer = TMMail.getAccountErrorFooter(params.settings.email),
             html = $.tmpl('accountErrorTmpl', {
                 errorBodyFooter: footer,
                 errorAdvancedInfo: error[0]
@@ -1166,7 +1198,7 @@ window.accountsModal = (function($) {
         if (account) {
             var isActive = (account.signature.html == "" && !account.signature.isActive) ? true : account.signature.isActive; // Default is true;
 
-            html = $.tmpl("manageSignatureTmpl", { 'isActive': isActive });
+            var html = $.tmpl("manageSignatureTmpl", { 'isActive': isActive });
 
             var config = {
                 toolbar: 'MailSignature',
@@ -1182,12 +1214,10 @@ window.accountsModal = (function($) {
             };
 
             html.find('#ckMailSignatureEditor').ckeditor(config);
-
-            html.find('.buttons .ok').unbind('click').bind('click', function() {
+            html.find('.buttons .ok').unbind('click').bind('click', function () {
                 updateSignature(account);
                 return false;
             });
-
             popup.addBig(window.MailScriptResource.ManageSignatureLabel, html, undefined, false, { bindEvents: false });
         }
     }

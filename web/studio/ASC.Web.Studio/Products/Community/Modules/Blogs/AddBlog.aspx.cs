@@ -84,8 +84,8 @@ namespace ASC.Web.Community.Blogs
         {
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
-            //Page.RegisterInlineScript("ckeditorConnector.onReady(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
-            Page.RegisterInlineScript("ckeditorConnector.onReady(function () {" +
+            //Page.RegisterInlineScript("ckeditorConnector.load(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
+            Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
                                       "BlogsManager.blogsEditor = CKEDITOR.replace('ckEditor', { toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + "'});" +
                                       "BlogsManager.blogsEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});"+
                                        "});");
@@ -138,17 +138,6 @@ namespace ASC.Web.Community.Blogs
             resp.rs4 = varName;
 
             return resp;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string[] GetPreview(string title, string html)
-        {
-            var result = new string[2];
-
-            result[0] = HttpUtility.HtmlEncode(title);
-            result[1] = HtmlUtility.GetFull(html);
-
-            return result;
         }
 
         private Post AddNewBlog(BlogsEngine engine)
@@ -225,9 +214,7 @@ namespace ASC.Web.Community.Blogs
             control.IsPreview = true;
             control.post = post;
 
-            PlaceHolderPreview.Controls.Add(new Literal { Text = "<div class='headerPanel' style='margin-top:25px;'>" + BlogsResource.PreviewButton + "</div>" });
             PlaceHolderPreview.Controls.Add(control);
-            PlaceHolderPreview.Controls.Add(new Literal { Text = "<div style='margin-top:20px;'><a class='button blue big' href='javascript:void(0);' onclick='BlogsManager.HidePreview(); return false;'>" + BlogsResource.HideButton + "</a></div>" });
         }
 
         #region Events

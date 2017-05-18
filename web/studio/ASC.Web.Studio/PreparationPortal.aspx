@@ -14,7 +14,7 @@
     <body>
     <asp:PlaceHolder runat="server" ID="PreparationPortalContent" />
         <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/jquery/jquery.core.js") %>"></script>
-        <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/ajaxpro.core.js")%>" notobfuscate="true"></script>
+        <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/ajaxpro.core.js")%>"></script>
         <script type="text/javascript" src="<%=ResolveUrl("~/usercontrols/common/preparationportal/js/preparationportal.js") %>"></script>
         <ucc:InlineScript ID="InlineScript" runat="server" />
 

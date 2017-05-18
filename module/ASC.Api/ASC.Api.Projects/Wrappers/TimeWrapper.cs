@@ -24,7 +24,6 @@
 */
 
 
-using System;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
@@ -52,6 +51,9 @@ namespace ASC.Api.Projects.Wrappers
         public int RelatedProject { get; set; }
 
         [DataMember(Order = 7)]
+        public TaskWrapper Task { get; set; }
+
+        [DataMember(Order = 7)]
         public int RelatedTask { get; set; }
 
         [DataMember(Order = 7)]
@@ -75,6 +77,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 55)]
         public bool CanEditPaymentStatus { get; set; }
 
+        [DataMember(Order = 56)]
+        public ApiDateTime CreateOn { get; set; }
+
         private TimeWrapper()
         {
         }
@@ -93,7 +98,8 @@ namespace ASC.Api.Projects.Wrappers
             PaymentStatus = timeSpend.PaymentStatus;
             StatusChanged = (ApiDateTime)timeSpend.StatusChangedOn;
             CanEditPaymentStatus = ProjectSecurity.CanEditPaymentStatus(timeSpend);
-
+            Task = new TaskWrapper(timeSpend.Task);
+            CreateOn = (ApiDateTime)timeSpend.CreateOn;
 
             if (timeSpend.CreateBy != timeSpend.Person)
             {

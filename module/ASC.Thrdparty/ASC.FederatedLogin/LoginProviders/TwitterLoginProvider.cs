@@ -24,60 +24,60 @@
 */
 
 
+using ASC.FederatedLogin.Profile;
+using ASC.Thrdparty;
+using ASC.Thrdparty.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
-using System.Xml.Linq;
-using System.Xml.XPath;
-using ASC.FederatedLogin.Helpers;
-using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
-using ASC.Thrdparty.Configuration;
-using TweetSharp;
+using Twitterizer;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
     public class TwitterLoginProvider : ILoginProvider
     {
+        public static string TwitterKey
+        {
+            get { return KeyStorage.Get("twitterKey"); }
+        }
+
+        public static string TwitterSecret
+        {
+            get { return KeyStorage.Get("twitterSecret"); }
+        }
+
+
         public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
         {
-            var twitterService = new TwitterService(KeyStorage.Get("twitterKey"), KeyStorage.Get("twitterSecret"));
-
-            if (String.IsNullOrEmpty(context.Request["oauth_token"]) ||
-                String.IsNullOrEmpty(context.Request["oauth_verifier"]))
+            if (string.IsNullOrEmpty(context.Request["oauth_token"]))
             {
-                var requestToken = twitterService.GetRequestToken(context.Request.GetUrlRewriter().AbsoluteUri);
-
-                var uri = twitterService.GetAuthorizationUri(requestToken);
-
-                context.Response.Redirect(uri.ToString(), true);
-            }
-            else
-            {
-                var requestToken = new OAuthRequestToken {Token = context.Request["oauth_token"]};
-                var accessToken = twitterService.GetAccessToken(requestToken, context.Request["oauth_verifier"]);
-                twitterService.AuthenticateWith(accessToken.Token, accessToken.TokenSecret);
-
-                var user = twitterService.VerifyCredentials(new VerifyCredentialsOptions());
-
-                return ProfileFromTwitter(user);
+                var reqToken = OAuthUtility.GetRequestToken(TwitterKey, TwitterSecret, context.Request.Url.AbsoluteUri);
+                var url = OAuthUtility.BuildAuthorizationUri(reqToken.Token).ToString();
+                context.Response.Redirect(url, true);
+                return null;
             }
 
-            return new LoginProfile();
+            var requestToken = context.Request["oauth_token"];
+            var pin = context.Request["oauth_verifier"];
 
+            var tokens = OAuthUtility.GetAccessToken(TwitterKey, TwitterSecret, requestToken, pin);
+
+            var accesstoken = new OAuthTokens
+                {
+                    AccessToken = tokens.Token,
+                    AccessTokenSecret = tokens.TokenSecret,
+                    ConsumerKey = TwitterKey,
+                    ConsumerSecret = TwitterSecret
+                };
+
+            var account = TwitterAccount.VerifyCredentials(accesstoken).ResponseObject;
+            return ProfileFromTwitter(account);
         }
 
         public LoginProfile GetLoginProfile(string accessToken)
         {
-            var twitterService = new TwitterService(KeyStorage.Get("twitterKey"), KeyStorage.Get("twitterSecret"));
-
-            //??? tokenSecret
-            twitterService.AuthenticateWith(accessToken, null);
-
-            var user = twitterService.VerifyCredentials(new VerifyCredentialsOptions());
-
-            return ProfileFromTwitter(user);
+            throw new NotImplementedException();
         }
 
         internal static LoginProfile ProfileFromTwitter(TwitterUser twitterUser)
@@ -88,30 +88,12 @@ namespace ASC.FederatedLogin.LoginProviders
                            {
                                Name = twitterUser.Name,
                                DisplayName = twitterUser.ScreenName,
-                               Avatar = twitterUser.ProfileImageUrl,
+                               Avatar = twitterUser.ProfileImageSecureLocation,
                                TimeZone = twitterUser.TimeZone,
-                               Locale = twitterUser.Location,
+                               Locale = twitterUser.Language,
                                Id = twitterUser.Id.ToString(CultureInfo.InvariantCulture),
-                               Link = twitterUser.Url,
                                Provider = ProviderConstants.Twitter
                            };
-        }
-
-        internal static LoginProfile ProfileFromTwitter(XDocument info)
-        {
-            var nav = info.CreateNavigator();
-            var profile = new LoginProfile
-                {
-                    Name = nav.SelectNodeValue("//screen_name"),
-                    DisplayName = nav.SelectNodeValue("//name"),
-                    Avatar = nav.SelectNodeValue("//profile_image_url"),
-                    TimeZone = nav.SelectNodeValue("//time_zone"),
-                    Locale = nav.SelectNodeValue("//lang"),
-                    Id = nav.SelectNodeValue("//id"),
-                    Link = nav.SelectNodeValue("//url"),
-                    Provider = ProviderConstants.Twitter
-                };
-            return profile;
         }
     }
 }

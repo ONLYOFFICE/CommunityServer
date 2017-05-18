@@ -26,6 +26,7 @@
 
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
@@ -68,6 +69,16 @@ namespace ASC.Web.Studio.Utility
         public static bool Opensource
         {
             get { return CoreContext.Configuration.Standalone && String.IsNullOrEmpty(SetupInfo.ControlPanelUrl); }
+        }
+
+        public static bool Hosted
+        {
+            get
+            {
+                return !CoreContext.Configuration.Standalone
+                       && !CoreContext.Configuration.Personal
+                       && !SetupInfo.IsVisibleSettings<TariffSettings>();
+            }
         }
 
         public static bool EnterprisePaid

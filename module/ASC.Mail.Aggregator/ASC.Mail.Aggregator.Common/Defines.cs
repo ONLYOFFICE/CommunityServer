@@ -33,6 +33,10 @@ namespace ASC.Mail.Aggregator.Common
         public const int SHARED_TENANT_ID = -1;
         public const int UNUSED_DNS_SETTING_DOMAIN_ID = -1;
 
+        public const string ICAL_REQUEST = "REQUEST";
+        public const string ICAL_REPLY = "REPLY";
+        public const string ICAL_CANCEL = "CANCEL";
+
         public enum TariffType
         {
             Active = 0,

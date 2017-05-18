@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -25,9 +25,13 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Web;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.Core.Voip;
+using ASC.Core;
+using ASC.CRM.Core;
+using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.CRM.Configuration;
+using ASC.Web.Studio;
 
 namespace ASC.Web.CRM.Controls.Settings
 {
@@ -41,13 +45,32 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!VoipPaymentSettings.IsEnabled)
+            if (!VoipNumberData.Allowed || !CRMSecurity.IsAdmin)
             {
                 Response.Redirect(PathProvider.StartURL() + "settings.aspx");
             }
 
             Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("voip.common.js"));
+            Page.RegisterClientScript(new VoipCommonData());
+        }
+    }
+
+    public class VoipCommonData : ClientScript
+    {
+        protected override string BaseNamespace
+        {
+            get { return "ASC.Resources.Master.Voip"; }
+        }
+
+        protected override string GetCacheHash()
+        {
+            return CoreContext.TenantManager.GetCurrentTenant().TenantId + VoipNumberData.Allowed.ToString();
+        }
+
+        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
+        {
+            yield return RegisterObject(new { enabled = VoipNumberData.Allowed});
         }
     }
 }

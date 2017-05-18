@@ -24,20 +24,19 @@
 */
 
 
-using ASC.Core.Tenants;
-using ASC.Data.Storage;
-using ASC.Web.Core.Users;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
+using ASC.Data.Storage;
+using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Utility;
 using TMResourceData;
 
 namespace ASC.Web.Core.WhiteLabel

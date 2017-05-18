@@ -27,16 +27,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
+using ASC.Common.Threading.Progress;
+using ASC.Core.Common.Settings;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
-using ASC.Web.CRM.Classes;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
-using System.Security;
-using ASC.Common.Threading.Progress;
 using ASC.Web.Core.Utility;
+using ASC.Web.CRM.Classes;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Api.CRM
 {

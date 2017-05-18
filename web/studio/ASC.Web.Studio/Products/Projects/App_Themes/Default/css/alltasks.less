@@ -23,52 +23,29 @@
  *
 */
 
+@actionListWidth:           64px;
+@divHeight:                 40px;
 
 /************* tasks **************/
 
 #CommonListContainer {
-    .dottedLink, .dottedLink:hover {
-        color: #333;
-        border-bottom: #333 1px dotted;
-    }
-
-    .taskSaving {
-        display: none;
-        height: 25px;
-        line-height: 25px;
-        padding-left: 25px;
-        margin-top: 12px;
-        background: url('../images/loader16.gif') no-repeat 0 3px;
-    }
-
     .taskProcess {
-        height: 25px;
+        height: inherit;
         width: 16px;
         background-position: 0 10px;
-    }
-
-    .dottedNumSubtask {
-        color: #333333;
-        font-size: 11px;
-        border-bottom: #000 1px dotted;
     }
 
 
     .taskList {
         .task {
-            border-top: #d1d1d1 1px solid;
-            height: 32px;
+            border-bottom: #d1d1d1 1px solid;
+            height: @divHeight;
             clear: both;
-
-            &.borderbott {
-                border-bottom: #d1d1d1 1px solid;
-            }
 
             .check {
                 float: left;
-                width: 38px;
-                height: 30px;
-                margin-left: 5px;
+                width: @actionListWidth;
+                height: @divHeight;
 
 
                 &.priority0 {
@@ -89,42 +66,19 @@
                 }
             }
 
-            .changeStatusCombobox {
-                width: 38px;
-                height: 22px;
-                margin-top: 3px;
-                text-align: center;
-            }
-
             .taskPlace {
                 float: left;
-                height: 30px;
-                margin-left: 12px;
+                height: @divHeight;
             }
 
             .taskName {
                 float: left;
                 overflow: hidden;
                 white-space: nowrap;
-                height: 30px;
-                line-height: 30px;
+                height: @divHeight;
+                line-height: @divHeight;
                 text-overflow: ellipsis;
                 max-width: 840px;
-
-                a {
-                    color: #333333;
-                    font-weight: bold;
-                    line-height: 30px;
-                    font-size: 12px;
-                    overflow: hidden;
-                    padding-left: 1px;
-                    text-overflow: ellipsis;
-                    text-decoration: none;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
             }
 
             .high_priority {
@@ -133,14 +87,14 @@
                 float: left;
                 height: 15px;
                 margin-right: 4px;
-                margin-top: 6px;
+                margin-top: 11px;
                 width: 14px;
             }
 
             span.timeLeft {
                 color: #333333;
                 font-size: 12px;
-                line-height: 30px;
+                line-height: @divHeight;
                 cursor: default;
 
                 &.red {
@@ -148,31 +102,15 @@
                 }
             }
 
-            .deadline {
+            .deadline
+            {
+                overflow: hidden;
+                white-space: nowrap;
+                height: @divHeight;
+                text-align: center;
                 float: right;
                 display: block;
-                width: 120px;
-                overflow: hidden;
-                white-space: nowrap;
-                height: 30px;
-                text-align: center;
-            }
-
-            .deadline_late {
-                float: left;
-                width: 92px;
-                overflow: hidden;
-                white-space: nowrap;
-                height: 30px;
-                text-align: center;
-            }
-
-            .deadline_active {
-                float: left;
-                width: 92px;
-                overflow: hidden;
-                white-space: nowrap;
-                height: 30px;
+                width: 118px;
             }
 
             .subtasksCount {
@@ -180,31 +118,24 @@
                 width: 72px;
                 overflow: hidden;
                 white-space: nowrap;
-                height: 30px;
+                height: @divHeight;
                 margin-left: 15px;
 
-                span.expand,
                 span.collaps,
                 span.add {
                     color: #333333;
                     font-size: 11px;
-                    line-height: 30px;
+                    line-height: @divHeight;
                     cursor: pointer;
                     margin-top: 10px;
                     text-align: center;
                 }
 
-                    span.expand span,
-                    span.collaps span {
-                        display: inline;
-                    }
-
-                span.expand {
-                    background: no-repeat scroll right center transparent;
-                }
-
                 span.collaps {
                     background: no-repeat scroll right center transparent;
+                    span {
+                        display: inline;
+                    }
                 }
 
                 span.add {
@@ -215,6 +146,8 @@
             }
 
             &:hover {
+                background-color: #e5e5e5;
+
                 .taskName a {
                     text-decoration: underline;
                 }
@@ -233,31 +166,19 @@
                         }
                     }
                 }
-
-                .other {
-                    border-bottom: #333 1px dotted;
-                }
             }
 
             &.closed {
                 &:hover .subtasksCount span.add,
-                .subtasksCount span.expand,
-                .task.closed .subtasksCount span.collaps {
+                .subtasksCount span.collaps {
                     display: none;
                 }
 
-                .taskName a {
-                    color: #83888d;
-                    font-weight: bold;
-                }
-
                 .user,
-                .user b,
-                .other {
+                .user b {
                     color: #83888d;
                 }
 
-                &:hover .other,
                 &:hover .user span {
                     border-bottom-color: #83888d;
                 }
@@ -274,9 +195,10 @@
                 color: #333333;
                 width: 160px;
                 overflow: hidden;
-                line-height: 30px;
+                line-height: @divHeight;
                 cursor: pointer;
                 display: inline-block;
+                margin-right: 15px;
 
                 span b {
                     color: #666;
@@ -292,47 +214,29 @@
                 }
             }
 
-            .other {
-                font-size: 12px;
-                font-size: 12px;
-                color: #333333;
-                overflow: hidden;
-                padding-top: 6px;
-                display: inline-block;
-                cursor: pointer;
-
-                &:hover {
-                    border-bottom: #333 1px dotted;
-                }
-            }
-
             .others {
                 display: none;
             }
 
             .entity-menu {
                 float: right;
-                line-height: 30px;
-                margin: 6px 8px 0 15px;
+                line-height: @divHeight;
+                margin: 10px 8px 0 0;
+            }
+
+            &:first-child {
+                border-top: 1px solid #d1d1d1;
             }
         }
 
         .check .taskProcess {
-            margin-left: 10px;
-            margin-top: -3px;
+            margin-left: 20px;
+            margin-top: 2px;
         }
 
         .subtask .check .taskProcess {
             margin-left: 1px;
             margin-top: -3px;
-        }
-
-        .otherMargin {
-            float: right;
-            width: 160px;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
         }
     }
 }
@@ -419,17 +323,11 @@
 /*---- status combobox ----*/
 
 .taskList {
-    .nomenupoint {
-        width: 16px;
-        height: 16px;
-        float: right;
-        margin: 0 15px 0 15px;
-    }
-
     .changeStatusCombobox {
-        display: block;
-        width: 35px;
-        border: 1px solid transparent;
+        width: 38px;
+        height: 22px;
+        margin:8px 0 8px 8px;
+        text-align: center;
 
         &.canEdit {
             border: 1px solid #d1d1d1;
@@ -469,6 +367,7 @@
             background-image: none;
             background-color: transparent;
             border: 1px solid transparent;
+            margin-left:0px;
         }
 
         span {
@@ -527,4 +426,383 @@ body.media-width-0-1200:not(.media-width-0-1100) #CommonListContainer .taskList 
 body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
     max-width: 160px;
 }
+
+.taskProcess {
+  background: url('../../../../../skins/default/Images/loader_16.gif') no-repeat;
+}
+
+/*******************************************************************************
+   Subtasks
+*******************************************************************************/
+
+.subtask {
+    line-height: 30px;
+    clear: both;
+
+    &.with-entity-menu .entity-menu {
+        float: right;
+        margin: 4px 8px 0 14px;
+    }
+
+    .entity-menu.show,
+    &.menuopen .entity-menu,
+    &:hover .entity-menu.show {
+        border-color: #3b72a7;
+
+        &:after {
+            border-top-color: #3b72a7;
+        }
+    }
+
+    &:hover,
+    &.menuopen {
+        background: #f2f2f2;
+    }
+
+    &.last {
+        border-bottom: none;
+    }
+
+    .check {
+        float: left;
+        width: 13px;
+        height: 29px;
+
+        input {
+            margin-top: 5px;
+            margin-left: 0px;
+        }
+
+        input, #ie#fix {
+            margin-top: 8px;
+        }
+    }
+
+    .taskName {
+        float: left;
+        width: 66.5%;
+        margin-left: 10px;
+        line-height: 29px;
+        overflow: hidden;
+        padding-bottom: 7px;
+
+        span {
+            display: block;
+            margin-top: 7px;
+            line-height: 16px;
+        }
+    }
+
+    .user {
+        white-space: nowrap;
+        float: right;
+        overflow: hidden;
+        line-height: 29px;
+        width: 160px;
+        display: inline-block;
+
+        b {
+            color: #666;
+        }
+    }
+
+    &.closed {
+        .taskName {
+            color: #83888d;
+            text-decoration: line-through;
+        }
+
+        .user {
+            color: #83888d;
+            font-size: 12px;
+        }
+    }
+}
+
+.quickAddSubTaskLink {
+    margin: 8px 0 6px 0;
+    border: #fff 1px solid;    
+}
+
+.subtask-loader {
+    margin-top: 10px;
+    height:12px;
+    width: 12px;
+    background: url('../../../../../skins/default/Images/loader_12.gif') no-repeat 0 0;
+}
+
+/*---subtasks---*/
+.add-subtask-field-wrapper {
+    position: relative;
+    clear: both;
+    background-color: #fff;
+    clear: both;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+
+    &.absolute {
+        position: absolute;
+        top: 2px;
+    }
+
+    td {
+        padding: 4px 2px;
+    }
+
+    .subtask-loader {
+        position: absolute;
+        top: -2px;
+        left: 7px;
+    }
+
+    .subtask-name {
+        border-right: none;
+        padding-left: 24px;
+    }
+
+    input.subtask-name-input,
+    input.subtask-name-input:focus {
+        border: none;
+        outline: 0;
+        width: 100%;
+    }
+
+    .subtask-responsible {
+        width: 150px;
+        border-left: none;
+        white-space: nowrap;
+        overflow:hidden;
+    }
+
+    .subtask-add-button {
+        width: 40px;
+        padding-left: 8px;
+    }
+}
+
+.subtask-responsible .tl-combobox .combobox-container{
+    max-width: 256px;
+}
+
+body.media-width-0-1200 .subtask-responsible-selector
+{
+    max-width: 136px;
+    float: left;
+}
+
+.nomenupoint {
+	width:16px;
+	height:16px;
+	float:right;
+    margin-left:13px;	
+}
+
+.subtasks { 
+  position: relative;
+  margin:8px 0;
+}
+
+.taskList .subtasks { /*---for list tasks---*/
+    display: none;
+    margin-left: @actionListWidth;
+}
+*:first-child+html .subtask .check input {
+    margin-top:5px;
+}
+
+
+body.media-width-0-1200 .subtask .taskName {
+    width:60.5%;
+}
+
+.title-and-responsible-wrapper {
+    padding: 2px;
+}
+.subtask-name-input, .subtask-name-input:focus {
+    border-color: transparent;
+    outline: none;
+    width: 60%;
+}
+
+/*******************************************************************************
+   TaskDescriptionView
+*******************************************************************************/
+#taskTitleContainer {
+    margin-bottom: 4px;
+
+    .headerTaskTitle {
+        color: #111;
+        font-size: 24px;
+        float: left;
+        line-height: 30px;
+        max-width: 95%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+.deadlineLate
+{
+	color: #CC3300;
+}
+.studio-action-panel .date  /*--fix color--*/
+{
+    color: #333;
+}
+
+/*------common info-----*/
+
+.colorPriority
+{
+	height: 16px;
+	width: 16px;
+    background: url('../images/projects_entity_statuses.png') no-repeat 0 -115px;
+    span{
+        margin-left:18px;
+    }
+}
+
+/*-------Comments & subtasks------*/
+
+#commentContainer #commentsTitle{
+	display: none !important;
+}
+#commentsListWrapper{
+    margin-top: 15px
+}
+
+/*-----Related tasks-----*/
+
+.linked-tasks-buttons {
+    .baseLinkAction,
+    .icon-link a {
+        color: #333;
+    }
+
+        .baseLinkAction.disabled {
+            color: #83888D;
+            cursor: default;
+        }
+
+    .icon-link {
+        margin-right: 24px;
+    }
+}
+
+.task-links {
+    margin-bottom: 8px;
+    border-collapse: collapse;
+    color: #333333;
+    font-size: 12px;
+    table-layout: fixed;
+    width: 100%;
+
+    .title {
+        .task-name {
+            color: #333;
+            max-width: 98%;
+            line-height: 14px;
+            text-decoration: none;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .invalid-link .title .task-name {
+        max-width: 87%;
+        margin-top: 2px;
+    }
+
+    .linked-task td {
+        border-top: 1px solid #D1D1D1;
+        height: 32px;
+        vertical-align: middle;
+        padding: 0px 8px;
+    }
+
+    .start-date, .task-links .end-date,
+    .duration, .task-links .link-type {
+        width: 100px;
+        text-align: center;
+    }
+
+    .actions {
+        width: 24px;
+    }
+
+    .edit-link-container .link-type {
+        width: 251px;
+    }
+}
+
+.gray-text .title a {
+    color: #83888D;
+}
+#relatedTasks {
+    border-bottom: 1px solid #D1D1D1;
+
+    .linked-task {
+        &:hover {
+            background-color: #F2F2F2;
+        }
+
+        &.invalid-link,
+        &.invalid-link:hover {
+            background-color: #F7E1D9;
+        }
+    }
+}
+
+.attantion {
+    display: inline-block;
+    line-height: 16px;
+    width: 16px;
+    margin: 2px 4px 0 0;
+    background: url("../images/small-icons.png") no-repeat 0 -104px transparent;
+}
+
+/*---edit task link container --*/
+#linkedTasksContainer {
+    position:relative;
+}
+#editTable {
+    background-color: #fff;
+
+    &.border-top .linked-task td {
+        border-top: 1px solid #D1D1D1;
+    }
+
+    &.border-bottom .linked-task td {
+        border-bottom: 1px solid #D1D1D1;
+    }
+
+    .actions {
+        width: @actionListWidth;
+        text-align: right;
+    }
+}
+
+#taskSelector,
+#taskSelector option {
+    width: 100%;
+    max-width: 500px;
+}
+#linkTypeSelector, #linkTypeSelector option{
+    width: 150px;
+    max-width: 150px;
+}
+/*------*/
+
+
+#subtaskContainer, #filesContainer, #commentContainer {
+    margin-bottom: 20px;
+    clear: both;
+}
+.tabContent { display: none;}
 

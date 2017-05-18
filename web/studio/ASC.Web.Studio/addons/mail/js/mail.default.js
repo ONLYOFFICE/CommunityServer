@@ -88,6 +88,7 @@ window.TMMail = (function($) {
             accounts: /^accounts\/?$/,
             tags: /^tags\/?$/,
             administration: /^administration\/?$/,
+            commonSettings: /^common\/?$/,
 
             teamlab: /^tlcontact\/?(.+)*/,
             crm: /^crmcontact\/?(.+)*/,
@@ -98,6 +99,15 @@ window.TMMail = (function($) {
 
             messagePrint: /^message\/print\/(\d+)\/?(.+)*/,
             conversationPrint: /^conversation\/print\/(\d+)\/?(.+)*/
+        },
+        providerRegExp = {
+            gmail: /@(gmail\.com|google\.com|googlemail\.com)/,
+            outlook: /@(hotmail\.com|hotmail\.co\.jp|hotmail\.co\.uk|hotmail\.com\.br|hotmail\.de|hotmail\.es|hotmail\.fr|hotmail\.it|live\.com|live\.co\.jp|live\.de|live\.fr|live\.it|live\.jp|live\.ru|live\.co\.uk|msn\.com|outlook\.com)/,
+            yahoo: /@(yahoo\.com|yahoo\.com\.ar|yahoo\.com\.au|yahoo\.com\.br|yahoo\.com\.mx|yahoo\.co\.nz|yahoo\.co\.uk|yahoo\.de|yahoo\.es|yahoo\.fr|yahoo\.it|ymail\.com)/,
+            mailru: /@(mail\.ru|bk\.ru|inbox\.ru|list\.ru)/,
+            yandex: /@(yandex\.ru|yandex\.com|yandex\.ua|yandex\.com\.tr|yandex\.kz|yandex\.by|yandex\.net|ya\.ru|narod\.ru)/,
+            rambler: /@(rambler\.ru|lenta\.ru|autorambler\.ru|myrambler\.ru|r0\.ru|ro\.ru)/,
+            qip: /@(qip\.ru|5ballov\.ru|aeterna\.ru|fotoplenka\.ru|fromru\.com|front\.ru|hotbox\.ru|hotmail\.ru|krovatka\.su|land\.ru|mail15\.com|mail333\.com|memori\.ru|newmail\.ru|nightmail\.ru|nm\.ru|photofile\.ru|pisem\.net|pochta\.ru|pochtamt\.ru|pop3\.ru|rbcmail\.ru|smtp\.ru|ziza\.ru)/,
         };
 
     function init() {
@@ -224,7 +234,7 @@ window.TMMail = (function($) {
             anchorRegExp.crm.test(anchor) || anchorRegExp.sysfolders.test(anchor) || anchorRegExp.writemessage.test(anchor) ||
             anchorRegExp.tags.test(anchor) || anchorRegExp.conversation.test(anchor) || anchorRegExp.helpcenter.test(anchor) ||
             anchorRegExp.next_message.test(anchor) || anchorRegExp.prev_message.test(anchor) || anchorRegExp.next_conversation.test(anchor) ||
-            anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor) ||
+            anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor) || anchorRegExp.commonSettings.test(anchor) ||
             anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor) || anchorRegExp.personal_contact.test(anchor));
     }
 
@@ -331,6 +341,11 @@ window.TMMail = (function($) {
                     return true;
                 }
                 break;
+            case 'common':
+                if (anchorRegExp.commonSettings.test(anchor)) {
+                    return true;
+                }
+                break;
             case 'conversation':
                 if (anchorRegExp.conversation.test(anchor)) {
                     return true;
@@ -413,24 +428,33 @@ window.TMMail = (function($) {
         return 0;
     }
 
+    function getAccountErrorFooter(address) {
+        return window.MailScriptResource.AccountCreationErrorGmailFooter
+            .format('<a target="blank" class="linkDescribe" href="' + getFaqLink(address) + '">', '</a>');
+    }
+
     function getSupportLink() {
         return ASC.Mail.Constants.SUPPORT_URL;
     }
 
     function getFaqLink(address) {
         address = (address || "").toLowerCase();
+
         var anchor = "";
-        if (/@gmail\./.test(address.toLowerCase()) || /@googlemail\./.test(address.toLowerCase())) {
+
+        if (providerRegExp.gmail.test(address)) {
             anchor = "#IssueswithGmailcomService_block";
         }
-        if (/@hotmail\./.test(address.toLowerCase()) || /@live\./.test(address.toLowerCase())
-            || /@msn\./.test(address.toLowerCase()) || /@outlook\./.test(address.toLowerCase())
-            || /@yahoo\./.test(address.toLowerCase())) {
+        else if (providerRegExp.outlook.test(address) || providerRegExp.yahoo.test(address)) {
             anchor = "#IssueswithHotmailcomandYahoocomServices_block";
         }
-        if (/@mail\.ru/.test(address.toLowerCase())) {
+        else if (providerRegExp.mailru.test(address)) {
             anchor = "#IssueswithMailruService_block";
         }
+        else if (providerRegExp.yandex.test(address)) {
+            anchor = "#IssueswithYandexruService_block";
+        }
+
         return ASC.Mail.Constants.FAQ_URL + anchor;
     }
 
@@ -790,6 +814,98 @@ window.TMMail = (function($) {
         );
     };
 
+    function getFileIconByExt(fileExt) {
+        var utility = ASC.Files.Utility,
+            fileExtensionLibrary = utility.FileExtensionLibrary,
+            iconSrc = "",
+            checkInArray = function (extsArray) {
+                return jq.inArray(fileExt, extsArray) !== -1;
+            };
+
+        if (checkInArray(fileExtensionLibrary.ArchiveExts))
+            iconSrc = "archive";
+        else if (checkInArray(fileExtensionLibrary.AviExts))
+            iconSrc = "avi";
+        else if (checkInArray(fileExtensionLibrary.CsvExts))
+            iconSrc = "csv";
+        else if (checkInArray(fileExtensionLibrary.DjvuExts))
+            iconSrc = "djvu";
+        else if (checkInArray(fileExtensionLibrary.DocExts))
+            iconSrc = "doc";
+        else if (checkInArray(fileExtensionLibrary.DocxExts))
+            iconSrc = "docx";
+        else if (checkInArray(fileExtensionLibrary.DoctExts))
+            iconSrc = "doct";
+        else if (checkInArray(fileExtensionLibrary.EbookExts))
+            iconSrc = "ebook";
+        else if (checkInArray(fileExtensionLibrary.FlvExts))
+            iconSrc = "flv";
+        else if (checkInArray(fileExtensionLibrary.HtmlExts))
+            iconSrc = "html";
+        else if (checkInArray(fileExtensionLibrary.IafExts))
+            iconSrc = "iaf";
+        else if (checkInArray(fileExtensionLibrary.ImgExts))
+            iconSrc = "image";
+        else if (checkInArray(fileExtensionLibrary.M2tsExts))
+            iconSrc = "m2ts";
+        else if (checkInArray(fileExtensionLibrary.MkvExts))
+            iconSrc = "mkv";
+        else if (checkInArray(fileExtensionLibrary.MovExts))
+            iconSrc = "mov";
+        else if (checkInArray(fileExtensionLibrary.Mp4Exts))
+            iconSrc = "mp4";
+        else if (checkInArray(fileExtensionLibrary.MpgExts))
+            iconSrc = "mpg";
+        else if (checkInArray(fileExtensionLibrary.OdpExts))
+            iconSrc = "odp";
+        else if (checkInArray(fileExtensionLibrary.OdtExts))
+            iconSrc = "odt";
+        else if (checkInArray(fileExtensionLibrary.OdsExts))
+            iconSrc = "ods";
+        else if (checkInArray(fileExtensionLibrary.PdfExts))
+            iconSrc = "pdf";
+        else if (checkInArray(fileExtensionLibrary.PpsExts))
+            iconSrc = "pps";
+        else if (checkInArray(fileExtensionLibrary.PpsxExts))
+            iconSrc = "ppsx";
+        else if (checkInArray(fileExtensionLibrary.PptExts))
+            iconSrc = "ppt";
+        else if (checkInArray(fileExtensionLibrary.PptxExts))
+            iconSrc = "pptx";
+        else if (checkInArray(fileExtensionLibrary.PpttExts))
+            iconSrc = "pptt";
+        else if (checkInArray(fileExtensionLibrary.RtfExts))
+            iconSrc = "rtf";
+        else if (checkInArray(fileExtensionLibrary.SoundExts))
+            iconSrc = "sound";
+        else if (checkInArray(fileExtensionLibrary.SvgExts))
+            iconSrc = "svg";
+        else if (checkInArray(fileExtensionLibrary.TxtExts))
+            iconSrc = "txt";
+        else if (checkInArray(fileExtensionLibrary.DvdExts))
+            iconSrc = "dvd";
+        else if (checkInArray(fileExtensionLibrary.XlsExts))
+            iconSrc = "xls";
+        else if (checkInArray(fileExtensionLibrary.XlsxExts))
+            iconSrc = "xlsx";
+        else if (checkInArray(fileExtensionLibrary.XlstExts))
+            iconSrc = "xlst";
+        else if (checkInArray(fileExtensionLibrary.XmlExts))
+            iconSrc = "xml";
+        else if (checkInArray(fileExtensionLibrary.XpsExts))
+            iconSrc = "xps";
+        else if (checkInArray(fileExtensionLibrary.GdocExts))
+            iconSrc = "gdoc";
+        else if (checkInArray(fileExtensionLibrary.GsheetExts))
+            iconSrc = "gsheet";
+        else if (checkInArray(fileExtensionLibrary.GslidesExts))
+            iconSrc = "gslides";
+        else if (checkInArray(fileExtensionLibrary.CalendarExts))
+            iconSrc = "cal";
+
+        return ASC.Mail.Master["file_" + iconSrc + "_21"] || ASC.Mail.Master.file_21;
+    };
+
     return {
         sysfolders: systemFolders,
         action_types: actionTypes,
@@ -860,6 +976,8 @@ window.TMMail = (function($) {
         isPopupVisible: isPopupVisible,
         getDateFormated: getDateFormated,
         getMapUrl: getMapUrl,
-        resizeContent: resizeContent
+        resizeContent: resizeContent,
+        getAccountErrorFooter: getAccountErrorFooter,
+        getFileIconByExt: getFileIconByExt
     };
 })(jQuery);

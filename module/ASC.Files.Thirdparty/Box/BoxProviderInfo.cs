@@ -123,7 +123,7 @@ namespace ASC.Files.Thirdparty.Box
         {
             if (HttpContext.Current != null)
             {
-                var key = "__CLOUD_STORAGE" + ID;
+                var key = "__BOX_STORAGE" + ID;
                 var storage = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
                 if (storage != null)
                 {

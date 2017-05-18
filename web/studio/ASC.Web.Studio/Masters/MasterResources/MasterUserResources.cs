@@ -35,6 +35,7 @@ using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Common.Utils;
+using ASC.VoipService.Dao;
 
 namespace ASC.Web.Studio.Masters.MasterResources
 {
@@ -80,7 +81,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
             }
             var hubLogging = ConfigurationManager.AppSettings["web.chat.logging"] ?? "false";
             var webChat = ConfigurationManager.AppSettings["web.chat"] ?? "false";
-            var voipEnabled = ConfigurationManager.AppSettings["voip.enabled"] ?? "false";
+            var voipEnabled = VoipDao.ConfigSettingsExist;
 
             return new List<KeyValuePair<string, object>>(1)
                    {

@@ -69,19 +69,12 @@ namespace ASC.Web.Studio.UserControls.Common.HelpCenter
             else
             {
                 var currentModule = GetProduct();
-                if (currentModule == null) return;
+                if (currentModule == null || currentModule.HelpURL == null) return;
 
                 module = currentModule.ProductClassName + ".aspx";
-
-                var link = currentModule.StartURL;
-                mainLink = VirtualPathUtility.ToAbsolute(link + (link.LastIndexOf("/", StringComparison.Ordinal) == 0 ? "" : "/"));
-
-                if (currentModule.ID != WebItemManager.DocumentsProductID
-                && currentModule.ID != WebItemManager.MailProductID)
-                {
-                    mainLink += "help.aspx";
-                }
+                mainLink = VirtualPathUtility.ToAbsolute(currentModule.HelpURL);
             }
+
             const string index = "#help";
             HelpLink = mainLink + index;
             HelpLinkBlock = mainLink + index + "=";

@@ -162,6 +162,9 @@
   <data name="DefaultContactTitle" xml:space="preserve">
     <value>Anonymous</value>
   </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB</value>
+  </data>
   <data name="FullDateFormat" xml:space="preserve">
     <value>%H:%M:%S %d %b %y</value>
   </data>

@@ -110,7 +110,7 @@ window.wysiwygEditor = (function($) {
             }
         };
 
-        ckeditorConnector.onReady(function() {
+        ckeditorConnector.load(function() {
             editorInstance = $('#ckMailEditor').ckeditor(config).editor;
         });
     }

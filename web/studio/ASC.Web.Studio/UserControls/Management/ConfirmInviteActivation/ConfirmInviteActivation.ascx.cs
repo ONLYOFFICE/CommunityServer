@@ -32,14 +32,13 @@ using System.Web;
 using System.Web.UI;
 using ASC.Common.Utils;
 using ASC.Core;
-using ASC.Core.Tenants;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Users;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
@@ -47,9 +46,6 @@ using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using Resources;
-using System.Text.RegularExpressions;
-using System.Configuration;
-using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -69,26 +65,6 @@ namespace ASC.Web.Studio.UserControls.Management
         protected string _email
         {
             get { return (Request["email"] ?? String.Empty).Trim(); }
-        }
-
-        protected string _firstName
-        {
-            get { return (Request["firstname"] ?? String.Empty).Trim(); }
-        }
-
-        protected string _lastName
-        {
-            get { return (Request["lastname"] ?? String.Empty).Trim(); }
-        }
-
-        protected string _pwd
-        {
-            get { return (Request["pwd"] ?? "").Trim(); }
-        }
-
-        protected string _rePwd
-        {
-            get { return (Request["repwd"] ?? "").Trim(); }
         }
 
         protected ConfirmType _type
@@ -152,9 +128,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js");
-
-            Page.RegisterStyle("~/usercontrols/management/confirminviteactivation/css/confirm_invite_activation.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js")
+                .RegisterStyle("~/usercontrols/management/confirminviteactivation/css/confirm_invite_activation.less");
 
             var uid = Guid.Empty;
             try
@@ -216,7 +191,10 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 if (user.IsActive)
                 {
-                    ShowError(Resource.ErrorConfirmURLError);
+                    var cookiesKey = SecurityContext.AuthenticateMe(user.ID);
+                    CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
+                    Response.Redirect(CommonLinkUtility.GetDefault());
                     return;
                 }
 
@@ -361,12 +339,12 @@ namespace ASC.Web.Studio.UserControls.Management
 
                     //notify
                     if (user.IsVisitor()) { 
-                        StudioNotifyService.Instance.GuestInfoAddedAfterInvite(user, pwd);
+                        StudioNotifyService.Instance.GuestInfoAddedAfterInvite(user);
                         MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.GuestActivated, user.DisplayUserName(false));
                     }
                     else
                     {
-                        StudioNotifyService.Instance.UserInfoAddedAfterInvite(user, pwd);
+                        StudioNotifyService.Instance.UserInfoAddedAfterInvite(user);
                         MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UserActivated, user.DisplayUserName(false));
                     }
                 }
@@ -403,7 +381,7 @@ namespace ASC.Web.Studio.UserControls.Management
             UserHelpTourHelper.IsNewUser = true;
             if (CoreContext.Configuration.Personal)
                 PersonalSettings.IsNewUser = true;
-            Response.Redirect("~/");
+            Response.Redirect(CommonLinkUtility.GetDefault());
         }
 
         private static void SaveContactImage(Guid userID, string url)
@@ -445,9 +423,6 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private static string CheckPassword(string pwd)
         {
-            if (String.IsNullOrEmpty(pwd))
-                return Resource.ErrorPasswordEmpty;
-
             try
             {
                 UserManagerWrapper.CheckPasswordPolicy(pwd);

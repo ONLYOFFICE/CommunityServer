@@ -31,13 +31,13 @@ using System.Globalization;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Linq;
-using ASC.Api.Client;
+using System.Security;
 using ASC.Common.Security.Authentication;
 using ASC.Core;
-using ASC.SignalR.Base.Hubs.OnlineUsers;
+using ASC.SignalR.Base.Hubs.Chat;
+using ASC.VoipService;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Newtonsoft.Json.Linq;
 using log4net;
 
 namespace ASC.SignalR.Base.Hubs.Voip
@@ -46,28 +46,53 @@ namespace ASC.SignalR.Base.Hubs.Voip
     [HubName("voip")]
     public class VoipHub : Hub
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(VoipHub));
+        private static readonly ILog Log;
+        const string NumberIdKey = "numberId";
+        private static readonly ListPhones Phones;
+        public static readonly ConnectionMapping Connections;
 
-        private static readonly ConcurrentDictionary<string, Queue<string>> Calls = new ConcurrentDictionary<string, Queue<string>>();
-        private static readonly ConcurrentDictionary<string, Queue<string>> Agents = new ConcurrentDictionary<string, Queue<string>>();
+        static VoipHub()
+        {
+            Log = LogManager.GetLogger("ASC.Voip");
+            Phones = new ListPhones(Log);
+            Connections = new ConnectionMapping();
+        }
 
-        private static readonly ConcurrentDictionary<string, CancelableTask> agentOfflineInspectors = new ConcurrentDictionary<string, CancelableTask>();
+        public string GetNumberId()
+        {
+            var numberId = Context.Request.QueryString[NumberIdKey];
+
+            if (string.IsNullOrEmpty(numberId))
+            {
+                numberId = Context.Request.Headers[NumberIdKey];
+            }
+
+            return numberId;
+        }
 
         public override Task OnConnected()
         {
-            Log.Debug("OnConnected");
+            Log.Debug("OnConnected:" + Context.ConnectionId);
 
             if (string.IsNullOrEmpty(Context.Request.Headers["voipConnection"]))
             {
                 Groups.Add(Context.ConnectionId, DictionaryKey);
             }
 
+            Phones.AddPhone(GetNumberId());
+
             return base.OnConnected();
+        }
+
+        public override Task OnReconnected()
+        {
+            Status(AgentStatus.Offline);
+            return base.OnReconnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            Log.Debug("OnDisconnected");
+            Log.Debug("OnDisconnected:" + Context.ConnectionId);
 
             var user = Context.Request.Environment["server.User"] as GenericPrincipal;
             if (user == null)
@@ -77,12 +102,24 @@ namespace ASC.SignalR.Base.Hubs.Voip
 
             if (string.IsNullOrEmpty(Context.Request.Headers["voipConnection"]))
             {
-                AddAgentOfflineInspector();
+                if (user != null)
+                {
+                    var userAccount = user.Identity as IUserAccount;
+                    if (userAccount != null)
+                    {
+                        bool result;
+                        var connectionCount = Connections.Remove(userAccount.Tenant, userAccount.ID.ToString(), Context.ConnectionId, out result);
+                        if (connectionCount == 0)
+                        {
+                            Status(AgentStatus.Offline);
+                        }
+                    }
+                }
                 try
                 {
                     Groups.Remove(Context.ConnectionId, DictionaryKey);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Log.Error(e);
                 }
@@ -91,40 +128,16 @@ namespace ASC.SignalR.Base.Hubs.Voip
             return base.OnDisconnected(stopCalled);
         }
 
-        private void AddAgentOfflineInspector()
-        {
-            var inspector = UsersHub.GetUserOfflineInspector(ClientTenantId, ClientUserId);
-            inspector.Task.ContinueWith(task =>
-                {
-                    if (!task.Result) return;
-                    Status(2);
-                });
-
-            agentOfflineInspectors.AddOrUpdate(ClientUserId, inspector,
-                                               (user, oldInspector) =>
-                                                   {
-                                                       oldInspector.CancellationTokenSource.Cancel();
-                                                       return inspector;
-                                                   });
-
-            inspector.Task.Start();
-        }
-
         [HubMethodName("miss")]
-        public void MissCall(string callId)
+        public void MissCall(string callId, string agent)
         {
             try
             {
                 Log.Debug("miss");
 
-                var call = GetCall(callId);
+                Phones.RemoveCall(GetNumberId(), callId);
 
-                RemoveFromQueue(Calls, call);
-
-                var agent = JObject.Parse(call)["answeredBy"]["id"].ToString();
-                ChangeStatus(0, agent);
-
-                Clients.User(agent).miss(call);
+                Clients.User(agent).miss(callId);
             }
             catch(Exception e)
             {
@@ -132,63 +145,54 @@ namespace ASC.SignalR.Base.Hubs.Voip
             }
         }
 
-        [HubMethodName("mail")]
-        public void VoiceMail(string callId)
-        {
-            try
-            {
-                Log.Debug("voiceMail");
-
-                var call = GetCall(callId);
-
-                RemoveFromQueue(Calls, call);
-
-                var agent = JObject.Parse(call)["answeredBy"]["id"].ToString();
-                ChangeStatus(0, agent);
-
-                Clients.User(agent).mail(call);
-            }
-            catch(Exception e)
-            {
-                Log.Error("voiceMail", e);
-            }
-        }
-
         [HubMethodName("status")]
-        public void Status(int status)
-        {
-            ChangeStatus(status, ClientUserId);
-        }
-
-        private void ChangeStatus(int status, string userId)
+        public void Status(AgentStatus status)
         {
             try
             {
+                var user = Context.Request.Environment["server.User"] as GenericPrincipal;
+                if (user == null) return;
+
+                var userAccount = user.Identity as IUserAccount;
+                if (userAccount != null)
+                {
+                    CoreContext.TenantManager.SetCurrentTenant(userAccount.Tenant);
+                }
+                else
+                {
+                    Log.ErrorFormat("Unknown request without user.Identity as IUserAccount, url={0}",
+                        Context.Request.Url);
+                    throw new SecurityException("Unknown request without user.Identity as IUserAccount");
+                }
+
+                var userId = ClientUserId;
+
                 Log.Debug("status:" + status);
 
                 Clients.User(userId).status(status);
 
-                ChangeApiStatus(status, userId);
-
-                var calls = Calls.GetOrAdd(DictionaryKey, new Queue<string>());
-                var agents = Agents.GetOrAdd(DictionaryKey, new Queue<string>());
-
-                if (status == 0)
+                switch (status)
                 {
-                    if (calls.Any())
-                    {
-                        Dequeue();
-                    }
-                    else
-                    {
-                        agents.Enqueue(userId);
-                        Log.Debug("Agents:" + string.Join(",", agents.Select(r => r)));
-                    }
-                }
-                else
-                {
-                    RemoveFromQueue(Agents, userId);
-                    Log.Debug("Agents:" + string.Join(",", agents.Select(r => r)));
+                    case AgentStatus.Online:
+                        if (Phones.AnyCalls(GetNumberId()))
+                        {
+                            Dequeue();
+                        }
+                        else
+                        {
+                            Phones.AddOrUpdateAgent(GetNumberId(), new Agent {Id = Guid.Parse(userId), Status = status});
+                            Connections.Add(userAccount.Tenant, userAccount.ID.ToString(), Context.ConnectionId);
+                        }
+                        break;
+                    case AgentStatus.Paused:
+                        Phones.AddOrUpdateAgent(GetNumberId(), new Agent { Id = Guid.Parse(userId), Status = status });
+                        break;
+                    case AgentStatus.Offline:
+                        Phones.RemoveAgent(GetNumberId(), Guid.Parse(userId));
+
+                        bool result;
+                        Connections.Remove(userAccount.Tenant, userAccount.ID.ToString(), Context.ConnectionId, out result);
+                        break;
                 }
 
                 OnlineAgents();
@@ -200,25 +204,16 @@ namespace ASC.SignalR.Base.Hubs.Voip
         }
 
         [HubMethodName("enqueue")]
-        public void Enqueue(string callId)
+        public void Enqueue(string callId, string agent)
         {
             try
             {
                 Log.Debug("Enqueue");
 
-                var call = GetCall(callId);
-                var calls = Calls.GetOrAdd(DictionaryKey, new Queue<string>());
-                var agents = Agents.GetOrAdd(DictionaryKey, new Queue<string>());
-
-                if (agents.Any())
+                var result = Phones.Enqueue(GetNumberId(), callId, agent);
+                if (!string.IsNullOrEmpty(result))
                 {
-                    AnswerCall(call, agents.Dequeue());
-                    Log.Debug("Agents:" + string.Join(",", agents.Select(r => r)));
-                }
-                else
-                {
-                    Log.Debug("Calls:");
-                    calls.Enqueue(call);
+                    Clients.User(result).dequeue(callId);
                 }
             }
             catch(Exception e)
@@ -233,11 +228,8 @@ namespace ASC.SignalR.Base.Hubs.Voip
             try
             {
                 Log.Debug("Dequeue");
-                var calls = Calls.GetOrAdd(DictionaryKey, new Queue<string>());
 
-                if (!calls.Any()) return;
-
-                AnswerCall(calls.Dequeue(), ClientUserId);
+                Clients.User(ClientUserId).dequeue(Phones.DequeueCall(GetNumberId()));
             }
             catch(Exception e)
             {
@@ -248,19 +240,41 @@ namespace ASC.SignalR.Base.Hubs.Voip
         [HubMethodName("OnlineAgents")]
         public void OnlineAgents()
         {
-            var agents = Agents.GetOrAdd(DictionaryKey, new Queue<string>());
-
             var userAccount = GetUserAccount();
             if (userAccount != null)
             {
-                Clients.Group(DictionaryKey).onlineAgents(agents.Select(r => r));
+                Clients.Group(DictionaryKey).onlineAgents(Phones.OnlineAgents(GetNumberId()));
             }
+        }
+
+        [HubMethodName("getStatus")]
+        public int GetStatus()
+        {
+            var userAccount = GetUserAccount();
+            if (userAccount != null)
+            {
+                return (int) Phones.GetStatus(GetNumberId(), ClientUserId);
+            }
+
+            return (int)AgentStatus.Offline;
+        }
+
+        [HubMethodName("GetAgent")]
+        public Tuple<Agent, bool> GetAgent(List<Guid> contactsResponsibles)
+        {
+            var userAccount = GetUserAccount();
+            if (userAccount != null)
+            {
+                return Phones.GetAgent(GetNumberId(), contactsResponsibles);
+            }
+
+            return null;
         }
 
         [HubMethodName("Incoming")]
         public void Incoming(string callId, string agent)
         {
-            AnswerCall(GetCall(callId), agent);
+            Clients.User(agent).dequeue(callId);
         }
 
         [HubMethodName("Start")]
@@ -275,29 +289,11 @@ namespace ASC.SignalR.Base.Hubs.Voip
             Clients.User(ClientUserId).end();
         }
 
-        private void AnswerCall(string call, string agent)
-        {
-            ChangeStatus(1, agent);
-            Clients.User(agent).dequeue(call);
-            SaveCall(JObject.Parse(call)["id"].Value<string>(), agent, 2);
-        }
-
         private string clientUserId;
 
         private string ClientUserId
         {
             get { return !string.IsNullOrEmpty(clientUserId) ? clientUserId : (clientUserId = new CustomUserIdProvider().GetUserId(Context.Request)); }
-        }
-
-        private int ClientTenantId
-        {
-            get
-            {
-                var account = GetUserAccount();
-                if (account != null) return account.Tenant;
-
-                throw new InvalidOperationException();
-            }
         }
 
         private IUserAccount GetUserAccount()
@@ -314,102 +310,23 @@ namespace ASC.SignalR.Base.Hubs.Voip
             return null;
         }
 
-        private void RemoveFromQueue(ConcurrentDictionary<string, Queue<string>> dict, string queueItem)
-        {
-            dict.AddOrUpdate(DictionaryKey, new Queue<string>(), (s, queue) => new Queue<string>(queue.Where(r => r != queueItem)));
-        }
-
         private string dictionaryKey;
 
         private string DictionaryKey
         {
             get
             {
-                if (string.IsNullOrEmpty(dictionaryKey))
-                {
-                    var userAccount = GetUserAccount();
-                    if (userAccount != null)
-                        dictionaryKey = userAccount.Tenant.ToString(CultureInfo.InvariantCulture);
+                if (!string.IsNullOrEmpty(dictionaryKey)) return dictionaryKey;
 
-                    dictionaryKey += Context.Request.QueryString["numberId"];
-                    Log.Debug("dictionaryKey:" + dictionaryKey);
-                }
+                var userAccount = GetUserAccount();
+                if (userAccount != null)
+                    dictionaryKey = userAccount.Tenant.ToString(CultureInfo.InvariantCulture);
+
+                dictionaryKey += GetNumberId();
+                Log.Debug("dictionaryKey:" + dictionaryKey);
 
                 return dictionaryKey;
             }
         }
-
-        #region Api
-
-        private string GetCall(string callId)
-        {
-            var userAccount = GetUserAccount();
-            if (userAccount == null) return null;
-
-            var tenant = CoreContext.TenantManager.GetTenant(userAccount.Tenant);
-            var cookie = (string)Context.Request.Environment["server.UserCookie"];
-
-            var apiClient = new ApiClient(tenant.GetTenantDomain());
-            var request = new ApiRequest(string.Format("crm/voip/call/{0}", callId), cookie)
-                {
-                    Method = HttpMethod.Get,
-                    ResponseType = ResponseType.Json
-                };
-
-            return apiClient.GetResponse(request).Response;
-        }
-
-        private void SaveCall(string callId, string answeredBy, int status)
-        {
-            var userAccount = GetUserAccount();
-            if (userAccount == null) return;
-
-            var tenant = CoreContext.TenantManager.GetTenant(userAccount.Tenant);
-            var cookie = (string)Context.Request.Environment["server.UserCookie"];
-
-            var apiClient = new ApiClient(tenant.GetTenantDomain());
-            var request = new ApiRequest(string.Format("crm/voip/call/{0}", callId), cookie)
-                {
-                    Method = HttpMethod.Post,
-                    ResponseType = ResponseType.Json
-                };
-
-            request.Parameters.Add(new RequestParameter {Name = "answeredBy", Value = answeredBy});
-            request.Parameters.Add(new RequestParameter {Name = "status", Value = status});
-
-            apiClient.GetResponse(request);
-        }
-
-        private void ChangeApiStatus(int status, string userId)
-        {
-            try
-            {
-                var userAccount = GetUserAccount();
-                if (userAccount == null) return;
-
-                var tenant = CoreContext.TenantManager.GetTenant(userAccount.Tenant);
-                var cookie = (string)Context.Request.Environment["server.UserCookie"];
-
-                var apiClient = new ApiClient(tenant.GetTenantDomain());
-                var request = new ApiRequest(string.Format("crm/voip/opers/{0}", userId), cookie)
-                    {
-                        Method = HttpMethod.Put
-                    };
-                request.Parameters.Add(new RequestParameter {Name = "status", Value = status});
-                apiClient.GetResponse(request);
-            }
-            catch(ApiErrorException e)
-            {
-                Log.ErrorFormat("ChangeApiStatus userId: {0}, ErrorStackTrace: {1}, ErrorMessage:{2}", userId, e.ErrorStackTrace, e.ErrorMessage);
-                throw;
-            }
-            catch(Exception e)
-            {
-                Log.Error("ChangeApiStatus userId:" + userId, e);
-                throw;
-            }
-        }
-
-        #endregion
     }
 }

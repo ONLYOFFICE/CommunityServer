@@ -1036,9 +1036,9 @@ namespace ASC.Api.Calendar.BusinessObjects
                         var exist = history.History
                                            .Where(x => x.Method == icsCalendar.Method)
                                            .Select(x => x.Events.FirstOrDefault())
-                                           .Any(x => x.UID == icsEvent.UID &&
+                                           .Any(x => x.Uid == icsEvent.Uid &&
                                                      x.Sequence == icsEvent.Sequence &&
-                                                     x.DTStamp.UTC == icsEvent.DTStamp.UTC);
+                                                     x.DtStamp.AsUtc == icsEvent.DtStamp.AsUtc);
 
                         if (exist) return history;
 

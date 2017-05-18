@@ -65,10 +65,7 @@ namespace ASC.Web.Projects
         {
             Master.Master.DisabledTopStudioPanel = true;
             Master.DisabledSidePanel = true;
-            Master.DisabledPrjNavPanel = true;
             Title = HeaderStringHelper.GetPageTitle(ProjectsCommonResource.AutoTimer);
-
-            if (!RequestContext.CanCreateTime()) return;
 
             RenderContentForTimer();
         }

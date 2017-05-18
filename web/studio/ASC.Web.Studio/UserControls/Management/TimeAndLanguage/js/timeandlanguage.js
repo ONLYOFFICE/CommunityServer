@@ -35,9 +35,8 @@ var TimeAndLanguage = new function () {
         };
         var timeManager = new TimeAndLanguageContentManager();
         timeManager.SaveTimeLangSettings(function (res) {
-            if (res.Status == "2") {
+            if (res.Status == "1") {
                 LoadingBanner.showMesInfoBtn("#studio_lngTimeSettings", res.Message, "success");
-            } else if (res.Status == "1") {
                 window.location.reload(true);
             } else {
                 LoadingBanner.showMesInfoBtn("#studio_lngTimeSettings", res.Message, "error");
@@ -48,10 +47,15 @@ var TimeAndLanguage = new function () {
 
 TimeAndLanguageContentManager = function () {
     this.SaveTimeLangSettings = function (parentCallback) {
-        TimeAndLanguageSettingsController.SaveLanguageTimeSettings(jq("#studio_lng").val(), jq("#studio_timezone").val(), function (result) {
-            if (parentCallback != null)
-                parentCallback(result.value);
-
+        Teamlab.setTimaAndLanguage(jq("#studio_lng").val(), jq("#studio_timezone").val(), {
+            success: function (params, response) {
+                if (parentCallback != null)
+                    parentCallback({Status: 1, Message: response});
+            },
+            error: function (params, response) {
+                if (parentCallback != null)
+                    parentCallback({Status: 0, Message: response[0]});
+            }
         });
     };
 };

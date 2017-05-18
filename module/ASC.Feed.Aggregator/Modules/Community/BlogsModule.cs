@@ -26,13 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ASC.Blogs.Core.Domain;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
-using System.Linq;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Feed.Aggregator.Modules.Community
 {
@@ -194,7 +194,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
                     Module = Name,
                     Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
                     Title = post.Title,
-                    Description = HtmlSanitizer.Sanitize(post.Content),
+                    Description = HtmlUtility.GetFull(post.Content),
                     HasPreview = post.Content.Contains("class=\"asccut\""),
                     CanComment = true,
                     CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
@@ -214,7 +214,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
             return new FeedComment(comment.UserID)
                 {
                     Id = comment.ID.ToString(),
-                    Description = HtmlSanitizer.Sanitize(comment.Content),
+                    Description = HtmlUtility.GetFull(comment.Content),
                     Date = comment.Datetime
                 };
         }

@@ -134,9 +134,9 @@ namespace ASC.Core
             return newTenant;
         }
 
-        public void RemoveTenant(int tenantId)
+        public void RemoveTenant(int tenantId, bool auto = false)
         {
-            tenantService.RemoveTenant(tenantId);
+            tenantService.RemoveTenant(tenantId, auto);
         }
 
         public Tenant GetCurrentTenant()
@@ -227,9 +227,9 @@ namespace ASC.Core
             return q;
         }
 
-        public IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo()
+        public IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo(bool all = true)
         {
-            var productIds = GetTenantQuotas(true)
+            var productIds = GetTenantQuotas(all)
                 .Select(p => p.AvangateId)
                 .Where(id => !string.IsNullOrEmpty(id))
                 .Distinct()

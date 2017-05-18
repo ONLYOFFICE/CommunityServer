@@ -27,8 +27,8 @@
 using System;
 using System.Runtime.Serialization;
 using System.Web.Configuration;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.WhiteLabel

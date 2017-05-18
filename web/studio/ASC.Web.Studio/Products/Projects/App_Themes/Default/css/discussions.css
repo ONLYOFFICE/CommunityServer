@@ -190,13 +190,6 @@
     padding-left: 18px;
 }
 
-#discussionFilesContainer .noContentBlock.emptyScrCtrl
-{
-	border-bottom: 1px;
-	margin-bottom: 0px;
-	padding-bottom: 0px;
-}
-
 #discussionParticipantsContainer .inviteMessage
 {
 	font-size: 12px;
@@ -319,7 +312,9 @@
 }
 
 #discussionsList .title-list {
-    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width:800px;
 }
 
 #discussionsList .status {
@@ -335,4 +330,9 @@
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+}
+
+#discussionsList .content-list {
+    white-space: nowrap;
+    max-width: 900px;
 }

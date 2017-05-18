@@ -245,7 +245,7 @@ namespace ASC.Web.CRM.Classes
                 var subtotalValue = Math.Round(line.Quantity * line.Price, 2);
                 var discountValue = Math.Round(subtotalValue * line.Discount / 100, 2);
 
-                var rate = 0;
+                decimal rate = 0;
                 if (tax1 != null)
                 {
                     rate += tax1.Rate;
@@ -549,7 +549,7 @@ namespace ASC.Web.CRM.Classes
                 var subtotalValue = Math.Round(line.Quantity * line.Price, 2);
                 var discountValue = Math.Round(subtotalValue * line.Discount / 100, 2);
 
-                var rate = 0;
+                decimal rate = 0;
                 if (tax1 != null)
                 {
                     rate += tax1.Rate;

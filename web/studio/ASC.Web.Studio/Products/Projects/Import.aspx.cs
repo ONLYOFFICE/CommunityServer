@@ -43,6 +43,7 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
+            Response.Redirect("projects.aspx");
             if (TenantExtra.GetRemainingCountUsers() <= 0)
             {
                 QuotaEndFlag = true;
@@ -53,8 +54,9 @@ namespace ASC.Web.Projects
 
         public void InitPage()
         {
-            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "import.js");
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less")
+                .RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "import.js");
+
             Title = HeaderStringHelper.GetPageTitle(ImportResource.ImportFromBasecamp);
 
             HiddenFieldForPermission.Value = ((BasePage)Page).Participant.IsFullAdmin ? "1" : "0";

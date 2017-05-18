@@ -26,33 +26,71 @@
 
 AuthorizationKeysManager = new function () {
     this.Initialize = function () {
-        jq('#authKeysButtonSave').click(function () {
-            AuthorizationKeysManager.Save();
+        jq("#authKeysContainer .on_off_button:not(.disable)").click(function () {
+            var switcherBtn = jq(this);
+            var itemName = switcherBtn.attr("id").replace("switcherBtn", "");
+            if (switcherBtn.hasClass("off")) {
+                var popupDialog = jq("#popupDialog" + itemName);
+                window.StudioBlockUIManager.blockUI(popupDialog, 600, 600, 0);
+            } else {
+                AuthorizationKeysManager.Save(itemName, false);
+            }
+        });
+        
+        jq(".popupContainerClass .cancelButton").click(function () {
+            PopupKeyUpActionProvider.CloseDialog();
+        });
+        
+        jq(".popupContainerClass .saveButton").click(function () {
+            var saveButton = jq(this);
+            var itemName = saveButton.attr("id").replace("saveBtn", "");
+            AuthorizationKeysManager.Save(itemName, true);
+        });
+
+        jq(".popupContainerClass input.textEdit").keyup(function (key) {
+            if ((key.keyCode || key.which) == 13) {
+                var inputObj = jq(this);
+                var popupObj = inputObj.parents(".popupContainerClass");
+                var inputList = popupObj.find(".textEdit");
+                var saveBtn = popupObj.find(".saveButton");
+
+                jq.each(inputList, function (index, obj) {
+                    if (inputObj.is(obj)) {
+                        if (index == inputList.length - 1) {
+                            saveBtn.click();
+                        } else {
+                            jq(inputList[index + 1]).focus();
+                        }
+                        return false;
+                    }
+                    return true;
+                });
+            }
         });
     };
 
-    this.Save = function () {
+    this.Save = function (itemName, enable) {
         var authKeys = [];
 
-        var ids = jq('.auth-service-id');
-        for (var i = 0; i < ids.length; i++) {
-            authKeys.push({ Name: ids[i].id, Value: ids[i].value });
+        var keys = jq("#popupDialog" + itemName + " .auth-service-key");
+        for (var i = 0; i < keys.length; i++) {
+            authKeys.push({ Name: keys[i].id, Value: enable ? keys[i].value : "" });
         }
 
-        var keys = jq('.auth-service-key');
-        for (i = 0; i < keys.length; i++) {
-            authKeys.push({ Name: keys[i].id, Value: keys[i].value });
-        }
-        
-        jq('#authKeysContainer').block();
-        AuthorizationKeys.SaveAuthKeys(authKeys, function(result) {
+        jq("#popupDialog" + itemName).block();
+
+        window.AuthorizationKeys.SaveAuthKeys(authKeys, function (result) {
+            jq("#popupDialog" + itemName).unblock();
+            PopupKeyUpActionProvider.CloseDialog();
+
             if (result.error != null) {
                 toastr.error(result.error.Message);
             } else {
-                LoadingBanner.showMesInfoBtn("#authKeysContainer", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                if (result.value) {
+                    toastr.success(ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage);
+                    jq("#switcherBtn" + itemName).toggleClass("on off");
+                }
             }
-
-            jq('#authKeysContainer').unblock();
         });
     };
 };

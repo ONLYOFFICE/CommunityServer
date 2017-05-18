@@ -49,8 +49,6 @@ namespace ASC.Web.Projects.Controls.Common
 
         public List<Project> MyProjects { get; set; }
 
-        protected Dictionary<string, bool> ParticipantSecurityInfo { get; set; }
-
         protected bool ShowCreateButton { get; set; }
 
         protected bool IsProjectAdmin { get; set; }
@@ -70,18 +68,7 @@ namespace ASC.Web.Projects.Controls.Common
             IsProjectAdmin = Page.Participant.IsAdmin;
             IsFullAdmin = Page.Participant.IsFullAdmin;
             IsOutsider = Page.Participant.UserInfo.IsOutsider();
-
-            ParticipantSecurityInfo = new Dictionary<string, bool>
-                                          {
-                                              {"Project", IsProjectAdmin},
-                                              {"Milestone", Page.RequestContext.CanCreateMilestone()},
-                                              {"Task", Page.RequestContext.CanCreateTask()},
-                                              {"Discussion", Page.RequestContext.CanCreateDiscussion()},
-                                              {"Time", Page.RequestContext.CanCreateTime()},
-                                              {"ProjectTemplate", IsProjectAdmin}
-                                          };
-
-            ShowCreateButton = (ParticipantSecurityInfo.Any(r => r.Value) || Page is TMDocs) && !Page.Participant.UserInfo.IsOutsider();
+            ShowCreateButton = !Page.Participant.UserInfo.IsOutsider();
 
 
             var mobileAppRegistrator = new CachedMobileAppInstallRegistrator(new MobileAppInstallRegistrator());
@@ -96,9 +83,6 @@ namespace ASC.Web.Projects.Controls.Common
 
         private void InitControls()
         {
-            _taskAction.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Tasks/TaskAction.ascx")));
-            _milestoneAction.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Milestones/MilestoneAction.ascx")));
-
             if (Page is TMDocs)
             {
                 CreateDocsHolder.Controls.Add(LoadControl(Files.Controls.CreateMenu.Location));
@@ -119,11 +103,6 @@ namespace ASC.Web.Projects.Controls.Common
             var tree = (Files.Controls.TreeBuilder) LoadControl(Files.Controls.TreeBuilder.Location);
             tree.FolderIDCurrentRoot = Files.Classes.Global.FolderProjects;
             placeHolderFolderTree.Controls.Add(tree);
-        }
-
-        protected bool IsInConcreteProject()
-        {
-            return Project != null && MyProjects.Any(r => r.ID == Project.ID);
         }
     }
 }

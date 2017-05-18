@@ -66,6 +66,11 @@ namespace ASC.Web.Projects.Classes
             return Can(file, userId, SecurityAction.Read);
         }
 
+        public bool CanReview(FileEntry file, Guid userId)
+        {
+            return Can(file, userId, SecurityAction.Edit);
+        }
+
         public bool CanCreate(FileEntry file, Guid userId)
         {
             return Can(file, userId, SecurityAction.Create);

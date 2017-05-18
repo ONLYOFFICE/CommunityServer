@@ -82,6 +82,7 @@ namespace ASC.Web.Studio.Core.Backup
                     backupRequest.StorageBasePath = storageParams.FolderId;
                     break;
                 case BackupStorageType.CustomCloud:
+                    backupRequest.StorageBasePath = storageParams.FilePath;
                     ValidateS3Settings(storageParams.AccessKeyId, storageParams.SecretAccessKey, storageParams.Bucket, storageParams.Region);
                     CoreContext.Configuration.SaveSection(new AmazonS3Settings
                         {

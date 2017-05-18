@@ -67,5 +67,7 @@ namespace ASC.Projects.Core.Domain
         {
             return string.Format("{0}|{1}|{2}", GetType().FullName, Title, Project.GetHashCode()).GetHashCode();
         }
+
+        public abstract bool CanEdit();
     }
 }

@@ -73,6 +73,7 @@ window.mailBox = (function($) {
             ASC.Controls.AnchorController.bind(TMMail.anchors.personal_contact, onPersonalContactsPage);
             ASC.Controls.AnchorController.bind(TMMail.anchors.tags, onTagsPage);
             ASC.Controls.AnchorController.bind(TMMail.anchors.administration, onAdministrationPage);
+            ASC.Controls.AnchorController.bind(TMMail.anchors.commonSettings, onCommonSettingsPage);
             ASC.Controls.AnchorController.bind(TMMail.anchors.helpcenter, onHelpPage);
 
             ASC.Controls.AnchorController.bind(TMMail.anchors.messagePrint, onMessagePrintPage);
@@ -83,6 +84,7 @@ window.mailBox = (function($) {
             tagsManager.events.bind('delete', onDeleteTag);
             tagsManager.events.bind('update', onUpdateTag);
 
+            serviceManager.bind(window.Teamlab.events.getMailFilteredMessages, onGetMailConversations);
             serviceManager.bind(window.Teamlab.events.getMailFilteredConversations, onGetMailConversations);
             serviceManager.bind(window.Teamlab.events.removeMailFolderMessages, onRemoveMailFolderMessages);
             serviceManager.bind(window.Teamlab.events.restoreMailMessages, onRestoreMailMessages);
@@ -394,11 +396,12 @@ window.mailBox = (function($) {
         }
 
         if (ids.length > 0) {
-            if (fromMessage == undefined || fromMessage == false) {
+            if (commonSettingsPage.isConversationsEnabled() &&
+            (fromMessage == undefined || fromMessage == false)) {
                 serviceManager.setConverstationsTag(ids, tagId, { ids: ids, tag_id: tagId });
-            } else {
-                serviceManager.setTag(ids, tagId, { tag_id: tagId, ids: ids });
             }
+
+            serviceManager.setTag(ids, tagId, { tag_id: tagId, ids: ids });
         }
     }
 
@@ -456,7 +459,7 @@ window.mailBox = (function($) {
             messagePage.unsetTag(messageIds[i], tagId);
         }
         if (ids.length > 0) {
-            if (fromConversation == undefined || fromConversation == false) {
+            if (!commonSettingsPage.isConversationsEnabled() || fromConversation == undefined || fromConversation == false) {
                 serviceManager.unsetTag(ids, tagId, { ids: ids, tag_id: tagId });
             } else {
                 serviceManager.unsetConverstationsTag(ids, tagId, { ids: ids, tag_id: tagId });
@@ -635,10 +638,13 @@ window.mailBox = (function($) {
         });
     }
 
-    function setMessagesReadUnread(messageIds, asRead) {
+    function setMessagesReadUnread(messageIds, asRead, skipRefreshAll) {
         var status = asRead === true ? 'read' : 'unread';
         serviceManager.markMessages(messageIds, status, { status: status, messageIds: messageIds, folderId: MailFilter.getFolder() });
-        serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+        if (!skipRefreshAll)
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+        else
+            serviceManager.getMailFolders();
         mailCache.setRead(messageIds, asRead);
     }
 
@@ -748,6 +754,12 @@ window.mailBox = (function($) {
 
     function moveMessages(ids, fromFolder, toFolder, fromConversation) {
         serviceManager.moveMailMessages(ids, toFolder, { fromFolder: fromFolder, toFolder: toFolder, fromConversation: fromConversation }, {}, window.MailScriptResource.MovingMessages);
+        if (toFolder == TMMail.sysfolders.trash.id ||
+            toFolder == TMMail.sysfolders.spam.id) {
+            mailCache.remove(ids);
+        } else {
+            mailCache.setFolder(ids, toFolder);
+        }
         serviceManager.updateFolders();
     }
 
@@ -778,6 +790,9 @@ window.mailBox = (function($) {
             folderIdsForUpdate.AddId(prevfolderid);
         }
         serviceManager.restoreMailMessages(ids, { folders: folderIdsForUpdate }, {}, window.MailScriptResource.RestoringMessages);
+
+        mailCache.setFolder(ids, TMMail.sysfolders.inbox.id);
+
         serviceManager.updateFolders();
     }
 
@@ -791,6 +806,9 @@ window.mailBox = (function($) {
                 TMMail.sysfolders.spam.id
             ]
         }, {}, window.MailScriptResource.RestoringMessages);
+
+        mailCache.setFolder(ids, TMMail.sysfolders.inbox.id);
+
         serviceManager.updateFolders();
     }
 
@@ -801,6 +819,7 @@ window.mailBox = (function($) {
         contactsPage.hide();
         blankPages.hide();
         helpPage.hide();
+        commonSettingsPage.hide();
     }
 
     function onRemoveMailFolderMessages(params, folder) {
@@ -826,6 +845,8 @@ window.mailBox = (function($) {
 
         $('#itemContainer').height('auto');
 
+        var prevPageLink = $('#itemContainer .pagerPrevButtonCSSClass:visible');
+
         hideContentDivs(true);
 
         if ($html.find('[data_id]').length) {
@@ -838,6 +859,12 @@ window.mailBox = (function($) {
             folderFilter.update();
             redrawNavigation($html.attr('has_next') ? true : false, $html.attr('has_prev') ? true : false);
         } else {
+
+            if (prevPageLink.length) {
+                prevPageLink.trigger("click");
+                return;
+            }
+
             $('#MessagesListGroupButtons').hide();
             if (MailFilter.isBlank()) {
                 folderFilter.hide();
@@ -854,6 +881,9 @@ window.mailBox = (function($) {
     }
 
     function loadCache(messages) {
+        if (!window.commonSettingsPage.AutocacheMessagesEnabled())
+            return;
+
         var unreadIds = [],
             notCachedIds = [];
         for (var i = 0, n = messages.length; i < n; i++) {
@@ -878,8 +908,18 @@ window.mailBox = (function($) {
 
         hideLoadingMask();
 
-        var hasNext = (true === MailFilter.getPrevFlag()) || params.__total > MailFilter.getPageSize();
-        var hasPrev = (false === MailFilter.getPrevFlag() && null != MailFilter.getFromDate() && undefined != MailFilter.getFromDate()) || (true === MailFilter.getPrevFlag() && params.__total > MailFilter.getPageSize());
+        var hasNext, hasPrev;
+
+        if (commonSettingsPage.isConversationsEnabled()) {
+            hasNext = (true === MailFilter.getPrevFlag()) || params.__total > MailFilter.getPageSize();
+            hasPrev = (false === MailFilter.getPrevFlag() &&
+                null != MailFilter.getFromDate() &&
+                undefined != MailFilter.getFromDate()) ||
+            (true === MailFilter.getPrevFlag() && params.__total > MailFilter.getPageSize());
+        } else {
+            hasNext = params.__total > MailFilter.getPageSize() * MailFilter.getPage();
+            hasPrev = MailFilter.getPage() > 1;
+        }
 
         if ((0 == messages.length && MailFilter.getFromDate()) || (false == hasPrev && true == MailFilter.getPrevFlag())) {
             MailFilter.setFromDate(null);
@@ -953,7 +993,7 @@ window.mailBox = (function($) {
             if (m.folder == TMMail.sysfolders.drafts.id) {
                 m.anchor = '#draftitem/' + m.id;
             } else {
-                m.anchor = '#conversation/' + m.id;
+                m.anchor = (commonSettingsPage.isConversationsEnabled() ? '#conversation/' : '#message/') + m.id;
             }
         });
 
@@ -1346,7 +1386,10 @@ window.mailBox = (function($) {
         var messages = currentSelection.GetIds();
         if (messages.length > 0) {
             enableGroupOperations(false);
-            deleteConversations(messages, currentFolderId);
+            if (commonSettingsPage.isConversationsEnabled())
+                deleteConversations(messages, currentFolderId);
+            else
+                deleteMessages(messages, currentFolderId);
         }
     }
 
@@ -1354,7 +1397,10 @@ window.mailBox = (function($) {
         var messages = currentSelection.GetIds();
         if (messages.length > 0) {
             enableGroupOperations(false);
-            moveConversations(messages, currentFolderId, TMMail.sysfolders.spam.id);
+            if (commonSettingsPage.isConversationsEnabled())
+                moveConversations(messages, currentFolderId, TMMail.sysfolders.spam.id);
+            else
+                moveMessages(messages, currentFolderId, TMMail.sysfolders.spam.id);
         }
     }
 
@@ -1362,7 +1408,10 @@ window.mailBox = (function($) {
         var messagesIds = currentSelection.GetIds();
         if (messagesIds.length > 0) {
             enableGroupOperations(false);
-            restoreConversations(messagesIds);
+            if (commonSettingsPage.isConversationsEnabled())
+                restoreConversations(messagesIds);
+            else
+                restoreMessages(messagesIds);
         }
     }
 
@@ -1371,7 +1420,10 @@ window.mailBox = (function($) {
         if (messageIds.length > 0) {
             enableGroupOperations(false);
             var read = containNewMessage(messageIds);
-            setConversationReadUnread(messageIds, read);
+            if (commonSettingsPage.isConversationsEnabled())
+                setConversationReadUnread(messageIds, read);
+            else
+                setMessagesReadUnread(messageIds, read);
         }
     }
 
@@ -1464,7 +1516,7 @@ window.mailBox = (function($) {
         }
 
         if (params.status == 'read' || params.status == 'unread') {
-            mailCache.setRead(messageIds, params.status == 'read');
+            mailCache.setRead(params.messageIds, params.status == 'read');
             serviceManager.getMailFolders();
         }
     }
@@ -1536,10 +1588,10 @@ window.mailBox = (function($) {
             }
 
             if ($.isNumeric(restoreFolderId)) {
-                TMMail.showCompleteActionHint(TMMail.action_types.restore, true, ids.length, restoreFolderId);
+                TMMail.showCompleteActionHint(TMMail.action_types.restore, window.commonSettingsPage.isConversationsEnabled(), ids.length, restoreFolderId);
             }
         } else {
-            TMMail.showCompleteActionHint(TMMail.action_types.restore, true, ids.length);
+            TMMail.showCompleteActionHint(TMMail.action_types.restore, window.commonSettingsPage.isConversationsEnabled(), ids.length);
         }
 
         $.each(params.folders, function(index, value) {
@@ -1561,8 +1613,8 @@ window.mailBox = (function($) {
             updateAnchor(true);
             selection.RemoveIds(ids); // Clear checkboxes
             lastSelectedConcept = null;
-            // TODO: add a check on the inclusion of chains (is_conversation param)
-            TMMail.showCompleteActionHint(TMMail.action_types.delete_messages, true, ids.length);
+
+            TMMail.showCompleteActionHint(TMMail.action_types.delete_messages, window.commonSettingsPage.isConversationsEnabled(), ids.length);
         } else {
             for (var i = 0; i < ids.length; i++) {
                 var deletedMessage = $('#itemContainer div.message-wrap[message_id=' + ids[i] + ']');
@@ -1592,6 +1644,13 @@ window.mailBox = (function($) {
 
         // if not conversation or single message in conversation
         if (!params.fromConversation || $('#itemContainer div.message-wrap').length <= 1) {
+
+            TMMail.showCompleteActionHint(TMMail.action_types.move, false, ids.length, params.toFolder);
+
+            if (moveNextIfPossible(params.toFolder)) {
+                return;
+            }
+
             updateAnchor(true);
             return;
         }
@@ -1627,9 +1686,31 @@ window.mailBox = (function($) {
         selection.RemoveIds(ids);
         lastSelectedConcept = null;
 
-        updateAnchor(true);
-
         TMMail.showCompleteActionHint(TMMail.action_types.move, true, ids.length, params.toFolder);
+
+        if (moveNextIfPossible(params.toFolder)) {
+            return;
+        }
+
+        updateAnchor(true);
+    }
+
+    function moveNextIfPossible(folder) {
+        if (TMMail.pageIs('conversation') || TMMail.pageIs('message')) {
+            if (window.commonSettingsPage.GoNextAfterMoveEnabled()) {
+                var nextMessageLink = $('.itemWrapper .btnNext:visible');
+                if (nextMessageLink.length) {
+                    nextMessageLink.trigger("click");
+                    
+                    messagePage.conversation_moved = true;
+                    messagePage.dst_folder_id = folder;
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     function onSysFolderPage(folderName, params) {
@@ -1819,11 +1900,21 @@ window.mailBox = (function($) {
     }
 
     function onNextMessagePage(id) {
-        serviceManager.getNextMessageId(id);
+        var cachedId = filterCache.getNextId(MailFilter, id);
+        if (0 == cachedId) {
+            serviceManager.getNextMessageId(id);
+        } else {
+            onGetNextPrevMessageId({}, cachedId);
+        }
     }
 
     function onPrevMessagePage(id) {
-        serviceManager.getPrevMessageId(id);
+        var cachedId = filterCache.getPrevId(MailFilter, id);
+        if (0 == cachedId) {
+            serviceManager.getPrevMessageId(id);
+        } else {
+            onGetNextPrevMessageId({}, cachedId);
+        }
     }
 
     function onConversationPage(id) {
@@ -1834,7 +1925,7 @@ window.mailBox = (function($) {
     }
 
     function onNextConversationPage(id) {
-        var cachedId = filterCache.getNextConversation(MailFilter, id);
+        var cachedId = filterCache.getNextId(MailFilter, id);
         if (0 == cachedId) {
             serviceManager.getNextConversationId(id);
         } else {
@@ -1843,7 +1934,7 @@ window.mailBox = (function($) {
     }
 
     function onPrevConversationPage(id) {
-        var cachedId = filterCache.getPrevConversation(MailFilter, id);
+        var cachedId = filterCache.getPrevId(MailFilter, id);
         if (0 == cachedId) {
             serviceManager.getPrevConversationId(id);
         } else {
@@ -1879,6 +1970,17 @@ window.mailBox = (function($) {
         contactsManager.init();
         administrationManager.loadData();
         settingsPanel.selectItem('adminSettings');
+    }
+
+    function onCommonSettingsPage() {
+        messagePage.hide();
+        hidePages();
+        unmarkAllPanels();
+        TMMail.setPageHeaderTitle(window.MailScriptResource.CommonSettingsLabel);
+        hideContentDivs();
+        commonSettingsPage.show();
+        settingsPanel.selectItem('common');
+        hideLoadingMask();
     }
 
     function onTeamLabContactsPage() {

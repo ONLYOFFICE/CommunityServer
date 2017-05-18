@@ -35,6 +35,10 @@
         display: none;
     }
 
+    #service-already-running-box {
+        display: none;
+    }
+
     #operator-box {
         display: none;
 
@@ -90,18 +94,24 @@
         border-bottom: 1px solid @borderColor;
 
         #call-type-selector {
-            width: 228px;
+            width: 185px;
             height: 24px;
             line-height: 24px;
             float: left;
             .borderRadius(3px);
 
-            .browser-type-call {
-                background: url('imagescss/ip_browser.png') no-repeat;
-            }
+            option {
+                padding-left: 20px;
+                height: 16px;
+                font-size: 12px;
 
-            .phone-type-call {
-                background: url('imagescss/ip_phone.png') no-repeat;
+                &.browser-type-call {
+                    background: url('imagescss/ip_browser.png') no-repeat;
+                }
+
+                &.phone-type-call {
+                    background: url('imagescss/ip_phone.png') no-repeat;
+                }
             }
         }
 
@@ -121,6 +131,42 @@
                 height: 16px;
                 top: 4px;
                 left: 9px;
+            }
+
+            &.active {
+                background-color: #f5f5f5;
+            }
+
+            &.disable {
+                background-color: #f7f7f7;
+            }
+        }
+
+        #toggle-missed-box-btn {
+            float: left;
+            width: 35px;
+            height: 24px;
+            margin-left: 8px;
+            .bg-button-default();
+            .borderRadius(3px);
+            cursor: pointer;
+            position: relative;
+
+            .voip-missed{
+                position: absolute;
+                background: url('imagescss/ip_missed_call_icon.png') no-repeat;
+                width: 17px;
+                height: 16px;
+                top: 4px;
+                left: 9px;
+            }
+
+            &.active {
+                background-color: #f5f5f5;
+            }
+
+            &.disable {
+                background-color: #f7f7f7;
             }
         }
     }
@@ -225,7 +271,7 @@
                         display: block;
                         line-height: 18px;
                         font-weight: bold;
-                        max-width: 140px;
+                        max-width: 130px;
                         color: @textColor;
                         text-decoration: none;
                         .text-overflow();
@@ -426,11 +472,10 @@
 
         .panel-btn {
             float: left;
-            width: 80px;
+            width: 82px;
             height: 42px;
-            margin-right: 12px;
+            margin-right: 10px;
             line-height: 42px;
-            border: 1px solid @bg-default;
             .bg-button-default();
             .borderRadius(3px);
             font-weight: bold;

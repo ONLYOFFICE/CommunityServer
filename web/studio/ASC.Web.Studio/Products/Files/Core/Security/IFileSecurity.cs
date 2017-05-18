@@ -33,6 +33,8 @@ namespace ASC.Files.Core.Security
     {
         bool CanRead(FileEntry file, Guid userId);
 
+        bool CanReview(FileEntry file, Guid userId);
+
         bool CanCreate(FileEntry file, Guid userId);
 
         bool CanEdit(FileEntry file, Guid userId);

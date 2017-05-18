@@ -164,7 +164,7 @@ namespace ASC.Api.Projects
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"message/{messageid:[0-9]+}")]
-        public MessageWrapper UpdateProjectMessage(int messageid, int projectid, string title, string content, string participants, bool? notify)
+        public MessageWrapperFull UpdateProjectMessage(int messageid, int projectid, string title, string content, string participants, bool? notify)
         {
             var messageEngine = EngineFactory.MessageEngine;
             
@@ -179,7 +179,7 @@ namespace ASC.Api.Projects
             messageEngine.SaveOrUpdate(discussion, notify.HasValue ? notify.Value : true, ToGuidList(participants));
             MessageService.Send(Request, MessageAction.DiscussionUpdated, discussion.Project.Title, discussion.Title);
 
-            return new MessageWrapper(discussion);
+            return new MessageWrapperFull(discussion, new ProjectWrapperFull(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)),  GetProjectMessageSubscribers(messageid));
         }
 
         ///<summary>
@@ -250,9 +250,14 @@ namespace ASC.Api.Projects
         ///<returns>Message</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message/{messageid:[0-9]+}")]
-        public MessageWrapper GetProjectMessage(int messageid)
+        public MessageWrapperFull GetProjectMessage(int messageid)
         {
-            return new MessageWrapper(EngineFactory.MessageEngine.GetByID(messageid).NotFoundIfNull());
+            var discussion = EngineFactory.MessageEngine.GetByID(messageid).NotFoundIfNull();
+            var project = new ProjectWrapperFull(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID));
+            var subscribers = GetProjectMessageSubscribers(messageid);
+            var files = EngineFactory.MessageEngine.GetFiles(discussion).Select(x => new FileWrapper(x));
+            var comments = EngineFactory.CommentEngine.GetComments(discussion);
+            return new MessageWrapperFull(discussion, project, subscribers, files, comments.Where(r=>r.Parent.Equals(Guid.Empty)).Select(x => GetCommentInfo(comments, x, discussion)).ToList());
         }
 
         ///<summary>
@@ -366,9 +371,9 @@ namespace ASC.Api.Projects
         public IEnumerable<CommentWrapper> GetProjectMessagesComments(int messageid)
         {
             var messageEngine = EngineFactory.MessageEngine;
-
-            if (!messageEngine.IsExists(messageid)) throw new ItemNotFoundException();
-            return EngineFactory.CommentEngine.GetComments(messageEngine.GetByID(messageid)).Select(x => new CommentWrapper(x));
+            var message = messageEngine.GetByID(messageid).NotFoundIfNull();
+            
+            return EngineFactory.CommentEngine.GetComments(message).Select(x => new CommentWrapper(x, message));
         }
 
         ///<summary>
@@ -408,7 +413,7 @@ namespace ASC.Api.Projects
             
             MessageService.Send(Request, MessageAction.DiscussionCommentCreated, message.Project.Title, message.Title);
             
-            return new CommentWrapper(comment);
+            return new CommentWrapper(comment, message);
         }
 
         ///<summary>
@@ -432,7 +437,7 @@ namespace ASC.Api.Projects
             discussionEngine.Follow(discussion);
             MessageService.Send(Request, MessageAction.DiscussionUpdatedFollowing, discussion.Project.Title, discussion.Title);
 
-            return new MessageWrapper(discussion);
+            return new MessageWrapperFull(discussion, new ProjectWrapperFull(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)), GetProjectMessageSubscribers(messageid));
         }
 
         ///<summary>

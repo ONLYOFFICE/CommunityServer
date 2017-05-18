@@ -72,8 +72,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/confirmmobile.js");
-            Page.RegisterStyle("~/usercontrols/management/SmsControls/css/confirmmobile.less");
+            Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/confirmmobile.js")
+                .RegisterStyle("~/usercontrols/management/SmsControls/css/confirmmobile.less");
 
             Context.Session["SmsAuthData"] = User.ID;
 
@@ -97,11 +97,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 var ipGeolocationInfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();
                 if (ipGeolocationInfo != null) Country = ipGeolocationInfo.Key;
 
-                Page.RegisterClientLocalizationScript(typeof(CountriesResources));
-
-                Page.RegisterBodyScripts("~/js/asc/plugins/countries.js",
-                    "~/js/asc/plugins/phonecontroller.js");
-                Page.RegisterStyle("~/skins/default/phonecontroller.css");
+                Page
+                    .RegisterClientScript(new CountriesResources())
+                    .RegisterBodyScripts(
+                        "~/js/asc/plugins/countries.js",
+                        "~/js/asc/plugins/phonecontroller.js")
+                    .RegisterStyle("~/skins/default/phonecontroller.css");
             }
         }
 

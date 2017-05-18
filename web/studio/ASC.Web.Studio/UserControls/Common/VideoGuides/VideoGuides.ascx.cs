@@ -49,7 +49,8 @@ namespace ASC.Web.Studio.UserControls.Common.VideoGuides
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/videoguides/js/videoguides.js");
+          // Mirgate to CommonBodyScripts.ascx.cs
+          //  Page.RegisterBodyScripts("~/usercontrols/common/videoguides/js/videoguides.js");
             RenderVideoHandlers();
         }
 

@@ -27,8 +27,8 @@
 using System;
 using System.Runtime.Serialization;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
-using ASC.Web.Core.Utility.Settings;
 
 namespace ASC.Web.Core.Users
 {

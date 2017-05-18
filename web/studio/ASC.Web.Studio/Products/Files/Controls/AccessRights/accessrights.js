@@ -32,10 +32,12 @@ window.ASC.Files.Share = (function () {
     var linkInfo;
     var sharingManager = null;
     var shareLink;
-    var shortenLink = "";
+    var shareLinkShort;
+    var shotenLinkDisabled = jq("#shareLink").attr("data-shorten") != "true";
     var needUpdate = false;
 
     var clip = null;
+    var clipEmbed = null;
 
     var init = function () {
         if (isInit === false) {
@@ -44,12 +46,33 @@ window.ASC.Files.Share = (function () {
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetSharedInfo, onGetSharedInfo);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetSharedInfoShort, onGetSharedInfoShort);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SetAceObject, onSetAceObject);
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SetAceLink, onSetAceLink);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.UnSubscribeMe, onUnSubscribeMe);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetShortenLink, onGetShortenLink);
-            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SendLinkToEmail, onSendLinkToEmail);
 
             sharingManager = new SharingSettingsManager(undefined, null);
             sharingManager.OnSave = setAceObject;
+            sharingManager.OnChange = onChangeAce;
+            sharingManager.OnCopyLink = function () {
+                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.Resource.LinkCopySuccess);
+            };
+
+            jq(".embedded-size-item").on("click", setEmbeddedSize);
+            jq(".embedded-size-custom").on("change", setEmbeddedSize);
+
+            jq.dropdownToggle(
+                {
+                    switcherSelector: "#toggleEmbeddPanel",
+                    dropdownID: "shareEmbeddedPanel",
+                    inPopup: true,
+                    rightPos: true,
+                    addTop: 10,
+                    afterShowFunction: function () {
+                        jq("#shareEmbedded").focus().select();
+                    }
+                });
+
+            jq(".sharing-empty").html(jq.format(ASC.Files.FilesJSResources.SharingSettingsEmpty, "<br />"));
         }
     };
 
@@ -76,310 +99,179 @@ window.ASC.Files.Share = (function () {
 
     var updateClip = function () {
         if (!ASC.Clipboard.enable) {
-            jq("#shareLinkCopy, #embeddedCopy").remove();
+            jq("#shareLinkCopy, #shareEmbedCopy").remove();
             return;
         }
 
-        ASC.Clipboard.destroy(ASC.Files.Share.clip);
+        ASC.Files.Share.clip = ASC.Clipboard.destroy(ASC.Files.Share.clip);
 
-        if (jq("#shareLinkCopy:visible").length != 0) {
-            var linkButton = "shareLinkCopy";
-            var textareaId = "shareLink";
-        } else if (jq("#embeddedCopy:visible").length != 0) {
-            linkButton = "embeddedCopy";
-            textareaId = "shareEmbedded";
-        } else {
-            return;
-        }
-
-        var offsetLink = jq("#" + linkButton).offset();
-        var offsetDiff = jq(".blockUI #studio_sharingSettingsDialog").offset() || { left: 0, top: 0 };
-
-        ASC.Files.Share.clip = ASC.Clipboard.create(jq("#" + textareaId).val(), linkButton, {
-            left: (offsetLink.left - offsetDiff.left) + "px",
-            top: (offsetLink.top - offsetDiff.top) + "px",
+        ASC.Files.Share.clip = ASC.Clipboard.create(jq("#shareLink").val(), "shareLinkCopy", {
             onComplete: function () {
                 if (typeof(window.toastr) !== "undefined") {
                     toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
                 } else {
-                    jq("#shareEmbedded, #embeddedCopy, #shareLink, #shareLinkCopy").yellowFade();
+                    jq("#shareLink, #shareLinkCopy").yellowFade();
                 }
             },
-            textareaId: textareaId,
+            textareaId: "shareLink",
+        });
+
+        ASC.Files.Share.clipEmbed = ASC.Clipboard.destroy(ASC.Files.Share.clipEmbed);
+
+        ASC.Files.Share.clipEmbed = ASC.Clipboard.create(jq("#shareEmbedded").val(), "shareEmbedCopy", {
+            onComplete: function () {
+                if (typeof(window.toastr) !== "undefined") {
+                    toastr.success(ASC.Files.FilesJSResources.CodeCopySuccess);
+                } else {
+                    jq("#shareEmbedded, #shareEmbedCopy").yellowFade();
+                }
+            },
+            textareaId: "shareEmbedded",
         });
     };
 
-    var updateSocialLink = function (url) {
+    var updateSocialLink = function () {
         var linkPanel = jq("#shareViaSocPanel");
-        var link = encodeURIComponent(url);
+        var link = encodeURIComponent(shareLinkShort);
 
         linkPanel.find(".google").attr("href", ASC.Resources.Master.UrlShareGooglePlus.format(link));
         linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, objectTitle, "", ""));
         linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(link));
+        var fileId = ASC.Files.UI.parseItemId(objectID).entryId;
+        linkPanel.find(".mail").attr("href", ASC.Files.Constants.UrlShareLink.format(fileId));
     };
 
-    var addShareMail = function () {
-        var tmp = jq(".recipient-mail:first").clone(false);
-        tmp.find(".textEdit").val("");
-        jq(".recipient-mail:last").after(tmp);
-        jq(".share-mail-list").scrollTo(".recipient-mail:last");
+    var openShareLinkAce = function () {
+        var ace = jq("#shareLinkOpen").is(":checked")
+            ? ASC.Files.Constants.AceStatusEnum.Read
+            : ASC.Files.Constants.AceStatusEnum.Restrict;
 
-        jq(".recipient-mail:not(:last) .textEdit").each(function (i, e) {
-            e = jq(e);
-            if (e.val().trim() == "") {
-                jq(e).closest(".recipient-mail").remove();
-            }
-        });
-
-        jq(".recipient-mail-add").hide();
-        jq(".recipient-mail-add:last").show();
-
-        if (jq(".recipient-mail").length >= 30) {
-            jq(".recipient-mail-add").hide();
+        if (ace != ASC.Files.Constants.AceStatusEnum.Restrict
+            && !isShortenLink()) {
+            getShortenLink();
+        } else if (jq("#sharingLinkAce select").val() != ace) {
+            jq("#sharingLinkAce select").val(ace).change();
         }
     };
 
-    var deleteShareMail = function (obj) {
-        var target = obj.target || obj.srcElement;
-        var parent = jq(target).parent();
-        if (jq(".recipient-mail").length > 1) {
-            parent.remove();
-        } else {
-            parent.find(".textEdit").val("");
-        }
-        jq(".recipient-mail-add:last").show();
-    };
-
-    var showEmbeddedPanel = function () {
-        jq("#studio_sharingSettingsDialog").removeClass("outside-panel");
-        jq("#studio_sharingSettingsDialog").addClass("embedded-panel");
-        jq("#shareSidePanel .active").removeClass("active");
-        jq("#shareSideEmbedded").addClass("active");
-        jq("#shareMailPanel").hide();
-
-        jq("#sharingAcePanel").hide();
-
-        var embeddedAccess =
-            (linkInfo === ASC.Files.Constants.AceStatusEnum.Restrict
-                ? ASC.Files.Constants.AceStatusEnum.Restrict
-                : ASC.Files.Constants.AceStatusEnum.Read);
-        jq(".link-share-opt[value='" + embeddedAccess + "']").prop("checked", true);
-
-        jq(".share-link-label").removeClass("checked");
-        if (jq(".link-share-opt[value='" + ASC.Files.Constants.AceStatusEnum.Restrict + "']").is(":checked")) {
-            jq("#chareLinkClose").addClass("checked");
-        } else {
-            jq("#chareLinkOpen").addClass("checked");
-        }
-
-        updateClip();
-    };
-
-    var showOutsidePanel = function () {
-        jq("#studio_sharingSettingsDialog").removeClass("embedded-panel");
-        jq("#studio_sharingSettingsDialog").addClass("outside-panel");
-        jq("#shareSidePanel .active").removeClass("active");
-        jq("#shareSideOutside").addClass("active");
-
-        if (ASC.Files.Utility.CanWebEdit(objectTitle, true)
-            && !ASC.Files.Utility.MustConvert(objectTitle)) {
-            jq("#sharingAcePanel").show();
-        }
-
-        jq(".link-share-opt[value='" + ASC.Files.Constants.AceStatusEnum.Review + "']").closest("label").toggle(ASC.Files.Utility.CanWebReview(objectTitle));
-        jq(".link-share-opt[value='" + linkInfo + "']").prop("checked", true);
-        jq(".share-link-label").removeClass("checked");
-        if (jq(".link-share-opt[value='" + ASC.Files.Constants.AceStatusEnum.Restrict + "']").is(":checked")) {
-            jq("#chareLinkClose").addClass("checked");
-        } else {
-            jq("#chareLinkOpen").addClass("checked");
-        }
-        updateClip();
-    };
-
-    var showMainPanel = function () {
-        jq("#studio_sharingSettingsDialog").removeClass("outside-panel embedded-panel");
-        jq("#shareSidePanel .active").removeClass("active");
-        jq("#shareSidePortal").addClass("active");
-    };
-
-    var showShareLink = function (ace) {
-        jq("#studio_sharingSettingsDialog").removeClass("deny-access");
-        jq("#shareMailPanel").hide();
-        jq("#getShortenLink").hide();
-        jq("#sharingLinkDeny").hide();
-
-        if (ace != ASC.Files.Constants.AceStatusEnum.Restrict && shortenLink == "") {
-            jq("#getShortenLink").show();
-        }
-    };
-
-    var openShareLinkAce = function (event) {
-        jq(".link-share-opt[value='" + ASC.Files.Constants.AceStatusEnum.Read + "']").prop("checked", true);
-        changeShareLinkAce(event);
-    };
-
-    var changeShareLinkAce = function (event) {
-        if (event) {
+    var changeShareLinkAce = function () {
+        var ace = parseInt(jq("#sharingLinkAce select").val());
+        if (linkInfo != ace) {
             needUpdate = true;
         }
-        var url = shareLink;
-
-        if (shortenLink != "") {
-            url = shortenLink;
-        }
-
-        var ace = parseInt(jq(".link-share-opt:checked").val());
-        jq(".share-link-label").removeClass("checked");
-        if (jq(".link-share-opt[value='" + ASC.Files.Constants.AceStatusEnum.Restrict + "']").is(":checked")) {
-            jq("#chareLinkClose").addClass("checked");
-        } else {
-            jq("#chareLinkOpen").addClass("checked");
-        }
-
-        if (ace == ASC.Files.Constants.AceStatusEnum.Restrict) {
-            url = "";
-            jq("#studio_sharingSettingsDialog").addClass("deny-access");
-            jq("#sharingLinkDeny").show();
-        } else {
-            showShareLink(ace);
-        }
-
-        jq("#shareLink").val(url);
-
-        updateSocialLink(url);
-
-        updateClip();
         linkInfo = ace;
 
-        if (typeof event != "undefined") {
-            saveShareLinkAccess();
+        var restrict = linkInfo == ASC.Files.Constants.AceStatusEnum.Restrict;
+        if (jq("#shareLinkOpen").is(":checked") == restrict) {
+            jq("#shareLinkOpen").prop("checked", !restrict);
+        }
+
+        jq("#shareLinkPanel, #sharingLinkAce").toggle(!restrict);
+        jq("#shareLinkDescr").toggle(restrict);
+
+        jq("#shareLink").val(shareLinkShort);
+        if (jq("#shareLink").is(":visible")) {
+            jq("#shareLink").focus().select();
+        }
+
+        updateSocialLink();
+        updateClip();
+
+        if (needUpdate) {
+            saveAccessLink();
         }
     };
 
     var renderGetLink = function () {
-        jq("#studio_sharingSettingsDialog").addClass("with-link");
+        jq("#shareLinkBody").show();
 
-        if (jq("#studio_sharingSettingsDialog #shareSelectorBody").length == 0) {
-            jq("#shareSelectorBody").prependTo("#studio_sharingSettingsDialog .containerBodyBlock");
-
-            if (jq.browser.mobile) {
-                jq("#shareLink").attr("readonly", "false").attr("readonly", "").removeAttr("readonly");
-            } else {
-                jq("#shareLinkBody").on("mousedown", "#shareLink, #shareEmbedded", function () {
-                    jq(this).select();
-                    return false;
-                });
-            }
-            jq("#shareLinkPanel").on(jq.browser.webkit ? "keydown" : "keypress", "#shareLink", function (e) {
-                return e.ctrlKey && (e.charCode === 99 || e.keyCode === ASC.Files.Common.keyCode.insertKey);
-            });
-
-            jq("#shareSideEmbedded").on("click", showEmbeddedPanel);
-            jq("#shareSideOutside").on("click", showOutsidePanel);
-            jq("#shareSidePortal").on("click", showMainPanel);
-            jq("#shareMailPanel").on("click", ".recipient-mail-remove", deleteShareMail);
-            jq("#shareLinkPanel").on("click", ".recipient-mail-add", addShareMail);
-            jq("#shareLinkPanel").on("click", "#getShortenLink", getShortenLink);
-            jq("#shareLinkPanel").on("click", "#shareSendLinkToEmail", sendLinkToEmail);
-            jq("#shareEmbeddedPanel").on("click", ".embedded-size-item", setEmbeddedSize);
-            jq("#shareEmbeddedPanel").on("change", ".embedded-size-custom input", setEmbeddedSize);
+        if (jq("#studio_sharingSettingsDialog #shareLinkBody").length == 0) {
+            jq("#sharingSettingsDialogBody").prepend(jq("#shareLinkBody"));
 
             jq("#shareViaSocPanel").on("click", "a", function () {
-                if (jq(this).is(".mail")) {
-                    jq("#shareMailPanel").toggle();
-                } else {
-                    window.open(jq(this).attr("href"), "new", "height=600,width=1020,fullscreen=0,resizable=0,status=0,toolbar=0,menubar=0,location=1");
-                }
+                window.open(jq(this).attr("href"), "new", "height=600,width=1020,fullscreen=0,resizable=0,status=0,toolbar=0,menubar=0,location=1");
                 return false;
             });
 
-            jq(".sharing-link-items").on("click", "#chareLinkOpen:not(.checked)", openShareLinkAce);
-            jq(".link-share-opt").on("change", changeShareLinkAce);
-            jq("#sharingSettingsItems").on("scroll", updateClip);
+            jq("#shareLinkOpen").on("click", openShareLinkAce);
+            jq("#sharingLinkAce select").on("change", changeShareLinkAce);
         }
 
-        jq(".link-share-opt[value='" + linkInfo + "']").prop("checked", true);
-        jq(".share-link-label").removeClass("checked");
-        if (jq(".link-share-opt[value='" + ASC.Files.Constants.AceStatusEnum.Restrict + "']").is(":checked")) {
-            jq("#chareLinkClose").addClass("checked");
+        if (!ASC.Files.Utility.CanWebView(objectTitle)
+            && (typeof ASC.Files.ImageViewer == "undefined" || !ASC.Files.Utility.CanImageView(objectTitle))) {
+            jq("#shareLinkPanel").addClass("without-emb");
         } else {
-            jq("#chareLinkOpen").addClass("checked");
-        }
-
-        updateClip();
-
-        if (ASC.Files.Utility.CanWebEdit(objectTitle, true)
-            && !ASC.Files.Utility.MustConvert(objectTitle)) {
-            jq("#sharingAcePanel").show();
-        } else {
-            jq("#sharingAcePanel").hide();
-        }
-
-        shortenLink = "";
-
-        changeShareLinkAce();
-
-        jq("#shareMailText").val("");
-        jq(".recipient-mail-remove").click();
-    };
-
-    var renderEmbeddedPanel = function () {
-        if (ASC.Files.Utility.CanWebView(objectTitle)) {
-            jq("#shareSideEmbedded").show();
+            jq("#shareLinkPanel").removeClass("without-emb");
             setEmbeddedSize();
-        } else {
-            jq("#shareSideEmbedded").hide();
-            showMainPanel();
         }
+
+        jq("#sharingLinkAce select").val(linkInfo).change();
+
+        jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.ReadWrite + "]").attr("disabled", !ASC.Files.Utility.CanWebEdit(objectTitle) || ASC.Files.Utility.MustConvert(objectTitle));
+        jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.Review + "]").attr("disabled", !ASC.Files.Utility.CanWebReview(objectTitle));
+        jq("#sharingLinkAce select").tlcombobox();
     };
 
     var setEmbeddedSize = function () {
-        jq(".embedded-size-item").removeClass("selected");
         var target = jq(this);
-        if (target.is(".embedded-size-custom input")) {
-            var heightTmp = jq("#embeddedSizeTemplate .embedded-size-custom input[name='height']").val();
-            heightTmp = Math.abs(heightTmp) || 0;
-            if (heightTmp) {
-                var height = heightTmp + "px";
+        if (target.is(".embedded-size-item")) {
+            if (target.hasClass("embedded-size-6x8")) {
+                jq("#embeddSizeWidth").val("600px");
+                jq("#embeddSizeHeight").val("800px");
+            } else if (target.hasClass("embedded-size-4x6")) {
+                jq("#embeddSizeWidth").val("400px");
+                jq("#embeddSizeHeight").val("600px");
             } else {
-                jq("#embeddedSizeTemplate .embedded-size-custom input[name='height']").val("");
+                jq("#embeddSizeWidth").val("100%");
+                jq("#embeddSizeHeight").val("100%");
             }
-            var widthTmp = jq("#embeddedSizeTemplate .embedded-size-custom input[name='width']").val();
-            widthTmp = Math.abs(widthTmp) || 0;
-            if (widthTmp) {
-                var width = widthTmp + "px";
-            } else {
-                jq("#embeddedSizeTemplate .embedded-size-custom input[name='width']").val("");
-            }
-        } else if (target.is(".embedded-size-item")) {
-            target.addClass("selected");
-            jq("#embeddedSizeTemplate .embedded-size-custom input").val("");
-            if (target.hasClass("embedded-size-8x6")) {
-                height = "800px";
-                width = "600px";
-            } else if (target.hasClass("embedded-size-6x4")) {
-                height = "600px";
-                width = "400px";
-            }
-        } else {
-            jq(".embedded-size-item:first").addClass("selected");
         }
 
-        generateEmbeddedString(height, width);
+        var width = jq("#embeddSizeWidth").val();
+        var height = jq("#embeddSizeHeight").val();
+
+        width = (/\d+(px|%)?/gim.exec(width.toLowerCase().trim()) || ["100%"])[0];
+        if (width == Math.abs(width)) {
+            width += "px";
+        }
+        height = (/\d+(px|%)?/gim.exec(height.toLowerCase().trim()) || ["100%"])[0];
+        if (height == Math.abs(height)) {
+            height += "px";
+        }
+
+        jq("#embeddSizeWidth").val(width);
+        jq("#embeddSizeHeight").val(height);
+
+        jq(".embedded-size-item").removeClass("selected");
+        if (width == "600px" && height == "800px") {
+            jq(".embedded-size-6x8").addClass("selected");
+        } else if (width == "400px" && height == "600px") {
+            jq(".embedded-size-4x6").addClass("selected");
+        } else if (width == "100%" && height == "100%") {
+            jq(".embedded-size-1x1").addClass("selected");
+        }
+
+        generateEmbeddedString(width, height);
     };
 
-    var generateEmbeddedString = function (height, width) {
-        height = height || "100%";
+    var generateEmbeddedString = function (width, height) {
         width = width || "100%";
-        var embeddedString = '<iframe src="{0}" height="{1}" width="{2}" frameborder="0" scrolling="no" allowtransparency></iframe>';
+        height = height || "100%";
+        var url = shareLink;
 
-        var url = shareLink + "&action=embedded";
+        if (ASC.Files.Utility.CanWebView(objectTitle)) {
+            var embeddedString = '<iframe src="{0}" width="{1}" height="{2}" frameborder="0" scrolling="no" allowtransparency></iframe>';
+            url = url + "&action=embedded";
 
-        embeddedString = embeddedString.format(url, height, width);
+        } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(objectTitle)) {
+            embeddedString = '<img src="{0}" width="{1}" height="{2}" alt="" />';
+        } else {
+            return;
+        }
 
-        jq("#shareEmbedded").val(embeddedString);
-        updateClip();
+        embeddedString = embeddedString.format(url, width, height);
+
+        jq("#shareEmbedded").val(embeddedString).attr("title", embeddedString);
     };
 
     var unSubscribeMe = function (entryType, entryId) {
@@ -447,6 +339,10 @@ window.ASC.Files.Share = (function () {
         }
     };
 
+    var isShortenLink = function () {
+        return shotenLinkDisabled || !new RegExp("/products/files/").test(shareLinkShort);
+    };
+
     //request
 
     var getSharedInfo = function (dataIds, objTitle, asFlat, rootFolderType) {
@@ -456,12 +352,29 @@ window.ASC.Files.Share = (function () {
             if (!objTitle) {
                 var itemId = ASC.Files.UI.parseItemId(objectID);
                 objTitle = ASC.Files.UI.getEntryTitle(itemId.entryType, itemId.entryId);
+            } else if (typeof objTitle == "object" && objTitle.length == 1) {
+                objTitle = objTitle[0];
             }
         }
 
         objectTitle = (typeof objectID == "object"
             ? ASC.Files.FilesJSResources.SharingSettingsCount.format(objectID.length)
             : objTitle);
+
+        var canWebReview = false;
+        if (typeof objectID != "object") {
+            canWebReview = ASC.Files.Utility.CanWebReview(objectTitle);
+        } else if (typeof objTitle == "object") {
+            canWebReview = true;
+            jq(objTitle).each(function (i, title) {
+                if (ASC.Files.UI.parseItemId(dataIds[i]).entryType == "folder"
+                    || !ASC.Files.Utility.CanWebReview(title)) {
+                    canWebReview = false;
+                    return false;
+                }
+                return true;
+            });
+        }
 
         var data = {
             entry: jq(typeof objectID == "object" ? objectID : [objectID]).map(function (i, id) {
@@ -473,7 +386,8 @@ window.ASC.Files.Share = (function () {
             {
                 showLoading: true,
                 asFlat: asFlat === true,
-                rootFolderType: rootFolderType
+                rootFolderType: rootFolderType,
+                canWebReview: canWebReview,
             },
             { stringList: data });
     };
@@ -484,6 +398,13 @@ window.ASC.Files.Share = (function () {
                 showLoading: true,
                 objectID: objectID
             });
+    };
+
+    var onChangeAce = function (value) {
+        if (value
+            && (!ASC.Files.Folders || ASC.Files.Folders.folderContainer != "corporate")) {
+            jq("#studio_sharingSettingsDialog #shareMessagePanel").show();
+        }
     };
 
     var setAceObject = function (data) {
@@ -530,9 +451,16 @@ window.ASC.Files.Share = (function () {
             }
         });
 
+        var owner = jq("#shareOwnerSelector").attr("data-id");
+        owner = (owner != jq("#shareOwnerSelector").attr("data-id-old")) ? owner : null;
+
         if (aceWrapperList.length) {
             needUpdate = true;
         } else {
+            if (owner) {
+                ASC.Files.Folders.changeOwner(typeof objectID == "object" ? objectID : [objectID], owner);
+            }
+
             return;
         }
 
@@ -549,36 +477,20 @@ window.ASC.Files.Share = (function () {
 
         ASC.Files.ServiceManager.setAceObject(ASC.Files.ServiceManager.events.SetAceObject,
             {
+                owner: owner,
                 showLoading: true,
                 notify: notify
             },
             { ace_collection: dataJson });
     };
 
-    var saveShareLinkAccess = function () {
-        var aceWrapperList =
-            [{
-                id: ASC.Files.Constants.ShareLinkId,
-                is_group: true,
-                ace_status: linkInfo
-            }];
-
-        if (!aceWrapperList.length) {
-            return;
-        }
-
-        var dataJson = {
-            entries: { entry: objectID },
-            aces: { entry: aceWrapperList },
-            message: ""
-        };
-
-        ASC.Files.ServiceManager.setAceObject(ASC.Files.ServiceManager.events.SetAceObject,
+    var saveAccessLink = function () {
+        ASC.Files.ServiceManager.setAceLink(ASC.Files.ServiceManager.events.SetAceLink,
             {
                 showLoading: true,
-                clearData: false
-            },
-            { ace_collection: dataJson });
+                fileId: ASC.Files.UI.parseItemId(objectID).entryId,
+                share: linkInfo,
+            });
     };
 
     var confirmUnSubscribe = function () {
@@ -617,46 +529,12 @@ window.ASC.Files.Share = (function () {
     };
 
     var getShortenLink = function () {
+        if (shotenLinkDisabled) {
+            return;
+        }
         var fileId = ASC.Files.UI.parseItemId(objectID).entryId;
 
         ASC.Files.ServiceManager.getShortenLink(ASC.Files.ServiceManager.events.GetShortenLink, { fileId: fileId });
-
-        jq("#getShortenLink").hide();
-
-        updateClip();
-    };
-
-    var sendLinkToEmail = function () {
-        var fileId = ASC.Files.UI.parseItemId(objectID).entryId;
-        var message = jq("#shareMailText").val().trim();
-
-        var stringList = new Array();
-
-        jq(".recipient-mail .textEdit").each(function () {
-            var mail = jq(this).val();
-            if (mail) {
-                mail = mail.trim();
-                if (jq.isValidEmail(mail)) {
-                    stringList.push(mail);
-                }
-            }
-        });
-
-        if (!stringList.length) {
-            jq(".recipient-mail .textEdit:first").focus();
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_EmptyField, true);
-            return;
-        }
-
-        var dataResult =
-            {
-                address: { entry: stringList },
-                message: message
-            };
-
-        ASC.Files.ServiceManager.sendLinkToEmail(ASC.Files.ServiceManager.events.SendLinkToEmail,
-            { fileId: fileId },
-            { message_data: dataResult });
     };
 
     //event handler
@@ -667,14 +545,17 @@ window.ASC.Files.Share = (function () {
             return;
         }
         sharingInfo = jsonData;
+        needUpdate = false;
 
+        var ownerItem;
         var translateItems = [];
         var linkAccess;
         linkInfo = ASC.Files.Constants.AceStatusEnum.None;
         jq(jsonData).each(function (i) {
             var item = jsonData[i];
             if (item.id === ASC.Files.Constants.ShareLinkId) {
-                shareLink = item.title;
+                shareLink = item.link;
+                shareLinkShort = item.link_short || shareLink;
                 linkInfo = item.ace_status;
                 linkAccess = item.ace_status;
             } else {
@@ -692,36 +573,44 @@ window.ASC.Files.Share = (function () {
                         }
                     });
             }
+            if (item.owner) {
+                ownerItem = item;
+            }
         });
 
         var arrayActions = [
             {
-                "id": ASC.Files.Constants.AceStatusEnum.Read,
-                "name": getAceString(ASC.Files.Constants.AceStatusEnum.Read),
-                "defaultAction": true
-            },
-            {
                 "id": ASC.Files.Constants.AceStatusEnum.ReadWrite,
                 "name": getAceString(ASC.Files.Constants.AceStatusEnum.ReadWrite),
-                "defaultAction": false
+                "defaultAction": false,
+                "defaultStyle": "full",
             }];
 
-        if (ASC.Files.Utility.CanWebReview(objectTitle)) {
+        if (params.canWebReview) {
             arrayActions =
                 arrayActions.concat(
                     [{
                         "id": ASC.Files.Constants.AceStatusEnum.Review,
                         "name": getAceString(ASC.Files.Constants.AceStatusEnum.Review),
-                        "defaultAction": false
+                        "defaultAction": false,
+                        "defaultStyle": "review",
                     }]);
         }
 
         arrayActions =
             arrayActions.concat(
-                [{
+                [
+                    {
+                        "id": ASC.Files.Constants.AceStatusEnum.Read,
+                        "name": getAceString(ASC.Files.Constants.AceStatusEnum.Read),
+                        "defaultAction": true,
+                        "defaultStyle": "read",
+                    },
+                    {
                         "id": ASC.Files.Constants.AceStatusEnum.Restrict,
                         "name": getAceString(ASC.Files.Constants.AceStatusEnum.Restrict),
-                        "defaultAction": false
+                        "defaultAction": false,
+                        "defaultStyle": "restrict",
                     },
                     {
                         "id": ASC.Files.Constants.AceStatusEnum.Varies,
@@ -738,27 +627,35 @@ window.ASC.Files.Share = (function () {
 
         sharingInfo = translateItems;
 
-        sharingManager.UpdateSharingData(translateData);
+        var entryLink = null;
+        if (typeof objectID != "object") {
+            var itemId = ASC.Files.UI.parseItemId(objectID);
+            entryLink = ASC.Files.UI.getEntryLink(itemId.entryType, itemId.entryId, objectTitle);
+            var aElement = document.createElement("a");
+            aElement.href = entryLink;
+            entryLink = jq(aElement).prop("href");
+        }
 
-        jq("#studio_sharingSettingsDialog").removeClass("with-link");
-        var width = 600;
+        sharingManager.UpdateSharingData(translateData, entryLink);
+
+        jq("#shareLinkBody").hide();
+        var height = 460;
         if (linkAccess) {
             renderGetLink();
 
-            renderEmbeddedPanel();
-
-            showMainPanel();
-
-            width = 830;
+            height = 550;
             if (ASC.Resources.Master.Personal) {
-                showOutsidePanel();
+                height = 260;
             }
         }
 
-        sharingManager.ShowDialog(width, params.asFlat);
-        PopupKeyUpActionProvider.EnterAction = "jq('#shareSendLinkToEmail:visible').click();";
+        sharingManager.ShowDialog(null, height, params.asFlat);
         if (params.asFlat) {
             PopupKeyUpActionProvider.CloseDialogAction = "ASC.Files.Share.updateForParent();";
+        }
+
+        if (ASC.Files.Actions) {
+            ASC.Files.Actions.hideAllActionPanels();
         }
 
         updateClip();
@@ -772,8 +669,12 @@ window.ASC.Files.Share = (function () {
 
         var accessHead = jq(".share-container-head-corporate");
 
-        if (params.rootFolderType || ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate") {
+        if (params.rootFolderType) {
+            jq("#studio_sharingSettingsDialog #shareMessagePanel").remove();
+        } else {
             jq("#studio_sharingSettingsDialog #shareMessagePanel").hide();
+        }
+        if (params.rootFolderType || ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate") {
             if (!accessHead.length) {
                 shareHead.after("<div class=\"share-container-head-corporate\"></div>");
                 accessHead = jq(".share-container-head-corporate");
@@ -783,10 +684,36 @@ window.ASC.Files.Share = (function () {
                 .find("span").attr("title", objectTitle).text(objectTitle);
             shareHead.hide();
         } else {
-            jq("#studio_sharingSettingsDialog #shareMessagePanel").show();
             shareHead.show()
                 .find("span").attr("title", objectTitle).text(objectTitle);
             accessHead.hide();
+        }
+
+        if (ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate" && ownerItem) {
+            var ownerLink = jq("#sharingSettingsItems .userLink[data-uid='" + ownerItem.id + "']");
+            ownerLink.replaceWith("<div id=\"shareOwnerSelector\" class=\"advanced-selector-select\" data-id=\"\"><div class=\"change-owner-selector\"></div></div>");
+
+            jq("#shareOwnerSelector")
+                .useradvancedSelector({
+                    inPopup: true,
+                    itemsChoose: [],
+                    canadd: false,
+                    showGroups: true,
+                    onechosen: true,
+                    withGuests: false,
+                })
+                .on("showList", function (event, item) {
+                    jq(this)
+                        .attr("data-id", item.id)
+                        .find(".change-owner-selector").html(item.title);
+
+                    if (item.id != ownerItem.id) {
+                        sharingManager.WhereChanges(true);
+                    }
+                })
+                .attr("data-id", ownerItem.id)
+                .attr("data-id-old", ownerItem.id)
+                .find(".change-owner-selector").text(ownerItem.title);
         }
     };
 
@@ -823,8 +750,8 @@ window.ASC.Files.Share = (function () {
             entryObj.toggleClass("__active", jq.inArray(entry, jsonData) != -1);
         });
 
-        if (params.clearData) {
-            objectID = null;
+        if (params.owner) {
+            ASC.Files.Folders.changeOwner(typeof objectID == "object" ? objectID : [objectID], params.owner);
         }
     };
 
@@ -856,30 +783,33 @@ window.ASC.Files.Share = (function () {
     var onGetShortenLink = function (jsonData, params, errorMessage) {
         if (typeof errorMessage != "undefined") {
             ASC.Files.UI.displayInfoPanel(errorMessage, true);
-            return;
-        }
-        if (jsonData == null || jsonData == "") {
-            return;
+            shotenLinkDisabled = true;
+        } else {
+            if (jsonData == null || jsonData == "") {
+                shotenLinkDisabled = true;
+            } else {
+
+                shareLinkShort = jsonData || shareLink;
+
+                jq("#shareLink").val(shareLinkShort);
+                updateSocialLink();
+                updateClip();
+            }
         }
 
-        jq("#shareLink").val(jsonData);
-
-        var ace = parseInt(jq(".link-share-opt:checked").val());
-        if (ace != ASC.Files.Constants.AceStatusEnum.Restrict) {
-            shortenLink = jsonData;
-        }
-
-        updateSocialLink(jsonData);
-        updateClip();
+        openShareLinkAce();
     };
 
-    var onSendLinkToEmail = function (jsonData, params, errorMessage) {
+    var onSetAceLink = function (jsonData, params, errorMessage) {
         if (typeof errorMessage != "undefined") {
             ASC.Files.UI.displayInfoPanel(errorMessage, true);
             return;
         }
 
-        sharingManager.SaveAndCloseDialog();
+        var itemId = ASC.Files.UI.parseItemId(objectID);
+        var entryObj = ASC.Files.UI.getEntryObject(itemId.entryType, itemId.entryId);
+
+        entryObj.toggleClass("__active", jsonData);
     };
 
     return {
@@ -893,12 +823,16 @@ window.ASC.Files.Share = (function () {
         unSubscribeMe: unSubscribeMe,
         confirmUnSubscribe: confirmUnSubscribe,
 
-        clip: clip
+        clip: clip,
+        clipEmbed: clipEmbed,
     };
 })();
 
 jq(document).ready(function () {
     (function ($) {
+        if (jq("#shareLinkBody").length == 0)
+            return;
+
         ASC.Files.Share.init();
         $(function () {
 
@@ -911,15 +845,17 @@ jq(document).ready(function () {
                 ASC.Files.Actions.hideAllActionPanels();
 
                 var dataIds = new Array();
+                var dataTitles = new Array();
                 jq("#filesMainContent .file-row:not(.without-share):not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)").each(function () {
                     var entryRowData = ASC.Files.UI.getObjectData(this);
                     var entryRowType = entryRowData.entryType;
                     var entryRowId = entryRowData.entryId;
 
                     dataIds.push(entryRowType + "_" + entryRowId);
+                    dataTitles.push(entryRowData.title);
                 });
 
-                ASC.Files.Share.getSharedInfo(dataIds);
+                ASC.Files.Share.getSharedInfo(dataIds, dataTitles);
             });
 
             jq("#unsubscribeConfirmBtn").click(function () {
@@ -937,6 +873,18 @@ jq(document).ready(function () {
             });
 
             jq("#studio_sharingSettingsDialog .containerBodyBlock").addClass("clearFix");
+
+            if (jq.browser.mobile) {
+                jq("#shareLink, #shareEmbedded").attr("readonly", "false").attr("readonly", "").removeAttr("readonly");
+            } else {
+                jq("#shareLink, #shareEmbedded").on("mousedown", function () {
+                    jq(this).select();
+                    return false;
+                });
+                jq("#shareLink, #shareEmbedded").on("keypress", function (e) {
+                    return e.ctrlKey && (e.charCode === ASC.Files.Common.keyCode.c || e.charCode === ASC.Files.Common.keyCode.C || e.keyCode === ASC.Files.Common.keyCode.insertKey);
+                });
+            }
         });
     })(jQuery);
 });

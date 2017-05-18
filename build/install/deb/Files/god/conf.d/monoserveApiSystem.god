@@ -28,8 +28,9 @@ God.watch do |w|
   w.name = "monoserveApiSystem"
   w.group = "onlyoffice"
   w.grace = 15.seconds
-  w.start = "/etc/init.d/monoserveApiSystem restart"
-  w.stop = "/bin/bash -c 'pgrep -f monoserveApiSystem.log -U onlyoffice || true; sleep 4; pkill -SIGKILL -f monoserveApiSystem.log -U onlyoffice || true'"
+  w.start = "/etc/init.d/monoserveApiSystem start"
+  w.stop = "/etc/init.d/monoserveApiSystem stop"
+  w.restart = "/etc/init.d/monoserveApiSystem restart"
   w.pid_file = "/tmp/monoserveApiSystem"
   w.unix_socket = "/var/run/onlyoffice/onlyofficeApiSystem.socket"
 
@@ -47,6 +48,10 @@ God.watch do |w|
       c.times = 5
       c.interval = 5.seconds
     end
+    restart.condition(:cpu_usage) do |c|
+      c.above = 90.percent
+      c.times = 5
+      c.interval = 10.seconds
+    end
   end
 end
-

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -56,14 +57,17 @@
       <HintPath>..\..\..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <HintPath>..\..\..\..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -84,16 +88,16 @@
   <ItemGroup>
     <Content Include="App_Themes\Default\css\addmilestonecontainer.css" />
     <Content Include="App_Themes\Default\Images\common-icons.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_comments.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_relatedtasks.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_subtasks.png" />
     <Content Include="App_Themes\Default\Images\gantt-legend.png" />
     <Content Include="App_Themes\Default\Images\gantt_icons_left_panel.png" />
     <Content Include="App_Themes\Default\Images\gantt_mode_butts.png" />
-    <Content Include="App_Themes\Default\Images\loader12.gif" />
-    <Content Include="App_Themes\Default\Images\loader_48.gif" />
     <Content Include="App_Themes\Default\Images\small-icons.png" />
     <Content Include="App_Themes\Default\Images\timer-icons.png" />
     <Content Include="Controls\Common\AddMilestoneContainer.ascx" />
     <Content Include="Controls\Common\CommonList.ascx" />
-    <Content Include="Controls\Common\CommonPopupContainer.ascx" />
     <Content Include="Controls\Projects\ProjectAction.ascx" />
     <Content Include="Controls\Templates\EditTemplate.ascx" />
     <Content Include="Core\Model\Services\NotifyService\patterns.xml" />
@@ -102,9 +106,6 @@
     <Content Include="js\common.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BaseCommentControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Classes\NotifyHelper.cs" />
     <Compile Include="Classes\ResultsView.cs" />
     <Compile Include="Classes\ReportHelper.cs" />
@@ -148,13 +149,6 @@
     <Compile Include="Controls\Common\CommonList.ascx.designer.cs">
       <DependentUpon>CommonList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Common\CommonPopupContainer.ascx.cs">
-      <DependentUpon>CommonPopupContainer.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Common\CommonPopupContainer.ascx.designer.cs">
-      <DependentUpon>CommonPopupContainer.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Common\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,33 +163,12 @@
     <Compile Include="Controls\Messages\DiscussionAction.ascx.designer.cs">
       <DependentUpon>DiscussionAction.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Messages\DiscussionDetails.ascx.cs">
-      <DependentUpon>DiscussionDetails.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Messages\DiscussionDetails.ascx.designer.cs">
-      <DependentUpon>DiscussionDetails.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Milestones\MilestoneAction.ascx.cs">
-      <DependentUpon>MilestoneAction.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Milestones\MilestoneAction.ascx.designer.cs">
-      <DependentUpon>MilestoneAction.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Projects\ProjectAction.ascx.cs">
       <DependentUpon>ProjectAction.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Projects\ProjectAction.ascx.designer.cs">
       <DependentUpon>ProjectAction.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Projects\ProjectNavigatePanel.ascx.cs">
-      <DependentUpon>ProjectNavigatePanel.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Projects\ProjectNavigatePanel.ascx.designer.cs">
-      <DependentUpon>ProjectNavigatePanel.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Reports\ReportFilters.ascx.cs">
       <DependentUpon>ReportFilters.ascx</DependentUpon>
@@ -217,20 +190,6 @@
     </Compile>
     <Compile Include="Controls\Reports\ReportView.ascx.designer.cs">
       <DependentUpon>ReportView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Tasks\TaskAction.ascx.cs">
-      <DependentUpon>TaskAction.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Tasks\TaskAction.ascx.designer.cs">
-      <DependentUpon>TaskAction.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Tasks\TaskDescriptionView.ascx.cs">
-      <DependentUpon>TaskDescriptionView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Tasks\TaskDescriptionView.ascx.designer.cs">
-      <DependentUpon>TaskDescriptionView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Templates\EditTemplate.ascx.cs">
       <DependentUpon>EditTemplate.ascx</DependentUpon>
@@ -474,6 +433,7 @@
     <Compile Include="Tasks.aspx.designer.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Test\ProjectsTest.cs" />
     <Compile Include="Timer.aspx.cs">
       <DependentUpon>Timer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -548,27 +508,19 @@
     <Content Include="App_Themes\Default\Images\project-templates_logo.png" />
     <Content Include="App_Themes\Default\Images\projects_entity_statuses.png" />
     <Content Include="App_Themes\Default\Images\projects_logo.png" />
-    <Content Include="App_Themes\Default\Images\loader16.gif" />
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
     <Content Include="App_Themes\Default\Images\sort-btn.gif" />
     <Content Include="App_Themes\Default\css\reportsPrint.css" />
     <Content Include="Contacts.aspx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
     <Content Include="Controls\Messages\DiscussionAction.ascx" />
-    <Content Include="Controls\Messages\DiscussionDetails.ascx" />
-    <Content Include="Controls\Milestones\MilestoneAction.ascx" />
-    <Content Include="Controls\Projects\ProjectNavigatePanel.ascx" />
     <Content Include="Controls\Reports\ReportFilters.ascx" />
     <Content Include="Controls\Reports\ReportTemplateView.ascx" />
     <Content Include="Controls\Reports\ReportView.ascx" />
-    <Content Include="App_Themes\Default\css\common.css" />
     <Content Include="App_Themes\Default\css\projectTeam.less" />
     <Content Include="App_Themes\Default\css\reports.css" />
-    <Content Include="App_Themes\Default\css\tasks.css" />
     <Content Include="App_Themes\Default\css\timetracking.css" />
     <Content Include="App_Themes\Default\Images\product_logo.png" />
-    <Content Include="Controls\Tasks\TaskAction.ascx" />
-    <Content Include="Controls\Tasks\TaskDescriptionView.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="GanttChart.aspx" />
     <Content Include="GeneratedReport.aspx" />
@@ -578,6 +530,7 @@
     <Content Include="js\contacts.js" />
     <Content Include="js\ganttchart.js" />
     <Content Include="js\discussions.js" />
+    <Content Include="js\helper.js" />
     <Content Include="js\import.js" />
     <Content Include="js\subtasks.js" />
     <Content Include="js\jq_projects_extensions.js" />
@@ -600,16 +553,17 @@
     <Content Include="js\taskdescription.js" />
     <Content Include="js\timetracking.js" />
     <Content Include="Masters\BasicTemplate.Master" />
-    <Content Include="ProjectsTemplates\ActionPanelsTemplates.ascx" />
-    <Content Include="ProjectsTemplates\ListDiscussionsTemplates.ascx" />
-    <Content Include="ProjectsTemplates\ListMilestonesTemplates.ascx" />
-    <Content Include="ProjectsTemplates\ListProjectsTemplates.ascx" />
-    <Content Include="ProjectsTemplates\ListTasksTemplates.ascx" />
-    <Content Include="ProjectsTemplates\PopupContentTemplates.ascx" />
-    <Content Include="ProjectsTemplates\ProjectsTmplTemplates.ascx" />
-    <Content Include="ProjectsTemplates\SubtaskTemplates.ascx" />
-    <Content Include="ProjectsTemplates\TaskDescriptionTemplates.ascx" />
-    <Content Include="ProjectsTemplates\TimeTrackingTemplates.ascx" />
+    <Content Include="ProjectsTemplates\ActionPanelsTemplates.html" />
+    <Content Include="ProjectsTemplates\ListDiscussionsTemplates.html" />
+    <Content Include="ProjectsTemplates\ListMilestonesTemplates.html" />
+    <Content Include="ProjectsTemplates\ListProjectsTemplates.html" />
+    <Content Include="ProjectsTemplates\ListTasksTemplates.html" />
+    <Content Include="ProjectsTemplates\PopupContentTemplates.html" />
+    <Content Include="ProjectsTemplates\ProjectsTmplTemplates.html" />
+    <Content Include="ProjectsTemplates\ReportTemplates.html" />
+    <Content Include="ProjectsTemplates\SubtaskTemplates.html" />
+    <Content Include="ProjectsTemplates\TaskDescriptionTemplates.html" />
+    <Content Include="ProjectsTemplates\TimeTrackingTemplates.html" />
     <Content Include="ProjectTeam.aspx" />
     <Content Include="ProjectTemplates.aspx" />
     <Content Include="Reports.aspx" />
@@ -646,6 +600,8 @@
     <EmbeddedResource Include="templates\TimeSpend_1.html.xsl" />
     <EmbeddedResource Include="templates\TasksByProjects.html.xsl" />
     <EmbeddedResource Include="templates\TasksByUsers.html.xsl" />
+    <Content Include="App_Themes\Default\css\common.less" />
+    <Content Include="Test\App.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.resx">
@@ -770,10 +726,17 @@
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CRM\ASC.Web.CRM.csproj">
+      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
+      <Name>ASC.Web.CRM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Files\ASC.Web.Files.csproj">
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
       <Name>ASC.Web.Files</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

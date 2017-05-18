@@ -1,4 +1,29 @@
-(function() {
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+(function () {
     var dropdownToggleHash = {};
     jQuery.extend({
         dropdownToggle: function(options) {
@@ -22,68 +47,69 @@
                 rightPos: false,
                 inPopup: false,
                 toggleOnOver: false,
+                sideToggle: false,
             }, options);
 
-            var _toggle = function(switcherObj, dropdownID, addTop, addLeft, fixWinSize, position, anchorSelector, showFunction, alwaysUp, simpleToggle, beforeShowFunction, afterShowFunction, toggle) {
-                var dropdownItem = jq("#" + dropdownID),
-                    ddiOuterHeight = 0,
-                    ddiOuterWidth = 0,
-                    targetPos = null,
-                    elemPosLeft = 0,
-                    elemPosTop = 0,
-                    w = null,
-                    topPadding = 0,
-                    leftPadding = 0,
-                    scrWidth = 0,
-                    scrHeight = 0;
+            var _toggle = function(switcherObj, dropdownID, addTop, addLeft, fixWinSize, position, anchorSelector, showFunction, alwaysUp, simpleToggle, beforeShowFunction, afterShowFunction, toggle, sideToggle) {
+                var dropdownItem = jq("#" + dropdownID);
 
                 if (typeof beforeShowFunction === "function") {
                     beforeShowFunction(switcherObj, dropdownItem);
                 }
 
                 if (typeof(simpleToggle) == "undefined" || simpleToggle === false) {
-                    fixWinSize = fixWinSize === true;
-                    addTop = addTop || 0;
-                    addLeft = addLeft || 0;
-                    position = position || "absolute";
-
                     var $selector = jq(anchorSelector || switcherObj);
-                    targetPos = options.inPopup ? $selector.position() : $selector.offset();
+                    var targetPos = options.inPopup || jq.browser.mobile ? $selector.position() : $selector.offset();
 
                     if (!targetPos) {
                         return;
                     }
 
-                    elemPosLeft = targetPos.left;
-                    elemPosTop = targetPos.top + jq(anchorSelector || switcherObj).outerHeight();
-                    ddiOuterHeight = dropdownItem.outerHeight();
-                    ddiOuterWidth = dropdownItem.outerWidth();
+                    fixWinSize = fixWinSize === true;
+                    addTop = addTop || 0;
+                    addLeft = addLeft || 0;
+                    position = position || "absolute";
 
-                    if (options.rightPos) {
-                        elemPosLeft = Math.max(0, targetPos.left - ddiOuterWidth + jq(anchorSelector || switcherObj).outerWidth());
-                    }
-
-                    w = jq(window);
-                    topPadding = w.scrollTop();
-                    leftPadding = w.scrollLeft();
+                    var w = jq(window);
+                    var topPadding = w.scrollTop();
+                    var leftPadding = w.scrollLeft();
 
                     if (position == "fixed") {
                         addTop -= topPadding;
                         addLeft -= leftPadding;
                     }
 
-                    scrWidth = w.width();
-                    scrHeight = w.height();
+                    var ddiOuterHeight = dropdownItem.outerHeight();
+                    var ddiOuterWidth = dropdownItem.outerWidth();
 
-                    if (fixWinSize && (!options.rightPos)
-                        && (targetPos.left + addLeft + ddiOuterWidth) > (leftPadding + scrWidth)) {
-                        elemPosLeft = Math.max(0, leftPadding + scrWidth - ddiOuterWidth) - addLeft;
+                    var selectorHeight = $selector.outerHeight();
+                    var selectorWidth = $selector.outerWidth();
+
+                    var scrHeight = w.height();
+                    var scrWidth = w.width();
+
+                    var elemPosTop = targetPos.top + (sideToggle ? 0 : selectorHeight);
+                    if (alwaysUp
+                        || (fixWinSize
+                            && (elemPosTop + addTop + ddiOuterHeight) > (topPadding + scrHeight)
+                            && (targetPos.top - ddiOuterHeight) > topPadding)) {
+                        elemPosTop = targetPos.top - ddiOuterHeight + (sideToggle ? selectorHeight : 0);
+                        addTop *= -1;
                     }
 
-                    if (alwaysUp || fixWinSize
-                        && (elemPosTop + ddiOuterHeight) > (topPadding + scrHeight)
-                        && (targetPos.top - ddiOuterHeight) > topPadding) {
-                        elemPosTop = targetPos.top - ddiOuterHeight;
+                    var elemPosLeft = targetPos.left + (sideToggle ? selectorWidth :0);
+                    if (options.rightPos) {
+                        if (!sideToggle) {
+                            elemPosLeft = Math.max(0, targetPos.left - ddiOuterWidth + selectorWidth);
+                        }
+                    } else if (fixWinSize
+                        && (elemPosLeft + addLeft + ddiOuterWidth) > (leftPadding + scrWidth)) {
+                        if (sideToggle) {
+                            elemPosLeft = Math.max(0, targetPos.left - ddiOuterWidth);
+                            addLeft *= -1;
+                        } else {
+                            elemPosLeft = Math.max(0, leftPadding + scrWidth - ddiOuterWidth) - addLeft;
+                        }
                     }
 
                     dropdownItem.css(
@@ -124,7 +150,7 @@
 
             if (options.switcherSelector && options.dropdownID) {
                 var toggleFunc = function() {
-                    _toggle(jq(this), options.dropdownID, options.addTop, options.addLeft, options.fixWinSize, options.position, options.anchorSelector, options.showFunction, options.alwaysUp, options.simpleToggle, options.beforeShowFunction, options.afterShowFunction);
+                    _toggle(jq(this), options.dropdownID, options.addTop, options.addLeft, options.fixWinSize, options.position, options.anchorSelector, options.showFunction, options.alwaysUp, options.simpleToggle, options.beforeShowFunction, options.afterShowFunction, undefined, options.sideToggle);
                 };
                 if (!dropdownToggleHash.hasOwnProperty(options.switcherSelector + options.dropdownID)) {
                     jq(document).on("click", options.switcherSelector, toggleFunc);
@@ -138,7 +164,7 @@
                             var show = e.type == "mouseover";
                             if (show != jq("#" + options.dropdownID).is(":visible")) {
                                 timerToggle = setTimeout(function () {
-                                    _toggle(options.switcherSelector, options.dropdownID, options.addTop, options.addLeft, options.fixWinSize, options.position, options.anchorSelector, options.showFunction, options.alwaysUp, options.simpleToggle, options.beforeShowFunction, options.afterShowFunction, show);
+                                    _toggle(options.switcherSelector, options.dropdownID, options.addTop, options.addLeft, options.fixWinSize, options.position, options.anchorSelector, options.showFunction, options.alwaysUp, options.simpleToggle, options.beforeShowFunction, options.afterShowFunction, show, options.sideToggle);
                                 }, 100);
                             }
                         });

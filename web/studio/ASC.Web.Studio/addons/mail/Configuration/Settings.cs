@@ -24,6 +24,7 @@
 */
 
 using ASC.Core;
+using ASC.Web.Core.Mail;
 using ASC.Web.Mail.Controls;
 using ASC.Web.Studio.Core;
 
@@ -33,14 +34,16 @@ namespace ASC.Web.Mail.Configuration
     {
         public static bool IsAdministrationPageAvailable()
         {
-            var mailServerInfo = Studio.UserControls.Management.MailService.MailServiceHelper.GetMailServerInfo();
-            return SetupInfo.IsVisibleSettings<AdministrationPage>() && mailServerInfo != null;
+            return SetupInfo.IsVisibleSettings<AdministrationPage>() &&
+                   (!CoreContext.Configuration.Standalone || MailServiceHelper.IsMailServerAvailable());
         }
 
         public static bool IsMailCommonDomainAvailable()
         {
-            return IsAdministrationPageAvailable() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone;
+            return !CoreContext.Configuration.Standalone &&
+                   SetupInfo.IsVisibleSettings("MailCommonDomain") &&
+                   IsAdministrationPageAvailable();
         }
-        
+
     }
 }

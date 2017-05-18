@@ -117,20 +117,83 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveProjects" xml:space="preserve">
+    <value>Active projects</value>
+  </data>
+  <data name="ArchivedProjects" xml:space="preserve">
+    <value>Archived projects</value>
+  </data>
+  <data name="ChooseBasecampProjects" xml:space="preserve">
+    <value>choose projects from Basecamp for importing</value>
+  </data>
+  <data name="ChooseBasecampProjectsNote" xml:space="preserve">
+    <value>Please, choose the projects to import below and click the "Import" button.</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close Window</value>
   </data>
+  <data name="CommentImport" xml:space="preserve">
+    <value>Imported</value>
+  </data>
   <data name="CompanyURL" xml:space="preserve">
-    <value>The company URL</value>
+    <value>Company URL</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmptyEmail" xml:space="preserve">
+    <value>Empty Email</value>
+  </data>
+  <data name="EmptyPassword" xml:space="preserve">
+    <value>Empty Password</value>
   </data>
   <data name="EmptyURL" xml:space="preserve">
     <value>The URL field is empty</value>
   </data>
+  <data name="ExampleCompanyName" xml:space="preserve">
+    <value>Example: https://basecamp.com/1234567</value>
+  </data>
+  <data name="FailedSaveFileMaxSizeExid" xml:space="preserve">
+    <value>The size of the {0} file exceeds the maximal allowed size of {1} Mb. The file will not be loaded.</value>
+  </data>
+  <data name="FailedSaveFileMaxSizeExided" xml:space="preserve">
+    <value>Adding the {0} file will exceed the maximum storage space allowed by your current pricing plan.</value>
+  </data>
+  <data name="FailedToSaveComment" xml:space="preserve">
+    <value>Failed to save the "{0}" comment</value>
+  </data>
   <data name="FailedToSaveFile" xml:space="preserve">
     <value>Cannot upload file {0}</value>
   </data>
+  <data name="FailedToSaveMessage" xml:space="preserve">
+    <value>Failed to save the "{0}" message</value>
+  </data>
+  <data name="FailedToSaveProject" xml:space="preserve">
+    <value>Failed to save project "{0}"</value>
+  </data>
+  <data name="FailedToSaveTask" xml:space="preserve">
+    <value>Failed to save the "{0}" task</value>
+  </data>
+  <data name="FailedToSaveUser" xml:space="preserve">
+    <value>Failed to save user "{0}"</value>
+  </data>
   <data name="Files" xml:space="preserve">
     <value>Files</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportAttantionPanelAgreement" xml:space="preserve">
+    <value>Yes, I understand it</value>
+  </data>
+  <data name="ImportAttantionPanelBody" xml:space="preserve">
+    <value>All Basecamp projects will be imported to ONLYOFFICE™ as Private projects. These projects will be available to the portal administrators only. The project managers and the members of the project team will get access to the corresponding projects only.</value>
+  </data>
+  <data name="ImportAttantionPanelTitle" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+  <data name="ImportClosedTasks" xml:space="preserve">
+    <value>import closed tasks</value>
   </data>
   <data name="ImportCompleted" xml:space="preserve">
     <value>Importing completed</value>
@@ -138,8 +201,32 @@
   <data name="ImportFailed" xml:space="preserve">
     <value>Error while importing</value>
   </data>
+  <data name="ImportFailedMessage" xml:space="preserve">
+    <value>An error occurred while importing. Please, check your account settings: email, password, account number. If you are sure that all the settings are correct, the reason can be one of the following: either your trial period has expired or the payment is overdue.</value>
+  </data>
+  <data name="ImportFileStarted" xml:space="preserve">
+    <value>Starting import of {0} files from all projects</value>
+  </data>
   <data name="ImportFromBasecamp" xml:space="preserve">
     <value>Import from Basecamp</value>
+  </data>
+  <data name="ImportProjectDataStarted" xml:space="preserve">
+    <value>Started import of project "{0}" data</value>
+  </data>
+  <data name="ImportProjectStarted" xml:space="preserve">
+    <value>Started import of project "{0}"</value>
+  </data>
+  <data name="ImportStarted" xml:space="preserve">
+    <value>Import started</value>
+  </data>
+  <data name="InvalidCompaniUrl" xml:space="preserve">
+    <value>Invalid company URL.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email.</value>
+  </data>
+  <data name="MalformedUrl" xml:space="preserve">
+    <value>The URL you entered is incorrect</value>
   </data>
   <data name="OutOfThree" xml:space="preserve">
     <value>of 3</value>
@@ -153,7 +240,7 @@
   <data name="PopupPanelBody" xml:space="preserve">
     <value>It is recommended not to make any changes to your portal while{0}
                             the import is being done.{0}{0}
-                            You may close this window and continue working with your TeamLab portal{0}
+                            You may close this window and continue working with your ONLYOFFICE™ portal{0}
                            as soon as the import of the Files section starts.</value>
   </data>
   <data name="PopupPanelHeader" xml:space="preserve">
@@ -162,106 +249,25 @@
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>
+  <data name="SendInvitations" xml:space="preserve">
+    <value>send email invitations to ONLYOFFICE™ to all portal users</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="StartImport" xml:space="preserve">
     <value>Start Importing</value>
   </data>
   <data name="StatusAwaiting" xml:space="preserve">
     <value>awaiting</value>
   </data>
-  <data name="ViewDetails" xml:space="preserve">
-    <value>View Details</value>
-  </data>
-  <data name="FailedToSaveComment" xml:space="preserve">
-    <value>Failed to save comment "{0}"</value>
-  </data>
-  <data name="FailedToSaveMessage" xml:space="preserve">
-    <value>Failed to save message "{0}"</value>
-  </data>
-  <data name="FailedToSaveProject" xml:space="preserve">
-    <value>Failed to save project "{0}"</value>
-  </data>
-  <data name="FailedSaveFileMaxSizeExided" xml:space="preserve">
-    <value>Adding the {0} file will exceed the maxumum storage space allowed by your current pricing plan.</value>
-  </data>
-  <data name="FailedToSaveTask" xml:space="preserve">
-    <value>Faile to save task "{0}"</value>
-  </data>
-  <data name="FailedToSaveUser" xml:space="preserve">
-    <value>Failed to save user "{0}"</value>
-  </data>
-  <data name="ImportClosedTasks" xml:space="preserve">
-    <value>import closed tasks</value>
-  </data>
-  <data name="ImportFileStarted" xml:space="preserve">
-    <value>Starting import of {0} files from all project</value>
-  </data>
-  <data name="ImportProjectDataStarted" xml:space="preserve">
-    <value>Started import of project "{0}" data</value>
-  </data>
-  <data name="ImportProjectStarted" xml:space="preserve">
-    <value>Started import of project "{0}"</value>
-  </data>
-  <data name="ImportStarted" xml:space="preserve">
-    <value>Import started</value>
-  </data>
-  <data name="SendInvitations" xml:space="preserve">
-    <value>send e-mail invitations to TeamLab to all portal members</value>
-  </data>
-  <data name="ImportAttantionPanelAgreement" xml:space="preserve">
-    <value>Yes, I understand it</value>
-  </data>
-  <data name="ImportAttantionPanelBody" xml:space="preserve">
-    <value>All Basecamp projects will be imported to TeamLab as Private projects. These projects will be available to the portal's administrators only. The project managers and the members of the project team will get access to the corresponding projects only.</value>
-  </data>
-  <data name="ImportAttantionPanelTitle" xml:space="preserve">
-    <value>Warning!</value>
-  </data>
-  <data name="MalformedUrl" xml:space="preserve">
-    <value>The URL you entered is incorrect</value>
-  </data>
-  <data name="Import" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="ExampleCompanyName" xml:space="preserve">
-    <value>Example: https://basecamp.com/1234567</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="EmptyEmail" xml:space="preserve">
-    <value>Empty Email</value>
-  </data>
-  <data name="EmptyPassword" xml:space="preserve">
-    <value>Empty Password</value>
-  </data>
   <data name="UserPassword" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="ChooseBasecampProjects" xml:space="preserve">
-    <value>choose projects from Basecamp for importing</value>
+  <data name="ViewDetails" xml:space="preserve">
+    <value>View Details</value>
   </data>
-  <data name="ChooseBasecampProjectsNote" xml:space="preserve">
-    <value>Please, choose projects below to import and press "Import" button.</value>
-  </data>
-  <data name="InvalidCompaniUrl" xml:space="preserve">
-    <value>Invalid company URL.</value>
-  </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>Invalid email.</value>
-  </data>
-  <data name="ActiveProjects" xml:space="preserve">
-    <value>Active projects</value>
-  </data>
-  <data name="ArchivedProjects" xml:space="preserve">
-    <value>Archived projects</value>
-  </data>
-  <data name="ImportFailedMessage" xml:space="preserve">
-    <value>An error occurred while importing. Please, check your account settings: email, password, account number. If you are sure that all the settings are correct, the reason can be one of the following: either your trial period has expired or the payment is overdue.</value>
-  </data>
-  <data name="FailedSaveFileMaxSizeExid" xml:space="preserve">
-    <value>Размер файла {0} превышает максимально допустимый размер {1}Mb. Он не будет загружен.</value>
-  </data>
-  <data name="CommentImport" xml:space="preserve">
-    <value>Imported</value>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Show the Files module</value>
   </data>
 </root>

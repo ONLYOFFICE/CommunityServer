@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -86,17 +86,7 @@ namespace ASC.Web.Studio.UserControls.Common.Banner
 
                 });
             }
-            else if (AffiliateHelper.BannerAvailable)
-            {
-                banners.Add(new BannerType
-                {
-                    Id = "joinAffilliateBanner",
-                    Url = "javascript:void(0)",
-                    Title = Resource.WeUseTeamLabOnlineOffice.HtmlEncode(),
-                    Img = "banner_portal_",
-                    ImgType = ".png"
-                });
-            }
+           
         }
 
     }

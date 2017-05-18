@@ -29,12 +29,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Mail.DataContracts;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
-using ASC.Mail.Aggregator.Common;
 
 namespace ASC.Api.Mail.Extensions
 {

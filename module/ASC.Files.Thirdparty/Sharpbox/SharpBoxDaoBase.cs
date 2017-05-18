@@ -24,8 +24,14 @@
 */
 
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using AppLimit.CloudComputing.SharpBox;
-using ASC.Common.Caching;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -35,19 +41,11 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace ASC.Files.Thirdparty.Sharpbox
 {
     internal abstract class SharpBoxDaoBase : IDisposable
     {
-        private static readonly ICache Cache = AscCache.Memory;
-
         protected class ErrorEntry : ICloudDirectoryEntry
         {
             public ErrorEntry(Exception e, object id)
@@ -441,21 +439,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 RootFolderId = MakeId(RootFolder()),
                 RootFolderType = SharpBoxProviderInfo.RootFolderType,
                 RootFolderCreator = SharpBoxProviderInfo.Owner,
-                SharedByMe = false,
+                Shared = false,
                 Version = 1
             };
         }
 
         protected ICloudDirectoryEntry RootFolder()
         {
-            var key = SharpBoxProviderInfo.ID + "root";
-            var root = Cache.Get<ICloudDirectoryEntry>(key);
-            if (root == null)
-            {
-                root = SharpBoxProviderInfo.Storage.GetRoot();
-                if (root != null) Cache.Insert(key, root, TimeSpan.FromMinutes(1));
-            }
-            return root;
+            return SharpBoxProviderInfo.Storage.GetRoot();
         }
 
         protected ICloudDirectoryEntry GetFolderById(object folderId)
@@ -466,6 +457,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 return path == "/"
                            ? RootFolder()
                            : SharpBoxProviderInfo.Storage.GetFolder(MakePath(folderId));
+            }
+            catch (SharpBoxException sharpBoxException)
+            {
+                if (sharpBoxException.ErrorCode == SharpBoxErrorCodes.ErrorFileNotFound)
+                {
+                    return null;
+                }
+                return new ErrorEntry(sharpBoxException, folderId);
             }
             catch (Exception ex)
             {
@@ -478,6 +477,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
             try
             {
                 return SharpBoxProviderInfo.Storage.GetFile(MakePath(fileId), null);
+            }
+            catch (SharpBoxException sharpBoxException)
+            {
+                if (sharpBoxException.ErrorCode == SharpBoxErrorCodes.ErrorFileNotFound)
+                {
+                    return null;
+                }
+                return new ErrorEntry(sharpBoxException, fileId);
             }
             catch (Exception ex)
             {
