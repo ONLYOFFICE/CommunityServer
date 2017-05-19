@@ -27,7 +27,7 @@ ONLYOFFICE Community Server is a free open source collaborative system developed
 
 ## Compiling
 
-To compile source, follow this [instruction] (http://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
+To compile source, follow this [instruction](http://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
 
 ## Project Information
 
