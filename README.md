@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/License-GNU%20GPL%20V3-green.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![Release](https://img.shields.io/badge/release-9.1.0-blue.svg)](https://github.com/ONLYOFFICE/portals/releases)
+
 ## Overview
 
 ONLYOFFICE Community Server is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.
