@@ -80,7 +80,7 @@ namespace ASC.Core.Security.Authentication
         {
             var settingsTenant = TenantCookieSettings.GetForTenant(tenant);
             var expires = settingsTenant.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(settingsTenant.LifeTime);
-            var settingsUser = TenantCookieSettings.GetForUser(userid);
+            var settingsUser = TenantCookieSettings.GetForUser(tenant, userid);
             return EncryptCookie(tenant, userid, login, password, settingsTenant.Index, expires, settingsUser.Index);
         }
 

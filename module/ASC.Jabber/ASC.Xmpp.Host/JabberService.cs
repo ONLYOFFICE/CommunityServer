@@ -41,8 +41,14 @@ using ASC.Xmpp.Server.Streams;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.ServiceModel;
+using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Stream = ASC.Xmpp.Core.protocol.Stream;
 
 namespace ASC.Xmpp.Host
 {
@@ -90,6 +96,7 @@ namespace ASC.Xmpp.Host
 
         public void SendMessage(int tenantId, string from, string to, string text, string subject)
         {
+
             try
             {
                 _log.DebugFormat("Send Message: tenantId={0}, from={1}, to={2}, text={3}", tenantId, from, to, text);
@@ -114,6 +121,7 @@ namespace ASC.Xmpp.Host
                         if (session != null && !session.IsSignalRFake)
                         {
                             ((IXmppSender)_xmppServer.GetService(typeof(IXmppSender))).SendTo(session, message);
+                           
                         }
                     }
                 }

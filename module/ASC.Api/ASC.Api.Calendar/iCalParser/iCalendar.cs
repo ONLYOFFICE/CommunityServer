@@ -67,23 +67,25 @@ namespace ASC.Api.Calendar.iCalParser
                     url = new Regex("webcal").Replace(url, "http", 1);
                 }
 
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-                WebResponse resp = req.GetResponse();
-
-                var ms = new MemoryStream();
-                resp.GetResponseStream().StreamCopyTo(ms);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                using (var tempReader = new StreamReader(ms))
+                var req = (HttpWebRequest)WebRequest.Create(url);
+                using (var resp = req.GetResponse())
+                using (var stream = resp.GetResponseStream())
                 {
-                    var reader = new StringReader(tempReader.ReadToEnd());
-                    calendar = GetFromStream(reader);
-                    
-                    if (calendar != null && calendarId != null)
+                    var ms = new MemoryStream();
+                    stream.StreamCopyTo(ms);
+                    ms.Seek(0, SeekOrigin.Begin);
+
+                    using (var tempReader = new StreamReader(ms))
                     {
-                        tempReader.BaseStream.Seek(0, SeekOrigin.Begin);
-                        cache.UpdateCalendarCache(calendarId, tempReader);
-                    }                    
+                        var reader = new StringReader(tempReader.ReadToEnd());
+                        calendar = GetFromStream(reader);
+
+                        if (calendar != null && calendarId != null)
+                        {
+                            tempReader.BaseStream.Seek(0, SeekOrigin.Begin);
+                            cache.UpdateCalendarCache(calendarId, tempReader);
+                        }
+                    }
                 }
             }
 

@@ -147,6 +147,9 @@
   <data name="ByNote" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="ByOrder" xml:space="preserve">
+    <value>Order</value>
+  </data>
   <data name="ByParticipant" xml:space="preserve">
     <value>Participant</value>
   </data>

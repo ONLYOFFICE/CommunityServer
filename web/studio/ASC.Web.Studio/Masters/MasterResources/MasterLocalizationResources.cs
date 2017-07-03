@@ -113,7 +113,9 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             Resource.LdapUsersListLockTitle,
                             Resource.LdapUserEditCanOnlyAdminTitle,
                             Resource.LdapSettingsSuccess,
-                            Resource.Browser
+                            Resource.Browser,
+                            Resource.SsoUsersListLockTitle,
+                            Resource.SsoUserEditCanOnlyAdminTitle
                         },
 
                         DatePattern = dateTimeFormat.ShortDatePattern,

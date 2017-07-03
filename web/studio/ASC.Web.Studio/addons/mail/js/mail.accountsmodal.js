@@ -30,7 +30,8 @@ window.accountsModal = (function($) {
         wndQuestion = undefined,
         onSuccessOperationCallback,
         progressBarIntervalId = null,
-        GET_STATUS_TIMEOUT = 10000;
+        GET_STATUS_TIMEOUT = 10000,
+        oauthMailboxId = -1;
 
     var ids = {
         'email': 'email',
@@ -432,8 +433,8 @@ window.accountsModal = (function($) {
     }
 
     // Simple wizard window
-
     function showWizard(email, password) {
+        oauthMailboxId = -1;
 
         var html = $.tmpl('accountWizardTmpl');
 
@@ -510,28 +511,62 @@ window.accountsModal = (function($) {
     }
 
     function onGetOAuthInfo(code, error) {
-        if (error) {
-            showErrorModal({
-                oauth: true,
-                simple: true,
-                settings: {
-                    name: ''
-                }
-            }, [error]);
-            return;
-        }
 
-        showLoader(window.MailScriptResource.MailboxCreation);
-        serviceManager.createOAuthBox(code, 1, //google service
-            {
-                oauth: true,
-                settings: {
-                    name: '',
-                    enabled: true,
-                    restrict: true
-                }
-            },
-            {error: showErrorModal});
+        if (oauthMailboxId > 0) {
+            showLoader(window.MailScriptResource.MailBoxUpdate);
+
+            var settings = getSettings();
+
+            var account = accountsManager.getAccountById(oauthMailboxId);
+
+            settings.id = account.id || account.mailbox_id;
+            settings.is_oauth = true;
+
+            var data = $.extend({ action: 'edit', activateOnSuccess: !account.enabled }, { settings: settings });
+
+            if (error) {
+                showErrorModal(data, [error]);
+                return;
+            }
+
+            serviceManager.updateOAuthBox(code,
+                1,
+                oauthMailboxId,
+                data,
+                {
+                    success: function () {
+                        hide();
+                        window.toastr.success(window.MailScriptResource.AccountGoogleReconnectSuccess);
+                        if (!account.enabled)
+                            accountsModal.activateAccount(account.email, true);
+                    },
+                    error: showErrorModal
+                });
+        } else {
+            if (error) {
+                showErrorModal({
+                    oauth: true,
+                    simple: true,
+                    settings: {
+                        name: ''
+                    }
+                }, [error]);
+                return;
+            }
+
+            showLoader(window.MailScriptResource.MailboxCreation);
+            serviceManager.createOAuthBox(code,
+                1, //google service
+                {
+                    oauth: true,
+                    settings: {
+                        name: '',
+                        enabled: true,
+                        restrict: true
+                    }
+                },
+                { error: showErrorModal });
+        }
     }
 
     function switchToAdvanced(action) {
@@ -647,6 +682,8 @@ window.accountsModal = (function($) {
     }
 
     function onGetBox(params, account) {
+        oauthMailboxId = -1;
+
         if (params.action == "get_imap_server" ||
             params.action == "get_pop_server") {
             setVal(ids.account, account.account);
@@ -661,11 +698,29 @@ window.accountsModal = (function($) {
         }
 
         var html = $.tmpl('accountTmpl', account);
+
         $('#manageWindow').removeClass('show-error').attr('className', params.action === 'edit' ? 'editInbox' : 'addInbox')
             .find('div.containerBodyBlock:first').html(html);
         $('#manageWindow div.containerHeaderBlock:first').find('td:first').html(params.action === 'edit' ? window.MailScriptResource.AccountEdit : window.MailScriptResource.NewAccount);
 
         blockUi(523, $("#manageWindow"));
+
+        if ($(html).find('#oauth_frame_blocker').length) {
+            $(".containerBodyBlock .buttons .oauth-block").click(function (e) {
+                if (e.target && $(e.target).hasClass('oauth-help')) {
+                    // skip help click
+                    return;
+                }
+
+                if ("is_oauth" in account && account.is_oauth) {
+                    oauthMailboxId = account.id;
+                }
+
+                var url = $(this).attr("data-url");
+                var params = "height=600,width=1020,resizable=0,status=0,toolbar=0,menubar=0,location=1";
+                window.open(url, "Authorization", params);
+            });
+        }
 
         if ($('#manageWindow').attr('className') != 'addInbox') {
             $('#smtp_password').attr('placeholder', '**********');
@@ -847,7 +902,7 @@ window.accountsModal = (function($) {
         }
     }
 
-    function updateMailbox(newFlag, activateOnSuccess) {
+    function getSettings() {
         var settings = {
             email: getVal(ids.email),
             name: getVal(ids.name),
@@ -867,6 +922,12 @@ window.accountsModal = (function($) {
             imap: (getVal(ids.server_type, true) == 'imap'),
             restrict: $('.popupMailBox #mail-limit').is(':checked')
         }
+
+        return settings;
+    }
+
+    function updateMailbox(newFlag, activateOnSuccess) {
+        var settings = getSettings();
 
         if (settings.password == $('#password').attr('placeholder')) {
             settings.password = '';

@@ -330,6 +330,9 @@
   <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
     <value>Too many downloads.</value>
   </data>
+  <data name="ErrorMassage_ManyEmailAddresses" xml:space="preserve">
+    <value>Too many addresses</value>
+  </data>
   <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
     <value>Sorry, this file format isn't supported</value>
   </data>
@@ -510,8 +513,17 @@
   <data name="SubscriptForMailMerge" xml:space="preserve">
     <value>Notify when mailing is complete</value>
   </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Specify for change</value>
+  </data>
   <data name="ThirdPartyFolderTitle" xml:space="preserve">
     <value>Folder title</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Reconnect</value>
   </data>
   <data name="ThirdPartySetCorporate" xml:space="preserve">
     <value>Make shared and put into the 'Common Documents' folder</value>

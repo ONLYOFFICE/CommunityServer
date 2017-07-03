@@ -458,6 +458,10 @@ window.TMMail = (function($) {
         return ASC.Mail.Constants.FAQ_URL + anchor;
     }
 
+    function getOAuthFaqLink() {
+        return ASC.Mail.Constants.FAQ_URL + "#GmailcomService_12";
+    }
+
     function moveToReply(msgid) {
         ASC.Controls.AnchorController.move('#reply/' + msgid);
     }
@@ -978,6 +982,7 @@ window.TMMail = (function($) {
         getMapUrl: getMapUrl,
         resizeContent: resizeContent,
         getAccountErrorFooter: getAccountErrorFooter,
-        getFileIconByExt: getFileIconByExt
+        getFileIconByExt: getFileIconByExt,
+        getOAuthFaqLink: getOAuthFaqLink
     };
 })(jQuery);

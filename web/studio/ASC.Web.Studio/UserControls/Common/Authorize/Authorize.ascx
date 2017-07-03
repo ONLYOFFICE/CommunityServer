@@ -52,7 +52,7 @@
          <% if (EnableSso)
         { %>
             <a id="ssoButton" class="link gray underline singleSignOn" 
-                <% if (IsSaml) { %> href="samllogin.ashx?auth=true"<% } else { %> href="jwtlogin.ashx?auth=true" <%} %>>Single sign-on</a>
+                <% if (IsSaml) { %> href="<%= SetupInfo.SsoSamlLoginUrl %>" <% } else { %> href="jwtlogin.ashx?auth=true" <%} %>>Single sign-on</a>
         <% } %>
     </div>
 </div>

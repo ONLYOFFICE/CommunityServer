@@ -28,7 +28,6 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using ASC.Core;
-using ASC.Files.Thirdparty.ProviderDao;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
@@ -94,11 +93,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 var providerInfo = GetProviderInfo(Convert.ToInt32(match.Groups["id"].Value));
 
                 return new GoogleDriveInfo
-                           {
-                               Path = match.Groups["path"].Value,
-                               GoogleDriveProviderInfo = providerInfo,
-                               PathPrefix = "drive-" + match.Groups["id"].Value
-                           };
+                    {
+                        Path = match.Groups["path"].Value,
+                        GoogleDriveProviderInfo = providerInfo,
+                        PathPrefix = "drive-" + match.Groups["id"].Value
+                    };
             }
             throw new ArgumentException("Id is not a GoogleDrive id");
         }
@@ -138,7 +137,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
-                dbDao.UpdateProviderInfo(googleDriveProviderInfo.ID, newTitle, googleDriveProviderInfo.RootFolderType);
+                dbDao.UpdateProviderInfo(googleDriveProviderInfo.ID, newTitle, null, googleDriveProviderInfo.RootFolderType);
                 googleDriveProviderInfo.UpdateTitle(newTitle); //This will update cached version too
             }
         }

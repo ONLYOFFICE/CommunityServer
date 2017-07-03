@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SmsBuy.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.SmsBuy" %>
+<%@ Import Namespace="System.Threading" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
@@ -34,7 +35,7 @@
                 <ItemTemplate>
                     <label class="text">
                         <input type="radio" name="smsPackageOption" <%# Container.ItemIndex == 0 ? "checked" : "" %>
-                            data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id) %>" />
+                            data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id, true, null, CurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName) %>" />
                         <%# string.Format(Resource.SmsPackage,
                                 "<span class=\"header-base medium bold\">" + ((ASC.Core.Tenants.TenantQuota)Container.DataItem).ActiveUsers + "</span>",
                                 "<span class=\"header-base medium\">" + (int) ((ASC.Core.Tenants.TenantQuota)Container.DataItem).Price + CurrencySymbol + "</span>") %>

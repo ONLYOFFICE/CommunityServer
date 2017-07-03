@@ -115,9 +115,15 @@ namespace BasecampRestAPI
                     {
                         _location = (new Uri(_location)).AbsolutePath;
                     }
-                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    using (var responseStream = response.GetResponseStream())
                     {
-                        _responseText = reader.ReadToEnd();
+                        if (responseStream != null)
+                        {
+                            using (var reader = new StreamReader(responseStream))
+                            {
+                                _responseText = reader.ReadToEnd();
+                            }
+                        }
                     }
                 }
             }

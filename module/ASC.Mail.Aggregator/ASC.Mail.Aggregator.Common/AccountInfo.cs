@@ -73,7 +73,7 @@ namespace ASC.Mail.Aggregator
             Name = name;
             Enabled = enabled;
             QuotaError = quotaError;
-            AuthError = authError == MailBox.AuthProblemType.TooManyErrors;
+            AuthError = authError > MailBox.AuthProblemType.NoProblems;
             Autoreply = autoreply;
             Signature = signature;
             Aliases = new List<MailAddressInfo>();

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -16,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Talk</RootNamespace>
     <AssemblyName>ASC.Web.Talk</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -79,12 +80,14 @@
     <Content Include="js\jlib\strophe\base64.js" />
     <Content Include="js\jlib\strophe\core.js" />
     <Content Include="js\jlib\strophe\md5.js" />
+    <Content Include="js\talk.init.js" />
     <Content Include="swf\expressinstall.swf" />
     <Content Include="swf\sounds.swf" />
     <Content Include="swf\uploader.swf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\TalkAddon.cs" />
+    <Compile Include="ClientScript\TalkClientScript.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -122,6 +125,13 @@
     <Compile Include="UserControls\ContactsContainer.ascx.designer.cs">
       <DependentUpon>ContactsContainer.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TabsContainerPart.ascx.cs">
+      <DependentUpon>TabsContainerPart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\TabsContainerPart.ascx.designer.cs">
+      <DependentUpon>TabsContainerPart.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MeseditorContainer.ascx.cs">
       <DependentUpon>MeseditorContainer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -135,13 +145,6 @@
     </Compile>
     <Compile Include="UserControls\RoomsContainer.ascx.designer.cs">
       <DependentUpon>RoomsContainer.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TabsContainer.ascx.cs">
-      <DependentUpon>TabsContainer.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\TabsContainer.ascx.designer.cs">
-      <DependentUpon>TabsContainer.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TalkNavigationItem.ascx.cs">
       <DependentUpon>TalkNavigationItem.ascx</DependentUpon>
@@ -181,9 +184,9 @@
     <Content Include="js\talk.contactscontainer.js" />
     <Content Include="notification.html" />
     <Content Include="UserControls\ContactsContainer.ascx" />
+    <Content Include="UserControls\TabsContainerPart.ascx" />
     <Content Include="UserControls\MeseditorContainer.ascx" />
     <Content Include="UserControls\RoomsContainer.ascx" />
-    <Content Include="UserControls\TabsContainer.ascx" />
     <Content Include="UserControls\TalkNavigationItem.ascx" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +231,9 @@
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="talk.notification.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

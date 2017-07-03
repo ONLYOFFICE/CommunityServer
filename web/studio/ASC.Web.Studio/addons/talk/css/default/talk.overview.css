@@ -28,12 +28,24 @@
 
 .talkScreenshots{margin-left:27px; float:left;}
 
-.talkDesctopClientImage, .talkTrillianClientImage, .talkMirandaIMClientImage, .talkPidginClientImage, .talkPsiClientImage{height:16px; margin-bottom:10px; padding-left:25px; padding-top:4px;}
+.talkDesctopClientImage, .talkTrillianClientImage, .talkMirandaIMClientImage, .talkPidginClientImage, .talkPsiClientImage, .talkAdiumClientImage, .talkqutimClientImage, .talkMailRuAgentClientImage, .talkQipClientImage{height:16px; margin-bottom:10px; padding-left:25px; padding-top:4px;}
 
 .talkScreenshot{padding-top:15px; width:215px;}
 
-.talkTrillianClientImage, .talkMirandaIMClientImage, .talkPidginClientImage, .talkPsiClientImage{background:transparent left center no-repeat;}
+.talkTrillianClientImage, .talkMirandaIMClientImage, .talkPidginClientImage, .talkPsiClientImage, .talkAdiumClientImage, .talkqutimClientImage, .talkMailRuAgentClientImage, .talkQipClientImage {background:transparent left center no-repeat;}
 .talkTrillianClientImage{background-image:url(imagescss/icon-trillian16.png);}
 .talkMirandaIMClientImage{background-image:url(imagescss/icon-miranda16.png);}
 .talkPidginClientImage{background-image:url(imagescss/icon-pidgin16.png);}
 .talkPsiClientImage{background-image:url(imagescss/icon-psi16.png);}
+.talkAdiumClientImage{background-image:url(imagescss/adium.png);}
+.talkQipClientImage{background-image:url(imagescss/qip.png);}
+.talkMailRuAgentClientImage{background-image:url(imagescss/mailru.png);}
+.talkqutimClientImage{background-image:url(imagescss/qutim.png);}
+
+@media screen and (max-width: 1024px) {
+    .talkScreenshots {
+        min-width: 35%;
+        margin-bottom:10px; 
+    }
+}
+

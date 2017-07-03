@@ -51,7 +51,7 @@ namespace ASC.Web.People
         {
             ProfileHelper = new ProfileHelper(Request["user"]);
 
-            Title = HeaderStringHelper.GetPageTitle(ProfileHelper.UserInfo.DisplayUserName(true));
+            Title = HeaderStringHelper.GetPageTitle(ProfileHelper.UserInfo.DisplayUserName(false));
 
             var control = (UserProfileControl)LoadControl(UserProfileControl.Location);
             control.UserProfileHelper = ProfileHelper;

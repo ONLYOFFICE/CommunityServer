@@ -45,26 +45,18 @@ ProgressStartUpManager = new function () {
     };
 
     function getProgress() {
-        AjaxPro.timeoutPeriod = 120000;
-        AjaxPro.onError = getProgressDelay;
-
-        AjaxPro.StartUp.GetStartUpProgress(getProgressResponseHandler);
+        Teamlab.checkWarmUpProgress({
+            success: getProgressResponseHandler
+        });
     }
 
     function getProgressDelay() {
         setTimeout(getProgress, 2000);
     }
 
-    function getProgressResponseHandler(response) {
-
+    function getProgressResponseHandler(params, value) {
         try {
-
-            if (response.error || !response.value) {
-                window.location.reload();
-                return;
-            }
-
-            var responseProgress = JSON.parse(response.value);
+            var responseProgress = JSON.parse(value);
             var newProgress = Math.floor(responseProgress.ProgressPercent);
             if (newProgress > progress) {
                 progress = newProgress;
@@ -96,7 +88,7 @@ ProgressStartUpManager = new function () {
 
         } catch (ex) {
             console.error(ex);
-            window.location.reload();
+            //window.location.reload();
             return;
         }
     }

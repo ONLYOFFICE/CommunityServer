@@ -407,7 +407,8 @@ namespace ASC.Web.Files.Services.DocumentService
                     ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
                 }
 
-                using (var fileStream = new ResponseStream(req.GetResponse()))
+                using (var response = req.GetResponse())
+                using (var fileStream = new ResponseStream(response))
                 {
                     store.Save(FileConstant.StorageDomainTmp, path, fileStream);
                 }

@@ -147,7 +147,7 @@ namespace ASC.Xmpp.Core.protocol.component
         }
 
         public Message(Jid to, Jid from, MessageType type, string body)
-            : base(to, from, type, body)
+            : base(to, from,type, body)
         {
             Namespace = Uri.ACCEPT;
         }

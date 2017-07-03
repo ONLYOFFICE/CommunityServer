@@ -1008,6 +1008,9 @@
   <data name="ReceiveMailLabel" xml:space="preserve">
     <value>Receive mail</value>
   </data>
+  <data name="ReconnectLabel" xml:space="preserve">
+    <value>Reconnect</value>
+  </data>
   <data name="RefreshBtnHint" xml:space="preserve">
     <value>Get new messages</value>
   </data>

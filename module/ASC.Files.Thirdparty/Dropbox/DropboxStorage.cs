@@ -24,12 +24,12 @@
 */
 
 
-using ASC.FederatedLogin;
-using Dropbox.Api;
-using Dropbox.Api.Files;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ASC.FederatedLogin;
+using Dropbox.Api;
+using Dropbox.Api.Files;
 
 namespace ASC.Files.Thirdparty.Dropbox
 {
@@ -78,7 +78,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public long GetUsedSpace()
         {
-            return (long) _dropboxClient.Users.GetSpaceUsageAsync().Result.Used;
+            return (long)_dropboxClient.Users.GetSpaceUsageAsync().Result.Used;
         }
 
         public FolderMetadata GetFolder(string folderPath)
@@ -188,7 +188,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public void Transfer(string dropboxSession, long offset, Stream stream)
         {
-            _dropboxClient.Files.UploadSessionAppendV2Async(new UploadSessionCursor(dropboxSession, (ulong) offset), body: stream).Wait();
+            _dropboxClient.Files.UploadSessionAppendV2Async(new UploadSessionCursor(dropboxSession, (ulong)offset), body: stream).Wait();
         }
 
         public Metadata FinishResumableSession(string dropboxSession, string dropboxFolderPath, string fileName, long offset)
@@ -200,7 +200,7 @@ namespace ASC.Files.Thirdparty.Dropbox
         public Metadata FinishResumableSession(string dropboxSession, string dropboxFilePath, long offset)
         {
             return _dropboxClient.Files.UploadSessionFinishAsync(
-                new UploadSessionCursor(dropboxSession, (ulong) offset),
+                new UploadSessionCursor(dropboxSession, (ulong)offset),
                 new CommitInfo(dropboxFilePath, WriteMode.Overwrite.Instance),
                 new MemoryStream()).Result;
         }

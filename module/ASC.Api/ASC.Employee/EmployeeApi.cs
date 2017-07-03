@@ -592,18 +592,27 @@ namespace ASC.Api.Employee
 
             //Update it
 
-            //Validate email
-            if (!string.IsNullOrEmpty(email))
+            var isLdap = user.IsLDAP();
+            var isSso = user.IsSSO();
+
+            if (!isLdap && !isSso)
             {
-                var address = new MailAddress(email);
-                user.Email = address.Address;
+                //Set common fields
+
+                user.FirstName = firstname ?? user.FirstName;
+                user.LastName = lastname ?? user.LastName;
+
+                //Validate email
+                if (!string.IsNullOrEmpty(email))
+                {
+                    var address = new MailAddress(email);
+                    user.Email = address.Address;
+                }
+
+                user.Title = title ?? user.Title;
+                user.Location = location ?? user.Location;
             }
 
-            //Set common fields
-            user.FirstName = firstname ?? user.FirstName;
-            user.LastName = lastname ?? user.LastName;
-            user.Title = title ?? user.Title;
-            user.Location = location ?? user.Location;
             user.Notes = comment ?? user.Notes;
             user.Sex = ("male".Equals(sex, StringComparison.OrdinalIgnoreCase)
                             ? true
@@ -876,7 +885,7 @@ namespace ASC.Api.Employee
                 SecurityContext.SetUserPassword(userid, password);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedPassword);
 
-                CookiesManager.ResetUserCookie();
+                CookiesManager.ResetUserCookie(userid);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.CookieSettingsUpdated);
             }
 

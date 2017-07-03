@@ -90,9 +90,16 @@
         </table>
         <div class="progressContainer">
             <div class="loader" style="display: none;">${ASC.Mail.Resources.MailResource.LoadingLabel}</div>
+            {{if ASC.Resources.Master.TenantIsPremium == "No" }}
+            <div class="toast-popup-container">
+                <div class="toast toast-error">
+                    <div class="toast-message">${MailApiErrorsResource.ErrorUnpaidAccessDenied}</div>
+                </div>
+            </div>
+            {{/if}}
         </div>
         <div class="buttons" style="margin-top: 0;">
-            <button class="button middle blue save" type="button">${ASC.Mail.Resources.MailScriptResource.CreateMailboxBtn}</button>
+            <button class="button middle blue save {{if ASC.Resources.Master.TenantIsPremium == "No" }}disable{{/if}}" type="button">${ASC.Mail.Resources.MailScriptResource.CreateMailboxBtn}</button>
             <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
         </div>
     </div>

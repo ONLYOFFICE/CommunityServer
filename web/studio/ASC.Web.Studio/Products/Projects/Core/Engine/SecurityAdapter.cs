@@ -47,7 +47,7 @@ namespace ASC.Web.Projects.Classes
         {
             get
             {
-                if (interval.Expired)
+                if (interval != null && interval.Expired)
                 {
                     project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
                     interval.Start(timeout);
@@ -59,6 +59,12 @@ namespace ASC.Web.Projects.Classes
         public SecurityAdapter(int projectId)
         {
             this.projectId = projectId;
+        }
+
+        public SecurityAdapter(Project project)
+        {
+            interval = null;
+            this.project = project;
         }
 
         public bool CanRead(FileEntry file, Guid userId)

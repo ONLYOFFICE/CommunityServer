@@ -24,18 +24,35 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+using System.Web.Script.Serialization;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Thrdparty.Configuration;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Server.Handler;
+using ASC.Xmpp.Server.Storage;
 using ASC.Xmpp.Server.Storage.Interface;
 using ASC.Xmpp.Server.Streams;
+using log4net;
 
 namespace ASC.Xmpp.Server.Services.Jabber
 {
 	[XmppHandler(typeof(Message))]
 	class MessageHandler : XmppStanzaHandler
 	{
+        private DbPushStore pushStore;
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(XmppHandlerManager));
+        
 		public override void HandleMessage(XmppStream stream, Message message, XmppHandlerContext context)
 		{
+            
 			if (!message.HasTo || message.To.IsServer)
 			{
 				context.Sender.SendTo(stream, XmppStanzaError.ToServiceUnavailable(message));
@@ -59,6 +76,75 @@ namespace ASC.Xmpp.Server.Services.Jabber
             }
             else
             {
+                pushStore = new DbPushStore();
+                var properties = new Dictionary<string, string>(1);
+                properties.Add("connectionStringName", "default");
+                pushStore.Configure(properties);
+
+                if (message.HasTag("active"))
+                {
+                    var fromFullName = message.HasAttribute("username") ? 
+                                        message.GetAttribute("username") : message.From.ToString();
+
+                    var tenantId = message.HasAttribute("tenantid") ?
+                                        Convert.ToInt32(message.GetAttribute("tenantid"), 16) : -1;
+                        
+                    var userPushList = new List<UserPushInfo>();
+                    userPushList = pushStore.GetUserEndpoint(message.To.ToString().Split(new char[] { '@' })[0]);
+
+                    var firebaseAuthorization = "";
+                    try
+                    {
+                        CallContext.SetData(TenantManager.CURRENT_TENANT, new Tenant(tenantId, ""));
+                        firebaseAuthorization = KeyStorage.Get("firebase_authorization");
+                    }
+                    catch (Exception exp)
+                    {
+                        log.DebugFormat("firebaseAuthorizationERROR: {0}", exp);
+                    }
+                    foreach (var user in userPushList)
+                    {
+                        try{ 
+                            var tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                            tRequest.Method = "post";
+                            tRequest.ContentType = "application/json";
+                            var data = new
+                            {
+                                to = user.endpoint,
+                                data = new
+                                {
+                                    msg = message.Body,
+                                    fromFullName = fromFullName
+                                }    
+                            };       
+                            var serializer = new JavaScriptSerializer();
+                            var json = serializer.Serialize(data);
+                            var byteArray = Encoding.UTF8.GetBytes(json);
+                            tRequest.Headers.Add(string.Format("Authorization: key={0}", firebaseAuthorization));
+                            tRequest.ContentLength = byteArray.Length; 
+                            using (var dataStream = tRequest.GetRequestStream())
+                            {
+                                dataStream.Write(byteArray, 0, byteArray.Length);   
+                                using (var tResponse = tRequest.GetResponse())
+                                {
+                                    using (var dataStreamResponse = tResponse.GetResponseStream())
+                                    {
+                                        using (var tReader = new StreamReader(dataStreamResponse))
+                                        {
+                                            var sResponseFromServer = tReader.ReadToEnd();
+                                            var str = sResponseFromServer;
+                                        }    
+                                    }    
+                                }    
+                            }    
+                        }        
+                        catch (Exception ex)
+                        {
+                            var str = ex.Message;
+                            log.DebugFormat("PushRequestERROR: {0}", str);
+                        }          
+                    }
+                }
                 StoreOffline(message, context.StorageManager.OfflineStorage);
             }
 		}

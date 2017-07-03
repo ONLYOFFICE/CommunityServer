@@ -27,10 +27,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text.RegularExpressions;
+using System.Threading;
+using StackExchange.Redis.Extensions.Core.Configuration;
 
 namespace ASC.Common.Caching
 {
@@ -57,7 +58,7 @@ namespace ASC.Common.Caching
         static AscCache()
         {
             Memory = new AscCache();
-            Default = ConfigurationManager.GetSection("redisCacheClient") != null ? (ICache)new RedisCache() : Memory;
+            Default = RedisCachingSectionHandlerExtension.IsEnabled() ? (ICache)new RedisCache() : Memory;
             Notify = (ICacheNotify)Default;
         }
 

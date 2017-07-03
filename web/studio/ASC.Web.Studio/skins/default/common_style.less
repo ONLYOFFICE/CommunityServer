@@ -150,6 +150,7 @@ span.addUserLink {
     font-size: 28px;
     color: #333;
     cursor: pointer;
+	margin-left: 10px;
 }
 
 .popupContainerClass .containerBodyBlock,
@@ -785,14 +786,18 @@ progress {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
+    border: 1px solid #D1D1D1 !important;
+    border-top: none !important;
 
     .ui-menu-item {
         list-style: none;
-        border-bottom: 1px solid #D1D1D1;
-        background-color: #FFFFFF;
+        border-bottom: 1px solid #D1D1D1 !important;
+        background-color: #FFFFFF !important;
 
-        .ui-state-hover {
-            background-color: #EDF6FD;
+        .ui-state-hover, .ui-state-active {
+            background-color: #E5E5E5 !important;
+            border: none !important;
+            margin: 0 !important;
         }
 
         a, a:hover {
@@ -800,6 +805,10 @@ progress {
             display: block;
             padding: 3px;
             text-decoration: none;
+        }
+
+        &:last-child {
+            border-bottom: none !important;
         }
     }
 }

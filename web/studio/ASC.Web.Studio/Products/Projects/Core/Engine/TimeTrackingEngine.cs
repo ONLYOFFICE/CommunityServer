@@ -120,7 +120,10 @@ namespace ASC.Projects.Engine
         public TimeSpend GetByID(int id)
         {
             var timeSpend = timeSpendDao.GetById(id);
-            timeSpend.Task = taskDao.GetById(timeSpend.Task.ID);
+            if (timeSpend != null)
+            {
+                timeSpend.Task = taskDao.GetById(timeSpend.Task.ID);
+            }
             return timeSpend;
         }
 
@@ -134,7 +137,11 @@ namespace ASC.Projects.Engine
                 ProjectSecurity.CreateGuestSecurityException();
             }
 
-            timeSpend.CreateOn = DateTime.UtcNow;
+            if (timeSpend.ID == 0)
+            {
+                timeSpend.CreateOn = DateTime.UtcNow;
+            }
+
             return timeSpendDao.Save(timeSpend);
         }
 
@@ -153,6 +160,8 @@ namespace ASC.Projects.Engine
             if (timeSpend.PaymentStatus == newStatus) return timeSpend;
 
             timeSpend.PaymentStatus = newStatus;
+
+            timeSpend.StatusChangedOn = DateTime.UtcNow;
 
             return timeSpendDao.Save(timeSpend);
         }

@@ -33,7 +33,7 @@ window.ASC.Clipboard = (function () {
             isInit = true;
         }
 
-        ASC.Clipboard.enable = (typeof Clipboard != "undefined" && !jq.browser.safari);
+        ASC.Clipboard.enable = (typeof Clipboard != "undefined" && Clipboard.isSupported());
     };
 
     var create = function (text, buttonId, options) {

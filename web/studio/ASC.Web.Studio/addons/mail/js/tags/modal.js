@@ -190,7 +190,6 @@ window.tagsModal = (function($) {
     };
 
     var showLoader = function(message) {
-        $('#tagWnd').find('.addemail_error').hide();
         $('#tagWnd').find('.progressContainer').show();
         $('#tagWnd').find('.progressContainer .loader').show().html(message || '');
         $('#tagWnd .save #mail_tag_name').attr('disabled', 'true');
@@ -279,8 +278,7 @@ window.tagsModal = (function($) {
 
     var setErrorMessage = function(errorMessage) {
         hideLoader();
-        wnd.find('.addemail_error').show().html(errorMessage);
-        wnd.find('.addemail_error').css('display', 'inline-block');
+        window.toastr.error(errorMessage);
     };
 
     return {

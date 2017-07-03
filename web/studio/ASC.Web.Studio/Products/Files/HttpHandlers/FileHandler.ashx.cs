@@ -779,11 +779,11 @@ namespace ASC.Web.Files
             var fileId = context.Request[FilesLinkUtility.FileId];
             Global.Logger.Debug("DocService track fileid: " + fileId);
 
-            var callbackSpan = TimeSpan.FromDays(28);
+            var callbackSpan = TimeSpan.FromDays(128);
             var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileId, auth ?? "", callbackSpan);
             if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
             {
-                Global.Logger.Error("DocService track auth error: " + validateResult.ToString());
+                Global.Logger.ErrorFormat("DocService track auth error: {0}, {1}: {2}", validateResult.ToString(), FilesLinkUtility.AuthKey, auth);
                 throw new HttpException((int)HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
             }
 

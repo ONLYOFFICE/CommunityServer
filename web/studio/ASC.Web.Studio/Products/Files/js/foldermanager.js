@@ -1211,7 +1211,7 @@ window.ASC.Files.Folders = (function () {
             e.stopPropagation();
 
             ASC.Files.Actions.hideAllActionPanels();
-            ASC.Files.UI.checkSelectAll(jq("#filesSelectAllCheck").prop("checked") == true);
+            ASC.Files.UI.checkSelectAll(jq("#filesSelectAllCheck:not(.indeterminate)").prop("checked") == true);
             jq(this).blur();
         });
 

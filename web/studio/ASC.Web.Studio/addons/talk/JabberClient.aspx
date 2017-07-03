@@ -3,7 +3,7 @@
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Web.Talk.Resources" %>
 
-<%@ Register Src="~/addons/talk/UserControls/TabsContainer.ascx" TagName="TabsContainer" TagPrefix="asct" %>
+<%@ Register Src="~/addons/talk/UserControls/TabsContainerPart.ascx" TagName="TabsContainerPart" TagPrefix="asct" %>
 <%@ Register Src="~/addons/talk/UserControls/RoomsContainer.ascx" TagName="RoomsContainer" TagPrefix="asct" %>
 <%@ Register Src="~/addons/talk/UserControls/MeseditorContainer.ascx" TagName="MeseditorContainer" TagPrefix="asct" %>
 <%@ Register Src="~/addons/talk/UserControls/ContactsContainer.ascx" TagName="ContactsContainer" TagPrefix="asct" %>
@@ -15,31 +15,39 @@
 </asp:Content>
 
 <asp:Content ID="TalkContent" ContentPlaceHolderID="PageContent" runat="server">
-  <div id="talkWrapper" style="display:none;">
+    <!--hack for artifact css-->
+    <style type="text/css">
+        div#talkWrapper.hide {
+            display:none
+        }
+    </style>
+  <div id="talkWrapper" class="hide">
     <div class="left-side"></div>
     <div class="right-side"></div>
     <div class="container">
-      <asct:TabsContainer ID="TalkTabsContainer" runat="server" />
+    <asct:TabsContainerPart ID="TalkTabsContainer" runat="server" style ="width:100% " /> 
+
+    
+  <!--   <hr /> -->        
       <div id="talkMainContainer">
-        <div id="talkDialogsContainer">
+        
+        <div id="talkContentContainer" class="disabled">
+          <div id="talkStartSplash" unselectable="on">
+            <div class="background" unselectable="on"></div>
+              <div class="right-side" unselectable="on"></div>
+            <div class="container" unselectable="on">
+              <div class="label" unselectable="on"><%=string.Format(TalkResource.LabelFirstSplash,"<br/>")%></div>
+            </div>
+          </div>
+          <asct:RoomsContainer ID="TalkRoomsContainer" runat="server" />
+          <div id="talkVertSlider" unselectable="on"></div>
+          <asct:MeseditorContainer ID="TalkMeseditorContainer" runat="server" /> 
+        </div>
+          <div id="talkDialogsContainer">
           <div class="background"></div>
 
           <div class="dialog browser-notifications">
-            <div class="head" unselectable="on">
-              <div class="left-side"></div>
-              <div class="right-side"></div>
-              <div class="title" unselectable="on"><%=TalkResource.TitleBrowserNotificationsDialog%></div>
-              <div class="button-talk close-dialog" unselectable="on"></div>
-            </div>
-            <div class="content" unselectable="on">
-              <div class="in" unselectable="on">
-                <div class="body" unselectable="on">
-                  <div id="cbxToggleNotifications" class="block toggle-notifications disabled" unselectable="on">
-                    <div class="button-talk notifications-allow" unselectable="on"></div>
-                    <div class="button-talk notifications-delay" unselectable="on"></div>
-                  </div>
-                </div>
-                <div class="toolbar" unselectable="on">
+              <div class="toolbar" unselectable="on">
                   <div class="container" unselectable="on">
                     <div class="checkbox-container toggle-browser-notifications-dialog" unselectable="on">
                       <table unselectable="on">
@@ -51,68 +59,106 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="dialog kick-occupant">
             <div class="head" unselectable="on">
-              <div class="left-side"></div>
-              <div class="right-side"></div>
-              <div class="title" unselectable="on"><%=TalkResource.TitleKickOccupantDialog%>&nbsp;<span class="value" unselectable="on"></span></div>
-              <div class="button-talk close-dialog" unselectable="on"></div>
+       <!--       <div class="left-side"></div>-->
+             <!-- <div class="right-side"></div>-->
+              <div class="title" unselectable="on"><%=TalkResource.TitleBrowserNotificationsDialog%></div>
+              <div class="button-talk close-dialog" unselectable="on">X</div>
             </div>
             <div class="content" unselectable="on">
               <div class="in" unselectable="on">
                 <div class="body" unselectable="on">
-                  <input id="hdnKickJId" type="hidden" />
-                  <div class="singlefield" unselectable="on"><%=TalkResource.LabelKickOccupant%></div>
-                </div>
-                <div class="toolbar" unselectable="on">
-                  <div class="container" unselectable="on">
-                    <div class="button-container" unselectable="on">
-                      <div class="left-side" unselectable="on"></div>
-                      <div class="right-side" unselectable="on"></div>
-                      <div class="button-talk kick-occupant" unselectable="on"><%=TalkResource.BtnKick%></div>
-                    </div>
+                  <div id="cbxToggleNotifications" class="block toggle-notifications disabled" unselectable="on">
+                    <div class="button-talk notifications-allow" unselectable="on"></div>
+                    <div class="button-talk notifications-delay" unselectable="on"></div>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
 
-          <div class="dialog create-room">
-            <div class="head" unselectable="on">
-              <div class="left-side"></div>
-              <div class="right-side"></div>
-              <div class="title" unselectable="on"><%=TalkResource.TitleCreateRoom%></div>
-              <div class="button-talk close-dialog" unselectable="on"></div>
+
+        <div class="popupContainerClass dialog kick-occupant">
+            <div class="containerHeaderBlock">
+                <table style="width: 100%; height: 0px;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr valign="middle">
+                            <td>
+                                <input id="hdnKickJId" type="hidden" />
+                                <input id="hdnKickInvited" type="hidden" />
+                                <input id="hdnKickRoomCid" type="hidden" />
+                                <div class="title" style="background:none; height:auto" unselectable="on"><%=TalkResource.TitleKickOccupantDialog%>&nbsp;<div class="dialogNameRoom"><span class="value"></span></div></div>
+                            </td>
+                            <td class="popupCancel">
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="Close">×</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="content" unselectable="on">
-              <div class="in" unselectable="on">
-                <div class="body" unselectable="on">
-                  <div class="field hint" unselectable="on">
-                    <label for="txtRoomName" unselectable="on"><%=TalkResource.LabelName%>:</label>
-                    <div class="textfield"><input id="txtRoomName" type="text" maxlength="255" /></div>
-                    <label class="hint" for="txtRoomName" unselectable="on"><%=TalkResource.LabelValidSymbols%>:&nbsp;<%=TalkResource.ValidSymbols%></label>
-                  </div>
-                  <table class="field" unselectable="on">
-                    <tr unselectable="on">
-                      <td><input id="cbxTemporaryRoom" name="cbxTemporaryRoom" class="checkbox temporar-room" type="checkbox" checked="checked" /></td>
-                      <td unselectable="on"><label for="cbxTemporaryRoom" unselectable="on"><%=TalkResource.LabelTemporaryRoom%></label></td>
+            <div class="containerBodyBlock">
+                <div class="singlefield"><%=TalkResource.LabelKickOccupant%></div>
+                
+                <div class="middle-button-container" style="margin-top:20px">
+                    
+                    <a class="button blue middle button-talk kick-occupant"><%=TalkResource.BtnKick%></a> 
+                    <span class="splitter-buttons"></span>
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();">Cancel</a> 
+                   
+                </div>
+            </div>
+        </div> 
+
+        <div class="popupContainerClass dialog create-room">
+            <div class="containerHeaderBlock">
+                <table style="width: 100%; height: 0px;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr valign="middle">
+                            <td><%=TalkResource.TitleCreateRoom%></td>
+                            <td class="popupCancel">
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="Close">×</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="containerBodyBlock">
+                <label class="createchat" style="top:35px;display:inline-block;margin-right: 10px;"><%=TalkOverviewResource.Type%></label>
+                <div class="chatOrSpam">
+                    <select id="chatOrSpam" style="display:inline-block"> <option value="Chat room"><%=TalkOverviewResource.ChatRoom%></option><option value="Mailing"><%=TalkOverviewResource.Mailing%></option></select>
+                </div>
+                <table style="width: 100%; height: 0px; margin-top:10px" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td width="10%">
+                            <label for="txtRoomName" style="margin-right: 10px;"><%=TalkResource.LabelName%>:</label>
+                        </td>
+                        <td width="90%">
+                            <div class="roomName" title="<%=TalkResource.LabelValidSymbols%>:&nbsp;<%=TalkResource.ValidSymbols%>">
+                                <input class="textEdit" id="txtRoomName" type="text" maxlength="255" required/> 
+                                <label class="hint" for="txtRoomName" unselectable="on"><%=TalkResource.LabelValidSymbols%>:&nbsp;<%=TalkResource.ValidSymbols%></label> 
+                            </div>
+                        </td>
                     </tr>
-                  </table>
+                </table>
+                <table style="margin-top:10px">
+                    <tr>
+                        <td style="vertical-align: top">
+                            <input style="margin-left:0" id="cbxTemporaryRoom" name="cbxTemporaryRoom" class="checkbox temporar-room" type="checkbox" checked="checked" />
+                        </td>
+                        <td>
+                            <label for="cbxTemporaryRoom"><%=TalkResource.LabelTemporaryRoom%></label>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div class="middle-button-container" style="margin-top:20px">
+                    <a class="button blue middle button-talk create-room"><%=TalkResource.BtnCreate%></a> 
+                    <span class="splitter-buttons"></span>
+                    <!-- <a class="button gray middle" onclick="jq.unblockUI();">Cancel</a> -->
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();">Cancel</a> 
+                   
                 </div>
-                <div class="toolbar" unselectable="on">
-                  <div class="container" unselectable="on">
-                    <div class="button-container" unselectable="on">
-                      <div class="left-side" unselectable="on"></div>
-                      <div class="right-side" unselectable="on"></div>
-                      <div class="button-talk create-room" unselectable="on"><%=TalkResource.BtnCreate%></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -128,8 +174,9 @@
                 <div class="body" unselectable="on">
                   <div class="field hint" unselectable="on">
                     <label for="txtMailingName" unselectable="on"><%=TalkResource.LabelName%>:</label>
-                    <div class="textfield"><input id="txtMailingName" type="text" maxlength="255" /></div>
-                    <label class="hint" for="txtRoomName" unselectable="on"><%=TalkResource.LabelValidSymbols%>:&nbsp;<%=TalkResource.ValidSymbols%></label>
+                    <div class="textfield"><input  id="txtMailingName" type="text" maxlength="255"  /></div>
+                      <input class="advansed-filter advansed-filter-input advansed-filter-complete" type="text"  maxlength="255" id="626575"/>
+                    <label class="hint" for="txtRoomName"  unselectable="on" ><%=TalkResource.LabelValidSymbols%>:&nbsp;<%=TalkResource.ValidSymbols%></label>
                   </div>
                 </div>
                 <div class="toolbar" unselectable="on">
@@ -145,78 +192,67 @@
             </div>
           </div>
 
-          <div class="dialog remove-room">
-            <div class="head" unselectable="on">
-              <div class="left-side"></div>
-              <div class="right-side"></div>
-              <div class="title" unselectable="on"><%=TalkResource.TitleRemoveRoomDialog%>&nbsp;<span class="value" unselectable="on"></span></div>
-              <div class="button-talk close-dialog" unselectable="on"></div>
-            </div>
-            <div class="content" unselectable="on">
-              <div class="in" unselectable="on">
-                <div class="body" unselectable="on">
-                  <input id="hdnRemoveJid" type="hidden" />
-                  <div class="singlefield" unselectable="on"><%=TalkResource.LabelRemoveRoom%></div>
-                </div>
-                <div class="toolbar" unselectable="on">
-                  <div class="container" unselectable="on">
-                    <div class="button-container" unselectable="on">
-                      <div class="left-side" unselectable="on"></div>
-                      <div class="right-side" unselectable="on"></div>
-                      <div class="button-talk remove-room" unselectable="on"><%=TalkResource.BtnRemove%></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="dialog recv-invite">
-            <div class="head" unselectable="on">
-              <div class="left-side"></div>
-              <div class="right-side"></div>
-              <div class="title" unselectable="on"><%=TalkResource.TitleRecvInvite%>&nbsp;<span class="value" unselectable="on"></span></div>
-              <div class="button-talk close-dialog" unselectable="on"></div>
+        <div class="popupContainerClass dialog remove-room">
+            <div class="containerHeaderBlock">
+                <table style="width: 100%; height: 0px;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr valign="middle">
+                            <td>
+                                <input id="hdnRemoveJid" type="hidden" />
+                                <div class="title" style="background:none; height:auto" unselectable="on"><%=TalkResource.TitleRemoveRoomDialog%>&nbsp;<div class="dialogNameRoom"><span class="value"></span></div></div>
+                            </td>
+                            <td class="popupCancel">
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" style="user-select:none" title="Close">×</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="content" unselectable="on">
-              <div class="in" unselectable="on">
-                <div class="body" unselectable="on">
-                  <input id="hdnInvitationRoom" type="hidden" />
-                  <input id="hdnInvitationContact" type="hidden" />
-                  <div class="singlefield" unselectable="on"><span id="lblInviterName" class="label" unselectable="on">Name</span>&nbsp;<%=TalkResource.LabelRecvInvite%></div>
+            
+            <div class="containerBodyBlock">
+                <div class="singlefield" unselectable="on"><%=TalkResource.LabelRemoveRoom%></div>
+                <div class="middle-button-container" style="margin-top:20px">
+                    <a class="button blue middle button-talk remove-room"><%=TalkResource.BtnRemove%></a> 
+                    <span class="splitter-buttons"></span>
+                    <!-- <a class="button gray middle" onclick="jq.unblockUI();">Cancel</a> -->
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();">Cancel</a> 
+                   
                 </div>
-                <div class="toolbar" unselectable="on">
-                  <div class="container" unselectable="on">
-                    <div class="button-container grey" unselectable="on">
-                      <div class="left-side" unselectable="on"></div>
-                      <div class="right-side" unselectable="on"></div>
-                      <div class="button-talk decline-invite" unselectable="on"><%=TalkResource.BtnDecline%></div>
-                    </div>
-                    <div class="button-container" unselectable="on">
-                      <div class="left-side" unselectable="on"></div>
-                      <div class="right-side" unselectable="on"></div>
-                      <div class="button-talk accept-invite" unselectable="on"><%=TalkResource.BtnAccept%></div>
-                    </div>
-                  </div>
+            </div>
+        </div>
+
+        <div class="popupContainerClass dialog recv-invite">
+            <div class="containerHeaderBlock">
+                <table style="width: 100%; height: 0px;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr valign="middle">
+                            <td>
+                                <div class="title" style="background:none; height:auto"><%=TalkResource.TitleRecvInvite%>&nbsp;<div class="dialogNameRoom"><span class="value"></span></div></div>
+                            </td>
+                            <td class="popupCancel">
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" style="user-select:none" title="Close">×</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="containerBodyBlock">
+                <div class="singlefield" unselectable="on"><span id="lblInviterName" class="label" unselectable="on"><%=TalkOverviewResource.ChatRoom%></span>&nbsp;<%=TalkResource.LabelRecvInvite%></div>
+                <input id="hdnInvitationRoom" type="hidden" />
+                <input id="hdnInvitationContact" type="hidden" />
+                <div class="middle-button-container" style="margin-top:20px">
+                    <a class="button blue middle button-talk accept-invite "><%=TalkResource.BtnAccept%></a> 
+                    <span class="splitter-buttons"></span>
+                    <div class="button gray middle button-talk decline-invite"><%=TalkResource.BtnDecline%></div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-        <div id="talkContentContainer" class="disabled">
-          <div id="talkStartSplash" unselectable="on">
-            <div class="background" unselectable="on"></div>
-            <div class="container" unselectable="on">
-              <div class="right-side" unselectable="on"></div>
-              <div class="label" unselectable="on"><%=string.Format(TalkResource.LabelFirstSplash,"<br/>")%></div>
-            </div>
-          </div>
-          <asct:RoomsContainer ID="TalkRoomsContainer" runat="server" />
-          <div id="talkVertSlider" unselectable="on"></div>
-          <asct:MeseditorContainer ID="TalkMeseditorContainer" runat="server" />
-        </div>
+     
+     </div>
         <div id="talkHorSlider" unselectable="on"></div>
-        <asct:ContactsContainer ID="TalkContactsContainer" runat="server" />
+        <asct:ContactsContainer ID="TalkContactsContainer" runat="server" />  
+         
       </div>
     </div>
   </div>

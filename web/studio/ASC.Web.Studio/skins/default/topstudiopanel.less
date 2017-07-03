@@ -45,6 +45,12 @@
             float: left;
         }
     }
+	/*******************************************************************************
+    button hidden tabs
+*******************************************************************************/
+	.studio-top-button-hidden-tabs{
+		 background: @bg-button-hidden-tabs;
+	}
     /*******************************************************************************
     top logo
 *******************************************************************************/
@@ -239,56 +245,67 @@ body.desktop .studio-top-panel {
     margin: 6px 24px 0 0;
 
     .active-icon {
-        background: url("@{img-change-url}dropdown-menu-icons.png") no-repeat 0 15px transparent;
+        background: url("@{img-change-url}icons_nav_panel.png") no-repeat 0 15px transparent;
         display: inline-block;
         float: left;
         height: 16px;
-        margin: 4px 6px 0 0;
+        margin: 2px 6px 0 0;
         vertical-align: middle;
         width: 16px;
 
         &.projects {
-            background-position: 0 -27px;
+            /*background-position: 0 -27px;*/
+            background-position: -15px -52px;
         }
 
         &.crm {
-            background-position: 0 -79px;
-            }
+            /*background-position: 0 -79px;*/
+            background-position: -15px -546px;
+        }
 
         &.documents {
-            background-position: 0 -131px;
+            /*background-position: 0 -131px;*/
+            background-position: -15px -156px;
         }
 
         &.community {
-            background-position: 0 -183px;
+            /*background-position: 0 -183px;*/
+            background-position: -15px -442px;
         }
 
         &.people {
-            background-position: 0 -235px;
+            background-position: -15px -26px;
+            /*background-position: 0 -235px;*/
         }
 
         &.tools {
-            background-position: 0 -287px;
+            /*background-position: 0 -287px;*/
+            background-position: -15px -253px;
         }
 
         &.mail {
-            background-position: 0 -339px;
+            background-position: -15px -1300px;
+            /*background-position: 0 -339px;*/
         }
 
         &.calendar {
-            background-position: 0 -391px;
+            background-position: -15px -208px;
+            /*background-position: -15px -391px;*/
         }
 
         &.feed {
-            background-position: 0 -444px;
+            /*background-position: 0 -444px;*/
+            background-position: -15px -702px;
         }
 
         &.settings {
-            background-position: 0 -495px;
+            /*background-position: 0 -495px;*/
+            background-position: -15px -390px;
         }
 
         &.talk {
-            background-position: 0 -548px;
+            /*background-position: 0 -548px;*/
+            background-position: -15px -1326px;
         }
     }
 
@@ -570,9 +587,10 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx)
  {
-    .studio-top-panel  .top-item-box .inner-text {  background-image: url("@{img-change-url}top-studio-menu_retina.png"); background-size: 290px 64px;}
-    .product-menu .active-icon { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }
-    .studio-action-panel.modules li .dropdown-item { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }
+    .studio-top-panel  .top-item-box .inner-text {  background-image: url("@{img-change-url}top-studio-menu_retina.png"); background-size: 288px 64px;}
+    .product-menu .active-icon { background-image: url("@{img-change-url}icons_nav_panel_retina.png"); background-size: 32px 1352px; }
+	.studio-action-panel.modules li .dropdown-item-icon { background-image: url("@{img-change-url}icons_nav_panel_retina.png"); background-size: 32px 1352px; }
+    /*.studio-action-panel.modules li .dropdown-item { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }*/
 }
 /*******************************************************************************
    About Compamy Popup

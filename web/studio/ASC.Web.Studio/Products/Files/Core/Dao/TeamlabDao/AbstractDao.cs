@@ -125,7 +125,7 @@ namespace ASC.Files.Core.Data
             return table.Substring(table.IndexOf(" ")).Trim() + "." + tenant;
         }
 
-        protected SqlQuery GetFileQuery(Exp where)
+        protected SqlQuery GetFileQuery(Exp where, bool checkShared = true, bool my = false)
         {
             return Query("files_file f")
                 .Select("f.id")
@@ -139,7 +139,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.modified_on")
                 .Select("f.modified_by")
                 .Select(GetRootFolderType("folder_id"))
-                .Select(GetSharedQuery(FileEntryType.File))
+                .Select(checkShared ? GetSharedQuery(FileEntryType.File, my) : new SqlQuery().Select("1"))
                 .Select("converted_type")
                 .Select("f.comment")
                 .Where(where);
@@ -175,14 +175,19 @@ namespace ASC.Files.Core.Data
             return v != null ? int.Parse(v.ToString().Substring(1 + 36)) : default(int);
         }
 
-        protected SqlQuery GetSharedQuery(FileEntryType type)
+        protected SqlQuery GetSharedQuery(FileEntryType type, bool my = false)
         {
-            return Query("files_security s")
+            var result = Query("files_security s")
                 .SelectCount()
-                .Where(Exp.EqColumns("s.entry_id", "f.id"))
-                .Where("s.entry_type", (int) type)
-                //.Where("owner", SecurityContext.CurrentAccount.ID.ToString())
-                ;
+                .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
+                .Where("s.entry_type", (int) type);
+
+            if (my)
+            {
+                result.Where("owner", SecurityContext.CurrentAccount.ID.ToString());
+            }
+
+            return result;
         }
 
         protected SqlUpdate GetRecalculateFilesCountUpdate(object folderId)

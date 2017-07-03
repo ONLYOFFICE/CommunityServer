@@ -111,7 +111,7 @@ window.CustomEvent.prototype.call = function (eventName, thisArg, argsArray) {
   var handlers = this.eventHandlers;
   for (var i = 0, n = handlers.length; i < n; i++) {
     if (handlers[i].name === eventName) {
-      handlers[i].handler.apply(thisArg, argsArray);
+        handlers[i].handler.apply(thisArg, argsArray);
       n = handlers.length;
       if (handlers[i] && handlers[i].type & 1) {
         handlers.splice(i, 1);

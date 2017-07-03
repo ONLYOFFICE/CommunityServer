@@ -88,21 +88,6 @@ namespace ASC.Core
             set { SaveSetting("SmtpSettings", value != null ? value.Serialize() : null, CoreContext.TenantManager.GetCurrentTenant().TenantId); }
         }
 
-        public string SKey
-        {
-            get
-            {
-                return GetSetting("DocKey") ?? ConfigurationManager.AppSettings["files.docservice.key"];
-            }
-            set
-            {
-                if (Standalone)
-                {
-                    SaveSetting("DocKey", value);
-                }
-            }
-        }
-
         public string BaseDomain
         {
             get

@@ -42,7 +42,6 @@ namespace ASC.Core.Billing
     {
         private readonly static ILog log = LogManager.GetLogger(typeof(TariffService));
         private readonly bool test;
-        private readonly string filesDocServiceKey;
 
 
         public BillingClient()
@@ -53,7 +52,6 @@ namespace ASC.Core.Billing
         public BillingClient(bool test)
         {
             this.test = test;
-            filesDocServiceKey = ConfigurationManager.AppSettings["files.docservice.key"];
         }
 
 
@@ -90,7 +88,7 @@ namespace ASC.Core.Billing
 
         public IEnumerable<PaymentInfo> GetPayments(string portalId, DateTime from, DateTime to)
         {
-            var result = string.Empty;
+            string result;
             if (from == DateTime.MinValue && to == DateTime.MaxValue)
             {
                 result = Request("GetPayments", portalId);
@@ -106,7 +104,7 @@ namespace ASC.Core.Billing
             }
         }
 
-        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products, string affiliateId = null)
+        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string currency = null, string language = null)
         {
             var urls = new Dictionary<string, Tuple<Uri, Uri>>();
 
@@ -114,6 +112,14 @@ namespace ASC.Core.Billing
             if (!string.IsNullOrEmpty(affiliateId))
             {
                 additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
+            }
+            if (!string.IsNullOrEmpty(currency))
+            {
+                additionalParameters.Add(Tuple.Create("Currency", currency));
+            }
+            if (!string.IsNullOrEmpty(language))
+            {
+                additionalParameters.Add(Tuple.Create("Language", language));
             }
 
             var parameters = products
@@ -211,50 +217,6 @@ namespace ASC.Core.Billing
                     }).ToArray();
         }
 
-        public PaymentOffice GetPaymentOffice(string portalId)
-        {
-            if (32 <= portalId.Length)
-            {
-                // installation or open-source
-                try
-                {
-                    var result = Request("GetLatestActiveResourceInDetails", portalId);
-                    var xelement = ToXElement(result);
-                    var skey = xelement.Element("skey");
-                    var resources = xelement.Element("resource-options");
-                    return new PaymentOffice
-                    {
-                        Key1 = GetValueString(xelement.Element("customer-id")),
-                        Key2 = skey != null ? skey.Value : filesDocServiceKey,
-                        StartDate = GetValueDateTime(xelement.Element("start-date")),
-                        EndDate = GetValueDateTime(xelement.Element("end-date")),
-                        UsersCount = resources != null ? (int)GetValueDecimal(resources.Element("users-max")) : default(int),
-                        Editing = resources != null ? (int)GetValueDecimal(resources.Element("editing")) == 1 : true,
-                        CoEditing = resources != null ? (int)GetValueDecimal(resources.Element("co-editing")) == 1 : true,
-                        Ad = resources != null ? (int)GetValueDecimal(resources.Element("ad")) == 1 : true,
-                    };
-                }
-                catch (BillingException error)
-                {
-                    log.Error(error);
-                    return new PaymentOffice { Key1 = portalId, };
-                }
-            }
-            else
-            {
-                // SAAS
-                return new PaymentOffice
-                {
-                    Key1 = portalId,
-                    Key2 = filesDocServiceKey,
-                    EndDate = DateTime.MaxValue,
-                    UsersCount = int.MaxValue,
-                    CoEditing = true,
-                    Editing = true,
-                };
-            }
-        }
-
         public string AuthorizedPartner(string partnerId, bool setAuthorized, DateTime startDate = default(DateTime))
         {
             try
@@ -329,12 +291,12 @@ namespace ASC.Core.Billing
             }
         }
 
-        private XElement ToXElement(string xml)
+        private static XElement ToXElement(string xml)
         {
             return XElement.Parse(xml);
         }
 
-        private PaymentInfo ToPaymentInfo(XElement x)
+        private static PaymentInfo ToPaymentInfo(XElement x)
         {
             return new PaymentInfo
             {
@@ -371,26 +333,26 @@ namespace ASC.Core.Billing
             return s;
         }
 
-        private string GetValueString(XElement xelement)
+        private static string GetValueString(XElement xelement)
         {
             return xelement != null ? HttpUtility.HtmlDecode(xelement.Value) : default(string);
         }
 
-        private DateTime GetValueDateTime(XElement xelement)
+        private static DateTime GetValueDateTime(XElement xelement)
         {
             return xelement != null ?
                 DateTime.ParseExact(xelement.Value, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) :
                 default(DateTime);
         }
 
-        private Decimal GetValueDecimal(XElement xelement)
+        private static Decimal GetValueDecimal(XElement xelement)
         {
             if (xelement == null || string.IsNullOrEmpty(xelement.Value))
             {
                 return default(Decimal);
             }
             var sep = CultureInfo.InvariantCulture.NumberFormat.CurrencyDecimalSeparator;
-            var value = Decimal.Zero;
+            decimal value;
             return Decimal.TryParse(xelement.Value.Replace(".", sep).Replace(",", sep), NumberStyles.Currency, CultureInfo.InvariantCulture, out value) ? value : default(Decimal);
         }
 

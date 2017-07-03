@@ -242,6 +242,72 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
+        ///    Update Mail account with OAuth authentication. Only Google OAuth supported.
+        /// </summary>
+        /// <param name="code">Oauth code</param>
+        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
+        /// <param name="mailboxId">Mailbox ID to update</param>
+        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
+        /// <returns>Updated OAuth account</returns>
+        /// <short>Update OAuth account</short> 
+        /// <category>Accounts</category>
+        [Update(@"accounts/oauth")]
+        public MailAccountData UpdateAccountOAuth(string code, byte type, int mailboxId)
+        {
+            if (string.IsNullOrEmpty(code))
+                throw new ArgumentException(@"Empty oauth code", "code");
+
+            var oAuthToken = OAuth20TokenHelper.GetAccessToken(GoogleLoginProvider.GoogleOauthTokenUrl,
+                                                          GoogleLoginProvider.GoogleOAuth20ClientId,
+                                                          GoogleLoginProvider.GoogleOAuth20ClientSecret,
+                                                          GoogleLoginProvider.GoogleOAuth20RedirectUrl,
+                                                          code);
+
+            if (oAuthToken == null)
+                throw new Exception(@"Empty oauth token");
+
+            var loginProfile = new GoogleLoginProvider().GetLoginProfile(oAuthToken.AccessToken);
+            var email = loginProfile.EMail;
+
+            if (string.IsNullOrEmpty(email))
+                throw new Exception(@"Empty email");
+
+            try
+            {
+                var mbox = MailBoxManager.GetMailBox(mailboxId);
+
+                if (null == mbox)
+                    throw new ArgumentException("Mailbox with specified email doesn't exist.");
+
+                if (mbox.IsTeamlab || !mbox.IsOAuth)
+                    throw new ArgumentException("Mailbox with specified email can't be updated");
+
+                if(!mbox.EMail.Address.Equals(email, StringComparison.InvariantCultureIgnoreCase))
+                    throw new ArgumentException("Mailbox with specified email can't be updated");
+
+                mbox.OAuthToken = oAuthToken.ToJson();
+                mbox.AccessTokenRefreshed = true;
+
+                MailBoxManager.SaveMailBox(mbox, (AuthorizationServiceType)type);
+                MailBoxManager.CachedAccounts.Clear(Username);
+
+                if (IsSignalRAvailable)
+                    MailBoxManager.UpdateUserActivity(TenantId, Username);
+
+                var accountInfo = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
+                                               MailBox.AuthProblemType.NoProblems, new MailSignature(mbox.MailBoxId, TenantId, "", false),
+                                               new MailAutoreply(mbox.MailBoxId, TenantId, false, false, false, DateTime.MinValue,
+                                                   DateTime.MinValue, String.Empty, String.Empty), false, mbox.EMailInFolder, false, false);
+
+                return accountInfo.ToAddressData().FirstOrDefault();
+            }
+            catch (Exception imapException)
+            {
+                throw new Exception(GetFormattedTextError(imapException, MailServerType.ImapOAuth, imapException is ImapConnectionTimeoutException));
+            }
+        }
+
+        /// <summary>
         ///    Creates account using full information about mail servers.
         /// </summary>
         /// <param name="name">Account name in Teamlab</param>

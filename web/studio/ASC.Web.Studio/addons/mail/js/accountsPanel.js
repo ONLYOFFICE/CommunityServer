@@ -52,6 +52,7 @@ window.accountsPanel = (function($) {
             serviceManager.bind(window.Teamlab.events.setMailMailboxState, update);
             serviceManager.bind(window.Teamlab.events.createMailMailboxSimple, update);
             serviceManager.bind(window.Teamlab.events.createMailMailboxOAuth, update);
+            serviceManager.bind(window.Teamlab.events.updateMailMailboxOAuth, update);
             serviceManager.bind(window.Teamlab.events.createMailMailbox, update);
         }
     };

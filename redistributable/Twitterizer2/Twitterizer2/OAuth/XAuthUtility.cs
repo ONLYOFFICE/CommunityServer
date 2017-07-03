@@ -35,12 +35,10 @@
 namespace Twitterizer
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Net;
     using System.Text.RegularExpressions;
-    using Twitterizer.Core;
 
     /// <summary>
     /// The XAuthUtility class.
@@ -77,11 +75,11 @@ namespace Twitterizer
                 throw new ArgumentNullException("password");
             }
 
-            OAuthTokenResponse response = new OAuthTokenResponse();
+            var response = new OAuthTokenResponse();
 
             try
             {
-                WebRequestBuilder builder = new WebRequestBuilder(
+                var builder = new WebRequestBuilder(
                     new Uri("https://api.twitter.com/oauth/access_token"),
                     HTTPVerb.POST,
                     new OAuthTokens { ConsumerKey = consumerKey, ConsumerSecret = consumerSecret });
@@ -90,7 +88,16 @@ namespace Twitterizer
                 builder.Parameters.Add("x_auth_password", password);
                 builder.Parameters.Add("x_auth_mode", "client_auth");
 
-                string responseBody = new StreamReader(builder.ExecuteRequest().GetResponseStream()).ReadToEnd();
+                var responseBody=string.Empty;
+                using(var request = builder.ExecuteRequest())
+                using (var responseStream = request.GetResponseStream())
+                {
+                    if (responseStream != null)
+                        using (var streamReader = new StreamReader(responseStream))
+                        {
+                            responseBody = streamReader.ReadToEnd();
+                        }
+                }
 
                 response.Token = Regex.Match(responseBody, @"oauth_token=([^&]+)").Groups[1].Value;
                 response.TokenSecret = Regex.Match(responseBody, @"oauth_token_secret=([^&]+)").Groups[1].Value;

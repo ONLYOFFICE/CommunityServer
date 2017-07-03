@@ -88,7 +88,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_FolderNotFound;
                 }
-                else if (folder.FolderType != FolderType.DEFAULT)
+                else if (folder.FolderType != FolderType.DEFAULT && folder.FolderType != FolderType.BUNCH)
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFolder;
                 }
@@ -105,8 +105,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     FileMarker.RemoveMarkAsNewForAll(folder);
                     if (folder.ProviderEntry && folder.ID.Equals(folder.RootFolderId))
                     {
-                        ProviderDao.RemoveProviderInfo(folder.ProviderId);
-                        FilesMessageService.Send(folder, headers, MessageAction.ThirdPartyDeleted, folder.ID.ToString(), folder.ProviderKey);
+                        if (ProviderDao != null)
+                        {
+                            ProviderDao.RemoveProviderInfo(folder.ProviderId);
+                            FilesMessageService.Send(folder, headers, MessageAction.ThirdPartyDeleted, folder.ID.ToString(), folder.ProviderKey);
+                        }
 
                         ProcessedFolder(folderId);
                     }

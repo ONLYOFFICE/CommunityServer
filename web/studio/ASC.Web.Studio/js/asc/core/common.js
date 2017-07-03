@@ -476,7 +476,6 @@ var FCKCommentsController = new function () {
 var PopupKeyUpActionProvider = new function () {
     //close dialog by esc
     jq(document).keyup(function (event) {
-
         if (!jq('.popupContainerClass').is(':visible'))
             return;
 
@@ -509,7 +508,6 @@ var PopupKeyUpActionProvider = new function () {
         if (PopupKeyUpActionProvider.CloseDialogAction != null && PopupKeyUpActionProvider.CloseDialogAction != '') {
             eval(PopupKeyUpActionProvider.CloseDialogAction);
         }
-
         PopupKeyUpActionProvider.ClearActions();
     };
 
@@ -525,6 +523,9 @@ var PopupKeyUpActionProvider = new function () {
         this.EnterActionCallback = '';
         this.CtrlEnterAction = '';
         this.EnableEsc = true;
+        if (typeof (TMTalk) != 'undefined') {
+            TMTalk.hideDialog();
+        }
     };
 };
 

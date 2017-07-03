@@ -108,7 +108,8 @@ namespace ASC.Web.Studio.Core.SMS
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.Timeout = 1000;
 
-                using (var stream = request.GetResponse().GetResponseStream())
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
                 using (var reader = new StreamReader(stream))
                 {
                     var result = reader.ReadToEnd();

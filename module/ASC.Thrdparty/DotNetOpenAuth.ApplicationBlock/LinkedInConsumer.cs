@@ -70,9 +70,9 @@ namespace DotNetOpenAuth.ApplicationBlock
             }
 
             var request = consumer.PrepareAuthorizedRequest(ProfileEndpoint, accessToken, new Dictionary<string, string>());
-            var response = consumer.Channel.WebRequestHandler.GetResponse(request);
-            string body = response.GetResponseReader().ReadToEnd();
-            return body;
+            using (var response = consumer.Channel.WebRequestHandler.GetResponse(request))
+            using (var reader = response.GetResponseReader())
+                return reader.ReadToEnd();
         }
     }
 }

@@ -108,7 +108,7 @@ namespace ASC.Xmpp.Server.Storage
             ExecuteBatch(batch);
         }
 
-        public Message[] GetMessages(Jid from, Jid to, DateTime start, DateTime end, int count)
+        public Message[] GetMessages(Jid from, Jid to, DateTime start, DateTime end, int count, int startindex = 0)
         {
             if (from == null) throw new ArgumentNullException("from");
             if (to == null) throw new ArgumentNullException("to");
@@ -126,11 +126,14 @@ namespace ASC.Xmpp.Server.Storage
             {
                 q.Where(Exp.Le("stamp", end));
             }
+            if (startindex < int.MaxValue)
+            {
+                q.SetFirstResult(startindex);
+            }
             if (0 < count && count < int.MaxValue)
             {
                 q.SetMaxResults(count);
             }
-
             var messages = ExecuteList(q).ConvertAll(r => ElementSerializer.DeSerializeElement<Message>((string)r[0]));
             messages.Reverse();
             return messages.ToArray();

@@ -35,6 +35,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using ASC.Xmpp.Server.Storage;
 using Uri = ASC.Xmpp.Core.protocol.Uri;
 
 namespace ASC.Xmpp.Server.Gateway
@@ -144,7 +145,6 @@ namespace ASC.Xmpp.Server.Gateway
         public void ProcessBody(Body body, HttpListenerContext ctx)
         {
             log.DebugFormat("Start process body connection {0}", Id);
-
             lock (locker)
             {
                 CloseRequest(false);
@@ -152,7 +152,22 @@ namespace ASC.Xmpp.Server.Gateway
                 lastRequestTime = DateTime.Now;
                 currentRequest = new BoshXmppRequest(Id, body, ctx);
             }
-
+            if (body.HasChildElements)
+            {
+                if (body.FirstChild.GetAttribute("type") == "notification")
+                {
+                    //сonfiguring store and write to data base
+                    DbPushStore dbPushStore = new DbPushStore();
+                    var properties = new Dictionary<string, string>(1);
+                    properties.Add("connectionStringName", "default");
+                    dbPushStore.Configure(properties);
+                    dbPushStore.SaveUserEndpoint(
+                        body.FirstChild.GetAttribute("username"), 
+                        body.FirstChild.GetAttribute("endpoint"),
+                        body.FirstChild.GetAttribute("browser"));
+                }
+            }
+            
             if (body.Type == BoshType.terminate)
             {
                 Close();
@@ -164,7 +179,7 @@ namespace ASC.Xmpp.Server.Gateway
                 CloseRequest(true);
                 return;
             }
-
+           
             IdleWatcher.UpdateTimeout(Id, waitTimeout);
 
             if (string.IsNullOrEmpty(body.Sid) || body.XmppRestart)

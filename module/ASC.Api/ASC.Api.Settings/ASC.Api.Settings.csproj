@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Settings</RootNamespace>
     <AssemblyName>ASC.Api.Settings</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildVersion.cs" />
+    <Compile Include="SsoSettingsV2Api.cs" />
     <Compile Include="LdapSettingsApi.cs" />
     <Compile Include="SecurityWrapper.cs" />
     <Compile Include="QuotaUsage.cs" />

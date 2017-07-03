@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug46|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\net46</OutputPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS1591,CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release40|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net40\</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\net40\antlr.runtime.xml</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS1591,CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release45|AnyCPU'">
+    <OutputPath>bin\Release\net45\</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\net45\antlr.runtime.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>CS1591,CS7035</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release46|AnyCPU'">
+    <OutputPath>bin\Release\net46\</OutputPath>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\net46\antlr.runtime.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>CS1591,CS7035</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <ProjectGuid>{CB7CC882-ED47-46C0-AAAE-7A437F22F1C6}</ProjectGuid>
+    <TargetFrameworkProfile />
+	<TrunkDir>..\..\..\</TrunkDir>
+    <BuildPackage>true</BuildPackage>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="antlr.collections\BitSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr.collections\AST.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\ANTLRException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\ANTLRPanicException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\ByteBuffer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\CharBuffer.cs" />
+    <Compile Include="antlr\CharScanner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\CharStreamException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\CharStreamIOException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\CommonToken.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\DefaultFileLineFormatter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\FileLineFormatter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\InputBuffer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\IToken.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\LexerSharedInputState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\LLkParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\MismatchedCharException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\MismatchedTokenException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\NoViableAltException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\NoViableAltForCharException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\Parser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\ParserSharedInputState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\RecognitionException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\Token.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenBuffer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenStreamException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenStreamIOException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenStreamRecognitionException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="antlr\TokenStreamRetryException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(TrunkDir)\.nuget\NuGet.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

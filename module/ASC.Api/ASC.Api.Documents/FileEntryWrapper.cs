@@ -58,14 +58,6 @@ namespace ASC.Api.Documents
         [DataMember]
         public bool Shared { get; set; }
 
-        //todo: remove
-        /// <summary>
-        /// SharedByMe is deprecated, please use Shared instead.
-        /// </summary>
-        [DataMember]
-        [Obsolete("SharedByMe is deprecated, please use Shared instead.")]
-        public bool SharedByMe { get { return Shared; } }
-
         /// <summary>
         /// </summary>
         [DataMember(Order = 50)]

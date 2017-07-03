@@ -29,11 +29,6 @@
     padding-top: 20px;
     text-align: center;
 }
-.file-row.checkloading .checkbox {
-    background: url("images/throbber.gif") no-repeat 0 4px transparent;
-    margin-bottom: 2px;
-    margin-top: 6px;
-}
 
 /*************************************************************
    To Parent Folder
@@ -108,10 +103,21 @@
     position: relative;
 }
 .file-row .checkbox {
-    margin: 8px 8px 0 4px;
-    height: 28px;
-    width: 28px;
+    cursor: pointer;
+    height: 19px;
+    margin-top: -6px;
+    margin-right: 4px;
+    padding: 14px 0 14px 4px;
+    width: 25px;
 }
+.file-row .checkbox:hover {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.file-row.checkloading .checkbox {
+    background: url("images/throbber.gif") no-repeat 7px 16px transparent;
+}
+
 .file-row.new-folder .checkbox,
 .file-row.new-file .checkbox,
 .file-row.row-rename .checkbox,
@@ -131,6 +137,10 @@
 .file-row.checkloading.new-file .entry-title,
 .file-row.checkloading.row-rename .entry-title {
     margin: 6px 0 8px;
+}
+
+.file-row .checkbox input {
+    cursor: pointer;
 }
 .file-row .checkbox input[type=radio] {
     display: none;
@@ -355,16 +365,16 @@ ul.without-share .btn-row {
    compact view
 *******************************************************************************/
 #filesMainContent.compact .file-row.checkloading .checkbox {
-    margin-bottom: 0;
-    margin-top: 2px;
+    background-position-y: 7px;
 }
 #filesMainContent.compact .file-row {
     height: 28px;
     padding: 2px 0 1px;
 }
 #filesMainContent.compact .checkbox {
-    height: 24px;
-    margin-top: 4px;
+    margin-top: -2px;
+    padding-bottom: 6px;
+    padding-top: 6px;
 }
 #filesMainContent.compact .file-row .entry-title .name {
     max-width: 74px;

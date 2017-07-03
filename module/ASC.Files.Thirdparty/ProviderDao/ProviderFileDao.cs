@@ -104,16 +104,36 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result.ToList();
         }
 
+        public List<File> GetFilesForShare(object[] fileIds)
+        {
+            var result = Enumerable.Empty<File>();
+
+            foreach (var selector in GetSelectors())
+            {
+                var selectorLocal = selector;
+                var mathedIds = fileIds.Where(selectorLocal.IsMatch);
+
+                if (!mathedIds.Any()) continue;
+
+                result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
+                                                .SelectMany(y => selectorLocal.GetFileDao(y.FirstOrDefault())
+                                                                              .GetFilesForShare(y.Select(selectorLocal.ConvertId).ToArray()))
+                                                .Where(r => r != null));
+            }
+
+            return result.ToList();
+        }
+
         public List<object> GetFiles(object parentId)
         {
             var selector = GetSelector(parentId);
             return selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId)).Where(r => r != null).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
         {
             var selector = GetSelector(parentId);
-            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
+            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders, my)
                                  .Where(r => r != null).ToList();
 
             if (!result.Any()) return new List<File>();

@@ -116,6 +116,11 @@ namespace ASC.Core
                 .FirstOrDefault(u => u.Sid != null && string.Compare(u.Sid, sid, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
         }
 
+        public UserInfo GetSsoUserByNameId(string nameId)
+        {
+            return GetUsersInternal()
+                .FirstOrDefault(u => !string.IsNullOrEmpty(u.SsoNameId) && string.Compare(u.SsoNameId, nameId, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
+        }
         public bool IsUserNameExists(string username)
         {
             return GetUserNames(EmployeeStatus.All)

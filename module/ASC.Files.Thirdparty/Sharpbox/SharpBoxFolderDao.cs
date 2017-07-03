@@ -114,7 +114,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             return folderIds.Select(GetFolder).ToList();
         }
@@ -341,6 +341,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
         }
 
         public string GetBunchObjectID(object folderID)
+        {
+            return null;
+        }
+
+        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
         {
             return null;
         }

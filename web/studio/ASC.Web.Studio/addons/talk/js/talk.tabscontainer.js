@@ -7,6 +7,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
     isInit = false,
     tablistContainer = null,
     defaultTab = null,
+    defaultContact = null,
     incomingMessages = {},
     roomIds = {};
 
@@ -779,11 +780,15 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
           var selectTab = element.parentNode.parentNode;
           if (ASC.TMTalk.dom.hasClass(selectTab, 'tab')) {
             var roomId = selectTab.getAttribute('data-roomid');
+            var jid = selectTab.getAttribute('data-cid');
             if (roomId) {
               ASC.TMTalk.roomsManager.closeRoom(roomId);
             }
+            if (jid && !ASC.TMTalk.dom.hasClass(selectTab, 'conference')) {
+              ASC.TMTalk.messagesManager.clearCurrentHistory(jid);
+            }
           }
-        } else if (ASC.TMTalk.dom.hasClass(element, 'tab-title')) {
+        } else if (ASC.TMTalk.dom.hasClass(element, 'tab-title') || ASC.TMTalk.dom.hasClass(element, 'state')) {
           var selectTab = element.parentNode.parentNode;
           if (ASC.TMTalk.dom.hasClass(selectTab, 'tab')) {
             if (!ASC.TMTalk.dom.hasClass(selectTab, 'current')) {
@@ -797,9 +802,23 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
       });
 
     $('#talkTabContainer div.navigation:first').click(function (evt) {
-      var element = evt.target;
+        var element = evt.target;
+        if (ASC.TMTalk.dom.hasClass(element, 'size') || ASC.TMTalk.dom.hasClass(element, 'countHiddenTabs') || ASC.TMTalk.dom.hasClass(element, 'all') || ASC.TMTalk.dom.hasClass(element, 'pointer-down')) {
+            var $container = null;
+            var nodes = ASC.TMTalk.dom.getElementsByClassName(document.getElementById('talkTabContainer'), 'tab hidden', 'li');
+            var hiddenLen = (nodes.length === 1 && ASC.TMTalk.dom.hasClass(nodes[0], 'default')) ? 0 : nodes.length;
 
-      if (ASC.TMTalk.dom.hasClass(element, 'button-talk') && ASC.TMTalk.dom.hasClass(element, 'move-to-left')) {
+            if (($container = $('#talkTabContainer div.navigation:first div.popupContainerClass:first')).is(':hidden') && hiddenLen!==0) {
+              $container.show('fast', function () {
+                  if ($.browser.msie) {
+                      window.focus();
+                  }
+                  $(document).one('click', function () {
+                      $('#talkTabContainer div.navigation:first div.popupContainerClass:first').hide();
+                  });
+              });
+          }
+      }else if (ASC.TMTalk.dom.hasClass(element, 'button-talk') && ASC.TMTalk.dom.hasClass(element, 'move-to-left')) {
         var
           tablistContainer = document.getElementById('talkTabContainer'),
           nodes = null,
@@ -869,8 +888,72 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
             ASC.TMTalk.dom.removeClass(tablistContainer, 'has-repressed');
           }
         }
+      } else if (ASC.TMTalk.dom.hasClass(element, 'hiddenContactTitle')) {
+          
+          var needHiddenTab = jq("#talkTabContainer li.tab[data-cid='" + element.parentNode.getAttribute('data-cid') + "'].hidden");
+          if (needHiddenTab.length !== 0) {
+              jq("#talkTabContainer li.tab:not(.hidden):first").addClass('hidden');
+              needHiddenTab.removeClass('hidden');
+              findHiddenTabs(document.getElementById('talkTabContainer'));
+              if (!needHiddenTab.hasClass('current')) {
+                  var roomId = needHiddenTab[0].getAttribute('data-roomid');
+                  if (roomId) {
+                      ASC.TMTalk.roomsManager.openRoom(roomId);
+                  }
+              }
+          }
       }
     });
+
+    var findHiddenTabs = function (tablistContainer) {
+        var nodes = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'tab hidden', 'li');
+        
+        var hiddenLen = (nodes.length === 1 && ASC.TMTalk.dom.hasClass(nodes[0], 'default')) ? 0 : nodes.length;
+
+        var containerHiddenTabs = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'popupContainerClass hiddenTabs', 'div');
+        var nodesContact = ASC.TMTalk.dom.getElementsByClassName(containerHiddenTabs[0], 'contact default', 'li');
+        var
+            newcontact,
+            newcontacttitle,
+            classname,
+            contactjid,
+            titleHiddenTab = null;
+
+        var defaultContact = nodesContact.length > 0 ? nodesContact[0] : null;
+        var listHiddenTabs = ASC.TMTalk.dom.getElementsByClassName(containerHiddenTabs[0], 'contactlist', 'ul');
+        
+        if (hiddenLen >= 2) {
+            jq("div.popupContainerClass.hiddenTabs li").not(".default").remove();
+            jq('div#talkTabContainer div.navigation div.size div.hiddennewmessage:first').hide();
+            for (var i = 1; i < nodes.length; i++) {
+
+                newcontact = defaultContact.cloneNode(true);
+                newcontact.className = newcontact.className.replace(/\s*default\s*/, ' ').replace(/^\s+|\s+$/g, '');
+                contactjid = nodes[i].getAttribute('data-cid')
+                newcontact.setAttribute('data-cid', contactjid);
+                titleHiddenTab = ASC.TMTalk.dom.getElementsByClassName(nodes[i], 'tab-title', 'div');
+
+                classname = newcontact.className;
+                classname += ' ' + ASC.TMTalk.contactsManager.getContactStatus(contactjid).className;
+                if (contactjid === ASC.TMTalk.connectionManager.getDomain()) {
+                    classname += ' master';
+                }
+
+                if (ASC.TMTalk.dom.hasClass(nodes[i], 'new-message')) {
+                    classname += ' new-message';
+                    jq('div#talkTabContainer div.navigation div.size div.hiddennewmessage:first').show();
+                }
+                newcontact.className = classname;
+
+                newcontacttitle = ASC.TMTalk.dom.getElementsByClassName(newcontact, 'title', 'div');
+                ASC.TMTalk.dom.addClass(newcontacttitle[0], 'hiddenContactTitle');
+                newcontacttitle[0].title = titleHiddenTab[0].getAttribute('title');
+                newcontacttitle[0].innerHTML = titleHiddenTab[0].innerHTML;
+
+                listHiddenTabs[0].appendChild(newcontact);
+            }
+        }
+    };
 
     $(window).resize(function () {
       var
@@ -920,15 +1003,42 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
           for (var i = 0, n = nodes.length; i < n; i++) {
             ASC.TMTalk.dom.addClass(nodes[i], 'hidden');
             if (currentTab.offsetTop < currentTab.offsetHeight) {
+                for (var j = i + i; j < n; j++) {
+                    if (nodes[j].offsetTop >= nodes[j].offsetHeight && !ASC.TMTalk.dom.hasClass(nodes[j], 'hidden')) {
+                        ASC.TMTalk.dom.addClass(nodes[j], 'hidden');
+                    }
+                }
               break;
             }
           }
         }
+      } else if (currentTab) {
+          var allNodes = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'tab', 'li');
+          for (var i = 0, n = allNodes.length; i < n; i++) {
+              if (allNodes[i].offsetTop >= allNodes[i].offsetHeight && !ASC.TMTalk.dom.hasClass(allNodes[i], 'hidden')) {
+                  ASC.TMTalk.dom.addClass(allNodes[i], 'hidden');
+              }
+          }
       }
-
       nodes = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'tab hidden', 'li');
       var hiddenLen = (nodes.length === 1 && ASC.TMTalk.dom.hasClass(nodes[0], 'default')) ? 0 : nodes.length;
+      
 
+      findHiddenTabs(tablistContainer);
+      
+
+      var hiddenTabs = ASC.TMTalk.dom.getElementsByClassName(tablistContainer, 'size', 'div');
+      var sizeHiddenTabs = hiddenTabs.length > 0 ? hiddenTabs[0] : null;
+      if (sizeHiddenTabs !== null) {
+          hiddenTabs = ASC.TMTalk.dom.getElementsByClassName(sizeHiddenTabs, 'all', 'span');
+          var num = hiddenLen !==0 ? hiddenLen-1:0;
+          hiddenTabs[0].innerHTML = num;
+          if (num <= 0) 
+              ASC.TMTalk.dom.addClass(sizeHiddenTabs, 'hidden');
+          else 
+              ASC.TMTalk.dom.removeClass(sizeHiddenTabs, 'hidden');
+      }
+      
       if (hiddenLen > 0 || (lastTab && lastTab.offsetTop >= lastTab.offsetHeight)) {
         ASC.TMTalk.dom.addClass(tablistContainer, 'overflow');
 

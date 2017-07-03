@@ -878,6 +878,9 @@ Are you sure want to delete {!user} {0}?</value>
   <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
     <value>Password recovery operation is prohibited for an LDAP user</value>
   </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Password recovery operation is prohibited for an SSO user</value>
+  </data>
   <data name="CreateButton" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -3557,8 +3560,14 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="LdapUsersListLockTitle" xml:space="preserve">
     <value>The user has been imported from LDAP</value>
   </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>The user has been imported from SSO</value>
+  </data>
   <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
     <value>The user has been imported from LDAP. Contact your LDAP administrator if you want to change the locked profile fields.</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>The user has been imported from SSO. Contact your SSO administrator if you want to change the locked profile fields.</value>
   </data>
   <data name="AuthorizationKeysEnableButton" xml:space="preserve">
     <value>Enable</value>
@@ -3587,7 +3596,40 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
     <value>Соединение уже установлено в другом окне</value>
   </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Settings could not be null</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Invalid binding: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Invalid entityId</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Invalid fields mapping</value>
+  </data>
   <data name="RecalculateQuota" xml:space="preserve">
     <value>Пересчитать</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>Api key</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>Sender ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>Project ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Server key</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Подключить сервис Firebase Cloud Messaging для получения уведомлений о полученных сообщениях.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Добавив Firebase Cloud Messaging Вы сможете получать уведомлений о полученных сообщениях, находясь не в сети.</value>
   </data>
 </root>

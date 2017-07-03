@@ -23,6 +23,12 @@
  *
 */
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Web;
 
 using ASC.Api;
 using ASC.Common.Data;
@@ -34,14 +40,9 @@ using ASC.FullTextIndex;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Caching;
+
 
 namespace ASC.Files.Core.Data
 {
@@ -197,9 +198,9 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
-            var q = GetFolderQuery(Exp.In("id", folderIds));
+            var q = GetFolderQuery(Exp.In("id", folderIds), checkShare);
 
             if (!string.IsNullOrEmpty(searchText))
             {
@@ -753,7 +754,7 @@ namespace ASC.Files.Core.Data
 
         #endregion
 
-        protected SqlQuery GetFolderQuery(Exp where)
+        protected SqlQuery GetFolderQuery(Exp where, bool checkShare = true)
         {
             return Query("files_folder f")
                 .Select("f.id")
@@ -767,7 +768,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.foldersCount")
                 .Select("f.filesCount")
                 .Select(GetRootFolderType("parent_id"))
-                .Select(GetSharedQuery(FileEntryType.Folder))
+                .Select(checkShare ? GetSharedQuery(FileEntryType.Folder) : new SqlQuery().Select("1"))
                 .Where(@where);
         }
 
@@ -779,6 +780,18 @@ namespace ASC.Files.Core.Data
                     Query("files_bunch_objects")
                         .Select("right_node")
                         .Where(Exp.Eq("left_node", (folderID ?? string.Empty).ToString())));
+            }
+        }
+
+        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
+        {
+            using (var dbManager = GetDb())
+            {
+                return dbManager.ExecuteList(
+                    Query("files_bunch_objects")
+                        .Select("left_node", "right_node")
+                        .Where(Exp.In("left_node", folderIDs.Select(folderID => (folderID ?? string.Empty).ToString()).ToList())))
+                        .ToDictionary(r=> r[0].ToString(), r=> r[1].ToString());
             }
         }
 
@@ -815,7 +828,7 @@ namespace ASC.Files.Core.Data
 
             var apiServer = new ApiServer();
 
-            var apiUrl = String.Format("{0}project/{1}.json", SetupInfo.WebApiBaseUrl, projectID);
+            var apiUrl = String.Format("{0}project/{1}.json?fields=id,title", SetupInfo.WebApiBaseUrl, projectID);
 
             var responseApi = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(apiServer.GetApiResponse(apiUrl, "GET"))))["response"];
 

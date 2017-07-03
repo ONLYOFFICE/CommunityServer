@@ -246,6 +246,13 @@ window.ASC.TMTalk.properties = (function () {
     var oldvalue = properties[name] || '';
     properties[name] = value;
     if (inStorage === true) {
+        if (jQuery.isEmptyObject(storage) && ASC.TMTalk.cookies.get(cookieName)) {
+            var cookieProperty = ASC.TMTalk.cookies.get(cookieName).split(propertySeparator);
+            for (var i = 0; i < cookieProperty.length; i++) {
+                var field = cookieProperty[i].split(fieldSeparator);
+                storage[field[0]] = field[1];
+            }
+        }
       storage[name] = value;
       save();
     }
@@ -1313,7 +1320,8 @@ window.ASC.TMTalk.notifications  = (function () {
           body: content,
           tag: marker,
           timeout: 10000,
-          iconUrl: window.ASC.TMTalk.Resources.iconTeamlabOffice32
+          //iconUrl: window.ASC.TMTalk.Resources.iconTeamlabOffice32
+          iconUrl: "http://download.onlyoffice.com/assets/logo/emptyuser-48.png"
       }).then(function (notification) {
           if (notification !== null) {
               notifications.push({ marker: marker, handler: notification });
@@ -1341,23 +1349,131 @@ window.ASC.TMTalk.notifications  = (function () {
           }
       }
   };
-
   var enable = function () {
-      if (window.Notification) {
-          jq.notification.requestPermission(function () {
-              if (jq.notification.permissionLevel() != "denied") {
-                  isDisabled = false;
-                  ASC.TMTalk.properties.item(propertyName, "1", true);
-              }
-          });
+      //Defer subscription
+      if (jq('#talkStatusMenu').hasClass('processing')) {
+          setTimeout(enable, 100);
+          return;
       }
-  };
+      if (window.Notification) {
+         try {
+             var messaging = window.firebase.messaging();
+             messaging.requestPermission()
+                 .then(function() {
+                     return messaging.getToken();
+                 })
+                 .then(function(token) {
+                     var browser = getBrowser();
+                     var username = ASC.TMTalk.connectionManager.getJID();
+                     username = username.split('@')[0];
+                     var endpoint = token;
+                     ASC.TMTalk.connectionManager.savePushEndpoint(username, endpoint, browser);
+                 })
+                 .catch(function(err) {
+                     console.log("Permission error:", err);
+                 });
+         } catch(exp) {
+         } finally {
+             Notification.requestPermission()
+                 .then(function() {
+                     if (Notification.permission === 'denied') {
+                         return;
+                     }
+                     isDisabled = false;
+                     ASC.TMTalk.properties.item(propertyName, "1", true);
+                     jq('#button-browser-notification').addClass('on').removeClass('off');
+                 });
+         }
+        }
+    };
 
-  var disable = function () {
-    isDisabled = true;
-    ASC.TMTalk.properties.item(propertyName, "0", true);
-  };
+    var getBrowser = function() { 
+       
+        var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+        var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+        var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+        var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+        var is_opera = navigator.userAgent.toLowerCase().indexOf("opr") > -1;
 
+        if ((is_chrome) && (is_safari) && (is_opera)) {
+            return 'Opera';
+        }
+        else if ((is_chrome) && (is_safari)) {
+            return 'Google Chrome';
+        } else if ((is_safari)) {
+            return 'Safari';
+        } else if (is_firefox) {
+            return 'Firefox';
+        } else if (is_explorer) {
+            return 'Internet Explorer';
+        }
+        
+        return "Unknown browser";
+    };
+    
+    var disable = function () {
+        isDisabled = true;
+        ASC.TMTalk.properties.item(propertyName, "0", true);
+        navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+            serviceWorkerRegistration.pushManager.getSubscription().then(
+                function(subscription) {
+                    if (!subscription) {
+                        return;
+                    }
+                    subscription.unsubscribe().then(function(successful) {
+
+                    }).catch(function(e) {
+                        console.log('Unsubscription error: ', e);
+                    });
+                });
+        });
+    };
+
+    var initialiseFirebase = function (config) {
+        if (typeof config === "object") {
+            if (!jQuery.browser.msie) {
+                try {
+                    window.firebase.initializeApp(config);
+                } catch(e) {
+                    console.log("initialize firebase error: ", e);
+                }
+            } else {
+                return;
+            }
+            //Are service workers supported in this browser
+            if ('serviceWorker' in navigator && !jQuery.browser.msie) {
+                navigator.serviceWorker.register('talk.notification.js')
+                    .then(initialiseState);
+            }
+        } else {
+            if (!jQuery.browser.msie) {
+                navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+                    serviceWorkerRegistration.pushManager.getSubscription().then(
+                        function(subscription) {
+                            if (!subscription) {
+                                return;
+                            }
+                            subscription.unsubscribe().then(function(successful) {
+
+                            }).catch(function(e) {
+                                console.log('Unsubscription error: ', e);
+                            });
+                        });
+                });
+            }
+    }
+    };
+ 
+    function initialiseState(registration) {
+        var messaging = window.firebase.messaging();
+        messaging.useServiceWorker(registration);
+        if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
+            return;
+        }
+        setTimeout(enable, 500);
+        
+    }
+ 
   var enabled = function () {
     return !isDisabled;
   };
@@ -1371,7 +1487,9 @@ window.ASC.TMTalk.notifications  = (function () {
     enable    : enable,
     disable   : disable,
     enabled   : enabled,
-    supported : supported
+    supported : supported,
+
+    initialiseFirebase: initialiseFirebase
   };
 })();
 

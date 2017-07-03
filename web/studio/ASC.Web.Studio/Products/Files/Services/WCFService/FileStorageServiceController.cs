@@ -127,13 +127,18 @@ namespace ASC.Web.Files.Services.WCFService
             using (var folderDao = GetFolderDao())
             using (var fileDao = GetFileDao())
             {
-                Folder parent;
+                Folder parent = null;
                 try
                 {
                     parent = folderDao.GetFolder(parentId);
+                    if (!string.IsNullOrEmpty(parent.Error)) throw new Exception(parent.Error);
                 }
                 catch (Exception e)
                 {
+                    if (parent != null && parent.ProviderEntry)
+                    {
+                        throw GenerateException(new Exception(FilesCommonResource.ErrorMassage_SharpBoxException, e));
+                    }
                     throw GenerateException(e);
                 }
 
@@ -356,7 +361,8 @@ namespace ASC.Web.Files.Services.WCFService
                 }
                 else
                 {
-                    entries = entries.Concat(fileDao.GetFiles(folder.ID, orderBy, filter, subjectId, search));
+                    var myFolder = folder.RootFolderType == FolderType.USER && folder.RootFolderCreator == SecurityContext.CurrentAccount.ID;
+                    entries = entries.Concat(fileDao.GetFiles(folder.ID, orderBy, filter, subjectId, search, myFolder));
                 }
 
                 entries = EntryManager.SortEntries(entries, orderBy);
@@ -859,6 +865,8 @@ namespace ASC.Web.Files.Services.WCFService
         {
             using (var providerDao = GetProviderDao())
             {
+                if (providerDao == null) return new ItemList<ThirdPartyParams>();
+
                 var providersInfo = providerDao.GetProvidersInfo();
 
                 var resultList = providersInfo
@@ -881,10 +889,9 @@ namespace ASC.Web.Files.Services.WCFService
             using (var folderDao = GetFolderDao())
             using (var providerDao = GetProviderDao())
             {
-                var providersInfo =
-                    (FolderType)folderType == FolderType.DEFAULT
-                        ? providerDao.GetProvidersInfo()
-                        : providerDao.GetProvidersInfo((FolderType)folderType);
+                if (providerDao == null) return new ItemList<Folder>();
+
+                var providersInfo = providerDao.GetProvidersInfo((FolderType)folderType);
 
                 var folders = folderDao.GetFolders(providersInfo.Select(r => r.RootFolderId).ToArray());
                 foreach (var folder in folders)
@@ -902,6 +909,8 @@ namespace ASC.Web.Files.Services.WCFService
             using (var folderDao = GetFolderDao())
             using (var providerDao = GetProviderDao())
             {
+                if (providerDao == null) return null;
+
                 ErrorIf(thirdPartyParams == null, FilesCommonResource.ErrorMassage_BadRequest);
                 var parentFolder = folderDao.GetFolder(thirdPartyParams.Corporate && !CoreContext.Configuration.Personal ? Global.FolderCommon : Global.FolderMy);
                 ErrorIf(!FileSecurity.CanCreate(parentFolder), FilesCommonResource.ErrorMassage_SecurityException_Create);
@@ -930,6 +939,10 @@ namespace ASC.Web.Files.Services.WCFService
                         curProviderId = providerDao.SaveProviderInfo(thirdPartyParams.ProviderKey, thirdPartyParams.CustomerTitle, thirdPartyParams.AuthData, folderType);
                         messageAction = MessageAction.ThirdPartyCreated;
                     }
+                    catch (UnauthorizedAccessException e)
+                    {
+                        throw GenerateException(e, true);
+                    }
                     catch (Exception e)
                     {
                         throw GenerateException(e);
@@ -940,18 +953,21 @@ namespace ASC.Web.Files.Services.WCFService
                     curProviderId = Convert.ToInt32(thirdPartyParams.ProviderId);
 
                     var lostProvider = providerDao.GetProviderInfo(curProviderId);
+                    ErrorIf(lostProvider.Owner != SecurityContext.CurrentAccount.ID, FilesCommonResource.ErrorMassage_SecurityException);
+
                     lostFolderType = lostProvider.RootFolderType;
-                    if (!thirdPartyParams.Corporate)
+                    if (lostProvider.RootFolderType == FolderType.COMMON && !thirdPartyParams.Corporate)
                     {
                         var lostFolder = folderDao.GetFolder(lostProvider.RootFolderId);
                         FileMarker.RemoveMarkAsNewForAll(lostFolder);
                     }
 
-                    curProviderId = providerDao.UpdateProviderInfo(curProviderId, thirdPartyParams.CustomerTitle, folderType);
+                    curProviderId = providerDao.UpdateProviderInfo(curProviderId, thirdPartyParams.CustomerTitle, thirdPartyParams.AuthData, folderType);
                     messageAction = MessageAction.ThirdPartyUpdated;
                 }
 
                 var provider = providerDao.GetProviderInfo(curProviderId);
+                provider.InvalidateStorage();
 
                 var folder = folderDao.GetFolder(provider.RootFolderId);
                 ErrorIf(!FileSecurity.CanRead(folder), FilesCommonResource.ErrorMassage_SecurityException_ViewFolder);
@@ -970,22 +986,43 @@ namespace ASC.Web.Files.Services.WCFService
         [ActionName("thirdparty-delete"), HttpGet]
         public object DeleteThirdParty(String providerId)
         {
-            using (var folderDao = GetFolderDao())
             using (var providerDao = GetProviderDao())
             {
-                var curProviderId = Convert.ToInt32(providerId);
-                var provider = providerDao.GetProviderInfo(curProviderId);
+                if (providerDao == null) return null;
 
-                var folder = folderDao.GetFolder(provider.RootFolderId);
+                var curProviderId = Convert.ToInt32(providerId);
+                var providerInfo = providerDao.GetProviderInfo(curProviderId);
+
+                var folder = 
+                    //Fake folder. Don't send request to third party
+                    new Folder
+                        {
+                            ID = providerInfo.RootFolderId,
+                            //ParentFolderID = parent.ID,
+                            CreateBy = providerInfo.Owner,
+                            CreateOn = providerInfo.CreateOn,
+                            FolderType = FolderType.DEFAULT,
+                            ModifiedBy = providerInfo.Owner,
+                            ModifiedOn = providerInfo.CreateOn,
+                            ProviderId = providerInfo.ID,
+                            ProviderKey = providerInfo.ProviderKey,
+                            RootFolderCreator = providerInfo.Owner,
+                            RootFolderId = providerInfo.RootFolderId,
+                            RootFolderType = providerInfo.RootFolderType,
+                            Shareable = false,
+                            Title = providerInfo.CustomerTitle,
+                            TotalFiles = 0,
+                            TotalSubFolders = 0
+                        };
                 ErrorIf(!FileSecurity.CanDelete(folder), FilesCommonResource.ErrorMassage_SecurityException_DeleteFolder);
 
-                if (provider.RootFolderType == FolderType.COMMON)
+                if (providerInfo.RootFolderType == FolderType.COMMON)
                 {
                     FileMarker.RemoveMarkAsNewForAll(folder);
                 }
 
                 providerDao.RemoveProviderInfo(folder.ProviderId);
-                FilesMessageService.Send(folder, GetHttpHeaders(), MessageAction.ThirdPartyDeleted, folder.ID.ToString(), provider.ProviderKey);
+                FilesMessageService.Send(folder, GetHttpHeaders(), MessageAction.ThirdPartyDeleted, folder.ID.ToString(), providerInfo.ProviderKey);
 
                 return folder.ID;
             }
@@ -1461,6 +1498,8 @@ namespace ASC.Web.Files.Services.WCFService
         {
             ErrorIf(messageAddresses == null, FilesCommonResource.ErrorMassage_BadRequest);
 
+            ErrorIf(messageAddresses.Address.Count > Global.MaxEmailCount, FilesCommonResource.ErrorMassage_ManyEmailAddresses);
+
             using (var fileDao = GetFileDao())
             {
                 var file = fileDao.GetFile(fileId);
@@ -1735,14 +1774,21 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        private void ErrorIf(bool condition, string errorMessage)
+        private static void ErrorIf(bool condition, string errorMessage)
         {
             if (condition) throw new InvalidOperationException(errorMessage);
         }
 
-        private Exception GenerateException(Exception error)
+        private static Exception GenerateException(Exception error, bool warning = false)
         {
-            Global.Logger.Error(error);
+            if (warning)
+            {
+                Global.Logger.Info(error);
+            }
+            else
+            {
+                Global.Logger.Error(error);
+            }
             return new InvalidOperationException(error.Message, error);
         }
 

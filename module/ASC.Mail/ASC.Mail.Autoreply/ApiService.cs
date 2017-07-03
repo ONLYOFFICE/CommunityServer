@@ -127,7 +127,10 @@ namespace ASC.Mail.Autoreply
                     {
                         if (responseStream != null)
                         {
-                            _log.DebugFormat("response from server: {0}", new StreamReader(responseStream).ReadToEnd());
+                            using (var readStream = new StreamReader(responseStream))
+                            {
+                                _log.DebugFormat("response from server: {0}", readStream.ReadToEnd());
+                            }
                         }
                     }
                 }

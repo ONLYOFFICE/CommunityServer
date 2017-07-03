@@ -67,7 +67,15 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         {
             get
             {
-                return UserInfo.Sid != null;
+                return UserInfo.IsLDAP();
+            }
+        }
+
+        protected bool IsSSO
+        {
+            get
+            {
+                return UserInfo.IsSSO();
             }
         }
 

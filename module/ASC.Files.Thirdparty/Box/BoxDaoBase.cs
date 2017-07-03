@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -43,14 +42,8 @@ using Box.V2.Models;
 
 namespace ASC.Files.Thirdparty.Box
 {
-    internal abstract class BoxDaoBase : IDisposable
+    internal abstract class BoxDaoBase
     {
-        private static readonly TimeSpan CacheExpiration = TimeSpan.FromMinutes(1);
-        private static readonly ICache CacheFile = AscCache.Memory;
-        private static readonly ICache CacheFolder = AscCache.Memory;
-        private static readonly ICache CacheChildItems = AscCache.Memory;
-        private static readonly ICacheNotify CacheNotify;
-
         protected readonly BoxDaoSelector BoxDaoSelector;
 
         public int TenantID { get; private set; }
@@ -58,50 +51,12 @@ namespace ASC.Files.Thirdparty.Box
         public string PathPrefix { get; private set; }
 
 
-        static BoxDaoBase()
-        {
-            CacheNotify = AscCache.Notify;
-            CacheNotify.Subscribe<BoxCacheItem>((i, action) =>
-                {
-                    if (action != CacheNotifyAction.Remove) return;
-                    if (i.ResetAll)
-                    {
-                        CacheChildItems.Remove(new Regex("^box-.*"));
-                        CacheFile.Remove(new Regex("^boxf-.*"));
-                        CacheFolder.Remove(new Regex("^boxd-.*"));
-                    }
-
-                    if (!i.IsFile.HasValue)
-                    {
-                        CacheChildItems.Remove("box-" + i.Key);
-
-                        CacheFolder.Remove("boxd-" + i.Key);
-                    }
-                    else
-                    {
-                        if (i.IsFile.Value)
-                        {
-                            CacheFile.Remove("boxf-" + i.Key);
-                        }
-                        else
-                        {
-                            CacheFolder.Remove("boxd-" + i.Key);
-                        }
-                    }
-                });
-        }
-
         protected BoxDaoBase(BoxDaoSelector.BoxInfo boxInfo, BoxDaoSelector boxDaoSelector)
         {
             BoxProviderInfo = boxInfo.BoxProviderInfo;
             PathPrefix = boxInfo.PathPrefix;
             BoxDaoSelector = boxDaoSelector;
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-        }
-
-        public void Dispose()
-        {
-            BoxProviderInfo.Storage.Close();
         }
 
         protected DbManager GetDb()
@@ -351,12 +306,7 @@ namespace ASC.Files.Thirdparty.Box
             var boxFolderId = MakeBoxId(folderId);
             try
             {
-                var folder = CacheFolder.Get<BoxFolder>("boxd-" + BoxProviderInfo.ID + boxFolderId);
-                if (folder == null)
-                {
-                    folder = BoxProviderInfo.Storage.GetFolder(boxFolderId);
-                    CacheFolder.Insert("boxd-" + BoxProviderInfo.ID + boxFolderId, folder, DateTime.UtcNow.Add(CacheExpiration));
-                }
+                var folder = BoxProviderInfo.GetBoxFolder(boxFolderId);
                 return folder;
             }
             catch (Exception ex)
@@ -370,12 +320,7 @@ namespace ASC.Files.Thirdparty.Box
             var boxFileId = MakeBoxId(fileId);
             try
             {
-                var file = CacheFile.Get<BoxFile>("boxf-" + BoxProviderInfo.ID + boxFileId);
-                if (file == null)
-                {
-                    file = BoxProviderInfo.Storage.GetFile(boxFileId);
-                    CacheFile.Insert("boxf-" + BoxProviderInfo.ID + boxFileId, file, DateTime.UtcNow.Add(CacheExpiration));
-                }
+                var file = BoxProviderInfo.GetBoxFile(boxFileId);
                 return file;
             }
             catch (Exception ex)
@@ -392,13 +337,7 @@ namespace ASC.Files.Thirdparty.Box
         protected List<BoxItem> GetBoxItems(object parentId, bool? folder = null)
         {
             var boxFolderId = MakeBoxId(parentId);
-            var items = CacheChildItems.Get<List<BoxItem>>("box-" + BoxProviderInfo.ID + boxFolderId);
-
-            if (items == null)
-            {
-                items = BoxProviderInfo.Storage.GetItems(boxFolderId);
-                CacheChildItems.Insert("box-" + BoxProviderInfo.ID + boxFolderId, items, DateTime.UtcNow.Add(CacheExpiration));
-            }
+            var items = BoxProviderInfo.GetBoxItems(boxFolderId);
 
             if (folder.HasValue)
             {
@@ -476,40 +415,6 @@ namespace ASC.Files.Thirdparty.Box
             var index = Convert.ToInt32(match.Groups[2].Value);
             var staticText = match.Value.Substring(String.Format(" ({0})", index).Length);
             return String.Format(" ({0}){1}", index + 1, staticText);
-        }
-
-
-        protected void CacheInsert(BoxItem boxItem)
-        {
-            if (boxItem != null)
-            {
-                CacheNotify.Publish(new BoxCacheItem { IsFile = boxItem is BoxFile, Key = BoxProviderInfo.ID + boxItem.Id }, CacheNotifyAction.Remove);
-            }
-        }
-
-        protected void CacheReset(string boxId = null, bool? isFile = null)
-        {
-            if (boxId == null)
-            {
-                CacheNotify.Publish(new BoxCacheItem { ResetAll = true }, CacheNotifyAction.Remove);
-            }
-            else
-            {
-                if (boxId == BoxProviderInfo.BoxRootId)
-                {
-                    boxId = "0";
-                }
-                var key = BoxProviderInfo.ID + boxId;
-
-                CacheNotify.Publish(new BoxCacheItem { IsFile = isFile, Key = key }, CacheNotifyAction.Remove);
-            }
-        }
-
-        private class BoxCacheItem
-        {
-            public bool ResetAll { get; set; }
-            public bool? IsFile { get; set; }
-            public string Key { get; set; }
         }
     }
 }

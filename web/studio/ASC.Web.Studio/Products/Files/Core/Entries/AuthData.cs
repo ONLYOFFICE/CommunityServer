@@ -52,5 +52,10 @@ namespace ASC.Files.Core
             Password = password ?? "";
             Token = token ?? "";
         }
+
+        public bool IsEmpty()
+        {
+            return string.IsNullOrEmpty((Url ?? "") + (Login ?? "") + (Password ?? "") + (Token ?? ""));
+        }
     }
 }

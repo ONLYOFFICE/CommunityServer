@@ -205,10 +205,10 @@ only screen and (                min-resolution: 2dppx)
 }
 .account-field-row {
     margin-bottom: 10px;
-    height: 41px;
-}
-.account-log-pass-container .account-field-row {
     height: 20px;
+}
+.account-field-row-large {
+    height: 41px;
 }
 .account-field-url {
     display: none;
@@ -235,7 +235,13 @@ only screen and (                min-resolution: 2dppx)
     margin-top: 7px;
     white-space: nowrap;
 }
-
+.edit-account-button span {
+    background-position: 0 -80px;
+    display: inline-block;
+    height: 14px;
+    margin: -2px 3px -2px -7px;
+    width: 14px;
+}
 .account-action-container {
     margin-left: 160px;
 }
@@ -245,13 +251,24 @@ only screen and (                min-resolution: 2dppx)
 /*******************************************************************************
     Third Party editor dialog
 *******************************************************************************/
+#thirdPartyPanel {
+    margin-top: -10px;
+}
+.thirdparty-editor-row {
+    margin-top: 10px;
+}
+.thirdparty-editor-row input {
+    height: 22px;
+    margin-top: 4px;
+    width: 344px;
+}
+.thirdparty-editor-row .edit-account-button {
+    margin-top: 4px;
+}
 #thirdPartyTitle {
     background-position: 7px -22px;
     background-repeat: no-repeat;
     background-color: transparent;
-    border: 1px solid #C7C7C7;
-    height: 22px;
-    margin-top: 4px;
     padding-left: 30px;
     width: 315px;
 }

@@ -71,8 +71,16 @@ namespace ASC.Api.MailServer.Operations
                 SetProgress((int?)MailOperationRemoveMailboxProgress.Init, "Setup tenant and user");
 
                 CoreContext.TenantManager.SetCurrentTenant(_mailBox.Tenant);
-                
-                SecurityContext.AuthenticateMe(_mailBox.Account.TeamlabAccount.ID);
+
+                try
+                {
+                    SecurityContext.AuthenticateMe(_mailBox.Account.TeamlabAccount.ID);
+                }
+                catch
+                {
+                    // User was removed
+                    SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+                }             
 
                 var user = _mailBox.Account.TeamlabAccount.ID.ToString();
 

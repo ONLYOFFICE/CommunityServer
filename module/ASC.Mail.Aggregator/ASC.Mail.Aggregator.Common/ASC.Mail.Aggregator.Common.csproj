@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Mail.Aggregator.Common</RootNamespace>
     <AssemblyName>ASC.Mail.Aggregator.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TrunkDir>..\..\..\</TrunkDir>
     <OutputPath>$(TrunkDir)web\studio\ASC.Web.Studio\bin\</OutputPath>
@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="antlr.runtime">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\antlr.runtime.dll</HintPath>
+      <HintPath>..\..\..\packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll</HintPath>
     </Reference>
     <Reference Include="AjaxPro.2">
       <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
@@ -88,11 +88,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Ical.Net">
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.2.3.0.1\lib\net46\Ical.Net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ical.Net.Collections">
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.Collections.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.0.1\lib\net46\Ical.Net.Collections.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net">
@@ -117,7 +117,7 @@
     </Reference>
     <Reference Include="NodaTime">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.2.0.1\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <SpecificVersion>False</SpecificVersion>

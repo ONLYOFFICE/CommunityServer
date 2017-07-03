@@ -35,7 +35,7 @@ namespace ASC.Files.Core
         List<IProviderInfo> GetProvidersInfo();
         List<IProviderInfo> GetProvidersInfo(FolderType folderType, string searchText = null);
         int SaveProviderInfo(string providerKey, string customerTitle, AuthData authData, FolderType folderType);
-        int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType);
+        int UpdateProviderInfo(int linkId, string customerTitle, AuthData authData, FolderType folderType);
         void RemoveProviderInfo(int linkId);
     }
 }

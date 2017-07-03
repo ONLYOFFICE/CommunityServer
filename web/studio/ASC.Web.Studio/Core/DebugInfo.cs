@@ -38,58 +38,91 @@ using ASC.Web.Core.Files;
 
 namespace ASC.Web.Studio.Core
 {
-    public  class DebugInfo
+    public class DebugInfo
     {
-        private static readonly string ChangeLogPatternFilePath = String.Concat(HttpContext.Current.Server.MapPath("~/"), "change.log");
-        private static readonly string ChangeLogFilePath = String.Concat(HttpContext.Current.Server.MapPath("~/"), "changelog.xml");
+        private static readonly string ChangeLogPatternFilePath = string.Concat(HttpContext.Current.Server.MapPath("~/"), "change.log");
+        private static readonly string ChangeLogFilePath = string.Concat(HttpContext.Current.Server.MapPath("~/"), "changelog.xml");
+        private static readonly string debugString;
+        public static bool ShowDebugInfo;
 
-        public static bool ShowDebugInfo
+        static DebugInfo()
         {
-            get
+            try
             {
+                var basePath = HttpContext.Current.Server.MapPath("~/");
+                ChangeLogPatternFilePath = Path.Combine(basePath, "change.log");
+                ChangeLogFilePath = Path.Combine(basePath, "changelog.xml");
 #if DEBUG
-                return File.Exists(ChangeLogPatternFilePath) && File.Exists(ChangeLogFilePath);
+                ShowDebugInfo = File.Exists(ChangeLogPatternFilePath) && File.Exists(ChangeLogFilePath);
+                debugString = GetStaticDebugString();
 #else
-                return false;
+                ShowDebugInfo = false;
+                debugString = "";
 #endif
+
+            }
+            catch (Exception)
+            {
+                
             }
         }
 
-        public static string DebugString
+        private static string GetStaticDebugString()
         {
-            get
+            var xmlLog = new XmlDocument();
+            xmlLog.Load(ChangeLogFilePath);
+
+            var logs = xmlLog.SelectNodes("//changeSet//item");
+            if (logs == null) return "";
+            var nodes = logs.Cast<XmlNode>().ToList();
+
+            try
             {
-                if (HttpContext.Current == null) return "Unknown (HttpContext is null)";
+                var fileContent = File.ReadAllText(ChangeLogPatternFilePath, Encoding.Default);
+                fileContent = fileContent.Replace("{BuildVersion}", xmlLog.GetElementsByTagName("number")[0].InnerText);
+                fileContent = fileContent.Replace("{BuildDate}", new DateTime(1970, 1, 1).AddMilliseconds(Convert.ToInt64(xmlLog.GetElementsByTagName("timestamp")[0].InnerText)).ToString("yyyy-MM-dd hh:mm"));
+                fileContent = fileContent.Replace("{DocServiceApi}", FilesLinkUtility.DocServiceApiUrl.HtmlEncode());
+                fileContent = fileContent.Replace("{DocServiceCommand}", FilesLinkUtility.DocServiceCommandUrl.HtmlEncode());
+                fileContent = fileContent.Replace("{DocServiceConverter}", FilesLinkUtility.DocServiceConverterUrl.HtmlEncode());
+                fileContent = fileContent.Replace("{DocServiceStorage}", FilesLinkUtility.DocServiceStorageUrl.HtmlEncode());
 
-                var xmlLog = new XmlDocument();
-                xmlLog.Load(ChangeLogFilePath);
-
-                var logs = xmlLog.SelectNodes("//changeSet//item");
-                if (logs == null) return "";
-
-                try
+                var firstCommitIDNode = nodes.FirstOrDefault();
+                if (firstCommitIDNode != null)
                 {
-                    var fileContent = File.ReadAllText(ChangeLogPatternFilePath, Encoding.Default);
-                    fileContent = fileContent.Replace("{BuildVersion}", xmlLog.GetElementsByTagName("number")[0].InnerText);
-                    fileContent = fileContent.Replace("{BuildDate}", new DateTime(1970, 1, 1).AddMilliseconds(Convert.ToInt64(xmlLog.GetElementsByTagName("timestamp")[0].InnerText)).ToString("yyyy-MM-dd hh:mm"));
-                    fileContent = fileContent.Replace("{User}", SecurityContext.CurrentAccount.ToString().HtmlEncode());
-                    fileContent = fileContent.Replace("{UserAgent}", HttpContext.Current.Request.UserAgent);
-                    fileContent = fileContent.Replace("{Url}", HttpContext.Current.Request.Url.ToString().HtmlEncode());
-                    fileContent = fileContent.Replace("{RewritenUrl}", HttpContext.Current.Request.GetUrlRewriter().ToString().HtmlEncode());
-                    fileContent = fileContent.Replace("{DocServiceApi}", FilesLinkUtility.DocServiceApiUrl.HtmlEncode());
-                    fileContent = fileContent.Replace("{DocServiceCommand}", FilesLinkUtility.DocServiceCommandUrl.HtmlEncode());
-                    fileContent = fileContent.Replace("{DocServiceConverter}", FilesLinkUtility.DocServiceConverterUrl.HtmlEncode());
-                    fileContent = fileContent.Replace("{DocServiceStorage}", FilesLinkUtility.DocServiceStorageUrl.HtmlEncode());
-                    fileContent += GetChangeLogData(logs.Cast<XmlNode>()).HtmlEncode();
-                    return fileContent;
+                    var firstCommitID = firstCommitIDNode.SelectSingleNode("commitId");
+                    if (firstCommitID != null)
+                    {
+                        fileContent = fileContent.Replace("{RevisionFirst}", firstCommitID.InnerText);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    log4net.LogManager.GetLogger("ASC").Error("DebugInfo", e);
+                    fileContent = fileContent.Replace("{RevisionFirst}", "");
+                }
+                var lastCommitIDNode = nodes.LastOrDefault();
+                if (lastCommitIDNode != null)
+                {
+                    var lastCommitID = lastCommitIDNode.SelectSingleNode("commitId");
+                    if (lastCommitID != null)
+                    {
+                        fileContent = fileContent.Replace("{RevisionLast}", lastCommitID.InnerText);
+                    }
+                }
+                else
+                {
+                    fileContent = fileContent.Replace("{RevisionLast}", "");
                 }
 
-                return "";
+                fileContent += GetChangeLogData(nodes).HtmlEncode();
+
+                return fileContent;
             }
+            catch (Exception e)
+            {
+                log4net.LogManager.GetLogger("ASC").Error("DebugInfo", e);
+            }
+
+            return "";
         }
 
         private static string GetChangeLogData(IEnumerable<XmlNode> logs)
@@ -99,10 +132,10 @@ namespace ASC.Web.Studio.Core
             foreach (var log in logs)
             {
                 var comment = log.SelectSingleNode("comment");
-                if(comment == null || IsServiceLogItem(comment.InnerText)) continue;
+                if (comment == null || IsServiceLogItem(comment.InnerText)) continue;
 
                 var author = log.SelectSingleNode("author//fullName");
-                if(author == null) continue;
+                if (author == null) continue;
 
                 var commentText = comment.InnerText.Replace("\n", " ") + "\n";
                 if (!hashTable.ContainsKey(author.InnerText))
@@ -111,12 +144,32 @@ namespace ASC.Web.Studio.Core
                     hashTable[author.InnerText].Add(commentText);
             }
 
-            return string.Join(Environment.NewLine, hashTable.Select(r=> string.Join("", r.Value)).OrderBy(r=> r));
+            return string.Join(Environment.NewLine, hashTable.Select(r => string.Join("", r.Value)).OrderBy(r => r));
         }
 
         private static bool IsServiceLogItem(string log)
         {
             return Regex.IsMatch(log, "(^Merged)|(^Sql)", RegexOptions.IgnoreCase);
+        }
+
+        public static string DebugString
+        {
+            get
+            {
+                try
+                {
+                    return debugString.Replace("{User}", SecurityContext.CurrentAccount.ToString().HtmlEncode())
+                    .Replace("{UserAgent}", HttpContext.Current.Request.UserAgent)
+                    .Replace("{Url}", HttpContext.Current.Request.Url.ToString().HtmlEncode())
+                    .Replace("{RewritenUrl}", HttpContext.Current.Request.GetUrlRewriter().ToString().HtmlEncode());
+                }
+                catch (Exception e)
+                {
+                    log4net.LogManager.GetLogger("ASC").Error("DebugInfo", e);
+                }
+
+                return "";
+            }
         }
     }
 }

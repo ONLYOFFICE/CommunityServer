@@ -1130,7 +1130,8 @@ window.ServiceFactory = (function() {
             notes: o.notes || '',
             culture: o.cultureName || '',
             profileUrl: o.profileUrl || '',
-            isLDAP: typeof (o.isLDAP) != "undefined" ? o.isLDAP : typeof (o.isldap) != "undefined" ? o.isldap : false
+            isLDAP: typeof (o.isLDAP) != "undefined" ? o.isLDAP : typeof (o.isldap) != "undefined" ? o.isldap : false,
+            isSSO: typeof (o.isSSO) != "undefined" ? o.isSSO : typeof (o.issso) != "undefined" ? o.issso : false
         };
 
         return person;

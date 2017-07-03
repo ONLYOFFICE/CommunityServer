@@ -145,7 +145,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 contacts = GetContacts(userInfo),
                 created = userInfo.CreateDate,
                 email = userInfo.Email,
-                isLDAP = userInfo.Sid != null
+                isLDAP = userInfo.IsLDAP(),
+                isSSO = userInfo.IsSSO()
             };
         }
     }

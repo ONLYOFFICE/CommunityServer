@@ -69,6 +69,7 @@ window.Teamlab = (function () {
         setDefaultAccount: 'onsetdefaultaccount',
         createMailMailboxSimple: 'oncreatemailmailboxsimple',
         createMailMailboxOAuth: 'oncreateMailMailboxOAuth',
+        updateMailMailboxOAuth: 'updateMailMailboxOAuth',
         createMailMailbox: 'oncreatemailmailbox',
         updateMailMailbox: 'onupdatemailmailbox',
         setMailMailboxState: 'onsetmailmailboxstate',
@@ -281,6 +282,17 @@ window.Teamlab = (function () {
             params,
             GET,
             'settings/checkrecalculatequota.json',
+            null,
+            options
+        );
+    };
+
+    var checkWarmUpProgress = function (options) {
+        return addRequest(
+            null,
+            {},
+            GET,
+            'warmup/progress.json',
             null,
             options
         );
@@ -5177,13 +5189,13 @@ window.Teamlab = (function () {
 
     var getLinkedCrmEntitiesInfo = function (params, data, options) {
         return addRequest(
-      customEvents.getLinkedCrmEntitiesInfo,
-      params,
-      GET,
-      'mail/crm/linked/entities.json',
-      data,
-      options
-    );
+            customEvents.getLinkedCrmEntitiesInfo,
+            params,
+            GET,
+            'mail/crm/linked/entities.json',
+            data,
+            options
+        );
     };
 
     var getNextMailMessageId = function (params, id, filter_data, options) {
@@ -5191,8 +5203,8 @@ window.Teamlab = (function () {
             customEvents.getNextMailMessageId,
             params,
             GET,
-            'mail/messages/' + id + '/next.json',
-            filter_data,
+            'mail/messages/' + id + '/next.json' + (filter_data ? "?" + jq.param(filter_data) : ""),
+            null,
             options
         );
     };
@@ -5202,7 +5214,7 @@ window.Teamlab = (function () {
             customEvents.getPrevMailMessageId,
             params,
             GET,
-            'mail/messages/' + id + '/prev.json',
+            'mail/messages/' + id + '/prev.json' + (filter_data ? "?" + jq.param(filter_data) : ""),
             filter_data,
             options
         );
@@ -5224,7 +5236,7 @@ window.Teamlab = (function () {
             customEvents.getNextMailConversationId,
             params,
             GET,
-            'mail/conversation/' + id + '/next.json',
+            'mail/conversation/' + id + '/next.json' + (filter_data ? "?" + jq.param(filter_data) : ""),
             filter_data,
             options
         );
@@ -5235,7 +5247,7 @@ window.Teamlab = (function () {
             customEvents.getPrevMailConversationId,
             params,
             GET,
-            'mail/conversation/' + id + '/prev.json',
+            'mail/conversation/' + id + '/prev.json' + (filter_data ? "?" + jq.param(filter_data) : ""),
             filter_data,
             options
         );
@@ -5450,6 +5462,16 @@ window.Teamlab = (function () {
         );
     };
 
+    var updateMailMailboxOAuth = function (params, code, serviceType, mailboxId, options) {
+        return addRequest(
+            customEvents.updateMailMailboxOAuth,
+            params,
+            UPDATE,
+            'mail/accounts/oauth.json',
+            { code: code, type: serviceType, mailboxId: mailboxId },
+            options
+        );
+    };
     var createMailMailbox = function (params, name, email, pop3_account, pop3_password, pop3_port, pop3_server,
                                      smtp_account, smtp_password, smtp_port, smtp_server, smtp_auth, imap, restrict, incoming_encryption_type,
                                      outcoming_encryption_type, auth_type_in, auth_type_smtp, options) {
@@ -6688,6 +6710,7 @@ window.Teamlab = (function () {
         getQuotas: getQuotas,
         recalculateQuota: recalculateQuota,
         checkRecalculateQuota: checkRecalculateQuota,
+        checkWarmUpProgress: checkWarmUpProgress,
 
         remindPwd: remindPwd,
         thirdPartyLinkAccount: thirdPartyLinkAccount,
@@ -7121,6 +7144,7 @@ window.Teamlab = (function () {
         setDefaultAccount: setDefaultAccount,
         createMailMailboxSimple: createMailMailboxSimple,
         createMailMailboxOAuth: createMailMailboxOAuth,
+        updateMailMailboxOAuth: updateMailMailboxOAuth,
         createMailMailbox: createMailMailbox,
         updateMailMailbox: updateMailMailbox,
         setMailMailboxState: setMailMailboxState,

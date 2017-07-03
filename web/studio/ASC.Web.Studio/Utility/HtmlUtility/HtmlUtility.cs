@@ -67,17 +67,18 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
                     }
                 }
 
+                ProcessMaliciousTag(doc);
+                ProcessMaliciousAttributes(doc);
                 ProcessAscUserTag(doc);
                 ProcessCodeTags(doc);
                 ProcessExternalLinks(doc);
-                ProcessScriptTag(doc);
-                ProcessMaliciousAttributes(doc);
                 ProcessZoomImages(doc);
 
                 return doc.DocumentNode.InnerHtml;
             }
             catch (Exception e)
             {
+                log4net.LogManager.GetLogger("ASC.Web").Error(e);
                 return e.Message + "<br/> Please contact us: <a href='mailto:support@onlyoffice.com'>support@onlyoffice.com</a>";
             }
         }
@@ -235,9 +236,9 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
             }
         }
 
-        private static void ProcessScriptTag(HtmlDocument doc)
+        private static void ProcessMaliciousTag(HtmlDocument doc)
         {
-            var nodes = doc.DocumentNode.SelectNodes("//script");
+            var nodes = doc.DocumentNode.SelectNodes("//script|//meta|//style");
 
             if (nodes == null || nodes.Count == 0)
                 return;
@@ -280,18 +281,27 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
         private static void ProcessExternalLinks(HtmlDocument doc)
         {
             var links = doc.DocumentNode.SelectNodes("//a");
+
             if (links == null) return;
 
-            var con = HttpContext.Current;
-            var internalHost = con.Request.GetUrlRewriter().Host;
-            if ((con.Request.GetUrlRewriter().Port != 80 && con.Request.GetUrlRewriter().Scheme.Equals("http", StringComparison.InvariantCultureIgnoreCase))
-                || (con.Request.GetUrlRewriter().Port != 443 && con.Request.GetUrlRewriter().Scheme.Equals("https", StringComparison.InvariantCultureIgnoreCase)))
+            var context = HttpContext.Current;
+
+            if (context == null) return;
+
+            var uri = context.Request.GetUrlRewriter();
+
+            if (uri == null) return;
+
+            var internalHost = uri.Host;
+
+            if ((uri.Port != 80 && uri.Scheme.Equals("http", StringComparison.InvariantCultureIgnoreCase))
+                || (uri.Port != 443 && uri.Scheme.Equals("https", StringComparison.InvariantCultureIgnoreCase)))
             {
-                internalHost = string.Format(@"^{2}:\/\/{0}:{1}", internalHost, con.Request.GetUrlRewriter().Port, con.Request.GetUrlRewriter().Scheme);
+                internalHost = string.Format(@"^{2}:\/\/{0}:{1}", internalHost, uri.Port, uri.Scheme);
             }
             else
             {
-                internalHost = string.Format(@"^{2}:\/\/{0}(:{1})?", internalHost, con.Request.GetUrlRewriter().Port, con.Request.GetUrlRewriter().Scheme);
+                internalHost = string.Format(@"^{2}:\/\/{0}(:{1})?", internalHost, uri.Port, uri.Scheme);
             }
 
             var rxInternalHost = new Regex(internalHost, RegexOptions.Compiled | RegexOptions.CultureInvariant);

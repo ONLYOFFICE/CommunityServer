@@ -1,7 +1,0 @@
-﻿There's a little duplication here between the Ftp and FtpUpload folders.
-Sorry for that.  I had modified FtpUpload to use ITaskItem[] (which fits
-better, I think, with MSBuild typical patterns) before I knew there was
-an Ftp folder in source control.
-
-Also, the FtpUpload task is set up with an interface to FtpWebRequest so
-that it can be unit tested without an actual FTP server.

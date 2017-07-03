@@ -256,7 +256,14 @@ namespace ASC.Web.Files.ThirdPartyApp
                 using (var response = request.GetResponse())
                 using (var responseStream = response.GetResponseStream())
                 {
-                    var result = responseStream != null ? new StreamReader(responseStream).ReadToEnd() : null;
+                    string result = null;
+                    if (responseStream != null)
+                    {
+                        using (var readStream = new StreamReader(responseStream))
+                        {
+                            result = readStream.ReadToEnd();
+                        }
+                    }
 
                     Global.Logger.Debug("GoogleDriveApp: save file stream response - " + result);
                 }
@@ -686,9 +693,16 @@ namespace ASC.Web.Files.ThirdPartyApp
             try
             {
                 using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
+                using (var responseStream = response.GetResponseStream())
                 {
-                    var result = stream != null ? new StreamReader(stream).ReadToEnd() : null;
+                    string result = null;
+                    if (responseStream != null)
+                    {
+                        using (var readStream = new StreamReader(responseStream))
+                        {
+                            result = readStream.ReadToEnd();
+                        }
+                    }
 
                     Global.Logger.Debug("GoogleDriveApp: create file response - " + result);
                     return result;
@@ -820,7 +834,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         private static string GetCorrectTitle(JToken jsonFile)
         {
-            var title = (jsonFile.Value<string>("name") ?? "").ToLower();
+            var title = jsonFile.Value<string>("name") ?? "";
             var extTitle = FileUtility.GetFileExtension(title);
             var correctExt = GetCorrectExt(jsonFile);
 

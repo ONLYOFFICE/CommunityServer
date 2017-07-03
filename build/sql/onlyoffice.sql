@@ -333,6 +333,8 @@ CREATE TABLE IF NOT EXISTS `core_user` (
   `location` varchar(255) DEFAULT NULL,
   `notes` varchar(512) DEFAULT NULL,
   `sid` varchar(512) DEFAULT NULL,
+  `sso_name_id` varchar(512) DEFAULT NULL,
+  `sso_session_id` varchar(512) DEFAULT NULL,
   `removed` int(11) NOT NULL DEFAULT '0',
   `create_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_modified` datetime NOT NULL,

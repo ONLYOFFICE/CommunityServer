@@ -63,5 +63,13 @@ namespace ASC.Core.Users
 
             return !string.IsNullOrEmpty(ui.Sid);
         }
+
+        // ReSharper disable once InconsistentNaming
+        public static bool IsSSO(this UserInfo ui)
+        {
+            if (ui == null) return false;
+
+            return !string.IsNullOrEmpty(ui.SsoNameId);
+        }
     }
 }

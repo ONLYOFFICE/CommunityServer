@@ -188,13 +188,66 @@ namespace ASC.Files.Thirdparty
             }
         }
 
-        public virtual int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType)
+        public virtual int UpdateProviderInfo(int linkId, string customerTitle, AuthData newAuthData, FolderType folderType)
         {
+            var authData = new AuthData();
+            if (newAuthData != null && !newAuthData.IsEmpty())
+            {
+                var querySelect = new SqlQuery(TableTitle)
+                    .Select("provider", "url", "user_name", "password")
+                    .Where("tenant_id", TenantID)
+                    .Where("id", linkId);
+
+                object[] input;
+                try
+                {
+                    using (var db = GetDb())
+                    {
+                        input = db.ExecuteList(querySelect).Single();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Global.Logger.Error(string.Format("UpdateProviderInfo: linkId = {0} , user = {1}", linkId, SecurityContext.CurrentAccount.ID), e);
+                    throw;
+                }
+
+                var providerKey = (string)input[0];
+                ProviderTypes key;
+                if (!Enum.TryParse(providerKey, true, out key))
+                {
+                    throw new ArgumentException("Unrecognize ProviderType");
+                }
+
+                authData = new AuthData(
+                    !string.IsNullOrEmpty(newAuthData.Url) ? newAuthData.Url : (string)input[1],
+                    (string)input[2],
+                    !string.IsNullOrEmpty(newAuthData.Password) ? newAuthData.Password : DecryptPassword(input[3] as string),
+                    newAuthData.Token);
+
+                if (!string.IsNullOrEmpty(newAuthData.Token))
+                {
+                    authData = GetEncodedAccesToken(authData, key);
+                }
+
+                if (!CheckProviderInfo(ToProviderInfo(0, providerKey, customerTitle, authData, SecurityContext.CurrentAccount.ID.ToString(), folderType, TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))))
+                    throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, providerKey));
+            }
+
             var queryUpdate = new SqlUpdate(TableTitle)
                 .Set("customer_title", customerTitle)
                 .Set("folder_type", (int)folderType)
                 .Where("id", linkId)
                 .Where("tenant_id", TenantID);
+
+            if (!authData.IsEmpty())
+            {
+                queryUpdate
+                    .Set("user_name", authData.Login ?? "")
+                    .Set("password", EncryptPassword(authData.Password))
+                    .Set("token", EncryptPassword(authData.Token ?? ""))
+                    .Set("url", authData.Url ?? "");
+            }
 
             using (var db = GetDb())
             {

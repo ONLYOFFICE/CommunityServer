@@ -24,13 +24,13 @@
 */
 
 
+using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
-using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace ASC.Files.Thirdparty.Box
 {
@@ -93,11 +93,11 @@ namespace ASC.Files.Thirdparty.Box
                 var providerInfo = GetProviderInfo(Convert.ToInt32(match.Groups["id"].Value));
 
                 return new BoxInfo
-                           {
-                               Path = match.Groups["path"].Value,
-                               BoxProviderInfo = providerInfo,
-                               PathPrefix = "box-" + match.Groups["id"].Value
-                           };
+                    {
+                        Path = match.Groups["path"].Value,
+                        BoxProviderInfo = providerInfo,
+                        PathPrefix = "box-" + match.Groups["id"].Value
+                    };
             }
             throw new ArgumentException("Id is not a Box id");
         }
@@ -137,7 +137,7 @@ namespace ASC.Files.Thirdparty.Box
         {
             using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
-                dbDao.UpdateProviderInfo(boxProviderInfo.ID, newTitle, boxProviderInfo.RootFolderType);
+                dbDao.UpdateProviderInfo(boxProviderInfo.ID, newTitle, null, boxProviderInfo.RootFolderType);
                 boxProviderInfo.UpdateTitle(newTitle); //This will update cached version too
             }
         }

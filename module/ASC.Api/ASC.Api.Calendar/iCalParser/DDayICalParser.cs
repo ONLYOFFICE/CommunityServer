@@ -242,13 +242,24 @@ namespace ASC.Api.Calendar.iCalParser
 
             result.UtcEndDate = eventObj.End.AsUtc;
 
-            result.RecurrenceRule = RecurrenceRule.Parse(eventObj.RecurrenceRules.Any()
-                                                         ? SerializeRecurrencePattern(eventObj.RecurrenceRules.First())
-                                                         : string.Empty);
-            if (eventObj.ExceptionDates.Any())
+            var recurrenceRuleStr = string.Empty;
+
+            if (eventObj.RecurrenceRules != null && eventObj.RecurrenceRules.Any())
+            {
+                var recurrenceRules = eventObj.RecurrenceRules.ToList();
+
+                recurrenceRuleStr = SerializeRecurrencePattern(recurrenceRules.First());
+            }
+
+            result.RecurrenceRule = RecurrenceRule.Parse(recurrenceRuleStr);
+
+            if (eventObj.ExceptionDates != null && eventObj.ExceptionDates.Any())
             {
                 result.RecurrenceRule.ExDates = new List<RecurrenceRule.ExDate>();
-                foreach (var periodList in eventObj.ExceptionDates.First())
+
+                var exceptionDates = eventObj.ExceptionDates.ToList();
+
+                foreach (var periodList in exceptionDates.First())
                 {
                     result.RecurrenceRule.ExDates.Add(new RecurrenceRule.ExDate
                         {
@@ -279,9 +290,9 @@ namespace ASC.Api.Calendar.iCalParser
 
             result.Uid = eventObj.Uid;
 
-            result.Start = new Ical.Net.DataTypes.CalDateTime(eventObj.UtcStartDate, TimeZoneInfo.Utc.Id);
+            result.Start = new Ical.Net.DataTypes.CalDateTime(DateTime.SpecifyKind(eventObj.UtcStartDate, DateTimeKind.Utc), TimeZoneInfo.Utc.Id);
 
-            result.End = new Ical.Net.DataTypes.CalDateTime(eventObj.UtcEndDate, TimeZoneInfo.Utc.Id);
+            result.End = new Ical.Net.DataTypes.CalDateTime(DateTime.SpecifyKind(eventObj.UtcEndDate, DateTimeKind.Utc), TimeZoneInfo.Utc.Id);
 
             result.RecurrenceRules = new List<Ical.Net.Interfaces.DataTypes.IRecurrencePattern>();
 
@@ -306,9 +317,9 @@ namespace ASC.Api.Calendar.iCalParser
                     Location = string.Empty,
                     Description = description,
                     IsAllDay = isAllDayLong,
-                    DtStamp = new Ical.Net.DataTypes.CalDateTime(DateTime.UtcNow, TimeZoneInfo.Utc.Id),
-                    Start = new Ical.Net.DataTypes.CalDateTime(startUtcDate, TimeZoneInfo.Utc.Id),
-                    End = new Ical.Net.DataTypes.CalDateTime(endUtcDate, TimeZoneInfo.Utc.Id),
+                    DtStamp = new Ical.Net.DataTypes.CalDateTime(DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc), TimeZoneInfo.Utc.Id),
+                    Start = new Ical.Net.DataTypes.CalDateTime(DateTime.SpecifyKind(startUtcDate, DateTimeKind.Utc), TimeZoneInfo.Utc.Id),
+                    End = new Ical.Net.DataTypes.CalDateTime(DateTime.SpecifyKind(endUtcDate, DateTimeKind.Utc), TimeZoneInfo.Utc.Id),
                     RecurrenceRules = new List<Ical.Net.Interfaces.DataTypes.IRecurrencePattern>(),
                     Status = (Ical.Net.EventStatus)status
                 };

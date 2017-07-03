@@ -11,10 +11,5 @@
 OS=`lsb_release -si`
 LIMG_VER=`uname -r`
 
-if [ \( "$OS" = "Ubuntu" -a "$LIMG_VER" \< "3.13.0-24-generic" \) -o \
-	\( "$OS" = "Debian" -a "3.16.0.0" = "$LIMG_VER" \) ]; then
-	echo -e "\E[1;31mUnfortunately your Linux kernel version is not supported for the installation. Please see the list of all supported kernel versions http://onlyo.co/1PABPEI"; tput sgr0
-	exit 1
-fi
 
 exit 0

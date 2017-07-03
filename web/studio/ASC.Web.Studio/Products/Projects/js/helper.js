@@ -1,9 +1,20 @@
-﻿ASC.Projects.Tab = function (moduleName, count, divID, $container, selected, isVisibleSelector, emptyScreen) {
+﻿ASC.Projects.Tab = function (moduleName, count, divID, $container, link, isVisibleSelector, emptyScreen) {
     this.title = moduleName;
     this.count = count;
     this.divID = divID;
     this.$container = $container;
-    this.selected = selected;
+
+    if (!link) {
+        this.selected = false;
+    } else {
+        if (link.indexOf("#") === 0) {
+            this.selected = location.href.endsWith(link);
+        } else {
+            this.selected = location.href.indexOf(link) > 0;
+        }
+    }
+
+    this.link = link;
     this.isVisibleSelector = isVisibleSelector;
     this.emptyScreen = emptyScreen;
 }
@@ -37,6 +48,11 @@ ASC.Projects.Tab.prototype.select = function () {
         $emptyScreenContainer.hide();
         this.$container.show();
     }
+
+    if (this.link.indexOf("#") === 0) {
+        location.hash = this.link;
+    }
+
     this.rewrite();
 }
 
@@ -60,7 +76,7 @@ ASC.Projects.ProjectTab = function (project, moduleName, count, page, divID, onc
     this.href = page ? page + "?prjID=" + project.id : "";
     this.onclick = onclick;
 
-    ASC.Projects.Tab.call(this, moduleName, count, divID, undefined, location.href.toLowerCase().indexOf(page) > 0, isVisibleSelector);
+    ASC.Projects.Tab.call(this, moduleName, count, divID, undefined, page, isVisibleSelector);
 }
 
 ASC.Projects.ProjectTab.prototype = new ASC.Projects.Tab();
@@ -157,8 +173,7 @@ ASC.Projects.TabCollection = (function () {
 
     function init(tabs) {
         currentTabs = tabs;
-        selectedTab = currentTabs.find(function (item) { return item.selected; });
-
+        
         var filteredTabs = currentTabs.filter(function(item) {
             return typeof item.isVisibleSelector === "function" ? item.isVisibleSelector() : true;
         });
@@ -180,6 +195,14 @@ ASC.Projects.TabCollection = (function () {
             return true;
         });
 
+        var containItemSelected = filteredTabs.some(function(item) {
+            return item.selected;
+        });
+
+        if (!containItemSelected) {
+            filteredTabs[0].selected = true;
+        }
+
         filteredTabs.forEach(function(item) {
             if (item.selected) {
                 item.select();
@@ -187,6 +210,8 @@ ASC.Projects.TabCollection = (function () {
                 item.unselect();
             }
         });
+
+        selectedTab = filteredTabs.find(function (item) { return item.selected; });
     };
 
     return {

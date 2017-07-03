@@ -37,14 +37,12 @@ using ASC.Core.Users;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Server.Utils;
 using System.Security;
-using System.Threading;
-using System.Threading.Tasks;
 using ASC.Api.MailServer.Operations;
 using ASC.Common.Threading;
-using ASC.Mail.Aggregator.ComplexOperations;
 using ASC.Mail.Aggregator.ComplexOperations.Base;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.MailServer
@@ -69,6 +67,15 @@ namespace ASC.Api.MailServer
 
             if (!IsAdmin && !isSharedDomain)
                 throw new SecurityException("Need admin privileges.");
+
+            var tenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
+
+            if (isSharedDomain
+                && (tenantQuota.Trial
+                || tenantQuota.Free))
+            {
+                throw new SecurityException("Not available in unpaid version");
+            }
 
             if (string.IsNullOrEmpty(local_part))
                 throw new ArgumentException(@"Invalid local part.", "local_part");
@@ -148,6 +155,13 @@ namespace ASC.Api.MailServer
 
             if (userInfo.IsVisitor())
                 throw new InvalidDataException("User is visitor.");
+
+            var tenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
+
+            if (tenantQuota.Trial || tenantQuota.Free)
+            {
+                throw new SecurityException("Not available in unpaid version");
+            }
 
             if (name.Length > 64)
                 throw new ArgumentException(@"Local part of mailbox localpart exceed limitation of 64 characters.", "name");

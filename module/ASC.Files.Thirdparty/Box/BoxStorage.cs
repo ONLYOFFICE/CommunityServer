@@ -24,15 +24,15 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using ASC.FederatedLogin;
 using Box.V2;
 using Box.V2.Auth;
 using Box.V2.Config;
 using Box.V2.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using BoxSDK = Box.V2;
 
 namespace ASC.Files.Thirdparty.Box
@@ -53,7 +53,7 @@ namespace ASC.Files.Thirdparty.Box
 
         public BoxStorage()
         {
-            MaxUploadFileSize = MaxChunkedUploadFileSize = 250L * 1024L * 1024L;
+            MaxUploadFileSize = MaxChunkedUploadFileSize = 250L*1024L*1024L;
         }
 
         public void Open(OAuth20Token token)
@@ -91,8 +91,8 @@ namespace ASC.Files.Thirdparty.Box
             }
             catch (Exception ex)
             {
-                var boxException = (BoxSDK.Exceptions.BoxException) ex.InnerException;
-                if (boxException != null && boxException.Error.Status == ((int) HttpStatusCode.NotFound).ToString())
+                var boxException = (BoxSDK.Exceptions.BoxException)ex.InnerException;
+                if (boxException != null && boxException.Error.Status == ((int)HttpStatusCode.NotFound).ToString())
                 {
                     return null;
                 }
@@ -108,8 +108,8 @@ namespace ASC.Files.Thirdparty.Box
             }
             catch (Exception ex)
             {
-                var boxException = (BoxSDK.Exceptions.BoxException) ex.InnerException;
-                if (boxException != null && boxException.Error.Status == ((int) HttpStatusCode.NotFound).ToString())
+                var boxException = (BoxSDK.Exceptions.BoxException)ex.InnerException;
+                if (boxException != null && boxException.Error.Status == ((int)HttpStatusCode.NotFound).ToString())
                 {
                     return null;
                 }

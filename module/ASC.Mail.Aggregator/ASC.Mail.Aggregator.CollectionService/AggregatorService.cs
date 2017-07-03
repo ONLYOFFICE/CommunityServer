@@ -32,6 +32,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.ServiceProcess;
 using System.Threading;
 using System.Threading.Tasks;
@@ -176,27 +177,43 @@ namespace ASC.Mail.Aggregator.CollectionService
         /// </summary>
         protected override void OnStop()
         {
-            _cancelTokenSource.Cancel();
-
-            _log.Info("Stop service\r\n");
-
-            _queueManager.CancelHandler.WaitOne();
-
-            StopTimer();
-
-            if (_workTimer != null)
+            try
             {
-                _workTimer.Dispose();
-                _workTimer = null;
+                _log.Info("Stoping service\r\n");
+
+                if (_cancelTokenSource != null)
+                    _cancelTokenSource.Cancel();
+
+                if (_queueManager != null)
+                    _queueManager.CancelHandler.WaitOne();
+
+                StopTimer();
+
+                if (_workTimer != null)
+                {
+                    _workTimer.Dispose();
+                    _workTimer = null;
+                }
+
+                if (_resetEvent != null)
+                    _resetEvent.Set();
+
+                if (_queueManager != null)
+                    _queueManager.Dispose();
+
+                if (_signalrWorker != null)
+                    _signalrWorker.Dispose();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("Stop service Error: {0}\r\n", ex.ToString());
+            }
+            finally
+            {
+                base.OnStop();
             }
 
-            _resetEvent.Set();
-
-            _queueManager.Dispose();
-
-            _signalrWorker.Dispose();
-
-            base.OnStop();
+            _log.Info("Stop service\r\n");
         }
 
         /// <summary>
@@ -457,6 +474,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             MailClient client = null;
 
             var connectError = false;
+            var stopClient = false;
 
             Stopwatch watch = null;
 
@@ -488,27 +506,35 @@ namespace ASC.Mail.Aggregator.CollectionService
             {
                 log.Warn(
                     "[TIMEOUT] CreateTasks->client.LoginImapPop(Tenant = {0}, MailboxId = {1}, Address = '{2}') Exception: {3}",
-                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, exTimeout.ToStringDescriptive());
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, exTimeout.ToString());
 
                 connectError = true;
+                stopClient = true;
             }
             catch (OperationCanceledException)
             {
                 log.Info(
                     "[CANCEL] CreateTasks->client.LoginImapPop(Tenant = {0}, MailboxId = {1}, Address = '{2}')",
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail);
-                connectError = true;
+                stopClient = true;
             }
             catch (AuthenticationException authEx)
             {
                 log.Error(
                     "CreateTasks->client.LoginImapPop(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
-                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, authEx.ToStringDescriptive());
-
-                if (!mailbox.AuthErrorDate.HasValue)
-                    manager.SetMailboxAuthError(mailbox, true);
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, authEx.ToString());
 
                 connectError = true;
+                stopClient = true;
+            }
+            catch (WebException webEx)
+            {
+                log.Error(
+                    "CreateTasks->client.LoginImapPop(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, webEx.ToString());
+
+                connectError = true;
+                stopClient = true;
             }
             catch (Exception ex)
             {
@@ -517,30 +543,18 @@ namespace ASC.Mail.Aggregator.CollectionService
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail,
                     ex is ImapProtocolException || ex is Pop3ProtocolException ? ex.Message : ex.ToString());
 
-                connectError = true;
+                stopClient = true;
             }
             finally
             {
                 if (connectError)
                 {
-                    try
-                    {
-                        if (client != null)
-                        {
-                            client.Authenticated -= ClientOnAuthenticated;
-                            client.Cancel();
-                            client.Dispose();
-                            client = null;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error(
-                            "CreateTasks->client.Dispose(Tenant = {0}, MailboxId = {1}, Address = '{2}') Exception: {3}",
-                            mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, ex.Message);
+                    SetMailboxAuthError(manager, mailbox, log);
+                }
 
-                        client = null;
-                    }
+                if (stopClient)
+                {
+                    CloseMailClient(client, mailbox, log);
                 }
 
                 if (_tasksConfig.CollectStatistics && watch != null)
@@ -552,6 +566,42 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
 
             return client;
+        }
+
+        private static void SetMailboxAuthError(MailBoxManager manager, MailBox mailbox, ILogger log)
+        {
+            try
+            {
+                if (!mailbox.AuthErrorDate.HasValue)
+                    manager.SetMailboxAuthError(mailbox, true);
+            }
+            catch (Exception ex)
+            {
+                log.Error(
+                    "CreateTasks->SetMailboxAuthError(Tenant = {0}, MailboxId = {1}, Address = '{2}') Exception: {3}",
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, ex.Message);
+            }
+        }
+
+        private void CloseMailClient(MailClient client, MailBox mailbox, ILogger log)
+        {
+            if (client == null)
+                return;
+
+            try
+            {
+                client.Authenticated -= ClientOnAuthenticated;
+                client.GetMessage -= ClientOnGetMessage;
+
+                client.Cancel();
+                client.Dispose();
+            }
+            catch (Exception ex)
+            {
+                log.Error(
+                    "CloseMailClient(Tenant = {0}, MailboxId = {1}, Address = '{2}') Exception: {3}",
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, ex.Message);
+            }
         }
 
         private MailBox ProcessMailbox(MailClient client, TasksConfig tasksConfig)
@@ -603,19 +653,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
             finally
             {
-                try
-                {
-                    client.GetMessage -= ClientOnGetMessage;
-
-                    client.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    _log.Error(
-                        "[DISPOSE] ProcessMailbox->client.Dispose(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
-                        mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail,
-                        ex is ImapProtocolException || ex is Pop3ProtocolException ? ex.Message : ex.ToString());
-                }
+                CloseMailClient(client, mailbox, _log);
 
                 if (_tasksConfig.CollectStatistics && watch != null)
                 {
@@ -701,6 +739,9 @@ namespace ASC.Mail.Aggregator.CollectionService
                 log.Debug("ClientOnGetMessage MailboxId = {0}, Address = '{1}'",
                     mailbox.MailBoxId, mailbox.EMail);
 
+                CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
+                SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+
                 var manager = new MailBoxManager(log);
 
                 var md5 =
@@ -750,20 +791,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 log.Debug("Convert MimeMessage->MailMessage");
 
-                MailMessage message;
-
-                try
-                {
-                    message = mimeMessage.CreateMailMessage(folder.FolderId, unread, chainId, streamId, log);
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Convert MimeMessage->MailMessage: Exception: {0}", ex.ToString());
-
-                    log.Debug("Creating fake message with original MimeMessage in attachments");
-
-                    message = mimeMessage.CreateCorruptedMesage(folder.FolderId, unread, chainId, streamId);
-                }
+                var message = ConvertToMailMessage(mimeMessage, folder, unread, chainId, streamId, log);
 
                 log.Debug("TryStoreMailData()");
 
@@ -773,9 +801,71 @@ namespace ASC.Mail.Aggregator.CollectionService
                     return;
                 }
 
-                var folderRestoreId = folder.FolderId == MailFolder.Ids.spam ? MailFolder.Ids.inbox : folder.FolderId;
-
                 log.Debug("MailSave()");
+
+                if (TrySaveMail(manager, mailbox, message, folder, uidl, md5, log))
+                {
+                    log.Debug("DoOptionalOperations->START");
+
+                    DoOptionalOperations(message, mimeMessage, mailbox, tagsIds, log);
+                }
+                else
+                {
+                    failed = true;
+
+                    if (manager.TryRemoveMailDirectory(mailbox, message.StreamId))
+                    {
+                        log.Info("Problem with mail proccessing(Account:{0}). Body and attachment have been deleted", mailbox.EMail);
+                    }
+                    else
+                    {
+                        throw new Exception("Can't delete mail folder with data");
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("[ClientOnGetMessage] Exception:\r\n{0}\r\n", ex.ToString());
+
+                failed = true;
+            }
+            finally
+            {
+                if (_tasksConfig.CollectStatistics && watch != null)
+                {
+                    watch.Stop();
+
+                    LogStat(PROCESS_MESSAGE, mailbox, watch.Elapsed, failed);
+                }
+            }
+        }
+
+        private static MailMessage ConvertToMailMessage(MimeMessage mimeMessage, MailFolder folder, bool unread, string chainId, string streamId, ILogger log)
+        {
+            MailMessage message;
+
+            try
+            {
+                message = mimeMessage.CreateMailMessage(folder.FolderId, unread, chainId, streamId, log);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Convert MimeMessage->MailMessage: Exception: {0}", ex.ToString());
+
+                log.Debug("Creating fake message with original MimeMessage in attachments");
+
+                message = mimeMessage.CreateCorruptedMesage(folder.FolderId, unread, chainId, streamId);
+            }
+
+            return message;
+        }
+
+        private static bool TrySaveMail(MailBoxManager manager, MailBox mailbox, MailMessage message, MailFolder folder,  string uidl, string md5, ILogger log)
+        {
+            try
+            {
+                var folderRestoreId = folder.FolderId == MailFolder.Ids.spam ? MailFolder.Ids.inbox : folder.FolderId;
 
                 var attempt = 1;
 
@@ -802,25 +892,14 @@ namespace ASC.Mail.Aggregator.CollectionService
                     }
                 }
 
-                log.Debug("DoOptionalOperations()");
-
-                DoOptionalOperations(message, mimeMessage, mailbox, tagsIds, log);
+                return true;
             }
             catch (Exception ex)
             {
-                log.Error("[ClientOnGetMessage] Exception:\r\n{0}\r\n", ex.ToString());
-
-                failed = true;
+                log.Error("TrySaveMail Exception:\r\n{0}\r\n", ex.ToString());
             }
-            finally
-            {
-                if (_tasksConfig.CollectStatistics && watch != null)
-                {
-                    watch.Stop();
 
-                    LogStat(PROCESS_MESSAGE, mailbox, watch.Elapsed, failed);
-                }
-            }
+            return false;
         }
 
         enum MailboxState
@@ -914,7 +993,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 }
                 catch (Exception e)
                 {
-                    _log.Error(
+                    log.Error(
                         "SetMessagesTag(tenant={0}, userId='{1}', messageId={2}, tagid = {3}) Exception:\r\n{4}\r\n",
                         mailbox.TenantId, mailbox.UserId, messageId, e.ToString(),
                         tagIds != null ? string.Join(",", tagIds) : "null");
@@ -927,27 +1006,39 @@ namespace ASC.Mail.Aggregator.CollectionService
         {
             var manager = new MailBoxManager(log);
 
-            CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
-
-            SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+            log.Debug("DoOptionalOperations->SetMessageTags()");
 
             SetMessageTags(manager, message, mailbox, tagIds, log);
 
+            log.Debug("DoOptionalOperations->AddRelationshipEventForLinkedAccounts()");
+
             manager.AddRelationshipEventForLinkedAccounts(mailbox, message, _tasksConfig.DefaultApiSchema, log);
+
+            log.Debug("DoOptionalOperations->SaveEmailInData()");
 
             manager.SaveEmailInData(mailbox, message, _tasksConfig.DefaultApiSchema, log);
 
+            log.Debug("DoOptionalOperations->SendAutoreply()");
+
             manager.SendAutoreply(mailbox, message, _tasksConfig.DefaultApiSchema, log);
+
+            log.Debug("DoOptionalOperations->UploadIcsToCalendar()");
 
             manager.UploadIcsToCalendar(mailbox, message.CalendarId, message.CalendarUid, message.CalendarEventIcs,
                 message.CalendarEventCharset, message.CalendarEventMimeType, mailbox.EMail.Address,
                 _tasksConfig.DefaultApiSchema, log);
 
             if (_tasksConfig.SaveOriginalMessage)
+            {
+                log.Debug("DoOptionalOperations->StoreMailEml()");
                 StoreMailEml(mailbox.TenantId, mailbox.UserId, message.StreamId, mimeMessage, log);
+            }
 
             if (!_tasksConfig.EnableSignalr)
+            {
+                log.Debug("DoOptionalOperations->END");
                 return;
+            }
 
             var now = DateTime.UtcNow;
 
@@ -958,13 +1049,17 @@ namespace ASC.Mail.Aggregator.CollectionService
                 return;
             }
 
+            log.Debug("DoOptionalOperations->NotifySignalrIfNeed()");
+
             NotifySignalrIfNeed(mailbox, log);
 
             mailbox.LastSignalrNotify = now;
             mailbox.LastSignalrNotifySkipped = false;
+
+            log.Debug("DoOptionalOperations->END");
         }
 
-        public string StoreMailEml(int tenant, string user, string streamId, MimeMessage message, ILogger logger)
+        public string StoreMailEml(int tenant, string user, string streamId, MimeMessage message, ILogger log)
         {
             if (message == null)
                 return string.Empty;
@@ -981,14 +1076,14 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                     var res = storage.Save(savePath, stream, MailStoragePathCombiner.EML_FILE_NAME).ToString();
 
-                    logger.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}", tenant, user, savePath, res);
+                    log.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}", tenant, user, savePath, res);
 
                     return res;
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("StoreMailEml Exception: {0}", ex.ToString());
+                log.Error("StoreMailEml Exception: {0}", ex.ToString());
             }
 
             return string.Empty;

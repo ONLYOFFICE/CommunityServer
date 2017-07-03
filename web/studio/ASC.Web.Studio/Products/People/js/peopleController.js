@@ -108,7 +108,7 @@ ASC.People.PeopleController = (function() {
         filter = filter || {};
         filter.sortby = "displayname";
 
-        filter.fields = 'id,status,isAdmin,isOwner,isVisitor,activationStatus,userName,email,displayName,avatarSmall,listAdminModules,birthday,title,groups,location,isLDAP';
+        filter.fields = 'id,status,isAdmin,isOwner,isVisitor,activationStatus,userName,email,displayName,avatarSmall,listAdminModules,birthday,title,groups,location,isLDAP,isSSO';
         
         var anchor = jq.anchorToObject(ASC.Controls.AnchorController.getAnchor());
 
@@ -428,7 +428,8 @@ ASC.People.PeopleController = (function() {
             $actionMenu = jq("#peopleActionMenu"),
             canEdit = $actionMenu.attr("data-canedit").toLowerCase(),
             canDel = $actionMenu.attr("data-candel").toLowerCase(),
-            isLDAP = $person.attr("data-isLDAP");
+            isLDAP = $person.attr("data-isLDAP"),
+            isSSO = $person.attr("data-isSSO");
 
         var profile = {
             id: personId,
@@ -436,7 +437,8 @@ ASC.People.PeopleController = (function() {
             username: username,
             status: status,
             isOwner: isOwner,
-            isLDAP: isLDAP
+            isLDAP: isLDAP,
+            isSSO: isSSO
         };
         var $menu = jq.tmpl("userActionMenuTemplate",
             { user: profile, isAdmin: Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin, isMe: (profile.id === Teamlab.profile.id), canEdit: canEdit, canDel: canDel });
@@ -870,7 +872,7 @@ ASC.People.PeopleController = (function() {
                     if (!(user.isAdmin || user.listAdminModules.length || user.isPortalOwner)) {
                         enableChangeType++;
                     }
-                    if (!user.isActivated && !user.isLDAP) {
+                    if (!user.isActivated && !user.isLDAP && !user.isSSO) {
                         enableSendInvite++;
                     }
                 }
@@ -1318,7 +1320,7 @@ ASC.People.PeopleController = (function() {
         var users = jq.extend(true, [], _selectedItems);
         for (var i = 0, n = users.length; i < n; i++) {
             var item = users[i];
-            if (item.isActivated || item.isTerminated || item.isLDAP) {
+            if (item.isActivated || item.isTerminated || item.isLDAP || item.isSSO) {
                 item.locked = true;
             }
         }

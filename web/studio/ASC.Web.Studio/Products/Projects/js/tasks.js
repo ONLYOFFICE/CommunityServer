@@ -171,16 +171,20 @@ ASC.Projects.TasksManager = (function () {
         });
 
         $taskListContainer.on(clickEventName, '.task', function (event) {
-            var elt = (event.target) ? event.target : event.srcElement;
+            var $elt = jq((event.target) ? event.target : event.srcElement);
 
-            if (jq(elt).is('a')) {
+            if ($elt.is('a')) {
                 return;
             }
 
-            if (jq(elt).is(".changeStatusCombobox.canEdit") || jq(elt).parent().is(".changeStatusCombobox.canEdit") ||
-                jq(elt).is(".entity-menu") || jq(elt).parent().is(".entity-menu")) {
+            if ($elt.is(".changeStatusCombobox.canEdit") ||
+                $elt.parent().is(".changeStatusCombobox.canEdit") ||
+                $elt.is(".entity-menu") ||
+                $elt.parent().is(".entity-menu") ||
+                $elt.is(".noSubtasks:not(.canedit)")) {
                 return;
             }
+
 
             subtaskManager.hideSubtaskFields();
 

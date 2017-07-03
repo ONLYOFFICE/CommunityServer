@@ -70,7 +70,7 @@ namespace ASC.Web.Files.Utils
             if (parent.FolderType == FolderType.Projects && parent.ID.Equals(Global.FolderProjects))
             {
                 var apiServer = new ASC.Api.ApiServer();
-                var apiUrl = String.Format("{0}project/maxlastmodified.json", SetupInfo.WebApiBaseUrl);
+                var apiUrl = string.Format("{0}project/maxlastmodified.json", SetupInfo.WebApiBaseUrl);
 
                 var responseBody = apiServer.GetApiResponse(apiUrl, "GET");
                 if (responseBody != null)
@@ -84,12 +84,12 @@ namespace ASC.Web.Files.Utils
                         HttpRuntime.Cache.Remove(projectLastModifiedCacheKey);
                         HttpRuntime.Cache.Insert(projectLastModifiedCacheKey, projectLastModified);
                     }
-                    var projectListCacheKey = String.Format("documents/projectFolders/{0}", SecurityContext.CurrentAccount.ID);
+                    var projectListCacheKey = string.Format("documents/projectFolders/{0}", SecurityContext.CurrentAccount.ID);
                     var fromCache = HttpRuntime.Cache.Get(projectListCacheKey);
 
                     if (fromCache == null || !string.IsNullOrEmpty(searchText))
                     {
-                        apiUrl = String.Format("{0}project/filter.json?sortBy=title&sortOrder=ascending&status=open", SetupInfo.WebApiBaseUrl);
+                        apiUrl = string.Format("{0}project/filter.json?sortBy=title&sortOrder=ascending&status=open&fields=id,title,security,projectFolder", SetupInfo.WebApiBaseUrl);
 
                         responseApi = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(apiServer.GetApiResponse(apiUrl, "GET"))));
 
@@ -97,11 +97,11 @@ namespace ASC.Web.Files.Utils
 
                         if (!(responseData is JArray)) return entries.ToList();
 
-                        var folderIDProjectTitle = new Dictionary<object, String>();
+                        var folderIDProjectTitle = new Dictionary<object, KeyValuePair<int, string>>();
 
                         foreach (JObject projectInfo in responseData.Children())
                         {
-                            var projectID = projectInfo["id"].Value<String>();
+                            var projectID = projectInfo["id"].Value<int>();
                             var projectTitle = Global.ReplaceInvalidCharsAndTruncate(projectInfo["title"].Value<String>());
                             int projectFolderID;
 
@@ -124,19 +124,20 @@ namespace ASC.Web.Files.Utils
                             if (projectInfo.TryGetValue("projectFolder", out projectFolderIDJToken))
                                 projectFolderID = projectInfo["projectFolder"].Value<int>();
                             else
-                                projectFolderID = (int)FilesIntegration.RegisterBunch("projects", "project", projectID);
+                                projectFolderID = (int)FilesIntegration.RegisterBunch("projects", "project", projectID.ToString());
 
                             if (!folderIDProjectTitle.ContainsKey(projectFolderID))
-                                folderIDProjectTitle.Add(projectFolderID, projectTitle);
-                            HttpRuntime.Cache.Remove("documents/folders/" + projectFolderID.ToString());
-                            HttpRuntime.Cache.Insert("documents/folders/" + projectFolderID.ToString(), projectTitle, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(30));
+                                folderIDProjectTitle.Add(projectFolderID, new KeyValuePair<int, string>(projectID, projectTitle));
+
+                            AscCache.Default.Remove("documents/folders/" + projectFolderID.ToString());
+                            AscCache.Default.Insert("documents/folders/" + projectFolderID.ToString(), projectTitle, TimeSpan.FromMinutes(30));
                         }
 
-                        var folders = folderDao.GetFolders(folderIDProjectTitle.Keys.ToArray(), searchText, !string.IsNullOrEmpty(searchText));
+                        var folders = folderDao.GetFolders(folderIDProjectTitle.Keys.ToArray(), searchText, !string.IsNullOrEmpty(searchText), false);
                         folders.ForEach(x =>
                             {
-                                x.Title = folderIDProjectTitle.ContainsKey(x.ID) ? folderIDProjectTitle[x.ID] : x.Title;
-                                x.FolderUrl = PathProvider.GetFolderUrl(x);
+                                x.Title = folderIDProjectTitle.ContainsKey(x.ID) ? folderIDProjectTitle[x.ID].Value : x.Title;
+                                x.FolderUrl = PathProvider.GetFolderUrl(x, folderIDProjectTitle.ContainsKey(x.ID) ? folderIDProjectTitle[x.ID].Key : 0);
                             });
 
                         folders = fileSecurity.FilterRead(folders).ToList();
@@ -184,8 +185,8 @@ namespace ASC.Web.Files.Utils
                 folders = fileSecurity.FilterRead(folders);
                 entries = entries.Concat(folders);
 
-                //TODO:Optimize
-                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectId, searchText, !string.IsNullOrEmpty(searchText) && parent.FolderType != FolderType.TRASH).Cast<FileEntry>();
+                var myFolder = parent.RootFolderType == FolderType.USER && parent.RootFolderCreator == SecurityContext.CurrentAccount.ID;
+                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectId, searchText, !string.IsNullOrEmpty(searchText) && parent.FolderType != FolderType.TRASH, myFolder).Cast<FileEntry>();
                 files = fileSecurity.FilterRead(files);
                 entries = entries.Concat(files);
 
@@ -236,6 +237,8 @@ namespace ASC.Web.Files.Utils
             {
                 using (var providerDao = Global.DaoFactory.GetProviderDao())
                 {
+                    if (providerDao == null) return folderList;
+
                     var fileSecurity = Global.GetFilesSecurity();
 
                     var providers = providerDao.GetProvidersInfo(parent.RootFolderType, searchText);

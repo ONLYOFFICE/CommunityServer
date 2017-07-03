@@ -107,10 +107,10 @@ namespace ASC.Web.CRM
             casesDetailsViewControl.TargetCase = targetCase;
             CommonContainerHolder.Controls.Add(casesDetailsViewControl);
 
-            var title = targetCase.Title.HtmlEncode();
+            var title = targetCase.Title;
 
             Master.CurrentPageCaption = title;
-            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(title, EntityType.Case, CRMSecurity.IsPrivate(targetCase), true);
+            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(title.HtmlEncode(), EntityType.Case, CRMSecurity.IsPrivate(targetCase), true);
 
             Title = HeaderStringHelper.GetPageTitle(title);
         }

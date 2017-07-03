@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Ical.Net</id>
+        <version>2.3.0</version>
+        <title>Ical.Net</title>
+        <authors>Rian Stockbower, Douglas Day, M. David Peterson</authors>
+        <owners>Rian Stockbower</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>An iCalendar (RFC 5545) control library for .NET. A fork and continuation of the original dday.ical library including bug fixes and many performance enhancements.</description>
+        <projectUrl>https://github.com/rianjs/ical.net</projectUrl>
+        <licenseUrl>https://github.com/rianjs/ical.net/blob/master/license.md</licenseUrl>
+        <releaseNotes>https://github.com/rianjs/ical.net/blob/master/release-notes.md</releaseNotes>
+        <iconUrl>https://github.com/rianjs/ical.net/raw/master/nuget_logo_150px.png</iconUrl>
+        <tags>iCal Calendar icalendar ics outlook events rfc-5545 rfc-2445 dday</tags>
+    </metadata>
+    <files>
+        <!-- .NET 4.6 -->
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.Collections.dll" target="lib\net46\Ical.Net.Collections.dll" />
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.Collections.pdb" target="lib\net46\Ical.Net.Collections.pdb" />
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.dll" target="lib\net46\Ical.Net.dll" />
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.xml" target="lib\net46\Ical.Net.xml" />
+        <file src="Ical.Net\bin\Release\net46\Ical.Net.pdb" target="lib\net46\Ical.Net.pdb" />
+        <file src="Ical.Net\bin\Release\net46\antlr.runtime.dll" target="lib\net46\antlr.runtime.dll" />
+        <file src="Ical.Net\bin\Release\net46\NodaTime.dll" target="lib\net46\NodaTime.dll" />
+        <file src="Ical.Net\bin\Release\net46\antlr.runtime.pdb" target="lib\net46\antlr.runtime.pdb" />
+        <file src="Ical.Net\bin\Release\net46\antlr.runtime.xml" target="lib\net46\antlr.runtime.xml" />
+        <!-- .NET 4.5 -->
+        <file src="Ical.Net\bin\Release\net45\Ical.Net.Collections.dll" target="lib\net45\Ical.Net.Collections.dll" />
+        <file src="Ical.Net\bin\Release\net45\Ical.Net.Collections.pdb" target="lib\net45\Ical.Net.Collections.pdb" />
+        <file src="Ical.Net\bin\Release\net45\Ical.Net.dll" target="lib\net45\Ical.Net.dll" />
+        <file src="Ical.Net\bin\Release\net45\Ical.Net.xml" target="lib\net45\Ical.Net.xml" />
+        <file src="Ical.Net\bin\Release\net45\Ical.Net.pdb" target="lib\net45\Ical.Net.pdb" />
+        <file src="Ical.Net\bin\Release\net45\antlr.runtime.dll" target="lib\net45\antlr.runtime.dll" />
+        <file src="Ical.Net\bin\Release\net45\NodaTime.dll" target="lib\net45\NodaTime.dll" />
+        <file src="Ical.Net\bin\Release\net45\antlr.runtime.pdb" target="lib\net45\antlr.runtime.pdb" />
+        <file src="Ical.Net\bin\Release\net45\antlr.runtime.xml" target="lib\net45\antlr.runtime.xml" />
+        <!-- .NET 4.0 -->
+        <file src="Ical.Net\bin\Release\net40\Ical.Net.Collections.dll" target="lib\net40\Ical.Net.Collections.dll" />
+        <file src="Ical.Net\bin\Release\net40\Ical.Net.Collections.pdb" target="lib\net40\Ical.Net.Collections.pdb" />
+        <file src="Ical.Net\bin\Release\net40\Ical.Net.dll" target="lib\net40\Ical.Net.dll" />
+        <file src="Ical.Net\bin\Release\net40\Ical.Net.xml" target="lib\net40\Ical.Net.xml" />
+        <file src="Ical.Net\bin\Release\net40\Ical.Net.pdb" target="lib\net40\Ical.Net.pdb" />
+        <file src="Ical.Net\bin\Release\net40\antlr.runtime.dll" target="lib\net40\antlr.runtime.dll" />
+        <file src="Ical.Net\bin\Release\net40\NodaTime.dll" target="lib\net40\NodaTime.dll" />
+        <file src="Ical.Net\bin\Release\net40\antlr.runtime.pdb" target="lib\net40\antlr.runtime.pdb" />
+        <file src="Ical.Net\bin\Release\net40\antlr.runtime.xml" target="lib\net40\antlr.runtime.xml" />
+    </files>
+</package>

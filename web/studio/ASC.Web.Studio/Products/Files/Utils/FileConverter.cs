@@ -601,10 +601,16 @@ namespace ASC.Web.Files.Utils
 
                         if (httpResponse.StatusCode != HttpStatusCode.NotFound)
                         {
-                            using (var data = response.GetResponseStream())
+                            using (var responseStream = response.GetResponseStream())
                             {
-                                var text = new StreamReader(data).ReadToEnd();
-                                errorString += String.Format(" Error message: {0}", text);
+                                if (responseStream != null)
+                                {
+                                    using (var readStream = new StreamReader(responseStream))
+                                    {
+                                        var text = readStream.ReadToEnd();
+                                        errorString += String.Format(" Error message: {0}", text);
+                                    }
+                                }
                             }
                         }
 

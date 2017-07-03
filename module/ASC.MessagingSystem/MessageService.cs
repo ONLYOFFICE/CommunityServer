@@ -24,21 +24,19 @@
 */
 
 
-using ASC.MessagingSystem.DbSender;
-using log4net;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 
+using ASC.MessagingSystem.DbSender;
+using log4net;
+
+
 namespace ASC.MessagingSystem
 {
     public static class MessageService
     {
-        private const string unityContainerName = "messaging";
         private static readonly ILog log = LogManager.GetLogger("ASC.Messaging");
         private static readonly IMessageSender sender;
 
@@ -50,25 +48,7 @@ namespace ASC.MessagingSystem
                 return;
             }
 
-            var unity = ConfigurationManager.GetSection("unity");
-
-            var cfg = unity != null && ((UnityConfigurationSection)unity).Containers[unityContainerName] != null
-                          ? new UnityContainer().LoadConfiguration(unityContainerName)
-                          : null;
-            sender = cfg != null ? ConfigureFromUnity(cfg) : new DbMessageSender();
-        }
-
-        private static IMessageSender ConfigureFromUnity(IUnityContainer cfg)
-        {
-            try
-            {
-                return cfg.Resolve<IMessageSender>();
-            }
-            catch(Exception ex)
-            {
-                log.Error("Error while resolving Message Sender", ex);
-                return null;
-            }
+            sender = new DbMessageSender();
         }
 
 

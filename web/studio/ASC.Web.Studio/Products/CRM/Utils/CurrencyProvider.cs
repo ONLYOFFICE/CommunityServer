@@ -258,13 +258,15 @@ namespace ASC.Web.CRM.Classes
         {
             var success = false;
             var currencyLines = File.ReadAllLines(filepath);
-            foreach (var line in currencyLines)
+            for (var i = 0; i < currencyLines.Length; i++)
             {
-                if (line.Contains("id=\"major-currencies\"") || line.Contains("id=\"minor-currencies\"") || line.Contains("id=\"exotic-currencies\""))
+                var line = currencyLines[i];
+
+                if (line.Contains("id=\"major-currency-table\"") || line.Contains("id=\"minor-currency-table\"") || line.Contains("id=\"exotic-currency-table\""))
                 {
                     var currencyInfos = CurRateRegex.Matches(line);
 
-                    if (currencyInfos != null && currencyInfos.Count > 0)
+                    if (currencyInfos.Count > 0)
                     {
                         foreach (var curInfo in currencyInfos)
                         {

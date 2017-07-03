@@ -75,7 +75,7 @@ namespace ASC.Web.Files.Classes
             return CommonLinkUtility.ToAbsolute("~/products/files/controls/" + fileName).ToLowerInvariant();
         }
 
-        public static String GetFolderUrl(Folder folder)
+        public static string GetFolderUrl(Folder folder, int projectID = 0)
         {
             if (folder == null) throw new ArgumentNullException("folder", FilesCommonResource.ErrorMassage_FolderNotFound);
 
@@ -84,13 +84,17 @@ namespace ASC.Web.Files.Classes
                 switch (folder.RootFolderType)
                 {
                     case FolderType.BUNCH:
-                        var path = folderDao.GetBunchObjectID(folder.RootFolderId);
+                        if (projectID == 0)
+                        {
+                            var path = folderDao.GetBunchObjectID(folder.RootFolderId);
 
-                        var projectID = path.Split('/').Last();
+                            var projectIDFromDao = path.Split('/').Last();
 
-                        if (String.IsNullOrEmpty(projectID)) return String.Empty;
+                            if (string.IsNullOrEmpty(projectIDFromDao)) return string.Empty;
 
-                        return CommonLinkUtility.GetFullAbsolutePath(String.Format("{0}?prjid={1}#{2}", ProjectVirtualPath, projectID, folder.ID));
+                            projectID = Convert.ToInt32(projectIDFromDao);
+                        }
+                        return CommonLinkUtility.GetFullAbsolutePath(string.Format("{0}?prjid={1}#{2}", ProjectVirtualPath, projectID, folder.ID));
                     default:
                         return CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FilesBaseAbsolutePath + "#" + HttpUtility.UrlPathEncode(folder.ID.ToString()));
                 }

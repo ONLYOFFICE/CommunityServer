@@ -29,13 +29,13 @@ DB_PWD=""
 DB_NAME=""
 
 install_db(){
-	db_get onlyoffice/db-host || true
+	db_get onlyoffice-communityserver/db-host || true
 	DB_HOST="$RET"
-	db_get onlyoffice/db-user || true
+	db_get onlyoffice-communityserver/db-user || true
 	DB_USER="$RET"
-	db_get onlyoffice/db-pwd || true
+	db_get onlyoffice-communityserver/db-pwd || true
 	DB_PWD="$RET"
-	db_get onlyoffice/db-name || true
+	db_get onlyoffice-communityserver/db-name || true
 	DB_NAME="$RET"
 
 	MYSQL="mysql -h$DB_HOST -u$DB_USER"
@@ -44,16 +44,55 @@ install_db(){
 	fi
 
 	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
-	
-	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then 
-	    sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # new config mysql 5.7 ignore errors
-		echo "sql_mode = 'NO_ENGINE_SUBSTITUTION'" >> /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
-		service mysql restart
+
+	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then
+	    if ! grep -q "^sql_mode" /etc/mysql/mysql.conf.d/mysqld.cnf; then
+        	sed "/\[mysqld\]/a sql_mode = 'NO_ENGINE_SUBSTITUTION'" -i /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
+	    else
+		sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # ignore errors
+            fi
+
+	    if ! grep -q "^max_connections"  /etc/mysql/mysql.conf.d/mysqld.cnf; then
+        	sed '/\[mysqld\]/a max_connections = 1000' -i /etc/mysql/mysql.conf.d/mysqld.cnf
+	    else
+		sed "s/max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # ignore errors
+	    fi
+
+	    if ! grep -q "^max_allowed_packet"  /etc/mysql/mysql.conf.d/mysqld.cnf; then
+        	sed '/\[mysqld\]/a max_allowed_packet = 1048576000' -i /etc/mysql/mysql.conf.d/mysqld.cnf
+	    else
+		sed "s/max_allowed_packet.*/max_allowed_packet = 1048576000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # ignore errors
+	    fi
+
+	    if [ -e /lib/systemd/system/mysql.service ]; then
+                if ! grep -q "^LimitNOFILE"  /lib/systemd/system/mysql.service; then
+                        sed '/\[Service\]/a LimitNOFILE = infinity' -i /lib/systemd/system/mysql.service
+                else
+                        sed "s/LimitNOFILE.*/LimitNOFILE = infinity/" -i /lib/systemd/system/mysql.service || true # ignore errors
+                fi
+
+                if ! grep -q "^LimitMEMLOCK"  /lib/systemd/system/mysql.service; then
+                        sed '/\[Service\]/a LimitMEMLOCK = infinity' -i /lib/systemd/system/mysql.service
+                else
+                        sed "s/LimitMEMLOCK.*/LimitMEMLOCK = infinity/" -i /lib/systemd/system/mysql.service || true # ignore errors
+                fi
+
+                systemctl daemon-reload
+            
+	    fi
+
+  	    service mysql restart
+
+	    if [ -z "$DB_PWD" ] && [ "$DB_USER" = "root" ]; then
+        	   # allow MySql.Data.dll connect via mysql_native_password with root and empty password
+               $MYSQL -D "mysql" -e "update user set plugin='mysql_native_password' where user='root';"
+	    fi
+
 	fi
-	
+
 	# test mysql connection
 	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
-	
+
 	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
 
 	DB_TABLES_COUNT=$($MYSQL --silent --skip-column-names -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}'");
@@ -67,7 +106,7 @@ install_db(){
 	fi
 	
 	for i in $(ls $DIR/Sql/onlyoffice.upgrade*); do
-        $MYSQL "$DB_NAME" < ${i};
+	        $MYSQL "$DB_NAME" < ${i};
 	done
 
 	
@@ -153,8 +192,9 @@ case "$1" in
 		mkdir -p "$DIR/DocumentServerData"
 		mkdir -p /var/cache/nginx/onlyoffice
 		mkdir -p /var/run/onlyoffice
+
 		# needed for signalr service
-        mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
+                mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
 
 		upgrade_storage
 
@@ -164,20 +204,92 @@ case "$1" in
 		chown onlyoffice:www-data -R /var/run/onlyoffice
 		chmod g+s+w /var/run/onlyoffice
 
-		sed '/conversionPattern\s*value=\"%folder{LogDirectory}/s!web!web2!g' -i /var/www/onlyoffice/WebStudio2/web.log4net.config;
-		
 		# import common ssl certificates
 		mozroots --import --sync --machine --quiet
 
 		# configure ngninx for onlyoffice
 		rm -f /etc/nginx/sites-enabled/default
+		rm -f /etc/nginx/sites-enabled/onlyoffice-apisystem
+
+		# disable apparmor mysql. need for best perfomance mysql
+		if which apparmor_parser && [ ! -f /etc/apparmor.d/disable/usr.sbin.mysqld ]; then
+			ln -sf /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+			apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+		fi
+
+		if [ -d /etc/apport/blacklist.d ] && [ ! -f /etc/apport/blacklist.d/onlyoffice ]; then
+cat > /etc/apport/blacklist.d/onlyoffice <<END
+/usr/lib/hyperfastcgi/4.0/HyperFastCgi.exe
+/usr/lib/mono/4.5/mono-service.exe
+END
+			service apport restart
+
+		fi
+
 		sed -i '1d' /etc/logrotate.d/nginx
-        sed '1 i\/var/log/nginx/*.log /var/log/onlyoffice/nginx.*.log {' -i /etc/logrotate.d/nginx
+                sed '1 i\/var/log/nginx/*.log /var/log/onlyoffice/nginx.*.log {' -i /etc/logrotate.d/nginx
+
+		NGINX_ROOT_DIR="/etc/nginx";
+		DOCUMENT_SERVER_PROTOCOL="http";
+		DOCUMENT_SERVER_HOST="localhost:8083";
+		DOCUMENT_SERVER_API_URL="\/web-apps\/apps\/api\/documents\/api\.js";
+		LICENSE_FILE_PATH="/var/www/onlyoffice/Data/license.lic";
+		ONLYOFFICE_ROOT_DIR="$DIR/WebStudio";
+		CONTROL_PANEL_PORT_80_TCP_ADDR="localhost:8082";
+		ONLYOFFICE_SERVICES_DIR="$DIR/Services";
+		SERVICE_SSO_AUTH_HOST_ADDR="localhost";
+		SERVER_HOST="localhost";
+
+
+		# setup enterprise
+
+		# setup document server
+		if dpkg -l | grep -q "onlyoffice-documentserver"; then
+    			cp ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf.template ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf;
+    			sed 's,{{DOCUMENT_SERVER_HOST_ADDR}},'"${DOCUMENT_SERVER_PROTOCOL}:\/\/${DOCUMENT_SERVER_HOST}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-documentserver.conf;
+
+    			# change web.appsettings link to editor
+    			sed '/files\.docservice\.url\.converter/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/ConvertService\.ashx\"!' -i  ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			sed '/files\.docservice\.url\.api/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			sed '/files\.docservice\.url\.storage/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/FileUploader\.ashx\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			sed '/files\.docservice\.url\.command/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/coauthoring\/CommandService\.ashx\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+
+			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+
+    			if ! grep -q "files\.docservice\.url\.command" ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config; then
+          			sed '/files\.docservice\.url\.storage/a <add key=\"files\.docservice\.url\.command\" value=\"'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/coauthoring\/CommandService\.ashx\" \/>/' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			else
+          			sed '/files\.docservice\.url\.command/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/coauthoring\/CommandService\.ashx\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+    			fi
+
+			sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+
+		fi
+
+		# setup controlpanel
+		if dpkg -l | grep -q "onlyoffice-controlpanel"; then
+        		cp ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf.template ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
+			sed 's,{{CONTROL_PANEL_HOST_ADDR}},'"${CONTROL_PANEL_PORT_80_TCP_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
+			sed 's,{{SERVICE_SSO_AUTH_HOST_ADDR}},'"${SERVICE_SSO_AUTH_HOST_ADDR}"',' -i ${NGINX_ROOT_DIR}/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf;
+			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i  ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config;
+			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
+		fi
+
+		# end
+
+		# delete monoserve2
+		if [ -d $DIR/WebStudio2 ]; then
+			service monoserve2 stop;
+			rm -frd $DIR/WebStudio2;
+			rm -f /etc/hyperfastcgi/monoserve2;
+			rm -f /etc/init.d/monoserve2;
+			rm -f /etc/god/conf.d/monoserve2;
+		fi
+
 
 		# call db_stop to prevent installation hang
 		db_stop
 
-		# restart dependent services
 		service nginx restart >/dev/null 2>&1
 		service mysql restart >/dev/null 2>&1 || true # ignore errors
 	;;

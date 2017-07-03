@@ -626,6 +626,8 @@ ASC.Projects.Reports = (function () {
                 new AdvancedSelectorItem(3, reportResource.Yesterday),
                 new AdvancedSelectorItem(5, reportResource.ThisWeek),
                 new AdvancedSelectorItem(6, reportResource.LastWeek),
+                new AdvancedSelectorItem(8, reportResource.ThisMonth),
+                new AdvancedSelectorItem(9, reportResource.LastMonth),
                 new AdvancedSelectorItem(11, reportResource.ThisYear),
                 new AdvancedSelectorItem(12, reportResource.LastYear),
                 new AdvancedSelectorItem(0, reportResource.Other)

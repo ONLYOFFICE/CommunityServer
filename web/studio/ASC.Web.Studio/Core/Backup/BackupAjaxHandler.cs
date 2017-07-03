@@ -299,8 +299,6 @@ namespace ASC.Web.Studio.Core.Backup
         [SecurityPassthrough]
         public BackupProgress GetRestoreProgress()
         {
-            DemandPermissionsRestore();
-
             BackupProgress result;
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();

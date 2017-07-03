@@ -1,2 +1,1 @@
-﻿<%@ OutputCache  Duration="120" VaryByParam="none"  VaryByCustom="Theme;module[calendar];module[files]" %>
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceStyleBundleControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceStyleBundleControl" %>

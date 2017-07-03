@@ -126,11 +126,11 @@ namespace ASC.Web.CRM
 
             CommonContainerHolder.Controls.Add(contactDetailsViewControl);
 
-            var title = targetContact.GetTitle().HtmlEncode();
+            var title = targetContact.GetTitle();
 
             Master.CurrentPageCaption = title;
 
-            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(title, targetContact is Company ? EntityType.Company : EntityType.Person, false, CRMSecurity.CanEdit(targetContact));
+            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(title.HtmlEncode(), targetContact is Company ? EntityType.Company : EntityType.Person, false, CRMSecurity.CanEdit(targetContact));
 
             Title = HeaderStringHelper.GetPageTitle(title);
         }

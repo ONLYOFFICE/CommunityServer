@@ -108,6 +108,9 @@ window.ASC.Files.ThirdParty = (function () {
     };
 
     var showSettingThirdParty = function () {
+        if (jq("#thirdPartyEditor").length == 0) {
+            return;
+        }
         getThirdParty();
         ASC.Files.UI.hideAllContent();
         jq("#treeSetting").addClass("currentCategory open");
@@ -119,18 +122,35 @@ window.ASC.Files.ThirdParty = (function () {
 
     var showChangeDialog = function (folderData) {
         var thirdPartyItem = getThirdPartyItem(folderData);
-        var thirdParty =
+        var thirdParty = jq.extend(thirdPartyItem,
             {
-                getTokenUrl: thirdPartyItem.getTokenUrl,
-                key: thirdPartyItem.key,
-                providerTitle: thirdPartyItem.providerTitle,
-
                 id: folderData.provider_id,
                 customerTitle: folderData.title,
                 folderId: folderData.id
-            };
+            });
 
         jq("#thirdPartyEditor div[id$=\"InfoPanel\"]").hide();
+
+        jq("#thirdPartyConnectionUrl, #thirdPartyPassword").val("");
+        jq("#thirdPartyConnectionUrl").closest(".thirdparty-editor-row").hide();
+        jq("#thirdPartyPassword").closest(".thirdparty-editor-row").hide();
+
+        if (!thirdParty.getTokenUrl) {
+            jq("#thirdPartyAccount").closest(".thirdparty-editor-row").hide();
+            jq("#thirdPartyPassword").closest(".thirdparty-editor-row").show();
+            if (thirdParty.urlRequest) {
+                jq("#thirdPartyConnectionUrl").closest(".thirdparty-editor-row").show();
+            }
+        } else {
+            jq("#thirdPartyAccount").attr("data-provider", thirdParty.key).closest(".thirdparty-editor-row").show();
+        }
+
+        for (var classItem in ASC.Files.ThirdParty.thirdPartyList) {
+            jq("#thirdPartyAccount span, #thirdPartyTitle").removeClass(classItem);
+        }
+        jq("#thirdPartyAccount").attr("data-token", "");
+        jq("#thirdPartyAccount span, #thirdPartyTitle").addClass(thirdParty.key);
+        jq("#thirdPartyTitle").focus();
 
         jq("#thirdPartyTitle").val(thirdParty.customerTitle);
         ASC.Files.UI.checkCharacter(jq("#thirdPartyTitle"));
@@ -152,17 +172,15 @@ window.ASC.Files.ThirdParty = (function () {
 
         ASC.Files.UI.blockUI("#thirdPartyEditor", 400, 300);
         PopupKeyUpActionProvider.EnterAction = "jq(\"#submitThirdParty\").click();";
-
-        for (var classItem in ASC.Files.ThirdParty.thirdPartyList) {
-            jq("#thirdPartyTitle").removeClass(classItem);
-        }
-        jq("#thirdPartyTitle").addClass(thirdParty.key).focus();
     };
 
     var submitEditor = function (thirdParty) {
+        var connectUrl = jq("#thirdPartyConnectionUrl").val().trim();
+        var password = jq("#thirdPartyPassword").val().trim();
         var folderTitle = jq("#thirdPartyTitle").val().trim();
         folderTitle = ASC.Files.Common.replaceSpecCharacter(folderTitle);
         var corporate = (jq("#thirdPartyCorporate").prop("checked") === true);
+        var token = jq("#thirdPartyAccount").attr("data-token");
 
         var infoBlock = jq("#thirdPartyEditor div[id$=\"InfoPanel\"]");
         infoBlock.hide();
@@ -180,7 +198,7 @@ window.ASC.Files.ThirdParty = (function () {
             ASC.Files.UI.blockObjectById("folder", thirdParty.folderId, true, ASC.Files.FilesJSResources.DescriptChangeInfo);
         }
 
-        saveProvider(thirdParty.id, thirdParty.key, folderTitle, "", "", "", "", corporate, thirdParty.folderId);
+        saveProvider(thirdParty.id, thirdParty.key, folderTitle, connectUrl, "", password, token, corporate, thirdParty.folderId);
     };
 
     var showDeleteDialog = function (providerId, providerKey, providerTitle, customerTitle, folderData) {
@@ -227,6 +245,33 @@ window.ASC.Files.ThirdParty = (function () {
         return false;
     };
 
+    var editTokenThirdPartyAccount = function (thirdParty) {
+        if (!thirdParty || typeof thirdParty.provider_id == "undefined") {
+            return false;
+        }
+
+        OAuthCallback = function (token) {
+            var accountPanel = jq("#account_" + thirdParty.key + "_" + thirdParty.provider_id);
+            accountPanel.find(".account-hidden-token").val(token);
+        };
+        OAuthPopup(thirdParty.getTokenUrl);
+
+        return false;
+    };
+
+    var changeTokenThirdPartyAccount = function (thirdParty) {
+        if (!thirdParty || !jq("#thirdPartyEditor").is(":visible")) {
+            return false;
+        }
+
+        OAuthCallback = function (token) {
+            jq("#thirdPartyAccount").attr("data-token", token);
+        };
+        OAuthPopup(thirdParty.getTokenUrl);
+
+        return false;
+    };
+
     var addNewThirdParty = function (thirdParty, token) {
         var data = {
             canCorporate: (ASC.Files.Constants.ADMIN && !ASC.Resources.Master.Personal),
@@ -239,6 +284,7 @@ window.ASC.Files.ThirdParty = (function () {
             provider_id: 0,
             provider_key: thirdParty.key,
             provider_title: thirdParty.providerTitle,
+            getTokenUrl: thirdParty.getTokenUrl
         };
 
         if (thirdParty.key == ASC.Files.ThirdParty.thirdPartyList.DocuSign.key) {
@@ -276,11 +322,24 @@ window.ASC.Files.ThirdParty = (function () {
     };
 
     var editThirdPartyAccount = function (obj) {
-        var account = jq(obj).parents(".account-row");
-        ASC.Files.UI.checkCharacter(jq(account).find(".account-input-folder"));
-        var customerTitle = jq(account).find(".account-hidden-customer-title").val().trim();
-        jq(account).find(".account-input-folder").val(customerTitle);
-        jq(account).find(".account-settings-container").show();
+        var accountPanel = jq(obj).parents(".account-row");
+
+        ASC.Files.UI.checkCharacter(jq(accountPanel).find(".account-input-folder"));
+        var customerTitle = jq(accountPanel).find(".account-hidden-customer-title").val().trim();
+        jq(accountPanel).find(".account-input-folder").val(customerTitle);
+        jq(accountPanel).find(".account-settings-container").show();
+
+        var providerKey = jq(accountPanel).find(".account-hidden-provider-key").val().trim();
+        var thirdParty = ASC.Files.ThirdParty.thirdPartyList[providerKey];
+
+        if (thirdParty && !thirdParty.getTokenUrl) {
+            jq(accountPanel).find(".account-log-pass-container").show();
+            if (thirdParty.urlRequest) {
+                jq(accountPanel).find(".account-field-url").show();
+            }
+        }
+
+        jq(accountPanel).find("input:visible:first").focus();
     };
 
     var cancelThirdPartyAccount = function (obj) {
@@ -316,7 +375,7 @@ window.ASC.Files.ThirdParty = (function () {
         var providerKey = jq(account).find(".account-hidden-provider-key").val().trim();
         var customerTitle = jq(account).find(".account-input-folder").val().trim();
         var connectUrl = jq(account).find(".account-input-url").val().trim();
-        var login = jq(account).find(".account-input-login").val().trim();
+        var login = (jq(account).find(".account-input-login").val() || "").trim();
         var password = jq(account).find(".account-input-pass").val().trim();
         var token = jq(account).find(".account-hidden-token").val().trim();
         var corporate = (jq(account).find(".account-cbx-corporate").prop("checked") === true);
@@ -599,7 +658,7 @@ window.ASC.Files.ThirdParty = (function () {
     };
 
     var docuSignFolderSelectorReset = function (folderId) {
-        if (!ASC.Files.Common.isCorrectId(folderId)) {
+        if (!ASC.Files.Common.isCorrectId(folderId) || jq("#thirdPartyEditor").length == 0) {
             return;
         }
 
@@ -679,6 +738,7 @@ window.ASC.Files.ThirdParty = (function () {
         if (jsonData.length > 0 || docuSign) {
             var data =
                 jq(jsonData).map(function (i, item) {
+                    var thirdparty =ASC.Files.ThirdParty.thirdPartyList[item.provider_key]
                     return {
                         canCorporate: (ASC.Files.Constants.ADMIN && !ASC.Resources.Master.Personal),
                         canEdit: true,
@@ -690,7 +750,8 @@ window.ASC.Files.ThirdParty = (function () {
                         max_name_length: ASC.Files.Constants.MAX_NAME_LENGTH,
                         provider_id: item.provider_id,
                         provider_key: item.provider_key,
-                        provider_title: ASC.Files.ThirdParty.thirdPartyList[item.provider_key].providerTitle,
+                        provider_title: thirdparty.providerTitle,
+                        getTokenUrl: thirdparty.getTokenUrl,
                     };
                 }).toArray();
 
@@ -758,17 +819,20 @@ window.ASC.Files.ThirdParty = (function () {
 
         if (jq("#settingThirdPartyPanel:visible").length > 0) {
             params.providerId = params.providerId ? params.providerId : 0;
+            var thirdparty = ASC.Files.ThirdParty.thirdPartyList[jsonData.provider_key];
             var data = {
                 id: jsonData.id,
                 corporate: params.corporate,
                 customer_title: jsonData.title,
                 provider_id: jsonData.provider_id,
-                provider_title: ASC.Files.ThirdParty.thirdPartyList[jsonData.provider_key].providerTitle,
+                provider_title: thirdparty.providerTitle,
                 provider_key: jsonData.provider_key,
                 isNew: false,
                 max_name_length: ASC.Files.Constants.MAX_NAME_LENGTH,
                 canCorporate: (ASC.Files.Constants.ADMIN && !ASC.Resources.Master.Personal),
-                error: jsonData.error
+                error: jsonData.error,
+                canEdit: jsonData.provider_key != ASC.Files.ThirdParty.thirdPartyList.DocuSign.key,
+                getTokenUrl: thirdparty.getTokenUrl,
             };
 
             var xmlData = ASC.Files.Common.jsonToXml({ third_partyList: { entry: data } });
@@ -904,6 +968,8 @@ window.ASC.Files.ThirdParty = (function () {
         showDeleteDialog: showDeleteDialog,
 
         addNewThirdPartyAccount: addNewThirdPartyAccount,
+        editTokenThirdPartyAccount: editTokenThirdPartyAccount,
+        changeTokenThirdPartyAccount: changeTokenThirdPartyAccount,
         cancelThirdPartyAccount: cancelThirdPartyAccount,
         saveThirdPartyAccount: saveThirdPartyAccount,
 
@@ -923,8 +989,9 @@ window.ASC.Files.ThirdParty = (function () {
 
 (function ($) {
 
-    if (jq("#thirdPartyEditor").length == 0)
+    if (jq("#thirdPartyEditor").length == 0) {
         return;
+    }
 
     $(function () {
         jq("#thirdPartyEditor div[id$=\"InfoPanel\"]")
@@ -932,31 +999,50 @@ window.ASC.Files.ThirdParty = (function () {
             .addClass("errorBox")
             .css("margin", "10px 16px 0");
 
-        jq(".add-account-button").click(function () {
+        var addAccountButton = function () {
             ASC.Files.Actions.hideAllActionPanels();
-            PopupKeyUpActionProvider.CloseDialog();
 
             var thirdPartyKey = jq(this).attr("data-provider");
             var thirdParty = ASC.Files.ThirdParty.thirdPartyList[thirdPartyKey];
             if (!thirdParty) {
                 return true;
             }
-            var eventAfter = function () {
-                return ASC.Files.ThirdParty.addNewThirdPartyAccount(thirdParty);
-            };
+            if (jq("#thirdPartyEditor").is(":visible")) {
+                eventAfter = function () {
+                    return ASC.Files.ThirdParty.changeTokenThirdPartyAccount(thirdParty);
+                };
+            } else {
+                PopupKeyUpActionProvider.CloseDialog();
 
-            if (jq("#settingThirdPartyPanel:visible").length == 0) {
-                if (!thirdParty.getTokenUrl) {
-                    ASC.Files.Folders.eventAfter = eventAfter;
+                var account = jq(this).closest(".account-row");
+                if (account.length) {
+                    thirdParty.provider_id = parseInt(jq(account).find(".account-hidden-provider-id").val());
+
+                    var eventAfter = function () {
+                        return ASC.Files.ThirdParty.editTokenThirdPartyAccount(thirdParty);
+                    };
                 } else {
-                    eventAfter();
+                    eventAfter = function () {
+                        return ASC.Files.ThirdParty.addNewThirdPartyAccount(thirdParty);
+                    };
                 }
-                ASC.Files.Anchor.move("setting=thirdparty");
-                return false;
+
+                if (jq("#settingThirdPartyPanel:visible").length == 0) {
+                    if (!thirdParty.getTokenUrl) {
+                        ASC.Files.Folders.eventAfter = eventAfter;
+                    } else {
+                        eventAfter();
+                    }
+                    ASC.Files.Anchor.move("setting=thirdparty");
+                    return false;
+                }
             }
             eventAfter();
             return false;
-        });
+        };
+
+        jq(".add-account-button, .edit-account-button").click(addAccountButton);
+        jq("#thirdPartyAccountList").on("click", ".edit-account-button", addAccountButton);
 
         jq("#thirdPartyAccountList").on("click", "a.account-cancel-link", function () {
             ASC.Files.Actions.hideAllActionPanels();
@@ -991,7 +1077,7 @@ window.ASC.Files.ThirdParty = (function () {
 
         jq("#thirdPartyAccountList").on("click", ".menu-small", ASC.Files.ThirdParty.showThirdPartyActionsPanel);
 
-        jq("#thirdPartyAccountList").on("keyup", ".account-input-login, .account-input-pass, .account-input-folder, .account-cbx-corporate", function (event) {
+        jq("#thirdPartyAccountList").on("keyup", ".account-input-url, .account-input-login, .account-input-pass, .account-input-folder, .account-cbx-corporate", function (event) {
             if (!e) {
                 var e = event;
             }
@@ -1000,7 +1086,13 @@ window.ASC.Files.ThirdParty = (function () {
 
             if (code == ASC.Files.Common.keyCode.enter) {
                 var accountRow = jq(this).closest(".account-row");
-                if (jq(this).is(".account-input-login")) {
+                if (jq(this).is(".account-input-url")) {
+                    if (accountRow.find(".account-input-login").is(":visible")) {
+                        accountRow.find(".account-input-login").focus();
+                    } else {
+                        accountRow.find(".account-input-pass").focus();
+                    }
+                } else if (jq(this).is(".account-input-login")) {
                     accountRow.find(".account-input-pass").focus();
                 } else if (jq(this).is(".account-input-pass")) {
                     accountRow.find(".account-input-folder").focus();

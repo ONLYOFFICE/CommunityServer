@@ -34,8 +34,6 @@ window.tagsManager = (function($) {
             isInit = true;
 
             serviceManager.bind(Teamlab.events.removeMailTag, onDeleteMailTag);
-            serviceManager.bind(Teamlab.events.updateMailTag, onUpdateMailTag);
-            serviceManager.bind(Teamlab.events.createMailTag, onCreateMailTag);
             serviceManager.bind(Teamlab.events.getMailTags, onGetMailTags);
 
             tagsPanel.init();
@@ -142,7 +140,7 @@ window.tagsManager = (function($) {
             tag.addresses = [];
         }
 
-        serviceManager.createTag(tag.name, tag.style, tag.addresses, {}, { error: onErrorCreateMailTag });
+        serviceManager.createTag(tag.name, tag.style, tag.addresses, {}, { success: onCreateMailTag, error: onErrorCreateMailTag });
     };
 
     var updateTag = function(tag) {
@@ -152,7 +150,7 @@ window.tagsManager = (function($) {
             return;
         }
 
-        serviceManager.updateTag(tag.id, tag.name, tag.style, tag.addresses, {}, { error: onErrorCreateMailTag });
+        serviceManager.updateTag(tag.id, tag.name, tag.style, tag.addresses, {}, { success: onUpdateMailTag, error: onErrorCreateMailTag });
     };
 
     var deleteTag = function(id) {

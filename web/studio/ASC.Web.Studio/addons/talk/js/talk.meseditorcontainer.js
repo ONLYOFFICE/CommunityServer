@@ -3,6 +3,7 @@
 window.ASC.TMTalk = window.ASC.TMTalk || {};
 
 window.ASC.TMTalk.meseditorContainer = (function ($) {
+
   var
     isInit = false,
     taWindow = null,
@@ -341,6 +342,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
 
         var selectionRange = wnd.document.createRange();
         selectionRange.selectNode(bogus);
+        if (wnd.getSelection().rangeCount > 0) wnd.getSelection().removeAllRanges();
         wnd.getSelection().addRange(selectionRange);
         wnd.getSelection().collapseToStart();
       }
@@ -625,6 +627,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         textnode.appendChild(wnd.document.createTextNode(''));
         wnd.document.body.insertBefore(textnode, ASC.TMTalk.dom.lastElementChild(wnd.document.body));
         range.selectNode(textnode);
+        if (wnd.getSelection().rangeCount > 0) wnd.getSelection().removeAllRanges();
         wnd.getSelection().addRange(range);
         wnd.getSelection().collapseToStart();
         wnd.document.body.removeChild(textnode);
@@ -953,8 +956,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
 
           ASC.TMTalk.dom.removeClass(meseditorContainer, 'unavailable');
           ASC.TMTalk.dom.removeClass(meseditorContainer, 'owner');
-
-          TMTalk.disableFileUploader(false);
+          TMTalk.disableFileUploader(false);       
           break;
         case 'mailing' :
           ASC.TMTalk.dom.removeClass(meseditorContainer, 'chat');
@@ -1037,10 +1039,17 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
   };
 
   var onOpenHistory = function (jid) {
+      //jq("div.cha").removeClass('hidden').addClass('visible');
+      jq.each(jq("select.historyPeriod"), function (index, item) {
+          jq(item).tlCombobox();
+      });
+      
+      
     var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
     if (currentRoomData.type === 'chat' && currentRoomData.id === jid) {
-      ASC.TMTalk.dom.addClass('talkMeseditorContainer', 'history');
-      window.focus();
+        ASC.TMTalk.dom.addClass('talkMeseditorContainer', 'history');
+        window.focus();
+        
     }
   };
 
@@ -1053,6 +1062,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       } else {
         ASC.TMTalk.meseditorContainer.setCursor(taWindow);
       }
+      //jq("div.cha").removeClass('visible').addClass('hidden');
     }
   };
 
@@ -1070,7 +1080,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       var link = response.FileURL.substring(0, response.FileURL.lastIndexOf('/')) + '/' + encodeURIComponent(response.FileName);
       var dstcontact = ASC.TMTalk.properties.item('dstcontact');
       if (dstcontact && typeof dstcontact === 'object') {
-        ASC.TMTalk.meseditorContainer.sendMessage(dstcontact.cid, dstcontact.type, ASC.TMTalk.stringFormat(ASC.TMTalk.Resources.sendFileMessage, link, response.Data));
+          ASC.TMTalk.meseditorContainer.sendMessage(dstcontact.cid, dstcontact.type, ASC.TMTalk.stringFormat(jq.format(ASC.TMTalk.Resources.SendFileMessage, "{0}<br/>", "{1}"), link, response.Data));
         ASC.TMTalk.properties.item('dstcontact', null);
       }
     } else {
@@ -1087,6 +1097,52 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
     if (dstcontact && typeof dstcontact === 'object') {
       ASC.TMTalk.meseditorContainer.showErrorMessage(dstcontact.cid, message);
     }
+  };
+  var openCreatingConferenceDialog = function() {
+      jq("#chatOrSpam").tlCombobox();
+      TMTalk.showDialog('create-room', null, { roomname: '', temproomchecked: true });
+  };
+    
+  var searchMessages = function() {
+      jq.each(jq("select.historyPeriod"), function(index, item) {
+          jq(item).tlCombobox();
+      });
+      var currentRoomData = ASC.TMTalk.roomsManager.getRoomData(),
+          roomlistContainer = document.getElementById('talkRoomsContainer'),
+          jid = currentRoomData.id,
+          nodes = null,
+          room = null,
+          messagescontainer = null,
+          searchinput = null,
+          nodesInd = 0;
+    
+      if (currentRoomData.type === 'chat') {
+        nodes = ASC.TMTalk.dom.getElementsByClassName(roomlistContainer, 'room', 'li');
+          nodesInd = nodes.length;
+          while (nodesInd--) {
+              if (nodes[nodesInd].getAttribute('data-roomcid') === jid) {
+                  room = nodes[nodesInd];
+                  break;
+              }
+          }
+          if (room !== null) {
+              nodes = ASC.TMTalk.dom.getElementsByClassName(room, 'messages', 'ul');
+              if (nodes.length > 0) {
+                  messagescontainer = nodes[0];
+              }
+          }
+          if (messagescontainer !== null) {
+              ASC.TMTalk.roomsContainer.resetHistorySearch(room, ASC.TMTalk.dom.getElementsByClassName(messagescontainer, 'message', 'li'));
+          }
+          ASC.TMTalk.dom.toggleClass('talkRoomsContainer', 'searchmessage');
+          if (room !== null) {
+              nodes = ASC.TMTalk.dom.getElementsByClassName(room, 'search-value', 'input');
+              if (nodes.length > 0) {
+                  searchinput = nodes[0];
+              }
+              $(searchinput).focus();
+          }
+      }
   };
 
   return {
@@ -1109,7 +1165,10 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
 
     onSendFileStart     : onSendFileStart,
     onSendFileComplete  : onSendFileComplete,
-    onSendFileError: onSendFileError
+    onSendFileError: onSendFileError,
+    
+    openCreatingConferenceDialog: openCreatingConferenceDialog,
+    searchMessages: searchMessages
   };
 })(jQuery);
 
@@ -1140,9 +1199,11 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
     }
 
     if (ASC.TMTalk.properties.item('sndbyctrlentr') === '0') {
-      $('#talkMeseditorToolbarContainer div.button-container.toggle-sendbutton:first').removeClass('send-by-ctrlenter');
+        $('#talkMeseditorToolbarContainer div.button-container.toggle-sendbutton:first').removeClass('send-by-ctrlenter');
+        $('#button-send-ctrl-enter').removeClass('on').addClass('off');
     } else {
-      $('#talkMeseditorToolbarContainer div.button-container.toggle-sendbutton:first').addClass('send-by-ctrlenter');
+        $('#talkMeseditorToolbarContainer div.button-container.toggle-sendbutton:first').addClass('send-by-ctrlenter');
+        $('#button-send-ctrl-enter').removeClass('off').addClass('on');
     }
 
     if ($.support.touch) {
@@ -1155,13 +1216,14 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       TMTalk.showDialog('create-mailing', null, {mailingname : ''});
     });
 
-    $('#talkMeseditorToolbarContainer div.button-talk.create-conference:first').click(function() {
-      TMTalk.showDialog('create-room', null, {roomname : '', temproomchecked : true});
-    });
-
-    $('#talkMeseditorToolbarContainer div.button-talk.emotions:first').click(function() {
+   // $('#talkMeseditorToolbarContainer div.button-talk.create-conference:first').click(function() {
+   //   TMTalk.showDialog('create-room', null, {roomname : '', temproomchecked : true});
+   // });
+    
+    
+    
+    $('#talkMeseditorToolbarContainer div.button-talk.emotions:first').click(function () {
       var $container = null;
-      
       if(($container = $('#talkMeseditorToolbarContainer div.button-container.emotions:first div.container:first')).is(':hidden')) {
         $container.show('fast', function () {
           if ($.browser.msie) {
@@ -1189,11 +1251,16 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
     });
 
     $('#talkMeseditorToolbarContainer div.button-talk.history:first').click(function() {
-      var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
+        var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
+        
       if (currentRoomData !== null && currentRoomData.type === 'chat') {
         var jid = currentRoomData.id;
         if (jid) {
-          ASC.TMTalk.messagesManager.openHistory(jid);
+           // jq("#cha").tlCombobox();
+            ASC.TMTalk.messagesManager.openHistory(jid);
+   
+            //jq("#cha").tlCombobox();
+            
         }
       }
     });
@@ -1227,26 +1294,42 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
     });
 
     $('#talkDialogsContainer').click(function (evt) {
-      var $target = $(evt.target);
-      if ($target.hasClass('button-talk') && $target.hasClass('create-room')) {
-        var roomname = ASC.TMTalk.trim($('#txtRoomName').val());
+        var $target = $(evt.target);
+        if ($target.hasClass('button-talk') && $target.hasClass('create-room')) {
+            
+            var roomname = ASC.TMTalk.trim($('#txtRoomName').val());
+            var type = $('#chatOrSpam:first')[0].options.selectedIndex;
+            if (type == 0)
+            {
+                if (roomname && ASC.TMTalk.mucManager.isValidName(roomname)) {
+                    ASC.TMTalk.mucManager.createRoom(roomname, $('#cbxTemporaryRoom').is(':checked'));
+                    TMTalk.hideDialog();
+                } else {
+                    //$('#txtRoomName').parents('div.textfield:first').addClass('invalid-input');
+                    $('#txtRoomName').addClass('invalid-input');
+                }
 
-        if (roomname && ASC.TMTalk.mucManager.isValidName(roomname)) {
-          ASC.TMTalk.mucManager.createRoom(roomname, $('#cbxTemporaryRoom').is(':checked'));
-          TMTalk.hideDialog();
-        } else {
-          $('#txtRoomName').parents('div.textfield:first').addClass('invalid-field');
-        }
-    } else if ($target.hasClass('button-talk') && $target.hasClass('create-mailing')) {
-        var mailingname = ASC.TMTalk.trim($('#txtMailingName').val());
+            }
+            else if (type == 1) {
+                var mailingname = roomname;
+                if (mailingname && ASC.TMTalk.msManager.isValidName(mailingname)) {
+                    ASC.TMTalk.msManager.createList(mailingname);
+                    TMTalk.hideDialog();
+                } else {
+                    // $('#txtRoomName').parents('div.textfield:first').addClass('invalid-field');
+                    $('#txtRoomName').addClass('invalid-input');
+                }
 
-        if (mailingname && ASC.TMTalk.msManager.isValidName(mailingname)) {
-          ASC.TMTalk.msManager.createList(mailingname);
-          TMTalk.hideDialog();
-        } else {
-          $('#txtMailingName').parents('div.textfield:first').addClass('invalid-field');
+           }                         
+        } else if ($target.hasClass('option-item')) {
+            if ($target[0].getAttribute('data-value') && $target[0].getAttribute('data-value') === 'Spam message') {
+
+                $('div.popupContainerClass.dialog.create-room input#cbxTemporaryRoom').parents('table:first').hide();
+            } else {
+                $('div.popupContainerClass.dialog.create-room input#cbxTemporaryRoom').parents('table:first').show();
+            }
+            
         }
-      }
     });
   });
 })(jQuery);

@@ -50,9 +50,14 @@ namespace ASC.FederatedLogin.LoginProviders
 
         public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
         {
+            if (!string.IsNullOrEmpty(context.Request["denied"]))
+            {
+                return LoginProfile.FromError(new Exception("Canceled at provider"));
+            }
+
             if (string.IsNullOrEmpty(context.Request["oauth_token"]))
             {
-                var reqToken = OAuthUtility.GetRequestToken(TwitterKey, TwitterSecret, context.Request.Url.AbsoluteUri);
+                var reqToken = OAuthUtility.GetRequestToken(TwitterKey, TwitterSecret, context.Request.GetUrlRewriter().AbsoluteUri);
                 var url = OAuthUtility.BuildAuthorizationUri(reqToken.Token).ToString();
                 context.Response.Redirect(url, true);
                 return null;

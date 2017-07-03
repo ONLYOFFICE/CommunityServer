@@ -97,6 +97,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Google account was reconnected successfully.
+        /// </summary>
+        public static string AccountGoogleReconnectSuccess {
+            get {
+                return ResourceManager.GetString("AccountGoogleReconnectSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The account is connected using OAuth, editing is limited..
         /// </summary>
         public static string AccountNotificationText {

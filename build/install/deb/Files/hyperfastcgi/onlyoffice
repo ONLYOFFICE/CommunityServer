@@ -1,6 +1,7 @@
 <configuration>
 	<server type="HyperFastCgi.ApplicationServers.SimpleApplicationServer">
 		<root-dir>/var/www/onlyoffice/WebStudio</root-dir>
+		<threads min-worker="40" max-worker="0" min-io="4" max-io="0" />
 	</server>
 	<listener type="HyperFastCgi.Listeners.NativeListener">
 		<apphost-transport type="HyperFastCgi.Transports.NativeTransport">

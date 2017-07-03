@@ -218,6 +218,11 @@ namespace ASC.Projects.Engine
                 {
                     ProjectSecurity.CreateGuestSecurityException();
                 }
+
+                if (!ProjectSecurity.IsInTeam(task.Project, responsible))
+                {
+                    ProjectSecurity.CreateSecurityException();
+                }
             }
 
             var milestone = task.Milestone != 0 ? milestoneDao.GetById(task.Milestone) : null;
@@ -244,18 +249,16 @@ namespace ASC.Projects.Engine
             }
             else
             {
-                var oldTask = GetByID(new[] {task.ID}).FirstOrDefault();
+                var oldTask = taskDao.GetById(task.ID);
 
                 if (oldTask == null) throw new ArgumentNullException("task");
+                ProjectSecurity.DemandEdit(oldTask);
 
                 var newResponsibles = task.Responsibles.Distinct().ToList();
                 var oldResponsibles = oldTask.Responsibles.Distinct().ToList();
 
                 removeResponsibles.AddRange(oldResponsibles.Where(p => !newResponsibles.Contains(p)));
                 inviteToResponsibles.AddRange(newResponsibles.Where(participant => !oldResponsibles.Contains(participant)));
-
-                //changed task
-                ProjectSecurity.DemandEdit(oldTask);
 
                 task = taskDao.Save(task);
             }

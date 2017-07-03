@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Projects</RootNamespace>
     <AssemblyName>ASC.Web.Projects</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -50,7 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BasecampRestAPI">
-      <HintPath>..\..\..\..\..\packages\BasecampRestAPI.1.0.0.0\lib\net35\BasecampRestAPI.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\BasecampRestAPI.1.0.0.1\lib\net45\BasecampRestAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
@@ -60,14 +60,17 @@
       <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-      <HintPath>..\..\..\..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\..\..\..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -433,7 +436,15 @@
     <Compile Include="Tasks.aspx.designer.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Test\BaseTest.cs" />
+    <Compile Include="Test\CustomCaseAttribute.cs" />
+    <Compile Include="Test\DataGenerator.cs" />
+    <Compile Include="Test\DiscussionTest.cs" />
+    <Compile Include="Test\MilestonesTest.cs" />
     <Compile Include="Test\ProjectsTest.cs" />
+    <Compile Include="Test\TaskSecurityTest.cs" />
+    <Compile Include="Test\TasksTest.cs" />
+    <Compile Include="Test\TimeTrackingTest.cs" />
     <Compile Include="Timer.aspx.cs">
       <DependentUpon>Timer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -168,4 +168,7 @@
   <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
     <value>Invalid operation for shared domain</value>
   </data>
+  <data name="ErrorUnpaidAccessDenied" xml:space="preserve">
+    <value>Not available in unpaid version</value>
+  </data>
 </root>

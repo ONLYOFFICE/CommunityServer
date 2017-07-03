@@ -109,7 +109,6 @@ namespace ASC.Xmpp.Core.protocol.Base
                 }
             }
         }
-
         /// <summary>
         /// </summary>
         public Jid To
@@ -137,6 +136,7 @@ namespace ASC.Xmpp.Core.protocol.Base
                     RemoveAttribute("to");
                 }
             }
+
         }
 
         public bool Switched { get; private set; }

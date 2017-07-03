@@ -336,6 +336,9 @@
   <data name="ConfirmSkipDescr" xml:space="preserve">
     <value>No file will be copied. The orginal file be in the destination folder.</value>
   </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Connection url</value>
+  </data>
   <data name="ButtonSendDocuSign" xml:space="preserve">
     <value>Send with DocuSign</value>
   </data>
@@ -735,6 +738,9 @@
   <data name="ThirdPartyConnectingAccount" xml:space="preserve">
     <value>Connecting account</value>
   </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Specify for change</value>
+  </data>
   <data name="ThirdPartyDeleteCaption" xml:space="preserve">
     <value>Delete Third Party</value>
   </data>
@@ -758,6 +764,12 @@
   </data>
   <data name="ThirdPartyOwnCloud" xml:space="preserve">
     <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Reconnect</value>
   </data>
   <data name="ThirdPartySetCorporate" xml:space="preserve">
     <value>Make shared and put into Common Documents</value>

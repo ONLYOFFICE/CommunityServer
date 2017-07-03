@@ -20,9 +20,16 @@
     </style>
     <div class="clearFix profile-title header-with-menu">
          <span class="header text-overflow" title="<%= UserName %>"><%= UserName %></span>
-        <% if ((IsAdmin() || _helper.UserInfo.IsMe()) && _helper.UserInfo.IsLDAP())
+        <% if (IsAdmin() || _helper.UserInfo.IsMe())
         { %>
-        <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
+            <% if (_helper.UserInfo.IsLDAP())
+            { %>
+            <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
+            <% }
+                else if (_helper.UserInfo.IsSSO())
+                { %>
+            <span class="sso-lock-big" title="<%= Resource.SsoUsersListLockTitle %>"></span>
+            <% } %>
         <% } %>
         <asp:PlaceHolder ID="actionsHolder" runat="server" />
     </div>

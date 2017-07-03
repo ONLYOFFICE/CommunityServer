@@ -18,6 +18,8 @@
                 });
             }
             Teamlab.bind(Teamlab.events.getTalkUnreadMessages, ASC.Controls.TalkNavigationItem.getResponce);
+
+            
         },
         updateValue: function (value) {
             if (this.currentValue === value) {
@@ -69,7 +71,7 @@ if (!ASC.Controls.JabberClient) {
             var a = this.winName.match(/\w+/g);
             this.winName = a ? a.join('') : this.winName;
         },
-        extendChat: function() {
+        extendChat: function () {
             ASC.Controls.JabberClient.open();
         },
         open: function (jid) {

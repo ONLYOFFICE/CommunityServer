@@ -630,24 +630,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
             var imapIntervals = new ImapIntervals(folderUids.UnhandledUidIntervals);
             var beginDateUid = folderUids.BeginDateUid;
 
-            IList<UniqueId> allUids;
-
-            try
-            {
-                allUids = folder.Fetch(0, -1, MessageSummaryItems.UniqueId, CancelToken).Select(r => r.UniqueId).ToList();
-            }
-            catch (NotSupportedException)
-            {
-                const int start = 0;
-                var end = folder.Count;
-                const int increment = 1;
-
-                allUids = Enumerable
-                    .Repeat(start, (end - start) / 1 + 1)
-                    .Select((tr, ti) => tr + increment * ti)
-                    .Select(n => new UniqueId((uint)n))
-                    .ToList();
-            }
+            var allUids = GetFolderUids(folder);
 
             foreach (var uidsInterval in imapIntervals.GetUnhandledIntervalsCopy())
             {
@@ -670,9 +653,8 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     ? first
                     : Math.Max(uidsInterval.To, first));
 
-                var infoList =
-                    folder.Fetch(limitMessages > 0 ? uidsCollection.Take(limitMessages * 3).ToList() : uidsCollection,
-                        MessageSummaryItems.Flags | MessageSummaryItems.GMailLabels | MessageSummaryItems.InternalDate);
+                var infoList = GetMessagesSummaryInfo(folder,
+                    limitMessages > 0 ? uidsCollection.Take(limitMessages*3).ToList() : uidsCollection);
 
                 foreach (var uid in uidsCollection)
                 {
@@ -769,6 +751,52 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
 
             return loaded;
+        }
+
+        private List<UniqueId> GetFolderUids(IMailFolder folder)
+        {
+            List<UniqueId> allUids;
+
+            try
+            {
+                allUids = folder.Fetch(0, -1, MessageSummaryItems.UniqueId, CancelToken).Select(r => r.UniqueId).ToList();
+            }
+            catch (ImapCommandException ex)
+            {
+                Log.Warn("GetFolderUids() Exception: {0}", ex.ToString());
+
+                const int start = 0;
+                var end = folder.Count;
+                const int increment = 1;
+
+                allUids = Enumerable
+                    .Repeat(start, (end - start) / 1 + 1)
+                    .Select((tr, ti) => tr + increment * ti)
+                    .Select(n => new UniqueId((uint)n))
+                    .ToList();
+            }
+
+            return allUids;
+        }
+
+        private List<IMessageSummary> GetMessagesSummaryInfo(IMailFolder folder, IList<UniqueId> uids)
+        {
+            var infoList = new List<IMessageSummary>();
+
+            try
+            {
+                infoList =
+                    folder.Fetch(uids,
+                        MessageSummaryItems.Flags | MessageSummaryItems.GMailLabels |
+                        MessageSummaryItems.InternalDate, CancelToken).ToList();
+
+            }
+            catch (ImapCommandException ex)
+            {
+                Log.Warn("GetMessagesSummaryInfo() Exception: {0}", ex.ToString());
+            }
+
+            return infoList;
         }
 
         private MailFolder DetectFolder(TasksConfig tasksConfig, IMailFolder folder)

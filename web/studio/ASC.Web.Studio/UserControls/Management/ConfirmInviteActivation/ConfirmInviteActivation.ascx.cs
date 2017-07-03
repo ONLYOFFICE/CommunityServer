@@ -389,16 +389,17 @@ namespace ASC.Web.Studio.UserControls.Management
             using (var memstream = new MemoryStream())
             {
                 var req = WebRequest.Create(url);
-                var response = req.GetResponse();
-                var stream = response.GetResponseStream();
+                using (var response = req.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    var buffer = new byte[512];
+                    int bytesRead;
+                    while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                        memstream.Write(buffer, 0, bytesRead);
+                    var bytes = memstream.ToArray();
 
-                var buffer = new byte[512];
-                int bytesRead;
-                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-                    memstream.Write(buffer, 0, bytesRead);
-                var bytes = memstream.ToArray();
-
-                UserPhotoManager.SaveOrUpdatePhoto(userID, bytes);
+                    UserPhotoManager.SaveOrUpdatePhoto(userID, bytes);
+                }
             }
         }
 

@@ -61,7 +61,7 @@ namespace ASC.Api.Impl.Routing
                     //Access-Control-Allow-Methods: POST, GET, OPTIONS  
                     //Access-Control-Allow-Headers: X-PINGOTHER  
                     //Access-Control-Max-Age: 1728000  
-                    context.Response.Headers["Access-Control-Allow-Origin"] = "*"; //Allow all
+                    //context.Response.Headers["Access-Control-Allow-Origin"] = "*";
                     context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE";
                     context.Response.Headers["Access-Control-Allow-Headers"] = "origin, authorization, accept";
                     context.Response.Headers["Access-Control-Max-Age"] = "1728000";

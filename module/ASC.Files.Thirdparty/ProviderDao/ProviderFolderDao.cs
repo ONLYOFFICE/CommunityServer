@@ -90,20 +90,20 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result;
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             var result = Enumerable.Empty<Folder>();
 
             foreach (var selector in GetSelectors())
             {
                 var selectorLocal = selector;
-                var mathedIds = folderIds.Where(selectorLocal.IsMatch);
+                var mathedIds = folderIds.Where(selectorLocal.IsMatch).ToList();
 
                 if (!mathedIds.Any()) continue;
 
                 result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
                                                 .SelectMany(y => selectorLocal.GetFolderDao(y.FirstOrDefault())
-                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders))
+                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders, checkShare))
                                                 .Where(r => r != null));
             }
 
@@ -287,6 +287,14 @@ namespace ASC.Files.Thirdparty.ProviderDao
         {
             return (from selector in GetSelectors()
                     let folderId = selector.GetFolderDao(null).GetBunchObjectID(folderID)
+                    where folderId != null
+                    select folderId).FirstOrDefault();
+        }
+
+        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
+        {
+            return (from selector in GetSelectors()
+                    let folderId = selector.GetFolderDao(null).GetBunchObjectIDs(folderIDs)
                     where folderId != null
                     select folderId).FirstOrDefault();
         }

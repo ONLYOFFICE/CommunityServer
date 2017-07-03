@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.MailServer</RootNamespace>
     <AssemblyName>ASC.Api.MailServer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
     <DocumentationFile>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.MailServer.XML</DocumentationFile>

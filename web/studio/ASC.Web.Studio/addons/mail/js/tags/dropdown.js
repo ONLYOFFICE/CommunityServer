@@ -40,7 +40,6 @@ window.tagsDropdown = (function($) {
 
             tagsManager.events.bind('delete', onDeleteTag);
             tagsManager.events.bind('create', onCreateTag);
-            tagsManager.events.bind('error', onError);
         }
     };
 
@@ -267,9 +266,6 @@ window.tagsDropdown = (function($) {
         }
     };
 
-    var onError = function(e, error) {
-        window.toastr.error(error.message + (error.comment ? ': ' + error.comment : ''));
-    };
 
     return {
         init: init,

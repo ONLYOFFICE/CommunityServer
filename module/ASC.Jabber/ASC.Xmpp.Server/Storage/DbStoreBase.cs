@@ -42,7 +42,6 @@ namespace ASC.Xmpp.Server.Storage
 
         private string dbid;
 
-
         public virtual void Configure(IDictionary<string, string> properties)
         {
             if (!properties.ContainsKey("connectionStringName"))

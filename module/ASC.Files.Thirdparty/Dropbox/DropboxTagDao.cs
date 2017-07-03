@@ -24,12 +24,12 @@
 */
 
 
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Files.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Files.Core;
 
 namespace ASC.Files.Thirdparty.Dropbox
 {
@@ -38,6 +38,11 @@ namespace ASC.Files.Thirdparty.Dropbox
         public DropboxTagDao(DropboxDaoSelector.DropboxInfo dropboxInfo, DropboxDaoSelector dropboxDaoSelector)
             : base(dropboxInfo, dropboxDaoSelector)
         {
+        }
+
+        public void Dispose()
+        {
+            DropboxProviderInfo.Dispose();
         }
 
         #region ITagDao Members
@@ -70,9 +75,9 @@ namespace ASC.Files.Thirdparty.Dropbox
             using (var db = GetDb())
             {
                 var entryIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                         .Select("hash_id")
-                                                         .Where(Exp.Like("id", fakeFolderId, SqlLike.StartWith)))
-                                        .ConvertAll(x => x[0]);
+                                                  .Select("hash_id")
+                                                  .Where(Exp.Like("id", fakeFolderId, SqlLike.StartWith)))
+                                 .ConvertAll(x => x[0]);
 
                 if (!entryIDs.Any()) return new List<Tag>();
 
@@ -97,15 +102,15 @@ namespace ASC.Files.Thirdparty.Dropbox
                     sqlQuery.Where(Exp.Eq("ft.owner", subject));
 
                 var tags = db.ExecuteList(sqlQuery).ConvertAll(r => new Tag
-                {
-                    TagName = Convert.ToString(r[0]),
-                    TagType = (TagType)r[1],
-                    Owner = new Guid(r[2].ToString()),
-                    EntryId = MappingID(r[3]),
-                    EntryType = (FileEntryType)r[4],
-                    Count = Convert.ToInt32(r[5]),
-                    Id = Convert.ToInt32(r[6])
-                });
+                    {
+                        TagName = Convert.ToString(r[0]),
+                        TagType = (TagType)r[1],
+                        Owner = new Guid(r[2].ToString()),
+                        EntryId = MappingID(r[3]),
+                        EntryType = (FileEntryType)r[4],
+                        Count = Convert.ToInt32(r[5]),
+                        Id = Convert.ToInt32(r[6])
+                    });
 
                 if (deepSearch) return tags;
 

@@ -233,16 +233,20 @@ namespace MSBuild.Community.Tasks {
 			if (dirString == null || dirString.Length == 0) {
 				return true;
 			}
-			string parentDir = ParentPath(dirString);
+			var parentDir = ParentPath(dirString);
 			if (!directoryCache.ContainsKey(parentDir)) {
-				IFtpWebRequest request = CreateRequest(FtpPath(parentDir), WebRequestMethods.Ftp.ListDirectory);
-				StreamReader response = new StreamReader(request.GetResponseStream());
-				directoryCache.Add(parentDir, new List<string>());
-				while (!response.EndOfStream) {
-					string line = response.ReadLine();
-					directoryCache[parentDir].Add(line);
-				}
-				response.Close();
+				var request = CreateRequest(FtpPath(parentDir), WebRequestMethods.Ftp.ListDirectory);
+			    using (var responseStream = request.GetResponseStream())
+			    {
+			        var response = new StreamReader(responseStream);
+			        directoryCache.Add(parentDir, new List<string>());
+			        while (!response.EndOfStream)
+			        {
+			            var line = response.ReadLine();
+			            directoryCache[parentDir].Add(line);
+			        }
+			        response.Close();
+			    }
 			}
 			string dirName = NamePath(dirString);
 			return directoryCache[parentDir].Exists(delegate(string listLine) {

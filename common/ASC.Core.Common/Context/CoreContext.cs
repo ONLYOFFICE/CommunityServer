@@ -23,14 +23,13 @@
  *
 */
 
+using System.Configuration;
 
 using ASC.Common.Data;
 using ASC.Core.Billing;
 using ASC.Core.Caching;
 using ASC.Core.Data;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using System.Configuration;
+
 
 namespace ASC.Core
 {
@@ -39,12 +38,6 @@ namespace ASC.Core
         static CoreContext()
         {
             ConfigureCoreContextByDefault();
-            
-            var section = ConfigurationManager.GetSection("unity");
-            if (section != null)
-            {
-                ConfigureCoreContextByUnity(section);
-            }
         }
 
 
@@ -85,38 +78,6 @@ namespace ASC.Core
             Authentication = new AuthManager(userService);
             AuthorizationManager = new AuthorizationManager(azService);
             SubscriptionManager = new SubscriptionManager(subService);
-        }
-
-        private static void ConfigureCoreContextByUnity(object section)
-        {
-            if (((UnityConfigurationSection)section).Containers["Core"] != null)
-            {
-                var unity = new UnityContainer().LoadConfiguration("Core");
-                if (unity.IsRegistered<CoreConfiguration>())
-                {
-                    Configuration = unity.Resolve<CoreConfiguration>();
-                }
-                if (unity.IsRegistered<TenantManager>())
-                {
-                    TenantManager = unity.Resolve<TenantManager>();
-                }
-                if (unity.IsRegistered<UserManager>())
-                {
-                    UserManager = unity.Resolve<UserManager>();
-                }
-                if (unity.IsRegistered<AuthManager>())
-                {
-                    Authentication = unity.Resolve<AuthManager>();
-                }
-                if (unity.IsRegistered<AuthorizationManager>())
-                {
-                    AuthorizationManager = unity.Resolve<AuthorizationManager>();
-                }
-                if (unity.IsRegistered<SubscriptionManager>())
-                {
-                    SubscriptionManager = unity.Resolve<SubscriptionManager>();
-                }
-            }
         }
     }
 }

@@ -53,7 +53,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         private const string DBC_MAILBOXES = "mailboxes";
         private const string DBC_TENANTS = "tenants";
-        private const string DBC_FILE = "dump.db";
+        private static string _dbcFile;
+        private static string _dbcJournalFile;
 
         private readonly object _locker = new object();
 
@@ -80,6 +81,11 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                 AuthErrorWarningTimeout = _tasksConfig.AuthErrorWarningTimeout,
                 AuthErrorDisableTimeout = _tasksConfig.AuthErrorDisableMailboxTimeout
             };
+
+            _dbcFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dump.db");
+            _dbcJournalFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dump-journal.db");
+
+            _log.Debug("Dump file path: {0}", _dbcFile);
 
             LoadDump();
         }
@@ -229,16 +235,25 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             try
             {
-                if (File.Exists(DBC_FILE))
+                if (File.Exists(_dbcFile))
                 {
-                    _log.Debug("Dump file '{0}' exists, trying delete", DBC_FILE);
+                    _log.Debug("Dump file '{0}' exists, trying delete", _dbcFile);
 
-                    File.Delete(DBC_FILE);
+                    File.Delete(_dbcFile);
 
-                    _log.Debug("Dump file '{0}' deleted", DBC_FILE);
+                    _log.Debug("Dump file '{0}' deleted", _dbcFile);
                 }
 
-                _db = new LiteDatabase(DBC_FILE);
+                if (File.Exists(_dbcJournalFile))
+                {
+                    _log.Debug("Dump journal file '{0}' exists, trying delete", _dbcJournalFile);
+
+                    File.Delete(_dbcJournalFile);
+
+                    _log.Debug("Dump journal file '{0}' deleted", _dbcJournalFile);
+                }
+
+                _db = new LiteDatabase(_dbcFile);
 
                 lock (_locker)
                 {
@@ -283,6 +298,11 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             {
                 lock (_locker)
                 {
+                    var mailbox = _mailboxes.FindOne(Query.EQ("MailboxId", mailBoxId));
+
+                    if (mailbox == null)
+                        return;
+
                     _mailboxes.Delete(Query.EQ("MailboxId", mailBoxId));
                 }
             }
@@ -298,7 +318,10 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             try
             {
-                _db = new LiteDatabase(DBC_FILE);
+                if (File.Exists(_dbcJournalFile))
+                    throw new Exception(string.Format("temp dump journal file exists in {0}", _dbcJournalFile));
+
+                _db = new LiteDatabase(_dbcFile);
 
                 lock (_locker)
                 {
@@ -345,6 +368,11 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             {
                 lock (_locker)
                 {
+                    var tenant = _tenants.FindOne(Query.EQ("Tenant", tenantId));
+
+                    if (tenant == null)
+                        return;
+
                     _tenants.Delete(Query.EQ("Tenant", tenantId));
                 }
             }
@@ -550,6 +578,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             _tenantMemCache = null;
 
             _db.Dispose();
+            _db = null;
         }
     }
 

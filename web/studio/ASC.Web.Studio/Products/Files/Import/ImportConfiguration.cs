@@ -30,6 +30,7 @@ using System.Linq;
 using System.Web.Configuration;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Thrdparty.Configuration;
+using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Files.Import
 {
@@ -42,7 +43,15 @@ namespace ASC.Web.Files.Import
 
         public static bool SupportInclusion
         {
-            get { return SupportBoxInclusion || SupportDropboxInclusion || SupportDocuSignInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion; }
+            get
+            {
+                using (var providerDao = Global.DaoFactory.GetProviderDao())
+                {
+                    if (providerDao == null) return false;
+                }
+
+                return SupportBoxInclusion || SupportDropboxInclusion || SupportDocuSignInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion;
+            }
         }
 
         public static bool SupportBoxInclusion

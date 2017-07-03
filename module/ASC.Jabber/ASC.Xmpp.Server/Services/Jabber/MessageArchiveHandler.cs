@@ -155,7 +155,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
 
             var history = (History)iq.Query;
             history.RemoveAllChildNodes();
-            foreach (var m in archiveStore.GetMessages(iq.From, iq.To, history.From, history.To, history.Count))
+            foreach (var m in archiveStore.GetMessages(iq.From, iq.To, history.From, history.To, history.Count, history.StartIndex))
             {
                 if (m == null) continue;
 

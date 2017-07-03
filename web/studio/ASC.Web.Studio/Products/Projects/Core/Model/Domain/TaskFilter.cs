@@ -70,20 +70,20 @@ namespace ASC.Projects.Core.Domain
                 return new Dictionary<string, Dictionary<string, bool>>
                            {
                                {
-                                   "Task", new Dictionary<string, bool>{{"deadline", true}, {"priority", false}, {"create_on", false}, {"start_date", false}, {"title", true}}
-                                   },
+                                   "Task", new Dictionary<string, bool>{{"deadline", true}, {"priority", false}, {"create_on", false}, {"start_date", false}, {"title", true}, {"sort_order", true}}
+                               },
                                {
                                    "Milestone", new Dictionary<string, bool> {{"deadline", true}, {"create_on", false}, {"title", true}}
-                                   },
+                               },
                                {
                                    "Project", new Dictionary<string, bool> {{"create_on", false}, {"title", true}}
-                                   },
+                               },
                                {
                                    "Message", new Dictionary<string, bool> {{"comments", false}, {"create_on", false}, {"title", true}}
-                                   },
+                               },
                                {
-                                   "TimeSpend", new Dictionary<string, bool> {{"date", false}, {"hours", false}, {"note", true}}
-                                   }
+                                   "TimeSpend", new Dictionary<string, bool> {{"date", false}, { "create_on", false }, {"hours", false}, {"note", true } }
+                               }
                            };
             }
         }

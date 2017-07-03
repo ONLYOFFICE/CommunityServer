@@ -134,6 +134,18 @@ namespace ASC.Files.Core.Data
             }
         }
 
+        public List<File> GetFilesForShare(object[] fileIds)
+        {
+            if (fileIds == null || fileIds.Length == 0) return new List<File>();
+
+            using (var dbManager = GetDb())
+            {
+                return dbManager
+                    .ExecuteList(GetFileQuery(Exp.In("id", fileIds) & Exp.Eq("current_version", true), false))
+                    .ConvertAll(ToFile);
+            }
+        }
+
         public List<object> GetFiles(object parentId)
         {
             using (var dbManager = GetDb())
@@ -146,17 +158,17 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
             if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
 
-            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("folder_id", parentId));
+            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("folder_id", parentId), my: my);
 
             if (withSubfolders)
             {
-                q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("fft.parent_id", parentId))
+                q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("fft.parent_id", parentId), my: my)
                     .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
             }
 

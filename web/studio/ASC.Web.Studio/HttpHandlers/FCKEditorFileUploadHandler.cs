@@ -24,6 +24,7 @@
 */
 
 
+using System.Text.RegularExpressions;
 using ASC.Common.Web;
 using ASC.Data.Storage;
 using ASC.Web.Core.Files;
@@ -104,12 +105,16 @@ namespace ASC.Web.Studio.HttpHandlers
                     return;
                 }
 
-                var filename = file.FileName.Replace("%", string.Empty);
-                var ind = file.FileName.LastIndexOf("\\");
+                var filename = file.FileName;
+
+                var ind = filename.LastIndexOf("\\", StringComparison.Ordinal);
                 if (ind >= 0)
                 {
-                    filename = file.FileName.Substring(ind + 1);
+                    filename = filename.Substring(ind + 1);
                 }
+
+                filename = new Regex("[\t*\\+:\"<>#%&?|\\\\/]").Replace(filename, "_");
+
                 if (FileUtility.GetFileTypeByFileName(filename) != FileType.Image)
                 {
                     NewSendFileUploadResponse(context, string.Empty, funcNum, Resource.ErrorUnknownFileImageType);

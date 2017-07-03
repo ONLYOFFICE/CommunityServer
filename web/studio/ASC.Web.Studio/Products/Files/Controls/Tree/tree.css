@@ -140,6 +140,21 @@ a .jstree-icon {
     height: 16px;
     width: 16px;
 }
+a .menu-item-icon.myFiles {
+    background-position: 0 -28px;
+}
+a .menu-item-icon.shareformeFiles {
+    background-position: 0 -704px;
+}
+a .menu-item-icon.corporateFiles {
+    background-position: 0 -366px;
+}
+a .menu-item-icon.projectFiles {
+    background-position: 0 -54px;
+}
+a .menu-item-icon.trashFiles {
+    background-position: 0 -574px;
+}
 a .jstree-icon.myFiles {
     background-position: -60px 0;
 }

@@ -3420,7 +3420,17 @@ ASC.CRM.ImportEntities = (function ($) {
         jq("#importErrorPanel .errorNote").text(msg);
         //PopupKeyUpActionProvider.EnableEsc = false;
         StudioBlockUIManager.blockUI("#importErrorPanel", 500, 200, 0);
-    }
+    };
+
+    var _resetUploader = function () {
+        jq("#importFromCSVSteps dd:first .middle-button-container a.button.blue.middle:first").addClass("disable");
+        jq("#uploadCSVFile")
+            .removeClass("edit_button")
+            .addClass("import_button")
+            .text(ASC.CRM.Resources.CRMJSResource.SelectCSVFileButton)
+            .prev().hide();
+        ASC.CRM.ImportEntities.prevStep(0);
+    };
 
     return {
         init: function (entityType, entityTypeName) {
@@ -3447,15 +3457,14 @@ ASC.CRM.ImportEntities = (function ($) {
                 onChange: function (file, extension) {
                     _CSVFileURI = "";
 
+                    if (!file) {
+                        _resetUploader();
+                        return false;
+                    }
+
                     if (!extension || extension[0].toLowerCase() != "csv") {
                         _showErrorPanel(ASC.CRM.Resources.CRMJSResource.ErrorMessage_NotSupportedFileFormat);
-                        jq("#importFromCSVSteps dd:first .middle-button-container a.button.blue.middle:first").addClass("disable");
-                        jq("#uploadCSVFile")
-                            .removeClass("edit_button")
-                            .addClass("import_button")
-                            .text(ASC.CRM.Resources.CRMJSResource.SelectCSVFileButton)
-                            .prev().hide();
-                        ASC.CRM.ImportEntities.prevStep(0);
+                        _resetUploader();
                         return false;
                     }
 

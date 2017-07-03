@@ -92,19 +92,19 @@ namespace ASC.Core
             return tariffService.GetInvoice(paymentId);
         }
 
-        public Uri GetShoppingUri(int tenant, int quotaId)
+        public Uri GetShoppingUri(int tenant, int quotaId, string currency = null, string language = null)
         {
-            return tariffService.GetShoppingUri(tenant, quotaId, null);
+            return tariffService.GetShoppingUri(tenant, quotaId, null, currency, language);
         }
 
-        public Uri GetShoppingUri(int quotaId, bool forCurrentTenant = true, string affiliateId = null)
+        public Uri GetShoppingUri(int quotaId, bool forCurrentTenant = true, string affiliateId = null, string currency = null, string language = null)
         {
-            return tariffService.GetShoppingUri(forCurrentTenant ? CoreContext.TenantManager.GetCurrentTenant().TenantId : (int?)null, quotaId, affiliateId);
+            return tariffService.GetShoppingUri(forCurrentTenant ? CoreContext.TenantManager.GetCurrentTenant().TenantId : (int?)null, quotaId, affiliateId, currency, language);
         }
 
-        public Uri GetShoppingUri(int quotaId, string affiliateId)
+        public Uri GetShoppingUri(int quotaId, string affiliateId, string currency = null, string language = null)
         {
-            return tariffService.GetShoppingUri(null, quotaId, affiliateId);
+            return tariffService.GetShoppingUri(null, quotaId, affiliateId, currency, language);
         }
 
         public void SendTrialRequest(int tenant, UserInfo user)

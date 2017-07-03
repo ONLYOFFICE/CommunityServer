@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
@@ -172,10 +173,9 @@ namespace ASC.Web.Studio.Core
 
         public bool CheckCompleted()
         {
-            if (!successInitialized)
-            {
-                return true;
-            }
+            if (!successInitialized) return true;
+            if (!CoreContext.Configuration.Standalone) return true;
+            if (WarmUpSettings.GetCompleted()) return true;
 
             return startupProgresses.All(pair => pair.Value.Completed);
         }
@@ -194,13 +194,13 @@ namespace ASC.Web.Studio.Core
         {
             if (progress.Completed) return;
 
-            foreach (var page in Pages)
+            foreach (var page in Pages.Select(AddParam))
             {
                 logger.DebugFormat("Warmup Page:{0}", page);
                 try
                 {
                     CheckCPU(page);
-                    HttpContext.Current.Server.Execute(page);
+                    HttpContext.Current.Server.Execute(page, true);
                 }
                 catch (ThreadAbortException e)
                 {
@@ -275,8 +275,7 @@ namespace ASC.Web.Studio.Core
         private static string GetFullAbsolutePath(string virtualPath)
         {
             string result;
-            const string warmupParam = "warmup=true";
-
+            
             if (CoreContext.Configuration.Standalone)
             {
                 var domain = ConfigurationManager.AppSettings["web.warmup.domain"] ?? "localhost";
@@ -287,9 +286,15 @@ namespace ASC.Web.Studio.Core
                 result = CommonLinkUtility.GetFullAbsolutePath(virtualPath); 
             }
 
-            return virtualPath.Contains("?")
-                           ? string.Format("{0}&{1}", result, warmupParam)
-                           : string.Format("{0}?{1}", result, warmupParam);
+            return AddParam(result);
+        }
+
+        private static string AddParam(string to)
+        {
+            const string warmupParam = "warmup=true";
+            return to.Contains("?")
+                           ? string.Format("{0}&{1}", to, warmupParam)
+                           : string.Format("{0}?{1}", to, warmupParam);
         }
 
         internal void Start()

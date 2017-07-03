@@ -13,14 +13,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Text;
-using System.Web;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 
 using LinkedIn.FieldSelectorConverters;
 using LinkedIn.Properties;
@@ -450,7 +444,7 @@ namespace LinkedIn
       location = queryStringParameters.AppendToUri(location);
 
       WebRequest webRequest = this.Authorization.InitializeGetRequest(location.Uri);
-      string xmlResponse = this.ProcessResponse(SendRequest(webRequest));
+      string xmlResponse = ProcessResponse(SendRequest(webRequest));
       return Utilities.DeserializeXml<Connections>(xmlResponse);
     }
     #endregion
@@ -1920,16 +1914,17 @@ namespace LinkedIn
     /// </summary>
     /// <param name="webResponse">The <see cref="WebResponse"/> to process.</param>
     /// <returns>A xml string returned by the API.</returns>
-    private string ProcessResponse(WebResponse webResponse)
+    private static string ProcessResponse(WebResponse webResponse)
     {
-      string xmlResponse = string.Empty;
-      using (var streamReader = new StreamReader(webResponse.GetResponseStream()))
-      {
-        xmlResponse = streamReader.ReadToEnd();
-      }
+        string xmlResponse;
+        using (var responseStream = webResponse.GetResponseStream())
+        using (var streamReader = new StreamReader(responseStream))
+        {
+            xmlResponse = streamReader.ReadToEnd();
+        }
 
-      Utilities.ParseException(xmlResponse);
-      return xmlResponse;
+        Utilities.ParseException(xmlResponse);
+        return xmlResponse;
     }
     #endregion
   }

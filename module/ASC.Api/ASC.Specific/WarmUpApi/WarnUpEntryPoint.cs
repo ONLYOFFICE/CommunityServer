@@ -24,12 +24,11 @@
 */
 
 
+using System;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Web.Studio.Core;
-using System;
-using System.Web;
 
 namespace ASC.Specific.WarmUpApi
 {
@@ -52,11 +51,6 @@ namespace ASC.Specific.WarmUpApi
         ///<param name="context"></param>
         public WarnUpEntryPoint(ApiContext context)
         {
-        }
-
-        private static HttpRequest Request
-        {
-            get { return HttpContext.Current.Request; }
         }
 
         /// <summary>

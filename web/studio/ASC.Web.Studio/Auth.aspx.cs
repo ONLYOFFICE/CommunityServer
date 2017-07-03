@@ -26,13 +26,16 @@
 
 using System;
 using System.Web;
-
+using ASC.Common.Utils;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
+using ASC.SingleSignOn.Common;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.UserControls;
 using ASC.Web.Studio.UserControls.Common;
@@ -100,15 +103,28 @@ namespace ASC.Web.Studio
 
             if (IsLogout)
             {
-                var loginName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).DisplayUserName(false);
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                var loginName = user.DisplayUserName(false);
                 ProcessLogout();
                 MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.Logout);
 
-                // slo redirect
-                if (SsoImporter.SloIsEnable && HttpContext.Current != null)
+                if (!string.IsNullOrEmpty(user.SsoNameId))
                 {
-                    HttpContext.Current.Response.Redirect(SsoImporter.SloEndPoint, true);
+                    var settings = SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID);
+
+                    if (settings.EnableSso && !string.IsNullOrEmpty(settings.IdpSettings.SloUrl))
+                    {
+                        var logoutSsoUserData = Signature.Create(new LogoutSsoUserData
+                        {
+                            NameId = user.SsoNameId,
+                            SessionId = user.SsoSessionId
+                        });
+
+                        HttpContext.Current.Response.Redirect(SetupInfo.SsoSamlLogoutUrl + "?data=" + HttpUtility.UrlEncode(logoutSsoUserData), true);
+                    }
                 }
+
                 Response.Redirect("~/auth.aspx", true);
             }
             else

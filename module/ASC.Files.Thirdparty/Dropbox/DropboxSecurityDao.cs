@@ -24,12 +24,12 @@
 */
 
 
+using System;
+using System.Collections.Generic;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
-using System;
-using System.Collections.Generic;
 
 namespace ASC.Files.Thirdparty.Dropbox
 {
@@ -38,7 +38,11 @@ namespace ASC.Files.Thirdparty.Dropbox
         public DropboxSecurityDao(DropboxDaoSelector.DropboxInfo dropboxInfo, DropboxDaoSelector dropboxDaoSelector)
             : base(dropboxInfo, dropboxDaoSelector)
         {
+        }
 
+        public void Dispose()
+        {
+            DropboxProviderInfo.Dispose();
         }
 
         public void SetShare(FileShareRecord r)
@@ -63,7 +67,7 @@ namespace ASC.Files.Thirdparty.Dropbox
                     {
                         var d2 = Delete("files_security")
                             .Where(Exp.Eq("entry_id", MappingID(r.EntryId, true)))
-                            .Where("entry_type", (int) FileEntryType.File)
+                            .Where("entry_type", (int)FileEntryType.File)
                             .Where("subject", r.Subject.ToString());
 
                         db.ExecuteNonQuery(d2);
@@ -74,10 +78,10 @@ namespace ASC.Files.Thirdparty.Dropbox
                     var i = new SqlInsert("files_security", true)
                         .InColumnValue("tenant_id", r.Tenant)
                         .InColumnValue("entry_id", MappingID(r.EntryId, true))
-                        .InColumnValue("entry_type", (int) r.EntryType)
+                        .InColumnValue("entry_type", (int)r.EntryType)
                         .InColumnValue("subject", r.Subject.ToString())
                         .InColumnValue("owner", r.Owner.ToString())
-                        .InColumnValue("security", (int) r.Share)
+                        .InColumnValue("security", (int)r.Share)
                         .InColumnValue("timestamp", DateTime.UtcNow);
 
                     db.ExecuteNonQuery(i);

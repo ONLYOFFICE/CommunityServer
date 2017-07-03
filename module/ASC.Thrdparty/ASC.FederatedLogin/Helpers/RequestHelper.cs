@@ -70,7 +70,11 @@ namespace ASC.FederatedLogin.Helpers
                 using (var response = request.GetResponse())
                 using (var stream = response.GetResponseStream())
                 {
-                    return stream != null ? new StreamReader(stream).ReadToEnd() : null;
+                    if (stream == null) return null;
+                    using (var readStream = new StreamReader(stream))
+                    {
+                        return readStream.ReadToEnd();
+                    }
                 }
             }
             catch (WebException)

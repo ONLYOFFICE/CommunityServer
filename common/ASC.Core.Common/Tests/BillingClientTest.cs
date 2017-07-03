@@ -115,17 +115,6 @@ namespace ASC.Core.Common.Tests
         }
 
         [TestMethod]
-        public void GetPaymentOfficeTest()
-        {
-            var p = billingClient.GetPaymentOffice("144448");
-            Assert.AreEqual(p.Key1, "144448");
-            Assert.AreEqual(p.Key2, "0a589014-2feb-4022-ab7d-ffb7ee5eb135");
-            Assert.AreEqual(p.StartDate, new DateTime(2013, 2, 4, 11, 52, 41));
-            Assert.AreEqual(p.EndDate, new DateTime(2013, 3, 4, 11, 52, 41));
-            Assert.AreEqual(p.UsersCount, 20);
-        }
-
-        [TestMethod]
         public void GetProductPriceInfoTest()
         {
             var result = billingClient.GetProductPriceInfo("36", "60", "131");

@@ -27,6 +27,7 @@
 using System;
 using System.Configuration;
 using System.Linq;
+using ASC.Thrdparty.Configuration;
 using ASC.Xmpp.Core;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.utils.Idn;
@@ -38,6 +39,7 @@ namespace ASC.Xmpp.Server.Configuration
 {
     public static class JabberConfiguration
     {
+        
         public static bool ReplaceDomain
         {
             get;
@@ -56,7 +58,6 @@ namespace ASC.Xmpp.Server.Configuration
             private set;
         }
 
-
         public static void Configure(XmppServer server)
         {
             Configure(server, null);
@@ -71,6 +72,8 @@ namespace ASC.Xmpp.Server.Configuration
             ConfigureListeners(jabberSection, server);
             ConfigureStorages(jabberSection, server);
             ConfigureServices(jabberSection, server);
+
+
 
             var replaceSetting = ConfigurationManager.AppSettings["jabber.replace-domain"];
             if (!string.IsNullOrEmpty(replaceSetting))

@@ -126,7 +126,7 @@ namespace ASC.Core.Common.Settings
             }
         }
 
-        private T LoadSettingsFor<T>(int tenantID, Guid userID) where T : ISettings
+        internal T LoadSettingsFor<T>(int tenantID, Guid userID) where T : ISettings
         {
             var settingsInstance = (ISettings)Activator.CreateInstance<T>();
             var settings = settingsInstance.GetDefault();

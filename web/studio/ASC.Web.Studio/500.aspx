@@ -30,7 +30,7 @@
     <div id="container">
         <p>Sorry, portal is</p>
         <p>on maintenance.</p>
-        <p>It may take a few minutes.</p>
+        <p>It may take some time.</p>
     </div>
   </div>
 </body>

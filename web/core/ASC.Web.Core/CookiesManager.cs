@@ -143,15 +143,18 @@ namespace ASC.Web.Core
             return TenantCookieSettings.GetForTenant(TenantProvider.CurrentTenantID).LifeTime;
         }
 
-        public static void ResetUserCookie()
+        public static void ResetUserCookie(Guid? userId = null)
         {
-            var settings = TenantCookieSettings.GetForUser(SecurityContext.CurrentAccount.ID);
+            var settings = TenantCookieSettings.GetForUser(userId ?? SecurityContext.CurrentAccount.ID);
             settings.Index = settings.Index + 1;
-            TenantCookieSettings.SetForUser(SecurityContext.CurrentAccount.ID, settings);
+            TenantCookieSettings.SetForUser(userId ?? SecurityContext.CurrentAccount.ID, settings);
 
-            var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
+            if (!userId.HasValue)
+            {
+                var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
 
-            SetCookies(CookiesType.AuthKey, cookie);
+                SetCookies(CookiesType.AuthKey, cookie);
+            }
         }
     }
 }

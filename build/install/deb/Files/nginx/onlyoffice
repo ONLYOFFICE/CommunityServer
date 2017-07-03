@@ -1,7 +1,11 @@
+upstream fastcgi_backend_apisystem {
+        server unix:/var/run/onlyoffice/onlyofficeApiSystem.socket;
+        keepalive 32;
+}
+
 upstream fastcgi_backend {
 	server unix:/var/run/onlyoffice/onlyoffice.socket;
-	server unix:/var/run/onlyoffice/onlyoffice2.socket;
-	keepalive 64;
+	keepalive 32;
 }
 
 fastcgi_cache_path /var/cache/nginx/onlyoffice
@@ -10,11 +14,26 @@ fastcgi_cache_path /var/cache/nginx/onlyoffice
 	max_size=256m
 	inactive=1d;
 
+map $http_host $this_host {
+  "" $host;
+  default $http_host;
+}
+
+map $http_x_forwarded_proto $the_scheme {
+  default $http_x_forwarded_proto;
+  "" $scheme;
+}
+
+map $http_x_forwarded_host $the_host {
+  default $http_x_forwarded_host;
+  "" $this_host;
+}
+	
 server {
 	listen 80;
-	
-    add_header      Access-Control-Allow-Origin *;
 
-    include /etc/nginx/includes/onlyoffice-communityserver-*.conf;
+        add_header Access-Control-Allow-Origin *;
+
+        include /etc/nginx/includes/onlyoffice-communityserver-*.conf;
 
 }	

@@ -17,24 +17,24 @@ apply_connection_string(){
 	fi
 }
 
-db_input medium onlyoffice/db-host || true
-db_input medium onlyoffice/db-name || true
-db_input medium onlyoffice/db-user || true
+db_input medium onlyoffice-communityserver/db-host || true
+db_input medium onlyoffice-communityserver/db-name || true
+db_input medium onlyoffice-communityserver/db-user || true
 db_go
 
-db_input critical onlyoffice/db-pwd || true
+db_input critical onlyoffice-communityserver/db-pwd || true
 db_go
 
-db_get onlyoffice/db-host
+db_get onlyoffice-communityserver/db-host
 DB_HOST="$RET"
 
-db_get onlyoffice/db-name
+db_get onlyoffice-communityserver/db-name
 DB_NAME="$RET"
 
-db_get onlyoffice/db-user
+db_get onlyoffice-communityserver/db-user
 DB_USER="$RET"
 
-db_get onlyoffice/db-pwd
+db_get onlyoffice-communityserver/db-pwd
 DB_PWD="$RET"
 
 apply_connection_string

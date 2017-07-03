@@ -157,7 +157,9 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     FolderDao.Dispose();
                     FileDao.Dispose();
                     TagDao.Dispose();
-                    ProviderDao.Dispose();
+
+                    if (ProviderDao != null)
+                        ProviderDao.Dispose();
                 }
                 catch { /* ignore */ }
             }

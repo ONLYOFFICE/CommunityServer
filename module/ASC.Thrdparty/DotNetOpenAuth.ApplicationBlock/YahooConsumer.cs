@@ -126,10 +126,13 @@ namespace DotNetOpenAuth.ApplicationBlock {
 				{ "count", "max"}
 			};
             var request = consumer.PrepareAuthorizedRequest(getContactsEndpoint, accessToken, extraData);
-            var response = consumer.Channel.WebRequestHandler.GetResponse(request);
-            string body = response.GetResponseReader().ReadToEnd();
-            XDocument result = XDocument.Parse(body);
-            return result;
+            using (var response = consumer.Channel.WebRequestHandler.GetResponse(request))
+            using (var reader = response.GetResponseReader())
+            {
+                var body = reader.ReadToEnd();
+                var result = XDocument.Parse(body);
+                return result;
+            }
 	    }
 	}
 }

@@ -106,7 +106,7 @@
                             <% if (Actions.AllowEdit && UserInfo.Status != EmployeeStatus.Terminated && UserInfo.ActivationStatus == EmployeeActivationStatus.Activated)
                                { %>
                             
-                            <% if (!UserInfo.IsLDAP())
+                            <% if (!UserInfo.IsLDAP() && !UserInfo.IsSSO())
                                { %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.Password %>:</span>

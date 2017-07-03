@@ -90,6 +90,9 @@ ASC.Projects.TaskDescriptionPage = (function() {
         $mainCommentContainer = $commentContainer.find("#mainCommentsContainer");
         $subtasks = $subtaskContainer.find(".subtasks");
 
+        jq(".tab1").html(jq.tmpl("projects_taskLinksContainer", { canEdit: false, tasks: [] }));
+        $linkedTasksContainer = jq("#linkedTasksContainer");
+
         teamlab = Teamlab;
 
         loadingBanner = LoadingBanner;
@@ -606,9 +609,9 @@ ASC.Projects.TaskDescriptionPage = (function() {
         }
 
         jq(".tab1").html(jq.tmpl("projects_taskLinksContainer", { canEdit: currentTask.canEdit, tasks: tasksForTmpl })).show();
-
         $linkedTasksContainer = jq("#linkedTasksContainer");
         linksTab.$container = $linkedTasksContainer;
+
         $editLinkBox = jq("#editTable");
         $relatedTasksCont = jq("#relatedTasks");
         $taskSelector = jq("#taskSelector");
@@ -895,32 +898,32 @@ ASC.Projects.TaskDescriptionPage = (function() {
             function() { return 0; },
             "overViewModule",
             jq(".tab"),
-            true);
+            '#');
         subtaskTab = new Tab(tasksResource.Subtasks,
             function() { return currentTask.subtasks.length; },
             "subtasksModule",
             $subtaskContainer,
-            false,
+            '#subtasks',
             function() { return currentTask.canEdit || currentTask.subtasks.length },
             subtasksEmpty);
         documentsTab = new Tab(ASC.Projects.Resources.CommonResource.DocsModuleTitle,
             function() { return currentTask.files.length; },
             "documentsModule",
             $filesContainer,
-            false,
+            '#documents',
             function() { return currentTask.canReadFiles && (currentTask.canEditFiles || currentTask.files.length) });
         linksTab = new Tab(tasksResource.RelatedTask,
             function() { return currentTask.links.length; },
             "linksModule",
             $linkedTasksContainer,
-            false,
+            '#links',
             function() { return currentTask.canEdit || currentTask.links.length },
             linksEmpty);
         commentsTab = new Tab(resources.MessageResource.Comments,
             function() { return currentTask.commentsCount; },
             "commentsModule",
             $commentContainer,
-            false,
+            '#comments',
             function() { return true },
             commentsEmpty);
 

@@ -60,8 +60,8 @@ window.ASC.Files.Filter = (function () {
                         ],
                         sorters: [
                             {id: "DateAndTime", title: ASC.Files.FilesJSResources.ButtonSortModified, def: (startOrderBy.property == "DateAndTime"), dsc: !startOrderBy.is_asc},
-                            {id: "AZ", title: ASC.Files.FilesJSResources.ButtonSortName, def: (startOrderBy.property == "AZ"), dsc: !startOrderBy.is_asc},
-                            {id: "Type", title: ASC.Files.FilesJSResources.ButtonSortType, def: (startOrderBy.property == "Type"), dsc: !startOrderBy.is_asc},
+                            {id: "AZ", title: ASC.Files.FilesJSResources.ButtonSortName, def: (startOrderBy.property == "AZ"), dsc: startOrderBy.is_asc},
+                            {id: "Type", title: ASC.Files.FilesJSResources.ButtonSortType, def: (startOrderBy.property == "Type"), dsc: startOrderBy.is_asc},
                             {id: "Size", title: ASC.Files.FilesJSResources.ButtonSortSize, def: (startOrderBy.property == "Size"), dsc: !startOrderBy.is_asc},
                             {id: "Author", title: ASC.Files.FilesJSResources.ButtonSortAuthor, def: (startOrderBy.property == "Author"), dsc: !startOrderBy.is_asc},
                             {id: "New", title: ASC.Files.FilesJSResources.ButtonSortNew, def: (startOrderBy.property == "New"), dsc: !startOrderBy.is_asc}

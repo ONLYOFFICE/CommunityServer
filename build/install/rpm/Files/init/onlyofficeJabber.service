@@ -1,6 +1,6 @@
 [Unit]
 Description=ONLYOFFICE Jabber Service
-After=network.target syslog.target mysql.service
+After=network.target syslog.target mysqld.service
 
 [Service]
 Type=forking

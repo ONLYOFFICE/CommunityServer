@@ -71,16 +71,20 @@ namespace ASC.Web.Core.Utility
             if (!VirtualPathUtility.IsAbsolute(resolvedPath))
                 resolvedPath = VirtualPathUtility.ToAbsolute(resolvedPath);
 
-            var filePath = HttpContext.Current.Server.MapPath(resolvedPath);
-
-            if (!File.Exists(filePath))
+            try
+            {
+                var filePath = HttpContext.Current.Server.MapPath(resolvedPath);
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException("", path);
+            }
+            catch (Exception)
             {
                 resolvedPath = path.ToLower().Replace(ThemeFolderTemplate, "default");
 
                 if (!VirtualPathUtility.IsAbsolute(resolvedPath))
                     resolvedPath = VirtualPathUtility.ToAbsolute(resolvedPath);
 
-                filePath = HttpContext.Current.Server.MapPath(resolvedPath);
+                var filePath = HttpContext.Current.Server.MapPath(resolvedPath);
 
                 if (!File.Exists(filePath))
                     throw new FileNotFoundException("", path);
@@ -101,7 +105,8 @@ namespace ASC.Web.Core.Utility
 
             if (colorTheme.FirstRequest)
             {
-                SaveColorTheme(colorThemeName);
+                colorTheme.FirstRequest = false;
+                SettingsManager.Instance.SaveSettings(colorTheme, TenantProvider.CurrentTenantID);
             }
 
             return colorThemeName;
@@ -110,7 +115,21 @@ namespace ASC.Web.Core.Utility
         public static void SaveColorTheme(string theme)
         {
             var settings = new ColorThemesSettings { ColorThemeName = theme, FirstRequest = false };
-            SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
+            var path = "/skins/" + ThemeFolderTemplate;
+            var resolvedPath = path.ToLower().Replace(ThemeFolderTemplate, theme);
+
+            try
+            {
+                var filePath = HttpContext.Current.Server.MapPath(resolvedPath);
+                if (Directory.Exists(filePath))
+                {
+                    SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }

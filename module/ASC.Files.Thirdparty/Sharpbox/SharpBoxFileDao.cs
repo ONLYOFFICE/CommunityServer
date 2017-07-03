@@ -76,6 +76,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return fileIds.Select(fileId => ToFile(GetFileById(fileId))).ToList();
         }
 
+        public List<File> GetFilesForShare(object[] fileIds)
+        {
+            return GetFiles(fileIds);
+        }
+
         public List<object> GetFiles(object parentId)
         {
             var folder = GetFolderById(parentId).AsEnumerable();
@@ -85,7 +90,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 .Select(x => (object) MakeId(x)).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 

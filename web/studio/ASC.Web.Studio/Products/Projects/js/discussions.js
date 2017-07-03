@@ -259,23 +259,24 @@ ASC.Projects.DiscussionDetails = (function ($) {
             function() { return discussion.commentsCount; },
             "commentsModule",
             $discussionCommentsContainer,
-            isVisibleSelector(),
+            '#comments',
             isVisibleSelector);
         subscribersTab = new Tab(resources.MessageResource.DiscussionParticipants,
             function() { return subscribers.length; },
             "subscribeModule",
-            $discussionParticipantsContainer);
+            $discussionParticipantsContainer,
+            '#subscribers');
         documentsTab = new Tab(resources.CommonResource.DocsModuleTitle,
             function() { return discussion.files.length; },
             "documentsModule",
             $fileContainer,
-            false,
+            '#documents',
             function() { return discussion.canReadFiles && (discussion.canEditFiles || discussion.files.length) });
         overViewTab = new Tab(resources.ProjectsJSResource.OverviewModule,
             function() { return 0; },
             "overViewModule",
             jq(".tab"),
-            !isVisibleSelector());
+            '#');
 
         var isSubscibed = discussion.subscribers.some(function (item) { return item.id === teamlab.profile.id; });
 
@@ -310,9 +311,8 @@ ASC.Projects.DiscussionDetails = (function ($) {
 
         jq("#descriptionTab").show();
 
-        if (isAddCommentHash) {
+        if (isAddCommentHash && isVisibleSelector()) {
             jq("#add_comment_btn").click();
-            location.hash = "";
         }
 
         hideLoading();

@@ -197,7 +197,7 @@ namespace ASC.Projects.Engine
                         {
                             var itemId = f is Files.Core.File
                                              ? FilesLinkUtility.GetFileWebPreviewUrl(f.Title, f.ID)
-                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Files.Core.Folder) f);
+                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Files.Core.Folder) f, project.ID);
                             searchItems.Add(new SearchItem(EntityType.File, itemId, f.Title, f.CreateOn, new SearchItem(project), itemPath: "{2}"));
                         }
                     }

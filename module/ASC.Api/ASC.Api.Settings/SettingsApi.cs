@@ -756,5 +756,6 @@ namespace ASC.Api.Settings
             LicenseReader.RefreshLicense();
             return true;
         }
+
     }
 }

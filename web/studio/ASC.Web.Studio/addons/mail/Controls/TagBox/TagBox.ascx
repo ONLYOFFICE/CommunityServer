@@ -38,7 +38,7 @@
                             </div>
                         </td>
                         <td>
-                            <input id="mail_tag_name" type="text" class="textEdit" maxlength="20" placeholder="<%=MailResource.TagNamePlaceholder%>">
+                            <input id="mail_tag_name" type="text" class="textEdit" maxlength="255" placeholder="<%=MailResource.TagNamePlaceholder%>">
                         </td>
                     </tr>
                 </table>
@@ -59,7 +59,6 @@
                 <p id="deleteTagShure"></p>
             </div>
             <div class="clearFix save">
-                <div class="addemail_error"></div>
                 <div class="progressContainer">
                     <div class="loader" style="display: none;"></div>
                 </div>
@@ -90,7 +89,7 @@
                 <div class="headerPanelSmall" ><%: MailResource.CreateNewTagLabel %></div>
                 <div class="entertagname">
                     <div title="Select color" class="square"></div>
-                    <input id="createnewtag" type="text" class="textEdit tagname" placeholder="<%=MailResource.TagNamePlaceholder%>" maxlength="20"/>
+                    <input id="createnewtag" type="text" class="textEdit tagname" placeholder="<%=MailResource.TagNamePlaceholder%>" maxlength="255"/>
                 </div>
                 <button class="entertag_button button blue" type="button"><%=MailScriptResource.OkBtnLabel%></button>
             </div>

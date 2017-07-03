@@ -24,6 +24,14 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
@@ -37,14 +45,6 @@ using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 using DriveFile = Google.Apis.Drive.v3.Data.File;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 
@@ -204,22 +204,25 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + AccessToken);
 
-            var response = (HttpWebResponse) request.GetResponse();
-
-            if (file.Size.HasValue && file.Size > 0)
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
-                return new ResponseStream(response.GetResponseStream(), file.Size.Value);
-            }
+                if (file.Size.HasValue && file.Size > 0)
+                {
+                    return new ResponseStream(response.GetResponseStream(), file.Size.Value);
+                }
 
-            var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
-            var str = response.GetResponseStream();
-            if (str != null)
-            {
-                str.CopyTo(tempBuffer);
-                tempBuffer.Flush();
-                tempBuffer.Seek(0, SeekOrigin.Begin);
+                var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+                using (var str = response.GetResponseStream())
+                {
+                    if (str != null)
+                    {
+                        str.CopyTo(tempBuffer);
+                        tempBuffer.Flush();
+                        tempBuffer.Seek(0, SeekOrigin.Begin);
+                    }
+                }
+                return tempBuffer;
             }
-            return tempBuffer;
         }
 
         public DriveFile InsertEntry(Stream fileStream, string title, string parentId, bool folder = false)
@@ -391,7 +394,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 {
                     if (exception.Response != null && exception.Response.Headers.AllKeys.Contains("Range"))
                     {
-                        response = (HttpWebResponse) exception.Response;
+                        response = (HttpWebResponse)exception.Response;
                     }
                     else if (exception.Message.Equals("Invalid status code: 308", StringComparison.InvariantCulture)) //response is null (unix)
                     {
@@ -429,8 +432,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 using (var responseStream = response.GetResponseStream())
                 {
                     if (responseStream == null) return;
-
-                    var responseString = new StreamReader(responseStream).ReadToEnd();
+                    string responseString;
+                    using (var readStream = new StreamReader(responseStream))
+                    {
+                        responseString = readStream.ReadToEnd();
+                    }
                     var responseJson = JObject.Parse(responseString);
 
                     googleDriveSession.FileId = responseJson.Value<string>("id");

@@ -48,12 +48,12 @@ namespace ASC.CRM.Core
 
         public bool CanDelete(FileEntry file, Guid userId)
         {
-            return file.CreateBy == userId || file.ModifiedBy == userId || CRMSecurity.IsAdmin;
+            return CanEdit(file, userId);
         }
 
         public bool CanEdit(FileEntry file, Guid userId)
         {
-            return file.CreateBy == userId || file.ModifiedBy == userId || CRMSecurity.IsAdmin;
+            return file.CreateBy == userId || file.ModifiedBy == userId || CRMSecurity.IsAdministrator(userId);
         }
 
         public bool CanRead(FileEntry file, Guid userId)
@@ -65,7 +65,7 @@ namespace ASC.CRM.Core
             var invoice = invoiceDao.GetByFileId(Convert.ToInt32(file.ID));
             if (invoice != null)
             {
-                return CRMSecurity.CanAccessTo(invoice);
+                return CRMSecurity.CanAccessTo(invoice, userId);
             }
             else
             {
@@ -76,7 +76,7 @@ namespace ASC.CRM.Core
                 if (!eventIds.Any()) return false;
 
                 var eventItem = eventDao.GetByID(eventIds.First());
-                return CRMSecurity.CanAccessTo(eventItem);
+                return CRMSecurity.CanAccessTo(eventItem, userId);
             }
         }
 
@@ -91,6 +91,11 @@ namespace ASC.CRM.Core
         public IFileSecurity GetFileSecurity(string data)
         {
             return new FileSecurity();
+        }
+
+        public Dictionary<object, IFileSecurity> GetFileSecurity(Dictionary<string, string> data)
+        {
+            return data.ToDictionary<KeyValuePair<string, string>, object, IFileSecurity>(d => d.Key, d => new FileSecurity());
         }
     }
 }

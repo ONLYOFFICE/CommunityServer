@@ -75,7 +75,7 @@ namespace ASC.Web.Studio
             get
             {
                 if (!CoreContext.Configuration.Standalone) return false;
-                return !(WarmUpController.Instance.CheckCompleted() || WarmUpSettings.GetCompleted() || Request.QueryString["warmup"] == "true");
+                return !WarmUpController.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true";
             }
         }
 
@@ -119,7 +119,7 @@ namespace ASC.Web.Studio
 
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (!MayNotPaid && TenantStatisticsProvider.IsNotPaid())
+            if (!MayNotPaid && TenantStatisticsProvider.IsNotPaid() && WarmUpController.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true")
             {
                 if (TariffSettings.HidePricingPage && !user.IsAdmin())
                 {

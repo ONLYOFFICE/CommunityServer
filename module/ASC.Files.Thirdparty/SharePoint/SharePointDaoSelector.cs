@@ -122,7 +122,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
-                dbDao.UpdateProviderInfo(sharePointProviderInfo.ID, newTitle, sharePointProviderInfo.RootFolderType);
+                dbDao.UpdateProviderInfo(sharePointProviderInfo.ID, newTitle, null, sharePointProviderInfo.RootFolderType);
                 sharePointProviderInfo.UpdateTitle(newTitle); //This will update cached version too
             }
         }

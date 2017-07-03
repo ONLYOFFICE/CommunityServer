@@ -57,6 +57,8 @@
           </xsl:if>
         </div>
         <xsl:if test="canEdit = 'true'">
+          <input class="display-none" type="text" name="fakeusernameremembered" />
+          <input class="display-none" type="password" name="fakepasswordremembered"/>
           <div class="account-settings-container">
             <div class="account-log-pass-container">
               <div class="account-field-url account-field-row">
@@ -64,28 +66,65 @@
                   <resource name="fres.ConnectionUrl" />
                 </div>
                 <div class="account-field-body">
-                  <input type="url" class="textEdit account-input-url"/>
+                  <input type="url" class="textEdit account-input-url" autocomplete="off">
+                    <xsl:if test="isNew != 'true'">
+                      <xsl:attribute name="placeholder">
+                        <resource name="fres.ThirdPartyCorrect"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                  </input>
                 </div>
               </div>
-              <div class="account-field-row">
-                <div class="account-field-title">
-                  <resource name="fres.Login" />
+              <xsl:if test="isNew = 'true'">
+                <div class="account-field-row">
+                  <div class="account-field-title">
+                    <resource name="fres.Login" />
+                  </div>
+                  <div class="account-field-body">
+                    <input type="text" class="textEdit account-input-login" autocomplete="off"/>
+                  </div>
                 </div>
-                <div class="account-field-body">
-                  <input type="text" class="textEdit account-input-login"/>
-                </div>
-              </div>
+              </xsl:if>
               <div class="account-field-row">
                 <div class="account-field-title">
                   <resource name="fres.Password" />
                 </div>
                 <div class="account-field-body">
-                  <input type="password" class="textEdit account-input-pass"/>
+                  <input type="password" class="textEdit account-input-pass" autocomplete="off">
+                    <xsl:if test="isNew != 'true'">
+                      <xsl:attribute name="placeholder">
+                        <resource name="fres.ThirdPartyCorrect"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                  </input>
                 </div>
               </div>
             </div>
             <div class="account-folder-settings-container">
-              <div class="account-field-row">
+              <xsl:if test="getTokenUrl != ''">
+                <div class="account-field-row">
+                  <div class="account-field-title">
+                    <resource name="fres.ThirdPartyReconnectTitle" />
+                  </div>
+                  <div class="account-field-body">
+                    <div class="edit-account-button button white">
+                      <xsl:attribute name="data-provider">
+                        <xsl:value-of select="provider_key"/>
+                      </xsl:attribute>
+                      <span>
+                        <xsl:attribute name="class">
+                          <xsl:value-of select="provider_key"/>
+                        </xsl:attribute>
+                      </span>
+                      <resource name="fres.ThirdPartyReconnect" />
+                    </div>
+                  </div>
+                </div>
+              </xsl:if>
+              <div>
+                <xsl:attribute name="class">
+                  account-field-row <xsl:if test="canCorporate = 'true'">account-field-row-large</xsl:if>
+                </xsl:attribute>
                 <div class="account-field-title">
                   <resource name="fres.ThirdPartyFolderTitle" />
                 </div>
@@ -95,6 +134,9 @@
                       <xsl:value-of select="max_name_length"/>
                     </xsl:attribute>
                     <xsl:attribute name="value">
+                      <xsl:value-of select="customer_title"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="placeholder">
                       <xsl:value-of select="customer_title"/>
                     </xsl:attribute>
                   </input>

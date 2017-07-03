@@ -180,11 +180,16 @@ namespace ASC.Web.Core.Client.Bundling
         {
             if (!includes.Any())
             {
-                includes = cache.Get<List<string>>(fileName).Select(r =>
+                var fromCache = cache.Get<List<string>>(fileName);
+
+                if (fromCache != null)
                 {
-                    var rSplit = r.Split(',');
-                    return (ClientScript)Activator.CreateInstance(rSplit[1].Trim(), rSplit[0].Trim()).Unwrap();
-                }).ToList();
+                    includes = fromCache.Select(r =>
+                    {
+                        var rSplit = r.Split(',');
+                        return (ClientScript) Activator.CreateInstance(rSplit[1].Trim(), rSplit[0].Trim()).Unwrap();
+                    }).ToList();
+                }
             }
 
             return includes;

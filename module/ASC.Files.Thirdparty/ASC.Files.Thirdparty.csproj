@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Files.Thirdparty</RootNamespace>
     <AssemblyName>ASC.Files.Thirdparty</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
   </PropertyGroup>
@@ -30,7 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
-      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.445\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.446\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="Box.V2">
       <HintPath>..\..\packages\Box.V2.2.14.0\lib\portable-net40+sl50+win+wp80\Box.V2.dll</HintPath>

@@ -519,6 +519,8 @@ window.ASC.Files.UI = (function () {
                 ? target
                 : target.closest(".file-row");
 
+        var select = !jq(this).hasClass("row-selected") || jq(this).find(".checkbox input:visible").is("[type=radio]");
+
         if (e.shiftKey && ASC.Files.UI.lastSelectedEntry && ASC.Files.UI.lastSelectedEntry.entryObj) {
             var i1 = jq(".file-row").index(entryObj);
             var i2 = jq(".file-row").index(ASC.Files.UI.lastSelectedEntry.entryObj);
@@ -529,8 +531,11 @@ window.ASC.Files.UI = (function () {
             jq(".file-row:lt(" + maxItem + "):gt(" + minItem + ")").each(function () {
                 ASC.Files.UI.selectRow(jq(this), !jq(this).hasClass("row-selected"));
             });
+        } else if (!target.is(".checkbox")) {
+            ASC.Files.UI.checkSelectAll(false);
         }
-        ASC.Files.UI.selectRow(entryObj, !entryObj.hasClass("row-selected") || entryObj.find(".checkbox input:visible").is("[type=radio]"));
+
+        ASC.Files.UI.selectRow(entryObj, select);
         ASC.Files.UI.updateMainContentHeader();
 
         ASC.Files.UI.lastSelectedEntry = { entryObj: entryObj };
@@ -589,7 +594,8 @@ window.ASC.Files.UI = (function () {
     var resetSelectAll = function (param) {
         jq("#filesSelectAllCheck").prop("checked", param === true);
 
-        jq("#filesSelectAllCheck").prop("indeterminate", param !== true && jq("#filesMainContent .file-row .checkbox input:checked").length != 0);
+        var indeterminate = param !== true && jq("#filesMainContent .file-row .checkbox input:checked").length != 0;
+        jq("#filesSelectAllCheck").prop("indeterminate", indeterminate).toggleClass("indeterminate", indeterminate);
     };
 
     var checkSelectAll = function (value) {
@@ -1124,8 +1130,15 @@ window.ASC.Files.UI = (function () {
         jq("#switchToCompact").click(function () {
             ASC.Files.UI.switchFolderView(true);
         });
-
         jq("#filesMainContent").on("click", ".file-row", ASC.Files.UI.clickRow);
+
+        jq("#filesMainContent").on("dblclick", ".file-row", function (event) {
+            if (jq(event.srcElement || event.target).is("input, #contentVersions, #contentVersions *")) {
+                return;
+            }
+            jq(this).closest(".file-row").find(".entry-title .name a").trigger("click");
+        });
+
 
         jq("#filesMainContent").on("click", ".checkbox input", function (event) {
             if (ASC.Files.Actions) {

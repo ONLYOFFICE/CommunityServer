@@ -118,6 +118,8 @@ namespace ASC.Api.Employee
         [DataMember(Order = 11, EmitDefaultValue = false)]
         protected MobilePhoneActivationStatus MobilePhoneActivationStatus { get; set; }
 
+        [DataMember(Order = 20)]
+        public bool IsSSO { get; set; }
 
         public EmployeeWraperFull()
         {
@@ -206,7 +208,8 @@ namespace ASC.Api.Employee
 
             IsOwner = userInfo.IsOwner();
 
-            IsLDAP = userInfo.Sid != null;
+            IsLDAP = userInfo.IsLDAP();
+            IsSSO = userInfo.IsSSO();
         }
 
         private void FillConacts(UserInfo userInfo)
@@ -257,7 +260,9 @@ namespace ASC.Api.Employee
                     Status = EmployeeStatus.Active,
                     WorkFrom = ApiDateTime.GetSample(),
                     Terminated = ApiDateTime.GetSample(),
-                    CultureName = "en-EN"
+                    CultureName = "en-EN",
+                    IsLDAP = false,
+                    IsSSO = false
                 };
         }
     }

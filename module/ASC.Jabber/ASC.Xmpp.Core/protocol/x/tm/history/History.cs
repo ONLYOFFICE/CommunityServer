@@ -58,6 +58,11 @@ namespace ASC.Xmpp.Core.protocol.x.tm.history
             set { SetAttribute("to", Time.Date(value)); }
         }
 
+        public int StartIndex
+        {
+            get { return GetAttributeInt("startindex"); }
+            set { SetAttribute("startindex", value); }
+        }
         public int Count
         {
             get { return GetAttributeInt("count"); }

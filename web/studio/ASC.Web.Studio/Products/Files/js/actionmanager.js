@@ -459,6 +459,10 @@ window.ASC.Files.Actions = (function () {
                     jq("#foldersRemoveThirdparty,\
                         #foldersChangeThirdparty").hide().addClass("display-none");
                 } else {
+                    if (entryData.create_by_id != Teamlab.profile.id) {
+                        jq("#foldersChangeThirdparty").hide().addClass("display-none");
+                    }
+
                     jq("#foldersRemove,\
                         #foldersMoveto").hide().addClass("display-none");
 

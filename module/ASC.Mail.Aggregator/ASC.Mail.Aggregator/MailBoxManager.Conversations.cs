@@ -367,17 +367,14 @@ namespace ASC.Mail.Aggregator
 
         public void SetConversationsReadFlags(int tenant, string user, List<int> ids, bool isRead)
         {
+            if (!ids.Any() || tenant < 0 || string.IsNullOrEmpty(user))
+                return;
+
             using (var db = GetDb())
             {
-                var listObjects = GetChainedMessagesInfo(db, tenant, user, ids, MessageInfoToSetUnread.Fields)
-                    .ConvertAll(x => new MessageInfoToSetUnread(x));
-
-                if (!listObjects.Any())
-                    return;
-
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    SetMessagesReadFlags(db, tenant, user, listObjects, isRead);
+                    SetMessagesReadFlags(db, tenant, user, ids, isRead, true);
                     tx.Commit();
                 }
             }
@@ -635,13 +632,13 @@ namespace ASC.Mail.Aggregator
                         filter.CustomLabels.Count()));
             }
 
-            queryMessages = queryMessages.OrderBy(MailTable.Columns.ChainDate, sortOrder);
+            queryMessages = queryMessages.OrderBy(MailTable.Columns.ChainDate.Prefix(mm_alias), sortOrder);
 
             if (null != utcChainFromDate)
             {
                 queryMessages = queryMessages.Where(sortOrder
-                    ? Exp.Ge(MailTable.Columns.ChainDate, utcChainFromDate)
-                    : Exp.Le(MailTable.Columns.ChainDate, utcChainFromDate));
+                    ? Exp.Ge(MailTable.Columns.ChainDate.Prefix(mm_alias), utcChainFromDate)
+                    : Exp.Le(MailTable.Columns.ChainDate.Prefix(mm_alias), utcChainFromDate));
                 skipFlag = true;
             }
 
@@ -662,26 +659,33 @@ namespace ASC.Mail.Aggregator
             // We are increasing the size of the page to check whether it is necessary to show the Next button.
             while (res.Count < pageSize + 1)
             {
-                queryMessages
-                    .SetFirstResult(chunkIndex*CHUNK_SIZE*pageSize)
-                    .SetMaxResults(CHUNK_SIZE*pageSize);
+                if (ids.Any())
+                {
+                    var partIds = ids.Skip(chunkIndex * CHUNK_SIZE * pageSize).Take(CHUNK_SIZE * pageSize).ToList();
+
+                    if (!partIds.Any())
+                        break;
+
+                    queryMessages.Where(Exp.In(MailTable.Columns.Id.Prefix(mm_alias), partIds));
+                }
+                else
+                {
+                    queryMessages
+                        .SetFirstResult(chunkIndex*CHUNK_SIZE*pageSize)
+                        .SetMaxResults(CHUNK_SIZE*pageSize);
+                }
 
                 chunkIndex++;
                 
-                var list = db
+                var listMessages = db
                     .ExecuteList(queryMessages)
                     .ConvertAll(r =>
                         ConvertToMailMessage(r, tenantInfo, utcNow));
 
-                if (0 == list.Count)
+                if (0 == listMessages.Count)
                     break;
 
-                if (ids.Any())
-                {
-                    list = list.Where(m => ids.Exists(id => id == m.Id)).ToList();
-                }
-
-                foreach (var item in list)
+                foreach (var item in listMessages)
                 {
                     var chainInfo = new ChainInfo {id = item.ChainId, mailbox = item.MailboxId};
 
@@ -872,18 +876,19 @@ namespace ASC.Mail.Aggregator
         {
             if (string.IsNullOrEmpty(chainId)) return;
 
-            var chain = db.ExecuteList(
-                new SqlQuery(MailTable.Name)
-                    .SelectCount()
-                    .SelectMax(MailTable.Columns.DateSent)
-                    .SelectMax(MailTable.Columns.Unread)
-                    .SelectMax(MailTable.Columns.AttachCount)
-                    .SelectMax(MailTable.Columns.Importance)
-                    .Where(GetUserWhere(user, tenant))
-                    .Where(MailTable.Columns.IsRemoved, 0)
-                    .Where(MailTable.Columns.ChainId, chainId)
-                    .Where(MailTable.Columns.MailboxId, mailboxId)
-                    .Where(MailTable.Columns.Folder, folder))
+            var getChainQuery = new SqlQuery(MailTable.Name)
+                .SelectCount()
+                .SelectMax(MailTable.Columns.DateSent)
+                .SelectMax(MailTable.Columns.Unread)
+                .SelectMax(MailTable.Columns.AttachCount)
+                .SelectMax(MailTable.Columns.Importance)
+                .Where(GetUserWhere(user, tenant))
+                .Where(MailTable.Columns.IsRemoved, 0)
+                .Where(MailTable.Columns.ChainId, chainId)
+                .Where(MailTable.Columns.MailboxId, mailboxId)
+                .Where(MailTable.Columns.Folder, folder);
+
+            var chain = db.ExecuteList(getChainQuery)
                 .ConvertAll(x => new
                 {
                     length = Convert.ToInt32(x[0]),
@@ -897,24 +902,26 @@ namespace ASC.Mail.Aggregator
             if (chain == null) 
                 throw new InvalidDataException("Conversation is absent in MAIL_MAIL");
 
-            var storedChainInfo = db.ExecuteList(
-                new SqlQuery(ChainTable.Name)
-                    .Select(ChainTable.Columns.Unread)
-                    .Where(GetUserWhere(user, tenant))
-                    .Where(ChainTable.Columns.Id, chainId)
-                    .Where(ChainTable.Columns.Folder, folder)
-                    .Where(MailTable.Columns.MailboxId, mailboxId));
+            var getStoredChainInfoQuery = new SqlQuery(ChainTable.Name)
+                .Select(ChainTable.Columns.Unread)
+                .Where(GetUserWhere(user, tenant))
+                .Where(ChainTable.Columns.Id, chainId)
+                .Where(ChainTable.Columns.Folder, folder)
+                .Where(MailTable.Columns.MailboxId, mailboxId);
+
+            var storedChainInfo = db.ExecuteList(getStoredChainInfoQuery);
 
             var chainUnreadFlag = storedChainInfo.Any() && Convert.ToBoolean(storedChainInfo.First()[0]); 
 
             if (0 == chain.length)
             {
-                db.ExecuteNonQuery(
-                    new SqlDelete(ChainTable.Name)
-                        .Where(GetUserWhere(user, tenant))
-                        .Where(ChainTable.Columns.Id, chainId)
-                        .Where(ChainTable.Columns.MailboxId, mailboxId)
-                        .Where(ChainTable.Columns.Folder, folder));
+                var deleteFromChainQuery = new SqlDelete(ChainTable.Name)
+                    .Where(GetUserWhere(user, tenant))
+                    .Where(ChainTable.Columns.Id, chainId)
+                    .Where(ChainTable.Columns.MailboxId, mailboxId)
+                    .Where(ChainTable.Columns.Folder, folder);
+
+                var result = db.ExecuteNonQuery(deleteFromChainQuery);
 
                 _log.Debug("UpdateChain() row deleted from chain table tenant='{0}', user_id='{1}', id_mailbox='{2}', folder='{3}', chain_id='{4}'",
                     tenant, user, mailboxId, folder, chainId);
@@ -923,18 +930,20 @@ namespace ASC.Mail.Aggregator
             }
             else
             {
-                db.ExecuteNonQuery(
-                    new SqlUpdate(MailTable.Name)
-                        .Where(GetUserWhere(user, tenant))
-                        .Where(MailTable.Columns.IsRemoved, 0)
-                        .Where(MailTable.Columns.ChainId, chainId)
-                        .Where(MailTable.Columns.MailboxId, mailboxId)
-                        .Where(MailTable.Columns.Folder, folder) // Folder condition important because chain has different dates in different folders(Ex: Sent and Inbox).
-                        .Set(MailTable.Columns.ChainDate, chain.date));
+                var updateMailQuery = new SqlUpdate(MailTable.Name)
+                    .Where(GetUserWhere(user, tenant))
+                    .Where(MailTable.Columns.IsRemoved, 0)
+                    .Where(MailTable.Columns.ChainId, chainId)
+                    .Where(MailTable.Columns.MailboxId, mailboxId)
+                    .Where(MailTable.Columns.Folder, folder)
+                    // Folder condition important because chain has different dates in different folders(Ex: Sent and Inbox).
+                    .Set(MailTable.Columns.ChainDate, chain.date);
+
+                db.ExecuteNonQuery(updateMailQuery);
 
                 var tags = GetChainTags(db, chainId, folder, mailboxId, tenant, user);
 
-                var result = db.ExecuteNonQuery(
+                var insertChainQuery =
                     new SqlInsert(ChainTable.Name, true)
                         .InColumnValue(ChainTable.Columns.Id, chainId)
                         .InColumnValue(ChainTable.Columns.MailboxId, mailboxId)
@@ -945,10 +954,12 @@ namespace ASC.Mail.Aggregator
                         .InColumnValue(ChainTable.Columns.Unread, chain.unread)
                         .InColumnValue(ChainTable.Columns.HasAttachments, chain.attach_count > 0)
                         .InColumnValue(ChainTable.Columns.Importance, chain.importance)
-                        .InColumnValue(ChainTable.Columns.Tags, tags));
+                        .InColumnValue(ChainTable.Columns.Tags, tags);
+
+                var result = db.ExecuteNonQuery(insertChainQuery);
 
                 if (result <= 0)
-                    throw new InvalidOperationException(String.Format("Invalid insert to {0}", ChainTable.Name));
+                    throw new InvalidOperationException(string.Format("Invalid insert to {0}", ChainTable.Name));
 
                 _log.Debug("UpdateChain() row inserted to chain table tenant='{0}', user_id='{1}', id_mailbox='{2}', folder='{3}', chain_id='{4}'",
                     tenant, user, mailboxId, folder, chainId);
@@ -967,7 +978,7 @@ namespace ASC.Mail.Aggregator
                         unreadConvDiff = chain.unread ? 1 : -1;
                 }
 
-                ChangeFolderCounters(db, tenant, user, folder, 0, 0, unreadConvDiff, totalConvDiff);
+                ChangeFolderCounters(db, tenant, user, folder, unreadConvDiff: unreadConvDiff, totalConvDiff: totalConvDiff);
             }
         }
 
@@ -1011,7 +1022,7 @@ namespace ASC.Mail.Aggregator
                 .Where(MailTable.Columns.ChainId, chain.id)
                 .Where(MailTable.Columns.MailboxId, chain.mailbox)
                 .Where(GetUserWhere(user, tenant))
-                .Where(GetSearchFolders(MailTable.Columns.Folder, chain.folder));
+                .Where(MailTable.Columns.Folder, chain.folder);
 
             var fieldVal = db.ExecuteScalar<bool>(fieldQuery);
 
@@ -1020,7 +1031,7 @@ namespace ASC.Mail.Aggregator
                     .Where(GetUserWhere(user, tenant))
                     .Where(ChainTable.Columns.Id, chain.id)
                     .Where(ChainTable.Columns.MailboxId, chain.mailbox)
-                    .Where(GetSearchFolders(ChainTable.Columns.Folder, chain.folder));
+                    .Where(ChainTable.Columns.Folder, chain.folder);
 
             db.ExecuteNonQuery(updateQuery);
         }

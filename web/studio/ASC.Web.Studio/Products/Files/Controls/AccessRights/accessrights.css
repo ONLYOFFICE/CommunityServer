@@ -89,9 +89,6 @@
     position: absolute;
     top: 0;
 }
-.without-emb #shareLinkCopy {
-    left: 418px;
-}
 #shareViaSocPanel {
     float: right;
     list-style: none;

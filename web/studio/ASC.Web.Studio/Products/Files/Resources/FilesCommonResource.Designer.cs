@@ -709,6 +709,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Too many addresses.
+        /// </summary>
+        public static string ErrorMassage_ManyEmailAddresses {
+            get {
+                return ResourceManager.GetString("ErrorMassage_ManyEmailAddresses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, this file format isn&apos;t supported.
         /// </summary>
         public static string ErrorMassage_NotSupportedFormat {
@@ -1240,11 +1249,38 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specify for change.
+        /// </summary>
+        public static string ThirdPartyCorrect {
+            get {
+                return ResourceManager.GetString("ThirdPartyCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder title.
         /// </summary>
         public static string ThirdPartyFolderTitle {
             get {
                 return ResourceManager.GetString("ThirdPartyFolderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reconnect.
+        /// </summary>
+        public static string ThirdPartyReconnect {
+            get {
+                return ResourceManager.GetString("ThirdPartyReconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string ThirdPartyReconnectTitle {
+            get {
+                return ResourceManager.GetString("ThirdPartyReconnectTitle", resourceCulture);
             }
         }
         

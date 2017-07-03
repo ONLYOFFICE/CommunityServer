@@ -122,10 +122,10 @@ namespace ASC.Mail.Aggregator
             int? unreadConvDiff = null,
             int? totalConvDiff = null)
         {
-            if (!unreadMessDiff.HasValue
-                && !totalMessDiff.HasValue
-                && !unreadConvDiff.HasValue
-                && !totalConvDiff.HasValue)
+            if (!(unreadMessDiff.HasValue && unreadMessDiff.Value != 0)
+                && !(totalMessDiff.HasValue && totalMessDiff.Value != 0)
+                && !(unreadConvDiff.HasValue && unreadConvDiff.Value != 0)
+                && !(totalConvDiff.HasValue && totalConvDiff.Value != 0))
             {
                 return;
             }
@@ -134,7 +134,7 @@ namespace ASC.Mail.Aggregator
                 .Where(GetUserWhere(user, tenant))
                 .Where(FolderTable.Columns.Folder, folder);
 
-            if (unreadMessDiff.HasValue)
+            if (unreadMessDiff.HasValue && unreadMessDiff.Value != 0)
             {
                 var setValue = string.Format(INCR_VALUE_FORMAT,
                     FolderTable.Columns.UnreadMessagesCount, unreadMessDiff.Value);
@@ -142,7 +142,7 @@ namespace ASC.Mail.Aggregator
                 updateQuery.Set(setValue);
             }
 
-            if (totalMessDiff.HasValue)
+            if (totalMessDiff.HasValue && totalMessDiff.Value != 0)
             {
                 var setValue = string.Format(INCR_VALUE_FORMAT,
                     FolderTable.Columns.TotalMessagesCount, totalMessDiff.Value);
@@ -150,7 +150,7 @@ namespace ASC.Mail.Aggregator
                 updateQuery.Set(setValue);
             }
 
-            if (unreadConvDiff.HasValue)
+            if (unreadConvDiff.HasValue && unreadConvDiff.Value != 0)
             {
                 var setValue = string.Format(INCR_VALUE_FORMAT,
                     FolderTable.Columns.UnreadConversationsCount, unreadConvDiff.Value);
@@ -158,7 +158,7 @@ namespace ASC.Mail.Aggregator
                 updateQuery.Set(setValue);
             }
 
-            if (totalConvDiff.HasValue)
+            if (totalConvDiff.HasValue && totalConvDiff.Value != 0)
             {
                 var setValue = string.Format(INCR_VALUE_FORMAT,
                     FolderTable.Columns.TotalConversationsCount, totalConvDiff.Value);
@@ -173,8 +173,9 @@ namespace ASC.Mail.Aggregator
                     throw new Exception("Need recalculation");
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                _log.Error("ChangeFolderCounters() Exception: {0}", ex.ToString());
                 RecalculateFolders();
             }
         }

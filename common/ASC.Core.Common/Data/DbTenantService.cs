@@ -301,20 +301,23 @@ namespace ASC.Core.Data
                             {
                                 id = File.ReadAllText("/etc/timezone").Trim();
                             }
-                            else if (File.Exists("/etc/localtime"))
+
+                            if(string.IsNullOrEmpty(id))
                             {
                                 var psi = new ProcessStartInfo
                                 {
-                                    FileName = "file",
-                                    Arguments = "/etc/localtime",
+                                    FileName = "/bin/bash",
+                                    Arguments = "date +%Z",
                                     RedirectStandardOutput = true,
                                     UseShellExecute = false,
                                 };
-                                var p = Process.Start(psi);
-                                if (p.WaitForExit(1000))
+                                using (var p = Process.Start(psi))
                                 {
-                                    var s = p.StandardOutput.ReadToEnd();
-                                    id = Regex.Match(s, "/usr/share/zoneinfo/(.+)'").Groups[1].Value;
+                                    if (p.WaitForExit(1000))
+                                    {
+                                        id = p.StandardOutput.ReadToEnd();
+                                    }
+                                    p.Close();
                                 }
                             }
                             if (!string.IsNullOrEmpty(id))

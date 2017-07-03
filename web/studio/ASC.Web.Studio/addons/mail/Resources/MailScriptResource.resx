@@ -132,6 +132,9 @@
   <data name="AccountNotificationText" xml:space="preserve">
     <value>The account is connected using OAuth, editing is limited.</value>
   </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Google account was reconnected successfully</value>
+  </data>
   <data name="AccountsLabel" xml:space="preserve">
     <value>Accounts</value>
   </data>

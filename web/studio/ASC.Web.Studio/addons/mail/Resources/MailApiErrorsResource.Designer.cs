@@ -205,6 +205,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not available in unpaid version.
+        /// </summary>
+        public static string ErrorUnpaidAccessDenied {
+            get {
+                return ResourceManager.GetString("ErrorUnpaidAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid operation for shared domain.
         /// </summary>
         public static string InvalidOpearationForSharedDomain {

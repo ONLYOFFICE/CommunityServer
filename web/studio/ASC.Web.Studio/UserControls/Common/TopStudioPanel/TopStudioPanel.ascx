@@ -94,6 +94,7 @@
                         <ItemTemplate>
                             <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
                                 <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                     <span class="dropdown-item-icon"></span>
                                     <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
                                 </a>
                             </li>
@@ -107,22 +108,23 @@
                         <ItemTemplate>
                             <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
                                 <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                    <span class="dropdown-item-icon"></span>
                                     <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
                                 </a>
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <li class="feed"><a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item <%= "feed" == CurrentProductClassName ? "active" : "" %>"><%= UserControlsCommonResource.FeedTitle %></a></li>
+                    <li class="feed"><a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item <%= "feed" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"></span><%= UserControlsCommonResource.FeedTitle %></a></li>
                     <% } %>
 
                     <% if (IsAdministrator)
                        { %>
                         <li class="dropdown-item-seporator"></li>
-                        <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item <%= "settings" == CurrentProductClassName ? "active" : "" %>"><%= Resource.Administration %></a></li>
+                        <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item <%= "settings" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"></span><%= Resource.Administration %></a></li>
                     <% } %>
                     <% if (!DisableTariff)
                        { %>
-                        <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item"><%= Resource.TariffSettings %></a></li>
+                        <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item"><span class="dropdown-item-icon"></span><%= Resource.TariffSettings %></a></li>
                     <% } %>
                 </ul>
             </div>

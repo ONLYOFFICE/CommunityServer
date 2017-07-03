@@ -64,7 +64,6 @@ window.ASC.TMTalk.connectionManager = (function () {
       retrievesDiscoItems : 'onretrievesdiscoitems'
     },
     eventManager = new CustomEvent(customEvents);
-
   var getMessageId = function () {
     messageId++;
     return idPrefix + messageId.toString(16);
@@ -104,7 +103,7 @@ window.ASC.TMTalk.connectionManager = (function () {
     isInit = true;
     // TODO
     if (typeof jid === 'string') {
-      JID = jid;
+        JID = jid;
     }
     if (typeof priority === 'string') {
       resourcePriority = priority;
@@ -117,14 +116,14 @@ window.ASC.TMTalk.connectionManager = (function () {
       connectionManager = new Strophe.Connection(servicePath);
     }
 
-    if (ASC.TMTalk.Resources.hasOwnProperty('statusTitles') && typeof ASC.TMTalk.Resources.statusTitles === 'object') {
+    if (ASC.TMTalk.Resources.hasOwnProperty('statusTitles') && typeof ASC.TMTalk.Resources.StatusTitles === 'object') {
       var
         status = null,
         statusesInd = statuses.length;
       while (statusesInd--) {
         status = statuses[statusesInd];
-        if (ASC.TMTalk.Resources.statusTitles.hasOwnProperty(status.show)) {
-          statuses[statusesInd].title = ASC.TMTalk.Resources.statusTitles[status.show];
+        if (ASC.TMTalk.Resources.StatusTitles.hasOwnProperty(status.show)) {
+            statuses[statusesInd].title = ASC.TMTalk.Resources.StatusTitles[status.show];
         }
       }
     }
@@ -865,7 +864,14 @@ window.ASC.TMTalk.connectionManager = (function () {
         .tree()
       );
   };
+  var savePushEndpoint = function (username, endpoint, browser) {
 
+      connectionManager.send(
+          $iq({ username: username, endpoint: endpoint, browser: browser, type: 'notification' })
+          .c('query', { xmlns: Strophe.NS.MUC_ADMIN })
+          .tree()
+      );
+  };
   var kickingOccupant = function (jid, nick, reason) {
     connectionManager.send(
       $iq({id : getMessageId(), from : connectionManager.jid, to : jid, type : 'set'})
@@ -942,7 +948,7 @@ window.ASC.TMTalk.connectionManager = (function () {
 
   var composingMessage = function (jid) {
     connectionManager.send(
-      $msg({id : getMessageId(), from : connectionManager.jid, to : jid, type : 'chat'})
+      $msg({ id: getMessageId(), from: connectionManager.jid, to: jid, type: 'chat' })
         .c('composing', {xmlns : Strophe.NS.CHATSTATES})
         .tree()
     );
@@ -970,8 +976,10 @@ window.ASC.TMTalk.connectionManager = (function () {
   };
 
   var sendMessage = function (jid, body, type) {
+    var userName = escape(ASC.TMTalk.contactsManager.getContactName());
+    var tenantId = ASC.Resources.Master.CurrentTenantId;
     connectionManager.send(
-      $msg({id : getMessageId(), from : connectionManager.jid, to : jid, type : type})
+      $msg({ id: getMessageId(), tenantId: tenantId, from: connectionManager.jid, to: jid, username: userName, type: type })
         .c('active', {xmlns : Strophe.NS.CHATSTATES}).up()
         .c('body').t(body).up()
         .tree()
@@ -1019,7 +1027,13 @@ window.ASC.TMTalk.connectionManager = (function () {
         .tree()
     );
   };
-
+  var getMessagesByRange = function(jid, startindex, count) {
+      connectionManager.send(
+          $iq({ id: getMessageId(), from: connectionManager.jid, to: jid, type: 'get' })
+          .c('query', { xmlns: Strophe.NS.HISTORY, count: count, startindex: startindex })
+          .tree()
+      );
+  };
   var setSubject = function (jid, subject) {
     connectionManager.send(
       $msg({id : getMessageId(), to : jid, type : 'groupchat'})
@@ -1047,7 +1061,9 @@ window.ASC.TMTalk.connectionManager = (function () {
   var getJid = function () {
     return Strophe.getBareJidFromJid(connectionManager.jid);
   };
-
+  var getJID = function () {
+      return JID;
+  };
   var getDomain = function () {
     return connectionManager.domain;
   };
@@ -1098,6 +1114,7 @@ window.ASC.TMTalk.connectionManager = (function () {
 
     getMessagesByDate   : getMessagesByDate,
     getMessagesByNumber : getMessagesByNumber,
+    getMessagesByRange  : getMessagesByRange,
 
     setSubject  : setSubject,
 
@@ -1106,6 +1123,11 @@ window.ASC.TMTalk.connectionManager = (function () {
 
     getJid        : getJid,
     getDomain     : getDomain,
-    getUsername   : getUsername
+    getUsername: getUsername,
+
+    getJID: getJID,
+
+    savePushEndpoint: savePushEndpoint
+
   };
 })();

@@ -216,7 +216,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
-        private RegionInfo FindRegionInfo()
+        private static RegionInfo FindRegionInfo()
         {
             RegionInfo ri = null;
 
@@ -382,15 +382,15 @@ namespace ASC.Web.Studio.UserControls.Management
             return result;
         }
 
-        private static string GetShoppingUri(TenantQuota quota)
+        private string GetShoppingUri(TenantQuota quota)
         {
             var uri = string.Empty;
             if (quota != null)
             {
-                var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id);
+                var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id, true, null, CurrentRegion.ISOCurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName);
                 if (link == null)
                 {
-                    LogManager.GetLogger("ASC.Web.Billing").Error(string.Format("GetShoppingUri return null for tenant {0} and quota {1}", TenantProvider.CurrentTenantID, quota == null ? 0 : quota.Id));
+                    LogManager.GetLogger("ASC.Web.Billing").Error(string.Format("GetShoppingUri return null for tenant {0} and quota {1}", TenantProvider.CurrentTenantID, quota.Id));
                 }
                 else
                 {

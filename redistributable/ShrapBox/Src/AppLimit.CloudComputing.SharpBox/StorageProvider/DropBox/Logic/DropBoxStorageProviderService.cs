@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using AppLimit.CloudComputing.SharpBox.Common.Extensions;
-using AppLimit.CloudComputing.SharpBox.Common.Net.Json;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
-using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Context;
-using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth;
-using AppLimit.CloudComputing.SharpBox.Exceptions;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 using AppLimit.CloudComputing.SharpBox.Common.Net;
-using System.IO;
-using AppLimit.CloudComputing.SharpBox.Common.Net.Web;
-using System.Net;
+using AppLimit.CloudComputing.SharpBox.Common.Net.Json;
+using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth;
+using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Context;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token;
+using AppLimit.CloudComputing.SharpBox.Common.Net.Web;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 
 #if !WINDOWS_PHONE && !MONODROID
 using System.Web;
@@ -86,7 +86,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
             var svcConfig = configuration as DropBoxConfiguration;
 
             // get the session
-            return this.Authorize(userToken, svcConfig);
+            return Authorize(userToken, svcConfig);
         }
 
         public override CloudStorageLimits GetLimits(IStorageProviderSession session)
@@ -103,8 +103,8 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
         public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string nameOrId, ICloudDirectoryEntry parent)
         {
-            String path = DropBoxResourceIDHelpers.GetResourcePath(parent, nameOrId);
-            String uriString = GetResourceUrlInternal(session, path);
+            var path = DropBoxResourceIDHelpers.GetResourcePath(parent, nameOrId);
+            var uriString = GetResourceUrlInternal(session, path);
           
             int code;
             var res = DropBoxRequestParser.RequestResourceByUrl(uriString, this, session, out code);
@@ -161,7 +161,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
         public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string name, ICloudDirectoryEntry parent)
         {
-            String path = DropBoxResourceIDHelpers.GetResourcePath(parent, name);
+            var path = DropBoxResourceIDHelpers.GetResourcePath(parent, name);
 
             var parameters = new Dictionary<string, string>
                                  {
@@ -282,9 +282,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 var tokenSecret = tokendata[TokenDropBoxCredPassword];
                 var tokenKey = tokendata[TokenDropBoxCredUsername];
 
-                DropBoxBaseTokenInformation bc = new DropBoxBaseTokenInformation();
-                bc.ConsumerKey = tokendata[TokenDropBoxAppKey];
-                bc.ConsumerSecret = tokendata[TokenDropBoxAppSecret];
+                var bc = new DropBoxBaseTokenInformation
+                    {
+                        ConsumerKey = tokendata[TokenDropBoxAppKey],
+                        ConsumerSecret = tokendata[TokenDropBoxAppSecret]
+                    };
 
                 return new DropBoxToken(tokenKey, tokenSecret, bc);
             }
@@ -471,7 +473,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 if (responseStream == null) return;
 
                 var json = new JsonHelper();
-                json.ParseJsonMessage(new StreamReader(responseStream).ReadToEnd());
+                using (var streamReader = new StreamReader(responseStream))
+                {
+                    json.ParseJsonMessage(streamReader.ReadToEnd());
+                }
                 
                 var uplSession = (ResumableUploadSession)uploadSession;
                 uplSession["UploadId"] = json.GetProperty("upload_id");
@@ -713,7 +718,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                     return String.Format(urltemplate, ((int) DropBoxAPIVersion.Stable).ToString());
                 else
                 {
-                    int versionValue = (int) ((DropBoxConfiguration) configuration).APIVersion;
+                    var versionValue = (int) ((DropBoxConfiguration) configuration).APIVersion;
                     return String.Format(urltemplate, versionValue.ToString());
                 }
             }

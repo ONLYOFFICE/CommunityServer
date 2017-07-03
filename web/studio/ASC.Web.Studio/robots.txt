@@ -1,4 +1,0 @@
-﻿User-agent: *
-Disallow: /
-User-agent: Googlebot
-Allow: /api/2.0/calendar/

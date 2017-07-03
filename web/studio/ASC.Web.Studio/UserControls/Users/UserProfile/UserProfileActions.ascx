@@ -30,7 +30,7 @@
             </a>
         </li>
         <% }
-       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP())
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP() && !ProfileHelper.UserInfo.IsSSO())
            { %>
         <li class="psw-change <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.PasswordChangeButton %>"
@@ -39,7 +39,7 @@
             </a>
         </li>
         <% }
-       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP())
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP() && !ProfileHelper.UserInfo.IsSSO())
            { %>
         <li class="email-change <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.EmailChangeButton %>"
@@ -48,7 +48,7 @@
             </a>
         </li>
         <% }
-       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus != EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP())
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus != EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP() && !ProfileHelper.UserInfo.IsSSO())
            { %>
         <li class="email-activate <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.ActivateEmailAgain %>"

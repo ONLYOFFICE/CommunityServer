@@ -50,6 +50,7 @@ using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Utility;
 using Newtonsoft.Json.Linq;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using FilesNS = ASC.Web.Files.Services.WCFService;
@@ -393,6 +394,8 @@ namespace ASC.Api.Documents
             Configuration configuration;
             DocumentServiceHelper.GetParams(fileId, version, doc, true, true, true, out configuration);
             configuration.Type = Configuration.EditorType.External;
+
+            configuration.Token = DocumentServiceHelper.GetSignature(configuration);
             return configuration;
         }
 
@@ -1293,9 +1296,21 @@ namespace ASC.Api.Documents
 
         /// <visible>false</visible>
         [Read("docservice")]
-        public string GetDocServiceUrl()
+        public object GetDocServiceUrl(bool version)
         {
-            return FilesLinkUtility.DocServiceApiUrl;
+            var url = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.DocServiceApiUrl);
+            if (!version)
+            {
+                return url;
+            }
+
+            var dsVersion = DocumentServiceConnector.GetVersion();
+
+            return new
+                {
+                    version = dsVersion,
+                    docServiceUrlApi = url,
+                };
         }
 
 

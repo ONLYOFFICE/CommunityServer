@@ -2058,6 +2058,69 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Firebase.
+        /// </summary>
+        public static string ConsumersFirebase {
+            get {
+                return ResourceManager.GetString("ConsumersFirebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подключить сервис Firebase Cloud Messaging для получения уведомлений о полученных сообщениях..
+        /// </summary>
+        public static string ConsumersFirebaseDescription {
+            get {
+                return ResourceManager.GetString("ConsumersFirebaseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив Firebase Cloud Messaging Вы сможете получать уведомлений о полученных сообщениях, находясь не в сети..
+        /// </summary>
+        public static string ConsumersFirebaseInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersFirebaseInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Api key.
+        /// </summary>
+        public static string ConsumersFirebaseKey {
+            get {
+                return ResourceManager.GetString("ConsumersFirebaseKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sender ID.
+        /// </summary>
+        public static string ConsumersFirebaseKeyDefault {
+            get {
+                return ResourceManager.GetString("ConsumersFirebaseKeyDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project ID.
+        /// </summary>
+        public static string ConsumersFirebaseSecret {
+            get {
+                return ResourceManager.GetString("ConsumersFirebaseSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server key.
+        /// </summary>
+        public static string ConsumersFirebaseSecretDefault {
+            get {
+                return ResourceManager.GetString("ConsumersFirebaseSecretDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Google.
         /// </summary>
         public static string ConsumersGoogle {
@@ -2405,6 +2468,15 @@ namespace Resources {
         public static string CouldNotRecoverPasswordForLdapUser {
             get {
                 return ResourceManager.GetString("CouldNotRecoverPasswordForLdapUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password recovery operation is prohibited for an SSO user.
+        /// </summary>
+        public static string CouldNotRecoverPasswordForSsoUser {
+            get {
+                return ResourceManager.GetString("CouldNotRecoverPasswordForSsoUser", resourceCulture);
             }
         }
         
@@ -8734,6 +8806,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings could not be null.
+        /// </summary>
+        public static string SsoSettingsCouldNotBeNull {
+            get {
+                return ResourceManager.GetString("SsoSettingsCouldNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single sign-on is disabled.
         /// </summary>
         public static string SsoSettingsDisabled {
@@ -8786,6 +8867,33 @@ namespace Resources {
         public static string SsoSettingsHelp {
             get {
                 return ResourceManager.GetString("SsoSettingsHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid binding: {0}.
+        /// </summary>
+        public static string SsoSettingsInvalidBinding {
+            get {
+                return ResourceManager.GetString("SsoSettingsInvalidBinding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid entityId.
+        /// </summary>
+        public static string SsoSettingsInvalidEntityId {
+            get {
+                return ResourceManager.GetString("SsoSettingsInvalidEntityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid fields mapping.
+        /// </summary>
+        public static string SsoSettingsInvalidMapping {
+            get {
+                return ResourceManager.GetString("SsoSettingsInvalidMapping", resourceCulture);
             }
         }
         
@@ -8975,6 +9083,24 @@ namespace Resources {
         public static string SsoSettingsWrongValidationType {
             get {
                 return ResourceManager.GetString("SsoSettingsWrongValidationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has been imported from SSO. Contact your SSO administrator if you want to change the locked profile fields..
+        /// </summary>
+        public static string SsoUserEditCanOnlyAdminTitle {
+            get {
+                return ResourceManager.GetString("SsoUserEditCanOnlyAdminTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has been imported from SSO.
+        /// </summary>
+        public static string SsoUsersListLockTitle {
+            get {
+                return ResourceManager.GetString("SsoUsersListLockTitle", resourceCulture);
             }
         }
         

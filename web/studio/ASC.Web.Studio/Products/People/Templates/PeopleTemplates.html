@@ -6,10 +6,10 @@
             {{if ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked")}}
               <li><a class="enable-profile dropdown-item">${ASC.People.Resources.PeopleResource.EnableUserButton}</a></li>
             {{/if}}
-            {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false")}}
+            {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
               <li><a class="change-password dropdown-item">${ASC.People.Resources.PeopleResource.LblChangePassword}</a></li>
             {{/if}}
-            {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false")}}
+            {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
               <li><a class="change-email dropdown-item">${ASC.People.Resources.PeopleResource.LblChangeEmail}</a></li>
             {{/if}}
             {{if ($data.isAdmin === true || $data.isMe === true) && (user.status === "waited")}}
@@ -37,29 +37,38 @@
         data-isOwner="${user.isPortalOwner}"
         data-isVisitor="${user.isVisitor}"
         data-isLDAP="${user.isLDAP}"
-      >
-       
-    {{if ($data.isAdmin === true)}}
-    <td class="check-list" id="checkRow_${user.id}">
-        <input type="checkbox" id="checkUser_${user.id}" class="checkbox-user"
-            {{if user.isChecked == true}}checked="checked"{{/if}} />
-    </td>
-    {{/if}}
-    <td class="icon-list">
-      <a class="ava" href="${user.link}">
-        <img src="${user.avatarSmall}" title="${user.displayName}" /> 
-        
-        {{if (user.isVisitor)}}<span class="role collaborator" title="${ASC.Resources.Master.Guest}"></span>{{/if}}
-        {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="${ASC.Resources.Master.TemplateResource.Administrator}"></span>{{/if}}
-        {{if (user.isPortalOwner)}}<span class="role owner" title="${ASC.Resources.Master.TemplateResource.Owner}"></span>{{/if}}
+        data-isSSO="${user.isSSO}">
 
-        {{if (user.isTerminated || user.isActivated === false)}}<span class="status"></span> {{/if}}
-      </a>
-    </td>
-    <td class="name">
-        <a class="link bold" href="${user.link}">${user.displayName}</a>
-        <span class="{{if $data.isAdmin === true && user.isLDAP === true}}ldap-lock{{/if}}"{{if $data.isAdmin === true && user.isLDAP === true}} title="${ASC.Resources.Master.LdapUsersListLockTitle}"{{/if}}></span>
-      {{if user.bithdayDaysLeft != null}}
+        {{if ($data.isAdmin === true)}}
+        <td class="check-list" id="checkRow_${user.id}">
+            <input type="checkbox" id="checkUser_${user.id}" class="checkbox-user"
+                   {{if user.isChecked== true}}checked="checked"{{/if}}/>
+        </td>
+        {{/if}}
+        <td class="icon-list">
+            <a class="ava" href="${user.link}">
+                <img src="${user.avatarSmall}" title="${user.displayName}"/>
+
+                {{if (user.isVisitor)}}<span class="role collaborator" title="${ASC.Resources.Master.Guest}"></span>{{/if}}
+                {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="${ASC.Resources.Master.TemplateResource.Administrator}"></span>{{/if}}
+                {{if (user.isPortalOwner)}}<span class="role owner" title="${ASC.Resources.Master.TemplateResource.Owner}"></span>{{/if}}
+
+                {{if (user.isTerminated || user.isActivated === false)}}<span class="status"></span> {{/if}}
+            </a>
+        </td>
+        <td class="name">
+            <a class="link bold" href="${user.link}">${user.displayName}</a>
+            {{if ($data.isAdmin === true)}}
+                {{if (user.isLDAP === true)}}
+                    <span class="ldap-lock" title="${ASC.Resources.Master.LdapUsersListLockTitle}"></span>
+                {{else}}
+                    {{if (user.isSSO === true)}}
+                    <span class="sso-lock" title="${ASC.Resources.Master.SsoUsersListLockTitle}"></span>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+
+            {{if user.bithdayDaysLeft != null}}
         <div class="birthday">
         {{if user.bithdayDaysLeft == 0}}${ASC.Resources.Master.TemplateResource.DrnToday}
         {{else user.bithdayDaysLeft==1}}${ASC.Resources.Master.TemplateResource.DrnTomorrow}
@@ -70,9 +79,9 @@
       {{/if}}
         <div class="title">
             {{if user.isGroupManager && user.title.length}}
-            <span class="inner-text manager">${user.title}</span>
+            <span class="inner-text manager">${Encoder.htmlEncode(user.title, true)}</span>
             {{else}}
-            <span class="inner-text">${user.title}</span>
+            <span class="inner-text">${Encoder.htmlEncode(user.title, true)}</span>
             {{/if}}
         </div>
     </td>
@@ -95,7 +104,7 @@
         {{/if}}
     </td>
     <td class="location">
-        <span class="inner-text">${user.location}</span>
+        <span class="inner-text">${Encoder.htmlEncode(user.location, true)}</span>
     </td>
     <td class="info">
     {{if user.isTerminated}}

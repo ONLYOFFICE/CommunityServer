@@ -9,10 +9,19 @@
 <div id="userProfileEditPage" class="containerBodyBlock">
     <div class="clearFix profile-title header-with-menu">
         <span id="titleEditProfile" class="header text-overflow"><%= GetTitle().HtmlEncode() %></span>
-        <% if ((IsAdmin() || UserInfo.IsMe()) && UserInfo.IsLDAP())
+       
+        <% if (IsPageEditProfileFlag && (IsAdmin() || UserInfo.IsMe()))
         { %>
-        <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
+            <% if (UserInfo.IsLDAP())
+            { %>
+            <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
+            <% }
+                else if (UserInfo.IsSSO())
+                { %>
+            <span class="sso-lock-big" title="<%= Resource.SsoUsersListLockTitle %>"></span>
+            <% } %>
         <% } %>
+
     </div>
     <div class="profile-action-content clearFix">
         <div class="profile-photo-block">
@@ -114,14 +123,14 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.FirstName %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profileFirstName" class="textEdit" value="<%= GetFirstName() %>" autocomplete="off" <%= IsLDAP ? "disabled title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> />
+                    <input type="text" id="profileFirstName" class="textEdit" value="<%= GetFirstName() %>" autocomplete="off" <%= IsPageEditProfileFlag && (IsLDAP || IsSSO) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : ( IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %> />
                 </td>
             </tr>
             <%--LastName--%>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.LastName %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profileSecondName" class="textEdit" value="<%= GetLastName() %>" autocomplete="off" <%= IsLDAP ? "disabled title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %>/>
+                    <input type="text" id="profileSecondName" class="textEdit" value="<%= GetLastName() %>" autocomplete="off" <%= IsPageEditProfileFlag && (IsLDAP || IsSSO) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : ( IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %>/>
                 </td>
             </tr>
             <%--Email--%>
@@ -139,7 +148,7 @@
                      <% } %>
                 </td>
                 <td class="userdata-value requiredField">
-                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && !(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) || IsLDAP ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> />
+                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && (!(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) || (IsLDAP || IsSSO)) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %> />
                 </td>
             </tr>
             <%--Department--%>
@@ -172,7 +181,7 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profilePosition" <%= IsAdmin() && !IsLDAP ? "" : "disabled = 'disabled'"%> <%= IsLDAP ? "title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> class="textEdit" value="<%= GetPosition() %>" autocomplete="off" />
+                    <input type="text" id="profilePosition" class="textEdit" value="<%= GetPosition() %>" autocomplete="off" <%= IsPageEditProfileFlag && (!IsAdmin() || IsLDAP || IsSSO) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : ( IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %>/>
                     <span class="requiredErrorText"><%= Resource.ErrorMessageLongField64 %></span>
                 </td>
             </tr>
@@ -220,7 +229,7 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= Resource.Location %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profilePlace" class="textEdit" value="<%= GetPlace() %>" autocomplete="off" <%= IsLDAP ? "disabled title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> />
+                    <input type="text" id="profilePlace" class="textEdit" value="<%= GetPlace() %>" autocomplete="off" <%= IsPageEditProfileFlag && (IsLDAP || IsSSO) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\""  : "") %> />
                     <span class="requiredErrorText"><%= Resource.ErrorMessageLongField255 %></span>
                 </td>
             </tr>

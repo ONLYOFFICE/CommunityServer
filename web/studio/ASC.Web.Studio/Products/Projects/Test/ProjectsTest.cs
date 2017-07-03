@@ -1,81 +1,53 @@
-﻿using System;
-
-#if DEBUG
-namespace ASC.Web.Projects.Test
+﻿namespace ASC.Web.Projects.Test
 {
+    using System;
+    using System.Collections.Generic;
     using ASC.Core;
-    using ASC.Projects.Core.Domain;
-    using ASC.Projects.Engine;
-    using Core;
-    using Studio.Utility;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
-    [TestClass]
-    public class ProjectsTest
+    [TestFixture]
+    public class ProjectsTest : BaseTest
     {
-        public static Guid OwnerId { get; set; }
-        public static ProjectEngine ProjectEngine { get; set; }
-
-        [ClassInitialize]
-        public static void Init(TestContext context)
+        [Test]
+        public void Project()
         {
-            WebItemManager.Instance.LoadItems();
-            CoreContext.TenantManager.SetCurrentTenant(0);
-            var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            SecurityContext.AuthenticateMe(tenant.OwnerId);
-            OwnerId = tenant.OwnerId;
-            ProjectEngine = new EngineFactory("test", TenantProvider.CurrentTenantID).ProjectEngine;
-        }
+            var newProject = GenerateProject(SecurityContext.CurrentAccount.ID);
 
-        [TestMethod]
-        public Project CreateProject()
-        {
-            var newProject = new Project {Title = "Test", Responsible = OwnerId };
-
-            ProjectEngine.SaveOrUpdate(newProject, false);
+            SaveOrUpdate(newProject);
 
             Assert.AreNotEqual(newProject.ID, 0);
 
-            return newProject;
-        }
-
-        [TestMethod]
-        public void GetProject()
-        {
-            var newProject = CreateProject();
-
-            var result = ProjectEngine.GetByID(newProject.ID);
+            var result = Get(newProject);
 
             Assert.AreEqual(newProject.ID, result.ID);
-        }
 
-        [TestMethod]
-        public void UpdateProject()
-        {
-            var project = CreateProject();
+            newProject.Title = "NewTitle";
+            newProject.Private = true;
 
-            project.Title = "NewTitle";
-            project.Private = true;
+            SaveOrUpdate(newProject);
 
-            ProjectEngine.SaveOrUpdate(project, false);
+            var updatedProject = Get(newProject);
 
-            var updatedProject = ProjectEngine.GetByID(project.ID);
+            Assert.AreEqual(updatedProject.Title, newProject.Title);
+            Assert.AreEqual(updatedProject.Private, newProject.Private);
 
-            Assert.AreEqual(updatedProject.Title, "NewTitle");
-            Assert.AreEqual(updatedProject.Private, true);
-        }
+            var team = new List<Guid>(4)
+            {
+                Owner,
+                Admin,
+                UserInTeam,
+                Guest
+            };
 
-        [TestMethod]
-        public void DeleteProject()
-        {
-            var project = CreateProject();
+            AddTeamToProject(newProject, team);
 
-            ProjectEngine.Delete(project.ID);
+            var getTeam = GetTeam(newProject.ID);
+            CollectionAssert.AreEquivalent(team, getTeam);
 
-            var deletedProject = ProjectEngine.GetByID(project.ID);
+            Delete(newProject);
+            var deletedProject = Get(newProject);
 
             Assert.IsNull(deletedProject);
         }
     }
 }
-#endif

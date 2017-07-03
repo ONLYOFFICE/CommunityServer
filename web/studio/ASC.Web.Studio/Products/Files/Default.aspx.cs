@@ -24,6 +24,7 @@
 */
 
 
+using System.IO;
 using ASC.Core;
 using ASC.Core.Common.Notify.Push;
 using ASC.Core.Users;
@@ -84,7 +85,7 @@ namespace ASC.Web.Files
                 Session["campaign"] = "";
 
                 var GoogleConversionScriptLocation = PathProvider.GetFileControlPath("GoogleConversionScript.ascx");
-                if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(GoogleConversionScriptLocation)))
+                if (File.Exists(HttpContext.Current.Server.MapPath(GoogleConversionScriptLocation)))
                 {
                     ThirdPartyScriptsPlaceHolder.Controls.Add(LoadControl(GoogleConversionScriptLocation));
                 }
@@ -101,13 +102,13 @@ namespace ASC.Web.Files
             if (AddCustomScript)
             {
                 var YandexScriptLocation = PathProvider.GetFileControlPath("YandexScript.js");
-                if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
+                if (File.Exists(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
                 {
-                    var streamReader = new System.IO.StreamReader(HttpContext.Current.Server.MapPath(YandexScriptLocation));
-                    string yaScriptText = streamReader.ReadToEnd();
-                    streamReader.Close();
-
-                    Page.RegisterInlineScript(yaScriptText);
+                    using (var streamReader = new StreamReader(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
+                    {
+                        var yaScriptText = streamReader.ReadToEnd();
+                        Page.RegisterInlineScript(yaScriptText);
+                    }
                 }
             }
 

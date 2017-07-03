@@ -228,6 +228,9 @@ window.ASC.Files.ChunkUploads = (function () {
 
     var onUploadAdd = function (e, data) {
         var file = data.files[0];
+        if (!file) {
+            return;
+        }
         var folderId = ASC.Files.Folders.currentFolder.id;
         var canShare = ASC.Files.Share && ASC.Files.Folders.currentFolder.shareable;
         var rightChecked = true;

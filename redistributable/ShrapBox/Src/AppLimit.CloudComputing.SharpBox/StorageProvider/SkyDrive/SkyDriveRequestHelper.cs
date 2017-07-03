@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Web;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive.Authorization;
@@ -67,10 +66,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
                 uri = SignUri(session, uri);
 
 
-            int attemptsToComplete = countAttempts;
+            var attemptsToComplete = countAttempts;
             while (attemptsToComplete > 0)
             {
-                WebRequest request = WebRequest.Create(uri);
+                var request = WebRequest.Create(uri);
                 request.Method = method;
                 request.Timeout = 5000;
 
@@ -79,7 +78,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
 
                 if (!String.IsNullOrEmpty(data))
                 {
-                    byte[] bytes = Encoding.UTF8.GetBytes(data);
+                    var bytes = Encoding.UTF8.GetBytes(data);
                     request.ContentType = "application/json";
                     request.ContentLength = bytes.Length;
                     using (var rs = request.GetRequestStream())
@@ -90,12 +89,15 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
 
                 try
                 {
-                    WebResponse response = request.GetResponse();
+                    using(var response = request.GetResponse())
                     using (var rs = response.GetResponseStream())
                     {
                         if (rs != null)
                         {
-                            return new StreamReader(rs).ReadToEnd();
+                            using (var streamReader = new StreamReader(rs))
+                            {
+                                return streamReader.ReadToEnd();
+                            }
                         }
                     }
                     return null;
@@ -123,7 +125,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
             if (!String.IsNullOrEmpty(queryString))
                 bytes = Encoding.UTF8.GetBytes(queryString);
 
-            int attemptsToTry = countAttempts;
+            var attemptsToTry = countAttempts;
             while (attemptsToTry > 0)
             {
                 var request = WebRequest.Create(uri);
@@ -140,11 +142,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.SkyDrive
                 }
                 try
                 {
-                    var response = request.GetResponse();
+                    using (var response = request.GetResponse())
                     using (var stream = response.GetResponseStream())
                     {
                         if (stream != null)
-                            return new StreamReader(stream).ReadToEnd();
+                            using (var streamReader = new StreamReader(stream))
+                            {
+                                return streamReader.ReadToEnd();
+                            }
                         return null;
                     }
                 }

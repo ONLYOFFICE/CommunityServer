@@ -114,10 +114,10 @@ namespace ASC.Web.CRM
             invoiceDetailsView.TargetInvoice = targetInvoice;
             CommonContainerHolder.Controls.Add(invoiceDetailsView);
 
-            var title = targetInvoice.Number.HtmlEncode();
+            var title = targetInvoice.Number;
 
             Master.CurrentPageCaption = title;
-            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(title, EntityType.Invoice, false, true);
+            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(title.HtmlEncode(), EntityType.Invoice, false, true);
             Title = HeaderStringHelper.GetPageTitle(title);
         }
 

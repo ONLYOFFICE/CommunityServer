@@ -135,21 +135,15 @@ namespace ASC.Mail.Aggregator
 
             using (var db = GetDb())
             {
-                var mailInfoList = GetMessagesInfo(db, tenant, user, ids, MessageInfoToSetUnread.Fields)
-                    .ConvertAll(x => new MessageInfoToSetUnread(x));
-
-                if (!mailInfoList.Any())
-                    return;
-
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    SetMessagesReadFlags(db, tenant, user, mailInfoList, isRead);
+                    SetMessagesReadFlags(db, tenant, user, ids, isRead);
                     tx.Commit();
                 }
             }
         }
 
-        private struct MessageInfoToSetUnread
+        private class MessageInfoToSetUnread
         {
             public static readonly string[] Fields =
                 {
@@ -162,7 +156,7 @@ namespace ASC.Mail.Aggregator
 
             private readonly int _id;
             private readonly int _folder;
-            private readonly bool _unread;
+            private bool _unread;
             private readonly string _chainId;
             private readonly int _mailbox;
 
@@ -199,20 +193,11 @@ namespace ASC.Mail.Aggregator
                 _chainId = (string)fieldsValues[3];
                 _mailbox = Convert.ToInt32(fieldsValues[4]);
             }
-        }
 
-        class MessageInfoToSetUnreadEqualityComparer : IEqualityComparer<MessageInfoToSetUnread>
-        {
-            public bool Equals(MessageInfoToSetUnread m1, MessageInfoToSetUnread m2)
+            public void SetUnread(bool unread)
             {
-                return m1.ChainId == m2.ChainId && m1.Mailbox == m2.Mailbox && m1.Folder == m2.Folder;
+                _unread = unread;
             }
-
-            public int GetHashCode(MessageInfoToSetUnread m)
-            {
-                return (m.ChainId + m.Mailbox + m.Folder).GetHashCode();
-            }
-
         }
 
         /// <summary>
@@ -221,54 +206,102 @@ namespace ASC.Mail.Aggregator
         /// <param name="db">db manager instance</param>
         /// <param name="tenant">Tenant Id</param>
         /// <param name="user">User Id</param>
-        /// <param name="mailInfoList">Info about messages to be update</param>
+        /// /// <param name="ids">Collection of ids to be update</param>
         /// <param name="isRead">New state to be set</param>
+        /// /// <param name="allChain">New state to be set to all chain messages</param>
         /// <returns>List ob objects array</returns>
         /// <short>Get chains messages info</short>
         /// <category>Mail</category>
-        private void SetMessagesReadFlags(IDbManager db, int tenant, string user, List<MessageInfoToSetUnread> mailInfoList, bool isRead)
+        private void SetMessagesReadFlags(IDbManager db, int tenant, string user, List<int> ids, bool isRead,
+            bool allChain = false)
         {
-            if (!mailInfoList.Any())
+            var chainedMessages = GetChainedMessagesInfo(db, tenant, user, ids, MessageInfoToSetUnread.Fields)
+                .ConvertAll(x => new MessageInfoToSetUnread(x));
+
+            if (!chainedMessages.Any())
                 return;
 
-            var messageInfoToSetUnreads = mailInfoList.Where(x => x.Unread == isRead).ToList();
+            var listIds = allChain ? chainedMessages.Where(x => x.Unread == isRead).Select(x => x.Id).ToList() : ids;
 
-            var ids = messageInfoToSetUnreads.Select(x => (object)x.Id).ToArray();
-
-            if (!ids.Any())
+            if (!listIds.Any())
                 return;
 
-            db.ExecuteNonQuery(
+            var unread = !isRead;
+
+            var updateQuery =
                 new SqlUpdate(MailTable.Name)
-                    .Where(Exp.In(MailTable.Columns.Id, ids))
+                    .Where(Exp.In(MailTable.Columns.Id, listIds))
                     .Where(GetUserWhere(user, tenant))
-                    .Set(MailTable.Columns.Unread, !isRead));
+                    .Set(MailTable.Columns.Unread, unread);
 
-            var foldersMessCounterDiff = new Dictionary<int, int>();
+            db.ExecuteNonQuery(updateQuery);
 
-            foreach (var mess in messageInfoToSetUnreads)
+            var sign = isRead ? -1 : 1;
+
+            var folderConvMessCounters = new List<Tuple<int, int, int>>();
+
+            var fGroupedChains = chainedMessages.GroupBy(m => new {m.ChainId, m.Folder});
+
+            var ids2Update = new List<int>();
+
+            foreach (var fChainMessages in fGroupedChains)
             {
-                if (foldersMessCounterDiff.Keys.Contains(mess.Folder))
-                    foldersMessCounterDiff[mess.Folder] += 1;
+                var chainUnreadBefore = fChainMessages.Any(m => m.Unread);
+
+                var firstFlag = true;
+
+                var unreadMessDiff = 0;
+
+                foreach (var m in fChainMessages.Where(m => listIds.Contains(m.Id) && m.Unread != unread))
+                {
+                    m.SetUnread(unread);
+
+                    unreadMessDiff++;
+
+                    if (!firstFlag)
+                        continue;
+
+                    ids2Update.Add(m.Id);
+
+                    firstFlag = false;
+                }
+
+                var chainUnreadAfter = fChainMessages.Any(m => m.Unread);
+
+                var unreadConvDiff = chainUnreadBefore == chainUnreadAfter ? 0 : 1;
+
+                var tplFolderIndex = folderConvMessCounters.FindIndex(tpl => tpl.Item1 == fChainMessages.Key.Folder);
+
+                if (tplFolderIndex == -1)
+                {
+                    folderConvMessCounters.Add(
+                        Tuple.Create(fChainMessages.Key.Folder,
+                            unreadMessDiff,
+                            unreadConvDiff));
+                }
                 else
                 {
-                    foldersMessCounterDiff[mess.Folder] = 1;
+                    var tplFolder = folderConvMessCounters[tplFolderIndex];
+
+                    folderConvMessCounters[tplFolderIndex] = Tuple.Create(fChainMessages.Key.Folder,
+                        tplFolder.Item2 + unreadMessDiff,
+                        tplFolder.Item3 + unreadConvDiff);
                 }
             }
 
-            var distinct = messageInfoToSetUnreads.Distinct(new MessageInfoToSetUnreadEqualityComparer()).ToList();
-
-            foreach (var folder in foldersMessCounterDiff.Keys)
+            foreach (var f in folderConvMessCounters)
             {
-                var sign = isRead ? -1 : 1;
-                var messDiff = sign * foldersMessCounterDiff[folder];
-                var convDiff = sign * distinct.Count(x => x.Folder == folder);
+                var folder = f.Item1;
+                var unreadMessDiff = sign*f.Item2;
+                var unreadConvDiff = sign*f.Item3;
 
-                ChangeFolderCounters(db, tenant, user, folder, messDiff, 0, convDiff, 0);
+                if (unreadMessDiff != 0 || unreadConvDiff != 0)
+                    ChangeFolderCounters(db, tenant, user, folder, unreadMessDiff: unreadMessDiff, unreadConvDiff: unreadConvDiff);
             }
 
-            foreach (var messageId in distinct.Select(x => x.Id))
-                UpdateMessageChainUnreadFlag(db, tenant, user, Convert.ToInt32(messageId));
+            foreach (var id in ids2Update)
+                UpdateMessageChainUnreadFlag(db, tenant, user, id);
+
         }
 
         public bool SetMessagesImportanceFlags(int tenant, string user, bool importance, List<int> ids)
@@ -629,7 +662,7 @@ namespace ASC.Mail.Aggregator
                 idMail = db.ExecuteScalar<int>(insert);
 
                 ChangeFolderCounters(db, mailbox.TenantId, mailbox.UserId, folder,
-                   unreadMessDiff: mail.IsNew ? 1 : 0, totalMessDiff: 1);
+                   unreadMessDiff: (mail.IsNew ? 1 : 0), totalMessDiff: 1);
             }
             else
             {
@@ -1486,7 +1519,6 @@ namespace ASC.Mail.Aggregator
                 }
 
                 queryMessages = queryMessages
-                    .SetFirstResult(1)
                     .SetMaxResults(2)
                     .OrderBy(MailTable.Columns.DateSent.Prefix(mm_alias), sortOrder);
 
@@ -1572,7 +1604,8 @@ namespace ASC.Mail.Aggregator
 
                     foreach (var keyPair in unreadMessagesCountByFolder)
                     {
-                        ChangeFolderCounters(db, tenant, user, keyPair.Key, keyPair.Value * (-1), 0, -1, 0);
+                        var unreadMessDiff = (keyPair.Value*(-1));
+                        ChangeFolderCounters(db, tenant, user, keyPair.Key, unreadMessDiff: unreadMessDiff, unreadConvDiff: -1);
 
                         db.ExecuteNonQuery(
                             new SqlUpdate(ChainTable.Name)
@@ -1682,9 +1715,12 @@ namespace ASC.Mail.Aggregator
                 int unreadMove;
                 unreadMessagesCountCollection.TryGetValue(sourceFolder, out unreadMove);
 
+                var unreadMessDiff = unreadMove != 0 ? unreadMove * (-1) : 0;
+                var totalMessDiff = totalMove * (-1);
+
                 ChangeFolderCounters(db, tenant, user, sourceFolder,
-                    unreadMessDiff: unreadMove != 0 ? unreadMove*(-1) : 0,
-                    totalMessDiff: totalMove*(-1));
+                    unreadMessDiff: unreadMessDiff,
+                    totalMessDiff: totalMessDiff);
 
                 movedTotalUnreadCount += unreadMove;
                 movedTotalCount += totalMove;
@@ -1838,8 +1874,10 @@ namespace ASC.Mail.Aggregator
                 var unreadInFolder = unreadCollection
                     .FirstOrDefault(f => f.id == folder.id);
 
+                var unreadMessDiff = unreadInFolder != null ? unreadInFolder.diff : 0;
+
                 ChangeFolderCounters(db, tenant, user, folder.id,
-                    unreadMessDiff: unreadInFolder != null ? unreadInFolder.diff : 0,
+                    unreadMessDiff: unreadMessDiff,
                     totalMessDiff: folder.diff);
             }
 

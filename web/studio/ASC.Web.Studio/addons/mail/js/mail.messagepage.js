@@ -2174,8 +2174,18 @@ window.messagePage = (function ($) {
             }
         }
 
-        if (wasNewFlag && TMMail.sysfolders.drafts.id != folder) {
-            folderPanel.decrementUnreadCount(folder);
+        if (wasNewFlag) {
+            switch (folder) {
+                case TMMail.sysfolders.sent.id:
+                    serviceManager.updateFolders();
+                    break;
+                case TMMail.sysfolders.inbox.id:
+                case TMMail.sysfolders.spam.id:
+                    folderPanel.decrementUnreadCount(folder);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

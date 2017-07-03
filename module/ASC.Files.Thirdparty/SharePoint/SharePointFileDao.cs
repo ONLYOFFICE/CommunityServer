@@ -77,12 +77,17 @@ namespace ASC.Files.Thirdparty.SharePoint
             return fileIds.Select(fileId => ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId))).ToList();
         }
 
+        public List<File> GetFilesForShare(object[] fileIds)
+        {
+            return GetFiles(fileIds);
+        }
+
         public List<object> GetFiles(object parentId)
         {
             return ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r).ID).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 

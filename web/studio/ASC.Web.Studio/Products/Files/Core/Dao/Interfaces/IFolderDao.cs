@@ -31,7 +31,6 @@ namespace ASC.Files.Core
 {
     public interface IFolderDao : IDisposable
     {
-
         /// <summary>
         ///     Get folder by id.
         /// </summary>
@@ -85,8 +84,9 @@ namespace ASC.Files.Core
         /// <param name="folderIds"></param>
         /// <param name="searchText"></param>
         /// <param name="searchSubfolders"></param>
+        /// <param name="checkShare"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false);
+        List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true);
 
         /// <summary>
         ///     Get folder, contains folder with id
@@ -255,6 +255,13 @@ namespace ASC.Files.Core
         /// <returns></returns>
         String GetBunchObjectID(object folderID);
 
+        /// <summary>
+        /// Return ids of related objects
+        /// Only in TMFolderDao
+        /// </summary>
+        /// <param name="folderIDs"></param>
+        /// <returns></returns>
+        Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs);
 
         #endregion
     }

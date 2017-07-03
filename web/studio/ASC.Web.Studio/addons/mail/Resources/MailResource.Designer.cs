@@ -2734,6 +2734,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reconnect.
+        /// </summary>
+        public static string ReconnectLabel {
+            get {
+                return ResourceManager.GetString("ReconnectLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get new messages.
         /// </summary>
         public static string RefreshBtnHint {

@@ -71,7 +71,7 @@
             <li class="menu-item none-sub-list add-block">
                 <div class="category-wrapper">
                     <a class="menu-item-label outer-text text-overflow" href="<%= TenantExtra.GetTariffPageLink() %>" >
-                        <span class="menu-item-icon tariff"></span>
+                        <span class="menu-item-icon payment"></span>
                         <span class="menu-item-label inner-text">
                             <%= Resource.TariffSettings %>
                         </span>

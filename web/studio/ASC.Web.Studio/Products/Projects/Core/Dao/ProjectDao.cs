@@ -37,6 +37,7 @@ using ASC.Core.Tenants;
 using ASC.FullTextIndex;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -316,7 +317,7 @@ namespace ASC.Projects.Data.DAO
             }
             else if (!isAdmin)
             {
-                var isInTeam = new SqlQuery(ParticipantTable).Select("security").Where(Exp.EqColumns("p.id", "project_id") & Exp.Eq("removed", false) & Exp.Eq("participant_id", CurrentUserID));
+                var isInTeam = new SqlQuery(ParticipantTable).Select("security").Where(Exp.EqColumns("p.id", "project_id") & Exp.Eq("removed", false) & Exp.Eq("participant_id", CurrentUserID) & Exp.EqColumns("tenant", "p.tenant_id"));
                 query.Where(Exp.Eq("p.private", false) | Exp.Eq("p.responsible_id", CurrentUserID) | (Exp.Eq("p.private", true) & Exp.Exists(isInTeam)));
             }
 
@@ -391,12 +392,26 @@ namespace ASC.Projects.Data.DAO
                     .ExecuteList(Query("crm_projects").Select("project_id").Where("contact_id", contactId))
                     .ConvertAll(r => Convert.ToInt32(r[0]));
             }
+            var milestoneCountQuery =
+                new SqlQuery(MilestonesTable + " m").SelectCount()
+                    .Where(Exp.EqColumns("m.project_id", "p.id"))
+                    .Where(Exp.Eq("m.status", MilestoneStatus.Open))
+                    .Where(Exp.EqColumns("m.tenant_id", "p.tenant_id"));
+            var taskCountQuery =
+                new SqlQuery(TasksTable + " t").SelectCount()
+                    .Where(Exp.EqColumns("t.project_id", "p.id"))
+                    .Where(!Exp.Eq("t.status", TaskStatus.Closed))
+                    .Where(Exp.EqColumns("t.tenant_id", "p.tenant_id"));
+            var participantCountQuery =
+                new SqlQuery(ParticipantTable + " pp").SelectCount()
+                    .Where(Exp.EqColumns("pp.project_id", "p.id") & Exp.Eq("pp.removed", false))
+                    .Where(Exp.EqColumns("pp.tenant", "p.tenant_id"));
 
             var query = new SqlQuery(ProjectsTable + " p")
                 .Select(ProjectColumns.Select(c => "p." + c).ToArray())
-                .Select(new SqlQuery(MilestonesTable + " m").SelectCount().Where(Exp.EqColumns("m.project_id", "p.id")).Where(Exp.Eq("m.status", MilestoneStatus.Open)))
-                .Select(new SqlQuery(TasksTable + " t").SelectCount().Where(Exp.EqColumns("t.project_id", "p.id")).Where(!Exp.Eq("t.status", TaskStatus.Closed)))
-                .Select(new SqlQuery(ParticipantTable + " pp").SelectCount().Where(Exp.EqColumns("pp.project_id", "p.id") & Exp.Eq("pp.removed", false)))
+                .Select(milestoneCountQuery)
+                .Select(taskCountQuery)
+                .Select(participantCountQuery)
                 .Where(Exp.In("p.id", projectIds.ToList()))
                 .Where("p.tenant_id", Tenant);
 
@@ -460,7 +475,7 @@ namespace ASC.Projects.Data.DAO
             {
                 query.InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
                     .LeftOuterJoin(TasksResponsibleTable + " ptr", Exp.EqColumns("t.tenant_id", "ptr.tenant_id") & Exp.EqColumns("t.id", "ptr.task_id") & Exp.Eq("ptr.responsible_id", CurrentUserID))
-                    .LeftOuterJoin(ParticipantTable + " ppp", Exp.EqColumns("p.id", "ppp.project_id") & Exp.Eq("ppp.removed", false) & Exp.Eq("ppp.participant_id", CurrentUserID))
+                    .LeftOuterJoin(ParticipantTable + " ppp", Exp.EqColumns("p.id", "ppp.project_id") & Exp.EqColumns("p.tenant_id", "ppp.tenant") & Exp.Eq("ppp.removed", false) & Exp.Eq("ppp.participant_id", CurrentUserID))
                     .Where(Exp.Eq("p.private", false) | !Exp.Eq("ptr.responsible_id", null) | (Exp.Eq("p.private", true) & !Exp.Eq("ppp.security", null) & !Exp.Eq("ppp.security & " + (int)ProjectTeamSecurity.Tasks, (int)ProjectTeamSecurity.Tasks)));
             }
             using (var db = new DbManager(DatabaseId))
@@ -778,12 +793,31 @@ namespace ASC.Projects.Data.DAO
         public void SetTaskOrder(int projectID, string order)
         {
             using (var db = new DbManager(DatabaseId))
+            using(var tr = db.BeginTransaction())
             {
                 var query = Insert(TasksOrderTable)
                   .InColumnValue("project_id", projectID)
                   .InColumnValue("task_order", order);
 
                 db.ExecuteNonQuery(query);
+
+                try
+                {
+                    var orderJson = JObject.Parse(order);
+                    var newTaskOrder = orderJson["tasks"].Select(r=> r.Value<int>()).ToList();
+
+                    for(var i = 0; i < newTaskOrder.Count; i++)
+                    {
+                        db.ExecuteNonQuery(Update(TasksTable)
+                            .Where("project_id", projectID)
+                            .Where("id", newTaskOrder[i])
+                            .Set("sort_order", i));
+                    }
+                }
+                finally
+                {
+                    tr.Commit();
+                }
             }
         }
 

@@ -444,15 +444,19 @@ namespace ASC.Web.UserControls.Bookmarking
                     if (!String.IsNullOrEmpty(encStr) && !e.ToLower().Equals(encStr.ToLower()))
                     {
                         encoding = Encoding.GetEncoding(encStr);
-                        sr = new StreamReader(stream, encoding);
-                        text = sr.ReadToEnd();
+                        using (sr = new StreamReader(stream, encoding))
+                        {
+                            text = sr.ReadToEnd();
+                        }
                     }
                     else
                     {
                         encoding = BookmarkingSettings.PageTitleEncoding;
 
-                        sr = new StreamReader(stream, encoding);
-                        text = sr.ReadToEnd();
+                        using (sr = new StreamReader(stream, encoding))
+                        {
+                            text = sr.ReadToEnd();
+                        }
 
                         var htmlEncoding = new HtmlDocument().DetectEncodingHtml(text);
                         if (htmlEncoding != null)
@@ -461,8 +465,9 @@ namespace ASC.Web.UserControls.Bookmarking
                             var req = WebRequest.Create(url);
                             using (var resp = req.GetResponse())
                             using (var respstream = resp.GetResponseStream())
+                            using (sr = new StreamReader(respstream, encoding))
                             {
-                                text = new StreamReader(respstream, encoding).ReadToEnd();
+                                text = sr.ReadToEnd();
                             }
                         }
                         else
@@ -479,7 +484,13 @@ namespace ASC.Web.UserControls.Bookmarking
                                     if (!string.IsNullOrEmpty(encodingVal))
                                     {
                                         encoding = Encoding.GetEncoding(encodingVal);
-                                        text = new StreamReader(WebRequest.Create(url).GetResponse().GetResponseStream(), encoding).ReadToEnd();
+
+                                        using (var resp = WebRequest.Create(url).GetResponse())
+                                        using (var respstream = resp.GetResponseStream())
+                                        using (sr = new StreamReader(respstream, encoding))
+                                        {
+                                            text = sr.ReadToEnd();
+                                        }
                                     }
                                 }
                             }

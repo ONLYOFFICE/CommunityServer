@@ -133,7 +133,7 @@
     <value>Decline</value>
   </data>
   <data name="BtnKick" xml:space="preserve">
-    <value>Kick</value>
+    <value>Remove</value>
   </data>
   <data name="BtnRemove" xml:space="preserve">
     <value>Remove</value>
@@ -152,6 +152,9 @@
   </data>
   <data name="Chat" xml:space="preserve">
     <value>Talk</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
   </data>
   <data name="ConferenceGroupName" xml:space="preserve">
     <value>Chat rooms</value>
@@ -309,14 +312,29 @@
   <data name="ProductName" xml:space="preserve">
     <value>Talk</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Search on history messages</value>
+  </data>
   <data name="SelectUserBookmarkTitle" xml:space="preserve">
     <value>Mass Message</value>
   </data>
   <data name="SendFileMessage" xml:space="preserve">
     <value>File: {0}Size: {1}</value>
   </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>of</value>
+  </data>
   <data name="ShortDateFormat" xml:space="preserve">
     <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Show list</value>
   </data>
   <data name="StatusAway" xml:space="preserve">
     <value>Away</value>
@@ -343,13 +361,16 @@
     <value>Create chat room</value>
   </data>
   <data name="TitleKickOccupantDialog" xml:space="preserve">
-    <value>Kick user from chat</value>
+    <value>Remove user from chat</value>
   </data>
   <data name="TitleRecvInvite" xml:space="preserve">
     <value>Invite to chat</value>
   </data>
   <data name="TitleRemoveRoomDialog" xml:space="preserve">
     <value>Delete chat</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Total</value>
   </data>
   <data name="UpdateFlashPlayerUrl" xml:space="preserve">
     <value>http://get.adobe.com/flashplayer/</value>

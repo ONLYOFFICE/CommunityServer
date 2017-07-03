@@ -1699,9 +1699,9 @@ window.mailBox = (function($) {
         if (TMMail.pageIs('conversation') || TMMail.pageIs('message')) {
             if (window.commonSettingsPage.GoNextAfterMoveEnabled()) {
                 var nextMessageLink = $('.itemWrapper .btnNext:visible');
-                if (nextMessageLink.length) {
+                if (nextMessageLink.length && nextMessageLink.hasClass("unlockAction")) {
                     nextMessageLink.trigger("click");
-                    
+
                     messagePage.conversation_moved = true;
                     messagePage.dst_folder_id = folder;
 

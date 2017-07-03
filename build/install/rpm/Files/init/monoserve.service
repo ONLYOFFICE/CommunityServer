@@ -1,6 +1,6 @@
 [Unit]
 Description=FastCGI Mono server
-After=network.target syslog.target mysql.service redis.service
+After=network.target syslog.target mysqld.service
 
 [Service]
 PermissionsStartOnly=true

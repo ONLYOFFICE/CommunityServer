@@ -106,7 +106,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kick.
+        ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string BtnKick {
             get {
@@ -165,6 +165,15 @@ namespace ASC.Web.Talk.Resources {
         public static string Chat {
             get {
                 return ResourceManager.GetString("Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
@@ -637,6 +646,33 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        public static string Ready {
+            get {
+                return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search on history messages.
+        /// </summary>
+        public static string SearchOnHistory {
+            get {
+                return ResourceManager.GetString("SearchOnHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mass Message.
         /// </summary>
         public static string SelectUserBookmarkTitle {
@@ -655,11 +691,29 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string SeparatorOfFoundMessages {
+            get {
+                return ResourceManager.GetString("SeparatorOfFoundMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to %H:%M:%S.
         /// </summary>
         public static string ShortDateFormat {
             get {
                 return ResourceManager.GetString("ShortDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show list.
+        /// </summary>
+        public static string ShowUserList {
+            get {
+                return ResourceManager.GetString("ShowUserList", resourceCulture);
             }
         }
         
@@ -736,7 +790,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kick user from chat.
+        ///   Looks up a localized string similar to Remove user from chat.
         /// </summary>
         public static string TitleKickOccupantDialog {
             get {
@@ -759,6 +813,15 @@ namespace ASC.Web.Talk.Resources {
         public static string TitleRemoveRoomDialog {
             get {
                 return ResourceManager.GetString("TitleRemoveRoomDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string TotalUsers {
+            get {
+                return ResourceManager.GetString("TotalUsers", resourceCulture);
             }
         }
         

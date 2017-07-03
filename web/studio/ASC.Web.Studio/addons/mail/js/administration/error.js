@@ -54,7 +54,9 @@ window.administrationError = (function() {
 
         switch (error[1].hresult) {
             case ASC.Mail.Constants.Errors.COR_E_SECURITY:
-                return MailApiErrorsResource.ErrorAccessDenied;
+                return error[1].message === "Not available in unpaid version"
+                    ? MailApiErrorsResource.ErrorUnpaidAccessDenied
+                    : MailApiErrorsResource.ErrorAccessDenied;
             case ASC.Mail.Constants.Errors.COR_E_ARGUMENT:
                 return argumentExceptionProcessing(header);
             case ASC.Mail.Constants.Errors.COR_E_ARGUMENTOUTOFRANGE:

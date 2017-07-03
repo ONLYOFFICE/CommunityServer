@@ -25,7 +25,7 @@
     }
   }
 
-  function onBodyClick (evt) {
+  function onBodyClick(evt) {
     var $target = evt ? jQuery(evt.target) : $();
     if ($target.is('select')) {
       jQuery(document.body).unbind('click', arguments.callee);
@@ -298,7 +298,7 @@
     jQuery(document.body).one('click', onBodyClick);
   }
 
-  function setEvents ($select, $combobox) {
+  function setEvents($select, $combobox) {
     $select.blur(onSelectBlur).focus(onSelectFocus).change(onSelectChange);
     $combobox.find('span.combobox-title:first').click(onComboboxTitleClick);
     $combobox.find('ul.combobox-options:first').click(onComboboxOptionClick);

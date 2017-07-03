@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Mail</RootNamespace>
     <AssemblyName>ASC.Api.Mail</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -53,11 +53,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="antlr.runtime">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\antlr.runtime.dll</HintPath>
+      <HintPath>..\..\..\packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll</HintPath>
     </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -101,20 +102,20 @@
     </Reference>
     <Reference Include="Ical.Net">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.2.3.0.1\lib\net46\Ical.Net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ical.Net.Collections">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.Collections.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.0.1\lib\net46\Ical.Net.Collections.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="NodaTime">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.2.0.1\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

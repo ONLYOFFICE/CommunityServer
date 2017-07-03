@@ -392,24 +392,18 @@ namespace ASC.Files.Core.Security
             {
                 using (var folderDao = daoFactory.GetFolderDao())
                 {
-                    var findedAdapters = new Dictionary<object, IFileSecurity>();
-                    foreach (var e in entries.Where(filter))
+                    var filteredEntries = entries.Where(filter).ToList();
+                    var roots = filteredEntries
+                            .Select(r => r.RootFolderId)
+                            .ToArray();
+
+                    var rootsFolders = folderDao.GetFolders(roots);
+                    var bunches = folderDao.GetBunchObjectIDs(rootsFolders.Select(r => r.ID).ToList());
+                    var findedAdapters = FilesIntegration.GetFileSecurity(bunches);
+
+                    foreach (var e in filteredEntries)
                     {
-                        IFileSecurity adapter = null;
-
-                        if (!findedAdapters.ContainsKey(e.RootFolderId))
-                        {
-                            var root = folderDao.GetFolder(e.RootFolderId);
-                            if (root != null)
-                            {
-                                var path = folderDao.GetBunchObjectID(root.ID);
-
-                                adapter = FilesIntegration.GetFileSecurity(path);
-                            }
-                            findedAdapters[e.RootFolderId] = adapter;
-                        }
-
-                        adapter = findedAdapters[e.RootFolderId];
+                        var adapter = findedAdapters[e.RootFolderId.ToString()];
 
                         if (adapter == null) continue;
 
@@ -543,8 +537,7 @@ namespace ASC.Files.Core.Security
                     }
                 }
 
-                //TODO: optimize
-                var files = fileDao.GetFiles(fileIds.Keys.ToArray());
+                var files = fileDao.GetFilesForShare(fileIds.Keys.ToArray());
 
                 files.ForEach(x =>
                                   {
@@ -553,7 +546,7 @@ namespace ASC.Files.Core.Security
                                   });
 
                 var searchSubfolders = !string.IsNullOrEmpty(searchText);
-                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText,  searchSubfolders);
+                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText,  searchSubfolders, false);
                 if (searchSubfolders)
                 {
                     folders = FilterRead(folders).ToList();

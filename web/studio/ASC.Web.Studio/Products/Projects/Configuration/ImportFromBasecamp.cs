@@ -654,7 +654,10 @@ namespace ASC.Web.Projects.Configuration
                             };
                         if (file.Title.LastIndexOf('\\') != -1) file.Title = file.Title.Substring(file.Title.LastIndexOf('\\') + 1);
 
-                        file = _engineFactory.FileEngine.SaveFile(file, httpWResp.GetResponseStream());
+                        using (var stream = httpWResp.GetResponseStream())
+                        {
+                            file = _engineFactory.FileEngine.SaveFile(file, stream);
+                        }
 
                         if ("Message".Equals(attachment.OwnerType, StringComparison.OrdinalIgnoreCase))
                         {

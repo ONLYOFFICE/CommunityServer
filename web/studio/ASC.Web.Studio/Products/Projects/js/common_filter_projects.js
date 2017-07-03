@@ -934,7 +934,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             "",
             projectsFilterResource.ByProject,
             myprojectsFilter,
-            projectFilter);
+            projectGroup);
 
         pushFilterItem((currentProjectId == null) && visible,
             filters,
@@ -944,7 +944,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             projectsFilterResource.ByProject + ":",
             projectsFilterResource.ByProject,
             '',
-            projectFilter,
+            projectGroup,
             common.getProjectsForFilter(),
             null,
             projectsFilterResource.Select);
@@ -1139,7 +1139,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             "",
             projectsFilterResource.ByProject,
             "myprojects",
-            projectFilter);
+            projectGroup);
 
         pushFilterItem(currentProjectId == null && visible,
             filters,
@@ -1149,7 +1149,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             projectsFilterResource.ByProject + ":",
             projectsFilterResource.ByProject,
             projectHashmark,
-            projectFilter,
+            projectGroup,
             common.getProjectsForFilter(),
             null,
             projectsFilterResource.Select);
@@ -1240,6 +1240,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         pushSorter(visible, sorters, sorterCreateOn, projectsFilterResource.ByCreateDate, sortOrderDescending);
         pushSorter(visible, sorters, "start_date", projectsFilterResource.ByStartDate, sortOrderDescending);
         pushSorter(visible, sorters, sorterTitle, projectsFilterResource.ByTitle, sortOrderAscending);
+        pushSorter(visible, sorters, "sort_order", projectsFilterResource.ByOrder, sortOrderAscending);
 
 
         return {
@@ -1295,7 +1296,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             "",
             projectsFilterResource.ByProject,
             myprojectsFilter,
-            projectFilter);
+            projectGroup);
 
         pushFilterItem(currentProjectId == null && visible,
             filters,
@@ -1305,7 +1306,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             projectsFilterResource.ByProject + ":",
             projectsFilterResource.ByProject,
             projectHashmark,
-            projectFilter,
+            projectGroup,
             common.getProjectsForFilter(),
             null,
             projectsFilterResource.Select);
@@ -1423,6 +1424,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         pushSorter(visible, sorters, "date", projectsFilterResource.ByDate, sortOrderDescending, true);
         pushSorter(visible, sorters, "hours", projectsFilterResource.ByHours, sortOrderAscending);
         pushSorter(visible, sorters, "note", projectsFilterResource.ByNote, sortOrderAscending);
+        pushSorter(visible, sorters, sorterCreateOn, projectsFilterResource.ByCreateDate, sortOrderDescending);
 
         return {
             filters: filters,

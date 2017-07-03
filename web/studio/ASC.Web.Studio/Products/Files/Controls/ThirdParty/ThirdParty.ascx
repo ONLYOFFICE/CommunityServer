@@ -27,13 +27,32 @@
 
 <div id="thirdPartyEditor" class="popup-modal">
     <sc:Container ID="ThirdPartyEditorTemp" runat="server">
-        <Header>
+        <header>
             <span id="thirdPartyDialogCaption"></span>
-        </Header>
-        <Body>
+        </header>
+        <body>
+            <input class="display-none" type="text" name="fakeusernameremembered" />
+            <input class="display-none" type="password" name="fakepasswordremembered" />
             <div id="thirdPartyPanel">
-                <div><%: FilesUCResource.ThirdPartyFolderTitle %></div>
-                <input type="text" id="thirdPartyTitle" maxlength="<%=Global.MaxTitle%>" class="textEdit" />
+                <div class="thirdparty-editor-row">
+                    <div><%: FilesUCResource.ThirdPartyReconnectTitle %></div>
+                    <div id="thirdPartyAccount" class="edit-account-button button white"><span></span><%: FilesUCResource.ThirdPartyReconnect %></div>
+                </div>
+
+                <div class="thirdparty-editor-row">
+                    <div><%: FilesUCResource.ConnectionUrl %></div>
+                    <input type="url" id="thirdPartyConnectionUrl" class="textEdit" placeholder="<%: FilesUCResource.ThirdPartyCorrect %>" autocomplete="off" />
+                </div>
+
+                <div class="thirdparty-editor-row">
+                    <div><%: FilesUCResource.Password %></div>
+                    <input type="password" id="thirdPartyPassword" class="textEdit" placeholder="<%: FilesUCResource.ThirdPartyCorrect %>" autocomplete="off" />
+                </div>
+
+                <div class="thirdparty-editor-row">
+                    <div><%: FilesUCResource.ThirdPartyFolderTitle %></div>
+                    <input type="text" id="thirdPartyTitle" maxlength="<%= Global.MaxTitle %>" class="textEdit" />
+                </div>
 
                 <%if (Global.IsAdministrator && !CoreContext.Configuration.Personal) %>
                 <% { %>
@@ -43,23 +62,23 @@
             </div>
             <div class="middle-button-container">
                 <a id="submitThirdParty" class="button blue middle">
-                    <%=FilesUCResource.ButtonOk%>
+                    <%= FilesUCResource.ButtonOk %>
                 </a>
                 <span class="splitter-buttons"></span>
                 <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();return false;">
-                    <%=FilesUCResource.ButtonCancel%>
+                    <%= FilesUCResource.ButtonCancel %>
                 </a>
             </div>
-        </Body>
+        </body>
     </sc:Container>
 </div>
 
 <div id="thirdPartyDelete" class="popup-modal">
     <sc:Container runat="server" ID="ThirdPartyDeleteTmp">
-        <Header>
+        <header>
             <%: FilesUCResource.ThirdPartyDeleteCaption %>
-        </Header>
-        <Body>
+        </header>
+        <body>
             <div id="thirdPartyDeleteDescr"></div>
             <div class="middle-button-container">
                 <a id="deleteThirdParty" class="button blue middle">
@@ -70,16 +89,16 @@
                     <%= FilesUCResource.ButtonCancel %>
                 </a>
             </div>
-        </Body>
+        </body>
     </sc:Container>
 </div>
 
 <div id="thirdPartyNewAccount" class="popup-modal">
     <sc:Container runat="server" ID="ThirdPartyNewAccountTmp">
-        <Header>
+        <header>
             <%: FilesUCResource.ThirdPartyConnectingAccount %>
-        </Header>
-        <Body>
+        </header>
+        <body>
             <%: FilesUCResource.ThirdPartyConnectAccountsDescription %>
             <div class="clearFix">
                 <% if (ImportConfiguration.SupportGoogleDriveInclusion) %>
@@ -124,14 +143,14 @@
                 <span class="add-account-big add-account-button WebDav" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyWebDav %>"><%= FilesUCResource.ButtonAddWebDav %></span>
                 <% } %>
             </div>
-        </Body>
+        </body>
     </sc:Container>
 </div>
 
 <div id="thirPartyConfirmMove" class="popup-modal">
     <sc:Container ID="ThirPartyConfirmMoveTmp" runat="server">
-        <Header><%= FilesUCResource.ConfirmThirdPartyMove %></Header>
-        <Body>
+        <header><%= FilesUCResource.ConfirmThirdPartyMove %></header>
+        <body>
             <div id="moveThirdPartyMessage"></div>
             <div class="middle-button-container">
                 <a id="buttonMoveThirdParty" class="button blue middle">
@@ -146,7 +165,7 @@
                     <%= FilesUCResource.ButtonCancel %>
                 </a>
             </div>
-        </Body>
+        </body>
     </sc:Container>
 </div>
 
@@ -154,10 +173,10 @@
    { %>
 <div id="thirdpartyToDocuSign" class="popup-modal">
     <sc:Container ID="thirdpartyToDocuSignDialog" runat="server">
-        <Header>
+        <header>
             <div class="thirdparty-todocusign-header"></div>
-        </Header>
-        <Body>
+        </header>
+        <body>
             <div><%= FilesUCResource.DocuSignName %></div>
             <input type="text" class="thirdparty-todocusign-title textEdit" maxlength="<%= Global.MaxTitle %>" />
 
@@ -195,7 +214,7 @@
                     <%= FilesUCResource.ButtonCancel %>
                 </a>
             </div>
-        </Body>
+        </body>
     </sc:Container>
 </div>
 <% } %>

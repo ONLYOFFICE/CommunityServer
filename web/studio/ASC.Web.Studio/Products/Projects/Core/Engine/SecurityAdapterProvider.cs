@@ -24,6 +24,8 @@
 */
 
 
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Files.Core.Security;
 using ASC.Web.Projects.Classes;
 
@@ -35,6 +37,32 @@ namespace ASC.Projects.Engine
         {
             int id;
             return int.TryParse(data, out id) ? GetFileSecurity(id) : null;
+        }
+
+        public Dictionary<object, IFileSecurity> GetFileSecurity(Dictionary<string, string> data)
+        {
+            var projectIds = data.Select(r =>
+            {
+                int id;
+                if (!int.TryParse(r.Value, out id))
+                {
+                    id = -1;
+                }
+                return id;
+            }).ToList();
+
+            return Global.EngineFactory.ProjectEngine.GetByID(projectIds, false).
+                ToDictionary(
+                    r =>
+                    {
+                        var folder = data.First(d => d.Value == r.ID.ToString());
+                        if (!folder.Equals(default(KeyValuePair<string, string>)))
+                        {
+                            return (object) folder.Key;
+                        }
+                        return "";
+                    }, 
+                r => (IFileSecurity)new SecurityAdapter(r));
         }
 
         public IFileSecurity GetFileSecurity(int projectId)

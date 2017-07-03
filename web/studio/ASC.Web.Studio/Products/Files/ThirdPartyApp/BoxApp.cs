@@ -274,7 +274,14 @@ namespace ASC.Web.Files.ThirdPartyApp
                 using (var response = request.GetResponse())
                 using (var responseStream = response.GetResponseStream())
                 {
-                    var result = responseStream != null ? new StreamReader(responseStream).ReadToEnd() : null;
+                    string result = null;
+                    if (responseStream != null)
+                    {
+                        using (var readStream = new StreamReader(responseStream))
+                        {
+                            result = readStream.ReadToEnd();
+                        }
+                    }
 
                     Global.Logger.Debug("BoxApp: save file response - " + result);
                 }

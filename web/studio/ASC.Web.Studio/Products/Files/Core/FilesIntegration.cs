@@ -29,6 +29,7 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -118,6 +119,39 @@ namespace ASC.Web.Files.Api
                 providers.TryGetValue(parts[0] + parts[1], out provider);
             }
             return provider != null ? provider.GetFileSecurity(parts[2]) : null;
+        }
+
+        internal static Dictionary<object, IFileSecurity> GetFileSecurity(Dictionary<string, string> paths)
+        {
+            var result = new Dictionary<object, IFileSecurity>();
+            var gropped = paths.GroupBy(r =>
+            {
+                var parts = r.Value.Split('/');
+                if (parts.Length < 3) return "";
+
+                return parts[0] + parts[1];
+            }, v =>
+            {
+                var parts = v.Value.Split('/');
+                if (parts.Length < 3) return new KeyValuePair<string, string>(v.Key, "");
+
+                return new KeyValuePair<string, string>(v.Key, parts[2]);
+            });
+
+            foreach (var grouping in gropped)
+            {
+                IFileSecurityProvider provider;
+                lock (providers)
+                {
+                    providers.TryGetValue(grouping.Key, out provider);
+                }
+                if (provider == null) continue;
+
+                var data = provider.GetFileSecurity(grouping.ToDictionary(r => r.Key, r => r.Value));
+                data.ToList().ForEach(x => result.Add(x.Key, x.Value));
+            }
+
+            return result;
         }
     }
 }

@@ -151,6 +151,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order.
+        /// </summary>
+        public static string ByOrder {
+            get {
+                return ResourceManager.GetString("ByOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Participant.
         /// </summary>
         public static string ByParticipant {

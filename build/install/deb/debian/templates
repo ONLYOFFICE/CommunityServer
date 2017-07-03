@@ -1,23 +1,23 @@
-Template: onlyoffice/db-host
+Template: onlyoffice-communityserver/db-host
 Type: string
 Default: localhost
 Description: MySQL host:
 
-Template: onlyoffice/db-user
+Template: onlyoffice-communityserver/db-user
 Type: string
 Default: root
 Description: MySQL user:
 
-Template: onlyoffice/db-pwd
+Template: onlyoffice-communityserver/db-pwd
 Type: password
 Description: MySQL password:
 
-Template: onlyoffice/db-name
+Template: onlyoffice-communityserver/db-name
 Type: string
 Default: onlyoffice
 Description: MySQL database name:
 
-Template: onlyoffice/remove-db
+Template: onlyoffice-communityserver/remove-db
 Type: boolean
 Default: false
 Description: Remove database?

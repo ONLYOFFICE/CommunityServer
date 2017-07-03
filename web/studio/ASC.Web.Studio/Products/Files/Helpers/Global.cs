@@ -65,7 +65,7 @@ namespace ASC.Web.Files.Classes
             }
             catch (Exception error)
             {
-                Logger.Warn("Could not resolve IDaoFactory instance. Using default DaoFactory instead.", error);
+                Logger.Fatal("Could not resolve IDaoFactory instance. Using default DaoFactory instead.", error);
                 DaoFactory = new DaoFactory();
             }
         }
@@ -73,6 +73,8 @@ namespace ASC.Web.Files.Classes
         #region Property
 
         public const int MaxTitle = 170;
+
+        public const int MaxEmailCount = 10;
 
         public static readonly Regex InvalidTitleChars = new Regex("[\t*\\+:\"<>?|\\\\/]");
 

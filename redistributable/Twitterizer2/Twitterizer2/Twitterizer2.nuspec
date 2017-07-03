@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>twitterizer</id> 
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <version>2.4.2.1</version>
+    <title>Twitterizer</title>
+    <authors>Twitterizer Group (www.twitterizer.net)</authors>
+    <owners>Twitterizer Group (www.twitterizer.net)</owners>
     <licenseUrl>http://www.twitterizer.net/license/</licenseUrl>
     <projectUrl>http://www.twitterizer.net/</projectUrl>
 	<iconUrl>http://www.twitterizer.net/twitterizer-icon-draft1.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Twitter integration library</description>
     <releaseNotes>
 	Fixed a few bugs with json.net dependency and json parsing. 
 	Now built for the client profile.

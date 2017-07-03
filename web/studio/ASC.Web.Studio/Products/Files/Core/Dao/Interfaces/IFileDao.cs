@@ -80,6 +80,13 @@ namespace ASC.Files.Core
         List<File> GetFiles(object[] fileIds);
 
         /// <summary>
+        ///     Gets the file (s) by ID (s) for share
+        /// </summary>
+        /// <param name="fileIds">id file</param>
+        /// <returns></returns>
+        List<File> GetFilesForShare(object[] fileIds);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="parentId"></param>
@@ -95,11 +102,12 @@ namespace ASC.Files.Core
         /// <param name="filterType">filterType type</param>
         /// <param name="searchText"> </param>
         /// <param name="withSubfolders"> </param>
+        /// <param name="my"> </param>
         /// <returns>list of files</returns>
         /// <remarks>
         ///    Return only the latest versions of files of a folder
         /// </remarks>
-        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false);
+        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false);
 
         /// <summary>
         /// Get stream of file

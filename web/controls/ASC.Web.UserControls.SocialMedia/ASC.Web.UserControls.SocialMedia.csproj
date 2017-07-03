@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.UserControls.SocialMedia</RootNamespace>
     <AssemblyName>ASC.Web.UserControls.SocialMedia</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
@@ -56,8 +56,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="LinkedIn">
-      <HintPath>..\..\..\packages\LinkedIn.1.0.0.1\lib\net45\LinkedIn.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\packages\LinkedIn.1.0.0.2\lib\net45\LinkedIn.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>

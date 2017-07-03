@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Xmpp.Server</RootNamespace>
     <AssemblyName>ASC.Xmpp.Server</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TrunkDir>..\..\..\</TrunkDir>
     <SignAssembly>false</SignAssembly>
@@ -55,12 +55,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Security">
       <HintPath>..\..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
       <Aliases>MonoAlias</Aliases>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Novell.Directory.LDAP">
       <HintPath>..\..\..\packages\Novell.Directory.LDAP.2.2.3.0\lib\net45\Novell.Directory.LDAP.dll</HintPath>
@@ -120,6 +128,7 @@
     <Compile Include="Services\VCardSearch\VCardSearchService.cs" />
     <Compile Include="Session\ClientInfo.cs" />
     <Compile Include="SignalRHelper.cs" />
+    <Compile Include="Storage\DbPushStore.cs" />
     <Compile Include="Storage\DbLdapSettingsStore.cs" />
     <Compile Include="Storage\DbMessageArchive.cs" />
     <Compile Include="Storage\LastActivity.cs" />
@@ -251,6 +260,10 @@
     <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj">
       <Project>{91ea0d0b-d3ba-497f-afeb-2cad59deba0e}</Project>

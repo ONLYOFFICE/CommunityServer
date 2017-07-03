@@ -34,11 +34,8 @@ using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using ASC.Core;
 using ASC.Web.Studio.Utility;
 
-using AjaxPro;
-
 namespace ASC.Web.Studio
 {
-    [AjaxNamespace("AjaxPro.StartUp")]
     public partial class StartUp : MainPage
     {
         protected override bool MayNotAuth
@@ -101,17 +98,9 @@ namespace ASC.Web.Studio
             loader.Static = true;
             loaderHolder.Controls.Add(loader);
 
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-
             Page.RegisterStyle("~/usercontrols/common/startup/css/startup.less")
                 .RegisterBodyScripts("~/usercontrols/common/startup/js/startup.js")
                 .RegisterInlineScript(string.Format("ProgressStartUpManager.init({0});", WarmUpController.Instance.GetSerializedProgress()));
-        }
-
-        [AjaxMethod]
-        public string GetStartUpProgress()
-        {
-            return WarmUpController.Instance.GetSerializedProgress();
         }
     }
 }

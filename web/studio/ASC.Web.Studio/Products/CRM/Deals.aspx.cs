@@ -106,11 +106,11 @@ namespace ASC.Web.CRM
             dealActionViewControl.TargetDeal = targetDeal;
             CommonContainerHolder.Controls.Add(dealActionViewControl);
 
-            var headerTitle = targetDeal.Title.HtmlEncode();
+            var headerTitle = targetDeal.Title;
 
             Master.CurrentPageCaption = headerTitle;
 
-            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(headerTitle, EntityType.Opportunity, CRMSecurity.IsPrivate(targetDeal), true);
+            Master.CommonContainerHeader = Global.RenderItemHeaderWithMenu(headerTitle.HtmlEncode(), EntityType.Opportunity, CRMSecurity.IsPrivate(targetDeal), true);
 
             Title = HeaderStringHelper.GetPageTitle(headerTitle);
         }

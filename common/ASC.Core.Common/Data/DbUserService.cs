@@ -131,6 +131,8 @@ namespace ASC.Core.Data
                     .InColumnValue("phone", user.MobilePhone)
                     .InColumnValue("phone_activation", user.MobilePhoneActivationStatus)
                     .InColumnValue("sid", user.Sid)
+                    .InColumnValue("sso_name_id", user.SsoNameId)
+                    .InColumnValue("sso_session_id", user.SsoSessionId)
                     .InColumnValue("create_on", user.CreateDate);
 
                 db.ExecuteNonQuery(i);
@@ -317,7 +319,7 @@ namespace ASC.Core.Data
             return new SqlQuery("core_user u")
                 .Select("u.id", "u.username", "u.firstname", "u.lastname", "u.sex", "u.bithdate", "u.status", "u.title")
                 .Select("u.workfromdate", "u.terminateddate", "u.contacts", "u.email", "u.location", "u.notes", "u.removed")
-                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.create_on");
+                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.sso_name_id", "u.sso_session_id", "u.create_on");
         }
 
         private static SqlQuery GetUserQuery(int tenant, DateTime from)
@@ -368,7 +370,9 @@ namespace ASC.Core.Data
                     MobilePhone = (string)r[19],
                     MobilePhoneActivationStatus = (MobilePhoneActivationStatus)Convert.ToInt32(r[20]),
                     Sid = (string)r[21],
-                    CreateDate = Convert.ToDateTime(r[22])
+                    SsoNameId = (string)r[22],
+                    SsoSessionId = (string)r[23],
+                    CreateDate = Convert.ToDateTime(r[24])
                 };
             u.ContactsFromString((string)r[10]);
             return u;

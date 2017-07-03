@@ -76,7 +76,7 @@
                         {{/if}}
 
                         <div id="content_${comment.commentID}" style="padding-top:8px;padding-left:10px;" class="longWordsBreak">
-                            {{html comment.commentBody.replace(new RegExp("<\\s*script([\\s\\S]*?)<\\s*\/\\s*script\\s*>", ""),'')}}
+                            {{html comment.commentBody}}
                         </div>
 
                         {{if comment.attachments != null && comment.attachments.length > 0}}

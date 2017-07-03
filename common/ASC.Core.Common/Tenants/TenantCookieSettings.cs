@@ -86,6 +86,13 @@ namespace ASC.Core.Tenants
                        : GetDefault();
         }
 
+        public static TenantCookieSettings GetForUser(int tenantId, Guid userId)
+        {
+            return IsVisibleSettings()
+                       ? SettingsManager.Instance.LoadSettingsFor<TenantCookieSettings>(tenantId, userId)
+                       : GetDefault();
+        }
+
         public static void SetForUser(Guid userId, TenantCookieSettings settings = null)
         {
             if (!IsVisibleSettings()) return;

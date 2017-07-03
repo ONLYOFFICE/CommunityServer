@@ -270,6 +270,17 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
+        public static string SsoSamlLoginUrl
+        {
+            get;
+            private set;
+        }
+
+        public static string SsoSamlLogoutUrl
+        {
+            get;
+            private set;
+        }
 
         static SetupInfo()
         {
@@ -320,6 +331,8 @@ namespace ASC.Web.Studio.Core
             FontOpenSansUrl = GetAppSettings("web.font.opensans.url", "");
             VoipEnabled = GetAppSettings("voip.enabled", "false");
             StartProductList = GetAppSettings("web.start.product.list", "");
+            SsoSamlLoginUrl = GetAppSettings("web.sso.saml.login.url", "");
+            SsoSamlLogoutUrl = GetAppSettings("web.sso.saml.logout.url", "");
 
             hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries);
         }

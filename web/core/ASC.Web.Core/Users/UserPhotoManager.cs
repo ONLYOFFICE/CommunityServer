@@ -41,6 +41,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Common.Caching;
 
 namespace ASC.Web.Core.Users
 {
@@ -122,11 +123,61 @@ namespace ASC.Web.Core.Users
         }
     }
 
+    public class UserPhotoManagerCacheItem
+    {
+        public Guid ModuleID { get; set; }
+        public Guid UserID { get; set; }
+        public Size Size { get; set; }
+        public string FileName { get; set; }
+    }
+
     public class UserPhotoManager
     {
         private static readonly IDictionary<Guid, IDictionary<Size, string>> Photofiles = new Dictionary<Guid, IDictionary<Size, string>>();
         private static readonly string thumbnailer = WebConfigurationManager.AppSettings["thumbnail.service.url"];
+        private static readonly ICacheNotify CacheNotify;
 
+        static UserPhotoManager()
+        {
+            try
+            {
+                CacheNotify = AscCache.Notify;
+
+                CacheNotify.Subscribe<UserPhotoManagerCacheItem>((data, action) =>
+                {
+                    if (action == CacheNotifyAction.InsertOrUpdate)
+                    {
+                        lock (Photofiles)
+                        {
+                            if (!Photofiles.ContainsKey(data.UserID))
+                            {
+                                Photofiles[data.UserID] = new ConcurrentDictionary<Size, string>();
+                            }
+
+                            Photofiles[data.UserID][data.Size] = data.FileName;
+                        }
+                    }
+                    if (action == CacheNotifyAction.Remove)
+                    {
+                        try
+                        {
+                            lock (Photofiles)
+                            {
+                                Photofiles.Remove(data.UserID);
+                            }
+                            var storage = GetDataStore();
+                            storage.DeleteFiles("", (data.ModuleID == Guid.Empty ? "" : data.ModuleID.ToString()) + data.UserID.ToString() + "*.*", false);
+                            SetCacheLoadedForTennant(false);
+                        }
+                        catch { }
+                    }
+                });
+            }
+            catch (Exception)
+            {
+                
+            }
+        }
 
         public static string GetDefaultPhotoAbsoluteWebPath()
         {
@@ -255,33 +306,6 @@ namespace ASC.Web.Core.Users
             }
             catch { }
             return GetDefaultPhotoAbsoluteWebPath();
-        }
-
-        private static void AddToCache(Guid userId, Size size, string fileName)
-        {
-            AddToCache(userId, size, fileName, true);
-        }
-
-        private static void AddToCache(Guid userId, Size size, string fileName, bool replace)
-        {
-            lock (Photofiles)
-            {
-                if (!Photofiles.ContainsKey(userId))
-                {
-                    Photofiles[userId] = new ConcurrentDictionary<Size, string>();
-                }
-                if (replace)
-                {
-                    Photofiles[userId][size] = fileName;
-                }
-                else
-                {
-                    if (!Photofiles[userId].ContainsKey(size))
-                    {
-                        Photofiles[userId].Add(size, fileName);
-                    }
-                }
-            }
         }
 
         internal static Size GetPhotoSize(Guid moduleID, Guid userID)
@@ -443,7 +467,7 @@ namespace ASC.Web.Core.Users
                                         //Parse size
                                         size = new Size(int.Parse(match.Groups["width"].Value), int.Parse(match.Groups["height"].Value));
                                     }
-                                    AddToCache(parsedUserId, size, fileName, true);
+                                    AddToCache(parsedUserId, size, fileName);
                                 }
                             }
                         }
@@ -459,19 +483,19 @@ namespace ASC.Web.Core.Users
 
         private static void ClearCache(Guid moduleID, Guid userID)
         {
-            try
+            if (CacheNotify != null)
             {
-                lock (Photofiles)
-                {
-                    Photofiles.Remove(userID);
-                }
-                var storage = GetDataStore();
-                storage.DeleteFiles("", (moduleID == Guid.Empty ? "" : moduleID.ToString()) + userID.ToString() + "*.*", false);
-                SetCacheLoadedForTennant(false);
+                CacheNotify.Publish(new UserPhotoManagerCacheItem {ModuleID = moduleID, UserID = userID}, CacheNotifyAction.Remove);
             }
-            catch { };
         }
 
+        private static void AddToCache(Guid userId, Size size, string fileName)
+        {
+            if (CacheNotify != null)
+            {
+                CacheNotify.Publish(new UserPhotoManagerCacheItem {UserID = userId, Size = size, FileName = fileName}, CacheNotifyAction.InsertOrUpdate);
+            }
+        }
 
         public static string SaveOrUpdatePhoto(Guid userID, byte[] data)
         {
@@ -660,7 +684,7 @@ namespace ASC.Web.Core.Users
                         //NOTE: Update cache here
                         var fileName = Path.GetFileName(photoUrl);
 
-                        AddToCache(item.UserId, item.Size, fileName, true);
+                        AddToCache(item.UserId, item.Size, fileName);
                     }
                 }
             }

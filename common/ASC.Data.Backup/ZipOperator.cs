@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.IO;
 using SharpCompress.Common;
 using SharpCompress.Reader;
@@ -62,7 +63,7 @@ namespace ASC.Data.Backup
 
         public ZipReadOperator(string targetFile)
         {
-            tmpdir = Path.Combine(Path.GetDirectoryName(targetFile), Path.GetFileNameWithoutExtension(targetFile));
+            tmpdir = Path.Combine(Path.GetDirectoryName(targetFile), Path.GetFileNameWithoutExtension(targetFile).Replace('>', '_').Replace(':', '_').Replace('?', '_'));
 
             using (var stream = File.OpenRead(targetFile))
             {
@@ -96,7 +97,13 @@ namespace ASC.Data.Backup
                     }
                     else
                     {
-                        reader.WriteEntryToDirectory(tmpdir, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                        try
+                        {
+                            reader.WriteEntryToDirectory(tmpdir, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                        }
+                        catch (ArgumentException)
+                        {
+                        }
                     }
                 }
             }

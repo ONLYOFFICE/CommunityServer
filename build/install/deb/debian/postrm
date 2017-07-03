@@ -29,17 +29,17 @@ case "$1" in
 			rm -rf /var/log/onlyoffice
 		fi
 
-		db_input high onlyoffice/remove-db || true
+		db_input high onlyoffice-communityserver/remove-db || true
 		db_go
-		db_get onlyoffice/remove-db
+		db_get onlyoffice-communityserver/remove-db
 		if [ "$RET" = "true" ]; then
-			db_get onlyoffice/db-host
+			db_get onlyoffice-communityserver/db-host
 			DB_HOST="$RET"
-			db_get onlyoffice/db-user
+			db_get onlyoffice-communityserver/db-user
 			DB_USER="$RET"
-			db_get onlyoffice/db-pwd
+			db_get onlyoffice-communityserver/db-pwd
 			DB_PWD="$RET"
-			db_get onlyoffice/db-name
+			db_get onlyoffice-communityserver/db-name
 			DB_NAME="$RET"
 
 			MYSQL="mysql -h$DB_HOST -u$DB_USER"

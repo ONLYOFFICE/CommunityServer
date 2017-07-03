@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using AppLimit.CloudComputing.SharpBox.Common.Extensions;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 using System.IO;
 using System.Xml;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
+using System.Xml.Linq;
+using AppLimit.CloudComputing.SharpBox.Common.Extensions;
 using AppLimit.CloudComputing.SharpBox.Common.IO;
 using AppLimit.CloudComputing.SharpBox.Common.Net;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.API;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects;
 
 #if SILVERLIGHT || MONODROID
 using System.Net;
@@ -49,17 +49,20 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
 
             var queryLessUri = HttpUtilityEx.GetPathAndQueryLessUri(config.ServiceLocator).ToString().TrimEnd('/');
             var decodedTargetUrl = HttpUtility.UrlDecode(targetUrl);
-                
-            var s = new StreamReader(data).ReadToEnd();
+            string s;
+            using (var streamReader = new StreamReader(data))
+            {
+                s = streamReader.ReadToEnd();
+            }
             //todo:
             var xDoc = XDocument.Load(new StringReader(s.Replace("d:d:", "d:")));
             var responses = xDoc.Descendants(XName.Get("response", DavNamespace));
 
             foreach (var response in responses)
             {
-                bool isHidden = false;
-                bool isDirectory = false;
-                DateTime lastModified = DateTime.Now;
+                var isHidden = false;
+                var isDirectory = false;
+                var lastModified = DateTime.Now;
                 long contentLength = 0;
 
                 var href = response.Element(XName.Get("href", DavNamespace)).ValueOrEmpty();
@@ -118,12 +121,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
                 if (targetUrl.EndsWith("/"))
                     nameBaseForSelfCheck += "/";
 
-                bool isSelf = nameBaseForSelfCheck.Equals(decodedTargetUrl);
+                var isSelf = nameBaseForSelfCheck.Equals(decodedTargetUrl);
 
                 var ph = new PathHelper(nameBase);
                 var resourceName = HttpUtility.UrlDecode(ph.GetFileName());
 
-                BaseFileEntry entry = !isDirectory
+                var entry = !isDirectory
                                           ? new BaseFileEntry(resourceName, contentLength, lastModified, service, session)
                                           : new BaseDirectoryEntry(resourceName, contentLength, lastModified, service, session);
 
@@ -149,7 +152,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
         private static bool CheckIfNameSpaceDAVSpace(String element, XmlTextReader reader)
         {
             // split the element into tag and field
-            String[] fields = element.Split(':');
+            var fields = element.Split(':');
 
             // could be that the element has no namespace attached, so it is not part
             // of the webdav response
@@ -157,14 +160,14 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.WebDav.Logic
                 return false;
 
             // get the namespace list
-            IDictionary<String, String> nameSpaceList = reader.GetNamespacesInScope(XmlNamespaceScope.All);
+            var nameSpaceList = reader.GetNamespacesInScope(XmlNamespaceScope.All);
 
             // get the namespace of our node
             if (!nameSpaceList.ContainsKey(fields[0]))
                 return false;
 
             // get the value
-            String NsValue = nameSpaceList[fields[0]];
+            var NsValue = nameSpaceList[fields[0]];
 
             // compare if it's a DAV namespce
             if (NsValue.ToLower().Equals("dav:"))

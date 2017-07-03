@@ -12,66 +12,77 @@
 	  <Body>
 		  <table border="0" cellpadding="0" cellspacing="0" width="100%">
 			  <tr>
-				  <td colspan="4" class="header-base" style="padding: 0 0 15px">
-					  <%=TalkOverviewResource.OverviewSectionTitle%>
+				  <td colspan="3" class="header-base" style="padding: 0 0 15px">
+					 <%=TalkOverviewResource.OverviewSectionTitle%>                  
 				  </td>
-			  </tr>
+			  </tr> 
 			  <tr valign="top">
 				  <td colspan="3" style="border-bottom: 1px solid #d1d1d1; padding: 0 35px 15px 0;">
-					  <div><%=TalkOverviewResource.OverviewContent%></div>
-					  <div style="padding-top: 10px;"><%=TalkOverviewResource.OverviewContentDescription%></div>
-					  <div style="padding-top: 10px;"><%=TalkOverviewResource.AutoupdateContactListDescription%></div>
-					  <div style="padding-top: 10px;"><%=string.Format(TalkOverviewResource.OverviewWebClientDescription, TalkAddon.GetTalkClientURL())%></div>
+					  <div><%=TalkOverviewResource.OverviewContent%></div>                     
+					  <div style="padding-top: 10px;padding-top: 0px;"><%=TalkOverviewResource.OverviewContentDescription%></div>
+					  <div style="padding-top: 10px;padding-top: 0px;"><%=TalkOverviewResource.AutoupdateContactListDescription%></div>
+					  <div style="padding-top: 10px;padding-top: 0px;"><%=string.Format(TalkOverviewResource.OverviewWebClientDescription, TalkAddon.GetTalkClientURL())%></div>
+                      <div class="header-base" style="padding-top: 20px;"><%=TalkOverviewResource.NotificationSetup %></div>
+                      <div style="padding-top: 10px;"><%=TalkOverviewResource.DefaultNotificationText%></div>
+                      <div><%=string.Format(TalkOverviewResource.SubscriptionSectionText, "<a href = '/products/people/profile.aspx'>" + TalkOverviewResource.ProfilePage + "</a>") %></div> 
+                      <div><%=string.Format(TalkOverviewResource.MoreInformation, "<a href = 'http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx#SchedulingWorkflow_block'>" + TalkOverviewResource.Here + "</a>") %></div>
+                              
+           
 				  </td>
-				  <td style="border-bottom: 1px solid #d1d1d1; padding-bottom: 15px;">
-					  <div class="tintMedium" style="padding: 17px 25px 17px 40px; width: 232px;">
+				  <td colspan="2" style="border-bottom: 1px solid #d1d1d1; padding-bottom: 15px; vertical-align:middle">
+					  <div class="tintMedium" style=" width: 200px;">
 						  <span class="button blue huge open-client" onclick="ASC.Controls.JabberClient.open()"><%=TalkOverviewResource.StartWebClientLink%></span>
 						  <div class="text-medium-describe" style="margin: 12px 0px; width: 200px;"><%=TalkOverviewResource.StartWebClientLinkDescription%></div>
 					  </div>
 				  </td>
 			  </tr>
+         
 			  <tr>
-				  <td colspan="4" class="talkAreaWithBottomBorder">
-					  <div style="float: left;">
-					    <%-- <img src="images/screenshot01.png" alt="" /> --%>
-						  <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot01.png", TalkAddon.AddonID)%>" alt="" />
-						  <div class="describe-text talkScreenshot"><%=TalkOverviewResource.ChatTabs%></div>
-				    </div>
-					  <div class="talkScreenshots">
-					    <%-- <img src="images/screenshot02.png" alt="" /> --%>
-					    <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot02.png", TalkAddon.AddonID)%>" alt="" />
-						  <div class="describe-text talkScreenshot"><%=TalkOverviewResource.ContactListWithOptions%></div>
-					  </div>
-					  <div class="talkScreenshots">
-						  <%-- <img src="images/screenshot03.png" alt="" /> --%>
-						  <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot03.png", TalkAddon.AddonID)%>" alt="" />
-						  <div class="describe-text talkScreenshot"><%=TalkOverviewResource.YourStatusChanger%></div>
-					  </div>
-					  <div class="talkScreenshots">
-						  <%-- <img src="images/screenshot04.png" alt="" /> --%>
-						  <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot04.png", TalkAddon.AddonID)%>" alt="" />
-						  <div class="describe-text talkScreenshot"><%=TalkOverviewResource.MessageFieldOptions%></div>
-					  </div>
+				  <td colspan="5" class="talkAreaWithBottomBorder">
+                         <div class="talkScreenshots">
+					        <%-- <img src="images/screenshot01.png" alt="" /> --%>
+						    <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot01.png", TalkAddon.AddonID)%>" alt="" />
+						    <div class="describe-text talkScreenshot"><%=TalkOverviewResource.ChatTabs%></div>
+				         </div>
+					      <div class="talkScreenshots">
+					        <%-- <img src="images/screenshot02.png" alt="" /> --%>
+					        <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot02.png", TalkAddon.AddonID)%>" alt="" />
+						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.ContactListWithSettings%></div>
+					      </div>
+					      <div class="talkScreenshots">
+						      <%-- <img src="images/screenshot03.png" alt="" /> --%>
+						      <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot03.png", TalkAddon.AddonID)%>" alt="" />
+						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.YourStatusChanger%></div>
+					      </div>
+					      <div class="talkScreenshots">
+						      <%-- <img src="images/screenshot04.png" alt="" /> --%>
+						      <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot04.png", TalkAddon.AddonID)%>" alt="" />
+						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.SettingsOfInputField%></div>
+					      </div>
+					  
 				  </td>
 			  </tr>
 			  <tr>
-				  <td colspan="2" class="header-base" style="padding: 20px 0 15px">
+				  <td colspan="5" class="header-base" style="padding: 20px 0 15px">
 				    <%=TalkOverviewResource.IntegrationWith3rdPartyAppsSectionTitle%>
 				  </td>
 			  </tr>
 			  <tr valign="top">
-				  <td colspan="3" style="padding: 0 35px 15px 0;">
-					  <div>
-					    <%=TalkOverviewResource.IntegrationWith3rdPartyAppsSectionContent%><br/>
+				  <td colspan="3" style="padding: 0 35px 15px 0">
+                      
+					  <div style = "padding-top: 0px;">
+					    <%=string.Format(TalkOverviewResource.IntegrationWith3rdPartyAppsSectionContent,
+                        "<a href = 'http://helpcenter.onlyoffice.com/tipstricks/integrating-talk.aspx'>" + "here" + "</a>")
+                            %>
 					  </div>
-					  <div style="margin-top: 15px;">
+					  <div style="margin-top: 10px; padding-top: 0px;">
 					    <%=string.Format(TalkOverviewResource.ThirdPartyAppsSettingsSectionContent,
-				                "<ul><li>", 
-					             "<b>"+ServerName+"</b></li><li>",
-                                 "<b>" + ServerAddress + "</b></li><li>",
-                                 "<b>" + ServerPort + "</b></li><li>",
-                                 "<b>" + UserName + "</b></li></ul>",
-							     "<b>"+JID+"</b>") %>
+                                "<b>"+JID+"</b>",
+				                "<ul><li style ='list-style-type: none'>", 
+					             "<b>"+ServerName+"</b></li><li style ='list-style-type: none'>",
+                                 "<b>" + ServerAddress + "</b></li><li style ='list-style-type: none'>",
+                                 "<b>" + ServerPort + "</b></li><li style ='list-style-type: none'>",
+                                 "<b>" + UserName + "</b></li></ul>") %>
 					  </div>
                       <% if (!ASC.Web.Studio.Utility.TenantExtra.Saas)
                          { %>
@@ -89,9 +100,9 @@
                       </div>
                       <% } %>
 				  </td>
-				  <td>
-					  <div class="tintMedium" style="width: 245px;">
-						  <div class="header-base" style="margin-bottom: 15px;"><%=TalkOverviewResource.Recommended%></div>
+				  <td style="padding-bottom: 15px; vertical-align:middle">
+					  <div class="tintMedium" style="width: 122px">
+                          <div class="header-base" style="margin-bottom: 15px; column-span:all"><%=TalkOverviewResource.IMClients%></div>
 						  <div class="talkTrillianClientImage">
 						    <a href="http://www.trillian.im/download/" class="external" title="<%=TalkOverviewResource.TrillianLink%>" target="_blank">Trillian</a>
 						  </div>
@@ -103,6 +114,23 @@
 						  </div>
 						  <div class="talkPsiClientImage">
 						    <a href="http://psi-im.org/" class="external" title="<%=TalkOverviewResource.PsiLink%>" target="_blank">Psi</a>
+						  </div>							
+					  </div>
+				  </td>
+                   <td>
+					  <div class="tintMedium" style="width: 122px;">
+						  <div class="header-base" style="margin-top: 40px;"></div>
+						  <div class="talkAdiumClientImage">
+						    <a href="https://adium.im/" class="external" title="<%=TalkOverviewResource.Adium%>" target="_blank">Adium</a>
+						  </div>
+						  <div class="talkqutimClientImage">
+						    <a href="https://qutim.org/" class="external" title="<%=TalkOverviewResource.qutlIM%>" target="_blank">qutIM</a>
+						    </div>
+						  <div class="talkMailRuAgentClientImage">
+						    <a href="https://agent.mail.ru/" class="external" title="<%=TalkOverviewResource.MailRuAgent%>" target="_blank">Mail.ru Agent</a>
+						  </div>
+						  <div class="talkQipClientImage">
+						    <a href="http://welcome.qip.ru/im" class="external" title="<%=TalkOverviewResource.QIP%>" target="_blank">QIP</a>
 						  </div>							
 					  </div>
 				  </td>

@@ -78,7 +78,7 @@
   //  $helper.trigger('focus', [false]);
   }
 
-  function onComboboxTitleClick (evt) {
+  function onComboboxTitleClick(evt) {
     var
       $combobox = jQuery(evt.target).parents('span.tl-combobox:first');
 
@@ -99,6 +99,18 @@
       $options = $combobox.find('li.option-item'),
       $selected = $options.filter('.selected-item:first');
 
+
+    var containerHeight = jQuery('.combobox-container').height();
+
+    //If container is not placed in window
+    jq.each(jq(".combobox-container"), function (index, item) {
+        var containerHeight = jq(item).height();
+        if (2 * containerHeight > (jQuery(window).height() - jq(item.parentNode.parentNode).children('.combobox-title').offset().top + jq(item.parentNode.parentNode).children('.combobox-title').height())) {
+            jq(item).css('top', 'inherit');
+            jq(item).css('bottom', '25px');
+        }
+    });
+    
     $options.removeClass('in-focus');
     if ($selected.length === 0) {
       $selected = $options.not('.hidden').filter(':first');
@@ -219,13 +231,13 @@
     ];
   }
 
-  function renderCombobox (select, options) {
+  function renderCombobox(select, options) {
     var
       html = [],
       option = null,
       optionsvalue = [],
       selectclassname = select.className,
-      selectoption = null;
+      selectoption = options.length ? options[0] : null;
 
     for (var i = 0, n = options.length; i < n; i++) {
       option = options[i];
@@ -273,11 +285,10 @@
         node.setAttribute('data-value', optionsvalue[value]);
       }
     }
-
     return o;
   }
 
-  function reRenderCombobox (o, select, options) {
+  function reRenderCombobox(o, select, options) {
     var
       html = [],
       option = null,
@@ -382,7 +393,6 @@
     //    $select.unbind('focus', onSelectFocus).bind('focus', onSelectFocus);
     //  };
     //})($select), 500);
-
     $select
       //.blur(onSelectBlur)
       //.focus(onSelectFocus)
@@ -401,7 +411,7 @@
 
   $.fn.tlCombobox = $.fn.tlcombobox = function (params) {
     var
-      wasupdated = false,
+      //wasupdated = false,
       select = null,
       combobox = null,
       $selects = $(this),
@@ -448,19 +458,18 @@
       //  };
       //})($(select), $(combobox), bindComboboxEvents), 500);
       $select.addClass('tl-combobox');
-      wasupdated = true;
+      //wasupdated = true;
     }
 
-    if (wasupdated) {
-      var
-        zindex = 0,
-        $comboboxes = $('span.tl-combobox'),
-        comboboxesInd = $comboboxes.length;
-      while (comboboxesInd--) {
-        $($comboboxes[comboboxesInd]).css('zIndex', ++zindex);
-      }
-    }
-
+    //if (wasupdated) {
+    //  var
+    //    zindex = 0,
+    //    $comboboxes = $('span.tl-combobox'),
+    //    comboboxesInd = $comboboxes.length;
+    //  while (comboboxesInd--) {
+    //    $($comboboxes[comboboxesInd]).css('zIndex', ++zindex);
+    //  }
+    //}
     return $selects;
   };
 })(jQuery, window, document, document.body);

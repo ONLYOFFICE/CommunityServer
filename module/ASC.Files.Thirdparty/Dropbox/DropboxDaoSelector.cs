@@ -24,13 +24,13 @@
 */
 
 
+using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
-using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace ASC.Files.Thirdparty.Dropbox
 {
@@ -123,7 +123,7 @@ namespace ASC.Files.Thirdparty.Dropbox
             {
                 try
                 {
-                    info = (DropboxProviderInfo) dbDao.GetProviderInfo(linkId);
+                    info = (DropboxProviderInfo)dbDao.GetProviderInfo(linkId);
                 }
                 catch (InvalidOperationException)
                 {
@@ -137,7 +137,7 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
-                dbDao.UpdateProviderInfo(dropboxProviderInfo.ID, newTitle, dropboxProviderInfo.RootFolderType);
+                dbDao.UpdateProviderInfo(dropboxProviderInfo.ID, newTitle, null, dropboxProviderInfo.RootFolderType);
                 dropboxProviderInfo.UpdateTitle(newTitle); //This will update cached version too
             }
         }

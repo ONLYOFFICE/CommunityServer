@@ -332,16 +332,16 @@
     &.support {background-position: 0 -936px;}
     &.thirdpartyauthorization {background-position: 0 -961px;}
     &.monitoring{ background-position: 0 -1014px; }
-    &.security{ background-position: 0 -1042px;} 
-    &.loginhistory { background-position: 0 -1100px; }
-    &.audittrail { background-position: 0 -1072px; }
+    &.security{ background-position: 0 -1040px;} 
+    &.loginhistory { background-position: 0 -1092px; }
+    &.audittrail { background-position: 0 -1066px; }
     &.integration { background-position: 0 -1128px; }
-    &.chart{ background-position: 0 -1154px;} 
-    &.video-guides{ background-position: 0 -1209px;} 
-    &.tariff{ background-position: 0 -1244px;}
-    &.userforum{ background-position: 0 -1296px;}
-    &.controlpanel{ background-position: 0 -1322px; } 
-    &.calls{ background-position: 0 -1348px; } 
+    &.chart{ background-position: 0 -1118px;} 
+    &.video-guides{ background-position: 0 -1170px;} 
+    &.tariff{ background-position: 0 -1196px;}
+    &.userforum{ background-position: 0 -1222px;}
+    &.controlpanel{ background-position: 0 -1248px; } 
+    &.calls{ background-position: 0 -1274px; } 
 
 
     &.inviteusers{
@@ -667,4 +667,17 @@
     font-size: 14px;
     font-weight: 600;
 }
-
+/*******************************************************************************
+   For Retina
+*******************************************************************************/
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .menu-item-icon{
+		background: url("@{imagesBaseUrl}icons_nav_panel_retina.png") no-repeat 0 0;
+		background-size: 32px 1352px;
+    }
+}

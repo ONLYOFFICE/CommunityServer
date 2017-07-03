@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
+using System.Net;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
 {
@@ -45,7 +42,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         public bool FtpRename(String uri, String newNameFullPath, ICredentials credentials)
         {
             // create a webrequest 
-            FtpWebRequest renameRequest = (FtpWebRequest)CreateWebRequest(uri, WebRequestMethodsEx.Ftp.Rename, credentials, false, null);
+            var renameRequest = (FtpWebRequest)CreateWebRequest(uri, WebRequestMethodsEx.Ftp.Rename, credentials, false, null);
                         
             // set the target 
             renameRequest.RenameTo = newNameFullPath;
@@ -65,10 +62,10 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
             }
         }
 
-        protected override System.Net.WebRequest CreateBasicWebRequest(Uri uri, bool bAllowStreamBuffering)
+        protected override WebRequest CreateBasicWebRequest(Uri uri, bool bAllowStreamBuffering)
         {
             //create request
-            FtpWebRequest result = (FtpWebRequest)FtpWebRequest.Create(uri);
+            var result = (FtpWebRequest)FtpWebRequest.Create(uri);
             
             //Do not keep alive (stateless mode)
             result.KeepAlive = false;
@@ -85,16 +82,16 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         /// <remarks>FTP servers typically return strings with CR and
         /// not CRLF. Use respons.Replace(vbCR, vbCRLF) to convert
         /// to an MSDOS string</remarks>
-        private string GetStringResponse(WebRequest ftp)
+        private static string GetStringResponse(WebRequest ftp)
         {
             //Get the result, streaming to a string
-            string result = "";
+            string result;
 
-            using (WebResponse response = ftp.GetResponse())
+            using (var response = ftp.GetResponse())
             {
-                using (Stream datastream = response.GetResponseStream())
+                using (var datastream = response.GetResponseStream())
                 {
-                    using (StreamReader sr = new StreamReader(datastream))
+                    using (var sr = new StreamReader(datastream))
                     {
                         result = sr.ReadToEnd();
                         sr.Close();
@@ -110,7 +107,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
         private bool PerformSimpleFtpMethod(String uri, String requestMethod, ICredentials credentials)
         {
             // create a webrequest 
-            WebRequest simpleFTPRequest = CreateWebRequest(uri, requestMethod, credentials, false, null);
+            var simpleFTPRequest = CreateWebRequest(uri, requestMethod, credentials, false, null);
 
             // perform remove            
             try
@@ -132,7 +129,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.Web.Ftp
             if (!(response is FtpWebResponse))
                 throw new InvalidOperationException("Response is not a FTP reponse");
 
-            FtpWebResponse resp = (FtpWebResponse)response;
+            var resp = (FtpWebResponse)response;
             return (int)resp.StatusCode;
         }
     }

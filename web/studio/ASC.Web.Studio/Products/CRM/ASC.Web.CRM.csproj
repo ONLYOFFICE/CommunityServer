@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.CRM</RootNamespace>
     <AssemblyName>ASC.Web.CRM</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -299,6 +299,7 @@
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
       <DependentUpon>VoipQuick.ascx</DependentUpon>

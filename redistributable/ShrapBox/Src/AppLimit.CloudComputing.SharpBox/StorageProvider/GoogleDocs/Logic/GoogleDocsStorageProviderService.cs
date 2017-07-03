@@ -38,14 +38,16 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                 while (!String.IsNullOrEmpty(url))
                 {
                     var request = CreateWebRequest(session, url, "GET", parameters);
-                    var response = (HttpWebResponse)request.GetResponse();
-                    var rs = response.GetResponseStream();
+                    using(var response = (HttpWebResponse)request.GetResponse())
+                    using (var rs = response.GetResponseStream())
+                    using (var streamReader = new StreamReader(rs))
+                    {
+                        var feedXml = streamReader.ReadToEnd();
+                        var childs = GoogleDocsXmlParser.ParseEntriesXml(session, feedXml);
+                        entry.AddChilds(childs);
 
-                    var feedXml = new StreamReader(rs).ReadToEnd();
-                    var childs = GoogleDocsXmlParser.ParseEntriesXml(session, feedXml);
-                    entry.AddChilds(childs);
-
-                    url = GoogleDocsXmlParser.ParseNext(feedXml);
+                        url = GoogleDocsXmlParser.ParseNext(feedXml);
+                    }
                 }
             }
             catch (WebException)
@@ -75,9 +77,9 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
 
             try
             {
-                var response = (HttpWebResponse)request.GetResponse();
-                if (response.StatusCode == HttpStatusCode.OK)
-                    return true;
+                using (var response = (HttpWebResponse)request.GetResponse())
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        return true;
             }
             catch (WebException)
             {
@@ -144,10 +146,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                 var request = CreateWebRequest(session, url, "GET", null);
                 try
                 {
-                    var response = (HttpWebResponse) request.GetResponse();
-                    var rs = response.GetResponseStream();
-
-                    var xml = new StreamReader(rs).ReadToEnd();
+                    string xml;
+                    using (var response = (HttpWebResponse) request.GetResponse())
+                    using (var rs = response.GetResponseStream())
+                    using (var streamReader = new StreamReader(rs))
+                    {
+                        xml = streamReader.ReadToEnd();
+                    }
                     var entry = GoogleDocsXmlParser.ParseEntriesXml(session, xml).FirstOrDefault();
 
                     if(entry == null)
@@ -190,14 +195,18 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
 
             try
             {
-                var response = (HttpWebResponse) request.GetResponse();
-
-                if (response.StatusCode != HttpStatusCode.NotModified)
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    var s = response.GetResponseStream();
-                    var xml = new StreamReader(s).ReadToEnd();
+                    if (response.StatusCode != HttpStatusCode.NotModified)
+                    {
+                        using (var s = response.GetResponseStream())
+                        using (var streamReader = new StreamReader(s))
+                        {
+                            var xml = streamReader.ReadToEnd();
 
-                    GoogleDocsResourceHelper.UpdateResourceByXml(session, out resource, xml);
+                            GoogleDocsResourceHelper.UpdateResourceByXml(session, out resource, xml);
+                        }
+                    }
                 }
 
                 var dirEntry = resource as BaseDirectoryEntry;
@@ -229,17 +238,22 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
 
             try
             {
-                var response = (HttpWebResponse) request.GetResponse();
-                if (response.StatusCode == HttpStatusCode.Created)
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    var rs = response.GetResponseStream();
+                    if (response.StatusCode == HttpStatusCode.Created)
+                    {
+                        using (var rs = response.GetResponseStream())
+                        using (var streamReader = new StreamReader(rs))
+                        {
+                            var xml = streamReader.ReadToEnd();
+                            var entry = GoogleDocsXmlParser.ParseEntriesXml(session, xml).First();
 
-                    var xml = new StreamReader(rs).ReadToEnd();
-                    var entry = GoogleDocsXmlParser.ParseEntriesXml(session, xml).First();
-                    if (parent != null)
-                        (parent as BaseDirectoryEntry).AddChild(entry);
+                            if (parent != null)
+                                (parent as BaseDirectoryEntry).AddChild(entry);
 
-                    return entry;
+                            return entry;
+                        }
+                    }
                 }
             }
             catch (WebException)
@@ -374,7 +388,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
             }
 
             var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
-            response.GetResponseStream().CopyTo(tempBuffer);
+            using (var stream = response.GetResponseStream())
+            {
+                stream.CopyTo(tempBuffer);
+            }
             tempBuffer.Flush();
             tempBuffer.Seek(0, SeekOrigin.Begin);
             return tempBuffer;
@@ -517,8 +534,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs.Logic
                 using (var responseStream = response.GetResponseStream())
                 {
                     if (responseStream == null) return;
-
-                    var respFile = GoogleDocsXmlParser.ParseEntriesXml(session, new StreamReader(responseStream).ReadToEnd()).First();
+                    string xml;
+                    using (var streamReader = new StreamReader(responseStream))
+                    {
+                        xml = streamReader.ReadToEnd();
+                    }
+                    var respFile = GoogleDocsXmlParser.ParseEntriesXml(session, xml).First();
                     var initFile = (BaseFileEntry)uploadSession.File;
 
                     //replace old file with the file from response

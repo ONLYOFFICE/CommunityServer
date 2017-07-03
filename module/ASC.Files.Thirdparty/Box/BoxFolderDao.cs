@@ -24,14 +24,14 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Studio.Core;
 using Box.V2.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Files.Thirdparty.Box
 {
@@ -40,6 +40,11 @@ namespace ASC.Files.Thirdparty.Box
         public BoxFolderDao(BoxDaoSelector.BoxInfo boxInfo, BoxDaoSelector boxDaoSelector)
             : base(boxInfo, boxDaoSelector)
         {
+        }
+
+        public void Dispose()
+        {
+            BoxProviderInfo.Dispose();
         }
 
         public Folder GetFolder(object folderId)
@@ -108,7 +113,7 @@ namespace ASC.Files.Thirdparty.Box
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             return folderIds.Select(GetFolder).ToList();
         }
@@ -152,9 +157,9 @@ namespace ASC.Files.Thirdparty.Box
 
                 var boxFolder = BoxProviderInfo.Storage.CreateFolder(folder.Title, boxFolderId);
 
-                CacheInsert(boxFolder);
+                BoxProviderInfo.CacheReset(boxFolder);
                 var parentFolderId = GetParentFolderId(boxFolder);
-                if (parentFolderId != null) CacheReset(parentFolderId);
+                if (parentFolderId != null) BoxProviderInfo.CacheReset(parentFolderId);
 
                 return MakeId(boxFolder);
             }
@@ -175,9 +180,9 @@ namespace ASC.Files.Thirdparty.Box
             using (var tx = db.BeginTransaction())
             {
                 var hashIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                        .Select("hash_id")
-                                                        .Where(Exp.Like("id", id, SqlLike.StartWith)))
-                                       .ConvertAll(x => x[0]);
+                                                 .Select("hash_id")
+                                                 .Where(Exp.Like("id", id, SqlLike.StartWith)))
+                                .ConvertAll(x => x[0]);
 
                 db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
                 db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
@@ -190,9 +195,9 @@ namespace ASC.Files.Thirdparty.Box
             if (!(boxFolder is ErrorFolder))
                 BoxProviderInfo.Storage.DeleteItem(boxFolder);
 
-            CacheReset(boxFolder.Id, true);
+            BoxProviderInfo.CacheReset(boxFolder.Id, true);
             var parentFolderId = GetParentFolderId(boxFolder);
-            if (parentFolderId != null) CacheReset(parentFolderId);
+            if (parentFolderId != null) BoxProviderInfo.CacheReset(parentFolderId);
         }
 
         public object MoveFolder(object folderId, object toFolderId)
@@ -207,9 +212,9 @@ namespace ASC.Files.Thirdparty.Box
 
             boxFolder = BoxProviderInfo.Storage.MoveFolder(boxFolder.Id, toBoxFolder.Id);
 
-            CacheReset(boxFolder.Id, false);
-            CacheReset(fromFolderId);
-            CacheReset(toBoxFolder.Id);
+            BoxProviderInfo.CacheReset(boxFolder.Id, false);
+            BoxProviderInfo.CacheReset(fromFolderId);
+            BoxProviderInfo.CacheReset(toBoxFolder.Id);
 
             return MakeId(boxFolder.Id);
         }
@@ -224,8 +229,8 @@ namespace ASC.Files.Thirdparty.Box
 
             var newBoxFolder = BoxProviderInfo.Storage.CopyFolder(boxFolder, toBoxFolder.Id);
 
-            CacheInsert(newBoxFolder);
-            CacheReset(newBoxFolder.Id, false);
+            BoxProviderInfo.CacheReset(newBoxFolder);
+            BoxProviderInfo.CacheReset(newBoxFolder.Id, false);
 
             return ToFolder(newBoxFolder);
         }
@@ -254,8 +259,8 @@ namespace ASC.Files.Thirdparty.Box
                 boxFolder = BoxProviderInfo.Storage.RenameFolder(boxFolder.Id, newTitle);
             }
 
-            CacheInsert(boxFolder);
-            if (parentFolderId != null) CacheReset(parentFolderId);
+            BoxProviderInfo.CacheReset(boxFolder);
+            if (parentFolderId != null) BoxProviderInfo.CacheReset(parentFolderId);
 
             return MakeId(boxFolder.Id);
         }
@@ -349,6 +354,11 @@ namespace ASC.Files.Thirdparty.Box
         }
 
         public string GetBunchObjectID(object folderID)
+        {
+            return null;
+        }
+
+        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
         {
             return null;
         }

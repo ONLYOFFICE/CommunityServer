@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Api.Calendar</RootNamespace>
     <AssemblyName>ASC.Api.Calendar</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -52,17 +52,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+	<NoWarn>1591</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="antlr.runtime">
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\antlr.runtime.dll</HintPath>
+      <HintPath>..\..\..\packages\antlr.runtime.2.7.6.2\lib\net46\antlr.runtime.dll</HintPath>
     </Reference>
     <Reference Include="Ical.Net">
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.2.3.0.1\lib\net46\Ical.Net.dll</HintPath>
     </Reference>
     <Reference Include="Ical.Net.Collections">
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\Ical.Net.Collections.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.0.1\lib\net46\Ical.Net.Collections.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -75,7 +76,7 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NodaTime">
-      <HintPath>..\..\..\packages\Ical.Net.2.2.32\lib\net45\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.2.0.1\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

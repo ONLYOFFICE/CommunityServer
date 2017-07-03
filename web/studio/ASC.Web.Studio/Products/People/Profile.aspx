@@ -9,10 +9,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="PeoplePageContent" runat="server">
     <div class="clearFix profile-title header-with-menu">
         <span class="header text-overflow" title="<%= ProfileHelper.UserInfo.DisplayUserName(true) %>"><%= ProfileHelper.UserInfo.DisplayUserName(true) %></span>
-        <% if ((IsAdmin() || ProfileHelper.UserInfo.IsMe()) && ProfileHelper.UserInfo.IsLDAP())
+        
+        <% if (IsAdmin() || ProfileHelper.UserInfo.IsMe())
         { %>
-        <span class="ldap-lock-big" title="<%= Resources.Resource.LdapUsersListLockTitle %>"></span>
+            <% if (ProfileHelper.UserInfo.IsLDAP())
+            { %>
+            <span class="ldap-lock-big" title="<%= Resources.Resource.LdapUsersListLockTitle %>"></span>
+            <% }
+                else if (ProfileHelper.UserInfo.IsSSO())
+                { %>
+            <span class="sso-lock-big" title="<%= Resources.Resource.SsoUsersListLockTitle %>"></span>
+            <% } %>
         <% } %>
+
         <asp:PlaceHolder ID="actionsHolder" runat="server" />
     </div>
     <div class="profile-container">

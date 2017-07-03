@@ -23,17 +23,58 @@
  *
 */
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using StackExchange.Redis.Extensions.Core;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+using StackExchange.Redis;
+using StackExchange.Redis.Extensions.Core;
+using StackExchange.Redis.Extensions.Core.Configuration;
+
+namespace StackExchange.Redis.Extensions.Core.Configuration
+{
+    public class RedisCachingSectionHandlerExtension : RedisCachingSectionHandler
+    {
+        [ConfigurationProperty("enabled", DefaultValue = true)]
+        public bool Enabled
+        {
+            get
+            {
+                var obj = this["enabled"];
+                if (obj == null) return true;
+                bool result;
+                if (!bool.TryParse(obj.ToString(), out result))
+                {
+                    result = true;
+                }
+                return result;
+            }
+        }
+
+        public new static RedisCachingSectionHandlerExtension GetConfig()
+        {
+            return ConfigurationManager.GetSection("redisCacheClient") as RedisCachingSectionHandlerExtension;
+        }
+
+        public static bool IsEnabled()
+        {
+            var configuration = GetConfig();
+            if (configuration == null)
+                return false;
+
+            return configuration.Enabled;
+        }
+    }
+}
 
 namespace ASC.Common.Caching
 {
@@ -46,7 +87,24 @@ namespace ASC.Common.Caching
 
         public RedisCache()
         {
-            redis = new StackExchangeRedisCacheClient(new Serializer());
+            var configuration = RedisCachingSectionHandlerExtension.GetConfig();
+            if (configuration == null)
+                throw new ConfigurationErrorsException("Unable to locate <redisCacheClient> section into your configuration file. Take a look https://github.com/imperugo/StackExchange.Redis.Extensions");
+            var configurationOptions = new ConfigurationOptions
+            {
+                Ssl = configuration.Ssl,
+                AllowAdmin = configuration.AllowAdmin,
+                AbortOnConnectFail = configuration.AbortOnConnectFail,
+                ConnectTimeout = configuration.ConnectTimeout,
+                Password = configuration.Password
+            };
+
+            foreach (RedisHost redisHost in configuration.RedisHosts)
+                configurationOptions.EndPoints.Add(redisHost.Host, redisHost.CachePort);
+
+            var connectionMultiplexer = (IConnectionMultiplexer)ConnectionMultiplexer.Connect(configurationOptions);
+            connectionMultiplexer.PreserveAsyncOrder = false;
+            redis = new StackExchangeRedisCacheClient(connectionMultiplexer, new Serializer());
         }
 
 

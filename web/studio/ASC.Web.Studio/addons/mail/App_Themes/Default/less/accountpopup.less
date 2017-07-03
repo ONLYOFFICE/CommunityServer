@@ -121,6 +121,54 @@
         width: 100%;
         padding-top: 11px;
     }
+
+    #oauth_reconnect {
+        display: inline-block;
+        float: right;
+        margin-top: -5px;
+        min-width: 83px;
+
+        #oauth_frame_blocker {
+            position: absolute;
+            display: none;
+            width: 108px;
+            height: 30px;
+            opacity: 0.1; 
+            background-color: aliceblue;
+        }
+
+        .oauth-block {
+            cursor: pointer;
+
+            .google-oauth-image {
+                margin-top: 4px;
+                background: url("../images/24x_google.png") no-repeat;
+                height: 24px;
+                width: 24px;
+                display: block;
+                float: right;
+            }
+
+            .oauth-label {
+                font-size: 12px;
+                font-weight: bold;
+                float: right;
+                padding-right: 8px
+            }
+
+            .oauth-help {
+                float: right;
+                margin-right: -4px;
+            }
+
+            .oauth-connect-label {
+                font-size: 10px;
+                color: #83888D;
+                float: right;
+                padding-right: 8px
+            }
+        }
+    }
 }
 
 #account_simple_container {

@@ -9,6 +9,7 @@ window.ASC.TMTalk.messagesManager = (function () {
     multicastIsSupported = false,
     history = {},
     monthNames = [],
+    dayNames = [],
     maxHistoryCount = 10,
     shortDateFormat = '',
     fullDateFormat = '',
@@ -43,22 +44,32 @@ window.ASC.TMTalk.messagesManager = (function () {
       return n.length === 1 ? '0' + n : n;
     };
 
-    var formatDate = function(d, fmt, monthnames) {
+    var formatDate = function(d, fmt, monthnames,daynames) {
       var
         c = '',
         r = [],
         escape = false,
         hours = d.getHours(),
-        isam = hours < 12;
+        isam = hours < 12,
+        day = '';
 
       monthnames = monthnames || ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
+      daynames   = daynames   || ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
       if (fmt.search(/%p|%P/) !== -1) {
         if (hours > 12) {
           hours = hours - 12;
         } else if (hours == 0) {
           hours = 12;
         }
+      }
+      if (window.moment) {
+          day = window.moment(d).calendar(null, {
+              lastWeek: 'dddd DD.MM.YYYY',
+              sameElse: 'dddd DD.MM.YYYY'
+          }).split(' ')[0];
+      } else {
+          day = daynames[d.getDay()]
       }
       for (var i = 0, n = fmt.length; i < n; ++i) {
         c = fmt.charAt(i);
@@ -74,6 +85,7 @@ window.ASC.TMTalk.messagesManager = (function () {
             case 'b': c = '' + monthnames[d.getMonth()]; break;
             case 'p': c = (isam) ? ('' + 'am') : ('' + 'pm'); break;
             case 'P': c = (isam) ? ('' + 'AM') : ('' + 'PM'); break;
+              case 'D': c = '' + day; break;
           }
           r.push(c);
           escape = false;
@@ -109,12 +121,13 @@ window.ASC.TMTalk.messagesManager = (function () {
     return filteredmessages;
   };
 
-  var init = function (shortdate, fulldate, monthnames, historycount) {
+  var init = function (shortdate, fulldate, monthnames, historycount, daynames) {
     if (isInit === true) {
       return undefined;
     }
     isInit = true;
-    // TODO
+      // TODO
+    dayNames = daynames.split(',');
     monthNames = monthnames.split(',');
     shortDateFormat = shortdate;
     fullDateFormat = fulldate;
@@ -122,6 +135,8 @@ window.ASC.TMTalk.messagesManager = (function () {
     if (isFinite(+historycount)) {
       maxHistoryCount = +historycount;
     }
+
+    
 
     ASC.TMTalk.connectionManager.bind(ASC.TMTalk.connectionManager.events.retrievesFeatures, onRetrievesFeatures);
   };
@@ -167,6 +182,14 @@ window.ASC.TMTalk.messagesManager = (function () {
     ASC.TMTalk.connectionManager.getMessagesByNumber(jid, (isFinite(+historycount) ? +historycount : maxHistoryCount) + messageslen);
   };
 
+  var updateHistory = function (jid, startindex, count) {
+     history[jid] = {
+        loaded: false,
+        messages: [],
+        archive: null
+     };
+     ASC.TMTalk.connectionManager.getMessagesByRange(jid, startindex, count);
+  };
   var getHistoryByFilter = function (jid, from, to) {
     if (ASC.TMTalk.connectionManager.connected() === false) {
       eventManager.call(customEvents.loadFilteredHistory, window, [jid, history.hasOwnProperty(jid) ? filteringMessages(history[jid].archive.messages, from, to) : []]);
@@ -351,7 +374,11 @@ window.ASC.TMTalk.messagesManager = (function () {
   var openHistory = function (jid) {
     eventManager.call(customEvents.openHistory, window, [jid]);
   };
-
+  var clearCurrentHistory = function (jid) {
+      if (history[jid]) {
+         delete history[jid]; 
+      }
+  };
   var closeHistory = function (jid) {
     eventManager.call(customEvents.closeHistory, window, [jid]);
   };
@@ -400,7 +427,6 @@ window.ASC.TMTalk.messagesManager = (function () {
       if (history[jid].archive !== null) {
         history[jid].archive.messages.push(message);
       }
-
       eventManager.call(customEvents.sentMessageToChat, window, [jid, message.displayName, message.displayDate, date, body]);
     }
   };
@@ -448,6 +474,7 @@ window.ASC.TMTalk.messagesManager = (function () {
   };
 
   var recvOfflineMessagesFromChat = function (messages) {
+      
     var
       date = null,
       nodes = null,
@@ -660,10 +687,10 @@ window.ASC.TMTalk.messagesManager = (function () {
       }
     }
   };
-
   var getDisplayDate = function (date) {
-    var displaydate = formatDate(date, date.getTime() < new Date().getTime() ? fullDateFormat : shortDateFormat, monthNames);
-    return displaydate !== '' ? displaydate : date.toLocaleTimeString();
+     // var displaydate = formatDate(date, date.getTime() < new Date().getTime() ? fullDateFormat : shortDateFormat, monthNames);
+      var displaydate = formatDate(date, '%D %d.%m.%y %H:%M', monthNames, dayNames);
+      return displaydate !== '' ? displaydate : date.toLocaleTimeString();
   };
 
   var historyLoaded = function (jid) {
@@ -691,6 +718,7 @@ window.ASC.TMTalk.messagesManager = (function () {
     recvMessageFromConference   : recvMessageFromConference,
     recvOfflineMessagesFromChat : recvOfflineMessagesFromChat,
 
+    updateHistory       : updateHistory,
     getHistory          : getHistory,
     getHistoryByFilter  : getHistoryByFilter,
     loadHistory         : loadHistory,
@@ -698,6 +726,7 @@ window.ASC.TMTalk.messagesManager = (function () {
     openHistory         : openHistory,
     closeHistory        : closeHistory,
     historyLoaded       : historyLoaded,
+    clearCurrentHistory : clearCurrentHistory,
 
     getDisplayDate  : getDisplayDate
   };

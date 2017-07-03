@@ -24,12 +24,12 @@
 */
 
 
+using System;
+using System.Collections.Generic;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
-using System;
-using System.Collections.Generic;
 
 namespace ASC.Files.Thirdparty.Box
 {
@@ -38,7 +38,11 @@ namespace ASC.Files.Thirdparty.Box
         public BoxSecurityDao(BoxDaoSelector.BoxInfo providerInfo, BoxDaoSelector boxDaoSelector)
             : base(providerInfo, boxDaoSelector)
         {
+        }
 
+        public void Dispose()
+        {
+            BoxProviderInfo.Dispose();
         }
 
         public void SetShare(FileShareRecord r)
@@ -51,13 +55,13 @@ namespace ASC.Files.Thirdparty.Box
                     if (r.EntryType == FileEntryType.Folder)
                     {
                         var entryIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                                 .Select("hash_id")
-                                                                 .Where(Exp.Like("id", r.EntryId.ToString(), SqlLike.StartWith)))
-                                                .ConvertAll(x => x[0]);
+                                                          .Select("hash_id")
+                                                          .Where(Exp.Like("id", r.EntryId.ToString(), SqlLike.StartWith)))
+                                         .ConvertAll(x => x[0]);
 
                         db.ExecuteNonQuery(Delete("files_security")
-                                                      .Where(Exp.In("entry_id", entryIDs) &
-                                                             Exp.Eq("subject", r.Subject.ToString())));
+                                               .Where(Exp.In("entry_id", entryIDs) &
+                                                      Exp.Eq("subject", r.Subject.ToString())));
                     }
                     else
                     {

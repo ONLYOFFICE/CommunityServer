@@ -332,10 +332,15 @@ namespace ASC.Web.Studio.Core.Users
             {
                 throw new Exception(Resource.ErrorDisabledProfile);
             }
-            if (userInfo.Sid != null)
+            if (userInfo.IsLDAP())
             {
                 throw new Exception(Resource.CouldNotRecoverPasswordForLdapUser);
             }
+            if (userInfo.IsSSO())
+            {
+                throw new Exception(Resource.CouldNotRecoverPasswordForSsoUser);
+            }
+
             StudioNotifyService.Instance.UserPasswordChange(userInfo);
 
             var displayUserName = userInfo.DisplayUserName(false);

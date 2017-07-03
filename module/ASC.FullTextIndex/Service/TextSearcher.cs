@@ -24,13 +24,14 @@
 */
 
 
-using ASC.FullTextIndex.Service.Config;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
+using ASC.FullTextIndex.Service.Config;
+using log4net;
 
 namespace ASC.FullTextIndex.Service
 {
@@ -40,61 +41,85 @@ namespace ASC.FullTextIndex.Service
 
         private static TextSearcher instance = new TextSearcher();
 
-        private Process searchd;
-
-
-        public static TextSearcher Instance { get { return instance; } }
+        public static TextSearcher Instance
+        {
+            get { return instance; }
+        }
 
 
         public void Start()
         {
-            if (searchd == null || searchd.HasExited)
+            if (CheckIsStarted()) return;
+            ClearBinlogFiles();
+
+            try
             {
-                ClearBinlogFiles();
-
-                try
-                {
-                    var startInfo = new ProcessStartInfo
-                    {
-                        CreateNoWindow = false,
-                        UseShellExecute = false,
-                        FileName = TextIndexCfg.SearcherName,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = string.Format("--config \"{0}\"", TextIndexCfg.ConfPath),
-                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                    };
-
-                    searchd = Process.Start(startInfo);
-                }
-                catch (Exception e)
-                {
-                    log.Error("Searchd failed start", e);
-                }
+                Process.Start(GetDefaultProcessStartInfo());
+            }
+            catch (Exception e)
+            {
+                log.Error("Searchd failed start", e);
             }
         }
 
         public void Stop()
         {
-            if (searchd != null)
-            {
-                try
-                {
-                    searchd.Kill();
-                    if (!searchd.WaitForExit(10000)) /* wait 10 seconds */
-                    {
-                        log.Warn("The process does not wait for completion searchd.");
-                    }
-                    searchd.Close();
-                    searchd.Dispose();
-                    searchd = null;
+            if (!CheckIsStarted()) return;
 
-                    ClearBinlogFiles();
-                }
-                catch (Exception e)
+            try
+            {
+                var startInfo = GetDefaultProcessStartInfo();
+                startInfo.Arguments += " --stopwait";
+                var searchd = Process.Start(startInfo);
+                if (searchd != null)
                 {
-                    log.Error("Searchd failed stop", e);
+                    searchd.WaitForExit(10000);
+                }
+
+                ClearBinlogFiles();
+            }
+            catch (Exception e)
+            {
+                log.Error("Searchd failed stop", e);
+            }
+        }
+
+        private static ProcessStartInfo GetDefaultProcessStartInfo()
+        {
+            return new ProcessStartInfo
+            {
+                CreateNoWindow = false,
+                UseShellExecute = false,
+                FileName = TextIndexCfg.SearcherName,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Arguments = string.Format("--config \"{0}\"", TextIndexCfg.ConfPath),
+                WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+            };
+        }
+
+        private static bool CheckIsStarted()
+        {
+            try
+            {
+                var startInfo = GetDefaultProcessStartInfo();
+                startInfo.Arguments += " --status";
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
+
+                using(var searchd = Process.Start(startInfo))
+                {
+                    if (searchd != null && searchd.WaitForExit(1000))
+                    {
+                        var output = searchd.StandardOutput.ReadToEnd();
+                        return !string.IsNullOrEmpty(output) && output.IndexOf("uptime:", StringComparison.Ordinal) > 0;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                log.Error("Searchd failed checkStatus", e);
+            }
+            return false;
         }
 
         public int[] Search(string[] modules, int tenantID)
@@ -112,7 +137,7 @@ namespace ASC.FullTextIndex.Service
                     var mainname = name + "_main";
                     if (1 < TextIndexCfg.Chunks)
                     {
-                        var index = tenantID / TextIndexCfg.Dimension;
+                        var index = tenantID/TextIndexCfg.Dimension;
                         if (index >= TextIndexCfg.Chunks)
                         {
                             index = TextIndexCfg.Chunks - 1;

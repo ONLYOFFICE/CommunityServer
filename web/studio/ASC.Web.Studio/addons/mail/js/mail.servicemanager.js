@@ -155,6 +155,10 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.createMailMailboxOAuth(params, code, serviceType, options);
         });
 
+        var updateOAuthBox = wrapper(6, function (code, serviceType, mailboxId, params, options) {
+            window.Teamlab.updateMailMailboxOAuth(params, code, serviceType, mailboxId, options);
+        });
+
         var getDefaultMailboxSettings = wrapper(3, function(email, params, options) {
             window.Teamlab.getMailDefaultMailboxSettings(params, email, options);
         });
@@ -536,6 +540,7 @@ if (typeof window.serviceManager === 'undefined') {
             createBox: createBox,
             createMinBox: createMinBox,
             createOAuthBox: createOAuthBox,
+            updateOAuthBox: updateOAuthBox,
             getDefaultMailboxSettings: getDefaultMailboxSettings,
             removeBox: removeBox,
             updateBox: updateBox,

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Build.Utilities;
-using Microsoft.Build.Framework;
+﻿using System.IO;
 using System.Net;
-using System.IO;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 
 namespace MSBuild.Community.Tasks.Net
 {
@@ -83,16 +80,16 @@ namespace MSBuild.Community.Tasks.Net
         public override bool Execute()
         {
             Log.LogMessage("Requesting {0}", Url);
-            HttpWebRequest request = WebRequest.Create(Url) as HttpWebRequest;
+            var request = WebRequest.Create(Url) as HttpWebRequest;
             if (request == null)
             {
                 Log.LogError("Url \"{0}\" did not create an HttpRequest.", Url);
                 return false;
             }
 
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
-                int code = (int)response.StatusCode;
+                var code = (int)response.StatusCode;
                 Log.LogMessage("HTTP RESPONSE: {0}, {1}", code, response.StatusDescription);
                 if (FailOnNon2xxResponse)
                 {
@@ -104,8 +101,15 @@ namespace MSBuild.Community.Tasks.Net
                 }
                 if (CheckResponseContents || WriteResponseToFile)
                 {
-                    StreamReader responseReader = new StreamReader(response.GetResponseStream());
-                    string responseString = responseReader.ReadToEnd();
+                    var responseString = string.Empty;
+                    using (var responseStream = response.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                            using (var responseReader = new StreamReader(responseStream))
+                            {
+                                responseString = responseReader.ReadToEnd();
+                            }
+                    }
                     if (WriteResponseToFile)
                     {
                         using (TextWriter tw = new StreamWriter(WriteResponseTo))
@@ -118,7 +122,7 @@ namespace MSBuild.Community.Tasks.Net
                     {
                         if (!responseString.Contains(EnsureResponseContains))
                         {
-                            int length = System.Math.Min(100, responseString.Length);
+                            var length = System.Math.Min(100, responseString.Length);
                             Log.LogError("Response did not contain the specified text.  Started with: " + responseString.Substring(0, length));
                             return false;
                         }

@@ -35,6 +35,8 @@ namespace ASC.Mail.Aggregator.Common
     [DataContract(Namespace = "")]
     public class MailTag
     {
+        private string _name;
+
         [CollectionDataContract(Namespace = "", ItemName = "Address")]
         public class AddressesList<TItem> : List<TItem>
         {
@@ -57,8 +59,18 @@ namespace ASC.Mail.Aggregator.Common
         [DataMember(IsRequired = true)]
         public string Name
         {
-            get;
-            set;
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = !string.IsNullOrEmpty(value)
+                    ? (value.Length > 255
+                        ? value.Substring(0, 255)
+                        : value)
+                    : value;
+            }
         }
 
         [DataMember(IsRequired = true)]

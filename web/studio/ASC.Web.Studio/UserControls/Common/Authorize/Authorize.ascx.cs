@@ -37,6 +37,7 @@ using ASC.FederatedLogin.Profile;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
+using ASC.SingleSignOn.Common;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Import;
@@ -54,8 +55,23 @@ namespace ASC.Web.Studio.UserControls.Common
         private string _errorMessage;
         private readonly ICache cache = AscCache.Memory;
         protected bool EnableLdap = ActiveDirectoryUserImporter.LdapIsEnable;
-        protected bool EnableSso = SsoImporter.SsoIsEnable;
-        protected bool IsSaml = SsoImporter.IsSaml;
+        //protected bool EnableSso = SsoImporter.SsoIsEnable;
+        //protected bool IsSaml = SsoImporter.IsSaml;
+
+        protected bool EnableSso
+        {
+            get
+            {
+                return SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) &&
+                    (!CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso) &&
+                    SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID).EnableSso;
+            }
+        }
+
+        protected bool IsSaml
+        {
+            get { return true; } //Todo: Change after jwt fixes
+        }
 
         protected string ErrorMessage
         {

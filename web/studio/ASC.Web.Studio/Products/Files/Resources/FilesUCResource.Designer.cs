@@ -1006,6 +1006,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection url.
+        /// </summary>
+        public static string ConnectionUrl {
+            get {
+                return ResourceManager.GetString("ConnectionUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convert.
         /// </summary>
         public static string Convert {
@@ -1987,6 +1996,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specify for change.
+        /// </summary>
+        public static string ThirdPartyCorrect {
+            get {
+                return ResourceManager.GetString("ThirdPartyCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Third Party.
         /// </summary>
         public static string ThirdPartyDeleteCaption {
@@ -2055,6 +2073,24 @@ namespace ASC.Web.Files.Resources {
         public static string ThirdPartyOwnCloud {
             get {
                 return ResourceManager.GetString("ThirdPartyOwnCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reconnect.
+        /// </summary>
+        public static string ThirdPartyReconnect {
+            get {
+                return ResourceManager.GetString("ThirdPartyReconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string ThirdPartyReconnectTitle {
+            get {
+                return ResourceManager.GetString("ThirdPartyReconnectTitle", resourceCulture);
             }
         }
         

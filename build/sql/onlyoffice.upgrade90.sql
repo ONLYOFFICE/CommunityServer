@@ -67,7 +67,7 @@ BEGIN
 	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE `TABLE_SCHEMA` = DATABASE() AND `TABLE_NAME` = 'crm_voip_calls' AND COLUMN_NAME = 'record_price') THEN
 		ALTER TABLE `crm_voip_calls`
 			ADD COLUMN `record_price` DECIMAL(10,4) NULL AFTER `record_duration`;			
-    END IF;
+    	END IF;
     
     	
 	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE `TABLE_SCHEMA` = DATABASE() AND `TABLE_NAME` = 'crm_voip_calls' AND COLUMN_NAME = 'record_sid') THEN

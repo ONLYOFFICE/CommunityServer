@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Linq;
 using AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Token;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
@@ -10,39 +10,31 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
     {        
         static public OAuthToken ParseTokenInformation(Stream data)
         {
-            Dictionary<String, String> parameters = ParseParameterResult(data);            
+            var parameters = ParseParameterResult(data);            
             return new OAuthToken(parameters["oauth_token"], parameters["oauth_token_secret"]);
         }
 
         static private Dictionary<String, String> ParseParameterResult(Stream data)
         {        
-            String result = GetResultString(data);
+            var result = GetResultString(data);
 
             if (result.Length > 0)
             {
-                var parsedParams = new Dictionary<string, string>();
+                var parameters = result.Split('&');
 
-                // 1. split at "&"
-                String[] parameters = result.Split('&');
-
-                foreach (String paramSet in parameters)
-                {
-                    String[] param2 = paramSet.Split('=');
-                    parsedParams.Add(param2[0], param2[1]);
-                }
-
-                return parsedParams;
+                return parameters.Select(paramSet => paramSet.Split('=')).ToDictionary(param2 => param2[0], param2 => param2[1]);
             }
 
             return null;
         }
 
 
-        static private String GetResultString(Stream data)
-        {            
-            var reader = new StreamReader(data);
-            return reader.ReadToEnd();         
+        private static String GetResultString(Stream data)
+        {
+            using (var reader = new StreamReader(data))
+            {
+                return reader.ReadToEnd();
+            }
         }
-
     }
 }

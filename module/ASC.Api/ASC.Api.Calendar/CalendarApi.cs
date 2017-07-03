@@ -886,7 +886,8 @@ namespace ASC.Api.Calendar
 
             if (cals == null) return counter;
 
-            var calendars = cals.Where(x => x.Method == Ical.Net.CalendarMethods.Publish ||
+            var calendars = cals.Where(x => string.IsNullOrEmpty(x.Method) ||
+                                            x.Method == Ical.Net.CalendarMethods.Publish ||
                                             x.Method == Ical.Net.CalendarMethods.Request ||
                                             x.Method == Ical.Net.CalendarMethods.Reply ||
                                             x.Method == Ical.Net.CalendarMethods.Cancel).ToList();
@@ -894,6 +895,9 @@ namespace ASC.Api.Calendar
             foreach (var calendar in calendars)
             {
                 if (calendar.Events == null) continue;
+
+                if (string.IsNullOrEmpty(calendar.Method))
+                    calendar.Method = Ical.Net.CalendarMethods.Publish;
 
                 foreach (var eventObj in calendar.Events)
                 {
@@ -1702,13 +1706,17 @@ namespace ASC.Api.Calendar
 
             if (evt.RecurrenceRules != null && evt.RecurrenceRules.Any())
             {
-                rrule = DDayICalParser.SerializeRecurrencePattern(evt.RecurrenceRules.First());
+                var recurrenceRules = evt.RecurrenceRules.ToList();
+
+                rrule = DDayICalParser.SerializeRecurrencePattern(recurrenceRules.First());
 
                 if (evt.ExceptionDates != null && evt.ExceptionDates.Any())
                 {
                     rrule += ";exdates=";
 
-                    foreach (var periodList in evt.ExceptionDates)
+                    var exceptionDates = evt.ExceptionDates.ToList();
+
+                    foreach (var periodList in exceptionDates)
                     {
                         var date = periodList.ToString();
 

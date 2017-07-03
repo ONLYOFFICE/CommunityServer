@@ -1752,7 +1752,7 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
                     continue;
                 }
 
-                cleanStyle = "{0}{2};".format(cleanStyle, styleName, styleValue.length === 0 ? "" : ":" + styleValue);
+                cleanStyle = "{0}{1}{2};".format(cleanStyle, styleName, styleValue.length === 0 ? "" : ":" + styleValue);
             }
 
             if (needChangeStyle) {

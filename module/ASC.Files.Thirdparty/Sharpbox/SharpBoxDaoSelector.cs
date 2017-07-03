@@ -138,7 +138,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
             using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
-                dbDao.UpdateProviderInfo(sharpBoxProviderInfo.ID, newTitle, sharpBoxProviderInfo.RootFolderType);
+                dbDao.UpdateProviderInfo(sharpBoxProviderInfo.ID, newTitle, null, sharpBoxProviderInfo.RootFolderType);
                 sharpBoxProviderInfo.UpdateTitle(newTitle); //This will update cached version too
             }
         }

@@ -35,7 +35,9 @@ namespace ASC.Web.Talk.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts("~/addons/talk/js/talk.contactscontainer.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.meseditorcontainer.js");
             Page.RegisterInlineScript("ASC.TMTalk.contactsContainer.init();");
+
         }
     }
 }

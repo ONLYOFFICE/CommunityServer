@@ -2307,10 +2307,10 @@ namespace WindowsLive
             string body = null;
             try 
             {
-                WebRequest req = HttpWebRequest.Create(url);
+                var req = HttpWebRequest.Create(url);
                 req.Method = "GET";
-                WebResponse res = req.GetResponse();
-                using (StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8))
+                using (var res = req.GetResponse())
+                using (var sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8))
                 {
                     body = sr.ReadToEnd();
                 }

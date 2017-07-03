@@ -1,0 +1,41 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:Frost Free Library | January 05, 2009 - February 04, 2009
+PRODID:-//strange bird labs//Drupal iCal API//EN
+BEGIN:VEVENT
+DTSTART;VALUE=DATE-TIME:20090106T203000Z
+DTEND;VALUE=DATE-TIME:20090106T203000Z
+SUMMARY;ENCODING=QUOTED-PRINTABLE:Library Tea
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<p>Normal   0         false   false   false                             Mic=
+rosoftInternetExplorer4</p>=0D=0A<br class=3D"clear" />
+URL;VALUE=URI:http://www.frostfree.org/node/505
+UID:http://www.frostfree.org/node/505
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE-TIME:20090108T153000Z
+DTEND;VALUE=DATE-TIME:20090108T163000Z
+SUMMARY;ENCODING=QUOTED-PRINTABLE:Story Time
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<p>Normal   0         false   false   false                             Mic=
+rosoftInternetExplorer4</p>=0D=0A<br class=3D"clear" />
+URL;VALUE=URI:http://www.frostfree.org/node/506
+UID:http://www.frostfree.org/node/506
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE-TIME:20090115T153000Z
+DTEND;VALUE=DATE-TIME:20090115T163000Z
+SUMMARY;ENCODING=QUOTED-PRINTABLE:Story Time
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<p>Normal   0         false   false   false                             Mic=
+rosoftInternetExplorer4</p>=0D=0A<br class=3D"clear" />
+URL;VALUE=URI:http://www.frostfree.org/node/508
+UID:http://www.frostfree.org/node/508
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE-TIME:20090115T153000Z
+DTEND;VALUE=DATE-TIME:20090115T163000Z
+SUMMARY;ENCODING=QUOTED-PRINTABLE:Clone of Story Time
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<p>Normal   0         false   false   false                             Mic=
+rosoftInternetExplorer4</p>=0D=0A<br class=3D"clear" />
+URL;VALUE=URI:http://www.frostfree.org/node/509
+UID:http://www.frostfree.org/node/509
+END:VEVENT
+END:VCALENDAR

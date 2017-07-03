@@ -26,11 +26,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override IStorageProviderSession CreateSession(ICloudStorageAccessToken token, ICloudStorageConfiguration configuration)
         {
             // cast the creds to the right type
-            GenericNetworkCredentials creds = token as GenericNetworkCredentials;
+            var creds = token as GenericNetworkCredentials;
 
             // check if url available                        
-            int status = (int) FtpStatusCode.CommandOK;
-            WebException e = null;
+            int status;
+            WebException e;
             _ftpService.PerformSimpleWebCall(configuration.ServiceLocator.ToString(), WebRequestMethods.Ftp.ListDirectory, creds.GetCredential(null, null), null, out status, out e);
             if (status == (int) FtpStatusCode.NotLoggedIn)
                 throw new UnauthorizedAccessException();
@@ -43,7 +43,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override ICloudFileSystemEntry RequestResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
         {
             //declare the requested entry
-            ICloudFileSystemEntry fsEntry = null;
+            ICloudFileSystemEntry fsEntry;
 
             // lets have a look if we are on the root node
             if (parent == null)
@@ -79,16 +79,16 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override bool DeleteResource(IStorageProviderSession session, ICloudFileSystemEntry entry)
         {
             // get the creds
-            ICredentials creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
+            var creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
 
             // generate the loca path
-            String uriPath = GetResourceUrl(session, entry, null);
+            var uriPath = GetResourceUrl(session, entry, null);
 
             // removed the file
             if (entry is ICloudDirectoryEntry)
             {
                 // we need an empty directory
-                foreach (ICloudFileSystemEntry child in (ICloudDirectoryEntry) entry)
+                foreach (var child in (ICloudDirectoryEntry) entry)
                 {
                     DeleteResource(session, child);
                 }
@@ -106,13 +106,13 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override bool MoveResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, ICloudDirectoryEntry newParent)
         {
             // get credentials
-            ICredentials creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
+            var creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
 
             // get old name uri
-            String uriPath = GetResourceUrl(session, fsentry.Parent, fsentry.Name);
+            var uriPath = GetResourceUrl(session, fsentry.Parent, fsentry.Name);
 
             // get the new path
-            String TargetPath = PathHelper.Combine(GenericHelper.GetResourcePath(newParent), fsentry.Name);
+            var TargetPath = PathHelper.Combine(GenericHelper.GetResourcePath(newParent), fsentry.Name);
 
             // do it 
             if (!_ftpService.FtpRename(uriPath, TargetPath, creds))
@@ -130,42 +130,43 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override Stream CreateDownloadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry)
         {
             // get the session creds
-            ICredentials creds = session.SessionToken as ICredentials;
+            var creds = session.SessionToken as ICredentials;
 
             // get the full path
-            String uriPath = GetResourceUrl(session, fileSystemEntry, null);
+            var uriPath = GetResourceUrl(session, fileSystemEntry, null);
 
             // get the ftp request
-            FtpWebRequest ftp = (FtpWebRequest) _ftpService.CreateWebRequest(uriPath, WebRequestMethodsEx.Ftp.DownloadFile, creds, false, null);
+            var ftp = (FtpWebRequest) _ftpService.CreateWebRequest(uriPath, WebRequestMethodsEx.Ftp.DownloadFile, creds, false, null);
 
             // set request to download a file in binary mode            
             ftp.UseBinary = true;
 
             // create the response
-            WebResponse response = _ftpService.GetWebResponse(ftp);
+            using (var response = _ftpService.GetWebResponse(ftp))
+            {
+                // get the data 
+                var orgStream = _ftpService.GetResponseStream(response);
 
-            // get the data 
-            Stream orgStream = _ftpService.GetResponseStream(response);
+                var dStream = new BaseFileEntryDownloadStream(orgStream, fileSystemEntry);
 
-            BaseFileEntryDownloadStream dStream = new BaseFileEntryDownloadStream(orgStream, fileSystemEntry);
+                // put the disposable on the stack
+                dStream._DisposableObjects.Push(response);
 
-            // put the disposable on the stack
-            dStream._DisposableObjects.Push(response);
-
-            // go ahead
-            return dStream;
+                // go ahead
+                return dStream;
+            }
         }
 
         public override Stream CreateUploadStream(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, long uploadSize)
         {
             // build the url 
-            string url = GetResourceUrl(session, fileSystemEntry, null);
+            var url = GetResourceUrl(session, fileSystemEntry, null);
 
             // get the session creds
-            ICredentials creds = session.SessionToken as ICredentials;
+            var creds = session.SessionToken as ICredentials;
 
             // build the webrequest                        
-            FtpWebRequest networkRequest = (FtpWebRequest) _ftpService.CreateWebRequest(url, WebRequestMethodsEx.Ftp.UploadFile, creds, false, null);
+            var networkRequest = (FtpWebRequest) _ftpService.CreateWebRequest(url, WebRequestMethodsEx.Ftp.UploadFile, creds, false, null);
 
             // set the binary mode            
             networkRequest.UseBinary = true;
@@ -174,7 +175,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
             networkRequest.ContentLength = uploadSize;
 
             // get the request stream
-            WebRequestStream requestStream = _ftpService.GetRequestStream(networkRequest, uploadSize);
+            var requestStream = _ftpService.GetRequestStream(networkRequest, uploadSize);
 
             // add disposal opp
             requestStream.PushPostDisposeOperation(CommitUploadStream, _ftpService, networkRequest, fileSystemEntry, requestStream);
@@ -192,11 +193,11 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         {
             // convert the args
             // FtpService svc = arg[0] as FtpService;
-            FtpWebRequest uploadRequest = arg[1] as FtpWebRequest;
-            BaseFileEntry fileSystemEntry = arg[2] as BaseFileEntry;
+            var uploadRequest = arg[1] as FtpWebRequest;
+            var fileSystemEntry = arg[2] as BaseFileEntry;
 
 #if !WINDOWS_PHONE && !ANDROID
-            WebRequestStream requestStream = arg[3] as WebRequestStream;
+            var requestStream = arg[3] as WebRequestStream;
 
             // close the stream
             requestStream.Close();
@@ -223,16 +224,16 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override ICloudFileSystemEntry CreateResource(IStorageProviderSession session, string Name, ICloudDirectoryEntry parent)
         {
             // get credentials
-            ICredentials creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
+            var creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
 
             // build the full url
-            String resFull = GetResourceUrl(session, parent, Name);
+            var resFull = GetResourceUrl(session, parent, Name);
 
             // create the director
             if (_ftpService.FtpCreateDirectory(resFull, creds))
             {
                 // create the filesystem object
-                ICloudDirectoryEntry fsEntry = GenericStorageProviderFactory.CreateDirectoryEntry(session, Name, parent);
+                var fsEntry = GenericStorageProviderFactory.CreateDirectoryEntry(session, Name, parent);
 
                 // go ahead
                 return fsEntry;
@@ -244,20 +245,20 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         public override bool RenameResource(IStorageProviderSession session, ICloudFileSystemEntry fsentry, string newName)
         {
             // get credentials
-            ICredentials creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
+            var creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
 
             // get old name uri
-            String uriPath = GetResourceUrl(session, fsentry.Parent, fsentry.Name);
+            var uriPath = GetResourceUrl(session, fsentry.Parent, fsentry.Name);
 
             // get the new path
-            String TargetPath = PathHelper.Combine(GenericHelper.GetResourcePath(fsentry.Parent), newName);
+            var TargetPath = PathHelper.Combine(GenericHelper.GetResourcePath(fsentry.Parent), newName);
 
             // do it 
             if (!_ftpService.FtpRename(uriPath, TargetPath, creds))
                 return false;
 
             // rename the entry            
-            BaseFileEntry fentry = fsentry as BaseFileEntry;
+            var fentry = fsentry as BaseFileEntry;
             fentry.Name = newName;
 
             // go ahead
@@ -269,24 +270,24 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
         private void RefreshChildsOfDirectory(IStorageProviderSession session, ICloudDirectoryEntry dir)
         {
             // get the creds
-            ICredentials creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
+            var creds = ((GenericNetworkCredentials) session.SessionToken).GetCredential(null, null);
 
             // get the uri
-            String resSource = GetResourceUrl(session, dir.Parent, dir.Name);
+            var resSource = GetResourceUrl(session, dir.Parent, dir.Name);
 
             // clear all childs
             GenericStorageProviderFactory.ClearAllChilds(dir);
 
             // we need to request a directory list here 
-            using (MemoryStream data = _ftpService.PerformSimpleWebCall(resSource, WebRequestMethodsEx.Ftp.ListDirectoryDetails, creds, null))
+            using (var data = _ftpService.PerformSimpleWebCall(resSource, WebRequestMethodsEx.Ftp.ListDirectoryDetails, creds, null))
             {
-                using (StreamReader r = new StreamReader(data))
+                using (var r = new StreamReader(data))
                 {
                     while (!r.EndOfStream)
                     {
-                        String ftpline = r.ReadLine();
+                        var ftpline = r.ReadLine();
 
-                        Match m = GetMatchingRegexFromFTPLine(ftpline);
+                        var m = GetMatchingRegexFromFTPLine(ftpline);
 
                         if (m == null)
                         {
@@ -296,20 +297,20 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
                         else
                         {
                             // get the filename
-                            String filename = m.Groups["name"].Value;
+                            var filename = m.Groups["name"].Value;
 
                             // get teh modified date
-                            DateTime fileDateTime = DateTime.MinValue;
+                            var fileDateTime = DateTime.MinValue;
                             try
                             {
-                                fileDateTime = System.DateTime.Parse(m.Groups["timestamp"].Value);
+                                fileDateTime = DateTime.Parse(m.Groups["timestamp"].Value);
                             }
                             catch (Exception)
                             {
                             }
 
                             // evaluate if we have a directory
-                            string _dir = m.Groups["dir"].Value;
+                            var _dir = m.Groups["dir"].Value;
                             if ((!string.IsNullOrEmpty(_dir) & _dir != "-"))
                             {
                                 GenericStorageProviderFactory.CreateDirectoryEntry(session, filename, fileDateTime, dir);
@@ -317,7 +318,7 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
                             else
                             {
                                 // get the size 
-                                long size = Convert.ToInt64(m.Groups["size"].Value);
+                                var size = Convert.ToInt64(m.Groups["size"].Value);
 
                                 // create the file object 
                                 GenericStorageProviderFactory.CreateFileSystemEntry(session, filename, fileDateTime, size, dir);
@@ -345,14 +346,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.FTP.Logic
                                                     "(?<timestamp>\\d{2}\\-\\d{2}\\-\\d{2}\\s+\\d{2}:\\d{2}[Aa|Pp][mM])\\s+(?<dir>\\<\\w+\\>){0,1}(?<size>\\d+){0,1}\\s+(?<name>.+)"
                                                 };
 
-        private Match GetMatchingRegexFromFTPLine(string ftpline)
+        private static Match GetMatchingRegexFromFTPLine(string ftpline)
         {
-            Regex rx = default(Regex);
-            Match m = default(Match);
-            for (int i = 0; i <= _ParseFormats.Length - 1; i++)
+            for (var i = 0; i <= _ParseFormats.Length - 1; i++)
             {
-                rx = new Regex(_ParseFormats[i]);
-                m = rx.Match(ftpline);
+                var rx = new Regex(_ParseFormats[i]);
+                var m = rx.Match(ftpline);
                 if (m.Success)
                     return m;
             }

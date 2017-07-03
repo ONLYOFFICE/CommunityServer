@@ -136,7 +136,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 rightToEdit = editPossible = false;
             }
 
-            if (!editPossible && !FileUtility.CanWebView(file.Title)) throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
+            if (!editPossible && !FileUtility.CanWebView(file.Title)) throw new Exception(string.Format("{0} ({1})", FilesCommonResource.ErrorMassage_NotSupportedFormat, FileUtility.GetFileExtension(file.Title)));
 
             if (reviewPossible &&
                 !FileUtility.CanWebReview(file.Title))
@@ -257,7 +257,6 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static bool RenameFile(File file)
         {
-            if (!FileTracker.IsEditing(file.ID)) return true;
             var docKeyForTrack = GetDocKey(file);
             var meta = new Web.Core.Files.DocumentService.MetaData { Title = file.Title };
             return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Meta, docKeyForTrack, file.ID, meta: meta);

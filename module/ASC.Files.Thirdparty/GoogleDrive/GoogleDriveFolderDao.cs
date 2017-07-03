@@ -24,13 +24,13 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Studio.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -39,6 +39,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public GoogleDriveFolderDao(GoogleDriveDaoSelector.GoogleDriveInfo googleDriveInfo, GoogleDriveDaoSelector googleDriveDaoSelector)
             : base(googleDriveInfo, googleDriveDaoSelector)
         {
+        }
+
+        public void Dispose()
+        {
+            GoogleDriveProviderInfo.Dispose();
         }
 
         public Folder GetFolder(object folderId)
@@ -107,7 +112,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             return folderIds.Select(GetFolder).ToList();
         }
@@ -149,9 +154,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
                 var driveFolder = GoogleDriveProviderInfo.Storage.InsertEntry(null, folder.Title, driveFolderId, true);
 
-                CacheInsert(driveFolder);
+                GoogleDriveProviderInfo.CacheReset(driveFolder);
                 var parentDriveId = GetParentDriveId(driveFolder);
-                if (parentDriveId != null) CacheReset(parentDriveId, true);
+                if (parentDriveId != null) GoogleDriveProviderInfo.CacheReset(parentDriveId, true);
 
                 return MakeId(driveFolder);
             }
@@ -163,13 +168,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             var driveFolder = GetDriveEntry(folderId);
             var id = MakeId(driveFolder);
 
-            using(var db = GetDb())
+            using (var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
                 var hashIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                        .Select("hash_id")
-                                                        .Where(Exp.Like("id", id, SqlLike.StartWith)))
-                                       .ConvertAll(x => x[0]);
+                                                 .Select("hash_id")
+                                                 .Where(Exp.Like("id", id, SqlLike.StartWith)))
+                                .ConvertAll(x => x[0]);
 
                 db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
                 db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
@@ -182,9 +187,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (!(driveFolder is ErrorDriveEntry))
                 GoogleDriveProviderInfo.Storage.DeleteEntry(driveFolder.Id);
 
-            CacheReset(driveFolder.Id);
+            GoogleDriveProviderInfo.CacheReset(driveFolder.Id);
             var parentDriveId = GetParentDriveId(driveFolder);
-            if (parentDriveId != null) CacheReset(parentDriveId, true);
+            if (parentDriveId != null) GoogleDriveProviderInfo.CacheReset(parentDriveId, true);
         }
 
         public object MoveFolder(object folderId, object toFolderId)
@@ -203,9 +208,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFolder, fromFolderDriveId);
             }
 
-            CacheReset(driveFolder.Id);
-            CacheReset(fromFolderDriveId, true);
-            CacheReset(toDriveFolder.Id, true);
+            GoogleDriveProviderInfo.CacheReset(driveFolder.Id);
+            GoogleDriveProviderInfo.CacheReset(fromFolderDriveId, true);
+            GoogleDriveProviderInfo.CacheReset(toDriveFolder.Id, true);
 
             return MakeId(driveFolder.Id);
         }
@@ -220,8 +225,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var newDriveFolder = GoogleDriveProviderInfo.Storage.InsertEntry(null, driveFolder.Name, toDriveFolder.Id, true);
 
-            CacheInsert(newDriveFolder);
-            CacheReset(toDriveFolder.Id, true);
+            GoogleDriveProviderInfo.CacheReset(newDriveFolder);
+            GoogleDriveProviderInfo.CacheReset(toDriveFolder.Id, true);
 
             return ToFolder(newDriveFolder);
         }
@@ -248,9 +253,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 driveFolder = GoogleDriveProviderInfo.Storage.RenameEntry(driveFolder.Id, driveFolder.Name);
             }
 
-            CacheInsert(driveFolder);
+            GoogleDriveProviderInfo.CacheReset(driveFolder);
             var parentDriveId = GetParentDriveId(driveFolder);
-            if (parentDriveId != null) CacheReset(parentDriveId, true);
+            if (parentDriveId != null) GoogleDriveProviderInfo.CacheReset(parentDriveId, true);
 
             return MakeId(driveFolder.Id);
         }
@@ -344,6 +349,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         }
 
         public string GetBunchObjectID(object folderID)
+        {
+            return null;
+        }
+
+        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
         {
             return null;
         }

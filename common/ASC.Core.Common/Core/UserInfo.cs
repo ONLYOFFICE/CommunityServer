@@ -91,7 +91,10 @@ namespace ASC.Core.Users
 
         public MobilePhoneActivationStatus MobilePhoneActivationStatus { get; set; }
 
-        public string Sid { get; set; }
+        public string Sid { get; set; } // LDAP user identificator
+
+        public string SsoNameId { get; set; } // SSO SAML user identificator
+        public string SsoSessionId { get; set; } // SSO SAML user session identificator
 
         public DateTime CreateDate { get; set; }
 

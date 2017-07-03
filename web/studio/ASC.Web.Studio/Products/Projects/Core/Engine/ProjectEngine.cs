@@ -156,9 +156,14 @@ namespace ASC.Projects.Engine
             return project;
         }
 
-        public IEnumerable<Project> GetByID(ICollection projectIDs)
+        public IEnumerable<Project> GetByID(ICollection projectIDs, bool checkSecurity = true)
         {
-            return projectDao.GetById(projectIDs).Where(canReadDelegate);
+            var projects =  projectDao.GetById(projectIDs);
+            if (checkSecurity)
+            {
+                projects = projects.Where(canReadDelegate).ToList();
+            }
+            return projects;
         }
 
         public bool IsExists(int projectID)

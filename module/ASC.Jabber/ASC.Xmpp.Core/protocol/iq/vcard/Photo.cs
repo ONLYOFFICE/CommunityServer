@@ -151,9 +151,13 @@ namespace ASC.Xmpp.Core.protocol.iq.vcard
                     }
                     else if (HasTag("EXTVAL"))
                     {
-                        WebRequest req = WebRequest.Create(GetTag("EXTVAL"));
-                        WebResponse response = req.GetResponse();
-                        return new Bitmap(response.GetResponseStream());
+                        var req = WebRequest.Create(GetTag("EXTVAL"));
+                        using (var response = req.GetResponse())
+                        using (var stream = response.GetResponseStream())
+                        {
+                            return new Bitmap(stream);
+                        }
+
                     }
                     else
                         return null;

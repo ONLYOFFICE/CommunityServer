@@ -17,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ASC.Web.Studio</RootNamespace>
     <AssemblyName>ASC.Web.Studio</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
     <FileUpgradeFlags>
@@ -52,6 +52,18 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.SingleSignOn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ASC.SingleSignOn.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ASC.Web.Core.dll</HintPath>
+    </Reference>
     <Reference Include="AWSSDK">
       <HintPath>..\..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
@@ -70,9 +82,6 @@
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="LinkedIn">
-      <HintPath>..\..\..\packages\LinkedIn.1.0.0.1\lib\net45\LinkedIn.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -82,19 +91,19 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception">
-      <HintPath>..\..\..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.Interception.4.0.1\lib\net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
-      <HintPath>..\..\..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.Interception.4.0.1\lib\net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
@@ -112,7 +121,7 @@
       <HintPath>..\..\packages\MimeKit.1.16.0\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -132,10 +141,11 @@
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\StackExchange.Redis.10.0.0.0\lib\net45\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\..\..\packages\StackExchange.Redis.1.2.3\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis.Extensions.Core">
-      <HintPath>..\..\..\packages\StackExchange.Redis.Extensions.Core.1.3.5.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\StackExchange.Redis.Extensions.Core.2.2.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections" />
@@ -230,6 +240,7 @@
     <Compile Include="Core\Import\LDAP\LDAPSaveSyncOperation.cs" />
     <Compile Include="Core\Quota\QuotaSync.cs" />
     <Compile Include="Core\WarmUp.cs" />
+    <Compile Include="HttpHandlers\SsoHandler.cs" />
     <Compile Include="PaymentRequired.aspx.cs">
       <DependentUpon>PaymentRequired.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1369,7 +1380,71 @@
     <Content Include="Templates\SharingSettingsTemplate.html" />
     <Content Include="Templates\UserProfileCardTemplate.html" />
     <Content Include="Templates\VoipTemplate.html" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\1px_image_background.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\default.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\formats.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Alexis_Ascui.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Alexsandr_Slusarev.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Alonso_Cardona_Pereira.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\andrewjcole_Scratch.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Andrey_Sidorenko.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Angie_Benitez_Serofani.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Arnaud_D.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Barb_Barrett.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Benjamin_Coate.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Ben_Low.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Bert_Beck.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Carlos_Alberto.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Ciprian_Ungureanu.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Clemens_Torno.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Daniel_Kueh.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Dave_Taylor.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\David_Williamson.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Denis_Steijn.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\dmitri_malikov.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Emanuel_Rodriguez.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Eric_Genestine.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Franck_Emile_Kouassi.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Frederick_Prince.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Herve_COURTOIS.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\ilya_rastorguev.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Jacob_Meyer.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Jigar_Jadav.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Joe_Merengue.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Jon_Cortes.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Jose_Juan.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Josh_Miller.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Kabeer_Ahmed.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\karina_verba.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Kasey_Esposito.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\kenneth_nitcheu.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Kev_M.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Linda-Stansfield.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Luis_chuta.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Marcelo_Trindade.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Mario_Alencar.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Mauricio_Oscar_Alberto_Piaggi.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Olga_Kaczmarczyk.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Omar_Gallardo.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Pedro_Vilanova.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Peter_Pavlovic.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\r_s.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\SaJu_CeLo.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Samuel_Valderrama_Martinez.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Sebastian_Reuter.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\sergey_matveev.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Sergey_Strelnikov.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Tim_Byers.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Tony_Harvey.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Varlam_Erofeich.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Vitaliy_Plitenko.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\vitali_koistrub.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\image_background.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\logo_chrombook.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\small_stars.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\sprite_acc.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\sprite_acc_ab.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\starsraring.png" />
     <Content Include="UserControls\Common\ckeditor\contents.css" />
     <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\default-action.png" />
     <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\link.png" />
@@ -1531,11 +1606,6 @@
     <Content Include="UserControls\Common\Attachments\Images\documents-logo.png" />
     <Content Include="UserControls\Common\Attachments\js\attachments.js" />
     <Content Include="UserControls\Common\AuthorizeDocs\AuthorizeDocs.ascx" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg01_top-center.jpg" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg01_top-right.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg_comp.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\btn_64.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\services_48.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\authorizedocs.less" />
     <Content Include="UserControls\Common\AuthorizeDocs\js\authorizedocs.js" />
     <Content Include="UserControls\Common\Authorize\Authorize.ascx" />
@@ -2181,7 +2251,6 @@
     <Compile Include="Controls\Common\FeedControl.cs" />
     <Compile Include="Core\StudioTrustedDomainSettings.cs" />
     <Compile Include="Core\CollaboratorSettings.cs" />
-    <Compile Include="Core\StudioKeySettings.cs" />
     <Compile Include="Core\Users\AffiliateHelper.cs" />
     <Compile Include="Core\Users\MyContact.cs" />
     <Compile Include="Core\Users\ProfileHelper.cs" />
@@ -2386,10 +2455,6 @@
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
@@ -2401,10 +2466,6 @@
     <ProjectReference Include="..\..\..\common\ASC.Notify.Textile\ASC.Notify.Textile.csproj">
       <Project>{659c514b-dd2c-41e3-a40e-4701216b1ea2}</Project>
       <Name>ASC.Notify.Textile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.SingleSignOn\ASC.SingleSignOn.csproj" Condition=" Exists('..\..\..\common\ASC.SingleSignOn\ASC.SingleSignOn.csproj') ">
-      <Project>{ef3ae6b9-4503-42a3-88bc-c622e178a59e}</Project>
-      <Name>ASC.SingleSignOn</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\module\ASC.Feed\ASC.Feed.csproj">
       <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
@@ -2433,10 +2494,6 @@
     <ProjectReference Include="..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
       <Name>ASC.VoipService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
