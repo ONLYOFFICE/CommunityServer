@@ -559,10 +559,10 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
   })();
 
   var setCursor = (function () {
-    if (browser.touch) {
+    /*if (browser.touch) {
       return function (wnd) {
       };
-    }
+    }*/
     if (simpleEditor === true) {
       return function (wnd) {
         window.focus();

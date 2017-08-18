@@ -5,5 +5,6 @@ Files/god/* etc/god/
 Files/Services/* var/www/onlyoffice/Services/
 Files/WebStudio/* var/www/onlyoffice/WebStudio/
 Files/sql/* var/www/onlyoffice/Sql/
+Files/tools/* var/www/onlyoffice/Tools/
 Files/licenses/* usr/share/doc/onlyoffice-communityserver/licenses/
 Files/ApiSystem/* var/www/onlyoffice/ApiSystem/

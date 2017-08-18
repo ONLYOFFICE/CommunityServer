@@ -27,10 +27,13 @@
 using System;
 using System.Configuration;
 using System.Web;
+using ASC.ActiveDirectory;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Core;
+using ASC.Core.Common.Settings;
+using ASC.SingleSignOn.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using log4net;
@@ -70,21 +73,38 @@ namespace ASC.Specific.CapabilitiesApi
         {
             try
             {
-                var ldapEnabled = false;
+                bool ldapEnabled;
 
-                if (SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()))
+                if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
+                    (CoreContext.Configuration.Standalone &&
+                     !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
                 {
-                    ldapEnabled = !CoreContext.Configuration.Standalone ||
-                                 CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap;
+                    ldapEnabled = false;
+                }
+                else
+                {
+                    var settings = SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
+
+                    ldapEnabled = settings.EnableLdapAuthentication;
                 }
 
-                var ssoUrl = string.Empty;
+                string ssoUrl;
 
-                if (SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()))
+                if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
+                    (CoreContext.Configuration.Standalone &&
+                     !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
                 {
-                    var ssoEnabled = !CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso;
+                    ssoUrl = string.Empty;
+                }
+                else
+                {
+                    var settings = SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID);
 
-                    if (ssoEnabled)
+                    if (!settings.EnableSso)
+                    {
+                        ssoUrl = string.Empty;
+                    }
+                    else
                     {
                         var uri = HttpContext.Current.Request.GetUrlRewriter();
 

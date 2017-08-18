@@ -62,20 +62,4 @@ $Message
 $__VirtualRootPath/products/files/#$FolderID
     </body>
   </pattern>
-
-  <pattern id="LinkToEmail" sender="email.sender">
-    <subject resource="|subject_LinkToEmail|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_LinkToEmail|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
-  </pattern>
-  <pattern id="LinkToEmail" sender="messanger.sender">
-    <subject resource="|subject_LinkToEmail|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
-    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
-
-$AccessRights
-
-$Message
-
-$DocumentURL
-    </body>
-  </pattern>
 </patterns>

@@ -98,18 +98,6 @@
       $helper = $combobox.find('input:first'),
       $options = $combobox.find('li.option-item'),
       $selected = $options.filter('.selected-item:first');
-
-
-    var containerHeight = jQuery('.combobox-container').height();
-
-    //If container is not placed in window
-    jq.each(jq(".combobox-container"), function (index, item) {
-        var containerHeight = jq(item).height();
-        if (2 * containerHeight > (jQuery(window).height() - jq(item.parentNode.parentNode).children('.combobox-title').offset().top + jq(item.parentNode.parentNode).children('.combobox-title').height())) {
-            jq(item).css('top', 'inherit');
-            jq(item).css('bottom', '25px');
-        }
-    });
     
     $options.removeClass('in-focus');
     if ($selected.length === 0) {

@@ -329,6 +329,8 @@ namespace ASC.Data.Backup.Tasks.Modules
 
         protected override bool TryPrepareValue(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
+            if (value == null) return false;
+
             if (table.Name == "crm_invoice" && columnName == "json_data")
             {
                 var data = JObject.Parse((string)value);

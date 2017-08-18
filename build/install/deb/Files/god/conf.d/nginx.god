@@ -7,7 +7,8 @@ God.watch do |w|
   w.restart = "/etc/init.d/nginx restart"
   w.pid_file = "/var/run/nginx.pid"
   w.behavior(:clean_pid_file)
-
+  w.keepalive
+  
   w.start_if do |start|
       start.condition(:process_running) do |c|
         c.interval = 10.seconds

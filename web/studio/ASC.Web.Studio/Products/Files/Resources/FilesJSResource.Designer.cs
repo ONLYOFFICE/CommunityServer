@@ -520,15 +520,6 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Complete the fields to send a message.
-        /// </summary>
-        public static string ErrorMassage_EmptyField {
-            get {
-                return ResourceManager.GetString("ErrorMassage_EmptyField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You cannot upload a folder or an empty file.
         /// </summary>
         public static string ErrorMassage_EmptyFile {
@@ -970,15 +961,6 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mails successfully sended.
-        /// </summary>
-        public static string InfoMailsSended {
-            get {
-                return ResourceManager.GetString("InfoMailsSended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You do not have access rights to move some file(s).
         /// </summary>
         public static string InfoMoveAccessError {
@@ -1195,20 +1177,20 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the recipient email address.
+        ///   Looks up a localized string similar to You have been granted access to the {0} document. Click the link below to open the document right now: {1}.
         /// </summary>
-        public static string shareLinkMail {
+        public static string shareLinkMailBody {
             get {
-                return ResourceManager.GetString("shareLinkMail", resourceCulture);
+                return ResourceManager.GetString("shareLinkMailBody", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Message.
+        ///   Looks up a localized string similar to You have been granted access to the {0} document.
         /// </summary>
-        public static string shareLinkMailMessage {
+        public static string shareLinkMailSubject {
             get {
-                return ResourceManager.GetString("shareLinkMailMessage", resourceCulture);
+                return ResourceManager.GetString("shareLinkMailSubject", resourceCulture);
             }
         }
         

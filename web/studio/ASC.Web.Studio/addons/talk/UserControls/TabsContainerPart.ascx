@@ -5,9 +5,11 @@
 
 <div id="talkTabContainer" class="studio-top-panel">
     <div class ="studio-top-logo">
-        <a class="top-logo" title="" href="">
+        <a title="" href=""><div class="talk-top-logo"></div></a>
+        <a title="" href=""><div class="talk-top-logo-label"></div></a>
+        <!--<a class="top-logo" title="" href="">
                 <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
-        </a>
+        </a> -->
     </div>
   <ul class="tabs">
    <!--<li class ="studio-top-logo" </li>
@@ -19,8 +21,8 @@
       <div class="left-side" unselectable="on"></div>
       <div class="right-side" unselectable="on"></div>
       <div class="container" unselectable="on">
-        <div class="state" unselectable="on"></div>
-        <div class="button-talk close" unselectable="on" style="font-size: 20px;" >×</div>        
+        <div class="button-talk close" unselectable="on" style="font-size: 20px;" >×</div>     
+        <div class="state" unselectable="on"></div>   
         <div class="tab-title" unselectable="on"></div>
       </div>
     </li>
@@ -29,9 +31,7 @@
     <div class="size studio-top-button-hidden-tabs">
         <div class="hiddennewmessage"></div>
         <div class="pointer-down"></div>
-        <div class="countHiddenTabs">
-            +<span class="all">0</span>
-        </div>
+        <div class="countHiddenTabs"><span class="all">0</span></div>
         
         
     </div>

@@ -42,18 +42,18 @@
             {{if $item.data.responsible == null}}
                     <span>${ASC.Projects.Resources.TasksResource.NoResponsible}</span>
             {{else}}
-                    <span {{if responsible.id=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}}class="not-action"{{else}} title="${ASC.Projects.Resources.ProjectResource.TitleTaskResponsibleUser}"{{/if}}>${responsible.displayName}</span>                                                          
-            {{/if}}                                
-            </div>    
+                    <span {{if responsible.id=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3'}}class="not-action"{{else}} title="${ASC.Projects.Resources.ProjectResource.TitleTaskResponsibleUser}"{{/if}}>${responsible.displayName}</span>
+            {{/if}}
+            </div>
         {{/if}}
         {{if $item.data.displayDateDeadline.length}} 
             <div class="deadline">
-                    <span class="timeLeft {{if ASC.Projects.TasksManager.compareDates($item.data.deadline)}}red{{/if}}">${displayDateDeadline}</span>                                                           
+                    <span class="timeLeft {{if ASC.Projects.TasksManager.compareDates($item.data.deadline)}}red{{/if}}">${displayDateDeadline}</span>
             </div>
         {{else}}
-            {{if $item.data.milestone != null}}                            
+            {{if $item.data.milestone != null}}
                 <div class='deadline'>
-                    <span class="timeLeft {{if !ASC.Projects.TasksManager.compareDates($item.data.milestone.deadline)}}red{{/if}}">${milestone.displayDateDeadline}</span>
+                    <span class="timeLeft {{if ASC.Projects.TasksManager.compareDates($item.data.milestone.deadline)}}red{{/if}}">${milestone.displayDateDeadline}</span>
                 </div>
             {{/if}} 
         {{/if}} 
@@ -63,9 +63,9 @@
         {{if $item.data.canEdit || $item.data.canCreateSubtask}}
                 <div class="quickAddSubTaskLink icon-link plus" {{if ($item.data.status == 1 || $item.data.status == 4) && ($item.data.subtasks.length)}}visible="true"{{else}}visible="false" style="display:none;"{{/if}}> 
                     <span class="link dotline" taskid="${id}">${ASC.Projects.Resources.TasksResource.AddNewSubtask}</span>
-                </div>                           
-        {{/if}}  
-        <div class="st_separater"></div>       
+                </div>
+        {{/if}}
+        <div class="st_separater"></div>
         </div> 
 </script>
 
@@ -84,12 +84,12 @@
         </div>             
 </script>
 
-<script id="projects_numSubtasksTmpl" type="text/x-jquery-tmpl">               
+<script id="projects_numSubtasksTmpl" type="text/x-jquery-tmpl">
     {{if ASC.Projects.TasksManager.openedCount($item.data.subtasks)}}
         <span class="collaps link dotline" title="${ASC.Projects.Resources.ProjectResource.TitleTaskOpenSubtasks}" taskid="${id}">+{{html ASC.Projects.TasksManager.openedCount($item.data.subtasks)}}</span>
     {{else}}
     {{if $item.data.canCreateSubtask}}
         <span class="add">+ ${ASC.Projects.Resources.TasksResource.Subtask}</span>
     {{/if}}
-    {{/if}}           
+    {{/if}}
 </script>

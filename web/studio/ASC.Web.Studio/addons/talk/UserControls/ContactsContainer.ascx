@@ -32,6 +32,7 @@
             <li class="group default" unselectable="on">
                 <div class="separator"></div>
                 <div class="head" unselectable="on">
+                    <div class="expander" unselectable="on"></div>
                     <div class="state" unselectable="on"></div>
                     <div class="size" unselectable="on">(<span class="online" unselectable="on"></span><span class="separator">/</span><span class="all" unselectable="on"></span>)</div>
                     <div class="title" unselectable="on"></div>

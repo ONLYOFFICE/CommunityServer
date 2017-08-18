@@ -1,0 +1,43 @@
+upstream fastcgi_backend {
+        server unix:/var/run/onlyoffice/onlyoffice.socket;
+        keepalive 32;
+}
+
+server {
+        listen 80;
+
+        fastcgi_keep_conn on;
+        fastcgi_index   Default.aspx;
+        fastcgi_intercept_errors on;
+
+
+        include fastcgi_params;
+
+        fastcgi_param HTTP_X_REWRITER_URL $http_x_rewriter_url;
+        fastcgi_param SERVER_NAME $host;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO "";
+
+        fastcgi_read_timeout    600;
+        fastcgi_send_timeout    600;
+
+
+        location / {
+                root    /var/www/onlyoffice/WebStudio/;
+                expires           0;
+                add_header        Cache-Control no-cache;
+                rewrite ^(.*)$ /StartConfigure.htm  break;
+        }
+
+	location /api {
+		fastcgi_pass fastcgi_backend;
+		break;
+	}
+
+        location  ~* ^/(warmup[2-9]?)/ {
+		rewrite /warmup([^/]*)/(.*) /$2 break;
+                fastcgi_pass unix:/var/run/onlyoffice/onlyoffice$1.socket;
+        }
+}
+
+

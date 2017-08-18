@@ -45,53 +45,69 @@ install_db(){
 
 	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
 
-	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then
-	    if ! grep -q "^sql_mode" /etc/mysql/mysql.conf.d/mysqld.cnf; then
-        	sed "/\[mysqld\]/a sql_mode = 'NO_ENGINE_SUBSTITUTION'" -i /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
+	CNF_PATH="/etc/mysql/mysql.conf.d/mysqld.cnf";
+	CNF_SERVICE_PATH="/lib/systemd/system/mysql.service";
+
+	if mysql -V | grep -q "MariaDB"; then
+		CNF_PATH="/etc/mysql/mariadb.conf.d/50-server.cnf";
+		CNF_SERVICE_PATH="/lib/systemd/system/mariadb.service";
+	fi
+
+
+	if [ -e ${CNF_PATH} ]; then
+	    if ! grep -q "^sql_mode" ${CNF_PATH}; then
+        	sed "/\[mysqld\]/a sql_mode = 'NO_ENGINE_SUBSTITUTION'" -i ${CNF_PATH} # disable new STRICT mode in mysql 5.7
 	    else
-		sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # ignore errors
+		sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i ${CNF_PATH} || true # ignore errors
             fi
 
-	    if ! grep -q "^max_connections"  /etc/mysql/mysql.conf.d/mysqld.cnf; then
-        	sed '/\[mysqld\]/a max_connections = 1000' -i /etc/mysql/mysql.conf.d/mysqld.cnf
+	    if ! grep -q "^max_connections"  ${CNF_PATH}; then
+        	sed '/\[mysqld\]/a max_connections = 1000' -i ${CNF_PATH}
 	    else
-		sed "s/max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # ignore errors
+		sed "s/max_connections.*/max_connections = 1000/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
-	    if ! grep -q "^max_allowed_packet"  /etc/mysql/mysql.conf.d/mysqld.cnf; then
-        	sed '/\[mysqld\]/a max_allowed_packet = 1048576000' -i /etc/mysql/mysql.conf.d/mysqld.cnf
+	    if ! grep -q "^max_allowed_packet"  ${CNF_PATH}; then
+        	sed '/\[mysqld\]/a max_allowed_packet = 1048576000' -i ${CNF_PATH}
 	    else
-		sed "s/max_allowed_packet.*/max_allowed_packet = 1048576000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # ignore errors
+		sed "s/max_allowed_packet.*/max_allowed_packet = 1048576000/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
-	    if [ -e /lib/systemd/system/mysql.service ]; then
-                if ! grep -q "^LimitNOFILE"  /lib/systemd/system/mysql.service; then
-                        sed '/\[Service\]/a LimitNOFILE = infinity' -i /lib/systemd/system/mysql.service
+	    if [ -e ${CNF_SERVICE_PATH} ]; then
+                if ! grep -q "^LimitNOFILE"  ${CNF_SERVICE_PATH}; then
+                        sed '/\[Service\]/a LimitNOFILE = infinity' -i ${CNF_SERVICE_PATH}
                 else
-                        sed "s/LimitNOFILE.*/LimitNOFILE = infinity/" -i /lib/systemd/system/mysql.service || true # ignore errors
+                        sed "s/LimitNOFILE.*/LimitNOFILE = infinity/" -i ${CNF_SERVICE_PATH} || true # ignore errors
                 fi
 
-                if ! grep -q "^LimitMEMLOCK"  /lib/systemd/system/mysql.service; then
-                        sed '/\[Service\]/a LimitMEMLOCK = infinity' -i /lib/systemd/system/mysql.service
+                if ! grep -q "^LimitMEMLOCK"  ${CNF_SERVICE_PATH}; then
+                        sed '/\[Service\]/a LimitMEMLOCK = infinity' -i ${CNF_SERVICE_PATH}
                 else
-                        sed "s/LimitMEMLOCK.*/LimitMEMLOCK = infinity/" -i /lib/systemd/system/mysql.service || true # ignore errors
+                        sed "s/LimitMEMLOCK.*/LimitMEMLOCK = infinity/" -i ${CNF_SERVICE_PATH} || true # ignore errors
                 fi
 
                 systemctl daemon-reload
             
 	    fi
-
-  	    service mysql restart
-
-	    if [ -z "$DB_PWD" ] && [ "$DB_USER" = "root" ]; then
-        	   # allow MySql.Data.dll connect via mysql_native_password with root and empty password
-               $MYSQL -D "mysql" -e "update user set plugin='mysql_native_password' where user='root';"
-	    fi
-
 	fi
 
-	# test mysql connection
-	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
+	$MYSQL -e ";" >/dev/null 2>&1 || ( service mysql start >/dev/null 2>&1 && $MYSQL -e ";" >/dev/null )
+
+        if [ "${DB_USER}" = "root" ]; then
+       	   # allow MySql.Data.dll connect via mysql_native_password with root and empty password
+           $MYSQL -D "mysql" -e "UPDATE user SET plugin='mysql_native_password' WHERE user='${DB_USER}' and host='localhost';"
+	fi
+
+	service mysql restart
+
+	# hack for Debian 9 (mariadb)
+	if [ -n "${DB_PWD}" ] && [ "${DB_USER}" = "root" ] && mysql -e ";" >/dev/null 2>&1; then
+
+mysql <<EOF
+UPDATE mysql.user SET Password=PASSWORD("${DB_PWD}") WHERE User="${DB_USER}";
+FLUSH PRIVILEGES;
+EOF
+	fi
 
 	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
 

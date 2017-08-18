@@ -117,13 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="pattern_LinkToEmail" xml:space="preserve">
-    <value>h1. Access granted to document: "$DocumentTitle":"$DocumentURL"
-
-$__DateTime $__AuthorName ("$UserEmail":"mailto:$UserEmail") granted you the access to the "$DocumentTitle":"$DocumentURL" document with the following access rights: "$AccessRights".
-
-$Message</value>
-  </data>
   <data name="pattern_DocuSignComplete" xml:space="preserve">
     <value>h1. All signers completed $DocumentTitle
 
@@ -164,9 +157,6 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" granted you the access to the "$Docum
 $Message 
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about the shared folders, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
-  </data>
-  <data name="subject_LinkToEmail" xml:space="preserve">
-    <value>Documents. You are granted access to $DocumentTitle</value>
   </data>
   <data name="subject_DocuSignComplete" xml:space="preserve">
     <value>Documents. All signers completed $DocumentTitle</value>

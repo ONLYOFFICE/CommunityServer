@@ -25,9 +25,11 @@
 
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Utility;
@@ -36,6 +38,9 @@ namespace ASC.Web.Core.WhiteLabel
 {
     public class TenantLogoManager
     {
+        private static readonly ICache Cache = AscCache.Default;
+        private const string CacheKey = "letterlogodata";
+
         public static bool WhiteLabelEnabled
         {
             get;
@@ -52,11 +57,11 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static string GetFavicon(bool general, bool timeParam)
         {
-            var faviconPath = "";
+            string faviconPath;
             if (WhiteLabelEnabled)
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-                faviconPath = _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, general);
+                var tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                faviconPath = tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, general);
                 if (timeParam) {
                     var now = DateTime.Now;
                     faviconPath = String.Format("{0}?t={1}", faviconPath, now.Ticks);
@@ -74,9 +79,9 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                var tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
 
-                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
+                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
             }
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
         }
@@ -84,13 +89,13 @@ namespace ASC.Web.Core.WhiteLabel
         public static string GetLogoDark(bool general) {
             if (WhiteLabelEnabled)
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
+                var tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
             }
 
             /*** simple scheme ***/
-            var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
-            return _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
+            var tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+            return tenantInfoSettings.GetAbsoluteCompanyLogoPath();
             /***/
         }
 
@@ -98,8 +103,8 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
+                var tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
             }
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
         }
@@ -108,9 +113,9 @@ namespace ASC.Web.Core.WhiteLabel
         {
             if (WhiteLabelEnabled)
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                var tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
 
-                return _tenantWhiteLabelSettings.LogoText != null ? _tenantWhiteLabelSettings.LogoText : TenantWhiteLabelSettings.DefaultLogoText;
+                return tenantWhiteLabelSettings.LogoText ?? TenantWhiteLabelSettings.DefaultLogoText;
             }
             return TenantWhiteLabelSettings.DefaultLogoText;
         }
@@ -118,7 +123,7 @@ namespace ASC.Web.Core.WhiteLabel
         public static bool IsRetina(HttpRequest request)
         {
             var isRetina = false;
-            if (request != null && request.Cookies != null)
+            if (request != null)
             {
                 var cookie = request.Cookies["is_retina"];
                 if (cookie != null && !String.IsNullOrEmpty(cookie.Value))
@@ -139,6 +144,39 @@ namespace ASC.Web.Core.WhiteLabel
             {
                 return CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).WhiteLabel;
             }
+        }
+
+        /// <summary>
+        /// Get logo stream or null in case of default logo
+        /// </summary>
+        public static Stream GetWhitelabelMailLogo()
+        {
+            if (WhiteLabelEnabled)
+            {
+                var tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                return tenantWhiteLabelSettings.GetWhitelabelLogoData(WhiteLabelLogoTypeEnum.Dark, true);
+            }
+
+            /*** simple scheme ***/
+            var tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+            return tenantInfoSettings.GetStorageLogoData();
+            /***/
+        }
+
+
+        public static byte[] GetMailLogoDataFromCache()
+        {
+            return Cache.Get<byte[]>(CacheKey);
+        }
+
+        public static void InsertMailLogoDataToCache(byte[] data)
+        {
+            Cache.Insert(CacheKey, data, DateTime.UtcNow.Add(TimeSpan.FromDays(1)));
+        }
+
+        public static void RemoveMailLogoDataFromCache()
+        {
+            Cache.Remove(CacheKey);
         }
     }
 }

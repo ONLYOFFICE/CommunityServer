@@ -38,11 +38,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using ASC.Core;
 using ASC.Mail.Aggregator.CollectionService.Queue;
+using ASC.Mail.Aggregator.CollectionService.Queue.Data;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Clients;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
-using DotNetOpenAuth.Messaging;
 using MailKit.Security;
 using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Utils;
@@ -52,7 +52,6 @@ using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MimeKit;
 using MySql.Data.MySqlClient;
-using TimeoutException = System.TimeoutException;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
@@ -307,7 +306,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 while (tasks.Any())
                 {
                     // Identify the first task that completes.
-                    var indexTask = Task.WaitAny(tasks.ToArray<Task>(), (int)_tsTaskStateCheckInterval.TotalMilliseconds, cancelToken);
+                    var indexTask = Task.WaitAny(tasks.Select(t => t.Task).ToArray(), (int)_tsTaskStateCheckInterval.TotalMilliseconds, cancelToken);
                     if (indexTask > -1)
                     {
                         // ***Remove the selected task from the list so that you don't 
@@ -323,20 +322,20 @@ namespace ASC.Mail.Aggregator.CollectionService
                                 tasks.Select(
                                     t =>
                                         string.Format("Id: {0} Status: {1}, MailboxId: {2} Address: '{3}'",
-                                            t.Id, t.Status, t.Result.MailBoxId, t.Result.EMail))));
+                                            t.Task.Id, t.Task.Status, t.Mailbox.MailBoxId, t.Mailbox.EMail))));
                     }
 
                     var tasks2Free =
                         tasks.Where(
                             t =>
-                            t.Status == TaskStatus.Canceled || t.Status == TaskStatus.Faulted ||
-                            t.Status == TaskStatus.RanToCompletion).ToList();
+                            t.Task.Status == TaskStatus.Canceled || t.Task.Status == TaskStatus.Faulted ||
+                            t.Task.Status == TaskStatus.RanToCompletion).ToList();
 
                     if (tasks2Free.Any())
                     {
                         _log.Info("Need free next tasks = {0}: ({1})", tasks2Free.Count,
                                   string.Join(",",
-                                              tasks2Free.Select(t => t.Id.ToString(CultureInfo.InvariantCulture))));
+                                              tasks2Free.Select(t => t.Task.Id.ToString(CultureInfo.InvariantCulture))));
 
                         tasks2Free.ForEach(task => FreeTask(task, tasks));
                     }
@@ -350,7 +349,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     tasks.AddRange(newTasks);
 
                     _log.Info("Total tasks count = {0} ({1}).", tasks.Count,
-                              string.Join(",", tasks.Select(t => t.Id)));
+                              string.Join(",", tasks.Select(t => t.Task.Id)));
                 }
 
                 _log.Info("All mailboxes were processed. Go back to timer.");
@@ -428,13 +427,13 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
         }
 
-        private List<Task<MailBox>> CreateTasks(int needCount, CancellationToken cancelToken)
+        private List<TaskData> CreateTasks(int needCount, CancellationToken cancelToken)
         {
             _log.Info("CreateTasks(need {0} tasks).", needCount);
 
             var mailboxes = _queueManager.GetLockedMailboxes(needCount);
 
-            var tasks = new List<Task<MailBox>>();
+            var tasks = new List<TaskData>();
 
             foreach (var mailbox in mailboxes)
             {
@@ -458,7 +457,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 var task = _taskFactory.StartNew(() => ProcessMailbox(client, _tasksConfig),
                     commonCancelToken);
 
-                tasks.Add(task);
+                tasks.Add(new TaskData(mailbox, task));
             }
 
             if (tasks.Any())
@@ -502,7 +501,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 client.LoginImapPop();
             }
-            catch (TimeoutException exTimeout)
+            catch (System.TimeoutException exTimeout)
             {
                 log.Warn(
                     "[TIMEOUT] CreateTasks->client.LoginImapPop(Tenant = {0}, MailboxId = {1}, Address = '{2}') Exception: {3}",
@@ -604,7 +603,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
         }
 
-        private MailBox ProcessMailbox(MailClient client, TasksConfig tasksConfig)
+        private void ProcessMailbox(MailClient client, TasksConfig tasksConfig)
         {
             var mailbox = client.Account;
 
@@ -698,8 +697,6 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
 
             taskLogger.Info("Mailbox '{0}' has been processed.", mailbox.EMail);
-
-            return mailbox;
         }
 
         private void ClientOnAuthenticated(object sender, MailClientEventArgs mailClientEventArgs)
@@ -1089,7 +1086,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             return string.Empty;
         }
 
-        private bool TryStoreMailData(MailMessage message, MailBox mailbox, ILogger log)
+        private static bool TryStoreMailData(MailMessage message, MailBox mailbox, ILogger log)
         {
             var manager = new MailBoxManager(log);
 
@@ -1129,18 +1126,25 @@ namespace ASC.Mail.Aggregator.CollectionService
             return true;
         }
 
-        private void FreeTask(Task<MailBox> task, ICollection<Task<MailBox>> tasks)
+        private void FreeTask(TaskData taskData, ICollection<TaskData> tasks)
         {
-            _log.Debug("End Task {0} with status = '{1}'.", task.Id, task.Status);
+            try
+            {
+                _log.Debug("End Task {0} with status = '{1}'.", taskData.Task.Id, taskData.Task.Status);
 
-            if (!tasks.Remove(task))
-                _log.Error("Task not exists in tasks array.");
+                if (!tasks.Remove(taskData))
+                    _log.Error("Task not exists in tasks array.");
 
-            var mailbox = task.Result;
+                var mailbox = taskData.Mailbox;
 
-            ReleaseMailbox(mailbox);
+                ReleaseMailbox(mailbox);
 
-            task.Dispose();
+                taskData.Task.Dispose();
+            }
+            catch (Exception ex)
+            {
+                _log.Error("FreeTask(id:'{0}', email:'{1}'): Exception:\r\n{2}\r\n", taskData.Mailbox.MailBoxId, taskData.Mailbox.EMail, ex.ToString());
+            }
         }
 
         private void ReleaseMailbox(MailBox mailbox)

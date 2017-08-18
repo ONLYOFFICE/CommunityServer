@@ -204,25 +204,22 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + AccessToken);
 
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                if (file.Size.HasValue && file.Size > 0)
-                {
-                    return new ResponseStream(response.GetResponseStream(), file.Size.Value);
-                }
+            var response = (HttpWebResponse)request.GetResponse();
 
-                var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
-                using (var str = response.GetResponseStream())
-                {
-                    if (str != null)
-                    {
-                        str.CopyTo(tempBuffer);
-                        tempBuffer.Flush();
-                        tempBuffer.Seek(0, SeekOrigin.Begin);
-                    }
-                }
-                return tempBuffer;
+            if (file.Size.HasValue && file.Size > 0)
+            {
+                return new ResponseStream(response.GetResponseStream(), file.Size.Value);
             }
+
+            var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+            var str = response.GetResponseStream();
+            if (str != null)
+            {
+                str.CopyTo(tempBuffer);
+                tempBuffer.Flush();
+                tempBuffer.Seek(0, SeekOrigin.Begin);
+            }
+            return tempBuffer;
         }
 
         public DriveFile InsertEntry(Stream fileStream, string title, string parentId, bool folder = false)

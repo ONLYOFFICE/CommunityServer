@@ -1510,15 +1510,6 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send.
-        /// </summary>
-        public static string LinkViaMailSend {
-            get {
-                return ResourceManager.GetString("LinkViaMailSend", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -1848,33 +1839,6 @@ namespace ASC.Web.Files.Resources {
         public static string SharedForMe {
             get {
                 return ResourceManager.GetString("SharedForMe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Message.
-        /// </summary>
-        public static string ShareLinkMailMessage {
-            get {
-                return ResourceManager.GetString("ShareLinkMailMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add a comment.
-        /// </summary>
-        public static string ShareLinkMailMessageTitle {
-            get {
-                return ResourceManager.GetString("ShareLinkMailMessageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send a link to the following addresses:.
-        /// </summary>
-        public static string ShareLinkMailTo {
-            get {
-                return ResourceManager.GetString("ShareLinkMailTo", resourceCulture);
             }
         }
         

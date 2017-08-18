@@ -156,7 +156,7 @@ jq(function () {
                 }
             });
 
-            shuffle(reviews);
+            //shuffle(reviews);
             reviews.forEach(function (review) {
                 review.stars = new Array(parseInt(review.rating));
                 if (review.photo) {

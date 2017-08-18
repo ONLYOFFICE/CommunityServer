@@ -532,6 +532,9 @@ window.ASC.Files.UI = (function () {
                 ASC.Files.UI.selectRow(jq(this), !jq(this).hasClass("row-selected"));
             });
         } else if (!target.is(".checkbox")) {
+            if (jq(".row-selected").length > 1) {
+                select = true;
+            }
             ASC.Files.UI.checkSelectAll(false);
         }
 
@@ -1133,7 +1136,7 @@ window.ASC.Files.UI = (function () {
         jq("#filesMainContent").on("click", ".file-row", ASC.Files.UI.clickRow);
 
         jq("#filesMainContent").on("dblclick", ".file-row", function (event) {
-            if (jq(event.srcElement || event.target).is("input, #contentVersions, #contentVersions *")) {
+            if (jq(event.srcElement || event.target).is("input, .checkbox, #contentVersions, #contentVersions *")) {
                 return;
             }
             jq(this).closest(".file-row").find(".entry-title .name a").trigger("click");

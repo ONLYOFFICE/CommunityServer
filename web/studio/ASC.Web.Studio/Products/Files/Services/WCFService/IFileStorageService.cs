@@ -115,8 +115,6 @@ namespace ASC.Web.Files.Services.WCFService
 
         String GetShortenLink(String fileId);
 
-        void SendLinkToEmail(String fileId, MessageParams messageAddresses);
-
         bool StoreOriginal(bool store);
 
         bool UpdateIfExist(bool update);

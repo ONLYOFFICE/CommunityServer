@@ -87,19 +87,6 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1. Access granted to document: &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;
-        ///
-        ///$__DateTime $__AuthorName (&quot;$UserEmail&quot;:&quot;mailto:$UserEmail&quot;) granted you the access to the &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot; document with the following access rights: &quot;$AccessRights&quot;.
-        ///
-        ///$Message.
-        /// </summary>
-        public static string pattern_LinkToEmail {
-            get {
-                return ResourceManager.GetString("pattern_LinkToEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to h1. Mailing completed
         ///
         ///This is a mail message to notify you that you have requested the mailing of $MailsCount messages and the process is now complete. $Message
@@ -175,15 +162,6 @@ namespace ASC.Web.Files.Services.NotifyService {
         public static string subject_DocuSignStatus {
             get {
                 return ResourceManager.GetString("subject_DocuSignStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Documents. You are granted access to $DocumentTitle.
-        /// </summary>
-        public static string subject_LinkToEmail {
-            get {
-                return ResourceManager.GetString("subject_LinkToEmail", resourceCulture);
             }
         }
         

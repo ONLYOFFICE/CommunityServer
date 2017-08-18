@@ -709,15 +709,6 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Too many addresses.
-        /// </summary>
-        public static string ErrorMassage_ManyEmailAddresses {
-            get {
-                return ResourceManager.GetString("ErrorMassage_ManyEmailAddresses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sorry, this file format isn&apos;t supported.
         /// </summary>
         public static string ErrorMassage_NotSupportedFormat {
@@ -1182,15 +1173,6 @@ namespace ASC.Web.Files.Resources {
         public static string ShareFolder {
             get {
                 return ResourceManager.GetString("ShareFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sending link.
-        /// </summary>
-        public static string ShareLinkMail {
-            get {
-                return ResourceManager.GetString("ShareLinkMail", resourceCulture);
             }
         }
         

@@ -51,7 +51,8 @@ if (!ASC.Controls.JabberClient) {
         jid: null,
         winName: 'ASCJabberClient' + location.hostname,
         helperId: 'JabberClientHelper-' + Math.floor(Math.random() * 1000000),
-        params: 'ontouchend' in document ? '' : 'width=900,height=600,status=no,toolbar=no,menubar=no,resizable=yes,scrollbars=no',
+        params: '', //in new tab
+        //params: 'ontouchend' in document ? '' : 'width=900,height=600,status=no,toolbar=no,menubar=no,resizable=yes,scrollbars=no,target=_blank', //in new window
         pathCmdHandler: '',
         pathWebTalk: '',
         init: function (name, talkpath, cmdpath) {

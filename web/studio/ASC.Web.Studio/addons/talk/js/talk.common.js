@@ -1356,26 +1356,30 @@ window.ASC.TMTalk.notifications  = (function () {
           return;
       }
       if (window.Notification) {
-         try {
-             var messaging = window.firebase.messaging();
-             messaging.requestPermission()
-                 .then(function() {
-                     return messaging.getToken();
-                 })
-                 .then(function(token) {
-                     var browser = getBrowser();
-                     var username = ASC.TMTalk.connectionManager.getJID();
-                     username = username.split('@')[0];
-                     var endpoint = token;
-                     ASC.TMTalk.connectionManager.savePushEndpoint(username, endpoint, browser);
-                 })
-                 .catch(function(err) {
-                     console.log("Permission error:", err);
-                 });
-         } catch(exp) {
-         } finally {
-             Notification.requestPermission()
-                 .then(function() {
+          try {
+              var messaging = window.firebase.messaging();
+              messaging.requestPermission()
+                  .then(function() {
+                      if (Notification.permission != 'denied') {
+                          isDisabled = false;
+                          ASC.TMTalk.properties.item(propertyName, "1", true);
+                          jq('#button-browser-notification').addClass('on').removeClass('off');
+                      }
+                      return messaging.getToken();
+                  })
+                  .then(function(token) {
+                      var browser = getBrowser();
+                      var username = ASC.TMTalk.connectionManager.getJID();
+                      username = username.split('@')[0];
+                      var endpoint = token;
+                      ASC.TMTalk.connectionManager.savePushEndpoint(username, endpoint, browser);
+                  })
+                  .catch(function(err) {
+                      console.log("Permission error:", err);
+                  });
+          } catch(exp) {
+              Notification.requestPermission()
+                 .then(function () {
                      if (Notification.permission === 'denied') {
                          return;
                      }
@@ -1383,7 +1387,7 @@ window.ASC.TMTalk.notifications  = (function () {
                      ASC.TMTalk.properties.item(propertyName, "1", true);
                      jq('#button-browser-notification').addClass('on').removeClass('off');
                  });
-         }
+          }
         }
     };
 
@@ -1414,24 +1418,27 @@ window.ASC.TMTalk.notifications  = (function () {
     var disable = function () {
         isDisabled = true;
         ASC.TMTalk.properties.item(propertyName, "0", true);
-        navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
-            serviceWorkerRegistration.pushManager.getSubscription().then(
-                function(subscription) {
-                    if (!subscription) {
-                        return;
-                    }
-                    subscription.unsubscribe().then(function(successful) {
+        if ('serviceWorker' in navigator) {
 
-                    }).catch(function(e) {
-                        console.log('Unsubscription error: ', e);
-                    });
+                navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+                    serviceWorkerRegistration.pushManager.getSubscription().then(
+                        function (subscription) {
+                            if (!subscription) {
+                                return;
+                            }
+                            subscription.unsubscribe().then(function (successful) {
+
+                            }).catch(function (e) {
+                                console.log('Unsubscription error: ', e);
+                            });
+                        });
                 });
-        });
+        }
     };
 
     var initialiseFirebase = function (config) {
         if (typeof config === "object") {
-            if (!jQuery.browser.msie) {
+            if ('serviceWorker' in navigator && !jQuery.browser.msie) {
                 try {
                     window.firebase.initializeApp(config);
                 } catch(e) {
@@ -1442,24 +1449,25 @@ window.ASC.TMTalk.notifications  = (function () {
             }
             //Are service workers supported in this browser
             if ('serviceWorker' in navigator && !jQuery.browser.msie) {
-                navigator.serviceWorker.register('talk.notification.js')
+                    navigator.serviceWorker.register('talk.notification.js')
                     .then(initialiseState);
             }
         } else {
-            if (!jQuery.browser.msie) {
-                navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-                    serviceWorkerRegistration.pushManager.getSubscription().then(
-                        function(subscription) {
-                            if (!subscription) {
-                                return;
-                            }
-                            subscription.unsubscribe().then(function(successful) {
+            if ('serviceWorker' in navigator && !jQuery.browser.msie) {
 
-                            }).catch(function(e) {
-                                console.log('Unsubscription error: ', e);
+                    navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+                        serviceWorkerRegistration.pushManager.getSubscription().then(
+                            function (subscription) {
+                                if (!subscription) {
+                                    return;
+                                }
+                                subscription.unsubscribe().then(function (successful) {
+
+                                }).catch(function (e) {
+                                    console.log('Unsubscription error: ', e);
+                                });
                             });
-                        });
-                });
+                    });
             }
     }
     };
@@ -1470,8 +1478,7 @@ window.ASC.TMTalk.notifications  = (function () {
         if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
             return;
         }
-        setTimeout(enable, 500);
-        
+        if (enabled()) setTimeout(enable, 500);
     }
  
   var enabled = function () {

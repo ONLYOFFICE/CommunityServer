@@ -28,7 +28,7 @@
 
         <h2><%: Resource.AboutPersonalQuestionHeader %></h2>
         <p><%= String.Format(Resource.AboutPersonalQuestionText.HtmlEncode(), 
-           "<a href=\"mailto:personal@onlyoffice.com\">", "<a target=\"_blank\" href=\"https://www.facebook.com/TeamLab\">","</a>") %></p>
+           "<a href=\"mailto:personal@onlyoffice.com\">", "<a target=\"_blank\" href=\"https://www.facebook.com/OnlyOffice-833032526736775/\">","</a>") %></p>
     </div>
      <asp:PlaceHolder runat="server" ID="PersonalFooterHolder"></asp:PlaceHolder>
 </asp:Content>

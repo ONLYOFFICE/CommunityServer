@@ -37,7 +37,6 @@ namespace ASC.Web.Files.Services.NotifyService
         public static readonly INotifyAction Event_MailMergeEnd = new NotifyAction("MailMergeEnd", "mail merge end");
         public static readonly INotifyAction Event_ShareDocument = new NotifyAction("ShareDocument", "share document");
         public static readonly INotifyAction Event_ShareFolder = new NotifyAction("ShareFolder", "share folder");
-        public static readonly INotifyAction Event_LinkToEmail = new NotifyAction("LinkToEmail", "link to email");
 
         #endregion
 
@@ -48,7 +47,6 @@ namespace ASC.Web.Files.Services.NotifyService
         public static readonly string Tag_DocumentUrl = "DocumentURL";
         public static readonly string Tag_AccessRights = "AccessRights";
         public static readonly string Tag_Message = "Message";
-        public static readonly string Tag_UserEmail = "UserEmail";
         public static readonly string Tag_MailsCount = "MailsCount";
 
         #endregion

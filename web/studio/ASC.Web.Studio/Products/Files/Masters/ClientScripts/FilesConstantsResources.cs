@@ -115,8 +115,6 @@ namespace ASC.Web.Files.Masters.ClientScripts
                                     },
 
                                 DocuSignFormats = DocuSignHelper.SupportedFormats,
-
-                                UrlShareLink = ShareLink.Location + "?" + FilesLinkUtility.FileId + "={0}",
                             })
                 };
         }

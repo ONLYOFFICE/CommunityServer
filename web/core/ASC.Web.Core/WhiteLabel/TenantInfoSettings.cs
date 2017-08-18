@@ -27,6 +27,7 @@
 using System;
 using System.Configuration;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using ASC.Core;
@@ -85,6 +86,8 @@ namespace ASC.Web.Core.WhiteLabel
             {
             }
             CompanyLogoSize = default(Size);
+
+            TenantLogoManager.RemoveMailLogoDataFromCache();
         }
 
         public void SetCompanyLogo(string companyLogoFileName, byte[] data)
@@ -110,6 +113,8 @@ namespace ASC.Web.Core.WhiteLabel
                 _companyLogoFileName = companyLogoFileName;
             }
             _isDefault = false;
+
+            TenantLogoManager.RemoveMailLogoDataFromCache();
         }
 
         public string GetAbsoluteCompanyLogoPath()
@@ -121,6 +126,22 @@ namespace ASC.Web.Core.WhiteLabel
 
             var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "logo");
             return store.GetUri(_companyLogoFileName ?? "").ToString();
+        }
+
+        /// <summary>
+        /// Get logo stream or null in case of default logo
+        /// </summary>
+        public Stream GetStorageLogoData()
+        {
+            if (_isDefault) return null;
+
+            var storage = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(CultureInfo.InvariantCulture), "logo");
+
+            if (storage == null) return null;
+
+            var fileName = _companyLogoFileName ?? "";
+
+            return storage.IsFile(fileName) ? storage.GetReadStream(fileName) : null;
         }
 
         public Guid ID

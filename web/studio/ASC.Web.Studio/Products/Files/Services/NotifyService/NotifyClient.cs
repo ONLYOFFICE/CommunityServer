@@ -93,32 +93,6 @@ namespace ASC.Web.Files.Services.NotifyService
                 );
         }
 
-        public static void SendLinkToEmail(File file, String url, String message, List<String> addressRecipients)
-        {
-            if (file == null || String.IsNullOrEmpty(url))
-                throw new ArgumentException();
-
-            foreach (var recipients in addressRecipients
-                .Select(addressRecipient => (IRecipient) (new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), String.Empty, new[] {addressRecipient}, false))))
-            {
-                Instance.SendNoticeToAsync(
-                    NotifyConstants.Event_LinkToEmail,
-                    null,
-                    new[] {recipients},
-                    new[] {ASC.Core.Configuration.Constants.NotifyEMailSenderSysName},
-                    null,
-                    new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title),
-                    new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(url)),
-                    new TagValue(NotifyConstants.Tag_AccessRights, GetAccessString(file.Access, CultureInfo.CurrentUICulture)),
-                    new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode()),
-                    new TagValue(NotifyConstants.Tag_UserEmail, CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email),
-                    new TagValue(CommonTags.WithPhoto, CoreContext.Configuration.Personal ? "personal" : ""),
-                    new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
-                    new TagValue("noUnsubscribeLink", "true")
-                    );
-            }
-        }
-
         public static void SendShareNotice(FileEntry fileEntry, Dictionary<Guid, FileShare> recipients, string message)
         {
             if (fileEntry == null || recipients.Count == 0) return;

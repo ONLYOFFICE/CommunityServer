@@ -585,9 +585,6 @@
   <data name="LinkViaMail" xml:space="preserve">
     <value>via email</value>
   </data>
-  <data name="LinkViaMailSend" xml:space="preserve">
-    <value>Send</value>
-  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
@@ -689,15 +686,6 @@
   </data>
   <data name="SharedForMe" xml:space="preserve">
     <value>Shared with Me</value>
-  </data>
-  <data name="ShareLinkMailTo" xml:space="preserve">
-    <value>Send a link to the following addresses:</value>
-  </data>
-  <data name="ShareLinkMailMessage" xml:space="preserve">
-    <value>Message</value>
-  </data>
-  <data name="ShareLinkMailMessageTitle" xml:space="preserve">
-    <value>Add a comment</value>
   </data>
   <data name="SharingLinkCaption" xml:space="preserve">
     <value>Set up the access right for the link</value>

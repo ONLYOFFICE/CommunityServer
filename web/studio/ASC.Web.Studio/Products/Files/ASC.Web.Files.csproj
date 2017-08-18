@@ -149,13 +149,6 @@
     <Compile Include="HttpHandlers\docusignhandler.ashx.cs">
       <DependentUpon>docusignhandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="ShareLink.aspx.cs">
-      <DependentUpon>ShareLink.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ShareLink.aspx.designer.cs">
-      <DependentUpon>ShareLink.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Import\Box\Box.aspx.cs">
       <DependentUpon>Box.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -264,7 +257,6 @@
     </Compile>
     <Compile Include="Masters\ClientScripts\FilesLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\FilesConstantsResources.cs" />
-    <Content Include="App_Themes\Default\sharelink.css" />
     <Content Include="App_Themes\Default\mailmerge.css" />
     <Content Include="App_Themes\Default\Images\documents_appstore.png" />
     <Content Include="Controls\ChunkUploadDialog\chunkuploadmanager.js" />
@@ -291,8 +283,6 @@
     <Content Include="Controls\MoreFeatures\css\morefeatures.css" />
     <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
     <Content Include="Controls\GoogleConversionScript.ascx" />
-    <Content Include="js\sharelink.js" />
-    <Content Include="ShareLink.aspx" />
     <Content Include="Import\Box\Box.aspx" />
     <Content Include="Import\DocuSign\DocuSign.aspx" />
     <Content Include="Import\DropBox\DropboxV2.aspx" />
@@ -371,7 +361,6 @@
     <Compile Include="Services\WCFService\Wrappers\AceWrapper.cs" />
     <Compile Include="Services\WCFService\Wrappers\BaseTypeWrapper.cs" />
     <Compile Include="Services\WCFService\Wrappers\DataWrapper.cs" />
-    <Compile Include="Services\WCFService\Wrappers\MessageParams.cs" />
     <Compile Include="Services\WCFService\Wrappers\ThirdPartyParams.cs" />
   </ItemGroup>
   <ItemGroup>

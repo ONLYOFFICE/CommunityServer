@@ -16,7 +16,7 @@ location /controlpanel {
 }
 
 location /sso/ {
-                proxy_pass http://{{SERVICE_SSO_AUTH_HOST_ADDR}}:9834;	       
+                proxy_pass http://{{SERVICE_SSO_AUTH_HOST_ADDR}}:9834;
 
                 client_max_body_size 100m;
 
@@ -30,6 +30,7 @@ location /sso/ {
                 proxy_set_header X-Forwarded-Host $server_name;
                 proxy_set_header X-Forwarded-Proto $scheme;
                 proxy_set_header X-REWRITER-URL $scheme://$http_host;
-		
+
 		proxy_redirect / /;
+
 }

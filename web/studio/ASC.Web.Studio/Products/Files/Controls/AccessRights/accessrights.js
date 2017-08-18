@@ -135,10 +135,13 @@ window.ASC.Files.Share = (function () {
         var link = encodeURIComponent(shareLinkShort);
 
         linkPanel.find(".google").attr("href", ASC.Resources.Master.UrlShareGooglePlus.format(link));
-        linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, objectTitle, "", ""));
+        linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, encodeURIComponent(objectTitle), "", ""));
         linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(link));
-        var fileId = ASC.Files.UI.parseItemId(objectID).entryId;
-        linkPanel.find(".mail").attr("href", ASC.Files.Constants.UrlShareLink.format(fileId));
+
+        var urlShareMail = "mailto:?subject={1}&body={0}";
+        var subject = ASC.Files.FilesJSResources.shareLinkMailSubject.format(objectTitle);
+        var body = ASC.Files.FilesJSResources.shareLinkMailBody.format(objectTitle, shareLinkShort);
+        linkPanel.find(".mail").attr("href", urlShareMail.format(encodeURIComponent(body), encodeURIComponent(subject)));
     };
 
     var openShareLinkAce = function () {
@@ -188,10 +191,52 @@ window.ASC.Files.Share = (function () {
         if (jq("#studio_sharingSettingsDialog #shareLinkBody").length == 0) {
             jq("#sharingSettingsDialogBody").prepend(jq("#shareLinkBody"));
 
-            jq("#shareViaSocPanel").on("click", "a", function () {
+            jq("#shareViaSocPanel").on("click", "a:not(.mail)", function () {
                 window.open(jq(this).attr("href"), "new", "height=600,width=1020,fullscreen=0,resizable=0,status=0,toolbar=0,menubar=0,location=1");
                 return false;
             });
+
+            if (!ASC.Resources.Master.Personal) {
+                jq("#shareViaSocPanel").on("click", "a.mail", function () {
+
+                    var openLink = jq(this).attr("href");
+
+                    var winMail = window.open("");
+                    try {
+                        if (winMail) {
+                            winMail.document.write(ASC.Resources.Master.Resource.LoadingPleaseWait);
+                            winMail.document.close();
+                        }
+                    } catch (e) {
+                    }
+
+                    var message = new ASC.Mail.Message();
+                    message.subject = ASC.Files.FilesJSResources.shareLinkMailSubject.format(objectTitle);
+
+                    var linkFormat = "<a href=\"{0}\">{1}</a>";
+                    var linkName = linkFormat.format(Encoder.htmlEncode(shareLinkShort), Encoder.htmlEncode(objectTitle));
+                    var link = linkFormat.format(Encoder.htmlEncode(shareLinkShort), Encoder.htmlEncode(shareLinkShort));
+                    var body = ASC.Files.FilesJSResources.shareLinkMailBody.format(linkName, link);
+
+                    message.body = body;
+
+                    ASC.Mail.Utility.SaveMessageInDrafts(message)
+                        .done(function (_, data) {
+                            var url = data.messageUrl;
+                            if (winMail && winMail.location) {
+                                winMail.location.href = url;
+                            } else {
+                                winMail = window.open(url, "_blank");
+                            }
+                        })
+                        .fail(function () {
+                            winMail.close();
+                            window.location.href = openLink;
+                        });
+
+                    return false;
+                });
+            }
 
             jq("#shareLinkOpen").on("click", openShareLinkAce);
             jq("#sharingLinkAce select").on("change", changeShareLinkAce);

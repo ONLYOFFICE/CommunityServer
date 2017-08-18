@@ -28,7 +28,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -285,49 +284,65 @@ namespace ASC.Web.Studio.Core.Notify
 
         private static void AddLetterLogo(NotifyRequest request)
         {
-            var logoUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true));
-
             if (CoreContext.Configuration.Standalone)
             {
-                var attachment = ConvertImageUrlToAttachment(logoUrl);
-
-                if (attachment != null)
+                try
                 {
-                    request.Arguments.Add(new TagValue(Constants.LetterLogo, "cid:" + attachment.ContentId));
-                    request.Arguments.Add(new TagValue(Constants.EmbeddedAttachments, new[] {attachment}));
-                    return;
+                    var logoData = TenantLogoManager.GetMailLogoDataFromCache();
+
+                    if (logoData == null)
+                    {
+                        var logoStream = TenantLogoManager.GetWhitelabelMailLogo();
+                        logoData = ReadStreamToByteArray(logoStream) ?? GetDefaultMailLogo();
+
+                        if (logoData != null)
+                            TenantLogoManager.InsertMailLogoDataToCache(logoData);
+                    }
+
+                    if (logoData != null)
+                    {
+                        var attachment = new NotifyMessageAttachment
+                        {
+                            FileName = "logo.png",
+                            Content = logoData,
+                            ContentId = MimeUtils.GenerateMessageId()
+                        };
+
+                        request.Arguments.Add(new TagValue(Constants.LetterLogo, "cid:" + attachment.ContentId));
+                        request.Arguments.Add(new TagValue(Constants.EmbeddedAttachments, new[] { attachment }));
+                        return;
+                    }
+                }
+                catch (Exception error)
+                {
+                    LogManager.GetLogger(typeof(NotifyConfiguration)).Error(error);
                 }
             }
+
+            var logoUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true));
 
             request.Arguments.Add(new TagValue(Constants.LetterLogo, logoUrl));
         }
 
-        private static NotifyMessageAttachment ConvertImageUrlToAttachment(string url)
+        private static byte[] ReadStreamToByteArray(Stream inputStream)
         {
-            try
+            if (inputStream == null) return null;
+
+            using (inputStream)
             {
-                var uri = new Uri(url).AbsoluteUri;
-
-                var filename = Path.GetFileName(uri) ?? "logo.png";
-
-                byte[] imageData;
-
-                using (var wc = new WebClient())
-                    imageData = wc.DownloadData(url);
-
-                if (imageData == null) return null;
-
-                return new NotifyMessageAttachment
-                    {
-                        FileName = filename,
-                        Content = imageData,
-                        ContentId = MimeUtils.GenerateMessageId()
-                    };
+                using (var memoryStream = new MemoryStream())
+                {
+                    inputStream.CopyTo(memoryStream);
+                    return memoryStream.ToArray();
+                }
             }
-            catch (Exception)
-            {
-                return null;
-            }
+        }
+
+        public static byte[] GetDefaultMailLogo()
+        {
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "skins", "default", "images", "onlyoffice_logo", "dark_general.png");
+
+            return File.Exists(filePath) ? File.ReadAllBytes(filePath) : null;
         }
     }
 }

@@ -49,8 +49,7 @@ namespace ASC.Web.Files.Services.NotifyService
         {
             return new ConstActionProvider(
                 NotifyConstants.Event_ShareFolder,
-                NotifyConstants.Event_ShareDocument,
-                NotifyConstants.Event_LinkToEmail);
+                NotifyConstants.Event_ShareDocument);
         }
 
         protected override IPatternProvider CreatePatternsProvider()

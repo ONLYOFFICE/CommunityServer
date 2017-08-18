@@ -166,6 +166,7 @@
     <Compile Include="Program.Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\Data\Extensions.cs" />
+    <Compile Include="Queue\Data\TaskData.cs" />
     <Compile Include="Queue\Data\TenantData.cs" />
     <Compile Include="Queue\Data\MailboxData.cs" />
     <Compile Include="Queue\QueueManager.cs" />

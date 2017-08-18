@@ -1493,45 +1493,6 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("sendlinktoemail"), HttpPost]
-        public void SendLinkToEmail(String fileId, [FromBody] MessageParams messageAddresses)
-        {
-            ErrorIf(messageAddresses == null, FilesCommonResource.ErrorMassage_BadRequest);
-
-            ErrorIf(messageAddresses.Address.Count > Global.MaxEmailCount, FilesCommonResource.ErrorMassage_ManyEmailAddresses);
-
-            using (var fileDao = GetFileDao())
-            {
-                var file = fileDao.GetFile(fileId);
-                ErrorIf(file == null, FilesCommonResource.ErrorMassage_FileNotFound);
-
-                ErrorIf(!FileSharing.CanSetAccess(file), FilesCommonResource.ErrorMassage_SecurityException);
-
-                var shareRecord = FileSecurity.GetShares(file).FirstOrDefault(r => r.Subject == FileConstant.ShareLinkId);
-                ErrorIf(shareRecord == null, FilesCommonResource.ErrorMassage_SecurityException);
-
-                file.Access = shareRecord.Share;
-
-                var shareLink = FileShareLink.GetLink(file);
-
-                if (BitlyLoginProvider.Enabled)
-                {
-                    try
-                    {
-                        shareLink = BitlyLoginProvider.GetShortenLink(shareLink);
-                    }
-                    catch (Exception ex)
-                    {
-                        Global.Logger.Error("Get shorten link", ex);
-                    }
-                }
-
-                NotifyClient.SendLinkToEmail(file, shareLink, messageAddresses.Message, messageAddresses.Address);
-
-                FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileSendAccessLink, new[] { file.Title, string.Join(" ", messageAddresses.Address) });
-            }
-        }
-
         [ActionName("setacelink"), HttpGet]
         public bool SetAceLink(String fileId, FileShare share)
         {

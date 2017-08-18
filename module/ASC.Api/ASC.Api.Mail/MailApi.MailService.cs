@@ -54,14 +54,14 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(ip))
                     throw new ArgumentException("ip");
 
-                if (!PingHost(ip, 3306))
-                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, ip));
-
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
 
                 if (string.IsNullOrEmpty(password))
                     throw new ArgumentException("password");
+
+                if (!PingHost(ip, 3306))
+                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, ip));
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
 
@@ -142,26 +142,19 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(host))
                     throw new ArgumentException("host");
 
-                var ipList = new DnsLookup().GetDomainIPs(host).ToList();
-
-                if (!ipList.Any())
-                    throw new Exception("could not get host ip");
-
-                var firstIpItem = ipList.FirstOrDefault();
-
-                if (firstIpItem == null)
-                    throw new Exception("could not get host ip");
-
-                var ip = firstIpItem.ToString();
-
-                if (!PingHost(ip, 3306))
-                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, ip));
-
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
 
                 if (string.IsNullOrEmpty(password))
                     throw new ArgumentException("password");
+
+                var ip = GetHostIp(host);
+
+                if (string.IsNullOrEmpty(ip))
+                    throw new Exception("could not get host ip");
+
+                if (!PingHost(ip, 3306))
+                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, ip));
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
 
@@ -187,6 +180,60 @@ namespace ASC.Api.Mail
             }
         }
 
+        /// <visible>false</visible>
+        [Create("mailservice/connectandsavepartitional")]
+        public object ConnectAndSavePartitionalMailServerInfo(string mailHost, string mysqlHost, string mysqlUser, string mysqlPassword)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(mailHost))
+                    throw new ArgumentException("mailHost");
+
+                if (string.IsNullOrEmpty(mysqlHost))
+                    throw new ArgumentException("mysqlHost");
+
+                if (string.IsNullOrEmpty(mysqlUser))
+                    throw new ArgumentException("mysqlUser");
+
+                if (string.IsNullOrEmpty(mysqlPassword))
+                    throw new ArgumentException("mysqlPassword");
+
+                var mailIp = GetHostIp(mailHost);
+
+                if (string.IsNullOrEmpty(mailIp))
+                    throw new Exception("could not get mailHost ip");
+
+                var mysqlIp = GetHostIp(mysqlHost);
+
+                if (string.IsNullOrEmpty(mysqlIp))
+                    throw new Exception("could not get mysqlHost ip");
+
+                if (!PingHost(mysqlIp, 3306))
+                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, mysqlIp));
+
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, mysqlIp, MailServiceHelper.DefaultDatabase, mysqlUser, mysqlPassword);
+
+                var data = GetAuthData(connectionString, mailIp);
+
+                Save(connectionString, mailIp, data[0], data[1]);
+
+                return new
+                {
+                    status = "success",
+                    message = Resource.MailServiceSaveSuccessMsg
+                };
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception.Message, exception);
+
+                return new
+                {
+                    status = "error",
+                    message = exception.Message.HtmlEncode()
+                };
+            }
+        }
 
         private static bool PingHost(string host, int port)
         {
@@ -198,6 +245,19 @@ namespace ASC.Api.Mail
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        private static string GetHostIp(string host)
+        {
+            try
+            {
+                var ip = new DnsLookup().GetDomainIPs(host).FirstOrDefault();
+                return ip == null ? null : ip.ToString();
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 

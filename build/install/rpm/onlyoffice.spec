@@ -24,9 +24,11 @@ rm -rf "$RPM_BUILD_ROOT"
 %install
 #install onlyoffice files
 mkdir -p "$RPM_BUILD_ROOT/var/www/onlyoffice/"
+mkdir -p "$RPM_BUILD_ROOT/var/www/onlyoffice/Tools/"
 mkdir -p "$RPM_BUILD_ROOT/usr/bin/"
 cp -r ../../Files/bin/*.sh "$RPM_BUILD_ROOT/usr/bin/"
 cp -r ../../Files/onlyoffice/. "$RPM_BUILD_ROOT/var/www/onlyoffice/"
+cp -r ../../Files/tools/. "$RPM_BUILD_ROOT/var/www/onlyoffice/Tools/"
 mkdir -p "$RPM_BUILD_ROOT/var/log/onlyoffice/"
 
 #install init scripts
@@ -80,10 +82,13 @@ rm -rf "$RPM_BUILD_ROOT"
 %config %attr(-, root, root) /usr/lib/systemd/system/*.service
 %config %attr(-, root, root) /etc/nginx/conf.d/onlyoffice.conf
 %config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-common.conf
+%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-common.conf.template
+%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-common-init.conf.template
+%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-common-ssl.conf.template
+%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-nginx.conf.template
 %config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-services.conf
 %config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-letsencrypt.conf
 %config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-proxy-to-controlpanel.conf.template
-%config %attr(-, root, root) /etc/nginx/includes/onlyoffice-ssl.template
 %config %attr(-, root, root) /etc/nginx/includes/onlyoffice-communityserver-proxy-to-documentserver.conf.template
 %config %attr(-, root, root) /etc/hyperfastcgi/onlyoffice
 %config %attr(-, root, root) /etc/hyperfastcgi/onlyofficeApiSystem

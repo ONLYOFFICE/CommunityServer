@@ -102,16 +102,21 @@
       </div>
       <div class="messages">
         <ul class="messages webkit-scrollbar">
-          <li class="message default">
-           <span class="daysplit"><span class="value"></span></span>
-            <div class="message">
-                <span class="date"><span class="value"></span></span>
-                <div class="head">
-                    <span class="title"></span>
+            <li class="message default">
+                <span class="daysplit"><span class="value"></span></span>
+                <div class="message-container">
+                    <div class="date date-left">
+                        <span class="value"></span>
+                    </div>
+                    <div class="message">
+                        <div class="head"><span class="title"></span></div>
+                        <div class="body"></div>
+                    </div>
+                    <div class="date date-right">
+                        <span class="value"></span>
+                    </div>
                 </div>
-                <div class="body"></div>
-            </div>
-          </li>
+            </li>
         </ul>
       </div>
       <div class="history">

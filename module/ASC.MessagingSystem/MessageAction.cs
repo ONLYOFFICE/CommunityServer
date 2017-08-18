@@ -380,7 +380,7 @@ namespace ASC.MessagingSystem
         FileLocked = 5006,
         FileUnlocked = 5007,
         FileUpdatedAccess = 5008,
-        FileSendAccessLink = 5036,
+        FileSendAccessLink = 5036, // not used
 
         FileDownloaded = 5009,
         FileDownloadedAs = 5010,

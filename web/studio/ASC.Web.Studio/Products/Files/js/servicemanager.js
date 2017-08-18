@@ -416,7 +416,6 @@ window.ASC.Files.ServiceManager = (function () {
         SetAceObject: "setaceobject",
         UnSubscribeMe: "unsubscribeme",
         GetShortenLink: "getshortenlink",
-        SendLinkToEmail: "sendlinktoemail",
 
         MarkAsRead: "markasread",
         GetNews: "getnews",
@@ -601,10 +600,6 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "shorten?fileId=" + encodeURIComponent(params.fileId));
     };
 
-    var sendLinkToEmail = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "sendlinktoemail?fileId=" + encodeURIComponent(params.fileId));
-    };
-
     var checkConversion = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "checkconversion");
     };
@@ -724,7 +719,6 @@ window.ASC.Files.ServiceManager = (function () {
         setAceObject: setAceObject,
         unSubscribeMe: unSubscribeMe,
         getShortenLink: getShortenLink,
-        sendLinkToEmail: sendLinkToEmail,
 
         checkConversion: checkConversion,
         storeOriginalFiles: storeOriginalFiles,

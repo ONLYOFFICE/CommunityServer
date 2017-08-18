@@ -270,9 +270,6 @@
   <data name="EnterComment" xml:space="preserve">
     <value>Enter a comment</value>
   </data>
-  <data name="ErrorMassage_EmptyField" xml:space="preserve">
-    <value>Complete the fields to send a message</value>
-  </data>
   <data name="ErrorMassage_EmptyFile" xml:space="preserve">
     <value>You cannot upload a folder or an empty file</value>
   </data>
@@ -414,9 +411,6 @@
   <data name="InfoFolderMoveError" xml:space="preserve">
     <value>You cannot move the folder to its subfolder</value>
   </data>
-  <data name="InfoMailsSended" xml:space="preserve">
-    <value>Mails successfully sended</value>
-  </data>
   <data name="InfoMoveAccessError" xml:space="preserve">
     <value>You do not have access rights to move some file(s)</value>
   </data>
@@ -495,11 +489,11 @@
   <data name="RevisionCurrent" xml:space="preserve">
     <value>current</value>
   </data>
-  <data name="shareLinkMail" xml:space="preserve">
-    <value>Enter the recipient email address</value>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>You have been granted access to the {0} document. Click the link below to open the document right now: {1}</value>
   </data>
-  <data name="shareLinkMailMessage" xml:space="preserve">
-    <value>Message</value>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>You have been granted access to the {0} document</value>
   </data>
   <data name="SharingSettingsCount" xml:space="preserve">
     <value>elements: {0}</value>

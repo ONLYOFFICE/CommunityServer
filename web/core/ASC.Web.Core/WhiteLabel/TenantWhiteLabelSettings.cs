@@ -404,6 +404,47 @@ namespace ASC.Web.Core.WhiteLabel
 
         #endregion
 
+        #region Get Whitelabel Logo Stream
+
+        /// <summary>
+        /// Get logo stream or null in case of default whitelabel
+        /// </summary>
+        public Stream GetWhitelabelLogoData(WhiteLabelLogoTypeEnum type, bool general)
+        {
+            if (GetIsDefault(type))
+                return GetPartnerStorageLogoData(type, general);
+
+            return GetStorageLogoData(type, general);
+        }
+
+        private Stream GetStorageLogoData(WhiteLabelLogoTypeEnum type, bool general)
+        {
+            var storage = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(CultureInfo.InvariantCulture), moduleName);
+
+            if (storage == null) return null;
+
+            var fileName = BuildLogoFileName(type, GetExt(type), general);
+
+            return storage.IsFile(fileName) ? storage.GetReadStream(fileName) : null;
+        }
+
+        private Stream GetPartnerStorageLogoData(WhiteLabelLogoTypeEnum type, bool general)
+        {
+            var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+
+            if (partnerSettings.GetIsDefault(type)) return null;
+
+            var partnerStorage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_partnerdata");
+
+            if (partnerStorage == null) return null;
+
+            var fileName = BuildLogoFileName(type, partnerSettings.GetExt(type), general);
+
+            return partnerStorage.IsFile(fileName) ? partnerStorage.GetReadStream(fileName) : null;
+        }
+
+        #endregion
+
         public static string BuildLogoFileName(WhiteLabelLogoTypeEnum type, String fileExt, bool general)
         {
             return String.Format("logo_{0}{2}.{1}", type.ToString().ToLowerInvariant(), fileExt, general ? "_general" : "");
@@ -500,6 +541,8 @@ namespace ASC.Web.Core.WhiteLabel
         {
             SettingsManager.Instance.SaveSettings(this, tenantId);
             SetNewLogoText(tenantId, restore);
+
+            TenantLogoManager.RemoveMailLogoDataFromCache();
         }
 
         private void SetNewLogoText(int tenantId, bool restore = false)

@@ -90,12 +90,15 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       nodes[0].innerHTML = name;
     }
 
-    nodes = ASC.TMTalk.dom.getElementsByClassName(newmessage, 'date', 'span');
+    nodes = ASC.TMTalk.dom.getElementsByClassName(newmessage, 'date', 'div');
     if (nodes.length > 0) {
-      nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'value', 'span');
-      if (nodes.length > 0) {
-          nodes[0].innerHTML = time;
-      }
+        for (var nodeNum = 0; nodeNum < nodes.length; nodeNum++) {
+            var dateValue = ASC.TMTalk.dom.getElementsByClassName(nodes[nodeNum], 'value', 'span');
+            if (dateValue.length > 0) {
+                dateValue[0].innerHTML = time;
+            }
+        }
+      
     }
       
     nodes = ASC.TMTalk.dom.getElementsByClassName(newmessage, 'daysplit', 'span');

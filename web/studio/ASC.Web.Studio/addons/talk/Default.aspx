@@ -72,7 +72,7 @@
                       
 					  <div style = "padding-top: 0px;">
 					    <%=string.Format(TalkOverviewResource.IntegrationWith3rdPartyAppsSectionContent,
-                        "<a href = 'http://helpcenter.onlyoffice.com/tipstricks/integrating-talk.aspx'>" + "here" + "</a>")
+                        "<a href = 'http://helpcenter.onlyoffice.com/tipstricks/integrating-talk.aspx'>" + TalkOverviewResource.Here + "</a>")
                             %>
 					  </div>
 					  <div style="margin-top: 10px; padding-top: 0px;">

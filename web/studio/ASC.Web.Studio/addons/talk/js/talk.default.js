@@ -994,6 +994,9 @@ window.TMTalk = (function ($) {
                 }
             }
         }
+        if ((($('#talkContentContainer').width() + $('#talkSidebarContainer').width()) > $('#talkMainContainer').width())) {
+            $(window).resize();
+        }
       });
 
     $('#talkHorSlider').mousedown(function (evt) {

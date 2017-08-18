@@ -74,8 +74,6 @@ namespace ASC.Web.Files.Classes
 
         public const int MaxTitle = 170;
 
-        public const int MaxEmailCount = 10;
-
         public static readonly Regex InvalidTitleChars = new Regex("[\t*\\+:\"<>?|\\\\/]");
 
         public static bool EnableUploadFilter

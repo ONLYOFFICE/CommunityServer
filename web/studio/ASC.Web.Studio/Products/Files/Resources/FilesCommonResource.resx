@@ -330,9 +330,6 @@
   <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
     <value>Too many downloads.</value>
   </data>
-  <data name="ErrorMassage_ManyEmailAddresses" xml:space="preserve">
-    <value>Too many addresses</value>
-  </data>
   <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
     <value>Sorry, this file format isn't supported</value>
   </data>
@@ -485,9 +482,6 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
-  </data>
-  <data name="ShareLinkMail" xml:space="preserve">
-    <value>Sending link</value>
   </data>
   <data name="SharedForMe" xml:space="preserve">
     <value>Shared with Me</value>
