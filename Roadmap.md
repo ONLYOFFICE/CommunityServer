@@ -2,69 +2,99 @@
 
 **ONLYOFFICE Community Server** is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place. This document provides the roadmap of the planned **ONLYOFFICE Community Server** changes 
 
-## Version 9.0
+## Version 9.6
 
 ### General
 
-* Allow to add administrator to the People module
-* Session time limit
-* Separate settings for Mail Server within the portal
-* Separate settings page for third-party services integration
+* SMTP settings in SaaS and installation
+* Modularity support
+* Possibility to use ONLYOFFICE as Identity Provider
+* Availability of integration with S3 from the interface
+* Integration with Google Cloud storage, Selectel.ru
+* Migration to the open development
 
 ### Documents module
 
-* Integration with DocuSign
-* Change work with DropBox to use official SDK instead of SharpBox
-* Sharing menu and dialog window redesign
-* Changing of document owner by administrator
+* Full-text search within document contents
+* Document list sorting enhancements
+* Access rights enhancements
 
 ### Projects module
 
-* Task copy creation
-
-### Mail module
-
-* Possibility to disable mail message threads
-
-### CRM
-
-* IP-telephony integration
-
-### Backend
-
-* Switch to jQuery 3.1
-* Discontinue support for IE 8 and earlier versions
-* ApiSystem service fuctionality for hosted solutions
+* Reports with their display in the document editors
+* Mobile application
 
 
-## Version 9.5
+## Version 10.0
 
 ### General
 
-* Modularity support
-* CKEditors/MediaWiki update
-* Inactive portal data removal
-* Creating user with login/password combination
-* Portal registration using email only
-* Talk redesign
-* Support for push notifications
+* Backup for the Mail Server, bugfixing
+* Creating users with credentials
+* Launch of the test PoA network
+* Tasks for the Calendar
 
 ### Control Panel
 
-* SSO: support for shibboleth and other providers
+* HealthCheck
+* Customization for the editors
+* Work of the Control Panel without portals
 
 ### Documents module
 
-* Video view in browser
-* Integration with Sharepoint
+* Prohibition of the document copying, download and printing
+* Separate settings for document version storage
+* Mediaplayer (audio and video)
+
+### Projects module
+
+* Mobile application
+* Custom task statuses
+
+### CRM module
+
+* Enhancements and customization of the invoice editors
+* Integration with MailChimp, SendPlus mail services
+
+
+## Version 11.0
+
+### General
+
+* Portal registration via email
+* Wiki update
+* Two-factor authentication using disposable password generation
+* Interface adaptation for mobile devices
+* PostgreSQL database support
+* MS SQL Server support
+* Blockchain portal version
+
+### Documents module
+
+* Integration with Moodle
+* Sharing the document with a password
+* Sharing the document limited in time
+* Adding watermarks to the document
+* Integration with SyncThing
+
+### CRM module
+
+* SMS distribution to the contacts
+* Task templates
+* Integratino with accounting software
+* Extended search
+* Mobile application
+* Generator of any user reports
 
 ### Mail module
 
-* Possibility to create mail boxes at the mail server for mass mailing with the portal
-
-### CRM
-
-* Reports with export to document editors
+* Mail messages templates
+* Possibility to create mailboxes at the custom domain when creating the user
+* Message read notification
+* Support of IMAP synchronization in mail server
+* Possibility to create own folders
+* Possibility to create own rules/filters for the mail automatic filtering
+* Migration to Mail Server access via API (instead of the base)
 
 
 ## Project Information
