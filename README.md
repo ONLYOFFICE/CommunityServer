@@ -32,6 +32,10 @@ ONLYOFFICE Community Server is a free open source collaborative system developed
 
 To compile source, follow this [instruction](http://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
 
+## Connecting your own modules
+
+You can now create your own modules and connect them to ONLYOFFICE Community Server. See [this repository](https://github.com/ONLYOFFICE/CommunityServer-CustomModules "https://github.com/ONLYOFFICE/CommunityServer-CustomModules") for more details.
+
 ## Project Information
 
 Official website: [http://www.onlyoffice.org](http://onlyoffice.org "http://www.onlyoffice.org")
