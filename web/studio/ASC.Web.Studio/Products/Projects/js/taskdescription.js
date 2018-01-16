@@ -48,7 +48,9 @@ ASC.Projects.TaskDescriptionPage = (function() {
         subtaskTab,
         documentsTab,
         linksTab,
-        commentsTab;
+        commentsTab,
+        ganttTab,
+        timeTrackingTab;
 
     var $editLinkBox,
         $relatedTasksCont,
@@ -389,7 +391,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         
         descriptionTab.init()
             .push(resources.ProjectResource.Project, formatDescription(task.projectOwner.title), "tasks.aspx?prjID=" + task.projectOwner.id)
-            .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}]{1}', task.milestone.displayDateDeadline, task.milestone.title) : '')
+            .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}] {1}', task.milestone.displayDateDeadline, task.milestone.title) : '')
             .push(tasksResource.TaskStartDate, task.displayDateStart)
             .push(tasksResource.EndDate, task.displayDateDeadline, undefined, ASC.Projects.TasksManager.compareDates(task.deadline) ? "<span class='deadlineLate'>{0}</span>" : undefined)
             .push(tasksResource.Priority, task.priority === 1 ? tasksResource.HighPriority : undefined, undefined, '<span class="colorPriority high"><span>{0}</span></span>')
@@ -926,20 +928,40 @@ ASC.Projects.TaskDescriptionPage = (function() {
             '#comments',
             function() { return true },
             commentsEmpty);
+        ganttTab = new Tab(resources.ProjectResource.GanttGart,
+            function () { return 0; },
+            "ganttchartModule",
+            null,
+            "ganttchart.aspx",
+            function () { return !jq.browser.mobile && task.projectOwner.status === 0 });
+
+        ganttTab.href = "ganttchart.aspx?prjID=" + task.projectId;
+
+        timeTrackingTab = new Tab(resources.ProjectsJSResource.TimeTrackingModule,
+            function () {
+                var time = jq.timeFormat(task.timeSpend).split(":");
+                var timeSpend = {
+                    hours: time[0],
+                    minutes: time[1]
+                };
+                 return jq.format("{0}:{1}", timeSpend.hours, timeSpend.minutes);
+            },
+            "timetrackingModule",
+            null,
+            "timetracking.aspx",
+            function () { return task.canCreateTimeSpend && task.timeSpend; });
+
+        timeTrackingTab.href = "timetracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id;
 
         var data = {
-            uplink: "tasks.aspx?prjID=" + task.projectId,
+            uplink: ASC.Projects.Common.UpLink || "tasks.aspx?prjID=" + task.projectId,
             icon: "tasks",
             title: task.title,
             subscribed: task.isSubscribed,
             subscribedTitle: task.isSubscribed ? tasksResource.UnfollowTask : tasksResource.FollowTask
         };
 
-        if (!jq.browser.mobile && task.projectOwner.status === 0) {
-            data.ganttchart = "ganttchart.aspx?prjID=" + task.projectId;
-        }
-
-        baseObject.InfoContainer.init(data, showEntityMenu, [overViewTab, subtaskTab, documentsTab, linksTab, commentsTab]);
+        baseObject.InfoContainer.init(data, showEntityMenu, [overViewTab, subtaskTab, documentsTab, linksTab, commentsTab, timeTrackingTab, ganttTab]);
 
         $followTaskActionTop = jq('#subscribe');
         $followTaskActionTop.on(clickEventName, subscribeTask);

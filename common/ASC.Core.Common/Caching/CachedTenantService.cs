@@ -27,9 +27,7 @@
 using ASC.Common.Caching;
 using ASC.Core.Tenants;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Core.Caching
 {
@@ -120,6 +118,21 @@ namespace ASC.Core.Caching
             return t;
         }
 
+        public Tenant GetTenantForStandaloneWithoutAlias(string ip)
+        {
+            var tenants = GetTenantStore();
+            var t = tenants.Get(ip);
+            if (t == null)
+            {
+                t = service.GetTenantForStandaloneWithoutAlias(ip);
+                if (t != null)
+                {
+                    tenants.Insert(t, ip);
+                }
+            }
+            return t;
+        }
+
         public Tenant SaveTenant(Tenant tenant)
         {
             tenant = service.SaveTenant(tenant);
@@ -204,7 +217,7 @@ namespace ASC.Core.Caching
                 return t;
             }
 
-            public void Insert(Tenant t)
+            public void Insert(Tenant t, string ip = null)
             {
                 if (t == null)
                 {
@@ -217,6 +230,7 @@ namespace ASC.Core.Caching
                     byId[t.TenantId] = t;
                     byDomain[t.TenantAlias] = t;
                     if (!string.IsNullOrEmpty(t.MappedDomain)) byDomain[t.MappedDomain] = t;
+                    if (!string.IsNullOrEmpty(ip)) byDomain[ip] = t;
                 }
             }
 

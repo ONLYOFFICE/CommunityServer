@@ -1315,23 +1315,27 @@ window.ASC.TMTalk.notifications  = (function () {
       if (isDisabled) {
           return;
       }
-      jQuery.notification({
-          title: title,
-          body: content,
-          tag: marker,
-          timeout: 10000,
-          //iconUrl: window.ASC.TMTalk.Resources.iconTeamlabOffice32
-          iconUrl: "http://download.onlyoffice.com/assets/logo/emptyuser-48.png"
-      }).then(function (notification) {
-          if (notification !== null) {
-              notifications.push({ marker: marker, handler: notification });
-              notification.onclick = function () {
-                  getNotificationsClickCallback(marker);
-                  notification.close();
-              };
+      Teamlab.getProfile({}, marker.split("@")[0], {
+          success: function (params, data) {
+              jQuery.notification({
+                  title: title,
+                  body: content,
+                  tag: marker,
+                  timeout: 10000,
+                  //iconUrl: window.ASC.TMTalk.Resources.iconTeamlabOffice32
+                  iconUrl: location.origin + data.avatar
+              }).then(function (notification) {
+                  if (notification !== null) {
+                      notifications.push({ marker: marker, handler: notification });
+                      notification.onclick = function () {
+                          getNotificationsClickCallback(marker);
+                          notification.close();
+                      };
+                  }
+              }, function () {
+                  console.error('Rejected!');
+              });
           }
-      }, function () {
-          console.error('Rejected!');
       });
   };
 
@@ -1438,7 +1442,7 @@ window.ASC.TMTalk.notifications  = (function () {
 
     var initialiseFirebase = function (config) {
         if (typeof config === "object") {
-            if ('serviceWorker' in navigator && !jQuery.browser.msie) {
+            if ('serviceWorker' in navigator && !jQuery.browser.msie && !jQuery.browser.safari) {
                 try {
                     window.firebase.initializeApp(config);
                 } catch(e) {
@@ -1448,12 +1452,12 @@ window.ASC.TMTalk.notifications  = (function () {
                 return;
             }
             //Are service workers supported in this browser
-            if ('serviceWorker' in navigator && !jQuery.browser.msie) {
+            if ('serviceWorker' in navigator && !jQuery.browser.msie && !jQuery.browser.safari) {
                     navigator.serviceWorker.register('talk.notification.js')
                     .then(initialiseState);
             }
         } else {
-            if ('serviceWorker' in navigator && !jQuery.browser.msie) {
+            if ('serviceWorker' in navigator && !jQuery.browser.msie && !jQuery.browser.safari) {
 
                     navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
                         serviceWorkerRegistration.pushManager.getSubscription().then(

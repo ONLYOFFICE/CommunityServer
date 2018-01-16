@@ -6,5 +6,5 @@ Build-Depends: debhelper (>= 8.0.0)
 
 Package: onlyoffice-communityserver
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, mysql-server, mysql-client, mono-complete (>= 5.0), nginx (>= 0.8.21), mono-webserver-hyperfastcgi, ruby-dev, ruby-god
+Depends: ${shlibs:Depends}, ${misc:Depends}, mysql-server, mysql-client, mono-complete (>= 5.0), ca-certificates-mono, nginx (>= 0.8.21), mono-webserver-hyperfastcgi, ruby-dev, ruby-god, nodejs (>= 6.10.3)
 Description: ONLYOFFICE Community Server is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.

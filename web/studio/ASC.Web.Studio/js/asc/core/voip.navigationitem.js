@@ -27,11 +27,11 @@ ASC.VoipNavigationItem = (function () {
     var isInit = false;
 
     function init() {
-        if (typeof jq.connection === "undefined") {
-            jq(".studio-top-panel .voip").hide();
+        if (!ASC.SocketIO || ASC.SocketIO.disabled()) {
             return;
         }
 
+        jq(".studio-top-panel .voip").removeClass("display-none");
         isInit = true;
 
         jq(".voipActiveBox").click(function () {

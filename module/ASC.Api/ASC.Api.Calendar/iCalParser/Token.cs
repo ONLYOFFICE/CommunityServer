@@ -180,8 +180,8 @@ namespace ASC.Api.Calendar.iCalParser
 
             
             
-            isUTC= icalDate.ToLower().EndsWith("z");
-            isDate = !icalDate.ToLower().Contains("t");
+            isUTC= icalDate.ToLowerInvariant().EndsWith("z");
+            isDate = !icalDate.ToLowerInvariant().Contains("t");
 
 
             DateTime dateTime ;
@@ -222,7 +222,7 @@ namespace ASC.Api.Calendar.iCalParser
             switch (state)
             {
                 case ScannerState.ParseID:
-                    tokenText = _tokenText.ToLower();
+                    tokenText = _tokenText.ToLowerInvariant();
                     if (reservedWords.Contains(tokenText))
                     {
                         tokenVal = (TokenValue)reservedWords[tokenText];
@@ -252,7 +252,7 @@ namespace ASC.Api.Calendar.iCalParser
                     break;
 
                 case ScannerState.ParseParms:
-                    tokenText = HttpUtility.HtmlEncode(_tokenText);
+                    tokenText = _tokenText;
                     if (quoteFlag)
                     {
                         tokenVal = TokenValue.QuotedString;
@@ -264,7 +264,7 @@ namespace ASC.Api.Calendar.iCalParser
                     break;
 
                 case ScannerState.ParseValue:
-                    tokenText = HttpUtility.HtmlEncode(_tokenText);
+                    tokenText = _tokenText;
                     tokenVal = TokenValue.Value;
                     break;
 

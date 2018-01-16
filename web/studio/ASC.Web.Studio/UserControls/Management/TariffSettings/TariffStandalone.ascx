@@ -47,7 +47,6 @@
             </td>
             <td>
                 <div class="license-item license-item-controlpanel"><%= UserControlsCommonResource.LicenseModulesControlPanel %></div>
-                <div class="license-item license-item-whitelabel"><%= UserControlsCommonResource.LicenseModulesWhiteLabel %></div>
                 <div class="license-item license-item-multitenancy"><%= UserControlsCommonResource.LicenseModulesMultitenancy %></div>
                 <div class="license-item license-item-updates"><%= UserControlsCommonResource.LicenseModulesUpdates.HtmlEncode() %></div>
                 <div class="license-item license-item-support"><%= UserControlsCommonResource.LicenseModulesSupport %></div>

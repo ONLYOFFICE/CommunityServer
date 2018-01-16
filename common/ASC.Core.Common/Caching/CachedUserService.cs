@@ -24,13 +24,13 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Core.Tenants;
-using ASC.Core.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using ASC.Common.Caching;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
 
 namespace ASC.Core.Caching
 {
@@ -85,6 +85,11 @@ namespace ASC.Core.Caching
 
         public UserInfo GetUser(int tenant, Guid id)
         {
+            if (CoreContext.Configuration.Personal)
+            {
+                return GetUserForPersonal(tenant, id);
+            }
+
             var users = GetUsers(tenant);
             lock (users)
             {
@@ -92,6 +97,30 @@ namespace ASC.Core.Caching
                 users.TryGetValue(id, out u);
                 return u;
             }
+        }
+
+        /// <summary>
+        /// For Personal only
+        /// </summary>
+        /// <param name="tenant"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private UserInfo GetUserForPersonal(int tenant, Guid id)
+        {
+            var key = GetUserCacheKeyForPersonal(tenant, id);
+            var user = cache.Get<UserInfo>(key);
+
+            if (user == null)
+            {
+                user = service.GetUser(tenant, id);
+
+                if (user != null)
+                {
+                    cache.Insert(key, user, CacheExpiration);
+                }
+            }
+
+            return user;
         }
 
         public UserInfo GetUser(int tenant, string login, string passwordHash)
@@ -222,6 +251,7 @@ namespace ASC.Core.Caching
             if (users == null)
             {
                 users = service.GetUsers(tenant, default(DateTime));
+
                 cache.Insert(key, users, CacheExpiration);
             }
             return users;
@@ -354,6 +384,11 @@ namespace ASC.Core.Caching
         private static string GetUserCacheKey(int tenant)
         {
             return tenant.ToString() + USERS;
+        }
+
+        private static string GetUserCacheKeyForPersonal(int tenant, Guid userId)
+        {
+            return tenant.ToString() + USERS + userId;
         }
 
 

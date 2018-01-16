@@ -76,7 +76,6 @@ namespace ASC.Web.CRM.Controls.Sender
 
         private void RegisterScript()
         {
-            Page.RegisterClientScript(new Masters.ClientScripts.SmtpSenderData());
             Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
             var sb = new StringBuilder();

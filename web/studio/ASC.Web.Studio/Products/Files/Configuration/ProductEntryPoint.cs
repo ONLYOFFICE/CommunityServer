@@ -55,6 +55,8 @@ namespace ASC.Web.Files.Configuration
 
         public override void Init()
         {
+            Global.Init();
+
             _productContext =
                 new ProductContext
                     {

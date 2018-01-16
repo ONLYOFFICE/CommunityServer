@@ -67,7 +67,7 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
                 "~/usercontrols/management/greetingsettings/js/greetinglogosettings.js");
 
-            _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+            _tenantInfoSettings = TenantInfoSettings.Load();
 
             RegisterScript();
         }
@@ -79,7 +79,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-                _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+                _tenantInfoSettings = TenantInfoSettings.Load();
 
                 if (!String.IsNullOrEmpty(logoVP))
                 {
@@ -96,7 +96,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     }
                 }
 
-                SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
+                _tenantInfoSettings.Save();
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.GreetingSettingsUpdated);
 
@@ -116,14 +116,14 @@ namespace ASC.Web.Studio.UserControls.Management
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
                 var tenantId = TenantProvider.CurrentTenantID;
 
-                _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(tenantId);
+                _tenantInfoSettings = TenantInfoSettings.Load();
                 _tenantInfoSettings.RestoreDefault();
-                SettingsManager.Instance.SaveSettings(_tenantInfoSettings, tenantId);
+                _tenantInfoSettings.Save();
 
                 if (TenantLogoManager.WhiteLabelEnabled)
                 {
 
-                    var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+                    var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
                     _tenantWhiteLabelSettings.RestoreDefault(WhiteLabelLogoTypeEnum.Dark);
                     _tenantWhiteLabelSettings.Save(tenantId);
                 }

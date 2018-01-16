@@ -28,6 +28,8 @@ using System;
 using System.Security.Authentication;
 using System.Threading;
 using System.Web;
+using ASC.ActiveDirectory;
+using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
 using ASC.Api.Utils;
@@ -137,7 +139,7 @@ namespace ASC.Specific.AuthorizationApi
             bool viaEmail;
             var user = GetUser(userName, password, provider, accessToken, out viaEmail);
             mobilePhone = SmsManager.SaveMobilePhone(user, mobilePhone);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedMobileNumber, user.DisplayUserName(false), mobilePhone);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedMobileNumber, MessageTarget.Create(user.ID), user.DisplayUserName(false), mobilePhone);
 
             return new AuthenticationTokenData
                 {
@@ -206,7 +208,7 @@ namespace ASC.Specific.AuthorizationApi
             }
             catch
             {
-                MessageService.Send(Request, user.DisplayUserName(false), MessageAction.LoginFailViaApiSms);
+                MessageService.Send(Request, user.DisplayUserName(false), MessageAction.LoginFailViaApiSms, MessageTarget.Create(user.ID));
                 throw new AuthenticationException("User authentication failed");
             }
         }
@@ -273,10 +275,14 @@ namespace ASC.Specific.AuthorizationApi
             {
                 if (string.IsNullOrEmpty(provider) || provider == "email")
                 {
-                    userName.ThrowIfNull(new ArgumentException("userName empty", "userName"));
-                    password.ThrowIfNull(new ArgumentException("password empty", "password"));
+                    userName.ThrowIfNull(new ArgumentException(@"userName empty", "userName"));
+                    password.ThrowIfNull(new ArgumentException(@"password empty", "password"));
 
-                    if (!ActiveDirectoryUserImporter.TryGetLdapUserInfo(userName, password, out user))
+
+                    var localization = new LdapLocalization(Resource.ResourceManager);
+                    var ldapUserManager = new LdapUserManager(localization);
+
+                    if (!ldapUserManager.TryGetAndSyncLdapUserInfo(userName, password, out user))
                     {
                         user = CoreContext.UserManager.GetUsers(
                             CoreContext.TenantManager.GetCurrentTenant().TenantId,
@@ -308,7 +314,7 @@ namespace ASC.Specific.AuthorizationApi
             }
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+            var settings = IPRestrictionsSettings.Load();
             if (settings.Enable && user.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant))
             {
                 throw new IPSecurityException();

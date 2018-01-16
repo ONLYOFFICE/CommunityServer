@@ -42,6 +42,8 @@ namespace ASC.Core
 
         Tenant GetTenant(string domain);
 
+        Tenant GetTenantForStandaloneWithoutAlias(string ip);
+
         Tenant SaveTenant(Tenant tenant);
 
         void RemoveTenant(int id, bool auto = false);

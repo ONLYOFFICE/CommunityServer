@@ -34,14 +34,14 @@
     background:none;
     color: #CC3300 !important;
     font-size:14px;
-    margin: 0 0 8px 0;
+    margin: 16px 0 8px 0;
     padding:0 !important;
     text-align: left;
 }
 .auth-form_message .confirmBox {
     font-size:16px;
     font-weight: bold;
-    margin: 0 0 8px 0;
+    margin: 16px 0 8px 0;
     text-align: left;
 }
 .auth-form .auth-form_password
@@ -58,7 +58,39 @@
     }
 }
 
+.pwdLoginTextbox.error {
+    border-color: #c30 !important;
+}
 
+.auth-form_sso {
+    margin-top: 12px;
+
+    .singleSignOn, 
+    .singleSignOn:visited, 
+    .singleSignOn:hover, 
+    .singleSignOn:active {
+        width: 340px;
+        line-height: 27px;
+        font-size: 18px;
+        word-wrap: break-word;
+    }
+}
+
+.auth-form_splitter {
+    width: 100%;
+    height: 10px;
+    border-bottom: 1px solid lightgrey;
+    text-align: center;
+    margin-bottom: 37px;
+    margin-top: 26px;
+
+    span {
+        font-size: 13px;
+        background-color: #ffffff;
+        padding: 0 10px;
+        color: grey;
+    }
+}
 
 .auth-form .auth-form_submenu {
     margin: 23px 0 0;
@@ -73,11 +105,6 @@
     .social_nets {
         text-align: right;
         line-height: 24px;
-    }
-
-    .singleSignOn {
-        float: left;
-        margin-top: 15px;
     }
 }
 

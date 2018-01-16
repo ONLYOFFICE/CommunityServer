@@ -57,14 +57,14 @@
                             <div class="crm-email">
                                 <a class="linkMedium" href="mailto:${item.data}">
                                     ${item.data}
-                                </a>&nbsp;<span class="text-medium-describe"> (${item.categoryName})</span>
+                                </a>&nbsp;<span class="text-medium-describe">(${item.categoryName})</span>
                             </div>
                         </li>
                     {{/if}}
                     {{if item.infoType == 0 && item.isPrimary}}
                         <li>
                             <div class="crm-phone">
-                                ${item.data}&nbsp;<span class="text-medium-describe"> (${item.categoryName})</span>
+                                ${item.data}&nbsp;<span class="text-medium-describe">(${item.categoryName})</span>
                             </div>
                         </li>
                     {{/if}}
@@ -72,7 +72,7 @@
 
                 {{if typeof (primaryAddress) != "undefined" && primaryAddress != null}}
                     <li>
-                        <div class="crm-address">{{html primaryAddress.Data}}<span class="text-medium-describe"> (${primaryAddress.categoryName})</span>
+                        <div class="crm-address">{{html primaryAddress.Data}}&nbsp;<span class="text-medium-describe">(${primaryAddress.categoryName})</span>
                             <br/>
                             <a class="linkMedium" style="text-decoration: underline;" href="${primaryAddress.Href}" target="_blank">
                                 ${ASC.CRM.Resources.CRMContactResource.ShowOnMap}

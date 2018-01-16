@@ -92,7 +92,9 @@ window.ServiceFactory = (function() {
             gbuzz: { name: 'gbuzz', type: 2, title: 'Google Buzz' },
             gtalk: { name: 'gtalk', type: 2, title: 'Google Talk' },
             phone: { name: 'phone', type: 1, title: 'Tel' },
-            mobphone: { name: 'mobphone', type: 1, title: 'Mobile' }
+            mobphone: { name: 'mobphone', type: 1, title: 'Mobile' },
+            extmobphone: { name: 'extmobphone', type: 1, title: 'Mobile' },
+            extmail: { name: 'extmail', type: 0, title: 'Email' }
         },
         contactTypes = {
             phone: { id: 0, title: 'Phone', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, mobile: { id: 2, title: 'Mobile' }, fax: { id: 3, title: 'Fax' }, direct: { id: 4, title: 'Direct' }, other: { id: 5, title: 'Other' } } },
@@ -199,6 +201,9 @@ window.ServiceFactory = (function() {
             apiHandler('prj-tasks', /project\/[\w\d-]+\/task\/filter\.json/),
             apiHandler('prj-tasks', /project\/task\/filter\.json/),
             apiHandler('prj-tasks', /project\/task\.json\?taskid/),
+            apiHandler('prj-tasks', /project\/task\/status\.json/),
+            apiHandler('prj-tasks', /project\/task\/milestone\.json/),
+            apiHandler('prj-tasks', /project\/task\.json/, dlt),
             apiHandler('prj-simpletasks', /project\/task\/filter\/simple\.json/, get),
             apiHandler('prj-tasks', /project\/task\/@self\.json/),
             apiHandler('prj-subtask', /project\/task\/[\d]+\.json/, post),
@@ -418,7 +423,8 @@ window.ServiceFactory = (function() {
             apiHandler('crm-voipSettings', /crm\/voip\/numbers\/settings.json/),
             apiHandler('comment', /comment\.json/, post),
             apiHandler('comments', /comment\.json/, get),
-            
+
+            apiHandler('prj-settings', /project\/settings\.json/),
             
             apiHandler('text', /project\/comment\/[\w\d-]+\.json/, dlt),
             apiHandler('text', /community\/wiki\/comment\/[\w\d-]+\.json/, dlt),
@@ -1589,8 +1595,8 @@ window.ServiceFactory = (function() {
                 displayStartDate: getDisplayDatetime(startdate),
                 displayDateStart: getDisplayDate(startdate),
                 displayTimeStart: getDisplayTime(startdate),
-                status: response.status,
-                statusname: getTaskStatusName(response.status),
+                status: response.status > 2 ? 1 : response.status,
+                statusname: getTaskStatusName(response.status > 2 ? 1 : response.status),
                 priority: response.priority,
                 subtasks: factories.prj.subtasks(response.subtasks),
                 progress: response.hasOwnProperty('progress') ? response.progress : 0,
@@ -1636,8 +1642,8 @@ window.ServiceFactory = (function() {
                 displayStartDate: getDisplayDatetime(startdate),
                 displayDateStart: getDisplayDate(startdate),
                 responsibles: response.responsibles,
-                status: response.status,
-                statusname: getTaskStatusName(response.status),
+                status: response.status > 2 ? 1 : response.status,
+                statusname: getTaskStatusName(response.status > 2 ? 1 : response.status),
                 priority: response.priority,
                 subtasksCount: response.subtasksCount,
                 progress: response.hasOwnProperty('progress') ? response.progress : 0,
@@ -1734,7 +1740,8 @@ window.ServiceFactory = (function() {
                 createdBy: createdBy,
                 responsible: responsible,
                 timeTrackingTotal: response.timeTrackingTotal,
-                isFollow: response.isFollow
+                isFollow: response.isFollow,
+                tags: response.hasOwnProperty('tags') ? response.tags : []
             };
         },
 
@@ -1887,6 +1894,9 @@ window.ServiceFactory = (function() {
             return collection(response, this.item, function(response) {
                 return factories.prj.activity(response);
             });
+        },
+        settings: function(response) {
+            return response;
         }
     };
 
@@ -2654,9 +2664,7 @@ window.ServiceFactory = (function() {
                     ? getDisplayDate(dueDate)
                     : getDisplayDatetime(dueDate),
                 crtdate = response.createOn ? serializeDate(response.createOn) : null,
-                tmpDate = new Date(),
-                today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0),
-                debtor = response.status.id == 2 && dueDate < today;
+                debtor = response.status.id == 2 && dueDate < new Date();
 
             return extend(this.item(response), {
                 type: 'invoice',

@@ -33,7 +33,7 @@ namespace ASC.Web.Studio.Core
 {
     [Serializable]
     [DataContract]
-    public class PersonalSettings : ISettings
+    public class PersonalSettings : BaseSettings<PersonalSettings>
     {
         [DataMember(Name = "IsNewUser")]
         public bool IsNewUserSetting { get; set; }
@@ -41,12 +41,12 @@ namespace ASC.Web.Studio.Core
         [DataMember(Name = "IsNotActivated")]
         public bool IsNotActivatedSetting { get; set; }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{B3427865-8E32-4E66-B6F3-91C61922239F}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new PersonalSettings
                 {
@@ -57,23 +57,23 @@ namespace ASC.Web.Studio.Core
 
         public static bool IsNewUser
         {
-            get { return SettingsManager.Instance.LoadSettingsFor<PersonalSettings>(SecurityContext.CurrentAccount.ID).IsNewUserSetting; }
+            get { return LoadForCurrentUser().IsNewUserSetting; }
             set
             {
-                var settings = SettingsManager.Instance.LoadSettingsFor<PersonalSettings>(SecurityContext.CurrentAccount.ID);
+                var settings = LoadForCurrentUser();
                 settings.IsNewUserSetting = value;
-                SettingsManager.Instance.SaveSettingsFor(settings, SecurityContext.CurrentAccount.ID);
+                settings.SaveForCurrentUser();
             }
         }
 
         public static bool IsNotActivated
         {
-            get { return SettingsManager.Instance.LoadSettingsFor<PersonalSettings>(SecurityContext.CurrentAccount.ID).IsNotActivatedSetting; }
+            get { return LoadForCurrentUser().IsNotActivatedSetting; }
             set
             {
-                var settings = SettingsManager.Instance.LoadSettingsFor<PersonalSettings>(SecurityContext.CurrentAccount.ID);
+                var settings = LoadForCurrentUser();
                 settings.IsNotActivatedSetting = value;
-                SettingsManager.Instance.SaveSettingsFor(settings, SecurityContext.CurrentAccount.ID);
+                settings.SaveForCurrentUser();
             }
         }
     }

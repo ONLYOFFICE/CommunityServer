@@ -130,10 +130,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId)).Where(r => r != null).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
-            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders, my)
+            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders: withSubfolders)
                                  .Where(r => r != null).ToList();
 
             if (!result.Any()) return new List<File>();

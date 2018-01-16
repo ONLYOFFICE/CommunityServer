@@ -130,7 +130,7 @@ namespace ASC.Web.Studio.Core.SMS
 
             if (string.IsNullOrEmpty(code)) throw new Exception(Resource.ActivateMobilePhoneEmptyCode);
 
-            int counter = 0;
+            int counter;
 
             int.TryParse(CodeCache.Get<String>("loginsec/" + user.ID), out counter);
 
@@ -138,7 +138,7 @@ namespace ASC.Web.Studio.Core.SMS
             {
                 Thread.Sleep(TimeSpan.FromSeconds(10));
             }
-            CodeCache.Insert("loginsec/" + user.ID, counter, DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+            CodeCache.Insert("loginsec/" + user.ID, counter.ToString(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
             if (!SmsKeyStorage.ValidateKey(user.MobilePhone, code))
                 throw new ArgumentException(Resource.SmsAuthenticationMessageError);

@@ -29,9 +29,12 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+using ASC.ActiveDirectory;
+using ASC.ActiveDirectory.Base.Settings;
+using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Core.Common.Settings;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.FederatedLogin.Profile;
 using ASC.IPSecurity;
@@ -40,11 +43,11 @@ using ASC.Security.Cryptography;
 using ASC.SingleSignOn.Common;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
+using log4net;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Common
@@ -54,23 +57,73 @@ namespace ASC.Web.Studio.UserControls.Common
         protected string LoginMessage;
         private string _errorMessage;
         private readonly ICache cache = AscCache.Memory;
-        protected bool EnableLdap = ActiveDirectoryUserImporter.LdapIsEnable;
-        //protected bool EnableSso = SsoImporter.SsoIsEnable;
-        //protected bool IsSaml = SsoImporter.IsSaml;
+
+        protected bool EnableLdap
+        {
+            get
+            {
+                try
+                {
+                    if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
+                        (CoreContext.Configuration.Standalone &&
+                         !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+                    {
+                        return false;
+                    }
+
+                    var enabled = LdapSettings.Load().EnableLdapAuthentication;
+
+                    return enabled;
+                }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Web").Error("[LDAP] EnableLdap failed", ex);
+                    return false;
+                }
+            }
+        }
 
         protected bool EnableSso
         {
             get
             {
-                return SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) &&
-                    (!CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso) &&
-                    SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID).EnableSso;
+                try
+                {
+                    if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
+                        !CoreContext.Configuration.Standalone ||
+                        !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
+                    {
+                        return false;
+                    }
+
+                    var enabled = SsoSettingsV2.Load().EnableSso;
+
+                    return enabled;
+                }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Web").Error("[SSO] EnableSso failed", ex);
+                    return false;
+                }
+            }
+        }
+
+        protected string SsoLabel
+        {
+            get
+            {
+                return EnableSso ? SsoSettingsV2.Load().SpLoginLabel : SsoSettingsV2.SSO_SP_LOGIN_LABEL;
             }
         }
 
         protected bool IsSaml
         {
             get { return true; } //Todo: Change after jwt fixes
+        }
+
+        protected bool EnableSession
+        {
+            get { return TenantCookieSettings.Load().IsDefault(); }
         }
 
         protected string ErrorMessage
@@ -83,6 +136,9 @@ namespace ASC.Web.Studio.UserControls.Common
             }
             set { _errorMessage = value; }
         }
+
+        public bool IsLoginInvalid { get; set; }
+        public bool IsPasswordInvalid { get; set; }
 
         protected string Login;
         protected string Password;
@@ -199,6 +255,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
                 else if (string.IsNullOrEmpty(HashId))
                 {
+                    IsLoginInvalid = true;
                     throw new InvalidCredentialException("login");
                 }
 
@@ -208,6 +265,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
                 else if (string.IsNullOrEmpty(HashId))
                 {
+                    IsPasswordInvalid = true;
                     throw new InvalidCredentialException("password");
                 }
 
@@ -221,17 +279,19 @@ namespace ASC.Web.Studio.UserControls.Common
                     {
                         Thread.Sleep(TimeSpan.FromSeconds(10));
                     }
-                    cache.Insert("loginsec/" + Login, counter, DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    cache.Insert("loginsec/" + Login, counter.ToString(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
 
                 var userInfo = GetUser(out authMethod);
                 if (!CoreContext.UserManager.UserExists(userInfo.ID) || userInfo.Status != EmployeeStatus.Active)
                 {
+                    IsLoginInvalid = true;
+                    IsPasswordInvalid = true;
                     throw new InvalidCredentialException();
                 }
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+                var settings = IPRestrictionsSettings.Load();
                 if (settings.Enable && userInfo.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant))
                 {
                     throw new IPSecurityException();
@@ -244,7 +304,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
                 else
                 {
-                    var session = string.IsNullOrEmpty(Request["remember"]);
+                    var session = EnableSession && string.IsNullOrEmpty(Request["remember"]);
 
                     var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
                     CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
@@ -258,6 +318,7 @@ namespace ASC.Web.Studio.UserControls.Common
             catch (InvalidCredentialException)
             {
                 Auth.ProcessLogout();
+
                 ErrorMessage = authMethod == AuthMethod.ThirdParty ? Resource.LoginWithAccountNotFound : Resource.InvalidUsernameOrPassword;
 
                 var loginName = !string.IsNullOrWhiteSpace(Login)
@@ -313,11 +374,17 @@ namespace ASC.Web.Studio.UserControls.Common
 
         private UserInfo GetUser(out AuthMethod method)
         {
-            UserInfo userInfo;
-            if (ActiveDirectoryUserImporter.TryGetLdapUserInfo(Login, Password, out userInfo))
+            if (EnableLdap)
             {
-                method = AuthMethod.Ldap;
-                return userInfo;
+                var localization = new LdapLocalization(Resource.ResourceManager);
+                var ldapUserManager = new LdapUserManager(localization);
+
+                UserInfo userInfo;
+                if (ldapUserManager.TryGetAndSyncLdapUserInfo(Login, Password, out userInfo))
+                {
+                    method = AuthMethod.Ldap;
+                    return userInfo;
+                }
             }
 
             Guid userId;

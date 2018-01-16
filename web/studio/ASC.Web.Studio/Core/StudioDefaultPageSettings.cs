@@ -32,14 +32,12 @@ namespace ASC.Web.Studio.Core
 {
     [Serializable]
     [DataContract]
-    public class StudioDefaultPageSettings : ISettings
+    public class StudioDefaultPageSettings : BaseSettings<StudioDefaultPageSettings>
     {
         [DataMember(Name = "DefaultProductID")]
         public Guid DefaultProductID { get; set; }
 
-        #region ISettings Members
-
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{F3FF27C5-BDE3-43ae-8DD0-2E8E0D7044F1}"); }
         }
@@ -49,11 +47,9 @@ namespace ASC.Web.Studio.Core
             get { return new Guid("{48328C27-4C85-4987-BA0E-D6BB17356B10}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new StudioDefaultPageSettings { DefaultProductID = Guid.Empty };
         }
-
-        #endregion
     }
 }

@@ -63,6 +63,8 @@ window.ASC.Files.Editor = (function () {
         jq("#iframeEditor").parents().css("height", "100%");
 
         var eventsConfig = {
+            "onAppReady": ASC.Files.Editor.readyEditor,
+            //todo: remove
             "onReady": ASC.Files.Editor.readyEditor,
         };
 
@@ -158,7 +160,7 @@ window.ASC.Files.Editor = (function () {
 
     var readyEditor = function () {
         if (ASC.Files.Editor.docServiceParams.serverErrorMessage) {
-            docEditorShowError(ASC.Files.Editor.docServiceParams.serverErrorMessage);
+            ASC.Files.Editor.docEditor.showMessage(ASC.Files.Editor.docServiceParams.serverErrorMessage);
             return;
         }
 
@@ -331,10 +333,10 @@ window.ASC.Files.Editor = (function () {
         if (typeof errorMessage != "undefined") {
             if (errorMessage == null || !errorMessage.length) {
                 setTimeout(function () {
-                    docEditorShowInfo("Connection is lost");
+                    ASC.Files.Editor.docEditor.showMessage("Connection is lost");
                 }, 500);
             } else {
-                docEditorShowWarning(errorMessage || "Connection is lost");
+                ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
             }
             return;
         }
@@ -358,25 +360,13 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.Editor.docEditor.denyEditingRights(message || "Connection is lost");
     };
 
-    var docEditorShowError = function (message) {
-        ASC.Files.Editor.docEditor.showMessage("ONLYOFFICE™", message, "error");
-    };
-
-    var docEditorShowWarning = function (message) {
-        ASC.Files.Editor.docEditor.showMessage("ONLYOFFICE™", message, "warning");
-    };
-
-    var docEditorShowInfo = function (message) {
-        ASC.Files.Editor.docEditor.showMessage("ONLYOFFICE™", message, "info");
-    };
-
     var checkMessageFromHash = function () {
         var regExpError = /^#error\/(\S+)?/;
         if (regExpError.test(location.hash)) {
             var errorMessage = regExpError.exec(location.hash)[1];
             errorMessage = decodeURIComponent(errorMessage).replace(/\+/g, " ");
             if (errorMessage.length) {
-                docEditorShowWarning(errorMessage);
+                ASC.Files.Editor.docEditor.showMessage(errorMessage);
                 return true;
             }
         }
@@ -385,7 +375,7 @@ window.ASC.Files.Editor = (function () {
             errorMessage = regExpMessage.exec(location.hash)[1];
             errorMessage = decodeURIComponent(errorMessage).replace(/\+/g, " ");
             if (errorMessage.length) {
-                docEditorShowInfo(errorMessage);
+                ASC.Files.Editor.docEditor.showMessage(errorMessage);
                 return true;
             }
         }
@@ -443,9 +433,9 @@ window.ASC.Files.Editor = (function () {
     var completeGetEditHistory = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.refreshHistory != "function") {
             if (typeof errorMessage != "undefined") {
-                docEditorShowError(errorMessage || "Connection is lost");
+                ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
             } else {
-                docEditorShowError("Function is not available");
+                ASC.Files.Editor.docEditor.showMessage("Function is not available");
             }
             return;
         }
@@ -474,9 +464,9 @@ window.ASC.Files.Editor = (function () {
     var completeGetDiffUrl = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.setHistoryData != "function") {
             if (typeof errorMessage != "undefined") {
-                docEditorShowError(errorMessage || "Connection is lost");
+                ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
             } else {
-                docEditorShowError("Function is not available");
+                ASC.Files.Editor.docEditor.showMessage("Function is not available");
             }
             return;
         }
@@ -494,9 +484,9 @@ window.ASC.Files.Editor = (function () {
     var completeGetMails = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.setEmailAddresses != "function") {
             if (typeof errorMessage != "undefined") {
-                docEditorShowError(errorMessage || "Connection is lost");
+                ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
             } else {
-                docEditorShowError("Function is not available");
+                ASC.Files.Editor.docEditor.showMessage("Function is not available");
             }
             return;
         }
@@ -521,9 +511,9 @@ window.ASC.Files.Editor = (function () {
     var completeStartMailMerge = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.processMailMerge != "function") {
             if (typeof errorMessage != "undefined") {
-                docEditorShowError(errorMessage || "Connection is lost");
+                ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
             } else {
-                docEditorShowError("Function is not available");
+                ASC.Files.Editor.docEditor.showMessage("Function is not available");
             }
             return;
         }
@@ -533,7 +523,7 @@ window.ASC.Files.Editor = (function () {
 
     var completeRename = function (xmlData, params, errorMessage) {
         if (typeof errorMessage != "undefined") {
-            docEditorShowError(errorMessage || "Connection is lost");
+            ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
         }
         return;
     };

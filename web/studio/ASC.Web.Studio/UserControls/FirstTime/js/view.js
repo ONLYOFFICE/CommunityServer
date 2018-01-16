@@ -34,15 +34,17 @@ ASC.Controls.FirstTimeView = new function() {
     this.Finish = function() {
         window.onbeforeunload = null;
 
-       try {
+        try {
             if (window.ga) {
-                 window.ga('send', 'pageview', '/wizard_finish');
-		 window.ga('testTracker.send', 'event', 'onlyoffice_adwords', 'wizard_finish');
+                window.ga('www.send', 'pageview', '/wizard_finish');
+                window.ga('www.send', 'event', 'onlyoffice_adwords', 'wizard_finish');
+                window.ga('testTracker.send', 'pageview', '/wizard_finish');
+                window.ga('testTracker.send', 'event', 'onlyoffice_adwords', 'wizard_finish');
             }
-window.uetq = window.uetq || []; 
-
- window.uetq.push({ 'ec':'onlyoffice_msn', 'ea':'clickto', 'el':'onbutton', 'ev':'1' }); 
-        } catch (err) { }
+            window.uetq = window.uetq || [];
+            window.uetq.push({ 'ec': 'onlyoffice_msn', 'ea': 'clickto', 'el': 'onbutton', 'ev': '1' });
+        } catch(err) {
+        }
 
         var url = "default.aspx";
         if (jq("body").is(".desktop")) {
@@ -50,7 +52,7 @@ window.uetq = window.uetq || [];
         }
 
         location.href = url;
-    }
+    };
 
     this.SaveRequiredStep = function() {
 
@@ -63,7 +65,7 @@ window.uetq = window.uetq || [];
 
         var FTManager = new ASC.Controls.FirstTimeManager();
         FTManager.SaveRequiredData(this.SaveRequiredStepCallback);
-    }
+    };
 
     this.SaveRequiredStepCallback = function(result) {
 
@@ -86,12 +88,12 @@ window.uetq = window.uetq || [];
         }
     };
 
-    this.ShowOperationInfo = function (result) {
+    this.ShowOperationInfo = function(result) {
         if (result.Status == 1)
             toastr.success(result.Message);
         else
             toastr.error(result.Message);
-    }
+    };
 };
 
 

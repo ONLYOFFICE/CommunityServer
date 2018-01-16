@@ -48,6 +48,50 @@ namespace TMResourceData
         private const string ResAuthorsLangTable = "res_authorslang";
         private const string ResAuthorsFileTable = "res_authorsfile";
 
+        public static DateTime GetLastUpdate()
+        {
+            using (var dbManager = new DbManager(Dbid))
+            {
+                var sql = new SqlQuery(ResFilesTable).SelectMax("LastUpdate");
+
+                return dbManager.ExecuteScalar<DateTime>(sql);
+            }
+        }
+
+        public static List<ResCulture> GetListLanguages(int fileId, string title)
+        {
+            using (var dbManager = new DbManager(Dbid))
+            {
+                var sql = new SqlQuery(ResCultureTable)
+                    .Select("res_cultures.title", "res_cultures.value", "res_cultures.available")
+                    .LeftOuterJoin("res_data", Exp.EqColumns("res_cultures.title", "res_data.cultureTitle"))
+                    .Where("res_data.fileID", fileId)
+                    .Where("res_data.title", title);
+
+                var language = dbManager.ExecuteList(sql).ConvertAll(GetCultureFromDB);
+
+                language.Remove(language.Find(p => p.Title == "Neutral"));
+
+                return language;
+            }
+        }
+
+        public static Dictionary<ResCulture, List<string>> GetCulturesWithAuthors()
+        {
+            using (var dbManager = new DbManager("tmresource"))
+            {
+                var sql = new SqlQuery("res_authorslang ral")
+                    .Select(new[] { "ral.authorLogin", "rc.title", "rc.value" })
+                    .InnerJoin("res_cultures rc", Exp.EqColumns("rc.title", "ral.cultureTitle"))
+                    .InnerJoin("res_authors ra", Exp.EqColumns("ra.login", "ral.authorLogin"))
+                    .Where("ra.isAdmin", false);
+
+                return dbManager.ExecuteList(sql)
+                                .GroupBy(r => new ResCulture { Title = (string)r[1], Value = (string)r[2] }, r => (string)r[0])
+                                .ToDictionary(r => r.Key, r => r.ToList());
+            }
+        }
+
         public static void AddCulture(string cultureTitle, string name)
         {
             using (var dbManager = new DbManager(Dbid))
@@ -334,7 +378,7 @@ namespace TMResourceData
                                                               string.Format("sum(case rd.cultureTitle when '{0}' then (case rd.flag when 3 then 0 else 1 end) else 0 end)", currentData.Language.Title),
                                                               string.Format("sum(case rd.cultureTitle when '{0}' then (case rd.flag when 3 then 1 else 0 end) else 0 end)", currentData.Language.Title),
                                                               string.Format("sum(case rd.cultureTitle when '{0}' then 1 else 0 end)", "Neutral"))
-                                                      .InnerJoin(ResDataTable + "rd", Exp.EqColumns("rd.fileid", "rf.id"))
+                                                      .InnerJoin(ResDataTable + " rd", Exp.EqColumns("rd.fileid", "rf.id"))
                                                       .Where("rf.projectName", currentData.Project.Name)
                                                       .Where("rd.resourceType", "text")
                                                       .Where(!Exp.Like("rd.title", @"del\_", SqlLike.StartWith) & !Exp.Exists(exist))
@@ -615,16 +659,21 @@ namespace TMResourceData
         {
             using (var dbManager = new DbManager(Dbid))
             {
-                var sql = new SqlQuery(ResDataTable)
-                    .SelectCount().Select(ResCultureTable + ".value", ResFilesTable + ".projectName")
-                    .InnerJoin(ResFilesTable, Exp.EqColumns(ResFilesTable + ".id", ResDataTable + ".fileid"))
-                    .InnerJoin(ResCultureTable, Exp.EqColumns(ResDataTable + ".cultureTitle", ResCultureTable + ".title"))
-                    .Where(Exp.Lt("flag", 3))
-                    .Where("resourceType", "text")
-                    .Where("isLock", 0)
-                    .GroupBy("value", "projectName")
-                    .OrderBy("value", true)
-                    .OrderBy("projectName", true);
+                var sql = new SqlQuery(ResDataTable + " r1")
+                    .SelectCount("r1.title")
+                    .Select("rc.value", "rf.projectName")
+                    .Select("sum(LENGTH(r2.textvalue) - LENGTH(REPLACE(r2.textvalue, ' ', '')) + 1)")
+                    .InnerJoin(ResFilesTable + " as rf", Exp.EqColumns("rf.id", "r1.fileid"))
+                    .InnerJoin(ResCultureTable + " as rc", Exp.EqColumns("r1.cultureTitle", "rc.title"))
+                    .InnerJoin(ResDataTable + " as r2", Exp.And(Exp.EqColumns("r1.fileID", "r2.fileID"), Exp.EqColumns("r1.title", "r2.title")))
+                    .Where(Exp.Lt("r1.flag", 3))
+                    .Where("r1.resourceType", "text")
+                    .Where("rf.isLock", 0)
+                    .Where("r2.cultureTitle", "Neutral")
+                    .Where(!Exp.In("rf.id", new List<int>{259, 260, 261}))
+                    .GroupBy("rc.value", "rf.projectName")
+                    .OrderBy("rc.value", true)
+                    .OrderBy("rf.projectName", true);
 
                 var stat = dbManager.ExecuteList(sql);
                 var allStat = new List<StatisticModule>();
@@ -635,7 +684,8 @@ namespace TMResourceData
 
                     foreach (var project in stat.Select(data => (string)data[2]).Distinct())
                     {
-                        cultureData.Counts.Add(project, stat.Where(r => (string)r[1] == culture && (string)r[2] == project).Sum(r => (Convert.ToInt32(r[0]))));
+                        var data = stat.Where(r => (string) r[1] == culture && (string) r[2] == project).ToList();
+                        cultureData.Counts.Add(project, new Tuple<int, int>(data.Sum(r => Convert.ToInt32(r[0])), data.Sum(r => Convert.ToInt32(r[3]))));
                     }
 
                     allStat.Add(cultureData);
@@ -643,6 +693,11 @@ namespace TMResourceData
 
                 return allStat;
             }
+        }
+
+        public static List<StatisticUser> GetUserStatisticForLang()
+        {
+            return GetUserStatisticForLang(DateTime.Now.Date, DateTime.Now.Date.AddDays(1));
         }
 
         public static List<StatisticUser> GetUserStatisticForLang(DateTime from, DateTime till)

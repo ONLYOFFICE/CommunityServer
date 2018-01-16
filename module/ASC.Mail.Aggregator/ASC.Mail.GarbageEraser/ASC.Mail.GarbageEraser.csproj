@@ -48,9 +48,6 @@
     <Reference Include="ASC.Mail.Server.Dal">
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Server.Dal.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Mail.Server.DnsChecker">
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Server.DnsChecker.dll</HintPath>
-    </Reference>
     <Reference Include="ASC.Mail.Server.MockAdministration">
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Server.MockAdministration.dll</HintPath>
     </Reference>
@@ -61,6 +58,7 @@
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Server.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
@@ -72,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MailGarbageEraser.cs" />
+    <Compile Include="MailGarbageEraserConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

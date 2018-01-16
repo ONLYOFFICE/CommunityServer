@@ -24,31 +24,21 @@
 */
 
 
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
-using System.Web;
-using ASC.Core;
-using ASC.Web.Core.Client;
 using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.People.Masters.ClientScripts
 {
-    public class ClientTemplateResources : ClientScript
+    public class ClientTemplateResources : ClientScriptTemplate
     {
-        protected override string BaseNamespace
+        protected override string[] Links
         {
-            get { return "ASC.People.Resources"; }
-        }
-
-        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
-        {
-            return RegisterClientTemplatesPath(context, "~/products/people/templates/PeopleTemplates.html");
-        }
-
-        protected override string GetCacheHash()
-        {
-            return ClientSettings.ResetCacheKey + Thread.CurrentThread.CurrentCulture.Name + CoreContext.TenantManager.GetCurrentTenant().LastModified.ToString(CultureInfo.InvariantCulture);
+            get
+            {
+                return new[]
+                {
+                    "~/products/people/templates/PeopleTemplates.html"
+                };
+            }
         }
     }
 }

@@ -25,6 +25,7 @@
 
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Optimization;
@@ -175,7 +176,18 @@ namespace ASC.Web.Core.Client.Bundling
 
             public override Bundle Include(string path)
             {
-                return Include(ToVirtualPath(path), new CssTransform(DiscTransform.SuccessInitialized ? CdnPath : Path));
+                var minify = true;
+                if (HttpContext.Current != null)
+                {
+                    var filePath = HttpContext.Current.Server.MapPath(path);
+                    if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath.Replace(".css", ".min.css").Replace(".less", ".min.css")))
+                    {
+                        minify = false;
+                        path = path.Replace(".css", ".min.css").Replace(".less", ".min.css");
+                    }
+                }
+
+                return Include(ToVirtualPath(path), new CssTransform(DiscTransform.SuccessInitialized ? CdnPath : Path, minify));
             }
 
             internal override string GetLink(string uri)

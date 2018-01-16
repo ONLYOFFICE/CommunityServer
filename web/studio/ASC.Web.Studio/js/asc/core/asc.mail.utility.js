@@ -247,7 +247,9 @@ if (typeof ASC.Mail.Utility === "undefined") {
             { messageUrl: null, sendSkipped: true } :
             { messageUrl: "/addons/mail/#conversation/" + messageId };
 
-            if (!params.skipSend && (!jq.connection || jq.connection.hub && jq.connection.hub.state !== jq.connection.connectionState.connected)) {
+            var socket = ASC.SocketIO && !ASC.SocketIO.disabled() ? ASC.SocketIO.Factory.counters : null;
+
+            if (!params.skipSend && (!socket || !socket.connected())) {
                 var state = 0;
                 if (params.method === "REQUEST")
                     state = 1;
@@ -1573,6 +1575,7 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
             'OL': true,
             'OPTGROUP': true,
             'OPTION': true,
+            'O:SMARTTAGTYPE': true,
             'P': true,
             'PLAINTEXT': true,
             'PRE': true,

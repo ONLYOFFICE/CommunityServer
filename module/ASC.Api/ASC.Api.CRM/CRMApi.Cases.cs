@@ -61,7 +61,7 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.GetCasesDao().CloseCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
-            MessageService.Send(Request, MessageAction.CaseClosed, cases.Title);
+            MessageService.Send(Request, MessageAction.CaseClosed, MessageTarget.Create(cases.ID), cases.Title);
 
             return ToCasesWrapper(cases);
         }
@@ -85,7 +85,7 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.GetCasesDao().ReOpenCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
-            MessageService.Send(Request, MessageAction.CaseOpened, cases.Title);
+            MessageService.Send(Request, MessageAction.CaseOpened, MessageTarget.Create(cases.ID), cases.Title);
 
             return ToCasesWrapper(cases);
         }
@@ -279,8 +279,8 @@ namespace ASC.Api.CRM
                 CRMSecurity.SetAccessTo(cases, accessListLocal);
                 if (isMessageServicSende)
                 {
-                    var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
-                    MessageService.Send(Request, MessageAction.CaseRestrictedAccess, cases.Title, users);
+                    var users = GetUsersByIdList(accessListLocal);
+                    MessageService.Send(Request, MessageAction.CaseRestrictedAccess, MessageTarget.Create(cases.ID), cases.Title, users.Select(x => x.DisplayUserName(false)));
                 }
             }
             else
@@ -288,7 +288,7 @@ namespace ASC.Api.CRM
                 CRMSecurity.MakePublic(cases);
                 if (isMessageServicSende)
                 {
-                    MessageService.Send(Request, MessageAction.CaseOpenedAccess, cases.Title);
+                    MessageService.Send(Request, MessageAction.CaseOpenedAccess, MessageTarget.Create(cases.ID), cases.Title);
                 }
             }
 
@@ -493,7 +493,7 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.GetCasesDao().DeleteCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
-            MessageService.Send(Request, MessageAction.CaseDeleted, cases.Title);
+            MessageService.Send(Request, MessageAction.CaseDeleted, MessageTarget.Create(cases.ID), cases.Title);
 
             return ToCasesWrapper(cases);
         }
@@ -517,7 +517,7 @@ namespace ASC.Api.CRM
             casesids = casesids.Distinct();
             var caseses = DaoFactory.GetCasesDao().DeleteBatchCases(casesids.ToArray());
 
-            MessageService.Send(Request, MessageAction.CasesDeleted, caseses.Select(c => c.Title));
+            MessageService.Send(Request, MessageAction.CasesDeleted, MessageTarget.Create(casesids), caseses.Select(c => c.Title));
 
             return ToListCasesWrappers(caseses);
         }
@@ -542,7 +542,8 @@ namespace ASC.Api.CRM
             if (!caseses.Any()) return new List<CasesWrapper>();
 
             caseses = DaoFactory.GetCasesDao().DeleteBatchCases(caseses);
-            MessageService.Send(Request, MessageAction.CasesDeleted, caseses.Select(c => c.Title));
+
+            MessageService.Send(Request, MessageAction.CasesDeleted, MessageTarget.Create(caseses.Select(c => c.ID)), caseses.Select(c => c.Title));
 
             return ToListCasesWrappers(caseses);
         }
@@ -590,7 +591,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetCasesDao().AddMember(caseid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CaseLinkedCompany : MessageAction.CaseLinkedPerson;
-            MessageService.Send(Request, messageAction, cases.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(cases.ID), cases.Title, contact.GetTitle());
 
             return ToContactWrapper(contact);
         }
@@ -623,7 +624,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetCasesDao().RemoveMember(caseid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CaseUnlinkedCompany : MessageAction.CaseUnlinkedPerson;
-            MessageService.Send(Request, messageAction, cases.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(cases.ID), cases.Title, contact.GetTitle());
 
             return result;
         }

@@ -67,7 +67,7 @@ window.accountsManager = (function($) {
                         "<a class=\"mail-autoreply-disable\">" + MailScriptResource.AutoreplyDisable + "</a>",
                         "<a href=\"#accounts\">" + MailResource.AccountsSettingsLabel + "</a>"),
                         MailScriptResource.EnabledAutoreplyNotification,
-                        { "closeButton": false, "timeOut": "0", "extendedTimeOut": "0" });
+                        { "closeButton": true, "timeOut": "0", "extendedTimeOut": "0" });
                     $(".mail-autoreply-disable").off("click").on("click", function () {
                         for (var i = 0; i < accounts.length; i++) {
                             var autoreply = accounts[i].autoreply;
@@ -85,7 +85,7 @@ window.accountsManager = (function($) {
                     window.toastr.error(MailScriptResource.GoToAccountsOnDeactivationText.format(
                         "<a href=\"#accounts\">" + MailResource.AccountsSettingsLabel + "</a>"),
                         MailScriptResource.DeactivatedAccountsNotification,
-                        { "closeButton": false, "timeOut": "0", "extendedTimeOut": "0" });
+                        { "closeButton": true, "timeOut": "0", "extendedTimeOut": "0" });
                 }
             }
 

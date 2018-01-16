@@ -123,6 +123,9 @@
   <data name="BtnAddToMailing" xml:space="preserve">
     <value>Add to mass mailing</value>
   </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="BtnCloseHistory" xml:space="preserve">
     <value>Close history</value>
   </data>
@@ -131,6 +134,12 @@
   </data>
   <data name="BtnDecline" xml:space="preserve">
     <value>Decline</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="BtnDeleteSentFiles" xml:space="preserve">
+    <value>Delete Sent Files</value>
   </data>
   <data name="BtnKick" xml:space="preserve">
     <value>Remove</value>
@@ -164,6 +173,21 @@
   </data>
   <data name="DefaultContactTitle" xml:space="preserve">
     <value>Anonymous</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Delete sent files</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>All files</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>The files you send via chat are stored in the &lt;b&gt;&lt;/b&gt; portal. You can delete these files to free up space. After the deletion, the files will no longer be accessible through the links in the history of all the participants in the conversation.</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Files sent more than a month ago</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Files sent more than a year ago</value>
   </data>
   <data name="FileSizePostfix" xml:space="preserve">
     <value>bytes,KB,MB,GB</value>
@@ -377,5 +401,8 @@
   </data>
   <data name="ValidSymbols" xml:space="preserve">
     <value>letters, numbers, and periods (.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Write a message...</value>
   </data>
 </root>

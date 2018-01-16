@@ -125,7 +125,7 @@ namespace ASC.Web.CRM
         {
             var pdfFile = Global.GetInvoicePdfExistingOrCreate(targetInvoice);
 
-            MessageService.Send(HttpContext.Current.Request, MessageAction.InvoiceDownloaded, targetInvoice.Number);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.InvoiceDownloaded, MessageTarget.Create(targetInvoice.ID), targetInvoice.Number);
 
             Response.Redirect(CommonLinkUtility.GetFullAbsolutePath(pdfFile.FileDownloadUrl));
         }

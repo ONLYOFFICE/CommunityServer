@@ -25,7 +25,11 @@
 
 
 ASC.Controls.MailReader = function () {
-    function updateFolders() {
+    var socket;
+    function updateFolders(params) {
+        if (params && params.skipIO)
+            return;
+
         updateFoldersOnOtherTabs(false);
     }
 
@@ -36,10 +40,8 @@ ASC.Controls.MailReader = function () {
 
     function updateFoldersOnOtherTabs(state) {
         try {
-            if (ASC.Resources.Master.Hub.Url && jq.connection &&
-                jq.connection.hub.state === jq.connection.connectionState.connected) {
-                // updateFolders
-                jq.connection.ch.server.uf(state);
+            if (socket) {
+                socket.emit('updateFolders', state);
             }
         } catch (e) {
             console.error(e.message);
@@ -78,53 +80,68 @@ ASC.Controls.MailReader = function () {
 	}
 
 	function mailStart() {
-	    if (ASC.Resources.Master.Hub.Url) {
-	        Teamlab.bind(Teamlab.events.getMailConversation, updateFolders);
-	        Teamlab.bind(Teamlab.events.getNextMailConversationId, updateFolders);
-	        Teamlab.bind(Teamlab.events.getPrevMailConversationId, updateFolders);
-	        Teamlab.bind(Teamlab.events.getMailMessage, updateFolders);
-	        Teamlab.bind(Teamlab.events.getNextMailMessageId, updateFolders);
-	        Teamlab.bind(Teamlab.events.getPrevMailMessageId, updateFolders);
-	        Teamlab.bind(Teamlab.events.removeMailFolderMessages, updateFolders);
-	        Teamlab.bind(Teamlab.events.restoreMailMessages, updateFolders);
-	        Teamlab.bind(Teamlab.events.moveMailMessages, updateFolders);
-	        Teamlab.bind(Teamlab.events.removeMailMessages, updateFolders);
-	        Teamlab.bind(Teamlab.events.markMailMessages, updateFolders);
-	        Teamlab.bind(Teamlab.events.setMailTag, updateFolders);
-	        Teamlab.bind(Teamlab.events.setMailConversationsTag, updateFolders);
-	        Teamlab.bind(Teamlab.events.unsetMailTag, updateFolders);
-	        Teamlab.bind(Teamlab.events.unsetMailConversationsTag, updateFolders);
-	        Teamlab.bind(Teamlab.events.createMailMailboxSimple, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.createMailMailboxOAuth, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.updateMailMailboxOAuth, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.createMailMailbox, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.removeMailMailbox, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.addMailbox, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.removeMailbox, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.updateMailbox, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.addMailBoxAlias, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.removeMailBoxAlias, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.addMailGroup, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.removeMailGroup, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.removeMailDomain, updateFoldersAndUpdateMailboxes);
-	        Teamlab.bind(Teamlab.events.setDefaultAccount, updateFoldersAndUpdateMailboxes);
-            Teamlab.bind(Teamlab.events.sendMailMessage, updateFolders);
-	        Teamlab.bind(Teamlab.events.saveMailMessage, updateFolders);
-	        Teamlab.bind(Teamlab.events.moveMailConversations, updateFolders);
-	        Teamlab.bind(Teamlab.events.restoreMailConversations, updateFolders);
-	        Teamlab.bind(Teamlab.events.removeMailConversations, updateFolders);
-	        Teamlab.bind(Teamlab.events.markMailConversations, updateFolders);
+	    if (ASC.SocketIO && !ASC.SocketIO.disabled()) {
+	        socket = ASC.SocketIO.Factory.counters;
+	        socket
+                .connect(function () {
+	                bindToEventsWithSocketIO();
+	            })
+	            .reconnect_failed(function() {
+	                bindToEventsWithoutSocketIO();
+	            });
 	    } else {
-	        if (StudioManager.getCurrentModule() === "mail")
-	            return; // Skips for mail module
-
-	        Teamlab.bind(Teamlab.events.getMailFolders, onUpdateFolders);
-
-	        if (localStorageManager.isAvailable) {
-	            window.addEvent(window, 'storage', onLocalStorageChanged);
-	        }
+	        bindToEventsWithoutSocketIO();
 	    }
 	}
+
+    function bindToEventsWithSocketIO() {
+        Teamlab.bind(Teamlab.events.getMailConversation, updateFolders);
+        Teamlab.bind(Teamlab.events.getNextMailConversationId, updateFolders);
+        Teamlab.bind(Teamlab.events.getPrevMailConversationId, updateFolders);
+        Teamlab.bind(Teamlab.events.getMailMessage, updateFolders);
+        Teamlab.bind(Teamlab.events.getNextMailMessageId, updateFolders);
+        Teamlab.bind(Teamlab.events.getPrevMailMessageId, updateFolders);
+        Teamlab.bind(Teamlab.events.removeMailFolderMessages, updateFolders);
+        Teamlab.bind(Teamlab.events.restoreMailMessages, updateFolders);
+        Teamlab.bind(Teamlab.events.moveMailMessages, updateFolders);
+        Teamlab.bind(Teamlab.events.removeMailMessages, updateFolders);
+        Teamlab.bind(Teamlab.events.markMailMessages, updateFolders);
+        Teamlab.bind(Teamlab.events.setMailTag, updateFolders);
+        Teamlab.bind(Teamlab.events.setMailConversationsTag, updateFolders);
+        Teamlab.bind(Teamlab.events.unsetMailTag, updateFolders);
+        Teamlab.bind(Teamlab.events.unsetMailConversationsTag, updateFolders);
+        Teamlab.bind(Teamlab.events.createMailMailboxSimple, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.createMailMailboxOAuth, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.updateMailMailboxOAuth, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.createMailMailbox, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.removeMailMailbox, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.addMailbox, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.removeMailbox, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.updateMailbox, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.addMailBoxAlias, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.removeMailBoxAlias, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.addMailGroup, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.removeMailGroup, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.removeMailDomain, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.setDefaultAccount, updateFoldersAndUpdateMailboxes);
+        Teamlab.bind(Teamlab.events.sendMailMessage, updateFolders);
+        Teamlab.bind(Teamlab.events.saveMailMessage, updateFolders);
+        Teamlab.bind(Teamlab.events.moveMailConversations, updateFolders);
+        Teamlab.bind(Teamlab.events.restoreMailConversations, updateFolders);
+        Teamlab.bind(Teamlab.events.removeMailConversations, updateFolders);
+        Teamlab.bind(Teamlab.events.markMailConversations, updateFolders);
+    }
+
+    function bindToEventsWithoutSocketIO() {
+        if (StudioManager.getCurrentModule() === "mail")
+            return; // Skips for mail module
+
+        Teamlab.bind(Teamlab.events.getMailFolders, onUpdateFolders);
+
+        if (localStorageManager.isAvailable) {
+            window.addEvent(window, 'storage', onLocalStorageChanged);
+        }
+    }
 
 	return {
 	    updateFoldersOnOtherTabs: updateFoldersOnOtherTabs,

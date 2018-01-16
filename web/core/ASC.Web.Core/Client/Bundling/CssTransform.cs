@@ -38,12 +38,14 @@ namespace ASC.Web.Core.Client.Bundling
     class CssTransform : IItemTransform, IBundleTransform
     {
         private readonly string bundlepath;
+        private readonly bool minify;
 
-        public CssTransform(): this("") { }
+        public CssTransform(): this("", false) { }
 
-        public CssTransform(string bundlepath)
+        public CssTransform(string bundlepath, bool minify = true)
         {
             this.bundlepath = bundlepath;
+            this.minify = minify;
         }
 
 
@@ -64,7 +66,7 @@ namespace ASC.Web.Core.Client.Bundling
 
             var urlRegex = new Regex(@"url\((.*?)\)", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
             input = urlRegex.Replace(input, m => ResolveUrlPath(includedVirtualPath, m));
-            return new Minifier().MinifyStyleSheet(input);
+            return minify ?  new Minifier().MinifyStyleSheet(input) : input;
         }
 
         private string ResolveImportLessPath(string virtualPath, Match m)

@@ -94,11 +94,10 @@
 #projectParticipantsContainer {
     display: none;
     overflow: auto;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
-    #projectParticipantsContainer .items-display-list {
-        margin-top: 15px;
-    }
+
 #projectContactsContainer {
     margin-bottom: 20px;
 }

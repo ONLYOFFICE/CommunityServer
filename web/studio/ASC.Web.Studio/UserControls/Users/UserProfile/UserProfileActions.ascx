@@ -9,8 +9,13 @@
    { %>
 <div id="userMenu" class="menu-small"></div>
         
-<div id="actionMenu" class="studio-action-panel" data-id="<%= ProfileHelper.UserInfo.ID %>" data-email="<%= ProfileHelper.UserInfo.Email %>" 
-    data-admin="<%= IsAdmin.ToString().ToLower()%>" data-name="<%= ProfileHelper.UserInfo.DisplayUserName() %>" data-visitor="<%= ProfileHelper.UserInfo.IsVisitor() %>">
+<div id="actionMenu" class="studio-action-panel"
+    data-id="<%= ProfileHelper.UserInfo.ID %>"
+    data-email="<%= ProfileHelper.UserInfo.Email %>" 
+    data-admin="<%= IsAdmin.ToString().ToLower()%>"
+    data-displayname="<%= ProfileHelper.UserInfo.DisplayUserName() %>"
+    data-username="<%= ProfileHelper.UserInfo.UserName %>"
+    data-visitor="<%= ProfileHelper.UserInfo.IsVisitor() %>">
     <ul class="dropdown-content">
         <% if (Actions.AllowEdit)
            { %>
@@ -85,6 +90,11 @@
         <% }
            if (Actions.AllowAddOrDelete)
            { %>
+        <li class="reassign-data <%= (ProfileHelper.UserInfo.Status == EmployeeStatus.Terminated) ? "" :  "display-none"%>">
+            <a class="dropdown-item" title="<%= Resource.ReassignData %>" href="<%= ReassignDataLink %>">
+                <%= Resource.ReassignData %>
+            </a>
+        </li>
         <li class="delete-self <%= (ProfileHelper.UserInfo.Status == EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a class="dropdown-item" title="<%= Resource.DeleteSelfProfile %>">
                 <%= Resource.DeleteSelfProfile %>

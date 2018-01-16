@@ -24,8 +24,8 @@
 */
 
 
-using ASC.SocialMedia.Twitter;
 using ASC.Thrdparty.Configuration;
+using ASC.Thrdparty.Twitter;
 using ASC.Web.CRM.SocialMedia;
 
 namespace ASC.Web.CRM.Classes.SocialMedia

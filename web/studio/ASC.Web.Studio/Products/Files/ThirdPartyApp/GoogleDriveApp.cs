@@ -24,6 +24,15 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security;
+using System.Text;
+using System.Threading;
+using System.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -34,7 +43,6 @@ using ASC.FederatedLogin.Profile;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
-using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;
@@ -49,15 +57,6 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.Utility;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security;
-using System.Text;
-using System.Threading;
-using System.Web;
 using File = ASC.Files.Core.File;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -349,7 +348,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 case "create":
                     var folderId = stateJson.Value<string>("folderId");
 
-                    context.Response.Redirect(App.Location + "?" + FilesLinkUtility.FolderId + "=" + folderId, true);
+                    context.Response.Redirect(App.Location + "?" + FilesLinkUtility.FolderId + "=" + HttpUtility.UrlEncode(folderId), true);
                     return;
                 case "open":
                     var idsArray = stateJson.Value<JArray>("ids") ?? stateJson.Value<JArray>("exportIds");
@@ -375,7 +374,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                         Global.Logger.Debug("GoogleDriveApp: file must be converted");
                         if (FilesSettings.ConvertNotify)
                         {
-                            context.Response.Redirect(App.Location + "?" + FilesLinkUtility.FileId + "=" + fileId, true);
+                            context.Response.Redirect(App.Location + "?" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(fileId), true);
                             return;
                         }
 

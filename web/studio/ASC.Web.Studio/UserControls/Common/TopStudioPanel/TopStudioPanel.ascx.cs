@@ -128,10 +128,46 @@ namespace ASC.Web.Studio.UserControls.Common
         protected string CurrentProductName { get; set; }
         protected string CurrentProductClassName { get; set; }
 
+        private List<AuthService> _authServiceList;
+        public List<AuthService> AuthServiceList
+        {
+            get
+            {
+                if (_authServiceList != null) return _authServiceList;
+
+                var sortOrder = new List<int> {1, 5, 14, 13, 3, 2, 8, 9, 4, 6, 7, 11, 10, 12};
+
+                _authServiceList = new List<AuthService>();
+
+                var services = new AuthorizationKeys().AuthServiceList;
+
+                foreach (var order in sortOrder)
+                {
+                    var service = services.First(x => x.Order.HasValue && x.Order.Value == order);
+
+                    if (service != null)
+                        _authServiceList.Add(service);
+                }
+
+                foreach (var service in services.Where(x => !x.Order.HasValue || !sortOrder.Contains(x.Order.Value)))
+                {
+                    _authServiceList.Add(service);
+                }
+
+                return _authServiceList;
+            }
+        }
+
+        protected List<IWebItem> Modules { get; set; }
+        protected IEnumerable<IWebItem> Addons { get; set; }
+        protected List<IWebItem> CustomModules { get; set; }
+        protected IEnumerable<CustomNavigationItem> CustomNavigationItems { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            var currentProductID = string.IsNullOrEmpty(Request["productID"]) ? CommonLinkUtility.GetProductID() : new Guid(Request["productID"]);
-            CurrentProduct = WebItemManager.Instance[currentProductID] as IProduct;
+            var currentProductId = string.IsNullOrEmpty(Request["productID"]) ? CommonLinkUtility.GetProductID() : new Guid(Request["productID"]);
+            CurrentProduct = WebItemManager.Instance[currentProductId] as IProduct;
+
             if (CurrentProduct != null)
             {
                 CurrentProductClassName = CurrentProduct.ProductClassName;
@@ -170,14 +206,36 @@ namespace ASC.Web.Studio.UserControls.Common
             else
             {
                 var productsList = WebItemManager.Instance.GetItems(WebZoneType.TopNavigationProductList, ItemAvailableState.Normal);
+
                 DisplayModuleList = productsList.Any() && !CoreContext.Configuration.Personal;
-                _productRepeater.DataSource = productsList;
 
-                _productRepeater.DataBind();
+                Modules = new List<IWebItem>();
+                CustomModules = new List<IWebItem>();
 
-                var addons = _customNavItems.Where(pr => ((pr.ID == WebItemManager.CalendarProductID || pr.ID == WebItemManager.TalkProductID || pr.ID == WebItemManager.MailProductID)));
-                _addonRepeater.DataSource = addons.ToList();
-                _addonRepeater.DataBind();
+                foreach (var webItem in productsList)
+                {
+                    if (webItem.ID == WebItemManager.DocumentsProductID ||
+                        webItem.ID == WebItemManager.ProjectsProductID ||
+                        webItem.ID == WebItemManager.CRMProductID ||
+                        webItem.ID == WebItemManager.CommunityProductID ||
+                        webItem.ID == WebItemManager.PeopleProductID)
+                    {
+                        Modules.Add(webItem);
+                    }
+                    else
+                    {
+                        CustomModules.Add(webItem);
+                    }
+                }
+
+                Addons = _customNavItems
+                    .Where(item =>
+                           (item.ID == WebItemManager.CalendarProductID ||
+                            item.ID == WebItemManager.TalkProductID ||
+                            item.ID == WebItemManager.MailProductID))
+                    .OrderBy(item => item.Context.DefaultSortOrder);
+
+                CustomNavigationItems = CustomNavigationSettings.Load().Items.Where(x => x.ShowInMenu);
             }
 
             foreach (var item in _customNavItems)
@@ -210,7 +268,6 @@ namespace ASC.Web.Studio.UserControls.Common
                 }
             }
 
-
             Settings = CompanyWhiteLabelSettings.Instance;
         }
 
@@ -234,6 +291,23 @@ namespace ASC.Web.Studio.UserControls.Common
 
             if (Page is Studio.Management)
             {
+                var typeUrlParam = Request["type"];
+
+                if (!string.IsNullOrEmpty(typeUrlParam))
+                {
+                    int managementType;
+
+                    if (Int32.TryParse(Request["type"], out managementType) &&
+                        Enum.IsDefined(typeof (ManagementType), managementType) &&
+                        (ManagementType) managementType == ManagementType.ThirdPartyAuthorization)
+                    {
+                        CurrentProductClassName = "apps";
+                        CurrentProductName = Resource.Apps;
+                        return;
+                    }
+
+                }
+
                 CurrentProductClassName = "settings";
                 CurrentProductName = Resource.Administration;
                 return;

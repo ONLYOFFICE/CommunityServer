@@ -1071,7 +1071,8 @@ namespace ASC.Mail.Aggregator
                         MailTable.Columns.HasParseError,
                         MailTable.Columns.MimeMessageId,
                         MailTable.Columns.MimeInReplyTo,
-                        MailTable.Columns.CalendarUid
+                        MailTable.Columns.CalendarUid,
+                        MailTable.Columns.Uidl
                 )
                 .Where(GetUserWhere(user, tenant))
                 .Where(MailTable.Columns.Id, messageId);
@@ -1108,8 +1109,10 @@ namespace ASC.Mail.Aggregator
                                        has_parse_error = Convert.ToBoolean(x[22]),
                                        mime_message_id = (string) x[23],
                                        mime_in_reply_to = (string) x[24],
-                                       calendar_uid = (string)x[25]
-                                   })
+                                       calendar_uid = (string)x[25],
+                                       uidl = (string)x[26]
+
+                               })
                                .SingleOrDefault();
 
             if (mailDbInfo == null)
@@ -1160,7 +1163,8 @@ namespace ASC.Mail.Aggregator
                     HasParseError = mailDbInfo.has_parse_error,
                     MimeMessageId = mailDbInfo.mime_message_id,
                     MimeReplyToId = mailDbInfo.mime_in_reply_to,
-                    CalendarUid = mailDbInfo.calendar_uid
+                    CalendarUid = mailDbInfo.calendar_uid,
+                    Uidl = mailDbInfo.uidl
                 };
 
             //Reassemble paths
@@ -1241,7 +1245,7 @@ namespace ASC.Mail.Aggregator
                 }
             }
 
-            var attachments = GetMessageAttachments(db, tenant, user, messageId);
+            var attachments = GetMessageAttachments(db, tenant, user, messageId, options.LoadEmebbedAttachements);
 
             item.Attachments = attachments.Count != 0 ? attachments : new List<MailAttachment>();
 
@@ -1296,13 +1300,17 @@ namespace ASC.Mail.Aggregator
                         AttachmentTable.Columns.IdMailbox.Prefix(AttachmentTable.Name));
         }
 
-        private List<MailAttachment> GetMessageAttachments(IDbManager db, int tenant, string user, int messageId)
+        private List<MailAttachment> GetMessageAttachments(IDbManager db, int tenant, string user, int messageId, bool loadEmbedded = false)
         {
             var attachmentsSelectQuery = GetAttachmentsSelectQuery()
                 .Where(MailTable.Columns.Id.Prefix(MailTable.Name), messageId)
                 .Where(AttachmentTable.Columns.NeedRemove.Prefix(AttachmentTable.Name), false)
-                .Where(AttachmentTable.Columns.ContentId, Exp.Empty)
                 .Where(GetUserWhere(user, tenant, MailTable.Name));
+
+            if (!loadEmbedded)
+            {
+                attachmentsSelectQuery.Where(AttachmentTable.Columns.ContentId, Exp.Empty);
+            }
 
             var attachments =
                 db.ExecuteList(attachmentsSelectQuery)
@@ -1436,7 +1444,7 @@ namespace ASC.Mail.Aggregator
 
             if (filter.IsDefault())
             {
-                var folders = GetFolders(tenant, user);
+                var folders = GetFolders(db, tenant, user);
                 var currentFolder =
                     folders.FirstOrDefault(f => f.id == filter.PrimaryFolder);
 

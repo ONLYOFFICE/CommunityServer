@@ -61,7 +61,7 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1. All signers completed $DocumentTitle
+        ///   Looks up a localized string similar to h1. All signers completed $Message
         ///
         ///This is a mail message to notify you that all signers completed &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;.
         ///

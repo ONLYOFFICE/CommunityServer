@@ -388,7 +388,7 @@ ASC.Feed = (function() {
 
         var template = feed;
 
-        template.author = getUser(template.authorId);
+        template.author = window.UserManager.getUser(template.authorId);
 
         template.isGuest = template.author == null || template.authorId == guestId;
         template.isNew = checkNew(template);
@@ -403,7 +403,7 @@ ASC.Feed = (function() {
 
         if (template.comments) {
             for (var j = 0; j < template.comments.length; j++) {
-                template.comments[j].author = getUser(template.comments[j].authorId);
+                template.comments[j].author = window.UserManager.getUser(template.comments[j].authorId) || window.UserManager.getRemovedProfile();
             }
         }
 
@@ -529,7 +529,7 @@ ASC.Feed = (function() {
 
                 for (var j = 0; j < template.groupedFeeds.length; j++) {
                     var g = template.groupedFeeds[j];
-                    var author = getUser(g.AuthorId);
+                    var author = window.UserManager.getUser(g.AuthorId);
 
                     g.Title = author ? author.displayName : null;
                     g.ItemUrl = author ? author.profileUrl : null;
@@ -568,45 +568,6 @@ ASC.Feed = (function() {
                 template.itemClass = 'documents';
                 break;
         }
-    }
-
-    function getUsers(ids) {
-        if (!ids || !ids.length) {
-            return null;
-        }
-
-        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-        if (!users) {
-            return null;
-        }
-
-        var result = [];
-        for (var j = 0; j < users.length; j++) {
-            if (~ids.indexOf(users[j].id)) {
-                result.push(users[j]);
-            }
-        }
-
-        return result;
-    }
-
-    function getUser(id) {
-        if (!id) {
-            return null;
-        }
-
-        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-        if (!users) {
-            return null;
-        }
-
-        for (var j = 0; j < users.length; j++) {
-            if (users[j].id == id) {
-                return users[j];
-            }
-        }
-
-        return null;
     }
 
     function bindEvents() {

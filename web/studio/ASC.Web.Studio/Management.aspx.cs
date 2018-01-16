@@ -68,7 +68,7 @@ namespace ASC.Web.Studio
                 Response.Redirect(CommonLinkUtility.GetDefault());
             }
 
-            TenantAccess = SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
+            TenantAccess = TenantAccessSettings.Load();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -182,7 +182,7 @@ namespace ASC.Web.Studio
                 case ManagementType.Backup:
                     //only SaaS features
                     return !CoreContext.Configuration.Standalone && 
-                        !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+                        !TenantAccessSettings.Load().Anyone;
                 case ManagementType.AuditTrail:
                 case ManagementType.LoginHistory:
                 case ManagementType.LdapSettings:

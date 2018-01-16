@@ -39,7 +39,6 @@ using ASC.Api.Utils;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.IPSecurity;
@@ -55,6 +54,7 @@ using ASC.Web.Studio.Utility;
 using log4net;
 using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
+using StorageHelper = ASC.Web.Studio.UserControls.CustomNavigation.StorageHelper;
 
 
 namespace ASC.Api.Settings
@@ -65,7 +65,7 @@ namespace ASC.Api.Settings
     public partial class SettingsApi : IApiEntryPoint
     {
         private const int ONE_THREAD = 1;
-        private static readonly DistributedTaskQueue ldapTasks = new DistributedTaskQueue("ldapOperations", ONE_THREAD);
+        private static readonly DistributedTaskQueue ldapTasks = new DistributedTaskQueue("ldapOperations");
         private static readonly DistributedTaskQueue quotaTasks = new DistributedTaskQueue("quotaOperations", ONE_THREAD);
 
         public string Name
@@ -313,13 +313,16 @@ namespace ASC.Api.Settings
                     itemList.Add(item.Key, item.Value);
             }
 
+            var defaultPageSettings = StudioDefaultPageSettings.Load();
+
             foreach (var item in itemList)
             {
                 Guid[] subjects = null;
+                var productId = new Guid(item.Key);
 
                 if (item.Value)
                 {
-                    var webItem = WebItemManager.Instance[new Guid(item.Key)] as IProduct;
+                    var webItem = WebItemManager.Instance[productId] as IProduct;
                     if (webItem != null)
                     {
                         var productInfo = WebItemSecurity.GetSecurityInfo(item.Key);
@@ -331,6 +334,10 @@ namespace ASC.Api.Settings
                             subjects = selectedUsers.ToArray();
                         }
                     }
+                }
+                else if (productId == defaultPageSettings.DefaultProductID)
+                {
+                    (defaultPageSettings.GetDefault() as StudioDefaultPageSettings).Save();
                 }
 
                 WebItemSecurity.SetSecurity(item.Key, item.Value, subjects);
@@ -368,12 +375,12 @@ namespace ASC.Api.Settings
             if (productid == Guid.Empty)
             {
                 var messageAction = administrator ? MessageAction.AdministratorOpenedFullAccess : MessageAction.AdministratorDeleted;
-                MessageService.Send(Request, messageAction, admin.DisplayUserName(false));
+                MessageService.Send(Request, messageAction, MessageTarget.Create(admin.ID), admin.DisplayUserName(false));
             }
             else
             {
                 var messageAction = administrator ? MessageAction.ProductAddedAdministrator : MessageAction.ProductDeletedAdministrator;
-                MessageService.Send(Request, messageAction, GetProductName(productid), admin.DisplayUserName(false));
+                MessageService.Send(Request, messageAction, MessageTarget.Create(admin.ID), GetProductName(productid), admin.DisplayUserName(false));
             }
 
             return new {ProductId = productid, UserId = userid, Administrator = administrator};
@@ -395,7 +402,7 @@ namespace ASC.Api.Settings
         [Read("logo")]
         public string GetLogo()
         {
-            return SettingsManager.Instance.LoadSettings<TenantInfoSettings>(CoreContext.TenantManager.GetCurrentTenant().TenantId).GetAbsoluteCompanyLogoPath();
+            return TenantInfoSettings.Load().GetAbsoluteCompanyLogoPath();
         }
 
 
@@ -411,7 +418,7 @@ namespace ASC.Api.Settings
             }
 
             var tenantId = TenantProvider.CurrentTenantID;
-            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+            var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
 
             if (logo != null)
             {
@@ -434,7 +441,7 @@ namespace ASC.Api.Settings
             if (attachments != null && attachments.Any())
             {
                 var tenantId = TenantProvider.CurrentTenantID;
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+                var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
 
                 foreach (var f in attachments)
                 {
@@ -487,7 +494,7 @@ namespace ASC.Api.Settings
                 throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
             }
 
-            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+            var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
 
 
             var result = new Dictionary<int, string>();
@@ -509,7 +516,7 @@ namespace ASC.Api.Settings
                 throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
             }
 
-            var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+            var whiteLabelSettings = TenantWhiteLabelSettings.Load();
 
             return whiteLabelSettings.LogoText ?? TenantWhiteLabelSettings.DefaultLogoText;
         }
@@ -526,12 +533,12 @@ namespace ASC.Api.Settings
                 throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
             }
 
-            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+            var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
             _tenantWhiteLabelSettings.RestoreDefault();
 
-            var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+            var _tenantInfoSettings = TenantInfoSettings.Load();
             _tenantInfoSettings.RestoreDefaultLogo();
-            SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
+            _tenantInfoSettings.Save();
         }
 
         /// <summary>
@@ -568,7 +575,7 @@ namespace ASC.Api.Settings
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
             var settings = new IPRestrictionsSettings {Enable = enable};
-            SettingsManager.Instance.SaveSettings(settings, CurrentTenant);
+            settings.Save();
 
             return settings;
         }
@@ -582,7 +589,7 @@ namespace ASC.Api.Settings
         public TipsSettings UpdateTipsSettings(bool show)
         {
             var settings = new TipsSettings { Show = show };
-            SettingsManager.Instance.SaveSettingsFor(settings, CurrentUser);
+            settings.SaveForCurrentUser();
 
             if (!show && !string.IsNullOrEmpty(SetupInfo.TipsAddress))
             {
@@ -616,14 +623,13 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-            var settings = SettingsManager.Instance.LoadSettings<WizardSettings>(tenantId);
+            var settings = WizardSettings.Load();
 
             if (settings.Completed)
                 return settings;
 
             settings.Completed = true;
-            SettingsManager.Instance.SaveSettings(settings, tenantId);
+            settings.Save();
 
             return settings;
         }
@@ -643,8 +649,8 @@ namespace ASC.Api.Settings
                 throw new Exception(Resource.SmsNotAvailable);
             }
 
-            if (enable && StudioSmsNotificationSettings.LeftSms <= 0)
-                throw new Exception(Resource.SmsNotPaidError);
+            if (enable && !SmsProviderManager.Enabled())
+                throw new MethodAccessException();
 
             StudioSmsNotificationSettings.Enable = enable;
 
@@ -659,13 +665,13 @@ namespace ASC.Api.Settings
         {
             var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(currentUser.ID);
+            var collaboratorPopupSettings = CollaboratorSettings.LoadForCurrentUser();
 
             if (!(currentUser.IsVisitor() && collaboratorPopupSettings.FirstVisit && !currentUser.IsOutsider()))
                 throw new NotSupportedException("Not available.");
 
             collaboratorPopupSettings.FirstVisit = false;
-            SettingsManager.Instance.SaveSettingsFor(collaboratorPopupSettings, SecurityContext.CurrentAccount.ID);
+            collaboratorPopupSettings.SaveForCurrentUser();
         }
 
         ///<visible>false</visible>
@@ -727,15 +733,11 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            var defaultPageSettingsObj = new StudioDefaultPageSettings
-            {
-                DefaultProductID = new Guid(defaultProductID)
-            };
-            SettingsManager.Instance.SaveSettings(defaultPageSettingsObj, TenantProvider.CurrentTenantID);
+            new StudioDefaultPageSettings { DefaultProductID = new Guid(defaultProductID) }.Save();
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.DefaultStartPageSettingsUpdated);
 
-            return Resources.Resource.SuccessfullySaveSettingsMessage;
+            return Resource.SuccessfullySaveSettingsMessage;
         }
 
 
@@ -757,5 +759,115 @@ namespace ASC.Api.Settings
             return true;
         }
 
+
+        /// <summary>
+        /// Get Custom Navigation Items
+        /// </summary>
+        /// <returns>CustomNavigationItem List</returns>
+        [Read("customnavigation/getall")]
+        public List<CustomNavigationItem> GetCustomNavigationItems()
+        {
+            return CustomNavigationSettings.Load().Items;
+        }
+
+        /// <summary>
+        /// Get Custom Navigation Items Sample
+        /// </summary>
+        /// <returns>CustomNavigationItem Sample</returns>
+        [Read("customnavigation/getsample")]
+        public CustomNavigationItem GetCustomNavigationItemSample()
+        {
+            return CustomNavigationItem.GetSample();
+        }
+
+        /// <summary>
+        /// Get Custom Navigation Item by Id
+        /// </summary>
+        /// <param name="id">Item id</param>
+        /// <returns>CustomNavigationItem</returns>
+        [Read("customnavigation/get/{id}")]
+        public CustomNavigationItem GetCustomNavigationItem(Guid id)
+        {
+            return CustomNavigationSettings.Load().Items.FirstOrDefault(item => item.Id == id);
+        }
+
+        /// <summary>
+        /// Add Custom Navigation Item
+        /// </summary>
+        /// <param name="item">Item</param>
+        /// <returns>CustomNavigationItem</returns>
+        [Create("customnavigation/create")]
+        public CustomNavigationItem CreateCustomNavigationItem(CustomNavigationItem item)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var settings = CustomNavigationSettings.Load();
+
+            var exist = false;
+
+            foreach (var existItem in settings.Items)
+            {
+                if(existItem.Id != item.Id) continue;
+
+                existItem.Label = item.Label;
+                existItem.Url = item.Url;
+                existItem.ShowInMenu = item.ShowInMenu;
+                existItem.ShowOnHomePage = item.ShowOnHomePage;
+
+                if (existItem.SmallImg != item.SmallImg)
+                {
+                    StorageHelper.DeleteLogo(existItem.SmallImg);
+                    existItem.SmallImg = StorageHelper.SaveTmpLogo(item.SmallImg);
+                }
+
+                if (existItem.BigImg != item.BigImg)
+                {
+                    StorageHelper.DeleteLogo(existItem.BigImg);
+                    existItem.BigImg = StorageHelper.SaveTmpLogo(item.BigImg);
+                }
+
+                exist = true;
+                break;
+            }
+
+            if (!exist)
+            {
+                item.Id = Guid.NewGuid();
+                item.SmallImg = StorageHelper.SaveTmpLogo(item.SmallImg);
+                item.BigImg = StorageHelper.SaveTmpLogo(item.BigImg);
+
+                settings.Items.Add(item);
+            }
+
+            settings.Save();
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.CustomNavigationSettingsUpdated);
+
+            return item;
+        }
+
+        /// <summary>
+        /// Delete Custom Navigation Item by Id
+        /// </summary>
+        /// <param name="id">Item id</param>
+        [Delete("customnavigation/delete/{id}")]
+        public void DeleteCustomNavigationItem(Guid id)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var settings = CustomNavigationSettings.Load();
+
+            var terget = settings.Items.FirstOrDefault(item => item.Id == id);
+
+            if (terget == null) return;
+
+            StorageHelper.DeleteLogo(terget.SmallImg);
+            StorageHelper.DeleteLogo(terget.BigImg);
+
+            settings.Items.Remove(terget);
+            settings.Save();
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.CustomNavigationSettingsUpdated);
+        }
     }
 }

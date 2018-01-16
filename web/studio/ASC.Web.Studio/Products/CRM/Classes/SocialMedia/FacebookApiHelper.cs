@@ -25,8 +25,8 @@
 
 
 using System;
-using ASC.SocialMedia.Facebook;
 using ASC.Thrdparty.Configuration;
+using ASC.Thrdparty.Facebook;
 using ASC.Web.CRM.SocialMedia;
 
 namespace ASC.Web.CRM.Classes.SocialMedia

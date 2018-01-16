@@ -24,20 +24,6 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Files.Core;
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Api;
-using ASC.Web.Files.Classes;
-using ASC.Web.Files.Core;
-using ASC.Web.Files.Import;
-using ASC.Web.Files.Resources;
-using ASC.Web.Files.Services.DocumentService;
-using ASC.Web.Files.ThirdPartyApp;
-using ASC.Web.Studio.Core;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,7 +33,22 @@ using System.Security;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
+using ASC.Common.Caching;
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Files.Core;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Api;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.Core;
+using ASC.Web.Files.Helpers;
+using ASC.Web.Files.Resources;
+using ASC.Web.Files.Services.DocumentService;
+using ASC.Web.Files.ThirdPartyApp;
+using ASC.Web.Studio.Core;
+using Newtonsoft.Json.Linq;
 using File = ASC.Files.Core.File;
+using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Files.Utils
@@ -56,8 +57,8 @@ namespace ASC.Web.Files.Utils
     {
         private const string UPDATE_LIST = "filesUpdateList";
         private static readonly ICache cache = AscCache.Default;
-        
-        
+
+
         public static IEnumerable<FileEntry> GetEntries(IFolderDao folderDao, IFileDao fileDao, Folder parent, FilterType filter, Guid subjectId, OrderBy orderBy, String searchText, int from, int count, out int total)
         {
             total = 0;
@@ -185,8 +186,7 @@ namespace ASC.Web.Files.Utils
                 folders = fileSecurity.FilterRead(folders);
                 entries = entries.Concat(folders);
 
-                var myFolder = parent.RootFolderType == FolderType.USER && parent.RootFolderCreator == SecurityContext.CurrentAccount.ID;
-                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectId, searchText, !string.IsNullOrEmpty(searchText) && parent.FolderType != FolderType.TRASH, myFolder).Cast<FileEntry>();
+                var files = fileDao.GetFiles(parent.ID, orderBy, filter, subjectId, searchText, withSubfolders: !string.IsNullOrEmpty(searchText) && parent.FolderType != FolderType.TRASH).Cast<FileEntry>();
                 files = fileSecurity.FilterRead(files);
                 entries = entries.Concat(files);
 
@@ -230,7 +230,7 @@ namespace ASC.Web.Files.Utils
             var folderList = new List<Folder>();
 
             if ((parent.ID.Equals(Global.FolderMy) || parent.ID.Equals(Global.FolderCommon))
-                && ImportConfiguration.SupportInclusion
+                && ThirdpartyConfiguration.SupportInclusion
                 && (Global.IsAdministrator
                     || CoreContext.Configuration.Personal
                     || FilesSettings.EnableThirdParty))
@@ -817,6 +817,75 @@ namespace ASC.Web.Files.Utils
                 SetFileStatus(file);
 
                 return renamed;
+            }
+        }
+
+
+        //Long operation
+        public static void DeleteSubitems(object parentId, IFolderDao folderDao, IFileDao fileDao)
+        {
+            var folders = folderDao.GetFolders(parentId);
+            foreach (var folder in folders)
+            {
+                DeleteSubitems(folder.ID, folderDao, fileDao);
+                folderDao.DeleteFolder(folder.ID);
+            }
+
+            var files = fileDao.GetFiles(parentId, null, FilterType.None, Guid.Empty, string.Empty);
+            foreach (var file in files)
+            {
+                fileDao.DeleteFile(file.ID);
+            }
+        }
+
+        public static void MoveSharedItems(object parentId, object toId, IFolderDao folderDao, IFileDao fileDao)
+        {
+            var fileSecurity = Global.GetFilesSecurity();
+
+            var folders = folderDao.GetFolders(parentId);
+            foreach (var folder in folders)
+            {
+                var shared = folder.Shared
+                             && fileSecurity.GetShares(folder).Any(record => record.Share != FileShare.Restrict);
+                if (shared)
+                {
+                    folderDao.MoveFolder(folder.ID, toId);
+                }
+                else
+                {
+                    MoveSharedItems(folder.ID, toId, folderDao, fileDao);
+                }
+            }
+
+            var files = fileDao.GetFiles(parentId, null, FilterType.None, Guid.Empty, string.Empty);
+            foreach (var file
+                in files.Where(file =>
+                               file.Shared
+                               && fileSecurity.GetShares(file)
+                                              .Any(record =>
+                                                   record.Subject != FileConstant.ShareLinkId
+                                                   && record.Share != FileShare.Restrict)))
+            {
+                fileDao.MoveFile(file.ID, toId);
+            }
+        }
+
+        public static void ReassignItems(object parentId, Guid fromUserId, Guid toUserId, IFolderDao folderDao, IFileDao fileDao)
+        {
+            var files = fileDao.GetFiles(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, fromUserId, null, withSubfolders: true)
+                               .Where(file => file.CreateBy == fromUserId);
+            foreach (var file in files)
+            {
+                file.CreateBy = toUserId;
+                fileDao.SaveFile(file, null);
+            }
+
+            var folders = folderDao.GetFolders(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, fromUserId, null, true)
+                                   .Where(folder => folder.CreateBy == fromUserId);
+            foreach (var folder in folders)
+            {
+                folder.CreateBy = toUserId;
+                folderDao.SaveFolder(folder);
             }
         }
     }

@@ -24,220 +24,160 @@
 */
 
 
-using Novell.Directory.Ldap;
-using Novell.Directory.Ldap.Events.Edir;
 using System;
 using System.Security;
 using System.Linq;
-using ASC.ActiveDirectory.DirectoryServices;
+using System.Net.Sockets;
+using ASC.ActiveDirectory.Base;
+using ASC.ActiveDirectory.Base.Data;
+using ASC.ActiveDirectory.Base.Settings;
+using ASC.ActiveDirectory.Novell.Exceptions;
 
 namespace ASC.ActiveDirectory.Novell
 {
     public class NovellLdapSettingsChecker : LdapSettingsChecker
     {
-        private readonly NovellLdapHelper _novellLdapHelper = new NovellLdapHelper();
+        public LdapCertificateConfirmRequest CertificateConfirmRequest { get; set; }
 
-        public NovellLdapCertificateConfirmRequest CertificateConfirmRequest { get; set; }
-
-        public override byte CheckSettings(LDAPUserImporter importer, bool acceptCertificate = false)
-        {
-            var settings = importer.Settings;
-
-            // call static constructor of MonitorEventRequest class
-            MonitorEventRequest.RegisterResponseTypes = true;
-
-            _novellLdapHelper.AcceptCertificate = acceptCertificate;
-
-            if (!settings.EnableLdapAuthentication)
-                return OPERATION_OK;
-
-            var password = GetPassword(settings.PasswordBytes);
-
-            if (settings.Server.Equals("LDAP://", StringComparison.InvariantCultureIgnoreCase))
-                return WRONG_SERVER_OR_PORT;
-
-            try
-            {
-                if (settings.Authentication)
-                    CheckCredentials(settings.Login, password, settings.Server, settings.PortNumber, settings.StartTls);
-            }
-            catch (NovellLdapTlsCertificateRequestedException ex)
-            {
-                CertificateConfirmRequest = ex.CertificateConfirmRequest;
-                return CERTIFICATE_REQUEST;
-            }
-            catch (NotSupportedException)
-            {
-                return TLS_NOT_SUPPORTED;
-            }
-            catch (InvalidOperationException)
-            {
-                return CONNECT_ERROR;
-            }
-            catch (ArgumentException)
-            {
-                return WRONG_SERVER_OR_PORT;
-            }
-            catch (SecurityException)
-            {
-                return STRONG_AUTH_REQUIRED;
-            }
-            catch (SystemException)
-            {
-                return WRONG_SERVER_OR_PORT;
-            }
-            catch (Exception)
-            {
-                return CREDENTIALS_NOT_VALID;
-            }
-
-            if (!CheckUserDN(settings.UserDN, settings.Server, settings.PortNumber,
-                settings.Authentication, settings.Login, password, settings.StartTls))
-            {
-                return WRONG_USER_DN;
-            }
-
-            if (settings.GroupMembership)
-            {
-                if (!CheckGroupDN(settings.GroupDN, settings.Server, settings.PortNumber,
-                    settings.Authentication, settings.Login, password, settings.StartTls))
-                {
-                    return WRONG_GROUP_DN;
-                }
-
-                if (!importer.TryLoadLDAPGroups())
-                    return INCORRECT_GROUP_LDAP_FILTER;
-
-                if (!importer.AllDomainGroups.Any())
-                    return GROUPS_NOT_FOUND;
-
-                foreach (var group in importer.AllDomainGroups)
-                {
-                    if (!CheckGroupAttribute(group, settings.GroupAttribute))
-                        return WRONG_GROUP_ATTRIBUTE;
-
-                    if (!CheckGroupNameAttribute(group, settings.GroupNameAttribute))
-                        return WRONG_GROUP_NAME_ATTRIBUTE;
-
-                    if (group.Sid == null)
-                        return WRONG_SID_ATTRIBUTE;
-                }
-            }
-
-            if (!importer.TryLoadLDAPDomain())
-                return DOMAIN_NOT_FOUND;
-
-            if (!importer.TryLoadLDAPUsers())
-                return INCORRECT_LDAP_FILTER;
-
-            if (!importer.AllDomainUsers.Any())
-                return USERS_NOT_FOUND;
-
-            foreach (var user in importer.AllDomainUsers)
-            {
-                if (!CheckLoginAttribute(user, settings.LoginAttribute))
-                    return WRONG_LOGIN_ATTRIBUTE;
-
-                if (user.Sid == null)
-                    return WRONG_SID_ATTRIBUTE;
-
-                if (settings.GroupMembership && !CheckUserAttribute(user, settings.UserAttribute))
-                    return WRONG_USER_ATTRIBUTE;
-            }
-
-            return OPERATION_OK;
+        public LdapHelper LdapHelper {
+            get { return LdapImporter.LdapHelper; }
         }
 
-        public override void CheckCredentials(string login, string password, string server, int portNumber, bool startTls)
+        public NovellLdapSettingsChecker(LdapUserImporter importer) :
+            base(importer)
         {
-            try
-            {
-                // call static constructor of MonitorEventRequest class
-                MonitorEventRequest.RegisterResponseTypes = true;
-
-                _novellLdapHelper.CheckCredentials(login, password, server, portNumber, startTls);
-            }
-            catch (InterThreadException e)
-            {
-                if (e.ResultCode != LdapException.CONNECT_ERROR)
-                    return;
-
-                log.ErrorFormat("LDAP connect error. {0}.", e);
-                throw new InvalidOperationException(e.Message);
-            }
-            catch (ArgumentException e)
-            {
-                log.ErrorFormat("Internal LDAP authentication error. Invalid address. {0}", e);
-                throw new ArgumentException(e.Message);
-            }
-            catch (SystemException e)
-            {
-                log.ErrorFormat("Internal LDAP authentication error. Wrong port. {0}", e);
-                throw new SystemException(e.Message);
-            }
-            catch (LdapException e)
-            {
-                switch (e.ResultCode)
-                {
-                    case LdapException.NO_SUCH_OBJECT:
-                        log.ErrorFormat("Internal LDAP authentication error. No such entry. {0}.", e);
-                        break;
-                    case LdapException.NO_SUCH_ATTRIBUTE:
-                        log.ErrorFormat("Internal LDAP authentication error. No such attribute. {0}.", e);
-                        break;
-                    case LdapException.CONFIDENTIALITY_REQUIRED:
-                    case LdapException.STRONG_AUTH_REQUIRED:
-                        log.ErrorFormat("Internal LDAP authentication error. Strong auth required. {0}. e.ResultCode = {1}", e, e.ResultCode);
-                        throw new SecurityException(e.Message);
-                    case LdapException.CONNECT_ERROR:
-                        log.ErrorFormat("Internal LDAP authentication error. LDAP connect error. {0}. e.ResultCode = {1}", e, e.ResultCode);
-                        throw new InvalidOperationException(e.Message);
-                    case LdapException.PROTOCOL_ERROR:
-                        log.ErrorFormat("TLS not supported exception. {0}. e.ResultCode = {1}", e, e.ResultCode);
-                        throw new NotSupportedException(e.Message);
-                    default:
-                        log.ErrorFormat("Internal LDAP authentication error. {0}.", e);
-                        break;
-                }
-                throw new Exception(e.Message);
-            }
         }
 
-        private bool CheckUserDN(string userDN, string server, int portNumber, bool authentication, string login, string password, bool startTls)
+        public override LdapSettingsStatus CheckSettings()
+        {
+            if (!Settings.EnableLdapAuthentication)
+                return LdapSettingsStatus.Ok;
+
+            if (Settings.Server.Equals("LDAP://", StringComparison.InvariantCultureIgnoreCase))
+                return LdapSettingsStatus.WrongServerOrPort;
+
+            if (!LdapHelper.IsConnected)
+            {
+                try
+                {
+                    LdapHelper.Connect();
+                }
+                catch (NovellLdapTlsCertificateRequestedException ex)
+                {
+                    log.ErrorFormat("CheckSettings(acceptCertificate={0}): NovellLdapTlsCertificateRequestedException: {1}", Settings.AcceptCertificate, ex);
+                    CertificateConfirmRequest = ex.CertificateConfirmRequest;
+                    return LdapSettingsStatus.CertificateRequest;
+                }
+                catch (NotSupportedException ex)
+                {
+                    log.ErrorFormat("CheckSettings(): NotSupportedException: {0}", ex);
+                    return LdapSettingsStatus.TlsNotSupported;
+                }
+                catch (SocketException ex)
+                {
+                    log.ErrorFormat("CheckSettings(): SocketException: {0}", ex);
+                    return LdapSettingsStatus.ConnectError;
+                }
+                catch (ArgumentException ex)
+                {
+                    log.ErrorFormat("CheckSettings(): ArgumentException: {0}", ex);
+                    return LdapSettingsStatus.WrongServerOrPort;
+                }
+                catch (SecurityException ex)
+                {
+                    log.ErrorFormat("CheckSettings(): SecurityException: {0}", ex);
+                    return LdapSettingsStatus.StrongAuthRequired;
+                }
+                catch (SystemException ex)
+                {
+                    log.ErrorFormat("CheckSettings(): SystemException: {0}", ex);
+                    return LdapSettingsStatus.WrongServerOrPort;
+                }
+                catch (Exception ex)
+                {
+                    log.ErrorFormat("CheckSettings(): Exception: {0}", ex);
+                    return LdapSettingsStatus.CredentialsNotValid;
+                }
+            }
+
+            if (!CheckUserDn(Settings.UserDN))
+            {
+                return LdapSettingsStatus.WrongUserDn;
+            }
+
+            if (Settings.GroupMembership)
+            {
+                if (!CheckGroupDn(Settings.GroupDN))
+                {
+                    return LdapSettingsStatus.WrongGroupDn;
+                }
+
+                if (!LdapImporter.TryLoadLDAPGroups())
+                {
+                    if (!LdapImporter.AllSkipedDomainGroups.Any())
+                        return LdapSettingsStatus.IncorrectGroupLDAPFilter;
+
+                    if (LdapImporter.AllSkipedDomainGroups.All(kv => kv.Value == LdapSettingsStatus.WrongSidAttribute))
+                        return LdapSettingsStatus.WrongSidAttribute;
+
+                    if (LdapImporter.AllSkipedDomainGroups.All(kv => kv.Value == LdapSettingsStatus.WrongGroupAttribute))
+                        return LdapSettingsStatus.WrongGroupAttribute;
+
+                    if (LdapImporter.AllSkipedDomainGroups.All(kv => kv.Value == LdapSettingsStatus.WrongGroupNameAttribute))
+                        return LdapSettingsStatus.WrongGroupNameAttribute;
+                }
+
+                if (!LdapImporter.AllDomainGroups.Any())
+                    return LdapSettingsStatus.GroupsNotFound;
+            }
+
+            if (!LdapImporter.TryLoadLDAPUsers())
+            {
+                if (!LdapImporter.AllSkipedDomainUsers.Any())
+                    return LdapSettingsStatus.IncorrectLDAPFilter;
+
+                if (LdapImporter.AllSkipedDomainUsers.All(kv => kv.Value == LdapSettingsStatus.WrongSidAttribute))
+                    return LdapSettingsStatus.WrongSidAttribute;
+
+                if (LdapImporter.AllSkipedDomainUsers.All(kv => kv.Value == LdapSettingsStatus.WrongLoginAttribute))
+                    return LdapSettingsStatus.WrongLoginAttribute;
+
+                if (LdapImporter.AllSkipedDomainUsers.All(kv => kv.Value == LdapSettingsStatus.WrongUserAttribute))
+                    return LdapSettingsStatus.WrongUserAttribute;
+            }
+
+            if (!LdapImporter.AllDomainUsers.Any())
+                return LdapSettingsStatus.UsersNotFound;
+
+            return string.IsNullOrEmpty(LdapImporter.LDAPDomain)
+                ? LdapSettingsStatus.DomainNotFound
+                : LdapSettingsStatus.Ok;
+        }
+
+        private bool CheckUserDn(string userDn)
         {
             try
             {
-                return _novellLdapHelper.CheckUserDN(userDN, server, portNumber, authentication, login, password, startTls);
+                return LdapHelper.CheckUserDn(userDn);
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Wrong User DN parameter: {0}. {1}", userDN, e);
+                log.ErrorFormat("Wrong User DN parameter: {0}. {1}", userDn, e);
                 return false;
             }
         }
 
-        private bool CheckGroupDN(string groupDN, string server, int portNumber, bool authentication, string login, string password, bool startTls)
+        private bool CheckGroupDn(string groupDn)
         {
             try
             {
-                return _novellLdapHelper.CheckGroupDN(groupDN, server, portNumber, authentication, login, password, startTls);
+                return LdapHelper.CheckGroupDn(groupDn);
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Wrong Group DN parameter: {0}. {1}", groupDN, e);
+                log.ErrorFormat("Wrong Group DN parameter: {0}. {1}", groupDn, e);
                 return false;
             }
-        }
-
-        public override string GetDomain(LDAPSupportSettings settings)
-        {
-            var dataInfo = _novellLdapHelper.GetDomain(settings);
-
-            var domainName = dataInfo != null && dataInfo.DistinguishedName != null
-                                 ? dataInfo.DistinguishedName.Remove(0, 3).Replace(",DC=", ".").Replace(",dc=", ".")
-                                 : null;
-
-            return domainName;
         }
     }
 }

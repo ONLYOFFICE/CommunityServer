@@ -58,7 +58,7 @@ namespace ASC.Web.Studio
         protected override void OnPreInit(EventArgs e)
         {
             base.OnPreInit(e);
-            var wizardSettings = SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID);
+            var wizardSettings = WizardSettings.Load();
             if (wizardSettings.Completed)
                 Response.Redirect(CommonLinkUtility.GetDefault());
 
@@ -98,21 +98,6 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableTariff = true;
 
             content.Controls.Add(LoadControl(StepContainer.Location));
-
-            #region third-party scripts
-
-            var WizardScriptLocation = "~/UserControls/Common/ThirdPartyScripts/WizardScript.ascx";
-            if (File.Exists(HttpContext.Current.Server.MapPath(WizardScriptLocation)) &&
-                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
-            {
-                WizardThirdPartyPlaceHolder.Controls.Add(LoadControl(WizardScriptLocation));
-            }
-            else
-            {
-                WizardThirdPartyPlaceHolder.Visible = false;
-            }
-
-            #endregion
         }
     }
 }

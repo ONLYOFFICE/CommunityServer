@@ -33,28 +33,22 @@ ASC.Projects.TimeSpendActionPage = (function() {
         currentTimesCount,
         filterTimesCount = 0,
         $totalTimeContainer,
-        $timerList,
-        $groupeMenu = "",
-        listActionButtons = [],
-        counterSelectedItems;
+        $timerList;
 
-    var showCheckboxFlag = false,
-        baseObject = ASC.Projects,
+    var baseObject = ASC.Projects,
         resources = baseObject.Resources,
         projectsJsResource = resources.ProjectsJSResource,
         projectsFilterResource = resources.ProjectsFilterResource,
+        ttResource = resources.TimeTrackingResource,
         filter = baseObject.ProjectsAdvansedFilter,
         common = baseObject.Common,
         teamlab,
         loadingBanner,
-        $groupActionContainer,
-        $selectAllTimers,
         $emptyListTimers,
         $studioActionPanel;
 
     var clickEventName = "click",
-        checkedAttr = "checked",
-        checkedRowClass = "checked-row";
+        checkedAttr = "checked";
 
     var filteredTimes = [], __filter, currentProject;
 
@@ -72,6 +66,41 @@ ASC.Projects.TimeSpendActionPage = (function() {
             function canCreateTimeSpend(prj) {
                 return prj.canCreateTimeSpend && prj.status === 0 && prj.taskCountTotal > 0;
             }
+
+            var actions = [
+                {
+                    id: "gaBilled",
+                    title: ttResource.PaymentStatusBilled,
+                    handler: changePaymentSatusByCheckedTimers.bind(null, "billed", 2),
+                    checker: function (item) {
+                        return item.canEditPaymentStatus;
+                    }
+                },
+                {
+                    id: "gaNotBilled",
+                    title: ttResource.PaymentStatusNotBilled,
+                    handler: changePaymentSatusByCheckedTimers.bind(null, "not-billed", 1),
+                    checker: function (item) {
+                        return item.canEditPaymentStatus;
+                    }
+                },
+                {
+                    id: "gaNotChargeable",
+                    title: ttResource.PaymentStatusNotChargeable,
+                    handler: changePaymentSatusByCheckedTimers.bind(null, "not-chargeable", 0),
+                    checker: function (item) {
+                        return item.canEditPaymentStatus;
+                    }
+                },
+                {
+                    id: "gaDelete",
+                    title: resources.CommonResource.Delete,
+                    handler: showQuestionWindow,
+                    checker: function (item) {
+                        return item.canEdit;
+                    }
+                }
+            ];
 
             self.showOrHideData = self.showOrHideData.bind(self, {
                 $container: $timerList.find("tbody"),
@@ -105,12 +134,42 @@ ASC.Projects.TimeSpendActionPage = (function() {
                     header: resources.TimeTrackingResource.NoTimersFilter,
                     description: resources.TimeTrackingResource.DescrEmptyListTimersFilter
                 },
-                groupMenuEnabled: true
+                groupMenu: {
+                    actions: actions,
+                    getItemByCheckbox: getFilteredTimeByTarget,
+                    getLineByCondition: function(condition) {
+                        return filteredTimes
+                            .filter(condition)
+                            .map(function(item) {
+                                return $timerList.find("[timeid=" + item.id + "]");
+                            });
+                    },
+                    multiSelector: [
+                    {
+                        id: "gasBilled",
+                        title: projectsFilterResource.PaymentStatusBilled,
+                        condition: function (item) {
+                            return item.paymentStatus === 2;
+                        }
+                    },
+                    {
+                        id: "gasNotBilled",
+                        title: projectsFilterResource.PaymentStatusNotBilled,
+                        condition: function (item) {
+                            return item.paymentStatus === 1;
+                        }
+                    },
+                    {
+                        id: "gasNotChargeable",
+                        title: projectsFilterResource.PaymentStatusNotChargeable,
+                        condition: function (item) {
+                            return item.paymentStatus === 0;
+                        }
+                    }]
+                }
             });
             if (!self.$commonListContainer.find("#totalTimeText").length) {
-                $totalTimeContainer = self.$commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
-                //var content = 
-                $totalTimeContainer.append(jq.tmpl("projects_totalTimeText", {}));
+                $totalTimeContainer = self.$commonListContainer.prepend(jq.tmpl("projects_totalTimeText", {})).find("#totalTimeText");
             }
             self.getData = self.getData.bind(self, teamlab.getPrjTime, onGetTimes);
         }
@@ -125,26 +184,29 @@ ASC.Projects.TimeSpendActionPage = (function() {
             isTask ? undefined : { pagination: "timeKeyForPagination" },
             {
                 handler: changePaymentStatus,
+                getItem: getFilteredTimeByTarget,
                 statuses: [
-                    { cssClass: "not-chargeable", text: projectsFilterResource.PaymentStatusNotChargeable },
-                    { cssClass: "not-billed", text: projectsFilterResource.PaymentStatusNotBilled },
-                    { cssClass: "billed", text: projectsFilterResource.PaymentStatusBilled }
+                    { cssClass: "not-chargeable", text: projectsFilterResource.PaymentStatusNotChargeable, id: 0 },
+                    { cssClass: "not-billed", text: projectsFilterResource.PaymentStatusNotBilled, id: 1 },
+                    { cssClass: "billed", text: projectsFilterResource.PaymentStatusBilled, id: 2 }
                 ]
             },
             showEntityMenu,
             [
-                eventConstructor(events.removePrjTime, onRemoveTime),
                 eventConstructor(events.updatePrjTime, onUpdateTime),
                 eventConstructor(events.getPrjProject,
                     function(params, project) {
                         currentProject = project;
-                        initPanelsAndPopups();
 
                         if (isTask) {
                             teamlab.getPrjTaskTime({}, jq.getURLParam("id"), { success: onGetTaskTime });
                         }
                     })
-            ]
+            ],
+            {
+                getItem: function (target) { return getFilteredTimeByTarget(target).task; },
+                selector: '.pm-ts-noteColumn a'
+            }
         );
 
         
@@ -157,26 +219,14 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
         if (isTask) {
             teamlab.getPrjProject({}, projectid);
-            totalTimeText = textSpan.data("tasktext");
+            totalTimeText = ttResource.TimeSpentForTask;
         } else {
             filter.createAdvansedFilterForTimeTracking(self);
 
             $timerList.addClass("forProject");
-            totalTimeText = textSpan.data("listtext");
+            totalTimeText = ttResource.TotalTimeNote;
         }
         textSpan.text(totalTimeText);
-
-        // discribe panel
-        $timerList.on("mouseenter", ".pm-ts-noteColumn a", function (event) {
-            var $targetObject = jq(event.target);
-            var task = getFilteredTimeById($targetObject.parents("tr.timeSpendRecord").attr("timeid")).task;
-
-            self.showDescPanel(task, $targetObject);
-        });
-
-        $timerList.on('mouseleave', '.pm-ts-noteColumn a', function () {
-           self.hideDescrPanel(false);
-        });
 
         function showEntityMenu(selectedActionCombobox) {
             var timeid = selectedActionCombobox.attr("timeid");
@@ -189,43 +239,9 @@ ASC.Projects.TimeSpendActionPage = (function() {
             };
         }
 
-        $timerList.on(clickEventName, ".pm-ts-personColumn span", function () {
-            var time = getFilteredTimeById(jq(this).parents("tr.timeSpendRecord").attr("timeid"));
+        $timerList.on(clickEventName, ".pm-ts-personColumn span", function (event) {
+            var time = getFilteredTimeByTarget(event.target);
             filter.addUser('tasks_responsible', time.person != null ? time.person.id : time.createdBy.id, ['noresponsible']);
-        });
-
-        $timerList.on("change", "input", function () {
-            var input = jq(this);
-            var timerId = input.attr("data-timeId");
-
-            if (input.is(":" + checkedAttr)) {
-                jq("tr[timeid=" + timerId + "]").addClass(checkedRowClass);
-            } else {
-                jq("tr[timeid=" + timerId + "]").removeClass(checkedRowClass);
-                $selectAllTimers.removeAttr(checkedAttr);
-            }
-
-            var countCheckedTimers = getCountCheckedTimers();
-
-            if (countCheckedTimers > 0) {
-                if (countCheckedTimers == 1) {
-                    unlockActionButtons();
-                } else {
-                    changeSelectedItemsCounter();
-                }
-            } else {
-                lockActionButtons();
-            }
-        });
-
-        jq("#deselectAllTimers").click(function () {
-            var $checkboxes = $timerList.find("input");
-            var $rows = $timerList.find(" tr");
-
-            $selectAllTimers.removeAttr(checkedAttr);
-            $checkboxes.removeAttr(checkedAttr);
-            $rows.removeClass(checkedRowClass);
-            lockActionButtons();
         });
     };
 
@@ -243,145 +259,39 @@ ASC.Projects.TimeSpendActionPage = (function() {
         baseObject.TimeTrakingEdit.showPopup(prjId, taskId, taskTitle, id, { hours: parseInt(separateTime[0], 10), minutes: parseInt(separateTime[1], 10) }, date, recordNote, responsible);
     }
     function taRemoveHandler(id) {
-        teamlab.removePrjTime({ timeid: id }, { timeids: [id] }, { error: onUpdatePrjTimeError });
+        teamlab.removePrjTime({ timeid: id }, { timeids: [id] }, { success: onRemoveTime, error: onUpdatePrjTimeError });
     }
 
-    function initPanelsAndPopups() {
-        // group action panel
-        if (teamlab.profile.isAdmin || (currentProjectId && currentProject.responsibleId === currentUserId)) {
-            self.$commonListContainer.append(jq.tmpl("projects_timeTrakingGroupActionMenu", {}));
-            $groupeMenu = jq("#timeTrakingGroupActionMenu");
-        }
-
-        $groupActionContainer = jq("#groupActionContainer");
-        $groupActionContainer.append($groupeMenu);
-
-        showCheckboxFlag = $groupeMenu.length ? true : false;
-
-        listActionButtons = $groupeMenu ? $groupeMenu.find(".menuAction") : [];
-        listActionButtons.splice(0, 1);
-
-        counterSelectedItems = $groupeMenu ? $groupeMenu.find(".menu-action-checked-count") : [];
-
-        if ($groupeMenu) {
-            $groupeMenu.on(clickEventName, ".unlockAction", function () {
-                var actionType = jq(this).attr("data-status");
-                var status;
-                switch (actionType) {
-                    case "not-chargeable":
-                        status = 0;
-                        break;
-                    case "not-billed":
-                        status = 1;
-                        break;
-                    case "billed":
-                        status = 2;
-                        break;
-                    default:
-                        showQuestionWindow();
-                        return;
-                }
-                changePaymentSatusByCheckedTimers(actionType, status);
-            });
-
-            var options = {
-                menuSelector: "#timeTrakingGroupActionMenu",
-                menuAnchorSelector: "#selectAllTimers",
-                menuSpacerSelector: "#CommonListContainer .header-menu-spacer",
-                userFuncInTop: function () { $groupeMenu.find(".menu-action-on-top").hide(); },
-                userFuncNotInTop: function () { $groupeMenu.find(".menu-action-on-top").show(); }
-            };
-            ScrolledGroupMenu.init(options);
-
-            $selectAllTimers = jq("#selectAllTimers");
-
-            $selectAllTimers.change(function () {
-                var $checkboxes = $timerList.find("input");
-                var $rows = $timerList.find("tr");
-
-                if ($selectAllTimers.is(":" + checkedAttr)) {
-                    $checkboxes.each(function (id, item) { item.checked = true; });
-                    $rows.addClass(checkedRowClass);
-                    unlockActionButtons();
-                } else {
-                    $checkboxes.each(function (id, item) { item.checked = false; });
-                    $rows.removeClass(checkedRowClass);
-                    lockActionButtons();
-                }
-            });
-        }
-    };
-
-    function getCountCheckedTimers() {
-        return $timerList.find("input:" + checkedAttr).length;
-    };
-
-    function getTimersIds() {
-        var timers = $timerList.find("input:" + checkedAttr);
-
-        var timersIds = [];
-
-        for (var i = 0; i < timers.length; i++) {
-            timersIds.push(jq(timers[i]).attr("data-timeId"));
-        }
-        return timersIds;
-    };
-
-    function changeSelectedItemsCounter() {
-        var checkedInputCount = getCountCheckedTimers();
-        counterSelectedItems.find("span").text(checkedInputCount + " " + projectsJsResource.GroupMenuSelectedItems);
-    };
-
-    function unlockActionButtons() {
-        jq(listActionButtons).addClass("unlockAction");
-        changeSelectedItemsCounter();
-        counterSelectedItems.show();
-    };
-
-    function lockActionButtons() {
-        jq(listActionButtons).removeClass("unlockAction");
-        counterSelectedItems.hide();
-    };
-
-    function showQuestionWindow() {
+    function showQuestionWindow(timerIds) {
         self.showCommonPopup("trackingRemoveWarning", function () {
-            removeChackedTimers();
+            loadingBanner.displayLoading();
+            teamlab.removePrjTime({}, { timeids: timerIds },
+            {
+                success: function () {
+                    jq.unblockUI();
+                    common.displayInfoPanel(projectsJsResource.TimesRemoved);
+                    self.getData();
+                }
+            });
             jq.unblockUI();
         });
     };
 
-    function removeChackedTimers() {
-        var timersIds = getTimersIds();
-
-        loadingBanner.displayLoading();
-        teamlab.removePrjTime({}, { timeids: timersIds });
-    };
-
-    function changePaymentSatusByCheckedTimers(textStatus, status) {
-        var timersIds = getTimersIds();
-
+    function changePaymentSatusByCheckedTimers(textStatus, status, timersIds) {
         loadingBanner.displayLoading();
         teamlab.changePaymentStatus({ textStatus: textStatus }, { status: status, timeIds: timersIds }, onChangePaymentStatus);
     };
 
-    function changePaymentStatus(timeId, textStatus) {
-        var status = 0;
-        switch (textStatus) {
-            case "not-billed":
-                status = 1;
-                break;
-            case "billed":
-                status = 2;
-                break;
-        }
+    function changePaymentStatus(timeId, status) {
         loadingBanner.displayLoading();
-        teamlab.changePaymentStatus({ textStatus: textStatus }, { status: status, timeIds: [timeId] }, onChangePaymentStatus);
+        teamlab.changePaymentStatus({}, { status: status, timeIds: [timeId] }, onChangePaymentStatus);
     };
 
     function onChangePaymentStatus(params, times) {
+        var newClass = ASC.Projects.StatusList.getById(times[0].paymentStatus).cssClass;
         for (var i = 0, j = times.length; i < j; i++) {
             var time = times[i];
-            jq('.timeSpendRecord[timeid=' + time.id + '] .changeStatusCombobox span:first').attr('class', params.textStatus);
+            jq('.timeSpendRecord[timeid=' + time.id + '] .changeStatusCombobox span:first').attr('class', newClass);
             setFilteredTime(time);
         }
 
@@ -418,51 +328,41 @@ ASC.Projects.TimeSpendActionPage = (function() {
     function showEmptyScreen() {
         self.showOrHideData(filteredTimes, filterTimesCount);
 
-        if ($groupeMenu) {
-            if (!filteredTimes.length) {
-                $groupeMenu.hide();
-                $totalTimeContainer.css("visibility", "hidden");
-            } else {
-                $groupeMenu.show();
-            }
+        if (!filteredTimes.length) {
+            $totalTimeContainer.css("visibility", "hidden");
         }
     };
 
-    function getTotalTimeByFilter(params, filter) {
-        if (params.mode != 'next') {
-            currentTimesCount = 0;
-        }
-        filter.Count = 31;
-        filter.StartIndex = currentTimesCount;
+    function getTotalTimeByFilter() {
+        __filter.Count = 31;
+        __filter.StartIndex = currentTimesCount;
 
         if (!filter.status) {
-            delete filter.status;
-            teamlab.getTotalTimeByFilter(params, { filter: filter, success: onGetTotalTime });
+            delete __filter.status;
+            teamlab.getTotalTimeByFilter({}, { filter: __filter, success: onGetTotalTime });
 
-            filter.status = 2;
-            teamlab.getTotalTimeByFilter(params, { filter: filter, success: onGetTotalBilledTime });
+            __filter.status = 2;
+            teamlab.getTotalTimeByFilter({}, { filter: __filter, success: onGetTotalBilledTime });
         } else {
-            teamlab.getTotalTimeByFilter(params, { filter: filter, success: onGetTotalTime });
+            teamlab.getTotalTimeByFilter({}, { filter: __filter, success: onGetTotalTime });
             $totalTimeContainer.find(".billed-count").hide();
         }
     };
 
     function onGetTimes(params, data) {
         __filter = params.__filter;
-        if (Object.keys(__filter).length > 4) {
-            $totalTimeContainer = self.$commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
-            $totalTimeContainer.append(jq.tmpl("projects_totalTimeText", {}));
-            
-            getTotalTimeByFilter({}, params.__filter);
 
-            var textSpan = $totalTimeContainer.find("span").first(), totalTimeText = isTask ? textSpan.data("tasktext") : textSpan.data("listtext");
+        if (Object.keys(__filter).length > 4) {
+            $totalTimeContainer = self.$commonListContainer.prepend(jq.tmpl("projects_totalTimeText", {})).find("#totalTimeText");
+            
+            getTotalTimeByFilter();
+
+            var textSpan = $totalTimeContainer.find("span").first(),
+                totalTimeText = isTask ? ttResource.TimeSpentForTask : ttResource.TotalTimeNote;
             
             textSpan.text(totalTimeText);
         }
 
-        if (currentProjectId === null) {
-            initPanelsAndPopups();
-        }
 
         filteredTimes = data;
         currentTimesCount += data.length;
@@ -471,20 +371,11 @@ ASC.Projects.TimeSpendActionPage = (function() {
             $timerList.find('tbody').html('');
         }
 
-        jq.each(filteredTimes, function (i, time) {
-            filteredTimes[i].showCheckbox = showCheckboxFlag;
-        });
-
 
         filterTimesCount = params.__total != undefined ? params.__total : 0;
 
-        if ($groupeMenu) {
-            if (!filteredTimes.length) {
-                $groupeMenu.hide();
-                $totalTimeContainer.css("visibility", "hidden");
-            } else {
-                $groupeMenu.show();
-            }
+        if (!filteredTimes.length) {
+            $totalTimeContainer.css("visibility", "hidden");
         }
 
         self.showOrHideData(filteredTimes, filterTimesCount);
@@ -519,7 +410,6 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
     function onUpdateTime(params, time) {
         common.displayInfoPanel(projectsJsResource.TimeUpdated);
-        time.showCheckbox = showCheckboxFlag;
         $timerList.find('.timeSpendRecord[timeid=' + time.id + ']').replaceWith(jq.tmpl("projects_timeTrackingTmpl", time));
         setFilteredTime(time);
 
@@ -548,9 +438,6 @@ ASC.Projects.TimeSpendActionPage = (function() {
             return;
         }
 
-        jq.each(times, function (i, time) {
-            times[i].showCheckbox = showCheckboxFlag;
-        });
         showTotalCountForTask(times);
 
         var tasksResource = ASC.Projects.Resources.TasksResource;
@@ -562,10 +449,6 @@ ASC.Projects.TimeSpendActionPage = (function() {
             subscribed: task.isSubscribed,
             subscribedTitle: task.isSubscribed ? tasksResource.UnfollowTask : tasksResource.FollowTask
         };
-
-        if (!jq.browser.mobile && task.projectOwner.status === 0) {
-            data.ganttchart = "ganttchart.aspx?prjID=" + task.projectOwner.id;
-        }
 
         ASC.Projects.InfoContainer.init(taskData);
         filteredTimes = times;
@@ -585,6 +468,10 @@ ASC.Projects.TimeSpendActionPage = (function() {
     function getFilteredTimeById(timeId) {
         return filteredTimes.find(function(item) { return item.id == timeId});
     };
+    
+    function getFilteredTimeByTarget($targetObject) {
+        return getFilteredTimeById(jq($targetObject).parents("tr.timeSpendRecord").attr("timeid"));
+    };
 
     function updateTextFilter() {
         if (!isTask) {
@@ -602,12 +489,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         if (!isInit) return;
         $timerList.unbind();
         self.unbindEvents();
-        if ($groupActionContainer) {
-            $groupActionContainer.hide();
-        }
-        if ($groupeMenu) {
-            $groupeMenu.unbind();
-        }
+        ASC.Projects.GroupActionPanel.hide();
     };
 
     return jq.extend({

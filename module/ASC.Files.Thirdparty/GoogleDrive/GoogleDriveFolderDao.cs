@@ -202,7 +202,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var fromFolderDriveId = GetParentDriveId(driveFolder);
 
-            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFolder, toDriveFolder.Id);
+            driveFolder = GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFolder, toDriveFolder.Id);
             if (fromFolderDriveId != null)
             {
                 GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFolder, fromFolderDriveId);
@@ -227,6 +227,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             GoogleDriveProviderInfo.CacheReset(newDriveFolder);
             GoogleDriveProviderInfo.CacheReset(toDriveFolder.Id, true);
+            GoogleDriveProviderInfo.CacheReset(toDriveFolder.Id);
 
             return ToFolder(newDriveFolder);
         }
@@ -322,7 +323,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return null;
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId)
         {
             return null;
         }
@@ -332,7 +333,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return null;
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId)
         {
             return null;
         }

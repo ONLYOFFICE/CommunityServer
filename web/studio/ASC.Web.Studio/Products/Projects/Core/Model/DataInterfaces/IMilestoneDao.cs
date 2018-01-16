@@ -52,6 +52,8 @@ namespace ASC.Projects.Core.DataInterfaces
 
         int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess);
 
+        Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
+
         List<object[]> GetInfoForReminder(DateTime deadline);
         
         Milestone GetById(int id);

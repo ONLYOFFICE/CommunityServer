@@ -28,10 +28,8 @@ using System;
 using System.Security;
 using System.Web;
 using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
 using log4net;
 using Resources;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -45,7 +43,7 @@ namespace ASC.Web.Studio.HttpHandlers
             var result = new FileUploadResult();
             try
             {
-                if (!SecurityContext.IsAuthenticated && SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID).Completed) throw new SecurityException(Resource.PortalSecurity);
+                if (!SecurityContext.IsAuthenticated && WizardSettings.Load().Completed) throw new SecurityException(Resource.PortalSecurity);
                 if (context.Request.Files.Count == 0) throw new Exception(Resource.ErrorEmptyUploadFileSelected);
 
                 var licenseFile = context.Request.Files[0];

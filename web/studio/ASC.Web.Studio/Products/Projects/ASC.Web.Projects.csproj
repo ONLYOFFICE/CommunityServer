@@ -59,12 +59,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
@@ -99,7 +96,6 @@
     <Content Include="App_Themes\Default\Images\gantt_mode_butts.png" />
     <Content Include="App_Themes\Default\Images\small-icons.png" />
     <Content Include="App_Themes\Default\Images\timer-icons.png" />
-    <Content Include="Controls\Common\AddMilestoneContainer.ascx" />
     <Content Include="Controls\Common\CommonList.ascx" />
     <Content Include="Controls\Projects\ProjectAction.ascx" />
     <Content Include="Controls\Templates\EditTemplate.ascx" />
@@ -137,13 +133,6 @@
     </Compile>
     <Compile Include="Contacts.aspx.designer.cs">
       <DependentUpon>Contacts.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Common\AddMilestoneContainer.ascx.cs">
-      <DependentUpon>AddMilestoneContainer.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Common\AddMilestoneContainer.ascx.designer.cs">
-      <DependentUpon>AddMilestoneContainer.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\CommonList.ascx.cs">
       <DependentUpon>CommonList.ascx</DependentUpon>
@@ -225,6 +214,7 @@
     <Compile Include="Core\Engine\ProjectEngine.cs" />
     <Compile Include="Core\Engine\ProjectEntityEngine.cs" />
     <Compile Include="Core\Engine\ProjectSecurity.cs" />
+    <Compile Include="Core\Engine\ProjectsReassign.cs" />
     <Compile Include="Core\Engine\ReportEngine.cs" />
     <Compile Include="Core\Engine\SearchEngine.cs" />
     <Compile Include="Core\Engine\SecurityAdapter.cs" />
@@ -429,6 +419,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TimeTrackingResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Tasks.aspx.cs">
       <DependentUpon>Tasks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -442,6 +439,7 @@
     <Compile Include="Test\DiscussionTest.cs" />
     <Compile Include="Test\MilestonesTest.cs" />
     <Compile Include="Test\ProjectsTest.cs" />
+    <Compile Include="Test\ReassignTest.cs" />
     <Compile Include="Test\TaskSecurityTest.cs" />
     <Compile Include="Test\TasksTest.cs" />
     <Compile Include="Test\TimeTrackingTest.cs" />
@@ -497,7 +495,6 @@
     <None Include="App_Data\ASC.Projects.db3" />
     <Content Include="App_Themes\Default\css\allprojects.less" />
     <Content Include="App_Themes\Default\css\alltasks.less" />
-    <Content Include="App_Themes\Default\css\discussions.css" />
     <Content Include="App_Themes\Default\css\ganttchart.css" />
     <Content Include="App_Themes\Default\css\import.css" />
     <Content Include="App_Themes\Default\css\milestones.less" />
@@ -530,7 +527,7 @@
     <Content Include="Controls\Reports\ReportView.ascx" />
     <Content Include="App_Themes\Default\css\projectTeam.less" />
     <Content Include="App_Themes\Default\css\reports.css" />
-    <Content Include="App_Themes\Default\css\timetracking.css" />
+    <None Include="App_Themes\Default\css\timetracking.less" />
     <Content Include="App_Themes\Default\Images\product_logo.png" />
     <Content Include="Default.aspx" />
     <Content Include="GanttChart.aspx" />
@@ -543,6 +540,7 @@
     <Content Include="js\discussions.js" />
     <Content Include="js\helper.js" />
     <Content Include="js\import.js" />
+    <Content Include="js\settings.js" />
     <Content Include="js\subtasks.js" />
     <Content Include="js\jq_projects_extensions.js" />
     <Content Include="js\milestones.js" />
@@ -570,14 +568,17 @@
     <Content Include="ProjectsTemplates\ListProjectsTemplates.html" />
     <Content Include="ProjectsTemplates\ListTasksTemplates.html" />
     <Content Include="ProjectsTemplates\PopupContentTemplates.html" />
+    <Content Include="ProjectsTemplates\ProjectAction.html" />
     <Content Include="ProjectsTemplates\ProjectsTmplTemplates.html" />
     <Content Include="ProjectsTemplates\ReportTemplates.html" />
+    <Content Include="ProjectsTemplates\SettingsTemplates.html" />
     <Content Include="ProjectsTemplates\SubtaskTemplates.html" />
     <Content Include="ProjectsTemplates\TaskDescriptionTemplates.html" />
     <Content Include="ProjectsTemplates\TimeTrackingTemplates.html" />
     <Content Include="ProjectTeam.aspx" />
     <Content Include="ProjectTemplates.aspx" />
     <Content Include="Reports.aspx" />
+    <Content Include="Settings.aspx" />
     <Content Include="Tasks.aspx" />
     <EmbeddedResource Include="templates\MilestonesExpired.csv.xsl" />
     <EmbeddedResource Include="templates\MilestonesNearest.csv.xsl" />
@@ -613,6 +614,7 @@
     <EmbeddedResource Include="templates\TasksByUsers.html.xsl" />
     <Content Include="App_Themes\Default\css\common.less" />
     <Content Include="Test\App.config" />
+    <Content Include="App_Themes\Default\css\discussions.less" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.resx">

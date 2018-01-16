@@ -305,6 +305,15 @@ namespace ASC.AuditTrail.Mappers
                                 ModuleResourceName = "GroupsModule"
                             }
                     },
+                    {
+                        MessageAction.UserDataReassigns, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "ReassignsActionType",
+                                ActionTextResourceName = "UserDataReassigns",
+                                ProductResourceName = "PeopleProduct",
+                                ModuleResourceName = "UsersModule"
+                            }
+                    }
                 };
         }
     }

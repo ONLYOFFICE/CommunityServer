@@ -41,6 +41,7 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
+using ASC.Core.Tenants;
 using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Core.Iterators;
 using ServerType = ASC.Mail.Server.Dal.ServerType;
@@ -53,25 +54,19 @@ namespace ASC.Mail.GarbageEraser
         private readonly MailBoxManager _mailBoxManager;
         private readonly MailGarbageCleanDal _garbageManager;
         private readonly MemoryCache _tenantMemCache;
-        private readonly int _tenantCacheDays;
-        private readonly int _tenantOverdueDays;
-        private readonly int _garbageOverdueDays;
-        private readonly int _maxTasksAtOnce;
-        private readonly int _maxFilesToRemoveAtOnce;
-        private readonly string _httpContextScheme;
+
+        public MailGarbageEraserConfig Config { get; private set; }
 
         private readonly TaskFactory _taskFactory;
 
-        public MailGarbageEraser(int maxTasksAtOnce, int maxFilesToRemoveAtOnce, int tenantCacheDays,
-            int tenantOverdueDays, int garbageOverdueDays, string httpContextScheme,
-            ILogger log = null)
+        public MailGarbageEraser()
+            :this(MailGarbageEraserConfig.FromConfig())
         {
-            _maxTasksAtOnce = maxTasksAtOnce;
-            _maxFilesToRemoveAtOnce = maxFilesToRemoveAtOnce;
-            _tenantCacheDays = tenantCacheDays;
-            _tenantOverdueDays = tenantOverdueDays;
-            _garbageOverdueDays = garbageOverdueDays;
-            _httpContextScheme = httpContextScheme;
+        }
+
+        public MailGarbageEraser(MailGarbageEraserConfig config, ILogger log = null)
+        {
+            Config = config;
 
             _log = log ?? new NullLogger();
 
@@ -81,7 +76,7 @@ namespace ASC.Mail.GarbageEraser
 
             _tenantMemCache = new MemoryCache("GarbageEraserTenantCache");
 
-            var lcts = new LimitedConcurrencyLevelTaskScheduler(_maxTasksAtOnce);
+            var lcts = new LimitedConcurrencyLevelTaskScheduler(Config.MaxTasksAtOnce);
 
             _taskFactory = new TaskFactory(lcts);
         }
@@ -109,7 +104,7 @@ namespace ASC.Mail.GarbageEraser
 
                     tasks.Add(task);
 
-                    if (tasks.Count == _maxTasksAtOnce)
+                    if (tasks.Count == Config.MaxTasksAtOnce)
                     {
                         _log.Info("Wait any task to complete");
 
@@ -153,6 +148,48 @@ namespace ASC.Mail.GarbageEraser
             _log.Debug("End ClearMailGarbage()\r\n");
         }
 
+        public void ClearUserMail(Guid userId, Tenant tenant = null)
+        {
+            var log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Mail.Cleaner");
+
+            var tenantId = tenant != null ? tenant.TenantId : CoreContext.TenantManager.GetCurrentTenant().TenantId;
+
+            log.Info("ClearUserMail(userId: '{0}' tenant: {1})", userId, tenantId);
+
+            var userIdStr = userId.ToString();
+
+            var mailboxIterator = new MailboxIterator(_mailBoxManager, userIdStr, tenantId);
+
+            var mailbox = mailboxIterator.First();
+
+            if (mailboxIterator.IsDone)
+            {
+                log.Info("There are no user's mailboxes for deletion");
+                return;
+            }
+
+            while (!mailboxIterator.IsDone)
+            {
+                try
+                {
+                    if (!mailbox.UserId.Equals(userIdStr))
+                        throw new Exception(
+                            string.Format("Mailbox (id:{0}) user '{1}' not equals to removed user: '{2}'",
+                                mailbox.MailBoxId, mailbox.UserId, userIdStr));
+
+                    RemoveMailboxData(mailbox, true, log);
+
+                    mailbox = mailboxIterator.Next();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("RemoveMailboxData(MailboxId: {0}) failed. Error: {1}", mailbox.MailBoxId, ex);
+                }
+            }
+
+            RemoveUserMailDirectory(tenantId, userIdStr, log);
+        }
+
         #endregion
 
         #region - Private methods -
@@ -180,16 +217,16 @@ namespace ASC.Mail.GarbageEraser
             {
                 taskLog.Info("Tenant {0} isn't in cache", mailbox.TenantId);
 
-                taskLog.Debug("GetTenantStatus(OverdueDays={0})", _tenantOverdueDays);
+                taskLog.Debug("GetTenantStatus(OverdueDays={0})", Config.TenantOverdueDays);
 
-                type = mailbox.GetTenantStatus(_tenantOverdueDays, _httpContextScheme, _log);
+                type = mailbox.GetTenantStatus(Config.TenantOverdueDays, Config.HttpContextScheme, _log);
 
                 var cacheItem = new CacheItem(mailbox.TenantId.ToString(CultureInfo.InvariantCulture), type);
 
                 var cacheItemPolicy = new CacheItemPolicy
                 {
                     AbsoluteExpiration =
-                        DateTimeOffset.UtcNow.AddDays(_tenantCacheDays)
+                        DateTimeOffset.UtcNow.AddDays(Config.TenantCacheDays)
                 };
 
                 _tenantMemCache.Add(cacheItem, cacheItemPolicy);
@@ -217,7 +254,7 @@ namespace ASC.Mail.GarbageEraser
             }
             else
             {
-                RemoveGarbageMailData(mailbox, _garbageOverdueDays, taskLog);
+                RemoveGarbageMailData(mailbox, Config.GarbageOverdueDays, taskLog);
             }
 
             taskLog.Info("Mailbox {0} processing complete.", mailbox.MailBoxId);
@@ -225,30 +262,29 @@ namespace ASC.Mail.GarbageEraser
 
         private void RemoveMailboxData(MailBox mailbox, bool totalMailRemove, ILogger log)
         {
-            log.Debug("RemoveMailboxData()");
+            log.Info("RemoveMailboxData(id: {0} address: {1})", mailbox.MailBoxId, mailbox.EMail.ToString());
 
             try
             {
                 if (!mailbox.IsRemoved)
                 {
-                    log.Debug("Mailbox is't removed.");
+                    log.Info("Mailbox is't removed.");
 
                     var needRecalculateFolders = !totalMailRemove;
 
                     if (!mailbox.IsTeamlab)
                     {
-                        log.Debug("RemoveMailBox()");
+                        log.Info("RemoveMailBox()");
+
                         _mailBoxManager.RemoveMailBox(mailbox, needRecalculateFolders);
                     }
                     else
                     {
-                        log.Debug("RemoveTeamlabMailbox()");
+                        log.Info("RemoveTeamlabMailbox()");
 
                         CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
 
-                        var tenantInfo = CoreContext.TenantManager.GetCurrentTenant();
-
-                        SecurityContext.AuthenticateMe(tenantInfo.OwnerId);
+                        SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
 
                         RemoveTeamlabMailbox(mailbox);
 
@@ -273,9 +309,9 @@ namespace ASC.Mail.GarbageEraser
                 {
                     var sumCount = 0;
 
-                    log.Debug("GetMailboxAttachsGarbage(limit = {0})", _maxFilesToRemoveAtOnce);
+                    log.Debug("GetMailboxAttachsGarbage(limit = {0})", Config.MaxFilesToRemoveAtOnce);
 
-                    var attachGrbgList = _garbageManager.GetMailboxAttachs(mailbox, _maxFilesToRemoveAtOnce);
+                    var attachGrbgList = _garbageManager.GetMailboxAttachs(mailbox, Config.MaxFilesToRemoveAtOnce);
 
                     sumCount += attachGrbgList.Count;
 
@@ -287,7 +323,17 @@ namespace ASC.Mail.GarbageEraser
 
                         log.Debug("dataStorage.DeleteFiles()");
 
-                        dataStorage.DeleteFiles(string.Empty, attachGrbgList.Select(a => a.Path).ToList());
+                        foreach (var attachGrbg in attachGrbgList)
+                        {
+                            try
+                            {
+                                dataStorage.Delete(string.Empty, attachGrbg.Path);
+                            }
+                            catch (Exception ex)
+                            {
+                                _log.Error("dataStorage.DeleteFiles(path: {0}) failed. Error: {1}", attachGrbg.Path, ex.ToString());
+                            }
+                        }
 
                         log.Debug("RemoveMailboxAttachsGarbage()");
 
@@ -295,7 +341,7 @@ namespace ASC.Mail.GarbageEraser
 
                         log.Debug("GetMailboxAttachsGarbage()");
 
-                        attachGrbgList = _garbageManager.GetMailboxAttachs(mailbox, _maxFilesToRemoveAtOnce);
+                        attachGrbgList = _garbageManager.GetMailboxAttachs(mailbox, Config.MaxFilesToRemoveAtOnce);
 
                         if (!attachGrbgList.Any()) continue;
 
@@ -316,9 +362,9 @@ namespace ASC.Mail.GarbageEraser
                 {
                     var sumCount = 0;
 
-                    log.Debug("GetMailboxMessagesGarbage(limit = {0})", _maxFilesToRemoveAtOnce);
+                    log.Debug("GetMailboxMessagesGarbage(limit = {0})", Config.MaxFilesToRemoveAtOnce);
 
-                    var messageGrbgList = _garbageManager.GetMailboxMessages(mailbox, _maxFilesToRemoveAtOnce);
+                    var messageGrbgList = _garbageManager.GetMailboxMessages(mailbox, Config.MaxFilesToRemoveAtOnce);
 
                     sumCount += messageGrbgList.Count;
 
@@ -330,7 +376,17 @@ namespace ASC.Mail.GarbageEraser
 
                         log.Debug("dataStorage.DeleteFiles()");
 
-                        dataStorage.DeleteFiles(string.Empty, messageGrbgList.Select(a => a.Path).ToList());
+                        foreach (var mailMessageGarbage in messageGrbgList)
+                        {
+                            try
+                            {
+                                dataStorage.Delete(string.Empty, mailMessageGarbage.Path);
+                            }
+                            catch (Exception ex)
+                            {
+                                _log.Error("dataStorage.DeleteFiles(path: {0}) failed. Error: {1}", mailMessageGarbage.Path, ex.ToString());
+                            }
+                        }
 
                         log.Debug("RemoveMailboxMessagesGarbage()");
 
@@ -338,7 +394,7 @@ namespace ASC.Mail.GarbageEraser
 
                         log.Debug("GetMailboxMessagesGarbage()");
 
-                        messageGrbgList = _garbageManager.GetMailboxMessages(mailbox, _maxFilesToRemoveAtOnce);
+                        messageGrbgList = _garbageManager.GetMailboxMessages(mailbox, Config.MaxFilesToRemoveAtOnce);
 
                         if (!messageGrbgList.Any()) continue;
 
@@ -358,6 +414,26 @@ namespace ASC.Mail.GarbageEraser
             catch (Exception ex)
             {
                 log.Error("RemoveMailboxData(mailboxId = {0}) Failure\r\nException: {1}", mailbox.MailBoxId, ex.ToString());
+            }
+        }
+
+        private static void RemoveUserMailDirectory(int tenant, string userId, ILogger log)
+        {
+            log.Debug("MailDataStore.GetDataStore(Tenant = {0})", tenant);
+
+            var dataStorage = MailDataStore.GetDataStore(tenant);
+
+            var userMailDir = MailStoragePathCombiner.GetUserMailsDirectory(userId);
+
+            try
+            {
+                log.Info("RemoveUserMailDirectory(Path: {0}, Tenant = {1} User = '{2}')", userMailDir, tenant, userId);
+
+                dataStorage.DeleteDirectory(userMailDir);
+            }
+            catch (Exception ex)
+            {
+                log.Error("MailDataStore.DeleteDirectory(path: {0}) failed. Error: {1}", userMailDir, ex.ToString());
             }
         }
 

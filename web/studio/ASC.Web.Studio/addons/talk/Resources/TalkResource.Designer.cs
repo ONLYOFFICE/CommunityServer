@@ -79,6 +79,15 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string BtnCancel {
+            get {
+                return ResourceManager.GetString("BtnCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close history.
         /// </summary>
         public static string BtnCloseHistory {
@@ -102,6 +111,24 @@ namespace ASC.Web.Talk.Resources {
         public static string BtnDecline {
             get {
                 return ResourceManager.GetString("BtnDecline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string BtnDelete {
+            get {
+                return ResourceManager.GetString("BtnDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Sent Files.
+        /// </summary>
+        public static string BtnDeleteSentFiles {
+            get {
+                return ResourceManager.GetString("BtnDeleteSentFiles", resourceCulture);
             }
         }
         
@@ -201,6 +228,51 @@ namespace ASC.Web.Talk.Resources {
         public static string DefaultContactTitle {
             get {
                 return ResourceManager.GetString("DefaultContactTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete sent files.
+        /// </summary>
+        public static string DeleteSentFiles {
+            get {
+                return ResourceManager.GetString("DeleteSentFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All files.
+        /// </summary>
+        public static string DeleteSentFilesAll {
+            get {
+                return ResourceManager.GetString("DeleteSentFilesAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The files you send via chat are stored in the &lt;b&gt;&lt;/b&gt; portal. You can delete these files to free up space. After the deletion, the files will no longer be accessible through the links in the history of all the participants in the conversation..
+        /// </summary>
+        public static string DeleteSentFilesInfo {
+            get {
+                return ResourceManager.GetString("DeleteSentFilesInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files sent more than a month ago.
+        /// </summary>
+        public static string DeleteSentFilesMonth {
+            get {
+                return ResourceManager.GetString("DeleteSentFilesMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files sent more than a year ago.
+        /// </summary>
+        public static string DeleteSentFilesYear {
+            get {
+                return ResourceManager.GetString("DeleteSentFilesYear", resourceCulture);
             }
         }
         
@@ -840,6 +912,15 @@ namespace ASC.Web.Talk.Resources {
         public static string ValidSymbols {
             get {
                 return ResourceManager.GetString("ValidSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a message....
+        /// </summary>
+        public static string WriteMessage {
+            get {
+                return ResourceManager.GetString("WriteMessage", resourceCulture);
             }
         }
     }

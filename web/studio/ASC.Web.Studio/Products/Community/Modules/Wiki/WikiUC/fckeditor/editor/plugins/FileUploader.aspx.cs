@@ -26,12 +26,12 @@
 
 using System;
 using System.Globalization;
-using System.Web.UI;
 using ASC.Web.Studio.Core;
 using ASC.Web.UserControls.Wiki.Handlers;
 using ASC.Data.Storage;
 using System.IO;
 using ASC.Core;
+using ASC.Web.Core;
 using ASC.Web.UserControls.Wiki.Resources;
 
 namespace ASC.Web.UserControls.Wiki.UC
@@ -50,7 +50,7 @@ namespace ASC.Web.UserControls.Wiki.UC
         public string ErrorText { get; set; }
     }
 
-    public partial class FileUploader : Page
+    public partial class FileUploader : BasePage
     {
         public static long MaxUploadSize
         {

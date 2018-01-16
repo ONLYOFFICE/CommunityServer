@@ -6,9 +6,7 @@
 <div id="docServiceBlock" class="settings-block">
     <div class="header-base"><%= Resource.DocServiceUrl %></div>
 
-    <p>
-        <%= Resource.DocServiceText %>
-    </p>
+    <p><%= Resource.DocServiceText %></p>
 
     <div class="doc-service-item">
         <div class="header-base-small"><%= Resource.DocServiceUrlApi %></div>
@@ -34,6 +32,15 @@
             value="<%= FilesLinkUtility.DocServiceConverterUrl.HtmlEncode() %>" placeholder="https://<editors-dns-name>/ConvertService.ashx" />
         <div class="gray-text"><%= string.Format(Resource.DocServiceUrlExample, "https://&lt;editors-dns-name&gt;/ConvertService.ashx") %> </div>
     </div>
+    <% if (TenantExtra.EnableDocbuilder)
+       { %>
+    <div class="doc-service-item">
+        <div class="header-base-small"><%= Resource.DocServiceUrlDocbuilder %></div>
+        <input id="docServiceUrlDocbuilder" type="text" class="doc-service-value textEdit"
+            value="<%= FilesLinkUtility.DocServiceDocbuilderUrl.HtmlEncode() %>" placeholder="https://<editors-dns-name>/Docbuilder.ashx" />
+        <div class="gray-text"><%= string.Format(Resource.DocServiceUrlExample, "https://&lt;editors-dns-name&gt;/Docbuilder.ashx") %> </div>
+    </div>
+    <% } %>
     <div class="doc-service-item">
         <div class="header-base-small"><%= Resource.DocServiceUrlPortal %></div>
         <input id="docServiceUrlPortal" type="text" class="doc-service-value textEdit"
@@ -46,5 +53,5 @@
     </div>
 </div>
 <div class="settings-help-block">
-    <p><%= String.Format(Resource.DocServiceUrlHelp.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
+    <p><%= String.Format((Resource.DocServiceUrlHelp + (TenantExtra.EnableDocbuilder ? Resource.DocServiceUrlDocbuilderHelp : "")).HtmlEncode(), "<br />", "<b>", "</b>") %></p>
 </div>

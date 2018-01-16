@@ -1,4 +1,5 @@
-location ~* "^/([\d]{4}-[\d]{2}-[\d]{2}-[\d]{2}-[\d]{2}\/)?(downloadas|license|cache|upload|uploadold|doc|coauthoring|spellchecker|OfficeWeb|web-apps|sdkjs|fonts|OnlineEditorsExample|CanvasService\.ashx|ConvertService\.ashx|fileDownloader\.ashx|FileUploader\.ashx|FontService\.ashx|ResourceService\.ashx|TrackingService\.ashx|UploadService\.ashx|plugins\.json)" {
+location ~* ^/ds-vpath/ {
+                rewrite /ds-vpath/(.*) /$1  break;
                 proxy_pass {{DOCUMENT_SERVER_HOST_ADDR}};
                 proxy_redirect     off;
 
@@ -11,7 +12,7 @@ location ~* "^/([\d]{4}-[\d]{2}-[\d]{2}-[\d]{2}-[\d]{2}\/)?(downloadas|license|c
                 proxy_set_header Host $http_host;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Host $the_host;
+                proxy_set_header X-Forwarded-Host $the_host/ds-vpath;
                 proxy_set_header X-Forwarded-Proto $the_scheme;
 }
 

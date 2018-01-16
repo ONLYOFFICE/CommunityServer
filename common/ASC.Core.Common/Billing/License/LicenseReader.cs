@@ -24,22 +24,21 @@
 */
 
 
-using ASC.Core.Tenants;
-using ASC.Core.Users;
-using log4net;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
+using log4net;
 
 namespace ASC.Core.Billing
 {
     public static class LicenseReader
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(LicenseReader));
-        private static readonly string licensePath;
-        private static readonly string licensePathTemp;
+        private static readonly ILog Log = LogManager.GetLogger(typeof (LicenseReader));
+        private static readonly string LicensePath;
+        private static readonly string LicensePathTemp;
 
         public const string CustomerIdKey = "CustomerId";
         public const int MaxUserCount = 10000;
@@ -47,8 +46,8 @@ namespace ASC.Core.Billing
 
         static LicenseReader()
         {
-            licensePath = ConfigurationManager.AppSettings["license.file.path"];
-            licensePathTemp = licensePath + ".tmp";
+            LicensePath = ConfigurationManager.AppSettings["license.file.path"];
+            LicensePathTemp = LicensePath + ".tmp";
         }
 
 
@@ -60,7 +59,7 @@ namespace ASC.Core.Billing
 
         private static Stream GetLicenseStream(bool temp = false)
         {
-            var path = temp ? licensePathTemp : licensePath;
+            var path = temp ? LicensePathTemp : LicensePath;
             if (!File.Exists(path)) throw new BillingNotFoundException("License not found");
 
             return File.OpenRead(path);
@@ -68,10 +67,10 @@ namespace ASC.Core.Billing
 
         public static void RejectLicense()
         {
-            if (File.Exists(licensePathTemp))
-                File.Delete(licensePathTemp);
-            if (File.Exists(licensePath))
-                File.Delete(licensePath);
+            if (File.Exists(LicensePathTemp))
+                File.Delete(LicensePathTemp);
+            if (File.Exists(LicensePath))
+                File.Delete(LicensePath);
 
             CoreContext.PaymentManager.DeleteDefaultTariff();
         }
@@ -81,11 +80,11 @@ namespace ASC.Core.Billing
             try
             {
                 var temp = true;
-                if (!File.Exists(licensePathTemp))
+                if (!File.Exists(LicensePathTemp))
                 {
                     Log.Debug("Temp license not found");
 
-                    if (!File.Exists(licensePath))
+                    if (!File.Exists(LicensePath))
                     {
                         throw new BillingNotFoundException("License not found");
                     }
@@ -96,17 +95,18 @@ namespace ASC.Core.Billing
                 using (var reader = new StreamReader(licenseStream))
                 {
                     var licenseJsonString = reader.ReadToEnd();
+                    var license = License.Parse(licenseJsonString);
 
-                    LicenseToDB(licenseJsonString);
+                    LicenseToDB(license);
 
                     if (temp)
                     {
-                        SaveLicense(licenseStream, licensePath);
+                        SaveLicense(licenseStream, LicensePath);
                     }
                 }
 
                 if (temp)
-                    File.Delete(licensePathTemp);
+                    File.Delete(LicensePathTemp);
             }
             catch (Exception ex)
             {
@@ -122,14 +122,11 @@ namespace ASC.Core.Billing
                 using (var reader = new StreamReader(licenseStream))
                 {
                     var licenseJsonString = reader.ReadToEnd();
+                    var license = License.Parse(licenseJsonString);
 
-                    string customerId;
-                    DateTime dueDate;
-                    int activeUsers;
-                    int countPortals;
-                    Validate(licenseJsonString, out customerId, out dueDate, out activeUsers, out countPortals);
+                    Validate(license);
 
-                    SaveLicense(licenseStream, licensePathTemp);
+                    SaveLicense(licenseStream, LicensePathTemp);
                 }
             }
             catch (Exception ex)
@@ -160,60 +157,49 @@ namespace ASC.Core.Billing
             }
         }
 
-        private static JObject Validate(string licenseJsonString, out string customerId, out DateTime dueDate, out int activeUsers, out int countPortals)
+        private static void Validate(License license)
         {
-            var licenseJson = JObject.Parse(licenseJsonString);
-
-            if (string.IsNullOrEmpty(customerId = licenseJson.Value<string>("customer_id"))
-                || string.IsNullOrEmpty(licenseJson.Value<string>("signature")))
+            if (string.IsNullOrEmpty(license.CustomerId)
+                || string.IsNullOrEmpty(license.Signature))
             {
-                throw new BillingNotConfiguredException("License not correct", licenseJsonString);
+                throw new BillingNotConfiguredException("License not correct", license.OriginalLicense);
             }
 
-            dueDate = licenseJson.Value<DateTime>("end_date");
-            if (dueDate.Date < DateTime.UtcNow.Date)
+            if (license.DueDate.Date < DateTime.UtcNow.Date)
             {
-                throw new LicenseExpiredException("License expired", licenseJsonString);
+                throw new LicenseExpiredException("License expired", license.OriginalLicense);
             }
 
-            activeUsers = licenseJson.Value<int>("user_quota");
-            if (activeUsers.Equals(default(int)) || activeUsers < 1)
-                activeUsers = MaxUserCount;
+            if (license.ActiveUsers.Equals(default(int)) || license.ActiveUsers < 1)
+                license.ActiveUsers = MaxUserCount;
 
-            if (activeUsers < CoreContext.UserManager.GetUsers(EmployeeStatus.Default, EmployeeType.User).Length)
+            if (license.ActiveUsers < CoreContext.UserManager.GetUsers(EmployeeStatus.Default, EmployeeType.User).Length)
             {
-                throw new LicenseQuotaException("License quota", licenseJsonString);
+                throw new LicenseQuotaException("License quota", license.OriginalLicense);
             }
 
-            countPortals = licenseJson.Value<int>("portal_count");
-            if (countPortals <= 0)
+            if (license.PortalCount <= 0)
             {
-                countPortals = CoreContext.TenantManager.GetTenantQuota(Tenant.DEFAULT_TENANT).CountPortals;
+                license.PortalCount = CoreContext.TenantManager.GetTenantQuota(Tenant.DEFAULT_TENANT).CountPortals;
             }
             var activePortals = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
-            if (activePortals > 1 && countPortals < activePortals)
+            if (activePortals > 1 && license.PortalCount < activePortals)
             {
-                throw new LicensePortalException("License portal count", licenseJsonString);
+                throw new LicensePortalException("License portal count", license.OriginalLicense);
             }
-
-            return licenseJson;
         }
 
-        private static void LicenseToDB(string licenseJsonString)
+        private static void LicenseToDB(License license)
         {
-            string customerId;
-            DateTime dueDate;
-            int activeUsers;
-            int countPortals;
-            var licenseJson = Validate(licenseJsonString, out customerId, out dueDate, out activeUsers, out countPortals);
+            Validate(license);
 
-            CustomerId = customerId;
+            CustomerId = license.CustomerId;
 
             var defaultQuota = CoreContext.TenantManager.GetTenantQuota(Tenant.DEFAULT_TENANT);
 
             var quota = new TenantQuota(-1000)
                 {
-                    ActiveUsers = activeUsers,
+                    ActiveUsers = license.ActiveUsers,
                     MaxFileSize = defaultQuota.MaxFileSize,
                     MaxTotalSize = defaultQuota.MaxTotalSize,
                     Name = "license",
@@ -223,33 +209,32 @@ namespace ASC.Core.Billing
                     HealthCheck = true,
                     Ldap = true,
                     Sso = true,
-                    WhiteLabel = true,
+                    WhiteLabel = license.WhiteLabel,
                     Update = true,
                     Support = true,
-                    Trial = licenseJson.Value<string>("trial") != null && licenseJson.Value<bool>("trial"),
-                    CountPortals = countPortals,
+                    Trial = license.Trial,
+                    CountPortals = license.PortalCount,
                 };
             CoreContext.TenantManager.SaveTenantQuota(quota);
 
-            if (defaultQuota.CountPortals != countPortals)
+            if (defaultQuota.CountPortals != license.PortalCount)
             {
-                defaultQuota.CountPortals = countPortals;
+                defaultQuota.CountPortals = license.PortalCount;
                 CoreContext.TenantManager.SaveTenantQuota(defaultQuota);
             }
 
             var tariff = new Tariff
                 {
                     QuotaId = quota.Id,
-                    DueDate = dueDate,
+                    DueDate = license.DueDate,
                 };
 
             CoreContext.PaymentManager.SetTariff(-1, tariff);
 
-            var affiliateId = licenseJson.Value<string>("affiliate_id");
-            if (!string.IsNullOrEmpty(affiliateId))
+            if (!string.IsNullOrEmpty(license.AffiliateId))
             {
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                tenant.AffiliateId = affiliateId;
+                tenant.AffiliateId = license.AffiliateId;
                 CoreContext.TenantManager.SaveTenant(tenant);
             }
         }

@@ -36,7 +36,7 @@ namespace ASC.Web.Studio.Utility
             var imgUrl = "";
             if (TenantLogoManager.WhiteLabelEnabled)
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
                 return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(type, general);
             }
             else
@@ -50,7 +50,7 @@ namespace ASC.Web.Studio.Utility
                     if (type == WhiteLabelLogoTypeEnum.Dark)
                     {
                         /*** simple scheme ***/
-                        var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+                        var _tenantInfoSettings = TenantInfoSettings.Load();
                         imgUrl = _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
                         /***/
                     }

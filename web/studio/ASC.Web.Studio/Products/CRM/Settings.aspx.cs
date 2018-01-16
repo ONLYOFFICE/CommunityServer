@@ -60,6 +60,12 @@ namespace ASC.Web.CRM
                     titlePage = CRMSettingResource.CommonSettings;
                     break;
 
+                case "currency":
+                    CommonContainerHolder.Controls.Add(LoadControl(CurrencySettingsView.Location));
+
+                    titlePage = CRMSettingResource.CurrencySettings;
+                    break;
+
                 case "deal_milestone":
                     var dealMilestoneViewControl = (DealMilestoneView)LoadControl(DealMilestoneView.Location);
                     CommonContainerHolder.Controls.Add(dealMilestoneViewControl);

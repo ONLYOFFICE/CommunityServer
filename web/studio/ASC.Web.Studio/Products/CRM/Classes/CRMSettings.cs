@@ -133,7 +133,7 @@ namespace ASC.Web.CRM.Classes
 
     [Serializable]
     [DataContract]
-    public class CRMSettings : ISettings
+    public class CRMSettings : BaseSettings<CRMSettings>
     {
         [DataMember(Name = "DefaultCurrency")]
         private string defaultCurrency;
@@ -147,7 +147,7 @@ namespace ASC.Web.CRM.Classes
         [DataMember]
         public Guid WebFormKey { get; set; }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("fdf39b9a-ec96-4eb7-aeab-63f2c608eada"); }
         }
@@ -184,7 +184,7 @@ namespace ASC.Web.CRM.Classes
         [DataMember(Name = "IsConfiguredPortal")]
         public bool IsConfiguredPortal { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             var languageName = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
@@ -201,6 +201,25 @@ namespace ASC.Web.CRM.Classes
                             SMTPServerSetting = new SMTPServerSetting(),
                             InvoiceSetting = InvoiceSetting.DefaultSettings
                         };
+        }
+    }
+
+
+    [Serializable]
+    [DataContract]
+    public class CRMReportSampleSettings : BaseSettings<CRMReportSampleSettings>
+    {
+        [DataMember(Name = "NeedToGenerate")]
+        public bool NeedToGenerate { get; set; }
+
+        public override Guid ID
+        {
+            get { return new Guid("{54CD64AD-E73B-45A3-89E4-4D42A234D7A3}"); }
+        }
+
+        public override ISettings GetDefault()
+        {
+            return new CRMReportSampleSettings { NeedToGenerate = true };
         }
     }
 }

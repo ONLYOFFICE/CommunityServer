@@ -144,6 +144,16 @@ namespace ASC.Projects.Engine
             return taskDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
+        public  Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter)
+        {
+            return taskDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+        }
+
+        public IEnumerable<TaskFilterCountOperationResult> GetByFilterCountForStatistic(TaskFilter filter)
+        {
+            return taskDao.GetByFilterCountForStatistic(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+        }
+
         public IEnumerable<Task> GetByResponsible(Guid responsibleId, params TaskStatus[] statuses)
         {
             var listTask = taskDao.GetByResponsible(responsibleId, statuses).Where(canReadDelegate).ToList();
@@ -437,6 +447,8 @@ namespace ASC.Projects.Engine
             {
                 NotifyClient.Instance.SendAboutTaskDeleting(recipients, task);
             }
+
+            UnSubscribeAll(task);
         }
 
         #endregion

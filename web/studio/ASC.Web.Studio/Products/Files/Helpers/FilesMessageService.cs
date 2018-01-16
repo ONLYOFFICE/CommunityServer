@@ -48,7 +48,7 @@ namespace ASC.Web.Files.Helpers
             // do not log actions in users folder
             if (entry == null || entry.RootFolderType == FolderType.USER) return;
 
-            SendHeadersMessage(headers, action, description);
+            SendHeadersMessage(headers, action, MessageTarget.Create(entry.ID), description);
         }
 
         public static void Send(FileEntry entry1, FileEntry entry2, Dictionary<string, string> headers, MessageAction action, params string[] description)
@@ -56,10 +56,10 @@ namespace ASC.Web.Files.Helpers
             // do not log actions in users folder
             if (entry1 == null || entry2 == null || entry1.RootFolderType == FolderType.USER || entry2.RootFolderType == FolderType.USER) return;
 
-            SendHeadersMessage(headers, action, description);
+            SendHeadersMessage(headers, action, MessageTarget.Create(new[] { entry1.ID, entry2.ID }), description);
         }
 
-        private static void SendHeadersMessage(Dictionary<string, string> headers, MessageAction action, params string[] description)
+        private static void SendHeadersMessage(Dictionary<string, string> headers, MessageAction action, MessageTarget target, params string[] description)
         {
             if (headers == null)
             {
@@ -67,7 +67,7 @@ namespace ASC.Web.Files.Helpers
                 return;
             }
 
-            MessageService.Send(headers, action, description);
+            MessageService.Send(headers, action, target, description);
         }
 
 
@@ -82,7 +82,7 @@ namespace ASC.Web.Files.Helpers
                 return;
             }
 
-            MessageService.Send(request, action, description);
+            MessageService.Send(request, action, MessageTarget.Create(entry.ID), description);
         }
 
 
@@ -96,7 +96,7 @@ namespace ASC.Web.Files.Helpers
             // do not log actions in users folder
             if (entry == null || entry.RootFolderType == FolderType.USER) return;
 
-            MessageService.Send(initiator, action, description);
+            MessageService.Send(initiator, action, MessageTarget.Create(entry.ID), description);
         }
     }
 }

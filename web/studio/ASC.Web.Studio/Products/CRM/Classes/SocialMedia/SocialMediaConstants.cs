@@ -35,7 +35,5 @@ namespace ASC.Web.CRM.SocialMedia
         public const string ConfigKeyTwitterDefaultAccessTokenSecret = "twitterAccessTokenSecret_Default";
 
         public const string ConfigKeyFacebookDefaultAccessToken = "facebookAccessToken_Default";
-
-        public const string LoggerName = "ASC.SocialMedia.Web";
     }
 }

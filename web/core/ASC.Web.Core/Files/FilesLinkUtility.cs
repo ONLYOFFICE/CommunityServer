@@ -87,6 +87,12 @@ namespace ASC.Web.Core.Files
             set { SetUrlSetting("command", value); }
         }
 
+        public static string DocServiceDocbuilderUrl
+        {
+            get { return GetUrlSetting("docbuilder"); }
+            set { SetUrlSetting("docbuilder", value); }
+        }
+
         public static string DocServicePortalUrl
         {
             get { return GetUrlSetting("portal"); }
@@ -204,7 +210,7 @@ namespace ASC.Web.Core.Files
 
         public static string GetFileRedirectPreviewUrl(object enrtyId, bool isFile)
         {
-            return FileHandlerPath + "?" + Action + "=redirect&" + (isFile ? FileId : FolderId) + "=" + enrtyId;
+            return FileHandlerPath + "?" + Action + "=redirect&" + (isFile ? FileId : FolderId) + "=" + HttpUtility.UrlEncode(enrtyId.ToString());
         }
 
         public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength)
@@ -218,10 +224,10 @@ namespace ASC.Web.Core.Files
                                             Thread.CurrentThread.CurrentUICulture.Name);
 
             if (fileId != null)
-                queryString = queryString + "&" + FileId + "=" + fileId;
+                queryString = queryString + "&" + FileId + "=" + HttpUtility.UrlEncode(fileId.ToString());
 
             if (folderId != null)
-                queryString = queryString + "&" + FolderId + "=" + folderId;
+                queryString = queryString + "&" + FolderId + "=" + HttpUtility.UrlEncode(folderId.ToString());
 
             return CommonLinkUtility.GetFullAbsolutePath(GetFileUploaderHandlerVirtualPath() + queryString);
         }

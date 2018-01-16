@@ -34,8 +34,8 @@
         <div id="talkContentContainer" class="disabled">
           <div id="talkStartSplash" unselectable="on">
             <div class="background" unselectable="on"></div>
-              <div class="right-side" unselectable="on"></div>
             <div class="container" unselectable="on">
+             <!-- <div class="right-side" unselectable="on"></div> -->
               <div class="label" unselectable="on"><%=string.Format(TalkResource.LabelFirstSplash,"<br/>")%></div>
             </div>
           </div>
@@ -91,7 +91,7 @@
                                 <div class="title" style="background:none; height:auto" unselectable="on"><%=TalkResource.TitleKickOccupantDialog%>&nbsp;<div class="dialogNameRoom"><span class="value"></span></div></div>
                             </td>
                             <td class="popupCancel">
-                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="Close">×</div>
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="<%=TalkResource.Close%>">×</div>
                             </td>
                         </tr>
                     </tbody>
@@ -104,7 +104,7 @@
                     
                     <a class="button blue middle button-talk kick-occupant"><%=TalkResource.BtnKick%></a> 
                     <span class="splitter-buttons"></span>
-                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();">Cancel</a> 
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%=TalkResource.BtnCancel%></a> 
                    
                 </div>
             </div>
@@ -117,7 +117,7 @@
                         <tr valign="middle">
                             <td><%=TalkResource.TitleCreateRoom%></td>
                             <td class="popupCancel">
-                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="Close">×</div>
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="<%=TalkResource.Close%>">×</div>
                             </td>
                         </tr>
                     </tbody>
@@ -155,8 +155,8 @@
                 <div class="middle-button-container" style="margin-top:20px">
                     <a class="button blue middle button-talk create-room"><%=TalkResource.BtnCreate%></a> 
                     <span class="splitter-buttons"></span>
-                    <!-- <a class="button gray middle" onclick="jq.unblockUI();">Cancel</a> -->
-                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();">Cancel</a> 
+                    <!-- <a class="button gray middle" onclick="jq.unblockUI();"><%=TalkResource.BtnCancel%></a> -->
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%=TalkResource.BtnCancel%></a> 
                    
                 </div>
             </div>
@@ -203,7 +203,7 @@
                                 <div class="title" style="background:none; height:auto" unselectable="on"><%=TalkResource.TitleRemoveRoomDialog%>&nbsp;<div class="dialogNameRoom"><span class="value"></span></div></div>
                             </td>
                             <td class="popupCancel">
-                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" style="user-select:none" title="Close">×</div>
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" style="user-select:none" title="<%=TalkResource.Close%>">×</div>
                             </td>
                         </tr>
                     </tbody>
@@ -215,8 +215,8 @@
                 <div class="middle-button-container" style="margin-top:20px">
                     <a class="button blue middle button-talk remove-room"><%=TalkResource.BtnRemove%></a> 
                     <span class="splitter-buttons"></span>
-                    <!-- <a class="button gray middle" onclick="jq.unblockUI();">Cancel</a> -->
-                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();">Cancel</a> 
+                    <!-- <a class="button gray middle" onclick="jq.unblockUI();"><%=TalkResource.BtnCancel%></a> -->
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%=TalkResource.BtnCancel%></a> 
                    
                 </div>
             </div>
@@ -231,7 +231,7 @@
                                 <div class="title" style="background:none; height:auto"><%=TalkResource.TitleRecvInvite%>&nbsp;<div class="dialogNameRoom"><span class="value"></span></div></div>
                             </td>
                             <td class="popupCancel">
-                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" style="user-select:none" title="Close">×</div>
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" style="user-select:none" title="<%=TalkResource.Close%>">×</div>
                             </td>
                         </tr>
                     </tbody>
@@ -249,10 +249,51 @@
             </div>
         </div>
      
+              
+        <div class="popupContainerClass dialog delete-files">
+            <div class="containerHeaderBlock">
+                <table style="width: 100%; height: 0px;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr valign="middle">
+                            <td><%=TalkResource.DeleteSentFiles%></td>
+                            <td class="popupCancel">
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="<%=TalkResource.Close%>">×</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="containerBodyBlock">
+                <div><%=TalkResource.DeleteSentFilesInfo%></div>
+                <div style="margin-top:10px">
+                    <label>
+                        <input type="radio" name="clearType" value="0" checked="checked"/>
+                        <%=TalkResource.DeleteSentFilesAll%>
+                    </label>
+                </div>
+                <div style="margin-top:10px">
+                    <label>
+                        <input type="radio" name="clearType" value="1"/>
+                        <%=TalkResource.DeleteSentFilesMonth%>
+                    </label>
+                </div>
+                <div style="margin-top:10px">
+                    <label>
+                        <input type="radio" name="clearType" value="2"/>
+                        <%=TalkResource.DeleteSentFilesYear%>
+                    </label>
+                </div>
+                <div class="middle-button-container" style="margin-top:20px">
+                    <a class="button blue middle button-talk delete-files-btn"><%=TalkResource.BtnDelete%></a> 
+                    <span class="splitter-buttons"></span>
+                    <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%=TalkResource.BtnCancel%></a> 
+                </div>
+            </div>
+          </div>
+
      </div>
         <div id="talkHorSlider" unselectable="on"></div>
-        <asct:ContactsContainer ID="TalkContactsContainer" runat="server" />  
-         
+        <asct:ContactsContainer ID="TalkContactsContainer" runat="server" />
       </div>
     </div>
   </div>

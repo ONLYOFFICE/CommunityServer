@@ -104,7 +104,6 @@ namespace ASC.Xmpp.Server.Gateway
 
                 if (maxPacket < ctx.Request.ContentLength64)
                 {
-                   
                     BoshXmppHelper.TerminateBoshSession(ctx, "request-too-large");
                     return;
                 }

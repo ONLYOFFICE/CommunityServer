@@ -43,42 +43,70 @@ namespace ASC.Data.Backup.Tasks
     public class BackupPortalTask : PortalTaskBase
     {
         public string BackupFilePath { get; private set; }
+        public int Limit { get; private set; }
 
-        public BackupPortalTask(ILog logger, int tenantId, string fromConfigPath, string toFilePath)
+        public BackupPortalTask(ILog logger, int tenantId, string fromConfigPath, string toFilePath, int limit)
             : base(logger, tenantId, fromConfigPath)
         {
             if (string.IsNullOrEmpty(toFilePath))
                 throw new ArgumentNullException("toFilePath");
 
             BackupFilePath = toFilePath;
+            Limit = limit;
         }
 
         public override void RunJob()
         {
             Logger.Debug("begin backup {0}", TenantId);
-            List<IModuleSpecifics> modulesToProcess = GetModulesToProcess().ToList();
-            SetStepsCount(ProcessStorage ? modulesToProcess.Count + 1 : modulesToProcess.Count);
+
+            var dbFactory = new DbFactory(ConfigPath);
+            var modulesToProcess = GetModulesToProcess().ToList();
+            var fileGroups = GetFilesGroup(dbFactory);
+
+            SetStepsCount(ProcessStorage ? modulesToProcess.Count + fileGroups.Count : modulesToProcess.Count);
+
             using (var writer = new ZipWriteOperator(BackupFilePath))
             {
-                var dbFactory = new DbFactory(ConfigPath);
                 foreach (var module in modulesToProcess)
                 {
                     DoBackupModule(writer, dbFactory, module);
                 }
                 if (ProcessStorage)
                 {
-                    DoBackupStorage(writer, dbFactory);
+                    DoBackupStorage(writer, fileGroups);
                 }
             }
             Logger.Debug("end backup {0}", TenantId);
+        }
+
+        private List<IGrouping<string, BackupFileInfo>> GetFilesGroup(DbFactory dbFactory)
+        {
+            var files = GetFilesToProcess().ToList();
+            var exclude = new List<string>();
+
+            using (var db = dbFactory.OpenConnection())
+            using (var command = db.CreateCommand())
+            {
+                command.CommandText = "select storage_path from backup_backup where tenant_id = " + TenantId + " and storage_type = 0 and storage_path is not null";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        exclude.Add(reader.GetString(0));
+                    }
+                }
+            }
+            files = files.Where(f => !exclude.Any(e => f.Path.Contains(string.Format("/file_{0}/", e)))).ToList();
+
+            return files.GroupBy(file => file.Module).ToList();
         }
 
         private void DoBackupModule(IDataWriteOperator writer, DbFactory dbFactory, IModuleSpecifics module)
         {
             Logger.Debug("begin saving data for module {0}", module.ModuleName);
             var tablesToProcess = module.Tables.Where(t => !IgnoredTables.Contains(t.Name) && t.InsertMethod != InsertMethod.None).ToList();
-            int tablesCount = tablesToProcess.Count;
-            int tablesProcessed = 0;
+            var tablesCount = tablesToProcess.Count;
+            var tablesProcessed = 0;
             using (var connection = dbFactory.OpenConnection())
             {
                 foreach (var table in tablesToProcess)
@@ -90,10 +118,16 @@ namespace ASC.Data.Backup.Tasks
                             state =>
                             {
                                 data.Clear();
-                                var t = (TableInfo)state;
-                                var dataAdapter = dbFactory.CreateDataAdapter();
-                                dataAdapter.SelectCommand = module.CreateSelectCommand(connection.Fix(), TenantId, t).WithTimeout(600);
-                                ((DbDataAdapter)dataAdapter).Fill(data);
+                                int counts;
+                                var offset = 0;
+                                do
+                                {
+                                    var t = (TableInfo) state;
+                                    var dataAdapter = dbFactory.CreateDataAdapter();
+                                    dataAdapter.SelectCommand = module.CreateSelectCommand(connection.Fix(), TenantId, t, Limit, offset).WithTimeout(600);
+                                    counts = ((DbDataAdapter) dataAdapter).Fill(data);
+                                    offset += Limit;
+                                } while (counts == Limit);
 
                             },
                             table,
@@ -131,30 +165,15 @@ namespace ASC.Data.Backup.Tasks
             Logger.Debug("end saving data for module {0}", module.ModuleName);
         }
 
-        private void DoBackupStorage(IDataWriteOperator writer, DbFactory dbFactory)
+        private void DoBackupStorage(IDataWriteOperator writer, List<IGrouping<string, BackupFileInfo>> fileGroups)
         {
             Logger.Debug("begin backup storage");
 
-            var files = GetFilesToProcess();
-            var exclude = new List<string>();
-            using (var db = dbFactory.OpenConnection())
-            using (var command = db.CreateCommand())
-            {
-                command.CommandText = "select storage_path from backup_backup where tenant_id = " + TenantId + " and storage_type = 0 and storage_path is not null";
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        exclude.Add(reader.GetString(0));
-                    }
-                }
-            }
-            files = files.Where(f => !exclude.Any(e => f.Path.Contains(string.Format("/file_{0}/", e))));
-
-            var fileGroups = files.GroupBy(file => file.Module).ToList();
-            var groupsProcessed = 0;
             foreach (var group in fileGroups)
             {
+                var filesProcessed = 0;
+                var filesCount = group.Count();
+
                 var storage = StorageFactory.GetStorage(ConfigPath, TenantId.ToString(), group.Key);
                 foreach (var file in group)
                 {
@@ -182,12 +201,10 @@ namespace ASC.Data.Backup.Tasks
                             }
                         }
                     }, file, 5, error => Logger.Warn("can't backup file ({0}:{1}): {2}", file.Module, file.Path, error));
-                }
-                SetCurrentStepProgress((int)(++groupsProcessed * 100 / (double)fileGroups.Count));
-            }
 
-            if (fileGroups.Count == 0)
-                SetStepCompleted();
+                    SetCurrentStepProgress((int)(++filesProcessed * 100 / (double)filesCount));
+                }
+            }
 
             var restoreInfoXml = new XElement(
                 "storage_restore",

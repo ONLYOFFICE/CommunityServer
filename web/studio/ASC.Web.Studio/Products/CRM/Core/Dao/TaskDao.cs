@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Caching;
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -652,11 +651,11 @@ namespace ASC.CRM.Core.Dao
                 sqlQuery.Where(Exp.Eq(aliasPrefix + "category_id", categoryID));
 
             if (fromDate != DateTime.MinValue && toDate != DateTime.MinValue)
-                sqlQuery.Where(Exp.Between(aliasPrefix + "deadline", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate.AddDays(1).AddMinutes(-1))));
+                sqlQuery.Where(Exp.Between(aliasPrefix + "deadline", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)));
             else if (fromDate != DateTime.MinValue)
                 sqlQuery.Where(Exp.Ge(aliasPrefix + "deadline", TenantUtil.DateTimeToUtc(fromDate)));
             else if (toDate != DateTime.MinValue)
-                sqlQuery.Where(Exp.Le(aliasPrefix + "deadline", TenantUtil.DateTimeToUtc(toDate.AddDays(1).AddMinutes(-1))));
+                sqlQuery.Where(Exp.Le(aliasPrefix + "deadline", TenantUtil.DateTimeToUtc(toDate)));
 
             if (0 < from && from < int.MaxValue)
                 sqlQuery.SetFirstResult(from);
@@ -929,9 +928,9 @@ namespace ASC.CRM.Core.Dao
                               .InColumnValue("entity_id", newTask.EntityID)
                               .InColumnValue("is_closed", newTask.IsClosed)
                               .InColumnValue("category_id", newTask.CategoryID)
-                              .InColumnValue("create_on", DateTime.UtcNow)
+                              .InColumnValue("create_on", newTask.CreateOn == DateTime.MinValue ? DateTime.UtcNow : newTask.CreateOn)
                               .InColumnValue("create_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                              .InColumnValue("last_modifed_on", DateTime.UtcNow)
+                              .InColumnValue("last_modifed_on", newTask.CreateOn == DateTime.MinValue ? DateTime.UtcNow : newTask.CreateOn)
                               .InColumnValue("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
                               .InColumnValue("alert_value", (int)newTask.AlertValue)
                               .Identity(1, 0, true));
@@ -1112,6 +1111,57 @@ namespace ASC.CRM.Core.Dao
 
         #endregion
 
+
+        public void ReassignTasksResponsible(Guid fromUserId, Guid toUserId)
+        {
+            var tasks = GetTasks(String.Empty, fromUserId, 0, false, DateTime.MinValue, DateTime.MinValue,
+                            EntityType.Any, 0, 0, 0, null);
+
+            foreach (var task in tasks)
+            {
+                task.ResponsibleID = toUserId;
+
+                SaveOrUpdateTask(task);
+            }
+        }
+
         #endregion
+
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <param name="creationDate"></param>
+        public void SetTaskCreationDate(int taskId, DateTime creationDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_task")
+                       .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
+                       .Where(Exp.Eq("id", taskId)));
+            }
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
+        }
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <param name="lastModifedDate"></param>
+        public void SetTaskLastModifedDate(int taskId, DateTime lastModifedDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_task")
+                       .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
+                       .Where(Exp.Eq("id", taskId)));
+            }
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
+        }
     }
 }

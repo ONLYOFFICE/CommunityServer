@@ -26,26 +26,16 @@
 
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
-using ASC.Projects.Core.Domain;
 
 namespace ASC.Web.Projects
 {
     public partial class TimeTracking : BasePage
     {
-        #region Properties
-
         protected override bool CheckSecurity { get { return !Participant.IsVisitor; } }
-
-        #endregion
-
-        #region Events
 
         protected override void PageLoad()
         {
             Title = HeaderStringHelper.GetPageTitle(ProjectsCommonResource.TimeTracking);
         }
-
-        #endregion
-
     }
 }

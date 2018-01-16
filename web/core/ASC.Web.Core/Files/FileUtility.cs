@@ -31,6 +31,7 @@ using System.Linq;
 using System.Web.Configuration;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
+using System.Text.RegularExpressions;
 
 namespace ASC.Web.Core.Files
 {
@@ -243,26 +244,30 @@ namespace ASC.Web.Core.Files
 
         public static readonly List<string> ExtsSpreadsheet = new List<string>
             {
-                ".xls", ".xlsx",
-                ".ods", ".csv",
-                ".xlst", ".xlsy",
+                ".xls", ".xlsx", ".xlsm",
+                ".xlt", ".xltx", ".xltm",
+                ".ods", ".fods", ".csv",
+                ".xlst", ".xlsy", ".xlsb",
                 ".gsheet"
             };
 
         public static readonly List<string> ExtsPresentation = new List<string>
             {
-                ".pps", ".ppsx",
-                ".ppt", ".pptx",
-                ".odp",
+                ".pps", ".ppsx", ".ppsm",
+                ".ppt", ".pptx", ".pptm",
+                ".pot", ".potx", ".potm",
+                ".odp", ".fodp",
                 ".pptt", ".ppty",
                 ".gslides"
             };
 
         public static readonly List<string> ExtsDocument = new List<string>
             {
-                ".docx", ".doc", ".odt", ".rtf", ".txt",
-                ".html", ".htm", ".mht", ".pdf", ".djvu",
-                ".fb2", ".epub", ".xps",
+                ".doc", ".docx", ".docm",
+                ".dot", ".dotx", ".dotm",
+                ".odt", ".fodt", ".rtf", ".txt",
+                ".html", ".htm", ".mht",
+                ".pdf", ".djvu", ".fb2", ".epub", ".xps",
                 ".doct", ".docy",
                 ".gdoc"
             };
@@ -284,8 +289,27 @@ namespace ASC.Web.Core.Files
             Space = 5
         }
 
-        public static readonly string SignatureSecret = WebConfigurationManager.AppSettings["files.docservice.secret"] ?? "";
-        public static readonly string SignatureHeader = WebConfigurationManager.AppSettings["files.docservice.secret.header"] ?? "Authorization";
+        public static readonly string SignatureSecret = GetSignatureSecret();
+        public static readonly string SignatureHeader = GetSignatureHeader();
+
+        private static string GetSignatureSecret()
+        {
+            var result = WebConfigurationManager.AppSettings["files.docservice.secret"] ?? "";
+
+            Regex regex = new Regex(@"^\s+$");
+
+            if (regex.IsMatch(result))
+                result = "";
+
+            return result;         
+        }
+
+        private static string GetSignatureHeader()
+        {
+            var result = WebConfigurationManager.AppSettings["files.docservice.secret.header"] ?? "Authorization";
+
+            return result.Trim();
+        }
 
         #endregion
     }

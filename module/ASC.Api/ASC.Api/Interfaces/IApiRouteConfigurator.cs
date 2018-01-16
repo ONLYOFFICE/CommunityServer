@@ -32,7 +32,7 @@ namespace ASC.Api.Interfaces
 {
     public interface IApiRouteConfigurator
     {
-        void RegisterEntryPoints();
+        IEnumerable<IApiMethodCall> RegisterEntryPoints();
         RouteCallInfo ResolveRoute(MethodInfo apiCall, Dictionary<string, object> arguments);
     }
 }

@@ -225,7 +225,7 @@
       option = null,
       optionsvalue = [],
       selectclassname = select.className,
-      selectoption = options.length ? options[0] : null;
+      selectoption = options.length ? options[0] : { title: "", value: "" };
 
     for (var i = 0, n = options.length; i < n; i++) {
       option = options[i];
@@ -282,7 +282,7 @@
       option = null,
       optionsvalue = [],
       selectclassname = select.className,
-      selectoption = null;
+      selectoption = options.length ? options[0] : null;
 
     for (var i = 0, n = options.length; i < n; i++) {
       option = options[i];
@@ -298,15 +298,14 @@
       ul.innerHTML = html.join('');
     } catch (err) {}
 
-    if (selectoption !== null) {
+    if (selectoption != null) {
       try {
         var title = o.firstChild.firstChild;
         title.innerHTML = selectoption.title || '&nbsp;';
         title.setAttribute('title', converText(selectoption.title || '&nbsp;'));
+        o.className = 'tl-combobox' + ' tl-combobox-container' + ' select-value-' + selectoption.value + (selectclassname ? ' ' + selectclassname : '');
       } catch (err) {}
     }
-
-    o.className = 'tl-combobox' + ' tl-combobox-container' + ' select-value-' + selectoption.value + (selectclassname ? ' ' + selectclassname : '');
 
     var
       optionsvalueLen = optionsvalue.length,
@@ -341,6 +340,12 @@
 
     options = select.getElementsByTagName('option');
     optionsInd = options ? options.length : 0;
+
+    if (select.selectedIndex == -1 && options.length) {
+        select.selectedIndex = 0;
+        selectvalue = select.value;
+    }
+
     while (optionsInd--) {
       option = options[optionsInd];
       optionvalue = option.getAttribute('value');

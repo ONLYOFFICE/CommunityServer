@@ -6,6 +6,16 @@
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
+
+<asp:Content ContentPlaceHolderID="SidePanel" runat="server">
+    <asp:PlaceHolder ID="SideNavigation" runat="server" />
+    <asp:ContentPlaceHolder ID="BTSidePanel" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="AdditionalColumns" runat="server">
+    <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
+</asp:Content>
+
 <asp:Content ID="PageContent" ContentPlaceHolderID="PageContent" runat="server">
     <asp:ContentPlaceHolder ID="BTPageContentWithoutCommonContainer" runat="server" />
     <sc:Container ID="_commonContainer" runat="server">
@@ -17,7 +27,4 @@
     </sc:Container>
 </asp:Content>
 
-<asp:Content ContentPlaceHolderID="SidePanel" runat="server">
-    <asp:PlaceHolder ID="SideNavigation" runat="server" />
-    <asp:ContentPlaceHolder ID="BTSidePanel" runat="server" />
-</asp:Content>
+

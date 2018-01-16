@@ -36,9 +36,6 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Client">
-      <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.Client.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
       <HintPath>..\..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -56,7 +53,7 @@
       <HintPath>..\..\..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
@@ -169,10 +166,6 @@
     <ProjectReference Include="..\..\ASC.Notify\ASC.Notify\ASC.Notify.csproj">
       <Project>{8484a675-1c93-4d87-8ff2-7530a5711208}</Project>
       <Name>ASC.Notify</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.SignalR.Base\ASC.SignalR.Base.csproj">
-      <Project>{e13ca346-b9a7-464f-924d-9f6d2a106f04}</Project>
-      <Name>ASC.SignalR.Base</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

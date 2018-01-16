@@ -25,9 +25,6 @@
 
 
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Resources;
-using ASC.Web.Studio.UserControls.EmptyScreens;
-using ASC.Web.Studio.Utility;
 using ASC.Projects.Engine;
 
 namespace ASC.Web.Projects

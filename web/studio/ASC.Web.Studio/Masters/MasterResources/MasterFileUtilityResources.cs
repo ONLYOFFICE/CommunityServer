@@ -34,6 +34,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
 {
     public class MasterFileUtilityResources : ClientScript
     {
+        protected override bool CheckAuth { get { return false; } }
+
         protected override string BaseNamespace
         {
             get { return "ASC.Files.Utility.Resource"; }

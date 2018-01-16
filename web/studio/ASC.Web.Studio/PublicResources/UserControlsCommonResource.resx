@@ -144,6 +144,9 @@
   <data name="AllVoting" xml:space="preserve">
     <value>Total number of votes</value>
   </data>
+  <data name="AnalyticsOpenSource" xml:space="preserve">
+    <value>I agree to send anonymous usage data to improve ONLYOFFICE</value>
+  </data>
   <data name="AnswerVariants" xml:space="preserve">
     <value>Poll Choices</value>
   </data>
@@ -860,9 +863,6 @@
   </data>
   <data name="LicenseModulesControlPanel" xml:space="preserve">
     <value>Control Panel</value>
-  </data>
-  <data name="LicenseModulesWhiteLabel" xml:space="preserve">
-    <value>White Label</value>
   </data>
   <data name="LicenseModulesMultitenancy" xml:space="preserve">
     <value>Multitenancy</value>

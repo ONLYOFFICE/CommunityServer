@@ -739,46 +739,17 @@ ASC.CRM.Common = (function() {
             return o ? o.constructor.toString().indexOf("Array") != -1 : false;
         },
 
-        findUserByGuid: function (id) {
-            for (var i = 0, n = ASC.Resources.Master.ApiResponses_Profiles.response.length; i < n; i++) {
-                if (ASC.Resources.Master.ApiResponses_Profiles.response[i].id == id) {
-                    return ASC.Resources.Master.ApiResponses_Profiles.response[i];
-                }
-            }
-            return null;
-        },
-
-        getAdminUsers: function () {
-            var admins = [];
-            for (var i = 0, n = ASC.Resources.Master.ApiResponses_Profiles.response.length; i < n; i++) {
-                if (ASC.Resources.Master.ApiResponses_Profiles.response[i].isAdmin === true) {
-                    admins.push(ASC.Resources.Master.ApiResponses_Profiles.response[i]);
-                }
-            }
-            return admins;
-        },
-
         getAccessListHtml: function (userGuids) {
             if (typeof (userGuids) == "undefined" || userGuids.length == 0) { return ""; }
             var html = "";
             for (var i = 0, n = userGuids.length; i < n; i++) {
-                var usr = ASC.CRM.Common.findUserByGuid(userGuids[i]);
+                var usr = window.UserManager.getUser(userGuids[i]);
                 html += [
                     i == 0 ? "" : ",<span class='splitter'></span>",
                     usr != null ? usr.displayName : ASC.CRM.Data.ProfileRemoved
                 ].join('');
             }
             return html;
-        },
-
-        isUserActive: function (id) {
-            //ASC.Resources.Master.ApiResponses_Profiles.response - only active users
-            for (var i = 0, n = ASC.Resources.Master.ApiResponses_Profiles.response.length; i < n; i++) {
-                if (ASC.Resources.Master.ApiResponses_Profiles.response[i].id === id) {
-                    return true;
-                }
-            }
-            return false;
         },
 
         convertText: function (str, toText) {
@@ -3962,7 +3933,8 @@ var ga_Categories = {
     cases: "crm_cases",
     deals: "crm_deals",
     tasks: "crm_tasks",
-    sender: "crm_sender"
+    sender: "crm_sender",
+    reports: "crm_reports"
 };
 
 var ga_Actions = {
@@ -3975,5 +3947,6 @@ var ga_Actions = {
     next: "next",
     userClick: "user-click",
     actionClick: "action-click",
-    quickAction: "quick-action"
+    quickAction: "quick-action",
+    generateNew: "generate-new"
 };

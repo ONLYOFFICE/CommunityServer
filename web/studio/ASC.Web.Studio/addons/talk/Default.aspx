@@ -13,9 +13,9 @@
 		  <table border="0" cellpadding="0" cellspacing="0" width="100%">
 			  <tr>
 				  <td colspan="3" class="header-base" style="padding: 0 0 15px">
-					 <%=TalkOverviewResource.OverviewSectionTitle%>                  
+					 <%=TalkOverviewResource.OverviewSectionTitle%>
 				  </td>
-			  </tr> 
+			  </tr>
 			  <tr valign="top">
 				  <td colspan="3" style="border-bottom: 1px solid #d1d1d1; padding: 0 35px 15px 0;">
 					  <div><%=TalkOverviewResource.OverviewContent%></div>                     
@@ -26,8 +26,6 @@
                       <div style="padding-top: 10px;"><%=TalkOverviewResource.DefaultNotificationText%></div>
                       <div><%=string.Format(TalkOverviewResource.SubscriptionSectionText, "<a href = '/products/people/profile.aspx'>" + TalkOverviewResource.ProfilePage + "</a>") %></div> 
                       <div><%=string.Format(TalkOverviewResource.MoreInformation, "<a href = 'http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx#SchedulingWorkflow_block'>" + TalkOverviewResource.Here + "</a>") %></div>
-                              
-           
 				  </td>
 				  <td colspan="2" style="border-bottom: 1px solid #d1d1d1; padding-bottom: 15px; vertical-align:middle">
 					  <div class="tintMedium" style=" width: 200px;">
@@ -36,7 +34,6 @@
 					  </div>
 				  </td>
 			  </tr>
-         
 			  <tr>
 				  <td colspan="5" class="talkAreaWithBottomBorder">
                          <div class="talkScreenshots">
@@ -59,7 +56,6 @@
 						      <img src="<%=WebImageSupplier.GetAbsoluteWebPath("screenshot04.png", TalkAddon.AddonID)%>" alt="" />
 						      <div class="describe-text talkScreenshot"><%=TalkOverviewResource.SettingsOfInputField%></div>
 					      </div>
-					  
 				  </td>
 			  </tr>
 			  <tr>
@@ -114,7 +110,7 @@
 						  </div>
 						  <div class="talkPsiClientImage">
 						    <a href="http://psi-im.org/" class="external" title="<%=TalkOverviewResource.PsiLink%>" target="_blank">Psi</a>
-						  </div>							
+						  </div>
 					  </div>
 				  </td>
                    <td>
@@ -131,7 +127,7 @@
 						  </div>
 						  <div class="talkQipClientImage">
 						    <a href="http://welcome.qip.ru/im" class="external" title="<%=TalkOverviewResource.QIP%>" target="_blank">QIP</a>
-						  </div>							
+						  </div>
 					  </div>
 				  </td>
 			  </tr>

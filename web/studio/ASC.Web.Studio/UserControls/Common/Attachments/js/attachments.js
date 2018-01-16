@@ -71,8 +71,13 @@ window.Attachments = (function() {
                 }
             case "crm":
                 {
-                    Teamlab.getCrmEntityFiles(null, entityId, entityType, function() { onGetFiles(arguments); });
-                    break;
+                    if (entityType == "report") {
+                        Teamlab.getCrmReportFiles(null, function () { onGetFiles(arguments); });
+                        break;
+                    } else {
+                        Teamlab.getCrmEntityFiles(null, entityId, entityType, function () { onGetFiles(arguments); });
+                        break;
+                    }
                 }
             default:
                 LoadingBanner.hideLoading();

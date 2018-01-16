@@ -24,17 +24,20 @@
 */
 
 
-using ASC.Xmpp.Core.protocol.client;
-using ASC.Xmpp.Core.utils.Xml.Dom;
-using ASC.Xmpp.Server.Session;
-using ASC.Xmpp.Server.Streams;
-using log4net;
-using log4net.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+
+using ASC.Core.Notify.Signalr;
+using ASC.Xmpp.Core.protocol.client;
+using ASC.Xmpp.Core.utils.Xml.Dom;
+using ASC.Xmpp.Server.Session;
+using ASC.Xmpp.Server.Streams;
+
+using log4net;
+using log4net.Core;
 using Uri = ASC.Xmpp.Core.protocol.Uri;
 
 namespace ASC.Xmpp.Server.Gateway
@@ -44,7 +47,7 @@ namespace ASC.Xmpp.Server.Gateway
         private readonly XmppGateway gateway;
 
         private static readonly ILog _log = LogManager.GetLogger("ASC.Xmpp.Server.Messages");
-        private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient();
+        private static readonly SignalrServiceClient SignalrServiceClient = new SignalrServiceClient("chat");
 
         private const string SEND_FORMAT = "Xmpp stream: connection {0}, namespace {1}\r\n\r\n(S) -------------------------------------->>\r\n{2}\r\n";
 
@@ -163,15 +166,9 @@ namespace ASC.Xmpp.Server.Gateway
                 var state = SignalRHelper.GetState(presence.Show, presence.Type);
                 if (state == SignalRHelper.USER_OFFLINE && sessionManager != null)
                 {
-                    var session = sessionManager.GetAvailableSession(presence.From.BareJid);
-                    if (session != null && session.Presence != null)
-                    {
-                        signalrServiceClient.SendState(session.Presence.From.User.ToLowerInvariant(),
-                            SignalRHelper.GetState(session.Presence.Show, session.Presence.Type), -1, session.Presence.From.Server);
-                        return;
-                    }
+                    //sessionManager.CloseSession(presence.From.BareJid);
                 }
-                signalrServiceClient.SendState(presence.From.User.ToLowerInvariant(), state, -1, presence.From.Server);
+                SignalrServiceClient.SendState(presence.From.User.ToLowerInvariant(), state, -1, presence.From.Server);
             }
             catch (Exception e)
             {

@@ -519,9 +519,10 @@ window.ASC.Files.UI = (function () {
                 ? target
                 : target.closest(".file-row");
 
-        var select = !jq(this).hasClass("row-selected") || jq(this).find(".checkbox input:visible").is("[type=radio]");
+        var select = !jq(entryObj).hasClass("row-selected") || jq(entryObj).find(".checkbox input:visible").is("[type=radio]");
 
         if (e.shiftKey && ASC.Files.UI.lastSelectedEntry && ASC.Files.UI.lastSelectedEntry.entryObj) {
+            select = true;
             var i1 = jq(".file-row").index(entryObj);
             var i2 = jq(".file-row").index(ASC.Files.UI.lastSelectedEntry.entryObj);
 
@@ -529,9 +530,9 @@ window.ASC.Files.UI = (function () {
             var maxItem = Math.max(i1, i2);
 
             jq(".file-row:lt(" + maxItem + "):gt(" + minItem + ")").each(function () {
-                ASC.Files.UI.selectRow(jq(this), !jq(this).hasClass("row-selected"));
+                ASC.Files.UI.selectRow(jq(this), select);
             });
-        } else if (!target.is(".checkbox")) {
+        } else if (!e.ctrlKey && !target.is(".checkbox, .checkbox input")) {
             if (jq(".row-selected").length > 1) {
                 select = true;
             }
@@ -613,6 +614,8 @@ window.ASC.Files.UI = (function () {
         if (selectionChanged) {
             ASC.Files.UI.updateMainContentHeader();
         }
+
+        ASC.Files.UI.lastSelectedEntry = null;
     };
 
     var checkSelect = function (filter) {
@@ -1135,8 +1138,8 @@ window.ASC.Files.UI = (function () {
         });
         jq("#filesMainContent").on("click", ".file-row", ASC.Files.UI.clickRow);
 
-        jq("#filesMainContent").on("dblclick", ".file-row", function (event) {
-            if (jq(event.srcElement || event.target).is("input, .checkbox, #contentVersions, #contentVersions *")) {
+        jq("#filesMainContent").on("dblclick", ".file-row:not(.checkloading)", function (event) {
+            if (jq(event.srcElement || event.target).is("input, .checkbox, .file-lock, .version, .pencil, .is-new, .btn-row, .menu-small, #contentVersions, #contentVersions *")) {
                 return;
             }
             jq(this).closest(".file-row").find(".entry-title .name a").trigger("click");
@@ -1147,8 +1150,8 @@ window.ASC.Files.UI = (function () {
             if (ASC.Files.Actions) {
                 ASC.Files.Actions.hideAllActionPanels();
             }
-            ASC.Files.UI.selectRow(jq(this), this.checked == true);
-            ASC.Files.UI.updateMainContentHeader();
+            ASC.Files.UI.clickRow(event, jq(this));
+
             jq(this).blur();
             ASC.Files.Common.cancelBubble(event);
         });

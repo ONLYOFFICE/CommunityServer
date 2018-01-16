@@ -178,6 +178,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The best way is to return and close subtasks manually, then retry to close tasks.
+        /// </summary>
+        public static string BetterToReturnTasks {
+            get {
+                return ResourceManager.GetString("BetterToReturnTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creation date.
         /// </summary>
         public static string ByCreateDate {
@@ -322,11 +331,29 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CloseTask {
+            get {
+                return ResourceManager.GetString("CloseTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closing Date.
         /// </summary>
         public static string ClosingDate {
             get {
                 return ResourceManager.GetString("ClosingDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closing Tasks.
+        /// </summary>
+        public static string ClosingTasks {
+            get {
+                return ResourceManager.GetString("ClosingTasks", resourceCulture);
             }
         }
         
@@ -493,6 +520,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close all subtasks, then close tasks.
+        /// </summary>
+        public static string EndAllSubtasksCloseTasks {
+            get {
+                return ResourceManager.GetString("EndAllSubtasksCloseTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Due Date.
         /// </summary>
         public static string EndDate {
@@ -588,6 +624,24 @@ namespace ASC.Web.Projects.Resources {
         public static string Milestone {
             get {
                 return ResourceManager.GetString("Milestone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move tasks to another Milestone.
+        /// </summary>
+        public static string MoveTasksToAnotherMilestone {
+            get {
+                return ResourceManager.GetString("MoveTasksToAnotherMilestone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to milestone.
+        /// </summary>
+        public static string MoveTasksToMilestone {
+            get {
+                return ResourceManager.GetString("MoveTasksToMilestone", resourceCulture);
             }
         }
         
@@ -781,6 +835,24 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete tasks.
+        /// </summary>
+        public static string RemoveTasks {
+            get {
+                return ResourceManager.GetString("RemoveTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete tasks?.
+        /// </summary>
+        public static string RemoveTasksPopup {
+            get {
+                return ResourceManager.GetString("RemoveTasksPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Responsible users.
         /// </summary>
         public static string Responsibles {
@@ -934,6 +1006,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tasks Count.
+        /// </summary>
+        public static string TasksCount {
+            get {
+                return ResourceManager.GetString("TasksCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project. Start adding tasks, get them done, set who&apos;s responsible, manage team work..
         /// </summary>
         public static string TasksHelpTheManage {
@@ -975,6 +1056,15 @@ namespace ASC.Web.Projects.Resources {
         public static string TrackTime {
             get {
                 return ResourceManager.GetString("TrackTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;re trying to close tasks with open subtasks.
+        /// </summary>
+        public static string TryingToCloseTasks {
+            get {
+                return ResourceManager.GetString("TryingToCloseTasks", resourceCulture);
             }
         }
         

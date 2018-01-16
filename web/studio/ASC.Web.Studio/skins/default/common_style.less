@@ -1261,6 +1261,84 @@ welcome popup for Collaborator
     outline: none;
 }
 
+/*******************************************************************************
+     Progress
+*******************************************************************************/
+.files-progress-box {
+    overflow: hidden;
+    white-space: nowrap;
+}
+.files-progress-box.progress-dialog-body {
+    padding: 16px 24px;
+}
+.files-progress-box progress,
+.files-progress-box .asc-progress-wrapper {
+    margin: 5px 0;
+    width: 90%;
+    float: left;
+}
+.files-progress-box .asc-progress-percent {
+    float: left;
+    height: 14px;
+    margin: 4px 0 4px 4px;
+    text-align: right;
+    width: 40px;
+}
+
+/*******************************************************************************
+    progress dialog with actions
+*******************************************************************************/
+.progress-dialog-container {
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    top: auto !important;
+    width: 500px;
+    z-index: 300;
+}
+.progress-dialog {
+    border: 1px solid #D1D1D1;
+    display: none;
+    margin-top: 16px;
+    width: 500px;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.progress-dialog-header {
+    background-color: #E2E2E2;
+    color: #333333;
+    font-size: 18px;
+    line-height: 32px;
+    padding: 4px 24px;
+    cursor: default;
+}
+.progress-dialog-header .actions-container {
+    float: right;
+    margin: 12px 4px 10px 4px;
+}
+.progress-dialog-body {
+    background-color: #FFFFFF;
+    padding: 0 24px 16px;
+}
+.progress-dialog .actions-container.maximize {
+    display: none;
+}
+.progress-dialog.min .progress-dialog-body {
+    display: none;
+}
+.progress-dialog.min .actions-container.minimize {
+    display: none;
+}
+.progress-dialog.min .actions-container.maximize {
+    display: block;
+}
        
 /*******************************************************************************
        Actions icons for upload files container

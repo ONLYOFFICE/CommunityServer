@@ -166,6 +166,15 @@ namespace ASC.Data.Storage
         void DeleteFiles(string domain, List<string> paths);
 
         ///<summary>
+        /// Deletes file by last modified date
+        ///</summary>
+        ///<param name="domain"></param>
+        ///<param name="folderPath"></param>
+        ///<param name="fromDate"></param>
+        ///<param name="toDate"></param>
+        void DeleteFiles(string domain, string folderPath, DateTime fromDate, DateTime toDate);
+
+        ///<summary>
         /// Moves the contents of one directory to another. s3 for a very expensive procedure.
         ///</summary>
         ///<param name="srcdomain"></param>
@@ -242,6 +251,8 @@ namespace ASC.Data.Storage
 
         long GetFileSize(string domain, string path);
 
+        long GetDirectorySize(string domain, string path);
+
         long ResetQuota(string domain);
 
         long GetUsedQuota(string domain);
@@ -266,6 +277,7 @@ namespace ASC.Data.Storage
         bool IsDirectory(string path);
         void DeleteDirectory(string path);
         long GetFileSize(string path);
+        long GetDirectorySize(string path);
         Uri Copy(string path, string newdomain, string newpath);
         void CopyDirectory(string dir, string newdomain, string newdir);
 #pragma warning restore 1591

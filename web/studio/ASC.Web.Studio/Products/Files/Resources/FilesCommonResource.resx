@@ -396,6 +396,9 @@
   <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
     <value>You cannot update a file which is opened for editing</value>
   </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
   <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
     <value>You are not allowed to preview the elements in the Recycle Bin</value>
   </data>
@@ -524,6 +527,9 @@
   </data>
   <data name="TitleCreated" xml:space="preserve">
     <value>Created</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Documents of the {!user} {0}</value>
   </data>
   <data name="TitleEditingFile" xml:space="preserve">
     <value>It is currently being edited</value>

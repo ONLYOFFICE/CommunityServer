@@ -1,0 +1,267 @@
+
+builder.CreateFile("xlsx");
+
+var mainHeaderFontSize = 24;
+var headerFontSize = 14;
+var chartHeaderFontSize = 12;
+var smallFontSize = 10;
+var legendFontSize = 9;
+
+var blackFontColor = Api.CreateColorFromRGB(63, 63, 63);
+var grayFontColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var lightGrayBgColor = Api.CreateColorFromRGB(242, 242, 242);
+var darkGrayBgColor = Api.CreateColorFromRGB(216, 216, 216);
+
+var lightGrayBorderColor = Api.CreateColorFromRGB(216, 216, 216);
+var darkGrayBorderColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var reportData = ${reportData};
+
+var oWorksheet = Api.GetActiveSheet();
+
+function toColumnName(num) {
+    for (var res = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+        res = String.fromCharCode(parseInt((num % b) / a) + 65) + res;
+    }
+    return res;
+}
+
+function customizeWorksheet() {
+    Api.SetThemeColors("Origin");
+
+    oWorksheet.SetName(reportData.resource.sheetName);
+    oWorksheet.SetDisplayGridlines(false);
+    oWorksheet.SetColumnWidth(0, 6);
+    oWorksheet.SetColumnWidth(1, 26);
+
+    for (var i = 2; i < 35; i++) {
+        oWorksheet.SetColumnWidth(i, 12);
+    }
+}
+
+function writeText() {
+    var sRange = oWorksheet.GetRange("B2");
+    sRange.SetFontSize(mainHeaderFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header);
+
+    sRange = oWorksheet.GetRange("B3");
+    sRange.SetFontSize(smallFontSize);
+    sRange.SetFontColor(grayFontColor);
+    sRange.SetBold(true);
+    sRange.SetValue(reportData.resource.dateRangeLabel);
+
+    sRange = oWorksheet.GetRange("B4");
+    sRange.SetFontSize(smallFontSize);
+    sRange.SetFontColor(grayFontColor);
+    sRange.SetAlignHorizontal("left");
+    sRange.SetValue(reportData.resource.dateRangeValue);
+}
+
+function writeRow(startColIndex, startRowIndex, dataArray, fontSize, fontColor, bold, borderType, borderColor, bgColor, wrap) {
+    var range = toColumnName(startColIndex) + startRowIndex + ":";
+
+    for (var i = 0; i < dataArray.length; i++) {
+        var cell = oWorksheet.GetRange(toColumnName(startColIndex) + startRowIndex);
+
+        if (typeof(dataArray[i]) == "object") {
+            cell.SetNumberFormat(dataArray[i].format);
+            cell.SetValue(dataArray[i].value);
+        } else {
+            cell.SetValue(dataArray[i].toString());
+        }
+
+        if (i == 0) {
+            cell.SetAlignHorizontal("left");
+        } else {
+            cell.SetAlignHorizontal("right");
+        }
+
+        startColIndex++;
+    }
+
+    range += toColumnName(startColIndex - 1) + startRowIndex;
+
+    var sRange = oWorksheet.GetRange(range);
+
+    if (fontSize)
+        sRange.SetFontSize(fontSize);
+
+    if (fontColor)
+        sRange.SetFontColor(fontColor);
+
+    if (bold)
+        sRange.SetBold(true);
+
+    if (borderType)
+        sRange.SetBorders(borderType, "Thin", borderColor);
+
+    if (bgColor)
+        sRange.SetFillColor(bgColor);
+	
+	sRange.SetWrap(wrap || false);
+}
+
+function writeCharts(startColIndex, startRowIndex, count) {
+    var chartRange1 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 2) + ":$" + toColumnName(startColIndex + 3) + "$" + (startRowIndex + 2 + count);
+    var chartRange2 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 8 + count) + ":$" + toColumnName(startColIndex + 3) + "$" + (startRowIndex + 8 + 2 * count);
+
+    var oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange1, false, "bar", 2, 240 * 36000, 70 * 36000, 1, 0, 7, 0);
+    oChart.SetTitle(reportData.resource.chartName, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+    oChart.SetVertAxisTickLabelPosition("none");
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+    oChart.SetMajorHorizontalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    oChart.SetMajorVerticalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange2, false, "bar", 2, 240 * 36000, 70 * 36000, 1, 0, 21, -0.5 * 36000);
+    oChart.SetTitle(reportData.resource.chartName1, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+    oChart.SetVertAxisTickLabelPosition("none");
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+    oChart.SetMajorHorizontalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    oChart.SetMajorVerticalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+}
+
+function writeTable(startColIndex, startRowIndex) {
+
+    var colIndex = startColIndex;
+    var rowIndex = startRowIndex;
+
+    var sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header1);
+
+    rowIndex = rowIndex + 2;
+
+    var headerRow = [reportData.resource.manager, reportData.resource.status0, reportData.resource.status1, reportData.resource.status2];
+    writeRow(colIndex, rowIndex, headerRow, smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    var data = {};
+    var count = 0;
+
+    for (var i = 0; i < reportData.data.length; i++) {
+        var propertyName = "usr_" + reportData.data[i][0];
+        var status = reportData.data[i][2];
+
+        if(data[propertyName]){
+            switch(status){
+                case 0:
+                    data[propertyName].count.open = reportData.data[i][3];
+                    data[propertyName].budget.open = reportData.data[i][4];
+                    break;
+                case 1:
+                    data[propertyName].count.won = reportData.data[i][3];
+                    data[propertyName].budget.won = reportData.data[i][4];
+                    break;
+                case 2:
+                    data[propertyName].count.lost = reportData.data[i][3];
+                    data[propertyName].budget.lost = reportData.data[i][4];
+                    break;
+            }
+        } else {
+            data[propertyName] = {
+                name: reportData.data[i][1],
+                count: {
+                    open: status == 0 ? reportData.data[i][3] : 0,
+                    won: status == 1 ? reportData.data[i][3] : 0,
+                    lost: status == 2 ? reportData.data[i][3] : 0
+                },
+                budget: {
+                    open: status == 0 ? reportData.data[i][4] : 0,
+                    won: status == 1 ? reportData.data[i][4] : 0,
+                    lost: status == 2 ? reportData.data[i][4] : 0
+                }
+            };
+            count++;
+        }
+    }
+
+    var index = 0;
+
+    for(var propertyName in data) {
+        if(propertyName.indexOf("usr_") != 0) continue;
+
+        var row = [data[propertyName].name, data[propertyName].count.open, data[propertyName].count.won, data[propertyName].count.lost];
+
+        if (index == count - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", darkGrayBorderColor, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+        index++;
+    }
+
+    var startCell;
+    var endCell;
+
+    var footerRow = [reportData.resource.total];
+    for (var i = 1; i < 4; i++) {
+        startCell = toColumnName(colIndex + i) + (startRowIndex + 3);
+        endCell = toColumnName(colIndex + i) + (startRowIndex + 2 + count);
+        footerRow[i] = "=SUM(" + startCell + ":" + endCell + ")";
+    }
+    writeRow(colIndex, rowIndex, footerRow, smallFontSize, blackFontColor, true, null, null, null);
+
+    rowIndex = rowIndex + 3;
+
+    sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header2);
+
+    rowIndex = rowIndex + 2;
+
+    writeRow(colIndex, rowIndex, headerRow, smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    var index = 0;
+
+    for(var propertyName in data) {
+        if(propertyName.indexOf("usr_") != 0) continue;
+
+        var row = [data[propertyName].name, {format: "0.00", value: data[propertyName].budget.open.toString()}, {format: "0.00", value: data[propertyName].budget.won.toString()}, {format: "0.00", value: data[propertyName].budget.lost.toString()}];
+
+        if (index == count - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", darkGrayBorderColor, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+        index++;
+    }
+
+    footerRow = [reportData.resource.total];
+    for (var i = 1; i < 4; i++) {
+        startCell = toColumnName(colIndex + i) + (startRowIndex + 9 + count);
+        endCell = toColumnName(colIndex + i) + (startRowIndex + 8 + 2 * count);
+        footerRow[i] = "=SUM(" + startCell + ":" + endCell + ")";
+    }
+    writeRow(colIndex, rowIndex, footerRow, smallFontSize, blackFontColor, true, null, null, null);
+
+    writeCharts(startColIndex, startRowIndex, count);
+}
+
+customizeWorksheet();
+writeText();
+
+if (reportData.data && reportData.data.length) {
+   writeTable(2, 39);
+}
+
+builder.SaveFile("xlsx", "${outputFilePath}");
+builder.CloseFile();

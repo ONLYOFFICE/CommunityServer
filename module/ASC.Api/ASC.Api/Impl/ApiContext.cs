@@ -24,18 +24,13 @@
 */
 
 
-#region usings
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Routing;
 using ASC.Api.Interfaces;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-
-#endregion
+using Autofac;
 
 namespace ASC.Api.Impl
 {
@@ -50,7 +45,7 @@ namespace ASC.Api.Impl
         public ApiContext(RequestContext requestContext,IApiConfiguration apiConfiguration)
         {
             if (apiConfiguration==null)
-                apiConfiguration = ServiceLocator.Current.GetInstance<IApiConfiguration>();
+                apiConfiguration = ApiSetup.Builder.Resolve<IApiConfiguration>();
 
             if (requestContext == null) return;
             RequestContext = requestContext;
@@ -261,29 +256,6 @@ namespace ASC.Api.Impl
         {
             return string.Format("C:{0},S:{1},So:{2},Sd:{3},Fb;{4},Fo:{5},Fv:{6},Us:{7},Ftt:{8}", Count, StartIndex,
                                  SortBy, SortDescending, FilterBy, FilterOp, FilterValue, UpdatedSince.Ticks, FilterToType);
-        }
-    }
-
-    public class ApiContextLifetimeManager : LifetimeManager, IDisposable
-    {
-        public override object GetValue()
-        {
-            return HttpContext.Current != null ? HttpContext.Current.Items["_apiContext"] : null;
-        }
-
-        public override void SetValue(object newValue)
-        {
-            //Don't do anything
-        }
-
-        public override void RemoveValue()
-        {
-            //Don't do anything
-        }
-
-        public void Dispose()
-        {
-            //Don't do anything
         }
     }
 }

@@ -110,5 +110,12 @@ namespace ASC.Data.Storage.Configuration
             get { return (string) this[Schema.VIRTUALPATH]; }
             set { this[Schema.VIRTUALPATH] = value; }
         }
+
+        [ConfigurationProperty(Schema.PUBLICDISC)]
+        public bool PublicDisc
+        {
+            get { return (bool)this[Schema.PUBLICDISC]; }
+            set { this[Schema.PUBLICDISC] = value; }
+        }
     }
 }

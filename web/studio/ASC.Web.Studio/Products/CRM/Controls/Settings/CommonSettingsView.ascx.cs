@@ -24,13 +24,10 @@
 */
 
 
-using ASC.CRM.Core;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -45,18 +42,12 @@ namespace ASC.Web.CRM.Controls.Settings
             get { return PathProvider.GetFileStaticRelativePath("Settings/CommonSettingsView.ascx"); }
         }
 
-        protected List<CurrencyInfo> BasicCurrencyRates { get; set; }
-        protected List<CurrencyInfo> OtherCurrencyRates { get; set; }
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BasicCurrencyRates = CurrencyProvider.GetBasic().Where(n => n.IsConvertable).ToList();
-            OtherCurrencyRates = CurrencyProvider.GetOther().Where(n => n.IsConvertable).ToList();
-
             var settings = Global.TenantSettings.SMTPServerSetting;
             Page.JsonPublisher(settings, "SMTPSettings");
             RegisterScript();
@@ -72,11 +63,6 @@ namespace ASC.Web.CRM.Controls.Settings
                 );
 
             Page.RegisterInlineScript(sb.ToString());
-        }
-
-        public bool IsSelectedBidCurrency(String abbreviation)
-        {
-            return string.Compare(abbreviation, Global.TenantSettings.DefaultCurrency.Abbreviation, StringComparison.OrdinalIgnoreCase) == 0;
         }
 
         #endregion

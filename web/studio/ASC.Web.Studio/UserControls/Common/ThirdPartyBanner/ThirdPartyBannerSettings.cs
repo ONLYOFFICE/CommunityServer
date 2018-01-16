@@ -27,20 +27,18 @@
 using System;
 using System.Linq;
 using System.Runtime.Serialization;
-using ASC.Core;
 using ASC.Core.Common.Settings;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
 {
     [Serializable]
     [DataContract]
-    public class ThirdPartyBannerSettings : ISettings
+    public class ThirdPartyBannerSettings : BaseSettings<ThirdPartyBannerSettings>
     {
         [DataMember(Name = "ClosedSetting")]
         public string ClosedSetting { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new ThirdPartyBannerSettings
                 {
@@ -48,27 +46,23 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
                 };
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{B6E9B080-4B14-4C54-95E7-C2E9E87965EB}"); }
         }
 
         public static bool CheckClosed(string banner)
         {
-            return (SettingsManager.Instance.LoadSettingsFor<ThirdPartyBannerSettings>(SecurityContext.CurrentAccount.ID).ClosedSetting ?? "").Split('|').Contains(banner);
+            return (LoadForCurrentUser().ClosedSetting ?? "").Split('|').Contains(banner);
         }
 
         public static void Close(string banner)
         {
-            var closed = (SettingsManager.Instance.LoadSettingsFor<ThirdPartyBannerSettings>(SecurityContext.CurrentAccount.ID).ClosedSetting ?? "").Split('|').ToList();
+            var closed = (LoadForCurrentUser().ClosedSetting ?? "").Split('|').ToList();
             if (closed.Contains(banner)) return;
             closed.Add(banner);
 
-            var setting = new ThirdPartyBannerSettings
-                {
-                    ClosedSetting = string.Join("|", closed.ToArray())
-                };
-            SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+            new ThirdPartyBannerSettings { ClosedSetting = string.Join("|", closed.ToArray()) }.SaveForCurrentUser();
         }
     }
 }

@@ -177,7 +177,11 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             get
             {
-                var userID = CoreContext.UserManager.GetUserByUserName(HttpContext.Current.Request[CommonLinkUtility.ParamName_UserUserName]).ID;
+                var userName = HttpContext.Current.Request[CommonLinkUtility.ParamName_UserUserName];
+                if (string.IsNullOrEmpty(userName) && SecurityContext.IsAuthenticated)
+                    return SecurityContext.CurrentAccount.ID;
+
+                var userID = CoreContext.UserManager.GetUserByUserName(userName).ID;
                 return !Constants.LostUser.ID.Equals(userID) ? userID : SecurityContext.CurrentAccount.ID;
             }
         }
@@ -226,7 +230,7 @@ namespace ASC.Web.Studio.UserControls.Users
             saveClass.Save(resaltBitmaps);
 
             var user = CoreContext.UserManager.GetUsers(userID);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedAvatarThumbnails, user.DisplayUserName(false));
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedAvatarThumbnails, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
             return saveClass.ThumbnailList.Select(t => t.imgUrl).ToList();
         }

@@ -47,15 +47,13 @@ using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
-using ASC.Web.Files.Import;
-using ASC.Web.Files.Import.DocuSign;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
-using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 using Newtonsoft.Json.Linq;
 using File = ASC.Files.Core.File;
@@ -362,7 +360,7 @@ namespace ASC.Web.Files.Services.WCFService
                 else
                 {
                     var myFolder = folder.RootFolderType == FolderType.USER && folder.RootFolderCreator == SecurityContext.CurrentAccount.ID;
-                    entries = entries.Concat(fileDao.GetFiles(folder.ID, orderBy, filter, subjectId, search, myFolder));
+                    entries = entries.Concat(fileDao.GetFiles(folder.ID, orderBy, filter, subjectId, search));
                 }
 
                 entries = EntryManager.SortEntries(entries, orderBy);
@@ -480,14 +478,15 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var fileDao = GetFileDao())
             {
-                foreach (var fileId in filesId.Where(FileTracker.IsEditing))
+                var ids = filesId.Where(FileTracker.IsEditing).Select(id => (object)id).ToArray();
+
+                foreach (var file in fileDao.GetFiles(ids))
                 {
-                    var file = fileDao.GetFile(fileId);
                     if (file == null || !FileSecurity.CanEdit(file) && !FileSecurity.CanReview(file)) continue;
 
-                    var usersId = FileTracker.GetEditingBy(fileId);
+                    var usersId = FileTracker.GetEditingBy(file.ID);
                     var value = string.Join(", ", usersId.Select(Global.GetUserName).ToArray());
-                    result[fileId] = value;
+                    result[file.ID.ToString()] = value;
                 }
             }
 
@@ -924,7 +923,7 @@ namespace ASC.Web.Files.Services.WCFService
                 MessageAction messageAction;
                 if (string.IsNullOrEmpty(thirdPartyParams.ProviderId))
                 {
-                    ErrorIf(!ImportConfiguration.SupportInclusion
+                    ErrorIf(!ThirdpartyConfiguration.SupportInclusion
                             ||
                             (!Global.IsAdministrator
                              && !CoreContext.Configuration.Personal
@@ -1039,6 +1038,20 @@ namespace ASC.Web.Files.Services.WCFService
             return FilesSettings.EnableThirdParty;
         }
 
+        [ActionName("docusign-save"), HttpPost]
+        public bool SaveDocuSign([FromBody] String code)
+        {
+            ErrorIf(!SecurityContext.IsAuthenticated
+                    || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
+                    || !Global.IsAdministrator && !FilesSettings.EnableThirdParty
+                    || !ThirdpartyConfiguration.SupportDocuSignInclusion, FilesCommonResource.ErrorMassage_SecurityException_Create);
+
+            var token = DocuSignLoginProvider.GetAccessToken(code);
+            DocuSignHelper.ValidateToken(token);
+            DocuSignToken.SaveToken(token);
+            return true;
+        }
+
         [ActionName("docusign-delete"), HttpGet]
         public object DeleteDocuSign()
         {
@@ -1052,7 +1065,7 @@ namespace ASC.Web.Files.Services.WCFService
             try
             {
                 ErrorIf (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
-                    || !FilesSettings.EnableThirdParty || !ImportConfiguration.SupportDocuSignInclusion, FilesCommonResource.ErrorMassage_SecurityException_Create);
+                    || !FilesSettings.EnableThirdParty || !ThirdpartyConfiguration.SupportDocuSignInclusion, FilesCommonResource.ErrorMassage_SecurityException_Create);
 
                 return DocuSignHelper.SendDocuSign(fileId, docuSignData, GetHttpHeaders());
             }
@@ -1262,6 +1275,120 @@ namespace ASC.Web.Files.Services.WCFService
                 var results = FileConverter.GetStatus(files).ToList();
 
                 return new ItemList<FileOperationResult>(results);
+            }
+        }
+
+        public void ReassignStorage(Guid userFromId, Guid userToId)
+        {
+            //check current user have access
+            ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
+
+            //check exist userFrom
+            var userFrom = CoreContext.UserManager.GetUsers(userFromId);
+            ErrorIf(Equals(userFrom, Constants.LostUser), FilesCommonResource.ErrorMassage_UserNotFound);
+
+            //check exist userTo
+            var userTo = CoreContext.UserManager.GetUsers(userToId);
+            ErrorIf(Equals(userTo, Constants.LostUser), FilesCommonResource.ErrorMassage_UserNotFound);
+            ErrorIf(userTo.IsVisitor(), FilesCommonResource.ErrorMassage_SecurityException);
+
+            using (var providerDao = GetProviderDao())
+            {
+                var providersInfo = providerDao == null ? new List<IProviderInfo>() : providerDao.GetProvidersInfo(userFrom.ID);
+                var commonProvidersInfo = providersInfo.Where(provider => provider.RootFolderType == FolderType.COMMON).ToList();
+
+                //move common thirdparty storage userFrom
+                foreach (var commonProviderInfo in commonProvidersInfo)
+                {
+                    providerDao.UpdateProviderInfo(commonProviderInfo.ID, null, null, FolderType.DEFAULT, userTo.ID);
+                }
+            }
+
+            using (var folderDao = GetFolderDao())
+            using (var fileDao = GetFileDao())
+            {
+                if (!userFrom.IsVisitor())
+                {
+                    var folderIdFromMy = folderDao.GetFolderIDUser(false, userFrom.ID);
+
+                    //create folder with name userFrom in folder userTo
+                    var folderIdToMy = folderDao.GetFolderIDUser(false, userTo.ID);
+                    var newFolderTo = folderDao.SaveFolder(new Folder
+                        {
+                            Title = string.Format(CustomNamingPeople.Substitute<FilesCommonResource>("TitleDeletedUserFolder"), userFrom.DisplayUserName(false)),
+                            ParentFolderID = folderIdToMy
+                        });
+
+                    //move items from userFrom to userTo
+                    EntryManager.MoveSharedItems(folderIdFromMy, newFolderTo, folderDao, fileDao);
+
+                    EntryManager.ReassignItems(newFolderTo, userFrom.ID, userTo.ID, folderDao, fileDao);
+                }
+
+                EntryManager.ReassignItems(Global.FolderCommon, userFrom.ID, userTo.ID, folderDao, fileDao);
+            }
+        }
+
+        public void DeleteStorage(Guid userId)
+        {
+            //check current user have access
+            ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
+
+            //delete docuSign
+            DocuSignToken.DeleteToken(userId);
+
+            using (var providerDao = GetProviderDao())
+            {
+                var providersInfo = providerDao == null ? new List<IProviderInfo>() : providerDao.GetProvidersInfo(userId);
+
+                //delete thirdparty storage
+                foreach (var myProviderInfo in providersInfo)
+                {
+                    providerDao.RemoveProviderInfo(myProviderInfo.ID);
+                }
+            }
+
+            using (var folderDao = GetFolderDao())
+            using (var fileDao = GetFileDao())
+            {
+                //delete all markAsNew
+                var rootFoldersId = new List<object>
+                    {
+                        Global.FolderShare,
+                        Global.FolderCommon,
+                        Global.FolderProjects,
+                    };
+
+                var folderIdFromMy = folderDao.GetFolderIDUser(false, userId);
+                if (!Equals(folderIdFromMy, 0))
+                {
+                    rootFoldersId.Add(folderIdFromMy);
+                }
+
+                var rootFolders = folderDao.GetFolders(rootFoldersId.ToArray());
+                foreach (var rootFolder in rootFolders)
+                {
+                    FileMarker.RemoveMarkAsNew(rootFolder, userId);
+                }
+
+                //delete all from My
+                if (!Equals(folderIdFromMy, 0))
+                {
+                    EntryManager.DeleteSubitems(folderIdFromMy, folderDao, fileDao);
+
+                    //delete My userFrom folder
+                    folderDao.DeleteFolder(folderIdFromMy);
+                }
+
+                //delete all from Trash
+                var folderIdFromTrash = folderDao.GetFolderIDTrash(false, userId);
+                if (!Equals(folderIdFromTrash, 0))
+                {
+                    EntryManager.DeleteSubitems(folderIdFromTrash, folderDao, fileDao);
+                    folderDao.DeleteFolder(folderIdFromTrash);
+                }
+
+                EntryManager.ReassignItems(Global.FolderCommon, userId, SecurityContext.CurrentAccount.ID, folderDao, fileDao);
             }
         }
 

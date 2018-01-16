@@ -30,13 +30,12 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Web;
 using ASC.Core.Common.Settings;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.Utility
 {
     [Serializable]
     [DataContract]
-    public class ColorThemesSettings : ISettings
+    public class ColorThemesSettings : BaseSettings<ColorThemesSettings>
     {
         public const string ThemeFolderTemplate = "<theme_folder>";
         private const string DefaultName = "pure-orange";
@@ -49,7 +48,7 @@ namespace ASC.Web.Core.Utility
         [DataMember(Name = "FirstRequest")]
         public bool FirstRequest { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new ColorThemesSettings
                 {
@@ -58,7 +57,7 @@ namespace ASC.Web.Core.Utility
                 };
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{AB5B3C97-A972-475C-BB13-71936186C4E6}"); }
         }
@@ -100,13 +99,13 @@ namespace ASC.Web.Core.Utility
                 return DesktopSkin ?? "bright-blue";
             }
 
-            var colorTheme = SettingsManager.Instance.LoadSettings<ColorThemesSettings>(TenantProvider.CurrentTenantID);
+            var colorTheme = Load();
             var colorThemeName = colorTheme.ColorThemeName;
 
             if (colorTheme.FirstRequest)
             {
                 colorTheme.FirstRequest = false;
-                SettingsManager.Instance.SaveSettings(colorTheme, TenantProvider.CurrentTenantID);
+                colorTheme.Save();
             }
 
             return colorThemeName;
@@ -123,7 +122,7 @@ namespace ASC.Web.Core.Utility
                 var filePath = HttpContext.Current.Server.MapPath(resolvedPath);
                 if (Directory.Exists(filePath))
                 {
-                    SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
+                    settings.Save();
                 }
             }
             catch (Exception)

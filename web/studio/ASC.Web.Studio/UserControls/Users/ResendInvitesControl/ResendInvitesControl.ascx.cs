@@ -68,7 +68,7 @@ namespace ASC.Web.Studio.UserControls.Users
                     {
                         StudioNotifyService.Instance.UserInfoActivation(user);
                     }
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, user.DisplayUserName(false));
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, MessageTarget.Create(user.ID), user.DisplayUserName(false));
                 }
 
                 return new {status = 1, message = Resources.Resource.SuccessResendInvitesText};

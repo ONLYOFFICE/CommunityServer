@@ -35,6 +35,7 @@ using ASC.Core.Tenants;
 
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using ASC.Web.Projects;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -131,6 +132,17 @@ namespace ASC.Projects.Data.DAO
             {
                 query.Where(Exp.In("t.project_id", filter.ProjectIds));
             }
+            else
+            {
+                if (ProjectsCommonSettings.Load().HideEntitiesInPausedProjects)
+                {
+                    if (!checkAccess && isAdmin)
+                    {
+                        query.InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.tenant_id", "p.tenant_id") & Exp.EqColumns("t.project_id", "p.id"));
+                    }
+                    query.Where(!Exp.Eq("p.status", ProjectStatus.Paused));
+                }
+            }
 
             if (filter.Milestone.HasValue || filter.MyMilestones)
             {
@@ -149,8 +161,16 @@ namespace ASC.Projects.Data.DAO
 
             if (filter.TagId != 0)
             {
-                query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
-                query.Where("ptag.tag_id", filter.TagId);
+                if (filter.TagId == -1)
+                {
+                    query.LeftOuterJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
+                    query.Where("ptag.tag_id", null);
+                }
+                else
+                {
+                    query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
+                    query.Where("ptag.tag_id", filter.TagId);
+                }
             }
 
 

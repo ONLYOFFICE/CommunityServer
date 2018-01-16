@@ -84,9 +84,9 @@ namespace ASC.Data.Backup.Tasks.Modules
             }
         }
 
-        public IDbCommand CreateSelectCommand(IDbConnection connection, int tenantId, TableInfo table)
+        public IDbCommand CreateSelectCommand(IDbConnection connection, int tenantId, TableInfo table, int limit, int offset)
         {
-            return connection.CreateCommand(string.Format("select t.* from {0} as t {1};", table.Name, GetSelectCommandConditionText(tenantId, table)));
+            return connection.CreateCommand(string.Format("select t.* from {0} as t {1} limit {2},{3};", table.Name, GetSelectCommandConditionText(tenantId, table), offset, limit));
         }
 
         public IDbCommand CreateDeleteCommand(IDbConnection connection, int tenantId, TableInfo table)

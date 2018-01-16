@@ -24,10 +24,6 @@
 */
 
 
-using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Utility;
-using ASC.Web.Studio.UserControls.Statistics;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,12 +32,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core
 {
     public static class SetupInfo
     {
-        private static string web_import_contacts_url;
         private static string web_autotest_secret_email;
         private static string[] web_display_mobapps_banner;
         private static string[] hideSettings;
@@ -180,22 +177,6 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static string GetImportServiceUrl()
-        {
-            var url = web_import_contacts_url;
-            if (string.IsNullOrEmpty(url))
-            {
-                return string.Empty;
-            }
-            var urlSeparatorChar = "?";
-            if (url.Contains(urlSeparatorChar))
-            {
-                urlSeparatorChar = "&";
-            }
-            var cultureName = HttpUtility.HtmlEncode(System.Threading.Thread.CurrentThread.CurrentUICulture.Name);
-            return UrlSwitcher.SelectCurrentUriScheme(string.Format("{0}{2}culture={1}&mobile={3}", url, cultureName, urlSeparatorChar, MobileDetector.IsMobile));
-        }
-
         public static string WebApiBaseUrl
         {
             get { return VirtualPathUtility.ToAbsolute(GetAppSettings("api.url", "~/api/2.0/")); }
@@ -319,7 +300,6 @@ namespace ASC.Web.Studio.Core
             UserForum = GetAppSettings("web.user-forum", string.Empty);
             SupportFeedback = GetAppSettings("web.support-feedback", string.Empty);
 
-            web_import_contacts_url = GetAppSettings("web.import-contacts-url", string.Empty);
             ValidEamilKeyInterval = GetAppSettings("email.validinterval", TimeSpan.FromDays(7));
             SalesEmail = GetAppSettings("web.payment.email", "sales@onlyoffice.com");
             web_autotest_secret_email = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();

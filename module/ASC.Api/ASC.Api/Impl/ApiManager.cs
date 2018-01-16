@@ -24,59 +24,42 @@
 */
 
 
-#region usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web;
-using System.Web.Routing;
-using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Interfaces;
 using ASC.Api.Logging;
-using ASC.Api.Routing;
 using ASC.Api.Utils;
-using ASC.Common.Web;
-using Microsoft.Practices.Unity;
-using System.Globalization;
-
-#endregion
+using Autofac;
 
 namespace ASC.Api.Impl
 {
 
     public class ApiManager : IApiManager
     {
-        private readonly IUnityContainer _container;
         private readonly IApiMethodInvoker _invoker;
         private readonly List<IApiParamInspector> _paramInspectors;
         private readonly IEnumerable<IApiMethodCall> _methods;
 
-        [Dependency]
         public IApiConfiguration Config { get; set; }
 
-        [Dependency]
         public IApiArgumentBuilder ArgumentBuilder { get; set; }
 
-        [Dependency]
         public ILog Log { get; set; }
 
         #region IApiManager Members
 
-        public ApiManager(IUnityContainer container, IApiMethodInvoker invoker)
+        public ApiManager(IComponentContext container, IApiMethodInvoker invoker)
         {
-            _container = container;
             _invoker = invoker;
-            _paramInspectors = _container.ResolveAll<IApiParamInspector>().ToList();
-            _methods = _container.Resolve<IEnumerable<IApiMethodCall>>();
+            _paramInspectors = container.Resolve<IEnumerable<IApiParamInspector>>().ToList();
+            _methods = container.Resolve<IEnumerable<IApiMethodCall>>();
 
         }
 
-        public object InvokeMethod(IApiMethodCall methodToCall, ApiContext apicontext)
+        public object InvokeMethod(IApiMethodCall methodToCall, ApiContext apicontext, object instance)
         {
             if (apicontext == null) throw new ArgumentNullException("apicontext");
 
@@ -85,15 +68,14 @@ namespace ASC.Api.Impl
                 var context = apicontext.RequestContext;
 
                 Log.Debug("Method to call={0}", methodToCall);
-                object instance = _container.Resolve(methodToCall.ApiClassType, new DependencyOverride(typeof(ApiContext), apicontext));
 
                 //try convert params
                 var callArg = ArgumentBuilder.BuildCallingArguments(context, methodToCall);
                 if (_paramInspectors.Any())
                 {
                     callArg = _paramInspectors.Aggregate(callArg,
-                                                   (current, apiParamInspector) =>
-                                                   apiParamInspector.InspectParams(current));
+                        (current, apiParamInspector) =>
+                            apiParamInspector.InspectParams(current));
                 }
 
                 Log.Debug("Arguments count: {0}", callArg == null ? "empty" : callArg.Count().ToString());
@@ -103,9 +85,10 @@ namespace ASC.Api.Impl
                 {
                     //Pre call filter
                     methodToCall.Filters.ToList().ForEach(x => x.PreMethodCall(methodToCall, apicontext, callArg));
-                    if (apicontext.RequestContext.HttpContext.Response.StatusCode / 100 != 2)
+                    if (apicontext.RequestContext.HttpContext.Response.StatusCode/100 != 2)
                     {
-                        return new HttpException(apicontext.RequestContext.HttpContext.Response.StatusCode, apicontext.RequestContext.HttpContext.Response.StatusDescription);
+                        return new HttpException(apicontext.RequestContext.HttpContext.Response.StatusCode,
+                            apicontext.RequestContext.HttpContext.Response.StatusDescription);
                     }
 
                     object result = _invoker.InvokeMethod(methodToCall, instance, callArg, apicontext);

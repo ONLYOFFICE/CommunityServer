@@ -321,4 +321,7 @@
   <data name="PhoneCategory_Work" xml:space="preserve">
     <value>Work</value>
   </data>
+  <data name="ContactInfoType_VK" xml:space="preserve">
+    <value>VK</value>
+  </data>
 </root>

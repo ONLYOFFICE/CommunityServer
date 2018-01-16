@@ -43,6 +43,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
 {
     public class MasterSettingsResources : ClientScript
     {
+        protected override bool CheckAuth { get { return false; } }
+
         protected override string BaseNamespace
         {
             get { return "ASC.Resources.Master"; }
@@ -62,7 +64,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                         IsAuthenticated = SecurityContext.IsAuthenticated,
                         IsAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID),
                         IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(),
-                        CurrentTenantId = tenant.TenantId,
+                        //CurrentTenantId = tenant.TenantId,
                         CurrentTenantCreatedDate = tenant.CreatedDateTime,
                         CurrentTenantVersion = tenant.Version,
                         CurrentTenantUtcOffset = tenant.TimeZone,

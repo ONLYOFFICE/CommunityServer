@@ -31,7 +31,6 @@ using ASC.Web.CRM.Resources;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.CRM.Classes;
 using ASC.Web.Studio.Core.Users;
-using ASC.Web.UserControls.SocialMedia.Resources;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
 {
@@ -57,6 +56,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 RegisterResourceSet("CRMSettingResource", CRMSettingResource.ResourceManager),
                 RegisterResourceSet("CRMSocialMediaResource", CRMSocialMediaResource.ResourceManager),
                 RegisterResourceSet("CRMVoipResource", CRMVoipResource.ResourceManager),
+                RegisterResourceSet("CRMReportResource", CRMReportResource.ResourceManager),
                 RegisterObject(new
                 {
                     DealMilestoneStatus = new
@@ -102,7 +102,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                            CurrentUser = CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(),
                            PrivatePanelAccessListLable = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode(),
                            PrivatePanelDescription = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode(),
-                           SocialMediaAccountNotFoundTwitter = SocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode()
+                           SocialMediaAccountNotFoundTwitter = CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode()
                        })
                    };
         }

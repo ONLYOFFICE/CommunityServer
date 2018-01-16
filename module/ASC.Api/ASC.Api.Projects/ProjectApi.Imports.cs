@@ -48,7 +48,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Add importing URL to queue
         ///</short>
-        /// <category>Import</category>        
+        ///<category>Import</category>        
         ///<param name="url">The company URL </param>
         ///<param name="userName">User Name </param>
         ///<param name="password">Password </param>
@@ -87,7 +87,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get projects for import
         ///</short>
-        /// <category>Import</category>
+        ///<category>Import</category>
         ///<returns>List of projects</returns>
         ///<param name="url">The company URL </param>
         ///<param name="userName">User Name </param>
@@ -104,7 +104,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Returns the number of users that can be added to the import
         ///</short>
-        /// <category>Import</category>
+        ///<category>Import</category>
         ///<returns>Number of users</returns>
         ///<param name="url">The company URL </param>
         ///<param name="userName">User Name </param>
@@ -122,7 +122,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get import status
         ///</short>
-        /// <category>Import</category>
+        ///<category>Import</category>
         ///<returns>Importing Status</returns>
         [Read(@"import")]
         public ImportStatus GetStatus()

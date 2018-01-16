@@ -45,6 +45,7 @@ using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.HttpHandlers;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService;
@@ -1164,7 +1165,7 @@ namespace ASC.Api.Documents
         /// <param name="providerId">Provider ID</param>
         /// <category>Third-Party Integration</category>
         /// <returns>Folder contents</returns>
-        /// <remarks> List of provider key: DropboxV2, Box, WebDav, Yandex, SkyDrive, SharePoint, GoogleDrive</remarks>
+        /// <remarks> List of provider key: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive</remarks>
         /// <exception cref="ArgumentException"></exception>
         [Create("thirdparty")]
         public FolderWrapper SaveThirdParty(
@@ -1279,15 +1280,17 @@ namespace ASC.Api.Documents
         /// <param name="docServiceUrlStorage">Document storage service Address</param>
         /// <param name="docServiceUrlConverter">Document conversion service Address</param>
         /// <param name="docServiceUrlPortal">Community Server Address</param>
+        /// <param name="docServiceUrlDocbuilder">Docbuilder Service Address</param>
         /// <returns></returns>
         [Update("docservice")]
-        public bool CheckDocServiceUrl(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal)
+        public bool CheckDocServiceUrl(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal, string docServiceUrlDocbuilder)
         {
             FilesLinkUtility.DocServiceApiUrl = docServiceUrlApi;
             FilesLinkUtility.DocServiceCommandUrl = docServiceUrlCommand;
             FilesLinkUtility.DocServiceStorageUrl = docServiceUrlStorage;
             FilesLinkUtility.DocServiceConverterUrl = docServiceUrlConverter;
             FilesLinkUtility.DocServicePortalUrl = docServiceUrlPortal;
+            FilesLinkUtility.DocServiceDocbuilderUrl = docServiceUrlDocbuilder;
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.DocumentServiceLocationSetting);
 
@@ -1311,6 +1314,47 @@ namespace ASC.Api.Documents
                     version = dsVersion,
                     docServiceUrlApi = url,
                 };
+        }
+
+        /// <visible>false</visible>
+        [Read("provider")]
+        public IEnumerable<string> GetThirdpartyProvider()
+        {
+            var providers = new List<string>();
+
+            if (ThirdpartyConfiguration.SupportGoogleDriveInclusion)
+            {
+                providers.Add("GoogleDrive");
+            }
+            if (ThirdpartyConfiguration.SupportBoxInclusion)
+            {
+                providers.Add("Box");
+            }
+            if (ThirdpartyConfiguration.SupportDropboxInclusion)
+            {
+                providers.Add("DropboxV2");
+            }
+            if (ThirdpartyConfiguration.SupportSharePointInclusion)
+            {
+                providers.Add("SharePoint");
+            }
+            if (ThirdpartyConfiguration.SupportOneDriveInclusion)
+            {
+                providers.Add("OneDrive");
+            }
+            if (ThirdpartyConfiguration.SupportSharePointInclusion)
+            {
+                providers.Add("SkyDrive");
+            }
+            if (ThirdpartyConfiguration.SupportYandexInclusion)
+            {
+                providers.Add("Yandex");
+            }
+            if (ThirdpartyConfiguration.SupportWebDavInclusion)
+            {
+                providers.Add("WebDav");
+            }
+            return providers;
         }
 
 

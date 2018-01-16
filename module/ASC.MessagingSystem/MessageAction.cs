@@ -365,6 +365,8 @@ namespace ASC.MessagingSystem
         GroupUpdated = 4027,
         GroupDeleted = 4028,
 
+        UserDataReassigns = 4030,
+
         #endregion
 
         #region Documents
@@ -472,6 +474,8 @@ namespace ASC.MessagingSystem
 
         CookieSettingsUpdated = 6032,
         MailServiceSettingsUpdated = 6033,
+
+        CustomNavigationSettingsUpdated = 6034,
 
         DocumentServiceLocationSetting = 5037,
         AuthorizationKeysSetting = 5038,

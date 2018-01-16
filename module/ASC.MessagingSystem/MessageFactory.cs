@@ -42,7 +42,7 @@ namespace ASC.MessagingSystem
         private const string refererHeader = "Referer";
 
 
-        public static EventMessage Create(HttpRequest request, string initiator, MessageAction action, params string[] description)
+        public static EventMessage Create(HttpRequest request, string initiator, MessageAction action, MessageTarget target, params string[] description)
         {
             try
             {
@@ -72,7 +72,8 @@ namespace ASC.MessagingSystem
                         UserId = SecurityContext.CurrentAccount.ID,
                         Page = request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null,
                         Action = action,
-                        Description = description
+                        Description = description,
+                        Target = target
                     };
             }
             catch (Exception ex)
@@ -82,7 +83,7 @@ namespace ASC.MessagingSystem
             }
         }
 
-        public static EventMessage Create(MessageUserData userData, Dictionary<string, string> headers, MessageAction action, params string[] description)
+        public static EventMessage Create(MessageUserData userData, Dictionary<string, string> headers, MessageAction action, MessageTarget target, params string[] description)
         {
             try
             {
@@ -92,7 +93,8 @@ namespace ASC.MessagingSystem
                         TenantId = userData == null ? CoreContext.TenantManager.GetCurrentTenant().TenantId : userData.TenantId,
                         UserId = userData == null ? SecurityContext.CurrentAccount.ID : userData.UserId,
                         Action = action,
-                        Description = description
+                        Description = description,
+                        Target = target
                     };
 
                 if (headers != null)
@@ -129,7 +131,7 @@ namespace ASC.MessagingSystem
             }
         }
 
-        public static EventMessage Create(string initiator, MessageAction action, params string[] description)
+        public static EventMessage Create(string initiator, MessageAction action, MessageTarget target, params string[] description)
         {
             try
             {
@@ -139,7 +141,8 @@ namespace ASC.MessagingSystem
                         Date = DateTime.UtcNow,
                         TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                         Action = action,
-                        Description = description
+                        Description = description,
+                        Target = target
                     };
             }
             catch (Exception ex)

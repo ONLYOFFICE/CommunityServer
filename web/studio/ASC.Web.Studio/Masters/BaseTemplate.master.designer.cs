@@ -103,6 +103,15 @@ namespace ASC.Web.Studio.Masters {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder GoogleAnalyticsScriptPlaceHolder;
         
         /// <summary>
+        /// YandexMetrikaScriptPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder YandexMetrikaScriptPlaceHolder;
+        
+        /// <summary>
         /// Form control.
         /// </summary>
         /// <remarks>
@@ -164,6 +173,15 @@ namespace ASC.Web.Studio.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder AdditionalColumns;
+        
+        /// <summary>
+        /// TariffNotifyHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder TariffNotifyHolder;
         
         /// <summary>
         /// activateEmailPanel control.
@@ -272,23 +290,5 @@ namespace ASC.Web.Studio.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ASC.Web.Studio.Controls.Common.InlineScript InlineScript;
-        
-        /// <summary>
-        /// YandexMetrikaScriptPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder YandexMetrikaScriptPlaceHolder;
-        
-        /// <summary>
-        /// GoogleConversionPersonScriptPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder GoogleConversionPersonScriptPlaceHolder;
     }
 }

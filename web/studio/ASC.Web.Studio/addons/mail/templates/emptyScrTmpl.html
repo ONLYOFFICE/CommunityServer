@@ -1,5 +1,5 @@
 ﻿<script id="emptyScrTmpl" type="text/x-jquery-tmpl">
-    <div class="noContentBlock emptyScrCtrl" >
+    <div id="${ID}" class="noContentBlock emptyScrCtrl" >
         {{if typeof(ImgCss)!="undefined" && ImgCss != null && ImgCss != ""}}
         <table>
             <tr>
@@ -32,12 +32,12 @@
 
 <script id="emptyScrButtonTmpl" type="text/x-jquery-tmpl">
     {{each(index, button) buttons}}
-        {{if index > 0}}
+        {{if index > 0 && !button.skipNewLine}}
         <div style="height:8px;"></div>
         {{/if}}
 
         {{if button.href != null}}
-        <a href="${button.href}" class="${button.cssClass} link dotline">${button.text}</a>
+        <a href="${button.href}" class="${button.cssClass} link {{if button.openNewTab }}underline{{else}}dotline{{/if}}" {{if button.openNewTab }}target="_blank"{{/if}}>${button.text}</a>
         {{else}}
         <a class="${button.cssClass} link dotline">${button.text}</a>
         {{/if}}

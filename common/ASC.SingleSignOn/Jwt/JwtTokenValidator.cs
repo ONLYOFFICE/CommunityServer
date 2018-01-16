@@ -30,9 +30,13 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
+using SecurityKey = Microsoft.IdentityModel.Tokens.SecurityKey;
+using SecurityToken = Microsoft.IdentityModel.Tokens.SecurityToken;
 
 namespace ASC.SingleSignOn.Jwt
 {
@@ -72,7 +76,8 @@ namespace ASC.SingleSignOn.Jwt
             {
 
                 TokenString = tokenString;
-                SecurityToken securityToken;
+                SecurityKey securityKey;
+                IssuerSigningKeyResolver issuerSigningKeyResolver;
                 log.DebugFormat("Jwt Validation securityAlgorithm={0}, audience[0]={1}, audience[1]={2}", settings.ValidationType, audiences[0], audiences[1]);
 
                 switch (settings.ValidationType)
@@ -81,16 +86,19 @@ namespace ASC.SingleSignOn.Jwt
                         RSACryptoServiceProvider publicOnly = new RSACryptoServiceProvider();
                         //"<RSAKeyValue><Modulus>zeyPa4SwRb0IO+KMq20760ZmaUvy/qzecdOkRUNdNpdUe1E72Xt1WkAcWNu24/UeS3pETu08rVTqHJUMfhHcSKgL7LAk/MMj2inGFxop1LipGZSnqZhnjsfj1ERJL5eXs1O9hqyAcXvY4A2wo67qqv/lbHLKTW59W+YQkbIOVR4nQlbh1lK1TIY+oqK0J/5Ileb4QfERn0Rv/J/K0fy6VzLmVt+kg9MRNxYwnVsC3m5/kIu1fw3OpZxcaCC68SRqLLb/UXmaJM8NXYKkAkHKxT4DQqSk6KbFSQG6qi49Q34akohekzxjxmmGeoO5tsFCuMJofKAsBKKtOkLPaJD2rQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"
                         publicOnly.FromXmlString(settings.PublicKey);
-                        securityToken = new RsaSecurityToken(publicOnly);
+                        securityKey = new Microsoft.IdentityModel.Tokens.RsaSecurityKey(publicOnly);
+                        issuerSigningKeyResolver = (token, securityToken, kid, validationParameters) => new List<Microsoft.IdentityModel.Tokens.RsaSecurityKey> { new Microsoft.IdentityModel.Tokens.RsaSecurityKey(publicOnly) };
                         break;
                     case ValidationTypes.HMAC_SHA256:
                         //var key = "zeyPa4SwRb0IO+KMq20760ZmaUvy/qzecdOkRUNdNpdUe1E72Xu24/UeS3pETu";
-                        securityToken = new System.ServiceModel.Security.Tokens.BinarySecretSecurityToken(GetBytes(settings.PublicKey));
+                        securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(GetBytes(settings.PublicKey));
+                        issuerSigningKeyResolver = (token, securityToken, kid, validationParameters) => new List<Microsoft.IdentityModel.Tokens.SymmetricSecurityKey> { new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(GetBytes(settings.PublicKey)) };
                         break;
                     case ValidationTypes.X509:
                         var certificate = new Certificate();
                         certificate.LoadCertificate(settings.PublicKey);
-                        securityToken = new X509SecurityToken(certificate.Cert);
+                        securityKey = new X509SecurityKey(certificate.Cert);
+                        issuerSigningKeyResolver = (token, securityToken, kid, validationParameters) => new List<X509SecurityKey> {new X509SecurityKey(certificate.Cert)};
                         break;
                     default:
                         log.ErrorFormat("ValidationType has wrong value: {0}", settings.ValidationType);
@@ -104,7 +112,8 @@ namespace ASC.SingleSignOn.Jwt
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = true,
                     ValidateActor = true,
-                    IssuerSigningToken = securityToken
+                    IssuerSigningKey = securityKey,
+                    IssuerSigningKeyResolver = issuerSigningKeyResolver
                 };
 
                 JwtSecurityTokenHandler recipientTokenHandler = new JwtSecurityTokenHandler

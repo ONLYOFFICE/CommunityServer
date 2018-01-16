@@ -36,6 +36,7 @@ using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
+using ASC.Web.Core.Calendars;
 using ASC.Web.Studio.Utility;
 using log4net;
 
@@ -77,7 +78,7 @@ namespace ASC.Api.Calendar.Notification
             {
                 foreach (var data in new DataProvider().ExtractAndRecountNotifications(scheduleDate))
                 {
-                    if (data.Event == null)
+                    if (data.Event == null || data.Event.Status == EventStatus.Cancelled)
                     {
                         continue;
                     }

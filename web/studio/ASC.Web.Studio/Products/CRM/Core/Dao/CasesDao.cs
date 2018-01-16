@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Caching;
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -609,5 +608,23 @@ namespace ASC.CRM.Core.Dao
         }
 
         #endregion
+
+
+        public void ReassignCasesResponsible(Guid fromUserId, Guid toUserId)
+        {
+            var cases = GetAllCases();
+
+            foreach (var item in cases)
+            {
+                var responsibles = CRMSecurity.GetAccessSubjectGuidsTo(item);
+
+                if (!responsibles.Any()) continue;
+
+                responsibles.Remove(fromUserId);
+                responsibles.Add(toUserId);
+
+                CRMSecurity.SetAccessTo(item, responsibles.Distinct().ToList());
+            }
+        }
     }
 }

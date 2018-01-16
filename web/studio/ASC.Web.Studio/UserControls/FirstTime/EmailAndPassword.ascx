@@ -3,6 +3,7 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div id="requiredStep" class="clearFix">
@@ -104,8 +105,13 @@
                           "</a>") %></label>
 </div>
 <% }
-   else if (CoreContext.Configuration.Standalone && String.IsNullOrEmpty(SetupInfo.ControlPanelUrl))
+   else if (TenantExtra.Opensource)
    { %>
+<div class="analytics-accept">
+    <input type="checkbox" id="analyticsAcceptedOpenSource" checked="checked">
+    <label for="analyticsAcceptedOpenSource">
+        <%= string.Format(UserControlsCommonResource.AnalyticsOpenSource) %></label>
+</div>
 <div class="license-accept">
     <input type="checkbox" id="policyAcceptedOpenSource">
     <label for="policyAcceptedOpenSource">

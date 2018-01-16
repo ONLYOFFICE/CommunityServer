@@ -27,13 +27,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Web.Script.Serialization;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Thrdparty.Configuration;
+using ASC.Web.Core.Users;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Server.Handler;
 using ASC.Xmpp.Server.Storage;
@@ -86,9 +91,19 @@ namespace ASC.Xmpp.Server.Services.Jabber
                     var fromFullName = message.HasAttribute("username") ? 
                                         message.GetAttribute("username") : message.From.ToString();
 
-                    var tenantId = message.HasAttribute("tenantid") ?
-                                        Convert.ToInt32(message.GetAttribute("tenantid"), 16) : -1;
-                        
+                    var tenantId = -1;
+                    var messageToDomain = message.To.ToString().Split(new char[] { '@' })[1];
+                   
+                    foreach (
+                        var tenant in CoreContext.TenantManager.GetTenants().Where(t => t.Status == TenantStatus.Active)
+                        )
+                    {
+                        if (tenant.TenantDomain == messageToDomain)
+                        {
+                            tenantId = tenant.TenantId;
+                            break;
+                        }
+                    }
                     var userPushList = new List<UserPushInfo>();
                     userPushList = pushStore.GetUserEndpoint(message.To.ToString().Split(new char[] { '@' })[0]);
 
@@ -104,7 +119,26 @@ namespace ASC.Xmpp.Server.Services.Jabber
                     }
                     foreach (var user in userPushList)
                     {
-                        try{ 
+                        try
+                        {
+                            var from = message.From.ToString().Split(new char[] {'@'})[0];
+                            List<string> userId;
+                            string photoPath = "";
+                            using (var db = new DbManager("core"))
+                            using (var command = db.Connection.CreateCommand())
+                            {
+                                var q = new SqlQuery("core_user").Select("id").Where(Exp.Like("username", from));
+
+                                userId = command.ExecuteList(q, DbRegistry.GetSqlDialect(db.DatabaseId))
+                                    .ConvertAll(r => Convert.ToString(r[0]))
+                                    .ToList();
+                            }
+                            if (userId.Count != 0)
+                            {
+                                var guid = new Guid(userId[0]);
+                                photoPath = UserPhotoManager.GetPhotoAbsoluteWebPath(guid);
+                            }
+                           
                             var tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
                             tRequest.Method = "post";
                             tRequest.ContentType = "application/json";
@@ -114,7 +148,8 @@ namespace ASC.Xmpp.Server.Services.Jabber
                                 data = new
                                 {
                                     msg = message.Body,
-                                    fromFullName = fromFullName
+                                    fromFullName = fromFullName,
+                                    photoPath = photoPath
                                 }    
                             };       
                             var serializer = new JavaScriptSerializer();

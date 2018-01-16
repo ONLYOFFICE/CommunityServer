@@ -26,6 +26,7 @@
 
 using System;
 using System.Web;
+using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.CRM.Core;
@@ -91,20 +92,27 @@ namespace ASC.Api.CRM
             return entityType;
         }
 
-        private string GetEntityTitle(EntityType entityType, int entityId)
+        private string GetEntityTitle(EntityType entityType, int entityId, bool checkAccess = false)
         {
             switch (entityType)
             {
                 case EntityType.Contact:
-                    return DaoFactory.GetContactDao().GetByID(entityId).GetTitle();
                 case EntityType.Company:
-                    return DaoFactory.GetContactDao().GetByID(entityId).GetTitle();
                 case EntityType.Person:
-                    return DaoFactory.GetContactDao().GetByID(entityId).GetTitle();
+                    var contact = DaoFactory.GetContactDao().GetByID(entityId);
+                    if (contact == null || (checkAccess &&  !CRMSecurity.CanAccessTo(contact)))
+                        throw new ItemNotFoundException();
+                    return contact.GetTitle();
                 case EntityType.Opportunity:
-                    return DaoFactory.GetDealDao().GetByID(entityId).Title;
+                    var deal = DaoFactory.GetDealDao().GetByID(entityId);
+                    if (deal == null || (checkAccess && !CRMSecurity.CanAccessTo(deal)))
+                        throw new ItemNotFoundException();
+                    return deal.Title;
                 case EntityType.Case:
-                    return DaoFactory.GetCasesDao().GetByID(entityId).Title;
+                    var cases = DaoFactory.GetCasesDao().GetByID(entityId);
+                    if (cases == null || (checkAccess && !CRMSecurity.CanAccessTo(cases)))
+                        throw new ItemNotFoundException();
+                    return cases.Title;
                 default:
                     throw new ArgumentException("Invalid entityType: " + entityType);
             }

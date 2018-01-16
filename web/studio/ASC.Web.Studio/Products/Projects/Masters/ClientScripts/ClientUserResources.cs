@@ -195,7 +195,6 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                      canReadMessages = r.CanReadMessages,
                                      canReadTasks = r.CanReadTasks,
                                      canReadContacts = r.CanReadContacts,
-                                     isAdministrator = r.UserInfo.IsAdmin(),
                                      title = r.UserInfo.Title,
                                      profileUrl = r.UserInfo.GetUserProfilePageURL()
                                  }).OrderBy(r => r.displayName).ToList();
@@ -247,7 +246,9 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                        RegisterObject(
                            new
                            {
-                               IsModuleAdmin = ProjectSecurity.CurrentUserAdministrator
+                               CanCreateProject = ProjectSecurity.CanCreateProject(),
+                               IsModuleAdmin = ProjectSecurity.CurrentUserAdministrator,
+                               StartModule.GetInstance(ProjectsCommonSettings.LoadForCurrentUser().StartModuleType).StartModuleType
                            })
                    };
         }
@@ -256,7 +257,9 @@ namespace ASC.Web.Projects.Masters.ClientScripts
         {
             return SecurityContext.CurrentAccount.ID.ToString() +
                    CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
-                   CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
+                   CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
+                   ProjectSecurity.CanCreateProject() +
+                   ProjectsCommonSettings.LoadForCurrentUser().StartModuleType;
         }
     }
 }

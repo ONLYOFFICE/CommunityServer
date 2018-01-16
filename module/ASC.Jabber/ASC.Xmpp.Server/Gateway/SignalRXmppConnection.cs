@@ -23,25 +23,26 @@
  *
 */
 
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ASC.Core.Notify.Signalr;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.Base;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.protocol.x.muc;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Utils;
+
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     public class SignalRXmppConnection : IXmppConnection
     {
         private static readonly ILog _log = LogManager.GetLogger(typeof(BoshXmppConnection));
-        private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient();
+        private static readonly SignalrServiceClient SignalrServiceClient = new SignalrServiceClient("chat");
         private static readonly TimeSpan _inactivityPeriod = TimeSpan.FromSeconds(310);
         private XmppServer _xmppServer;
 
@@ -88,12 +89,12 @@ namespace ASC.Xmpp.Server.Gateway
 
                         if (message.Body != null)
                         {
-                            signalrServiceClient.SendMessage(nameFrom, message.To.User.ToLowerInvariant(),
+                            SignalrServiceClient.SendMessage(nameFrom, message.To.User.ToLowerInvariant(),
                                 message.Body, -1, elem.From.Server);
                         }
                         else if (message.FirstChild.HasTag(typeof(Invite)))
                         {
-                            signalrServiceClient.SendInvite(nameFrom, message.To.User.ToLowerInvariant(), elem.To.Server);
+                            SignalrServiceClient.SendInvite(nameFrom, message.To.User.ToLowerInvariant(), elem.To.Server);
                         }
                     }
                     catch (Exception ex)
@@ -155,7 +156,7 @@ namespace ASC.Xmpp.Server.Gateway
                         var bestSession = bestSessions[0];
                         try
                         {
-                            signalrServiceClient.SendState(bestSession.Jid.User.ToLowerInvariant(),
+                            SignalrServiceClient.SendState(bestSession.Jid.User.ToLowerInvariant(),
                                 SignalRHelper.GetState(bestSession.Presence.Show, bestSession.Presence.Type), -1, bestSession.Jid.Server);
                         }
                         catch (Exception ex)
@@ -173,7 +174,7 @@ namespace ASC.Xmpp.Server.Gateway
                 {
                     try
                     {
-                        signalrServiceClient.SendState(jid.User.ToLowerInvariant(), SignalRHelper.USER_OFFLINE, -1, jid.Server);
+                        SignalrServiceClient.SendState(jid.User.ToLowerInvariant(), SignalRHelper.USER_OFFLINE, -1, jid.Server);
                     }
                     catch (Exception ex)
                     {

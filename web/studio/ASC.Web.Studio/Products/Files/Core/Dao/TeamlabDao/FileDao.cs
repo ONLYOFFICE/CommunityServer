@@ -158,17 +158,17 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
             if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
 
-            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("folder_id", parentId), my: my);
+            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("folder_id", parentId));
 
             if (withSubfolders)
             {
-                q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("fft.parent_id", parentId), my: my)
+                q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("fft.parent_id", parentId))
                     .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
             }
 

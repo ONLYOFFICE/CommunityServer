@@ -208,7 +208,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             if (tenant != null)
             {
-                var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+                var settings = IPRestrictionsSettings.Load();
                 if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
                 {
                     ShowError(Resource.ErrorAccessRestricted);
@@ -298,7 +298,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         newUser = CreateNewUser(firstName, lastName, email, pwd, _employeeType, fromInviteLink);
 
                         var messageAction = _employeeType == EmployeeType.User ? MessageAction.UserCreatedViaInvite : MessageAction.GuestCreatedViaInvite;
-                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, newUser.DisplayUserName(false));
+                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, MessageTarget.Create(newUser.ID), newUser.DisplayUserName(false));
                         
                         userID = newUser.ID;
                     }
@@ -315,7 +315,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         newUser = CreateNewUser(GetFirstName(thirdPartyProfile), GetLastName(thirdPartyProfile), GetEmailAddress(thirdPartyProfile), pwd, _employeeType, false);
 
                         var messageAction = _employeeType == EmployeeType.User ? MessageAction.UserCreatedViaInvite : MessageAction.GuestCreatedViaInvite;
-                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, newUser.DisplayUserName(false));
+                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, MessageTarget.Create(newUser.ID), newUser.DisplayUserName(false));
                         
                         userID = newUser.ID;
                         if (!String.IsNullOrEmpty(thirdPartyProfile.Avatar))
@@ -340,12 +340,12 @@ namespace ASC.Web.Studio.UserControls.Management
                     //notify
                     if (user.IsVisitor()) { 
                         StudioNotifyService.Instance.GuestInfoAddedAfterInvite(user);
-                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.GuestActivated, user.DisplayUserName(false));
+                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.GuestActivated, MessageTarget.Create(user.ID), user.DisplayUserName(false));
                     }
                     else
                     {
                         StudioNotifyService.Instance.UserInfoAddedAfterInvite(user);
-                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UserActivated, user.DisplayUserName(false));
+                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UserActivated, MessageTarget.Create(user.ID), user.DisplayUserName(false));
                     }
                 }
             }

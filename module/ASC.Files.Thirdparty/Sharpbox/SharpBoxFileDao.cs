@@ -63,7 +63,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public File GetFile(object parentId, string title)
         {
-            return ToFile(GetFolderFiles(parentId).FirstOrDefault(x => x.Name.Contains(title)));
+            return ToFile(GetFolderFiles(parentId).FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public List<File> GetFileHistory(object fileId)
@@ -90,7 +90,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 .Select(x => (object) MakeId(x)).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -248,7 +248,8 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public bool IsExist(string title, object folderId)
         {
-            return GetFolderFiles(folderId).FirstOrDefault(x => x.Name.Contains(title)) != null;
+            var folder = SharpBoxProviderInfo.Storage.GetFolder(MakePath(folderId));
+            return IsExist(title, folder);
         }
 
         public bool IsExist(string title, ICloudDirectoryEntry folder)
@@ -269,15 +270,20 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public object MoveFile(object fileId, object toFolderId)
         {
-            var oldIdValue = MakeId(GetFileById(fileId));
+            var entry = GetFileById(fileId);
+            var folder = GetFolderById(toFolderId);
 
-            SharpBoxProviderInfo.Storage.MoveFileSystemEntry(MakePath(fileId), MakePath(toFolderId));
+            var oldFileId = MakeId(entry);
+            var newFileId = oldFileId;
 
-            var newIdValue = MakeId(GetFileById(fileId));
+            if (SharpBoxProviderInfo.Storage.MoveFileSystemEntry(entry, folder))
+            {
+                newFileId = MakeId(entry);
+            }
 
-            UpdatePathInDB(oldIdValue, newIdValue);
+            UpdatePathInDB(oldFileId, newFileId);
 
-            return newIdValue;
+            return newFileId;
         }
 
         public File CopyFile(object fileId, object toFolderId)

@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using ASC.Core;
 using ASC.Core.Users;
@@ -457,7 +456,7 @@ namespace ASC.Files.Core.Security
             {
                 using (var folderDao = daoFactory.GetFolderDao())
                 {
-                    var mytrashId = folderDao.GetFolderID(FileConstant.ModuleId, "trash", userId.ToString(), false);
+                    var mytrashId = folderDao.GetFolderIDTrash(false, userId);
                     foreach (var e in entries.Where(filter))
                     {
                         // only in my trash
@@ -612,7 +611,10 @@ namespace ASC.Files.Core.Security
             // priority order
             // User, Departments, admin, everyone
 
-            var result = new List<Guid> {userId};
+            var result = new List<Guid> { userId };
+            if (userId == FileConstant.ShareLinkId)
+                return result;
+
             result.AddRange(CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID));
             if (IsAdministrator(userId)) result.Add(Constants.GroupAdmin.ID);
             result.Add(Constants.GroupEveryone.ID);

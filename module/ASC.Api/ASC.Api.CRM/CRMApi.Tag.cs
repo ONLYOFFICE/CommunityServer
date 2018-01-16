@@ -344,36 +344,13 @@ namespace ASC.Api.CRM
         {
             if (entityid <= 0 || string.IsNullOrEmpty(tagName)) throw new ArgumentException();
 
-            var entityTitle = "";
             var entityTypeObj = ToEntityType(entityType);
-
-            switch (entityTypeObj) {
-                case EntityType.Contact:
-                case EntityType.Person:
-                case EntityType.Company:
-                    var contact = DaoFactory.GetContactDao().GetByID(entityid);
-                    if (contact == null || !CRMSecurity.CanAccessTo(contact))
-                        throw new ItemNotFoundException();
-                    entityTitle = contact.GetTitle();
-                    break;
-                case EntityType.Case:
-                    var cases = DaoFactory.GetCasesDao().GetByID(entityid);
-                    if (cases == null || !CRMSecurity.CanAccessTo(cases))
-                        throw new ItemNotFoundException();
-                    entityTitle = cases.Title;
-                    break;
-                case EntityType.Opportunity:
-                    var deal = DaoFactory.GetDealDao().GetByID(entityid);
-                    if (deal == null || !CRMSecurity.CanAccessTo(deal))
-                        throw new ItemNotFoundException();
-                    entityTitle = deal.Title;
-                    break;
-            }
+            var entityTitle = GetEntityTitle(entityTypeObj, entityid, true);
 
             DaoFactory.GetTagDao().AddTagToEntity(entityTypeObj, entityid, tagName);
 
             var messageAction = GetTagCreatedAction(entityTypeObj, entityid);
-            MessageService.Send(Request, messageAction, entityTitle, tagName);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(entityid), entityTitle, tagName);
 
             return tagName;
         }
@@ -462,7 +439,7 @@ namespace ASC.Api.CRM
             var messageActions = GetTagCreatedGroupAction(entityTypeObj);
             foreach (var messageAction in messageActions)
             {
-                MessageService.Send(Request, messageAction, entityTitle, tagName);
+                MessageService.Send(Request, messageAction, MessageTarget.Create(contactInst.ID), entityTitle, tagName);
             }
 
             return tagName;
@@ -515,39 +492,15 @@ namespace ASC.Api.CRM
         {
             if (string.IsNullOrEmpty(entityType) || entityid <= 0 || string.IsNullOrEmpty(tagName)) throw new ArgumentException();
 
-            var entityTitle = "";
             var entityTypeObj = ToEntityType(entityType);
-
-            switch (entityTypeObj) {
-                case EntityType.Contact:
-                case EntityType.Person:
-                case EntityType.Company:
-                    var contact = DaoFactory.GetContactDao().GetByID(entityid);
-                    if (contact == null || !CRMSecurity.CanAccessTo(contact))
-                        throw new ItemNotFoundException();
-                    entityTitle = contact.GetTitle();
-                    break;
-                case EntityType.Case:
-                    var cases = DaoFactory.GetCasesDao().GetByID(entityid);
-                    if (cases == null || !CRMSecurity.CanAccessTo(cases))
-                        throw new ItemNotFoundException();
-                    entityTitle = cases.Title;
-                    break;
-                case EntityType.Opportunity:
-                    var deal = DaoFactory.GetDealDao().GetByID(entityid);
-                    if (deal == null || !CRMSecurity.CanAccessTo(deal))
-                        throw new ItemNotFoundException();
-                    entityTitle = deal.Title;
-                    break;
-            }
-
+            var entityTitle = GetEntityTitle(entityTypeObj, entityid, true);
 
             if (!DaoFactory.GetTagDao().IsExist(entityTypeObj, tagName)) throw new ItemNotFoundException();
 
             DaoFactory.GetTagDao().DeleteTagFromEntity(entityTypeObj, entityid, tagName);
 
             var messageAction = GetTagDeletedAction(entityTypeObj, entityid);
-            MessageService.Send(Request, messageAction, entityTitle, tagName);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(entityid), entityTitle, tagName);
 
             return tagName;
         }

@@ -80,11 +80,15 @@ namespace ASC.Web.Studio.Core.Notify
 
         public static string EmbeddedAttachments = "EmbeddedAttachments";
 
+        public static string TagFromUserName = "FromUserName";
+        public static string TagFromUserLink = "FromUserLink";
+        public static string TagToUserName = "ToUserName";
+        public static string TagToUserLink = "ToUserLink";
+
         public static INotifyAction ActionAdminNotify = new NotifyAction("admin_notify", "admin notifications");
         public static INotifyAction ActionSelfProfileUpdated = new NotifyAction("self_profile_updated", "self profile updated");
         public static INotifyAction ActionUserHasJoin = new NotifyAction("user_has_join", "user has join");
         public static INotifyAction ActionUserMessageToAdmin = new NotifyAction("for_admin_notify", "for_admin_notify");
-        public static INotifyAction ActionSmsBalance = new NotifyAction("admin_sms_balance", "admin_sms_balance");
         public static INotifyAction ActionVoipWarning = new NotifyAction("admin_voip_warning", "admin_voip_warning");
         public static INotifyAction ActionVoipBlocked = new NotifyAction("admin_voip_blocked", "admin_voip_blocked");
         public static INotifyAction ActionRequestTariff = new NotifyAction("request_tariff", "request_tariff");
@@ -102,6 +106,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionPortalDeleteSuccess = new NotifyAction("portal_delete_success", "portal_delete_success");
         
         public static INotifyAction ActionProfileDelete = new NotifyAction("profile_delete", "profile_delete");
+        public static INotifyAction ActionReassignsCompleted = new NotifyAction("reassigns_completed", "reassigns_completed");
         public static INotifyAction ActionDnsChange = new NotifyAction("dns_change", "dns_change");
 
         public static INotifyAction ActionConfirmOwnerChange = new NotifyAction("owner_confirm_change", "owner_confirm_change");
@@ -175,6 +180,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionEnterpriseAdminInviteTeammates = new NotifyAction("enterprise_admin_invite_teammates");
         public static INotifyAction ActionEnterpriseAdminWithoutActivity = new NotifyAction("enterprise_admin_without_activity");
         public static INotifyAction ActionEnterpriseAdminUserDocsTips = new NotifyAction("enterprise_admin_user_docs_tips");
+        public static INotifyAction ActionEnterpriseAdminUserPowerfulTips = new NotifyAction("enterprise_admin_user_powerful_tips");
         public static INotifyAction ActionEnterpriseAdminUserMailTips = new NotifyAction("enterprise_admin_user_mail_tips");
         public static INotifyAction ActionEnterpriseAdminUserCrmTips = new NotifyAction("enterprise_admin_user_crm_tips");
         public static INotifyAction ActionEnterpriseAdminUserTeamTips = new NotifyAction("enterprise_admin_user_team_tips");
@@ -191,6 +197,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionSaasAdminInviteTeammates = new NotifyAction("saas_admin_invite_teammates");
         public static INotifyAction ActionSaasAdminWithoutActivity = new NotifyAction("saas_admin_without_activity");
         public static INotifyAction ActionSaasAdminUserDocsTips = new NotifyAction("saas_admin_user_docs_tips");
+        public static INotifyAction ActionSaasAdminUserPowerfulTips = new NotifyAction("saas_admin_user_powerful_tips");
         public static INotifyAction ActionSaasAdminUserMailTips = new NotifyAction("saas_admin_user_mail_tips");
         public static INotifyAction ActionSaasAdminUserCrmTips = new NotifyAction("saas_admin_user_crm_tips");
         public static INotifyAction ActionSaasAdminUserTeamTips = new NotifyAction("saas_admin_user_team_tips");

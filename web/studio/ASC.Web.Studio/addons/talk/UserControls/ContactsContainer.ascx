@@ -6,9 +6,9 @@
 <div id="talkSidebarContainer" class="contactlist">
     <div id="talkContactToolbarContainer">
         <div class="toolbar" unselectable="on">
-            <div class="button-container toggle-filter my" title="<%=TalkResource.HintFilter%>" unselectable="on">
+           <!-- <div class="button-container toggle-filter my" title="<%=TalkResource.HintFilter%>" unselectable="on">
                 <div class="button-talk toggle-filter my" unselectable="on"></div>
-            </div>
+            </div>-->
             <div id="talkFilterContainer">
                 <div class="helper">
                     <input id="filterValue" type="text" placeholder="<%=TalkResource.Search%>" />
@@ -95,7 +95,7 @@
                     <div class="button-talk create-conference" id="button-create-conference" title="<%=TalkResource.HintCreateConference%>" unselectable="on"></div>
                    
                     <div id="button_settings" class="button-talk settings"></div>
-                    <div class="helper popupContainerClass container" id='pop'>
+                    <div class="helper popupContainerClass container <%= HasFiles ? "has-files" : "" %>" id='pop'>
                         <div class="subs-only-button">
                             <span  class="sub-button"><a id="button-event-signal" class="on_off_button off"  ></a></span>
                             <div class="settingname"><%=TalkOverviewResource.VoicesOfEvents%></div>
@@ -115,6 +115,9 @@
                         <div class="subs-only-button settingsitem">
                             <span class="sub-button"><a id="button-send-ctrl-enter" class="on_off_button off" ></a></span>
                             <div class="settingname"><%=TalkOverviewResource.SendMessageHotButton%></div>
+                        </div>
+                        <div class="subs-only-button settingsitem delete-files-link">
+                            <a id="button-clear-files" class="link dotline"><%=TalkOverviewResource.DeleteSentFiles%></a>
                         </div>
                     </div>
                 </div>

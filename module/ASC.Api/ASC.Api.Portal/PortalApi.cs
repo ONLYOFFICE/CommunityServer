@@ -26,9 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security;
+using System.Threading;
 using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
@@ -36,6 +40,7 @@ using ASC.Api.Interfaces;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Common.Contracts;
+using ASC.Core.Common.Notify.Jabber;
 using ASC.Core.Common.Notify.Push;
 using ASC.Core.Notify.Jabber;
 using ASC.Core.Tenants;
@@ -251,13 +256,142 @@ namespace ASC.Api.Portal
         {
             try
             {
-                var username = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).UserName;
-                return new JabberServiceClient().GetNewMessagesCount(TenantProvider.CurrentTenantID, username);
+                return new JabberServiceClient().GetNewMessagesCount();
             }
             catch
             {
             }
             return 0;
+        }
+
+        ///<visible>false</visible>
+        [Delete("talk/connection")]
+        public int RemoveXmppConnection(string connectionId)
+        {
+            try
+            {
+                return new JabberServiceClient().RemoveXmppConnection(connectionId);
+            }
+            catch
+            {
+            }
+            return 0;
+        }
+
+        ///<visible>false</visible>
+        [Create("talk/connection")]
+        public byte AddXmppConnection(string connectionId, byte state)
+        {
+            try
+            {
+                return new JabberServiceClient().AddXmppConnection(connectionId, state);
+            }
+            catch
+            {
+            }
+            return 0;
+        }
+
+        ///<visible>false</visible>
+        [Read("talk/state")]
+        public int GetState(string userName)
+        {
+            try
+            {
+                return new JabberServiceClient().GetState(userName);
+            }
+            catch
+            {
+            }
+            return 0;
+        }
+
+        ///<visible>false</visible>
+        [Create("talk/state")]
+        public byte SendState(byte state)
+        {
+            try
+            {
+                return new JabberServiceClient().SendState(state);
+            }
+            catch
+            {
+            }
+            return 4;
+        }
+
+        ///<visible>false</visible>
+        [Create("talk/message")]
+        public void SendMessage(string to, string text, string subject)
+        {
+            try
+            {
+                var username = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).UserName;
+                new JabberServiceClient().SendMessage(TenantProvider.CurrentTenantID, username, to, text, subject);
+            }
+            catch
+            {
+            }
+        }
+
+        ///<visible>false</visible>
+        [Read("talk/states")]
+        public Dictionary<string, byte> GetAllStates()
+        {
+            try
+            {
+                return new JabberServiceClient().GetAllStates();
+            }
+            catch
+            {
+            }
+
+            return new Dictionary<string, byte>();
+        }
+
+        ///<visible>false</visible>
+        [Read("talk/recentMessages")]
+        public MessageClass[] GetRecentMessages(string calleeUserName, int id)
+        {
+            try
+            {
+                var userName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).UserName;
+                var recentMessages = new JabberServiceClient().GetRecentMessages(calleeUserName, id);
+
+                if (recentMessages == null) return null;
+
+                foreach (var mc in recentMessages)
+                {
+                    mc.DateTime = TenantUtil.DateTimeFromUtc(mc.DateTime.AddMilliseconds(1));
+                    if (mc.UserName == null || string.Equals(mc.UserName, calleeUserName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        mc.UserName = calleeUserName;
+                    }
+                    else
+                    {
+                        mc.UserName = userName;
+                    }
+                }
+
+                return recentMessages;
+            }
+            catch
+            {
+            }
+            return new MessageClass[0];
+        }
+
+        ///<visible>false</visible>
+        [Create("talk/ping")]
+        public void Ping(byte state)
+        {
+            try
+            {
+                new JabberServiceClient().Ping(state);
+            }
+            catch
+            {
+            }
         }
 
         ///<visible>false</visible>
@@ -440,7 +574,11 @@ namespace ASC.Api.Portal
                     ApiSystemHelper.RemoveTenantFromCache(oldAlias);
                 }
 
-                StudioNotifyService.Instance.PortalRenameNotify(oldVirtualRootPath);
+                var newVirtualRootPath = CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/');
+                if (!string.Equals(oldVirtualRootPath, newVirtualRootPath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    StudioNotifyService.Instance.PortalRenameNotify(oldVirtualRootPath);
+                }
             }
             else
             {
@@ -537,6 +675,176 @@ namespace ASC.Api.Portal
             catch
             {
                 return 0;
+            }
+        }
+
+        ///<visible>false</visible>
+        [Read("bar/promotions")]
+        public string GetBarPromotions(string domain, string page)
+        {
+            try
+            {
+                var showPromotions = PromotionsSettings.Load().Show;
+
+                if (!showPromotions)
+                    return null;
+
+                var tenant = CoreContext.TenantManager.GetCurrentTenant();
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                var uriBuilder = new UriBuilder(SetupInfo.NotifyAddress + "promotions/Get");
+
+                var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+
+                if (string.IsNullOrEmpty(domain))
+                {
+                    domain = Request.UrlReferrer != null ? Request.UrlReferrer.Host : string.Empty;
+                }
+
+                if (string.IsNullOrEmpty(page))
+                {
+                    page = Request.UrlReferrer != null ? Request.UrlReferrer.PathAndQuery : string.Empty;
+                }
+
+                query["userId"] = user.ID.ToString();
+                query["language"] = Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant();
+                query["version"] = tenant.Version.ToString(CultureInfo.InvariantCulture);
+                query["tariff"] = TenantExtra.GetTenantQuota().Id.ToString(CultureInfo.InvariantCulture);
+                query["admin"] = user.IsAdmin().ToString();
+                query["userCreated"] = user.CreateDate.ToString(CultureInfo.InvariantCulture);
+                query["promo"] = true.ToString();
+                query["domain"] = domain;
+                query["page"] = page;
+                query["agent"] = Request.UserAgent ?? Request.Headers["User-Agent"];
+
+                uriBuilder.Query = query.ToString();
+
+                using (var client = new WebClient())
+                {
+                    client.Encoding = System.Text.Encoding.UTF8;
+                    return client.DownloadString(uriBuilder.Uri);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Web").Error("GetBarTips", ex);
+                return null;
+            }
+        }
+
+        ///<visible>false</visible>
+        [Create("bar/promotions/mark/{id}")]
+        public void MarkBarPromotion(string id)
+        {
+            try
+            {
+                var url = string.Format("{0}promotions/Complete", SetupInfo.NotifyAddress);
+
+                using (var client = new WebClient())
+                {
+                    client.UploadValues(url, "POST", new NameValueCollection
+                        {
+                            {"id", id},
+                            {"userId", SecurityContext.CurrentAccount.ID.ToString()}
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Web").Error("MarkBarPromotion", ex);
+            }
+        }
+
+        ///<visible>false</visible>
+        [Read("bar/tips")]
+        public string GetBarTips(string page, bool productAdmin)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(page))
+                    return null;
+
+                if (!TipsSettings.LoadForCurrentUser().Show)
+                    return null;
+
+                var tenant = CoreContext.TenantManager.GetCurrentTenant();
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                var uriBuilder = new UriBuilder(SetupInfo.TipsAddress + "tips/Get");
+
+                var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+
+                query["userId"] = user.ID.ToString();
+                query["tenantId"] = tenant.TenantId.ToString(CultureInfo.InvariantCulture);
+                query["page"] = page;
+                query["language"] = Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant();
+                query["admin"] = user.IsAdmin().ToString();
+                query["productAdmin"] = productAdmin.ToString();
+                query["visitor"] = user.IsVisitor().ToString();
+                query["userCreatedDate"] = user.CreateDate.ToString(CultureInfo.InvariantCulture);
+                query["tenantCreatedDate"] = tenant.CreatedDateTime.ToString(CultureInfo.InvariantCulture);
+
+                uriBuilder.Query = query.ToString();
+
+                using (var client = new WebClient())
+                {
+                    client.Encoding = System.Text.Encoding.UTF8;
+                    return client.DownloadString(uriBuilder.Uri);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Web").Error("GetBarTips", ex);
+                return null;
+            }
+        }
+
+        ///<visible>false</visible>
+        [Create("bar/tips/mark/{id}")]
+        public void MarkBarTip(string id)
+        {
+            try
+            {
+                var url = string.Format("{0}tips/MarkRead", SetupInfo.TipsAddress);
+
+                using (var client = new WebClient())
+                {
+                    client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    client.UploadValues(url, "POST", new NameValueCollection
+                        {
+                            {"id", id},
+                            {"userId", SecurityContext.CurrentAccount.ID.ToString()},
+                            {"tenantId", CoreContext.TenantManager.GetCurrentTenant().TenantId.ToString(CultureInfo.InvariantCulture)}
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Web").Error("MarkBarTip", ex);
+            }
+        }
+
+        ///<visible>false</visible>
+        [Delete("bar/tips")]
+        public void DeleteBarTips()
+        {
+            try
+            {
+                var url = string.Format("{0}tips/DeleteReaded", SetupInfo.TipsAddress);
+
+                using (var client = new WebClient())
+                {
+                    client.UploadValues(url, "POST", new NameValueCollection
+                        {
+                            {"userId", SecurityContext.CurrentAccount.ID.ToString()},
+                            {"tenantId", CoreContext.TenantManager.GetCurrentTenant().TenantId.ToString(CultureInfo.InvariantCulture)}
+                        });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Web").Error("DeleteBarTips", ex);
             }
         }
     }

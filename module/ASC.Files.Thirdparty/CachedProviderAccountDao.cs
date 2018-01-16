@@ -72,9 +72,9 @@ namespace ASC.Files.Thirdparty
             cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Remove);
         }
 
-        public override int UpdateProviderInfo(int linkId, string customerTitle, AuthData authData, FolderType folderType)
+        public override int UpdateProviderInfo(int linkId, string customerTitle, AuthData authData, FolderType folderType, Guid? userId = null)
         {
-            var result = base.UpdateProviderInfo(linkId, customerTitle, authData, folderType);
+            var result = base.UpdateProviderInfo(linkId, customerTitle, authData, folderType, userId);
 
             var key = _rootKey + linkId.ToString(CultureInfo.InvariantCulture);
             cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Update);

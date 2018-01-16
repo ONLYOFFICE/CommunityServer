@@ -160,7 +160,7 @@ namespace ASC.Web.Community.Blogs
         {
             var sb = new StringBuilder();
 
-            sb.AppendFormat("<a id=\"statusSubscribe\" class=\"" + (IsCommentsSubscribe(postID) ? "subscribed" : "unsubscribed") + " follow-status\" title=\"{2}\" href=\"#\" onclick=\"BlogSubscriber.SubscribeOnBlogComments('{0}', {1}, this); return false;\"></a>",
+            sb.AppendFormat("<a id=\"statusSubscribe\" class=\"" + (!isSubscribe ? "subscribed" : "unsubscribed") + " follow-status\" title=\"{2}\" href=\"#\" onclick=\"BlogSubscriber.SubscribeOnBlogComments('{0}', {1}, this); return false;\"></a>",
                             postID,
                             (isSubscribe ? 1 : 0),
                             (!isSubscribe ? BlogsResource.UnSubscribeOnNewCommentsAction : BlogsResource.SubscribeOnNewCommentsAction)

@@ -31,6 +31,8 @@ namespace ASC.Web.Core.Client.HttpHandlers
 {
     public abstract class ClientScriptCustom : ClientScript
     {
+        protected override bool CheckAuth { get { return false; } }
+
         protected internal sealed override string GetCacheHash()
         {
             return ClientSettings.ResetCacheKey +

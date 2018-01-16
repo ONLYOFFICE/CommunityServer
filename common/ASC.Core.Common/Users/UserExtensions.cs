@@ -24,6 +24,7 @@
 */
 
 
+using System.Collections.Generic;
 
 namespace ASC.Core.Users
 {
@@ -70,6 +71,45 @@ namespace ASC.Core.Users
             if (ui == null) return false;
 
             return !string.IsNullOrEmpty(ui.SsoNameId);
+        }
+
+        private const string EXT_MOB_PHONE = "extmobphone";
+        private const string MOB_PHONE = "mobphone";
+        private const string EXT_MAIL = "extmail";
+        private const string MAIL = "mail";
+
+        public static void ConvertExternalContactsToOrdinary(this UserInfo ui)
+        {
+            var ldapUserContacts = ui.Contacts;
+
+            var newContacts = new List<string>();
+
+            for (int i = 0, m = ldapUserContacts.Count; i < m; i += 2)
+            {
+                if (i + 1 >= ldapUserContacts.Count)
+                    continue;
+
+                var type = ldapUserContacts[i];
+                var value = ldapUserContacts[i + 1];
+
+                switch (type)
+                {
+                    case EXT_MOB_PHONE:
+                        newContacts.Add(MOB_PHONE);
+                        newContacts.Add(value);
+                        break;
+                    case EXT_MAIL:
+                        newContacts.Add(MAIL);
+                        newContacts.Add(value);
+                        break;
+                    default:
+                        newContacts.Add(type);
+                        newContacts.Add(value);
+                        break;
+                }
+            }
+
+            ui.Contacts = newContacts;
         }
     }
 }

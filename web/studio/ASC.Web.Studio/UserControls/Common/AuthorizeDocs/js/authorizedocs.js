@@ -70,7 +70,7 @@ jq(function () {
 
         jq("#confirmEmailBtn").on("click", function () {
             var $email = jq("#confirmEmail"),
-                email = $email.val(),
+                email = $email.val().trim(),
                 $error = jq("#confirmEmailError"),
                 errorText = "",
                 isError = false;

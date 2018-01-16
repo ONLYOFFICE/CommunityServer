@@ -73,7 +73,7 @@ namespace ASC.Web.Core.Client.Bundling
 
                 if (!string.IsNullOrEmpty(BaseStoragePath))
                 {
-                    DiscDataHandler.RegisterVirtualPath(BaseVirtualPath, GetFullPhysicalPath("/"));
+                    DiscDataHandler.RegisterVirtualPath(BaseVirtualPath, GetFullPhysicalPath("/"), true);
                     SuccessInitialized = CoreContext.Configuration.Standalone;
                 }
             }

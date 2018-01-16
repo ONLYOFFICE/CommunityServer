@@ -13,7 +13,7 @@
             <span class="requiredErrorText"><%=CRMDealResource.EmptyDealName%></span>
             <div class="headerPanelSmall header-base-small" style="margin-bottom: 5px;"><%=CRMDealResource.NameDeal%>:</div>
             <div>
-                <input type="text" id="nameDeal" style="width: 100%" name="nameDeal" class="textEdit" maxlength="100" />
+                <input type="text" id="nameDeal" style="width: 100%" name="nameDeal" class="textEdit" maxlength="255" />
             </div>
         </div>
 

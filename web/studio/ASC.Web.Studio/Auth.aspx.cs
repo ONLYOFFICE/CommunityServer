@@ -28,7 +28,6 @@ using System;
 using System.Web;
 using ASC.Common.Utils;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.SingleSignOn.Common;
@@ -36,7 +35,6 @@ using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.UserControls;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.AuthorizeDocs;
@@ -58,8 +56,6 @@ namespace ASC.Web.Studio
 
         protected override bool MayPhoneNotActivate { get { return true; } }
 
-        protected override bool RedirectToStartup { get { return false; } }
-
         protected string TenantName;
 
         protected override void OnPreInit(EventArgs e)
@@ -70,14 +66,6 @@ namespace ASC.Web.Studio
             {
                 if (CoreContext.Configuration.Personal)
                 {
-                    if (CoreContext.Configuration.Standalone)
-                    {
-                        var admin = CoreContext.UserManager.GetUserByUserName("administrator");
-                        var cookie = SecurityContext.AuthenticateMe(admin.ID);
-                        CookiesManager.SetCookies(CookiesType.AuthKey, cookie);
-                        Response.Redirect(CommonLinkUtility.GetDefault(), true);
-                    }
-
                     if (Request["campaign"] == "personal")
                     {
                         Session["campaign"] = "personal";
@@ -111,7 +99,7 @@ namespace ASC.Web.Studio
 
                 if (!string.IsNullOrEmpty(user.SsoNameId))
                 {
-                    var settings = SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID);
+                    var settings = SsoSettingsV2.Load();
 
                     if (settings.EnableSso && !string.IsNullOrEmpty(settings.IdpSettings.SloUrl))
                     {

@@ -22,15 +22,6 @@ namespace ASC.Web.Studio {
         protected global::System.Web.UI.WebControls.PlaceHolder content;
         
         /// <summary>
-        /// WizardThirdPartyPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder WizardThirdPartyPlaceHolder;
-        
-        /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>

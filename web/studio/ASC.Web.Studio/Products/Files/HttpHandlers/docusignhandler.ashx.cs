@@ -31,7 +31,7 @@ using System.Xml;
 using ASC.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
-using ASC.Web.Files.Import.DocuSign;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -146,6 +146,7 @@ namespace ASC.Web.Files.HttpHandlers
                                 var documentName = GetSingleNode(documentStatus, "Name", mgr).InnerText;
 
                                 string folderId = null;
+                                string sourceTitle = null;
 
                                 var documentFiels = GetSingleNode(documentStatus, "DocumentFields", mgr, true);
                                 if (documentFiels != null)
@@ -155,11 +156,16 @@ namespace ASC.Web.Files.HttpHandlers
                                     {
                                         folderId = GetSingleNode(documentFieldFolderNode, "Value", mgr).InnerText;
                                     }
+                                    var documentFieldTitleNode = GetSingleNode(documentFiels, "DocumentField[" + XmlPrefix + ":Name='" + FilesLinkUtility.FileTitle + "']", mgr, true);
+                                    if (documentFieldTitleNode != null)
+                                    {
+                                        sourceTitle = GetSingleNode(documentFieldTitleNode, "Value", mgr).InnerText;
+                                    }
                                 }
 
                                 var file = DocuSignHelper.SaveDocument(envelopeId, documentId, documentName, folderId);
 
-                                NotifyClient.SendDocuSignComplete(file);
+                                NotifyClient.SendDocuSignComplete(file, sourceTitle ?? documentName);
                             }
                             catch (Exception ex)
                             {

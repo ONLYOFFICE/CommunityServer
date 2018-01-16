@@ -32,31 +32,21 @@ namespace ASC.Web.Community.Wiki.Common
 {
     [Serializable]
     [DataContract]
-    public class WikiModuleSettings: ISettings
+    public class WikiModuleSettings : BaseSettings<WikiModuleSettings>
     {
 
         #region static functions
-        public static WikiModuleSettings GetSettings(Guid userID)
+
+        public static bool GetIsWysiwygDefault()
         {
-            return SettingsManager.Instance.LoadSettingsFor<WikiModuleSettings>(userID);
+            return Load().IsWysiwygDefault;
         }
 
-        public static bool SetSettings(WikiModuleSettings settings, Guid userID)
+        public static void SetIsWysiwygDefault(bool isWysiwygDefault)
         {
-            return SettingsManager.Instance.SaveSettingsFor<WikiModuleSettings>(settings, userID);
-        }
-
-
-        public static bool GetIsWysiwygDefault(Guid userID)
-        {
-            return GetSettings(userID).IsWysiwygDefault;
-        }
-
-        public static void SetIsWysiwygDefault(bool isWysiwygDefault, Guid userID)
-        {
-            WikiModuleSettings currentSettings = GetSettings(userID);
+            var currentSettings = Load();
             currentSettings.IsWysiwygDefault = isWysiwygDefault;
-            SetSettings(currentSettings, userID);
+            currentSettings.Save();
         }
 
         #endregion
@@ -64,17 +54,14 @@ namespace ASC.Web.Community.Wiki.Common
         [DataMember(Name = "IsWysiwygDefault")]
         public bool IsWysiwygDefault { get; set; }
 
-        #region ISettings Members 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
-            return new WikiModuleSettings() { IsWysiwygDefault = true };
+            return new WikiModuleSettings { IsWysiwygDefault = true };
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{9174797C-6CE3-40b8-852A-BC9D5F3AE794}"); }
         }
-
-        #endregion
     }
 }

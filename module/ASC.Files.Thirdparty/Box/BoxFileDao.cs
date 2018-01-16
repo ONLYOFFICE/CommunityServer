@@ -97,7 +97,7 @@ namespace ASC.Files.Thirdparty.Box
             return GetBoxItems(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -247,11 +247,6 @@ namespace ASC.Files.Thirdparty.Box
         {
             return GetBoxItems(folderId, false)
                 .Any(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        public bool IsExist(string title, BoxFolder folder)
-        {
-            return GetBoxItems(folder.Id, false).FirstOrDefault(x => x.Name.Contains(title)) != null;
         }
 
         public object MoveFile(object fileId, object toFolderId)

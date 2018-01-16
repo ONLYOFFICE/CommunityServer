@@ -26,20 +26,16 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
 
@@ -151,153 +147,6 @@ namespace ASC.Web.Studio.Core.Users
             return newUserInfo;
         }
 
-        public static UserInfo AddLDAPUser(UserInfo ldapUserInfo, bool asVisitor)
-        {
-            var attempt = 3;
-
-            do
-            {
-                try
-                {
-                    return AddUser(ldapUserInfo, GeneratePassword(), true, false, asVisitor);
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    if (!ex.ParamName.StartsWith("Duplicate username."))
-                        throw;
-
-                    attempt--;
-                    Thread.Sleep(TimeSpan.FromSeconds(10));
-
-                    if (attempt <= 0)
-                        throw;
-                }
-            } while (attempt > 0);
-
-            throw new ArgumentOutOfRangeException("Duplicate username.");
-        }
-
-        public static UserInfo SyncUserLDAP(UserInfo ldapUserInfo)
-        {
-            UserInfo result = null;
-
-            if(string.IsNullOrEmpty(ldapUserInfo.FirstName))
-                ldapUserInfo.FirstName = Resource.FirstName;
-
-            if (string.IsNullOrEmpty(ldapUserInfo.LastName))
-                ldapUserInfo.FirstName = Resource.LastName;
-
-            var foundDbUser = SearchExistingUser(ldapUserInfo);
-
-            var asVisitor = TenantStatisticsProvider.GetUsersCount() >=
-                                    TenantExtra.GetTenantQuota().ActiveUsers;
-
-            if (Equals(foundDbUser, ASC.Core.Users.Constants.LostUser))
-            {
-                if (ldapUserInfo.Status != EmployeeStatus.Active)
-                    return ASC.Core.Users.Constants.LostUser;
-
-                result = AddLDAPUser(ldapUserInfo, asVisitor);
-            }
-            else
-            {
-                if (!NeedUpdateUser(foundDbUser, ldapUserInfo))
-                    return foundDbUser;
-
-                // Update info on existing user from LDAP info
-
-                if (!foundDbUser.IsLDAP() || 
-                    Equals(foundDbUser.Email, ldapUserInfo.Email) ||
-                    Equals(foundDbUser.Sid, ldapUserInfo.Sid))
-                {
-                    result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                }
-                else if (foundDbUser.IsLDAP())
-                {
-                    if(foundDbUser.IsOwner())
-                    {
-                        result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                    }
-                    else
-                    {
-                        CoreContext.UserManager.DeleteUser(foundDbUser.ID);
-
-                        result = AddLDAPUser(ldapUserInfo, asVisitor);
-                    }
-                }
-                else if (!Equals(foundDbUser.Email, ldapUserInfo.Email))
-                {
-                    var userByNewEmail = CoreContext.UserManager.GetUserByEmail(ldapUserInfo.Email);
-
-                    if (Equals(userByNewEmail, ASC.Core.Users.Constants.LostUser))
-                    {
-                        result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                    }
-                    else
-                    {
-                        if (foundDbUser.IsOwner())
-                        {
-                            result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                        }
-                        else
-                        {
-                            CoreContext.UserManager.DeleteUser(foundDbUser.ID);
-
-                            result = UpdateUserWithLDAPInfo(userByNewEmail, ldapUserInfo);
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        private static UserInfo SearchExistingUser(UserInfo userInfo)
-        {
-            var foundUser = CoreContext.UserManager.GetUserBySid(userInfo.Sid);
-
-            if (Equals(foundUser, ASC.Core.Users.Constants.LostUser))
-            {
-                foundUser = CoreContext.UserManager.GetUserByEmail(userInfo.Email);
-            }
-
-            return foundUser;
-        }
-
-        private static bool NeedUpdateUser(UserInfo foundUser, UserInfo userInfo)
-        {
-            var needUpdate = foundUser.FirstName != userInfo.FirstName ||
-                             foundUser.LastName != userInfo.LastName ||
-                             foundUser.Email != userInfo.Email ||
-                             foundUser.Sid != userInfo.Sid ||
-                             foundUser.ActivationStatus != userInfo.ActivationStatus ||
-                             foundUser.Status != userInfo.Status ||
-                             foundUser.Title != userInfo.Title ||
-                             foundUser.Location != userInfo.Location ||
-                             userInfo.Contacts.Any(c => !foundUser.Contacts.Contains(c));
-
-            return needUpdate;
-        }
-
-        private static UserInfo UpdateUserWithLDAPInfo(UserInfo userToUpdate, UserInfo updateInfo)
-        {
-            userToUpdate.FirstName = updateInfo.FirstName;
-            userToUpdate.LastName = updateInfo.LastName;
-            userToUpdate.Email = updateInfo.Email;
-            userToUpdate.Sid = updateInfo.Sid;
-            userToUpdate.ActivationStatus = updateInfo.ActivationStatus;
-            userToUpdate.Contacts = updateInfo.Contacts;
-            userToUpdate.Title = updateInfo.Title;
-            userToUpdate.Location = updateInfo.Location;
-
-            if (!userToUpdate.IsOwner()) // Owner must never be terminated by LDAP!
-            {
-                userToUpdate.Status = updateInfo.Status;
-            }
-
-            return CoreContext.UserManager.SaveUserInfo(userToUpdate);
-        }
-
         #region Password
 
         public static void CheckPasswordPolicy(string password)
@@ -305,7 +154,7 @@ namespace ASC.Web.Studio.Core.Users
             if (String.IsNullOrEmpty(password))
                 throw new Exception(Resource.ErrorPasswordEmpty);
 
-            var passwordSettingsObj = SettingsManager.Instance.LoadSettings<PasswordSettings>(TenantProvider.CurrentTenantID);
+            var passwordSettingsObj = PasswordSettings.Load();
 
             if (!PasswordSettings.CheckPasswordRegex(passwordSettingsObj, password))
                 throw new Exception(GenerateErrorMessage(passwordSettingsObj));
@@ -317,7 +166,7 @@ namespace ASC.Web.Studio.Core.Users
             if (!email.TestEmailRegex()) throw new ArgumentNullException("email", Resource.ErrorNotCorrectEmail);
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+            var settings =IPRestrictionsSettings.Load();
             if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
             {
                 throw new Exception(Resource.ErrorAccessRestricted);
@@ -353,7 +202,7 @@ namespace ASC.Web.Studio.Core.Users
 
         public static string GeneratePassword()
         {
-            var ps = SettingsManager.Instance.LoadSettings<PasswordSettings>(TenantProvider.CurrentTenantID);
+            var ps = PasswordSettings.Load();
 
             var maxLength = PasswordSettings.MaxLength
                             - (ps.Digits ? 1 : 0)
@@ -401,7 +250,7 @@ namespace ASC.Web.Studio.Core.Users
         public static string GetPasswordHelpMessage()
         {
             var info = new StringBuilder();
-            var passwordSettings = SettingsManager.Instance.LoadSettings<PasswordSettings>(TenantProvider.CurrentTenantID);
+            var passwordSettings = PasswordSettings.Load();
             info.AppendFormat("{0} ", Resource.ErrorPasswordMessageStart);
             info.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
             if (passwordSettings.UpperCase)

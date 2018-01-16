@@ -24,4 +24,15 @@
     tmTalk.properties.item("expressInstall", config.expressInstall);
     //hack for artifact css
     jq('#talkWrapper').removeClass('hide');
+    
+    window.addEventListener('storage', function (event) {
+        if (event.key == 'onlyoffice') {
+            try {
+                setTimeout(function () {
+                    window.name = null;
+                    location = event.url;
+                }, 300);
+            } catch(e) {}
+        }
+    });
 });

@@ -24,19 +24,19 @@
 */
 
 
-using ASC.Core;
 using ASC.Xmpp.Core.authorization.DigestMD5;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.sasl;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Handler;
-using ASC.Xmpp.Server.Storage;
 using ASC.Xmpp.Server.Streams;
 using ASC.Xmpp.Server.Users;
 using ASC.Xmpp.Server.Utils;
 using log4net;
 using System;
 using System.Collections.Generic;
+using ASC.ActiveDirectory.Base.Settings;
+using ASC.ActiveDirectory.Novell;
 
 namespace ASC.Xmpp.Server.Authorization
 {
@@ -108,18 +108,18 @@ namespace ASC.Xmpp.Server.Authorization
                         {
                             if (user.Sid != null)
                             {
-                                if (!user.Sid.StartsWith("l"))
+                                var settings = LdapSettings.Load();
+
+                                using (var ldapHelper = new NovellLdapHelper(settings))
                                 {
-                                    var storage = new DbLdapSettingsStore();
-                                    storage.GetLdapSettings(stream.Domain);
-                                    ILdapHelper ldapHelper = !WorkContext.IsMono ?
-                                        (ILdapHelper)new SystemLdapHelper() : new NovellLdapHelper();
-                                    var accountName = ldapHelper.GetAccountNameBySid(user.Sid, storage.Authentication,
-                                        storage.Login, storage.Password, storage.Server, storage.PortNumber,
-                                        storage.UserDN, storage.LoginAttribute, storage.StartTls);
-                                    if (accountName != null && ldapHelper.CheckCredentials(accountName,
-                                        password, storage.Server, storage.PortNumber, storage.Login, storage.StartTls))
+                                    var accountName = ldapHelper.GetUserBySid(user.Sid);
+
+                                    if (accountName != null)
                                     {
+                                        ldapHelper.CheckCredentials(settings.Login, password, settings.Server,
+                                            settings.PortNumber, settings.StartTls, settings.Ssl,
+                                            settings.AcceptCertificate, settings.AcceptCertificateHash);
+
                                         // ldap user
                                         isAuth = true;
                                     }

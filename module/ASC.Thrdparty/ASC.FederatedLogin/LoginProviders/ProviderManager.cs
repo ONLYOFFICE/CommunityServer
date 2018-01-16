@@ -25,11 +25,10 @@
 
 
 using System;
-using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ASC.FederatedLogin.Profile;
 
 namespace ASC.FederatedLogin.LoginProviders
 {

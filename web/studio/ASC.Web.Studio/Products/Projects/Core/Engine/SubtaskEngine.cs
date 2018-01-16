@@ -70,6 +70,18 @@ namespace ASC.Projects.Engine
             return tasks;
         }
 
+        public List<Task> GetByResponsible(Guid id, TaskStatus? status = null)
+        {
+            var subtasks = subtaskDao.GetByResponsible(id, status);
+            var ids = subtasks.Select(x => x.Task).Distinct().ToList();
+            var tasks = taskDao.GetById(ids);
+            foreach (var task in tasks)
+            {
+                task.SubTasks.AddRange(subtasks.FindAll(r=> r.Task == task.ID));
+            }
+            return tasks;
+        }
+
         public int GetSubtaskCount(int taskid, params TaskStatus[] statuses)
         {
             return subtaskDao.GetSubtaskCount(taskid, statuses);

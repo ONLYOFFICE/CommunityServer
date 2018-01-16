@@ -92,7 +92,7 @@ namespace ASC.Core
             {
                 throw new SecurityException("Invalid login or password.");
             }
-            return tenantService.GetTenants(login, hash).Select(t => AddRegion(t)).ToList();
+            return tenantService.GetTenants(login, hash).Select(AddRegion).ToList();
         }
 
         public Tenant GetTenant(String domain)

@@ -23,25 +23,53 @@
  *
 */
 
+if (typeof ASC === "undefined")
+    ASC = {};
+
+if (typeof ASC.People === "undefined")
+    ASC.People = {};
+
+ASC.People.PageNavigator = (function () {
+    var pgNavigator, $totalUsers;
+
+    var init = function () {
+        var people = ASC.People,
+            resources = people.Resources;
+
+        pgNavigator = new ASC.Controls.PageNavigator.init(
+                "ASC.People.PageNavigator.pgNavigator",
+                "#peoplePageNavigator",
+                25,
+                3,
+                1,
+                resources.PreviousPage,
+                resources.NextPage);
+
+        pgNavigator.changePageCallback = function (page) {
+            people.PeopleController.moveToPage(page);
+        }
+
+        function onRenderProfiles(evt, params) {
+            var usersCount = params.__total || params.__count;
+            pgNavigator.drawPageNavigator(params.page, usersCount);
+            if (!$totalUsers) {
+                $totalUsers = jq("#totalUsers");
+            }
+            $totalUsers.text(usersCount);
+        }
+
+        jq(window).bind('people-render-profiles', onRenderProfiles);
+    };
+
+    return {
+        init: init,
+        get pgNavigator() {
+            return pgNavigator;
+        }
+    }
+})();
 
 ;
 jq(document).ready(function () {
-    if (!window.peoplePageNavigator) return;
-    setTimeout(function() {
-        window.peoplePageNavigator.NavigatorParent = '#tableForPeopleNavigation td:first';
-
-        window.peoplePageNavigator.changePageCallback = function(page) {
-            ASC.People.PeopleController.moveToPage(page);
-        };
-
-        jq("#tableForPeopleNavigation select").tlCombobox();
-    }, 0);
-
-    function onRenderProfiles(evt, params, data) {
-        var usersCount = params.__total || params.__count;
-        window.peoplePageNavigator.drawPageNavigator(params.page, usersCount);
-        jq("#totalUsers").text(usersCount);
-    }
-
-    jq(window).bind('people-render-profiles', onRenderProfiles);
+    ASC.People.PageNavigator.init();
 });

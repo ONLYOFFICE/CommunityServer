@@ -170,24 +170,12 @@ var defineBodyMediaClass = function () {
         ASC.Resources.Master.IsAuthenticated == true &&
         ASC.Resources.Master.ApiResponsesMyProfile.response) {
 
-        jq.getScript(
-            [
-                ASC.Resources.Master.SetupInfoNotifyAddress + 'promotions/get?',
-                "userId=",
-                ASC.Resources.Master.ApiResponsesMyProfile.response.id,
-                "&language=",
-                ASC.Resources.Master.CurrentCultureName,
-                "&version=",
-                ASC.Resources.Master.CurrentTenantVersion,
-                "&tariff=",
-                ASC.Resources.Master.TenantTariff,
-                "&admin=",
-                ASC.Resources.Master.IsAdmin,
-                "&userCreated=",
-                ASC.Resources.Master.ApiResponsesMyProfile.response.created,
-                "&promo=",
-                ASC.Resources.Master.ShowPromotions
-            ].join(""));
+        Teamlab.getBarPromotions({}, {
+            success: function(params, content) {
+                if (content)
+                    eval(content);
+            }
+        });
     }
 
     // init Tips
@@ -197,28 +185,12 @@ var defineBodyMediaClass = function () {
         !ASC.Resources.Master.ApiResponsesMyProfile.response.isOutsider &&
         ASC.Resources.Master.ShowTips) {
 
-        jq.getScript(
-            [
-                ASC.Resources.Master.SetupInfoTipsAddress + 'tips/get?',
-                "userId=",
-                ASC.Resources.Master.ApiResponsesMyProfile.response.id,
-                "&tenantId=",
-                ASC.Resources.Master.CurrentTenantId,
-                "&page=",
-                encodeURIComponent(window.location.pathname + window.location.search + window.location.hash),
-                "&language=",
-                ASC.Resources.Master.CurrentCultureName,
-                "&admin=",
-                ASC.Resources.Master.IsAdmin,
-                "&productAdmin=",
-                ASC.Resources.Master.IsProductAdmin,
-                "&visitor=",
-                ASC.Resources.Master.IsVisitor,
-                "&userCreatedDate=",
-                ASC.Resources.Master.ApiResponsesMyProfile.response.created,
-                "&tenantCreatedDate=",
-                ASC.Resources.Master.CurrentTenantCreatedDate
-            ].join(""));
+        Teamlab.getBarTips({}, {
+            success: function (params, content) {
+                if (content)
+                    eval(content);
+            }
+        });
     }
 
     var studioUserProfileInfo = new PopupBox("pb_StudioUserProfileInfo", 320, 140, "tintLight", "borderBaseShadow", "",

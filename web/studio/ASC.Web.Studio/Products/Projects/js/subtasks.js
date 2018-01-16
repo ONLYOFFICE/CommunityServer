@@ -62,8 +62,17 @@ ASC.Projects.SubtasksManager = (function () {
 
         //add subtask panels
 
-        jq(document).on('mouseenter', '.subtask .taskName span', showDescribePanel);
-        jq(document).on('mouseleave', '.subtask .taskName span', function() { ASC.Projects.Base.hideDescrPanel(false); });
+        ASC.Projects.DescriptionPanel.init(jq("#CommonListContainer"), null,
+        {
+            getItem: function (target) {
+                var $targetObject = jq(target),
+                    $targetParent = $targetObject.parents(".subtask"),
+                    subtask = getFilteredSubTaskById($targetParent.attr("id"));
+
+                return subtask;
+            },
+            selector: '.subtask .taskName span'
+        });
 
         jq(document).on('dblclick', '.subtask .taskName', function () {
             var $self = jq(this);
@@ -115,6 +124,10 @@ ASC.Projects.SubtasksManager = (function () {
         jq(document).on(clickEventName, "#quickAddSubTaskField", function (event) {
             $subtaskNameInput = jq('.subtask-name-input');
             $subtaskNameInput.focus();
+        });
+
+        teamlab.bind(teamlab.events.updatePrjTeam, function(params, team) {
+            teamsHash[params.projectId] = team;
         });
     };
 
@@ -227,14 +240,6 @@ ASC.Projects.SubtasksManager = (function () {
 
     function onRemoveSubtask(params, subtask) {
         getSubtaskElem(subtask.id).remove();
-    };
-
-    function showDescribePanel(event) {
-        var $targetObject = jq(event.target),
-            $targetParent = $targetObject.parents(".subtask"),
-            subtask = getFilteredSubTaskById($targetParent.attr("id"));
-
-        ASC.Projects.Base.showDescPanel(subtask, $targetObject);
     };
 
     function showSubtaskLoader(inputBox) {

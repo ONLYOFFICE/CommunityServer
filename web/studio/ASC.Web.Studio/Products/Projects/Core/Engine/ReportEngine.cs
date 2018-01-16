@@ -101,19 +101,24 @@ namespace ASC.Projects.Engine
             }
             else if (filter.HasProjectIds)
             {
-                users.AddRange(factory.ProjectEngine.GetTeam(filter.ProjectIds).Select(r => r.ID));
+                users.AddRange(factory.ProjectEngine.GetTeam(filter.ProjectIds).Select(r => r.ID).Distinct());
             }
             else if (!filter.HasProjectIds)
             {
-                users.AddRange(CoreContext.UserManager.GetUsers().Select(u => u.ID));
+                users.AddRange(factory.ProjectEngine.GetTeam(factory.ProjectEngine.GetAll().Select(r => r.ID).ToList()).Select(r => r.ID).Distinct());
             }
 
-            foreach (var row in reportDao.BuildUsersStatisticsReport(filter))
+            var data = factory.TaskEngine.GetByFilterCountForStatistic(filter);
+
+            foreach (var row in data)
             {
-                users.Remove((Guid)row[0]);
-                if ((long)row[1] == 0 && (long)row[2] == 0)
+                users.Remove(row.UserId);
+                if (row.TasksOpen == 0)
                 {
-                    result.Add(row);
+                    result.Add(new object[]
+                    {
+                        row.UserId, 0, row.TasksOpen, row.TasksClosed
+                    });
                 }
             }
             result.AddRange(users.Select(u => new object[] { u, 0, 0, 0 }));
@@ -123,12 +128,49 @@ namespace ASC.Projects.Engine
 
         public IList<object[]> BuildUsersWorkload(TaskFilter filter)
         {
-            return reportDao.BuildUsersStatisticsReport(filter);
+            return factory.TaskEngine.GetByFilterCountForStatistic(filter).Select(r=> new object[]
+            {
+                r.UserId, 0, r.TasksOpen, r.TasksClosed
+            }).ToList();
         }
 
         public IList<object[]> BuildUsersActivityReport(TaskFilter filter)
         {
-            return reportDao.BuildUsersActivityReport(filter);
+            var result = new List<object[]>();
+            var tasks = factory.TaskEngine.GetByFilterCountForReport(filter);
+            var milestones = factory.MilestoneEngine.GetByFilterCountForReport(filter);
+            var messages = factory.MessageEngine.GetByFilterCountForReport(filter);
+
+            var userIds = tasks.Select(r => r.Key).ToList();
+            userIds.AddRange(milestones.Select(r => r.Key).ToList());
+            userIds.AddRange(messages.Select(r => r.Key).ToList());
+
+            userIds = userIds.Distinct().ToList();
+
+            foreach (var userId in userIds)
+            {
+                int tasksCount;
+                if (!tasks.TryGetValue(userId, out tasksCount))
+                {
+                    tasksCount = 0;
+                }
+
+                int milestonesCount;
+                if (!milestones.TryGetValue(userId, out milestonesCount))
+                {
+                    milestonesCount = 0;
+                }
+
+                int messagesCount;
+                if (!messages.TryGetValue(userId, out messagesCount))
+                {
+                    messagesCount = 0;
+                }
+
+                result.Add(new object[] { userId, tasksCount, milestonesCount, messagesCount, 0, tasksCount  + milestonesCount + messagesCount });
+            }
+
+            return result;
         }
     }
 }

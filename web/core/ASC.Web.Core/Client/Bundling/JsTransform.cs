@@ -24,14 +24,8 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Web.Optimization;
 using ASC.Web.Core.Client.HttpHandlers;
-using HtmlAgilityPack;
 using Microsoft.Ajax.Utilities;
 
 namespace ASC.Web.Core.Client.Bundling

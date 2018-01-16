@@ -232,6 +232,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string CommonSettings {
+            get {
+                return ResourceManager.GetString("CommonSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Copy {
@@ -556,6 +565,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide Entities In Paused Projects.
+        /// </summary>
+        public static string HideEntitiesInPausedProjects {
+            get {
+                return ResourceManager.GetString("HideEntitiesInPausedProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This user does not receive notifications for this discussion, because the project has the private status and the user is not a member of the project team..
         /// </summary>
         public static string hintSubscribersPrivateProject {
@@ -795,6 +813,15 @@ namespace ASC.Web.Projects.Resources {
         public static string Or {
             get {
                 return ResourceManager.GetString("Or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Персональные настройки.
+        /// </summary>
+        public static string PersonalSettings {
+            get {
+                return ResourceManager.GetString("PersonalSettings", resourceCulture);
             }
         }
         
@@ -1042,6 +1069,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Любой пользователь может создавать проект.
+        /// </summary>
+        public static string SettingsWhoCanCreateProject {
+            get {
+                return ResourceManager.GetString("SettingsWhoCanCreateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show.
         /// </summary>
         public static string Show {
@@ -1083,6 +1119,15 @@ namespace ASC.Web.Projects.Resources {
         public static string SpentTotally {
             get {
                 return ResourceManager.GetString("SpentTotally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Стратовая страница.
+        /// </summary>
+        public static string StartPage {
+            get {
+                return ResourceManager.GetString("StartPage", resourceCulture);
             }
         }
         

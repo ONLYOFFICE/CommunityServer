@@ -44,11 +44,6 @@
                            ? "<a class=\"link-black-14 bold\" href=\"" + CommonLinkUtility.GetAdministration(ManagementType.Statistic) + "\">" + FileSizeComment.FilesSizeToString(UsedSize) + "</a>"
                            : "<span class=\"bold\">" + FileSizeComment.FilesSizeToString(UsedSize) + "</span>")
                       + "/" + FileSizeComment.FilesSizeToString(CurrentQuota.MaxTotalSize)) %>
-    <% if (SmsEnable)
-       { %>
-    <br />
-    <asp:PlaceHolder runat="server" ID="SmsBuyHolder"></asp:PlaceHolder>
-    <% } %>
 </div>
 
 <div class="tariff-header clearFix">
@@ -150,28 +145,28 @@
         </tr>
     </thead>
     <tbody>
-        <% for (var i = 0; i < QuotasYear.Count; i++)
-           {
-               Tuple<string, string, string> buyAttr;
+        <% 
+            for (var i = 0; i < QuotasYear.Count; i++)
+            {
+                Tuple<string, string, string> buyAttr;
+                var quotaYear = QuotasYear[i];
         %>
 
-        <tr class="tariff-item <%= QuotaForDisplay.ActiveUsers == QuotasYear[i].ActiveUsers ? "tariff-item-selected" : string.Empty %>"
-            valign="middle" data-users="<%= QuotasYear[i].ActiveUsers %>" data-storage="<%= FileSizeComment.FilesSizeToString(QuotasYear[i].MaxTotalSize) %>">
+        <tr class="tariff-item <%= QuotaForDisplay.ActiveUsers == quotaYear.ActiveUsers ? "tariff-item-selected" : string.Empty %>"
+            valign="middle" data-users="<%= quotaYear.ActiveUsers %>" data-storage="<%= FileSizeComment.FilesSizeToString(quotaYear.MaxTotalSize) %>">
             <td>
                 <div class="tariffs-body tariffs-body-month">
 
-                    <% var quotaMonth = GetQuotaMonth(QuotasYear[i]);
-                       if (quotaMonth != null || !QuotasYear[i].Free)
+                    <% var quotaMonth = GetQuotaMonth(quotaYear);
+                       if (quotaMonth != null || !quotaYear.Free)
                        { %>
                     <% if (quotaMonth == null)
                        {
-                           var fakePrice = new[] { 10.0m, 20.0m }[i]; %>
+                           var fakePrice = FakePrices[i]; %>
                     <div class="tariffs-price-dscr">
                         <%= string.Format(UserControlsCommonResource.TariffPricePer,
                                           "<span class=\"price-string\">"
-                                          + (InRuble
-                                                 ? GetPriceString(5)
-                                                 : GetPriceString(5, false, RegionDefault.CurrencySymbol))
+                                          + GetPerUserPrice(null)
                                           + "</span>") %>
                     </div>
 
@@ -187,9 +182,7 @@
                     <div class="tariffs-price-dscr">
                         <%= string.Format(UserControlsCommonResource.TariffPricePer,
                                           "<span class=\"price-string\">"
-                                          + (InRuble
-                                                 ? GetPriceString(5)
-                                                 : GetPriceString(5, false, RegionDefault.CurrencySymbol))
+                                          + GetPerUserPrice(quotaMonth)
                                           + "</span>") %>
                     </div>
 
@@ -200,18 +193,6 @@
                     </div>
 
                     <div class="tariffs-price-per"><%= UserControlsCommonResource.TariffBasicPrice %></div>
-
-                    <div class="tariffs-price-sale">
-                        <%= quotaMonth.Price2 != decimal.Zero
-                                ? string.Format(UserControlsCommonResource.TariffPriceOffer, GetPriceString(quotaMonth.Price2))
-                                : "&nbsp;" %>
-                    </div>
-
-                    <div class="tariffs-descr">
-                        <%= quotaMonth.Price2 != decimal.Zero
-                                ? string.Format(Resource.TariffRemarkSale, GetSaleDate())
-                                : "&nbsp;" %>
-                    </div>
 
                     <% buyAttr = GetBuyAttr(quotaMonth); %>
                     <a class="tariffs-buy-action button huge <%= buyAttr.Item1 %>"
@@ -224,38 +205,33 @@
                 </div>
             </td>
 
+            <% var priceMonth = quotaMonth != null ? GetPrice(quotaMonth) : (FakePrices[i] * (InRuble ? SetupInfo.ExchangeRateRuble : 1)); %>
             <td>
                 <div class="tariffs-body tariffs-body-year">
                     <div class="tariffs-price-dscr">
                         <%= string.Format(UserControlsCommonResource.TariffPricePer,
                                           "<span class=\"price-string\">"
-                                          + (InRuble
-                                                 ? GetPriceString(2)
-                                                 : GetPriceString(2, false, RegionDefault.CurrencySymbol))
+                                          + GetPerUserPrice(quotaYear)
                                           + "</span>") %>
                     </div>
 
                     <div class="tariffs-price">
-                        <%= QuotasYear[i].Price == decimal.Zero
+                        <%= quotaYear.Price == decimal.Zero
                                 ? UserControlsCommonResource.TariffFree
-                                : GetPriceString(QuotasYear[i]) %>
+                                : GetPriceString(quotaYear) %>
                     </div>
 
                     <div class="tariffs-price-per"><%= UserControlsCommonResource.TariffLimitedPrice %></div>
 
                     <div class="tariffs-price-sale">
-                        <%= QuotasYear[i].Price2 != decimal.Zero
-                                ? string.Format(UserControlsCommonResource.TariffPriceOffer, GetPriceString(QuotasYear[i].Price2))
-                                : "&nbsp;" %>
+                        <%= string.Format(UserControlsCommonResource.TariffPriceOffer, GetPriceString(GetSaleValue(priceMonth, quotaYear), false)) %>
                     </div>
 
                     <div class="tariffs-descr">
-                        <%= QuotasYear[i].Price2 != decimal.Zero
-                                ? string.Format(Resource.TariffRemarkSale, GetSaleDate())
-                                : "&nbsp;" %>
+                        <%= string.Format(Resource.TariffRemarkSale, GetSaleDate()) %>
                     </div>
 
-                    <% buyAttr = GetBuyAttr(QuotasYear[i]); %>
+                    <% buyAttr = GetBuyAttr(quotaYear); %>
                     <a class="tariffs-buy-action button huge <%= buyAttr.Item1 %>"
                         <%= !string.IsNullOrEmpty(buyAttr.Item2) ? "href=\"" + buyAttr.Item2 + "\"" : string.Empty %>>
                         <%= buyAttr.Item3 %>
@@ -265,16 +241,14 @@
 
             <td>
                 <div class="tariffs-body tariffs-body-year3">
-                    <% var quotaYear3 = GetQuotaYear3(QuotasYear[i]);
+                    <% var quotaYear3 = GetQuotaYear3(quotaYear);
                        if (quotaYear3 != null)
                        { %>
 
                     <div class="tariffs-price-dscr">
                         <%= string.Format(UserControlsCommonResource.TariffPricePer,
                                           "<span class=\"price-string\">"
-                                          + (InRuble
-                                                 ? GetPriceString(1)
-                                                 : GetPriceString(1, false, RegionDefault.CurrencySymbol))
+                                          + GetPerUserPrice(quotaYear3)
                                           + "</span>") %>
                     </div>
 
@@ -287,15 +261,12 @@
                     <div class="tariffs-price-per"><%= UserControlsCommonResource.TariffLimitedPrice %></div>
 
                     <div class="tariffs-price-sale">
-                        <%= quotaYear3.Price2 != decimal.Zero
-                                ? string.Format(UserControlsCommonResource.TariffPriceOffer, GetPriceString(quotaYear3.Price2))
-                                : "&nbsp;" %>
+
+                        <%= string.Format(UserControlsCommonResource.TariffPriceOffer, GetPriceString(GetSaleValue(priceMonth, quotaYear3), false)) %>
                     </div>
 
                     <div class="tariffs-descr">
-                        <%= quotaYear3.Price2 != decimal.Zero
-                                ? string.Format(Resource.TariffRemarkSale, GetSaleDate())
-                                : "&nbsp;" %>
+                        <%= string.Format(Resource.TariffRemarkSale, GetSaleDate()) %>
                     </div>
 
                     <% buyAttr = GetBuyAttr(quotaYear3); %>
@@ -315,11 +286,11 @@
 
 <% var linkList = new Dictionary<string, string>
        {
-           {"fr", "http://onlyo.co/1LlMqkT"},
-           {"de", "http://onlyo.co/1LlMrWe"},
-           {"en", "http://onlyo.co/1LlMtx4"},
-           {"ru", "http://onlyo.co/1LlMmS8"},
-           {"it", "http://onlyo.co/1LlMpgM"}
+           {"fr", "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4577517&doc=azBvMUU2U0lKMjdqcVJQZVhWdHBMQ1g5UUZyc1dHbWUzaG1WRy9xa2RHUT0_IjQ1Nzc1MTci0"},
+           {"de", "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4577515&doc=WUphUzBkbW1lVGNKRDl3c01Vb2REdGRFWEN1WGI4OSs0UmdBWUU4ekpKaz0_IjQ1Nzc1MTUi0"},
+           {"en", "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4577516&doc=M1c2MGY3aXlYVzZxZGV6M014eFVRS21pSk52ZTNiWXBuYnNJYnpxdHlQVT0_IjQ1Nzc1MTYi0"},
+           {"ru", "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4577519&doc=QkpoRmJCSnJyYVo2UnAxcktxWFJqbWZvVjhtZVFodnd4UllCS0tweEcwbz0_IjQ1Nzc1MTki0"},
+           {"it", "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4577518&doc=TEFOU3NUcmtZTjl0eUN2WklaWkllMkI3U2t5Rm5va2lDSHJXeTZBK3A5ST0_IjQ1Nzc1MTgi0"}
        };
    string tariffLink;
    if (!linkList.TryGetValue(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName, out tariffLink))
@@ -363,8 +334,8 @@
         <p class="confirm-block-text gray-text">
             <%= UserControlsCommonResource.CompanyTitle %><span class="required-mark">*</span>
         </p>
-        <input type="text" maxlength="64" tabindex="6" class="text-edit-ctitle text-edit" required="required" placeholder="<%= UserControlsCommonResource.CompanyTitle %>" >
-        
+        <input type="text" maxlength="64" tabindex="6" class="text-edit-ctitle text-edit" required="required" placeholder="<%= UserControlsCommonResource.CompanyTitle %>">
+
         <p class="confirm-block-text gray-text">
             <%= UserControlsCommonResource.CompanySizeTitle %><span class="required-mark">*</span>
         </p>
@@ -392,7 +363,7 @@
         <p class="confirm-block-text gray-text">
             <%= UserControlsCommonResource.SiteTitle %><span class="required-mark">*</span>
         </p>
-        <input type="text" maxlength="64" tabindex="8" class="text-edit-site text-edit" required="required" placeholder="<%= UserControlsCommonResource.SiteTitle %>" >
+        <input type="text" maxlength="64" tabindex="8" class="text-edit-site text-edit" required="required" placeholder="<%= UserControlsCommonResource.SiteTitle %>">
 
         <p class="confirm-block-text gray-text">
             <%= UserControlsCommonResource.TariffRequestContent %><span class="required-mark">*</span>

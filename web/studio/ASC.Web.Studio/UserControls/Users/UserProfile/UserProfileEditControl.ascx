@@ -12,12 +12,14 @@
        
         <% if (IsPageEditProfileFlag && (IsAdmin() || UserInfo.IsMe()))
         { %>
-            <% if (UserInfo.IsLDAP())
+            <% 
+            if (UserInfo.IsLDAP())
             { %>
             <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
             <% }
-                else if (UserInfo.IsSSO())
-                { %>
+
+            if (UserInfo.IsSSO())
+            { %>
             <span class="sso-lock-big" title="<%= Resource.SsoUsersListLockTitle %>"></span>
             <% } %>
         <% } %>
@@ -133,22 +135,26 @@
                     <input type="text" id="profileSecondName" class="textEdit" value="<%= GetLastName() %>" autocomplete="off" <%= IsPageEditProfileFlag && (IsLDAP || IsSSO) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : ( IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %>/>
                 </td>
             </tr>
+            <%--Login--%>
+            <% if (IsLDAP)
+               { %>
+            <tr class="userdata-field">
+                <td class="userdata-title describe-text">
+                    <span class="requiredTitle"><%= Resource.Login %>:</span> 
+
+                </td>
+                <td class="userdata-value requiredField">
+                    <input type="text" id="profileLogin" value="<%= GetLogin() %>" autocomplete="off" class="textEdit" disabled="disabled" title="<%= Resource.LdapUserEditCanOnlyAdminTitle %>" />
+                </td>
+            </tr>
+            <% } %>
             <%--Email--%>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text">
-                    <span class="requiredTitle"><%= IsLDAP ? Resource.Login : Resource.Email %>:</span> 
-                       <% if (IsLDAP)
-                       { %>
-                            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'LoginEmailInfo'});"></div>
-                            <div class="popup_helper" id="LoginEmailInfo">
-                                <p>
-                                    <%= Resource.LoginDescription %>
-                                </p>
-                            </div>
-                     <% } %>
+                    <span class="requiredTitle"><%= Resource.Email %>:</span> 
                 </td>
                 <td class="userdata-value requiredField">
-                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && (!(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) || (IsLDAP || IsSSO)) ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %> />
+                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (IsSSO ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : "") %> />
                 </td>
             </tr>
             <%--Department--%>
@@ -212,7 +218,7 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("WorkFromDate").HtmlEncode() %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profileRegistrationDate" class="textCalendar textEditCalendar" value="<%= GetWorkFromDate() %>" data-value="<%= GetWorkFromDate() %>" />
+                    <input type="text" id="profileRegistrationDate" class="textCalendar textEditCalendar" value="<%= GetWorkFromDate() %>" data-value="<%= GetWorkFromDate() %>" <%= IsPageEditProfileFlag && !IsAdmin() ? "disabled" : "" %> />
                     <span class="requiredErrorText"><%= Resource.ErrorNotCorrectDate %></span>
                 </td>
             </tr>

@@ -24,7 +24,7 @@
         <div class="headerPanelSmall-splitter requiredField">
             <span class="requiredErrorText"></span>
             <div class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.FormInvoiceItemPrice %>:</div>
-            <input type="text" class="textEdit invoiceItemPrice"  maxlength="10" value="" />
+            <input type="text" class="textEdit invoiceItemPrice"  maxlength="11" value="" />
             <span class="splitter"></span>
             <span class="invoiceItemCurrency"></span>
             <div class="HelpCenterSwitcher" id="itemCurrencyHelpSwitcher"></div>

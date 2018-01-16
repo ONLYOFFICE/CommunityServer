@@ -31,15 +31,14 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
 using ASC.Core.Common.Settings;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core.Users
 {
     [Serializable]
     [DataContract]
-    public class PeopleNamesSettings : ISettings
+    public class PeopleNamesSettings : BaseSettings<PeopleNamesSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("47F34957-6A70-4236-9681-C8281FB762FA"); }
         }
@@ -51,7 +50,7 @@ namespace ASC.Web.Studio.Core.Users
         [DataMember(Name = "ItemId")]
         public string ItemID { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new PeopleNamesSettings { ItemID = PeopleNamesItem.DefaultID };
         }
@@ -187,7 +186,7 @@ namespace ASC.Web.Studio.Core.Users
         {
             get
             {
-                var settings = SettingsManager.Instance.LoadSettings<PeopleNamesSettings>(TenantProvider.CurrentTenantID);
+                var settings = PeopleNamesSettings.Load();
                 return PeopleNamesItem.CustomID.Equals(settings.ItemID, StringComparison.InvariantCultureIgnoreCase) && settings.Item != null ?
                     settings.Item :
                     GetPeopleNames(settings.ItemID);
@@ -219,7 +218,7 @@ namespace ASC.Web.Studio.Core.Users
         {
             if (PeopleNamesItem.CustomID.Equals(schemaId, StringComparison.InvariantCultureIgnoreCase))
             {
-                var settings = SettingsManager.Instance.LoadSettings<PeopleNamesSettings>(TenantProvider.CurrentTenantID);
+                var settings = PeopleNamesSettings.Load();
                 return settings.Item ??
                     new PeopleNamesItem
                     {
@@ -244,18 +243,18 @@ namespace ASC.Web.Studio.Core.Users
 
         public static void SetPeopleNames(string schemaId)
         {
-            var settings = SettingsManager.Instance.LoadSettings<PeopleNamesSettings>(TenantProvider.CurrentTenantID);
+            var settings = PeopleNamesSettings.Load();
             settings.ItemID = schemaId;
-            SettingsManager.Instance.SaveSettings<PeopleNamesSettings>(settings, TenantProvider.CurrentTenantID);
+            settings.Save();
         }
 
         public static void SetPeopleNames(PeopleNamesItem custom)
         {
-            var settings = SettingsManager.Instance.LoadSettings<PeopleNamesSettings>(TenantProvider.CurrentTenantID);
+            var settings = PeopleNamesSettings.Load();
             custom.Id = PeopleNamesItem.CustomID;
             settings.ItemID = PeopleNamesItem.CustomID;
             settings.Item = custom;
-            SettingsManager.Instance.SaveSettings<PeopleNamesSettings>(settings, TenantProvider.CurrentTenantID);
+            settings.Save();
         }
 
 

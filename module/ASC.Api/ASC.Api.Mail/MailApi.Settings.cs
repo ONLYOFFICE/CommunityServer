@@ -40,7 +40,7 @@ namespace ASC.Api.Mail
         [Read(@"settings")]
         public MailCommonSettings GetCommonSettings()
         {
-            var commonSettings = MailCommonSettings.GetSettings();
+            var commonSettings = MailCommonSettings.LoadForCurrentUser();
             return commonSettings;
         }
 

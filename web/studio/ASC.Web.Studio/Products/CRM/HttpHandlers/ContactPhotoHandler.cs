@@ -112,7 +112,7 @@ namespace ASC.Web.CRM.Classes
             if (contact != null)
             {
                 var messageAction = contact is Company ? MessageAction.CompanyUpdatedPhoto : MessageAction.PersonUpdatedPhoto;
-                MessageService.Send(context.Request, messageAction, contact.GetTitle());
+                MessageService.Send(context.Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
             }
 
             return fileUploadResult;

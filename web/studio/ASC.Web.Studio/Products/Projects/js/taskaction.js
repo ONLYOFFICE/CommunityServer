@@ -589,6 +589,7 @@ ASC.Projects.TaskAction = (function () {
         teamWithoutVisitors = common.excludeVisitors(team);
         teamWithoutVisitors = common.removeBlockedUsersFromTeam(teamWithoutVisitors);
 
+        $listTaskResponsibles.empty();
         $taskResponsiblesSelector.advancedSelector("reset");
         $taskResponsiblesSelector.advancedSelector("rewriteItemList", teamWithoutVisitors.map(
             function (item) {

@@ -89,44 +89,95 @@
         <% if (DisplayModuleList)
            { %>
             <div id="studio_productListPopupPanel" class="studio-action-panel modules">
-                <ul class="dropdown-content">
-                    <asp:Repeater runat="server" ID="_productRepeater">
-                        <ItemTemplate>
-                            <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
-                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
-                                     <span class="dropdown-item-icon"></span>
-                                    <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
-                                </a>
-                            </li>
-                        </ItemTemplate>
-                    </asp:Repeater>
+                <div class="wrapper">
+                    <div class="columns">
 
-                    <% if (CurrentUser != null && !CurrentUser.IsOutsider())
-                       { %>
-                    <li class="dropdown-item-seporator"></li>
-                    <asp:Repeater runat="server" ID="_addonRepeater">
-                        <ItemTemplate>
-                            <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
-                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
-                                    <span class="dropdown-item-icon"></span>
-                                    <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
-                                </a>
-                            </li>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                    <li class="feed"><a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item <%= "feed" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"></span><%= UserControlsCommonResource.FeedTitle %></a></li>
-                    <% } %>
+                        <div class="tile main-nav-items">
+                            <ul class="dropdown-content">
+                                <% foreach (var item in Modules) { %>
+                                <li class="<%= item.ProductClassName + (item.IsDisabled() ? " display-none" : string.Empty) %>">
+                                    <a href="<%= VirtualPathUtility.ToAbsolute(item.StartURL) %>" class="dropdown-item menu-products-item <%= item.ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                        <span class="dropdown-item-icon"></span>
+                                        <%= item.Name.HtmlEncode() %>
+                                    </a>
+                                </li>
+                                <% } %>
+                                <% if (CurrentUser != null && !CurrentUser.IsOutsider()) { %>
+                                <% foreach (var item in Addons) { %>
+                                <li class="<%= item.ProductClassName + (item.IsDisabled() ? " display-none" : string.Empty) %>">
+                                    <a href="<%= VirtualPathUtility.ToAbsolute(item.StartURL) %>" class="dropdown-item menu-products-item <%= item.ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                        <span class="dropdown-item-icon"></span>
+                                        <%= item.Name.HtmlEncode() %>
+                                    </a>
+                                </li>
+                                <% } %>
+                                <li class="feed">
+                                    <a href="<%= VirtualPathUtility.ToAbsolute("~/feed.aspx") %>" class="dropdown-item menu-products-item <%= "feed" == CurrentProductClassName ? "active" : "" %>">
+                                        <span class="dropdown-item-icon"></span>
+                                        <%= UserControlsCommonResource.FeedTitle %>
+                                    </a>
+                                </li>
+                                <% } %>
+                            </ul>           
+                        </div>
 
-                    <% if (IsAdministrator)
-                       { %>
-                        <li class="dropdown-item-seporator"></li>
-                        <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item <%= "settings" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"></span><%= Resource.Administration %></a></li>
-                    <% } %>
-                    <% if (!DisableTariff)
-                       { %>
-                        <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item"><span class="dropdown-item-icon"></span><%= Resource.TariffSettings %></a></li>
-                    <% } %>
-                </ul>
+                        <div class="tile custom-nav-items">
+                            <ul class="dropdown-content">
+                                <% foreach (var item in CustomModules) { %>
+                                <li class="<%= item.ProductClassName + (item.IsDisabled() ? " display-none" : string.Empty) %>">
+                                    <a href="<%= VirtualPathUtility.ToAbsolute(item.StartURL) %>" class="dropdown-item menu-products-item <%= item.ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                        <span class="dropdown-item-icon"></span>
+                                        <%= item.Name.HtmlEncode() %>
+                                    </a>
+                                </li>
+                                <% } %>
+                                <% foreach (var item in CustomNavigationItems) { %>
+                                <li id="topNavCustomItem_<%= item.Id %>">
+                                    <a href="<%= item.Url.HtmlEncode() %>" target="_blank" class="dropdown-item menu-products-item">
+                                        <span class="dropdown-item-icon" style="background: url('<%= item.SmallImg %>')"></span>
+                                        <%= item.Label.HtmlEncode() %>
+                                    </a>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div>
+
+                        <% if (IsAdministrator || AuthServiceList.Any() || !DisableTariff) { %>
+                        <div class="tile spec-nav-items">
+                            <ul class="dropdown-content">
+                                <% if (IsAdministrator) { %>
+                                <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item <%= "settings" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"></span><%= Resource.Administration %></a></li>
+                                <li class="apps"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) %>" title="<%= Resource.Apps %>" class="dropdown-item menu-products-item <%= "apps" == CurrentProductClassName ? "active" : "" %>"><span class="dropdown-item-icon"></span><%= Resource.Apps %></a></li>
+                                <% } else if (AuthServiceList.Any()) { %>
+                                <li class="apps">
+                                    <a title="<%= Resource.Apps %>" class="dropdown-item menu-products-item"><span class="dropdown-item-icon"></span><%= Resource.Apps %></a>
+                                    <div id="appsPopupBody" class="display-none">
+                                        <p>
+                                            <%= Resource.AppsDescription %><br>
+                                            <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink())) { %>
+                                            <%= string.Format(Resource.AppsDescriptionHelp, "<a href=\"" + CommonLinkUtility.GetHelpLink() + "/server/windows/community/authorization-keys.aspx\" class=\"link underline\" target=\"_blank\">", "</a>") %>
+                                            <% } %>
+                                        </p>
+                                        <div class="apps-list">
+                                        <% foreach (var service in AuthServiceList) { %>
+                                        <img src="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".png") %>" alt="<%= service.Title %>" />
+                                        <% } %>
+                                        </div>
+                                        <div class="small-button-container">
+                                            <a class="button gray middle" onclick="jq.unblockUI();"><%= Resource.OKButton %></a>        
+                                        </div>
+                                    </div>
+                                </li>
+                                <% } %>
+                                <% if (!DisableTariff) { %>
+                                <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item"><span class="dropdown-item-icon"></span><%= Resource.TariffSettings %></a></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <% } %>
+
+                    </div>
+                </div>
             </div>
         <% } %>
     </asp:PlaceHolder>
@@ -258,10 +309,7 @@
                 <% } %>
 
                 <%--Logout--%>
-                <% if (!(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone)) { %>
-                <li><a class="dropdown-item" href="<%= CommonLinkUtility.Logout %>">
-                        <%= UserControlsCommonResource.LogoutButton %></a></li>
-                <% } %>
+                <li id="logout_ref"><a class="dropdown-item" href="<%= CommonLinkUtility.Logout %>"><%= UserControlsCommonResource.LogoutButton %></a></li>
             </ul>
         </div>
     <% } %>

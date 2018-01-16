@@ -101,10 +101,7 @@ namespace ASC.Core
             }
             if (t == null && CoreContext.Configuration.Standalone && !isAlias)
             {
-                t = GetTenants()
-                    .OrderBy(a => a.Status)
-                    .ThenByDescending(a => a.TenantId)
-                    .FirstOrDefault();
+                t = tenantService.GetTenantForStandaloneWithoutAlias(domain);
             }
             return t;
         }

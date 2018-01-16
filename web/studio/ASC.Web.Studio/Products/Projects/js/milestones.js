@@ -48,8 +48,6 @@ ASC.Projects.AllMilestones = (function () {
 
     var clickEventName = "click",
         clickMilestoneInit = clickEventName + ".milestonesInit",
-        mouseenterEventName = "mouseenter",
-        mouseleaveEventName = "mouseleave",
         projectsMilestoneTemplateName = "projects_milestoneTemplate",
         entityMenuClassName = ".entity-menu";
     var teamlab, loadingBanner;
@@ -71,6 +69,17 @@ ASC.Projects.AllMilestones = (function () {
                 return prj.canCreateMilestone && prj.status === 0;
             }
 
+            var actions = [
+                {
+                    id: "gaDelete",
+                    title: resources.CommonResource.Delete,
+                    handler: gaRemoveHandler,
+                    checker: function(milestone) {
+                        return milestone.canDelete;
+                    }
+                }
+            ];
+
             self.showOrHideData = self.showOrHideData.bind(self, {
                 $container: $milestoneList.find("tbody"),
                 tmplName: projectsMilestoneTemplateName,
@@ -91,6 +100,10 @@ ASC.Projects.AllMilestones = (function () {
                 filterEmptyScreen: {
                     header: resources.MilestoneResource.FilterNoMilestones,
                     description: resources.MilestoneResource.DescrEmptyListMilFilter
+                },
+                groupMenu: {
+                    actions: actions,
+                    getItemByCheckbox: getMilestoneByTarget
                 }
             });
             self.getData = self.getData.bind(self, teamlab.getPrjMilestones, onGetMilestones);
@@ -107,9 +120,10 @@ ASC.Projects.AllMilestones = (function () {
             },
             {
                 handler: changeStatusHandler,
+                getItem: getMilestoneByTarget,
                 statuses: [
-                    { cssClass: "open", text: projectsJsResource.StatusOpenMilestone },
-                    { cssClass: "closed", text: projectsJsResource.StatusClosedMilestone }
+                    { cssClass: "open", text: projectsJsResource.StatusOpenMilestone, id: 0 },
+                    { cssClass: "closed", text: projectsJsResource.StatusClosedMilestone, id: 1 }
                 ]
             },
             showEntityMenu,
@@ -117,32 +131,30 @@ ASC.Projects.AllMilestones = (function () {
                 eventConstructor(events.addPrjTask, onAddTask),
                 eventConstructor(events.addPrjMilestone, onAddMilestone),
                 eventConstructor(events.updatePrjMilestone, onUpdateMilestone),
+                eventConstructor(events.removePrjMilestone, onDeleteMilestone),
                 eventConstructor(events.updatePrjMilestoneStatus, onUpdateMilestoneStatus),
                 eventConstructor(events.getPrjProject, function (params, project) { currentProject = project; })
-            ]
+            ],
+            {
+                getItem: getMilestoneByTarget,
+                selector: 'tr .title a'
+            }
         );
 
         filter.createAdvansedFilterForMilestones(self);
 
         // Events
 
-        $milestoneList.on(mouseenterEventName, 'tr .title a', function (event) {
-            var $targetObject = jq(event.target);
-            self.showDescPanel(getMilestoneByTarget($targetObject), $targetObject);
-        });
-
-        $milestoneList.on(mouseleaveEventName, 'tr .title a', function () {
-            self.hideDescrPanel(false);
-        });
-
         $milestoneList.on(clickEventName, "td.responsible span", function () {
             var milestone = getMilestoneByTarget(jq(this));
             filter.addUser('responsible_for_milestone', milestone.responsibleId, ['user_tasks']);
         });
+
+        $milestoneList.on(clickEventName, "td.activeTasksCount a, td.closedTasksCount a", baseObject.Common.goToWithoutReload);
     };
 
     function changeStatusHandler(id, status) {
-        if (status === "closed") {
+        if (status === 1) {
             var milestone = getMilestoneById(id);
             if (milestone && milestone.activeTasksCount) {
                 showQuestionWindow(id);
@@ -184,8 +196,28 @@ ASC.Projects.AllMilestones = (function () {
         ASC.Projects.TaskAction.showCreateNewTaskForm(taskParams);
     }
 
-    function removeMilestoneActionHandler(milestoneId) {
-        showQuestionWindowMilestoneRemove(milestoneId);
+    function maRemoveHandler(milestoneId) {
+        self.showCommonPopup("milestoneRemoveWarning", function () {
+            loadingBanner.displayLoading();
+            teamlab.removePrjMilestone(milestoneId);
+            jq.unblockUI();
+        });
+    }
+
+    function gaRemoveHandler(milestoneids) {
+        self.showCommonPopup("milestonesRemoveWarning", function () {
+            loadingBanner.displayLoading();
+            teamlab.removePrjMilestones({ ids: milestoneids }, {
+                success: function (params, data) {
+                    for (var i = 0; i < data.length; i++) {
+                        teamlab.call(teamlab.events.removePrjMilestone, this, [{ disableMessage: true }, data[i]]);
+                    }
+                    loadingBanner.hideLoading();
+                    common.displayInfoPanel(projectsJsResource.MilestonesRemoved);
+                }
+            });
+            jq.unblockUI();
+        });
     }
 
     var getMilestoneTasksLink = function (prjId, milestoneId, status) {
@@ -236,13 +268,8 @@ ASC.Projects.AllMilestones = (function () {
         }
 
         var today = new Date();
-        var status = milestone.status == 0
-            ? today < milestone.deadline
-                ? 'active'
-                : 'overdue'
-            : 'closed';
-
-        template.status = status;
+        template.overdue = milestone.status === 0 && today >= milestone.deadline;
+        template.status = milestone.status;
         template.deadline = milestone.displayDateDeadline;
 
         return template;
@@ -252,14 +279,6 @@ ASC.Projects.AllMilestones = (function () {
         self.showCommonPopup("closeMilestoneWithOpenTasks", function () {
             var milestone = getMilestoneById(milestoneId);
             location.href = 'tasks.aspx?prjID=' + milestone.projectId + '#milestone=' + milestoneId + '&status=open';
-        });
-    };
-
-    function showQuestionWindowMilestoneRemove(milestoneId) {
-        self.showCommonPopup("milestoneRemoveWarning", function () {
-            loadingBanner.displayLoading();
-            teamlab.removePrjMilestone({}, milestoneId, { success: onDeleteMilestone });
-            jq.unblockUI();
         });
     };
 
@@ -276,7 +295,7 @@ ASC.Projects.AllMilestones = (function () {
         }
 
         if (milestone.canDelete) {
-            menuItems.push(new ActionMenuItem("removeMilestoneButton", resources.CommonResource.Delete, removeMilestoneActionHandler.bind(null, milestoneId)));
+            menuItems.push(new ActionMenuItem("removeMilestoneButton", resources.CommonResource.Delete, maRemoveHandler.bind(null, milestoneId)));
         }
 
         return { menuItems: menuItems };
@@ -323,6 +342,7 @@ ASC.Projects.AllMilestones = (function () {
     };
 
     function onUpdateMilestoneStatus(params, milestone) {
+        baseObject.GroupActionPanel.deselectAll();
         common.changeMilestoneCountInProjectsCache(milestone, 1);
         onUpdateMilestone(params, milestone);
     }
@@ -335,7 +355,7 @@ ASC.Projects.AllMilestones = (function () {
         }
     };
 
-    var onDeleteMilestone = function (params, milestone) {
+    function onDeleteMilestone(params, milestone) {
         var milestoneId = milestone.id;
         var removedMilestone = $milestoneList.find("#" + milestoneId);
         removedMilestone.yellowFade();
@@ -346,7 +366,6 @@ ASC.Projects.AllMilestones = (function () {
         pageNavigator.update(filterMilestoneCount);
 
         if ($milestoneListBody.children("tr").length === 0) {
-            self.hideDescrPanel(false);
             pageNavigator.hide();
 
             self.showOrHideData([], filterMilestoneCount);
@@ -356,7 +375,9 @@ ASC.Projects.AllMilestones = (function () {
         });
 
         loadingBanner.hideLoading();
-        common.displayInfoPanel(projectsJsResource.MilestoneRemoved);
+        if (!params || !params.disableMessage) {
+            common.displayInfoPanel(projectsJsResource.MilestoneRemoved);
+        }
         common.changeMilestoneCountInProjectsCache(milestone, 2);
     };
 
@@ -381,7 +402,7 @@ ASC.Projects.AllMilestones = (function () {
     };
 
     function getMilestoneByTarget($targetObject) {
-        return getMilestoneById($targetObject.parents("#milestonesList tr").attr("id"));
+        return getMilestoneById(jq($targetObject).parents("#milestonesList tr").attr("id"));
     }
 
     function getMilestoneById(id) {

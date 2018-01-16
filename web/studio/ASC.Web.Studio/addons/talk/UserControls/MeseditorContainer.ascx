@@ -9,6 +9,7 @@
         <ul class="textareas">
             <li class="textarea default">
                 <iframe src="about:blank"></iframe>
+                <div class="meseditorContainerPlaceholder"><%=TalkResource.WriteMessage%></div>
             </li>
         </ul>
     </div>
@@ -61,10 +62,10 @@
             </div>
             <div class="button-container send-file my display-none" id="talkFileUploader" title="<%=TalkResource.HintSendFile%>" unselectable="on">
             </div>
-            <div class="button-container searchmessage my" title="">
+            <!--<div class="button-container searchmessage my" title="">
                     <div class="button-talk searchmessage my"></div>
              </div>
-           <!-- <asp:PlaceHolder ID="talkHistoryButton" runat="server">
+            <asp:PlaceHolder ID="talkHistoryButton" runat="server">
                 <div class="button-container history my" title="<%=TalkResource.HintHistory%>" unselectable="on">
                     <div class="button-talk history my" unselectable="on"></div>
                 </div>
@@ -87,17 +88,6 @@
                 <div class="button-talk remove-mailing" title="<%=TalkResource.BtnRemoveMailing%>" unselectable="on"></div>
             </div> -->
 
-            <div id="removeMailing" class="button-container remove-mailing">
-                <div class="button gray" ><%=TalkResource.BtnRemoveMailing%>
-                <div class="button-talk remove-mailing"></div></div>
-            </div>
-
-            <div id="removeRoom" class="button-container remove-conference">
-                <div class="button gray" ><%=TalkResource.BtnRemoveConference%>
-                <div class="button-talk remove-conference"></div></div>
-            </div>
-            
-              
            <!-- <div class="button-container remove-conference">
                 <div class="left-side"></div>
                 <div class="right-side"></div>
@@ -122,9 +112,10 @@
             <div class="left-side"></div>
             <div class="right-side"></div>
             
-            <div class="button gray" ><%=TalkResource.LabelSend%>             
+            <div class="button blue" ><%=TalkResource.LabelSend%>             
             <div class="button-talk send-message" unselectable="on"></div></div>
         </div>
 
     </div>
+    <div style="clear: both;"></div>
 </div>

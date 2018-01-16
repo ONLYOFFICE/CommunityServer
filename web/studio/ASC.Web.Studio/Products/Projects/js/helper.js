@@ -233,7 +233,7 @@ ASC.Projects.InfoContainer = (function () {
         $projectInfoContainer.show();
     }
     var updateTitle = function(title) {
-        $projectInfoContainer.find("#essenceTitle").attr("title", title).val(title);
+        $projectInfoContainer.find("#essenceTitle").attr("title", title).text(title);
     }
     return { init: init, updateTitle: updateTitle };
 })();
@@ -250,7 +250,23 @@ ASC.Projects.DescriptionPanel = (function() {
         timeout,
         clickEvent = "click";
 
-    function init($commonListContainer, filter) {
+    function init($commonListContainer, filter, settings) {
+        if (!settings) return;
+
+        tmpl($commonListContainer, filter);
+
+        $commonListContainer.on('mouseenter', settings.selector, function (event) {
+            var $targetObject = jq(event.target);
+            var item = settings.getItem(event.target);
+            show(item, $targetObject, settings.getLink ? settings.getLink(item) : undefined);
+        });
+
+        $commonListContainer.on('mouseleave', settings.selector, function () {
+            hide(false);
+        });
+    }
+
+    function tmpl($commonListContainer, filter) {
         if ($panel) return;
         $commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "descrPanel" })); // description panel
         $panel = jq("#descrPanel");
@@ -364,7 +380,6 @@ ASC.Projects.DescriptionPanel = (function() {
 
     return {
         init: init,
-        show: show,
         hide: hide
     };
 })();
@@ -393,4 +408,303 @@ ASC.Projects.EventBinder = (function () {
         bind: bind,
         unbind: unbind
     }
+})();
+
+ASC.Projects.GroupActionPanel = (function () {
+    var $groupActionContainer,
+        $groupActionMenu,
+        $selectAll,
+        $container,
+        countChecked = 0;
+
+   var tmpl = "projects_groupActionMenu",
+        $counterSelectedItems;
+    var checkedAttr = "checked",
+        checkedRowClass = "checked-row",
+        menuActionOnTopClass = ".menu-action-on-top",
+        withCheckbox = ".with-checkbox",
+        changeEvent = "change",
+        clickEvent = "click",
+        unlockAction = "unlockAction",
+        indeterminate = "indeterminate",
+        currentActions,
+        currentGetItemByCheckbox;
+
+    function init(settings, $c) {
+        $container = $c;
+        currentActions = settings.actions;
+        countChecked = 0;
+        currentGetItemByCheckbox = settings.getItemByCheckbox;
+
+        if ($groupActionMenu) {
+            $groupActionMenu.remove();
+        }
+
+        $groupActionContainer = jq("#groupActionContainer");
+        $groupActionContainer.append(jq.tmpl(tmpl, settings));
+        $groupActionMenu = jq("#groupActionMenu");
+
+        for (var i = currentActions.length - 1; i >= 0; i--) {
+            var actionsHandler = function(actionsItem) {
+                return function () {
+                    if (!jq(this).hasClass(unlockAction)) return;
+                    actionsItem.handler(getCheckedItems().map(function (item) {return item.id; }));
+                };
+            }(currentActions[i]);
+
+            jq("#" + currentActions[i].id).on("click", actionsHandler);
+        }
+
+        $counterSelectedItems = $groupActionMenu ? $groupActionMenu.find(".menu-action-checked-count") : [];
+
+        if ($groupActionMenu) {
+            var options = {
+                menuSelector: "#groupActionMenu",
+                menuAnchorSelector: "#selectAll",
+                menuSpacerSelector: "#CommonListContainer .header-menu-spacer",
+                userFuncInTop: function () { $groupActionMenu.find(menuActionOnTopClass).hide(); },
+                userFuncNotInTop: function () { $groupActionMenu.find(menuActionOnTopClass).show(); }
+            };
+            ScrolledGroupMenu.init(options);
+
+            $selectAll = jq("#selectAll");
+
+            $selectAll.off(changeEvent).on(changeEvent, function () {
+                jq("#groupActionMenuSelector").hide();
+                var $checkboxes = $container.find(".checkbox input");
+                var $rows = $container.find("tr");
+
+                if ($selectAll.is(":" + checkedAttr) && countChecked === 0) {
+                    countChecked = $checkboxes.length;
+                    $checkboxes.each(function (id, item) { item.checked = true; });
+                    $rows.addClass(checkedRowClass);
+                    unlockActionButtons();
+                    changeSelectedItemsCounter();
+                } else {
+                    deselectAll();
+                }
+
+                return false;
+            });
+
+            jq("#deselectAll").off(clickEvent).on(clickEvent, function () {
+                deselectAll();
+            });
+        }
+
+        $container.off(changeEvent + ".ga").on(changeEvent + ".ga", ".checkbox input", onCheck);
+
+        var multiSelector = settings.multiSelector;
+        if (multiSelector) {
+            jq.dropdownToggle(
+                {
+                    switcherSelector: "#groupActionContainer .menuActionSelectAll",
+                    dropdownID: "groupActionMenuSelector",
+                    anchorSelector: ".menuActionSelectAll",
+                    position: "fixed",
+                    simpleToggle: true
+                });
+
+            for (var j = multiSelector.length - 1; j >= 0; j--) {
+                var groupSelectorActionsHandler = function (actionsItem) {
+                    return function () {
+                        deselectAll();
+                        var line = settings.getLineByCondition(actionsItem.condition);
+                        line.forEach(function ($line) {
+                            var $checkBox = $line.find(".checkbox input[type='checkbox']");
+                            $checkBox.prop("checked", "checked");
+                            onCheck.call($checkBox);
+                        });
+                    };
+                }(multiSelector[j]);
+
+                jq("#" + multiSelector[j].id).on("click", groupSelectorActionsHandler);
+            }
+        }
+    };
+
+    function onCheck() {
+        var $input = jq(this);
+        var allCounts = $container.find(".checkbox input").length;
+
+        if ($input.is(":" + checkedAttr)) {
+            countChecked++;
+            $input.parents(withCheckbox).addClass(checkedRowClass);
+
+            if (countChecked === allCounts) {
+                $selectAll.prop(checkedAttr, true);
+            }
+
+        } else {
+            countChecked--;
+            $input.parents(withCheckbox).removeClass(checkedRowClass);
+            $selectAll.prop(checkedAttr, false);
+        }
+
+        if (countChecked > 0) {
+            unlockActionButtons();
+        } else {
+            lockActionButtons();
+        }
+
+        $selectAll.prop(indeterminate, countChecked > 0 && !$selectAll.prop(checkedAttr));
+
+        changeSelectedItemsCounter();
+    }
+
+    function deselectAll() {
+        var $checkboxes = $container.find(".checkbox input"),
+            $rows = $container.find("tr");
+
+        countChecked = 0;
+        $checkboxes.each(function (id, item) { item.checked = false; });
+        $rows.removeClass(checkedRowClass);
+        lockActionButtons();
+        changeSelectedItemsCounter();
+        $selectAll.prop(indeterminate, false);
+        $selectAll.prop(checkedAttr, false);
+    }
+
+    function changeSelectedItemsCounter() {
+        if (countChecked > 0) {
+            $counterSelectedItems.show();
+            $counterSelectedItems.find("span").text(countChecked + " " + ASC.Projects.Resources.ProjectsJSResource.GroupMenuSelectedItems);
+        } else {
+            $counterSelectedItems.hide();
+        }
+    };
+
+    function unlockActionButtons() {
+        var items = getCheckedItems();
+
+        for (var j = currentActions.length; j--;) {
+            var action = currentActions[j];
+            if (items.every(action.checker)) {
+                jq("#" + action.id).addClass(unlockAction);
+            } else {
+                jq("#" + action.id).removeClass(unlockAction);
+            }
+        }
+    };
+
+    function getCheckedItems() {
+        var $checkboxes = $container.find(".checkbox input:checked").toArray();
+        return $checkboxes.map(currentGetItemByCheckbox);
+    }
+
+    function lockActionButtons() {
+        for (var j = currentActions.length; j --;) {
+            var action = currentActions[j];
+            jq("#" + action.id).removeClass(unlockAction);
+        }
+    };
+
+    function hide() {
+        if ($groupActionContainer) {
+            $groupActionContainer.hide();
+        }
+    }
+
+    return {
+        init: init,
+        hide: hide,
+        deselectAll: deselectAll
+    };
+})();
+
+ASC.Projects.StatusList = (function () {
+    var clickEvent = "click",
+        statusComboboxClass = ".changeStatusCombobox.canEdit",
+        currentListStatusObjid,
+        activeClass = "active";
+
+    var currentSettings;
+
+    var $statusListContainer, $commonListContainer;
+
+    function init(settings, $clc) {
+        if (!settings) return;
+
+        currentSettings = settings;
+        var panelId = "#statusChangePanel";
+
+        $commonListContainer = $clc;
+
+        jq(panelId).remove();
+        $commonListContainer.append(jq.tmpl("projects_statusChangePanel", settings));
+        $statusListContainer = jq(panelId);
+
+        $commonListContainer.on(clickEvent, statusComboboxClass, show);
+
+        for (var i = 0; i < settings.statuses.length; i++) {
+
+            var handler = function(statusItemId) {
+                return function() {
+                    currentSettings.handler(currentListStatusObjid, statusItemId);
+                };
+            }(settings.statuses[i].id);
+
+            jq("#statusItem_" + settings.statuses[i].id).on("click", handler);
+        }
+
+        jq('body')
+            .off("click.body3")
+            .on("click.body3", function() {
+                 setTimeout(function() {
+                      hide();
+                 }, 1);
+            });
+    };
+
+
+    function show() {
+        var item = currentSettings.getItem(this);
+        var isVisible = $statusListContainer.is(":visible");
+        var $obj = jq(this);
+
+        var objid = item.id,
+            status = typeof item.status !== "undefined" ? item.status : item.paymentStatus,
+            offset = $obj.offset();
+
+        hide();
+
+        if (currentListStatusObjid === objid && isVisible) {
+            return;
+        }
+
+        currentListStatusObjid = objid;
+
+        $obj.addClass('selected');
+
+        $statusListContainer.css(
+        {
+            left: offset.left,
+            top: offset.top + 28
+        });
+
+
+        $statusListContainer.find('li').show().removeClass(activeClass);
+        $statusListContainer.find('#statusItem_' + status).addClass(activeClass);
+        if (status === 1) {
+            $statusListContainer.find('.paused').hide();
+        }
+
+        $statusListContainer.show();
+        return false;
+    };
+
+    function hide() {
+        if ($statusListContainer) {
+            $statusListContainer.hide();
+        }
+        $commonListContainer.find(statusComboboxClass).removeClass("selected");
+    }
+
+    function getById(id) {
+        return currentSettings.statuses.find(function(item) {
+            return id === item.id;
+        });
+    }
+
+    return { init: init, getById: getById };
 })();

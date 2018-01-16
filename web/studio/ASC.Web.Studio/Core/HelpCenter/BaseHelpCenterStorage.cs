@@ -32,22 +32,18 @@ namespace ASC.Web.Studio.Core.HelpCenter
         private static readonly WorkerQueue<HelpCenterRequest> Tasks;
         private static readonly object LockObj;
         private static readonly bool DownloadEnabled;
-        private static bool stopRequesting;
-        private static readonly ILog Log = LogManager.GetLogger("ASC.Web.HelpCenter");
 
         static HelpDownloader()
         {
             Tasks = new WorkerQueue<HelpCenterRequest>(1, TimeSpan.FromSeconds(60), 1, true);
             LockObj = new object();
-            if (
-                !bool.TryParse(WebConfigurationManager.AppSettings["web.help-center.download"] ?? "false",
-                    out DownloadEnabled))
+            if (!bool.TryParse(WebConfigurationManager.AppSettings["web.help-center.download"] ?? "false", out DownloadEnabled))
             {
                 DownloadEnabled = false;
             }
         }
 
-        public static void Make(HelpCenterRequest request, Action<HelpCenterRequest, string> starter)
+        public static void Make(HelpCenterRequest request)
         {
             if (!DownloadEnabled) return;
 
@@ -59,63 +55,13 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
                 if (!Tasks.IsStarted)
                 {
-                    Tasks.Start(r =>
-                    {
-                        var html = SendRequest(r.Url);
-                        starter(r, html);
-                    });
+                    Tasks.Start(r => r.SendRequest());
                 }
             }
-        }
-
-        private static string SendRequest(string url)
-        {
-            if (stopRequesting) return string.Empty;
-            try
-            {
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
-
-                httpWebRequest.AllowAutoRedirect = false;
-                httpWebRequest.Timeout = 15000;
-                httpWebRequest.Method = "GET";
-                httpWebRequest.Headers["Accept-Language"] = "en"; // get correct en lang
-
-                var countTry = 0;
-                const int maxTry = 3;
-                while (countTry < maxTry)
-                {
-                    try
-                    {
-                        countTry++;
-                        using (var httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse())
-                        using (var stream = httpWebResponse.GetResponseStream())
-                        using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet))
-                            )
-                        {
-                            return reader.ReadToEnd();
-                        }
-                    }
-                    catch (WebException ex)
-                    {
-                        if (ex.Status != WebExceptionStatus.Timeout)
-                        {
-                            throw;
-                        }
-                    }
-                }
-
-                stopRequesting = true;
-                throw new WebException("Timeout " + maxTry, WebExceptionStatus.Timeout);
-            }
-            catch (Exception e)
-            {
-                Log.Error(string.Format("HelpCenter is not avaliable by url {0}", url), e);
-            }
-            return string.Empty;
         }
     }
 
-    public class BaseHelpCenterStorage<T> : IDisposable where T : BaseHelpCenterData, new()
+    public class BaseHelpCenterStorage<T> where T : BaseHelpCenterData, new()
     {
         private static Dictionary<string, T> data = new Dictionary<string, T>();
         const string BaseStoragePath = "/App_Data/static/helpcenter/";
@@ -123,21 +69,13 @@ namespace ASC.Web.Studio.Core.HelpCenter
         private string FilePath { get; set; }
         private string CacheKey { get; set; }
 
-        private readonly ICache cache = AscCache.Memory;
-        private readonly TimeSpan expirationTimeout = TimeSpan.FromDays(1);
-        private HttpClient httpClient;
+        private static readonly ICache cache = AscCache.Memory;
+        private static readonly TimeSpan expirationTimeout = TimeSpan.FromDays(1);
 
         public BaseHelpCenterStorage(string basePath, string fileName, string cacheKey)
         {
             FilePath = Path.GetFullPath(Path.Combine(basePath + BaseStoragePath, fileName.TrimStart('/')));
             CacheKey = cacheKey;
-
-            var httpHandler = new HttpClientHandler
-            {
-                AllowAutoRedirect = false,
-                UseProxy = false
-            };
-            httpClient = new HttpClient(httpHandler) {Timeout = TimeSpan.FromMinutes(1)};
         }
 
         public T GetData(string baseUrl, string page, string helpLinkBlock)
@@ -146,14 +84,16 @@ namespace ASC.Web.Studio.Core.HelpCenter
             var helpCenterData = GetFromCacheOrFile(url);
             if (helpCenterData != null) return helpCenterData;
 
+            helpCenterData = new T { ResetCacheKey = ClientSettings.ResetCacheKey };
             var request = new HelpCenterRequest
             {
                 Url = url,
                 BaseUrl = baseUrl,
-                HelpLinkBlock = helpLinkBlock
+                HelpLinkBlock = helpLinkBlock,
+                Starter = (r, html) => InitAndCacheData(r, html, helpCenterData)
             };
 
-            HelpDownloader.Make(request, (r, html) => InitAndCacheData(r, html, ClientSettings.ResetCacheKey));
+            HelpDownloader.Make(request);
 
             return null;
         }
@@ -165,14 +105,15 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
             if (helpCenterData == null)
             {
+                helpCenterData = new T {ResetCacheKey = resetCacheKey};
                 var request = new HelpCenterRequest
                 {
                     Url = url,
                     BaseUrl = baseUrl,
-                    HelpLinkBlock = helpLinkBlock
+                    HelpLinkBlock = helpLinkBlock,
+                    Starter = (r, html) => InitAndCacheData(r, html, helpCenterData)
                 };
-                var html = await httpClient.GetStringAsync(url);
-                InitAndCacheData(request, html, resetCacheKey);
+                await request.SendRequestAsync();
             }
 
             return helpCenterData;
@@ -215,9 +156,8 @@ namespace ASC.Web.Studio.Core.HelpCenter
             return helpCenterData;
         }
 
-        private void InitAndCacheData(HelpCenterRequest request, string html, string resetCacheKey)
+        private void InitAndCacheData(HelpCenterRequest request, string html, T helpCenterData)
         {
-            var helpCenterData = new T {ResetCacheKey = resetCacheKey };
             helpCenterData.Init(html, request.HelpLinkBlock, request.BaseUrl);
 
             lock (data)
@@ -296,15 +236,6 @@ namespace ASC.Web.Studio.Core.HelpCenter
         {
             return cache.Get<Dictionary<string, T>>(CacheKey);
         }
-
-        public void Dispose()
-        {
-            if (httpClient != null)
-            {
-                httpClient.Dispose();
-                httpClient = null;
-            }
-        }
     }
 
     public class HelpCenterRequest
@@ -312,5 +243,73 @@ namespace ASC.Web.Studio.Core.HelpCenter
         public string Url { get; set; }
         public string HelpLinkBlock { get; set; }
         public string BaseUrl { get; set; }
+        public Action<HelpCenterRequest, string> Starter { get; set; }
+        private static bool stopRequesting;
+        private static readonly ILog Log = LogManager.GetLogger("ASC.Web.HelpCenter");
+
+        internal void SendRequest()
+        {
+            var result = string.Empty;
+            if (stopRequesting)
+            {
+                Starter(this, result);
+                return;
+            }
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
+
+                httpWebRequest.AllowAutoRedirect = false;
+                httpWebRequest.Timeout = 15000;
+                httpWebRequest.Method = "GET";
+                httpWebRequest.Headers["Accept-Language"] = "en"; // get correct en lang
+
+                var countTry = 0;
+                const int maxTry = 3;
+                while (countTry < maxTry)
+                {
+                    try
+                    {
+                        countTry++;
+                        using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                        using (var stream = httpWebResponse.GetResponseStream())
+                        using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
+                        {
+                            result = reader.ReadToEnd();
+                        }
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Status != WebExceptionStatus.Timeout)
+                        {
+                            throw;
+                        }
+                    }
+                }
+
+                stopRequesting = true;
+                throw new WebException("Timeout " + maxTry, WebExceptionStatus.Timeout);
+            }
+            catch (Exception e)
+            {
+                Log.Error(string.Format("HelpCenter is not avaliable by url {0}", Url), e);
+            }
+
+            Starter(this, result);
+        }
+
+        internal async Task SendRequestAsync()
+        {
+            var httpHandler = new HttpClientHandler
+            {
+                AllowAutoRedirect = false,
+                UseProxy = false
+            };
+            using (var httpClient = new HttpClient(httpHandler) {Timeout = TimeSpan.FromMinutes(1)})
+            {
+                var dataAsync = await httpClient.GetStringAsync(Url);
+                Starter(this, dataAsync);
+            }
+        }
     }
 }

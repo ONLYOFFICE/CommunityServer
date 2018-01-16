@@ -678,11 +678,8 @@ namespace ASC.Api.Mail
                 if (!emailExist)
                     throw new ArgumentException(String.Format("Account wasn't founded by email: {0}", email));
             }
-            var settings = new MailBoxAccountSettings
-            {
-                DefaultEmail = isDefault ? email : String.Empty
-            };
-            SettingsManager.Instance.SaveSettingsFor<MailBoxAccountSettings>(settings, SecurityContext.CurrentAccount.ID);
+
+            new MailBoxAccountSettings { DefaultEmail = isDefault ? email : String.Empty }.SaveForCurrentUser();
 
             return email;
         }
@@ -815,6 +812,17 @@ namespace ASC.Api.Mail
                           errorExplain);
 
             return errorText;
+        }
+
+        /// <summary>
+        /// UpdateUserActivity
+        /// </summary>
+        /// <param name="userOnline"></param>
+        /// <category>Accounts</category>
+        [Update(@"accounts/updateuseractivity")]
+        public void UpdateUserActivity(bool userOnline)
+        {
+            MailBoxManager.UpdateUserActivity(TenantId, Username, userOnline);
         }
     }
 }

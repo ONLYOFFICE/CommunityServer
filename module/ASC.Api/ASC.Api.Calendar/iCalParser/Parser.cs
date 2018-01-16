@@ -490,7 +490,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             else if (iprop != null && id.TokenVal != TokenValue.Xtension)
             {
-                if (iprop.TokenText.ToLower() == "uri")
+                if (iprop.TokenText.ToLowerInvariant() == "uri")
                 {
                     // special case 
                     emitter.doURIResource(val);

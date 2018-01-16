@@ -239,6 +239,13 @@ ASC.Projects.navSidePanel = (function () {
             $menuTemplates.addClass(activeClass);
         }
 
+        if (currentPage === "settings.aspx") {
+            if (!$menuSettings.hasClass("open")) {
+                $menuSettings.find(".expander").click();
+            }
+            $menuSettings.find(" .menu-sub-item:first").addClass(activeClass);
+        }
+
 
 
         var currentCategory = jq(".menu-list").find(".menu-item." + activeClass).attr("id");
@@ -356,11 +363,10 @@ ASC.Projects.navSidePanel = (function () {
             initMenuItems(menuitems);
 
             var myprojects = $myProjectsConteiner.find("li a");
-            var myProjectsOnClick =  function(item) {
+            var myProjectsOnClick = function () {
                 return function () {
                     if (!checkInit()) return true;
-                    var id = jq(item).parent("li").attr("id");
-                    ASC.Projects.AllProject.goToProject(item.href, id);
+                    ASC.Projects.Common.goToWithoutReload.call(this);
                     highlightMenu();
                     return false;
                 }
@@ -411,6 +417,7 @@ ASC.Projects.navSidePanel = (function () {
             $createProjectTempl = jq("#createProjectTempl");
 
         var canCreateMilestone = false, canCreateTask = false, canCreateMessage = false, canCreateTimeSpend = false;
+        var canCreateProject = ASC.Projects.Master.CanCreateProject;
 
         for (var i = 0, j = projects.length; i < j; i++) {
             var item = projects[i];
@@ -446,8 +453,7 @@ ASC.Projects.navSidePanel = (function () {
             $createNewTimer.hide();
         }
 
-        if (canCreateMilestone || canCreateTask || canCreateMessage || canCreateTimeSpend || currentUserIsModuleAdmin()
-        ) {
+        if (canCreateMilestone || canCreateTask || canCreateMessage || canCreateTimeSpend || canCreateProject) {
             $menuCreateNewButton.removeClass(disableClass);
         } else {
             if ($createNewButton.find(".dropdown-item-seporator").length === 0) {
@@ -457,15 +463,11 @@ ASC.Projects.navSidePanel = (function () {
             }
         }
 
-        if (!currentUserIsModuleAdmin()) {
+        if (!canCreateProject) {
             $createNewProject.hide();
             $createProjectTempl.hide();
         }
     }
-
-    function currentUserIsModuleAdmin () {
-        return Teamlab.profile.isAdmin || ASC.Projects.Master.IsModuleAdmin;
-    };
 
     function checkInit() {
         var currentPage = document.location.pathname.match(/[^\/]+$/)[0];

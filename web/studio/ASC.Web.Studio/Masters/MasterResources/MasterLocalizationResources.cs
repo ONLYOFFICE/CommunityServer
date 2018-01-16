@@ -160,7 +160,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                                 User = CustomNamingPeople.Substitute<Resource>("User"),
                                 Guest = CustomNamingPeople.Substitute<Resource>("Guest"),
                                 Department = CustomNamingPeople.Substitute<Resource>("Department"),
-                                ConfirmRemoveUser = CustomNamingPeople.Substitute<Resource>("ConfirmRemoveUser").HtmlEncode(),
+                                ConfirmRemoveUser = CustomNamingPeople.Substitute<Resource>("DeleteUserConfirmation").HtmlEncode(),
                                 ConfirmRemoveDepartment = CustomNamingPeople.Substitute<Resource>("DeleteDepartmentConfirmation").HtmlEncode(),
                                 AddDepartmentHeader = CustomNamingPeople.Substitute<Resource>("AddDepartmentDlgTitle").HtmlEncode(),
                                 EditDepartmentHeader = CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode(),

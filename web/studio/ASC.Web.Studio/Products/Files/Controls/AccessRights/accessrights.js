@@ -171,6 +171,7 @@ window.ASC.Files.Share = (function () {
 
         jq("#shareLinkPanel, #sharingLinkAce").toggle(!restrict);
         jq("#shareLinkDescr").toggle(restrict);
+        jq("#sharingSettingsItems").toggleClass("with-share-link", !restrict);
 
         jq("#shareLink").val(shareLinkShort);
         if (jq("#shareLink").is(":visible")) {
@@ -449,6 +450,7 @@ window.ASC.Files.Share = (function () {
         if (value
             && (!ASC.Files.Folders || ASC.Files.Folders.folderContainer != "corporate")) {
             jq("#studio_sharingSettingsDialog #shareMessagePanel").show();
+            jq("#sharingSettingsItems").addClass("with-message-panel");
         }
     };
 
@@ -697,6 +699,8 @@ window.ASC.Files.Share = (function () {
         sharingManager.ShowDialog(null, height, params.asFlat);
         if (params.asFlat) {
             PopupKeyUpActionProvider.CloseDialogAction = "ASC.Files.Share.updateForParent();";
+
+            PopupKeyUpActionProvider.ForceBinding = true;
         }
 
         if (ASC.Files.Actions) {
@@ -719,6 +723,8 @@ window.ASC.Files.Share = (function () {
         } else {
             jq("#studio_sharingSettingsDialog #shareMessagePanel").hide();
         }
+        jq("#sharingSettingsItems").removeClass("with-message-panel");
+
         if (params.rootFolderType || ASC.Files.Folders && ASC.Files.Folders.folderContainer == "corporate") {
             if (!accessHead.length) {
                 shareHead.after("<div class=\"share-container-head-corporate\"></div>");
@@ -913,6 +919,10 @@ jq(document).ready(function () {
                 var entryType = entryData.entryType;
                 var entryTitle = entryData.title;
                 ASC.Files.Actions.hideAllActionPanels();
+
+                ASC.Files.UI.checkSelectAll(false);
+                ASC.Files.UI.selectRow(entryData.entryObject, true);
+
                 ASC.Files.Share.getSharedInfo(entryType + "_" + entryId, entryTitle);
                 return false;
             });

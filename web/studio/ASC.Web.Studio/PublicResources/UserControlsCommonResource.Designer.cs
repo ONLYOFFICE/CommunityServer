@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I agree to send anonymous usage data to improve ONLYOFFICE.
+        /// </summary>
+        public static string AnalyticsOpenSource {
+            get {
+                return ResourceManager.GetString("AnalyticsOpenSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Poll Choices.
         /// </summary>
         public static string AnswerVariants {
@@ -1254,15 +1263,6 @@ namespace Resources {
         public static string LicenseModulesUpdates {
             get {
                 return ResourceManager.GetString("LicenseModulesUpdates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to White Label.
-        /// </summary>
-        public static string LicenseModulesWhiteLabel {
-            get {
-                return ResourceManager.GetString("LicenseModulesWhiteLabel", resourceCulture);
             }
         }
         

@@ -29,13 +29,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mail;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 using Resources;
 
 namespace ASC.Web.Studio
@@ -59,13 +57,15 @@ namespace ASC.Web.Studio
 
         protected List<IWebItem> defaultListProducts;
 
+        protected IEnumerable<CustomNavigationItem> CustomNavigationItems { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             CurrentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
             Page.RegisterStyle("~/skins/page_default.less");
 
-            var defaultPageSettings = SettingsManager.Instance.LoadSettings<StudioDefaultPageSettings>(TenantProvider.CurrentTenantID);
+            var defaultPageSettings = StudioDefaultPageSettings.Load();
             if (defaultPageSettings != null && defaultPageSettings.DefaultProductID != Guid.Empty)
             {
                 if (defaultPageSettings.DefaultProductID == defaultPageSettings.FeedModuleID && !CurrentUser.IsOutsider())
@@ -129,6 +129,8 @@ namespace ASC.Web.Studio
                 .Where(p => priority.Keys.Contains(p.ID))
                 .OrderBy(p => priority[p.ID])
                 .ToList();
+
+            CustomNavigationItems = CustomNavigationSettings.Load().Items.Where(x => x.ShowOnHomePage);
         }
 
         private static Dictionary<Guid, Int32> GetStartProductsPriority()
@@ -164,6 +166,14 @@ namespace ASC.Web.Studio
 
         private static Guid GetProductId(string productName)
         {
+            Guid productId;
+
+            if (Guid.TryParse(productName, out productId))
+            {
+                var product = WebItemManager.Instance[productId];
+                if (product != null) return productId;
+            }
+
             switch (productName.ToLowerInvariant())
             {
                 case "documents":

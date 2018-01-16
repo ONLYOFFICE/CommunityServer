@@ -160,7 +160,8 @@ function initActionMenu() {
         var userId = $menuItem.attr("data-id"),
             userEmail = $menuItem.attr("data-email"),
             userAdmin = $menuItem.attr("data-admin") == "true",
-            userName = $menuItem.attr("data-name"),
+            displayName = $menuItem.attr("data-displayname"),
+            userName = $menuItem.attr("data-username"),
             isVisitor = $menuItem.attr("data-visitor").toLowerCase(),
             parent = jq(this).parent();
 
@@ -183,7 +184,7 @@ function initActionMenu() {
             ASC.EmailOperationManager.sendEmailActivationInstructions(userEmail, userId, onActivateEmail.bind(null, userEmail));
         }
         if (jq(parent).hasClass("edit-photo")) {
-            UserPhotoThumbnail.ShowDialog();
+            window.UserPhotoThumbnail.ShowDialog();
         }
         if (jq(parent).hasClass("delete-user")) {
             jq("#actionMenu").hide();
@@ -192,7 +193,7 @@ function initActionMenu() {
             PopupKeyUpActionProvider.EnterAction = 'SendInstrunctionsToRemoveProfile();';
         }
         if (jq(parent).hasClass("delete-self")) {
-            ProfileManager.RemoveUser(userId, userName);
+            ProfileManager.RemoveUser(userId, displayName, userName, function () { window.location.replace("/products/people/"); });
         }
     });
 }

@@ -1,0 +1,246 @@
+﻿<script id="projects_action_create" type="text/x-jquery-tmpl">
+    <div id="pageHeader">
+        <div class="pageTitle">${pageTitle}</div>
+        <div style="clear: both"></div>
+    </div>
+    {{if showTemplates }}
+    <div id="templateContainer" class="block-cnt-splitter">
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.ProjectResource.SelectProjectTemplate}
+        </div>
+        <span id="templateSelect" data-id="" class="link dotline advansed-select-container">
+             ${ASC.Projects.Resources.CommonResource.Select}
+        </span>
+    </div>
+    {{/if}}
+
+    <div id="projectTitleContainer" class="block-cnt-splitter requiredField">
+        <span class="requiredErrorText">${ASC.Projects.Resources.ProjectsJSResource.EmptyProjectTitle}</span>
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.ProjectResource.ProjectTitle}
+        </div>
+        <div class="inputTitleContainer" style="width: 100%">
+            <input ID="projectTitle" class="textEdit" type="text" value="${project.title}"/>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="popup_helper" id="AnswerForFollowProject">
+        <p>{{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerFollowProject), "<br/>", "<b>", "</b>")}}
+        </p>
+    </div>
+    <div id="projectDescriptionContainer" class="block-cnt-splitter">
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.ProjectResource.ProjectDescription}
+        </div>
+        <div class="dottedHeaderContent">
+            <textarea ID="projectDescription" style="width: 100%" rows="6">${project.description}</textarea>
+        </div>
+    </div>
+
+    <div id="projectManagerContainer" class="block-cnt-splitter requiredField">
+        <span class="requiredErrorText">${ASC.Projects.Resources.ProjectsJSResource.EmptyProjectManager}</span>
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.ProjectResource.ProjectLeader}
+        </div>
+        <div>
+            <span id="projectManagerSelector" data-id="${project.manager.id}" class="link dotline">${project.manager.name}</span>
+        </div>
+        {{if !hideChooseTeam}}
+        <div class="notifyManagerContainer">
+            <input id="notifyManagerCheckbox" type="checkbox"/>
+            <label for="notifyManagerCheckbox">${ASC.Projects.Resources.ProjectResource.NotifyProjectManager}</label>
+        </div>
+        {{/if}}
+        <div style="clear: both;"></div>
+    </div>
+
+    <div id="projectTeamContainer" class="block-cnt-splitter {{if hideChooseTeam}} display-none{{/if}}">
+        <div class="headerPanelSmall clearFix">
+            <div class="float-left">
+                ${ASC.Projects.Resources.ProjectResource.ProjectTeam}
+            </div>
+            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectTeam' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectTeam}"></div>
+            <div class="popup_helper" id="AnswerForProjectTeam">
+                <p>
+                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerProjectTeam), "<br/>", "<b>", "</b>")}}
+                    <br/>
+                    {{if ASC.Resources.Master.HelpLink}}
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    {{/if}}
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <span id="projectTeamSelector" class="link dotline plus">${ASC.Projects.Resources.ProjectResource.ManagmentTeam}</span>
+        </div>
+        <div id="projectParticipantsContainer" class="items-display-list">
+        </div>
+        <input type="hidden" id="projectParticipants"/>
+    </div>
+    {{if showTemplates }}
+    {{tmpl 'projects_action_template'}}
+    {{/if}}
+
+    {{if IsProjectCreatedFromCrm}}
+    <div id="projectContactsContainer">
+        <div class="headerPanelSmall">${ASC.Projects.Resources.CommonResource.ProjectLinkedWithContacts}</div>
+        <div class="no-linked-contacts">${ASC.Projects.Resources.CommonResource.NoCRMContactsForLink}</div>
+        <div id="contactListBox">
+            <table id="contactTable" class="table-list padding4">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{/if}}
+
+    {{if typeof project.status !== "undefined" }}
+    <div id="projectStatusContainer">
+        <div class="headerPanelSmall clearFix">
+            <div class="float-left">${ASC.Projects.Resources.ProjectResource.ProjectStatus}</div>
+            <div class="HelpCenterSwitcher" onclick="
+jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectStatus}"></div>
+            <div class="popup_helper" id="AnswerForProjectStatus">
+                <p>{{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerProjectStatus), "<br/>", "<b>", "</b>")}}
+                </p>
+            </div>
+        </div>
+        <span id="projectStatus" class="link dotline" data-id="${project.status.id}">
+            ${project.status.title}
+        </span>
+    </div>
+    {{/if}}
+
+    <div id="projectTagsContainer" class="dottedHeader">
+        <div class="headerPanelSmall">
+            ${ASC.Projects.Resources.ProjectResource.Tags}
+        </div>
+        <div class="dottedHeaderContent">
+            <input id="projectTags" class="textEdit" maxlength="8000" value="${project.tags}" placeholder="${ASC.Projects.Resources.ProjectResource.EnterTheTags}"/>
+            <div id="tagsAutocompleteContainer"></div>
+        </div>
+    </div>
+    {{if !IsPrivateDisabled}}
+    <div id="projectVisibilityContainer">
+        <div class="headerPanelSmall clearFix">
+            <div class="popup_helper" id="AnswerForPrivateProject">
+                <p>
+                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerPrivateProject), "<br/>", "<b>", "</b>")}}
+                    <br/>
+                    {{if ASC.Resources.Master.HelpLink}}
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    {{/if}}
+                </p>
+            </div>
+        </div>
+        <div class="checkboxPrivateProj">
+            <input id="projectPrivacyCkeckbox" type="checkbox" {{if project.private}}checked{{/if}}/>
+            <label for="projectPrivacyCkeckbox">${ASC.Projects.Resources.ProjectResource.IUnerstandForEditHidden}</label>
+            <div class="HelpCenterSwitcher" onclick="
+jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionPrivateProject}"></div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{if typeof project.status === "undefined" && !hideChooseTeam}}
+    <div id="projectFollowContainer">
+        <div class="followingCheckboxContainer">
+            <input id="followingProjectCheckbox" type="checkbox"/>
+            <label for="followingProjectCheckbox">${ASC.Projects.Resources.ProjectResource.FollowingProjects}</label>
+            <div class="HelpCenterSwitcher" onclick="
+jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionFollowProject}"></div>
+        </div>
+    </div>
+    {{/if}}
+    <div id="projectActionsContainer" class="big-button-container">
+        <a id="projectActionButton" class="button blue big">
+            ${actionButton}
+        </a>
+        <span class="splitter-buttons"></span>
+        {{if project.url}}
+        <a id="cancelEditProject" href="${project.url}" class="button gray big">
+            ${ASC.Projects.Resources.CommonResource.Cancel}
+        </a>
+        <span class="splitter-buttons"></span>
+        {{if project.canDelete}}
+        <a id="projectDeleteButton" class="button gray big">
+            ${ASC.Projects.Resources.ProjectResource.ProjectDeleted}
+        </a>
+        {{/if}}
+        {{else}}
+        <a id="cancelEditProject" class="button gray big">${ASC.Projects.Resources.CommonResource.Cancel}</a>
+        {{/if}}
+    </div>
+</script>
+
+<script id="projects_action_template" type="text/x-jquery-tmpl">
+    <div class="display-none">
+        <p id="milestoneError">${ASC.Projects.Resources.ProjectTemplatesResource.MilestoneError}</p>
+        <p id="taskError">${ASC.Projects.Resources.ProjectTemplatesResource.TaskError}</p>
+    </div>
+    <div class="block-cnt-splitter">
+        <div class="headerPanelSmall">${ASC.Projects.Resources.ProjectTemplatesResource.EditProjStructure}</div>
+
+        <div id="listAddedMilestone">
+        </div>
+
+        <div id="addMilestone"><a class="link dotline plus">${ASC.Projects.Resources.ProjectResource.AddMilestone}</a></div>
+
+        <p class="unlocatedTaskTitle">${ASC.Projects.Resources.ProjectTemplatesResource.TasksWithoutMilestone}</p>
+        <div id="noAssignTaskContainer">
+            <div id="listNoAssignListTask"></div>
+            <div class="addTaskContainer">
+                <a class="link dotline plus">${ASC.Projects.Resources.ProjectResource.AddTask}</a>
+            </div>
+        </div>
+
+        <div id="addMilestoneContainer" target="">
+            <div>
+                {{if edit}}
+                    <select>
+                        <option selected="selected" duration="0.5" value='${ASC.Projects.Common.chooseMonthNumeralCase(0.5)}'>${ASC.Projects.Common.chooseMonthNumeralCase(0.5)}</option>
+                        {{each month}}
+                        <option duration="${$value}" value='${ASC.Projects.Common.chooseMonthNumeralCase($value)}'>${ASC.Projects.Common.chooseMonthNumeralCase($value)}</option>
+                        {{/each}}
+                    </select>
+                {{else}}
+                    <input class="textEditCalendar" id="dueDate" type="text" />
+                {{/if}}
+                <input id="newMilestoneTitle" type="text" placeholder="${ASC.Projects.Resources.ProjectTemplatesResource.AddMilestoneTitle}" maxlength="250" />
+            </div>
+            <div>
+                <a class="button gray">${ASC.Projects.Resources.ProjectResource.OkButton}</a>
+            </div>
+        </div>
+
+        <div id="addTaskContainer" target="">
+            <div>
+                <input id="newTaskTitle" type="text" placeholder="${ASC.Projects.Resources.ProjectTemplatesResource.AddTaskTitle}" maxlength="250" />
+            </div>
+            <div>
+                <a class="button gray">${ASC.Projects.Resources.ProjectResource.OkButton}</a>
+            </div>
+        </div>
+        <div id="taskActionPanel" class="studio-action-panel">
+            <ul class="actionList dropdown-content">
+                <li id="editTask" class="dropdown-item">${ASC.Projects.Resources.ProjectTemplatesResource.Edit}</li>
+                <li id="removeTask" class="dropdown-item">${ASC.Projects.Resources.ProjectTemplatesResource.Delete}</li>
+            </ul>
+        </div>
+
+        <div id="milestoneActions" class="studio-action-panel">
+            <ul class="actionList dropdown-content">
+                <li id="editMilestone" class="dropdown-item">${ASC.Projects.Resources.ProjectTemplatesResource.Edit}</li>
+                <li id="addTaskInMilestone" class="dropdown-item">${ASC.Projects.Resources.ProjectTemplatesResource.AddTask}</li>
+                <li id="removeMilestone" class="dropdown-item">${ASC.Projects.Resources.ProjectTemplatesResource.Delete}</li>
+            </ul>
+        </div>
+
+        <div id="projectMemberPanel" class="studio-action-panel">
+            <ul class="dropdown-content actionList" nobodyitemtext="${ASC.Projects.Resources.ProjectTemplatesResource.NoResponsible}" chooseresptext="${ASC.Projects.Resources.ProjectTemplatesResource.ChooseResponsible}" class="actionList">
+            </ul>
+        </div>
+    </div>
+</script>

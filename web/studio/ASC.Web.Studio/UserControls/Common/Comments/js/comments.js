@@ -96,6 +96,10 @@ var CommentsManagerObj = new function() {
     };
 
     function cancelClick() {
+        if (CommentsManagerObj.editorInstance.mode == "source") {
+            CommentsManagerObj.editorInstance.commands.source.exec();
+        }
+
         CommentsManagerObj.CallActionHandlerJS('cancel', 'CommentsManagerObj.UnblockCommentsBox');
 
         jq('#commentBox').hide();
@@ -141,6 +145,7 @@ var CommentsManagerObj = new function() {
                         Teamlab.addPrjComment(data, data, ajax_opts);
                         break;
                     case "wiki":
+                        data.entityid = jq("#hdnPageName").val();
                         Teamlab.addWikiComment(data, data, ajax_opts);
                         break;
                     case "blogs":
@@ -392,6 +397,10 @@ var CommentsManagerObj = new function() {
         var ContentDiv = document.getElementById('content_' + id),
             timeOut = 500;
 
+        if (CommentsManagerObj.editorInstance.mode == "source") {
+            CommentsManagerObj.editorInstance.commands.source.exec();
+        }
+
         if (ContentDiv != null) {
             CommentsManagerObj.editorInstance.setData(ContentDiv.innerHTML);
         } else {
@@ -497,31 +506,27 @@ var CommentsManagerObj = new function() {
     this.CallActionHandlerJS = function(action, callBack) {
         switch (action) {
             case "add":
-                if (CommentsManagerObj.OnEditedCommentJS != "") {
-                    eval(CommentsManagerObj.OnEditedCommentJS + "('" + CommentsManagerObj.currentCommentID + "', CommentsManagerObj.editorInstance.getData() , '" + CommentsManagerObj.FckDomainName + "', false, '" + callBack + "')");
-                }
+                if (CommentsManagerObj.OnEditedCommentJS != "")
+                    eval(CommentsManagerObj.OnEditedCommentJS)(CommentsManagerObj.currentCommentID, CommentsManagerObj.editorInstance.getData() , CommentsManagerObj.FckDomainName, false, callBack);
                 return;
 
             case "edit":
-                if (CommentsManagerObj.OnEditedCommentJS != "") {
-                    var text = CommentsManagerObj.editorInstance.getData();
-
-                    eval(CommentsManagerObj.OnEditedCommentJS + "('" + CommentsManagerObj.currentCommentID + "', text, '" + CommentsManagerObj.FckDomainName + "', true, '" + callBack + "')");
-                }
+                if (CommentsManagerObj.OnEditedCommentJS != "")
+                    eval(CommentsManagerObj.OnEditedCommentJS)(CommentsManagerObj.currentCommentID, CommentsManagerObj.editorInstance.getData(), CommentsManagerObj.FckDomainName, true, callBack);
                 return;
 
             case "remove":
                 if (CommentsManagerObj.OnRemovedCommentJS != "")
-                    eval(CommentsManagerObj.OnRemovedCommentJS + "('" + CommentsManagerObj.currentCommentID + "', '" + CommentsManagerObj.FckDomainName + "', '" + callBack + "')");
+                    eval(CommentsManagerObj.OnRemovedCommentJS)(CommentsManagerObj.currentCommentID, CommentsManagerObj.FckDomainName, callBack);
                 return;
 
             case "cancel":
                 if (CommentsManagerObj.OnCanceledCommentJS != "")
-                    eval(CommentsManagerObj.OnCanceledCommentJS + "('" + CommentsManagerObj.currentCommentID + "', '" + CommentsManagerObj.FckDomainName + "', (CommentsManagerObj.currentCommentID != ''), '" + callBack + "')");
+                    eval(CommentsManagerObj.OnCanceledCommentJS)(CommentsManagerObj.currentCommentID, CommentsManagerObj.FckDomainName, (CommentsManagerObj.currentCommentID != ''), callBack);
                 return;
         }
 
-        eval(callBack + "()");
+        eval(callBack)();
     };
 
     this.CallFCKComplete = function() {

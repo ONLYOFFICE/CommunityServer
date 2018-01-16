@@ -41,6 +41,9 @@
     <Reference Include="ARSoft.Tools.Net">
       <HintPath>..\..\packages\ARSoft.Tools.Net.2.2.7\lib\net45\ARSoft.Tools.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\..\packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
@@ -49,7 +52,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
@@ -112,6 +115,8 @@
     <Compile Include="Data\DbTransaction.cs" />
     <Compile Include="Data\IDbManager.cs" />
     <Compile Include="Data\MultiRegionalDbManager.cs" />
+    <Compile Include="Data\Sql\Expressions\SumExp.cs" />
+    <Compile Include="Data\Sql\Expressions\IfExp.cs" />
     <Compile Include="Data\Sql\SqlDebugView.cs" />
     <Compile Include="Data\Sql\Dialects\SQLiteDialect.cs" />
     <Compile Include="Data\Sql\Dialects\MySQLDialect.cs" />
@@ -136,6 +141,18 @@
     <Compile Include="Data\Sql\SqlInsert.cs" />
     <Compile Include="Data\Sql\SqlQuery.cs" />
     <Compile Include="Data\Sql\SqlUpdate.cs" />
+    <Compile Include="DependencyInjection\AutofacConfigLoader.cs" />
+    <Compile Include="DependencyInjection\AutofacConfigurationSection.cs" />
+    <Compile Include="DependencyInjection\ComponentElement.cs" />
+    <Compile Include="DependencyInjection\ContainerElementCollection.cs" />
+    <Compile Include="DependencyInjection\ConfigurationElementCollection.cs" />
+    <Compile Include="DependencyInjection\DictionaryElementCollection.cs" />
+    <Compile Include="DependencyInjection\ListElementCollection.cs" />
+    <Compile Include="DependencyInjection\ListItemElement.cs" />
+    <Compile Include="DependencyInjection\NamedConfigurationElementCollection.cs" />
+    <Compile Include="DependencyInjection\ParameterElement.cs" />
+    <Compile Include="DependencyInjection\ParameterElementCollection.cs" />
+    <Compile Include="DependencyInjection\TypeManipulation.cs" />
     <Compile Include="Geolocation\IPGeolocationInfo.cs" />
     <Compile Include="Geolocation\GeolocationHelper.cs" />
     <Compile Include="Logging\SpecialFolderPathConverter.cs" />

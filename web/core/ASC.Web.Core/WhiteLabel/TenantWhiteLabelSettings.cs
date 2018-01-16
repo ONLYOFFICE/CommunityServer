@@ -43,7 +43,7 @@ namespace ASC.Web.Core.WhiteLabel
 {
     [Serializable]
     [DataContract]
-    public class TenantWhiteLabelSettings : ISettings
+    public class TenantWhiteLabelSettings : BaseSettings<TenantWhiteLabelSettings>
     {
         public const string DefaultLogoText = "ONLYOFFICE";
 
@@ -80,7 +80,7 @@ namespace ASC.Web.Core.WhiteLabel
                 if (!String.IsNullOrEmpty(_logoText) && _logoText != DefaultLogoText)
                     return _logoText;
 
-                var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+                var partnerSettings = LoadForDefaultTenant();
                 return String.IsNullOrEmpty(partnerSettings._logoText) ? DefaultLogoText : partnerSettings._logoText;
             }
             set { _logoText = value; }
@@ -101,7 +101,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region ISettings Members
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new TenantWhiteLabelSettings
                 {
@@ -389,7 +389,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         private static string GetPartnerStorageLogoPath(WhiteLabelLogoTypeEnum type, bool general)
         {
-            var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+            var partnerSettings = LoadForDefaultTenant();
 
             if (partnerSettings.GetIsDefault(type)) return null;
 
@@ -430,7 +430,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         private Stream GetPartnerStorageLogoData(WhiteLabelLogoTypeEnum type, bool general)
         {
-            var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+            var partnerSettings = LoadForDefaultTenant();
 
             if (partnerSettings.GetIsDefault(type)) return null;
 
@@ -516,7 +516,7 @@ namespace ASC.Web.Core.WhiteLabel
             }
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{05d35540-c80b-4b17-9277-abd9e543bf93}"); }
         }
@@ -531,7 +531,7 @@ namespace ASC.Web.Core.WhiteLabel
 
             if (AppliedTenants.Contains(tenantId)) return;
 
-            var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+            var whiteLabelSettings = LoadForTenant(tenantId);
             whiteLabelSettings.SetNewLogoText(tenantId);
 
             if (!AppliedTenants.Contains(tenantId)) AppliedTenants.Add(tenantId);
@@ -539,7 +539,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         public void Save(int tenantId, bool restore = false)
         {
-            SettingsManager.Instance.SaveSettings(this, tenantId);
+            SaveForTenant(tenantId);
             SetNewLogoText(tenantId, restore);
 
             TenantLogoManager.RemoveMailLogoDataFromCache();

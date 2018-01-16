@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\TalkAddon.cs" />
+    <Compile Include="Addon\TalkSpaceUsageStatManager.cs" />
     <Compile Include="ClientScript\TalkClientScript.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

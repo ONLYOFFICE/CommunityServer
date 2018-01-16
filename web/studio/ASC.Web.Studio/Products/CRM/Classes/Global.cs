@@ -62,6 +62,7 @@ namespace ASC.Web.CRM.Classes
         public static readonly int DefaultCustomFieldCols = 40;
 
         public static readonly int MaxHistoryEventCharacters = 65000;
+        public static readonly decimal MaxInvoiceItemPrice = (decimal) 99999999.99;
 
         public static DaoFactory DaoFactory
         {
@@ -70,12 +71,17 @@ namespace ASC.Web.CRM.Classes
 
         public static CRMSettings TenantSettings
         {
-            get { return SettingsManager.Instance.LoadSettings<CRMSettings>(TenantProvider.CurrentTenantID); }
+            get { return CRMSettings.Load(); }
         }
 
         public static IDataStore GetStore()
         {
             return StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "crm");
+        }
+
+        public static IDataStore GetStoreTemplate()
+        {
+            return StorageFactory.GetStorage(String.Empty, "crm_template");
         }
 
         public static bool CanCreateProjects()
@@ -133,6 +139,14 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
+        public static bool CanCreateReports
+        {
+            get
+            {
+                return TenantExtra.EnableDocbuilder && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl) && CRMSecurity.IsAdmin;
+            }
+        }
+
         #region CRM Settings
 
         public static void SaveSMTPSettings(string host, int port, bool authentication, string hostLogin, string hostPassword, string senderDisplayName, string senderEmailAddress, bool enableSSL)
@@ -151,15 +165,14 @@ namespace ASC.Web.CRM.Classes
                 EnableSSL = enableSSL
             };
 
-            SettingsManager.Instance.SaveSettings(crmSettings, TenantProvider.CurrentTenantID);
+            crmSettings.Save();
         }
 
         public static void SaveDefaultCurrencySettings(CurrencyInfo currency)
         {
-            var tenantSettings = Global.TenantSettings;
+            var tenantSettings = TenantSettings;
             tenantSettings.DefaultCurrency = currency;
-
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
         }
 
         #endregion
@@ -186,64 +199,6 @@ namespace ASC.Web.CRM.Classes
         #endregion
 
         //Code snippet
-
-        /// <summary>
-        /// method for generating a country list, say for populating
-        /// a ComboBox, with country options. We return the
-        /// values in a Generic List<T>
-        /// </summary>
-        /// <returns></returns>
-        public static List<KeyValuePair<int, string>> GetCountryListBase()
-        {
-            var cultureList = CultureInfo.GetCultures(CultureTypes.AllCultures)
-                            .Where(culture => !culture.IsNeutralCulture && culture.LCID != 127)
-                            .Select(culture => new KeyValuePair<int,string>(culture.LCID, new RegionInfo(culture.Name).EnglishName))
-                            .ToList();
-
-            return cultureList;
-        }
-
-        public static List<String> GetCountryListExt() { 
-            var country = new List<string> ();
-            
-            var enUs = CultureInfo.GetCultureInfo("en-US");
-            var additionalCountries = new List<KeyValuePair<int,string>>
-                                        {
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Gambia", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Ghana", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfCyprus", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_SierraLeone", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Tanzania", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Zambia", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMadagascar", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_SolomonIslands", enUs)),
-                                            new KeyValuePair<int,string>(2072,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMoldova", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMauritius", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_BurkinaFaso", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMozambique", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMalawi", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Benin", enUs)),
-                                            new KeyValuePair<int,string>(12300,CRMCommonResource.ResourceManager.GetString("Country_IvoryCoast", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Bahamas", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Andorra", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_BritishVirginIslands", enUs)),
-                                            new KeyValuePair<int,string>(9228,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfCongo", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfCuba", enUs))
-                                        };//https://msdn.microsoft.com/en-us/goglobal/bb964664
-
-            var additionalCountriesCodes = additionalCountries.Select(s => s.Key).Where(s => s != 0).ToList();
-
-
-            var standardCountries = Global.GetCountryListBase()
-                                .Where(s => !additionalCountriesCodes.Contains(s.Key)).ToList();
-
-            country.AddRange(additionalCountries.Select(s => s.Value).ToList());
-            country.AddRange(standardCountries.Select(s => s.Value).Distinct().ToList());
-            country = country.Distinct().OrderBy(c => c).ToList();
-
-            return country;
-        }
-
 
         public static String GetUpButtonHTML(Uri requestUrlReferrer)
         {

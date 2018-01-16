@@ -53,7 +53,7 @@ namespace ASC.Feed.Aggregator
     public class FeedAggregatorService
     {
         private static readonly ILog log = LogManager.GetLogger("ASC.Feed.Agregator");
-        private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient();
+        private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient("counters");
 
         public static readonly List<IFeedModule> Modules = new List<IFeedModule>
             {
@@ -124,7 +124,7 @@ namespace ASC.Feed.Aggregator
                 var start = DateTime.UtcNow;
                 log.DebugFormat("Start of collecting feeds...");
 
-                Dictionary<int, HashSet<Guid>> unreadUsers = new Dictionary<int, HashSet<Guid>>();
+                var unreadUsers = new Dictionary<int, Dictionary<Guid, int>>();
 
                 foreach (var module in Modules)
                 {
@@ -154,7 +154,7 @@ namespace ASC.Feed.Aggregator
                             }
 
                             CoreContext.TenantManager.SetCurrentTenant(tenant);
-                            
+                            var users = CoreContext.UserManager.GetUsers();
                             // fake httpcontext break configuration manager for mono
                             if (!WorkContext.IsMono)
                             {
@@ -163,7 +163,7 @@ namespace ASC.Feed.Aggregator
                                 new HttpResponse(new StringWriter()));
                             }
 
-                            var feeds = Attempt(10, () => module.GetFeeds(new FeedFilter(fromTime, toTime) {Tenant = tenant}));
+                            var feeds = Attempt(10, () => module.GetFeeds(new FeedFilter(fromTime, toTime) {Tenant = tenant}).ToList());
                             log.DebugFormat("{0} feeds in {1} tenant.", feeds.Count(), tenant);
                             foreach (var tuple in feeds)
                             {
@@ -188,7 +188,7 @@ namespace ASC.Feed.Aggregator
                                         Keywords = tuple.Item1.Keywords
                                     };
 
-                                foreach (var u in CoreContext.UserManager.GetUsers())
+                                foreach (var u in users)
                                 {
                                     if (isStopped)
                                     {
@@ -225,15 +225,23 @@ namespace ASC.Feed.Aggregator
 
                     foreach(var res in result)
                     {
-                        foreach (var userGuid in res.Users)
+                        foreach (var userGuid in res.Users.Where(userGuid => !userGuid.Equals(res.ModifiedById)))
                         {
-                            HashSet<Guid> hashSet;
-                            if (!unreadUsers.TryGetValue(res.Tenant, out hashSet))
+                            Dictionary<Guid, int> dictionary;
+                            if (!unreadUsers.TryGetValue(res.Tenant, out dictionary))
                             {
-                                hashSet = new HashSet<Guid>();
+                                dictionary = new Dictionary<Guid, int>();
                             }
-                            hashSet.Add(userGuid);
-                            unreadUsers[res.Tenant] = hashSet;
+                            if (dictionary.ContainsKey(userGuid))
+                            {
+                                ++dictionary[userGuid];
+                            }
+                            else
+                            {
+                                dictionary.Add(userGuid, 1);
+                            }
+
+                            unreadUsers[res.Tenant] = dictionary;
                         }
                     }
                 }

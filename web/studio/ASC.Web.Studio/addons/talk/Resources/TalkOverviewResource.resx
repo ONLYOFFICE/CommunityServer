@@ -251,4 +251,7 @@ Your User Name: {5}
   <data name="Mailing" xml:space="preserve">
     <value>Mailing</value>
   </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Delete sent files</value>
+  </data>
 </root>

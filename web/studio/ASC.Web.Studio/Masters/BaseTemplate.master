@@ -58,6 +58,7 @@
 
     <asp:ContentPlaceHolder ID="GoogleTagManagerPlaceHolder" runat="server" />
     <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />
+    <asp:ContentPlaceHolder ID="YandexMetrikaScriptPlaceHolder" runat="server" />
 
     <form runat="server" id="Form" style="margin: 0; height: 100%; padding: 0;" enctype="multipart/form-data" method="post">
 
@@ -91,14 +92,7 @@
                                         <div class="info-box excl"><%= Resource.ErrorNoscript %></div>
                                     </noscript>
 
-                                    <% if (!DisableTariffNotify)
-                                       { %>
-                                    <div id="infoBoxTariffNotify" class="info-box excl">
-                                        <div class="header-base medium bold"><%= TariffNotify.Item1 %></div>
-                                        <div><%= TariffNotify.Item2 %></div>
-                                    </div>
-                                    <% } %>
-
+                                    <asp:PlaceHolder ID="TariffNotifyHolder" runat="server" />
                                     <asp:PlaceHolder ID="activateEmailPanel" runat="server" />
                                     <asp:PlaceHolder ID="_contentHolder" runat="server" />
                                     <asp:ContentPlaceHolder ID="PageContent" runat="server" />
@@ -123,9 +117,6 @@
     <master:BodyScripts ID="BodyScripts" runat="server" />
     <rbc:ResourceScriptBundleControl ID="StaticScript" runat="server" />
     <ucc:InlineScript ID="InlineScript" runat="server" />
-
-    <asp:ContentPlaceHolder ID="YandexMetrikaScriptPlaceHolder" runat="server" />
-    <asp:ContentPlaceHolder ID="GoogleConversionPersonScriptPlaceHolder" runat="server" />
 
 </body>
 </html>

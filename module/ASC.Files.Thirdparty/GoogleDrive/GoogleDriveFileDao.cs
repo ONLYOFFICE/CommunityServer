@@ -97,7 +97,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return GetDriveEntries(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -264,7 +264,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var fromFolderDriveId = GetParentDriveId(driveFile);
 
-            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFile, toDriveFolder.Id);
+            driveFile = GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFile, toDriveFolder.Id);
             if (fromFolderDriveId != null)
             {
                 GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFile, fromFolderDriveId);

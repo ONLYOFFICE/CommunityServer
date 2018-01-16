@@ -4,18 +4,9 @@
 
 <% if (!String.IsNullOrEmpty(User.Email)) { %>
 <div class="field clearFix">
-        <div class="field-title mail describe-text">
-            <%= User.IsLDAP() ? Resources.Resource.Login : Resources.Resource.Email%>:
-            <% if (User.IsLDAP())
-                { %>
-                    <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'LoginEmailInfo'});"></div>
-                    <div class="popup_helper" id="LoginEmailInfo">
-                        <p>
-                            <%= Resources.Resource.LoginDescription %>
-                        </p>
-                    </div>
-            <% } %>
-        </div>
+    <div class="field-title mail describe-text">
+        <%= Resources.Resource.Email%>:
+    </div>
     <div id="emailUserProfile" class="field-value">
     <% if (IsAdmin || Viewer.ID == User.ID) {
         if (User.ActivationStatus == EmployeeActivationStatus.Activated) { %>

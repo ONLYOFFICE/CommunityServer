@@ -436,7 +436,7 @@
     <value>The invoice number is already taken</value>
   </data>
   <data name="Invoices" xml:space="preserve">
-    <value>Invoice</value>
+    <value>Invoices</value>
   </data>
   <data name="InvoicesByStatus" xml:space="preserve">
     <value>Status</value>
@@ -620,5 +620,8 @@
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>The tax name already exist</value>
   </data>
 </root>

@@ -27,7 +27,6 @@
 using System;
 using System.Linq;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Data;
@@ -35,8 +34,8 @@ using ASC.Web.Core;
 using System.Web;
 using System.IO;
 using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Projects;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Projects.Engine
 {
@@ -69,7 +68,12 @@ namespace ASC.Projects.Engine
 
         public static bool IsPrivateDisabled
         {
-            get { return SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone; }
+            get { return TenantAccessSettings.Load().Anyone; }
+        }
+
+        public static bool IsProjectsEnabled()
+        {
+            return IsProjectsEnabled(SecurityContext.CurrentAccount.ID);
         }
 
         public static bool IsProjectsEnabled(Guid userID)
@@ -362,7 +366,7 @@ namespace ASC.Projects.Engine
 
         public static bool CanCreateProject()
         {
-            return Can() && CurrentUserAdministrator;
+            return Can() && (CurrentUserAdministrator || ProjectsCommonSettings.Load().EverebodyCanCreate);
         }
 
         public static bool CanCreateMilestone(Project project)

@@ -135,7 +135,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(Request, MessageAction.GroupCreated, group.Name);
+            MessageService.Send(Request, MessageAction.GroupCreated, MessageTarget.Create(group.ID), group.Name);
 
             return new GroupWrapperFull(group, true);
         }
@@ -175,7 +175,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(Request, MessageAction.GroupUpdated, group.Name);
+            MessageService.Send(Request, MessageAction.GroupUpdated, MessageTarget.Create(group.ID), group.Name);
 
             return GetById(groupid);
         }
@@ -197,7 +197,7 @@ namespace ASC.Api.Employee
 
             CoreContext.UserManager.DeleteGroup(groupid);
 
-            MessageService.Send(Request, MessageAction.GroupDeleted, group.Name);
+            MessageService.Send(Request, MessageAction.GroupDeleted, MessageTarget.Create(group.ID), group.Name);
 
             return groupWrapperFull;
         }

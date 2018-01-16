@@ -42,6 +42,7 @@
 //    jq("#emailSelector").AdvancedEmailSelector("init", {
 //        isInPopup: false,
 //        items: itemsArray || itemsString,
+//        maxCount: 20,
 //        onChangeCallback: function () {
 //            console.log("changed");
 //        }
@@ -133,7 +134,7 @@
             self.closeSelector();
 
             if (changed) {
-                self.updateHistoryStep(true, self.getItems());
+                self.updateHistoryStep(true, true);
 
                 if (self.settings.onChangeCallback && fireCallback)
                     self.settings.onChangeCallback();
@@ -156,6 +157,15 @@
                     jq.tmpl("template-emailselector-item", item).data("item-data", item).insertBefore(nextObj);
                     selectedEmails.push(item.email);
                     changed = true;
+
+                    if (self.settings.maxCount) {
+                        if (selectedEmails.length >= self.settings.maxCount) {
+                            self.obj.find(".emailselector-input").prop("disabled", true);
+                            return;
+                        } else {
+                            self.obj.find(".emailselector-input").prop("disabled", false);
+                        }
+                    }
                 }
             });
 
@@ -186,17 +196,20 @@
 
         this.clearItems = function() {
             self.obj.find(".emailselector-item").remove();
+            self.obj.find(".emailselector-input").prop("disabled", false);
         };
 
-        this.updateHistoryStep = function(stepForward, data) {
+        this.updateHistoryStep = function (stepForward, setData) {
+            var data = self.getItems();
+
             if (stepForward) {
-                if (data) {
+                if (setData) {
                     self.historyStep++;
                     self.history = jq.grep(self.history, function(item) {
                         return item.step < self.historyStep;
                     });
                     self.history.push({
-                        data: self.getItems(),
+                        data: data,
                         step: self.historyStep
                     });
                 } else {
@@ -206,6 +219,14 @@
             } else {
                 if (self.historyStep > 0)
                     self.historyStep--;
+            }
+
+            if (self.settings.maxCount) {
+                if (data.length >= self.settings.maxCount) {
+                    self.obj.find(".emailselector-input").prop("disabled", true);
+                } else {
+                    self.obj.find(".emailselector-input").prop("disabled", false);
+                }
             }
         };
 
@@ -249,7 +270,7 @@
             self.obj.on("click", ".emailselector-item-close", function (e) {
                 jq(e.target).parent().remove();
 
-                self.updateHistoryStep(true, self.getItems());
+                self.updateHistoryStep(true, true);
 
                 if (self.settings.onChangeCallback)
                     self.settings.onChangeCallback();
@@ -317,14 +338,20 @@
                         break;
                     case keyCode.Z:
                         if (e.ctrlKey) {
-                            self.updateHistoryStep(false);
+                            self.updateHistoryStep(false, false);
                             self.showHistoryStep();
+
+                            if (self.settings.onChangeCallback)
+                                self.settings.onChangeCallback();
                         }
                         break;
                     case keyCode.Y:
                         if (e.ctrlKey) {
-                            self.updateHistoryStep(true);
+                            self.updateHistoryStep(true, false);
                             self.showHistoryStep();
+
+                            if (self.settings.onChangeCallback)
+                                self.settings.onChangeCallback();
                         }
                         break;
                     case keyCode.backspace:
@@ -332,7 +359,7 @@
                         self.obj.find(".emailselector-item.selected").remove();
                         self.hiddenInput.val(self.getString(true));
 
-                        self.updateHistoryStep(true, self.getItems());
+                        self.updateHistoryStep(true, true);
 
                         if (self.settings.onChangeCallback)
                             self.settings.onChangeCallback();
@@ -403,8 +430,8 @@
 
             self.obj.on("cut", ".emailselector-hidden-input", function () {
                 self.obj.find(".emailselector-item.selected").remove();
-                
-                self.updateHistoryStep(true, self.getItems());
+
+                self.updateHistoryStep(true, true);
 
                 if (self.settings.onChangeCallback)
                     self.settings.onChangeCallback();
@@ -431,21 +458,29 @@
                     }
 
                     if (e.ctrlKey && e.keyCode === keyCode.Z) {
-                        self.updateHistoryStep(false);
+                        self.updateHistoryStep(false, false);
                         self.showHistoryStep();
+
+                        if (self.settings.onChangeCallback)
+                            self.settings.onChangeCallback();
+
                         return false;
                     }
 
                     if (e.ctrlKey && e.keyCode === keyCode.Y) {
-                        self.updateHistoryStep(true);
+                        self.updateHistoryStep(true, false);
                         self.showHistoryStep();
+
+                        if (self.settings.onChangeCallback)
+                            self.settings.onChangeCallback();
+
                         return false;
                     }
 
                     if (e.keyCode === keyCode.backspace) {
                         self.obj.find(".emailselector-item:last").remove();
 
-                        self.updateHistoryStep(true, self.getItems());
+                        self.updateHistoryStep(true, true);
 
                         if (self.settings.onChangeCallback)
                             self.settings.onChangeCallback();
@@ -460,7 +495,7 @@
                     }
                 }
             });
-            
+
             self.obj.on("keyup", ".emailselector-hidden-input", function (e) {
                 if (e.keyCode === keyCode.ctrl) {
                     self.ctrlKeyPressed = false;

@@ -473,12 +473,12 @@ header menu elements for group operations
 .ldap-lock::after {
     font-size: 9px;   
     margin-left: 2px;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 0px 8px;
 }
 
 .ldap-lock-big::after {
-    font-size: 11px;
+    font-size: 12px;
     vertical-align: top;
     padding: 2px 5px;
 }
@@ -486,20 +486,77 @@ header menu elements for group operations
 .sso-lock::after,
 .sso-lock-big::after {
     content: "SSO";
-    background-color: #FADB8F;
+    background-color: #D0E3B5;
     border-radius: 2px;
     
 }
 
 .sso-lock::after {
-    font-size: 9px;   
+    font-size: 9px;
     margin-left: 2px;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 0px 8px;
 }
 
 .sso-lock-big::after {
-    font-size: 11px;
+    font-size: 12px;
     vertical-align: top;
     padding: 2px 5px;
+}
+/*******************************************************************************
+        Delete Profile Page
+*******************************************************************************/
+
+#reassignActionContainer {
+    margin-top: 24px;
+
+    .user-selector-container {
+        margin-bottom: 40px;
+    }
+
+    #userSelector {
+        font-weight: bold;
+        margin: 0 12px 0 0;
+        position: relative;
+
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #212121;
+            content: "";
+            position: absolute;
+            top: 8px;
+            right: -12px;
+        }
+    }
+
+    .list-container {
+        margin-bottom: 16px;
+
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        li {
+          padding-left: 12px;
+          text-indent: -12px;
+          margin-top: 4px;
+        }
+
+        li:before {
+          content: "—";
+          padding-right: 6px;
+        }
+    }
+}
+
+#reassignProgressContainer {
+    margin-top: 24px;
+}
+
+#confirmInput {
+    margin-top: 16px;
+    width: 99%;
 }

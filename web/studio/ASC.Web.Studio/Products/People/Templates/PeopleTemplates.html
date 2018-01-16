@@ -1,28 +1,30 @@
 ﻿<script id="userActionMenuTemplate" type="text/x-jquery-tmpl">
-        <ul class="dropdown-content">
-            {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true ) && (user.status !== "blocked")}}
-              <li><a class="edit-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblEdit}</a></li>
-            {{/if}}
-            {{if ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked")}}
-              <li><a class="enable-profile dropdown-item">${ASC.People.Resources.PeopleResource.EnableUserButton}</a></li>
-            {{/if}}
-            {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
-              <li><a class="change-password dropdown-item">${ASC.People.Resources.PeopleResource.LblChangePassword}</a></li>
-            {{/if}}
-            {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
-              <li><a class="change-email dropdown-item">${ASC.People.Resources.PeopleResource.LblChangeEmail}</a></li>
-            {{/if}}
-            {{if ($data.isAdmin === true || $data.isMe === true) && (user.status === "waited")}}
-              <li><a class="email-activation dropdown-item">${ASC.People.Resources.PeopleResource.LblSendActivation}</a></li>
-            {{/if}}
-            {{if ($data.canDel === "true") && ($data.isAdmin === true) && ($data.isMe !== true) && (user.status !== "blocked") && (user.isLDAP === "false")}}
-              <li><a class="block-profile dropdown-item">${ASC.People.Resources.PeopleResource.DisableUserButton}</a></li>
-            {{/if}}
-            {{if (user.isOwner !== "true") && ((($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")) || ($data.isMe === true) && (user.isLDAP === "false"))}}
-              <li><a class="delete-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblDeleteProfile}</a></li>
-            {{/if}}
-
-        </ul>
+    <ul class="dropdown-content">
+        {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true ) && (user.status !== "blocked")}}
+        <li><a class="edit-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblEdit}</a></li>
+        {{/if}}
+        {{if ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked")}}
+        <li><a class="enable-profile dropdown-item">${ASC.People.Resources.PeopleResource.EnableUserButton}</a></li>
+        {{/if}}
+        {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
+        <li><a class="change-password dropdown-item">${ASC.People.Resources.PeopleResource.LblChangePassword}</a></li>
+        {{/if}}
+        {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false") && (user.isSSO === "false")}}
+        <li><a class="change-email dropdown-item">${ASC.People.Resources.PeopleResource.LblChangeEmail}</a></li>
+        {{/if}}
+        {{if ($data.isAdmin === true || $data.isMe === true) && (user.status === "waited")}}
+        <li><a class="email-activation dropdown-item">${ASC.People.Resources.PeopleResource.LblSendActivation}</a></li>
+        {{/if}}
+        {{if ($data.canDel === "true") && ($data.isAdmin === true) && ($data.isMe !== true) && (user.status !== "blocked") && (user.isLDAP === "false")}}
+        <li><a class="block-profile dropdown-item">${ASC.People.Resources.PeopleResource.DisableUserButton}</a></li>
+        {{/if}}
+        {{if (user.isOwner !== "true") && ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")}}
+            <li><a class="reassign-data dropdown-item">${ASC.People.Resources.PeopleResource.LblReassignData}</a></li>
+        {{/if}}
+        {{if (user.isOwner !== "true") && ((($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")) || ($data.isMe === true) && (user.isLDAP === "false"))}}
+            <li><a class="delete-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblDeleteProfile}</a></li>
+        {{/if}}
+    </ul>
 </script>
 
 <script id="userListTemplate" type="text/x-jquery-tmpl">
@@ -58,14 +60,14 @@
         </td>
         <td class="name">
             <a class="link bold" href="${user.link}">${user.displayName}</a>
-            {{if ($data.isAdmin === true)}}
+            {{if ($data.isAdmin === true || $data.isPortalOwner === true)}}
                 {{if (user.isLDAP === true)}}
                     <span class="ldap-lock" title="${ASC.Resources.Master.LdapUsersListLockTitle}"></span>
-                {{else}}
-                    {{if (user.isSSO === true)}}
-                    <span class="sso-lock" title="${ASC.Resources.Master.SsoUsersListLockTitle}"></span>
-                    {{/if}}
                 {{/if}}
+                {{if (user.isSSO === true)}}
+                    <span class="sso-lock" title="${ASC.Resources.Master.SsoUsersListLockTitle}"></span>
+                {{/if}}
+                
             {{/if}}
 
             {{if user.bithdayDaysLeft != null}}

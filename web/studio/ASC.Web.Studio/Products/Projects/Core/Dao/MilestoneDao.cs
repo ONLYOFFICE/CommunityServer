@@ -36,6 +36,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ASC.Web.Projects;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -158,6 +159,35 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            var query = new SqlQuery(MilestonesTable + " t")
+                .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                .Select("t.create_by")
+                .Where("t.tenant_id", Tenant)
+                .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
+
+            if (filter.HasUserId)
+            {
+                query.Where(Exp.In("t.create_by", filter.GetUserIds()));
+                filter.UserId = Guid.Empty;
+                filter.DepartmentId = Guid.Empty;
+            }
+
+            query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
+
+            var queryCount = new SqlQuery()
+                .SelectCount()
+                .Select("t1.create_by")
+                .GroupBy("t1.create_by")
+                .From(query, "t1");
+
+            using (var db = new DbManager(DatabaseId))
+            {
+                return db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
+            }
+        }
+
         public List<Milestone> GetByStatus(int projectId, MilestoneStatus milestoneStatus)
         {
             using (var db = new DbManager(DatabaseId))
@@ -245,11 +275,13 @@ namespace ASC.Projects.Data.DAO
         public List<object[]> GetInfoForReminder(DateTime deadline)
         {
             var deadlineDate = deadline.Date;
-            var q = new SqlQuery(MilestonesTable)
-                .Select("tenant_id", "id", "deadline")
-                .Where(Exp.Between("deadline", deadlineDate.AddDays(-1), deadlineDate.AddDays(1)))
-                .Where("status", MilestoneStatus.Open)
-                .Where("is_notify", 1);
+            var q = new SqlQuery(MilestonesTable + " t")
+                .Select("t.tenant_id", "t.id", "t.deadline")
+                .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.tenant_id", "p.tenant_id") & Exp.EqColumns("t.project_id", "p.id"))
+                .Where(Exp.Between("t.deadline", deadlineDate.AddDays(-1), deadlineDate.AddDays(1)))
+                .Where("t.status", MilestoneStatus.Open)
+                .Where("p.status", ProjectStatus.Open)
+                .Where("t.is_notify", 1);
 
             using (var db = new DbManager(DatabaseId))
             {
@@ -340,7 +372,7 @@ namespace ASC.Projects.Data.DAO
         {
             if (filter.MilestoneStatuses.Count != 0)
             {
-                query.Where("t.status", filter.MilestoneStatuses.First());
+                query.Where(Exp.In("t.status", filter.MilestoneStatuses));
             }
 
             if (filter.ProjectIds.Count != 0)
@@ -349,6 +381,11 @@ namespace ASC.Projects.Data.DAO
             }
             else
             {
+                if (ProjectsCommonSettings.Load().HideEntitiesInPausedProjects)
+                {
+                    query.Where(!Exp.Eq("p.status", ProjectStatus.Paused));
+                }
+
                 if (filter.MyProjects)
                 {
                     query.InnerJoin(ParticipantTable + " ppp", Exp.EqColumns("p.id", "ppp.project_id") & Exp.Eq("ppp.removed", false) & Exp.EqColumns("ppp.tenant", "t.tenant_id"));
@@ -363,8 +400,16 @@ namespace ASC.Projects.Data.DAO
 
             if (filter.TagId != 0)
             {
-                query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
-                query.Where("ptag.tag_id", filter.TagId);
+                if (filter.TagId == -1)
+                {
+                    query.LeftOuterJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
+                    query.Where("ptag.tag_id", null);
+                }
+                else
+                {
+                    query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
+                    query.Where("ptag.tag_id", filter.TagId);
+                }
             }
 
             if (filter.ParticipantId.HasValue)

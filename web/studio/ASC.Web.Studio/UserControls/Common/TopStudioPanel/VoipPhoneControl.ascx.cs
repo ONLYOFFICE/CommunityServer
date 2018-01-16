@@ -43,8 +43,8 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             Page.RegisterStaticScripts(GetStaticJavaScript())
                 .RegisterBodyScripts(
-                    "~/js/third-party/jquery/jquery.signalr.js",
-                    "~/js/asc/plugins/jquery.hubs.js")
+                        "~/js/third-party/socket.io.js",
+                        "~/js/asc/core/asc.socketio.js")
                 .RegisterClientScript(new VoipNumberData());
         }
 

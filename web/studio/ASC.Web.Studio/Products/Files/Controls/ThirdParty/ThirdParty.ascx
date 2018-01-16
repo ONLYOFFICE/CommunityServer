@@ -4,14 +4,14 @@
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
-<%@ Import Namespace="ASC.Web.Files.Import" %>
-<%@ Import Namespace="ASC.Web.Files.Import.DocuSign" %>
+<%@ Import Namespace="ASC.Web.Files.Helpers" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id="thirdPartyAccountContainer">
-    <% if (ImportConfiguration.SupportInclusion) %>
+    <% if (ThirdpartyConfiguration.SupportInclusion) %>
     <%
        { %>
     <a class="account-connect button middle blue">
@@ -100,45 +100,51 @@
         </header>
         <body>
             <%: FilesUCResource.ThirdPartyConnectAccountsDescription %>
+            <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal)
+               { %>
+                <%= " " + string.Format(FilesUCResource.ThirdPartyConnectAccountsKeys,
+                                        "<a href=\"" + CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) + "\">",
+                                        "</a>") %>
+            <% } %>
             <div class="clearFix">
-                <% if (ImportConfiguration.SupportGoogleDriveInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportGoogleDriveInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button GoogleDrive" data-provider="GoogleDrive" title="<%= FilesUCResource.ThirdPartyGoogleDrive %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportBoxInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportBoxInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button Box" data-provider="Box" title="<%= FilesUCResource.ThirdPartyBoxNet %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportDropboxInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportDropboxInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button DropboxV2" data-provider="DropboxV2" title="<%= FilesUCResource.ThirdPartyDropBox %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportSharePointInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportSharePointInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button SharePoint" data-provider="SharePoint" title="<%= FilesUCResource.ThirdPartySharePoint %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportOneDriveInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportOneDriveInclusion) %>
                 <% { %>
-                <span class="add-account-big add-account-button SkyDrive" data-provider="SkyDrive" title="<%= FilesUCResource.ThirdPartySkyDrive %>"></span>
+                <span class="add-account-big add-account-button OneDrive" data-provider="OneDrive" title="<%= FilesUCResource.ThirdPartySkyDrive %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportSharePointInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportSharePointInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button SharePoint SkyDrive" data-provider="SharePoint" title="<%= FilesUCResource.ThirdPartySharePointDescr %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportWebDavInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportWebDavInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button Nextcloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
                 <span class="add-account-big add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportYandexInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportYandexInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button Yandex" data-provider="Yandex" title="<%= FilesUCResource.ThirdPartyYandex %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportDocuSignInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportDocuSignInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button DocuSign" data-provider="DocuSign" title="<%= FilesUCResource.ThirdPartyDocuSign %>" data-signed="<%= (DocuSignToken.GetToken() != null).ToString().ToLower() %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportWebDavInclusion) %>
+                <% if (ThirdpartyConfiguration.SupportWebDavInclusion) %>
                 <% { %>
                 <span class="add-account-big add-account-button WebDav" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyWebDav %>"><%= FilesUCResource.ButtonAddWebDav %></span>
                 <% } %>
@@ -169,7 +175,7 @@
     </sc:Container>
 </div>
 
-<% if (ImportConfiguration.SupportDocuSignInclusion)
+<% if (ThirdpartyConfiguration.SupportDocuSignInclusion)
    { %>
 <div id="thirdpartyToDocuSign" class="popup-modal">
     <sc:Container ID="thirdpartyToDocuSignDialog" runat="server">

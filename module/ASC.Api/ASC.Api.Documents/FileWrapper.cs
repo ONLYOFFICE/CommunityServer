@@ -24,15 +24,16 @@
 */
 
 
+using System;
+using System.Globalization;
+using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Specific;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
-using System;
-using System.Globalization;
-using System.Runtime.Serialization;
+using ASC.Web.Studio.Utility;
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 
@@ -82,7 +83,7 @@ namespace ASC.Api.Documents
         /// </summary>
         [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public String WebUrl { get; set; }
-        
+
         /// <summary>
         ///     
         /// </summary>
@@ -118,7 +119,7 @@ namespace ASC.Api.Documents
                         FolderId = Global.FolderShare;
                 }
             }
-            
+
             FileExst = FileUtility.GetFileExtension(file.Title);
             FileType = FileUtility.GetFileTypeByExtention(FileExst);
 
@@ -130,9 +131,9 @@ namespace ASC.Api.Documents
             Comment = file.Comment;
             try
             {
-                ViewUrl = file.ViewUrl;
+                ViewUrl = CommonLinkUtility.GetFullAbsolutePath(file.ViewUrl);
 
-                WebUrl = FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID);
+                WebUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID));
             }
             catch (Exception)
             {
@@ -167,7 +168,7 @@ namespace ASC.Api.Documents
                     FolderId = 12334,
                     Version = 3,
                     VersionGroup = 1,
-                    ViewUrl = "http://www.teamlab.com/viewfile?fileid=2221"
+                    ViewUrl = "http://www.onlyoffice.com/viewfile?fileid=2221"
                 };
         }
     }

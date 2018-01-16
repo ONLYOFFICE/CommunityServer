@@ -53,11 +53,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-	<NoWarn>1591</NoWarn>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -135,10 +135,6 @@
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\web\controls\ASC.Web.UserControls.SocialMedia\ASC.Web.UserControls.SocialMedia.csproj">
-      <Project>{943ccb39-1944-4ac6-a094-da6f910bb33b}</Project>
-      <Name>ASC.Web.UserControls.SocialMedia</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
@@ -166,6 +162,10 @@
     <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
+      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
+      <Name>ASC.Thrdparty</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>

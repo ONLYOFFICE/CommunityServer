@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using System.Web.Mvc;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -14,8 +15,11 @@ using ASC.VoipService;
 using ASC.VoipService.Twilio;
 using ASC.Web.Studio.Utility;
 using log4net;
-using Twilio.Mvc;
+using Twilio.AspNet.Common;
+using Twilio.AspNet.Mvc;
+using Twilio.Security;
 using Twilio.TwiML;
+using HttpStatusCodeResult = System.Web.Mvc.HttpStatusCodeResult;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -26,7 +30,7 @@ namespace ASC.Web.CRM.Classes
         private static readonly object LockObj = new object();
         private readonly VoipEngine voipEngine = new VoipEngine();
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Index(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0)
         {
             try
@@ -34,7 +38,7 @@ namespace ASC.Web.CRM.Classes
                 lock (LockObj)
                 {
                     request.AddAdditionalFields(callerId, contactId);
-                    var response = request.Direction == "inbound" ? Inbound(request) : Outbound(request);
+                    var response = request.IsInbound ? Inbound(request) : Outbound(request);
                     return GetHttpResponse(response);
                 }
             }
@@ -45,7 +49,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Client(TwilioVoiceRequest request, [FromUri]Guid callerId)
         {
             try
@@ -54,7 +58,7 @@ namespace ASC.Web.CRM.Classes
 
                 voipEngine.SaveOrUpdateCall(CallFromTwilioRequest(request));
 
-                return GetHttpResponse(new TwilioResponse());
+                return GetHttpResponse(new VoiceResponse());
             }
             catch (Exception e)
             {
@@ -63,7 +67,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Dial(TwilioVoiceRequest request, [FromUri]Guid callerId, [FromUri]int contactId = 0, [FromUri]string reject = null)
         {
             try
@@ -96,7 +100,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Enqueue(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0)
         {
             try
@@ -116,7 +120,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Queue(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0)
         {
             try
@@ -131,7 +135,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Dequeue(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0, [FromUri]string reject = "")
         {
             try
@@ -156,7 +160,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Wait(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0, [FromUri]string redirectTo = null)
         {
             try
@@ -188,7 +192,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage GatherQueue(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0)
         {
             try
@@ -203,7 +207,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Redirect(TwilioVoiceRequest request, [FromUri]string redirectTo, [FromUri]Guid? callerId = null)
         {
             try
@@ -218,7 +222,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        [HttpPost]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage VoiceMail(TwilioVoiceRequest request, [FromUri]Guid? callerId = null, [FromUri]int contactId = 0)
         {
             try
@@ -236,7 +240,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        private TwilioResponse Inbound(TwilioVoiceRequest request)
+        private VoiceResponse Inbound(TwilioVoiceRequest request)
         {
             SecurityContext.AuthenticateMe(CoreContext.TenantManager.GetCurrentTenant().OwnerId);
             var call = SaveCall(request, VoipCallStatus.Incoming);
@@ -244,7 +248,7 @@ namespace ASC.Web.CRM.Classes
             return request.Inbound(call);
         }
 
-        private TwilioResponse Outbound(TwilioVoiceRequest request)
+        private VoiceResponse Outbound(TwilioVoiceRequest request)
         {
             SaveCall(request, VoipCallStatus.Outcoming);
 
@@ -308,7 +312,7 @@ namespace ASC.Web.CRM.Classes
         }
 
 
-        private static HttpResponseMessage GetHttpResponse(TwilioResponse response)
+        private static HttpResponseMessage GetHttpResponse(VoiceResponse response)
         {
             Log.Info(response);
             return new HttpResponseMessage { Content = new StringContent(response.ToString(), Encoding.UTF8, "application/xml") };
@@ -344,7 +348,7 @@ namespace ASC.Web.CRM.Classes
         private SignalRHelper signalRHelper;
         public SignalRHelper GetSignalRHelper()
         {
-            return signalRHelper ?? (signalRHelper = new SignalRHelper(CoreContext.TenantManager.GetCurrentTenant(), CallerId, IsInbound ? To : From));
+            return signalRHelper ?? (signalRHelper = new SignalRHelper(IsInbound ? To : From));
         }
 
         public bool IsInbound
@@ -375,11 +379,11 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        internal TwilioResponse Inbound(VoipCall call)
+        internal VoiceResponse Inbound(VoipCall call)
         {
             var contactPhone = call.Status == VoipCallStatus.Incoming || call.Status == VoipCallStatus.Answered ? call.From : call.To;
 
-            Contact contact = null;
+            Contact contact;
             var contacts = new VoipEngine().GetContacts(contactPhone);
             var managers = contacts.SelectMany(CRMSecurity.GetAccessSubjectGuidsTo).ToList();
             var agent = GetSignalRHelper().GetAgent(managers);
@@ -408,25 +412,25 @@ namespace ASC.Web.CRM.Classes
 
             return GetTwilioResponseHelper().Inbound(agent);
         }
-        internal TwilioResponse Outbound() { return GetTwilioResponseHelper().Outbound(); }
-        internal TwilioResponse Dial() { return GetTwilioResponseHelper().Dial(); }
-        internal TwilioResponse Enqueue(string queueResult) { return GetTwilioResponseHelper().Enqueue(queueResult); }
-        internal TwilioResponse Queue() { return GetTwilioResponseHelper().Queue(); }
-        internal TwilioResponse Leave() { return GetTwilioResponseHelper().Leave(); }
-        internal TwilioResponse Dequeue() { return GetTwilioResponseHelper().Dequeue(); }
-        internal TwilioResponse Wait() { return GetTwilioResponseHelper().Wait(QueueSid, QueueTime, QueueTime); }
-        internal TwilioResponse GatherQueue() { return GetTwilioResponseHelper().GatherQueue(Digits, To.Substring(1), new List<Agent>()); }
-        internal TwilioResponse Redirect() { return GetTwilioResponseHelper().Redirect(RedirectTo); }
-        internal TwilioResponse VoiceMail() { return GetTwilioResponseHelper().VoiceMail(); }
+        internal VoiceResponse Outbound() { return GetTwilioResponseHelper().Outbound(); }
+        internal VoiceResponse Dial() { return GetTwilioResponseHelper().Dial(); }
+        internal VoiceResponse Enqueue(string queueResult) { return GetTwilioResponseHelper().Enqueue(queueResult); }
+        internal VoiceResponse Queue() { return GetTwilioResponseHelper().Queue(); }
+        internal VoiceResponse Leave() { return GetTwilioResponseHelper().Leave(); }
+        internal VoiceResponse Dequeue() { return GetTwilioResponseHelper().Dequeue(); }
+        internal VoiceResponse Wait() { return GetTwilioResponseHelper().Wait(QueueSid, QueueTime, QueueTime); }
+        internal VoiceResponse GatherQueue() { return GetTwilioResponseHelper().GatherQueue(Digits, To.Substring(1), new List<Agent>()); }
+        internal VoiceResponse Redirect() { return GetTwilioResponseHelper().Redirect(RedirectTo); }
+        internal VoiceResponse VoiceMail() { return GetTwilioResponseHelper().VoiceMail(); }
     }
 
-    public class ValidateRequestAttribute : System.Web.Http.Filters.ActionFilterAttribute
+    public class ValidateRequestAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuting(HttpActionContext actionContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!new RequestValidator().IsValidRequest(HttpContext.Current, TwilioLoginProvider.TwilioAuthToken))
-                actionContext.Response = new HttpResponseMessage {StatusCode = HttpStatusCode.Forbidden};
-            base.OnActionExecuting(actionContext);
+            if (!new RequestValidationHelper().IsValidRequest(filterContext.HttpContext, TwilioLoginProvider.TwilioAuthToken, HttpContext.Current.Request.GetUrlRewriter().AbsoluteUri))
+                filterContext.Result = new Twilio.AspNet.Mvc.HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            base.OnActionExecuting(filterContext);
         }
     }
 }

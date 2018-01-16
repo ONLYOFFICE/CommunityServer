@@ -450,7 +450,7 @@ namespace ASC.Files.Core.Data
                                        Exp.EqColumns("m.hash_id", "ftl.entry_id"))
                             .InnerJoin("files_thirdparty_account ac",
                                        Exp.EqColumns("ac.tenant_id", "m.tenant_id") &
-                                       Exp.Sql("m.id Like concat('sbox-', ac.id, '%') or m.id Like concat('box-', ac.id, '%') or m.id Like concat('dropbox-', ac.id, '%') or m.id Like concat('spoint-', ac.id, '%') or m.id Like concat('drive-', ac.id, '%')") &
+                                       Exp.Sql("m.id Like concat('sbox-', ac.id, '%') or m.id Like concat('box-', ac.id, '%') or m.id Like concat('dropbox-', ac.id, '%') or m.id Like concat('spoint-', ac.id, '%') or m.id Like concat('drive-', ac.id, '%') or m.id Like concat('onedrive-', ac.id, '%')") &
                                        !Exp.Eq("ac.user_id", subject) &
                                        Exp.Eq("ac.folder_type", FolderType.USER)
                             )
@@ -521,7 +521,8 @@ namespace ASC.Files.Core.Data
                                                        .Concat(folderIds.ConvertAll(r => "box-" + r[0]))
                                                        .Concat(folderIds.ConvertAll(r => "dropbox-" + r[0]))
                                                        .Concat(folderIds.ConvertAll(r => "spoint-" + r[0]))
-                                                       .Concat(folderIds.ConvertAll(r => "drive-" + r[0]));
+                                                       .Concat(folderIds.ConvertAll(r => "drive-" + r[0]))
+                                                       .Concat(folderIds.ConvertAll(r => "onedrive-" + r[0]));
 
                     var newTagsForSBox = DbManager.ExecuteList(getBaseSqlQuery()
                                                                    .InnerJoin("files_thirdparty_id_mapping mp",

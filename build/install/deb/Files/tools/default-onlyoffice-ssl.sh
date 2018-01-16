@@ -1,17 +1,27 @@
 #!/bin/bash
 
-if [ ! -f /var/www/onlyoffice/Data/certs/dhparam.pem ]; then
+ROOT_DIR="/var/www/onlyoffice/Data/certs/";
+
+if [ ! -f ${ROOT_DIR}/dhparam.pem ]; then
         sudo openssl dhparam -out dhparam.pem 2048
 
-        mv dhparam.pem /var/www/onlyoffice/Data/certs/dhparam.pem;
+        mv dhparam.pem ${ROOT_DIR}/dhparam.pem;
 fi
+
+SSL_CERTIFICATE_PATH="${ROOT_DIR}/onlyoffice.crt"
+SSL_KEY_PATH="${ROOT_DIR}/onlyoffice.key"
+SSL_CERTIFICATE_PATH_PFX="${ROOT_DIR}/onlyoffice.pfx"
+SSL_CERTIFICATE_PATH_PFX_PWD="onlyoffice";
+
+openssl pkcs12 -export -out ${SSL_CERTIFICATE_PATH_PFX} -inkey ${SSL_KEY_PATH} -in ${SSL_CERTIFICATE_PATH} -password pass:${SSL_CERTIFICATE_PATH_PFX_PWD};
+
+chown onlyoffice:onlyoffice ${SSL_CERTIFICATE_PATH_PFX}
+
 
 DOCKER_ONLYOFFICE_SUBNET=$(ip -o -f inet addr show | awk '/scope global/ {print $4}');
 
 cp /etc/nginx/includes/onlyoffice-communityserver-common-ssl.conf.template default-onlyoffice-ssl.conf;
 
-SSL_CERTIFICATE_PATH="/var/www/onlyoffice/Data/certs/onlyoffice.crt"
-SSL_KEY_PATH="/var/www/onlyoffice/Data/certs/onlyoffice.key"
 ONLYOFFICE_SERVICES_DIR="/var/www/onlyoffice/Services"
 
 sed "s,{{SSL_CERTIFICATE_PATH}},${SSL_CERTIFICATE_PATH}," -i default-onlyoffice-ssl.conf;
@@ -36,14 +46,14 @@ else
         sed '/resolver_timeout/d' -i default-onlyoffice-ssl.conf;
 fi
 
-# sed '/certificate/s/\(value\s*=\s*\"\).*\"/\1${SSL_CERTIFICATE_PATH}"\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config
-# sed '/certificatePrivateKey/s/\(value\s*=\s*\"\).*\"/\1${SSL_KEY_PATH}"\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
-# sed '/startTls/s/\(value\s*=\s*\"\).*\"/\1optional"\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
+sed '/certificate"/s!\(value\s*=\s*\"\).*\"!\1'${SSL_CERTIFICATE_PATH_PFX}'\"!' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config
+sed '/certificatePassword/s/\(value\s*=\s*\"\).*\"/\1'${SSL_CERTIFICATE_PATH_PFX_PWD}'\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config
+sed '/startTls/s/\(value\s*=\s*\"\).*\"/\1optional\"/' -i ${ONLYOFFICE_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.Config;
 
 sed '/mail\.default-api-scheme/s/\(value\s*=\s*\"\).*\"/\1https\"/' -i /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.CollectionService.exe.config;
 
 mv default-onlyoffice-ssl.conf /etc/nginx/sites-enabled/onlyoffice
 
 service onlyofficeMailAggregator restart
-# service onlyofficeJabber restart
+service onlyofficeJabber restart
 service nginx reload

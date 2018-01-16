@@ -307,18 +307,42 @@ namespace ASC.Mail.Aggregator
                 .SingleOrDefault();
         }
 
-        public MailBox GetMailBox(int mailboxId)
+        public MailBox GetMailBox(int mailboxId, string userId = null, int tenant = -1)
         {
-            return GetMailBoxes(Exp.Eq(MailboxTable.Columns.Id.Prefix(MAILBOX_ALIAS), mailboxId), false)
+            var where = Exp.Eq(MailboxTable.Columns.Id.Prefix(MAILBOX_ALIAS), mailboxId);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                where = where & Exp.Eq(MailboxTable.Columns.User, userId);
+            }
+
+            if (tenant > -1)
+            {
+                where = where & Exp.Eq(MailboxTable.Columns.Tenant, tenant);
+            }
+
+            return GetMailBoxes(where, false)
                 .SingleOrDefault();
         }
 
-        public MailBox GetNextMailBox(int mailboxId)
+        public MailBox GetNextMailBox(int mailboxId, string userId = null, int tenant = -1)
         {
+            var where = Exp.Gt(MailboxTable.Columns.Id.Prefix(MAILBOX_ALIAS), mailboxId);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                where = where & Exp.Eq(MailboxTable.Columns.User, userId);
+            }
+
+            if (tenant > -1)
+            {
+                where = where & Exp.Eq(MailboxTable.Columns.Tenant, tenant);
+            }
+
             using (var db = GetDb())
             {
                 var query = GetSelectMailBoxFieldsQuery()
-                .Where(Exp.Gt(MailboxTable.Columns.Id.Prefix(MAILBOX_ALIAS), mailboxId))
+                .Where(where)
                 .OrderBy(MailboxTable.Columns.Id.Prefix(MAILBOX_ALIAS), true)
                 .SetMaxResults(1);
 
@@ -331,7 +355,7 @@ namespace ASC.Mail.Aggregator
 
         }
 
-        public void GetMailboxesRange(out int minMailboxId, out int maxMailboxId)
+        public void GetMailboxesRange(out int minMailboxId, out int maxMailboxId, string userId = null, int tenant = -1)
         {
             minMailboxId = 0;
             maxMailboxId = 0;
@@ -341,6 +365,16 @@ namespace ASC.Mail.Aggregator
                 var selectQuery = new SqlQuery(MailboxTable.Name)
                     .SelectMin(MailboxTable.Columns.Id)
                     .SelectMax(MailboxTable.Columns.Id);
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    selectQuery.Where(Exp.Eq(MailboxTable.Columns.User, userId));
+                }
+
+                if (tenant > -1)
+                {
+                    selectQuery.Where(Exp.Eq(MailboxTable.Columns.Tenant, tenant));
+                }
 
                 var result = db.ExecuteList(selectQuery)
                                        .ConvertAll(r => new

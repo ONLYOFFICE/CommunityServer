@@ -313,12 +313,20 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The selected disabled users will be deleted from the portal. Please note that this action cannot be undone.
-        ///You cannot delete the users if they have &apos;Active&apos; or &apos;Pending&apos; status, they need to be disabled first..
+        ///   Looks up a localized string similar to Personal documents of these users that are available to others will be deleted. To avoid this, you must start the data transfer process before deleting..
         /// </summary>
-        public static string DeleteUsersDescription {
+        public static string DeleteUsersDataConfirmation {
             get {
-                return ResourceManager.GetString("DeleteUsersDescription", resourceCulture);
+                return ResourceManager.GetString("DeleteUsersDataConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected disabled users will be deleted from the portal..
+        /// </summary>
+        public static string DeleteUsersDescriptionText {
+            get {
+                return ResourceManager.GetString("DeleteUsersDescriptionText", resourceCulture);
             }
         }
         
@@ -629,6 +637,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reassign data.
+        /// </summary>
+        public static string LblReassignData {
+            get {
+                return ResourceManager.GetString("LblReassignData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send invitations once again.
         /// </summary>
         public static string LblResendInvites {
@@ -782,6 +799,87 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reassign.
+        /// </summary>
+        public static string ReassignButton {
+            get {
+                return ResourceManager.GetString("ReassignButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reassignment of data.
+        /// </summary>
+        public static string ReassignmentData {
+            get {
+                return ResourceManager.GetString("ReassignmentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The process of data transfer is started, it can take a considerable time.{0}You can close this page. When the process is completed, the administrator who runs it will be notified by mail..
+        /// </summary>
+        public static string ReassignsProgressText {
+            get {
+                return ResourceManager.GetString("ReassignsProgressText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More about data transfer.
+        /// </summary>
+        public static string ReassignsReadMore {
+            get {
+                return ResourceManager.GetString("ReassignsReadMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee to whom the data will be transferred —.
+        /// </summary>
+        public static string ReassignsToUser {
+            get {
+                return ResourceManager.GetString("ReassignsToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will be transferred:.
+        /// </summary>
+        public static string ReassignsTransferedListHdr {
+            get {
+                return ResourceManager.GetString("ReassignsTransferedListHdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General documents and personal documents that are available to other portal users;.
+        /// </summary>
+        public static string ReassignsTransferedListItem1 {
+            get {
+                return ResourceManager.GetString("ReassignsTransferedListItem1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open projects, milestones and tasks;.
+        /// </summary>
+        public static string ReassignsTransferedListItem2 {
+            get {
+                return ResourceManager.GetString("ReassignsTransferedListItem2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts, open tasks, unclosed opportunities and CRM cases;.
+        /// </summary>
+        public static string ReassignsTransferedListItem3 {
+            get {
+                return ResourceManager.GetString("ReassignsTransferedListItem3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to After the users confirm the invitation to the portal their status will change to &apos;Active&apos;.
         /// </summary>
         public static string ResendInviteDialogAfterActivation {
@@ -904,6 +1002,15 @@ namespace ASC.Web.People.Resources {
         public static string TariffActiveUserLimit {
             get {
                 return ResourceManager.GetString("TariffActiveUserLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terminate.
+        /// </summary>
+        public static string TerminateButton {
+            get {
+                return ResourceManager.GetString("TerminateButton", resourceCulture);
             }
         }
         

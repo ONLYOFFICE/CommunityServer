@@ -23,10 +23,15 @@
  *
 */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
 
 using ASC.Core;
 using ASC.Core.Common.Notify.Jabber;
 using ASC.Core.Notify.Jabber;
+using ASC.Core.Notify.Signalr;
 using ASC.Core.Users;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.client;
@@ -38,16 +43,9 @@ using ASC.Xmpp.Server.Services.Jabber;
 using ASC.Xmpp.Server.Session;
 using ASC.Xmpp.Server.Storage;
 using ASC.Xmpp.Server.Streams;
+
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.ServiceModel;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
 using Stream = ASC.Xmpp.Core.protocol.Stream;
 
 namespace ASC.Xmpp.Host
@@ -56,14 +54,14 @@ namespace ASC.Xmpp.Host
         InstanceContextMode = InstanceContextMode.Single, AddressFilterMode = AddressFilterMode.Any)]
     public class JabberService : IJabberService
     {
-        private readonly static ILog _log = LogManager.GetLogger(typeof(JabberService));
+        private static readonly ILog _log = LogManager.GetLogger(typeof(JabberService));
         private readonly XmppServer _xmppServer;
         private readonly SignalrServiceClient signalrServiceClient;
 
         public JabberService(XmppServer xmppServer)
         {
             _xmppServer = xmppServer;
-            signalrServiceClient = new SignalrServiceClient();
+            signalrServiceClient = new SignalrServiceClient("chat");
         }
 
         public int GetNewMessagesCount(int tenantId, string userName)

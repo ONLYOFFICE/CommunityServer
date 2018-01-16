@@ -24,7 +24,6 @@
 */
 
 
-using ASC.Core.Common.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core.Notify;
 using AjaxPro;
@@ -91,7 +90,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         protected void Page_Load(object sender, EventArgs e)
         {
             Settings = AdditionalWhiteLabelSettings.Instance;
-            Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            //Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
@@ -126,12 +125,12 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         [AjaxMethod]
         [SecurityPassthrough]
-        public object SaveData(string email, string pwd, string lng, string promocode)
+        public object SaveData(string email, string pwd, string lng, string promocode, bool analytics)
         {
             try
             {
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                var settings = SettingsManager.Instance.LoadSettings<WizardSettings>(tenant.TenantId);
+                var settings = WizardSettings.Load();
                 if (settings.Completed)
                 {
                     throw new Exception("Wizard passed.");
@@ -188,8 +187,12 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     LicenseReader.RefreshLicense();
                 }
 
+                if (TenantExtra.Opensource)
+                {
+                    settings.Analytics = analytics;
+                }
                 settings.Completed = true;
-                SettingsManager.Instance.SaveSettings(settings, tenant.TenantId);
+                settings.Save();
 
                 TrySetLanguage(tenant, lng);
 

@@ -64,7 +64,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public File GetFile(object parentId, string title)
         {
-            return ProviderInfo.ToFile(ProviderInfo.GetFolderFiles(parentId).FirstOrDefault(x => x.Name.Contains(title)));
+            return ProviderInfo.ToFile(ProviderInfo.GetFolderFiles(parentId).FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public List<File> GetFileHistory(object fileId)
@@ -87,7 +87,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r).ID).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 
@@ -206,12 +206,14 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public bool IsExist(string title, object folderId)
         {
-            return ProviderInfo.GetFolderFiles(folderId).FirstOrDefault(x => x.Name.Contains(title)) != null;
+            return ProviderInfo.GetFolderFiles(folderId)
+                .Any(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public bool IsExist(string title, Microsoft.SharePoint.Client.Folder folder)
         {
-            return ProviderInfo.GetFolderFiles(folder.ServerRelativeUrl).FirstOrDefault(x => x.Name.Contains(title)) != null;
+            return ProviderInfo.GetFolderFiles(folder.ServerRelativeUrl)
+                .Any(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public object MoveFile(object fileId, object toFolderId)

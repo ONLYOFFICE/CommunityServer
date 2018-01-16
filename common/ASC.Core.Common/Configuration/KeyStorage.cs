@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Configuration;
 using ASC.Core;
 using ASC.Core.Tenants;
 
@@ -32,12 +33,21 @@ namespace ASC.Thrdparty.Configuration
 {
     public static class KeyStorage
     {
-        public static string Get(string name)
+        private static bool? _onlyDefault;
+
+        public static string Get(string name, bool forDefault = false)
         {
-            var tenant = CoreContext.Configuration.Standalone
-                             ? Tenant.DEFAULT_TENANT
-                             : CoreContext.TenantManager.GetCurrentTenant().TenantId;
-            var value = CoreContext.Configuration.GetSetting(GetSettingsKey(name), tenant);
+            string value = null;
+
+            if (!(_onlyDefault ?? (bool)(_onlyDefault = ConfigurationManager.AppSettings["core.default-consumers"] == "true"))
+                && CanSet(name))
+            {
+                var tenant = CoreContext.Configuration.Standalone || forDefault
+                                 ? Tenant.DEFAULT_TENANT
+                                 : CoreContext.TenantManager.GetCurrentTenant().TenantId;
+
+                value = CoreContext.Configuration.GetSetting(GetSettingsKey(name), tenant);
+            }
 
             if (string.IsNullOrEmpty(value))
             {

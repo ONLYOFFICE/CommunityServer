@@ -89,6 +89,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                                Global.MaxCustomFieldRows,
                                Global.MaxCustomFieldCols,
                                Global.MaxHistoryEventCharacters,
+                               Global.MaxInvoiceItemPrice,
                                Global.CanDownloadInvoices,
                                IsCRMAdmin = CRMSecurity.IsAdmin,
                                EmptyScrImgs = imgs,

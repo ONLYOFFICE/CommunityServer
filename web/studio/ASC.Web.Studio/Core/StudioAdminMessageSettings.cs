@@ -32,23 +32,19 @@ namespace ASC.Web.Studio.Core
 {
     [Serializable]
     [DataContract]
-    public class StudioAdminMessageSettings : ISettings
+    public class StudioAdminMessageSettings : BaseSettings<StudioAdminMessageSettings>
     {
         [DataMember(Name = "Enable")]
         public bool Enable { get; set; }
 
-        #region ISettings Members
-
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{28902650-58A9-11E1-B6A9-0F194924019B}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new StudioAdminMessageSettings { Enable = false };
         }
-
-        #endregion
     }
 }

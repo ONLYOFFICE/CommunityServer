@@ -154,9 +154,11 @@ ASC.Controls.EmailAndPasswordManager = new function() {
             return;
         }
 
+        var analytics = jq("#analyticsAcceptedOpenSource").is(":checked");
+
         window.onbeforeunload = null;
         AjaxPro.timeoutPeriod = 1800000;
-        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, function (result) {
+        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, analytics, function (result) {
 
             if (parentCallback != null)
                 parentCallback(result.value);

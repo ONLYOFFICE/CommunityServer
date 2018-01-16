@@ -48,6 +48,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="DocuSign.eSign">
       <HintPath>..\..\..\..\..\packages\DocuSign.eSign.dll.2.0.6\lib\net45\DocuSign.eSign.dll</HintPath>
     </Reference>
@@ -59,18 +62,8 @@
       <HintPath>..\..\..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\..\..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\..\..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RestSharpSigned">
@@ -100,9 +93,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="DotNetZip">
       <HintPath>..\..\..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
       <Aliases>ionic</Aliases>
@@ -149,28 +140,6 @@
     <Compile Include="HttpHandlers\docusignhandler.ashx.cs">
       <DependentUpon>docusignhandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Import\Box\Box.aspx.cs">
-      <DependentUpon>Box.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\Box\Box.aspx.designer.cs">
-      <DependentUpon>Box.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Import\DocuSign\DocuSign.aspx.cs">
-      <DependentUpon>DocuSign.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\DocuSign\DocuSign.aspx.designer.cs">
-      <DependentUpon>DocuSign.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Import\DocuSign\DocuSignHelper.cs" />
-    <Compile Include="Import\DropBox\DropboxV2.aspx.cs">
-      <DependentUpon>DropboxV2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\DropBox\DropboxV2.aspx.designer.cs">
-      <DependentUpon>DropboxV2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="MailMerge.aspx.cs">
       <DependentUpon>MailMerge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -186,7 +155,6 @@
     <Compile Include="FileChoice.aspx.designer.cs">
       <DependentUpon>FileChoice.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\FilesMessageService.cs" />
     <Compile Include="Masters\EditorScripts.ascx.cs">
       <DependentUpon>EditorScripts.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -211,8 +179,12 @@
     </Compile>
     <Compile Include="Core\FilesIntegration.cs" />
     <Compile Include="Configuration\FilesSpaceUsageStatManager.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\DocuSignHelper.cs" />
     <Compile Include="Helpers\Global.cs" />
+    <Compile Include="Helpers\FilesMessageService.cs" />
     <Compile Include="Helpers\PathProvider.cs" />
+    <Compile Include="Helpers\ThirdpartyConfiguration.cs" />
     <Compile Include="Configuration\ProductEntryPoint.cs" />
     <Compile Include="HttpHandlers\SearchHandler.cs" />
     <Compile Include="Configuration\SubscriptionManager.cs" />
@@ -223,7 +195,6 @@
     <Compile Include="Core\Dao\Interfaces\IProviderDao.cs" />
     <Compile Include="Core\Security\IFileSecurityProvider.cs" />
     <Compile Include="Core\Entries\File.cs" />
-    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Core\Entries\FileEntry.cs" />
     <Compile Include="Core\Entries\FileEntryTypeEnum.cs" />
     <Compile Include="Core\Entries\EditHistory.cs" />
@@ -274,7 +245,7 @@
     <Content Include="Controls\ThirdParty\Images\thirdparty_nextcloud.png" />
     <Content Include="Controls\ThirdParty\Images\trash_12.png" />
     <Content Include="Controls\ThirdParty\Images\user_12.png" />
-    <Content Include="Controls\YandexScript.js" />
+    <Content Include="Controls\AnalyticsPersonalFirstVisit.js" />
     <Content Include="Controls\FileSelector\fileselector.js" />
     <Content Include="Controls\FileSelector\FileSelector.ascx" />
     <Content Include="Controls\FileSelector\fileselector.css" />
@@ -283,9 +254,6 @@
     <Content Include="Controls\MoreFeatures\css\morefeatures.css" />
     <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
     <Content Include="Controls\GoogleConversionScript.ascx" />
-    <Content Include="Import\Box\Box.aspx" />
-    <Content Include="Import\DocuSign\DocuSign.aspx" />
-    <Content Include="Import\DropBox\DropboxV2.aspx" />
     <Content Include="js\mailmerge.js" />
     <Content Include="MailMerge.aspx" />
     <Content Include="FileChoice.aspx" />
@@ -316,28 +284,6 @@
     </Compile>
     <Compile Include="HttpHandlers\FileHandler.ashx.cs">
       <DependentUpon>filehandler.ashx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Import\ImportConfiguration.cs" />
-    <Content Include="Import\OneDrive\OneDriveOAuth.aspx" />
-    <Content Include="Import\Google\Google.aspx" />
-    <Compile Include="Import\Google\Google.aspx.cs">
-      <DependentUpon>Google.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\Google\Google.aspx.designer.cs">
-      <DependentUpon>Google.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Import\OAuthBase.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\OneDrive\OneDriveOAuth.aspx.cs">
-      <DependentUpon>OneDriveOAuth.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\OneDrive\OneDriveOAuth.aspx.designer.cs">
-      <DependentUpon>OneDriveOAuth.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -635,10 +581,6 @@
     <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
       <Name>ASC.FederatedLogin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
-      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
-      <Name>ASC.Thrdparty</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>

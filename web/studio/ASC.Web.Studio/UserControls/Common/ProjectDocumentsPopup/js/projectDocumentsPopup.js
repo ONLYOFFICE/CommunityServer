@@ -168,12 +168,6 @@ window.ProjectDocumentsPopup = (function() {
 
             var fileName = files[i].title;
 
-            try {
-                fileName = decodeURIComponent(fileName);
-            } catch (e) {
-                
-            }
-
             var exttype = ASC.Files.Utility.getCssClassByFileTitle(fileName, true);
 
             var fileId = files[i].id;

@@ -153,7 +153,6 @@ namespace ASC.Web.Files.Services.DocumentService
         public static bool CheckDocServiceUrl()
         {
             var key = GenerateRevisionId(Guid.NewGuid().ToString());
-            string fileUri;
             const string toExtension = ".docx";
             var fileExtension = FileUtility.GetInternalExtension(toExtension);
             var path = FileConstant.NewDocPath + "default/new" + fileExtension;
@@ -165,24 +164,13 @@ namespace ASC.Web.Files.Services.DocumentService
                     var storeTemplate = Global.GetStoreTemplate();
                     using (var stream = storeTemplate.GetReadStream("", path))
                     {
-                        fileUri = Web.Core.Files.DocumentService.GetExternalUri(FilesLinkUtility.DocServiceStorageUrl, stream, MimeMapping.GetMimeMapping(toExtension), key, FileUtility.SignatureSecret);
+                        Web.Core.Files.DocumentService.GetExternalUri(FilesLinkUtility.DocServiceStorageUrl, stream, MimeMapping.GetMimeMapping(toExtension), key, FileUtility.SignatureSecret);
                     }
                 }
                 catch (Exception ex)
                 {
                     Global.Logger.Error("DocService check error", ex);
                     throw new Exception("Storage url: " + ex.Message);
-                }
-
-                try
-                {
-                    string tmp;
-                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, false, FileUtility.SignatureSecret, out tmp);
-                }
-                catch (Exception ex)
-                {
-                    Global.Logger.Error("DocService check error", ex);
-                    throw new Exception("Converter url: " + ex.Message);
                 }
             }
 
@@ -194,7 +182,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     var uri = storeTemplate.GetUri("", path);
                     var url = CommonLinkUtility.GetFullAbsolutePath(uri.ToString());
 
-                    fileUri = ReplaceCommunityAdress(url, FilesLinkUtility.DocServicePortalUrl);
+                    var fileUri = ReplaceCommunityAdress(url, FilesLinkUtility.DocServicePortalUrl);
 
                     key = GenerateRevisionId(Guid.NewGuid().ToString());
                     string tmp;
@@ -203,7 +191,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 catch (Exception ex)
                 {
                     Global.Logger.Error("DocService check error", ex);
-                    throw new Exception("Community server url: " + ex.Message);
+                    throw new Exception("Converter url: " + ex.Message);
                 }
             }
 
@@ -218,6 +206,19 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     Global.Logger.Error("DocService check error", ex);
                     throw new Exception("Command url: " + ex.Message);
+                }
+            }
+
+            if (TenantExtra.EnableDocbuilder && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl))
+            {
+                try
+                {
+                    Web.Core.Files.DocumentService.DocbuilderRequest(FilesLinkUtility.DocServiceDocbuilderUrl, "test", null, false, FileUtility.SignatureSecret);
+                }
+                catch (Exception ex)
+                {
+                    Global.Logger.Error("DocService check error", ex);
+                    throw new Exception("Docbuilder url: " + ex.Message);
                 }
             }
 

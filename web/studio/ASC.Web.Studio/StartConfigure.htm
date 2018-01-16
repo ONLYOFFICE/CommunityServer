@@ -9,6 +9,8 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAXRJREFUeNpiVNz2iIESwIRDXAeIZwHxeyieCcTa2BQyGu96gmyYBxAXALELSA5N7X8g3g3EE4B4B5TPwCLCyswNpOOBOB+I1fC4FmSgGxTfhBq0mDH62KtLQIYumUFwjkWEjdmSSBcgA7gLWGRem7ICGewMjFxB36SPyBMTBlxPzR8w/P9tCfbX5D0mMC/8gwbOhH/Su1/8Z2TJBbJDoZpXMf7/M5npqasU1AIPqAVnGRcc9gMFYhzUC+pQDVeAeBIQr4byw6DyWlD+DSCeCMSLGN+kGfEAGf7/GZnOH04xh3nBFYcXdrH++jvFYuEZCUaGf8JA/jTGd3kOl6EJB6RgJ8gLZ5Ndnv5nYkTxAsfHb9N1Vh21ArLLgFgBFguMH6qDQV6IhTpRAypxHRrKa6D8aKhGGST5ieB08KkrDTmhuEO94IbDCyAX9kNjA5ISmXgFkRXsgGJNqIv8oOKboDbewEieXxe0UJQbGf///0+RAQABBgAdanAWJP5I0AAAAABJRU5ErkJggg==">
+
     <style type="text/css">
         @font-face {
           font-family: 'Open Sans';
@@ -113,9 +115,6 @@
     </style>
 
     <style type="text/css">
-        #loader {
-            display: none;
-        }
         .loader-page {
           width: 50px;
           height: 180px;
@@ -539,7 +538,9 @@
         <div id="studioPageContent">
             <div class="studio-top-panel mainPageLayout">
                 <ul>
-                    <li class="studio-top-logo"></li>
+                    <li class="studio-top-logo">
+                        <img alt="ONLYOFFICE" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAAXCAYAAADdlHeDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5MzU5RTIwODc2RjMxMUU0QkFEMzlFRUJGMDQxMkNDRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5MzU5RTIwOTc2RjMxMUU0QkFEMzlFRUJGMDQxMkNDRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjNFMjk5MkZGNzZGMzExRTRCQUQzOUVFQkYwNDEyQ0NEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjNFMjk5MzAwNzZGMzExRTRCQUQzOUVFQkYwNDEyQ0NEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Y+x9LQAABvpJREFUeNrsW21s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">
+                    </li>
                 </ul>
             </div>
             <div class="mainPageLayout">
@@ -578,109 +579,23 @@
 
     <script type="text/javascript">
 
-        window.progressUrl = window.location.origin + "/api/2.0/warmup/progress.json";
-        window.progress = -1;
-
-        window.scripts = [];
-        window.returnUrl = null;
-        window.totalScripts = 0;
-        window.percentage = 0;
-
-        window.textStep = 0;
+        window.progressUrl = window.location.origin + "/api/2.0/capabilities.json";
         window.textPosition = 0;
         window.textArray = [
-                [
-                    "The portal start up process might take some time, please wait...",
-                    "We are working on it.",
-                    "Please do not reload the page or shut down your computer."
-                ],
-                [
-                    "Preparing the portal for initialization.",
-                    "This might take some time, please wait..."
-                ],
-                [
-                    "The portal initialization process might take some time, please wait...",
-                    "We are still working on it.",
-                    "Please do not reload the page or shut down your computer."
-                ],
-                [
-                    "Everything is ready. Thank you for waiting! Your portal is going to start right now."
-                ]
+            "The portal start up process might take some time, please wait...",
+            "We are working on it.",
+            "Please do not reload the page or shut down your computer."
         ];
 
-
-        function generateFavicon() {
-            var url = "/App_Data/static/partnerdata/logo_favicon_general.png";
-            var src = "data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAXRJREFUeNpiVNz2iIESwIRDXAeIZwHxeyieCcTa2BQyGu96gmyYBxAXALELSA5N7X8g3g3EE4B4B5TPwCLCyswNpOOBOB+I1fC4FmSgGxTfhBq0mDH62KtLQIYumUFwjkWEjdmSSBcgA7gLWGRem7ICGewMjFxB36SPyBMTBlxPzR8w/P9tCfbX5D0mMC/8gwbOhH/Su1/8Z2TJBbJDoZpXMf7/M5npqasU1AIPqAVnGRcc9gMFYhzUC+pQDVeAeBIQr4byw6DyWlD+DSCeCMSLGN+kGfEAGf7/GZnOH04xh3nBFYcXdrH++jvFYuEZCUaGf8JA/jTGd3kOl6EJB6RgJ8gLZ5Ndnv5nYkTxAsfHb9N1Vh21ArLLgFgBFguMH6qDQV6IhTpRAypxHRrKa6D8aKhGGST5ieB08KkrDTmhuEO94IbDCyAX9kNjA5ISmXgFkRXsgGJNqIv8oOKboDbewEieXxe0UJQbGf///0+RAQABBgAdanAWJP5I0AAAAABJRU5ErkJggg==";
-
-            //$.get(url).done(function () {
-            //    console.log("exists");
-            //    $("head").append($("<link/>").attr("href", url).attr("rel", "icon").attr("type", "image/x-icon"));
-            //}).fail(function () {
-            //    console.log("doesn't exist");
-                $("head").append($("<link/>").attr("href", src).attr("rel", "icon").attr("type", "image/x-icon"));
-            //});
-        };
-
-        function generateTopLogo() {
-            var url = "/App_Data/static/partnerdata/logo_lightsmall_general.png";
-            var src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAAXCAYAAADdlHeDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5MzU5RTIwODc2RjMxMUU0QkFEMzlFRUJGMDQxMkNDRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5MzU5RTIwOTc2RjMxMUU0QkFEMzlFRUJGMDQxMkNDRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjNFMjk5MkZGNzZGMzExRTRCQUQzOUVFQkYwNDEyQ0NEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjNFMjk5MzAwNzZGMzExRTRCQUQzOUVFQkYwNDEyQ0NEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Y+x9LQAABvpJREFUeNrsW21s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";
-
-            //$.get(url).done(function () {
-            //    console.log("exists");
-            //    $(".studio-top-logo").append($("<img/>").attr("src", url).attr("alt", ""));
-            //}).fail(function () {
-            //    console.log("doesn't exist");
-                $(".studio-top-logo").append($("<img/>").attr("src", src).attr("alt", "ONLYOFFICE"));
-            //});
-        };
-
-        function generateLoader() {
-            var url = "/App_Data/static/partnerdata/logo_dark_general.png";
-
-            //$.get(url).done(function () {
-            //    console.log("exists");
-            //    $("#loader").html("").append($("<img/>").attr("src", url).attr("alt", "").css("margin", "75px 0")).show();
-            //}).fail(function () {
-            //    console.log("doesn't exist");
-                $("#loader").show();
-            //});
-        };
-
         function showText() {
-            $(".startup-loading-cnt_text").text(window.textArray[window.textStep][window.textPosition]);
+            $(".startup-loading-cnt_text").text(window.textArray[window.textPosition]);
 
             window.textPosition++;
 
-            if (window.textPosition == window.textArray[window.textStep].length)
+            if (window.textPosition == window.textArray.length)
                 window.textPosition = 0;
 
             window.showTextTimeout = setTimeout(showText, 5000);
-        };
-
-        function showProgress() {
-            var floorProgress = Math.floor(window.progress);
-
-            if (floorProgress == 0) {
-                if (window.textStep != 1) {
-                    window.textPosition = 0;
-                    window.textStep = 1;
-                }
-                $(".asc-progress-value").removeClass("animated").animate({ "width": floorProgress + "%" }, 300);
-                $(".asc-progress-percent").text(floorProgress + "%");
-            }
-
-            if (floorProgress > 0) {
-                if (window.textStep != 2) {
-                    window.textPosition = 0;
-                    window.textStep = 2;
-                }
-                $(".asc-progress-value").removeClass("animated").animate({ "width": floorProgress + "%" }, 300);
-                $(".asc-progress-percent").text(floorProgress + "%");
-            }
-            
-            if (floorProgress < 100)
-                window.showProgressTimeout = setTimeout(showProgress, 2000);
         };
 
         function getProgress() {
@@ -704,21 +619,9 @@
                 return;
             }
 
-            var responseProgress = JSON.parse(response.response);
-
-            if (window.progress < responseProgress.ProgressPercent) {
-                window.progress = responseProgress.ProgressPercent;
-            }
-
-            if (responseProgress.Completed) {
-                window.returnUrl = responseProgress.Link;
-                window.scripts = responseProgress.Bundles || [];
-                window.totalScripts = scripts.length;
-                window.percentage = parseInt(responseProgress.Percentage);
-                getScript();
-            } else {
-                getProgressDelay();
-            }
+            setTimeout(function() {
+                window.location.href = "/";
+            }, 5000);
         }
 
         function progressRedirect() {
@@ -732,37 +635,7 @@
             getProgressDelay();
         }
 
-        function getScript() {
-            var item = window.scripts.pop();
-
-            if (!item) {
-                window.progress = 100;
-                window.textPosition = 0;
-                window.textStep = 3;
-                showProgress();
-
-                if (window.returnUrl)
-                    window.location.href = window.returnUrl;
-                else
-                    window.location.reload();
-                return;
-            }
-
-            $.ajax({ url: item, dataType: "text" }).always(function () {
-                var newProgress = window.progress + (100 - window.percentage) / window.totalScripts;
-                if (window.progress < newProgress) {
-                    window.progress = newProgress;
-                }
-                getScript();
-            });
-        }
-
-        generateFavicon();
-        generateTopLogo();
-        generateLoader();
-
         showText();
-        showProgress();
         getProgress();
 
     </script>

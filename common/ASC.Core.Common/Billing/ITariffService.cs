@@ -41,7 +41,7 @@ namespace ASC.Core.Billing
 
         IEnumerable<PaymentInfo> GetPayments(int tenantId, DateTime from, DateTime to);
 
-        Uri GetShoppingUri(int? tenant, int quotaId, string affiliateId, string currency = null, string language = null);
+        Uri GetShoppingUri(int? tenant, int quotaId, string affiliateId, string currency = null, string language = null, string customerId = null);
 
         IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo(params string[] productIds);
 

@@ -8,6 +8,7 @@ namespace ASC.Web.Projects.Test
     using NUnit.Framework;
 
     [TestFixture]
+    [TestOf(typeof(TaskSecurityTest))]
     public class TaskSecurityTest : BaseTest
     {
         [TestCaseSource(typeof(CustomTestCaseData), "TestCases", new object[] { "Create Task" })]
@@ -194,6 +195,7 @@ namespace ASC.Web.Projects.Test
     }
 
     [TestFixture]
+    [TestOf(typeof(TaskSecurityTestPrivateProject))]
     public class TaskSecurityTestPrivateProject : TaskSecurityTest
     {
         [SetUp]

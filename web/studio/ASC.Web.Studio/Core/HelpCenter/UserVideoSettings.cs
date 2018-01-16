@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using AjaxPro;
-using ASC.Core;
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.Core.HelpCenter
@@ -37,9 +36,9 @@ namespace ASC.Web.Studio.Core.HelpCenter
     [AjaxNamespace("UserVideoGuideUsage")]
     [Serializable]
     [DataContract]
-    public class UserVideoSettings : ISettings
+    public class UserVideoSettings : BaseSettings<UserVideoSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{CEBD4BA5-31B3-43a4-93BF-B4A110FE840F}"); }
         }
@@ -47,28 +46,27 @@ namespace ASC.Web.Studio.Core.HelpCenter
         [DataMember(Name = "VideoGuides")]
         private List<String> VideoGuides { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new UserVideoSettings
                 {
-                    VideoGuides = new List<String>()
+                    VideoGuides = new List<string>()
                 };
         }
 
         public static List<string> GetUserVideoGuide()
         {
-            return SettingsManager.Instance.LoadSettingsFor<UserVideoSettings>(SecurityContext.CurrentAccount.ID).VideoGuides ?? new List<string>();
+            return LoadForCurrentUser().VideoGuides ?? new List<string>();
         }
 
         [AjaxMethod]
         public void SaveWatchVideo(String[] video)
         {
             var watched = GetUserVideoGuide();
-
             watched.AddRange(video);
             watched = watched.Distinct().ToList();
-            var setting = new UserVideoSettings { VideoGuides = watched };
-            SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+
+            new UserVideoSettings { VideoGuides = watched }.SaveForCurrentUser();
         }
     }
 }

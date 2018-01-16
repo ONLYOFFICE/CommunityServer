@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `audit_events` (
   `page` varchar(300) DEFAULT NULL,
   `action` int(11) DEFAULT NULL,
   `description` varchar(20000) DEFAULT NULL,
+  `target` text,
   PRIMARY KEY (`id`),
   KEY `date` (`tenant_id`,`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -289,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `core_settings` (
   `tenant` int(11) NOT NULL,
   `id` varchar(128) NOT NULL,
   `value` mediumblob NOT NULL,
+  `last_modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`tenant`,`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -451,7 +453,8 @@ CREATE TABLE IF NOT EXISTS `crm_currency_rate` (
   `last_modifed_by` char(38) DEFAULT NULL,
   `last_modifed_on` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `tenant_id` (`tenant_id`)
+  KEY `tenant_id` (`tenant_id`),
+  KEY `from_currency` (`from_currency`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `crm_deal` (
@@ -665,6 +668,18 @@ CREATE TABLE IF NOT EXISTS `crm_relationship_event` (
   KEY `IX_Contact` (`contact_id`),
   KEY `IX_Entity` (`entity_id`,`entity_type`),
   KEY `last_modifed_on` (`last_modifed_on`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `crm_report_file` (
+  `file_id` int(11) NOT NULL,
+  `report_type` int(11) NOT NULL,
+  `create_on` datetime NOT NULL,
+  `create_by` char(38) NOT NULL,
+  `tenant_id` int(11) NOT NULL,
+  PRIMARY KEY (`file_id`),
+  KEY `tenant_id` (`tenant_id`),
+  KEY `create_by` (`create_by`),
+  KEY `create_on` (`create_on`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `crm_tag` (
@@ -1002,7 +1017,7 @@ CREATE TABLE IF NOT EXISTS `files_thirdparty_app` (
   `app` varchar(50) NOT NULL,
   `token` text,
   `tenant_id` int(11) NOT NULL,
-  `modified_on` datetime DEFAULT NULL,
+  `modified_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`,`app`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

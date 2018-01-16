@@ -799,6 +799,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Without tag.
+        /// </summary>
+        public static string WithoutTag {
+            get {
+                return ResourceManager.GetString("WithoutTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yesterday.
         /// </summary>
         public static string Yesterday {

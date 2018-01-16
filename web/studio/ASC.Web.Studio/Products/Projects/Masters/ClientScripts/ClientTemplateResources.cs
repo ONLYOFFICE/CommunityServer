@@ -47,6 +47,8 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     "~/products/projects/ProjectsTemplates/ActionPanelsTemplates.html",
                     "~/products/projects/ProjectsTemplates/PopupContentTemplates.html",
                     "~/products/projects/ProjectsTemplates/ReportTemplates.html",
+                    "~/products/projects/ProjectsTemplates/ProjectAction.html",
+                    "~/products/projects/ProjectsTemplates/SettingsTemplates.html",
                     "~/products/crm/templates/SimpleContactListTemplate.html",
                     "~/products/crm/templates/ContactSelectorTemplates.html",
                     "~/products/crm/templates/ContactInfoCardTemplate.html"

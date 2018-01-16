@@ -52,7 +52,7 @@
             <div class="templateHeader-splitter requiredField">
                 <span class="requiredErrorText"><%= CRMJSResource.EmptyTaskTitle%></span>
                 <div class="headerPanelSmall templateHeaderSmall-splitter bold"><%= CRMTaskResource.TaskTitle%>:</div>
-                <input class="textEdit" id="tbxTemplateTitle" style="width:100%" type="text" maxlength="100"/>
+                <input class="textEdit" id="tbxTemplateTitle" style="width:100%" type="text" maxlength="255"/>
             </div>
 
             <div class="templateHeader-splitter">

@@ -24,56 +24,83 @@
 */
 
 
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
 using System.ServiceModel;
+using System.Text;
+using ASC.Core.Common.Notify.Jabber;
+using log4net;
+using Newtonsoft.Json;
 
 namespace ASC.Core.Notify.Signalr
 {
     public class SignalrServiceClient
     {
-        private static readonly TimeSpan timeout = TimeSpan.FromSeconds(1);
-        private static ILog log = LogManager.GetLogger(typeof(SignalrServiceClient));
+        private static readonly TimeSpan Timeout;
+        private static readonly ILog Log;
         private static DateTime lastErrorTime;
-        private static string enableSignalr = ConfigurationManager.AppSettings["web.enable-signalr"] ?? "false";
-        private static readonly string fromTeamlabToOnlyOffice = ConfigurationManager.AppSettings["jabber.from-teamlab-to-onlyoffice"] ?? "true";
-        private static readonly string fromServerInJid = ConfigurationManager.AppSettings["jabber.from-server-in-jid"] ?? "teamlab.com";
-        private static readonly string toServerInJid = ConfigurationManager.AppSettings["jabber.to-server-in-jid"] ?? "onlyoffice.com";
+        public static readonly bool EnableSignalr;
+        private static readonly string CoreMachineKey;
+        private static readonly string Url;
+        private static readonly bool JabberReplaceDomain;
+        private static readonly string JabberReplaceFromDomain;
+        private static readonly string JabberReplaceToDomain;
 
-        public SignalrServiceClient()
+        private readonly string hub;
+
+        static SignalrServiceClient()
         {
+            Timeout = TimeSpan.FromSeconds(1);
+            Log = LogManager.GetLogger(typeof(SignalrServiceClient));
+            CoreMachineKey = ConfigurationManager.AppSettings["core.machinekey"];
+            Url = ConfigurationManager.AppSettings["web.hub.internal"];
+            EnableSignalr = !string.IsNullOrEmpty(Url);
+
+            try
+            {
+                var replaceSetting = ConfigurationManager.AppSettings["jabber.replace-domain"];
+                if (!string.IsNullOrEmpty(replaceSetting))
+                {
+                    JabberReplaceDomain = true;
+                    var q =
+                        replaceSetting.Split(new[] {"->"}, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(s => s.Trim().ToLowerInvariant())
+                            .ToList();
+                    JabberReplaceFromDomain = q.ElementAt(0);
+                    JabberReplaceToDomain = q.ElementAt(1);
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        public SignalrServiceClient(string enSignalr)
+        public SignalrServiceClient(string hub)
         {
-            enableSignalr = enSignalr;
+            this.hub = hub.Trim('/');
         }
 
-        public void SendMessage(string callerUserName, string calleeUserName, string messageText, int tenantId, string domain)
+        public void SendMessage(string callerUserName, string calleeUserName, string messageText, int tenantId,
+            string domain)
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
-
-                using (var service = new SignalrServiceClientWcf())
+                domain = ReplaceDomain(domain);
+                var tenant = tenantId == -1
+                    ? CoreContext.TenantManager.GetTenant(domain)
+                    : CoreContext.TenantManager.GetTenant(tenantId);
+                var isTenantUser = callerUserName == string.Empty;
+                var message = new MessageClass
                 {
-                    if (service != null)
-                    {
-                        if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
-                        {
-                            int place = domain.LastIndexOf(fromServerInJid);
-                            if (place >= 0)
-                            {
-                                domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
-                            }
-                        }
-                        log.DebugFormat("Send Message callerUserName={0}, calleeUserName={1}, messageText={2}, tenantId={3}, domain={4}",
-                            callerUserName, calleeUserName, messageText, tenantId, domain);
-                        service.SendMessage(callerUserName, calleeUserName, messageText, tenantId, domain);
-                    }
-                }
+                    UserName = isTenantUser ? tenant.GetTenantDomain() : callerUserName,
+                    Text = messageText
+                };
+
+                MakeRequest("send", new {tenantId = tenant.TenantId, callerUserName, calleeUserName, message, isTenantUser});
             }
             catch (Exception error)
             {
@@ -85,26 +112,17 @@ namespace ASC.Core.Notify.Signalr
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
+                domain = ReplaceDomain(domain);
 
-                using (var service = new SignalrServiceClientWcf())
+                var tenant = CoreContext.TenantManager.GetTenant(domain);
+
+                var message = new MessageClass
                 {
-                    if (service != null)
-                    {
-                   
-                        if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
-                        {
-                            int place = domain.LastIndexOf(fromServerInJid);
-                            if (place >= 0)
-                            {
-                                domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
-                            }
-                        }
-                        log.DebugFormat("Send Invite chatRoomName={0}, calleeUserName={1}, domain={2}",
-                            chatRoomName, calleeUserName, domain);
-                        service.SendInvite(chatRoomName, calleeUserName, domain);
-                    }
-                }
+                    UserName = tenant.GetTenantDomain(),
+                    Text = chatRoomName
+                };
+
+                MakeRequest("sendInvite", new {tenantId = tenant.TenantId, calleeUserName, message});
             }
             catch (Exception error)
             {
@@ -116,24 +134,14 @@ namespace ASC.Core.Notify.Signalr
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
+                domain = ReplaceDomain(domain);
 
-                using (var service = new SignalrServiceClientWcf())
+                if (tenantId == -1)
                 {
-                    if (service != null)
-                    {
-                            if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
-                            {
-                                int place = domain.LastIndexOf(fromServerInJid);
-                                if (place >= 0)
-                                {
-                                    domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
-                                }
-                            }
-                            log.DebugFormat("Send State from={0}, state={1}, tenantId={2}, domain={3}", from, state, tenantId, domain);
-                            service.SendState(from, state, tenantId, domain);
-                    }
+                    tenantId = CoreContext.TenantManager.GetTenant(domain).TenantId;
                 }
+
+                MakeRequest("setState", new {tenantId, from, state});
             }
             catch (Exception error)
             {
@@ -145,18 +153,7 @@ namespace ASC.Core.Notify.Signalr
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
-
-                using (var service = new SignalrServiceClientWcf())
-                {
-                    if (service != null)
-                    {
-                        log.DebugFormat("SendOfflineMessages callerUserName={0}, tenantId={1}", callerUserName, tenantId);
-                    
-                            service.SendOfflineMessages(callerUserName, users, tenantId);
-                    
-                    }
-                }
+                MakeRequest("sendOfflineMessages", new {tenantId, callerUserName, users});
             }
             catch (Exception error)
             {
@@ -168,25 +165,11 @@ namespace ASC.Core.Notify.Signalr
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
+                domain = ReplaceDomain(domain);
 
-                using (var service = new SignalrServiceClientWcf())
-                {
-                    if (service != null)
-                    {
-                    
-                            if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
-                            {
-                                int place = domain.LastIndexOf(fromServerInJid);
-                                if (place >= 0)
-                                {
-                                    domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
-                                }
-                            }
-                            log.DebugFormat("SendUnreadCounts domain={0}", domain);
-                            service.SendUnreadCounts(unreadCounts, domain);
-                    }
-                }
+                var tenant = CoreContext.TenantManager.GetTenant(domain);
+
+                MakeRequest("sendUnreadCounts", new {tenantId = tenant.TenantId, unreadCounts});
             }
             catch (Exception error)
             {
@@ -194,22 +177,11 @@ namespace ASC.Core.Notify.Signalr
             }
         }
 
-        public void SendUnreadUsers(Dictionary<int, HashSet<Guid>> unreadUsers)
+        public void SendUnreadUsers(Dictionary<int, Dictionary<Guid, int>> unreadUsers)
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
-
-                using (var service = new SignalrServiceClientWcf())
-                {
-                    if (service != null)
-                    {
-                    
-                            log.Debug("Send Unread Users");
-                            service.SendUnreadUsers(unreadUsers);
-                    
-                    }
-                }
+                MakeRequest("sendUnreadUsers", unreadUsers);
             }
             catch (Exception error)
             {
@@ -217,22 +189,11 @@ namespace ASC.Core.Notify.Signalr
             }
         }
 
-        public void SendUnreadUser(int tenant, string userId)
+        public void SendUnreadUser(int tenant, string userId, int count)
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
-
-                using (var service = new SignalrServiceClientWcf())
-                {
-                    if (service != null)
-                    {
-                    
-                            log.Debug("Send Unread User");
-                            service.SendUnreadUser(tenant, userId);
-                    
-                    }
-                }
+                MakeRequest("updateFolders", new {tenant, userId, count});
             }
             catch (Exception error)
             {
@@ -244,17 +205,7 @@ namespace ASC.Core.Notify.Signalr
         {
             try
             {
-                if (enableSignalr != "true" || !IsAvailable()) return;
-
-                using (var service = new SignalrServiceClientWcf())
-                {
-                    if (service != null)
-                    {
-                    
-                            log.Debug("Send Mail Notification");
-                            service.SendMailNotification(tenant, userId, state);
-                    }
-                }
+                MakeRequest("sendMailNotification", new {tenant, userId, state});
             }
             catch (Exception error)
             {
@@ -262,18 +213,118 @@ namespace ASC.Core.Notify.Signalr
             }
         }
 
-        private bool IsAvailable()
+        public void EnqueueCall(string numberId, string callId, string agent)
         {
-            return lastErrorTime + timeout < DateTime.Now;
+            try
+            {
+                MakeRequest("enqueue", new { numberId, callId, agent });
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+        }
+
+        public void IncomingCall(string callId, string agent)
+        {
+            try
+            {
+                MakeRequest("incoming", new { callId, agent });
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+        }
+
+        public void MissCall(string numberId, string callId, string agent)
+        {
+            try
+            {
+                MakeRequest("miss", new { numberId, callId, agent });
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+        }
+
+        public T GetAgent<T>(string numberId, List<Guid> contactsResponsibles)
+        {
+            try
+            {
+                return MakeRequest<T>("GetAgent", new { numberId, contactsResponsibles });
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+
+            return default(T);
+        }
+
+        private string ReplaceDomain(string domain)
+        {
+            if (JabberReplaceDomain && domain.EndsWith(JabberReplaceFromDomain))
+            {
+                var place = domain.LastIndexOf(JabberReplaceFromDomain);
+                if (place >= 0)
+                {
+                    return domain.Remove(place, JabberReplaceFromDomain.Length).Insert(place, JabberReplaceToDomain);
+                }
+            }
+
+            return domain;
         }
 
         private void ProcessError(Exception e)
         {
-            log.ErrorFormat("Service Error: {0}, {1}, {2}", e.Message, e.StackTrace, 
+            Log.ErrorFormat("Service Error: {0}, {1}, {2}", e.Message, e.StackTrace,
                 (e.InnerException != null) ? e.InnerException.Message : string.Empty);
             if (e is CommunicationException || e is TimeoutException)
             {
                 lastErrorTime = DateTime.Now;
+            }
+        }
+
+        private string MakeRequest(string method, object data)
+        {
+            if (!IsAvailable()) return "";
+
+            using (var webClient = new WebClient())
+            {
+                var jsonData = JsonConvert.SerializeObject(data);
+                Log.DebugFormat("Method:{0}, Data:{1}", method, jsonData);
+                webClient.Encoding = Encoding.UTF8;
+                webClient.Headers.Add("Authorization", CreateAuthToken());
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                return webClient.UploadString(GetMethod(method), jsonData);
+            }
+        }
+
+        private T MakeRequest<T>(string method, object data)
+        {
+            var resultMakeRequest = MakeRequest(method, data);
+            return JsonConvert.DeserializeObject<T>(resultMakeRequest);
+        }
+
+        private bool IsAvailable()
+        {
+            return EnableSignalr || lastErrorTime + Timeout < DateTime.Now;
+        }
+
+        private string GetMethod(string method)
+        {
+            return string.Format("{0}/controller/{1}/{2}", Url.TrimEnd('/') , hub, method);
+        }
+
+        public static string CreateAuthToken(string pkey = "socketio")
+        {
+            using (var hasher = new HMACSHA1(Encoding.UTF8.GetBytes(CoreMachineKey)))
+            {
+                var now = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                var hash = Convert.ToBase64String(hasher.ComputeHash(Encoding.UTF8.GetBytes(string.Join("\n", now, pkey))));
+                return string.Format("ASC {0}:{1}:{2}", pkey, now, hash);
             }
         }
     }

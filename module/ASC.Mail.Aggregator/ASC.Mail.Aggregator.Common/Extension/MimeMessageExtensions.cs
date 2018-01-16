@@ -180,7 +180,9 @@ namespace ASC.Mail.Aggregator.Common.Extension
             mail.MimeMessageId = (string.IsNullOrEmpty(message.MessageId) ? MailUtil.CreateMessageId() : message.MessageId)
                 .Trim(new[] { '<', '>' });
             mail.ChainId = string.IsNullOrEmpty(chainId) ? mail.MimeMessageId : chainId;
-            mail.MimeReplyToId = mail.ChainId.Equals(mail.MimeMessageId) ? null : message.InReplyTo.Trim('<', '>');
+            mail.MimeReplyToId = mail.ChainId.Equals(mail.MimeMessageId) || string.IsNullOrEmpty(message.InReplyTo)
+                ? null
+                : message.InReplyTo.Trim('<', '>');
             mail.ReplyTo = message.ReplyTo.ToString();
             mail.From = message.From.ToString();
             mail.FromEmail = message.From != null && message.From.Mailboxes != null && message.From.Mailboxes.Any()

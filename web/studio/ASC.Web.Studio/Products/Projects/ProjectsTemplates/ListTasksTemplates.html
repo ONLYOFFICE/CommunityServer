@@ -6,16 +6,11 @@
         {{else}}
         <div class="nomenupoint"></div>
         {{/if}}
-
+        <div class="checkbox">
+            <input title="Select" type="checkbox">
+        </div>
         <div class="check">
-            <div data-id="${id}" class="changeStatusCombobox{{if $item.data.canEdit}} canEdit{{else}} noEdit{{/if}}">
-                {{if $item.data.status == 2}}
-                <span title="${ASC.Projects.Resources.TasksResource.Closed}" class="closed"></span>
-                {{else}}
-                <span title="${ASC.Projects.Resources.TasksResource.Open}" class="open"></span>
-                {{/if}}
-                {{if $item.data.canEdit}}<span class="arrow"></span> {{/if}}
-            </div>
+            {{tmpl({canEdit: $item.data.canEdit, status: ASC.Projects.StatusList.getById($item.data.status)}) 'projects_statusChangeContainer'}}
         </div>
 
         <div class="taskPlace">
@@ -78,10 +73,10 @@
 </script>
 
 <script id="projects_milestoneForMoveTaskPanelTmpl" type="text/x-jquery-tmpl">
-        <div class="ms">
-            <input id="ms_${id}" value="${id}" type="radio" name="milestones"/>
-            <label for="ms_${id}">[${displayDateDeadline}] ${title}</label>
-        </div>             
+    <div class="ms">
+        <input id="ms_${id}" value="${id}" type="radio" name="milestones" {{if checked}} checked="checked" {{/if}}/>
+        <label for="ms_${id}">{{if displayDateDeadline}}[${displayDateDeadline}] {{/if}}${title}</label>
+    </div>
 </script>
 
 <script id="projects_numSubtasksTmpl" type="text/x-jquery-tmpl">

@@ -50,10 +50,10 @@ namespace ASC.Projects.Data.DAO
         {
         }
 
-        public override void Delete(int projectId)
+        public override void Delete(int projectId, out List<int> messages, out List<int> tasks)
         {
             ResetCache(projectId);
-            base.Delete(projectId);
+            base.Delete(projectId, out messages, out tasks);
         }
 
         public override void RemoveFromTeam(int projectId, Guid participantId)
@@ -258,8 +258,16 @@ namespace ASC.Projects.Data.DAO
         {
             if (filter.TagId != 0)
             {
-                query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "p.id"));
-                query.Where("ptag.tag_id", filter.TagId);
+                if (filter.TagId == -1)
+                {
+                    query.LeftOuterJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "p.id"));
+                    query.Where("ptag.tag_id", null);
+                }
+                else
+                {
+                    query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "p.id"));
+                    query.Where("ptag.tag_id", filter.TagId);
+                }
             }
 
             if (filter.HasUserId || (filter.ParticipantId.HasValue && !filter.ParticipantId.Equals(Guid.Empty)))
@@ -291,9 +299,9 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.Eq("pfpp.participant_id", CurrentUserID));
             }
 
-            if (filter.ProjectStatuses.Count != 0)
+            if (filter.ProjectStatuses.Any())
             {
-                query.Where(Exp.Eq("p.status", filter.ProjectStatuses.First()));
+                query.Where(Exp.In("p.status", filter.ProjectStatuses));
             }
 
             if (!string.IsNullOrEmpty(filter.SearchText))
@@ -557,37 +565,37 @@ namespace ASC.Projects.Data.DAO
             return project;
         }
 
-        public virtual void Delete(int projectId)
+        public virtual void Delete(int projectId, out List<int> messages, out List<int> tasks)
         {
             using (var db = new DbManager(DatabaseId))
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    db.ExecuteNonQuery(new SqlDelete(ParticipantTable).Where("project_id", projectId));
+                    db.ExecuteNonQuery(new SqlDelete(ParticipantTable).Where("project_id", projectId).Where("tenant", Tenant));
                     db.ExecuteNonQuery(new SqlDelete(FollowingProjectTable).Where("project_id", projectId));
                     db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
                     db.ExecuteNonQuery(Delete(TimeTrackingTable).Where("project_id", projectId));
 
-                    var messages = db.ExecuteList(Query(MessagesTable)
-                                .Select("concat('Message_', cast(id as char))")
-                                .Where("project_id", projectId)).ConvertAll(r => (string)r[0]);
+                    messages = db.ExecuteList(Query(MessagesTable)
+                                .Select("id")
+                                .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
                     var milestones = db.ExecuteList(Query(MilestonesTable)
-                                                        .Select("concat('Milestone_', cast(id as char))")
-                                                        .Where("project_id", projectId)).ConvertAll(r => (string)r[0]);
+                                                        .Select("id")
+                                                        .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    var tasks = db.ExecuteList(Query(TasksTable)
+                    tasks = db.ExecuteList(Query(TasksTable)
                                                    .Select("id")
                                                    .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
                     if (messages.Any())
                     {
-                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages)));
+                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages.Select(r => "Message_" + r).ToList())));
                         db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
                     }
                     if (milestones.Any())
                     {
-                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones)));
+                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones.Select(r => "Milestone_" + r).ToList())));
                         db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
                     }
                     if (tasks.Any())
@@ -876,8 +884,9 @@ namespace ASC.Projects.Data.DAO
 
         public static Participant ToParticipant(object[] r)
         {
-            return new Participant(new Guid((string)r[0]), (ProjectTeamSecurity)Convert.ToInt32(r[1]))
+            return new Participant(new Guid((string)r[0]))
             {
+                ProjectTeamSecurity = (ProjectTeamSecurity)Convert.ToInt32(r[1]),
                 ProjectID = Convert.ToInt32(r[2]),
                 IsManager = Convert.ToBoolean(r[3])
             };

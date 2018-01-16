@@ -46,8 +46,16 @@ function fireNotification(obj, event) {
     var title = unescape(obj.fromFullName);
     var body = obj.msg;
     var tag = 'simple-push-notification-tag';
+    var photo;
+    if ((obj.photoPath.indexOf('http://') != -1 || obj.photoPath.indexOf('https://') != -1) && obj.photoPath != '') {
+        photo = obj.photoPath;
+    } else if (obj.photoPath != '') {
+        photo = event.target.origin != '' ? event.target.origin + obj.photoPath : "http://download.onlyoffice.com/assets/logo/emptyuser-48.png";
+    } else {
+        photo = "http://download.onlyoffice.com/assets/logo/emptyuser-48.png";
+    }
     event.waitUntil(self.registration.showNotification(title, {
-        icon: "http://download.onlyoffice.com/assets/logo/emptyuser-48.png",
+        icon: photo,
 		title:title,
 		body: body,
         tag: tag

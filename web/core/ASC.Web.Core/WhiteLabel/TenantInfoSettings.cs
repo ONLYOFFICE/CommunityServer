@@ -40,7 +40,7 @@ namespace ASC.Web.Core.WhiteLabel
 {
     [Serializable]
     [DataContract]
-    public class TenantInfoSettings : ISettings
+    public class TenantInfoSettings : BaseSettings<TenantInfoSettings>
     {
         [DataMember(Name = "LogoSize")]
         public Size CompanyLogoSize { get; private set; }
@@ -52,7 +52,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region ISettings Members
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new TenantInfoSettings
                        {
@@ -144,7 +144,7 @@ namespace ASC.Web.Core.WhiteLabel
             return storage.IsFile(fileName) ? storage.GetReadStream(fileName) : null;
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{5116B892-CCDD-4406-98CD-4F18297C0C0A}"); }
         }

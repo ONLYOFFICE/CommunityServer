@@ -70,6 +70,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action ID.
+        /// </summary>
+        public static string ActionIdCol {
+            get {
+                return ResourceManager.GetString("ActionIdCol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action Type.
         /// </summary>
         public static string ActionTypeCol {
@@ -1195,6 +1204,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Navigation Settings Updated.
+        /// </summary>
+        public static string CustomNavigationSettingsUpdated {
+            get {
+                return ResourceManager.GetString("CustomNavigationSettingsUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Team Template Updated.
         /// </summary>
         public static string CustomTeamTemplateUpdated {
@@ -1564,20 +1582,20 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document {1} signed via {0}.
-        /// </summary>
-        public static string FilesDocumentSigned {
-            get {
-                return ResourceManager.GetString("FilesDocumentSigned", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Files [{0}]. Revision: {1}. Version Restored.
         /// </summary>
         public static string FileRestoreVersion {
             get {
                 return ResourceManager.GetString("FileRestoreVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document {1} signed via {0}.
+        /// </summary>
+        public static string FilesDocumentSigned {
+            get {
+                return ResourceManager.GetString("FilesDocumentSigned", resourceCulture);
             }
         }
         
@@ -3310,6 +3328,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reassigns.
+        /// </summary>
+        public static string ReassignsActionType {
+            get {
+                return ResourceManager.GetString("ReassignsActionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>
         public static string ReportsModule {
@@ -3468,6 +3495,15 @@ namespace ASC.AuditTrail {
         public static string SystemAccount {
             get {
                 return ResourceManager.GetString("SystemAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target ID.
+        /// </summary>
+        public static string TargetIdCol {
+            get {
+                return ResourceManager.GetString("TargetIdCol", resourceCulture);
             }
         }
         
@@ -3819,6 +3855,15 @@ namespace ASC.AuditTrail {
         public static string UserCreatedViaInvite {
             get {
                 return ResourceManager.GetString("UserCreatedViaInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Reassigned: from user {0} to user {1}.
+        /// </summary>
+        public static string UserDataReassigns {
+            get {
+                return ResourceManager.GetString("UserDataReassigns", resourceCulture);
             }
         }
         

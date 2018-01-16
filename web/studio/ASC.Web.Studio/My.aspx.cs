@@ -68,8 +68,8 @@ namespace ASC.Web.Studio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            InitScripts();
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js")
+                .RegisterBodyScripts("~/js/asc/core/my.js");
 
             Master.DisabledSidePanel = true;
 
@@ -90,21 +90,6 @@ namespace ASC.Web.Studio
             }
 
             Title = HeaderStringHelper.GetPageTitle(Resource.MyProfile);
-        }
-
-        private void InitScripts()
-        {
-            var script = new StringBuilder();
-            script.Append("jq('#switcherSubscriptionButton').one('click',");
-            script.Append("function() {");
-            script.Append("if (!jq('#subscriptionBlockContainer').hasClass('subsLoaded') &&");
-            script.Append("typeof (window.CommonSubscriptionManager) != 'undefined' &&");
-            script.Append("typeof (window.CommonSubscriptionManager.LoadSubscriptions) === 'function') {");
-            script.Append("window.CommonSubscriptionManager.LoadSubscriptions();");
-            script.Append("jq('#subscriptionBlockContainer').addClass('subsLoaded');");
-            script.Append("}});");
-
-            Page.RegisterInlineScript(script.ToString());
         }
 
         private void InitProfileControl()

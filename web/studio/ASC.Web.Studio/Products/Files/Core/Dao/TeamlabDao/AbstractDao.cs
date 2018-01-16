@@ -125,7 +125,7 @@ namespace ASC.Files.Core.Data
             return table.Substring(table.IndexOf(" ")).Trim() + "." + tenant;
         }
 
-        protected SqlQuery GetFileQuery(Exp where, bool checkShared = true, bool my = false)
+        protected SqlQuery GetFileQuery(Exp where, bool checkShared = true)
         {
             return Query("files_file f")
                 .Select("f.id")
@@ -139,7 +139,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.modified_on")
                 .Select("f.modified_by")
                 .Select(GetRootFolderType("folder_id"))
-                .Select(checkShared ? GetSharedQuery(FileEntryType.File, my) : new SqlQuery().Select("1"))
+                .Select(checkShared ? GetSharedQuery(FileEntryType.File) : new SqlQuery().Select("1"))
                 .Select("converted_type")
                 .Select("f.comment")
                 .Where(where);
@@ -175,17 +175,13 @@ namespace ASC.Files.Core.Data
             return v != null ? int.Parse(v.ToString().Substring(1 + 36)) : default(int);
         }
 
-        protected SqlQuery GetSharedQuery(FileEntryType type, bool my = false)
+        protected SqlQuery GetSharedQuery(FileEntryType type)
         {
             var result = Query("files_security s")
                 .SelectCount()
                 .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
-                .Where("s.entry_type", (int) type);
-
-            if (my)
-            {
-                result.Where("owner", SecurityContext.CurrentAccount.ID.ToString());
-            }
+                .Where("s.entry_type", (int) type)
+                .SetMaxResults(1);
 
             return result;
         }
@@ -226,18 +222,32 @@ namespace ASC.Files.Core.Data
 
             using (var DbManager = GetDb())
             {
-                if (id.ToString().StartsWith("sbox") || id.ToString().StartsWith("box") || id.ToString().StartsWith("dropbox") || id.ToString().StartsWith("spoint") || id.ToString().StartsWith("drive"))
+                if (id.ToString().StartsWith("sbox")
+                    || id.ToString().StartsWith("box")
+                    || id.ToString().StartsWith("dropbox")
+                    || id.ToString().StartsWith("spoint")
+                    || id.ToString().StartsWith("drive")
+                    || id.ToString().StartsWith("onedrive"))
+                {
                     result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
+                }
                 else
-                    result = DbManager.ExecuteScalar<String>(Query("files_thirdparty_id_mapping")
-                                                                 .Select("id")
-                                                                 .Where(Exp.Eq("hash_id", id)));
+                {
+                    result = DbManager.ExecuteScalar<String>(
+                        Query("files_thirdparty_id_mapping")
+                            .Select("id")
+                            .Where(Exp.Eq("hash_id", id))
+                        );
+                }
 
                 if (saveIfNotExist)
-                    DbManager.ExecuteNonQuery(Insert("files_thirdparty_id_mapping")
-                                                  .InColumnValue("id", id)
-                                                  .InColumnValue("hash_id", result)
+                {
+                    DbManager.ExecuteNonQuery(
+                        Insert("files_thirdparty_id_mapping")
+                            .InColumnValue("id", id)
+                            .InColumnValue("hash_id", result)
                         );
+                }
             }
 
             return result;

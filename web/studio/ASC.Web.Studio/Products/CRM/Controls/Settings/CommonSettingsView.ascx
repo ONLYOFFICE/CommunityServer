@@ -32,36 +32,6 @@
     </div>
 </div>
 
-<div class="header-base settingsHeader"><%=CRMSettingResource.CurrencySettings%></div>
-<div>
-    <p><%: CRMSettingResource.CurrencySettingsDescription%></p>
-    <p><%: CRMSettingResource.CurrencySettingsInvoiceDescription%></p>
-    <div class="header-base-small headerPanelSmall">
-        <%= CRMSettingResource.DefaultCurrency%>:
-    </div>
-    <div>
-        <select id="defaultCurrency" name="defaultCurrency" onchange="ASC.CRM.SettingsPage.changeDefaultCurrency()" class="comboBox">
-            <optgroup label="<%= CRMCommonResource.Currency_Basic %>">
-                <% foreach (var keyValuePair in BasicCurrencyRates)%>
-                <% { %>
-                <option value="<%=keyValuePair.Abbreviation%>" <%=IsSelectedBidCurrency(keyValuePair.Abbreviation) ? "selected=selected" : String.Empty%>>
-                    <%=String.Format("{0} - {1}", keyValuePair.Abbreviation, keyValuePair.Title)%></option>
-                <% } %>
-            </optgroup>
-            <optgroup label="<%= CRMCommonResource.Currency_Other %>">
-                <% foreach (var keyValuePair in OtherCurrencyRates)%>
-                <% { %>
-                <option value="<%=keyValuePair.Abbreviation%>" <%=IsSelectedBidCurrency(keyValuePair.Abbreviation) ? "selected=selected" : String.Empty%>>
-                    <%=String.Format("{0} - {1}", keyValuePair.Abbreviation, keyValuePair.Title)%></option>
-                <% } %>
-            </optgroup>
-        </select>
-        <img style="display:none;" src="<%= WebImageSupplier.GetAbsoluteWebPath("loader_12.gif") %>" width="12px" height="12px"
-            alt="<%= CRMCommonResource.LoadingWait %>"/>
-        <span style="display:none;" class="text-medium-describe"><%= CRMSettingResource.SaveCompleted%></span>
-    </div>
-</div>
-
 <div class="header-base settingsHeader"><%= CRMSettingResource.ExportData %></div>
 <div id="exportDataContent">
     <table width="100%" cellpadding="0" cellspacing="0">

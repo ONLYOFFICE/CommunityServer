@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Web;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
@@ -44,6 +45,9 @@ namespace ASC.Web.Projects.Controls.Templates
             {
                 title = ProjectTemplatesResource.EditProjTmpl;
             }
+
+            Page.RegisterBodyScripts("~/products/projects/js/addmilestonecontainer.js")
+                .RegisterStyle("~/products/projects/app_themes/default/css/addmilestonecontainer.css");
 
             Page.Title = HeaderStringHelper.GetPageTitle(title);
         }

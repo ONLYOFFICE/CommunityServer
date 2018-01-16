@@ -1951,6 +1951,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For successful connection enter the necessary data at {0}this page{1}..
+        /// </summary>
+        public static string ThirdPartyConnectAccountsKeys {
+            get {
+                return ResourceManager.GetString("ThirdPartyConnectAccountsKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting account.
         /// </summary>
         public static string ThirdPartyConnectingAccount {

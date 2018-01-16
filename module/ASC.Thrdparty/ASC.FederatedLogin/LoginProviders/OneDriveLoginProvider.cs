@@ -36,6 +36,8 @@ namespace ASC.FederatedLogin.LoginProviders
         public const string OneDriveOauthCodeUrl = OneDriveOauthUrl + "oauth20_authorize.srf";
         public const string OneDriveOauthTokenUrl = OneDriveOauthUrl + "oauth20_token.srf";
 
+        public const string OneDriveApiUrl = "https://api.onedrive.com";
+
         public static string OneDriveOAuth20ClientId
         {
             get { return KeyStorage.Get("skydriveappkey"); }

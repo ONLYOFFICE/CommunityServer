@@ -288,6 +288,9 @@
   <data name="NoDomainSetUpButton" xml:space="preserve">
     <value>Set up the first domain</value>
   </data>
+  <data name="MigrateFromMSExchangeButton" xml:space="preserve">
+    <value>Migrate from MS Exchange</value>
+  </data>
   <data name="NoDomainSetUpDescription" xml:space="preserve">
     <value>Set up your own domain to create and manage corporate mailboxes like username@yourcompany.com. You can create mailboxes for your employees, and they will see them in their ONLYOFFICE Mail clients.</value>
   </data>

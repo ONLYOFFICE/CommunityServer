@@ -44,6 +44,16 @@ namespace ASC.Data.Backup.Service
             set { this["tmpFolder"] = value; }
         }
 
+        [ConfigurationProperty("limit", DefaultValue = 100000)]
+        public int Limit
+        {
+            get
+            {
+                return Convert.ToInt32(this["limit"]);
+            }
+            set { this["limit"] = value; }
+        }
+
         [ConfigurationProperty("service")]
         public ServiceConfigurationElement Service
         {

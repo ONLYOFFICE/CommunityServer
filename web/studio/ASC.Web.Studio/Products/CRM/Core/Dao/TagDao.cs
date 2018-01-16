@@ -86,6 +86,20 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
+        public List<KeyValuePair<EntityType, string>> GetAllTags()
+        {
+            using (var db = GetDb())
+            {
+                return db.ExecuteList(
+                   Query("crm_tag")
+                   .Select("title", "entity_type")
+                   .OrderBy("title", true))
+                   .ConvertAll(row => new KeyValuePair<EntityType, string>(
+                       (EntityType)Enum.Parse(typeof(EntityType), row[1].ToString(), true), 
+                       row[0].ToString()));
+            }
+        }
+
         public String GetTagsLinkCountJSON(EntityType entityType)
         {
             int[] tags = GetTagsLinkCount(entityType).ToArray();

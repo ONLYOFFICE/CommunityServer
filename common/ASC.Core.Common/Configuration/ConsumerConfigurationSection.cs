@@ -39,13 +39,6 @@ namespace ASC.Thrdparty.Configuration
             set { base["keys"] = value; }
         }
 
-        [ConfigurationProperty("connectionstring")]
-        public string ConnectionString
-        {
-            get { return (string)base["connectionstring"]; }
-            set { base["connectionstring"] = value; }
-        }
-
         public static ConsumerConfigurationSection GetSection()
         {
             return (ConsumerConfigurationSection)ConfigurationManager.GetSection(SectionName);

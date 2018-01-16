@@ -210,9 +210,8 @@ namespace ASC.Xmpp.Server.Handler
                             }
                         }
                         else if (stanza is Message)
-                        {  
+                        {
                             handler.HandleMessage(stream, (Message)stanza.Clone(), context);
-                           
                         }
                         else if (stanza is Presence)
                         {

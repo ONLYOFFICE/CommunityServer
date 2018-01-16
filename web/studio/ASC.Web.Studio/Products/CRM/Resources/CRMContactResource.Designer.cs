@@ -524,15 +524,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your LinkedIn account name. For example, teamlabdotcom.
-        /// </summary>
-        public static string ContactLinkedInDescription {
-            get {
-                return ResourceManager.GetString("ContactLinkedInDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contact manager.
         /// </summary>
         public static string ContactManager {

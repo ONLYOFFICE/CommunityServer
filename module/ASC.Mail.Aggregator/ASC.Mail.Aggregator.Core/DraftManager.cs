@@ -97,8 +97,7 @@ namespace ASC.Mail.Aggregator.Core
                                     Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
 
             if (_signalrServiceClient != null) return;
-            var enableSignalr = string.IsNullOrEmpty(ConfigurationManager.AppSettings["web.hub"]) ? "false" : "true";
-            _signalrServiceClient = new SignalrServiceClient(enableSignalr);
+            _signalrServiceClient = new SignalrServiceClient("mail");
         }
 
         #region .Public

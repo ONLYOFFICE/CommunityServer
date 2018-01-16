@@ -24,9 +24,17 @@
 */
 
 
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Runtime.Remoting.Messaging;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Web;
+
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Web.Core;
 using ASC.Web.Core.Client;
@@ -37,14 +45,8 @@ using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Runtime.Remoting.Messaging;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Web;
+
+using log4net;
 
 namespace ASC.Web.Studio
 {
@@ -90,6 +92,14 @@ namespace ASC.Web.Studio
         {
             Authenticate();
             ResolveUserCulture();
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            if (Request.GetUrlRewriter().Scheme == "https")
+                Response.Cookies["ASP.NET_SessionID"].Secure = true;
+
+            Response.Cookies["ASP.NET_SessionID"].HttpOnly = true;
         }
 
         protected void Session_End(object sender, EventArgs e)
@@ -146,7 +156,7 @@ namespace ASC.Web.Studio
                         value = ColorThemesSettings.GetColorThemesSettings();
                         break;
                     case "whitelabel":
-                        var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                        var whiteLabelSettings = TenantWhiteLabelSettings.Load();
                         value = whiteLabelSettings.LogoText ?? string.Empty;
                         break;
                 }
@@ -192,7 +202,7 @@ namespace ASC.Web.Studio
                     }
                 }
 
-                var accessSettings = SettingsManager.Instance.LoadSettings<TenantAccessSettings>(tenant.TenantId);
+                var accessSettings = TenantAccessSettings.Load();
                 if (authenticated && SecurityContext.CurrentAccount.ID == ASC.Core.Users.Constants.OutsideUser.ID && !accessSettings.Anyone)
                 {
                     Auth.ProcessLogout();
@@ -305,6 +315,7 @@ namespace ASC.Web.Studio
                 if (string.IsNullOrEmpty(AdditionalWhiteLabelSettings.Instance.BuyUrl)
                     || AdditionalWhiteLabelSettings.Instance.BuyUrl == AdditionalWhiteLabelSettings.DefaultBuyUrl)
                 {
+                    LogManager.GetLogger(typeof(Global)).WarnFormat("Tenant {0} is not paid", tenant.TenantId);
                     Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
                     Response.End();
                 }
@@ -320,6 +331,7 @@ namespace ASC.Web.Studio
                 var licenseDay = TenantExtra.GetCurrentTariff().LicenseDate.Date;
                 if (licenseDay < DateTime.Today && licenseDay < TenantExtra.VersionReleaseDate)
                 {
+                    LogManager.GetLogger(typeof(Global)).Fatal("The installation was updated without a license");
                     Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
                     Response.End();
                 }
@@ -330,7 +342,7 @@ namespace ASC.Web.Studio
         {
             if (tenant == null) return;
 
-            var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+            var settings = IPRestrictionsSettings.LoadForTenant(tenant.TenantId);
             if (settings.Enable && SecurityContext.IsAuthenticated && !IPSecurity.IPSecurity.Verify(tenant))
             {
                 Auth.ProcessLogout();

@@ -38,7 +38,7 @@ namespace ASC.Core.Tenants
         public static readonly TenantQuota Default = new TenantQuota(Tenant.DEFAULT_TENANT)
             {
                 Name = "Default",
-                MaxFileSize = 25 * 1024 * 1024, // 25Mb
+                MaxFileSize = 25*1024*1024, // 25Mb
                 MaxTotalSize = long.MaxValue,
                 ActiveUsers = int.MaxValue,
             };
@@ -165,12 +165,6 @@ namespace ASC.Core.Tenants
             set { SetFeature("sso", value); }
         }
 
-        public bool Sms
-        {
-            get { return GetFeature("sms"); }
-            set { SetFeature("sms", value); }
-        }
-
         public bool Voip
         {
             get { return GetFeature("voip"); }
@@ -237,7 +231,7 @@ namespace ASC.Core.Tenants
         internal void SetFeature(string feature, bool set)
         {
             var features = (Features == null
-                                ? new string[] {}
+                                ? new string[] { }
                                 : Features.Split(' ', ',', ';')).ToList();
             if (set && !features.Contains(feature))
             {

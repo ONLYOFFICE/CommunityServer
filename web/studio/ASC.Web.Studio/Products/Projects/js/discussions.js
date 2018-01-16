@@ -93,23 +93,7 @@ ASC.Projects.Discussions = (function($) {
 
         filter.createAdvansedFilterForDiscussion(self);
 
-        $discussionsList.on(clickEventName, ".title-list a", function () {
-            var $self = jq(this);
-            var href = $self.attr("href");
-            history.pushState({ href: href }, { href: href }, href);
-            ASC.Controls.AnchorController.historyCheck();
-
-            var prjid = jq.getURLParam("prjID");
-            Teamlab.getPrjTeam({}, prjid, function (params, team) {
-                ASC.Projects.Master.Team = team;
-                ASC.Projects.Base.clearTables();
-                jq("#filterContainer").hide();
-                ASC.Projects.Common.baseInit();
-            });
-
-
-            return false;
-        });
+        $discussionsList.on(clickEventName, ".title-list a", baseObject.Common.goToWithoutReload);
 
         $discussionsList.on(clickEventName, ".title-list .status", function () {
             filter.add('status', 'archived');
@@ -281,7 +265,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         var isSubscibed = discussion.subscribers.some(function (item) { return item.id === teamlab.profile.id; });
 
         var data = {
-            uplink: "messages.aspx?prjID=" + discussion.projectId,
+            uplink: ASC.Projects.Common.UpLink || "messages.aspx?prjID=" + discussion.projectId,
             icon: "messages",
             title: discussion.title,
             subscribed: isSubscibed,

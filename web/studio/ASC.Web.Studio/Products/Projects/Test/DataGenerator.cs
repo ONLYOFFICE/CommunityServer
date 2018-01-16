@@ -66,6 +66,16 @@ namespace ASC.Web.Projects.Test
                 .With(p => p.Responsibles, new List<Guid>());
         }
 
+        private IPostprocessComposer<Subtask> GetSubTaskBuilder(Task task)
+        {
+            return Fixture.Build<Subtask>()
+                .Without(t => t.ID)
+                .With(t => t.Task, task.ID)
+                .With(t => t.ParentTask, task)
+                .With(t => t.Status, TaskStatus.Open)
+                .With(t => t.CreateOn, DateTime.UtcNow);
+        }
+
         private IPostprocessComposer<TimeSpend> GetTimeTrackingBuilder(Task task)
         {
             return Fixture.Build<TimeSpend>()
@@ -84,6 +94,11 @@ namespace ASC.Web.Projects.Test
         public Task GenerateTask(Project project)
         {
             return GetTaskBuilder(project).Create();
+        }
+
+        public Subtask GenerateSubtask(Task task)
+        {
+            return GetSubTaskBuilder(task).Create();
         }
 
         public Milestone GenerateMilestone(Project project)

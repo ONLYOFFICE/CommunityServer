@@ -88,6 +88,87 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximal allowed number of requests to Facebook is exceeded. Try again later..
+        /// </summary>
+        public static string ErrorFacebookAPILimit {
+            get {
+                return ResourceManager.GetString("ErrorFacebookAPILimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during access to Facebook..
+        /// </summary>
+        public static string ErrorFacebookOAuth {
+            get {
+                return ResourceManager.GetString("ErrorFacebookOAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal error.
+        /// </summary>
+        public static string ErrorInternalServer {
+            get {
+                return ResourceManager.GetString("ErrorInternalServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitter account could not be found.
+        /// </summary>
+        public static string ErrorTwitterAccountNotFound {
+            get {
+                return ResourceManager.GetString("ErrorTwitterAccountNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not connect to Twitter.
+        /// </summary>
+        public static string ErrorTwitterConnectionFailure {
+            get {
+                return ResourceManager.GetString("ErrorTwitterConnectionFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitter is overloaded.
+        /// </summary>
+        public static string ErrorTwitterIsDown {
+            get {
+                return ResourceManager.GetString("ErrorTwitterIsDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximal allowed number of requests to Twitter is exceeded. Try again later..
+        /// </summary>
+        public static string ErrorTwitterRateLimit {
+            get {
+                return ResourceManager.GetString("ErrorTwitterRateLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application has no Twitter access. Please reconnect the Twitter account..
+        /// </summary>
+        public static string ErrorTwitterUnauthorized {
+            get {
+                return ResourceManager.GetString("ErrorTwitterUnauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Twitter account.
+        /// </summary>
+        public static string ErrorUnknownTwitterAccount {
+            get {
+                return ResourceManager.GetString("ErrorUnknownTwitterAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The information is taken from the following source.
         /// </summary>
         public static string InformationProvidedBy {
@@ -138,6 +219,24 @@ namespace ASC.Web.CRM.Resources {
         public static string SearchText {
             get {
                 return ResourceManager.GetString("SearchText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facebook account is not connected.
+        /// </summary>
+        public static string SocialMediaAccountNotFoundFacebook {
+            get {
+                return ResourceManager.GetString("SocialMediaAccountNotFoundFacebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitter account is not connected.
+        /// </summary>
+        public static string SocialMediaAccountNotFoundTwitter {
+            get {
+                return ResourceManager.GetString("SocialMediaAccountNotFoundTwitter", resourceCulture);
             }
         }
     }

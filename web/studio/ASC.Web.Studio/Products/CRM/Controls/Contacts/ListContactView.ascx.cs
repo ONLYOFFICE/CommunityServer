@@ -73,7 +73,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                     Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", fileName));
                     Response.Write(ExportToCSV.ExportContactsToCSV(contacts, false));
 
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.ContactsExportedToCsv, contacts.Select(x => x.GetTitle()));
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.ContactsExportedToCsv, MessageTarget.Create(contacts.Select(x => x.ID)), contacts.Select(x => x.GetTitle()));
 
                     Response.End();
                 }

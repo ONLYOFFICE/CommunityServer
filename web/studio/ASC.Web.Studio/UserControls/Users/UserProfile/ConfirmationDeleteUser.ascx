@@ -9,10 +9,14 @@
             <%= Resource.Confirmation%>
         </header>
         <body>
-            <div class="confirmationAction">
-            </div>
+            <div class="confirmationAction"></div>
+            <div><%= UserControlsCommonResource.NotBeUndone %></div>
+            <div class="warning-header red-text"><%= Resource.Warning %></div>
+            <div><%= Resource.DeleteUserDataConfirmation %></div>
             <div class="middle-button-container">
-                <a class="button blue middle"><%= Resource.OKButton %></a>
+                <a class="button blue middle remove-btn"><%= Resource.OKButton %></a>
+                <span class="splitter-buttons"></span>
+                <a class="button gray middle reassign-btn"><%= Resource.ReassignData %></a>
                 <span class="splitter-buttons"></span>
                 <a class="button gray middle" onclick="jq.unblockUI();"><%= Resource.CancelButton %></a>
             </div>

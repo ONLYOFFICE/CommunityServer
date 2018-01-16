@@ -49,7 +49,9 @@ namespace ASC.Web.Studio.Core.Users
         public const string ContactType_gbuzz = "gbuzz";
         public const string ContactType_gtalk = "gtalk";
         public const string ContactType_phone = "phone";
-        public const string ContactType_mobphone = "mobphone"; 
+        public const string ContactType_mobphone = "mobphone";
+        public const string ContactType_external_mail = "extmail";
+        public const string ContactType_external_mobphone = "extmobphone";
 
 
         public static XmlDocument xmlSocialContacts
@@ -141,6 +143,16 @@ namespace ASC.Web.Studio.Core.Users
                 xml.Append("</contact>");
 
                 xml.Append("<contact id=\"mobphone\" title=\"" + Resources.Resource.TitleMobphone + "\">");
+                xml.Append("<pattern>" + Resources.Resource.HintMobphone + "</pattern>");
+                xml.Append("<template><span class=\"label mobphone\"><span class=\"inner-text\">{0}</span></span></template>");
+                xml.Append("</contact>");
+
+                xml.Append("<contact id=\"extmail\" title=\"" + Resources.Resource.TitleEmail + "\">");
+                xml.Append("<pattern>" + Resources.Resource.HintEmail + "</pattern>");
+                xml.Append("<template><a class=\"label mail\" title=\"{0}\" href=\"" + VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email={0}") + "\" target=\"_blank\"><span class=\"inner-text\">{0}</span></a></template>");
+                xml.Append("</contact>");
+
+                xml.Append("<contact id=\"extmobphone\" title=\"" + Resources.Resource.TitleMobphone + "\">");
                 xml.Append("<pattern>" + Resources.Resource.HintMobphone + "</pattern>");
                 xml.Append("<template><span class=\"label mobphone\"><span class=\"inner-text\">{0}</span></span></template>");
                 xml.Append("</contact>");

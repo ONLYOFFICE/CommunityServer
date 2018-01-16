@@ -111,14 +111,14 @@ namespace ASC.Web.CRM.Controls.Cases
                     caseID = TargetCase.ID;
                     TargetCase.Title = Request["caseTitle"];
                     Global.DaoFactory.GetCasesDao().UpdateCases(TargetCase);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.CaseUpdated, TargetCase.Title);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.CaseUpdated, MessageTarget.Create(TargetCase.ID), TargetCase.Title);
                     SetPermission(TargetCase);
                 }
                 else
                 {
                     caseID = Global.DaoFactory.GetCasesDao().CreateCases(Request["caseTitle"]);
                     var newCase = Global.DaoFactory.GetCasesDao().GetByID(caseID);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.CaseCreated, newCase.Title);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.CaseCreated, MessageTarget.Create(newCase.ID), newCase.Title);
                     SetPermission(newCase);
                 }
 

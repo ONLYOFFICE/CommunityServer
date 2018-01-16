@@ -26,87 +26,40 @@
 
 using System;
 using System.Collections.Generic;
-using System.Web.Configuration;
-using ASC.Core.Tenants;
+using ASC.Core.Notify.Signalr;
 using ASC.VoipService;
-using Microsoft.AspNet.SignalR.Client;
 
 namespace ASC.Web.CRM.Classes
 {
     public class SignalRHelper
     {
-        private readonly string hubUrl;
         private readonly string numberId;
-        private const string hubName = "voip";
+        private readonly SignalrServiceClient signalrServiceClient;
 
-        public Tenant Tenant { get; set; }
-        public Guid CurrentAccountId { get; set; }
-
-        public SignalRHelper(Tenant tenant, Guid currentAccount, string numberId)
+        public SignalRHelper(string numberId)
         {
-            hubUrl = WebConfigurationManager.AppSettings["web.hub"];
-
-            if (string.IsNullOrEmpty(hubUrl) || hubUrl == "/")
-            {
-                hubUrl = "http://localhost:9899/";
-            }
-
+            signalrServiceClient = new SignalrServiceClient("voip");
             this.numberId = numberId.TrimStart('+');
-            Tenant = tenant;
-            CurrentAccountId = currentAccount.Equals(Guid.Empty) || currentAccount.Equals(ASC.Core.Configuration.Constants.Guest.ID) ? tenant.OwnerId : currentAccount;
         }
 
         public void Enqueue(string call, string agent)
         {
-            Invoke("enqueue", call, agent);
+            signalrServiceClient.EnqueueCall(numberId, call, agent);
         }
 
         public void Incoming(string call, string agent)
         {
-            Invoke("incoming", call, agent);
+            signalrServiceClient.IncomingCall(call, agent);
         }
 
         public void MissCall(string call, string agent)
         {
-            Invoke("miss", call, agent);
+            signalrServiceClient.MissCall(numberId, call, agent);
         }
 
         public Tuple<Agent, bool> GetAgent(List<Guid> contactsResponsibles)
         {
-            return Invoke<Tuple<Agent, bool>>("GetAgent", contactsResponsibles);
-        }
-
-        private void Invoke(string method, params object[] args)
-        {
-            var hubConnection = new HubConnection(hubUrl, GetQueryString());
-            hubConnection.Headers.Add("voipConnection", "true");
-
-            var voipHubProxy = hubConnection.CreateHubProxy(hubName);
-            hubConnection.Start().ContinueWith(r =>
-                {
-                    voipHubProxy.Invoke(method, args).Wait();
-                    hubConnection.Stop();
-                });
-        }
-
-        private T Invoke<T>(string method, params object[] args)
-        {
-            using (var hubConnection = new HubConnection(hubUrl, GetQueryString()))
-            {
-                hubConnection.Headers.Add("voipConnection", "true");
-
-                var voipHubProxy = hubConnection.CreateHubProxy(hubName);
-                return hubConnection.Start().ContinueWith(r =>
-                {
-                    return voipHubProxy.Invoke<T>(method, args).Result;
-                }).Result;
-            }
-        }
-
-        private string GetQueryString()
-        {
-            var token = Common.Utils.Signature.Create(string.Join(",", Tenant.TenantId, CurrentAccountId, Tenant.TenantAlias));
-            return string.Format("token={0}&numberId={1}", token, numberId);
+            return signalrServiceClient.GetAgent<Tuple<Agent, bool>>(numberId, contactsResponsibles);
         }
     }
 }

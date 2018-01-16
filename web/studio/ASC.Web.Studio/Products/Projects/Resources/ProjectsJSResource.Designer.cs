@@ -619,11 +619,29 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Milestones Removed.
+        /// </summary>
+        public static string MilestonesRemoved {
+            get {
+                return ResourceManager.GetString("MilestonesRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Milestone Edited.
         /// </summary>
         public static string MilestoneUpdated {
             get {
                 return ResourceManager.GetString("MilestoneUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        public static string Move {
+            get {
+                return ResourceManager.GetString("Move", resourceCulture);
             }
         }
         
@@ -871,6 +889,24 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tasks Removed.
+        /// </summary>
+        public static string TasksRemoved {
+            get {
+                return ResourceManager.GetString("TasksRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks Updated.
+        /// </summary>
+        public static string TasksUpdated {
+            get {
+                return ResourceManager.GetString("TasksUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Task Updated.
         /// </summary>
         public static string TaskUpdated {
@@ -912,6 +948,15 @@ namespace ASC.Web.Projects.Resources {
         public static string TimerNoData {
             get {
                 return ResourceManager.GetString("TimerNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Times Removed.
+        /// </summary>
+        public static string TimesRemoved {
+            get {
+                return ResourceManager.GetString("TimesRemoved", resourceCulture);
             }
         }
         

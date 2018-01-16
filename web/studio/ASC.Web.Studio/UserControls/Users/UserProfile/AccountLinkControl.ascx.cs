@@ -29,13 +29,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using ASC.FederatedLogin.LoginProviders;
-using ASC.Thrdparty;
-using ASC.Thrdparty.Configuration;
-using ASC.Web.Core.Mobile;
 using ASC.Core;
 using ASC.FederatedLogin;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.FederatedLogin.Profile;
+using ASC.Web.Core.Mobile;
 using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile

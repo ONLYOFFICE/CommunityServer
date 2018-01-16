@@ -799,16 +799,6 @@ window.ASC.Files.ChunkUploads = (function () {
     };
 
     var abortUploading = function (clearDialog) {
-        if (clearDialog) {
-            jq("#uploadFilesTable tbody").html("");
-            ASC.Files.ChunkUploads.uploadQueue = new Array();
-        } else {
-            jq("#uploadFilesTable .fu-row:not(.done)").each(function () {
-                var fileId = jq(this).attr("id");
-                showFileUploadingCancel(fileId);
-            });
-        }
-
         jq.each(ASC.Files.ChunkUploads.uploadQueue, function (index, item) {
             var file = item.files[0];
             if (file.status == uploadStatus.QUEUED) {
@@ -821,6 +811,16 @@ window.ASC.Files.ChunkUploads = (function () {
         var uploadData = getUploadDataByStatus(uploadStatus.STARTED);
         if (uploadData) {
             uploadData.abort();
+        }
+
+        if (clearDialog) {
+            jq("#uploadFilesTable tbody").html("");
+            ASC.Files.ChunkUploads.uploadQueue = new Array();
+        } else {
+            jq("#uploadFilesTable .fu-row:not(.done)").each(function () {
+                var fileId = jq(this).attr("id");
+                showFileUploadingCancel(fileId);
+            });
         }
     };
 

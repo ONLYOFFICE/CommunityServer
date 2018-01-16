@@ -33,6 +33,7 @@ ASC.Projects.projectNavPanel = (function() {
         timeTrakingTab,
         docsTab,
         teamTab,
+        ganttChartTab,
         contactsTab;
 
     var currentProjectId,
@@ -118,6 +119,13 @@ ASC.Projects.projectNavPanel = (function() {
             "projectteamModule",
             onClick);
 
+        ganttChartTab = new Tab(resources.ProjectResource.GanttGart,
+            function() { return 0; },
+            "ganttchart.aspx",
+            "ganttchartModule",
+            null,
+            function() { return !jq.browser.mobile && project.status === 0 && project.security.canReadTasks && project.security.canReadMilestones; });
+
         var isInTeam = ASC.Projects.Master.Team.some(function(item) {
             return item.id === Teamlab.profile.id;
         });
@@ -133,11 +141,7 @@ ASC.Projects.projectNavPanel = (function() {
             data.subscribedTitle = project.isFollow ? commonResource.Unfollow : commonResource.Follow;
         }
 
-        if (!jq.browser.mobile && project.status === 0 && project.security.canReadTasks && project.security.canReadMilestones) {
-            data.ganttchart = "ganttchart.aspx?prjID=" + project.id;
-        }
-
-        ASC.Projects.InfoContainer.init(data, showEntityMenu, [overViewTab, taskTab, milestoneTab, messageTab, timeTrakingTab, docsTab, contactsTab, teamTab]);
+        ASC.Projects.InfoContainer.init(data, showEntityMenu, [overViewTab, taskTab, milestoneTab, messageTab, timeTrakingTab, docsTab, contactsTab, teamTab, ganttChartTab]);
 
         $projectInfoContainer = jq(projectInfoContainerClass);
 
@@ -220,6 +224,7 @@ ASC.Projects.projectNavPanel = (function() {
         });
 
         bind(events.removePrjTime, function (params, data) {
+            if (!project) return;
             var currentTime = parseTime(project.timeTrackingTotal);
 
             for (var i = data.length; i--;) {

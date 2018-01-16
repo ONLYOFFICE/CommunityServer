@@ -25,6 +25,20 @@
 
 @import "../base.less";
 
+.toast-close-button {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    position: relative;
+    right: -2px;
+    top: -8px;
+    float: right;
+    color: #fff;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .8;
+}
+
 .toast-title {
     font-weight: bold;
 }
@@ -111,6 +125,10 @@
     > :hover {
         .shadowFullCustomizable(1px, 2px, 4px, #D1D1D1);
         cursor: pointer;
+
+        .toast-close-button {
+            opacity: 1;
+        }
     }
 }
 

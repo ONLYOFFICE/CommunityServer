@@ -33,9 +33,9 @@ namespace ASC.Web.Core.Utility.Settings
 {
     [Serializable]
     [DataContract]
-    public class WebItemSettings : ISettings
+    public class WebItemSettings : BaseSettings<WebItemSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{C888CF56-585B-4c78-9E64-FE1093649A62}"); }
         }
@@ -49,8 +49,8 @@ namespace ASC.Web.Core.Utility.Settings
             SettingsCollection = new List<WebItemOption>();
         }
 
-        
-        public ISettings GetDefault()
+
+        public override ISettings GetDefault()
         {
             var settings = new WebItemSettings();
             WebItemManager.Instance.GetItemsAll().ForEach(w =>

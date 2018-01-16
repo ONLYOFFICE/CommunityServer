@@ -19,7 +19,14 @@
                 <div class="title"><%= MailResource.BlankModalMailServerTitle %></div>
                 <ul>
                     <li><%= MailResource.BlankModalMailServerTip1 %></li>
-                    <li><%= MailResource.BlankModalMailServerTip2 %></li>
+                    <% if (CoreContext.Configuration.Standalone)
+                       { %>
+                           <li><%= MailResource.BlankModalMailServerTip2Stanalone %></li> 
+                    <% }
+                       else
+                       {%>
+                           <li><%= MailResource.BlankModalMailServerTip2 %></li>
+                      <% } %>
                     <li><%= MailResource.BlankModalMailServerTip3 %></li>
                 </ul>
             </div>

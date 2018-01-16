@@ -556,6 +556,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Migrate from MS Exchange.
+        /// </summary>
+        public static string MigrateFromMSExchangeButton {
+            get {
+                return ResourceManager.GetString("MigrateFromMSExchangeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The mailboxes previously existing on this domain cannot be automatically transferred to the portal. You need to add them anew..
         /// </summary>
         public static string NewDomainAttention {

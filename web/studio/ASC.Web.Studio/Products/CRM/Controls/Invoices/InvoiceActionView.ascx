@@ -240,8 +240,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="select-cell" colspan="2">
-                        <select id="invoiceContactCountry" class="contact_country comboBox"></select>
+                    <td class="input-cell" colspan="2">
+                        <input type="text" class="contact_country textEdit" maxlength="255" placeholder="<%= CRMJSResource.CountryWatermark %>"/>
                     </td>
                 </tr>
             </tbody>

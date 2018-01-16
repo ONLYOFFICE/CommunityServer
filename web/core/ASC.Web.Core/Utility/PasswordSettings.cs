@@ -35,9 +35,9 @@ namespace ASC.Web.Core.Utility
 {
     [Serializable]
     [DataContract]
-    public sealed class PasswordSettings : ISettings
+    public sealed class PasswordSettings : BaseSettings<PasswordSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("aa93a4d1-012d-4ccd-895a-e094e809c840"); }
         }
@@ -70,7 +70,7 @@ namespace ASC.Web.Core.Utility
 
         private static PasswordSettings _default;
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             if (_default == null)
             {

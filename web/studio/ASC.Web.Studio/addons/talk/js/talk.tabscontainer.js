@@ -485,7 +485,13 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
     if (value.hasOwnProperty('department')) {
       nodes = ASC.TMTalk.dom.getElementsByClassName(infoblocknode, 'department', 'span');
       if (nodes.length > 0) {
-        nodes[0].innerHTML = value.department;
+          if (value.department) {
+              jQuery(nodes[0]).show();
+              nodes[0].innerHTML = value.department;
+          } else {
+              jQuery(nodes[0]).hide();
+          }
+        
       }
     }
 
@@ -792,16 +798,21 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
               ASC.TMTalk.messagesManager.clearCurrentHistory(jid);
             }
           }
-        } else if (ASC.TMTalk.dom.hasClass(element, 'tab-title') || ASC.TMTalk.dom.hasClass(element, 'state')) {
-          var selectTab = element.parentNode.parentNode;
-          if (ASC.TMTalk.dom.hasClass(selectTab, 'tab')) {
-            if (!ASC.TMTalk.dom.hasClass(selectTab, 'current')) {
-              var roomId = selectTab.getAttribute('data-roomid');
-              if (roomId) {
-                ASC.TMTalk.roomsManager.openRoom(roomId);
-              }
+        } else if (ASC.TMTalk.dom.hasClass(element, 'tab-title') || ASC.TMTalk.dom.hasClass(element, 'state') || ASC.TMTalk.dom.hasClass(ASC.TMTalk.dom.lastElementChild(element), 'tab-title')) {
+            var selectTab = null;
+            if (ASC.TMTalk.dom.hasClass(ASC.TMTalk.dom.lastElementChild(element), 'tab-title')) {
+                selectTab = element.parentNode;
+            } else {
+                selectTab = element.parentNode.parentNode;
             }
-          }
+            if (ASC.TMTalk.dom.hasClass(selectTab, 'tab')) {
+                if (!ASC.TMTalk.dom.hasClass(selectTab, 'current')) {
+                    var roomId = selectTab.getAttribute('data-roomid');
+                    if (roomId) {
+                        ASC.TMTalk.roomsManager.openRoom(roomId);
+                    }
+                }
+            }
         }
       });
 

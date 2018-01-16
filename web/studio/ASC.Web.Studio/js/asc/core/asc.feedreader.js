@@ -132,6 +132,8 @@ ASC.Feed.Reader = (function() {
 
     var newFeedsVal;
 
+    var socket;
+
     function newFeeds(feeds) {
         if (feeds !== undefined) {
             return newFeedsVal = feeds;
@@ -222,7 +224,7 @@ ASC.Feed.Reader = (function() {
         var template = feed;
 
         var authorId = getFeedAuthor(feed);
-        template.author = getUser(authorId);
+        template.author = window.UserManager.getUser(authorId);
 
         template.isGuest = template.author == null || template.authorId == guestId;
         template.productText = getFeedProductText(template);
@@ -246,25 +248,6 @@ ASC.Feed.Reader = (function() {
         }
 
         return authorId;
-    }
-
-    function getUser(id) {
-        if (!id) {
-            return null;
-        }
-
-        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-        if (!users) {
-            return null;
-        }
-
-        for (var j = 0; j < users.length; j++) {
-            if (users[j].id == id) {
-                return users[j];
-            }
-        }
-
-        return null;
     }
 
     function getFeedProductText(template) {
@@ -374,6 +357,24 @@ ASC.Feed.Reader = (function() {
         if (jq("#studioPageContent li.feed a.feedActiveBox").length == 0)
             return;
 
+        if (ASC.SocketIO && !ASC.SocketIO.disabled()) {
+            socket = ASC.SocketIO.Factory.counters
+                .reconnect_failed(function () {
+                   getNewFeedsCount();
+                })
+                .on('sendFeedsCount', function (counts) {
+                    var currentCounts = Number(jq('.top-item-box.feed').find('.inner-label').text());
+                    if (!newsReadedVal && currentCounts) {
+                        counts = currentCounts + counts;
+                    }
+                    newsReadedVal = false;
+                    onGetNewFeedsCount(null, counts);
+                })
+                .on('getNewMessagesCount', function (counts) {
+                    onGetNewFeedsCount(null, counts.f);
+                });
+        }
+
         jq.dropdownToggle({
             switcherSelector: '.studio-top-panel .feedActiveBox',
             dropdownID: 'studio_dropFeedsPopupPanel',
@@ -411,9 +412,8 @@ ASC.Feed.Reader = (function() {
                         filter: {},
                         success: function (params, readed) {
                             try {
-                                if (ASC.Resources.Master.Hub.Url) {
-                                    // sendFeedsCount
-                                    jq.connection.ch.server.sfc();
+                                if (socket) {
+                                    socket.emit('sendFeedsCount');
                                 }
                             } catch (e) {
                                 console.error(e.message);
@@ -439,8 +439,7 @@ ASC.Feed.Reader = (function() {
     }
 
     return {
-        init: init,
-        onGetNewFeedsCount: onGetNewFeedsCount
+        init: init
     };
 })();
 

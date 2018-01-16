@@ -24,18 +24,18 @@
 */
 
 
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Common.Utils;
-using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Utils;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
 
 namespace ASC.Core.Data
 {
@@ -73,12 +73,13 @@ namespace ASC.Core.Data
                 .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
                 .Where("t.status", (int)TenantStatus.Active)
                 .Where(login.Contains('@') ? "u.email" : "u.id", login)
+                .Where("u.status", EmployeeStatus.Active)
                 .Where("u.removed", false);
             if (passwordHash != null)
             {
                 q.Where("s.pwdhash", passwordHash);
             }
-            return ExecList(q).ConvertAll(r => ToTenant(r));
+            return ExecList(q).ConvertAll(ToTenant);
         }
 
         public Tenant GetTenant(int id)
@@ -94,6 +95,14 @@ namespace ASC.Core.Data
             return GetTenants(Exp.Eq("alias", domain.ToLowerInvariant()) | Exp.Eq("mappeddomain", domain.ToLowerInvariant()))
                 .OrderBy(a => a.Status == TenantStatus.Restoring ? TenantStatus.Active : a.Status)
                 .ThenByDescending(a => a.Status == TenantStatus.Restoring ? 0 : a.TenantId)
+                .FirstOrDefault();
+        }
+
+        public Tenant GetTenantForStandaloneWithoutAlias(string ip)
+        {
+            return GetTenants(Exp.Empty)
+                .OrderBy(a => a.Status)
+                .ThenByDescending(a => a.TenantId)
                 .FirstOrDefault();
         }
 

@@ -250,6 +250,24 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Milestones.
+        /// </summary>
+        public static string DeleteMilestones {
+            get {
+                return ResourceManager.GetString("DeleteMilestones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete milestones?.
+        /// </summary>
+        public static string DeleteMilestonesPopup {
+            get {
+                return ResourceManager.GetString("DeleteMilestonesPopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No milestones matching your filter can be displayed in this section..
         /// </summary>
         public static string DescrEmptyListMilFilter {

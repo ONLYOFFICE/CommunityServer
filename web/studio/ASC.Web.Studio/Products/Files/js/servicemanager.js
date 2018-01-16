@@ -447,6 +447,7 @@ window.ASC.Files.ServiceManager = (function () {
         SaveThirdParty: "savethirdparty",
         DeleteThirdParty: "deletethirdparty",
         ChangeAccessToThirdparty: "changeaccesstothirdparty",
+        SaveDocuSign: "savedocusign",
         SendDocuSign: "senddocusign",
 
         UpdateIfExist: "updateifexist",
@@ -630,6 +631,11 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "thirdparty?enable=" + (params.enable === true));
     };
 
+    var saveDocuSign = function (eventType, params, data) {
+        params.ajaxcontentType = "application/json";
+        request("post", "json", eventType, params, data, "docusign-save");
+    };
+
     var deleteDocuSign = function (eventType, params) {
         request("get", "json", eventType, params, "docusign-delete");
     };
@@ -728,6 +734,7 @@ window.ASC.Files.ServiceManager = (function () {
         saveThirdParty: saveThirdParty,
         deleteThirdParty: deleteThirdParty,
         changeAccessToThirdparty: changeAccessToThirdparty,
+        saveDocuSign: saveDocuSign,
         deleteDocuSign: deleteDocuSign,
         sendDocuSign: sendDocuSign,
 

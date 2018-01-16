@@ -113,7 +113,7 @@ namespace ASC.Web.CRM.Controls.Invoices
                 }
 
                 invoice.ID = dao.GetInvoiceDao().SaveOrUpdateInvoice(invoice);
-                MessageService.Send(HttpContext.Current.Request, messageAction, invoice.Number);
+                MessageService.Send(HttpContext.Current.Request, messageAction, MessageTarget.Create(invoice.ID), invoice.Number);
 
                 var invoiceLines = GetInvoiceLines();
 

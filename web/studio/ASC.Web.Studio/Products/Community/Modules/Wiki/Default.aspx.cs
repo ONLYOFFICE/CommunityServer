@@ -194,7 +194,7 @@ namespace ASC.Web.Community.Wiki
 
         protected void wikiEditPage_SetNewFCKMode(bool isWysiwygDefault)
         {
-            WikiModuleSettings.SetIsWysiwygDefault(isWysiwygDefault, SecurityContext.CurrentAccount.ID);
+            WikiModuleSettings.SetIsWysiwygDefault(isWysiwygDefault);
         }
 
         protected string wikiEditPage_GetUserFriendlySizeFormat(long size)
@@ -576,7 +576,7 @@ namespace ASC.Web.Community.Wiki
             {
                 case ActionOnPage.AddNew:
                     pageName = WikiResource.MainWikiAddNewPage;
-                    wikiEditPage.IsWysiwygDefault = !_mobileVer && WikiModuleSettings.GetIsWysiwygDefault(SecurityContext.CurrentAccount.ID);
+                    wikiEditPage.IsWysiwygDefault = !_mobileVer && WikiModuleSettings.GetIsWysiwygDefault();
                     wikiEditPage.Visible = true;
                     wikiEditPage.IsNew = true;
                     WikiPageName = pageName;
@@ -597,7 +597,7 @@ namespace ASC.Web.Community.Wiki
                     else
                     {
                         wikiEditPage.PageName = WikiPage;
-                        wikiEditPage.IsWysiwygDefault = !_mobileVer && WikiModuleSettings.GetIsWysiwygDefault(SecurityContext.CurrentAccount.ID);
+                        wikiEditPage.IsWysiwygDefault = !_mobileVer && WikiModuleSettings.GetIsWysiwygDefault();
                         wikiEditPage.Visible = true;
                         if (m_IsCategory)
                             wikiEditPage.IsSpecialName = true;
@@ -920,7 +920,7 @@ namespace ASC.Web.Community.Wiki
             commentList.Visible = true;
 
             commentList.Items = GetCommentsList(pageName, out totalCount);
-            ConfigureComments(commentList, pageName);
+            ConfigureComments(commentList);
             commentList.TotalCount = totalCount;
         }
 
@@ -954,18 +954,15 @@ namespace ASC.Web.Community.Wiki
             return from.FindAll(comm => comm.ParentId == forParentId);
         }
 
-        private static void ConfigureComments(CommentsList commentList, string pageName)
+        private static void ConfigureComments(CommentsList commentList)
         {
             CommonControlsConfigurer.CommentsConfigure(commentList);
 
             commentList.BehaviorID = "_commentsWikiObj";
-
             commentList.IsShowAddCommentBtn = CommunitySecurity.CheckPermissions(Common.Constants.Action_AddComment);
-
             commentList.ModuleName = "wiki";
             commentList.FckDomainName = "wiki_comments";
-
-            commentList.ObjectID = pageName.HtmlEncode();
+            commentList.ObjectID = "wiki_page";
         }
 
         public CommentInfo GetCommentInfo(Comment comment)

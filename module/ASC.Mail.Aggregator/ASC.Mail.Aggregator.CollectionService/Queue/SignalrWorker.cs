@@ -27,7 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using ASC.Core;
 using ASC.Core.Notify.Signalr;
+using ASC.Core.Users;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 
@@ -47,7 +49,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "SignalrWorker");
             _workerTerminateSignal = false;
-            _signalrServiceClient = new SignalrServiceClient();
+            _signalrServiceClient = new SignalrServiceClient("mail");
             _processingQueue = new Queue<MailBox>();
             _waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset);
             _timeSpan = TimeSpan.FromSeconds(10);
@@ -78,7 +80,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                     _log.Debug("signalrServiceClient.SendUnreadUser(UserId = {0} TenantId = {1})", mailbox.UserId,
                         mailbox.TenantId);
 
-                    _signalrServiceClient.SendUnreadUser(mailbox.TenantId, mailbox.UserId);
+                    SendUnreadUser(mailbox.TenantId, mailbox.UserId);
                 }
                 catch (Exception ex)
                 {
@@ -162,6 +164,37 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
             }
 
             _worker = null;
+        }
+
+        private static void SendUnreadUser(int tenant, string userId)
+        {
+            var log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "SignalrService");
+            try
+            {
+                var count = 0;
+                var mailBoxManager = new MailBoxManager(log);
+
+                var mailFolderInfos = mailBoxManager.GetFolders(tenant, userId);
+
+                foreach (var mailFolderInfo in mailFolderInfos)
+                {
+                    if (mailFolderInfo.id != MailFolder.Ids.inbox) continue;
+                    count = mailFolderInfo.unreadMessages;
+                    break;
+                }
+                CoreContext.TenantManager.SetCurrentTenant(tenant);
+                var userInfo = CoreContext.UserManager.GetUsers(Guid.Parse(userId));
+                if (userInfo.ID != Constants.LostUser.ID)
+                {
+                    // sendMailsCount
+                    _signalrServiceClient.SendUnreadUser(tenant, userId, count);
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error("Unknown Error. {0}, {1}", e.ToString(),
+                    e.InnerException != null ? e.InnerException.Message : string.Empty);
+            }
         }
     }
 }

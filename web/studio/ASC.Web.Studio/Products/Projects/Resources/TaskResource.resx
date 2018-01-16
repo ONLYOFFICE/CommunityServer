@@ -438,4 +438,34 @@
   <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
     <value>Отстутствуют связанные задачи</value>
   </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Delete tasks</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Are you sure you want to delete tasks?</value>
+  </data>
+  <data name="CloseTask" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Move tasks to another Milestone</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Move to milestone</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Tasks Count</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>The best way is to return and close subtasks manually, then retry to close tasks</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Closing Tasks</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Close all subtasks, then close tasks</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>You're trying to close tasks with open subtasks</value>
+  </data>
 </root>

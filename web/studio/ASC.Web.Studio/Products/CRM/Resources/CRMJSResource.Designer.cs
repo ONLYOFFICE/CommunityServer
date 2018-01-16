@@ -277,15 +277,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select a country....
-        /// </summary>
-        public static string ChooseCountry {
-            get {
-                return ResourceManager.GetString("ChooseCountry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string CityWatermark {
@@ -359,20 +350,20 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter the name of your LinkedIn account. For example, teamlabdotcom.
-        /// </summary>
-        public static string ContactLinkedInDescription {
-            get {
-                return ResourceManager.GetString("ContactLinkedInDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please enter the name of your Twitter account. For example, teamlabdotcom.
         /// </summary>
         public static string ContactTwitterDescription {
             get {
                 return ResourceManager.GetString("ContactTwitterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        public static string CountryWatermark {
+            get {
+                return ResourceManager.GetString("CountryWatermark", resourceCulture);
             }
         }
         

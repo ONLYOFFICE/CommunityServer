@@ -1902,7 +1902,7 @@ ASC.CRM.ListContactView = (function() {
             }
             filter.Count = ASC.CRM.ListContactView.entryCountOnPage;
 
-            EventTracker.Track('crm_search_contacts_by_filter');
+            trackingGoogleAnalitics(ga_Categories.contacts, 'crm_search_contacts_by_filter');
 
             Teamlab.getCrmSimpleContacts({}, { filter: filter, success: ASC.CRM.ListContactView.CallbackMethods.get_contacts_by_filter });
         },
@@ -3005,6 +3005,13 @@ ASC.CRM.ContactFullCardView = (function () {
         if (item.infoType == 14) { //ICQ
             item.href = "http://www.icq.com/people/" + item.data + "/";
         }
+        if (item.infoType == 17) { //VK
+            if (item.data.indexOf("://") == -1) {
+                item.href = "https://vk.com/" + item.data;
+            } else {
+                item.href = item.data;
+            }
+        }
         return item;
         //      10  GMail, -mailto
         //      12 Yahoo, -mailto
@@ -4057,38 +4064,12 @@ ASC.CRM.ContactDetailsView = (function() {
 
 ASC.CRM.ContactActionView = (function () {
     var isInit = false,
+        confirmation = false,
+        saveButtonId = "",
         cache = {};
     this.ContactData = null;
 
     var renderContactNetworks = function () {
-
-        var html = ["<option value='' style='display:none;'></option>",
-                    "<option value='",
-                    ASC.CRM.Resources.CRMJSResource.ChooseCountry,
-                    "' class='default-option'>",
-                    jq.htmlEncodeLight(ASC.CRM.Resources.CRMJSResource.ChooseCountry),
-                    "</option>"].join('');
-
-        html += ["<option class='option-first-in-group-separated' value='",
-                window.currentCultureName,
-                "'>",
-                jq.htmlEncodeLight(window.currentCultureName),
-                "</option>"].join('');
-
-        for (var i = 0, n = window.countryListExt.length; i < n; i++) {
-            var elt = window.countryListExt[i];
-            if (window.currentCultureName != elt) {
-                html += ["<option value='",
-                    elt,
-                    "'",
-                    i == 0 ? " class='option-first-in-group-separated'" : "",
-                    ">",
-                    jq.htmlEncodeLight(elt),
-                    "</option>"
-                ].join('');
-            }
-        }
-        jq("#contactCountry").html(html).val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
 
         jq("#generalListEdit").on('click', ".not_primary_field", function() {
             ASC.CRM.ContactActionView.choosePrimaryElement(jq(this), jq(this).parent().parent().parent().attr("id") == "addressContainer");
@@ -4273,6 +4254,28 @@ ASC.CRM.ContactActionView = (function () {
         jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
+    var initConfirmationAccessRightsPanel = function() {
+        jq.tmpl("template-blockUIPanel", {
+            id: "confirmationAccessRightsPanel",
+            headerTest: ASC.CRM.Resources.CRMCommonResource.ConfirmationAccessRightsPanelHeader,
+            innerHtmlText: [
+                ASC.CRM.Resources.CRMCommonResource.ConfirmationAccessRightsPanelText1,
+                "<p>",
+                ASC.CRM.Resources.CRMCommonResource.ConfirmationAccessRightsPanelText2,
+                "</p>"
+            ].join(""),
+            OKBtn: ASC.CRM.Resources.CRMCommonResource.OK,
+            CancelBtn: ASC.CRM.Resources.CRMCommonResource.Cancel
+        }).insertAfter("#contactProfileEdit .contactManagerPanel");
+
+        jq("#confirmationAccessRightsPanel").on("click", ".middle-button-container .button.blue", function () {
+            confirmation = true;
+            jq.unblockUI();
+            ASC.CRM.ContactActionView.submitForm(saveButtonId);
+            window.__doPostBack(saveButtonId, '');
+        });
+    };
+
     var initConfirmationGotoSettingsPanel = function (isCompany) {
         var view = isCompany === true ? "#company" : "#person";
 
@@ -4383,21 +4386,11 @@ ASC.CRM.ContactActionView = (function () {
         parts[2] = ind;
         $contact.attr('selectname', parts.join('_'));
 
-        if (street && street != "") {
-            $contact.find('textarea.contact_street').val(street);
-        } else {
-            $contact.find('textarea.contact_street').val("");
-        }
-        if (city && city != "") $contact.find('input.contact_city').val(city);
-        if (state && state != "") $contact.find('input.contact_state').val(state);
-        if (zip && zip != "") $contact.find('input.contact_zip').val(zip);
-        if (country && country != "") {
-            $contact.find('select.contact_country').val(country);
-        } else {
-            $contact.find('select.contact_country').val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
-        }
-
-        $contact.find('select.contact_country').attr('name', $contact.attr('selectname'));
+        $contact.find('textarea.contact_street').val(street || "");
+        $contact.find('input.contact_city').val(city || "");
+        $contact.find('input.contact_state').val(state || "");
+        $contact.find('input.contact_zip').val(zip || "");
+        $contact.find('input.contact_country').val(country || "");
 
         return $contact;
     };
@@ -4620,6 +4613,14 @@ ASC.CRM.ContactActionView = (function () {
             return false;
         }
 
+        if (!ASC.CRM.Data.IsCRMAdmin &&
+            !window.SelectedUsers_ContactManager.IDs.includes(Teamlab.profile.id) &&
+            !jq("#isPublic").is(":checked") &&
+            !confirmation) {
+            StudioBlockUIManager.blockUI("#confirmationAccessRightsPanel", 400, 400, 0);
+            return false;
+        }
+
         return true;
     };
 
@@ -4630,15 +4631,11 @@ ASC.CRM.ContactActionView = (function () {
             if (jq.trim($curObj.find('.contact_street').val()) +
             jq.trim($curObj.find('.contact_city').val()) +
             jq.trim($curObj.find('.contact_state').val()) +
-            jq.trim($curObj.find('.contact_zip').val()) == ""
-            &&
-            $curObj.find('.contact_country').val() == ASC.CRM.Resources.CRMJSResource.ChooseCountry) {
+            jq.trim($curObj.find('.contact_zip').val()) +
+            jq.trim($curObj.find('.contact_country').val()) == "") {
                 $curObj.find('input, textarea, select').attr('name', '');
             } else {
                 $curObj.addClass("not_empty");
-                if ($curObj.find('.contact_country').val() == ASC.CRM.Resources.CRMJSResource.ChooseCountry) {
-                    $curObj.find('.contact_country').val("");
-                }
             }
         });
 
@@ -4788,6 +4785,8 @@ ASC.CRM.ContactActionView = (function () {
                 }
                 if (ASC.CRM.Data.IsCRMAdmin === true) {
                     initConfirmationGotoSettingsPanel(isCompany);
+                } else {
+                    initConfirmationAccessRightsPanel();
                 }
                 ASC.CRM.ListContactView.renderSimpleContent(true, false);
 
@@ -4998,19 +4997,14 @@ ASC.CRM.ContactActionView = (function () {
                 func = "",
                 title = "",
                 description = " ";
-            switch (category) {
-                case 4:
+            switch (category) { // Enum ContactInfoType
+                case 4: // twitter
                     isShown = window.twitterSearchEnabled;
                     title = ASC.CRM.Resources.CRMJSResource.FindTwitter;
                     description = ASC.CRM.Resources.CRMJSResource.ContactTwitterDescription;
                     func = (function(p1, p2) { return function() { ASC.CRM.SocialMedia.FindTwitterProfiles(jq(this), jq("#typeAddedContact").val(), p1, p2); } })(-3, 5)
                     break;
-                case 5:
-                    isShown = false;
-
-                    description = ASC.CRM.Resources.CRMJSResource.ContactLinkedInDescription;
-                    break;
-                case 6:
+                case 6: // facebook
                     isShown = window.facebokSearchEnabled && jq("#typeAddedContact").val() == "company";
                     title = ASC.CRM.Resources.CRMJSResource.FindFacebook;
                     description = ASC.CRM.Resources.CRMJSResource.ContactFacebookDescription;
@@ -5053,6 +5047,8 @@ ASC.CRM.ContactActionView = (function () {
 
 
         submitForm: function (buttonUnicId) {
+            saveButtonId = buttonUnicId;
+
             if (jq("[id*=saveContactButton]:first").hasClass("postInProcess")) {
                 return false;
             }

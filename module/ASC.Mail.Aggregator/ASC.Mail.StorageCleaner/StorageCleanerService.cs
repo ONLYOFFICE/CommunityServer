@@ -61,18 +61,12 @@ namespace ASC.Mail.StorageCleaner
             _resetEvent = new ManualResetEvent(false);
 
             _tsInterval = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.timer-wait-minutes"]));
-            var maxTasksAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.max-tasks-at-once"]);
-            var tenantCacheDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-cache-days"]);
-            var tenantOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-overdue-days"]);
-            var garbageOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.mailbox-garbage-overdue-days"]);
-            var maxFilesToRemoveAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.files-remove-limit-at-once"]);
-            var httpContextScheme = ConfigurationManager.AppSettings["mail.default-api-scheme"] == Uri.UriSchemeHttps
-                ? Uri.UriSchemeHttps
-                : Uri.UriSchemeHttp;
+
+            var config = MailGarbageEraserConfig.FromConfig();
 
             _log.Info("Service will clear mail storage every {0} minutes\r\n", _tsInterval.TotalMinutes);
 
-            _eraser = new MailGarbageEraser(maxTasksAtOnce, maxFilesToRemoveAtOnce, tenantCacheDays, tenantOverdueDays, garbageOverdueDays, httpContextScheme, _log);
+            _eraser = new MailGarbageEraser(config, _log);
         }
 
         #endregion

@@ -159,7 +159,8 @@ namespace ASC.Web.Projects.Masters
                         "timetracking.js",
                         "apitimetraking.js",
                         "ganttchart_min.js",
-                        "ganttchartpage.js");
+                        "ganttchartpage.js",
+                        "settings.js");
         }
 
         public StyleBundleData GetStaticStyleSheet()
@@ -171,8 +172,8 @@ namespace ASC.Web.Projects.Masters
                         "projectaction.css",
                         "milestones.less",
                         "alltasks.less",
-                        "discussions.css",
-                        "timetracking.css",
+                        "discussions.less",
+                        "timetracking.less",
                         "projectteam.less",
                         "projecttemplates.css",
                         "import.css",

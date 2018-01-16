@@ -412,6 +412,33 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation of changes.
+        /// </summary>
+        public static string ConfirmationAccessRightsPanelHeader {
+            get {
+                return ResourceManager.GetString("ConfirmationAccessRightsPanelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You deleted yourself from contact managers..
+        /// </summary>
+        public static string ConfirmationAccessRightsPanelText1 {
+            get {
+                return ResourceManager.GetString("ConfirmationAccessRightsPanelText1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You will lose access to the contact for reading and writing, if the appropriate access is not allowed for all CRM users..
+        /// </summary>
+        public static string ConfirmationAccessRightsPanelText2 {
+            get {
+                return ResourceManager.GetString("ConfirmationAccessRightsPanelText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete these elements?.
         /// </summary>
         public static string ConfirmationDeleteText {
@@ -489,186 +516,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Count {
             get {
                 return ResourceManager.GetString("Count", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Andorra.
-        /// </summary>
-        public static string Country_Andorra {
-            get {
-                return ResourceManager.GetString("Country_Andorra", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bahamas.
-        /// </summary>
-        public static string Country_Bahamas {
-            get {
-                return ResourceManager.GetString("Country_Bahamas", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Benin.
-        /// </summary>
-        public static string Country_Benin {
-            get {
-                return ResourceManager.GetString("Country_Benin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to British Virgin Islands.
-        /// </summary>
-        public static string Country_BritishVirginIslands {
-            get {
-                return ResourceManager.GetString("Country_BritishVirginIslands", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Burkina Faso.
-        /// </summary>
-        public static string Country_BurkinaFaso {
-            get {
-                return ResourceManager.GetString("Country_BurkinaFaso", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gambia.
-        /// </summary>
-        public static string Country_Gambia {
-            get {
-                return ResourceManager.GetString("Country_Gambia", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ghana.
-        /// </summary>
-        public static string Country_Ghana {
-            get {
-                return ResourceManager.GetString("Country_Ghana", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ivory Coast.
-        /// </summary>
-        public static string Country_IvoryCoast {
-            get {
-                return ResourceManager.GetString("Country_IvoryCoast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Democratic Republic of the Congo.
-        /// </summary>
-        public static string Country_RepublicOfCongo {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfCongo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Cuba.
-        /// </summary>
-        public static string Country_RepublicOfCuba {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfCuba", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Cyprus.
-        /// </summary>
-        public static string Country_RepublicOfCyprus {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfCyprus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Madagascar.
-        /// </summary>
-        public static string Country_RepublicOfMadagascar {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfMadagascar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Malawi.
-        /// </summary>
-        public static string Country_RepublicOfMalawi {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfMalawi", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Mauritius.
-        /// </summary>
-        public static string Country_RepublicOfMauritius {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfMauritius", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Moldova.
-        /// </summary>
-        public static string Country_RepublicOfMoldova {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfMoldova", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Republic of Mozambique.
-        /// </summary>
-        public static string Country_RepublicOfMozambique {
-            get {
-                return ResourceManager.GetString("Country_RepublicOfMozambique", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sierra Leone.
-        /// </summary>
-        public static string Country_SierraLeone {
-            get {
-                return ResourceManager.GetString("Country_SierraLeone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Solomon Islands.
-        /// </summary>
-        public static string Country_SolomonIslands {
-            get {
-                return ResourceManager.GetString("Country_SolomonIslands", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tanzania.
-        /// </summary>
-        public static string Country_Tanzania {
-            get {
-                return ResourceManager.GetString("Country_Tanzania", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zambia.
-        /// </summary>
-        public static string Country_Zambia {
-            get {
-                return ResourceManager.GetString("Country_Zambia", resourceCulture);
             }
         }
         
@@ -1173,6 +1020,15 @@ namespace ASC.Web.CRM.Resources {
         public static string Currency_Other {
             get {
                 return ResourceManager.GetString("Currency_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pacific franc.
+        /// </summary>
+        public static string Currency_PacificFranc {
+            get {
+                return ResourceManager.GetString("Currency_PacificFranc", resourceCulture);
             }
         }
         
@@ -2668,6 +2524,15 @@ namespace ASC.Web.CRM.Resources {
         public static string RelativeTo {
             get {
                 return ResourceManager.GetString("RelativeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string ReportsModuleName {
+            get {
+                return ResourceManager.GetString("ReportsModuleName", resourceCulture);
             }
         }
         

@@ -509,6 +509,30 @@ namespace ASC.Data.Storage.S3
             }
         }
 
+        public override void DeleteFiles(string domain, string path, DateTime fromDate, DateTime toDate)
+        {
+            var objToDel = GetS3Objects(domain, path)
+                .Where(x => x.LastModified >= fromDate && x.LastModified <= toDate);
+
+            using (var client = GetClient())
+            {
+                foreach (var s3Object in objToDel)
+                {
+                    Recycle(client, domain, s3Object.Key);
+
+                    var deleteRequest = new DeleteObjectRequest
+                    {
+                        BucketName = _bucket,
+                        Key = s3Object.Key
+                    };
+
+                    client.DeleteObject(deleteRequest);
+
+                    QuotaUsedDelete(domain, Convert.ToInt64(s3Object.Size));
+                }
+            }
+        }
+
         public override void MoveDirectory(string srcdomain, string srcdir, string newdomain, string newdir)
         {
             var srckey = MakePath(srcdomain, srcdir);
@@ -862,6 +886,15 @@ namespace ASC.Data.Storage.S3
             }
         }
 
+        public override long GetDirectorySize(string domain, string path)
+        {
+            if(!IsDirectory(domain, path))
+                throw new FileNotFoundException("directory not found", path);
+
+            return GetS3Objects(domain, path)
+                .Where(x => Wildcard.IsMatch("*.*", Path.GetFileName(x.Key)))
+                .Sum(x => x.Size);
+        }
 
         public override long ResetQuota(string domain)
         {

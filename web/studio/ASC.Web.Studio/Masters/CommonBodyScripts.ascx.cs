@@ -47,7 +47,8 @@ namespace ASC.Web.Studio.Masters
                         "~/js/asc/core/asc.feedreader.js",
                         "~/addons/talk/js/talk.navigationitem.js",
                         "~/usercontrols/common/invitelink/js/invitelink.js",
-                        "~/usercontrols/management/invitepanel/js/invitepanel.js");
+                        "~/usercontrols/management/invitepanel/js/invitepanel.js"
+                        );
         }
 
         public StyleBundleData GetStaticStyleSheet()

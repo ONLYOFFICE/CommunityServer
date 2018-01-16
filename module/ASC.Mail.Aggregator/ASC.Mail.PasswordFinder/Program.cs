@@ -27,6 +27,7 @@
 using System;
 using System.IO;
 using System.Text;
+using ASC.Core.Users;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
@@ -63,56 +64,78 @@ namespace ASC.Mail.PasswordFinder
 
                 while (!mailboxIterator.IsDone)
                 {
-                    if (!mailbox.IsRemoved)
+                    if (mailbox.IsRemoved || !mailbox.IsTeamlab)
                     {
-                        var current = new StringBuilder();
+                        mailbox = mailboxIterator.Next();
+                        continue;
+                    }
 
-                        var userInfo = mailbox.GetUserInfo();
+                    var current = new StringBuilder();
 
-                        current.AppendFormat("#{0}. Id: {1} MailBox: {2}, Tenant: {3}, User: '{4}' \r\n", ++i,
-                            mailbox.MailBoxId, mailbox.EMail, mailbox.TenantId,
-                            userInfo != null ? userInfo.UserName : mailbox.UserId);
+                    var userInfo = mailbox.GetUserInfo();
 
-                        current.AppendLine();
+                    var isUserRemoved = userInfo == null || userInfo.Equals(Constants.LostUser);
 
-                        current.AppendFormat("\t\t{0} settings:\r\n", mailbox.Imap ? "Imap4" : "Pop3");
-                        current.AppendFormat("\t\tLogin:\t\t{0}\r\n", mailbox.Account);
+                    current.AppendFormat("#{0}. Id: {1} MailBox: {2}, Tenant: {3}, User: '{4}' {5}\r\n",
+                        ++i, mailbox.MailBoxId, mailbox.EMail, mailbox.TenantId,
+                        isUserRemoved ? mailbox.UserId : userInfo.UserName, 
+                        isUserRemoved ? "user is removed" : "");
+
+                    current.AppendLine();
+
+                    current.AppendFormat("\t\t{0} settings:\r\n", mailbox.Imap ? "Imap4" : "Pop3");
+                    current.AppendFormat("\t\tLogin:\t\t{0}\r\n", mailbox.Account);
+
+                    if (!mailbox.IsOAuth)
+                    {
                         current.AppendFormat("\t\tPassword:\t{0}\r\n",
                             string.IsNullOrEmpty(mailbox.Password)
                                 ? "[-=! ERROR: Invalid Decription !=-]"
                                 : mailbox.Password);
-                        current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.Server);
-                        current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.Port);
-                        current.AppendFormat("\t\tAuthType:\t{0}\r\n",
-                            Enum.GetName(typeof(SaslMechanism), mailbox.Authentication));
-                        current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
-                            Enum.GetName(typeof(EncryptionType), mailbox.Encryption));
+                    }
+                    else
+                    {
+                        current.AppendFormat("\t\tPassword:\t[-=! OAuth: no password stored !=-]\r\n");
+                    }
 
-                        current.AppendLine();
+                    current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.Server);
+                    current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.Port);
+                    current.AppendFormat("\t\tAuthType:\t{0}\r\n",
+                        Enum.GetName(typeof(SaslMechanism), mailbox.Authentication));
+                    current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
+                        Enum.GetName(typeof(EncryptionType), mailbox.Encryption));
 
-                        current.Append("\t\tSmtp settings:\r\n");
-                        current.AppendFormat("\t\tSmtpAuth:\t{0}\r\n", mailbox.SmtpAuth);
-                        if (mailbox.SmtpAuth)
+                    current.AppendLine();
+
+                    current.Append("\t\tSmtp settings:\r\n");
+                    current.AppendFormat("\t\tSmtpAuth:\t{0}\r\n", mailbox.SmtpAuth);
+                    if (mailbox.SmtpAuth)
+                    {
+                        current.AppendFormat("\t\tSmtpLogin:\t{0}\r\n", mailbox.SmtpAccount);
+                        if (!mailbox.IsOAuth)
                         {
-                            current.AppendFormat("\t\tSmtpLogin:\t{0}\r\n", mailbox.SmtpAccount);
                             current.AppendFormat("\t\tSmtPassword:\t{0}\r\n",
                                 string.IsNullOrEmpty(mailbox.SmtpPassword)
                                     ? "[-=! ERROR: Invalid Decription !=-]"
                                     : mailbox.SmtpPassword);
                         }
-                        current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.SmtpServer);
-                        current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.SmtpPort);
-                        current.AppendFormat("\t\tAuthType:\t{0}\r\n",
-                            Enum.GetName(typeof(SaslMechanism), mailbox.SmtpAuthentication));
-                        current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
-                            Enum.GetName(typeof(EncryptionType), mailbox.SmtpEncryption));
-
-                        current.AppendLine();
-
-                        Console.WriteLine(current.ToString());
-
-                        sbuilder.Append(current);
+                        else
+                        {
+                            current.AppendFormat("\t\tSmtPassword:\t[-=! OAuth: no password stored !=-]\r\n");
+                        }
                     }
+                    current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.SmtpServer);
+                    current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.SmtpPort);
+                    current.AppendFormat("\t\tAuthType:\t{0}\r\n",
+                        Enum.GetName(typeof(SaslMechanism), mailbox.SmtpAuthentication));
+                    current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
+                        Enum.GetName(typeof(EncryptionType), mailbox.SmtpEncryption));
+
+                    current.AppendLine();
+
+                    Console.WriteLine(current.ToString());
+
+                    sbuilder.Append(current);
 
                     mailbox = mailboxIterator.Next();
                 }

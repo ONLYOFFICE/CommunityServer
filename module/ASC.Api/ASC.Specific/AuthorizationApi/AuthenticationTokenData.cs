@@ -24,7 +24,6 @@
 */
 
 
-using System;
 using System.Runtime.Serialization;
 
 namespace ASC.Specific.AuthorizationApi

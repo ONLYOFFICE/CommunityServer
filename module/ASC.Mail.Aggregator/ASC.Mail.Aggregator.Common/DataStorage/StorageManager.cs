@@ -194,12 +194,15 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
 
                 storage.QuotaController = null;
 
-                var ext = Path.GetExtension(attachment.fileName);
+                if (string.IsNullOrEmpty(attachment.storedName))
+                {
+                    attachment.storedName = MailUtil.CreateStreamId();
 
-                attachment.storedName = MailUtil.CreateStreamId();
+                    var ext = Path.GetExtension(attachment.fileName);
 
-                if (!string.IsNullOrEmpty(ext))
-                    attachment.storedName = Path.ChangeExtension(attachment.storedName, ext); 
+                    if (!string.IsNullOrEmpty(ext))
+                        attachment.storedName = Path.ChangeExtension(attachment.storedName, ext);
+                }
 
                 attachment.fileNumber =
                     !string.IsNullOrEmpty(attachment.contentId) //Upload hack: embedded attachment have to be saved in 0 folder

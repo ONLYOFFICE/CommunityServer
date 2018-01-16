@@ -48,6 +48,10 @@ namespace ASC.Projects.Core.DataInterfaces
 
         TaskFilterCountOperationResult GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess);
 
+        Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
+
+        IEnumerable<TaskFilterCountOperationResult> GetByFilterCountForStatistic(TaskFilter filter, bool isAdmin, bool checkAccess);
+
         List<Task> GetById(ICollection<int> ids);
 
         Task GetById(int id);

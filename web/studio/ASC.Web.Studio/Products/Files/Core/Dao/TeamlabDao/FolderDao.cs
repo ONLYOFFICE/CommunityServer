@@ -165,9 +165,11 @@ namespace ASC.Files.Core.Data
                 filterType == FilterType.PresentationsOnly || filterType == FilterType.SpreadsheetsOnly ||
                 filterType == FilterType.ArchiveOnly)
             {
+                var selfQuery = Exp.False;
                 var existsQuery = Query("files_file file")
                     .From("files_folder_tree tree")
                     .Select("file.id")
+                    .Where("file.current_version", true)
                     .Where(Exp.EqColumns("file.folder_id", "tree.folder_id"))
                     .Where(Exp.EqColumns("tree.parent_id", "f.id"));
                 switch (filterType)
@@ -180,14 +182,16 @@ namespace ASC.Files.Core.Data
                         existsQuery.Where("file.category", (int)filterType);
                         break;
                     case FilterType.ByUser:
+                        selfQuery = Exp.Eq("f.create_by", subjectID.ToString());
                         existsQuery.Where("file.create_by", subjectID.ToString());
                         break;
                     case FilterType.ByDepartment:
                         var users = CoreContext.UserManager.GetUsersByGroup(subjectID).Select(u => u.ID.ToString()).ToArray();
+                        selfQuery = Exp.In("f.create_by", users);
                         existsQuery.Where(Exp.In("file.create_by", users));
                         break;
                 }
-                q.Where(Exp.Exists(existsQuery));
+                q.Where(Exp.Or(selfQuery, Exp.Exists(existsQuery)));
             }
 
             using (var dbManager = GetDb())
@@ -732,9 +736,9 @@ namespace ASC.Files.Core.Data
             return GetFolderID(FileConstant.ModuleId, projects, null, createIfNotExists);
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId = null)
         {
-            return GetFolderID(FileConstant.ModuleId, trash, SecurityContext.CurrentAccount.ID.ToString(), createIfNotExists);
+            return GetFolderID(FileConstant.ModuleId, trash, (userId ?? SecurityContext.CurrentAccount.ID).ToString(), createIfNotExists);
         }
 
         public object GetFolderIDCommon(bool createIfNotExists)
@@ -742,9 +746,9 @@ namespace ASC.Files.Core.Data
             return GetFolderID(FileConstant.ModuleId, common, null, createIfNotExists);
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId = null)
         {
-            return GetFolderID(FileConstant.ModuleId, my, SecurityContext.CurrentAccount.ID.ToString(), createIfNotExists);
+            return GetFolderID(FileConstant.ModuleId, my, (userId ?? SecurityContext.CurrentAccount.ID).ToString(), createIfNotExists);
         }
 
         public object GetFolderIDShare(bool createIfNotExists)

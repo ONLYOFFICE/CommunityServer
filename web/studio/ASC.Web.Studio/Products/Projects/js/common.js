@@ -32,9 +32,7 @@ if (typeof ASC.Projects === "undefined")
     ASC.Projects = {};
 
 ASC.Projects.Common = (function () {
-    var allUsers = [],
-        allUsersHash = { allUsersCount: 0 },
-        initApi = false,
+    var initApi = false,
         isInitMobileBanner = false,
         baseObject = ASC.Projects,
         teamlab = Teamlab,
@@ -96,9 +94,19 @@ ASC.Projects.Common = (function () {
             href = location.href;
 
         var currentPage = document.location.pathname.match(/[^\/]+$/);
+        var startModules = baseObject.Resources.StartModules;
+        if (Teamlab.profile.isVisitor) {
+            startModules = baseObject.Resources.StartModules = startModules.filter(function (item) {
+                return item.StartModuleType !== 3; //timetracking
+            });
+        }
 
         if (currentPage === null) {
-            currentPage = master.Projects.length !== 0 ? "tasks.aspx" : "projects.aspx";
+            var startModule = startModules.find(function (item) {
+                    return item.StartModuleType === master.StartModuleType;
+            }) || startModules[0];
+
+            currentPage = master.Projects.length !== 0 ? startModule.Page : "projects.aspx";
             href = document.location.pathname + currentPage;
             history.pushState({ href: href }, { href: href }, href);
         } else {
@@ -145,12 +153,12 @@ ASC.Projects.Common = (function () {
             case "projects.aspx":
                 if (action == null) {
                     if (prjId == null) {
-                        cPage = ASC.Projects.AllProject;
+                        cPage = baseObject.AllProject;
                     } else {
-                        cPage = ASC.Projects.Description;
+                        cPage = baseObject.Description;
                     }
                 } else {
-                    cPage = ASC.Projects.ProjectAction;
+                    cPage = baseObject.ProjectAction;
                     jq(".mainPageContent").children(".loader-page").hide();
                 }
 
@@ -396,23 +404,6 @@ ASC.Projects.Common = (function () {
         });
     };
 
-    var getUserById = function (id) {
-        var user;
-        if (!allUsers.length) {
-            allUsers = ASC.Resources.Master.ApiResponses_Profiles.response;
-            allUsersHash.allUsersCount = allUsers.length;
-        }
-        if (allUsersHash && allUsersHash[id]) return allUsersHash[id];
-        for (var i = 0; i < allUsersHash.allUsersCount; i++) {
-            user = allUsers[i];
-            if (id == user.id) {
-                allUsersHash[id] = user;
-                return user;
-            }
-        }
-        return "User not found";
-    };
-
     var currentUserIsModuleAdmin = function () {
         return teamlab.profile.isAdmin || master.IsModuleAdmin;
     };
@@ -576,7 +567,75 @@ ASC.Projects.Common = (function () {
         }
     }
 
+
+
+    function chooseMonthNumeralCase(count) {
+        var resources = baseObject.Resources;
+        return count == 0 ? "" : count + " " +
+            chooseNumeralCase(count,
+                resources.MonthNominative,
+                resources.MonthGenitiveSingular,
+                resources.MonthGenitivePlural);
+    }
+
+    function chooseNumeralCase(number, nominative, genitiveSingular, genitivePlural) {
+        if (number == 0.5) {
+            if (ASC.Resources.Master.TwoLetterISOLanguageName === "ru") {
+                return genitiveSingular;
+            }
+        }
+
+        if (number == 1) {
+            return nominative;
+        }
+
+        return chooseNumeralCaseBase(number, nominative, genitiveSingular, genitivePlural);
+    }
+
+    function chooseNumeralCaseBase(number, nominative, genitiveSingular, genitivePlural) {
+        if (ASC.Resources.Master.TwoLetterISOLanguageName === "ru") {
+            var formsTable = [2, 0, 1, 1, 1, 2, 2, 2, 2, 2];
+
+            number = Math.abs(number);
+            var res = formsTable[((((number % 100) / 10) != 1) ? 1 : 0) * (number % 10)];
+            switch (res) {
+            case 0:
+                return nominative;
+            case 1:
+                return genitiveSingular;
+            default:
+                return genitivePlural;
+            }
+        } else {
+            return number === 1 ? nominative : genitivePlural;
+        }
+    }
+
+    function goToWithoutReload(event) {
+        if (event && event.originalEvent && event.originalEvent.ctrlKey) {
+            return true;
+        }
+
+        var $self = jq(this);
+        var href = $self.attr("href");
+        ASC.Projects.Common.UpLink = location.href;
+        history.pushState({ href: href }, { href: href }, href);
+        ASC.Controls.AnchorController.historyCheck();
+
+        var prjid = jq.getURLParam("prjID");
+        teamlab.getPrjTeam({}, prjid, function (params, team) {
+            master.TeamWithBlockedUsers = team;
+            master.Team = removeBlockedUsersFromTeam(team);
+            baseObject.Base.clearTables();
+            jq("#filterContainer").hide();
+            init();
+        });
+
+        return false;
+    }
+
     return {
+        chooseMonthNumeralCase: chooseMonthNumeralCase,
         createActionPanel: createActionPanel,
         currentUserIsModuleAdmin: currentUserIsModuleAdmin,
         currentUserIsProjectManager: function (projectId) {
@@ -595,9 +654,9 @@ ASC.Projects.Common = (function () {
         filterParamsForListMilestones: { sortBy: "deadline", sortOrder: "descending", status: "open", fields: "id,title,deadline" },
         filterParamsForListTasks: { sortBy: "deadline", sortOrder: "ascending" },
         
+        goToWithoutReload: goToWithoutReload,
         getPossibleTypeLink: getPossibleTypeLink,
         getProjectsForFilter: getProjectsForFilter,
-        getUserById: getUserById,
         getProjectById: getProjectById,
         getProjectByIdFromCache: getProjectByIdFromCache,
         changeTaskCountInProjectsCache: changeTaskCountInProjectsCache,

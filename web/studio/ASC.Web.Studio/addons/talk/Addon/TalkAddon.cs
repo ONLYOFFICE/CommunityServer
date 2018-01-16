@@ -74,6 +74,7 @@ namespace ASC.Web.Talk.Addon
                     IconFileName = "product_logo.png",
                     LargeIconFileName = "product_logolarge.png",
                     DefaultSortOrder = 60,
+                    SpaceUsageStatManager = new TalkSpaceUsageStatManager()
                 };
         }
 

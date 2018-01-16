@@ -77,7 +77,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -107,6 +107,7 @@
     <Content Include="App_Themes\Default\Images\mail.png" />
     <Content Include="App_Themes\Default\Images\mail_disabled.png" />
     <Content Include="App_Themes\Default\Images\mark_sprite.png" />
+    <Content Include="App_Themes\Default\Images\ms-exchange.png" />
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
     <Content Include="Controls\CommonSettingsPage\CommonSettingsPage.ascx" />
     <Content Include="Controls\DocumentsPopup\css\images\can-public-share.png" />

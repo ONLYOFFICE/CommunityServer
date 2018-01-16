@@ -90,6 +90,27 @@ BEGIN
 
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_NewBelarusianRuble', 'BYN', 'Br', 'BY', 0, 0);
 
+	IF NOT EXISTS(SELECT * FROM information_schema.`TABLES` WHERE `TABLE_SCHEMA` = DATABASE() AND `TABLE_NAME` = 'crm_report_file') THEN
+		CREATE TABLE `crm_report_file` (
+			`file_id` int(11) NOT NULL,
+			`report_type` int(11) NOT NULL,
+			`create_on` datetime NOT NULL,
+			`create_by` char(38) NOT NULL,
+			`tenant_id` int(11) NOT NULL,
+			PRIMARY KEY (`file_id`),
+			KEY `tenant_id` (`tenant_id`),
+			KEY `create_by` (`create_by`),
+			KEY `create_on` (`create_on`)
+		)
+		COLLATE='utf8_general_ci'
+		ENGINE=InnoDB;
+    END IF;
+	
+	IF NOT EXISTS(SELECT * FROM information_schema.`STATISTICS` WHERE `TABLE_SCHEMA` = DATABASE() AND `TABLE_NAME` = 'crm_currency_rate' AND `INDEX_NAME` = 'from_currency') THEN
+		ALTER TABLE `crm_currency_rate`
+			ADD INDEX `from_currency` (`from_currency`);
+    END IF;
+	
 END DLM00
 
 CALL upgrade90() DLM00

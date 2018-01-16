@@ -774,26 +774,66 @@
 
 
 <script id="taxSettingsActionPanelBodyTmpl" type="text/x-jquery-tmpl">
-<div>
-    <div class="requiredField">
-        <span class="requiredErrorText">${ASC.CRM.Resources.CRMInvoiceResource.EmptyTaxNameError}</span>
-        <div class="headerPanelSmall header-base-small">
-            ${ASC.CRM.Resources.CRMInvoiceResource.InvoiceTaxName}:
-        </div>
-        <input type="text" class="textEdit taxName" maxlength="255"/>
-    </div>
-    <div class="requiredField">
-        <span class="requiredErrorText">${ASC.CRM.Resources.CRMInvoiceResource.EmptyTaxRateError}</span>
-        <div class="headerPanelSmall header-base-small">
-            ${ASC.CRM.Resources.CRMInvoiceResource.InvoiceTaxRate}:
-        </div>
-        <input type="text" class="textEdit taxRate" maxlength="7"/> %
-    </div>
     <div>
-        <div class="header-base-small">
-            ${ASC.CRM.Resources.CRMSettingResource.Description}:
+        <div class="requiredField">
+            <span class="requiredErrorText">${ASC.CRM.Resources.CRMInvoiceResource.EmptyTaxNameError}</span>
+            <div class="headerPanelSmall header-base-small">
+                ${ASC.CRM.Resources.CRMInvoiceResource.InvoiceTaxName}:
+            </div>
+            <input type="text" class="textEdit taxName" maxlength="255"/>
         </div>
-        <textarea cols="4" rows="4"></textarea>
+        <div class="requiredField">
+            <span class="requiredErrorText">${ASC.CRM.Resources.CRMInvoiceResource.EmptyTaxRateError}</span>
+            <div class="headerPanelSmall header-base-small">
+                ${ASC.CRM.Resources.CRMInvoiceResource.InvoiceTaxRate}:
+            </div>
+            <input type="text" class="textEdit taxRate" maxlength="7"/> %
+        </div>
+        <div>
+            <div class="header-base-small">
+                ${ASC.CRM.Resources.CRMSettingResource.Description}:
+            </div>
+            <textarea cols="4" rows="4"></textarea>
+        </div>
     </div>
-</div>
+</script>
+
+<script id="currencyRateItemTmpl" type="text/x-jquery-tmpl">
+    <div class="currency-rate-item">
+        1&nbsp;<span>${fromCurrency}</span>&nbsp;=&nbsp;
+        <input id="currencyRate_${fromCurrency}" type="text" class="textEdit" value="${rate}"/>&nbsp;
+        <span>${toCurrency}</span>&nbsp;
+        <a class="crm-deleteLink" title="${ASC.CRM.Resources.CRMCommonResource.Delete}"></a>
+    </div>
+</script>
+
+<script id="reportProgressRowTmpl" type="text/x-jquery-tmpl">
+    <tr id="${id}" class="rp-row started">
+        <td class="borderBase">
+            <div class="${fileTypeCssClass}"></div>
+        </td>
+        <td class="borderBase">
+            <div class="rp-title-cell" >
+                <span title="${fileName}">${fileName}</span>
+            </div>
+        </td>
+        <td class="borderBase">
+            <div class="rp-progress-cell">
+                <progress max="100" value="0" >
+                    <div class="asc-progress-wrapper">
+                        <div class="asc-progress-value"></div>
+                    </div>
+                </progress>
+                <div class="progress-label">0%</div>
+                <span class="progress-complete gray-text">${ASC.CRM.Resources.CRMReportResource.Complete}</span>
+                <span class="progress-error red-text expl">${ASC.CRM.Resources.CRMReportResource.Error}</span>
+                <div class="popup_helper"></div>
+            </div>
+        </td>
+        <td class="borderBase">
+            <div class="rp-action-cell">
+                <a class="linkMedium gray-text" href="#" target="_blank">${ASC.CRM.Resources.CRMReportResource.Open}</a>
+            </div>
+        </td>
+    </tr>
 </script>

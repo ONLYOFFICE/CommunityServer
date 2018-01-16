@@ -27,11 +27,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using System.Web;
-using System.Web.Routing;
 using ASC.Api.Interfaces;
-using Microsoft.Practices.Unity;
+using Autofac;
 
 namespace ASC.Api.Impl.Serializers
 {
@@ -39,9 +37,10 @@ namespace ASC.Api.Impl.Serializers
     {
         private readonly ICollection<IApiSerializer> _serializers;
 
-        public SerializerResponder(IUnityContainer container)
+
+        public SerializerResponder(IComponentContext container)
         {
-            var serializers = container.ResolveAll<IApiSerializer>();
+            var serializers = container.Resolve<IEnumerable<IApiSerializer>>();
             if (serializers==null)
                 throw new ArgumentException("No serializers resolved");
 

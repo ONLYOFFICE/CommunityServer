@@ -66,7 +66,6 @@ namespace ASC.Web.Projects
             if (!SecurityContext.IsAuthenticated) return;
 
             Participant = EngineFactory.ParticipantEngine.GetByID(SecurityContext.CurrentAccount.ID);
-            Participant.IsAdmin = WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, SecurityContext.CurrentAccount.ID);
 
             if (RequestContext.IsInConcreteProject)
             {

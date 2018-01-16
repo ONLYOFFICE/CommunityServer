@@ -23,6 +23,14 @@
  *
 */
 
+#team_container .listContainer tr:first-child, #projectParticipantsContainer .listContainer tr:first-child {
+    border-top: 1px solid #d1d1d1;
+}
+
+#projectParticipantsContainer tr:hover .reset-action {
+    display: block;
+    position:inherit;
+}
 
 .pm-projectTeam-projectLeaderCard {
     padding: 8px;
@@ -50,22 +58,6 @@
     }
 }
 
-
-.pm-projectTeam-h-line {
-    background-color: #D1D1D1;
-    height: 1px;
-    line-height: 1px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-.pm-projectTeam-userContainer {
-    padding: 20px 0px;
-}
-.pm-projectTeam-userInfoContainer {
-    width: 33%;
-    float: left;
-    overflow: hidden;
-}
 
 .pm-projectTeam-modulePermissionOn,
 .no-access .pm-projectTeam-modulePermissionOn,
@@ -128,7 +120,7 @@
         border: none;
     }
 
-#team_container {
+#team_container table, #projectParticipantsContainer table {
     color: #333;
     border-collapse: collapse;
     width: 100%;

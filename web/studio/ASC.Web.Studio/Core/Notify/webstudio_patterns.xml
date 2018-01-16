@@ -31,16 +31,6 @@
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- admin_sms_balance -->
-  <pattern id="admin_sms_balance" sender="email.sender">
-    <subject resource="|subject_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"></subject>
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-  </pattern>
-  <pattern id="admin_sms_balance" sender="messanger.sender">
-    <subject resource="|subject_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"></subject>
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-  </pattern>
-
   <!-- profile_updated -->
   <pattern id="profile_updated" sender="email.sender">
     <subject resource="|subject_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
@@ -147,6 +137,12 @@ $activity.Key
   <pattern id="profile_delete">
     <subject resource="|subject_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- reassigns_completed -->
+  <pattern id="reassigns_completed">
+    <subject resource="|subject_reassigns_completed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_reassigns_completed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- dns_change -->
@@ -561,6 +557,12 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_admin_user_docs_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- enterprise admin user powerful tips -->
+  <pattern id="enterprise_admin_user_powerful_tips">
+    <subject resource="|subject_enterprise_admin_user_powerful_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_admin_user_powerful_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>  
+
   <!-- enterprise admin user mail tips -->
   <pattern id="enterprise_admin_user_mail_tips">
     <subject resource="|subject_enterprise_admin_user_mail_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
@@ -638,6 +640,12 @@ $activity.Key
     <subject resource="|subject_saas_admin_user_docs_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_docs_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
+
+  <!-- saas admin user powerful tips -->
+  <pattern id="saas_admin_user_powerful_tips">
+    <subject resource="|subject_saas_admin_user_powerful_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_powerful_tips|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>  
 
   <!-- saas admin user mail tips -->
   <pattern id="saas_admin_user_mail_tips">

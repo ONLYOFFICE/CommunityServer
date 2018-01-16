@@ -80,25 +80,27 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void RegisterSendMethod()
         {
+            var cron = WebConfigurationManager.AppSettings["core.notify.cron"] ?? "0 0 5 ? * *";
+
             if (WebConfigurationManager.AppSettings["core.notify.tariff"] != "false")
             {
                 if (TenantExtra.Enterprise)
                 {
-                    client.RegisterSendMethod(SendEnterpriseTariffLetters, "0 0 5 ? * *");  // 5am every day
+                    client.RegisterSendMethod(SendEnterpriseTariffLetters, cron);  // 5am every day
                 }
                 else if (TenantExtra.Hosted)
                 {
-                    client.RegisterSendMethod(SendHostedTariffLetters, "0 0 5 ? * *");
+                    client.RegisterSendMethod(SendHostedTariffLetters, cron);
                 }
                 else
                 {
-                    client.RegisterSendMethod(SendSaasTariffLetters, "0 0 5 ? * *");
+                    client.RegisterSendMethod(SendSaasTariffLetters, cron);
                 }
             }
 
             if (CoreContext.Configuration.Personal)
             {
-                client.RegisterSendMethod(SendLettersPersonal, "0 0 5 ? * *");
+                client.RegisterSendMethod(SendLettersPersonal, cron);
             }
             else
             {
@@ -144,12 +146,6 @@ namespace ASC.Web.Studio.Core.Notify
         {
             client.SendNoticeAsync(Constants.ActionUserMessageToAdmin, null, null,
                 new TagValue(Constants.TagBody, message), new TagValue(Constants.TagUserEmail, email));
-        }
-
-        public void SendToAdminSmsCount(int balance)
-        {
-            client.SendNoticeAsync(Constants.ActionSmsBalance, null, null,
-                new TagValue(Constants.TagBody, balance));
         }
 
         public void SendRequestTariff(bool license, string fname, string lname, string title, string email, string phone, string ctitle, string csize, string site, string message)
@@ -241,7 +237,7 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { EMailSenderName },
                         null,
                         new TagValue(Constants.TagUserName, SecurityContext.IsAuthenticated ? DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID) : ((HttpContext.Current != null) ? HttpContext.Current.Request.UserHostAddress : null)),
-                        new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailChange)),
+                        new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailChange, SecurityContext.CurrentAccount.ID)),
                         new TagValue(Constants.TagBody, string.Empty),
                         new TagValue(Constants.TagUserDisplayName, string.Empty),
                         Constants.TagSignatureStart,
@@ -534,6 +530,21 @@ namespace ASC.Web.Studio.Core.Notify
                         new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.ProfileRemove)));
         }
 
+        public void SendMsgReassignsCompleted(Guid recipientId, UserInfo fromUser, UserInfo toUser)
+        {
+            client.SendNoticeToAsync(
+                Constants.ActionReassignsCompleted,
+                null,
+                new[] { ToRecipient(recipientId) },
+                new[] { EMailSenderName },
+                null,
+                new TagValue(Constants.TagUserName, DisplayUserSettings.GetFullUserName(recipientId)),
+                new TagValue(Constants.TagFromUserName, fromUser.DisplayUserName()),
+                new TagValue(Constants.TagFromUserLink, GetUserProfileLink(fromUser.ID)),
+                new TagValue(Constants.TagToUserName, toUser.DisplayUserName()),
+                new TagValue(Constants.TagToUserLink, GetUserProfileLink(toUser.ID)));
+        }
+
         public void SendAdminWellcome(UserInfo newUserInfo)
         {
             if (!CoreContext.UserManager.UserExists(newUserInfo.ID)) return;
@@ -793,6 +804,7 @@ namespace ASC.Web.Studio.Core.Notify
                 }
 
                 var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(u.Email, ConfirmType.EmailActivation);
+                confirmationUrl += "&first=true";
 
                 client.SendNoticeToAsync(
                     notifyAction,
@@ -818,7 +830,7 @@ namespace ASC.Web.Studio.Core.Notify
         {
             var log = LogManager.GetLogger("ASC.Notify");
             var now = scheduleDate.Date;
-            var dbid = "webstudio";
+            const string dbid = "webstudio";
 
             log.Info("Start SendSaasTariffLetters");
 
@@ -856,17 +868,17 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var footer = "common";
 
-                    var greenButtonText = string.Empty;
+                    Func<string> greenButtonText = () => string.Empty;
                     var greenButtonUrl = string.Empty;
                     var feedbackUrl = string.Empty;
 
-                    var tableItemText1 = string.Empty;
-                    var tableItemText2 = string.Empty;
-                    var tableItemText3 = string.Empty;
-                    var tableItemText4 = string.Empty;
-                    var tableItemText5 = string.Empty;
-                    var tableItemText6 = string.Empty;
-                    var tableItemText7 = string.Empty;
+                    Func<string> tableItemText1 = () => string.Empty;
+                    Func<string> tableItemText2 = () => string.Empty;
+                    Func<string> tableItemText3 = () => string.Empty;
+                    Func<string> tableItemText4 = () => string.Empty;
+                    Func<string> tableItemText5 = () => string.Empty;
+                    Func<string> tableItemText6 = () => string.Empty;
+                    Func<string> tableItemText7 = () => string.Empty;
 
                     var tableItemUrl1 = string.Empty;
                     var tableItemUrl2 = string.Empty;
@@ -884,21 +896,21 @@ namespace ASC.Web.Studio.Core.Notify
                     var tableItemImg6 = string.Empty;
                     var tableItemImg7 = string.Empty;
 
-                    var tableItemComment1 = string.Empty;
-                    var tableItemComment2 = string.Empty;
-                    var tableItemComment3 = string.Empty;
-                    var tableItemComment4 = string.Empty;
-                    var tableItemComment5 = string.Empty;
-                    var tableItemComment6 = string.Empty;
-                    var tableItemComment7 = string.Empty;
+                    Func<string> tableItemComment1 = () => string.Empty;
+                    Func<string> tableItemComment2 = () => string.Empty;
+                    Func<string> tableItemComment3 = () => string.Empty;
+                    Func<string> tableItemComment4 = () => string.Empty;
+                    Func<string> tableItemComment5 = () => string.Empty;
+                    Func<string> tableItemComment6 = () => string.Empty;
+                    Func<string> tableItemComment7 = () => string.Empty;
 
-                    var tableItemLearnMoreText1 = string.Empty;
-                    var tableItemLearnMoreText2 = string.Empty;
-                    var tableItemLearnMoreText3 = string.Empty;
-                    var tableItemLearnMoreText4 = string.Empty;
-                    var tableItemLearnMoreText5 = string.Empty;
-                    var tableItemLearnMoreText6 = string.Empty;
-                    var tableItemLearnMoreText7 = string.Empty;
+                    Func<string> tableItemLearnMoreText1 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText2 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText3 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText4 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText5 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText6 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText7 = () => string.Empty;
 
                     var tableItemLearnMoreUrl1 = string.Empty;
                     var tableItemLearnMoreUrl2 = string.Empty;
@@ -921,21 +933,27 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-01-50.png";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemAddFilesCreatWorkspace;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemAddFilesCreatWorkspace;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-02-50.png";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemTryOnlineDocEditor;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemTryOnlineDocEditor;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-03-50.png";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemUploadCrmContacts;
+                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-06-50.png";
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemShareDocuments;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-04-50.png";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemAddTeamlabMail;
+                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-07-50.png";
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemCoAuthoringDocuments;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-05-50.png";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemIntegrateIM;
+                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-04-50.png";
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemAddTeamlabMail;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonMoveRightNow;
+                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-03-50.png";
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemUploadCrmContacts;
+
+                            //tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-05-50.png";
+                            //tableItemComment7 = () => WebstudioNotifyPatternResource.ItemIntegrateIM;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonMoveRightNow;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/');
                         }
 
@@ -948,7 +966,7 @@ namespace ASC.Web.Studio.Core.Notify
                             action = Constants.ActionSaasAdminInviteTeammates;
                             toadmins = true;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonInviteRightNow;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
                             greenButtonUrl = String.Format("{0}/products/people/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -992,42 +1010,56 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-01-100.png";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemSaasDocsTips1;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips1;
                             tableItemLearnMoreUrl1 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
-                            tableItemLearnMoreText1 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-02-100.png";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemSaasDocsTips2;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips2;
                             tableItemLearnMoreUrl2 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
-                            tableItemLearnMoreText2 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-07-100.png";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemSaasDocsTips3;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips3;
                             tableItemLearnMoreUrl3 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
-                            tableItemLearnMoreText3 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-03-100.png";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemSaasDocsTips4;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips4;
                             tableItemLearnMoreUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/documents.aspx#SharingDocuments_block";
-                            tableItemLearnMoreText4 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-06-100.png";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemSaasDocsTips5;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips5;
                             tableItemLearnMoreUrl5 = "http://helpcenter.onlyoffice.com/tipstricks/add-resource.aspx";
-                            tableItemLearnMoreText5 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-08-100.png";
-                            tableItemComment6 = WebstudioNotifyPatternResource.ItemSaasDocsTips6;
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips6;
                             tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
-                            tableItemLearnMoreText6 = WebstudioNotifyPatternResource.ButtonDownloadNow;
+                            tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
 
                             tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-05-100.png";
-                            tableItemComment7 = WebstudioNotifyPatternResource.ItemSaasDocsTips7;
+                            tableItemComment7 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips7;
                             tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
-                            tableItemLearnMoreText7 = WebstudioNotifyPatternResource.ButtonGoToAppStore;
+                            tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
                             greenButtonUrl = String.Format("{0}/products/files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
+                        }
+
+                        #endregion
+
+                        #region 10 days after registration to admins and users SAAS TRIAL
+
+                        else if (tenant.CreatedDateTime.Date.AddDays(10) == now)
+                        {
+                            action = Constants.ActionSaasAdminUserPowerfulTips;
+                            toadmins = true;
+                            tousers = true;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSendRequest;
+                            greenButtonUrl = "mailto:sales@onlyoffice.com";
                         }
 
                         #endregion
@@ -1041,31 +1073,31 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-01-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemFeatureMailGroups;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroups;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemFeatureMailGroupsText;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroupsText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-02-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemFeatureMailboxAliases;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliases;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemFeatureMailboxAliasesText;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliasesText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-03-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemFeatureEmailSignature;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignature;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__addingSignature";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemFeatureEmailSignatureText;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignatureText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-04-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachments;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachments;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachmentsText;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachmentsText;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-05-100.png";
-                            tableItemText5 = WebstudioNotifyPatternResource.ItemFeatureFolderForAtts;
+                            tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAtts;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__emailIn";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemFeatureFolderForAttsText;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAttsText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessMail;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessMail;
                             greenButtonUrl = String.Format("{0}/addons/mail/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -1080,31 +1112,36 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/crm-01-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemWebToLead;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemWebToLead;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/website-contact-form.aspx";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemWebToLeadText;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemWebToLeadText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/crm-02-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemARM;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemARM;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#AddingContacts_block";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemARMText;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemARMText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/crm-03-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemCustomization;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemCustomization;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#ChangingCRMSettings_block";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemCustomizationText;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemCustomizationText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/crm-04-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemLinkWithProjects;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjects;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/guides/link-with-project.aspx";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemLinkWithProjectsText;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjectsText;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/crm-05-100.png";
-                            tableItemText5 = WebstudioNotifyPatternResource.ItemMailIntegration;
+                            tableItemText5 = () => WebstudioNotifyPatternResource.ItemMailIntegration;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#IntegratingwithCRM_block";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemMailIntegrationText;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemMailIntegrationText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessCRMSystem;
+                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/crm-06-100.png";
+                            tableItemText6 = () => WebstudioNotifyPatternResource.ItemVoIP;
+                            tableItemUrl6 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#VoIP_block";
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemVoIPText;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessCRMSystem;
                             greenButtonUrl = String.Format("{0}/products/crm/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -1119,31 +1156,31 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-01-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemFeatureCommunity;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunity;
                             tableItemUrl1 = "http://helpcenter.onlyoffice.com/gettingstarted/community.aspx";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemFeatureCommunityText;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunityText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-02-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemFeatureGanttChart;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChart;
                             tableItemUrl2 = "http://helpcenter.onlyoffice.com/guides/gantt-chart.aspx";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemFeatureGanttChartText;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChartText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-03-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemFeatureProjectDiscussions;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussions;
                             tableItemUrl3 = "http://helpcenter.onlyoffice.com/gettingstarted/projects.aspx#LeadingDiscussion_block";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemFeatureProjectDiscussionsText;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussionsText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-04-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoring;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoring;
                             tableItemUrl4 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoringText;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoringText;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-05-100.png";
-                            tableItemText5 = WebstudioNotifyPatternResource.ItemFeatureTalk;
+                            tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureTalk;
                             tableItemUrl5 = "http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemFeatureTalkText;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureTalkText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
                             greenButtonUrl = CommonLinkUtility.GetAdministration(ManagementType.ProductsAndInstruments);
                         }
 
@@ -1160,7 +1197,7 @@ namespace ASC.Web.Studio.Core.Notify
                             action = Constants.ActionSaasAdminTrialWarningBefore5;
                             toadmins = true;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
                         }
 
@@ -1182,7 +1219,7 @@ namespace ASC.Web.Studio.Core.Notify
                         {
                             action = Constants.ActionSaasAdminTrialWarningAfter5;
                             toadmins = true;
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonSendRequest; //WebstudioNotifyPatternResource.ButtonExtendTrialButton;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSendRequest; //WebstudioNotifyPatternResource.ButtonExtendTrialButton;
                             greenButtonUrl = "mailto:sales@onlyoffice.com";
                         }
 
@@ -1194,7 +1231,7 @@ namespace ASC.Web.Studio.Core.Notify
                         {
                             action = Constants.ActionSaasAdminTrialWarningAfter30;
                             toadmins = true;
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonSignUpPersonal;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSignUpPersonal;
                             greenButtonUrl = "https://personal.onlyoffice.com";
                         }
 
@@ -1329,15 +1366,15 @@ namespace ASC.Web.Studio.Core.Notify
                             new TagValue(Constants.TagDueDate, duedate.ToLongDateString()),
                             new TagValue(Constants.TagDelayDueDate, (delayDuedate != DateTime.MaxValue ? delayDuedate : duedate).ToLongDateString()),
                             Constants.TagBlueButton(WebstudioNotifyPatternResource.ButtonRequestCallButton, "http://www.onlyoffice.com/call-back-form.aspx"),
-                            Constants.TagGreenButton(greenButtonText, greenButtonUrl),
+                            Constants.TagGreenButton(greenButtonText(), greenButtonUrl),
                             Constants.TagTableTop(),
-                            Constants.TagTableItem(1, tableItemText1, tableItemUrl1, tableItemImg1, tableItemComment1, tableItemLearnMoreText1, tableItemLearnMoreUrl1),
-                            Constants.TagTableItem(2, tableItemText2, tableItemUrl2, tableItemImg2, tableItemComment2, tableItemLearnMoreText2, tableItemLearnMoreUrl2),
-                            Constants.TagTableItem(3, tableItemText3, tableItemUrl3, tableItemImg3, tableItemComment3, tableItemLearnMoreText3, tableItemLearnMoreUrl3),
-                            Constants.TagTableItem(4, tableItemText4, tableItemUrl4, tableItemImg4, tableItemComment4, tableItemLearnMoreText4, tableItemLearnMoreUrl4),
-                            Constants.TagTableItem(5, tableItemText5, tableItemUrl5, tableItemImg5, tableItemComment5, tableItemLearnMoreText5, tableItemLearnMoreUrl5),
-                            Constants.TagTableItem(6, tableItemText6, tableItemUrl6, tableItemImg6, tableItemComment6, tableItemLearnMoreText6, tableItemLearnMoreUrl6),
-                            Constants.TagTableItem(7, tableItemText7, tableItemUrl7, tableItemImg7, tableItemComment7, tableItemLearnMoreText7, tableItemLearnMoreUrl7),
+                            Constants.TagTableItem(1, tableItemText1(), tableItemUrl1, tableItemImg1, tableItemComment1(), tableItemLearnMoreText1(), tableItemLearnMoreUrl1),
+                            Constants.TagTableItem(2, tableItemText2(), tableItemUrl2, tableItemImg2, tableItemComment2(), tableItemLearnMoreText2(), tableItemLearnMoreUrl2),
+                            Constants.TagTableItem(3, tableItemText3(), tableItemUrl3, tableItemImg3, tableItemComment3(), tableItemLearnMoreText3(), tableItemLearnMoreUrl3),
+                            Constants.TagTableItem(4, tableItemText4(), tableItemUrl4, tableItemImg4, tableItemComment4(), tableItemLearnMoreText4(), tableItemLearnMoreUrl4),
+                            Constants.TagTableItem(5, tableItemText5(), tableItemUrl5, tableItemImg5, tableItemComment5(), tableItemLearnMoreText5(), tableItemLearnMoreUrl5),
+                            Constants.TagTableItem(6, tableItemText6(), tableItemUrl6, tableItemImg6, tableItemComment6(), tableItemLearnMoreText6(), tableItemLearnMoreUrl6),
+                            Constants.TagTableItem(7, tableItemText7(), tableItemUrl7, tableItemImg7, tableItemComment7(), tableItemLearnMoreText7(), tableItemLearnMoreUrl7),
                             Constants.TagTableBottom(),
                             new TagValue(CommonTags.WithPhoto, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty),
                             new TagValue(Constants.TagFeedBackUrl, feedbackUrl));
@@ -1356,7 +1393,7 @@ namespace ASC.Web.Studio.Core.Notify
         {
             var log = LogManager.GetLogger("ASC.Notify");
             var now = scheduleDate.Date;
-            var dbid = "webstudio";
+            const string dbid = "webstudio";
 
             log.Info("Start SendTariffEnterpriseLetters");
 
@@ -1392,16 +1429,16 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var footer = "common";
 
-                    var greenButtonText = string.Empty;
+                    Func<string> greenButtonText = () => string.Empty;
                     var greenButtonUrl = string.Empty;
 
-                    var tableItemText1 = string.Empty;
-                    var tableItemText2 = string.Empty;
-                    var tableItemText3 = string.Empty;
-                    var tableItemText4 = string.Empty;
-                    var tableItemText5 = string.Empty;
-                    var tableItemText6 = string.Empty;
-                    var tableItemText7 = string.Empty;
+                    Func<string> tableItemText1 = () => string.Empty;
+                    Func<string> tableItemText2 = () => string.Empty;
+                    Func<string> tableItemText3 = () => string.Empty;
+                    Func<string> tableItemText4 = () => string.Empty;
+                    Func<string> tableItemText5 = () => string.Empty;
+                    Func<string> tableItemText6 = () => string.Empty;
+                    Func<string> tableItemText7 = () => string.Empty;
 
                     var tableItemUrl1 = string.Empty;
                     var tableItemUrl2 = string.Empty;
@@ -1419,21 +1456,21 @@ namespace ASC.Web.Studio.Core.Notify
                     var tableItemImg6 = string.Empty;
                     var tableItemImg7 = string.Empty;
 
-                    var tableItemComment1 = string.Empty;
-                    var tableItemComment2 = string.Empty;
-                    var tableItemComment3 = string.Empty;
-                    var tableItemComment4 = string.Empty;
-                    var tableItemComment5 = string.Empty;
-                    var tableItemComment6 = string.Empty;
-                    var tableItemComment7 = string.Empty;
+                    Func<string> tableItemComment1 = () => string.Empty;
+                    Func<string> tableItemComment2 = () => string.Empty;
+                    Func<string> tableItemComment3 = () => string.Empty;
+                    Func<string> tableItemComment4 = () => string.Empty;
+                    Func<string> tableItemComment5 = () => string.Empty;
+                    Func<string> tableItemComment6 = () => string.Empty;
+                    Func<string> tableItemComment7 = () => string.Empty;
 
-                    var tableItemLearnMoreText1 = string.Empty;
-                    var tableItemLearnMoreText2 = string.Empty;
-                    var tableItemLearnMoreText3 = string.Empty;
-                    var tableItemLearnMoreText4 = string.Empty;
-                    var tableItemLearnMoreText5 = string.Empty;
-                    var tableItemLearnMoreText6 = string.Empty;
-                    var tableItemLearnMoreText7 = string.Empty;
+                    Func<string> tableItemLearnMoreText1 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText2 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText3 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText4 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText5 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText6 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText7 = () => string.Empty;
 
                     var tableItemLearnMoreUrl1 = string.Empty;
                     var tableItemLearnMoreUrl2 = string.Empty;
@@ -1456,21 +1493,27 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-01-50.png";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemAddFilesCreatWorkspace;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemAddFilesCreatWorkspace;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-02-50.png";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemTryOnlineDocEditor;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemTryOnlineDocEditor;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-03-50.png";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemUploadCrmContacts;
+                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-06-50.png";
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemShareDocuments;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-04-50.png";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemAddTeamlabMail;
+                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-07-50.png";
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemCoAuthoringDocuments;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-05-50.png";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemIntegrateIM;
+                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-03-50.png";
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemUploadCrmContacts;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessYourPortal;
+                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-04-50.png";
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemAddTeamlabMail;
+
+                            //tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-05-50.png";
+                            //tableItemComment7 = () => WebstudioNotifyPatternResource.ItemIntegrateIM;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYourPortal;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/');
                         }
 
@@ -1484,22 +1527,26 @@ namespace ASC.Web.Studio.Core.Notify
                             toadmins = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-brand-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemBrandYourWebOffice;
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemBrandYourWebOfficeText;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemBrandYourWebOffice;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemBrandYourWebOfficeText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-regional-setings-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemAdjustRegionalSettings;
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemAdjustRegionalSettingsText;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemAdjustRegionalSettings;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemAdjustRegionalSettingsText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-customize-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterface;
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterfaceText;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterface;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterfaceText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-modules-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemModulesAndTools;
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemModulesAndToolsText;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemModulesAndTools;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemModulesAndToolsText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonConfigureRightNow;
+                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-3rdparty-100.png";
+                            tableItemText5 = () => WebstudioNotifyPatternResource.Item3rdParty;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.Item3rdPartyText;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonConfigureRightNow;
                             greenButtonUrl = CommonLinkUtility.GetAdministration(ManagementType.General);
                         }
 
@@ -1512,7 +1559,7 @@ namespace ASC.Web.Studio.Core.Notify
                             action = Constants.ActionEnterpriseAdminInviteTeammates;
                             toadmins = true;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonInviteRightNow;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
                             greenButtonUrl = String.Format("{0}/products/people/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -1555,41 +1602,55 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-01-100.png";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips1;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips1;
                             tableItemLearnMoreUrl1 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
-                            tableItemLearnMoreText1 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-02-100.png";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips2;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips2;
                             tableItemLearnMoreUrl2 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
-                            tableItemLearnMoreText2 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-07-100.png";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips3;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips3;
                             tableItemLearnMoreUrl3 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
-                            tableItemLearnMoreText3 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-03-100.png";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips4;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips4;
                             tableItemLearnMoreUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/documents.aspx#SharingDocuments_block";
-                            tableItemLearnMoreText4 = WebstudioNotifyPatternResource.LinkLearnMore;
+                            tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-04-100.png";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips5;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips5;
                             tableItemLearnMoreUrl5 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/UseMailMerge.aspx";
-                            tableItemLearnMoreText5 = WebstudioNotifyPatternResource.ButtonGoToAppStore;
+                            tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
 
                             tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-08-100.png";
-                            tableItemComment6 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips6;
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips6;
                             tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
-                            tableItemLearnMoreText6 = WebstudioNotifyPatternResource.ButtonDownloadNow;
+                            tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
 
                             tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-05-100.png";
-                            tableItemComment7 = WebstudioNotifyPatternResource.ItemEnterpriseDocsTips7;
+                            tableItemComment7 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips7;
                             tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
-                            tableItemLearnMoreText7 = WebstudioNotifyPatternResource.ButtonGoToAppStore;
+                            tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
+                            greenButtonUrl = String.Format("{0}/products/files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
+                        }
+
+                        #endregion
+
+                        #region 10 days after registration to admins and users ENTERPRISE TRIAL + defaultRebranding
+
+                        else if (tenant.CreatedDateTime.Date.AddDays(10) == now)
+                        {
+                            action = Constants.ActionEnterpriseAdminUserPowerfulTips;
+                            toadmins = true;
+                            tousers = true;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
                             greenButtonUrl = String.Format("{0}/products/files/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -1604,31 +1665,31 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-01-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemFeatureMailGroups;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroups;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemFeatureMailGroupsText;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroupsText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-02-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemFeatureMailboxAliases;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliases;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemFeatureMailboxAliasesText;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliasesText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-03-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemFeatureEmailSignature;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignature;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__addingSignature";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemFeatureEmailSignatureText;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignatureText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-04-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachments;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachments;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachmentsText;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachmentsText;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-05-100.png";
-                            tableItemText5 = WebstudioNotifyPatternResource.ItemFeatureFolderForAtts;
+                            tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAtts;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__emailIn";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemFeatureFolderForAttsText;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAttsText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessMail;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessMail;
                             greenButtonUrl = String.Format("{0}/addons/mail/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -1643,31 +1704,36 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/crm-01-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemWebToLead;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemWebToLead;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/website-contact-form.aspx";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemWebToLeadText;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemWebToLeadText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/crm-02-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemARM;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemARM;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#AddingContacts_block";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemARMText;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemARMText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/crm-03-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemCustomization;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemCustomization;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#ChangingCRMSettings_block";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemCustomizationText;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemCustomizationText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/crm-04-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemLinkWithProjects;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjects;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/guides/link-with-project.aspx";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemLinkWithProjectsText;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjectsText;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/crm-05-100.png";
-                            tableItemText5 = WebstudioNotifyPatternResource.ItemMailIntegration;
+                            tableItemText5 = () => WebstudioNotifyPatternResource.ItemMailIntegration;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#IntegratingwithCRM_block";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemMailIntegrationText;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemMailIntegrationText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessCRMSystem;
+                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/crm-06-100.png";
+                            tableItemText6 = () => WebstudioNotifyPatternResource.ItemVoIP;
+                            tableItemUrl6 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#VoIP_block";
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemVoIPText;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessCRMSystem;
                             greenButtonUrl = String.Format("{0}/products/crm/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                         }
 
@@ -1682,31 +1748,31 @@ namespace ASC.Web.Studio.Core.Notify
                             tousers = true;
 
                             tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-01-100.png";
-                            tableItemText1 = WebstudioNotifyPatternResource.ItemFeatureCommunity;
+                            tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunity;
                             tableItemUrl1 = "http://helpcenter.onlyoffice.com/gettingstarted/community.aspx";
-                            tableItemComment1 = WebstudioNotifyPatternResource.ItemFeatureCommunityText;
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunityText;
 
                             tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-02-100.png";
-                            tableItemText2 = WebstudioNotifyPatternResource.ItemFeatureGanttChart;
+                            tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChart;
                             tableItemUrl2 = "http://helpcenter.onlyoffice.com/guides/gantt-chart.aspx";
-                            tableItemComment2 = WebstudioNotifyPatternResource.ItemFeatureGanttChartText;
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChartText;
 
                             tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-03-100.png";
-                            tableItemText3 = WebstudioNotifyPatternResource.ItemFeatureProjectDiscussions;
+                            tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussions;
                             tableItemUrl3 = "http://helpcenter.onlyoffice.com/gettingstarted/projects.aspx#LeadingDiscussion_block";
-                            tableItemComment3 = WebstudioNotifyPatternResource.ItemFeatureProjectDiscussionsText;
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussionsText;
 
                             tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-04-100.png";
-                            tableItemText4 = WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoring;
+                            tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoring;
                             tableItemUrl4 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
-                            tableItemComment4 = WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoringText;
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoringText;
 
                             tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-05-100.png";
-                            tableItemText5 = WebstudioNotifyPatternResource.ItemFeatureTalk;
+                            tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureTalk;
                             tableItemUrl5 = "http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx";
-                            tableItemComment5 = WebstudioNotifyPatternResource.ItemFeatureTalkText;
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureTalkText;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYouWebOffice;
                             greenButtonUrl = CommonLinkUtility.GetAdministration(ManagementType.ProductsAndInstruments);
                         }
 
@@ -1723,7 +1789,7 @@ namespace ASC.Web.Studio.Core.Notify
                             action = Constants.ActionEnterpriseAdminTrialWarningBefore7;
                             toadmins = true;
 
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
                             greenButtonUrl = "http://www.onlyoffice.com/enterprise-edition.aspx";
                         }
 
@@ -1753,7 +1819,7 @@ namespace ASC.Web.Studio.Core.Notify
                                          ? Constants.ActionEnterpriseAdminPaymentWarningBefore7
                                          : Constants.ActionEnterpriseWhitelabelAdminPaymentWarningBefore7;
                             toadmins = true;
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
                         }
 
@@ -1767,7 +1833,7 @@ namespace ASC.Web.Studio.Core.Notify
                                          ? Constants.ActionEnterpriseAdminPaymentWarning
                                          : Constants.ActionEnterpriseWhitelabelAdminPaymentWarning;
                             toadmins = true;
-                            greenButtonText = WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
                         }
 
@@ -1803,15 +1869,15 @@ namespace ASC.Web.Studio.Core.Notify
                             new TagValue(Constants.TagDueDate, duedate.ToLongDateString()),
                             new TagValue(Constants.TagDelayDueDate, (delayDuedate != DateTime.MaxValue ? delayDuedate : duedate).ToLongDateString()),
                             Constants.TagBlueButton(WebstudioNotifyPatternResource.ButtonRequestCallButton, "http://www.onlyoffice.com/call-back-form.aspx"),
-                            Constants.TagGreenButton(greenButtonText, greenButtonUrl),
+                            Constants.TagGreenButton(greenButtonText(), greenButtonUrl),
                             Constants.TagTableTop(),
-                            Constants.TagTableItem(1, tableItemText1, tableItemUrl1, tableItemImg1, tableItemComment1, tableItemLearnMoreText1, tableItemLearnMoreUrl1),
-                            Constants.TagTableItem(2, tableItemText2, tableItemUrl2, tableItemImg2, tableItemComment2, tableItemLearnMoreText2, tableItemLearnMoreUrl2),
-                            Constants.TagTableItem(3, tableItemText3, tableItemUrl3, tableItemImg3, tableItemComment3, tableItemLearnMoreText3, tableItemLearnMoreUrl3),
-                            Constants.TagTableItem(4, tableItemText4, tableItemUrl4, tableItemImg4, tableItemComment4, tableItemLearnMoreText4, tableItemLearnMoreUrl4),
-                            Constants.TagTableItem(5, tableItemText5, tableItemUrl5, tableItemImg5, tableItemComment5, tableItemLearnMoreText5, tableItemLearnMoreUrl5),
-                            Constants.TagTableItem(6, tableItemText6, tableItemUrl6, tableItemImg6, tableItemComment6, tableItemLearnMoreText6, tableItemLearnMoreUrl6),
-                            Constants.TagTableItem(7, tableItemText7, tableItemUrl7, tableItemImg7, tableItemComment7, tableItemLearnMoreText7, tableItemLearnMoreUrl7),
+                            Constants.TagTableItem(1, tableItemText1(), tableItemUrl1, tableItemImg1, tableItemComment1(), tableItemLearnMoreText1(), tableItemLearnMoreUrl1),
+                            Constants.TagTableItem(2, tableItemText2(), tableItemUrl2, tableItemImg2, tableItemComment2(), tableItemLearnMoreText2(), tableItemLearnMoreUrl2),
+                            Constants.TagTableItem(3, tableItemText3(), tableItemUrl3, tableItemImg3, tableItemComment3(), tableItemLearnMoreText3(), tableItemLearnMoreUrl3),
+                            Constants.TagTableItem(4, tableItemText4(), tableItemUrl4, tableItemImg4, tableItemComment4(), tableItemLearnMoreText4(), tableItemLearnMoreUrl4),
+                            Constants.TagTableItem(5, tableItemText5(), tableItemUrl5, tableItemImg5, tableItemComment5(), tableItemLearnMoreText5(), tableItemLearnMoreUrl5),
+                            Constants.TagTableItem(6, tableItemText6(), tableItemUrl6, tableItemImg6, tableItemComment6(), tableItemLearnMoreText6(), tableItemLearnMoreUrl6),
+                            Constants.TagTableItem(7, tableItemText7(), tableItemUrl7, tableItemImg7, tableItemComment7(), tableItemLearnMoreText7(), tableItemLearnMoreUrl7),
                             Constants.TagTableBottom(),
                             new TagValue(CommonTags.WithPhoto, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty));
                     }
@@ -1864,14 +1930,14 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var footer = "common";
 
-                    var greenButtonText = string.Empty;
+                    Func<string> greenButtonText = () => string.Empty;
                     var greenButtonUrl = string.Empty;
 
-                    var tableItemText1 = string.Empty;
-                    var tableItemText2 = string.Empty;
-                    var tableItemText3 = string.Empty;
-                    var tableItemText4 = string.Empty;
-                    var tableItemText5 = string.Empty;
+                    Func<string> tableItemText1 = () => string.Empty;
+                    Func<string> tableItemText2 = () => string.Empty;
+                    Func<string> tableItemText3 = () => string.Empty;
+                    Func<string> tableItemText4 = () => string.Empty;
+                    Func<string> tableItemText5 = () => string.Empty;
 
                     var tableItemUrl1 = string.Empty;
                     var tableItemUrl2 = string.Empty;
@@ -1885,17 +1951,17 @@ namespace ASC.Web.Studio.Core.Notify
                     var tableItemImg4 = string.Empty;
                     var tableItemImg5 = string.Empty;
 
-                    var tableItemComment1 = string.Empty;
-                    var tableItemComment2 = string.Empty;
-                    var tableItemComment3 = string.Empty;
-                    var tableItemComment4 = string.Empty;
-                    var tableItemComment5 = string.Empty;
+                    Func<string> tableItemComment1 = () => string.Empty;
+                    Func<string> tableItemComment2 = () => string.Empty;
+                    Func<string> tableItemComment3 = () => string.Empty;
+                    Func<string> tableItemComment4 = () => string.Empty;
+                    Func<string> tableItemComment5 = () => string.Empty;
 
-                    var tableItemLearnMoreText1 = string.Empty;
-                    var tableItemLearnMoreText2 = string.Empty;
-                    var tableItemLearnMoreText3 = string.Empty;
-                    var tableItemLearnMoreText4 = string.Empty;
-                    var tableItemLearnMoreText5 = string.Empty;
+                    Func<string> tableItemLearnMoreText1 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText2 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText3 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText4 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText5 = () => string.Empty;
 
                     var tableItemLearnMoreUrl1 = string.Empty;
                     var tableItemLearnMoreUrl2 = string.Empty;
@@ -1913,7 +1979,7 @@ namespace ASC.Web.Studio.Core.Notify
                         action = Constants.ActionHostedAdminInviteTeammates;
                         toadmins = true;
 
-                        greenButtonText = WebstudioNotifyPatternResource.ButtonInviteRightNow;
+                        greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
                         greenButtonUrl = String.Format("{0}/products/people/", CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/'));
                     }
 
@@ -1948,13 +2014,13 @@ namespace ASC.Web.Studio.Core.Notify
                             new TagValue(Constants.TagDueDate, duedate.ToLongDateString()),
                             new TagValue(Constants.TagDelayDueDate, (delayDuedate != DateTime.MaxValue ? delayDuedate : duedate).ToLongDateString()),
                             Constants.TagBlueButton(WebstudioNotifyPatternResource.ButtonRequestCallButton, "http://www.onlyoffice.com/call-back-form.aspx"),
-                            Constants.TagGreenButton(greenButtonText, greenButtonUrl),
+                            Constants.TagGreenButton(greenButtonText(), greenButtonUrl),
                             Constants.TagTableTop(),
-                            Constants.TagTableItem(1, tableItemText1, tableItemUrl1, tableItemImg1, tableItemComment1, tableItemLearnMoreText1, tableItemLearnMoreUrl1),
-                            Constants.TagTableItem(2, tableItemText2, tableItemUrl2, tableItemImg2, tableItemComment2, tableItemLearnMoreText2, tableItemLearnMoreUrl2),
-                            Constants.TagTableItem(3, tableItemText3, tableItemUrl3, tableItemImg3, tableItemComment3, tableItemLearnMoreText3, tableItemLearnMoreUrl3),
-                            Constants.TagTableItem(4, tableItemText4, tableItemUrl4, tableItemImg4, tableItemComment4, tableItemLearnMoreText4, tableItemLearnMoreUrl4),
-                            Constants.TagTableItem(5, tableItemText5, tableItemUrl5, tableItemImg5, tableItemComment5, tableItemLearnMoreText5, tableItemLearnMoreUrl5),
+                            Constants.TagTableItem(1, tableItemText1(), tableItemUrl1, tableItemImg1, tableItemComment1(), tableItemLearnMoreText1(), tableItemLearnMoreUrl1),
+                            Constants.TagTableItem(2, tableItemText2(), tableItemUrl2, tableItemImg2, tableItemComment2(), tableItemLearnMoreText2(), tableItemLearnMoreUrl2),
+                            Constants.TagTableItem(3, tableItemText3(), tableItemUrl3, tableItemImg3, tableItemComment3(), tableItemLearnMoreText3(), tableItemLearnMoreUrl3),
+                            Constants.TagTableItem(4, tableItemText4(), tableItemUrl4, tableItemImg4, tableItemComment4(), tableItemLearnMoreText4(), tableItemLearnMoreUrl4),
+                            Constants.TagTableItem(5, tableItemText5(), tableItemUrl5, tableItemImg5, tableItemComment5(), tableItemLearnMoreText5(), tableItemLearnMoreUrl5),
                             Constants.TagTableBottom(),
                             new TagValue(CommonTags.WithPhoto, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty));
                     }
@@ -2271,6 +2337,11 @@ namespace ASC.Web.Studio.Core.Notify
         private string GetMyStaffLink()
         {
             return CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetMyStaff());
+        }
+
+        private string GetUserProfileLink(Guid userId)
+        {
+            return CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(userId));
         }
 
         private string AddHttpToUrl(string url)

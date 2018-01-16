@@ -18,9 +18,8 @@
                         onclick="ASC.CRM.ListDealView.showExchangeRatePopUp();" href="javascript:void(0)">
                             ${ASC.CRM.Resources.CRMDealResource.ShowTotalAmount}
                     </a>
-                    <span class="gray-text">${ASC.CRM.Resources.CRMDealResource.TotalDeals}:</span>
+                    <span class="gray-text">${ASC.CRM.Resources.CRMDealResource.TotalDeals}:&nbsp;</span>
                     <span class="gray-text" id="totalDealsOnPage"></span>
-
                     <span class="gray-text">${ASC.CRM.Resources.CRMCommonResource.ShowOnPage}:&nbsp;</span>
                     <select class="top-align">
                         <option value="25">25</option>
@@ -227,7 +226,7 @@
         <td class="dealBidValue">
             <div>
             {{if typeof bidValue != "undefined" && bidValue != 0}}
-                <span {{if closedStatusString != ""}} class="gray-text" {{/if}}>{{html bidNumberFormat}}</span><span class='describe-text'> ${bidCurrency.abbreviation}</span>
+                <span {{if closedStatusString != ""}} class="gray-text" {{/if}}>{{html bidNumberFormat}}</span><span class='describe-text'>&nbsp;${bidCurrency.abbreviation}</span>
                 {{if typeof bidType != "undefined" && bidType != 0}}
                     <div style="height:4px;">&nbsp;</div>
                     <span class='text-medium-describe'>${ASC.CRM.ListDealView.expectedValue(bidType, perPeriodValue)}</span>
@@ -245,7 +244,7 @@
 </script>
 
 <script id="bidFormat" type="text/x-jquery-tmpl">
-    {{html number}}<span class='describe-text'> ${abbreviation}</span><br/>
+    {{html number}}<span class='describe-text'>&nbsp;${abbreviation}</span><br/>
 </script>
 
 
@@ -353,10 +352,10 @@
 
     <div class="action_block clearFix" style="margin-top: 15px;">
         <div style="display:inline-block;">
-            <span class="header-base-small">${ASC.CRM.Resources.CRMCommonResource.ConversionDate}</span>:&nbsp;   ${ratesPublisherDisplayDate}
+            <span class="header-base-small">${ASC.CRM.Resources.CRMCommonResource.ConversionDate}</span>:&nbsp;${ratesPublisherDisplayDate}
         </div>
         <div style="float: right;">
-            <span class="text-medium-describe">${ASC.CRM.Resources.CRMCommonResource.InformationProvidedBy}</span> <a class="link blue bold" href="http://themoneyconverter.com/" target="_blank">The Money Converter.com</a>
+            <span class="text-medium-describe">${ASC.CRM.Resources.CRMCommonResource.InformationProvidedBy}</span>&nbsp;<a class="link blue bold" href="http://themoneyconverter.com/" target="_blank">The Money Converter.com</a>
         </div>
         <div class="middle-button-container">
             <a class="button gray" href="javascript:void(0)" onclick="PopupKeyUpActionProvider.EnableEsc = true; jq.unblockUI();">

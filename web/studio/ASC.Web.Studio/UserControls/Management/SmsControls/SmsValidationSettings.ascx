@@ -1,44 +1,89 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SmsValidationSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.SmsValidationSettings" %>
+
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
-<% if (isEnableSmsValidation) { %>
-<div class="clearFix <%= SmsEnable ? "" : "disable" %>">
-     <div id="studio_smsValidationSettings" class="settings-block">
-         <a name="sms-auth"></a>
-         <div class="header-base">
-             <%= Resource.SmsAuthTitle %>
-         </div>
+<% if (IsEnableSmsValidation)
+   { %>
+<style>
+    .line-height-min {
+        line-height: 10px;
+    }
+</style>
 
-         <div class="sms-validation-settings">
-            <asp:PlaceHolder runat="server" ID="SmsBuyHolder"></asp:PlaceHolder>
+<div class="clearFix <%= SmsEnable ? "" : "disable" %>">
+    <div id="studio_smsValidationSettings" class="settings-block">
+        <div class="header-base">
+            <%= Resource.SmsAuthTitle %>
+        </div>
+
+        <div class="sms-validation-settings">
             <% if (SmsEnable)
                { %>
+
+            <% if (SmsProviderManager.ClickatellProvider.Enable())
+               { %>
+            <p class="line-height-min"><%= string.Format(Resource.SmsBalance, "Clickatell") %>: <span class="gray-text"><%= string.Format(Resource.SmsBalanceAccount, "clickatell") %></span></p>
+            <% } %>
+
+            <% if (SmsProviderManager.TwilioProvider.Enable())
+               { %>
+            <p class="line-height-min"><%= string.Format(Resource.SmsBalance, "Twilio") %>: <span class="gray-text"><%= string.Format(Resource.SmsBalanceAccount, "twilio") %></span></p>
+            <% } %>
+
+            <% if (SmsProviderManager.SmscProvider.Enable())
+               { %>
+            <p class="line-height-min"><%= string.Format(Resource.SmsBalance, "SMSC") %>: <b><%= SmsProviderManager.SmscProvider.GetBalance() %></b></p>
+            <% } %>
+
             <br />
-            <br />
-             <% } %>
+            <% } %>
+
             <div class="clearFix">
                 <input type="radio" id="chk2FactorAuthEnable" name="chk2FactorAuth" <%= StudioSmsNotificationSettings.Enable ? "checked=\"checked\"" : "" %>
                     <%= SmsEnable ? "" : "disabled='disabled'" %> />
                 <label for="chk2FactorAuthEnable">
-                        <%= Resource.EnableUserButton %></label>
+                    <%= Resource.EnableUserButton %></label>
             </div>
-             <div class="clearFix">
-                 <input type="radio" id="chk2FactorAuthDisable" name="chk2FactorAuth" <%= !StudioSmsNotificationSettings.Enable ? "checked=\"checked\"" : "" %> 
-                     <%= SmsEnable ? "" : "disabled='disabled'" %> />
-                 <label for="chk2FactorAuthDisable">
-                     <%= Resource.DisableUserButton %></label>
-             </div>
+            <div class="clearFix">
+                <input type="radio" id="chk2FactorAuthDisable" name="chk2FactorAuth" <%= !StudioSmsNotificationSettings.Enable ? "checked=\"checked\"" : "" %>
+                    <%= SmsEnable ? "" : "disabled='disabled'" %> />
+                <label for="chk2FactorAuthDisable">
+                    <%= Resource.DisableUserButton %></label>
+            </div>
             <div class="middle-button-container">
-                <a id="chk2FactorAuthSave" class="button blue <%= SmsEnable ? "" : "disable" %> />" >
+                <a id="chk2FactorAuthSave" class="button blue <%= SmsEnable ? "" : "disable" %> />">
                     <%= Resource.SaveButton %></a>
             </div>
         </div>
-     </div>
-     <div class="settings-help-block">
-         <p>
-            <%= String.Format(Resource.SmsAuthDescription.HtmlEncode(), "<b>", "</b>", "<br/>", "<br/>", "<b>", "</b>") %>
-         </p>
-     </div>
+    </div>
+
+    <div class="settings-help-block">
+        <p>
+            <%= String.Format(Resource.SmsAuthDescription.HtmlEncode(), "<b>", "</b>", "<br/>") %>
+        </p>
+        <p>
+            <% if (SmsEnable)
+               { %>
+            <%= String.Format(Resource.SmsAuthNoteDescription.HtmlEncode(), "<b>", "</b>", "<br/>") %>
+            <% }
+               else if (!StudioSmsNotificationSettings.IsVisibleSettings)
+               { %>
+            <%= String.Format(Resource.SmsAuthNoteQuotaDescription.HtmlEncode(), "<b>", "</b>", "<br/>") %>
+            <% }
+               else
+               { %>
+            <%= String.Format(Resource.SmsAuthNoteKeysDescription.HtmlEncode(), "<b>", "</b>", "<br/>", "<a href=\"" + CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) + "\" target=\"_blank\">", "</a>") %>
+            <% } %>
+        </p>
+
+        <% if (!string.IsNullOrEmpty(HelpLink))
+           { %>
+        <p>
+            <a href="<%= HelpLink + "/guides/two-factor-authentication.aspx" %>" target="_blank"><%= Resource.LearnMore %></a>
+        </p>
+        <% } %>
+    </div>
 </div>
 <% } %>

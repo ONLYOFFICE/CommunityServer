@@ -44,16 +44,16 @@
       <HintPath>..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\packages\MailKit.1.16.0\lib\net45\MailKit.dll</HintPath>
+      <HintPath>..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.1.16.0\lib\net45\MimeKit.dll</HintPath>
+      <HintPath>..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="StackExchange.Redis">
@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Billing\BillingClient.cs" />
     <Compile Include="Billing\ITariffSyncService.cs" />
+    <Compile Include="Billing\License\License.cs" />
     <Compile Include="Billing\License\LicenseException.cs" />
     <Compile Include="Billing\License\LicenseReader.cs" />
     <Compile Include="Billing\TariffSyncClient.cs" />
@@ -176,7 +177,6 @@
     <Compile Include="Notify\Senders\AWSSender.cs" />
     <Compile Include="Notify\EmailSenderSink.cs" />
     <Compile Include="Notify\Signalr\SignalrServiceClient.cs" />
-    <Compile Include="Notify\Signalr\SignalrServiceClientWcf.cs" />
     <Compile Include="Security\Crypto.cs" />
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
     <Compile Include="Settings\ISettings.cs" />

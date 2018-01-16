@@ -24,6 +24,13 @@
 */
 
 
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Web.Configuration;
+using ASC.Common.DependencyInjection;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
@@ -34,20 +41,14 @@ using ASC.Files.Core.Security;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Resources;
+using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Utils;
-using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
+
+using Autofac;
 using log4net;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Configuration;
+
 using Constants = ASC.Core.Configuration.Constants;
 using File = ASC.Files.Core.File;
 
@@ -55,18 +56,49 @@ namespace ASC.Web.Files.Classes
 {
     public class Global
     {
+        private static readonly object Locker = new object();
+        private static bool isInit;
+
         static Global()
+        {
+            Init();
+        }
+
+        internal static void Init()
         {
             try
             {
-                var container = new UnityContainer();
-                container.LoadConfiguration("files");
-                DaoFactory = container.Resolve<IDaoFactory>() ?? new DaoFactory();
+                if (isInit) return;
+
+                lock(Locker)
+                {
+                    if (isInit) return;
+
+                    var container = AutofacConfigLoader.Load("files").Build();
+                    IDaoFactory factory;
+                    if (!container.TryResolve(out factory))
+                    {
+                        factory =  new DaoFactory();
+                        Logger.Fatal("Could not resolve IDaoFactory instance. Using default DaoFactory instead.");
+                    }
+
+                    IFileStorageService storageService;
+                    if (!container.TryResolve(out storageService))
+                    {
+                        storageService = new FileStorageServiceController();
+                        Logger.Fatal("Could not resolve IFileStorageService instance. Using default FileStorageServiceController instead.");
+                    }
+
+                    DaoFactory = factory;
+                    FileStorageService = storageService;
+                    isInit = true;
+                }
             }
             catch (Exception error)
             {
                 Logger.Fatal("Could not resolve IDaoFactory instance. Using default DaoFactory instead.", error);
                 DaoFactory = new DaoFactory();
+                FileStorageService = new FileStorageServiceController();
             }
         }
 
@@ -74,7 +106,7 @@ namespace ASC.Web.Files.Classes
 
         public const int MaxTitle = 170;
 
-        public static readonly Regex InvalidTitleChars = new Regex("[\t*\\+:\"<>?|\\\\/]");
+        public static readonly Regex InvalidTitleChars = new Regex("[\t*\\+:\"<>?|\\\\/\\p{Cs}]");
 
         public static bool EnableUploadFilter
         {
@@ -87,7 +119,7 @@ namespace ASC.Web.Files.Classes
             {
                 int validateTimespan;
                 int.TryParse(WebConfigurationManager.AppSettings["files.stream-url-minute"], out validateTimespan);
-                if (validateTimespan <= 0) validateTimespan = 5;
+                if (validateTimespan <= 0) validateTimespan = 16;
                 return TimeSpan.FromMinutes(validateTimespan);
             }
         }
@@ -245,6 +277,8 @@ namespace ASC.Web.Files.Classes
 
         public static IDaoFactory DaoFactory { get; private set; }
 
+        public static IFileStorageService FileStorageService { get; private set; }
+
         public static IDataStore GetStore(bool currentTenant = true)
         {
             return StorageFactory.GetStorage(currentTenant ? TenantProvider.CurrentTenantID.ToString() : string.Empty, FileConstant.StorageModule);
@@ -301,10 +335,6 @@ namespace ASC.Web.Files.Classes
 
                 if (Equals(id, 0)) //TODO: think about 'null'
                 {
-                    var isWarmup = HttpContext.Current != null && HttpContext.Current.Request.QueryString["warmup"] == "true" && !WarmUpController.Instance.CheckCompleted();
-
-                    if ((!CoreContext.Configuration.Standalone || !isWarmup))
-                {
                     id = my ? folderDao.GetFolderIDUser(true) : folderDao.GetFolderIDCommon(true);
 
                     //Copy start document
@@ -328,7 +358,6 @@ namespace ASC.Web.Files.Classes
                             Logger.Error(ex);
                         }
                     }
-                }
                 }
 
                 return id;

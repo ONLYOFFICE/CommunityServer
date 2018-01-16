@@ -137,6 +137,7 @@
         </asp:Repeater>
     </asp:PlaceHolder>
     <div id="wikiCommentsDiv">
+        <input type="hidden" id="hdnPageName" value="<%=HttpUtility.HtmlEncode(WikiPageName)%>"/>
         <scl:Commentslist id="commentList" runat="server" style="width: 100%;" Visible="false"> </scl:Commentslist>
     </div>
 </div>

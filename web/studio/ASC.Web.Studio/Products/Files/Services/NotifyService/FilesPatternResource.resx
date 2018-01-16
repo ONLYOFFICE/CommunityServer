@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="pattern_DocuSignComplete" xml:space="preserve">
-    <value>h1. All signers completed $DocumentTitle
+    <value>h1. All signers completed $Message
 
 This is a mail message to notify you that all signers completed "$DocumentTitle":"$DocumentURL".
 

@@ -13,7 +13,7 @@ override_dh_installinit:
 	dh_installinit --name=onlyofficeAutoreply
 	dh_installinit --name=onlyofficeFeed
 	dh_installinit --name=onlyofficeJabber
-	dh_installinit --name=onlyofficeSignalR
+	dh_installinit --name=onlyofficeSocketIO
 	dh_installinit --name=onlyofficeIndex
 	dh_installinit --name=onlyofficeNotify
 	dh_installinit --name=onlyofficeBackup

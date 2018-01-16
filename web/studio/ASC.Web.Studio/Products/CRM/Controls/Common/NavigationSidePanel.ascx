@@ -1,6 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavigationSidePanel.ascx.cs" Inherits="ASC.Web.CRM.Controls.Common.NavigationSidePanel" %>
+<%@ Import Namespace="System.Web.Configuration" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
@@ -151,6 +152,15 @@
             </li>
         <% } %>
 
+        <% if (ASC.Web.CRM.Classes.Global.CanCreateReports)
+           { %>
+        <li id="nav-menu-reports" class="menu-item  none-sub-list <% if (CurrentPage == "reports") { %> active <% } %>">
+            <a class="menu-item-label outer-text text-overflow" href="reports.aspx">
+                <span class="menu-item-icon reports"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.ReportsModuleName %></span>
+            </a>
+        </li>
+        <% } %> 
+
         <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
 
         <% if (CRMSecurity.IsAdmin) %>
@@ -172,6 +182,12 @@
                         </a>
                     </li>
 
+                    <li class="menu-sub-item<% if (CurrentPage == "settings_currency")
+                                               { %> active<% } %>">
+                        <a class="menu-item-label outer-text text-overflow" href="settings.aspx?type=currency">
+                            <span class="menu-item-label inner-text"><%= CRMSettingResource.CurrencySettings %></span>
+                        </a>
+                    </li>
 
                     <li id="contactSettingsConteiner" class="menu-sub-item menu-item<% if (CurrentPage == "settings_contact_stage" || CurrentPage == "settings_contact_type")
                                                                                        { %> open<% } %>">

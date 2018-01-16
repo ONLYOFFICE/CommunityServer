@@ -52,6 +52,18 @@
                     </h2>
                 </div>
             <% } %>
+            <% foreach (var item in CustomNavigationItems) { %>
+                <div class="product clearFix">
+                    <a class="image-link" href="<%= item.Url.HtmlEncode() %>" target="_blank">
+                        <img alt="<%= item.Label.HtmlEncode() %>" src="<%= item.BigImg %>" />
+                    </a>
+                    <h2 class="title">
+                        <a class="link header" href="<%= item.Url.HtmlEncode() %>" target="_blank">
+                            <%= item.Label.HtmlEncode() %>
+                        </a>
+                    </h2>
+                </div>
+            <% } %>
             </div>
         </div>
     </div>

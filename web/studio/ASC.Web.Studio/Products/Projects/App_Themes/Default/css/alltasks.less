@@ -42,6 +42,19 @@
             height: @divHeight;
             clear: both;
 
+            .checkbox {
+                cursor: pointer;
+                margin-right: 4px;
+                padding: 10px 0 0 4px;
+                width: 20px;
+                height:20px;
+                float: left;
+
+                input {
+                    margin:4px;
+                }
+            }
+
             .check {
                 float: left;
                 width: @actionListWidth;
@@ -269,15 +282,17 @@
     height: 200px;
     border-top: 1px solid #D1D1D1;
 
-    .ms,
-    .milestonesButtons {
+    .ms {
         border-bottom: 1px solid #D1D1D1;
         padding: 5px;
     }
 }
 
 .borderBase.ms {padding:20px 30px 30px 20px;margin-bottom:20px;}
-.taskTitls.ms {padding:10px 0px;overflow-x: hidden;}
+.taskTitls.ms {
+    padding: 4px 0px 12px 0px;
+    overflow-x: hidden;
+}
 .describe-text.ms {padding-bottom:10px;}
 
 .st_separater {

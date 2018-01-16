@@ -28,32 +28,19 @@ using System;
 using System.Web;
 using System.Web.UI;
 using ASC.Data.Storage;
-using ASC.Web.Core.Files;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
     [ManagementControl(ManagementType.DocService, Location)]
-    [AjaxNamespace("DocService")]
     public partial class DocService : UserControl
     {
         public const string Location = "~/UserControls/Management/DocService/DocService.ascx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
             Page.RegisterBodyScripts("~/usercontrols/management/DocService/js/docservice.js");
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "docservice_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/docservice/css/docservice.css") + "\">", false);
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public void SaveUrls(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter)
-        {
-            FilesLinkUtility.DocServiceApiUrl = docServiceUrlApi;
-            FilesLinkUtility.DocServiceCommandUrl = docServiceUrlCommand;
-            FilesLinkUtility.DocServiceStorageUrl = docServiceUrlStorage;
-            FilesLinkUtility.DocServiceConverterUrl = docServiceUrlConverter;
         }
     }
 }

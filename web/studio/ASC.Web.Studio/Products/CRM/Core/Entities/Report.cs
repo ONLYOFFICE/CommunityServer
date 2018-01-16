@@ -28,28 +28,94 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using ASC.Common.Security;
+using ASC.VoipService;
+using ASC.Web.Core.Files;
 
 #endregion
 
 namespace ASC.CRM.Core.Entities
 {
-    [DataContract]
-    public class Report
+    public class SalesByManager
     {
-        [DataMember]
-        public String ReportTitle { get; set; }
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public decimal Value { get; set; }
+        public DateTime Date { get; set; }
+    }
 
-        [DataMember]
-        public String ReportDescription { get; set; }
+    public class SalesForecast
+    {
+        public decimal Value { get; set; }
+        public decimal ValueWithProbability { get; set; }
+        public DateTime Date { get; set; }
+    }
 
-        [DataMember]
-        public IEnumerable<String> Lables { get; set; }
+    public class SalesFunnel
+    {
+        public DealMilestoneStatus Status { get; set; }
+        public string Title { get; set; }
+        public int Count { get; set; }
+        public decimal Value { get; set; }
+        public int Duration { get; set; }
+    }
 
-        [DataMember]
-        public Object Data { get; set; }
+    public class WorkloadByDeals
+    {
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public DealMilestoneStatus Status { get; set; }
+        public int Count { get; set; }
+        public decimal Value { get; set; }
+    }
+
+    public class WorkloadByTasks
+    {
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class WorkloadByInvoices
+    {
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public int SentCount { get; set; }
+        public int PaidCount { get; set; }
+        public int RejectedCount { get; set; }
+        public int OverdueCount { get; set; }
+    }
+
+    public class WorkloadByViop
+    {
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public VoipCallStatus Status { get; set; }
+        public int Count { get; set; }
+        public int Duration { get; set; }
+    }
+
+    public class WorkloadByContacts
+    {
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public int Count { get; set; }
+        public int WithDeals { get; set; }
+    }
+
+    public class ReportTaskState
+    {
+        public string Id { get; set; }
+        public ReportTaskStatus Status { get; set; }
+        public ReportType ReportType { get; set; }
+        public int Percentage { get; set; }
+        public bool IsCompleted { get; set; }
+        public string ErrorText { get; set; }
+        public DocumentService.DocbuilderResponse Response { get; set; }
+        public string FileName { get; set; }
+        public int FileId { get; set; }
     }
 }

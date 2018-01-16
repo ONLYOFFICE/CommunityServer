@@ -723,6 +723,9 @@
   <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
     <value>You can connect the following accounts to the ONLYOFFICE™ Documents. They will be displayed in 'My Documents' folder and you will be able to edit and save them right on the portal all in one place.</value>
   </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>For successful connection enter the necessary data at {0}this page{1}.</value>
+  </data>
   <data name="ThirdPartyConnectingAccount" xml:space="preserve">
     <value>Connecting account</value>
   </data>

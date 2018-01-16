@@ -98,7 +98,7 @@ ASC.Projects.ProjectTeam = (function() {
                     notify: true
                 };
 
-                teamlab.updatePrjTeam({}, projectId, data,
+                teamlab.updatePrjTeam({ projectId: projectId }, projectId, data,
                     {
                         before: loadingBanner.displayLoading,
                         success: onUpdateTeam,
@@ -256,12 +256,16 @@ ASC.Projects.ProjectTeam = (function() {
     };
 
     function displayTeam(team) {
-        $teamContainer.html(jq.tmpl('memberTemplate',
+        $teamContainer.html(memberTemplate(team, project));
+    };
+
+    function memberTemplate(team, project) {
+        return jq.tmpl('memberTemplate',
         {
             team: team.map(mapTeamMember),
             project: project
-        }));
-    };
+        });
+    }
 
     function mapTeamMember(item) {
         var resources = ASC.Projects.Resources;
@@ -288,8 +292,7 @@ ASC.Projects.ProjectTeam = (function() {
 
     return {
         init: init,
-        unbindListEvents: unbindListEvents
+        unbindListEvents: unbindListEvents,
+        mapTeamMember: mapTeamMember
     };
 })(jQuery);
-
-

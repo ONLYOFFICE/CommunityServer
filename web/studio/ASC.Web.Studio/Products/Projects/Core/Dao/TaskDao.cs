@@ -37,6 +37,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using ASC.Web.Projects;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -198,6 +199,85 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public IEnumerable<TaskFilterCountOperationResult> GetByFilterCountForStatistic(TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            var result = new List<TaskFilterCountOperationResult>();
+            var query = new SqlQuery(TasksTable + " t")
+                .Select("t.status", "r.responsible_id")
+                .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                .InnerJoin(TasksResponsibleTable + " r", Exp.EqColumns("r.task_id", "t.id") & Exp.EqColumns("r.tenant_id", "t.tenant_id"))
+                .Where("t.tenant_id", Tenant);
+
+            if (filter.HasUserId)
+            {
+                query.Where(Exp.In("r.responsible_id", filter.GetUserIds()));
+            }
+            else
+            {
+                query.Where(!Exp.Eq("r.responsible_id", Guid.Empty.ToString()));
+            }
+
+            filter.UserId = Guid.Empty;
+
+            query = CreateQueryFilterCount(query, filter, isAdmin, checkAccess);
+
+            var queryCount = new SqlQuery()
+                .SelectCount()
+                .Select("t1.responsible_id")
+                .Select("t1.status")
+                .From(query, "t1")
+                .GroupBy("responsible_id", "status");
+
+            using (var db = new DbManager(DatabaseId))
+            {
+                var fromDb = db.ExecuteList(queryCount)
+                    .Select(r => new
+                    {
+                        Id =Guid.Parse((string)r[1]),
+                        Count =Convert.ToInt32(r[0]),
+                        Status =Convert.ToInt32(r[2])
+                    }).GroupBy(r=> r.Id);
+
+                foreach (var r in fromDb)
+                {
+                    var tasksOpen = r.Where(row => row.Status != (int)TaskStatus.Closed).Sum(row => row.Count);
+                    var tasksClosed = r.Where(row => row.Status == (int)TaskStatus.Closed).Sum(row => row.Count);
+                    result.Add(new TaskFilterCountOperationResult { UserId = r.Key, TasksOpen = tasksOpen, TasksClosed = tasksClosed });
+                }
+
+                return result;
+            }
+        }
+
+        public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            var query = new SqlQuery(TasksTable + " t")
+                .Select("t.create_by")
+                .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                .Where("t.tenant_id", Tenant)
+                .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
+
+            if (filter.HasUserId)
+            {
+                query.Where(Exp.In("t.create_by", filter.GetUserIds()));
+                filter.UserId = Guid.Empty;
+                filter.DepartmentId = Guid.Empty;
+            }
+
+            query = CreateQueryFilterCount(query, filter, isAdmin, checkAccess);
+
+            var queryCount = new SqlQuery()
+                .SelectCount()
+                .Select("t1.create_by")
+                .From(query, "t1")
+                .GroupBy("create_by");
+
+            using (var db = new DbManager(DatabaseId))
+            {
+                return db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0])); ;
+            }
+        }
+
         public List<Task> GetByResponsible(Guid responsibleId, IEnumerable<TaskStatus> statuses)
         {
             var q = CreateQuery()
@@ -274,10 +354,12 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 var deadlineDate = deadline.Date;
-                var q = new SqlQuery(TasksTable)
-                    .Select("tenant_id", "id", "deadline")
-                    .Where(Exp.Between("deadline", deadlineDate.AddDays(-1), deadlineDate.AddDays(1)))
-                    .Where(!Exp.Eq("status", TaskStatus.Closed));
+                var q = new SqlQuery(TasksTable + " t")
+                    .Select("t.tenant_id", "t.id", "t.deadline")
+                    .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                    .Where(Exp.Between("t.deadline", deadlineDate.AddDays(-1), deadlineDate.AddDays(1)))
+                    .Where(!Exp.Eq("t.status", TaskStatus.Closed))
+                    .Where("p.status", ProjectStatus.Open);
 
                 return db.ExecuteList(q)
                     .ConvertAll(r => new object[] { Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2]) });
@@ -485,6 +567,11 @@ namespace ASC.Projects.Data.DAO
             }
             else
             {
+                if (ProjectsCommonSettings.Load().HideEntitiesInPausedProjects)
+                {
+                    query.Where(!Exp.Eq("p.status", ProjectStatus.Paused));
+                }
+
                 if (filter.MyProjects)
                 {
                     query.InnerJoin(ParticipantTable + " ppp", Exp.EqColumns("p.id", "ppp.project_id") & Exp.Eq("ppp.removed", false) & Exp.EqColumns("t.tenant_id", "ppp.tenant"));
@@ -494,8 +581,16 @@ namespace ASC.Projects.Data.DAO
 
             if (filter.TagId != 0)
             {
-                query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
-                query.Where("ptag.tag_id", filter.TagId);
+                if (filter.TagId == -1)
+                {
+                    query.LeftOuterJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
+                    query.Where("ptag.tag_id", null);
+                }
+                else
+                {
+                    query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
+                    query.Where("ptag.tag_id", filter.TagId);
+                }
             }
 
             if (filter.TaskStatuses.Count != 0)

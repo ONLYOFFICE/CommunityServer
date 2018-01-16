@@ -35,7 +35,9 @@ using ASC.Core.Users;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Core.Jabber;
 using ASC.Web.Studio;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Talk.Addon;
 using ASC.Web.Talk.ClientScript;
 using ASC.Web.Talk.Resources;
 
@@ -150,6 +152,36 @@ namespace ASC.Web.Talk
             try
             {
                 return new JabberServiceClient().GetAuthToken(TenantProvider.CurrentTenantID);
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC.Talk").Error(ex);
+                return String.Empty;
+            }
+        }
+
+        [AjaxMethod]
+        public string GetSpaceUsage()
+        {
+            try
+            {
+                var spaceUsage = TalkSpaceUsageStatManager.GetSpaceUsage();
+                return spaceUsage > 0 ? FileSizeComment.FilesSizeToString(spaceUsage) : String.Empty;
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC.Talk").Error(ex);
+                return String.Empty;
+            }
+        }
+
+        [AjaxMethod]
+        public string ClearSpaceUsage(TalkSpaceUsageStatManager.ClearType type)
+        {
+            try
+            {
+                TalkSpaceUsageStatManager.ClearSpaceUsage(type);
+                return GetSpaceUsage();
             }
             catch (Exception ex)
             {

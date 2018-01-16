@@ -24,19 +24,19 @@
 */
 
 
+using System;
+using System.Configuration;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.Web.Core;
-using ASC.Web.Core.Utility.Skins;
 using ASC.Web.People.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
+using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Web;
 
 namespace ASC.Web.People
 {
@@ -48,17 +48,9 @@ namespace ASC.Web.People
 
         protected bool DisplayPayments { get; private set; }
 
+        protected bool DisplayPaymentsFirst { get; private set; }
+
         public AllowedActions Actions;
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            Page.RegisterInlineScript(String.Format(" emptyScreenPeopleFilter = '{0}'; ",
-                                                    WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")),
-                                      onReady: false);
-
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,7 +61,14 @@ namespace ASC.Web.People
             var quota = TenantExtra.GetTenantQuota();
             IsFreeTariff = quota.Free && !quota.Open;
 
-            DisplayPayments = !CoreContext.Configuration.Standalone || quota.ActiveUsers != LicenseReader.MaxUserCount;
+            DisplayPayments = TenantExtra.EnableTarrifSettings && (!CoreContext.Configuration.Standalone || quota.ActiveUsers != LicenseReader.MaxUserCount);
+
+            if (DisplayPayments)
+            {
+                int notifyCount;
+                int.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.user"] ?? "5", out notifyCount);
+                DisplayPaymentsFirst = notifyCount > 0 && quota.ActiveUsers - TenantStatisticsProvider.GetUsersCount() < notifyCount;
+            }
 
             var controlEmailChange = (UserEmailChange) LoadControl(UserEmailChange.Location);
             controlEmailChange.UserInfo = userInfo;

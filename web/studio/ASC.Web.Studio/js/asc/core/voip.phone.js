@@ -57,7 +57,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
         defaultResetCallInterval = 5000,
         callTimer = null,
         callTimerOffset = null,
-        signalrConnection = null,
+        socket = null,
         twilioConnection = null;
 
     var callToContactId;
@@ -147,14 +147,16 @@ ASC.CRM.Voip.PhoneView = (function($) {
     //#region init
 
     function init() {
-        if (typeof jq.connection === "undefined") {
+        if (ASC.SocketIO && !ASC.SocketIO.disabled()) {
+            socket = ASC.SocketIO.Factory.voip;
+        }
+
+        if (typeof socket === "undefined") {
             $(".studio-top-panel .voip").hide();
             return;
         }
 
         document.addEventListener("visibilitychange", function() { documentHidden = document.hidden; }, false);
-
-        signalrConnection = jq.connection.voip;
 
         cacheElements();
 
@@ -163,48 +165,47 @@ ASC.CRM.Voip.PhoneView = (function($) {
 
         setDefaultCountryData();
 
-        if (!$.connection.onStart) {
-            return;
-        }
-
-        $.connection.hub.reconnecting(function () {
-            operatorStatusUpdated(operatorStatus.offline);
-            Twilio.Device.destroy();
-        });
-
-        $.connection.hub.disconnected(function () {
-            if (initiated) {
-                operatorStatusUpdated(operatorStatus.offline);
-                Twilio.Device.destroy();
-            }
-        });
-
-        $.connection.onStart
-            .done(function() {
+        socket
+            .on('reconnecting',
+                function() {
+                    operatorStatusUpdated(operatorStatus.offline);
+                    Twilio.Device.destroy();
+                })
+            .on('disconnected',
+                function() {
+                    if (initiated) {
+                        operatorStatusUpdated(operatorStatus.offline);
+                        Twilio.Device.destroy();
+                    }
+                })
+            .connect(function() {
                 getData(onGetData);
             })
-            .fail(function() {
+            .reconnect_failed(function() {
                 serviceUnavailable = true;
                 renderView();
-            });
+            })
+            .on('status', operatorStatusUpdated)
+            .on('miss', callMissed)
+            .on('onlineAgents', onlineOperatorsUpdated)
+            .on('dequeue', incomingCallInitiated);
     }
 
     function onGetData(data) {
         saveData(data);
 
-        signalrConnection.server.getStatus()
-            .done(function (status) {
-                operator.status = status;
-                if (status != operatorStatus.offline) {
-                    serviceAlreadyRunning = true;
-                }
+        socket.emit('getStatus', function (status) {
+            operator.status = status;
+            if (status != operatorStatus.offline) {
+                serviceAlreadyRunning = true;
+            }
 
-                renderView();
+            renderView();
 
-                if (status === operatorStatus.offline) {
-                    setOperatorStatus(operatorStatus.online);
-                }
-            });
+            if (status === operatorStatus.offline) {
+                setOperatorStatus(operatorStatus.online);
+            }
+        });
     }
 
     function initTwilio(status) {
@@ -764,13 +765,8 @@ ASC.CRM.Voip.PhoneView = (function($) {
     }
 
     function pushOperatorStatus(status) {
-        signalrConnection.server.status(status)
-            .done(function() {
-                hideLoader();
-            })
-            .fail(function() {
-                $operatorStatusSwitcherOptions.hide();
-                showErrorMessage();
+        socket.emit('status', status,
+            function() {
                 hideLoader();
             });
     }
@@ -1142,7 +1138,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
     function incomingCallInitiated(callId) {
         if (!initiated) return;
 
-        signalrConnection.server.status(1).done(function() {
+        socket.emit('status', 1, function () {
             Teamlab.getVoipCall({},
                 callId,
                 {
@@ -1228,7 +1224,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
                     resetCall(0);
 
                     if (!pause) {
-                        signalrConnection.server.status(0);
+                        socket.emit('status', 0);
                     }
 
                     if (documentHidden) {
@@ -1272,7 +1268,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
         twilioConnection = connection;
         
         connection.accept(function () {
-            signalrConnection.server.status(1);
+            socket.emit('status', 1);
             callGoing();
             Teamlab.saveVoipCall({}, currentCall.id,
             {
@@ -1288,7 +1284,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
         });
         connection.disconnect(function () {
             if (!pause) {
-                signalrConnection.server.status(0);
+                socket.emit('status', 0);
             }
             callCompleted();
         });
@@ -1379,11 +1375,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
 
     return {
         init: init,
-        makeCallToContact: makeCallToContact,
-        operatorStatusUpdated: operatorStatusUpdated,
-        callMissed: callMissed,
-        onlineOperatorsUpdated: onlineOperatorsUpdated,
-        incomingCallInitiated: incomingCallInitiated
+        makeCallToContact: makeCallToContact
     };
 })(jq);
 

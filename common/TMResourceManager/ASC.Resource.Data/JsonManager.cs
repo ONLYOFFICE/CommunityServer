@@ -57,11 +57,24 @@ namespace TMResourceData
                         ValueFrom = jsonObj[key],
                         ResFile = new ResFile {FileID = fileID}
                     };
+                if (culture != "Neutral")
+                {
+                    var neutralKey = new ResWord
+                    {
+                        Title = key,
+                        ValueFrom = jsonObj[key],
+                        ResFile = new ResFile {FileID = fileID}
+                    };
+
+                    ResourceData.GetValueByKey(neutralKey, "Neutral");
+                    if (string.IsNullOrEmpty(neutralKey.ValueTo)) continue;
+                }
+
                 ResourceData.AddResource(culture, resourceType, DateTime.UtcNow, word, true, "Console");
             }
         }
 
-        public static string ExportJson(string project, string module, List<string> languages, string exportPath)
+        public static string ExportJson(string project, string module, List<string> languages, string exportPath, bool withDefaultValue = true)
         {
             using (var fastZip = new ZipFile())
             {
@@ -88,7 +101,13 @@ namespace TMResourceData
                         var wordsDictionary = new Dictionary<string, string>();
                         foreach (var word in fileWords.OrderBy(x=>x.Title).Where(word => !wordsDictionary.ContainsKey(word.Title)))
                         {
+                            if (string.IsNullOrEmpty(word.ValueTo) && !withDefaultValue) continue;
+
                             wordsDictionary[word.Title] = word.ValueTo ?? word.ValueFrom;
+                            if(!string.IsNullOrEmpty(wordsDictionary[word.Title]))
+                            {
+                                wordsDictionary[word.Title] = wordsDictionary[word.Title].TrimEnd('\n').TrimEnd('\r');
+                            }
                         }
 
                         var firstWord = fileWords.FirstOrDefault();

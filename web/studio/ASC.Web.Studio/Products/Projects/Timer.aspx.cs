@@ -28,9 +28,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
-
+using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
+using ASC.Web.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Resources;
@@ -78,7 +80,7 @@ namespace ASC.Web.Projects
         {
             var participantId = Guid.Empty;
 
-            if (!Participant.IsAdmin)
+            if (!WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, SecurityContext.CurrentAccount.ID))
                 participantId = Participant.ID;
 
             UserProjects = EngineFactory.ProjectEngine.GetOpenProjectsWithTasks(participantId);

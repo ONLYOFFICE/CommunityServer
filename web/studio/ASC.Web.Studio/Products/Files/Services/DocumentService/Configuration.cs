@@ -34,7 +34,6 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
@@ -44,7 +43,6 @@ using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
-using Microsoft.Practices.ServiceLocation;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Services.DocumentService
@@ -258,8 +256,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
                         try
                         {
-                            var docService = ServiceLocator.Current.GetInstance<IFileStorageService>();
-                            return docService.GetSharedInfoShort(File.UniqID);
+                            return Global.FileStorageService.GetSharedInfoShort(File.UniqID);
                         }
                         catch
                         {
@@ -304,6 +301,18 @@ namespace ASC.Web.Files.Services.DocumentService
                 Customization = new CustomizationConfig(_configuration);
                 Embedded = new EmbeddedConfig();
                 _userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                User = _userInfo.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
+                           ? new UserConfig
+                               {
+                                   Id = Guid.NewGuid().ToString(),
+                                   Name = FilesCommonResource.Guest,
+                               }
+                           : new UserConfig
+                               {
+                                   Id = _userInfo.ID.ToString(),
+                                   Name = _userInfo.DisplayUserName(false),
+                               };
             }
 
             public bool ModeWrite = false;
@@ -311,7 +320,6 @@ namespace ASC.Web.Files.Services.DocumentService
             private readonly Configuration _configuration;
             private readonly UserInfo _userInfo;
             private EmbeddedConfig _embeddedConfig;
-            private static Dictionary<CultureInfo, Dictionary<FileType, List<TemplateConfig>>> _docTemplates;
 
             [DataMember(Name = "createUrl", EmitDefaultValue = false)]
             public string CreateUrl
@@ -359,47 +367,8 @@ namespace ASC.Web.Files.Services.DocumentService
             [DataMember(Name = "sharingSettingsUrl", EmitDefaultValue = false)]
             public string SharingSettingsUrl;
 
-            [DataMember(Name = "templates", EmitDefaultValue = false)]
-            public ItemList<TemplateConfig> Templates
-            {
-                set { }
-                get
-                {
-                    if (!SecurityContext.IsAuthenticated || _userInfo.IsVisitor()) return null;
-                    if (_configuration.Type == EditorType.Embedded || _configuration.Type == EditorType.External) return null;
-                    var lang = _userInfo.GetCulture();
-                    if (_docTemplates == null)
-                        _docTemplates = new Dictionary<CultureInfo, Dictionary<FileType, List<TemplateConfig>>>();
-                    if (!_docTemplates.ContainsKey(lang))
-                        _docTemplates.Add(lang, new Dictionary<FileType, List<TemplateConfig>>());
-                    if (!_docTemplates[lang].ContainsKey(_configuration.GetFileType))
-                        _docTemplates[lang].Add(_configuration.GetFileType, GetDocumentTemplates(lang, _configuration.GetFileType));
-
-                    var result = _docTemplates[lang][_configuration.GetFileType];
-                    return result == null ? null : new ItemList<TemplateConfig>();
-                }
-            }
-
             [DataMember(Name = "user")]
-            public UserConfig User
-            {
-                set { }
-                get
-                {
-                    return
-                        _userInfo.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                            ? new UserConfig
-                                {
-                                    Id = Guid.NewGuid().ToString(),
-                                    Name = FilesCommonResource.Guest,
-                                }
-                            : new UserConfig
-                                {
-                                    Id = _userInfo.ID.ToString(),
-                                    Name = _userInfo.DisplayUserName(false),
-                                };
-                }
-            }
+            public UserConfig User;
 
             private static string GetCreateUrl(FileType fileType)
             {
@@ -426,40 +395,6 @@ namespace ASC.Web.Files.Services.DocumentService
                        + "?" + FilesLinkUtility.Action + "=create"
                        + "&doctype=" + documentType
                        + "&" + FilesLinkUtility.FileTitle + "=" + HttpUtility.UrlEncode(title);
-            }
-
-            private static List<TemplateConfig> GetDocumentTemplates(CultureInfo culture, FileType fileType)
-            {
-                var result = new List<TemplateConfig>();
-
-                var storeTemplate = Global.GetStoreTemplate();
-
-                var path = FileConstant.TemplateDocPath;
-                if (!storeTemplate.IsDirectory(path))
-                    return null;
-                path += culture + "/";
-                if (!storeTemplate.IsDirectory(path))
-                    path = FileConstant.TemplateDocPath + "default/";
-
-                var docExt = FileUtility.InternalExtension[fileType] ?? FileUtility.InternalExtension[FileType.Document];
-                const string icnExt = ".png";
-                foreach (var file in storeTemplate.ListFilesRelative("", path, "*" + docExt, false))
-                {
-                    if (String.IsNullOrEmpty(file)) continue;
-
-                    var fileName = Path.GetFileNameWithoutExtension(file);
-
-                    var icnUri = storeTemplate.GetUri(path + fileName + icnExt).ToString();
-
-                    result.Add(new TemplateConfig
-                        {
-                            Icon = CommonLinkUtility.GetFullAbsolutePath(icnUri),
-                            Name = fileName,
-                            Url = GetCreateUrl(fileType),
-                        });
-                }
-
-                return result;
             }
 
             #region Nested Classes
@@ -606,7 +541,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         set { }
                         get
                         {
-                            return (SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID).LogoText ?? "")
+                            return (TenantWhiteLabelSettings.Load().LogoText ?? "")
                                 .Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("/", "\\/");
                         }
                     }
@@ -673,19 +608,6 @@ namespace ASC.Web.Files.Services.DocumentService
                         get { return CompanyWhiteLabelSettings.Instance.Site; }
                     }
                 }
-            }
-
-            [DataContract(Name = "template", Namespace = "")]
-            public class TemplateConfig
-            {
-                [DataMember(Name = "icon")]
-                public string Icon;
-
-                [DataMember(Name = "name")]
-                public string Name;
-
-                [DataMember(Name = "url")]
-                public string Url;
             }
 
             [DataContract(Name = "user", Namespace = "")]

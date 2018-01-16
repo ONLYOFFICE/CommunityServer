@@ -24,11 +24,7 @@
 */
 
 
-#region Usings
-
 using System;
-
-#endregion
 
 namespace ASC.Projects.Core.Domain
 {

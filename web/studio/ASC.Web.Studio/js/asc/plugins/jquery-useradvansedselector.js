@@ -61,7 +61,7 @@
 
         initAdvSelectorData: function () {
             var that = this,
-                data = ASC.Resources.Master.ApiResponses_Profiles.response;
+                data = that.options.showDisabled ? window.UserManager.getAllUsers() : ASC.Resources.Master.ApiResponses_ActiveProfiles.response;
             if (!that.options.withGuests) {
                 data = $.grep(data, function (el) { return el.isVisitor == false });
             }

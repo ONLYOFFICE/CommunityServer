@@ -34,10 +34,8 @@ using System.Linq;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Api;
+using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService;
-
-using Microsoft.Practices.ServiceLocation;
-
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -84,9 +82,7 @@ namespace ASC.Projects.Engine
             //requet long operation
             try
             {
-                var docService = ServiceLocator.Current.GetInstance<IFileStorageService>();
-
-                docService.DeleteItems("delete", new ItemList<string> {"folder_" + folderId}, true);
+                Global.FileStorageService.DeleteItems("delete", new ItemList<string> {"folder_" + folderId}, true);
             }
             catch (Exception)
             {

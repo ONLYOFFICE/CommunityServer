@@ -27,17 +27,21 @@
 using System;
 using System.Web;
 using System.Web.UI;
+using ASC.Web.Talk.Addon;
 
 namespace ASC.Web.Talk.UserControls
 {
     public partial class ContactsContainer : UserControl
     {
+        protected bool HasFiles;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts("~/addons/talk/js/talk.contactscontainer.js");
             Page.RegisterBodyScripts("~/addons/talk/js/talk.meseditorcontainer.js");
             Page.RegisterInlineScript("ASC.TMTalk.contactsContainer.init();");
 
+            HasFiles = TalkSpaceUsageStatManager.GetSpaceUsage() > 0;
         }
     }
 }

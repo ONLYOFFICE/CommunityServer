@@ -23,21 +23,9 @@
  *
 */
 
-
-#region Import
-
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using ASC.Common.Security;
-using ASC.Core.Users;
-using ASC.Web.Core.Helpers;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.SocialMedia.LinkedIn;
 
-#endregion
 
 namespace ASC.CRM.Core
 {
@@ -60,6 +48,7 @@ namespace ASC.CRM.Core
         MSN,
         ICQ,
         Jabber,
-        AIM
+        AIM,
+        VK
     }
 }

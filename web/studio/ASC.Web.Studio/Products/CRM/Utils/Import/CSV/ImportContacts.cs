@@ -568,14 +568,21 @@ namespace ASC.Web.CRM.Classes
                 return;
             }
 
-            findedContactInfos.Add(new ContactInfo
+            var items = propertyValue.Split(',').Where(item => !string.IsNullOrEmpty(item));
+
+            foreach (var item in items)
             {
-                Category = category,
-                InfoType = contactInfoType,
-                Data = propertyValue,
-                ContactID = contact.ID,
-                IsPrimary = isPrimary
-            });
+                findedContactInfos.Add(new ContactInfo
+                    {
+                        Category = category,
+                        InfoType = contactInfoType,
+                        Data = item,
+                        ContactID = contact.ID,
+                        IsPrimary = isPrimary
+                    });
+
+                isPrimary = false;
+            }
         }
         
         #endregion

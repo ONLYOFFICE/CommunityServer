@@ -30,7 +30,6 @@ using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Masters.ClientScripts;
-using ASC.Web.Studio.Masters.MasterResources;
 
 namespace ASC.Web.CRM
 {
@@ -44,7 +43,6 @@ namespace ASC.Web.CRM
 
             Master
                 .AddClientScript(
-                    new TaskActionViewData(),
                     new CRMSettingsResources(),
                     new ClientCustomResources(),
                     new CommonData(),
@@ -92,7 +90,8 @@ namespace ASC.Web.CRM
                         "deals.js",
                         "invoices.js",
                         "socialmedia.js",
-                        "sender.js")
+                        "sender.js",
+                        "reports.js")
                     .AddSource(ResolveUrl,
                         "~/js/uploader/ajaxupload.js",
                         "~/js/third-party/autosize.js");
@@ -115,7 +114,8 @@ namespace ASC.Web.CRM
                         "voip.common.less",
                         "voip.quick.less",
                         "voip.numbers.less",
-                        "voip.calls.less");
+                        "voip.calls.less",
+                        "reports.less");
         }
     }
 }

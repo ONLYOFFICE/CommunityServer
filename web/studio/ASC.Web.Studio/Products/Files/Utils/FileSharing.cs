@@ -227,11 +227,6 @@ namespace ASC.Web.Files.Utils
                 fileSecurity.Share(entry.ID, entryType, w.SubjectId, share);
                 changed = true;
 
-                if (entryType == FileEntryType.File && share != FileShare.ReadWrite)
-                {
-                    DocumentServiceHelper.CheckUsersForDrop((File) entry, !w.SubjectGroup ? w.SubjectId : Guid.Empty);
-                }
-
                 if (w.SubjectId == FileConstant.ShareLinkId)
                     continue;
 
@@ -262,6 +257,11 @@ namespace ASC.Web.Files.Utils
                                                 recipients.Add(id, share);
                                             }
                                         });
+            }
+
+            if (entryType == FileEntryType.File)
+            {
+                DocumentServiceHelper.CheckUsersForDrop((File) entry);
             }
 
             if (recipients.Any())
@@ -295,10 +295,9 @@ namespace ASC.Web.Files.Utils
                         var entryType = entry is File ? FileEntryType.File : FileEntryType.Folder;
                         fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID, fileSecurity.DefaultMyShare);
 
-                        var file = entry as File;
-                        if (file != null)
+                        if (entryType == FileEntryType.File)
                         {
-                            DocumentServiceHelper.CheckUsersForDrop(file, SecurityContext.CurrentAccount.ID);
+                            DocumentServiceHelper.CheckUsersForDrop((File)entry);
                         }
 
                         FileMarker.RemoveMarkAsNew(entry);

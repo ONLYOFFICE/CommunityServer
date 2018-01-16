@@ -5,6 +5,7 @@
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
+<%@ Import Namespace="ASC.Web.Studio.ThirdParty.ImportContacts" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Management" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -75,9 +76,9 @@
         <div class="smallDesc"><span class="starStyle">*</span> <%= CustomNamingPeople.Substitute<Resource>("ImportContactsSmallDescription").HtmlEncode() %></div>
         <div class="clearFix importUsers" id="panel">
             <div class="frame <%= MobileDetector.IsMobile ? "framePad" : "" %>">
-                <% if (!string.IsNullOrEmpty(ImportServiceUrl)) 
+                <% if (Import.Enable) 
                    { %>
-                <iframe src="<%= ImportServiceUrl %>" style="border: none; width: <%= MobileDetector.IsMobile ? "100%" : "505px" %>; height: 50px; overflow: hidden; filter: alpha(opacity=100);" frameborder="0" id="ifr"></iframe>
+                <iframe src="<%= Import.Location %>" style="border: none; width: <%= MobileDetector.IsMobile ? "100%" : "505px" %>; height: 50px; overflow: hidden; filter: alpha(opacity=100);" frameborder="0" id="ifr"></iframe>
                 <% } %>
             </div>
         <div class="file" onclick="ImportUsersManager.ChangeVisionFileSelector();" title="<%= Resource.ImportContactsFromFile %>" style="display: <%= MobileDetector.IsMobile ? "none" : "block" %>;">

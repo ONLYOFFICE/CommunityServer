@@ -31,24 +31,23 @@ using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Routing;
+
 using ASC.Api.Enums;
-using ASC.Api.Impl.Responders;
 using ASC.Api.Interfaces;
 using ASC.Api.Logging;
 using ASC.Api.Utils;
-using Microsoft.Practices.Unity;
+
+using Autofac;
 
 namespace ASC.Api.Impl
 {
     public abstract class ApiHttpHandlerBase : IApiHttpHandler
     {
-        [Dependency]
         public ILog Log { get; set; }
 
         public IApiManager ApiManager { get; set; }
 
-        [Dependency]
-        public IUnityContainer Container { get; set; }
+        public ILifetimeScope Container { get; set; }
 
         public RouteData RouteData { get; private set; }
 
@@ -96,7 +95,7 @@ namespace ASC.Api.Impl
             }
             if (responder == null)
             {
-                responder = Container.ResolveAll<IApiResponder>().FirstOrDefault(x => x.CanRespondTo(ApiResponce, context));
+                responder = Container.Resolve<IEnumerable<IApiResponder>>().FirstOrDefault(x => x.CanRespondTo(ApiResponce, context));
             }
 
             if (responder != null)
@@ -120,19 +119,20 @@ namespace ASC.Api.Impl
 
         public void Process(HttpContextBase context)
         {
-            //Resolve all here
-            ApiResponce = Container.Resolve<IApiStandartResponce>();
-            ApiManager = Container.Resolve<IApiManager>();
-            RouteContext = new RequestContext(context,RouteData);
-            ApiContext = new ApiContext(RouteContext);
-            ApiResponce.ApiContext = ApiContext;
+            using (Container)
+            {
+                ApiManager = Container.Resolve<IApiManager>();
+                RouteContext = new RequestContext(context, RouteData);
+                ApiContext = Container.Resolve<ApiContext>(new NamedParameter("requestContext", RouteContext));
+                ApiResponce = Container.Resolve<IApiStandartResponce>();
 
-            //NOTE: Don't register anything it will be resolved when needed
-            //Container.RegisterInstance(ApiContext, new HttpContextLifetimeManager2(context));//Regiter only api context
+                //NOTE: Don't register anything it will be resolved when needed
+                //Container.RegisterInstance(ApiContext, new HttpContextLifetimeManager2(context));//Regiter only api context
 
-            Method = ApiManager.GetMethod(((Route)RouteData.Route).Url, context.Request.RequestType);//Set method
+                Method = ApiManager.GetMethod(((Route) RouteData.Route).Url, context.Request.RequestType); //Set method
 
-            DoProcess(context);
+                DoProcess(context);
+            }
         }
 
         protected RequestContext RouteContext { get; private set; }
@@ -185,7 +185,7 @@ namespace ASC.Api.Impl
                 //Correct item count
                 var beforeFilterCount = Binder.GetCollectionCount(responce);
 
-                var filters = Container.ResolveAll<IApiResponceFilter>();
+                var filters = Container.Resolve<IEnumerable<IApiResponceFilter>>();
                 //Do filtering
                 if (filters != null)
                     responce = filters.Aggregate(responce, (current, apiResponceFilter) => apiResponceFilter.FilterResponce(current,ApiContext));
@@ -228,6 +228,5 @@ namespace ASC.Api.Impl
             ApiResponce.Error = new ErrorWrapper(e);
             context.Response.TrySkipIisCustomErrors = true;//try always
         }
-
     }
 }

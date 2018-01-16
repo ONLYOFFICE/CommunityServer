@@ -79,6 +79,10 @@
             &:last-child {
                 margin-bottom: 0;
             }
+
+            &.dropdown-item-seporator {
+                margin: 8px 0;
+            }
         }
 
         .dropdown-item,
@@ -163,7 +167,6 @@
     &.modules li {
         .dropdown-item-icon {
                 background: url(../dark-green/img/icons_nav_panel.png) no-repeat 0px 0px transparent;
-                /* padding-left: 32px; */
                 width: 16px;
                 height: 16px;
                 margin: 6px 5px 0 1px;
@@ -171,66 +174,122 @@
         }
 
         &.projects .dropdown-item-icon {
-            /*background-position: 10px 7px;*/
             background-position: 0px -51px;
         }
 
         &.crm .dropdown-item-icon {
-            /*background-position: 10px -45px;*/
             background-position: 0px -545px;
         }
 
         &.documents .dropdown-item-icon {
-            /*background-position: 10px -97px;*/
             background-position: 0px -155px;
         }
 
         &.community .dropdown-item-icon {
-            /*background-position: 10px -148px;*/ 
             background-position: 0px -441px;
         }
 
         &.people .dropdown-item-icon {
-            /*background-position: 10px -201px;*/ 
             background-position: 0px -25px;
         }
 
         &.tools .dropdown-item-icon {
             background-position: 0px -1247px;
-            /*background-position: 10px -252px;*/
         }
 
         &.mail .dropdown-item-icon {
-            /*background-position: 10px -304px;*/
             background-position: 0px -1299px;
         }
 
         &.calendar .dropdown-item-icon {
-            /*background-position: 10px -357px;*/
             background-position: 0px -207px;
         }
 
         &.feed .dropdown-item-icon {
-            /*background-position: 10px -409px;*/
             background-position: 0px -701px;
         }
 
         &.settings .dropdown-item-icon {
-            /*background-position: 10px -461px;*/
             background-position: 0px -389px;
         }
 
+        &.apps .dropdown-item-icon {
+            background-position: 0px -830px;
+        }
+
         &.tarrifs .dropdown-item-icon {
-            /*background-position: 10px -565px;*/
             background-position: 0px -857px;
         }
 
         &.talk .dropdown-item-icon {
-            /*background-position: 10px -513px;*/
             background-position: 0px -1325px;
         }
     }
 }
+
+#studio_productListPopupPanel {
+    .wrapper
+    {
+        position: relative;
+        width: 150px;
+        max-height: 430px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &.col2
+        {
+            width: 300px;
+            .columns
+            {
+                -moz-column-count: 2;
+                -webkit-column-count: 2;
+                column-count: 2;
+            }
+        }
+
+        &.col3
+        {
+            width: 450px;
+
+            .columns
+            {
+                -moz-column-count: 3;
+                -webkit-column-count: 3;
+                column-count: 3;
+            }
+        }
+    }
+
+    .columns
+    {
+        position: relative;
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+        -moz-column-gap: 0;
+        -webkit-column-gap: 0;
+        column-gap: 0;
+    }
+
+    .tile
+    {
+        position: relative;
+        width: 150px;
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        column-break-inside: avoid;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        display: table;
+
+        .dropdown-content {
+            max-height: none;
+        }
+    }
+}
+
 .create-new-link-list {
     list-style: none outside none;
     padding: 0;

@@ -35,10 +35,11 @@ using ASC.Web.Core.Client;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
-using ASC.Web.Files.Import.DocuSign;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.ThirdParty;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files.Masters.ClientScripts
@@ -57,11 +58,11 @@ namespace ASC.Web.Files.Masters.ClientScripts
                     RegisterObject(
                         new
                             {
-                                URL_OAUTH_BOX = Import.Box.Box.Location.ToLower(),
-                                URL_OAUTH2_GOOGLE = Import.Google.Google.Location.ToLower(),
-                                URL_OAUTH_DROPBOXV2 = Import.DropBox.DropboxV2.Location.ToLower(),
-                                URL_OAUTH_SKYDRIVE = Import.OneDrive.OneDriveOAuth.Location.ToLower(),
-                                URL_OAUTH_DOCUSIGN = Import.DocuSign.DocuSign.Location.ToLower(),
+                                URL_OAUTH_BOX = Box.Location.ToLower(),
+                                URL_OAUTH2_GOOGLE = Google.Location.ToLower(),
+                                URL_OAUTH_DROPBOXV2 = Dropbox.Location.ToLower(),
+                                URL_OAUTH_SKYDRIVE = OneDrive.Location.ToLower(),
+                                URL_OAUTH_DOCUSIGN = Studio.ThirdParty.DocuSign.Location.ToLower(),
                                 URL_OAUTH_DOCUSIGN_LINK = DocuSignLoginProvider.DocuSignHost,
 
                                 URL_BASE = FilesLinkUtility.FilesBaseAbsolutePath,

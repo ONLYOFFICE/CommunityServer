@@ -57,47 +57,47 @@ namespace ASC.Mail.Aggregator
 
         #region public methods
 
+        private List<MailFolderInfo> GetFolders(IDbManager db, int tenant, string user)
+        {
+            var query = new SqlQuery(FolderTable.Name)
+                .Select(FolderTable.Columns.Folder,
+                    FolderTable.Columns.TimeModified,
+                    FolderTable.Columns.UnreadConversationsCount,
+                    FolderTable.Columns.UnreadMessagesCount,
+                    FolderTable.Columns.TotalConversationsCount,
+                    FolderTable.Columns.TotalMessagesCount)
+                .Where(GetUserWhere(user, tenant));
+
+            // Try catch needed for resolve issue with folder's counter overflow.
+            try
+            {
+                var queryRes = db.ExecuteList(query)
+                    .ConvertAll(x => new MailFolderInfo
+                    {
+                        id = Convert.ToInt32(x[0]),
+                        timeModified = Convert.ToDateTime(x[1]),
+                        unread = Convert.ToInt32(x[2]),
+                        unreadMessages = Convert.ToInt32(x[3]),
+                        total = Convert.ToInt32(x[4]),
+                        totalMessages = Convert.ToInt32(x[5])
+                    });
+
+                if (queryRes.Any())
+                    return queryRes;
+            }
+            catch (Exception ex)
+            {
+                _log.Error("GetFoldersList( \r\nException:{0}\r\n", ex.ToString());
+            }
+
+            return new List<MailFolderInfo>();
+        }
+
         public List<MailFolderInfo> GetFolders(int tenant, string user)
         {
-            Func<DbManager, List<MailFolderInfo>> getFoldersList = (db) =>
-            {
-                var query = new SqlQuery(FolderTable.Name)
-                    .Select(FolderTable.Columns.Folder,
-                        FolderTable.Columns.TimeModified,
-                        FolderTable.Columns.UnreadConversationsCount,
-                        FolderTable.Columns.UnreadMessagesCount,
-                        FolderTable.Columns.TotalConversationsCount,
-                        FolderTable.Columns.TotalMessagesCount)
-                    .Where(GetUserWhere(user, tenant));
-
-                // Try catch needed for resolve issue with folder's counter overflow.
-                try
-                {
-                    var queryRes = db.ExecuteList(query)
-                        .ConvertAll(x => new MailFolderInfo
-                        {
-                            id = Convert.ToInt32(x[0]),
-                            timeModified = Convert.ToDateTime(x[1]),
-                            unread = Convert.ToInt32(x[2]),
-                            unreadMessages = Convert.ToInt32(x[3]),
-                            total = Convert.ToInt32(x[4]),
-                            totalMessages = Convert.ToInt32(x[5])
-                        });
-
-                    if (queryRes.Any())
-                        return queryRes;
-                }
-                catch (Exception ex)
-                {
-                    _log.Error("GetFoldersList( \r\nException:{0}\r\n", ex.ToString());
-                }
-
-                return new List<MailFolderInfo>();
-            };
-
             using (var db = GetDb())
             {
-                var list = getFoldersList(db);
+                var list = GetFolders(db, tenant, user);
 
                 if (!list.Any())
                     RecalculateFolders();

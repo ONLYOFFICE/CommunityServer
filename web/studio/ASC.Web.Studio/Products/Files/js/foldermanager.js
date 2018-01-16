@@ -104,8 +104,8 @@ window.ASC.Files.Folders = (function () {
         var fileTitle = fileData.title || ASC.Files.UI.getEntryTitle("file", fileId);
         version = version || fileData.version || 0;
 
-        if (ASC.Files.Utility.CanWebView(fileTitle) || ASC.Files.Utility.CanWebEdit(fileTitle)) {
-            return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false);
+        if (ASC.Files.Utility.CanWebView(fileTitle)) {
+            return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false && !jq.browser.mobile);
         }
 
         if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(fileTitle)) {
@@ -819,8 +819,8 @@ window.ASC.Files.Folders = (function () {
     };
 
     var curItemFolderMoveTo = function (folderToId, folderToTitle, pathDest, confirmedThirdParty) {
+        ASC.Files.Actions.hideAllActionPanels();
         if (folderToId === ASC.Files.Folders.currentFolder.entryId) {
-            ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Folders.isCopyTo = false;
             return;
         }
@@ -879,7 +879,6 @@ window.ASC.Files.Folders = (function () {
         }
 
         ASC.Files.UI.updateMainContentHeader();
-        ASC.Files.Actions.hideAllActionPanels();
 
         if (data.entry && data.entry.length != 0) {
             ASC.Files.ServiceManager.moveFilesCheck(ASC.Files.ServiceManager.events.MoveFilesCheck,
@@ -967,7 +966,7 @@ window.ASC.Files.Folders = (function () {
 
         ASC.Files.UI.checkSelectAll(true);
 
-        jq("#confirmRemoveText").html("<b>" + ASC.Files.FilesJSResources.ConfirmEmptyTrash + "</b>");
+        jq("#confirmRemoveText").html(ASC.Files.FilesJSResources.ConfirmEmptyTrash);
         jq("#confirmRemoveList").hide();
         jq("#confirmRemoveTextDescription").show();
 
@@ -1040,7 +1039,7 @@ window.ASC.Files.Folders = (function () {
             }
         }
 
-        jq("#confirmRemoveText").html("<b>" + caption + "</b>");
+        jq("#confirmRemoveText").html(caption);
         jq("#confirmRemoveList dd.confirm-remove-files").html(textFile);
         jq("#confirmRemoveList dd.confirm-remove-folders").html(textFolder);
 
@@ -1275,7 +1274,7 @@ window.ASC.Files.Folders = (function () {
             if (event.which == 2) {
                 var fileData = ASC.Files.UI.getObjectData(this);
                 if (fileData.id != 0) {
-                    var fileTitle = fileData.title || ASC.Files.UI.getEntryTitle("file", fileId);
+                    var fileTitle = fileData.title || ASC.Files.UI.getEntryTitle("file", fileData.id);
                     if (!ASC.Files.Utility.MustConvert(fileTitle) && (ASC.Files.Utility.CanWebView(fileTitle) || ASC.Files.Utility.CanWebEdit(fileTitle))) {
                         var fileObj = fileData.entryObject;
 

@@ -31,12 +31,10 @@ using System.Security;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Common.Threading.Progress;
-using ASC.Core.Common.Settings;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Classes;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Api.CRM
 {
@@ -116,8 +114,8 @@ namespace ASC.Api.CRM
         {
             var tenantSettings = Global.TenantSettings;
             tenantSettings.ChangeContactStatusGroupAuto = changeContactStatusGroupAuto;
+            tenantSettings.Save();
 
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
             MessageService.Send(Request, MessageAction.ContactTemperatureLevelSettingsUpdated);
 
             return changeContactStatusGroupAuto;
@@ -138,8 +136,7 @@ namespace ASC.Api.CRM
         {
             var tenantSettings = Global.TenantSettings;
             tenantSettings.WriteMailToHistoryAuto = writeMailToHistoryAuto;
-
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
             //MessageService.Send(Request, MessageAction.ContactTemperatureLevelSettingsUpdated);
 
             return writeMailToHistoryAuto;
@@ -160,8 +157,8 @@ namespace ASC.Api.CRM
         {
             var tenantSettings = Global.TenantSettings;
             tenantSettings.AddTagToContactGroupAuto = addTagToContactGroupAuto;
+            tenantSettings.Save();
 
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
             MessageService.Send(Request, MessageAction.ContactsTagSettingsUpdated);
 
             return addTagToContactGroupAuto;
@@ -183,7 +180,7 @@ namespace ASC.Api.CRM
             var tenantSettings = Global.TenantSettings;
             tenantSettings.IsConfiguredPortal = configured ?? true;
             tenantSettings.WebFormKey = webFormKey ?? Guid.NewGuid();
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
             return tenantSettings.IsConfiguredPortal;
         }
 
@@ -206,7 +203,8 @@ namespace ASC.Api.CRM
             }
             tenantSettings.InvoiceSetting.CompanyName = companyName;
 
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
+
             MessageService.Send(Request, MessageAction.OrganizationProfileUpdatedCompanyName, companyName);
 
             return companyName;
@@ -231,7 +229,7 @@ namespace ASC.Api.CRM
             }
             tenantSettings.InvoiceSetting.CompanyAddress = companyAddress;
 
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
             MessageService.Send(Request, MessageAction.OrganizationProfileUpdatedAddress);
 
             return companyAddress;
@@ -271,7 +269,7 @@ namespace ASC.Api.CRM
             }
             tenantSettings.InvoiceSetting.CompanyLogoID = companyLogoID;
 
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
             MessageService.Send(Request, MessageAction.OrganizationProfileUpdatedInvoiceLogo);
 
             return companyLogoID;
@@ -319,7 +317,7 @@ namespace ASC.Api.CRM
             var tenantSettings = Global.TenantSettings;
             tenantSettings.WebFormKey = Guid.NewGuid();
 
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
             MessageService.Send(Request, MessageAction.WebsiteContactFormUpdatedKey);
 
             return tenantSettings.WebFormKey.ToString();

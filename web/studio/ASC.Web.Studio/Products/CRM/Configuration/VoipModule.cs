@@ -81,7 +81,7 @@ namespace ASC.Web.CRM.Configuration
             page.RegisterBodyScripts("~/js/asc/core/voip.navigationitem.js");
 
             return
-                string.Format(@"<li class=""top-item-box voip"">
+                string.Format(@"<li class=""top-item-box voip display-none"">
                                   <a class=""voipActiveBox inner-text"" title=""{0}"">
                                       <span class=""inner-label"">{1}</span>
                                   </a>

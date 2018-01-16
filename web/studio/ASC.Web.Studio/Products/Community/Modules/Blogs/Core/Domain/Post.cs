@@ -211,7 +211,7 @@ namespace ASC.Blogs.Core.Domain
                 return posEndOpenTag + 1;
 
             }
-            if (posBeginOpenTag == posBeginCloseTag)
+            if (posBeginOpenTag == posBeginCloseTag && tagList.Count > 0)
             {
                 string closeTag = sourceStr.Substring(posBeginCloseTag + 2, posEndOpenTag - posBeginCloseTag - 2);
 
@@ -226,10 +226,13 @@ namespace ASC.Blogs.Core.Domain
                     outStr += "</" + closeTag + ">";
                 return posEndOpenTag + 1;
             }
-            string tagName = sourceStr.Substring(posBeginOpenTag + 1, posEndOpenTag - posBeginOpenTag - 1).Split(' ')[0];
-            tagList.Push(tagName);
+            if (posEndOpenTag != -1)
+            {
+                string tagName = sourceStr.Substring(posBeginOpenTag + 1, posEndOpenTag - posBeginOpenTag - 1).Split(' ')[0];
+                tagList.Push(tagName);
 
-            outStr += sourceStr.Substring(posBeginOpenTag, posEndOpenTag - posBeginOpenTag + 1);
+                outStr += sourceStr.Substring(posBeginOpenTag, posEndOpenTag - posBeginOpenTag + 1);
+            }
             return posEndOpenTag + 1;
         }
 

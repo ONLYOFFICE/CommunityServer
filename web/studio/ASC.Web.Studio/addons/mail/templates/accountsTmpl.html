@@ -40,14 +40,12 @@
         <td class="notify_column">
             {{if !enabled}}
                 <span style="margin-left: 16px;display: inline-block;" class="red-text notification" title="${ASC.Mail.Resources.MailResource.AccountDisableForReceiving}">
-                    ${ASC.Mail.Resources.MailResource.AccountDisableForReceiving}
-                    <a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsModal.activateAccount('${email}', true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
+                    ${ASC.Mail.Resources.MailResource.AccountDisableForReceiving}&nbsp;<a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsModal.activateAccount('${email}', true);">${ASC.Mail.Resources.MailResource.TurnOnAccountLabel}</a>
                 </span>
             {{else}}
                 {{if autoreply.turnOn && (!autoreply.turnOnToDate || new Date(autoreply.toDate) > $item.now) && new Date(autoreply.fromDate) <= $item.now}}
                     <span style="margin-left: 16px;display: inline-block;" class="red-text notification" title="${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}">
-                        ${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}
-                        <a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsPage.turnAutoreply('${email}', false);">${ASC.Mail.Resources.MailResource.TurnOffAutoreplyLabel}</a>
+                        ${ASC.Mail.Resources.MailResource.EnabledAutoreplyNotification}&nbsp;<a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsPage.turnAutoreply('${email}', false);">${ASC.Mail.Resources.MailResource.TurnOffAutoreplyLabel}</a>
                     </span>
                 {{else}}
                     {{if !isTeamlabMailbox && oAuthConnection}}

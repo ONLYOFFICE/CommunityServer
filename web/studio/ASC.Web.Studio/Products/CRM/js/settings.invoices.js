@@ -838,11 +838,11 @@ ASC.CRM.InvoiceItemActionView = (function () {
             isValid = false;
         }
 
-        if (priceVal == "" || isNaN(item.price) || item.price == 0) {
+        if (priceVal == "" || isNaN(item.price) || item.price <= 0 || item.price > ASC.CRM.Data.MaxInvoiceItemPrice) {
             if (priceVal == "") {
                 AddRequiredErrorText(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice"), ASC.CRM.Resources.CRMInvoiceResource.ErrorEmptyPrice);
             } else {
-                AddRequiredErrorText(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice"), ASC.CRM.Resources.CRMInvoiceResource.ErrorIncorrectPrice);
+                AddRequiredErrorText(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice"), ASC.CRM.Resources.CRMInvoiceResource.ErrorIncorrectPrice + " (max " + ASC.CRM.Data.MaxInvoiceItemPrice + ")");
             }
             ShowRequiredError(jq("#crm_invoiceItemMakerDialog .invoiceItemPrice"));
             isValid = false;
@@ -943,7 +943,7 @@ ASC.CRM.InvoiceItemActionView = (function () {
                 }
             }
 
-            jq("#crm_invoiceItemMakerDialog .invoiceItemCurrency").text(invItemCurrency.Abbreviation);
+            jq("#crm_invoiceItemMakerDialog .invoiceItemCurrency").text(invItemCurrency.abbreviation);
 
             //var html = "";
             //for (var i = 0, n = window.ASC.CRM.Data.currencies.length; i < n; i++) {
@@ -1416,7 +1416,7 @@ ASC.CRM.SettingsOrganisationProfileView = (function () {
         $o.find(".contact_city").val("");
         $o.find(".contact_state").val("");
         $o.find(".contact_zip").val("");
-        $o.find(".contact_country").val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
+        $o.find(".contact_country").val("");
     };
     return {
         init: function () {
@@ -1437,77 +1437,41 @@ ASC.CRM.SettingsOrganisationProfileView = (function () {
 
             }
 
-            var $addressContacner = jq("#settings_organisation_profile .address-tbl"),
-                html = ["<option value='' style='display:none;'></option>",
-                    "<option value='",
-                    ASC.CRM.Resources.CRMJSResource.ChooseCountry,
-                    "' class='default-option'>",
-                    jq.htmlEncodeLight(ASC.CRM.Resources.CRMJSResource.ChooseCountry),
-                    "</option>"].join('');
+            var $addressContainer = jq("#settings_organisation_profile .address-tbl");
 
-            html += ["<option class='option-first-in-group-separated' value='",
-                    ASC.CRM.Data.CurrentCultureName,
-                    "'>",
-                    jq.htmlEncodeLight(ASC.CRM.Data.CurrentCultureName),
-                    "</option>"].join('');
-
-            for (var i = 0, n = ASC.CRM.Data.CountryListExt.length; i < n; i++) {
-                var elt = ASC.CRM.Data.CountryListExt[i];
-                if (ASC.CRM.Data.CurrentCultureName != elt) {
-                    html += ["<option value='",
-                        elt,
-                        "'",
-                        i == 0 ? " class='option-first-in-group-separated'": "",
-                        ">",
-                        jq.htmlEncodeLight(elt),
-                        "</option>"
-                    ].join('');
-                }
-            }
-            jq("#contactCountry").html(html).val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
-
-            if (typeof (ASC.CRM.Data.InvoiceSetting.CompanyAddress) != "undefined" && ASC.CRM.Data.InvoiceSetting.CompanyAddress != null) {
+            if (ASC.CRM.Data.InvoiceSetting.CompanyAddress) {
                 try {
                     var address = jq.parseJSON(ASC.CRM.Data.InvoiceSetting.CompanyAddress);
-                    $addressContacner.find(".address_category").val(address.type);
-                    $addressContacner.find(".contact_street").val(address.street);
-                    $addressContacner.find(".contact_city").val(address.city);
-                    $addressContacner.find(".contact_state").val(address.state);
-                    $addressContacner.find(".contact_zip").val(address.zip);
-                    if (address.country == "") {
-                        $addressContacner.find(".contact_country").val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
-                    } else {
-                        $addressContacner.find(".contact_country").val(address.country);
-                    }
+                    $addressContainer.find(".address_category").val(address.type);
+                    $addressContainer.find(".contact_street").val(address.street);
+                    $addressContainer.find(".contact_city").val(address.city);
+                    $addressContainer.find(".contact_state").val(address.state);
+                    $addressContainer.find(".contact_zip").val(address.zip);
+                    $addressContainer.find(".contact_country").val(address.country);
                 }
                 catch (e) {
-                    _clearAddress($addressContacner);
+                    _clearAddress($addressContainer);
                     console.log(e);
                 }
             } else {
-                _clearAddress($addressContacner);
+                _clearAddress($addressContainer);
             }
-
-
 
             jq("#settings_organisation_profile .save_addresses").on("click", function () {
                 if (jq("#settings_organisation_profile .save_addresses").hasClass("disable")) return;
                 jq("#settings_organisation_profile .save_addresses").addClass("disable");
 
-                var country = $addressContacner.find(".contact_country").val();
-                country = country == ASC.CRM.Resources.CRMJSResource.ChooseCountry ? "" : country;
-
-                var address = {
-                    type: $addressContacner.find(".address_category").val(),
-                    street: jq.trim($addressContacner.find(".contact_street").val()),
-                    city: jq.trim($addressContacner.find(".contact_city").val()),
-                    state: jq.trim($addressContacner.find(".contact_state").val()),
-                    zip: jq.trim($addressContacner.find(".contact_zip").val()),
-                    country: country
+                var data = {
+                    type: $addressContainer.find(".address_category").val(),
+                    street: jq.trim($addressContainer.find(".contact_street").val()),
+                    city: jq.trim($addressContainer.find(".contact_city").val()),
+                    state: jq.trim($addressContainer.find(".contact_state").val()),
+                    zip: jq.trim($addressContainer.find(".contact_zip").val()),
+                    country: jq.trim($addressContainer.find(".contact_country").val())
                 };
 
-                Teamlab.updateOrganisationSettingsAddresses({}, jq.toJSON(address),
-                    function (params, companyName) {
+                Teamlab.updateOrganisationSettingsAddresses({}, jq.toJSON(data),
+                    function () {
                         jq("<div></div>").addClass("okBox").text(ASC.CRM.Resources.CRMInvoiceResource.AddressesUpdated).insertAfter(".settingsHeaderAddress");
                         jq("#settings_organisation_profile .save_addresses").removeClass("disable");
                         setTimeout(function () {
@@ -1520,7 +1484,7 @@ ASC.CRM.SettingsOrganisationProfileView = (function () {
                 if (jq("#settings_organisation_profile .save_base_info").hasClass("disable")) return;
                 jq("#settings_organisation_profile .save_base_info").addClass("disable");
                 Teamlab.updateOrganisationSettingsCompanyName({}, jq.trim(jq("#settings_organisation_profile .settingsOrganisationProfileName").val()),
-                    function (params, companyName) {
+                    function () {
                         jq("<div></div>").addClass("okBox").text(ASC.CRM.Resources.CRMJSResource.SettingsUpdated).insertAfter(".settingsHeaderBase");
                         jq("#settings_organisation_profile .save_base_info").removeClass("disable");
                         setTimeout(function () {
@@ -1534,8 +1498,7 @@ ASC.CRM.SettingsOrganisationProfileView = (function () {
                 action: 'ajaxupload.ashx?type=ASC.Web.CRM.Classes.OrganisationLogoHandler,ASC.Web.CRM',
                 autoSubmit: true,
                 data: {},
-                onSubmit: function (file, ext) {
-                },
+                onSubmit: function () {},
                 onChange: function (file, extension) {
                     if (jQuery.inArray("." + extension, ASC.Files.Utility.Resource.ExtsImage) == -1) {
                         jq("#settings_organisation_profile .fileUploadError").text(ASC.CRM.Resources.CRMJSResource.ErrorMessage_NotImageSupportFormat).show();
@@ -1552,7 +1515,7 @@ ASC.CRM.SettingsOrganisationProfileView = (function () {
                     if (!responseObj.Success) {
                         jq("#settings_organisation_profile .fileUploadError").text(responseObj.Message).show();
                         jq("#settings_organisation_profile .under_logo .linkChangePhoto").removeClass("disable");
-                        jq("#settings_organisation_profile .save_logo").addClass("disable")
+                        jq("#settings_organisation_profile .save_logo").addClass("disable");
                         LoadingBanner.hideLoading();
                         return;
                     }

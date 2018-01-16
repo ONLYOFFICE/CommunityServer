@@ -273,4 +273,10 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Delete Milestones</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Are you sure you want to delete milestones?</value>
+  </data>
 </root>

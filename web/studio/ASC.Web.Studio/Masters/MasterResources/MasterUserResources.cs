@@ -48,19 +48,32 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var userInfoList = new List<UserInfo> {CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID)};
+            var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+            var activeUserInfoList = new List<UserInfo>();
+            var disabledUserInfoList = new List<UserInfo>();
             var groupInfoList = new List<GroupInfo>();
 
             if (SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal)
             {
-                userInfoList = CoreContext.UserManager.GetUsers(EmployeeStatus.Active).ToList();
+                var allUsers = CoreContext.UserManager.GetUsers(EmployeeStatus.All);
+
+                foreach (var userInfo in allUsers)
+                {
+                    if (userInfo.Status == EmployeeStatus.Active)
+                        activeUserInfoList.Add(userInfo);
+                    else
+                        disabledUserInfoList.Add(userInfo);
+                }
 
                 groupInfoList = CoreContext.UserManager.GetDepartments().ToList();
             }
+            else
+            {
+                activeUserInfoList.Add(user);
+            }
 
-            var user = PrepareUserInfo(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID));
-
-            var users = userInfoList.Select(PrepareUserInfo).ToList();
+            var activeUsers = activeUserInfoList.Select(PrepareUserInfo);
+            var disabledUsers = disabledUserInfoList.Select(PrepareUserInfo);
 
             var groups = groupInfoList.Select(x => new
                 {
@@ -77,7 +90,6 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 {
                     hubUrl += "/";
                 }
-                hubUrl += "signalr";
             }
             var hubLogging = ConfigurationManager.AppSettings["web.chat.logging"] ?? "false";
             var webChat = ConfigurationManager.AppSettings["web.chat"] ?? "false";
@@ -89,8 +101,10 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             new
                                 {
                                     Hub = new { Token = hubToken, Url = hubUrl, WebChat = webChat, VoipEnabled = voipEnabled, Logging = hubLogging },
-                                    ApiResponsesMyProfile = new {response = user},
-                                    ApiResponses_Profiles = new {response = users},
+                                    ApiResponsesMyProfile = new {response = PrepareUserInfo(user)},
+                                    ApiResponsesRemovedProfile = new {response = PrepareUserInfo(Constants.LostUser)},
+                                    ApiResponses_ActiveProfiles = new {response = activeUsers},
+                                    ApiResponses_DisabledProfiles = new {response = disabledUsers},
                                     ApiResponses_Groups = new {response = groups}
                                 })
                    };

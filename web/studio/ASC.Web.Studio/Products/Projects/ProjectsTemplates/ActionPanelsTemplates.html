@@ -2,14 +2,21 @@
     <div id="statusChangePanel" class="studio-action-panel">
         <ul id="statusList" class="dropdown-content">
             {{each statuses}}
-            <li class="${cssClass} dropdown-item">${text}</li>
+            <li id="statusItem_${id}" class="${cssClass} dropdown-item">${text}</li>
             {{/each}}
         </ul>
     </div>
 </script>
 
+<script id="projects_statusChangeContainer" type="text/x-jquery-tmpl">
+    <div class="changeStatusCombobox{{if canEdit}} canEdit{{else}} noEdit{{/if}}">
+        <span title="${status.text}" class="${status.cssClass}"></span>
+        {{if canEdit}}<span class="arrow"></span> {{/if}}
+    </div>
+</script>
+
 <script id="projects_panelFrame" type="text/x-jquery-tmpl">
-    <div id="${panelId}" class="studio-action-panel" objid="">
+    <div id="${panelId}" class="studio-action-panel">
         <div class="panel-content">
         </div>
     </div>
@@ -91,29 +98,37 @@
     {{/if}}
 </script>
 
-<script id="projects_timeTrakingGroupActionMenu" type="text/x-jquery-tmpl">
-    <ul id="timeTrakingGroupActionMenu" class="clearFix contentMenu contentMenuDisplayAll display-none">
-    <li class="menuAction menuActionSelectAll menuActionSelectLonely">
-        <div class="menuActionSelect">
-            <input id="selectAllTimers" type="checkbox" title="${ASC.Projects.Resources.TimeTrackingResource.GroupMenuSelectAll}"/>
-                    </div>
+<script id="projects_groupActionMenu" type="text/x-jquery-tmpl">
+    <ul id="groupActionMenu" class="clearFix contentMenu contentMenuDisplayAll">
+        <li class="menuAction menuActionSelectAll menuActionSelectLonely">
+            <div class="menuActionSelect">
+                <input id="selectAll" type="checkbox" title="${ASC.Projects.Resources.TimeTrackingResource.GroupMenuSelectAll}"/>
+            </div>
+            {{if multiSelector}}
+            <div class="down_arrow" title="Select"></div>
+
+            <div id="groupActionMenuSelector" class="studio-action-panel">
+                <ul class="dropdown-content">
+                    {{each multiSelector}}
+                    <li id="${id}">
+                        <a class="dropdown-item">
+                            ${title}
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
         </li>
-        <li class="menuAction" data-status="billed" title="${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusBilled}">
-            <span>${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusBilled}</span>
-        </li>
-        <li class="menuAction" data-status="not-billed" title="${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotBilled}">
-            <span>${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotBilled}</span>
-        </li>
-        <li class="menuAction" data-status="not-chargeable" title="${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotChargeable}">
-            <span>${ASC.Projects.Resources.TimeTrackingResource.PaymentStatusNotChargeable}</span>
-        </li>
-        <li class="menuAction" data-status="delete" title="${ASC.Projects.Resources.CommonResource.Delete}">
-            <span>${ASC.Projects.Resources.CommonResource.Delete}</span>
-        </li>
+        {{each actions}}
+            <li class="menuAction" id="${id}" title="${title}">
+                <span>${title}</span>
+            </li>
+        {{/each}}
 
         <li class="menu-action-checked-count">
             <span></span>
-            <a id="deselectAllTimers" class="link dotline small">
+            <a id="deselectAll" class="link dotline small">
                 ${ASC.Projects.Resources.TimeTrackingResource.GroupMenuDeselectAll}
             </a>
         </li>
@@ -123,24 +138,23 @@
                 ${ASC.Projects.Resources.TimeTrackingResource.GroupMenuOnTop}
             </a>
         </li>
-
     </ul>
 </script>
 
 <script id="projects_totalTimeText" type="text/x-jquery-tmpl">
-
-    <span data-tasktext="${ASC.Projects.Resources.TimeTrackingResource.TimeSpentForTask}" data-listtext="${ASC.Projects.Resources.TimeTrackingResource.TotalTimeNote}"></span>
-    <span class="total-count">
-        ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeCommon}
-        <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
-        <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
-    </span>
-    <span class="billed-count">
-        ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeBilled}
-        <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
-        <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
-    </span>
-     
+    <div class='total-time-forFilter' id='totalTimeText'>
+        <span></span>
+        <span class="total-count">
+            ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeCommon}
+            <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
+            <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
+        </span>
+        <span class="billed-count">
+            ${ASC.Projects.Resources.TimeTrackingResource.TotalTimeBilled}
+            <b><span class="hours"></span> ${ASC.Projects.Resources.TimeTrackingResource.Hours}
+            <span class="minutes"></span> ${ASC.Projects.Resources.TimeTrackingResource.Minutes}</b>
+        </span>
+     </div>
 </script>
 
 <script id="projects_navPanel" type="text/x-jquery-tmpl">
@@ -158,9 +172,6 @@
                 {{/if}}
                 <span class="entity-menu"></span>
             </div>
-            {{if $item.data.ganttchart}}
-            <a class="button blue middle gant-chart-link" href="${$item.data.ganttchart}" target="_blank">${ASC.Projects.Resources.ProjectResource.GanttGart}</a>
-            {{/if}}
         </div>
 
         <div id="projectTabs" class="display-none tabsNavigationLinkBox"></div>
@@ -262,21 +273,18 @@
 </script>
 
 <script id="projects_move_task_panel" type="text/x-jquery-tmpl">
-    <div class="describe-text">${ASC.Projects.Resources.TasksResource.Task}</div>
-    <div class="taskTitls ms"><b id="moveTaskTitles"></b>
+    <div class="describe-text">${describe.title}</div>
+    <div class="taskTitls ms">
+        <b>${describe.description}</b>
     </div>
     <div class="describe-text ms">${ASC.Projects.Resources.TasksResource.WillBeMovedToMilestone}:</div>
     <div class="milestonesList">
         {{tmpl(milestones) 'projects_milestoneForMoveTaskPanelTmpl'}}
-        <div class="milestonesButtons">
-            <input id="ms_0" type="radio" name="milestones" value="0"/>
-            <label for="ms_0">${ASC.Projects.Resources.TasksResource.None}</label>
-        </div>
     </div>
 
     <div class="middle-button-container">
         <a href="javascript:void(0)" class="button blue middle">
-            ${ASC.Projects.Resources.TasksResource.MoveToMilestone}
+            ${describe.moveToMilestone}
         </a>
         <span class="splitter-buttons"></span>
         <a class="button gray middle" href="javascript:void(0)">
@@ -436,7 +444,7 @@
         <label for="milestoneKeyCheckBox"> ${ASC.Projects.Resources.MilestoneResource.RootMilestone}</label>
         <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectMilestone', popup: true });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectMilestone}"></div>
         <div class="popup_helper" id="AnswerForProjectMilestone">
-            <p>${jq.format(ASC.Projects.Resources.CommonResource.HelpAnswerProjectMilestone, "<br/>", "<b>", "</b>")}
+            <p>{{html jq.format(ASC.Projects.Resources.CommonResource.HelpAnswerProjectMilestone, "<br/>", "<b>", "</b>")}}
             </p>
         </div>
     </div>
@@ -478,4 +486,10 @@
             ${ASC.Projects.Resources.CommonResource.Select}
         </div>
     </div>
+</script>
+
+<script id="projects_choose_responsible" type="text/x-jquery-tmpl">
+    <span class='chooseResponsible nobody'>
+        <span class='link dotline'>${ASC.Projects.Resources.ProjectsJSResource.ChooseResponsible}</span>
+    </span>
 </script>

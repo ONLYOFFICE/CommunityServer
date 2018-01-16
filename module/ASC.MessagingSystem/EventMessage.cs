@@ -52,5 +52,7 @@ namespace ASC.MessagingSystem
         public MessageAction Action { get; set; }
 
         public IList<string> Description { get; set; }
+
+        public MessageTarget Target { get; set; }
     }
 }

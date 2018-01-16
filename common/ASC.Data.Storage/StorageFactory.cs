@@ -142,7 +142,7 @@ namespace ASC.Data.Storage
                     {
                         DiscDataHandler.RegisterVirtualPath(
                             PathUtils.ResolveVirtualPath(m.VirtualPath),
-                            PathUtils.ResolvePhysicalPath(m.Path, props));
+                            PathUtils.ResolvePhysicalPath(m.Path, props), m.PublicDisc);
 
                         foreach (var d in m.Domains.Cast<DomainConfigurationElement>().Where(d => d.Type == "disc" || string.IsNullOrEmpty(d.Type)))
                         {

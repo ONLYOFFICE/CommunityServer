@@ -25,6 +25,8 @@
 
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Core;
@@ -76,12 +78,15 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 36)]
         public bool IsFollow { get; set; }
 
+        [DataMember(Order = 37, EmitDefaultValue = false)]
+        public IEnumerable<string> Tags { get; set; }
+
 
         private ProjectWrapperFull()
         {
         }
 
-        public ProjectWrapperFull(Project project, object filesRoot, bool isFollow)
+        public ProjectWrapperFull(Project project, object filesRoot = null, bool isFollow = false, IEnumerable<string> tags = null)
         {
             Id = project.ID;
             Title = project.Title;
@@ -109,15 +114,8 @@ namespace ASC.Api.Projects.Wrappers
             DocumentsCount = project.DocumentsCount;
             ParticipantCount = project.ParticipantCount;
             IsFollow = isFollow;
+            Tags = tags;
         }
-
-        public ProjectWrapperFull(Project project, object filesRoot) : this(project, filesRoot, false)
-        { }
-
-        public ProjectWrapperFull(Project project) : this(project, 0, false)
-        {
-        }
-
 
         public static ProjectWrapperFull GetSample()
         {

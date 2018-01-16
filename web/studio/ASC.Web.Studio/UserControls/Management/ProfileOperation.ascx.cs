@@ -51,12 +51,10 @@ namespace ASC.Web.Studio.UserControls.Management
                 SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
 
                 var user = CoreContext.UserManager.GetUsers(UserId);
-                var userName = user.DisplayUserName(false);
+                user.Status = EmployeeStatus.Terminated;
+                CoreContext.UserManager.SaveUserInfo(user);
 
-                UserPhotoManager.RemovePhoto(Guid.Empty, UserId);
-                CoreContext.UserManager.DeleteUser(UserId);
-
-                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UserDeleted, userName);
+                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UsersUpdatedStatus, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
                 operationBlock.Visible = false;
                 result.InnerHtml = Resource.DeleteProfileSuccess;

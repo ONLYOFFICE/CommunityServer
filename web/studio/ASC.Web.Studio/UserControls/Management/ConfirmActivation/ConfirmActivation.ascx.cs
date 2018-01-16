@@ -147,6 +147,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             MessageService.Send(HttpContext.Current.Request,
                                 user.IsVisitor() ? MessageAction.GuestActivated : MessageAction.UserActivated,
+                                MessageTarget.Create(user.ID),
                                 user.DisplayUserName(false));
         }
 
@@ -264,7 +265,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 CoreContext.UserManager.SaveUserInfo(user);
 
                 StudioNotifyService.Instance.SendEmailActivationInstructions(user, newEmail);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, user.DisplayUserName(false));
+                MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
                 response.message = String.Format(Resource.MessageEmailActivationInstuctionsSentOnEmail, "<b>" + newEmail + "</b>");
                 return response;

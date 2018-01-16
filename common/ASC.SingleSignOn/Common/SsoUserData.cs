@@ -43,6 +43,7 @@ namespace ASC.SingleSignOn.Common
         }
 
         private const string MOB_PHONE = "mobphone";
+        private const string EXT_MOB_PHONE = "extmobphone";
 
         public UserInfo ToUserInfo(bool checkExistance = false)
         {
@@ -55,7 +56,12 @@ namespace ASC.SingleSignOn.Common
 
             if (checkExistance)
             {
-                userInfo = CoreContext.UserManager.GetUserByEmail(Email);
+                userInfo = CoreContext.UserManager.GetSsoUserByNameId(NameId);
+
+                if (Equals(userInfo, Constants.LostUser))
+                {
+                    userInfo = CoreContext.UserManager.GetUserByEmail(Email);
+                }
             }
 
             if (Equals(userInfo, Constants.LostUser))
@@ -76,7 +82,7 @@ namespace ASC.SingleSignOn.Common
                 if (string.IsNullOrEmpty(Phone))
                     return userInfo;
 
-                var contacts = new List<string> {MOB_PHONE, Phone};
+                var contacts = new List<string> {EXT_MOB_PHONE, Phone};
                 userInfo.Contacts = contacts;
             }
             else
@@ -87,12 +93,56 @@ namespace ASC.SingleSignOn.Common
                 userInfo.SsoNameId = NameId;
                 userInfo.SsoSessionId = SessionId;
                 userInfo.Location = Location;
+                userInfo.Title = Title;
 
-                if (string.IsNullOrEmpty(Phone) || userInfo.Contacts.Contains(Phone))
-                    return userInfo;
+                var portalUserContacts = userInfo.Contacts;
 
-                userInfo.Contacts.Add(MOB_PHONE);
-                userInfo.Contacts.Add(Phone);
+                var newContacts = new List<string>();
+                var phones = new List<string>();
+                var otherContacts = new List<string>();
+
+                for (int i = 0, n = portalUserContacts.Count; i < n; i += 2)
+                {
+                    if (i + 1 >= portalUserContacts.Count)
+                        continue;
+
+                    var type = portalUserContacts[i];
+                    var value = portalUserContacts[i + 1];
+
+                    switch (type)
+                    {
+                        case EXT_MOB_PHONE:
+                            break;
+                        case MOB_PHONE:
+                            phones.Add(value);
+                            break;
+                        default:
+                            otherContacts.Add(type);
+                            otherContacts.Add(value);
+                            break;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(Phone))
+                {
+                    if (phones.Exists(p => p.Equals(Phone)))
+                    {
+                        phones.Remove(Phone);
+                    }
+
+                    newContacts.Add(EXT_MOB_PHONE);
+                    newContacts.Add(Phone);
+                }
+
+                phones.ForEach(p =>
+                {
+                    newContacts.Add(MOB_PHONE);
+                    newContacts.Add(p);
+                });
+
+                newContacts.AddRange(otherContacts);
+
+                userInfo.Contacts = newContacts;
             }
 
             return userInfo;

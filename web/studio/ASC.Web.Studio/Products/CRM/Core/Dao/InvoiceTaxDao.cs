@@ -132,6 +132,14 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
+        public DateTime GetMaxLastModified()
+        {
+            using (var db = GetDb())
+            {
+                return db.ExecuteScalar<DateTime>(Query("crm_invoice_tax").Select("last_modifed_on"));
+            }
+        }
+
         public virtual List<InvoiceTax> GetByID(int[] ids)
         {
             using (var db = GetDb())
@@ -246,7 +254,7 @@ namespace ASC.CRM.Core.Dao
                     ID = Convert.ToInt32(row[0]),
                     Name = Convert.ToString(row[1]),
                     Description = Convert.ToString(row[2]),
-                    Rate = Convert.ToInt32(row[3]),
+                    Rate = Convert.ToDecimal(row[3]),
                     CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[4].ToString())),
                     CreateBy = ToGuid(row[5]),
                     LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[6].ToString())),

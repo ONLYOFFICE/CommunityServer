@@ -23,12 +23,11 @@
  *
 */
 
-
-using ASC.Api.Interfaces;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+using System.Collections.Generic;
 using System.Web.Routing;
+using ASC.Api.Interfaces;
+using ASC.Common.DependencyInjection;
+using Autofac;
 
 namespace ASC.Api
 {
@@ -38,9 +37,7 @@ namespace ASC.Api
 
         private static volatile bool initialized = false;
 
-        private static UnityServiceLocator locator;
-
-        public static UnityContainer Container { get; private set; }
+        public static IContainer Builder { get; private set; }
 
 
         static ApiSetup()
@@ -48,7 +45,7 @@ namespace ASC.Api
         }
 
 
-        private static void Init()
+        public static void Init()
         {
             if (!initialized)
             {
@@ -56,12 +53,15 @@ namespace ASC.Api
                 {
                     if (!initialized)
                     {
-                        Container = new UnityContainer();
-                        locator = new UnityServiceLocator(Container);
+                        var container = AutofacConfigLoader.Load("api");
+                        container.Register(c => c.Resolve<IApiRouteConfigurator>().RegisterEntryPoints())
+                            .As<IEnumerable<IApiMethodCall>>()
+                            .SingleInstance();
 
-                        ServiceLocator.SetLocatorProvider(() => locator);
-                        Container.LoadConfiguration("api");
-                        ApiDefaultConfig.DoDefaultRegistrations(Container);
+                        Builder = container.Build();
+
+                        ConfigureEntryPoints();
+                        RegisterRoutes();
 
                         initialized = true;
                     }
@@ -69,34 +69,26 @@ namespace ASC.Api
             }
         }
 
-
-        public static void RegisterRoutes()
+        private static void RegisterRoutes()
         {
-            Init();
-
-            var registrators = Container.ResolveAll<IApiRouteRegistrator>();
+            var registrators = Builder.Resolve<IEnumerable<IApiRouteRegistrator>>();
             foreach (var registrator in registrators)
             {
                 registrator.RegisterRoutes(RouteTable.Routes);
             }
         }
 
-        public static IUnityContainer ConfigureEntryPoints()
+        private static void ConfigureEntryPoints()
         {
-            Init();
-
             //Do boot stuff
-            var configurator = Container.Resolve<IApiRouteConfigurator>();
-            configurator.RegisterEntryPoints();
+            Builder.Resolve<IApiRouteConfigurator>();
 
             //Do boot auto search
-            var boot = Container.ResolveAll<IApiBootstrapper>();
+            var boot = Builder.Resolve<IEnumerable<IApiBootstrapper>>();
             foreach (var apiBootstrapper in boot)
             {
                 apiBootstrapper.Configure();
             }
-
-            return Container;
         }
     }
 }

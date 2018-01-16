@@ -26,112 +26,19 @@
 
 using System;
 using System.Web;
-using System.Linq;
-
-using ASC.Core.Users;
-using ASC.Projects.Core.Domain;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Resources;
-using ASC.Web.Studio.Utility;
-using ASC.Core;
-using ASC.Projects.Engine;
 
 namespace ASC.Web.Projects.Controls.Projects
 {
     public partial class ProjectAction : BaseUserControl
     {
-        protected Project Project { get { return Page.Project; } }
-        protected string ProjectTags { get; set; }
-        protected string ProjectManagerName { get; set; }
-        protected string UrlProject { get; set; }
-        protected int ActiveTasksCount { get; set; }
-        protected int ActiveMilestonesCount { get; set; }
-        protected bool IsEditingProjectAvailable { get; set; }
-        protected string PageTitle { get; set; }
-        protected string ProjectActionButtonTitle { get; set; }
-        protected int TemplatesCount { get; set; }
-        protected bool RenderProjectPrivacyCheckboxValue { get; set; }
-        protected bool HideChooseTeam { get; set; }
-        protected string ProjectManagerId { get; set; }
-        protected string ProjectStatusTitle { get; set; }
-        protected string ProjectStatusList { get; set; }
-
-        protected bool IsProjectCreatedFromCrm
-        {
-            get { return Request.Params["opportunityID"] != null || Request.Params["contactID"] != null; }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "projectaction.js");
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "projectaction.js")
+                .RegisterBodyScripts("~/products/projects/js/addmilestonecontainer.js")
+                .RegisterStyle("~/products/projects/app_themes/default/css/addmilestonecontainer.css");
 
-            TemplatesCount = Page.EngineFactory.TemplateEngine.GetCount();
-            HideChooseTeam = CoreContext.UserManager.GetUsers().All(r => r.ID == SecurityContext.CurrentAccount.ID);
-
-            if (Project != null)
-            {
-                ProjectManagerName = CoreContext.UserManager.GetUsers(Project.Responsible).DisplayUserName();
-                UrlProject = "tasks.aspx?prjID=" + Project.ID;
-                ActiveTasksCount = Page.EngineFactory.TaskEngine.GetByProject(Project.ID, TaskStatus.Open, Guid.Empty).Count();
-                ActiveMilestonesCount = Page.EngineFactory.MilestoneEngine.GetByProject(Project.ID).Count(m => m.Status == MilestoneStatus.Open);
-                IsEditingProjectAvailable = true;
-                PageTitle = ProjectResource.EditProject;
-                ProjectActionButtonTitle = ProjectResource.SaveProject;
-                RenderProjectPrivacyCheckboxValue = Project.Private;
-                ProjectManagerId = Project.Responsible.ToString();
-
-                projectTitle.Text = Project.Title;
-                projectDescription.Text = Project.Description;
-
-                var tags = Page.EngineFactory.TagEngine.GetProjectTags(Project.ID).Select(r => r.Value.HtmlEncode()).ToArray();
-                ProjectTags = string.Join(", ", tags);
-
-                switch (Project.Status)
-                {
-                    case ProjectStatus.Open:
-                        ProjectStatusTitle = ProjectsJSResource.StatusOpenProject;
-                        break;
-                    case ProjectStatus.Paused:
-                        ProjectStatusTitle = ProjectsJSResource.StatusSuspendProject;
-                        break;
-                    case ProjectStatus.Closed:
-                        ProjectStatusTitle = ProjectsJSResource.StatusClosedProject;
-                        break;
-                }
-
-                ProjectStatusList = string.Join(";",
-                    string.Join(",", (int)ProjectStatus.Open, ProjectsJSResource.StatusOpenProject),
-                    string.Join(",", (int)ProjectStatus.Paused, ProjectsJSResource.StatusSuspendProject),
-                    string.Join(",", (int)ProjectStatus.Closed, ProjectsJSResource.StatusClosedProject));
-
-                Page.Title = HeaderStringHelper.GetPageTitle(Project.Title);
-            }
-            else
-            {
-                if(TemplatesCount > 0)
-                {
-                    ControlPlaceHolder.Controls.Add(LoadControl("../Common/AddMilestoneContainer.ascx"));
-                }
-
-                projectTitle.Attributes.Add("deftext", ProjectTemplatesResource.DefaultProjTitle);
-
-                PageTitle = ProjectResource.CreateNewProject;
-                ProjectActionButtonTitle = ProjectResource.AddNewProject;
-                RenderProjectPrivacyCheckboxValue = true;
-                ProjectManagerName = ProjectResource.AddProjectManager;
-
-                var users = CoreContext.UserManager.GetUsers().Where(r => ProjectSecurity.IsProjectsEnabled(r.ID)).ToList();
-                if (users.Count == 1)
-                {
-                    var manager = users.First();
-                    ProjectManagerId = manager.ID.ToString();
-                    ProjectManagerName = manager.DisplayUserName();
-                }
-                
-                Page.Title = HeaderStringHelper.GetPageTitle(PageTitle);
-
-                Page.Master.RegisterCRMResources();
-            }
+            Page.Master.RegisterCRMResources();
 
         }
     }

@@ -198,7 +198,7 @@ namespace ASC.Api.CRM
             var wrapper = DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldID);
 
             var messageAction = GetCustomFieldCreatedAction(entityTypeObj);
-            MessageService.Send(Request, messageAction, wrapper.Label);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(wrapper.ID), wrapper.Label);
 
             return ToCustomFieldWrapper(DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldID));
         }
@@ -247,12 +247,12 @@ namespace ASC.Api.CRM
 
             DaoFactory.GetCustomFieldDao().EditItem(customField);
 
-            var wrapper = ToCustomFieldWrapper(DaoFactory.GetCustomFieldDao().GetFieldDescription(id));
+            customField = DaoFactory.GetCustomFieldDao().GetFieldDescription(id);
 
             var messageAction = GetCustomFieldUpdatedAction(entityTypeObj);
-            MessageService.Send(Request, messageAction, wrapper.Label);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(customField.ID), customField.Label);
 
-            return wrapper;
+            return ToCustomFieldWrapper(customField);
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetCustomFieldDao().DeleteField(fieldid);
 
             var messageAction = GetCustomFieldDeletedAction(ToEntityType(entityType));
-            MessageService.Send(Request, messageAction, result.Label);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(customField.ID), result.Label);
 
             return result;
         }
@@ -303,21 +303,19 @@ namespace ASC.Api.CRM
             if (fieldids == null) throw new ArgumentException();
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
 
-            var result = new List<CustomFieldBaseWrapper>();
+            var customFields = new List<CustomField>();
             foreach (var id in fieldids)
             {
                 if (!DaoFactory.GetCustomFieldDao().IsExist(id)) throw new ItemNotFoundException();
-
-                var userFieldWrapper = ToCustomFieldBaseWrapper(DaoFactory.GetCustomFieldDao().GetFieldDescription(id));
-                result.Add(userFieldWrapper);
+                customFields.Add(DaoFactory.GetCustomFieldDao().GetFieldDescription(id));
             }
 
             DaoFactory.GetCustomFieldDao().ReorderFields(fieldids.ToArray());
 
             var messageAction = GetCustomFieldsUpdatedOrderAction(ToEntityType(entityType));
-            MessageService.Send(Request, messageAction, result.Select(x => x.Label));
- 
-            return result;
+            MessageService.Send(Request, messageAction, MessageTarget.Create(fieldids), customFields.Select(x => x.Label));
+
+            return customFields.Select(ToCustomFieldBaseWrapper);
         }
 
         private static CustomFieldBaseWrapper ToCustomFieldBaseWrapper(CustomField customField)

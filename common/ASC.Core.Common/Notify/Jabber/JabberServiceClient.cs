@@ -25,19 +25,21 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.ServiceModel;
+using ASC.Core.Common.Notify.Jabber;
 
 namespace ASC.Core.Notify.Jabber
 {
     public class JabberServiceClient
     {
-        private static readonly TimeSpan timeout = TimeSpan.FromMinutes(2);
+        private static readonly TimeSpan Timeout = TimeSpan.FromMinutes(2);
 
         private static DateTime lastErrorTime = default(DateTime);
 
         private static bool IsServiceProbablyNotAvailable()
         {
-            return lastErrorTime != default(DateTime) && lastErrorTime + timeout > DateTime.Now;
+            return lastErrorTime != default(DateTime) && lastErrorTime + Timeout > DateTime.Now;
         }
 
         public bool SendMessage(int tenantId, string from, string to, string text, string subject)
@@ -53,34 +55,182 @@ namespace ASC.Core.Notify.Jabber
                 }
                 catch (Exception error)
                 {
-                    if (error is CommunicationException || error is TimeoutException)
-                    {
-                        lastErrorTime = DateTime.Now;
-                    }
-                    throw;
+                    ProcessError(error);
                 }
             }
+
+            return false;
         }
 
-        public int GetNewMessagesCount(int tenantId, string username)
+        public int GetNewMessagesCount()
         {
-            if (IsServiceProbablyNotAvailable() || string.IsNullOrEmpty(username)) return 0;
+            var result = 0;
+            if (IsServiceProbablyNotAvailable()) return result;
 
             using (var service = GetService())
             {
                 try
                 {
-                    return service.GetNewMessagesCount(tenantId, username);
+                    return service.GetNewMessagesCount(GetCurrentTenantId(), GetCurrentUserName());
                 }
                 catch (Exception error)
                 {
-                    if (error is CommunicationException || error is TimeoutException)
-                    {
-                        lastErrorTime = DateTime.Now;
-                    }
-                    throw;
+                    ProcessError(error);
                 }
             }
+
+            return result;
+        }
+
+        public byte AddXmppConnection(string connectionId, byte state)
+        {
+            byte result = 4;
+            if (IsServiceProbablyNotAvailable()) throw new Exception();
+
+            using (var service = GetService())
+            {
+                try
+                {
+                    result = service.AddXmppConnection(connectionId, GetCurrentUserName(), state, GetCurrentTenantId());
+                }
+                catch (Exception error)
+                {
+                    ProcessError(error);
+                }
+                return result;
+            }
+        }
+
+        public byte RemoveXmppConnection(string connectionId)
+        {
+            const byte result = 4;
+            if (IsServiceProbablyNotAvailable()) return result;
+
+            using (var service = GetService())
+            {
+                try
+                {
+                    return service.RemoveXmppConnection(connectionId, GetCurrentUserName(), GetCurrentTenantId());
+                }
+                catch (Exception error)
+                {
+                    ProcessError(error);
+                }
+            }
+
+            return result;
+        }
+
+        public byte GetState(string userName)
+        {
+            const byte defaultState = 0;
+
+            try
+            {
+                if (IsServiceProbablyNotAvailable()) return defaultState;
+                using (var service = GetService())
+                {
+                    return service.GetState(GetCurrentTenantId(), userName);
+                }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+
+            return defaultState;
+        }
+
+        public byte SendState(byte state)
+        {
+            try
+            {
+                if (IsServiceProbablyNotAvailable()) throw new Exception();
+                using (var service = GetService())
+                {
+                    return service.SendState(GetCurrentTenantId(), GetCurrentUserName(), state);
+                }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+            return 4;
+        }
+
+        public Dictionary<string, byte> GetAllStates()
+        {
+            Dictionary<string, byte> states = null;
+            try
+            {
+                if (IsServiceProbablyNotAvailable()) throw new Exception();
+                using (var service = GetService())
+                {
+                    states = service.GetAllStates(GetCurrentTenantId(), GetCurrentUserName());
+                }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+            return states;
+        }
+
+        public MessageClass[] GetRecentMessages(string to, int id)
+        {
+            MessageClass[] messages = null;
+            try
+            {
+                if (IsServiceProbablyNotAvailable()) throw new Exception();
+                using (var service = GetService())
+                {
+                    messages = service.GetRecentMessages(GetCurrentTenantId(), GetCurrentUserName(), to, id);
+                }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+            return messages;
+        }
+
+        public void Ping(byte state)
+        {
+            try
+            {
+                if (IsServiceProbablyNotAvailable()) throw new Exception();
+                using (var service = GetService())
+                {
+                    service.Ping(SecurityContext.CurrentAccount.ID.ToString(), GetCurrentTenantId(), GetCurrentUserName(), state);
+                }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+        }
+
+        private static int GetCurrentTenantId()
+        {
+            return CoreContext.TenantManager.GetCurrentTenant().TenantId;
+        }
+
+        private static string GetCurrentUserName()
+        {
+            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).UserName;
+        }
+
+        private static void ProcessError(Exception error)
+        {
+            if (error is FaultException)
+            {
+                throw error;
+            }
+            if (error is CommunicationException || error is TimeoutException)
+            {
+                lastErrorTime = DateTime.Now;
+            }
+            throw error;
         }
 
         private JabberServiceClientWcf GetService()

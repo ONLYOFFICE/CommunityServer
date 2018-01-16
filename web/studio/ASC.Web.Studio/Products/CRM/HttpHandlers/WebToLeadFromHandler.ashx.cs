@@ -173,7 +173,7 @@ namespace ASC.Web.CRM.HttpHandlers
                 contact.ID = Global.DaoFactory.GetContactDao().SaveContact(contact);
 
                 var messageAction = contact is Company ? MessageAction.CompanyCreatedWithWebForm : MessageAction.PersonCreatedWithWebForm;
-                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, contact.GetTitle());
+                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
                 var contactInfos = new List<ContactInfo>();
 

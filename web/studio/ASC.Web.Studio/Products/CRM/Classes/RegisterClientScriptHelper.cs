@@ -241,9 +241,7 @@ namespace ASC.Web.CRM.Classes
                                 var presetPersonsForCompanyJson = '{6}';
                                 var facebokSearchEnabled = {7};
                                 var twitterSearchEnabled = {8};
-                                var contactActionCurrencies = {9};
-                                var countryListExt = {10};
-                                var currentCultureName = ""{11}"";",
+                                var contactActionCurrencies = {9};",
                               json,
                               JsonConvert.SerializeObject(networks),
                               JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
@@ -258,9 +256,7 @@ namespace ASC.Web.CRM.Classes
                               presetPersonsForCompanyJson,
                               IsFacebookSearchEnabled.ToString().ToLower(),
                               IsTwitterSearchEnabled.ToString().ToLower(),
-                              JsonConvert.SerializeObject(CurrencyProvider.GetAll()),
-                              JsonConvert.SerializeObject(Global.GetCountryListExt()),
-                              new RegionInfo(CultureInfo.CurrentCulture.Name).EnglishName
+                              JsonConvert.SerializeObject(CurrencyProvider.GetAll())
                               );
 
             page.RegisterInlineScript(script, onReady: false);
@@ -593,17 +589,13 @@ namespace ASC.Web.CRM.Classes
                                         var invoiceSettings = '{2}';
                                         var invoicePresetContact = '{3}';
                                         var currencyRates = '{4}';
-                                        var invoiceJsonData = '{5}';
-                                        var countryListExt = {6};
-                                        var currentCultureName = '{7}'; ",
+                                        var invoiceJsonData = '{5}';",
                                         Global.EncodeTo64(invoiceItemsJson),
                                         Global.EncodeTo64(invoiceTaxesJson),
                                         Global.EncodeTo64(invoiceSettingsJson),
                                         Global.EncodeTo64(presetContactsJson),
                                         Global.EncodeTo64(currencyRatesJson),
-                                        targetInvoice != null ? Global.EncodeTo64(targetInvoice.JsonData) : "",
-                                        JsonConvert.SerializeObject(Global.GetCountryListExt()),
-                                        new RegionInfo(CultureInfo.CurrentCulture.Name).EnglishName
+                                        targetInvoice != null ? Global.EncodeTo64(targetInvoice.JsonData) : ""
                 );
 
             page.RegisterInlineScript(script, onReady: false);
@@ -629,6 +621,32 @@ namespace ASC.Web.CRM.Classes
 
         #endregion
 
+        #region Data for Reports Views
 
+        public static void DataReportsView(BasePage page)
+        {
+            var defaultCurrency = Global.TenantSettings.DefaultCurrency.Abbreviation;
+
+            var currencyRates = Global.DaoFactory.GetCurrencyRateDao().GetAll();
+
+            var currencyRatesJson = JsonConvert.SerializeObject(currencyRates.ConvertAll(item => new
+            {
+                id = item.ID,
+                fromCurrency = item.FromCurrency,
+                toCurrency = item.ToCurrency,
+                rate = item.Rate
+            }));
+
+            var script = String.Format(@"
+                                        var defaultCurrency = '{0}';
+                                        var currencyRates = '{1}';",
+                                        defaultCurrency,
+                                        currencyRatesJson
+                );
+
+            page.RegisterInlineScript(script, onReady: false);
+        }
+
+        #endregion
     }
 }

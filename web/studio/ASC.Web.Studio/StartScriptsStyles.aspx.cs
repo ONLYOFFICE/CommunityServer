@@ -28,11 +28,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Optimization;
-using System.Web.UI;
+using ASC.Web.Core;
 
 namespace ASC.Web.Studio.UserControls.FirstTime
 {
-    public partial class StartScriptsStyles : Page
+    public partial class StartScriptsStyles : BasePage
     {
         protected List<String> ListUri { get; set; }
 

@@ -26,161 +26,97 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.CRM.Wrappers;
-using ASC.Core.Tenants;
-using ASC.Specific;
-using ASC.Web.CRM.Resources;
+using ASC.Api.Documents;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
+using ASC.Web.CRM.Classes;
 
 namespace ASC.Api.CRM
 {
-    public class ReportFilter
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-    }
-
     public partial class CRMApi
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="isCompany"></param>
-        /// <param name="tagName"></param>
-        /// <param name="contactType"></param>
-        /// <returns></returns>
-        /// <visible>false</visible>
-        [Read(@"report/contactpopulate")]
-        public ReportWrapper BuildContactPopulateReport(
-            ApiDateTime fromDate,
-            ApiDateTime toDate,
-            bool? isCompany,
-            string tagName,
-            int contactType)
+        [Read(@"report/files")]
+        public IEnumerable<FileWrapper> GetFiles()
         {
-            var reportData = DaoFactory.GetReportDao().BuildContactPopulateReport(fromDate, toDate, isCompany, tagName, contactType);
-            var report = new ReportWrapper
-                {
-                    ReportTitle = CRMReportResource.Report_ContactPopulate_Title,
-                    ReportDescription = CRMReportResource.Report_ContactPopulate_Description,
-                    Data = reportData.ConvertAll(row => new
-                        {
-                            Date = (ApiDateTime)TenantUtil.DateTimeFromUtc(DateTime.Parse(Convert.ToString(row[0]))),
-                            Count = row[1]
-                        }),
-                    Lables = new List<string>
-                        {
-                            CRMCommonResource.Date,
-                            CRMCommonResource.Count
-                        }
-                };
+            if (!Global.CanCreateReports)
+                throw CRMSecurity.CreateSecurityException();
 
-            return report;
+            var reportDao = DaoFactory.GetReportDao();
+
+            var files = reportDao.GetFiles();
+
+            if (!files.Any())
+            {
+                var sampleSettings = CRMReportSampleSettings.LoadForCurrentUser();
+
+                if (sampleSettings.NeedToGenerate)
+                {
+                    files = reportDao.SaveSampleReportFiles();
+                    sampleSettings.NeedToGenerate = false;
+                    sampleSettings.SaveForCurrentUser();
+                }
+            }
+
+            return files.ConvertAll(file => new FileWrapper(file)).OrderByDescending(file => file.Id);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="responsibleID"></param>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <returns></returns>
-        /// <visible>false</visible>
-        [Read(@"report/salesforecastbymonth")]
-        public ReportWrapper BuildSalesForecastByMonthReport(Guid responsibleID, DateTime fromDate, DateTime toDate)
+        [Delete(@"report/file/{fileid:[0-9]+}")]
+        public void DeleteFile(int fileid)
         {
-            var reportData = DaoFactory.GetReportDao().
-                                        BuildSalesForecastByMonthReport(
-                                            responsibleID,
-                                            fromDate,
-                                            toDate
-                );
+            if (!Global.CanCreateReports)
+                throw CRMSecurity.CreateSecurityException();
 
-            var report = new ReportWrapper
-                {
-                    ReportTitle = CRMReportResource.Report_SalesForecastByMonth_Title,
-                    ReportDescription = CRMReportResource.Report_SalesForecastByMonth_Description,
-                    Data = reportData.ConvertAll(row => new
-                        {
-                            month = row[0],
-                            amount = row[1],
-                            count = row[2],
-                            percent = row[3]
-                        }),
-                    Lables = new List<string>
-                        {
-                            CRMCommonResource.Date,
-                            CRMCommonResource.Count
-                        }
-                };
+            if (fileid < 0) throw new ArgumentException();
 
-            return report;
+            var file = Global.DaoFactory.GetReportDao().GetFile(fileid);
+
+            if (file == null) throw new Exception("File not found");
+
+            DaoFactory.GetReportDao().DeleteFile(fileid);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <returns></returns>
-        /// <visible>false</visible>
-        [Read(@"report/salesforecastbyclient")]
-        public ReportWrapper BuildSalesForecastByClientReport(DateTime fromDate, DateTime toDate)
+        [Read(@"report/status")]
+        public ReportTaskState GetStatus()
         {
-            var reportData = DaoFactory.GetReportDao().BuildSalesForecastByClientReport(fromDate, toDate);
-            var report = new ReportWrapper
-                {
-                    ReportTitle = CRMReportResource.Report_SalesForecastByMonth_Title,
-                    ReportDescription = CRMReportResource.Report_SalesForecastByMonth_Description,
-                    Data = reportData.ConvertAll(row => new
-                        {
-                            client = row[0],
-                            amount = row[1],
-                            count = row[2],
-                            percent = row[3]
-                        }),
-                    Lables = new List<string>
-                        {
-                            CRMCommonResource.Date,
-                            CRMCommonResource.Count
-                        }
-                };
+            if (!Global.CanCreateReports)
+                throw CRMSecurity.CreateSecurityException();
 
-            return report;
+            return ReportHelper.GetCurrentState();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <returns></returns>
-        /// <visible>false</visible>
-        [Read(@"report/salesforecastbymanager")]
-        public ReportWrapper BuildSalesForecastByManagerReport(DateTime fromDate, DateTime toDate)
+        [Read(@"report/terminate")]
+        public void Terminate()
         {
-            var reportData = DaoFactory.GetReportDao().BuildSalesForecastByManagerReport(fromDate, toDate);
-            var report = new ReportWrapper
-                {
-                    ReportTitle = CRMReportResource.Report_SalesForecastByMonth_Title,
-                    ReportDescription = CRMReportResource.Report_SalesForecastByMonth_Description,
-                    Data = reportData.ConvertAll(row => new
-                        {
-                            manager = row[0],
-                            amount = row[1],
-                            count = row[2],
-                            percent = row[3]
-                        }),
-                    Lables = new List<string>
-                        {
-                            CRMCommonResource.Date,
-                            CRMCommonResource.Count
-                        }
-                };
+            if (!Global.CanCreateReports)
+                throw CRMSecurity.CreateSecurityException();
 
-            return report;
+            ReportHelper.Terminate();
+        }
+
+        [Create(@"report/check")]
+        public object CheckReportData(ReportType type, ReportTimePeriod timePeriod, Guid[] managers)
+        {
+            if (!Global.CanCreateReports)
+                throw CRMSecurity.CreateSecurityException();
+
+            return new
+                {
+                    hasData = ReportHelper.CheckReportData(type, timePeriod, managers),
+                    missingRates = ReportHelper.GetMissingRates(type)
+                };
+        }
+
+        [Create(@"report/generate")]
+        public ReportTaskState GenerateReport(ReportType type, ReportTimePeriod timePeriod, Guid[] managers)
+        {
+            if (!Global.CanCreateReports)
+                throw CRMSecurity.CreateSecurityException();
+
+            var state = ReportHelper.GetCurrentState();
+
+            return state ?? ReportHelper.RunGenareteReport(type, timePeriod, managers);
         }
     }
 }

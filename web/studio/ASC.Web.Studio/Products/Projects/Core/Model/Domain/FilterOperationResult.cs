@@ -24,12 +24,15 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 
 namespace ASC.Projects.Core.Domain
 {
     public class TaskFilterCountOperationResult
     {
+        public Guid UserId { get; set; }
+
         public int TasksOpen { get; set; }
 
         public int TasksClosed { get; set; }

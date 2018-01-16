@@ -27,11 +27,56 @@
 ;
 jq(document).ready(function () {
 
+    jq("#logout_ref").on('click', function () {
+        if (localStorage.getItem('onlyoffice') == 'logout') {
+            localStorage.setItem('onlyoffice', 'logout_');
+        } else {
+            localStorage.setItem('onlyoffice', 'logout');
+        }
+    });
+    
     jq.dropdownToggle({
         switcherSelector: ".studio-top-panel .product-menu",
         dropdownID: "studio_productListPopupPanel",
         addLeft: -15,
         toggleOnOver: true,
+        beforeShowFunction: function (switcherObj, dropdownItem) {
+            var wrapper = dropdownItem.find(".wrapper").removeClass("col2 col3");
+            var mainCount = wrapper.find(".main-nav-items .dropdown-content li:not(.dropdown-item-seporator)").length;
+            var customCount = wrapper.find(".custom-nav-items .dropdown-content li:not(.dropdown-item-seporator)").length;
+            var specCount = wrapper.find(".spec-nav-items .dropdown-content li:not(.dropdown-item-seporator)").length;
+
+            if (mainCount + customCount + specCount > 12) {
+                (mainCount + customCount < 13) || (customCount + specCount < 13) ?
+                    wrapper.addClass("col2") : wrapper.addClass("col3");
+            }
+        },
+        afterShowFunction: function (switcherObj, dropdownItem) {
+            var wrapper = dropdownItem.find(".wrapper");
+
+            wrapper.find(".dropdown-content li.dropdown-item-seporator").remove();
+
+            var seporator = jq("<li/>").addClass("dropdown-item-seporator");
+
+            var customContent = wrapper.find(".custom-nav-items");
+            var specContent = wrapper.find(".spec-nav-items");
+
+            var customLeft = wrapper.find(".custom-nav-items").position().left;
+            var specLeft = wrapper.find(".spec-nav-items").position().left;
+
+            var customCount = customContent.find("li").length;
+            var specCount = specContent.find("li").length;
+
+            if (customCount && customLeft == 0)
+                customContent.find(".dropdown-content").prepend(seporator.clone());
+
+            if (specCount && specLeft == 0)
+                specContent.find(".dropdown-content").prepend(seporator.clone());
+
+            if (specCount && customCount && customLeft == 150 && specLeft == 150)
+                specContent.find(".dropdown-content").prepend(seporator.clone());
+
+        }
     });
 
     jq.dropdownToggle({
@@ -105,6 +150,23 @@ jq(document).ready(function () {
         jq('.studio-action-panel').hide();
     });
 
+    if (jq("#appsPopupBody").length == 1) {
+        var $appsBtn = jq("#studio_productListPopupPanel .apps .dropdown-item:first");
+        jq.tmpl("template-blockUIPanel", {
+            id: "appsPopup",
+            headerTest: jq.trim($appsBtn.text())
+        })
+        .insertAfter($appsBtn)
+        .addClass("confirmation-popup");
+
+        jq("#appsPopup .containerBodyBlock:first")
+            .replaceWith(jq("#appsPopupBody").removeClass("display-none").addClass("containerBodyBlock"));
+
+        $appsBtn.on("click", function () {
+            StudioBlockUIManager.blockUI('#appsPopup', 550, 500);
+            jq('.studio-action-panel').hide();
+        });
+    }
 
     if (jq("#debugInfoPopUpBody").length == 1) {
         var $debugBtn = jq("#studio_myStaffPopupPanel .dropdown-debuginfo-btn:first");

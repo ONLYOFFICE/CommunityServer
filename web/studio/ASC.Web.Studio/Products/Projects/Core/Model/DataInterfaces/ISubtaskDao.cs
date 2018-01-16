@@ -42,7 +42,9 @@ namespace ASC.Projects.Core.DataInterfaces
 
         Subtask GetById(int id);
 
-        List<Subtask> GetUpdates(DateTime from, DateTime to); 
+        List<Subtask> GetUpdates(DateTime from, DateTime to);
+
+        List<Subtask> GetByResponsible(Guid id, TaskStatus? status);
 
         int GetSubtaskCount(int taskid, params TaskStatus[] statuses);
 

@@ -34,7 +34,7 @@ namespace ASC.Core.Tenants
 {
     [Serializable]
     [DataContract]
-    public class TenantCookieSettings : ISettings
+    public class TenantCookieSettings : BaseSettings<TenantCookieSettings>
     {
         [DataMember(Name = "Index")]
         public int Index { get; set; }
@@ -42,17 +42,26 @@ namespace ASC.Core.Tenants
         [DataMember(Name = "LifeTime")]
         public int LifeTime { get; set; }
 
-        ISettings ISettings.GetDefault()
+        private static readonly bool IsVisibleSettings;
+
+        static TenantCookieSettings()
         {
-            return GetDefault();
+            IsVisibleSettings = !(ConfigurationManager.AppSettings["web.hide-settings"] ?? string.Empty)
+                        .Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Contains("CookieSettings", StringComparer.CurrentCultureIgnoreCase);
         }
 
-        public static TenantCookieSettings GetDefault()
+        public override ISettings GetDefault()
+        {
+            return GetInstance();
+        }
+
+        public static TenantCookieSettings GetInstance()
         {
             return new TenantCookieSettings();
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{16FB8E67-E96D-4B22-B217-C80F25C5DE1B}"); }
         }
@@ -60,7 +69,7 @@ namespace ASC.Core.Tenants
 
         public bool IsDefault()
         {
-            var defaultSettings = GetDefault();
+            var defaultSettings = GetInstance();
 
             return Index == defaultSettings.Index && LifeTime == defaultSettings.LifeTime;
         }
@@ -68,50 +77,35 @@ namespace ASC.Core.Tenants
 
         public static TenantCookieSettings GetForTenant(int tenantId)
         {
-            return IsVisibleSettings()
-                       ? SettingsManager.Instance.LoadSettings<TenantCookieSettings>(tenantId)
-                       : GetDefault();
+            return IsVisibleSettings
+                       ? LoadForTenant(tenantId)
+                       : GetInstance();
         }
 
         public static void SetForTenant(int tenantId, TenantCookieSettings settings = null)
         {
-            if (!IsVisibleSettings()) return;
-            SettingsManager.Instance.SaveSettings(settings ?? GetDefault(), tenantId);
+            if (!IsVisibleSettings) return;
+            (settings ?? GetInstance()).SaveForTenant(tenantId);
         }
 
         public static TenantCookieSettings GetForUser(Guid userId)
         {
-            return IsVisibleSettings()
-                       ? SettingsManager.Instance.LoadSettingsFor<TenantCookieSettings>(userId)
-                       : GetDefault();
+            return IsVisibleSettings
+                       ? LoadForUser(userId)
+                       : GetInstance();
         }
 
         public static TenantCookieSettings GetForUser(int tenantId, Guid userId)
         {
-            return IsVisibleSettings()
+            return IsVisibleSettings
                        ? SettingsManager.Instance.LoadSettingsFor<TenantCookieSettings>(tenantId, userId)
-                       : GetDefault();
+                       : GetInstance();
         }
 
         public static void SetForUser(Guid userId, TenantCookieSettings settings = null)
         {
-            if (!IsVisibleSettings()) return;
-            SettingsManager.Instance.SaveSettingsFor(settings ?? GetDefault(), userId);
-        }
-
-
-        private static bool IsVisibleSettings()
-        {
-            return IsVisibleSettings("CookieSettings");
-        }
-
-
-        //todo: delete dublicate
-        private static bool IsVisibleSettings(string settings)
-        {
-            return !(ConfigurationManager.AppSettings["web.hide-settings"] ?? string.Empty)
-                        .Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                        .Contains(settings, StringComparer.CurrentCultureIgnoreCase);
+            if (!IsVisibleSettings) return;
+            (settings ?? GetInstance()).SaveForUser(userId);
         }
     }
 }

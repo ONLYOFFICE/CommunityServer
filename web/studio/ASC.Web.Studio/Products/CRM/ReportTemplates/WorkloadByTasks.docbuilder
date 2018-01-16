@@ -1,0 +1,346 @@
+
+builder.CreateFile("xlsx");
+
+var mainHeaderFontSize = 24;
+var headerFontSize = 14;
+var chartHeaderFontSize = 12;
+var smallFontSize = 10;
+var legendFontSize = 9;
+
+var blackFontColor = Api.CreateColorFromRGB(63, 63, 63);
+var grayFontColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var lightGrayBgColor = Api.CreateColorFromRGB(242, 242, 242);
+var darkGrayBgColor = Api.CreateColorFromRGB(216, 216, 216);
+
+var lightGrayBorderColor = Api.CreateColorFromRGB(216, 216, 216);
+var darkGrayBorderColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var reportData = ${reportData};
+
+var oWorksheet = Api.GetActiveSheet();
+
+function prepareData(){
+    reportData.header = [reportData.resource.manager];
+
+    var obj = {Name: ""};
+    var groups = ["Closed", "Created", "Overdue"];
+
+    for(var i=0; i<groups.length; i++){
+        var group = groups[i];
+
+        for(var j=0; j<reportData.data[group].length; j++){
+            var item = reportData.data[group][j];
+            var propName = "category" + item.CategoryId;
+
+            if(!obj.hasOwnProperty(propName)){
+                obj[propName] = {
+                    Name: item.CategoryName,
+                    Closed: 0,
+                    Created: 0,
+                    Overdue: 0
+                };
+
+                reportData.header.push(item.CategoryName);
+            }
+        }
+
+    }
+
+    var data = {};
+    var count = 0;
+
+    for(var i=0; i<groups.length; i++){
+        var group = groups[i];
+
+        for(var j=0; j<reportData.data[group].length; j++){
+            var item = reportData.data[group][j];
+            var userPropName = "user" + item.UserId;
+            var categoryPropName = "category" + item.CategoryId;
+
+            if(data.hasOwnProperty(userPropName)){
+                data[userPropName][categoryPropName][group] = item.Count;
+            } else {
+                var user = JSON.parse(JSON.stringify(obj));
+                user.Name = item.UserName;
+                user[categoryPropName][group] = item.Count;
+                data[userPropName] = user;
+                count++;
+            }
+        }
+    }
+
+    reportData.data = data;
+    reportData.count = count;
+}
+
+function toColumnName(num) {
+    for (var res = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+        res = String.fromCharCode(parseInt((num % b) / a) + 65) + res;
+    }
+    return res;
+}
+
+function customizeWorksheet() {
+    Api.SetThemeColors("Origin");
+
+    oWorksheet.SetName(reportData.resource.sheetName);
+    oWorksheet.SetDisplayGridlines(false);
+    oWorksheet.SetColumnWidth(0, 6);
+    oWorksheet.SetColumnWidth(1, 26);
+
+    for (var i = 2; i < 35; i++) {
+        oWorksheet.SetColumnWidth(i, 12);
+    }
+}
+
+function writeText() {
+    var sRange = oWorksheet.GetRange("B2");
+    sRange.SetFontSize(mainHeaderFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header);
+
+    sRange = oWorksheet.GetRange("B3");
+    sRange.SetFontSize(smallFontSize);
+    sRange.SetFontColor(grayFontColor);
+    sRange.SetBold(true);
+    sRange.SetValue(reportData.resource.dateRangeLabel);
+
+    sRange = oWorksheet.GetRange("B4");
+    sRange.SetFontSize(smallFontSize);
+    sRange.SetFontColor(grayFontColor);
+    sRange.SetAlignHorizontal("left");
+    sRange.SetValue(reportData.resource.dateRangeValue);
+}
+
+function writeRow(startColIndex, startRowIndex, dataArray, fontSize, fontColor, bold, borderType, borderColor, bgColor, wrap) {
+    var range = toColumnName(startColIndex) + startRowIndex + ":";
+
+    for (var i = 0; i < dataArray.length; i++) {
+        var cell = oWorksheet.GetRange(toColumnName(startColIndex) + startRowIndex);
+
+        if (typeof(dataArray[i]) == "object") {
+            cell.SetNumberFormat(dataArray[i].format);
+            cell.SetValue(dataArray[i].value);
+        } else {
+            cell.SetValue(dataArray[i].toString());
+        }
+
+        if (i == 0) {
+            cell.SetAlignHorizontal("left");
+        } else {
+            cell.SetAlignHorizontal("right");
+        }
+
+        startColIndex++;
+    }
+
+    range += toColumnName(startColIndex - 1) + startRowIndex;
+
+    var sRange = oWorksheet.GetRange(range);
+
+    if (fontSize)
+        sRange.SetFontSize(fontSize);
+
+    if (fontColor)
+        sRange.SetFontColor(fontColor);
+
+    if (bold)
+        sRange.SetBold(true);
+
+    if (borderType)
+        sRange.SetBorders(borderType, "Thin", borderColor);
+
+    if (bgColor)
+        sRange.SetFillColor(bgColor);
+	
+	sRange.SetWrap(wrap || false);
+}
+
+function writeCharts(startColIndex, startRowIndex, count, length) {
+    var chartRange1 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 2) + ":$" + toColumnName(startColIndex + length - 1) + "$" + (startRowIndex + 2 + count);
+    var chartRange2 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 8 + count) + ":$" + toColumnName(startColIndex + length - 1) + "$" + (startRowIndex + 8 + 2 * count);
+    var chartRange3 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 14 + 2 * count) + ":$" + toColumnName(startColIndex + length - 1) + "$" + (startRowIndex + 14 + 3 * count);
+
+    var oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange1, false, "bar", 2, 240 * 36000, 70 * 36000, 1, 0, 7, 0);
+    oChart.SetTitle(reportData.resource.header1, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange2, false, "bar", 2, 240 * 36000, 70 * 36000, 1, 0, 21, -0.5 * 36000);
+    oChart.SetTitle(reportData.resource.header2, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange3, false, "bar", 2, 240 * 36000, 70 * 36000, 1, 0, 35, -1 * 36000);
+    oChart.SetTitle(reportData.resource.header3, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+}
+
+function writeTable(startColIndex, startRowIndex) {
+
+    var colIndex = startColIndex;
+    var rowIndex = startRowIndex;
+
+    var sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header1);
+
+    rowIndex = rowIndex + 2;
+
+    writeRow(colIndex, rowIndex, reportData.header, smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    var index = 0;
+
+    for(var propertyName in reportData.data) {
+        if(propertyName.indexOf("user") != 0) continue;
+
+        var row = [reportData.data[propertyName].Name];
+
+        for(var propName in reportData.data[propertyName]) {
+            if(propName.indexOf("category") != 0) continue;
+
+            row.push(reportData.data[propertyName][propName].Closed)
+        }
+
+        if (index == reportData.count - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", darkGrayBorderColor, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+        index++;
+    }
+
+    var startCell;
+    var endCell;
+
+    var footerRow = [reportData.resource.total];
+    for (var i = 1; i < reportData.header.length; i++) {
+        startCell = toColumnName(colIndex + i) + (startRowIndex + 3);
+        endCell = toColumnName(colIndex + i) + (startRowIndex + 2 + reportData.count);
+        footerRow[i] = "=SUM(" + startCell + ":" + endCell + ")";
+    }
+    writeRow(colIndex, rowIndex, footerRow, smallFontSize, blackFontColor, true, null, null, null);
+
+    rowIndex = rowIndex + 3;
+
+
+    sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header2);
+
+    rowIndex = rowIndex + 2;
+
+    writeRow(colIndex, rowIndex, reportData.header, smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    index = 0;
+
+    for(var propertyName in reportData.data) {
+        if(propertyName.indexOf("user") != 0) continue;
+
+        var row = [reportData.data[propertyName].Name];
+
+        for(var propName in reportData.data[propertyName]) {
+            if(propName.indexOf("category") != 0) continue;
+
+            row.push(reportData.data[propertyName][propName].Created)
+        }
+
+        if (index == reportData.count - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", darkGrayBorderColor, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+        index++;
+    }
+
+    startCell;
+    endCell;
+
+    footerRow = [reportData.resource.total];
+    for (var i = 1; i < reportData.header.length; i++) {
+        startCell = toColumnName(colIndex + i) + (startRowIndex + 2 + reportData.count + 7);
+        endCell = toColumnName(colIndex + i) + (startRowIndex + 2 + reportData.count + 6 + reportData.count);
+        footerRow[i] = "=SUM(" + startCell + ":" + endCell + ")";
+    }
+    writeRow(colIndex, rowIndex, footerRow, smallFontSize, blackFontColor, true, null, null, null);
+
+    rowIndex = rowIndex + 3;
+
+
+    sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header3);
+
+    rowIndex = rowIndex + 2;
+
+    writeRow(colIndex, rowIndex, reportData.header, smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    index = 0;
+
+    for(var propertyName in reportData.data) {
+        if(propertyName.indexOf("user") != 0) continue;
+
+        var row = [reportData.data[propertyName].Name];
+
+        for(var propName in reportData.data[propertyName]) {
+            if(propName.indexOf("category") != 0) continue;
+
+            row.push(reportData.data[propertyName][propName].Overdue)
+        }
+
+        if (index == reportData.count - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", darkGrayBorderColor, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+        index++;
+    }
+
+    startCell;
+    endCell;
+
+    footerRow = [reportData.resource.total];
+    for (var i = 1; i < reportData.header.length; i++) {
+        startCell = toColumnName(colIndex + i) + (startRowIndex + 2 + reportData.count + 6 + reportData.count + 7);
+        endCell = toColumnName(colIndex + i) + (startRowIndex + 2 + reportData.count + 6 + reportData.count + 6 + reportData.count);
+        footerRow[i] = "=SUM(" + startCell + ":" + endCell + ")";
+    }
+    writeRow(colIndex, rowIndex, footerRow, smallFontSize, blackFontColor, true, null, null, null);
+
+
+    writeCharts(startColIndex, startRowIndex, reportData.count, reportData.header.length);
+}
+
+customizeWorksheet();
+writeText();
+
+if (reportData.data) {
+   prepareData();
+   writeTable(2, 53);
+}
+
+builder.SaveFile("xlsx", "${outputFilePath}");
+builder.CloseFile();

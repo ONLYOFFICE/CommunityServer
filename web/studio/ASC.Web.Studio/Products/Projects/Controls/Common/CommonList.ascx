@@ -20,7 +20,7 @@
         <div class="header-menu-spacer"> </div>
     </div>
 
-    <div class="taskList"></div>
+    <div class="taskList with-checkbox"></div>
 
     <table id="tableListProjects" class="table-list">
         <tbody>
@@ -35,7 +35,7 @@
     </table>
     <div id="discussionsList">
     </div>
-    <table id="timeSpendsList" class="listContainer pm-tablebase">
+    <table id="timeSpendsList" class="listContainer pm-tablebase" cellpadding="0">
         <thead>
         </thead>
         <tbody>

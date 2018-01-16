@@ -638,8 +638,7 @@ window.ASC.Files.ImageViewer = (function () {
             return;
         }
 
-        window.open(ASC.Files.Utility.GetFileViewUrl(imageCollection[imageCollection.selectedIndex].fileId, imageCollection[imageCollection.selectedIndex].version),
-            "new", "fullscreen = 1, resizable = 1, location=1, toolbar=1");
+        ASC.Files.Folders.download("file", imageCollection[imageCollection.selectedIndex].fileId, imageCollection[imageCollection.selectedIndex].version);
     };
 
     //event handler

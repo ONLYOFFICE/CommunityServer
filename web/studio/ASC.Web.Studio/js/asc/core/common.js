@@ -63,7 +63,8 @@ jQuery.fn.colorFade = function(color, tiemout, cb) {
 var trackingGoogleAnalitics = function (ctg, act, lbl) {
     try {
         if (window.ga) {
-            window.ga('send', 'event', ctg, act, lbl);
+            window.ga('www.send', 'event', ctg, act, lbl);
+            window.ga('testTracker.send', 'event', ctg, act, lbl);
         }
     } catch (err) {
     }
@@ -476,7 +477,7 @@ var FCKCommentsController = new function () {
 var PopupKeyUpActionProvider = new function () {
     //close dialog by esc
     jq(document).keyup(function (event) {
-        if (!jq('.popupContainerClass').is(':visible'))
+        if (!PopupKeyUpActionProvider.ForceBinding && !jq('.popupContainerClass').is(':visible'))
             return;
 
         var code;
@@ -516,6 +517,7 @@ var PopupKeyUpActionProvider = new function () {
     this.EnterActionCallback = '';
     this.CtrlEnterAction = '';
     this.EnableEsc = true;
+    this.ForceBinding = false;
 
     this.ClearActions = function () {
         this.CloseDialogAction = '';
@@ -523,6 +525,7 @@ var PopupKeyUpActionProvider = new function () {
         this.EnterActionCallback = '';
         this.CtrlEnterAction = '';
         this.EnableEsc = true;
+        this.ForceBinding = false;
         if (typeof (TMTalk) != 'undefined') {
             TMTalk.hideDialog();
         }
@@ -793,21 +796,6 @@ var StudioManager = new function () {
                     pendingRequests[i].apply();
                 }
             }, 3600);
-        }
-    };
-};
-
-/**
- * EventTracker
- */
-var EventTracker = new function () {
-    this.Track = function (event) {
-
-        try {
-            if (window.ga) {
-                window.ga('send', 'pageview', event);
-            }
-        } catch (err) {
         }
     };
 };
@@ -1479,45 +1467,57 @@ less = {}; less.env = 'development';
  * UserManager
  */
 window.UserManager = new function() {
+    var users = null;
+
+    function init() {
+        if (users != null)
+            return;
+
+        users = [].concat(ASC.Resources.Master.ApiResponses_ActiveProfiles.response, ASC.Resources.Master.ApiResponses_DisabledProfiles.response);
+    }
+
+    function getAllUsers() {
+        init();
+        return users;
+    }
+
     function getUser(userId) {
-        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-
-        if (!users) {
+        if (!userId)
             return null;
-        }
 
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].id == userId) {
+        init();
+
+        for (var i = 0; i < users.length; i++)
+            if (users[i].id == userId)
                 return users[i];
-            }
-        }
 
         return null;
     }
     
     function getUsers(ids) {
-        if (!ids || !ids.length) {
+        if (!ids || !ids.length)
             return [];
-        }
 
-        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-        if (!users) {
-            return [];
-        }
+        init();
 
         var result = [];
-        for (var i = 0; i < users.length; i++) {
-            if (~ids.indexOf(users[i].id)) {
+
+        for (var i = 0; i < users.length; i++)
+            if (~ids.indexOf(users[i].id))
                 result.push(users[i]);
-            }
-        }
 
         return result;
     }
 
+    function getRemovedProfile() {
+        return ASC.Resources.Master.ApiResponsesRemovedProfile.response;
+    }
+
     return {
+        getAllUsers: getAllUsers,
         getUser: getUser,
-        getUsers: getUsers
+        getUsers: getUsers,
+        getRemovedProfile: getRemovedProfile
     };
 };
 

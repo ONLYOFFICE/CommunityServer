@@ -984,7 +984,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             }
         }
 
-        public EventHistory GetEventHistory(int eventId)
+        public List<EventHistory> GetEventsHistory(int[] eventIds)
         {
             var sql = new SqlQuery("calendar_event_history")
                 .Select("calendar_id")
@@ -992,14 +992,18 @@ namespace ASC.Api.Calendar.BusinessObjects
                 .Select("event_id")
                 .Select("ics")
                 .Where("tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId)
-                .Where("event_id", eventId);
+                .Where(Exp.In("event_id", eventIds));
 
             using (var db = new DbManager(DBId))
             {
-                var items = db.ExecuteList(sql).ConvertAll(ToEventHistory);
-
-                return items.Count > 0 ? items[0] : null;
+                return db.ExecuteList(sql).ConvertAll(ToEventHistory);
             }
+        }
+        
+        public EventHistory GetEventHistory(int eventId)
+        {
+            var items = GetEventsHistory(new [] { eventId });
+            return items.Count > 0 ? items[0] : null;
         }
 
         public EventHistory AddEventHistory(int calendarId, string eventUid, int eventId, string ics)

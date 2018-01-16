@@ -48,7 +48,9 @@ namespace ASC.Data.Backup.Tasks
         public bool BlockOldPortalAfterStart { get; set; }
         public bool DeleteOldPortalAfterCompletion { get; set; }
 
-        public TransferPortalTask(ILog logger, int tenantId, string fromConfigPath, string toConfigPath)
+        public int Limit { get; private set; }
+
+        public TransferPortalTask(ILog logger, int tenantId, string fromConfigPath, string toConfigPath, int limit)
             : base(logger, tenantId, fromConfigPath)
         {
             if (toConfigPath == null)
@@ -59,6 +61,7 @@ namespace ASC.Data.Backup.Tasks
             DeleteBackupFileAfterCompletion = true;
             BlockOldPortalAfterStart = true;
             DeleteOldPortalAfterCompletion = true;
+            Limit = limit;
         }
 
         public override void RunJob()
@@ -82,7 +85,7 @@ namespace ASC.Data.Backup.Tasks
                 SetStepsCount(ProcessStorage ? 3 : 2);
 
                 //save db data to temporary file
-                var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath) {ProcessStorage = false};
+                var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath, Limit) {ProcessStorage = false};
                 backupTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
                 foreach (var moduleName in IgnoredModules)
                 {

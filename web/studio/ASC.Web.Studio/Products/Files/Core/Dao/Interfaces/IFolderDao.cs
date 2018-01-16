@@ -219,8 +219,10 @@ namespace ASC.Files.Core
         ///  Returns id folder "My Documents"
         /// Only in TMFolderDao
         /// </summary>
+        /// <param name="createIfNotExists"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        object GetFolderIDUser(bool createIfNotExists);
+        object GetFolderIDUser(bool createIfNotExists, Guid? userId = null);
 
         /// <summary>
         /// Returns id folder "Shared with me"
@@ -235,8 +237,9 @@ namespace ASC.Files.Core
         /// Only in TMFolderDao
         /// </summary>
         /// <param name="createIfNotExists"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        object GetFolderIDTrash(bool createIfNotExists);
+        object GetFolderIDTrash(bool createIfNotExists, Guid? userId = null);
 
         /// <summary>
         /// Returns id folder "Projects"

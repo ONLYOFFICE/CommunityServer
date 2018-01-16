@@ -24,31 +24,32 @@
 */
 
 
-using AjaxPro.Security;
-using ASC.Common.Data;
-using ASC.Core;
-using ASC.Core.Configuration;
-using ASC.Data.Storage;
-using ASC.Data.Storage.S3;
-using ASC.Web.Core;
-using ASC.Web.Core.Client.Bundling;
-using ASC.Web.Core.Security;
-using ASC.Web.Core.Utility;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.Core.SearchHandlers;
-using ASC.Web.Studio.Utility;
-using log4net.Config;
-using RedisSessionProvider.Config;
-using StackExchange.Redis;
-using StackExchange.Redis.Extensions.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+
+using ASC.Common.Data;
+using ASC.Core;
+using ASC.Data.Storage;
+using ASC.Data.Storage.S3;
+using ASC.Web.Core;
+using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core.Security;
+using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Core.SearchHandlers;
+using ASC.Web.Studio.Utility;
 using TMResourceData;
+
+using AjaxPro.Security;
+using log4net.Config;
+using RedisSessionProvider.Config;
+using StackExchange.Redis;
+using StackExchange.Redis.Extensions.Core.Configuration;
+
 using WhiteLabelHelper = ASC.Web.Studio.Utility.WhiteLabelHelper;
 
 namespace ASC.Web.Studio
@@ -95,9 +96,6 @@ namespace ASC.Web.Studio
             StorageFactory.InitializeHttpHandlers();
 
             BundleConfig.Configure();
-
-            if (CoreContext.Configuration.Standalone)
-                WarmUpController.Instance.Start();
 
             WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
 

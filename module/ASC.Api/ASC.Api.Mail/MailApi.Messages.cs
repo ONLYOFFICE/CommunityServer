@@ -26,7 +26,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading;
@@ -35,7 +37,6 @@ using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Mail.Extensions;
 using ASC.Api.Mail.Resources;
-using ASC.Files.Core.Security;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Common.Exceptions;
@@ -44,6 +45,7 @@ using ASC.Mail.Aggregator.Core;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.Exceptions;
 using ASC.Mail.Aggregator.Filter;
+using FileShare = ASC.Files.Core.Security.FileShare;
 using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
 
 namespace ASC.Api.Mail
@@ -738,6 +740,96 @@ namespace ASC.Api.Mail
             var crmDal = new CrmHistoryDal(TenantId, Username, scheme);
 
             crmDal.AddRelationshipEvents(messageItem);
+        }
+
+        private const string LOREM_IPSUM_SUBJECT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+        private const string LOREM_IPSUM_INTRO = "Lorem ipsum introduction";
+        private const string LOREM_IPSUM_BODY =
+            "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vestibulum luctus mauris, " +
+            "eget blandit libero auctor quis. Vestibulum quam ex, euismod sit amet luctus eget, condimentum " +
+            "vel nulla. Etiam pretium justo tortor, gravida scelerisque augue porttitor sed. Sed in purus neque. " +
+            "Sed eget efficitur erat. Ut lobortis eros vitae urna lacinia, mattis efficitur felis accumsan. " +
+            "Nullam at dapibus tortor, ut vulputate libero. Fusce ac auctor eros. Aenean justo quam, sodales nec " +
+            "risus eget, cursus semper lacus. Nullam mattis neque ac felis euismod aliquet. Donec id eros " +
+            "condimentum, egestas sapien vitae, tempor tortor. Nam vehicula ligula eget congue egestas. " +
+            "Nulla facilisi. Aenean sodales gravida arcu, a volutpat nulla accumsan ac. Duis leo enim, condimentum " +
+            "in malesuada at, rhoncus sed ex. Quisque fringilla scelerisque lacus.</p>";
+
+        /// <summary>
+        /// Create sample message [Tests]
+        /// </summary>
+        /// <param name="mailboxId"></param>
+        /// <param name="folderId"></param>
+        /// <returns>Id message</returns>
+        /// <category>Messages</category>
+        /// <visible>false</visible>
+        [Read(@"messages/sample/create")]
+        public int CreateSampleMessage(int? folderId, int? mailboxId)
+        {
+            if (!folderId.HasValue)
+                folderId = MailFolder.Ids.inbox;
+
+            if (folderId < MailFolder.Ids.inbox || folderId > MailFolder.Ids.spam)
+                throw new ArgumentException(@"Invalid folder id", "folderId");
+
+            if (mailboxId < 0)
+                throw new ArgumentException(@"Invalid mailbox id", "mailboxId");
+
+            var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
+
+            var account = mailboxId.HasValue
+                ? accounts.FirstOrDefault(a => a.MailboxId == mailboxId)
+                : accounts.FirstOrDefault(a => a.IsDefault) ?? accounts.FirstOrDefault();
+
+            if (account == null)
+                throw new ArgumentException("Mailbox not found");
+
+            var mbox = MailBoxManager.GetUnremovedMailBox(account.MailboxId);
+
+            if (mbox == null)
+                throw new ArgumentException("no such mailbox");
+
+            var mimeMessageId = MailUtil.CreateMessageId();
+
+            var restoreFolderId = folderId.Value == MailFolder.Ids.spam || folderId.Value == MailFolder.Ids.trash
+                ? MailFolder.Ids.inbox
+                : folderId.Value;
+
+            var sampleMessage = new MailMessage
+            {
+                Date = DateTime.UtcNow,
+                MimeMessageId = mimeMessageId,
+                MimeReplyToId = null,
+                ChainId = mimeMessageId,
+                ReplyTo = "",
+                From = mbox.EMail.ToString(),
+                FromEmail = mbox.EMail.Address,
+                ToList = new List<MailAddress> {mbox.EMail},
+                To = mbox.EMail.ToString(),
+                CcList = new List<MailAddress>(),
+                Cc = "",
+                Bcc = "",
+                Subject = LOREM_IPSUM_SUBJECT,
+                Important = false,
+                TextBodyOnly = false,
+                Introduction = LOREM_IPSUM_INTRO,
+                Attachments = new List<MailAttachment>(),
+                HtmlBodyStream = new MemoryStream(),
+                Size = LOREM_IPSUM_BODY.Length,
+                MailboxId = mbox.MailBoxId,
+                HeaderFieldNames = new NameValueCollection(),
+                HtmlBody = LOREM_IPSUM_BODY,
+                Folder = folderId.Value,
+                RestoreFolderId = restoreFolderId,
+                IsNew = true,
+                StreamId = MailUtil.CreateStreamId()
+            };
+
+            MailBoxManager.StoreMailBody(mbox, sampleMessage);
+
+            var id = MailBoxManager.MailSave(mbox, sampleMessage, 0, folderId.Value, restoreFolderId, "api sample", "", false);
+
+            return id;
         }
 
         private static void CorrectPageValue(MailFilter filter, long totalMessages)

@@ -24,10 +24,33 @@
 */
 
 
-html{border:0; width:100%; height:100%;}
+html{border:0; width:100%; min-height: 40px; height: max-content;}
 
-body{border:0; width:97%; height:84%; margin:0; padding: 10px 5px 0 15px; font:normal 14px/16px Arial,Tahoma,sans-serif; color:#333; cursor:text; overflow-x:hidden; overflow-y:auto; outline:none; word-wrap:break-word;}
+body{border:0; width:95%; min-height: 20px; height: max-content;  margin:0; padding: 10px 10px 0 12px;padding-bottom: 15px; padding-top: 15px; font:normal 14px/16px Arial,Tahoma,sans-serif; color:#333; cursor:text; overflow-x:hidden; overflow-y:auto; outline:none; word-wrap:break-word;}
+body::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
 
+body::-webkit-scrollbar-button {
+        display: none;
+    }
+
+body::-webkit-scrollbar-track,
+body::-webkit-scrollbar-thumb {
+        border-style: solid;
+        border-color: transparent;
+        border-radius: 2px;
+    }
+
+body::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+body::-webkit-scrollbar-thumb {
+        background-color: #bfbfbf;
+        min-height: 28px;
+    }
 body *{background:transparent !important; height:auto !important; line-height:16px !important; margin:0 !important; padding:0 !important; border:0 !important; font:normal 14px/16px Arial,Tahoma,sans-serif !important; color:#333 !important; cursor:text !important;}
 
 body img{width:auto !important; height:auto !important;}

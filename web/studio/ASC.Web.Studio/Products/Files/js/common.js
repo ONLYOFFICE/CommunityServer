@@ -43,7 +43,7 @@ if (typeof (ASC.Files.Constants) === 'undefined') {
 }
 
 ASC.Files.Constants.REQUEST_STATUS_DELAY = 2000;
-ASC.Files.Constants.REQUEST_CONVERT_DELAY = 500;
+ASC.Files.Constants.REQUEST_CONVERT_DELAY = 2000;
 ASC.Files.Constants.COUNT_ON_PAGE = 30,
 ASC.Files.Constants.entryIdRegExpStr = "(\\d+|[a-z]+-\\d+(-.+)*)",
 ASC.Files.Constants.storageKeyRecent = "TeamLabRecentDocuments",

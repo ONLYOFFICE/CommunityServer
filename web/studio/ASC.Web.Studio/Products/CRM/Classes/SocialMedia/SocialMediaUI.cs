@@ -26,48 +26,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
-using ASC.SocialMedia;
-using ASC.SocialMedia.Facebook;
-using ASC.SocialMedia.Twitter;
-using ASC.SocialMedia.LinkedIn;
-using ASC.Web.CRM.Configuration;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Core;
+using ASC.CRM.Core;
+using ASC.Thrdparty;
+using ASC.Thrdparty.Facebook;
+using ASC.Thrdparty.Twitter;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Classes.SocialMedia;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.Utility;
-using ASC.Web.UserControls.SocialMedia.Resources;
-using ASC.Web.UserControls.SocialMedia.UserControls;
+using ASC.Web.CRM.Resources;
 using log4net;
-using Newtonsoft.Json;
-using ASC.CRM.Core;
-using ASC.Thrdparty.Configuration;
 
 namespace ASC.Web.CRM.SocialMedia
 {
     public class SocialMediaUI
     {
-        private ILog _logger = LogManager.GetLogger(SocialMediaConstants.LoggerName);
+        private ILog _logger = LogManager.GetLogger(typeof(SocialMediaUI));
 
         #region - GetList user images -
 
         public List<SocialMediaImageDescription> GetContactSMImages(int contactID)
         {
-            Contact contact = Global.DaoFactory.GetContactDao().GetByID(contactID);
+            var contact = Global.DaoFactory.GetContactDao().GetByID(contactID);
 
             var images = new List<SocialMediaImageDescription>();
 
@@ -81,17 +63,15 @@ namespace ASC.Web.CRM.SocialMedia
             Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
 
             // Parallelizing
-            IAsyncResult arGetAvatarsFromTwitter;
-            IAsyncResult arGetAvatarsFromFacebook;
 
             var waitHandles = new List<WaitHandle>();
 
-            Tenant currentTenant = CoreContext.TenantManager.GetCurrentTenant();
+            var currentTenant = CoreContext.TenantManager.GetCurrentTenant();
 
-            arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitterAccounts, currentTenant, null, null);
+            var arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitterAccounts, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromTwitter.AsyncWaitHandle);
 
-            arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebookAccounts, currentTenant, null, null);
+            var arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebookAccounts, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
 
             WaitHandle.WaitAll(waitHandles.ToArray());
@@ -110,17 +90,15 @@ namespace ASC.Web.CRM.SocialMedia
             Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
 
             // Parallelizing
-            IAsyncResult arGetAvatarsFromTwitter;
-            IAsyncResult arGetAvatarsFromFacebook;
 
             var waitHandles = new List<WaitHandle>();
 
-            Tenant currentTenant = CoreContext.TenantManager.GetCurrentTenant();
+            var currentTenant = CoreContext.TenantManager.GetCurrentTenant();
 
-            arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitter, currentTenant, null, null);
+            var arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitter, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromTwitter.AsyncWaitHandle);
 
-            arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebook, currentTenant, null, null);
+            var arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebook, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
 
             WaitHandle.WaitAll(waitHandles.ToArray());
@@ -149,11 +127,11 @@ namespace ASC.Web.CRM.SocialMedia
                                 let imageUrl = provider.GetUrlOfUserImage(twitterAccount, TwitterDataProvider.ImageSize.Small)
                                 where imageUrl != null
                                 select new SocialMediaImageDescription
-                                {
-                                    Identity = twitterAccount,
-                                    ImageUrl = imageUrl,
-                                    SocialNetwork = SocialNetworks.Twitter
-                                });
+                                    {
+                                        Identity = twitterAccount,
+                                        ImageUrl = imageUrl,
+                                        SocialNetwork = SocialNetworks.Twitter
+                                    });
             }
             catch (Exception ex)
             {
@@ -175,17 +153,17 @@ namespace ASC.Web.CRM.SocialMedia
                 CoreContext.TenantManager.SetCurrentTenant(tenant);
 
                 var provider = new FacebookDataProvider(FacebookApiHelper.GetFacebookApiInfoForCurrentUser());
-                
+
                 facebookAccounts = facebookAccounts.Distinct().ToList();
                 images.AddRange(from facebookAccount in facebookAccounts
                                 let imageUrl = provider.GetUrlOfUserImage(facebookAccount, FacebookDataProvider.ImageSize.Small)
                                 where imageUrl != null
                                 select new SocialMediaImageDescription
-                                           {
-                                               Identity = facebookAccount,
-                                               ImageUrl = imageUrl,
-                                               SocialNetwork = SocialNetworks.Facebook
-                                           });
+                                    {
+                                        Identity = facebookAccount,
+                                        ImageUrl = imageUrl,
+                                        SocialNetwork = SocialNetworks.Facebook
+                                    });
 
             }
             catch (Exception ex)
@@ -200,35 +178,33 @@ namespace ASC.Web.CRM.SocialMedia
 
         public Exception ProcessError(Exception exception, string methodName)
         {
-            if (exception is ASC.SocialMedia.Twitter.ConnectionFailureException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorTwitterConnectionFailure);
+            if (exception is ConnectionFailureException)
+                return new Exception(CRMSocialMediaResource.ErrorTwitterConnectionFailure);
 
-            if (exception is ASC.SocialMedia.Twitter.RateLimitException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorTwitterRateLimit);
+            if (exception is RateLimitException)
+                return new Exception(CRMSocialMediaResource.ErrorTwitterRateLimit);
 
-            if (exception is ASC.SocialMedia.Twitter.ResourceNotFoundException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorTwitterAccountNotFound);
+            if (exception is ResourceNotFoundException)
+                return new Exception(CRMSocialMediaResource.ErrorTwitterAccountNotFound);
 
-            if (exception is ASC.SocialMedia.Twitter.UnauthorizedException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorTwitterUnauthorized);
+            if (exception is UnauthorizedException)
+                return new Exception(CRMSocialMediaResource.ErrorTwitterUnauthorized);
+
+            if (exception is OAuthException)
+                return new Exception(CRMSocialMediaResource.ErrorFacebookOAuth);
+
+            if (exception is APILimitException)
+                return new Exception(CRMSocialMediaResource.ErrorFacebookAPILimit);
 
             if (exception is SocialMediaException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorInternalServer);
+                return new Exception(CRMSocialMediaResource.ErrorInternalServer);
 
-            if (exception is ASC.SocialMedia.Facebook.OAuthException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorFacebookOAuth);
-
-            if (exception is ASC.SocialMedia.Facebook.APILimitException)
-                return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorFacebookAPILimit);
-
-            if (exception is ASC.Web.CRM.SocialMedia.SocialMediaAccountNotFound)
+            if (exception is SocialMediaAccountNotFound)
                 return exception;
 
-            string unknownErrorText = String.Format("{0} error: Unknown exception:", methodName);
+            var unknownErrorText = String.Format("{0} error: Unknown exception:", methodName);
             _logger.Error(unknownErrorText, exception);
-            return new Exception(ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.ErrorInternalServer);
+            return new Exception(CRMSocialMediaResource.ErrorInternalServer);
         }
-
     }
-
 }

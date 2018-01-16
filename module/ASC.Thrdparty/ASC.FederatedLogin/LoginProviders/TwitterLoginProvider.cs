@@ -24,13 +24,12 @@
 */
 
 
-using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
-using ASC.Thrdparty.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
+using ASC.FederatedLogin.Profile;
+using ASC.Thrdparty.Configuration;
 using Twitterizer;
 
 namespace ASC.FederatedLogin.LoginProviders

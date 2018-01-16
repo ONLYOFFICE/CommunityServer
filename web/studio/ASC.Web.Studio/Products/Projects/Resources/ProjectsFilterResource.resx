@@ -363,6 +363,9 @@
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="WithoutTag" xml:space="preserve">
+    <value>Without tag</value>
+  </data>
   <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
   </data>

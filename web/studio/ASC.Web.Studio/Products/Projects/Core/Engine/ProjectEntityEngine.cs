@@ -85,6 +85,16 @@ namespace ASC.Projects.Engine
             SubscriptionProvider.UnSubscribe(NotifyAction, entity.NotifyId, recipient);
         }
 
+        public void UnSubscribeAll<T>(T entity) where T: ProjectEntity
+        {
+            SubscriptionProvider.UnSubscribe(NotifyAction, entity.NotifyId);
+        }
+
+        public void UnSubscribeAll<T>(List<T> entity) where T: ProjectEntity
+        {
+            entity.ForEach(UnSubscribeAll);
+        }
+
         public bool IsSubscribed(ProjectEntity entity)
         {
             return IsSubscribed(entity, SecurityContext.CurrentAccount.ID);

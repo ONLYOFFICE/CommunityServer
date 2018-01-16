@@ -152,6 +152,21 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public List<Subtask> GetByResponsible(Guid id, TaskStatus? status = null)
+        {
+            using (var db = new DbManager(DatabaseId))
+            {
+                var query = CreateQuery().Where("responsible_id", id);
+
+                if (status.HasValue)
+                {
+                    query.Where("status", status.Value);
+                }
+
+                return db.ExecuteList(query).ConvertAll(converter);
+            }
+        }
+
         public int GetSubtaskCount(int taskid, params TaskStatus[] statuses)
         {
             using (var db = new DbManager(DatabaseId))

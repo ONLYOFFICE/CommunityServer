@@ -385,15 +385,13 @@ ASC.CRM.ListTaskView = new function() {
     var _initFilter = function () {
         if (!jq("#tasksAdvansedFilter").advansedFilter) return;
 
-        var tmpDate = new Date(),
+        var now = new Date(),
+            todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0),
+            todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0, 0),
 
-            today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0),
-            yesterday = new Date(new Date(today).setDate(tmpDate.getDate() - 1)),
-            tomorrow = new Date(new Date(today).setDate(tmpDate.getDate() + 1)),
-
-            todayString = Teamlab.serializeTimestamp(today),
-            yesterdayString = Teamlab.serializeTimestamp(yesterday),
-            tomorrowString = Teamlab.serializeTimestamp(tomorrow);
+            nowString = Teamlab.serializeTimestamp(now),
+            todayStartString = Teamlab.serializeTimestamp(todayStart),
+            todayEndString = Teamlab.serializeTimestamp(todayEnd);
 
         ASC.CRM.ListTaskView.advansedFilter = jq("#tasksAdvansedFilter")
             .advansedFilter({
@@ -440,9 +438,9 @@ ASC.CRM.ListTaskView = new function() {
                                 groupby     : "deadline",
                                 options     :
                                         [
-                                        { value: jq.toJSON(["", yesterdayString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.OverdueTasksFilter, def: true },
-                                        { value: jq.toJSON([todayString, todayString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TodayTasksFilter },
-                                        { value: jq.toJSON([tomorrowString, ""]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TheNextTasksFilter }
+                                        { value: jq.toJSON(["", nowString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.OverdueTasksFilter, def: true },
+                                        { value: jq.toJSON([todayStartString, todayEndString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TodayTasksFilter },
+                                        { value: jq.toJSON([nowString, ""]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TheNextTasksFilter }
                                         ]
                             },
                             {
@@ -455,9 +453,9 @@ ASC.CRM.ListTaskView = new function() {
                                 groupby     : "deadline",
                                 options     :
                                         [
-                                        { value: jq.toJSON(["", yesterdayString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.OverdueTasksFilter },
-                                        { value: jq.toJSON([todayString, todayString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TodayTasksFilter, def: true },
-                                        { value: jq.toJSON([tomorrowString, ""]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TheNextTasksFilter }
+                                        { value: jq.toJSON(["", nowString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.OverdueTasksFilter },
+                                        { value: jq.toJSON([todayStartString, todayEndString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TodayTasksFilter, def: true },
+                                        { value: jq.toJSON([nowString, ""]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TheNextTasksFilter }
                                         ]
                             },
                             {
@@ -470,9 +468,9 @@ ASC.CRM.ListTaskView = new function() {
                                 groupby     : "deadline",
                                 options     :
                                         [
-                                        { value: jq.toJSON(["", yesterdayString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.OverdueTasksFilter },
-                                        { value: jq.toJSON([todayString, todayString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TodayTasksFilter },
-                                        { value: jq.toJSON([tomorrowString, ""]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TheNextTasksFilter, def: true }
+                                        { value: jq.toJSON(["", nowString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.OverdueTasksFilter },
+                                        { value: jq.toJSON([todayStartString, todayEndString]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TodayTasksFilter },
+                                        { value: jq.toJSON([nowString, ""]), classname: '', title: ASC.CRM.Resources.CRMTaskResource.TheNextTasksFilter, def: true }
                                         ]
                             },
                             {
@@ -980,6 +978,7 @@ ASC.CRM.ListTaskView = new function() {
                     case "fromToDate":
                         settings.fromDate = new Date(item.params.from);
                         settings.toDate = new Date(item.params.to);
+                        settings.toDate = new Date(settings.toDate.getFullYear(), settings.toDate.getMonth(), settings.toDate.getDate(), 23, 59, 0, 0);
                         break;
                     default:
                         if (item.hasOwnProperty("apiparamname") && item.params.hasOwnProperty("value") && item.params.value != null) {
@@ -1005,29 +1004,17 @@ ASC.CRM.ListTaskView = new function() {
         },
 
         taskItemFactory: function(taskItem) {
-            var nowDate = new Date(),
-                todayDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
 
             if (taskItem.isClosed) {
                 taskItem.classForTitle = "header-base-small gray-text";
                 taskItem.classForTaskDeadline = "gray-text";
             } else {
-                if (taskItem.deadLine.getHours() != 0 || taskItem.deadLine.getMinutes() != 0) {
-                    if (taskItem.deadLine.getTime() < nowDate.getTime()) {
-                        taskItem.classForTitle = "header-base-small red-text";
-                        taskItem.classForTaskDeadline = "red-text";
-                    } else {
-                        taskItem.classForTitle = "header-base-small";
-                        taskItem.classForTaskDeadline = "";
-                    }
+                if (taskItem.deadLine < new Date()) {
+                    taskItem.classForTitle = "header-base-small red-text";
+                    taskItem.classForTaskDeadline = "red-text";
                 } else {
-                    if (taskItem.deadLine.getTime() < todayDate.getTime()) {
-                        taskItem.classForTitle = "header-base-small red-text";
-                        taskItem.classForTaskDeadline = "red-text";
-                    } else {
-                        taskItem.classForTitle = "header-base-small";
-                        taskItem.classForTaskDeadline = "";
-                    }
+                    taskItem.classForTitle = "header-base-small";
+                    taskItem.classForTaskDeadline = "";
                 }
             }
 
@@ -1049,7 +1036,7 @@ ASC.CRM.ListTaskView = new function() {
             }
             taskItem.category.cssClass = taskItem.category.imagePath.split('/')[taskItem.category.imagePath.split('/').length - 1].split('.')[0];
 
-            if (!ASC.CRM.Common.isUserActive(taskItem.responsible.id)) {
+            if (window.UserManager.getUser(taskItem.responsible.id) == null) {
                 taskItem.responsible.displayName = ASC.CRM.Data.ProfileRemoved;
                 taskItem.responsible.activationStatus = 2;
             }
@@ -1245,13 +1232,13 @@ ASC.CRM.TaskActionView = new function() {
 
     var _initTaskCategorySelector = function () {
         var selectedCategory = {};
-        if (ASC.CRM.Data.taskActionViewCategories.length > 0) {
-            selectedCategory = ASC.CRM.Data.taskActionViewCategories[0];
+        if (ASC.CRM.Data.taskCategories.length > 0) {
+            selectedCategory = ASC.CRM.Data.taskCategories[0];
         } else {
             selectedCategory = { id: 0, title: "", imgSrc: "" };
         }
         window.taskCategorySelector = new ASC.CRM.CategorySelector("taskCategorySelector", selectedCategory);
-        taskCategorySelector.renderControl(ASC.CRM.Data.taskActionViewCategories, selectedCategory, "#taskCategorySelectorContainer", 0, "");
+        taskCategorySelector.renderControl(ASC.CRM.Data.taskCategories, selectedCategory, "#taskCategorySelectorContainer", 0, "");
     };
 
     var _initHoursAndMinutesSelects = function(){

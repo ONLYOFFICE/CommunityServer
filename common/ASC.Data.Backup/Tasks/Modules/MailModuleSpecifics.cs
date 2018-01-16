@@ -120,12 +120,12 @@ namespace ASC.Data.Backup.Tasks.Modules
                 case "mail_mailbox_server":
                     return "";
                 case "mail_mailbox":
-                    return string.Format("where t.is_removed = 0 and t.tenant = {0} and t.is_removed = 0", tenantId);
+                    return string.Format("where t.is_removed = 0 and t.tenant = {0}", tenantId);
 
                 //condition on chain_date because of Bug 18855 - transfer mail only for the last 30 days
                 case "mail_mail":
                     return string.Format("inner join mail_mailbox t1 on t1.id = t.id_mailbox " +
-                                         "where t.tenant = {0} and t.is_removed = 0 and t1.is_removed = 0 and t.chain_date > '{1}'",
+                                         "where t.tenant = {0} and t1.tenant = {0} and t.is_removed = 0 and t1.is_removed = 0 and t.chain_date > '{1}'",
                                          tenantId,
                                          DateTime.UtcNow.Subtract(TimeSpan.FromDays(30)).ToString("yyyy-MM-dd HH:mm:ss"));
 
@@ -133,7 +133,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 case "mail_tag_mail":
                     return string.Format("inner join mail_mail as t1 on t1.id = t.id_mail " +
                                          "inner join mail_mailbox as t2 on t2.id = t1.id_mailbox " +
-                                         "where t1.tenant = {0} and t1.is_removed = 0 and t2.is_removed = 0 and t1.chain_date > '{1}'",
+                                         "where t1.tenant = {0} and t2.tenant = {0} and t1.is_removed = 0 and t2.is_removed = 0 and t1.chain_date > '{1}'",
                                          tenantId,
                                          DateTime.UtcNow.Subtract(TimeSpan.FromDays(30)).ToString("yyyy-MM-dd HH:mm:ss"));
 

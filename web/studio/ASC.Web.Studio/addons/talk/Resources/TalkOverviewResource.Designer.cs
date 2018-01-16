@@ -124,6 +124,15 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete sent files.
+        /// </summary>
+        public static string DeleteSentFiles {
+            get {
+                return ResourceManager.GetString("DeleteSentFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List of contacts joining in groups.
         /// </summary>
         public static string GroupListOfContact {

@@ -232,7 +232,7 @@ namespace ASC.Web.CRM.Configuration
                 var tenantSettings = Global.TenantSettings;
                 tenantSettings.WebFormKey = Guid.NewGuid();
                 tenantSettings.IsConfiguredPortal = true;
-                SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+                tenantSettings.Save();
             }
         }
 

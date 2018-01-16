@@ -148,7 +148,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 );
 
             var managementPage = Page as Studio.Management;
-            var tenantAccess = managementPage != null ? managementPage.TenantAccess : SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
+            var tenantAccess = managementPage != null ? managementPage.TenantAccess : TenantAccessSettings.Load();
 
             if (!tenantAccess.Anyone)
             {
@@ -289,7 +289,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     var confirmLink = CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalOwnerChange, ownerId, ownerId);
                     StudioNotifyService.Instance.SendMsgConfirmChangeOwner(curTenant,CoreContext.UserManager.GetUsers(ownerId).DisplayUserName(), confirmLink);
 
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentChangeOwnerInstructions, owner.DisplayUserName(false));
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentChangeOwnerInstructions, MessageTarget.Create(owner.ID), owner.DisplayUserName(false));
 
                     var emailLink = string.Format("<a href=\"mailto:{0}\">{0}</a>", owner.Email);
                     return new { Status = 1, Message = Resource.ChangePortalOwnerMsg.Replace(":email", emailLink) };
@@ -315,7 +315,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             WebItemSecurity.SetProductAdministrator(Guid.Empty, id, true);
 
-            MessageService.Send(HttpContext.Current.Request, MessageAction.AdministratorAdded, user.DisplayUserName(false));
+            MessageService.Send(HttpContext.Current.Request, MessageAction.AdministratorAdded, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
             return new
                    {

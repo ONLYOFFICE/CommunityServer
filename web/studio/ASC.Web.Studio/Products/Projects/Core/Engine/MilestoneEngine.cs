@@ -95,6 +95,11 @@ namespace ASC.Projects.Engine
             return _milestoneDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
+        public Dictionary<Guid, int>  GetByFilterCountForReport(TaskFilter filter)
+        {
+            return _milestoneDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+        }
+
         public List<Milestone> GetByProject(int projectId)
         {
             var milestones = _milestoneDao.GetByProject(projectId).Where(CanRead).ToList();

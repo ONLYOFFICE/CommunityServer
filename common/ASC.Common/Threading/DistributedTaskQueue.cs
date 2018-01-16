@@ -51,21 +51,24 @@ namespace ASC.Common.Threading
         }
 
 
-        public DistributedTaskQueue(string name, int maxThreadsCount)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="name">Name of queue</param>
+        /// <param name="maxThreadsCount">limit of threads count; Default: -1 - no limit</param>
+        public DistributedTaskQueue(string name, int maxThreadsCount = -1)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException("name");
             }
-            if (maxThreadsCount <= 0)
-            {
-                throw new ArgumentOutOfRangeException("maxThreadsCount");
-            }
 
             key = name + GetType().Name;
             cache = AscCache.Default;
             notify = AscCache.Notify;
-            scheduler = new LimitedConcurrencyLevelTaskScheduler(maxThreadsCount);
+            scheduler = maxThreadsCount <= 0
+                ? TaskScheduler.Default
+                : new LimitedConcurrencyLevelTaskScheduler(maxThreadsCount);
             cancelations = new ConcurrentDictionary<string, CancellationTokenSource>();
 
             notify.Subscribe<DistributedTaskCancelation>((c, a) =>

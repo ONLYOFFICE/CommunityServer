@@ -33,7 +33,7 @@ namespace ASC.Web.Core.WhiteLabel
 {
     [Serializable]
     [DataContract]
-    public class CompanyWhiteLabelSettings : ISettings
+    public class CompanyWhiteLabelSettings : BaseSettings<CompanyWhiteLabelSettings>
     {
         [DataMember(Name = "CompanyName")]
         public string CompanyName { get; set; }
@@ -72,12 +72,12 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region ISettings Members
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{C3C5A846-01A3-476D-A962-1CFD78C04ADB}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new CompanyWhiteLabelSettings
                 {
@@ -96,7 +96,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             get
             {
-                return SettingsManager.Instance.LoadSettings<CompanyWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+                return LoadForDefaultTenant();
             }
         }
     }

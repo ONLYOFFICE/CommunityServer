@@ -76,7 +76,8 @@ namespace ASC.Web.UserControls.Forum.Common
         private Dictionary<string, string> GetCurrentParams()
         {
             var result = new Dictionary<string, string>();
-            if (HttpContext.Current == null && HttpContext.Current.Request == null)
+
+            if (HttpContext.Current == null)
                 return result;
 
             var query = HttpContext.Current.Request.GetUrlRewriter().Query ?? "";

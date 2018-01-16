@@ -28,13 +28,11 @@ using System.Web;
 using System.Web.Routing;
 using ASC.Api.Impl.Constraints;
 using ASC.Api.Interfaces;
-using Microsoft.Practices.Unity;
 
 namespace ASC.Api.Impl.Routing
 {
     public class ApiAccessControlRouteRegistrator : IApiRouteRegistrator
     {
-        [Dependency]
         public IApiConfiguration Config { get; set; }
 
         public void RegisterRoutes(RouteCollection routes)

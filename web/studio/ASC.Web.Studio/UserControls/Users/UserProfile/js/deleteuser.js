@@ -26,33 +26,45 @@
 
 var ProfileManager = new function () {
     this.RemoveUserEnterAction = function () {
-        jq("#confirmationDeleteUserPanel .middle-button-container>.button.blue.middle").click();
+        jq("#confirmationDeleteUserPanel .middle-button-container .remove-btn").click();
     };
-    this.RemoveUser = function (userID, userName, successCallback) {
+    this.RemoveUser = function (userId, displayName, userName, callback) {
         jq("#actionMenu").hide();
 
-        jq("#confirmationDeleteUserPanel .confirmationAction").html(jq.format(ASC.Resources.Master.ConfirmRemoveUser, "<b>" + Encoder.htmlEncode(userName)) + "</b>");
-        jq("#confirmationDeleteUserPanel .middle-button-container>.button.blue.middle").unbind("click").bind("click", function () {
-            AjaxPro.onLoading = function (b) {
-                if (b) {
-                    jq.blockUI();
-                } else {
+        jq("#confirmationDeleteUserPanel .confirmationAction").html(jq.format(ASC.Resources.Master.ConfirmRemoveUser, "<b>" + Encoder.htmlEncode(displayName) + "</b>"));
+
+        jq("#confirmationDeleteUserPanel .middle-button-container .remove-btn").unbind("click").bind("click", function () {
+            var dialog = jq("#confirmationDeleteUserPanel");
+
+            Teamlab.removeUser({}, userId, {
+                success: function () {
                     jq.unblockUI();
-                }
-            };
-            AjaxPro.ConfirmationDeleteUser.RemoveUser(userID, function (result) {
-                var res = result.value;
-                if (typeof(successCallback) === "function") {
-                    successCallback(res);
-                } else {
-                        if (res.rs1 == "1") {
-                            window.location.href = "./";
-                        } else {
-                            toastr.error(res.rs2);
-                        }
+
+                    if (ASC.People.Resources.PeopleResource.SuccessfullyDeleteUserInfoMessage)
+                        toastr.success(ASC.People.Resources.PeopleResource.SuccessfullyDeleteUserInfoMessage);
+
+                    if (callback)
+                        callback();
+                    else
+                        window.location.reload(true);
+
+                },
+                error: function (params, errors) {
+                    toastr.error(errors[0]);
+                },
+                after: function () {
+                    LoadingBanner.hideLoaderBtn(dialog);
+                },
+                before: function () {
+                    LoadingBanner.showLoaderBtn(dialog);
                 }
             });
         });
+        
+        jq("#confirmationDeleteUserPanel .middle-button-container .reassign-btn").unbind("click").bind("click", function () {
+            window.location.replace("reassigns.aspx?user=" + encodeURIComponent(userName));
+        });
+
         StudioBlockUIManager.blockUI("#confirmationDeleteUserPanel", 500, 500, 0);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = 'ProfileManager.RemoveUserEnterAction();';

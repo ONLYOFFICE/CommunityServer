@@ -70,7 +70,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 var jsSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 var passwordSettingsObj = jsSerializer.Deserialize<Web.Core.Utility.PasswordSettings>(objData);
-                SettingsManager.Instance.SaveSettings(passwordSettingsObj, TenantProvider.CurrentTenantID);
+                passwordSettingsObj.Save();
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.PasswordStrengthSettingsUpdated);
 
@@ -93,7 +93,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-            var passwordSettingsObj = SettingsManager.Instance.LoadSettings<Web.Core.Utility.PasswordSettings>(TenantProvider.CurrentTenantID);
+            var passwordSettingsObj = Web.Core.Utility.PasswordSettings.Load();
 
             return serializer.Serialize(passwordSettingsObj);
         }

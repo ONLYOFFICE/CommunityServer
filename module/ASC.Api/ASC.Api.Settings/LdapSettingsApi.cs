@@ -27,15 +27,14 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using ASC.ActiveDirectory;
-using ASC.ActiveDirectory.Novell;
+using ASC.ActiveDirectory.Base.Data;
+using ASC.ActiveDirectory.Base.Settings;
+using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Api.Attributes;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Import.LDAP;
 using ASC.Web.Studio.Utility;
 using Newtonsoft.Json;
 using Resources;
@@ -52,11 +51,16 @@ namespace ASC.Api.Settings
         /// </short>
         /// <returns>LDAPSupportSettings object</returns>
         [Read("ldap")]
-        public LDAPSupportSettings GetLdapSettings()
+        public LdapSettings GetLdapSettings()
         {
             CheckLdapPermissions();
 
-            var settings = SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
+            var settings = LdapSettings.Load();
+
+            settings = settings.Clone() as LdapSettings; // clone LdapSettings object for clear password (potencial AscCache.Memory issue)
+
+            if (settings == null)
+                return new LdapSettings().GetDefault() as LdapSettings;
 
             settings.Password = null;
             settings.PasswordBytes = null;
@@ -79,22 +83,83 @@ namespace ASC.Api.Settings
         /// Sync LDAP
         /// </short>
         [Read("ldap/sync")]
-        public LDAPSupportSettingsResult SyncLdap()
+        public LdapOperationStatus SyncLdap()
         {
             CheckLdapPermissions();
 
             var operations = LDAPTasks.GetTasks()
-                .Where(t => t.GetProperty<int>(LDAPOperation.OWNER) == TenantProvider.CurrentTenantID);
+                .Where(t => t.GetProperty<int>(LdapOperation.OWNER) == TenantProvider.CurrentTenantID)
+                .ToList();
+
+            var hasStarted = operations.Any(o =>
+            {
+                var opType = o.GetProperty<LdapOperationType>(LdapOperation.OPERATION_TYPE);
+
+                return o.Status <= DistributedTaskStatus.Running &&
+                       (opType == LdapOperationType.Sync || opType == LdapOperationType.Save);
+            });
+
+            if (hasStarted)
+            {
+                return GetLdapOperationStatus();
+            }
 
             if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
             {
-                throw new InvalidOperationException(Resource.LdapSettingsTooManyOperations);
+                return GetStartProcessError();
             }
 
-            var ldapSettings =
-                SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
+            var ldapSettings = LdapSettings.Load();
 
-            var op = new LDAPSaveSyncOperation(ldapSettings, syncOnly: true);
+            var ldapLocalization = new LdapLocalization(Resource.ResourceManager);
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            var op = new LdapSaveSyncOperation(ldapSettings, tenant, LdapOperationType.Sync, ldapLocalization);
+
+            return QueueTask(op);
+        }
+
+        /// <summary>
+        /// Starts the process of collecting preliminary changes on the portal according to the selected LDAP settings
+        /// </summary>
+        /// <short>
+        /// Sync LDAP
+        /// </short>
+        [Read("ldap/sync/test")]
+        public LdapOperationStatus TestLdapSync()
+        {
+            CheckLdapPermissions();
+
+            var operations = LDAPTasks.GetTasks()
+                .Where(t => t.GetProperty<int>(LdapOperation.OWNER) == TenantProvider.CurrentTenantID)
+                .ToList();
+
+            var hasStarted = operations.Any(o =>
+            {
+                var opType = o.GetProperty<LdapOperationType>(LdapOperation.OPERATION_TYPE);
+
+                return o.Status <= DistributedTaskStatus.Running &&
+                       (opType == LdapOperationType.SyncTest || opType == LdapOperationType.SaveTest);
+            });
+
+            if (hasStarted)
+            {
+                return GetLdapOperationStatus();
+            }
+
+            if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
+            {
+                return GetStartProcessError();
+            }
+
+            var ldapSettings = LdapSettings.Load();
+
+            var ldapLocalization = new LdapLocalization(Resource.ResourceManager);
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            var op = new LdapSaveSyncOperation(ldapSettings, tenant, LdapOperationType.SyncTest, ldapLocalization);
 
             return QueueTask(op);
         }
@@ -108,21 +173,73 @@ namespace ASC.Api.Settings
         /// <param name="settings">LDAPSupportSettings serialized string</param>
         /// <param name="acceptCertificate">Flag permits errors of checking certificates</param>
         [Create("ldap")]
-        public LDAPSupportSettingsResult SaveLdapSettings(string settings, bool acceptCertificate)
+        public LdapOperationStatus SaveLdapSettings(string settings, bool acceptCertificate)
         {
             CheckLdapPermissions();
 
             var operations = LDAPTasks.GetTasks()
-                .Where(t => t.GetProperty<int>(LDAPOperation.OWNER) == TenantProvider.CurrentTenantID);
+                .Where(t => t.GetProperty<int>(LdapOperation.OWNER) == TenantProvider.CurrentTenantID).ToList();
 
             if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
             {
-                throw new InvalidOperationException(Resource.LdapSettingsTooManyOperations);
+                return GetStartProcessError();
             }
 
-            var ldapSettings = JsonConvert.DeserializeObject<LDAPSupportSettings>(settings);
+            var ldapSettings = JsonConvert.DeserializeObject<LdapSettings>(settings);
 
-            var op = new LDAPSaveSyncOperation(ldapSettings, acceptCertificate: acceptCertificate);
+            ldapSettings.AcceptCertificate = acceptCertificate;
+
+            var ldapLocalization = new LdapLocalization(Resource.ResourceManager);
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            var op = new LdapSaveSyncOperation(ldapSettings, tenant, LdapOperationType.Save, ldapLocalization);
+
+            return QueueTask(op);
+        }
+
+        /// <summary>
+        /// Starts the process of collecting preliminary changes on the portal according to the LDAP settings
+        /// </summary>
+        /// <short>
+        /// Save LDAP settings
+        /// </short>
+        [Create("ldap/save/test")]
+        public LdapOperationStatus TestLdapSave(string settings, bool acceptCertificate)
+        {
+            CheckLdapPermissions();
+
+            var operations = LDAPTasks.GetTasks()
+                .Where(t => t.GetProperty<int>(LdapOperation.OWNER) == TenantProvider.CurrentTenantID)
+                .ToList();
+
+            var hasStarted = operations.Any(o =>
+            {
+                var opType = o.GetProperty<LdapOperationType>(LdapOperation.OPERATION_TYPE);
+
+                return o.Status <= DistributedTaskStatus.Running &&
+                       (opType == LdapOperationType.SyncTest || opType == LdapOperationType.SaveTest);
+            });
+
+            if (hasStarted)
+            {
+                return GetLdapOperationStatus();
+            }
+
+            if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
+            {
+                return GetStartProcessError();
+            }
+
+            var ldapSettings = JsonConvert.DeserializeObject<LdapSettings>(settings);
+
+            ldapSettings.AcceptCertificate = acceptCertificate;
+
+            var ldapLocalization = new LdapLocalization(Resource.ResourceManager);
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            var op = new LdapSaveSyncOperation(ldapSettings, tenant, LdapOperationType.SaveTest, ldapLocalization);
 
             return QueueTask(op);
         }
@@ -135,11 +252,11 @@ namespace ASC.Api.Settings
         /// </short>
         /// <returns>LDAPSupportSettingsResult object</returns>
         [Read("ldap/status")]
-        public LDAPSupportSettingsResult GetLdapSyncStatus()
+        public LdapOperationStatus GetLdapOperationStatus()
         {
             CheckLdapPermissions();
 
-            return ToLdapSettingsResult();
+            return ToLdapOperationStatus();
         }
 
         /// <summary>
@@ -150,14 +267,14 @@ namespace ASC.Api.Settings
         /// </short>
         /// <returns>LDAPSupportSettings object</returns>
         [Read("ldap/default")]
-        public LDAPSupportSettings GetDefaultLdapSettings()
+        public LdapSettings GetDefaultLdapSettings()
         {
             CheckLdapPermissions();
 
-            return new LDAPSupportSettings().GetDefault() as LDAPSupportSettings;
+            return new LdapSettings().GetDefault() as LdapSettings;
         }
 
-        private static LDAPSupportSettingsResult ToLdapSettingsResult()
+        private static LdapOperationStatus ToLdapOperationStatus()
         {
             var operations = LDAPTasks.GetTasks().ToList();
 
@@ -167,44 +284,38 @@ namespace ASC.Api.Settings
                     Process.GetProcesses().Any(p => p.Id == int.Parse(o.InstanseId)))
                     continue;
 
-                o.SetProperty(LDAPOperation.PROGRESS, 100);
+                o.SetProperty(LdapOperation.PROGRESS, 100);
                 LDAPTasks.RemoveTask(o.Id);
             }
 
             var operation =
                 operations
-                    .FirstOrDefault(t => t.GetProperty<int>(LDAPOperation.OWNER) == TenantProvider.CurrentTenantID);
+                    .FirstOrDefault(t => t.GetProperty<int>(LdapOperation.OWNER) == TenantProvider.CurrentTenantID);
 
             if (operation == null)
             {
-                return new LDAPSupportSettingsResult
-                {
-                    Id = null,
-                    Completed = true,
-                    Percents = 100,
-                    Status = "",
-                    Error = Resource.LdapSettingsInternalServerError,
-                    Source = ""
-                };
+                return null;
             }
 
             if (DistributedTaskStatus.Running < operation.Status)
             {
-                operation.SetProperty(LDAPOperation.PROGRESS, 100);
+                operation.SetProperty(LdapOperation.PROGRESS, 100);
                 LDAPTasks.RemoveTask(operation.Id);
             }
 
-            var certificateConfirmRequest = operation.GetProperty<NovellLdapCertificateConfirmRequest>(LDAPOperation.CERT_REQUEST);
+            var certificateConfirmRequest = operation.GetProperty<LdapCertificateConfirmRequest>(LdapOperation.CERT_REQUEST);
 
-            var result = new LDAPSupportSettingsResult
+            var result = new LdapOperationStatus
             {
                 Id = operation.Id,
-                Completed = operation.GetProperty<bool>(LDAPOperation.FINISHED),
-                Percents = operation.GetProperty<int>(LDAPOperation.PROGRESS),
-                Status = operation.GetProperty<string>(LDAPOperation.RESULT),
-                Error = operation.GetProperty<string>(LDAPOperation.ERROR),
+                Completed = operation.GetProperty<bool>(LdapOperation.FINISHED),
+                Percents = operation.GetProperty<int>(LdapOperation.PROGRESS),
+                Status = operation.GetProperty<string>(LdapOperation.RESULT),
+                Error = operation.GetProperty<string>(LdapOperation.ERROR),
                 CertificateConfirmRequest = certificateConfirmRequest,
-                Source = operation.GetProperty<string>(LDAPOperation.SOURCE)
+                Source = operation.GetProperty<string>(LdapOperation.SOURCE),
+                OperationType = Enum.GetName(typeof(LdapOperationType),
+                    (LdapOperationType) Convert.ToInt32(operation.GetProperty<string>(LdapOperation.OPERATION_TYPE)))
             };
 
             return result;
@@ -222,10 +333,26 @@ namespace ASC.Api.Settings
             }
         }
 
-        private LDAPSupportSettingsResult QueueTask(LDAPOperation op)
+        private LdapOperationStatus QueueTask(LdapOperation op)
         {
             LDAPTasks.QueueTask(op.RunJob, op.GetDistributedTask());
-            return ToLdapSettingsResult();
+            return ToLdapOperationStatus();
+        }
+
+        private LdapOperationStatus GetStartProcessError()
+        {
+            var result = new LdapOperationStatus
+            {
+                Id = null,
+                Completed = true,
+                Percents = 0,
+                Status = "",
+                Error = Resource.LdapSettingsTooManyOperations,
+                CertificateConfirmRequest = null,
+                Source = ""
+            };
+
+            return result;
         }
     }
 }

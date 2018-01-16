@@ -261,66 +261,6 @@
   <data name="Count" xml:space="preserve">
     <value>Quantity</value>
   </data>
-  <data name="Country_Andorra" xml:space="preserve">
-    <value>Andorra</value>
-  </data>
-  <data name="Country_Bahamas" xml:space="preserve">
-    <value>Bahamas</value>
-  </data>
-  <data name="Country_Benin" xml:space="preserve">
-    <value>Benin</value>
-  </data>
-  <data name="Country_BritishVirginIslands" xml:space="preserve">
-    <value>British Virgin Islands</value>
-  </data>
-  <data name="Country_BurkinaFaso" xml:space="preserve">
-    <value>Burkina Faso</value>
-  </data>
-  <data name="Country_Gambia" xml:space="preserve">
-    <value>Gambia</value>
-  </data>
-  <data name="Country_Ghana" xml:space="preserve">
-    <value>Ghana</value>
-  </data>
-  <data name="Country_IvoryCoast" xml:space="preserve">
-    <value>Ivory Coast</value>
-  </data>
-  <data name="Country_RepublicOfCongo" xml:space="preserve">
-    <value>Democratic Republic of the Congo</value>
-  </data>
-  <data name="Country_RepublicOfCuba" xml:space="preserve">
-    <value>Republic of Cuba</value>
-  </data>
-  <data name="Country_RepublicOfCyprus" xml:space="preserve">
-    <value>Republic of Cyprus</value>
-  </data>
-  <data name="Country_RepublicOfMadagascar" xml:space="preserve">
-    <value>Republic of Madagascar</value>
-  </data>
-  <data name="Country_RepublicOfMalawi" xml:space="preserve">
-    <value>Republic of Malawi</value>
-  </data>
-  <data name="Country_RepublicOfMauritius" xml:space="preserve">
-    <value>Republic of Mauritius</value>
-  </data>
-  <data name="Country_RepublicOfMoldova" xml:space="preserve">
-    <value>Republic of Moldova</value>
-  </data>
-  <data name="Country_RepublicOfMozambique" xml:space="preserve">
-    <value>Republic of Mozambique</value>
-  </data>
-  <data name="Country_SierraLeone" xml:space="preserve">
-    <value>Sierra Leone</value>
-  </data>
-  <data name="Country_SolomonIslands" xml:space="preserve">
-    <value>Solomon Islands</value>
-  </data>
-  <data name="Country_Tanzania" xml:space="preserve">
-    <value>Tanzania</value>
-  </data>
-  <data name="Country_Zambia" xml:space="preserve">
-    <value>Zambia</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -1149,5 +1089,20 @@
   </data>
   <data name="CreationDate" xml:space="preserve">
     <value>Creation date</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Confirmation of changes</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>You deleted yourself from contact managers.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>You will lose access to the contact for reading and writing, if the appropriate access is not allowed for all CRM users.</value>
+  </data>
+  <data name="Currency_PacificFranc" xml:space="preserve">
+    <value>Pacific franc</value>
   </data>
 </root>

@@ -271,7 +271,8 @@ body.media-width-0-1200 {
                     background-position: -48px center;
                 }
 
-                &.mail .label {
+                &.mail .label,
+                &.extmail .label {
                     background-position: -24px center;
                 }
 
@@ -331,7 +332,8 @@ body.media-width-0-1200 {
                     background-position: -48px center;
                 }
 
-                &.mobphone .label {
+                &.mobphone .label,
+                &.extmobphone .label {
                     background-position: -72px center;
                 }
             }
@@ -515,4 +517,15 @@ a {
 
 #studio_deleteProfileDialog .email {
     padding-top:3px;   
+}
+
+#confirmationDeleteUserPanel, #deleteUsersDialog {
+    .confirmationAction {
+        margin-bottom: 8px;
+    }
+
+    .warning-header {
+        margin: 20px 0;
+        font-size: 18px;
+    }
 }

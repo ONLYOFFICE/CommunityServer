@@ -307,9 +307,14 @@ namespace ASC.Projects.Engine
 
             factory.FileEngine.RemoveRoot(projectId);
 
-            projectDao.Delete(projectId);
+            List<int> messages, tasks;
+
+            projectDao.Delete(projectId, out messages, out tasks);
 
             NotifyClient.Instance.SendAboutProjectDeleting(new HashSet<Guid> { project.Responsible }, project);
+
+            factory.MessageEngine.UnSubscribeAll(messages.Select(r => new Message {Project = project, ID = r}).ToList());
+            factory.TaskEngine.UnSubscribeAll(tasks.Select(r => new Task {Project = project, ID = r}).ToList());
         }
 
         #endregion
@@ -359,26 +364,39 @@ namespace ASC.Projects.Engine
 
         public void AddToTeam(Project project, Participant participant, bool sendNotification)
         {
-            if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
 
-            ProjectSecurity.DemandEditTeam(project);
-            projectDao.AddToTeam(project.ID, participant.ID);
+            AddToTeam(project, participant.ID, sendNotification);
+        }
 
-            if (!factory.DisableNotifications && sendNotification && !project.Responsible.Equals(participant.ID) && participant.ID != SecurityContext.CurrentAccount.ID)
-                NotifyClient.Instance.SendInvaiteToProjectTeam(participant.ID, project);
+        public void AddToTeam(Project project, Guid participant, bool sendNotification)
+        {
+            if (project == null) throw new ArgumentNullException("project");
+
+            ProjectSecurity.DemandEditTeam(project);
+            projectDao.AddToTeam(project.ID, participant);
+
+            if (!factory.DisableNotifications && sendNotification && !project.Responsible.Equals(participant) && participant != SecurityContext.CurrentAccount.ID)
+                NotifyClient.Instance.SendInvaiteToProjectTeam(participant, project);
         }
 
         public void RemoveFromTeam(Project project, Participant participant, bool sendNotification)
+        {
+            if (participant == null) throw new ArgumentNullException("participant");
+
+            RemoveFromTeam(project, participant.ID, sendNotification);
+        }
+
+        public void RemoveFromTeam(Project project, Guid participant, bool sendNotification)
         {
             if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
 
             ProjectSecurity.DemandEditTeam(project);
-            projectDao.RemoveFromTeam(project.ID, participant.ID);
+            projectDao.RemoveFromTeam(project.ID, participant);
 
             if (!factory.DisableNotifications && sendNotification)
-                NotifyClient.Instance.SendRemovingFromProjectTeam(participant.ID, project);
+                NotifyClient.Instance.SendRemovingFromProjectTeam(participant, project);
         }
 
         public void UpdateTeam(Project project, IEnumerable<Guid> participants, bool notify)
@@ -413,12 +431,18 @@ namespace ASC.Projects.Engine
 
         public void SetTeamSecurity(Project project, Participant participant, ProjectTeamSecurity teamSecurity, bool visible)
         {
-            if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
+
+            SetTeamSecurity(project, participant.ID, teamSecurity, visible);
+        }
+
+        public void SetTeamSecurity(Project project, Guid participant, ProjectTeamSecurity teamSecurity, bool visible)
+        {
+            if (project == null) throw new ArgumentNullException("project");
 
             ProjectSecurity.DemandEditTeam(project);
 
-            var security = projectDao.GetTeamSecurity(project.ID, participant.ID);
+            var security = projectDao.GetTeamSecurity(project.ID, participant);
             if (visible)
             {
                 if (security != ProjectTeamSecurity.None) security ^= teamSecurity;
@@ -427,7 +451,21 @@ namespace ASC.Projects.Engine
             {
                 security |= teamSecurity;
             }
-            projectDao.SetTeamSecurity(project.ID, participant.ID, security);
+            projectDao.SetTeamSecurity(project.ID, participant, security);
+        }
+
+        public void SetTeamSecurity(Project project, Guid participant, ProjectTeamSecurity teamSecurity)
+        {
+            if (project == null) throw new ArgumentNullException("project");
+
+            ProjectSecurity.DemandEditTeam(project);
+
+            projectDao.SetTeamSecurity(project.ID, participant, teamSecurity);
+        }
+
+        public void SetTeamSecurity(int projectId, Participant participant)
+        {
+            projectDao.SetTeamSecurity(projectId, participant.ID, participant.ProjectTeamSecurity);
         }
 
         public void ResetTeamSecurity(Project project)
@@ -452,6 +490,13 @@ namespace ASC.Projects.Engine
 
             var security = projectDao.GetTeamSecurity(project.ID, participant.ID);
             return (security & teamSecurity) != teamSecurity;
+        }
+
+        public ProjectTeamSecurity GetTeamSecurity(Project project, Guid participant)
+        {
+            if (project == null) throw new ArgumentNullException("project");
+
+            return projectDao.GetTeamSecurity(project.ID, participant);
         }
 
         public IEnumerable<ParticipantFull> GetTeamUpdates(DateTime from, DateTime to)

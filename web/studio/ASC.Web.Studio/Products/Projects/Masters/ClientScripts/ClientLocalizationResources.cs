@@ -72,7 +72,23 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                             NotBilled = ResourceEnumConverter.ConvertToString(PaymentStatus.NotBilled),
                             Billed = ResourceEnumConverter.ConvertToString(PaymentStatus.Billed)
                         },
-                        GrammaticalResource.DayGenitiveSingular
+                        GrammaticalResource.DayGenitiveSingular,
+                        GrammaticalResource.MonthNominative,
+                        GrammaticalResource.MonthGenitiveSingular,
+                        GrammaticalResource.MonthGenitivePlural,
+                        ProjectStatus = new[]
+                        {
+                            new {id = ProjectStatus.Open, title = ProjectsJSResource.StatusOpenProject},
+                            new {id = ProjectStatus.Paused, title = ProjectsJSResource.StatusSuspendProject},
+                            new {id = ProjectStatus.Closed, title = ProjectsJSResource.StatusClosedProject}
+                        },
+                        StartModules = new[]
+                        {
+                            StartModule.TaskModule,
+                            StartModule.ProjectsModule,
+                            StartModule.DiscussionModule,
+                            StartModule.TimeTrackingModule
+                        }
                     })
             };
         }

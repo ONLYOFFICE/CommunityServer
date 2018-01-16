@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
-using ASC.Core.Common.Settings;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -50,7 +49,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             DefaultPages = new List<DefaultStartPageWrapper>();
 
-            var defaultPageSettings = SettingsManager.Instance.LoadSettings<StudioDefaultPageSettings>(TenantProvider.CurrentTenantID);
+            var defaultPageSettings = StudioDefaultPageSettings.Load();
             DefaultProductID = defaultPageSettings.DefaultProductID;
 
             var products = WebItemManager.Instance.GetItemsAll<IProduct>();

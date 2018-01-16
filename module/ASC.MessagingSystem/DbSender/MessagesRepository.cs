@@ -24,11 +24,11 @@
 */
 
 
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.MessagingSystem.DbSender
 {
@@ -101,6 +101,8 @@ namespace ASC.MessagingSystem.DbSender
                         }));
                 }
 
+                i.InColumnValue("target", message.Target == null ? null : message.Target.ToString());
+
                 db.ExecuteNonQuery(i);
             }
         }
@@ -108,11 +110,11 @@ namespace ASC.MessagingSystem.DbSender
         private static IList<string> GetSafeDescription(IEnumerable<string> description)
         {
             const int maxLength = 15000;
-            
+
             var currentLength = 0;
             var safe = new List<string>();
 
-            foreach (var d in description)
+            foreach (var d in description.Where(r => r != null))
             {
                 if (currentLength + d.Length <= maxLength)
                 {
@@ -121,7 +123,7 @@ namespace ASC.MessagingSystem.DbSender
                 }
                 else
                 {
-                    safe.Add(d.Substring(0, maxLength - currentLength  - 3) + "...");
+                    safe.Add(d.Substring(0, maxLength - currentLength - 3) + "...");
                     break;
                 }
             }

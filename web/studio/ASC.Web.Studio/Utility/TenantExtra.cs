@@ -26,7 +26,6 @@
 
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
@@ -51,7 +50,7 @@ namespace ASC.Web.Studio.Utility
             {
                 return
                     SetupInfo.IsVisibleSettings<TariffSettings>()
-                    && !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone
+                    && !TenantAccessSettings.Load().Anyone
                     && (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(SetupInfo.ControlPanelUrl));
             }
         }
@@ -89,6 +88,12 @@ namespace ASC.Web.Studio.Utility
         public static bool EnableControlPanel
         {
             get { return Enterprise && GetTenantQuota().ControlPanel && GetCurrentTariff().State < TariffState.NotPaid && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin(); }
+        }
+
+        public static bool EnableDocbuilder
+        {
+            //TODO: & DocumentEditors version > 5.0.1
+            get { return !Opensource; }
         }
 
         public static string GetTariffPageLink()

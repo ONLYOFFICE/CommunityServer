@@ -72,7 +72,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         Project Save(Project project);
 
-        void Delete(int projectId);
+        void Delete(int projectId, out List<int> messages, out List<int> tasks);
 
 
         void AddToTeam(int projectId, Guid participantId);

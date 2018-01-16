@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Files.Api;
 
@@ -61,6 +62,11 @@ namespace ASC.CRM.Core.Dao
         public object GetRoot()
         {
             return FilesIntegration.RegisterBunch("crm", "crm_common", "");
+        }
+
+        public object GetMy()
+        {
+            return FilesIntegration.RegisterBunch("files", "my", SecurityContext.CurrentAccount.ID.ToString());
         }
 
         public File SaveFile(File file, System.IO.Stream stream)

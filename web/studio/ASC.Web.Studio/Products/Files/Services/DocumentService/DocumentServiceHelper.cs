@@ -225,25 +225,22 @@ namespace ASC.Web.Files.Services.DocumentService
         }
 
 
-        public static void CheckUsersForDrop(File file, Guid userId)
+        public static void CheckUsersForDrop(File file)
         {
             var fileSecurity = Global.GetFilesSecurity();
-            //??? how distinguish auth user via sharelink
-            if (fileSecurity.CanEdit(file, FileConstant.ShareLinkId) || fileSecurity.CanReview(file, FileConstant.ShareLinkId)) return;
+            var sharedLink =
+                fileSecurity.CanEdit(file, FileConstant.ShareLinkId)
+                || fileSecurity.CanReview(file, FileConstant.ShareLinkId);
 
-            var usersDrop = new List<Guid>();
-            if (userId.Equals(Guid.Empty))
-            {
-                usersDrop = FileTracker.GetEditingBy(file.ID).Where(uid => !fileSecurity.CanEdit(file, uid) && !fileSecurity.CanReview(file, uid)).ToList();
-            }
-            else
-            {
-                if (!FileTracker.GetEditingBy(file.ID).Contains(userId)) return;
-                if (fileSecurity.CanEdit(file, userId)) return;
-                if (fileSecurity.CanReview(file, userId)) return;
-
-                usersDrop.Add(userId);
-            }
+            var usersDrop = FileTracker.GetEditingBy(file.ID)
+                                       .Where(uid =>
+                                           {
+                                               if (!CoreContext.UserManager.UserExists(uid))
+                                               {
+                                                   return !sharedLink;
+                                               }
+                                               return !fileSecurity.CanEdit(file, uid) && !fileSecurity.CanReview(file, uid);
+                                           }).ToList();
 
             if (!usersDrop.Any()) return;
             var docKey = GetDocKey(file);
@@ -257,6 +254,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static bool RenameFile(File file)
         {
+            if (!FileUtility.CanWebView(file.Title) && !FileUtility.CanWebEdit(file.Title) && !FileUtility.CanWebReview(file.Title)) return true;
             var docKeyForTrack = GetDocKey(file);
             var meta = new Web.Core.Files.DocumentService.MetaData { Title = file.Title };
             return DocumentServiceConnector.Command(Web.Core.Files.DocumentService.CommandMethod.Meta, docKeyForTrack, file.ID, meta: meta);

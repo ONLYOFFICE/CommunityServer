@@ -1434,4 +1434,19 @@
   <data name="MailServiceSettingsUpdated" xml:space="preserve">
     <value>Mail Service Settings Updated</value>
   </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Data Reassigned: from user {0} to user {1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>Reassigns</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>Target ID</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Action ID</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>Custom Navigation Settings Updated</value>
+  </data>
 </root>

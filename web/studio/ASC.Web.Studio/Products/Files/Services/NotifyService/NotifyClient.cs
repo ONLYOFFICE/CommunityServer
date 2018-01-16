@@ -51,7 +51,7 @@ namespace ASC.Web.Files.Services.NotifyService
             Instance = WorkContext.NotifyContext.NotifyService.RegisterClient(NotifySource.Instance);
         }
 
-        public static void SendDocuSignComplete(File file)
+        public static void SendDocuSignComplete(File file, string sourceTitle)
         {
             var recipient = NotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString());
 
@@ -61,7 +61,8 @@ namespace ASC.Web.Files.Services.NotifyService
                 recipient,
                 true,
                 new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID))),
-                new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title)
+                new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title),
+                new TagValue(NotifyConstants.Tag_Message, sourceTitle)
                 );
         }
 

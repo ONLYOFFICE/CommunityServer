@@ -165,15 +165,11 @@ window.ASC.Files.Anchor = (function () {
         ASC.Files.Anchor.move(folderId, safemode === true);
     };
 
-    var navigationSet = function (param, safemode, savefilter) {
+    var navigationSet = function (param, safemode) {
         ASC.Files.UI.resetSelectAll();
         ASC.Files.UI.amountPage = 0;
 
         safemode = safemode === true;
-        savefilter = safemode || savefilter === true;
-        if (!savefilter) {
-            ASC.Files.Filter.clearFilter(true);
-        }
 
         if (ASC.Files.Common.isCorrectId(param)) {
             if (!safemode || ASC.Files.Folders.currentFolder.id != param) {

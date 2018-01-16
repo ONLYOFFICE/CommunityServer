@@ -22,15 +22,6 @@ namespace ASC.Web.People {
         protected global::System.Web.UI.WebControls.PlaceHolder loaderHolder;
         
         /// <summary>
-        /// peoplePageNavigator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.PageNavigator peoplePageNavigator;
-        
-        /// <summary>
         /// userEmailChange control.
         /// </summary>
         /// <remarks>
@@ -47,7 +38,7 @@ namespace ASC.Web.People {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder userPwdChange;
-        
+
         /// <summary>
         /// userConfirmationDelete control.
         /// </summary>

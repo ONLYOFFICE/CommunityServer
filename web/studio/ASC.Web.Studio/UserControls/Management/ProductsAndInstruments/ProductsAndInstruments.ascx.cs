@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using ASC.Core.Common.Settings;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WebZones;
@@ -71,7 +70,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var managementPage = Page as Studio.Management;
             TenantAccessAnyone = managementPage != null ?
                                      managementPage.TenantAccess.Anyone :
-                                     SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+                                     TenantAccessSettings.Load().Anyone;
 
             var webItems = WebItemManager.Instance.GetItems(WebZoneType.All, ItemAvailableState.All)
                                          .Where(item => !item.IsSubItem() && !item.CanNotBeDisabled() && item.Visible)

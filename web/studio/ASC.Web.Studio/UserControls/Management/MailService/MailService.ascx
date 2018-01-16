@@ -6,7 +6,7 @@
 <div id="mailServiceBlock" class="settings-block">
     <div class="header-base"><%= Resource.MailServiceTitle %></div>
 
-    <p><%= String.Format(Resource.MailServiceText.HtmlEncode(), "<b>", "</b>", "<a  class='link underline' href='https://helpcenter.onlyoffice.com/server/docker/mail/docker-installation.aspx'>", "</a>") %></p>
+    <p><%= String.Format(Resource.MailServiceText.HtmlEncode(), "<b>", "</b>", "<a  class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#MailServer_block'>", "</a>") %></p>
 
     <div class="mail-service-item">
         <div class="header-base-small"><%= Resource.MailServiceServerIp %></div>
@@ -43,7 +43,7 @@
 </div>
 
 <div class="settings-help-block" style="float: none">
-    <p><%= String.Format(Resource.MailServiceHelp.HtmlEncode(), "<b>", "</b>", "<a href='http://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#MailServer_block'>", "</a>", "<br/>") %></p>
+    <p><%= String.Format(Resource.MailServiceHelp.HtmlEncode(), "<b>", "</b>", "<a href='https://helpcenter.onlyoffice.com/server/docker/mail/docker-installation.aspx'>", "</a>", "<br/>") %></p>
 </div>
 
 <% if(!string.IsNullOrEmpty(ServerIp)) { %>

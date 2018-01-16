@@ -204,6 +204,18 @@ ASC.Projects.EditProjectTemplates = (function() {
         $templateTitle = jq("#templateTitle");
         $templateTitleContainer = jq("#templateTitleContainer");
 
+        var month = [];
+
+        for (var i = 1; i <= 12; i = i + 0.5) {
+            month.push(i);
+        }
+
+        jq("#amContainer")
+            .html(jq.tmpl("projects_action_template",
+            {
+                edit: true,
+                month: month
+            }));
         ASC.Projects.MilestoneContainer.init();
         tmplId = jq.getURLParam('id');
         if (tmplId) {

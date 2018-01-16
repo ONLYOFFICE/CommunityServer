@@ -31,8 +31,9 @@ jq(function () {
         var docServiceUrlStorage = jq("#docServiceUrlStorage").val();
         var docServiceUrlConverter = jq("#docServiceUrlConverter").val();
         var docServiceUrlPortal = jq("#docServiceUrlPortal").val();
+        var docServiceUrlDocbuilder = jq("#docServiceUrlDocbuilder").val() || "";
 
-        Teamlab.saveDocServiceUrl(docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, {
+        Teamlab.saveDocServiceUrl(docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, docServiceUrlDocbuilder, {
             success: function () {
                 LoadingBanner.showMesInfoBtn("#docServiceBlock", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
                 jq("#docServiceBlock").unblock();

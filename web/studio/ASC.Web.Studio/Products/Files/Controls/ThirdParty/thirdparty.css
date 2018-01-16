@@ -31,6 +31,7 @@ body .DropboxV2,
 body .DocuSign,
 body .Google,
 body .GoogleDrive,
+body .OneDrive,
 body .SkyDrive,
 body .SharePoint,
 body .WebDav,
@@ -59,6 +60,7 @@ body .GoogleDrive {
 body .SharePoint {
     background-image: url("images/thirdparty_sharepoint.png");
 }
+body .OneDrive,
 body .SkyDrive {
     background-image: url("images/thirdparty_skydrive.png");
 }

@@ -27,7 +27,6 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Core.Common.Settings;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -44,7 +43,7 @@ namespace ASC.Web.Studio.UserControls.Management.IpSecurity
             get { return IPSecurity.IPSecurity.IpSecurityEnabled; }
         }
 
-        protected IPRestrictionsSettings RestrictionsSettings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(TenantProvider.CurrentTenantID);
+        protected IPRestrictionsSettings RestrictionsSettings = IPRestrictionsSettings.Load();
 
         protected bool TenantAccessAnyone;
 
@@ -58,7 +57,7 @@ namespace ASC.Web.Studio.UserControls.Management.IpSecurity
             var managementPage = Page as Studio.Management;
             TenantAccessAnyone = managementPage != null ?
                                      managementPage.TenantAccess.Anyone :
-                                     SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+                                     TenantAccessSettings.Load().Anyone;
         }
     }
 }

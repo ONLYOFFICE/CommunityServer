@@ -167,6 +167,10 @@ window.ASC.Files.Marker = (function () {
             folderId = itemData.entryId;
         }
 
+        //track event
+
+        trackingGoogleAnalitics("documents", "shownews", "folder");
+
         var targetSize = {
             top: target.offset().top,
             left: target.offset().left,

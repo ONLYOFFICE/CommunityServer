@@ -35,20 +35,17 @@ using System.Web.UI;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Geolocation;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
 using PhoneNumbers;
 using Resources;
-using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -65,7 +62,6 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected int UsersCount;
         protected long UsedSize;
-        protected bool SmsEnable;
 
         protected Tariff CurrentTariff;
         protected TenantQuota CurrentQuota;
@@ -82,6 +78,31 @@ namespace ASC.Web.Studio.UserControls.Management
         protected bool InRuble
         {
             get { return "RU".Equals(CurrentRegion.Name); }
+        }
+
+        protected bool InEuro
+        {
+            get { return "EUR".Equals(CurrentRegion.ISOCurrencySymbol); }
+        }
+
+        protected decimal[] PricesPerUser
+        {
+            get
+            {
+                return InEuro
+                           ? new[] { 4.50m, 1.80m, 0.90m }
+                           : new[] { 5.0m, 2.0m, 1.0m };
+            }
+        }
+
+        protected decimal[] FakePrices
+        {
+            get
+            {
+                return InEuro
+                           ? new[] { 9.0m, 18.0m }
+                           : new[] { 10.0m, 20.0m };
+            }
         }
 
         private string _currencyFormat = "{currency}{price}";
@@ -162,16 +183,6 @@ namespace ASC.Web.Studio.UserControls.Management
             buyRecommendationContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            if (StudioSmsNotificationSettings.IsVisibleSettings
-                && (SettingsManager.Instance.LoadSettings<StudioSmsNotificationSettings>(TenantProvider.CurrentTenantID).EnableSetting
-                    || CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID)))
-            {
-                SmsEnable = true;
-                var smsBuy = (SmsBuy) LoadControl(SmsBuy.Location);
-                smsBuy.ShowLink = !SettingsManager.Instance.LoadSettings<StudioSmsNotificationSettings>(TenantProvider.CurrentTenantID).EnableSetting;
-                SmsBuyHolder.Controls.Add(smsBuy);
-            }
-
             RegisterScript();
             CurrencyCheck();
         }
@@ -236,7 +247,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 }
                 catch (Exception err)
                 {
-                    LogManager.GetLogger("ASC.Web.Tariff").ErrorFormat("Can not find country by phone {0}: {1}", owner.MobilePhone, err);
+                    LogManager.GetLogger("ASC.Web.Tariff").WarnFormat("Can not find country by phone {0}: {1}", owner.MobilePhone, err);
                 }
             }
 
@@ -387,7 +398,8 @@ namespace ASC.Web.Studio.UserControls.Management
             var uri = string.Empty;
             if (quota != null)
             {
-                var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id, true, null, CurrentRegion.ISOCurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName);
+                var ownerId = CoreContext.TenantManager.GetCurrentTenant().OwnerId.ToString();
+                var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id, true, null, CurrentRegion.ISOCurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName, ownerId);
                 if (link == null)
                 {
                     LogManager.GetLogger("ASC.Web.Billing").Error(string.Format("GetShoppingUri return null for tenant {0} and quota {1}", TenantProvider.CurrentTenantID, quota.Id));
@@ -477,9 +489,14 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 price = price*SetupInfo.ExchangeRateRuble;
             }
+
+            var priceString = InEuro && Math.Truncate(price) != price
+                                  ? price.ToString(CultureInfo.InvariantCulture)
+                                  : ((int)price).ToString(CultureInfo.InvariantCulture);
+
             return _currencyFormat
                 .Replace("{currency}", "<span class='tariff-price-cur'>" + (currencySymbol ?? CurrentRegion.CurrencySymbol) + "</span>")
-                .Replace("{price}", ((int) price).ToString());
+                .Replace("{price}", priceString);
         }
 
         protected string GetPriceString(TenantQuota quota)
@@ -495,6 +512,35 @@ namespace ASC.Web.Studio.UserControls.Management
                 return GetPriceString(quota.Price, false, RegionDefault.CurrencySymbol);
             }
             return GetPriceString(quota.Price);
+        }
+
+        protected decimal GetPrice(TenantQuota quota)
+        {
+            if (!string.IsNullOrEmpty(quota.AvangateId) && _priceInfo.ContainsKey(quota.AvangateId))
+            {
+                var prices = _priceInfo[quota.AvangateId];
+                var price = prices.FirstOrDefault(p => p.Item1 == CurrentRegion.ISOCurrencySymbol);
+                if (price != null)
+                {
+                    return price.Item2;
+                }
+                return quota.Price;
+            }
+            return quota.Price;
+        }
+
+        protected decimal GetSaleValue(decimal priceMonth, TenantQuota quota)
+        {
+            var price = GetPrice(quota);
+
+            var period = quota.Year ? 12 : 36;
+            return priceMonth*period - price;
+        }
+
+        protected string GetPerUserPrice(TenantQuota quota)
+        {
+            var price = PricesPerUser[quota == null ? 0 : quota.Year ? 1 : quota.Year3 ? 2 : 0];
+            return GetPriceString(price, InRuble);
         }
 
         [AjaxMethod]

@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.ThirdParty.ImportContacts.ImportLogin" CodeBehind="ImportLogin.Master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Import</title>
+    <script type="text/javascript">
+        window.client = {
+            init: function () {
+            },
+            send: function (msg) {
+                window.opener.master.callback(msg);
+            },
+            sendAndClose: function (msg, error) {
+                try {
+                    client.send(JSON.stringify({ "msg": msg, "error": error }), error);
+                }
+                catch (ex) {
+                }
+                window.close();
+            }
+        };
+
+        client.init();
+    </script>
+</head>
+<body>
+    <form enctype="multipart/form-data" id="form1" method="post" runat="server">
+    </form>
+</body>
+</html>

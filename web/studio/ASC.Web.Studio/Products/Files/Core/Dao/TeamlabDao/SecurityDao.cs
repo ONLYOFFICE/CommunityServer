@@ -51,7 +51,7 @@ namespace ASC.Files.Core.Data
                         var d1 = new SqlDelete("files_security")
                             .Where("tenant_id", record.Tenant)
                             .Where(Exp.Eq("entry_id", MappingID(record.EntryId).ToString()))
-                            .Where("entry_type", (int) record.EntryType)
+                            .Where("entry_type", (int)record.EntryType)
                             .Where("subject", record.Subject.ToString());
 
                         DbManager.ExecuteNonQuery(d1);
@@ -69,7 +69,7 @@ namespace ASC.Files.Core.Data
                 var q = Query("files_security s")
                     .SelectCount()
                     .Where(Exp.Eq("s.entry_id", MappingID(entryId).ToString()))
-                    .Where("s.entry_type", (int) type);
+                    .Where("s.entry_type", (int)type);
 
                 return DbManager.ExecuteScalar<int>(q) > 0;
             }
@@ -81,29 +81,34 @@ namespace ASC.Files.Core.Data
             {
                 if (r.Share == FileShare.None)
                 {
+                    var entryId = MappingID(r.EntryId);
+                    if (entryId == null) return;
+
                     using (var tx = DbManager.BeginTransaction())
                     {
+                        entryId = entryId.ToString();
+
                         var files = new List<object>();
 
                         if (r.EntryType == FileEntryType.Folder)
                         {
                             var folders =
-                                DbManager.ExecuteList(new SqlQuery("files_folder_tree").Select("folder_id").Where("parent_id", r.EntryId))
-                                         .ConvertAll(o => (int) o[0]);
+                                DbManager.ExecuteList(new SqlQuery("files_folder_tree").Select("folder_id").Where("parent_id", entryId))
+                                         .ConvertAll(o => (int)o[0]);
                             files.AddRange(DbManager.ExecuteList(Query("files_file").Select("id").Where(Exp.In("folder_id", folders))).
                                                      ConvertAll(o => o[0]));
 
                             var d1 = new SqlDelete("files_security")
                                 .Where("tenant_id", r.Tenant)
                                 .Where(Exp.In("entry_id", folders))
-                                .Where("entry_type", (int) FileEntryType.Folder)
+                                .Where("entry_type", (int)FileEntryType.Folder)
                                 .Where("subject", r.Subject.ToString());
 
                             DbManager.ExecuteNonQuery(d1);
                         }
                         else
                         {
-                            files.Add(r.EntryId);
+                            files.Add(entryId);
                         }
 
                         if (0 < files.Count)
@@ -111,7 +116,7 @@ namespace ASC.Files.Core.Data
                             var d2 = new SqlDelete("files_security")
                                 .Where("tenant_id", r.Tenant)
                                 .Where(Exp.In("entry_id", files))
-                                .Where("entry_type", (int) FileEntryType.File)
+                                .Where("entry_type", (int)FileEntryType.File)
                                 .Where("subject", r.Subject.ToString());
 
                             DbManager.ExecuteNonQuery(d2);
@@ -124,11 +129,11 @@ namespace ASC.Files.Core.Data
                 {
                     var i = new SqlInsert("files_security", true)
                         .InColumnValue("tenant_id", r.Tenant)
-                        .InColumnValue("entry_id", r.EntryId)
-                        .InColumnValue("entry_type", (int) r.EntryType)
+                        .InColumnValue("entry_id", MappingID(r.EntryId, true).ToString())
+                        .InColumnValue("entry_type", (int)r.EntryType)
                         .InColumnValue("subject", r.Subject.ToString())
                         .InColumnValue("owner", r.Owner.ToString())
-                        .InColumnValue("security", (int) r.Share)
+                        .InColumnValue("security", (int)r.Share)
                         .InColumnValue("timestamp", DateTime.UtcNow);
 
                     DbManager.ExecuteNonQuery(i);
@@ -159,7 +164,7 @@ namespace ASC.Files.Core.Data
                 if (entry is File)
                 {
                     var fileId = MappingID(entry.ID);
-                    var folderId = MappingID(((File) entry).FolderID);
+                    var folderId = MappingID(((File)entry).FolderID);
                     if (!files.Contains(fileId)) files.Add(fileId);
                     if (!folders.Contains(folderId)) folders.Add(folderId);
                 }
@@ -169,10 +174,10 @@ namespace ASC.Files.Core.Data
                 }
             }
 
-            var q = GetQuery(Exp.In("entry_id", folders) & Exp.Eq("entry_type", (int) FileEntryType.Folder));
+            var q = GetQuery(Exp.In("entry_id", folders) & Exp.Eq("entry_type", (int)FileEntryType.Folder));
 
             if (files.Any())
-                q.Union(GetQuery(Exp.In("entry_id", files) & Exp.Eq("entry_type", (int) FileEntryType.File)));
+                q.Union(GetQuery(Exp.In("entry_id", files) & Exp.Eq("entry_type", (int)FileEntryType.File)));
 
             using (var DbManager = GetDb())
             {
@@ -199,7 +204,7 @@ namespace ASC.Files.Core.Data
                 if (entry is File)
                 {
                     var fileId = MappingID(entry.ID);
-                    var folderId = MappingID(((File) entry).FolderID);
+                    var folderId = MappingID(((File)entry).FolderID);
                     if (!files.Contains(fileId)) files.Add(fileId);
                     if (!folders.Contains(folderId)) folders.Add(folderId);
                 }
@@ -213,11 +218,11 @@ namespace ASC.Files.Core.Data
                 .Select("s.tenant_id", "cast(t.folder_id as char)", "s.entry_type", "s.subject", "s.owner", "s.security", "t.level")
                 .InnerJoin("files_folder_tree t", Exp.EqColumns("s.entry_id", "t.parent_id"))
                 .Where(Exp.In("t.folder_id", folders))
-                .Where("s.entry_type", (int) FileEntryType.Folder);
+                .Where("s.entry_type", (int)FileEntryType.Folder);
 
             if (0 < files.Count)
             {
-                q.Union(GetQuery(Exp.In("s.entry_id", files) & Exp.Eq("s.entry_type", (int) FileEntryType.File)).Select("-1"));
+                q.Union(GetQuery(Exp.In("s.entry_id", files) & Exp.Eq("s.entry_type", (int)FileEntryType.File)).Select("-1"));
             }
 
             using (var DbManager = GetDb())
@@ -257,10 +262,10 @@ namespace ASC.Files.Core.Data
                 {
                     Tenant = Convert.ToInt32(r[0]),
                     EntryId = MappingID(r[1]),
-                    EntryType = (FileEntryType) Convert.ToInt32(r[2]),
-                    Subject = new Guid((string) r[3]),
-                    Owner = new Guid((string) r[4]),
-                    Share = (FileShare) Convert.ToInt32(r[5]),
+                    EntryType = (FileEntryType)Convert.ToInt32(r[2]),
+                    Subject = new Guid((string)r[3]),
+                    Owner = new Guid((string)r[4]),
+                    Share = (FileShare)Convert.ToInt32(r[5]),
                     Level = 6 < r.Length ? Convert.ToInt32(r[6]) : 0,
                 };
 

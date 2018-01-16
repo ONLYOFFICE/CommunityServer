@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Caching;
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -125,50 +124,73 @@ namespace ASC.CRM.Core.Dao
             if (count == 0)
                 throw new ArgumentException();
 
-            prefix = prefix.Trim();
+            var keywords = prefix.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var keywords = prefix.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-
-            var q = GetContactSqlQuery(null);
+            var query = Query("crm_contact c").Select(GetContactColumnsTable("c"));
 
             switch (searchType)
             {
                 case 0: // Company
-                    q.Where(Exp.Eq("is_company", true));
+                    query.Where(Exp.Eq("c.is_company", true));
                     break;
                 case 1: // Persons
-                    q.Where(Exp.Eq("is_company", false));
+                    query.Where(Exp.Eq("c.is_company", false));
                     break;
                 case 2: // PersonsWithoutCompany
-                    q.Where(Exp.Eq("company_id", 0) & Exp.Eq("is_company", false));
-
+                    query.Where(Exp.Eq("c.company_id", 0) & Exp.Eq("c.is_company", false));
                     break;
                 case 3: // CompaniesAndPersonsWithoutCompany
-                    q.Where(Exp.Eq("company_id", 0));
-
+                    query.Where(Exp.Eq("c.company_id", 0));
                     break;
             }
 
-            if (keywords.Length == 1)
+            foreach (var k in keywords)
             {
-                q.Where(Exp.Like("display_name", keywords[0]));
-            }
-            else
-            {
-                foreach (var k in keywords)
-                {
-                    q.Where(Exp.Like("display_name", k));
-                }
+                query.Where(Exp.Like("c.display_name", k));
             }
 
-            if (0 < from && from < int.MaxValue) q.SetFirstResult(from);
-            if (0 < count && count < int.MaxValue) q.SetMaxResults(count);
+            if (!CRMSecurity.IsAdmin)
+            {
+                var sharedContacts = Exp.Gt("c.is_shared", 0);
+
+                var oldContacts = Exp.And(Exp.Eq("c.is_shared", null), !ExistAclRecord(false, "c"));
+
+                var privateContacts = Exp.And(Exp.Eq("c.is_shared", 0), ExistAclRecord(true, "c"));
+
+                query.Where(Exp.Or(sharedContacts, Exp.Or(oldContacts, privateContacts)));
+            }
+
+            query.OrderBy("c.display_name", true);
+
+            if (0 < from && from < int.MaxValue) query.SetFirstResult(from);
+            if (0 < count && count < int.MaxValue) query.SetMaxResults(count);
 
             using (var db = GetDb())
             {
-                var sqlResult = db.ExecuteList(q).ConvertAll(row => ToContact(row)).FindAll(CRMSecurity.CanAccessTo);
-                return sqlResult.OrderBy(contact => contact.GetTitle()).ToList();
+                return db.ExecuteList(query).ConvertAll(ToContact);
             }
+        }
+
+        private static Exp ExistAclRecord(bool forCurrentUser, string contactTebleAlias = "")
+        {
+            var alias = string.IsNullOrEmpty(contactTebleAlias) ? string.Empty : contactTebleAlias + ".";
+
+            var query = new SqlQuery("core_acl a")
+                .Select("a.object")
+                .Where(Exp.EqColumns("a.tenant", alias + "tenant_id"))
+                .Where(Exp.Eq("a.action", CRMSecurity._actionRead.ID));
+
+            if (forCurrentUser)
+                query.Where(Exp.Eq("a.subject", SecurityContext.CurrentAccount.ID));
+
+            query.Where(
+                Exp.Or(
+                    Exp.EqColumns("a.object", string.Format("concat('ASC.CRM.Core.Entities.Company|', {0}id)", alias)),
+                    Exp.EqColumns("a.object", string.Format("concat('ASC.CRM.Core.Entities.Person|', {0}id)", alias))
+                    )
+                );
+
+            return Exp.Exists(query);
         }
 
         public int GetAllContactsCount()
@@ -1367,8 +1389,8 @@ namespace ASC.CRM.Core.Dao
                    .InColumnValue("status_id", contact.StatusID)
                    .InColumnValue("company_id", companyID)
                    .InColumnValue("create_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                   .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
-                   .InColumnValue("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                   .InColumnValue("create_on", TenantUtil.DateTimeToUtc(contact.CreateOn == DateTime.MinValue ? TenantUtil.DateTimeNow() : contact.CreateOn))
+                   .InColumnValue("last_modifed_on", TenantUtil.DateTimeToUtc(contact.CreateOn == DateTime.MinValue ? TenantUtil.DateTimeNow() : contact.CreateOn))
                    .InColumnValue("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
                    .InColumnValue("display_name", displayName)
                    .InColumnValue("is_shared", (int)contact.ShareType)
@@ -1803,10 +1825,11 @@ namespace ASC.CRM.Core.Dao
         {
             using (var db = GetDb())
             {
-                return db.ExecuteList(new SqlQuery("crm_contact").Select("id")
-                                                     .Distinct()
-                                                     .Where(Exp.In("company_id", companyIDs) & Exp.Eq("is_company", false)))
-                                                     .ConvertAll(row => Convert.ToInt32(row[0]));
+                return db.ExecuteList(Query("crm_contact")
+                    .Select("id")
+                    .Distinct()
+                    .Where(Exp.In("company_id", companyIDs) & Exp.Eq("is_company", false)))
+                    .ConvertAll(row => Convert.ToInt32(row[0]));
             }
         }
 
@@ -1920,6 +1943,65 @@ namespace ASC.CRM.Core.Dao
 
             return sqlQuery;
 
+        }
+
+
+        public void ReassignContactsResponsible(Guid fromUserId, Guid toUserId)
+        {
+            var ids = CRMSecurity.GetContactsIdByManager(fromUserId).ToList();
+
+            foreach (var id in ids)
+            {
+                var contact = GetByID(id);
+
+                if (contact == null) continue;
+
+                var responsibles = CRMSecurity.GetAccessSubjectGuidsTo(contact);
+
+                if (!responsibles.Any()) continue;
+
+                responsibles.Remove(fromUserId);
+                responsibles.Add(toUserId);
+
+                CRMSecurity.SetAccessTo(contact, responsibles.Distinct().ToList());
+            }
+        }
+
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="contactId"></param>
+        /// <param name="creationDate"></param>
+        public void SetContactCreationDate(int contactId, DateTime creationDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_contact")
+                       .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
+                       .Where(Exp.Eq("id", contactId)));
+            }
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
+        }
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="contactId"></param>
+        /// <param name="lastModifedDate"></param>
+        public void SetContactLastModifedDate(int contactId, DateTime lastModifedDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_contact")
+                       .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
+                       .Where(Exp.Eq("id", contactId)));
+            }
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }
     }
 }

@@ -216,7 +216,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             Dictionary<Guid,String> SelectedUsers = null;
             if (TargetContact != null)
             {
-                var AccessSubjectTo = CRMSecurity.GetAccessSubjectTo(TargetContact, EmployeeStatus.Active).ToList();
+                var AccessSubjectTo = CRMSecurity.GetAccessSubjectTo(TargetContact).ToList();
                 SelectedUsers = new Dictionary<Guid, String>();
                 if (AccessSubjectTo.Count != 0)
                 {
@@ -340,7 +340,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                     dao.GetContactDao().UpdateContact(contact);
 
                     var messageAction = contact is Company ? MessageAction.CompanyUpdated : MessageAction.PersonUpdated;
-                    MessageService.Send(HttpContext.Current.Request, messageAction, contact.GetTitle());
+                    MessageService.Send(HttpContext.Current.Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
                     contact = dao.GetContactDao().GetByID(contact.ID);
                 }
@@ -349,7 +349,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                     contact.ID = dao.GetContactDao().SaveContact(contact);
 
                     var messageAction = contact is Company ? MessageAction.CompanyCreated : MessageAction.PersonCreated;
-                    MessageService.Send(HttpContext.Current.Request, messageAction, contact.GetTitle());
+                    MessageService.Send(HttpContext.Current.Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
                     contact = dao.GetContactDao().GetByID(contact.ID);
                 }

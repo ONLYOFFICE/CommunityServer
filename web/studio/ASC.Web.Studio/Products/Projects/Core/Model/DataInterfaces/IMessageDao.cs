@@ -24,12 +24,9 @@
 */
 
 
-#region Usings
-
+using System;
 using System.Collections.Generic;
 using ASC.Projects.Core.Domain;
-
-#endregion
 
 namespace ASC.Projects.Core.DataInterfaces
 {
@@ -46,6 +43,8 @@ namespace ASC.Projects.Core.DataInterfaces
         List<Message> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess);
 
         int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess);
+
+        Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
 
         Message GetById(int id);
 

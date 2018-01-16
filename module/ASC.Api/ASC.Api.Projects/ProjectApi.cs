@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ASC.Api.Attributes;
 using ASC.Api.Documents;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
@@ -36,34 +37,42 @@ using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core.Calendars;
+using ASC.Web.Projects;
 
 namespace ASC.Api.Projects
 {
     ///<summary>
-    /// Projects access
+    ///Projects access
     ///</summary>
     public partial class ProjectApi : ProjectApiBase, IApiEntryPoint
     {
         private readonly DocumentsApi documentsApi;
 
         ///<summary>
-        /// Api name entry
+        ///Api name entry
         ///</summary>
         public string Name
         {
             get { return "project"; }
         }
 
-        public TaskFilter CreateFilter()
+        public TaskFilter CreateFilter(EntityType entityType)
         {
             var filter = new TaskFilter
                    {
-                       SortBy = _context.SortBy,
                        SortOrder = !_context.SortDescending,
                        SearchText = _context.FilterValue,
                        Offset = _context.StartIndex,
                        Max = _context.Count
                    };
+
+            if (!string.IsNullOrEmpty(_context.SortBy))
+            {
+                var type = entityType.ToString();
+                var sortColumns = filter.SortColumns.ContainsKey(type) ? filter.SortColumns[type] : null;
+                if (sortColumns != null && sortColumns.Any())
+                    filter.SortBy = sortColumns.ContainsKey(_context.SortBy) ? _context.SortBy : sortColumns.First().Key;
+            }
 
             _context.SetDataFiltered().SetDataPaginated().SetDataSorted();
 
@@ -71,7 +80,7 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        /// Constructor
+        ///Constructor
         ///</summary>
         ///<param name="context"></param>
         ///<param name="documentsApi">Docs api</param>
@@ -165,6 +174,47 @@ namespace ASC.Api.Projects
             }
 
             return cals;
+        }
+
+        [Update(@"settings")]
+        public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate, bool? hideEntitiesInPausedProjects, StartModuleType? startModule)
+        {
+            if (everebodyCanCreate.HasValue || hideEntitiesInPausedProjects.HasValue)
+            {
+                if (!ProjectSecurity.CurrentUserAdministrator) ProjectSecurity.CreateSecurityException();
+
+                var settings = ProjectsCommonSettings.Load();
+
+                if (everebodyCanCreate.HasValue)
+                {
+                    settings.EverebodyCanCreate = everebodyCanCreate.Value;
+                }
+
+                if (hideEntitiesInPausedProjects.HasValue)
+                {
+                    settings.HideEntitiesInPausedProjects = hideEntitiesInPausedProjects.Value;
+                }
+
+                settings.Save();
+                return settings;
+            }
+
+            if (startModule.HasValue)
+            {
+                if (!ProjectSecurity.IsProjectsEnabled(CurrentUserId)) ProjectSecurity.CreateSecurityException();
+                var settings = ProjectsCommonSettings.LoadForCurrentUser();
+                settings.StartModuleType = startModule.Value;
+                settings.SaveForCurrentUser();
+                return settings;
+            }
+
+            return null;
+        }
+
+        [Read(@"settings")]
+        public ProjectsCommonSettings GetSettings()
+        {
+            return ProjectsCommonSettings.Load();
         }
     }
 }

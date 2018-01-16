@@ -158,15 +158,24 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
+        public List<ListItem> GetItems()
+        {
+            var sqlQuery = GetListItemSqlQuery(null).OrderBy("sort_order", true);
+
+            using (var db = GetDb())
+            {
+                return db.ExecuteList(sqlQuery).ConvertAll(ToListItem);
+            }
+        }
+
         public List<ListItem> GetItems(ListType listType)
         {
-            SqlQuery sqlQuery = GetListItemSqlQuery(Exp.Eq("list_type", (int)listType))
+            var sqlQuery = GetListItemSqlQuery(Exp.Eq("list_type", (int)listType))
                                .OrderBy("sort_order", true);
 
             using (var db = GetDb())
             {
-                return db.ExecuteList(sqlQuery)
-                     .ConvertAll(row => ToListItem(row));
+                return db.ExecuteList(sqlQuery).ConvertAll(ToListItem);
             }
         }
 
@@ -214,7 +223,7 @@ namespace ASC.CRM.Core.Dao
 
         public List<ListItem> GetSystemItems()
         {
-            return new List<ListItem>()
+            return new List<ListItem>
             {
                 new ListItem
                         {
@@ -243,7 +252,7 @@ namespace ASC.CRM.Core.Dao
 
             using (var db = GetDb())
             {
-                var result = db.ExecuteList(GetListItemSqlQuery(Exp.Eq("id", id))).ConvertAll(row => ToListItem(row));
+                var result = db.ExecuteList(GetListItemSqlQuery(Exp.Eq("id", id))).ConvertAll(ToListItem);
 
                 return result.Count > 0 ? result[0] : null;
             }
@@ -253,9 +262,9 @@ namespace ASC.CRM.Core.Dao
         {
             using (var db = GetDb())
             {
-                var sqlResult = db.ExecuteList(GetListItemSqlQuery(Exp.In("id", id))).ConvertAll(row => ToListItem(row));
+                var sqlResult = db.ExecuteList(GetListItemSqlQuery(Exp.In("id", id))).ConvertAll(ToListItem);
 
-                var systemItem = id.Where(item => item < 0).Select(x => GetSystemListItem(x));
+                var systemItem = id.Where(item => item < 0).Select(GetSystemListItem);
 
                 return systemItem.Any() ? sqlResult.Union(systemItem).ToList() : sqlResult;
             }
@@ -265,11 +274,11 @@ namespace ASC.CRM.Core.Dao
         {
             using (var db = GetDb())
             {
-                return db.ExecuteList(GetListItemSqlQuery(null)).ConvertAll(row => ToListItem(row));
+                return db.ExecuteList(GetListItemSqlQuery(null)).ConvertAll(ToListItem);
             }
         }
 
-        public virtual void ChangeColor(int id, String newColor)
+        public virtual void ChangeColor(int id, string newColor)
         {
             using (var db = GetDb())
             {
@@ -281,8 +290,7 @@ namespace ASC.CRM.Core.Dao
 
         public NameValueCollection GetColors(ListType listType)
         {
-
-            Exp where = Exp.Eq("list_type", (int)listType);
+            var where = Exp.Eq("list_type", (int)listType);
 
             var result = new NameValueCollection();
 
@@ -297,12 +305,12 @@ namespace ASC.CRM.Core.Dao
 
         }
 
-        public ListItem GetByTitle(ListType listType, String title)
+        public ListItem GetByTitle(ListType listType, string title)
         {
 
             using (var db = GetDb())
             {
-                var result = db.ExecuteList(GetListItemSqlQuery(Exp.Eq("title", title) & Exp.Eq("list_type", (int)listType))).ConvertAll(row => ToListItem(row));
+                var result = db.ExecuteList(GetListItemSqlQuery(Exp.Eq("title", title) & Exp.Eq("list_type", (int)listType))).ConvertAll(ToListItem);
 
                 return result.Count > 0 ? result[0] : null;
             }
@@ -401,17 +409,17 @@ namespace ASC.CRM.Core.Dao
             if (IsExist(listType, enumItem.Title))
                 return GetByTitle(listType, enumItem.Title).ID;
 
-            if (String.IsNullOrEmpty(enumItem.Title))
+            if (string.IsNullOrEmpty(enumItem.Title))
                 throw new ArgumentException();
 
             if (listType == ListType.TaskCategory || listType == ListType.HistoryCategory)
-                if (String.IsNullOrEmpty(enumItem.AdditionalParams))
+                if (string.IsNullOrEmpty(enumItem.AdditionalParams))
                     throw new ArgumentException();
                 else
                    enumItem.AdditionalParams = System.IO.Path.GetFileName(enumItem.AdditionalParams);
                 
             if (listType == ListType.ContactStatus)
-                if (String.IsNullOrEmpty(enumItem.Color))
+                if (string.IsNullOrEmpty(enumItem.Color))
                     throw new ArgumentException();
 
             var sortOrder = enumItem.SortOrder;
@@ -444,13 +452,13 @@ namespace ASC.CRM.Core.Dao
             {
                 case ListType.ContactStatus:
                 case ListType.ContactType:
-                    throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HasRelatedContacts));
+                    throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HasRelatedContacts));
                 case ListType.TaskCategory:
-                    throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.TaskCategoryHasRelatedTasks));
+                    throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.TaskCategoryHasRelatedTasks));
                 case ListType.HistoryCategory:
-                    throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
+                    throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
                 default:
-                    throw new ArgumentException(String.Format("{0}.", CRMErrorsResource.BasicCannotBeEdited));
+                    throw new ArgumentException(string.Format("{0}.", CRMErrorsResource.BasicCannotBeEdited));
             }
 
 
@@ -536,7 +544,7 @@ namespace ASC.CRM.Core.Dao
                     break;
                 case ListType.TaskCategory:
                     sqlUpdate = Update("crm_task")
-                               .Set("category_id", toItemID)       
+                               .Set("category_id", toItemID)
                                .Where(Exp.Eq("category_id", fromItemID));
                     break;
                 case ListType.HistoryCategory:
@@ -562,16 +570,16 @@ namespace ASC.CRM.Core.Dao
                 {
                     case ListType.ContactStatus:
                     case ListType.ContactType:
-                        throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.HasRelatedContacts));
+                        throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.HasRelatedContacts));
                     case ListType.TaskCategory:
-                        var exMsg = String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.TaskCategoryHasRelatedTasks);
+                        var exMsg = string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.TaskCategoryHasRelatedTasks);
                         if (itemID == toItemID) throw new ArgumentException(exMsg);
                         ChangeRelativeItemsLink(listType, itemID, toItemID);
                         break;
                     case ListType.HistoryCategory:
-                        throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
+                        throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
                     default:
-                        throw new ArgumentException(String.Format("{0}.", CRMErrorsResource.BasicCannotBeDeleted));
+                        throw new ArgumentException(string.Format("{0}.", CRMErrorsResource.BasicCannotBeDeleted));
                 }
             }
 
@@ -617,7 +625,7 @@ namespace ASC.CRM.Core.Dao
 
         public static ListItem ToListItem(object[] row)
         {
-            return new ListItem
+            var result = new ListItem
                        {
                            ID = Convert.ToInt32(row[0]),
                            Title = Convert.ToString(row[1]),
@@ -626,6 +634,14 @@ namespace ASC.CRM.Core.Dao
                            SortOrder = Convert.ToInt32(row[4]),
                            AdditionalParams = Convert.ToString(row[5])
                        };
+
+            ListType listType;
+            if (Enum.TryParse(Convert.ToString(row[6]), out listType))
+            {
+                result.ListType = listType;
+            }
+
+            return result;
         }
     }
 }

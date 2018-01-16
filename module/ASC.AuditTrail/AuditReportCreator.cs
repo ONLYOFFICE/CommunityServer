@@ -138,6 +138,8 @@ namespace ASC.AuditTrail
                 Map(m => m.ActionText).Name(AuditReportResource.ActionCol);
                 Map(m => m.Product).Name(AuditReportResource.ProductCol);
                 Map(m => m.Module).Name(AuditReportResource.ModuleCol);
+                Map(m => m.Action).Name(AuditReportResource.ActionIdCol);
+                Map(m => m.Target).Name(AuditReportResource.TargetIdCol);
             }
         }
     }

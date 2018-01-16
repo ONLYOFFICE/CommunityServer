@@ -24,7 +24,9 @@
 */
 
 
+using System;
 using System.IO;
+using System.Web;
 using ASC.Core;
 using ASC.Core.Common.Notify.Push;
 using ASC.Core.Users;
@@ -33,21 +35,19 @@ using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
-using ASC.Web.Files.Import;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Masters;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
-using System;
-using System.Web;
 
 namespace ASC.Web.Files
 {
     public partial class _Default : MainPage, IStaticBundle
     {
-        protected bool AddCustomScript;
+        private bool AddCustomScript;
 
         protected bool DisplayAppsBanner;
 
@@ -57,10 +57,10 @@ namespace ASC.Web.Files
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {           
+        {
             ((BasicTemplate)Master).Master
-               .AddStaticStyles(GetStaticStyleSheet())
-               .AddStaticBodyScripts(GetStaticJavaScript());
+                                   .AddStaticStyles(GetStaticStyleSheet())
+                                   .AddStaticBodyScripts(GetStaticJavaScript());
 
             LoadControls();
 
@@ -80,35 +80,19 @@ namespace ASC.Web.Files
 
             #region third-party scripts
 
-            if (AddCustomScript && (string) Session["campaign"] == "personal")
-            {
-                Session["campaign"] = "";
-
-                var GoogleConversionScriptLocation = PathProvider.GetFileControlPath("GoogleConversionScript.ascx");
-                if (File.Exists(HttpContext.Current.Server.MapPath(GoogleConversionScriptLocation)))
-                {
-                    ThirdPartyScriptsPlaceHolder.Controls.Add(LoadControl(GoogleConversionScriptLocation));
-                }
-                else
-                {
-                    ThirdPartyScriptsPlaceHolder.Visible = false;
-                }
-            }
-            else
-            {
-                ThirdPartyScriptsPlaceHolder.Visible = false;
-            }
-
             if (AddCustomScript)
             {
-                var YandexScriptLocation = PathProvider.GetFileControlPath("YandexScript.js");
-                if (File.Exists(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
+                if ((string)Session["campaign"] == "personal")
                 {
-                    using (var streamReader = new StreamReader(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
-                    {
-                        var yaScriptText = streamReader.ReadToEnd();
-                        Page.RegisterInlineScript(yaScriptText);
-                    }
+                    Session["campaign"] = "";
+
+                    ThirdPartyScriptsPlaceHolder.Controls.Add(LoadControl(PathProvider.GetFileControlPath("GoogleConversionScript.ascx")));
+                }
+
+                using (var streamReader = new StreamReader(HttpContext.Current.Server.MapPath(PathProvider.GetFileControlPath("AnalyticsPersonalFirstVisit.js"))))
+                {
+                    var yaScriptText = streamReader.ReadToEnd();
+                    Page.RegisterInlineScript(yaScriptText);
                 }
             }
 
@@ -178,19 +162,19 @@ namespace ASC.Web.Files
                 Master.Master.EnabledWebChat = false;
             }
 
-            var enableThirdParty = ImportConfiguration.SupportInclusion
+            var enableThirdParty = ThirdpartyConfiguration.SupportInclusion
                                    && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
                                    && (Classes.Global.IsAdministrator
                                        || FilesSettings.EnableThirdParty
                                        || CoreContext.Configuration.Personal)
                                    && !Desktop;
 
-            var mainMenu = (MainMenu) LoadControl(MainMenu.Location);
+            var mainMenu = (MainMenu)LoadControl(MainMenu.Location);
             mainMenu.EnableThirdParty = enableThirdParty;
             mainMenu.Desktop = Desktop;
             CommonSideHolder.Controls.Add(mainMenu);
 
-            var mainContent = (MainContent) LoadControl(MainContent.Location);
+            var mainContent = (MainContent)LoadControl(MainContent.Location);
             mainContent.TitlePage = FilesCommonResource.TitlePage;
             CommonContainerHolder.Controls.Add(mainContent);
 
@@ -221,7 +205,7 @@ namespace ASC.Web.Files
                 AddCustomScript = SetupInfo.CustomScripts.Length != 0 && !SetupInfo.IsSecretEmail(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email);
 
                 Classes.Global.Logger.Info("New personal user " + SecurityContext.CurrentAccount.ID
-                                           + ((string) Session["campaign"] == "personal" ? " with campaign=personal" : ""));
+                                           + ((string)Session["campaign"] == "personal" ? " with campaign=personal" : ""));
             }
 
             if (PersonalSettings.IsNotActivated)
@@ -250,7 +234,5 @@ namespace ASC.Web.Files
                 StudioNotifyService.Instance.SendUserWelcomePersonal(user);
             }
         }
-
-        
     }
 }

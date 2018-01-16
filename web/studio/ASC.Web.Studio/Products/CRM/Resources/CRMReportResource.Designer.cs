@@ -61,65 +61,416 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Building report.
+        ///   Looks up a localized string similar to The average budget of opportunities.
         /// </summary>
-        public static string BuildingReport {
+        public static string AverageDealsBudget {
             get {
-                return ResourceManager.GetString("BuildingReport", resourceCulture);
+                return ResourceManager.GetString("AverageDealsBudget", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change report filter.
+        ///   Looks up a localized string similar to The average duration of a successful opportunity, days.
         /// </summary>
-        public static string ChangeFilterData {
+        public static string AverageDealsDuration {
             get {
-                return ResourceManager.GetString("ChangeFilterData", resourceCulture);
+                return ResourceManager.GetString("AverageDealsDuration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Period.
+        ///   Looks up a localized string similar to Billed.
         /// </summary>
-        public static string ChooseTimeInterval {
+        public static string Billed {
             get {
-                return ResourceManager.GetString("ChooseTimeInterval", resourceCulture);
+                return ResourceManager.GetString("Billed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new report.
+        ///   Looks up a localized string similar to Billed invoices .
         /// </summary>
-        public static string CreateNewReport {
+        public static string BilledInvoices {
             get {
-                return ResourceManager.GetString("CreateNewReport", resourceCulture);
+                return ResourceManager.GetString("BilledInvoices", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export to csv.
+        ///   Looks up a localized string similar to Budget.
         /// </summary>
-        public static string ExportToCSV {
+        public static string Budget {
             get {
-                return ResourceManager.GetString("ExportToCSV", resourceCulture);
+                return ResourceManager.GetString("Budget", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter.
+        ///   Looks up a localized string similar to Empty docbuilder path.
         /// </summary>
-        public static string Filter {
+        public static string BuildErrorEmptyDocbuilderPath {
             get {
-                return ResourceManager.GetString("Filter", resourceCulture);
+                return ResourceManager.GetString("BuildErrorEmptyDocbuilderPath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate using template.
+        ///   Looks up a localized string similar to Empty docbuilder template.
         /// </summary>
-        public static string GenerateFromTemplate {
+        public static string BuildErrorEmptyDocbuilderTemplate {
             get {
-                return ResourceManager.GetString("GenerateFromTemplate", resourceCulture);
+                return ResourceManager.GetString("BuildErrorEmptyDocbuilderTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred. Empty output file.
+        /// </summary>
+        public static string BuildErrorEmptyOutputFile {
+            get {
+                return ResourceManager.GetString("BuildErrorEmptyOutputFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum number of process is exceeded. Try later.
+        /// </summary>
+        public static string BuildErrorMaxProcessExceeded {
+            get {
+                return ResourceManager.GetString("BuildErrorMaxProcessExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By the budget.
+        /// </summary>
+        public static string ByBudget {
+            get {
+                return ResourceManager.GetString("ByBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By number.
+        /// </summary>
+        public static string ByCount {
+            get {
+                return ResourceManager.GetString("ByCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calls.
+        /// </summary>
+        public static string Calls {
+            get {
+                return ResourceManager.GetString("Calls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calls count.
+        /// </summary>
+        public static string CallsCount {
+            get {
+                return ResourceManager.GetString("CallsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calls duration.
+        /// </summary>
+        public static string CallsDuration {
+            get {
+                return ResourceManager.GetString("CallsDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calls for the period.
+        /// </summary>
+        public static string CallsForThePeriod {
+            get {
+                return ResourceManager.GetString("CallsForThePeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        public static string Closed {
+            get {
+                return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed tasks.
+        /// </summary>
+        public static string ClosedTasks {
+            get {
+                return ResourceManager.GetString("ClosedTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string Complete {
+            get {
+                return ResourceManager.GetString("Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts by temperature level.
+        /// </summary>
+        public static string ContactsByStage {
+            get {
+                return ResourceManager.GetString("ContactsByStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts by type.
+        /// </summary>
+        public static string ContactsByType {
+            get {
+                return ResourceManager.GetString("ContactsByType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With opportunities.
+        /// </summary>
+        public static string ContactsWithDeals {
+            get {
+                return ResourceManager.GetString("ContactsWithDeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Without opportunities.
+        /// </summary>
+        public static string ContactsWithoutDeals {
+            get {
+                return ResourceManager.GetString("ContactsWithoutDeals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conversion.
+        /// </summary>
+        public static string Conversion {
+            get {
+                return ResourceManager.GetString("Conversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count.
+        /// </summary>
+        public static string Count {
+            get {
+                return ResourceManager.GetString("Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        public static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To generate the report the opportunity budget must be brought to the base currency. Setup the used currency exchange rates to do that..
+        /// </summary>
+        public static string CurrencySettingsDialogBody {
+            get {
+                return ResourceManager.GetString("CurrencySettingsDialogBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency Settings.
+        /// </summary>
+        public static string CurrencySettingsDialogHdr {
+            get {
+                return ResourceManager.GetString("CurrencySettingsDialogHdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current month.
+        /// </summary>
+        public static string CurrentMonth {
+            get {
+                return ResourceManager.GetString("CurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current quarter.
+        /// </summary>
+        public static string CurrentQuarter {
+            get {
+                return ResourceManager.GetString("CurrentQuarter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current week.
+        /// </summary>
+        public static string CurrentWeek {
+            get {
+                return ResourceManager.GetString("CurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current year.
+        /// </summary>
+        public static string CurrentYear {
+            get {
+                return ResourceManager.GetString("CurrentYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Budget of opportunities.
+        /// </summary>
+        public static string DealsBudget {
+            get {
+                return ResourceManager.GetString("DealsBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opportunities by budget.
+        /// </summary>
+        public static string DealsByBudget {
+            get {
+                return ResourceManager.GetString("DealsByBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opportunities by number.
+        /// </summary>
+        public static string DealsByCount {
+            get {
+                return ResourceManager.GetString("DealsByCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opportunities by stage.
+        /// </summary>
+        public static string DealsByStage {
+            get {
+                return ResourceManager.GetString("DealsByStage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opportunities by status.
+        /// </summary>
+        public static string DealsByStatus {
+            get {
+                return ResourceManager.GetString("DealsByStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of opportunities.
+        /// </summary>
+        public static string DealsCount {
+            get {
+                return ResourceManager.GetString("DealsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to During all time.
+        /// </summary>
+        public static string DuringAllTime {
+            get {
+                return ResourceManager.GetString("DuringAllTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get docbuilder response.
+        /// </summary>
+        public static string ErrorNullDocbuilderResponse {
+            get {
+                return ResourceManager.GetString("ErrorNullDocbuilderResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get report data.
+        /// </summary>
+        public static string ErrorNullReportData {
+            get {
+                return ResourceManager.GetString("ErrorNullReportData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get report script.
+        /// </summary>
+        public static string ErrorNullReportScript {
+            get {
+                return ResourceManager.GetString("ErrorNullReportScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated reports.
+        /// </summary>
+        public static string GeneratedReports {
+            get {
+                return ResourceManager.GetString("GeneratedReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All your generated reports are displayed here. You can edit, delete or download the report files. To create a report, select a template from the list to the left, set the filters and click the &apos;Generate&apos; button..
+        /// </summary>
+        public static string GeneratedReportsDescription {
+            get {
+                return ResourceManager.GetString("GeneratedReportsDescription", resourceCulture);
             }
         }
         
@@ -133,6 +484,69 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If all opportunities won.
+        /// </summary>
+        public static string IfAllOpportunitiesWon {
+            get {
+                return ResourceManager.GetString("IfAllOpportunitiesWon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming.
+        /// </summary>
+        public static string Incoming {
+            get {
+                return ResourceManager.GetString("Incoming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoices by status.
+        /// </summary>
+        public static string InvoicesByStatus {
+            get {
+                return ResourceManager.GetString("InvoicesByStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoices for the period.
+        /// </summary>
+        public static string InvoicesForThePeriod {
+            get {
+                return ResourceManager.GetString("InvoicesForThePeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item.
+        /// </summary>
+        public static string Item {
+            get {
+                return ResourceManager.GetString("Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lost.
+        /// </summary>
+        public static string Lost {
+            get {
+                return ResourceManager.GetString("Lost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manager.
+        /// </summary>
+        public static string Manager {
+            get {
+                return ResourceManager.GetString("Manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Managers.
         /// </summary>
         public static string Managers {
@@ -142,209 +556,490 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Print report.
+        ///   Looks up a localized string similar to of which {0} are unanswered.
         /// </summary>
-        public static string PrintReport {
+        public static string MissedCount {
             get {
-                return ResourceManager.GetString("PrintReport", resourceCulture);
+                return ResourceManager.GetString("MissedCount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Month.
         /// </summary>
-        public static string Report_ContactPopulate_Description {
+        public static string Month {
             get {
-                return ResourceManager.GetString("Report_ContactPopulate_Description", resourceCulture);
+                return ResourceManager.GetString("Month", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Will close in the next 30 days.
         /// </summary>
-        public static string Report_ContactPopulate_Title {
+        public static string Near {
             get {
-                return ResourceManager.GetString("Report_ContactPopulate_Title", resourceCulture);
+                return ResourceManager.GetString("Near", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesByClient_Description.
+        ///   Looks up a localized string similar to New.
         /// </summary>
-        public static string Report_SalesByContact_Description {
+        public static string New {
             get {
-                return ResourceManager.GetString("Report_SalesByContact_Description", resourceCulture);
+                return ResourceManager.GetString("New", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Sales forecast by contacts&quot; report.
+        ///   Looks up a localized string similar to New contacts.
         /// </summary>
-        public static string Report_SalesByContact_Title {
+        public static string NewContacts {
             get {
-                return ResourceManager.GetString("Report_SalesByContact_Title", resourceCulture);
+                return ResourceManager.GetString("NewContacts", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesByManager_Description.
+        ///   Looks up a localized string similar to New contacts with and without opportunities.
         /// </summary>
-        public static string Report_SalesByManager_Description {
+        public static string NewContactsWithAndWithoutDeals {
             get {
-                return ResourceManager.GetString("Report_SalesByManager_Description", resourceCulture);
+                return ResourceManager.GetString("NewContactsWithAndWithoutDeals", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesByManager_Title.
+        ///   Looks up a localized string similar to New tasks.
         /// </summary>
-        public static string Report_SalesByManager_Title {
+        public static string NewTasks {
             get {
-                return ResourceManager.GetString("Report_SalesByManager_Title", resourceCulture);
+                return ResourceManager.GetString("NewTasks", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesByMonth_Description.
+        ///   Looks up a localized string similar to Next month.
         /// </summary>
-        public static string Report_SalesByMonth_Description {
+        public static string NextMonth {
             get {
-                return ResourceManager.GetString("Report_SalesByMonth_Description", resourceCulture);
+                return ResourceManager.GetString("NextMonth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesByMonth_Title.
+        ///   Looks up a localized string similar to Next quarter.
         /// </summary>
-        public static string Report_SalesByMonth_Title {
+        public static string NextQuarter {
             get {
-                return ResourceManager.GetString("Report_SalesByMonth_Title", resourceCulture);
+                return ResourceManager.GetString("NextQuarter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_PipelineByMilestone_Description.
+        ///   Looks up a localized string similar to Next week.
         /// </summary>
-        public static string Report_SalesByStage_Description {
+        public static string NextWeek {
             get {
-                return ResourceManager.GetString("Report_SalesByStage_Description", resourceCulture);
+                return ResourceManager.GetString("NextWeek", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Sales funnel&quot; report.
+        ///   Looks up a localized string similar to Next year.
         /// </summary>
-        public static string Report_SalesByStage_Title {
+        public static string NextYear {
             get {
-                return ResourceManager.GetString("Report_SalesByStage_Title", resourceCulture);
+                return ResourceManager.GetString("NextYear", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesForecastByClient_Description.
+        ///   Looks up a localized string similar to No data for the report. Select another filter..
         /// </summary>
-        public static string Report_SalesForecastByClient_Description {
+        public static string NoData {
             get {
-                return ResourceManager.GetString("Report_SalesForecastByClient_Description", resourceCulture);
+                return ResourceManager.GetString("NoData", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesForecastByClient_Title.
+        ///   Looks up a localized string similar to Open.
         /// </summary>
-        public static string Report_SalesForecastByClient_Title {
+        public static string Open {
             get {
-                return ResourceManager.GetString("Report_SalesForecastByClient_Title", resourceCulture);
+                return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesForecastByManager_Description.
+        ///   Looks up a localized string similar to Opened.
         /// </summary>
-        public static string Report_SalesForecastByManager_Description {
+        public static string Opened {
             get {
-                return ResourceManager.GetString("Report_SalesForecastByManager_Description", resourceCulture);
+                return ResourceManager.GetString("Opened", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesForecastByManager_Title.
+        ///   Looks up a localized string similar to Outcoming.
         /// </summary>
-        public static string Report_SalesForecastByManager_Title {
+        public static string Outcoming {
             get {
-                return ResourceManager.GetString("Report_SalesForecastByManager_Title", resourceCulture);
+                return ResourceManager.GetString("Outcoming", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report_SalesForecastByMonth_Description.
+        ///   Looks up a localized string similar to Overdue.
         /// </summary>
-        public static string Report_SalesForecastByMonth_Description {
+        public static string Overdue {
             get {
-                return ResourceManager.GetString("Report_SalesForecastByMonth_Description", resourceCulture);
+                return ResourceManager.GetString("Overdue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Monthly sales forecast&quot; report.
+        ///   Looks up a localized string similar to Overdue tasks.
         /// </summary>
-        public static string Report_SalesForecastByMonth_Title {
+        public static string OverdueTasks {
             get {
-                return ResourceManager.GetString("Report_SalesForecastByMonth_Title", resourceCulture);
+                return ResourceManager.GetString("OverdueTasks", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Paid.
         /// </summary>
-        public static string Report_UserTasks_Description {
+        public static string Paid {
             get {
-                return ResourceManager.GetString("Report_UserTasks_Description", resourceCulture);
+                return ResourceManager.GetString("Paid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Previous month.
         /// </summary>
-        public static string Report_UserTasks_Title {
+        public static string PreviousMonth {
             get {
-                return ResourceManager.GetString("Report_UserTasks_Title", resourceCulture);
+                return ResourceManager.GetString("PreviousMonth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Previous quarter.
         /// </summary>
-        public static string Report_WorkLoad_Description {
+        public static string PreviousQuarter {
             get {
-                return ResourceManager.GetString("Report_WorkLoad_Description", resourceCulture);
+                return ResourceManager.GetString("PreviousQuarter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Previous week.
         /// </summary>
-        public static string Report_WorkLoad_Title {
+        public static string PreviousWeek {
             get {
-                return ResourceManager.GetString("Report_WorkLoad_Title", resourceCulture);
+                return ResourceManager.GetString("PreviousWeek", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save as template.
+        ///   Looks up a localized string similar to Previous year.
         /// </summary>
-        public static string SaveAsTemplate {
+        public static string PreviousYear {
             get {
-                return ResourceManager.GetString("SaveAsTemplate", resourceCulture);
+                return ResourceManager.GetString("PreviousYear", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tag name.
+        ///   Looks up a localized string similar to Rejected.
         /// </summary>
-        public static string TagName {
+        public static string Rejected {
             get {
-                return ResourceManager.GetString("TagName", resourceCulture);
+                return ResourceManager.GetString("Rejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report building.
+        /// </summary>
+        public static string ReportBuilding {
+            get {
+                return ResourceManager.GetString("ReportBuilding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All generated reports can always see, download, edit, or delete them in {0}CRM/Reports/Generated reports{1}.
+        /// </summary>
+        public static string ReportBuildingInfo {
+            get {
+                return ResourceManager.GetString("ReportBuildingInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report building ({0}% complete).
+        /// </summary>
+        public static string ReportBuildingProgress {
+            get {
+                return ResourceManager.GetString("ReportBuildingProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales by the day, by the managers.
+        /// </summary>
+        public static string SalesByDay {
+            get {
+                return ResourceManager.GetString("SalesByDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales by the hour, by the managers.
+        /// </summary>
+        public static string SalesByHour {
+            get {
+                return ResourceManager.GetString("SalesByHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales By Managers.
+        /// </summary>
+        public static string SalesByManagersReport {
+            get {
+                return ResourceManager.GetString("SalesByManagersReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the successfully closed opportunities for the selected {1}Time period{2} for all the managers or only the selected ones.{0} When the week or month period is selected, the report shows the results grouped by days, the quarter and year periods will group the data by months..
+        /// </summary>
+        public static string SalesByManagersReportDescription {
+            get {
+                return ResourceManager.GetString("SalesByManagersReportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales by the month, by the managers.
+        /// </summary>
+        public static string SalesByMonth {
+            get {
+                return ResourceManager.GetString("SalesByMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales Forecast.
+        /// </summary>
+        public static string SalesForecastReport {
+            get {
+                return ResourceManager.GetString("SalesForecastReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the sales forecast for a particular period of time, taking into account the opportunity probability. It shows the number of opportunities for the selected {1}Time period{2} for all the managers or only the selected ones.{0} The data includes the total budget for the opportunities, which estimated closing date falls into the selected period of time..
+        /// </summary>
+        public static string SalesForecastReportDescription {
+            get {
+                return ResourceManager.GetString("SalesForecastReportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales funnel by budget of opportunities.
+        /// </summary>
+        public static string SalesFunnelByBudget {
+            get {
+                return ResourceManager.GetString("SalesFunnelByBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales funnel by number of opportunities.
+        /// </summary>
+        public static string SalesFunnelByCount {
+            get {
+                return ResourceManager.GetString("SalesFunnelByCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales Funnel.
+        /// </summary>
+        public static string SalesFunnelReport {
+            get {
+                return ResourceManager.GetString("SalesFunnelReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended for building sales funnel for a particular period of time. It shows the number of opportunities for the selected {1}Time period{2} for all the managers or only the selected ones.
+        ///{0} The main data includes the number of opportunities in the funnel, average opportunity budget, average duration of successfully closed opportunities, the ratio of open to closed opportunities.
+        ///{0} The data is sorted by the opportunity number and budget..
+        /// </summary>
+        public static string SalesFunnelReportDescription {
+            get {
+                return ResourceManager.GetString("SalesFunnelReportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stage.
+        /// </summary>
+        public static string Stage {
+            get {
+                return ResourceManager.GetString("Stage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sum.
+        /// </summary>
+        public static string Sum {
+            get {
+                return ResourceManager.GetString("Sum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the summary data for the opportunities, contacts, tasks and invoices by the selected {1}Time period{2} for all the managers or only the selected ones. The report will show the opportunities specified by the status and by their stage, contacts by type and stage, tasks and invoices by their status..
+        /// </summary>
+        public static string SummaryAtThisMomentDescription {
+            get {
+                return ResourceManager.GetString("SummaryAtThisMomentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary for the Moment.
+        /// </summary>
+        public static string SummaryAtThisMomentReport {
+            get {
+                return ResourceManager.GetString("SummaryAtThisMomentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary for the Period.
+        /// </summary>
+        public static string SummaryForThePeriodReport {
+            get {
+                return ResourceManager.GetString("SummaryForThePeriodReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the summary data for the opportunities, contacts, tasks and invoices for the selected {1}Time period{2} for all the managers or only the selected ones. The report will show the opportunities specified by the budget and by their number, contacts by type, tasks and invoices by the time period..
+        /// </summary>
+        public static string SummaryForThePeriodReportDescription {
+            get {
+                return ResourceManager.GetString("SummaryForThePeriodReportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks by status.
+        /// </summary>
+        public static string TasksByStatus {
+            get {
+                return ResourceManager.GetString("TasksByStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks for the period.
+        /// </summary>
+        public static string TasksForThePeriod {
+            get {
+                return ResourceManager.GetString("TasksForThePeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time period.
+        /// </summary>
+        public static string TimePeriod {
+            get {
+                return ResourceManager.GetString("TimePeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tomorrow.
+        /// </summary>
+        public static string Tomorrow {
+            get {
+                return ResourceManager.GetString("Tomorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The total budget of opportunities.
+        /// </summary>
+        public static string TotalDealsBudget {
+            get {
+                return ResourceManager.GetString("TotalDealsBudget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The total number of opportunities.
+        /// </summary>
+        public static string TotalDealsCount {
+            get {
+                return ResourceManager.GetString("TotalDealsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total sales for the period by managers.
+        /// </summary>
+        public static string TotalSalesByManagers {
+            get {
+                return ResourceManager.GetString("TotalSalesByManagers", resourceCulture);
             }
         }
         
@@ -358,20 +1053,128 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use template.
+        ///   Looks up a localized string similar to With respect to probability.
         /// </summary>
-        public static string UseTemplate {
+        public static string WithRespectToProbability {
             get {
-                return ResourceManager.GetString("UseTemplate", resourceCulture);
+                return ResourceManager.GetString("WithRespectToProbability", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show report information.
+        ///   Looks up a localized string similar to Won.
         /// </summary>
-        public static string ViewInfo {
+        public static string Won {
             get {
-                return ResourceManager.GetString("ViewInfo", resourceCulture);
+                return ResourceManager.GetString("Won", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the total number of contacts for the selected {1}Time period{2} for all the managers or only the selected ones. The report will show the new contacts specified by type and by the presence and absence of opportunities. The data is grouped by managers only..
+        /// </summary>
+        public static string WorkloadByContactsDescription {
+            get {
+                return ResourceManager.GetString("WorkloadByContactsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts by Managers.
+        /// </summary>
+        public static string WorkloadByContactsReport {
+            get {
+                return ResourceManager.GetString("WorkloadByContactsReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the total workload of won and lost opportunities for the selected {1}Time period{2} for all the managers or only the selected ones. The data is grouped by managers only..
+        /// </summary>
+        public static string WorkloadByDealsDescription {
+            get {
+                return ResourceManager.GetString("WorkloadByDealsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opportunities by Managers.
+        /// </summary>
+        public static string WorkloadByDealsReport {
+            get {
+                return ResourceManager.GetString("WorkloadByDealsReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the total number of invoices for the selected {1}Time period{2} for all the managers or only the selected ones. The report will show the total number of sent invoices as well as number of paid, rejected and overdue invoices. The data is grouped by managers only..
+        /// </summary>
+        public static string WorkloadByInvoicesDescription {
+            get {
+                return ResourceManager.GetString("WorkloadByInvoicesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoices by Managers.
+        /// </summary>
+        public static string WorkloadByInvoicesReport {
+            get {
+                return ResourceManager.GetString("WorkloadByInvoicesReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the total number of tasks for the selected {1}Time period{2} for all the managers or only the selected ones. The report will show the closed, new and overdue tasks specified by type. The data is grouped by managers only..
+        /// </summary>
+        public static string WorkloadByTasksDescription {
+            get {
+                return ResourceManager.GetString("WorkloadByTasksDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks by Managers.
+        /// </summary>
+        public static string WorkloadByTasksReport {
+            get {
+                return ResourceManager.GetString("WorkloadByTasksReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report is intended to show the total number of calls for the selected {1}Time period{2} for all the managers or only the selected ones. The report will show the total number of incoming, outcoming calls and theirs duration. The data is grouped by managers only..
+        /// </summary>
+        public static string WorkloadByVoipDescription {
+            get {
+                return ResourceManager.GetString("WorkloadByVoipDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please note that this report will only be available if you connect Twillio. To connect, follow the {0}link{1}.
+        /// </summary>
+        public static string WorkloadByVoipNotAllowed {
+            get {
+                return ResourceManager.GetString("WorkloadByVoipNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voip by Managers.
+        /// </summary>
+        public static string WorkloadByVoipReport {
+            get {
+                return ResourceManager.GetString("WorkloadByVoipReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }

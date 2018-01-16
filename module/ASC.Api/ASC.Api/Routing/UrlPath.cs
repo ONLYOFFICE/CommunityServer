@@ -32,7 +32,7 @@ using System.Reflection;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
 using ASC.Common.Web;
-using Microsoft.Practices.ServiceLocation;
+using Autofac;
 
 namespace ASC.Api.Routing
 {
@@ -40,12 +40,12 @@ namespace ASC.Api.Routing
     {
         public static string ResolveUrl(Expression<Action> functionToCall)
         {
-            return Resolve(functionToCall, (method, args) => ServiceLocator.Current.GetInstance<IApiRouteConfigurator>().ResolveRoute(method, args).Url);
+            return Resolve(functionToCall, (method, args) => ApiSetup.Builder.Resolve<IApiRouteConfigurator>().ResolveRoute(method, args).Url);
         }
 
         public static RouteCallInfo ResolveRouteCall(Expression<Action> functionToCall)
         {
-            return Resolve(functionToCall, (method, args) => ServiceLocator.Current.GetInstance<IApiRouteConfigurator>().ResolveRoute(method, args));
+            return Resolve(functionToCall, (method, args) => ApiSetup.Builder.Resolve<IApiRouteConfigurator>().ResolveRoute(method, args));
         }
 
         private static T Resolve<T>(Expression<Action> functionToCall, Func<MethodInfo, Dictionary<string, object>, T> resolver)

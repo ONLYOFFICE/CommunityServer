@@ -1,0 +1,163 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+@import "base.less";
+
+.mainPageTable .reports-menu-container {
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 16px 24px;
+    width: 208px;
+    background-color: #F2F2F2;
+
+    .reports-category {
+        font-size: 14px;
+        line-height: 24px;
+        display: inline-block;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        margin-left: 8px;
+
+        li {
+            padding: 4px 0 5px;
+        }
+    }
+
+    .menu-report-name {
+        color: #333;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &.active, &.active:hover {
+            color: #116D9D;
+            cursor: default;
+            text-decoration: none;
+        }
+    }
+}
+
+.mainPageTable .reports-content-container {
+    padding-top: 12px;
+
+    .combobox-wrapper, .combobox-container {
+        right: auto;
+        left: 0;
+    }
+}
+
+#currencyRatesDialog .content {
+    max-height: 200px;
+    margin-top: 16px;
+    overflow-y: auto;
+}
+
+#reportProgressDialog {
+
+    .reports-container {
+        max-height: 240px;
+        padding: 16px 0;
+        overflow-y: auto;
+    }
+
+    .rp-width-icon {
+        width: 30px;
+    }
+
+    .rp-width-progress {
+        width: 110px;
+    }
+
+    .rp-width-action {
+        width: 90px;
+    }
+
+    .rp-action-cell {
+        text-align: center;
+        width: 80px;
+    }
+
+    .rp-progress-cell {
+        text-align: center;
+        width: 100px;
+    }
+
+    .rp-title-cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 190px;
+    }
+
+    progress, .asc-progress-wrapper {
+        float: left;
+        width: 100px;
+    }
+
+    .progress-label {
+        color: #FFFFFF;
+        float: left;
+        font-size: 10px;
+        margin-left: -100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100px;
+    }
+
+    .rp-row.started .progress-complete,
+    .rp-row.started .progress-error,
+    .rp-row.started .rp-action-cell {
+        display: none;
+    }
+
+    .rp-row.done progress,
+    .rp-row.done .asc-progress-wrapper,
+    .rp-row.done .progress-label,
+    .rp-row.done .progress-error {
+        display: none;
+    }
+
+    .rp-row.error progress,
+    .rp-row.error .asc-progress-wrapper,
+    .rp-row.error .progress-label,
+    .rp-row.error .progress-complete,
+    .rp-row.error .rp-action-cell {
+        display: none;
+    }
+
+    .rp-row:hover .linkMedium {
+        text-decoration: underline;
+    }
+}

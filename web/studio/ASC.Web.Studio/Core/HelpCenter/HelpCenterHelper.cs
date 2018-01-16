@@ -56,8 +56,12 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
             var storage = new BaseHelpCenterStorage<VideoGuideData>(HttpContext.Current.Server.MapPath("~/"),"videoguide.html", "videoguide");
             var storageData = storage.GetData(url, "/video.aspx", CommonLinkUtility.GetHelpLink(false));
-
-            return storageData == null ? new List<VideoGuideItem>() : storageData.ListItems;
+            var result = new List<VideoGuideItem>();
+            if (storageData != null)
+            {
+                result.AddRange(storageData.ListItems);
+            }
+            return result;
         }
 
 

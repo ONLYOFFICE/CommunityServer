@@ -69,7 +69,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var continueUrl = CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalContinue);
             StudioNotifyService.Instance.SendMsgPortalDeactivation(tenant, suspendUrl, continueUrl);
 
-            MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentPortalDeactivationInstructions, owner.DisplayUserName(false));
+            MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentPortalDeactivationInstructions, MessageTarget.Create(owner.ID), owner.DisplayUserName(false));
 
             var emailLink = string.Format("<a href=\"mailto:{0}\">{0}</a>", owner.Email);
             return Resource.AccountDeactivationMsg.Replace(":email", emailLink);
@@ -89,7 +89,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             StudioNotifyService.Instance.SendMsgPortalDeletion(tenant, CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalRemove), showAutoRenewText);
 
-            MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentPortalDeleteInstructions, owner.DisplayUserName(false));
+            MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentPortalDeleteInstructions, MessageTarget.Create(owner.ID), owner.DisplayUserName(false));
 
             var emailLink = string.Format("<a href=\"mailto:{0}\">{0}</a>", owner.Email);
             return Resource.AccountDeletionMsg.Replace(":email", emailLink);

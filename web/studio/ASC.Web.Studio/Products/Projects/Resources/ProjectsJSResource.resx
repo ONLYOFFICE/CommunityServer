@@ -417,4 +417,19 @@
   <data name="OverviewModule" xml:space="preserve">
     <value>Overview</value>
   </data>
+  <data name="Move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="TasksRemoved" xml:space="preserve">
+    <value>Tasks Removed</value>
+  </data>
+  <data name="TimesRemoved" xml:space="preserve">
+    <value>Times Removed</value>
+  </data>
+  <data name="TasksUpdated" xml:space="preserve">
+    <value>Tasks Updated</value>
+  </data>
+  <data name="MilestonesRemoved" xml:space="preserve">
+    <value>Milestones Removed</value>
+  </data>
 </root>

@@ -31,34 +31,34 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web.Routing;
+
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Impl.Constraints;
 using ASC.Api.Interfaces;
 using ASC.Api.Logging;
-using ASC.Api.Utils;
 using ASC.Common.Web;
-using Microsoft.Practices.Unity;
+
+using Autofac;
+using Autofac.Core;
 
 namespace ASC.Api.Impl
 {
     class ApiRouteConfigurator : IApiRouteConfigurator
     {
-        [Dependency]
-        public IUnityContainer Container { get; set; }
+        public IComponentContext Container { get; set; }
 
-        [Dependency]
         public IApiConfiguration Config { get; set; }
 
-        [Dependency]
         public ILog Log { get; set; }
 
-        public void RegisterEntryPoints()
+        public IEnumerable<IApiMethodCall> RegisterEntryPoints()
         {
             Log.Debug("configuring entry points");
             var routeMap = new List<IApiMethodCall>();
             var apiBasePathPath = Config.GetBasePath();
-            var registrations = Container.Registrations.Where(x => x.RegisteredType == typeof (IApiEntryPoint)).ToList();
+            var registrations = Container.ComponentRegistry.Registrations
+                .Where(x => typeof(IApiEntryPoint).IsAssignableFrom(x.Activator.LimitType)).ToList();
             //Register instances
             foreach (var apiMethodCall in registrations.Select(RouteEntryPoint).SelectMany(routePaths => routePaths.Cast<ApiMethodCall>()))
             {
@@ -70,22 +70,21 @@ namespace ASC.Api.Impl
                 Log.Debug("configured {0}", apiMethodCall);
                 routeMap.Add(apiMethodCall);
             }
-            //Register instance to container
-            Container.RegisterInstance(typeof (IEnumerable<IApiMethodCall>), routeMap,
-                                       new SingletonLifetimeManager());
+
+            return routeMap;
         }
 
 
-        private IEnumerable<IApiMethodCall> RouteEntryPoint(ContainerRegistration apiEntryPoint)
+        private IEnumerable<IApiMethodCall> RouteEntryPoint(IComponentRegistration apiEntryPoint)
         {
             try
             {
                 //Get all methods
-                var methods = apiEntryPoint.MappedToType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+                var methods = apiEntryPoint.Activator.LimitType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
 
-                var gloabalFilters = apiEntryPoint.MappedToType.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>().ToList();
-                gloabalFilters.AddRange(apiEntryPoint.MappedToType.Assembly.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>());
-                gloabalFilters.AddRange(Container.ResolveAll<ApiCallFilter>()); //Add gloably registered filters
+                var gloabalFilters = apiEntryPoint.Activator.LimitType.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>().ToList();
+                gloabalFilters.AddRange(apiEntryPoint.Activator.LimitType.Assembly.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>());
+                gloabalFilters.AddRange(Container.Resolve<IEnumerable<ApiCallFilter>>()); //Add gloably registered filters
 
                 return (from methodInfo in methods.Where(x => !x.IsConstructor)
                         let attr = methodInfo.GetCustomAttributes(typeof (ApiAttribute), true).Cast<ApiAttribute>().FirstOrDefault()
@@ -96,17 +95,17 @@ namespace ASC.Api.Impl
             }
             catch (Exception err)
             {
-                Log.Error(err, "Could not load apiEntryPoint {0}", apiEntryPoint.Name);
+                Log.Error(err, "Could not load apiEntryPoint {0}", apiEntryPoint.Activator.LimitType);
                 return Enumerable.Empty<IApiMethodCall>();
             }
         }
 
-        private IApiMethodCall ToApiMethodCall(MethodInfo methodInfo, ContainerRegistration apiEntryPointType, ApiAttribute attr, CacheAttribute cache, IEnumerable<ApiCallFilter> filters, List<ApiCallFilter> gloabalFilters)
+        private IApiMethodCall ToApiMethodCall(MethodInfo methodInfo, IComponentRegistration apiEntryPointType, ApiAttribute attr, CacheAttribute cache, IEnumerable<ApiCallFilter> filters, List<ApiCallFilter> gloabalFilters)
         {
             var methodCall = Container.Resolve<IApiMethodCall>();
             methodCall.MethodCall = methodInfo;
-            methodCall.Name = apiEntryPointType.Name;
-            methodCall.ApiClassType = apiEntryPointType.MappedToType;
+            methodCall.Name = apiEntryPointType.Services.OfType<KeyedService>().First().ServiceKey.ToString();
+            methodCall.ApiClassType = apiEntryPointType.Activator.LimitType;
             methodCall.HttpMethod = attr.Method;
             methodCall.RoutingUrl = ExtractPath(attr.Path);
             methodCall.CacheTime = cache != null ? cache.CacheTime : 0;

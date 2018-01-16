@@ -33,19 +33,22 @@ namespace ASC.CRM.Core.Entities
     public class ListItem : DomainObject
     {
         [DataMember(Name = "title")]
-        public String Title { get; set; }
+        public string Title { get; set; }
 
         [DataMember(Name = "description")]
-        public String Description { get; set; }
+        public string Description { get; set; }
 
         [DataMember(Name = "color")]
-        public String Color { get; set; }
+        public string Color { get; set; }
 
         [DataMember(Name = "sort_order")]
         public int SortOrder { get; set; }
 
         [DataMember(Name = "additional_params")]
-        public String AdditionalParams { get; set; }
+        public string AdditionalParams { get; set; }
+
+        [DataMember(Name = "list_type")]
+        public ListType? ListType { get; set; }
 
 
         public ListItem()

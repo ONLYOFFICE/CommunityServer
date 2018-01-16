@@ -42,6 +42,7 @@ ASC.People.PeopleController = (function() {
     var _selectedStatus = 1;
     var _tenantQuota = {};
 
+    var pageNavigator;
 
     function showLoader() {
         LoadingBanner.displayLoading();
@@ -325,21 +326,12 @@ ASC.People.PeopleController = (function() {
                     if (currentAnchorObj == null && (Teamlab.profile.isAdmin || window.ASC.Resources.Master.IsProductAdmin)) {
                         //check if active users exist
                         var needActiveFilterAsDefault = false;
-                        if (typeof (ASC) !== "undefined" &&
-                            ASC.hasOwnProperty("Resources") &&
-                            ASC.Resources.hasOwnProperty("Master") &&
-                            ASC.Resources.Master.hasOwnProperty("ApiResponses_Profiles") &&
-                            ASC.Resources.Master.ApiResponses_Profiles.hasOwnProperty("response") &&
-                            ASC.Resources.Master.ApiResponses_Profiles.response.length != 0) {
-                            var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-                            for (var i = 0, n = users.length; i < n; i++) {
-                                if (users[i].isActivated === true && users[i].isOwner === false) {
-                                    needActiveFilterAsDefault = true;
-                                    break;
-                                }
+                        var users = ASC.Resources.Master.ApiResponses_ActiveProfiles.response;
+                        for (var i = 0, n = users.length; i < n; i++) {
+                            if (users[i].isActivated === true && users[i].isOwner === false) {
+                                needActiveFilterAsDefault = true;
+                                break;
                             }
-                        } else {
-                            needActiveFilterAsDefault = true;
                         }
 
                         if (needActiveFilterAsDefault) {
@@ -359,7 +351,8 @@ ASC.People.PeopleController = (function() {
             ASC.Controls.AnchorController.safemove(newAnchor);
             currentAnchor = newAnchor;
         }
-        window.peoplePageNavigator.CurrentPageNumber = 1;
+
+        pageNavigator.CurrentPageNumber = 1;
         setPaginationCookie(1, "pageOfProfilesList");
         searchQuery();
         jq(window).trigger('change-group', [jq.getAnchorParam("group") || null]);
@@ -422,6 +415,7 @@ ASC.People.PeopleController = (function() {
         var $person = jq("#user_" + personId),
             email = $person.attr("data-email"),
             username = $person.attr("data-username"),
+            displayname = $person.attr("data-displayname"),
             status = $person.attr("data-status"),
             isOwner = $person.attr("data-isOwner"),
             isVisitor = $person.attr("data-isVisitor"),
@@ -471,12 +465,15 @@ ASC.People.PeopleController = (function() {
             else if (jq(this).hasClass("enable-profile")) {
                 changeUserStatusAction(personId, 1, isVisitor);
             }
+            else if (jq(this).hasClass("reassign-data")) {
+                window.location.replace("reassigns.aspx?user=" + encodeURIComponent(username));
+            }
             else if (jq(this).hasClass("delete-profile")) {
                 if (personId == Teamlab.profile.id) {
                     jq("#studio_deleteProfileDialog").find(".email").attr("href", "../../addons/mail/#composeto/email=" + email).html(email);
                     StudioBlockUIManager.blockUI("#studio_deleteProfileDialog", 400, 300, 0);
                 } else {
-                    ProfileManager.RemoveUser(personId, $person.attr("data-displayname"), function (result) { window.location.reload(true); });
+                    ProfileManager.RemoveUser(personId, displayname, username);
                 }
             }
         });
@@ -560,8 +557,18 @@ ASC.People.PeopleController = (function() {
             jq.tmpl("template-blockUIPanel", {
                 id: "deleteUsersDialog",
                 headerTest: ASC.People.Resources.PeopleResource.DeleteUserProfiles,
-                innerHtmlText: ["<div>",
-                                    ASC.People.Resources.PeopleResource.DeleteUsersDescription,
+                innerHtmlText: [
+                                "<div class=\"confirmationAction\">",
+                                    ASC.People.Resources.PeopleResource.DeleteUsersDescriptionText,
+                                "</div>",
+                                "<div>",
+                                    ASC.People.Resources.NotBeUndone,
+                                "</div>",
+                                "<div class=\"warning-header red-text\">",
+                                    ASC.People.Resources.Warning,
+                                "</div>",
+                                "<div class=\"confirmationAction\">",
+                                    ASC.People.Resources.PeopleResource.DeleteUsersDataConfirmation,
                                 "</div>",
                                 "<a class=\"link dotline showBtn\">",
                                     ASC.People.Resources.PeopleResource.ShowSelectedUserList,
@@ -610,7 +617,7 @@ ASC.People.PeopleController = (function() {
         jq.tmpl("template-emptyScreen",
             {
                 ID: "emptyContentForPeopleFilter",
-                ImgSrc: window.emptyScreenPeopleFilter,
+                ImgSrc: ASC.People.Data.emptyScreenPeopleFilter,
                 Header: ASC.People.Resources.PeopleResource.NotFoundTitle,
                 Describe: ASC.People.Resources.PeopleResource.NotFoundDescription,
                 ButtonHTML: ["<a class='clearFilterButton link dotline' href='javascript:void(0);'",
@@ -627,6 +634,8 @@ ASC.People.PeopleController = (function() {
             return undefined;
         }
         isInit = true;
+
+        pageNavigator = ASC.People.PageNavigator.pgNavigator;
 
         showFirstLoader();
         renderEmptyScreen();
@@ -674,7 +683,7 @@ ASC.People.PeopleController = (function() {
     };
 
     var setFilter = function (evt, $container, filter, filterparams, filters) {
-        window.peoplePageNavigator.CurrentPageNumber = 1;
+        pageNavigator.CurrentPageNumber = 1;
         setPaginationCookie(1, "pageOfProfilesList");
 
         deselectAll();
@@ -696,7 +705,7 @@ ASC.People.PeopleController = (function() {
     };
 
     var resetFilter = function (evt, $container, filter, filters) {
-        window.peoplePageNavigator.CurrentPageNumber = 1;
+        pageNavigator.CurrentPageNumber = 1;
         setPaginationCookie(1, "pageOfProfilesList");
         deselectAll();
         var 
@@ -717,15 +726,15 @@ ASC.People.PeopleController = (function() {
     function searchQuery() {
         var cookieCount = jq.cookies.get("countOfProfilesList");
         if (cookieCount) {
-            window.peoplePageNavigator.EntryCountOnPage = cookieCount.key;
+            pageNavigator.EntryCountOnPage = cookieCount.key;
         }
         cookieCount = jq.cookies.get("pageOfProfilesList");
         if (cookieCount) {
-            window.peoplePageNavigator.CurrentPageNumber = cookieCount.key;
+            pageNavigator.CurrentPageNumber = cookieCount.key;
         }
         var 
-            pageCount = window.peoplePageNavigator.EntryCountOnPage,
-            page = window.peoplePageNavigator.CurrentPageNumber,
+            pageCount = pageNavigator.EntryCountOnPage,
+            page = pageNavigator.CurrentPageNumber,
             type = jq.getAnchorParam("type") || null,
             status = jq.getAnchorParam("status") || null,
             groupId = jq.getAnchorParam("group") || null,
@@ -782,7 +791,7 @@ ASC.People.PeopleController = (function() {
 
 
     var resetAllFilters = function () {
-        window.peoplePageNavigator.CurrentPageNumber = 1;
+        pageNavigator.CurrentPageNumber = 1;
         setPaginationCookie(1, "pageOfProfilesList");
         deselectAll();
         currentAnchor = jq.removeParam('query', currentAnchor);
@@ -790,7 +799,7 @@ ASC.People.PeopleController = (function() {
     };
 
     var moveToPage = function(page) {
-        window.peoplePageNavigator.CurrentPageNumber = page;
+        pageNavigator.CurrentPageNumber = page;
         setPaginationCookie(page, "pageOfProfilesList");
         searchQuery();
     };
@@ -800,7 +809,7 @@ ASC.People.PeopleController = (function() {
             return;
         }
         var newCountOfRows = newValue * 1;
-        window.peoplePageNavigator.EntryCountOnPage = newCountOfRows;
+        pageNavigator.EntryCountOnPage = newCountOfRows;
         setPaginationCookie(newCountOfRows, "countOfProfilesList");
         ASC.People.PeopleController.moveToPage("1");
     };
@@ -1110,7 +1119,9 @@ ASC.People.PeopleController = (function() {
 
             if (jq("#changeTypeDialogTariff").length) {
                 jq("#changeTypeDialogTariff").show();
-                jq("#changeTypeDialogOk").removeClass("blue").addClass("gray");
+                if (jq("#changeTypeDialogTariff~#changeTypeDialogOk").length) {
+                    jq("#changeTypeDialogOk").removeClass("blue").addClass("gray");
+                }
             }
 
             //GET QUOTA & SET TO INTERFACE
@@ -1199,7 +1210,7 @@ ASC.People.PeopleController = (function() {
         jq("#changeStatusPanel").hide();
         var status = parseInt(jq(obj).attr("data-status"));
         initChangeStatusDialog(status);
-        StudioBlockUIManager.blockUI("#changeStatusDialog", 500, 220, 0);
+        StudioBlockUIManager.blockUI("#changeStatusDialog", 650, 300, 0);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#changeStatusOkBtn\").click();";
     };
@@ -1225,7 +1236,9 @@ ASC.People.PeopleController = (function() {
 
             if (jq("#changeStatusTariff").length) {
                 jq("#changeStatusTariff").show();
-                jq("#changeStatusOkBtn").removeClass("blue").addClass("gray");
+                if (jq("#changeStatusTariff~#changeStatusOkBtn").length) {
+                    jq("#changeStatusOkBtn").removeClass("blue").addClass("gray");
+                }
             }
 
             //GET QUOTA & SET TO INTERFACE

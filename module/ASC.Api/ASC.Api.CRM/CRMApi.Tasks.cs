@@ -208,9 +208,9 @@ namespace ASC.Api.CRM
             DaoFactory.GetTaskDao().OpenTask(taskid);
 
             var task = DaoFactory.GetTaskDao().GetByID(taskid);
-            MessageService.Send(Request, MessageAction.CrmTaskOpened, task.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskOpened, MessageTarget.Create(task.ID), task.Title);
 
-            return ToTaskWrapper(DaoFactory.GetTaskDao().GetByID(taskid));
+            return ToTaskWrapper(task);
         }
 
         /// <summary>
@@ -231,9 +231,9 @@ namespace ASC.Api.CRM
             DaoFactory.GetTaskDao().CloseTask(taskid);
 
             var task = DaoFactory.GetTaskDao().GetByID(taskid);
-            MessageService.Send(Request, MessageAction.CrmTaskClosed, task.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskClosed, MessageTarget.Create(task.ID), task.Title);
 
-            return ToTaskWrapper(DaoFactory.GetTaskDao().GetByID(taskid));
+            return ToTaskWrapper(task);
         }
 
         /// <summary>
@@ -252,15 +252,13 @@ namespace ASC.Api.CRM
         {
             if (taskid <= 0) throw new ArgumentException();
 
-            var taskObj = DaoFactory.GetTaskDao().GetByID(taskid);
-            if (taskObj == null) throw new ItemNotFoundException();
-
-            var taskWrapper = ToTaskWrapper(taskObj);
+            var task = DaoFactory.GetTaskDao().GetByID(taskid);
+            if (task == null) throw new ItemNotFoundException();
 
             DaoFactory.GetTaskDao().DeleteTask(taskid);
-            MessageService.Send(Request, MessageAction.CrmTaskDeleted, taskWrapper.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskDeleted, MessageTarget.Create(task.ID), task.Title);
 
-            return taskWrapper;
+            return ToTaskWrapper(task);
         }
 
         /// <summary>
@@ -348,7 +346,7 @@ namespace ASC.Api.CRM
                 NotifyClient.Instance.SendAboutResponsibleByTask(task, listItem.Title, taskContact, taskCase, taskDeal, null);
             }
 
-            MessageService.Send(Request, MessageAction.CrmTaskCreated, task.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskCreated, MessageTarget.Create(task.ID), task.Title);
 
             return ToTaskWrapper(task);
         }
@@ -457,7 +455,7 @@ namespace ASC.Api.CRM
             {
                 var contacts = DaoFactory.GetContactDao().GetContacts(contactId);
                 var task = tasks.First();
-                MessageService.Send(Request, MessageAction.ContactsCreatedCrmTasks, contacts.Select(x => x.GetTitle()), task.Title);
+                MessageService.Send(Request, MessageAction.ContactsCreatedCrmTasks, MessageTarget.Create(tasks.Select(x => x.ID)), contacts.Select(x => x.GetTitle()), task.Title);
             }
             
             return ToTaskListWrapper(tasks);
@@ -548,9 +546,35 @@ namespace ASC.Api.CRM
                 NotifyClient.Instance.SendAboutResponsibleByTask(task, listItem.Title, taskContact, taskCase, taskDeal, null);
             }
 
-            MessageService.Send(Request, MessageAction.CrmTaskUpdated, task.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskUpdated, MessageTarget.Create(task.ID), task.Title);
 
             return ToTaskWrapper(task);
+        }
+
+        /// <visible>false</visible>
+        [Update(@"task/{taskid:[0-9]+}/creationdate")]
+        public void SetTaskCreationDate(int taskId, ApiDateTime creationDate)
+        {
+            var dao = DaoFactory.GetTaskDao();
+            var task = dao.GetByID(taskId);
+
+            if (task == null || !CRMSecurity.CanAccessTo(task))
+                throw new ItemNotFoundException();
+
+            dao.SetTaskCreationDate(taskId, creationDate);
+        }
+
+        /// <visible>false</visible>
+        [Update(@"task/{taskid:[0-9]+}/lastmodifeddate")]
+        public void SetTaskLastModifedDate(int taskId, ApiDateTime lastModifedDate)
+        {
+            var dao = DaoFactory.GetTaskDao();
+            var task = dao.GetByID(taskId);
+
+            if (task == null || !CRMSecurity.CanAccessTo(task))
+                throw new ItemNotFoundException();
+
+            dao.SetTaskLastModifedDate(taskId, lastModifedDate);
         }
 
         private IEnumerable<TaskWrapper> ToTaskListWrapper(IEnumerable<Task> itemList)

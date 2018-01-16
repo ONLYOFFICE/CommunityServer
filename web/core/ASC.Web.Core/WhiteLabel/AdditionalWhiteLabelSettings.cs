@@ -35,7 +35,7 @@ namespace ASC.Web.Core.WhiteLabel
 {
     [Serializable]
     [DataContract]
-    public class AdditionalWhiteLabelSettings : ISettings
+    public class AdditionalWhiteLabelSettings : BaseSettings<AdditionalWhiteLabelSettings>
     {
         [DataMember(Name = "StartDocsEnabled")]
         public bool StartDocsEnabled { get; set; }
@@ -98,12 +98,12 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region ISettings Members
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{0108422F-C05D-488E-B271-30C4032494DA}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new AdditionalWhiteLabelSettings
                 {
@@ -184,7 +184,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             get
             {
-                return CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ru" ? "http://onlyo.co/1l7Hkx9" : "http://onlyo.co/1HRBEvK";
+                return CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ru" ? "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4522572&doc=VzZXY2FQb29EdjZmTnhlZkFYZS9XYzFPK3JTaC9zcC9mNHEvTTZXSXNLUT0_IjQ1MjI1NzIi0" : "https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4485697&doc=R29zSHZNRi9LYnRTb3JDditmVGpXQThVVXhMTWdja0xwemlYZXpiaDBYdz0_IjQ0ODU2OTci0";
             }
         }
 
@@ -194,7 +194,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             get
             {
-                return SettingsManager.Instance.LoadSettings<AdditionalWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+                return LoadForDefaultTenant();
             }
         }
     }

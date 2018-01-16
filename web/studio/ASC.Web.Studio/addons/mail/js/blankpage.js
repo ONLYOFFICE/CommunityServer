@@ -55,7 +55,9 @@ window.blankPages = (function($) {
                 href: null
             });
 
-        showPage(MailScriptResource.EmptyScrAccountsHeader,
+        showPage(
+            "accountsEmptyScreen",
+            MailScriptResource.EmptyScrAccountsHeader,
             MailScriptResource.EmptyScrAccountsDescription,
             'accounts',
             buttons
@@ -73,7 +75,9 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(MailScriptResource.EmptyScrTagsHeader,
+        showPage(
+            "tagsEmptyScreen",
+            MailScriptResource.EmptyScrTagsHeader,
             MailScriptResource.EmptyScrTagsDescription,
             'tags',
             buttons
@@ -91,7 +95,9 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(MailScriptResource.NoLettersFilterHeader,
+        showPage(
+            "filterNoLettersEmptyScreen",
+            MailScriptResource.NoLettersFilterHeader,
             MailScriptResource.NoLettersFilterDescription,
             'filter',
             buttons
@@ -140,7 +146,7 @@ window.blankPages = (function($) {
             buttons = [];
         }
 
-        showPage(header, description, imgClass, buttons);
+        showPage("folderEmptyScreen", header, description, imgClass, buttons);
     }
 
     function showEmptyCrmContacts() {
@@ -151,7 +157,9 @@ window.blankPages = (function($) {
             href: "/products/crm/"
         }];
 
-        showPage(MailScriptResource.EmptyScrCrmHeader,
+        showPage(
+            "crmContactsEmptyScreen",
+            MailScriptResource.EmptyScrCrmHeader,
             MailScriptResource.EmptyScrCrmDescription,
             'contacts',
             buttons
@@ -169,7 +177,9 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(MailScriptResource.EmptyScrCrmHeader,
+        showPage(
+            "mailContactsEmptyScreen",
+            MailScriptResource.EmptyScrCrmHeader,
             MailScriptResource.EmptyScrMailContactsDescription,
             'contacts',
             buttons
@@ -187,7 +197,9 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(MailScriptResource.ResetCrmContactsFilterHeader,
+        showPage(
+            "filterNoCrmContactsEmptyScreen",
+            MailScriptResource.ResetCrmContactsFilterHeader,
             MailScriptResource.ResetCrmContactsFilterDescription,
             'filter',
             buttons
@@ -205,7 +217,9 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(MailScriptResource.ResetTlContactsFilterHeader,
+        showPage(
+            "filterNoTlContactsEmptyScreen",
+            MailScriptResource.ResetTlContactsFilterHeader,
             MailScriptResource.ResetTlContactsFilterDescription,
             'filter',
             buttons
@@ -223,7 +237,9 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(MailScriptResource.ResetMailContactsFilterHeader,
+        showPage(
+            "filterNoMailContactsEmptyScreen",
+            MailScriptResource.ResetMailContactsFilterHeader,
             MailScriptResource.ResetMailContactsFilterDescription,
             'filter',
             buttons
@@ -241,7 +257,21 @@ window.blankPages = (function($) {
             href: null
         }];
 
-        showPage(window.MailAdministrationResource.NoDomainSetUpHeader,
+        if (ASC.Resources.Master.Standalone) {
+            buttons.push(
+            {
+                text: window.MailAdministrationResource.MigrateFromMSExchangeButton,
+                cssClass: "linkMseFaq",
+                handler: null,
+                href: "http://helpcenter.onlyoffice.com/server/docker/enterprise/migrate-from-exchange.aspx",
+                skipNewLine: true,
+                openNewTab: true
+            });
+        }
+
+        showPage(
+            "domainsEmptyScreen",
+            window.MailAdministrationResource.NoDomainSetUpHeader,
             window.MailAdministrationResource.NoDomainSetUpDescription,
             'domains',
             buttons
@@ -249,7 +279,7 @@ window.blankPages = (function($) {
     }
 
     //buttons = [{ text: "", cssClass: "", handler: function(){}, href: "" }]
-    function showPage(header, description, imgClass, buttons) {
+    function showPage(id, header, description, imgClass, buttons) {
 
         var buttonHtml = undefined;
 
@@ -260,6 +290,7 @@ window.blankPages = (function($) {
 
         var screen = $.tmpl("emptyScrTmpl",
             {
+                ID: id,
                 ImgCss: imgClass,
                 Header: header,
                 Describe: TMMail.htmlEncode(description),
@@ -268,7 +299,7 @@ window.blankPages = (function($) {
 
         page.empty().html(screen);
 
-        var btnArray = page.find('.emptyScrBttnPnl a');
+        var btnArray = page.find("#{0} .emptyScrBttnPnl a".format(id));
         $.each(btnArray, function (index, value) {
             if (buttons[index] && buttons[index].handler) {
                 $(value).click(buttons[index].handler);

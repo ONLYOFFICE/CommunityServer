@@ -189,9 +189,6 @@
   <data name="Choose" xml:space="preserve">
     <value>Choose</value>
   </data>
-  <data name="ChooseCountry" xml:space="preserve">
-    <value>Please select a country...</value>
-  </data>
   <data name="CityWatermark" xml:space="preserve">
     <value>City</value>
   </data>
@@ -216,9 +213,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="ContactFacebookDescription" xml:space="preserve">
     <value>Please enter your facebook account identifier.</value>
-  </data>
-  <data name="ContactLinkedInDescription" xml:space="preserve">
-    <value>Please enter the name of your LinkedIn account. For example, teamlabdotcom</value>
   </data>
   <data name="ContactTwitterDescription" xml:space="preserve">
     <value>Please enter the name of your Twitter account. For example, teamlabdotcom</value>
@@ -627,5 +621,8 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="ZipCodeWatermark" xml:space="preserve">
     <value>Zip code</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Country</value>
   </data>
 </root>

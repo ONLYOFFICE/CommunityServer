@@ -39,6 +39,7 @@ using ASC.Api.Impl;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Data.Reassigns;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
 using ASC.MessagingSystem;
@@ -379,7 +380,7 @@ namespace ASC.Api.Employee
             user = UserManagerWrapper.AddUser(user, password, false, true, isVisitor);
 
             var messageAction = isVisitor ? MessageAction.GuestCreated : MessageAction.UserCreated;
-            MessageService.Send(Request, messageAction, user.DisplayUserName(false));
+            MessageService.Send(Request, messageAction, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
             UpdateDepartments(department, user);
 
@@ -563,7 +564,6 @@ namespace ASC.Api.Employee
         /// </short>
         /// <param name="isVisitor">User or Visitor (bool type: false|true)</param>
         /// <param name="userid">User ID to update</param>
-        /// <param name="email">Email</param>
         /// <param name="firstname">First name</param>
         /// <param name="lastname">Last name</param>
         /// <param name="comment" optional="true">Comment for user</param>
@@ -578,7 +578,7 @@ namespace ASC.Api.Employee
         /// <param name="disable"></param>
         /// <returns>Newly created user</returns>
         [Update("{userid}")]
-        public EmployeeWraperFull UpdateMember(bool isVisitor, string userid, string email, string firstname, string lastname, string comment, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, IEnumerable<Contact> contacts, string files, bool? disable)
+        public EmployeeWraperFull UpdateMember(bool isVisitor, string userid, string firstname, string lastname, string comment, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, IEnumerable<Contact> contacts, string files, bool? disable)
         {
             SecurityContext.DemandPermissions(new UserSecurityProvider(new Guid(userid)), Core.Users.Constants.Action_EditUser);
 
@@ -594,6 +594,7 @@ namespace ASC.Api.Employee
 
             var isLdap = user.IsLDAP();
             var isSso = user.IsSSO();
+            var isAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Core.Users.Constants.GroupAdmin.ID);
 
             if (!isLdap && !isSso)
             {
@@ -602,15 +603,11 @@ namespace ASC.Api.Employee
                 user.FirstName = firstname ?? user.FirstName;
                 user.LastName = lastname ?? user.LastName;
 
-                //Validate email
-                if (!string.IsNullOrEmpty(email))
-                {
-                    var address = new MailAddress(email);
-                    user.Email = address.Address;
-                }
-
                 user.Title = title ?? user.Title;
-                user.Location = location ?? user.Location;
+                if (isAdmin)
+                {
+                    user.Location = location ?? user.Location;
+                }
             }
 
             user.Notes = comment ?? user.Notes;
@@ -646,7 +643,7 @@ namespace ASC.Api.Employee
                 user.TerminatedDate = disable.Value ? DateTime.UtcNow : (DateTime?)null;
             }
 
-            if (self && !CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Core.Users.Constants.GroupAdmin.ID))
+            if (self && !isAdmin)
             {
                 StudioNotifyService.Instance.SendMsgToAdminAboutProfileUpdated();
             }
@@ -675,7 +672,7 @@ namespace ASC.Api.Employee
             }
 
             CoreContext.UserManager.SaveUserInfo(user, isVisitor);
-            MessageService.Send(Request, MessageAction.UserUpdated, user.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.UserUpdated, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
         }
@@ -701,12 +698,15 @@ namespace ASC.Api.Employee
             if (user.Status != EmployeeStatus.Terminated)
                 throw new Exception("The user is not suspended");
 
+            CheckReassignProccess(new[] { user.ID });
+
             var userName = user.DisplayUserName(false);
 
             UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
             CoreContext.UserManager.DeleteUser(user.ID);
+            QueueWorker.StartRemove(TenantProvider.CurrentTenantID, user.ID, SecurityContext.CurrentAccount.ID);
 
-            MessageService.Send(Request, MessageAction.UserDeleted, userName);
+            MessageService.Send(Request, MessageAction.UserDeleted, MessageTarget.Create(user.ID), userName);
 
             return new EmployeeWraperFull(user);
         }
@@ -801,7 +801,7 @@ namespace ASC.Api.Employee
             }
 
             CoreContext.UserManager.SaveUserInfo(user);
-            MessageService.Send(Request, MessageAction.UserAddedAvatar, user.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.UserAddedAvatar, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
         }
@@ -827,7 +827,7 @@ namespace ASC.Api.Employee
             UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
 
             CoreContext.UserManager.SaveUserInfo(user);
-            MessageService.Send(Request, MessageAction.UserDeletedAvatar, user.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.UserDeletedAvatar, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
         }
@@ -978,7 +978,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(Request, MessageAction.UsersUpdatedType, users.Select(x => x.DisplayUserName(false)));
+            MessageService.Send(Request, MessageAction.UsersUpdatedType, MessageTarget.Create(users.Select(x => x.ID)), users.Select(x => x.DisplayUserName(false)));
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -1025,7 +1025,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(Request, MessageAction.UsersUpdatedStatus, users.Select(x => x.DisplayUserName(false)));
+            MessageService.Send(Request, MessageAction.UsersUpdatedStatus, MessageTarget.Create(users.Select(x => x.ID)), users.Select(x => x.DisplayUserName(false)));
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -1067,7 +1067,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(Request, MessageAction.UsersSentActivationInstructions, users.Select(x => x.DisplayUserName(false)));
+            MessageService.Send(Request, MessageAction.UsersSentActivationInstructions, MessageTarget.Create(users.Select(x => x.ID)), users.Select(x => x.DisplayUserName(false)));
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -1085,6 +1085,8 @@ namespace ASC.Api.Employee
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
 
+            CheckReassignProccess(userIds);
+
             var users = userIds.Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .Where(u => !CoreContext.UserManager.IsSystemUser(u.ID) && !u.IsLDAP())
                 .ToList();
@@ -1097,9 +1099,10 @@ namespace ASC.Api.Employee
 
                 UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
                 CoreContext.UserManager.DeleteUser(user.ID);
+                QueueWorker.StartRemove(TenantProvider.CurrentTenantID, user.ID, SecurityContext.CurrentAccount.ID);
             }
 
-            MessageService.Send(Request, MessageAction.UsersDeleted, userNames);
+            MessageService.Send(Request, MessageAction.UsersDeleted, MessageTarget.Create(users.Select(x => x.ID)), userNames);
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -1195,5 +1198,80 @@ namespace ASC.Api.Employee
 
         #endregion
 
+
+        #region Reassign user data
+
+        /// <summary>
+        /// Returns the progress of the started reassign process
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <category>Reassign user data</category>
+        /// <returns>Reassign Progress</returns>
+        [Read(@"getreassignprogress")]
+        public ReassignProgressItem GetReassignProgress(Guid userId)
+        {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
+
+            return QueueWorker.GetProgressItemStatus(TenantProvider.CurrentTenantID, userId, typeof(ReassignProgressItem)) as ReassignProgressItem;
+        }
+
+        /// <summary>
+        /// Terminate reassign process
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <category>Reassign user data</category>
+        [Update(@"terminatereassign")]
+        public void TerminateReassign(Guid userId)
+        {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
+
+            QueueWorker.Terminate(TenantProvider.CurrentTenantID, userId, typeof(ReassignProgressItem));
+        }
+
+        /// <summary>
+        /// Start a reassign process
+        /// </summary>
+        /// <param name="fromUserId">From User Id</param>
+        /// <param name="toUserId">To User Id</param>
+        /// <category>Reassign user data</category>
+        /// <returns>Reassign Progress</returns>
+        [Create(@"startreassign")]
+        public ReassignProgressItem StartReassign(Guid fromUserId, Guid toUserId)
+        {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
+
+            var fromUser = CoreContext.UserManager.GetUsers(fromUserId);
+
+            if (fromUser == null || fromUser.ID == Core.Users.Constants.LostUser.ID)
+                throw new ArgumentException("User with id = " + fromUserId + " not found");
+
+            if (fromUser.IsOwner() || fromUser.IsMe() || fromUser.Status != EmployeeStatus.Terminated)
+                throw new ArgumentException("Can not delete user with id = " + fromUserId);
+
+            var toUser = CoreContext.UserManager.GetUsers(toUserId);
+
+            if (toUser == null || toUser.ID == Core.Users.Constants.LostUser.ID)
+                throw new ArgumentException("User with id = " + toUserId + " not found");
+
+            if (toUser.IsVisitor() || toUser.Status == EmployeeStatus.Terminated)
+                throw new ArgumentException("Can not reassign data to user with id = " + toUserId);
+
+            return QueueWorker.StartReassign(HttpContext.Current, TenantProvider.CurrentTenantID, fromUserId, toUserId, SecurityContext.CurrentAccount.ID);
+        }
+
+        private void CheckReassignProccess(IEnumerable<Guid> userIds)
+        {
+            foreach (var userId in userIds)
+            {
+                var reassignStatus = QueueWorker.GetProgressItemStatus(TenantProvider.CurrentTenantID, userId, typeof (ReassignProgressItem));
+                if (reassignStatus == null || reassignStatus.IsCompleted)
+                    continue;
+
+                var userName = CoreContext.UserManager.GetUsers(userId).DisplayUserName();
+                throw new Exception(string.Format(Resource.ReassignDataRemoveUserError, userName));
+            }
+        }
+
+        #endregion
     }
 }

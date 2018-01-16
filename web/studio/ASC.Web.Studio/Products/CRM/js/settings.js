@@ -386,56 +386,6 @@ ASC.CRM.SettingsPage = (function() {
         jq("#manageField .button.gray").on("click", function(){PopupKeyUpActionProvider.EnableEsc = true;jq.unblockUI();});
     };
 
-    var _iniChangeDefaultCurrencyConfirmationPanel = function () {
-        jq.tmpl("template-blockUIPanel", {
-            id: "changeDefaultCurrencyConfirmation",
-            headerTest: ASC.CRM.Resources.CRMCommonResource.Confirmation,
-            questionText: '',
-            innerHtmlText: ["<div>", ASC.CRM.Resources.CRMSettingResource.ChangeDefaultCurrencyConfText, "</div>"].join(''),
-            OKBtn: ASC.CRM.Resources.CRMCommonResource.OK,
-            OKBtnClass: "OKChangeCurrency",
-            CancelBtn: ASC.CRM.Resources.CRMCommonResource.Cancel
-        }).insertAfter("#defaultCurrency");
-
-        jq("#changeDefaultCurrencyConfirmation").on("click", ".OKChangeCurrency", function () {
-            _changeDefaultCurrencyComplete();
-        });
-        jq("#changeDefaultCurrencyConfirmation").on("click", ".button.gray, .cancelButton", function () {
-            jq("#defaultCurrency").val(jq.data(jq("#defaultCurrency")[0], "val"));
-        });
-
-        jq.data(jq("#defaultCurrency")[0], "val", jq("#defaultCurrency").val());
-    };
-
-    var _changeDefaultCurrencyComplete = function () {
-        var item = jq("#defaultCurrency"),
-            newCurrency = item.val();
-
-        Teamlab.updateCrmCurrency({ item: item }, newCurrency,
-            {
-                before: function (params) {
-                    params.item.prop("disabled", true);
-                    params.item.next().show();
-                    params.item.next('span').hide();
-                },
-                after: function (params) {
-                    params.item.prop("disabled", false);
-                    params.item.next().hide();
-                },
-                success: function (params, response) {
-                    jq.data(params.item[0], "val", response.abbreviation);
-                    params.item.next().next().show();
-                    jq.unblockUI();
-                },
-                error: function (params, errors) {
-                    var err = errors[0];
-                    jq.unblockUI();
-                    params.item.val(jq.data(params.item[0], "val"));
-                    toastr.error(err);
-                }
-            });
-    };
-
     var _initSendTestMail = function () {
         jq.tmpl("template-blockUIPanel", {
             id: "sendTestMailPanel",
@@ -612,10 +562,6 @@ ASC.CRM.SettingsPage = (function() {
                         }
                     }
                 });
-        },
-
-        changeDefaultCurrency: function() {
-            StudioBlockUIManager.blockUI("#changeDefaultCurrencyConfirmation", 500, 180, 0);
         },
 
         deleteField: function() {
@@ -801,8 +747,6 @@ ASC.CRM.SettingsPage = (function() {
             });
 
             _initSendTestMail();
-
-            _iniChangeDefaultCurrencyConfirmationPanel();
         },
 
         changeAuthentication: function() {
@@ -3350,6 +3294,167 @@ ASC.CRM.TaskTemplateView = (function() {
             } else {
                 return jq.format(ASC.CRM.Resources.CRMJSResource.TemplateNotFixedDeadline, displacement, hour, minute);
             }
+        }
+    };
+})();
+
+ASC.CRM.CurrencySettingsView = (function () {
+    
+    function initOtherActionMenu () {
+        jq("#menuCreateNewTask").bind("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+    }
+
+    function setBindings() {
+        jq("#defaultCurrency").bind("change", changeDefaultCurrency);
+        jq("#currencySelector").bind("change", changeCurrency);
+        jq("#addCurrencyRate").bind("click", addCurrencyRate);
+        jq("#currencyRateList").on("click", ".crm-deleteLink", deleteCurrencyRate);
+        jq("#currencyRateList").on("change", ".textEdit", changeCurrencyRate);
+        jq("#saveCurrencySettings").bind("click", saveCurrencySettings);
+        jq("#cancelCurrencySettings").bind("click", cancelCurrencySettings);
+    }
+
+    function renderCurrencyRateList(items, clear) {
+        if (clear) {
+            jq("#currencyRateList").empty();
+        }
+
+        if (items) {
+            render(items);
+            return;
+        }
+
+        Teamlab.getCrmCurrencyRates({},
+            {
+                before: function () {
+                    LoadingBanner.displayLoading();
+                },
+                after: function () {
+                    LoadingBanner.hideLoading();
+                },
+                success: function (params, response) {
+                    render(response);
+                },
+                error: function (params, errors) {
+                    console.log(errors);
+                    toastr.error(errors[0]);
+                }
+            });
+
+        function render(data) {
+            jq.tmpl("currencyRateItemTmpl", data).appendTo("#currencyRateList");
+            
+            jq(data).each(function (index, item) {
+                jq.forceNumber({
+                    parent: "#currencyRateList",
+                    input: "#currencyRate_" + item.fromCurrency,
+                    integerOnly: false,
+                    positiveOnly: true
+                });
+            });
+            
+            jq("#currencySelector").change();
+        }
+    }
+
+    function changeDefaultCurrency() {
+        renderCurrencyRateList(jq(this).val() == window.defaultCurrency ? window.currencyRates : [], true);
+        jq("#currencySelector").change();
+    }
+
+    function changeCurrency() {
+        var value = jq(this).val();
+        var exist = value == jq("#defaultCurrency").val();
+
+        if (!exist) {
+            jq("#currencyRateList .currency-rate-item span:first-child").each(function(index, item) {
+                if (jq(item).text().trim() == value)
+                    exist = true;
+            });
+        }
+
+        if (exist) {
+            jq("#addCurrencyRate").addClass("disable");
+        } else {
+            jq("#addCurrencyRate").removeClass("disable");
+        }
+    }
+
+    function addCurrencyRate() {
+        if (jq(this).hasClass("disable"))
+            return;
+
+        var data = [{
+            fromCurrency: jq("#currencySelector").val(),
+            rate: "1.00",
+            toCurrency: jq("#defaultCurrency").val()
+        }];
+
+        renderCurrencyRateList(data, false);
+        jq("#currencySelector").change();
+    }
+
+    function deleteCurrencyRate() {
+        jq(this).parent().remove();
+        jq("#currencySelector").change();
+    }
+
+    function changeCurrencyRate() {
+        var obj = jq(this);
+        var rate = Number(obj.val());
+
+        if (rate <= 0) {
+            obj.val("1.00");
+        } else {
+            obj.val(rate.toFixed(2));
+        }
+    }
+
+    function saveCurrencySettings() {
+        var newDefaultCurrency = jq("#defaultCurrency").val();
+        var newCurrencyRates = [];
+
+        jq("#currencyRateList .currency-rate-item").each(function (index, item) {
+            var obj = jq(item);
+
+            newCurrencyRates.push({
+                fromCurrency: obj.find("span:first-child").text().trim(),
+                rate: obj.find("input").val().trim(),
+                toCurrency: newDefaultCurrency
+            });
+        });
+
+        Teamlab.setCrmCurrencyRates({ newDefaultCurrency: newDefaultCurrency }, newDefaultCurrency, newCurrencyRates,
+            {
+                before: function() {
+                    LoadingBanner.displayLoading();
+                },
+                after: function() {
+                    LoadingBanner.hideLoading();
+                },
+                success: function(params, response) {
+                    window.defaultCurrency = params.newDefaultCurrency;
+                    window.currencyRates = response;
+                    toastr.success(ASC.CRM.Resources.CRMJSResource.SettingsUpdated);
+                },
+                error: function(params, errors) {
+                    console.log(errors);
+                    toastr.error(errors[0]);
+                }
+            });
+    }
+
+    function cancelCurrencySettings() {
+        jq("#defaultCurrency").val(window.defaultCurrency);
+        renderCurrencyRateList(window.currencyRates, true);
+        jq("#currencySelector").change();
+    }
+
+    return {
+        init: function () {
+            initOtherActionMenu();
+            setBindings();
+            renderCurrencyRateList(window.currencyRates, true);
         }
     };
 })();

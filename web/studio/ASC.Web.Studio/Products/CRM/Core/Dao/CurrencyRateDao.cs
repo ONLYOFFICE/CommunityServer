@@ -128,6 +128,35 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
+        public List<CurrencyRate> SetCurrencyRates(List<CurrencyRate> rates)
+        {
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
+            {
+                db.ExecuteNonQuery(Delete("crm_currency_rate"));
+                
+                foreach (var rate in rates)
+                {
+                    var query = Insert("crm_currency_rate")
+                        .InColumnValue("id", 0)
+                        .InColumnValue("from_currency", rate.FromCurrency.ToUpper())
+                        .InColumnValue("to_currency", rate.ToCurrency.ToUpper())
+                        .InColumnValue("rate", rate.Rate)
+                        .InColumnValue("create_by", SecurityContext.CurrentAccount.ID)
+                        .InColumnValue("create_on", DateTime.UtcNow)
+                        .InColumnValue("last_modifed_by", SecurityContext.CurrentAccount.ID)
+                        .InColumnValue("last_modifed_on", DateTime.UtcNow)
+                        .Identity(1, 0, true);
+
+                    rate.ID = db.ExecuteScalar<int>(query);
+                }
+
+                tx.Commit();
+
+                return rates;
+            }
+        }
+
         private SqlQuery GetSqlQuery(Exp where)
         {
             var sqlQuery = Query("crm_currency_rate")

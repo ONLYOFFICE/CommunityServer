@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
 * The MIT License
 * Copyright (c) 2003 Novell Inc.  www.novell.com
 * 
@@ -28,6 +28,7 @@
 //
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
+
 using System;
 using System.Reflection;
 
@@ -36,14 +37,15 @@ using System.Reflection;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
+
 [assembly: AssemblyTitle("C# LDAP")]
 [assembly: AssemblyDescription("Novell.Directory.Ldap")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Novell, Inc")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright(" (C) 2003 Novell, Inc")]
+[assembly: AssemblyCopyright("(C) 2003 Novell, Inc, 2017 dsbenghe")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]
 
 //
@@ -57,7 +59,7 @@ using System.Reflection;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("2.2.3")]
+[assembly: AssemblyVersion("2.3.8.1")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
@@ -84,6 +86,7 @@ using System.Reflection;
 //   (*) Delay Signing is an advanced option - see the Microsoft .NET Framework
 //       documentation for more information on this.
 //
+
 [assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 //[assembly: AssemblyKeyName("")]

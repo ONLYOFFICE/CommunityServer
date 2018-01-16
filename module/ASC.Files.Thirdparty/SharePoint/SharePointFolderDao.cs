@@ -53,7 +53,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public Folder GetFolder(string title, object parentId)
         {
-            return ProviderInfo.ToFolder(ProviderInfo.GetFolderFolders(parentId).FirstOrDefault(x => x.Name.Contains(title)));
+            return ProviderInfo.ToFolder(ProviderInfo.GetFolderFolders(parentId).FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public Folder GetRootFolder(object folderId)
@@ -160,7 +160,8 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public bool IsExist(string title, Microsoft.SharePoint.Client.Folder folder)
         {
-            return ProviderInfo.GetFolderFolders(folder.ServerRelativeUrl).FirstOrDefault(x => x.Name.Contains(title)) != null;
+            return ProviderInfo.GetFolderFolders(folder.ServerRelativeUrl)
+                .Any(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public void DeleteFolder(object folderId)
@@ -272,7 +273,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId)
         {
             return null;
         }
@@ -282,7 +283,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId)
         {
             return null;
         }

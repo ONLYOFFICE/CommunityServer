@@ -26,9 +26,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ASC.Api.Attributes;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
+using ASC.Web.CRM.Classes;
 
 namespace ASC.Api.CRM
 {
@@ -136,6 +138,81 @@ namespace ASC.Api.CRM
             MessageService.Send(Request, MessageAction.CurrencyRateUpdated, fromCurrency, toCurrency);
 
             return ToCurrencyRateWrapper(currencyRate);
+        }
+
+        /// <summary>
+        ///    Set currency rates
+        /// </summary>
+        /// <short></short>
+        /// <category>Common</category>
+        /// <returns></returns>
+        [Create(@"currency/setrates")]
+        public List<CurrencyRateWrapper> SetCurrencyRates(String currency, List<CurrencyRate> rates)
+        {
+            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
+
+            if (string.IsNullOrEmpty(currency)) throw new ArgumentException();
+
+            currency = currency.ToUpper();
+
+            if (Global.TenantSettings.DefaultCurrency.Abbreviation != currency)
+            {
+                var cur = CurrencyProvider.Get(currency.ToUpper());
+
+                if (cur == null) throw new ArgumentException();
+
+                Global.SaveDefaultCurrencySettings(cur);
+
+                MessageService.Send(Request, MessageAction.CrmDefaultCurrencyUpdated);
+            }
+
+            rates = DaoFactory.GetCurrencyRateDao().SetCurrencyRates(rates);
+
+            foreach (var rate in rates)
+            {
+                MessageService.Send(Request, MessageAction.CurrencyRateUpdated, rate.FromCurrency, rate.ToCurrency);
+            }
+
+            return rates.Select(ToCurrencyRateWrapper).ToList();
+        }
+
+        /// <summary>
+        ///    Add currency rates
+        /// </summary>
+        /// <short></short>
+        /// <category>Common</category>
+        /// <returns></returns>
+        [Create(@"currency/addrates")]
+        public List<CurrencyRateWrapper> AddCurrencyRates(List<CurrencyRate> rates)
+        {
+            if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
+
+            var existingRates = DaoFactory.GetCurrencyRateDao().GetAll();
+
+            foreach (var rate in rates)
+            {
+                var exist = false;
+                
+                foreach (var existingRate in existingRates)
+                {
+                    if (rate.FromCurrency != existingRate.FromCurrency || rate.ToCurrency != existingRate.ToCurrency)
+                        continue;
+
+                    existingRate.Rate = rate.Rate;
+                    DaoFactory.GetCurrencyRateDao().SaveOrUpdate(existingRate);
+                    MessageService.Send(Request, MessageAction.CurrencyRateUpdated, rate.FromCurrency, rate.ToCurrency);
+                    exist = true;
+                    break;
+                }
+
+                if (exist) continue;
+
+                rate.ID = DaoFactory.GetCurrencyRateDao().SaveOrUpdate(rate);
+                MessageService.Send(Request, MessageAction.CurrencyRateUpdated, rate.FromCurrency, rate.ToCurrency);
+                existingRates.Add(rate);
+            }
+
+            return existingRates.Select(ToCurrencyRateWrapper).ToList();
         }
 
         /// <summary>

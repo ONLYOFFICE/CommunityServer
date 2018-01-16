@@ -34,9 +34,9 @@ namespace ASC.Web.Core.Users
 {
     [Serializable]
     [DataContract]
-    public class DisplayUserSettings : ISettings
+    public class DisplayUserSettings : BaseSettings<DisplayUserSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("2EF59652-E1A7-4814-BF71-FEB990149428"); }
         }
@@ -45,7 +45,7 @@ namespace ASC.Web.Core.Users
         public bool IsDisableGettingStarted { get; set; }
 
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new DisplayUserSettings
                 {

@@ -46,8 +46,7 @@ namespace ASC.Api.Mail.Extensions
         public static List<MailAccountData> ToAddressData(this AccountInfo account)
         {
             var fromEmailList = new List<MailAccountData>();
-            var mailBoxAccountSettings =
-                SettingsManager.Instance.LoadSettingsFor<MailBoxAccountSettings>(SecurityContext.CurrentAccount.ID);
+            var mailBoxAccountSettings = MailBoxAccountSettings.LoadForCurrentUser();
 
             var emailData = new MailAccountData
             {

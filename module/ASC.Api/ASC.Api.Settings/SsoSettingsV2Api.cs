@@ -29,11 +29,9 @@ using System.Linq;
 using System.Web;
 using ASC.Api.Attributes;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.SingleSignOn.Common;
-using ASC.Web.Studio.Utility;
 using Newtonsoft.Json;
 using Resources;
 
@@ -53,7 +51,12 @@ namespace ASC.Api.Settings
         {
             CheckSsoPermissions();
 
-            return SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID);
+            var settings = SsoSettingsV2.Load();
+
+            if(string.IsNullOrEmpty(settings.SpLoginLabel))
+                settings.SpLoginLabel = SsoSettingsV2.SSO_SP_LOGIN_LABEL;
+
+            return settings;
         }
 
         /// <summary>
@@ -129,11 +132,20 @@ namespace ASC.Api.Settings
                 string.IsNullOrWhiteSpace(settings.FieldMapping.Email))
                 throw new Exception(Resource.SsoSettingsInvalidMapping);
 
-            if (!SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID))
+            if (string.IsNullOrEmpty(settings.SpLoginLabel))
+            {
+                settings.SpLoginLabel = SsoSettingsV2.SSO_SP_LOGIN_LABEL;
+            }
+            else if (settings.SpLoginLabel.Length > 100)
+            {
+                settings.SpLoginLabel = settings.SpLoginLabel.Substring(0, 100);
+            }
+
+            if (!settings.Save())
                 throw new Exception(Resource.SsoSettingsCantSaveSettings);
 
             if(!settings.EnableSso)
-                ConverSsoUsersToOrdirary();
+                ConverSsoUsersToOrdinary();
 
             var messageAction = settings.EnableSso ? MessageAction.SSOEnabled : MessageAction.SSODisabled;
 
@@ -154,30 +166,33 @@ namespace ASC.Api.Settings
         {
             CheckSsoPermissions();
 
-            var defaultSettings = new SsoSettingsV2().GetDefault();
+            var defaultSettings = new SsoSettingsV2().GetDefault() as SsoSettingsV2;
 
-            if (!SettingsManager.Instance.SaveSettings(defaultSettings, TenantProvider.CurrentTenantID))
+            if (defaultSettings != null && !defaultSettings.Save())
                 throw new Exception(Resource.SsoSettingsCantSaveSettings);
 
-            ConverSsoUsersToOrdirary();
+            ConverSsoUsersToOrdinary();
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.SSODisabled);
 
-            return defaultSettings as SsoSettingsV2;
+            return defaultSettings;
         }
 
-        private static void ConverSsoUsersToOrdirary()
+        private static void ConverSsoUsersToOrdinary()
         {
             var ssoUsers = CoreContext.UserManager.GetUsers().Where(u => u.IsSSO()).ToList();
 
             if(!ssoUsers.Any())
                 return;
 
-            foreach (var user in ssoUsers)
+            foreach (var existingSsoUser in ssoUsers)
             {
-                user.SsoNameId = null;
-                user.SsoSessionId = null;
-                CoreContext.UserManager.SaveUserInfo(user);
+                existingSsoUser.SsoNameId = null;
+                existingSsoUser.SsoSessionId = null;
+
+                existingSsoUser.ConvertExternalContactsToOrdinary();
+
+                CoreContext.UserManager.SaveUserInfo(existingSsoUser);
             }
         }
     }

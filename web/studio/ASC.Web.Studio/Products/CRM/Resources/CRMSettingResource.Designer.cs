@@ -97,6 +97,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add rate.
+        /// </summary>
+        public static string AddCurrencyRate {
+            get {
+                return ResourceManager.GetString("AddCurrencyRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new tag.
         /// </summary>
         public static string AddNewTag {
@@ -583,6 +592,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency rate.
+        /// </summary>
+        public static string CurrencyRate {
+            get {
+                return ResourceManager.GetString("CurrencyRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency Settings.
         /// </summary>
         public static string CurrencySettings {
@@ -592,20 +610,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set up the default currency which will be used to calculate the &apos;Sum total&apos; for all the opportunities present in the CRM module of your portal. The conversion rates are available for currencies from the list only and are taken from the &apos;The Money Converter.com&apos; web site..
+        ///   Looks up a localized string similar to Set up the default currency which will be used to calculate the &apos;Sum total&apos; for all the opportunities present in the CRM module of your portal. The conversion rates are available for currencies from the list only and are taken from the &apos;The Money Converter.com&apos; web site.{0}This currency will be the currency for your Products &amp; Services catalog which is used to invoice..
         /// </summary>
-        public static string CurrencySettingsDescription {
+        public static string CurrencySettingsHelp {
             get {
-                return ResourceManager.GetString("CurrencySettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This currency will be the currency for your Products &amp; Services catalog which is used to invoice..
-        /// </summary>
-        public static string CurrencySettingsInvoiceDescription {
-            get {
-                return ResourceManager.GetString("CurrencySettingsInvoiceDescription", resourceCulture);
+                return ResourceManager.GetString("CurrencySettingsHelp", resourceCulture);
             }
         }
         
@@ -1541,7 +1550,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set your organization billing address which will be placed to all your invoices. Select the {0}Country{1} from the list and fill in the fields with the {0}Address{1}, {0}City{1}, {0}State{1} and {0}Zip Code{1}..
+        ///   Looks up a localized string similar to Set your organization billing address which will be placed to all your invoices. Fill the fields with the {0}Address{1}, {0}City{1}, {0}State{1}, {0}Country{1} and {0}Zip Code{1}..
         /// </summary>
         public static string SettingsCompanyAddressHelp {
             get {

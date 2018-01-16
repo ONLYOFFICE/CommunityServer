@@ -112,7 +112,7 @@ window.DocumentsPopup = (function($) {
         isShareableFolder = folderInfo.isShareable === undefined ? folderInfo.current.isShareable : folderInfo.isShareable;
 
         for (i = 0; i < folderFiles.length; i++) {
-            var fileName = decodeURIComponent(folderFiles[i].title);
+            var fileName = folderFiles[i].title;
 
             var file = {
                 title: fileName,

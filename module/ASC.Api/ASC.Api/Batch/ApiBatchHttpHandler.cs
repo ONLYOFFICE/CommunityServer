@@ -24,12 +24,6 @@
 */
 
 
-using ASC.Api.Collections;
-using ASC.Api.Impl;
-using ASC.Api.Interfaces;
-using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,6 +33,13 @@ using System.Net.Mime;
 using System.Text;
 using System.Web;
 using System.Web.Routing;
+
+using ASC.Api.Collections;
+using ASC.Api.Impl;
+using ASC.Api.Interfaces;
+using Autofac;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ASC.Api.Batch
 {
@@ -137,7 +138,7 @@ namespace ASC.Api.Batch
                 if (routeData != null)
                 {
                     //Construct new context
-                    Container.Resolve<IApiHttpHandler>(new DependencyOverride(typeof(RouteData), routeData)).Process(newContext);
+                    Container.BeginLifetimeScope().Resolve<IApiHttpHandler>(new TypedParameter(typeof(RouteData), routeData)).Process(newContext);
                     newContext.Response.Flush();
                     
                     //Form response

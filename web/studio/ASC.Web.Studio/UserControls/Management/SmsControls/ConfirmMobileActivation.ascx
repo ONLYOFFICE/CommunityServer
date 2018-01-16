@@ -37,7 +37,7 @@
                     "<br />") %>
         </div>
         <br />
-        <input type="text" id="phoneAuthcode" placeholder="<%= Resource.ActivateCodeLabel %>" pattern="\d{0,<%= SmsKeyStorage.KeyLength %>}" 
+        <input type="text" id="phoneAuthcode" name="phoneAuthcode" placeholder="<%= Resource.ActivateCodeLabel %>" pattern="\d{0,<%= SmsKeyStorage.KeyLength %>}" 
             maxlength="<%= SmsKeyStorage.KeyLength %>" value="" class="pwdLoginTextbox" autofocus autocomplete="off" />
 
         <div class="middle-button-container">

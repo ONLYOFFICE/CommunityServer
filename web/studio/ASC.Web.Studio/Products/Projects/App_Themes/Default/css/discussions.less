@@ -1,0 +1,185 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+#emptyListDiscussion {
+    display: none;
+}
+
+#discussionsList {
+    display: none;
+
+    .discussionContainer {
+        min-height: 82px;
+        border-top: 1px solid #C5C5C5;
+
+        .discussionHeaderContainer {
+            padding-bottom: 20px;
+
+            .discussionHeader {
+                color: #111111;
+                font-size: 24px;
+            }
+        }
+
+        .discussionAuthorAvatar {
+            float: left;
+            text-align: center;
+
+            img {
+                font-weight: bold;
+                color: blue;
+                width: 82px;
+                height: 82px;
+            }
+        }
+
+        .discussionDescriptionContainer {
+            margin-left: 98px;
+            overflow: hidden;
+            max-width: 70%;
+
+           .discussionText {
+                overflow: hidden;
+                padding: 8px 8px 16px;
+                word-wrap: break-word;	
+            }
+
+           .discussionCreatedDate {
+                color: #787878;
+                font-size: 12px;
+                padding-left: 5px;
+            }
+        }
+
+        .discussionAuthorTitle {
+            color: #787878;
+            font-size: 12px;
+        }
+
+    }
+
+    .title-list {
+        white-space: nowrap;
+        overflow: hidden;
+        max-width:800px;
+    }
+
+    .status {
+        background-color: #e6e6e6;
+        color: #83888d;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 10px;
+        padding: 2px 5px;
+        margin: 2px 0 0 8px;
+        max-width: 60px;
+        overflow: hidden;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    }
+
+    .content-list {
+        white-space: nowrap;
+        max-width: 900px;
+    }
+}
+
+.discussionTitle {
+    margin: 0px 0px 8px;
+    overflow: hidden;
+}
+
+
+/*----discussion action-----*/
+
+#discussionProjectContainer {
+	margin-bottom: 20px;
+    margin-right: 190px;
+}
+
+#discussionTitleContainer
+{
+	margin-bottom: 20px;	
+}
+
+#discussionTextContainer
+{
+	margin-bottom: 20px;	
+}
+
+#discussionButtonsContainer
+{ 
+	margin-bottom: 20px;
+}
+
+#discussionTabsContent
+{
+    clear: left;
+    padding-top: 20px;
+    width: 100%
+}
+
+#discussionParticipantsContainer {
+    .userLink {
+        padding-left: 18px;
+    }
+    .inviteMessage {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+}
+
+
+#discussionPreviewContainer
+{
+	display: none;
+	padding-left: 15px;
+}
+
+/*----discussion details-----*/
+#discussionCommentsContainer #commentsTitle,
+#discussionCommentsContainer #noComments{
+	display: none !important;
+}
+
+#discussionCommentsContainer #mainCommentsContainer
+{
+	width: 100% !important;
+}
+
+#currentLink
+{
+	display: none;
+}
+
+.items-display-list_i.gray .item-name{
+    color: #83888D;
+}
+
+#discussionParticipantsTable, #discussionParticipants {
+    margin-top: 10px;
+}

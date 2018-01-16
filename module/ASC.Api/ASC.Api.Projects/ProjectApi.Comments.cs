@@ -56,7 +56,7 @@ namespace ASC.Api.Projects
         ///<category>Comments</category>
         ///<param name="commentid">Comment ID</param>
         ///<returns>Comment</returns>        
-        /// <exception cref="ItemNotFoundException"></exception>
+        ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"comment/{commentid}")]
         public CommentWrapper GetComment(Guid commentid)
         {
@@ -72,24 +72,24 @@ namespace ASC.Api.Projects
         /////<short>
         /////Update comment
         /////</short>
-        ///// <category>Comments</category>
+        /////<category>Comments</category>
         /////<param name="commentid">comment ID</param>
         /////<param name="content">comment text</param>
         /////<returns>Comment</returns>
-        ///// <exception cref="ItemNotFoundException"></exception>
-        ///// <example>
-        ///// <![CDATA[
-        ///// Sending data in application/json:
-        ///// 
-        ///// {
-        /////     text:"My comment text",
-        /////     
-        ///// }
-        ///// 
-        ///// Sending data in application/x-www-form-urlencoded
-        ///// content=My%20comment%20text
-        ///// ]]>
-        ///// </example>
+        /////<exception cref="ItemNotFoundException"></exception>
+        /////<example>
+        /////<![CDATA[
+        /////Sending data in application/json:
+        /////
+        /////{
+        /////    text:"My comment text",
+        /////    
+        /////}
+        /////
+        /////Sending data in application/x-www-form-urlencoded
+        /////content=My%20comment%20text
+        /////]]>
+        /////</example>
         //[Update(@"comment/{commentid}")]
         //public CommentWrapper UpdateComments(Guid commentid, string content)
         //{
@@ -108,7 +108,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get preview
         ///</short>
-        /// <category>Comments</category>
+        ///<category>Comments</category>
         ///<param name="htmltext">html to create preview</param>
         ///<param name="commentid">guid of editing comment or empty string if comment is new</param>
         [Create(@"comment/preview")]
@@ -152,14 +152,14 @@ namespace ASC.Api.Projects
             return info;
         }
 
-        /// <summary>
+        ///<summary>
         ///Remove comment with the id specified in the request
-        /// </summary>
-        /// <short>Remove comment</short>
-        /// <section>Comments</section>
-        /// <param name="commentid">Comment ID</param>
-        /// <returns>Comment id</returns>
-        /// <category>Comments</category>
+        ///</summary>
+        ///<short>Remove comment</short>
+        ///<section>Comments</section>
+        ///<param name="commentid">Comment ID</param>
+        ///<returns>Comment id</returns>
+        ///<category>Comments</category>
         [Delete("comment/{commentid}")]
         public string RemoveProjectComment(string commentid)
         {
@@ -174,12 +174,20 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandEditComment(entity.Project, comment);
 
             commentEngine.SaveOrUpdate(comment);
-            MessageService.Send(Request, MessageAction.TaskCommentDeleted, entity.Project.Title, entity.Title);
+            MessageService.Send(Request, MessageAction.TaskCommentDeleted, MessageTarget.Create(comment.ID), entity.Project.Title, entity.Title);
 
             return commentid;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentcommentid"></param>
+        /// <param name="entityid"></param>
+        /// <param name="content"></param>
+        /// <param name="type"></param>
         /// <category>Comments</category>
+        /// <returns></returns>
         [Create("comment")]
         public CommentInfo AddProjectComment(string parentcommentid, int entityid, string content, string type)
         {
@@ -200,12 +208,18 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandCreateComment(entity);
 
             comment = commentEngine.SaveOrUpdateComment(entity, comment);
-            MessageService.Send(Request, MessageAction.TaskCommentCreated, entity.Project.Title, entity.Title);
+            MessageService.Send(Request, MessageAction.TaskCommentCreated, MessageTarget.Create(comment.ID), entity.Project.Title, entity.Title);
 
             return GetCommentInfo(null, comment, entity);
         }
 
-        /// <category>Comments</category>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentid"></param>
+        /// <param name="content"></param>
+        ///<category>Comments</category>
+        /// <returns></returns>
         [Update("comment/{commentid}")]
         public string UpdateComment(string commentid, string content)
         {
@@ -219,7 +233,7 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandEditComment(entity.Project, comment);
 
             commentEngine.SaveOrUpdateComment(entity, comment);
-            MessageService.Send(Request, MessageAction.TaskCommentUpdated, entity.Project.Title, entity.Title);
+            MessageService.Send(Request, MessageAction.TaskCommentUpdated, MessageTarget.Create(comment.ID), entity.Project.Title, entity.Title);
 
             return HtmlUtility.GetFull(content);
         }

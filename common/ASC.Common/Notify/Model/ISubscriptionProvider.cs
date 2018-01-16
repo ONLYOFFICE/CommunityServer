@@ -27,6 +27,7 @@
 #region usings
 
 using System;
+using System.Linq;
 using ASC.Notify.Recipients;
 
 #endregion
@@ -62,10 +63,12 @@ namespace ASC.Notify.Model
         public static bool IsSubscribed(this ISubscriptionProvider provider, INotifyAction action, IRecipient recipient,
                                         string objectID)
         {
-            return Array.Exists(
-                provider.GetSubscriptions(action, recipient),
-                id => id == objectID || (string.IsNullOrEmpty(id) && string.IsNullOrEmpty(objectID))
-                );
+            var subscriptions = provider.GetSubscriptions(action, recipient);
+
+            return subscriptions.Any(
+                    id =>
+                    (string.Compare(id, objectID, StringComparison.OrdinalIgnoreCase) == 0) ||
+                    (string.IsNullOrEmpty(id) && string.IsNullOrEmpty(objectID)));
         }
     }
 }

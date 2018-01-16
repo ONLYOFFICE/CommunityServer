@@ -171,7 +171,8 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public bool IsExist(string title, string folderId)
         {
-            return GetDropboxItems(folderId, true).FirstOrDefault(x => x.Name.Contains(title)) != null;
+            return GetDropboxItems(folderId, true)
+                .Any(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public void DeleteFolder(object folderId)
@@ -234,6 +235,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
             DropboxProviderInfo.CacheReset(newDropboxFolder);
             DropboxProviderInfo.CacheReset(MakeDropboxPath(newDropboxFolder), false);
+            DropboxProviderInfo.CacheReset(MakeDropboxPath(toDropboxFolder));
 
             return ToFolder(newDropboxFolder);
         }
@@ -330,7 +332,7 @@ namespace ASC.Files.Thirdparty.Dropbox
             return null;
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId)
         {
             return null;
         }
@@ -340,7 +342,7 @@ namespace ASC.Files.Thirdparty.Dropbox
             return null;
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId)
         {
             return null;
         }

@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Caching;
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -185,9 +184,9 @@ namespace ASC.CRM.Core.Dao
                 .InColumnValue("expected_close_date", TenantUtil.DateTimeToUtc(deal.ExpectedCloseDate))
                 .InColumnValue("actual_close_date", TenantUtil.DateTimeToUtc(deal.ActualCloseDate))
                 .InColumnValue("per_period_value", deal.PerPeriodValue)
-                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(deal.CreateOn == DateTime.MinValue ? TenantUtil.DateTimeNow() : deal.CreateOn))
                 .InColumnValue("create_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                .InColumnValue("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                .InColumnValue("last_modifed_on", TenantUtil.DateTimeToUtc(deal.CreateOn == DateTime.MinValue ? TenantUtil.DateTimeNow() : deal.CreateOn))
                 .InColumnValue("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
                 .Identity(1, 0, true));
 
@@ -830,6 +829,76 @@ namespace ASC.CRM.Core.Dao
 
         #endregion
 
+
+        public void ReassignDealsResponsible(Guid fromUserId, Guid toUserId)
+        {
+            var deals = GetDeals(String.Empty,
+                            fromUserId,
+                            0,
+                            null,
+                            0,
+                            DealMilestoneStatus.Open, 
+                            null,
+                            DateTime.MinValue,
+                            DateTime.MinValue,
+                            0,
+                            0,
+                            null);
+
+            foreach (var deal in deals)
+            {
+                deal.ResponsibleID = toUserId;
+
+                EditDeal(deal);
+
+                var responsibles = CRMSecurity.GetAccessSubjectGuidsTo(deal);
+
+                if (!responsibles.Any()) continue;
+
+                responsibles.Remove(fromUserId);
+                responsibles.Add(toUserId);
+
+                CRMSecurity.SetAccessTo(deal, responsibles.Distinct().ToList());
+            }
+        }
+
         #endregion
+
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="opportunityid"></param>
+        /// <param name="creationDate"></param>
+        public void SetDealCreationDate(int opportunityid, DateTime creationDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_deal")
+                       .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
+                       .Where(Exp.Eq("id", opportunityid)));
+            }
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
+        }
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="opportunityid"></param>
+        /// <param name="lastModifedDate"></param>
+        public void SetDealLastModifedDate(int opportunityid, DateTime lastModifedDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_deal")
+                       .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
+                       .Where(Exp.Eq("id", opportunityid)));
+            }
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
+        }
     }
 }

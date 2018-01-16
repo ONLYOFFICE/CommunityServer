@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2016
  *
@@ -37,7 +37,6 @@ using Resources;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
-    [AjaxNamespace("AjaxPro.ConfirmationDeleteUser")]
     public partial class ConfirmationDeleteUser : UserControl
     {
         public static string Location
@@ -50,36 +49,6 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             _confirmationDeleteUserPanel.Options.IsPopup = true;
 
             Page.RegisterBodyScripts("~/usercontrols/users/UserProfile/js/deleteuser.js");
-
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse RemoveUser(Guid userID)
-        {
-            var resp = new AjaxResponse();
-            try
-            {
-                SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
-
-                var user = CoreContext.UserManager.GetUsers(userID);
-                var userName = user.DisplayUserName(false);
-
-                UserPhotoManager.RemovePhoto(Guid.Empty, userID);
-                CoreContext.UserManager.DeleteUser(userID);
-
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserDeleted, userName);
-
-                resp.rs1 = "1";
-                resp.rs2 = Resource.SuccessfullyDeleteUserInfoMessage;
-            }
-            catch(Exception e)
-            {
-                resp.rs1 = "0";
-                resp.rs2 = HttpUtility.HtmlEncode(e.Message);
-            }
-
-            return resp;
         }
     }
 }

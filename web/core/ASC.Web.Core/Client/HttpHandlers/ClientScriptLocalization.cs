@@ -37,6 +37,8 @@ namespace ASC.Web.Core.Client.HttpHandlers
 {
     public abstract class ClientScriptLocalization : ClientScript
     {
+        protected override bool CheckAuth { get { return false; } }
+
         protected internal sealed override string GetCacheHash()
         {
             var result = ClientSettings.ResetCacheKey + Thread.CurrentThread.CurrentCulture.Name;
@@ -44,7 +46,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
             try
             {
                 var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-                var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+                var whiteLabelSettings = TenantWhiteLabelSettings.Load();
 
                 if (!string.IsNullOrEmpty(whiteLabelSettings.LogoText))
                 {
@@ -62,6 +64,8 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
     public abstract class ClientScriptTemplate : ClientScript
     {
+        protected override bool CheckAuth { get { return false; } }
+
         protected abstract string[] Links { get; }
 
         protected sealed override string BaseNamespace { get { return ""; } }

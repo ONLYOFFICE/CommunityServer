@@ -27,15 +27,15 @@
 using System.Collections.Specialized;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 using AjaxPro;
 using Resources;
 using System;
+using ASC.Web.Core;
 using ASC.Web.Studio.UserControls.Common;
 
 namespace ASC.Web.Studio
 {
-    public partial class PreparationPortal : Page
+    public partial class PreparationPortal : BasePage
     {
         protected void Page_PreRender(object sender, EventArgs e)
         {

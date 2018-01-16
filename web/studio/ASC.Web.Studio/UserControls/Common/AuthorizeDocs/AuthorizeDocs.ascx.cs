@@ -90,7 +90,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     {
                         Thread.Sleep(TimeSpan.FromSeconds(10));
                     }
-                    cache.Insert("loginsec/" + Login, counter, DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                    cache.Insert("loginsec/" + Login, counter.ToString(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
                     var session = string.IsNullOrEmpty(Request["remember"]);
 

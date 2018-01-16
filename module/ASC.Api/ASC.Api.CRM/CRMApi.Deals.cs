@@ -95,7 +95,7 @@ namespace ASC.Api.CRM
 
             deal.ActualCloseDate = stage.Status != DealMilestoneStatus.Open ? DateTime.UtcNow : DateTime.MinValue;
             DaoFactory.GetDealDao().EditDeal(deal);
-            MessageService.Send(Request, MessageAction.OpportunityUpdatedStage, deal.Title);
+            MessageService.Send(Request, MessageAction.OpportunityUpdatedStage, MessageTarget.Create(deal.ID), deal.Title);
 
             return ToOpportunityWrapper(deal);
         }
@@ -146,8 +146,8 @@ namespace ASC.Api.CRM
 
                 if (isMessageServicSende)
                 {
-                    var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
-                    MessageService.Send(Request, MessageAction.OpportunityRestrictedAccess, deal.Title, users);
+                    var users = GetUsersByIdList(accessListLocal);
+                    MessageService.Send(Request, MessageAction.OpportunityRestrictedAccess, MessageTarget.Create(deal.ID), deal.Title, users.Select(x => x.DisplayUserName(false)));
                 }
             }
             else
@@ -155,7 +155,7 @@ namespace ASC.Api.CRM
                 CRMSecurity.MakePublic(deal);
                 if (isMessageServicSende)
                 {
-                    MessageService.Send(Request, MessageAction.OpportunityOpenedAccess, deal.Title);
+                    MessageService.Send(Request, MessageAction.OpportunityOpenedAccess, MessageTarget.Create(deal.ID), deal.Title);
                 }
             }
 
@@ -276,7 +276,7 @@ namespace ASC.Api.CRM
             if (opportunityids == null || !opportunityids.Any()) throw new ArgumentException();
 
             var opportunities = DaoFactory.GetDealDao().DeleteBatchDeals(opportunityids.ToArray());
-            MessageService.Send(Request, MessageAction.OpportunitiesDeleted, opportunities.Select(o => o.Title));
+            MessageService.Send(Request, MessageAction.OpportunitiesDeleted, MessageTarget.Create(opportunityids), opportunities.Select(o => o.Title));
 
             return ToListOpportunityWrapper(opportunities);
         }
@@ -322,7 +322,7 @@ namespace ASC.Api.CRM
             if (!deals.Any()) return Enumerable.Empty<OpportunityWrapper>();
 
             deals = DaoFactory.GetDealDao().DeleteBatchDeals(deals);
-            MessageService.Send(Request, MessageAction.OpportunitiesDeleted, deals.Select(d => d.ID.ToString(CultureInfo.InvariantCulture)));
+            MessageService.Send(Request, MessageAction.OpportunitiesDeleted, MessageTarget.Create(deals.Select(x => x.ID)), deals.Select(d => d.Title));
 
             return ToListOpportunityWrapper(deals);
         }
@@ -459,7 +459,7 @@ namespace ASC.Api.CRM
             var deal = DaoFactory.GetDealDao().DeleteDeal(opportunityid);
             if (deal == null) throw new ItemNotFoundException();
 
-            MessageService.Send(Request, MessageAction.OpportunityDeleted, deal.Title);
+            MessageService.Send(Request, MessageAction.OpportunityDeleted, MessageTarget.Create(deal.ID), deal.Title);
 
             return ToOpportunityWrapper(deal);
         }
@@ -711,7 +711,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetDealDao().AddMember(opportunityid, contactid);
 
             var messageAction = contact is Company ? MessageAction.OpportunityLinkedCompany : MessageAction.OpportunityLinkedPerson;
-            MessageService.Send(Request, messageAction, opportunity.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(opportunity.ID), opportunity.Title, contact.GetTitle());
 
             return result;
         }
@@ -744,7 +744,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetDealDao().RemoveMember(opportunityid, contactid);
 
             var messageAction = contact is Company ? MessageAction.OpportunityUnlinkedCompany : MessageAction.OpportunityUnlinkedPerson;
-            MessageService.Send(Request, messageAction, opportunity.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(opportunity.ID), opportunity.Title, contact.GetTitle());
 
             return result;
         }
@@ -805,6 +805,33 @@ namespace ASC.Api.CRM
             var deals = DaoFactory.GetDealDao().GetDealsByContactID(contactid);
             return ToListOpportunityWrapper(deals);
         }
+
+        /// <visible>false</visible>
+        [Update(@"opportunity/{opportunityid:[0-9]+}/creationdate")]
+        public void SetDealCreationDate(int opportunityid, ApiDateTime creationDate)
+        {
+            var dao = DaoFactory.GetDealDao();
+            var opportunity = dao.GetByID(opportunityid);
+
+            if (opportunity == null || !CRMSecurity.CanAccessTo(opportunity))
+                throw new ItemNotFoundException();
+
+            dao.SetDealCreationDate(opportunityid, creationDate);
+        }
+
+        /// <visible>false</visible>
+        [Update(@"opportunity/{opportunityid:[0-9]+}/lastmodifeddate")]
+        public void SetDealLastModifedDate(int opportunityid, ApiDateTime lastModifedDate)
+        {
+            var dao = DaoFactory.GetDealDao();
+            var opportunity = dao.GetByID(opportunityid);
+
+            if (opportunity == null || !CRMSecurity.CanAccessTo(opportunity))
+                throw new ItemNotFoundException();
+
+            dao.SetDealLastModifedDate(opportunityid, lastModifedDate);
+        }
+
 
         private IEnumerable<OpportunityWrapper> ToListOpportunityWrapper(ICollection<Deal> deals)
         {

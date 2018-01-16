@@ -3,7 +3,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainMenu.ascx.cs" Inherits="ASC.Web.Files.Controls.MainMenu" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
-<%@ Import Namespace="ASC.Web.Files.Import" %>
+<%@ Import Namespace="ASC.Web.Files.Helpers" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 
 <% if (!Global.IsOutsider)
@@ -38,7 +38,7 @@
         </div>
         <ul class="menu-sub-list">
             <li class="menu-sub-item settings-link-common">
-                <a class="menu-item-label outer-text text-overflow" href="#setting" title="<%= FilesUCResource.ThirdPartyConnectAccounts %>">
+                <a class="menu-item-label outer-text text-overflow" href="#setting" title="<%= FilesUCResource.CommonSettings %>">
                     <span class="menu-item-label inner-text"><%= FilesUCResource.CommonSettings %></span>
                 </a>
             </li>
@@ -74,27 +74,27 @@
     <span class="account-connect header-base medium gray-text link dotted"><%= FilesUCResource.AddAccount %></span>
 
     <ul class="tree-thirdparty-list clearFix">
-        <% if (ImportConfiguration.SupportGoogleDriveInclusion)
+        <% if (ThirdpartyConfiguration.SupportGoogleDriveInclusion)
            { %>
         <li class="add-account-button GoogleDrive" data-provider="GoogleDrive" title="<%= FilesUCResource.ButtonAddGoogle %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportBoxInclusion)
+        <% if (ThirdpartyConfiguration.SupportBoxInclusion)
            { %>
         <li class="add-account-button Box" data-provider="Box" title="<%= FilesUCResource.ButtonAddBoxNet %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportDropboxInclusion)
+        <% if (ThirdpartyConfiguration.SupportDropboxInclusion)
            { %>
         <li class="add-account-button DropboxV2" data-provider="DropboxV2" title="<%= FilesUCResource.ButtonAddDropBox %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportOneDriveInclusion)
+        <% if (ThirdpartyConfiguration.SupportOneDriveInclusion)
            { %>
-        <li class="add-account-button SkyDrive" data-provider="SkyDrive" title="<%= FilesUCResource.ButtonAddSkyDrive %>"></li>
+        <li class="add-account-button OneDrive" data-provider="OneDrive" title="<%= FilesUCResource.ButtonAddSkyDrive %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportWebDavInclusion)
+        <% if (ThirdpartyConfiguration.SupportWebDavInclusion)
            { %>
         <li class="add-account-button Nextcloud" data-provider="WebDav" title="<%= FilesUCResource.ButtonAddNextcloud %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportInclusion)
+        <% if (ThirdpartyConfiguration.SupportInclusion)
            { %>
         <li class="account-connect add-account-button WebDav" title="<%= FilesUCResource.AddAccount %>"></li>
         <% } %>

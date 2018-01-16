@@ -32,9 +32,9 @@ namespace ASC.SingleSignOn.Common
 {
     [Serializable]
     [DataContract]
-    public class SsoSettings : ISettings
+    public class SsoSettings : BaseSettings<SsoSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get
             {
@@ -42,7 +42,7 @@ namespace ASC.SingleSignOn.Common
             }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new SsoSettings
             {

@@ -27,10 +27,9 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
+using AjaxPro;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
-using AjaxPro;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -41,27 +40,22 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/SmsControls/SmsValidationSettings.ascx";
 
-        protected bool isEnableSmsValidation
+        protected bool IsEnableSmsValidation
         {
-            get
-            {
-                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>();
-            }
+            get { return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>(); }
         }
 
         protected bool SmsEnable;
+        protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
             Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/SmsValidation.js");
 
-            SmsEnable = StudioSmsNotificationSettings.IsVisibleSettings;
+            SmsEnable = StudioSmsNotificationSettings.IsVisibleSettings && SmsProviderManager.Enabled();
 
-            if (SmsEnable)
-            {
-                SmsBuyHolder.Controls.Add(LoadControl(SmsBuy.Location));
-            }
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
     }
 }

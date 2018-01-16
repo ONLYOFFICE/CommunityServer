@@ -64,7 +64,7 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            var settings = SettingsManager.Instance.LoadSettings<SsoSettings>(TenantProvider.CurrentTenantID);
+            var settings = SsoSettings.Load();
             settings.ClientPassword = null;
             return settings;
         }
@@ -189,7 +189,7 @@ namespace ASC.Api.Settings
                     settings.ClientPassword = InstanceCrypto.Encrypt(settings.ClientPassword);
                 }
 
-                if (!SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID))
+                if (!settings.Save())
                 {
                     log.Error("Can't save SSO settings.");
                     saveSettingsResult.Status = Resource.SsoSettingsCantSaveSettings;
@@ -225,7 +225,7 @@ namespace ASC.Api.Settings
             var log = LogManager.GetLogger(typeof(SettingsApi));
             try
             {
-                var settings = SettingsManager.Instance.LoadSettings<SsoSettings>(TenantProvider.CurrentTenantID);
+                var settings = SsoSettings.Load();
 
                 if (!string.IsNullOrEmpty(settings.ClientPassword))
                     settings.ClientPassword = InstanceCrypto.Decrypt(settings.ClientPassword);
@@ -349,7 +349,7 @@ namespace ASC.Api.Settings
 
             try
             {
-                var settings = SettingsManager.Instance.LoadSettings<SsoSettings>(TenantProvider.CurrentTenantID);
+                var settings = SsoSettings.Load();
 
                 if (string.IsNullOrEmpty(settings.ClientCertificateFileName))
                     throw new Exception("Certificate is not found");
@@ -397,9 +397,9 @@ namespace ASC.Api.Settings
 
             try
             {
-                var settings = SettingsManager.Instance.LoadSettings<SsoSettings>(TenantProvider.CurrentTenantID);
+                var settings = SsoSettings.Load();
 
-                var defaultSettings = settings.GetDefault();
+                var defaultSettings = settings.GetDefault() as SsoSettings;
 
                 if (Equals(settings, defaultSettings))
                 {
@@ -409,7 +409,7 @@ namespace ASC.Api.Settings
                     };
                 }
 
-                SettingsManager.Instance.SaveSettings(defaultSettings, TenantProvider.CurrentTenantID);
+                defaultSettings.Save();
 
                 if (string.IsNullOrEmpty(settings.ClientCertificateFileName))
                 {

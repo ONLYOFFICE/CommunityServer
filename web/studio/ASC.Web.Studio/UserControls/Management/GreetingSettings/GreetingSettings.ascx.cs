@@ -29,11 +29,9 @@ using System.Web;
 using System.Web.UI;
 using AjaxPro;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.MessagingSystem;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -83,9 +81,9 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-                var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+                var _tenantInfoSettings = TenantInfoSettings.Load();
                 _tenantInfoSettings.RestoreDefaultTenantName();
-                //SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
+                //_tenantInfoSettings.Save();
 
                 return new
                     {

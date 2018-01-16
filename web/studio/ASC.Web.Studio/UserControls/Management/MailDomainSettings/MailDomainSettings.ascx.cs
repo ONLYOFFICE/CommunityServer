@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI;
-using ASC.Core.Common.Settings;
 using ASC.MessagingSystem;
 using AjaxPro;
 using ASC.Core;
@@ -63,7 +62,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 .RegisterStyle("~/usercontrols/management/maildomainsettings/css/maildomainsettings.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
-            _studioTrustedDomainSettings = SettingsManager.Instance.LoadSettings<StudioTrustedDomainSettings>(TenantProvider.CurrentTenantID);
+            _studioTrustedDomainSettings = StudioTrustedDomainSettings.Load();
             _enableInviteUsers = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
 
             if (!_enableInviteUsers)
@@ -74,7 +73,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var managementPage = Page as Studio.Management;
             _tenantAccessAnyone = managementPage != null ?
                                      managementPage.TenantAccess.Anyone :
-                                     SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+                                     TenantAccessSettings.Load().Anyone;
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }
@@ -110,8 +109,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 tenant.TrustedDomainsType = type;
 
-                var domainSettingsObj = new StudioTrustedDomainSettings {InviteUsersAsVisitors = inviteUsersAsVisitors};
-                SettingsManager.Instance.SaveSettings(domainSettingsObj, TenantProvider.CurrentTenantID);
+                new StudioTrustedDomainSettings {InviteUsersAsVisitors = inviteUsersAsVisitors}.Save();
 
                 CoreContext.TenantManager.SaveTenant(tenant);
 

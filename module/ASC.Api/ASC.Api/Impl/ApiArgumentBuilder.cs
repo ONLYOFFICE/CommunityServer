@@ -190,8 +190,8 @@ namespace ASC.Api.Impl
                                 using (var reader = new StreamReader(request.InputStream))
                                 {
                                     var xdoc = JsonConvert.DeserializeXNode(reader.ReadToEnd(), "request", false);
-                                    var root = xdoc.Root;
-                                    if (root != null)
+                                    XElement root;
+                                    if (xdoc != null && (root = xdoc.Root) != null)
                                     {
                                         FillCollectionFromXElement(root.Elements(), string.Empty, collection);
                                     }

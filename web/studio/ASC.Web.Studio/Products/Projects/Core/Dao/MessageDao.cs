@@ -37,6 +37,7 @@ using ASC.FullTextIndex;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -185,6 +186,35 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            using (var db = new DbManager(DatabaseId))
+            {
+                var query = new SqlQuery(MessagesTable + " t")
+                    .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                    .Select("t.create_by")
+                    .Where("t.tenant_id", Tenant)
+                    .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
+
+                if (filter.HasUserId)
+                {
+                    query.Where(Exp.In("t.create_by", filter.GetUserIds()));
+                    filter.UserId = Guid.Empty;
+                    filter.DepartmentId = Guid.Empty;
+                }
+
+                query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
+
+                var queryCount = new SqlQuery()
+                    .SelectCount()
+                    .Select("t1.create_by")
+                    .GroupBy(2)
+                    .From(query, "t1");
+
+                return db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
+            }
+        }
+
         public virtual Message GetById(int id)
         {
             using (var db = new DbManager(DatabaseId))
@@ -270,6 +300,11 @@ namespace ASC.Projects.Data.DAO
             }
             else
             {
+                if (ProjectsCommonSettings.Load().HideEntitiesInPausedProjects)
+                {
+                    query.Where(!Exp.Eq("p.status", ProjectStatus.Paused));
+                }
+
                 if (filter.MyProjects)
                 {
                     query.InnerJoin(ParticipantTable + " ppp", Exp.EqColumns("ppp.tenant", "t.tenant_id") & Exp.EqColumns("p.id", "ppp.project_id") & Exp.Eq("ppp.removed", false));
@@ -279,8 +314,16 @@ namespace ASC.Projects.Data.DAO
 
             if (filter.TagId != 0)
             {
-                query.InnerJoin(ProjectTagTable + " pt", Exp.EqColumns("pt.project_id", "t.project_id"));
-                query.Where("pt.tag_id", filter.TagId);
+                if (filter.TagId == -1)
+                {
+                    query.LeftOuterJoin(ProjectTagTable + " pt", Exp.EqColumns("pt.project_id", "t.project_id"));
+                    query.Where("pt.tag_id", null);
+                }
+                else
+                {
+                    query.InnerJoin(ProjectTagTable + " pt", Exp.EqColumns("pt.project_id", "t.project_id"));
+                    query.Where("pt.tag_id", filter.TagId);
+                }
             }
 
             if (filter.UserId != Guid.Empty)

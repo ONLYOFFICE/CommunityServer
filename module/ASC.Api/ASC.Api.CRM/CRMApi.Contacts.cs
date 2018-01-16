@@ -26,31 +26,29 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.CRM.Wrappers;
 using ASC.Api.Exceptions;
+using ASC.Common.Threading.Progress;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
-using ASC.Web.CRM.Classes;
-using Contact = ASC.CRM.Core.Entities.Contact;
-using System.Net;
-using ASC.Specific;
-using ASC.Web.CRM.Core.Enums;
 using ASC.Projects.Engine;
+using ASC.Specific;
+using ASC.Thrdparty;
+using ASC.Thrdparty.Facebook;
+using ASC.Thrdparty.Twitter;
+using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Classes.SocialMedia;
-using ASC.SocialMedia.Twitter;
-using ASC.SocialMedia;
-using ASC.Web.UserControls.SocialMedia.Resources;
-using ASC.SocialMedia.Facebook;
-using ASC.Web.CRM.SocialMedia;
-using ASC.Common.Threading.Progress;
+using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
+using ASC.Web.CRM.SocialMedia;
+using Contact = ASC.CRM.Core.Entities.Contact;
 
 namespace ASC.Api.CRM
 {
@@ -128,7 +126,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetContactDao().SetRelativeContactProject(new List<int> {contactid}, projectid);
 
             var messageAction = contact is Company ? MessageAction.ProjectLinkedCompany : MessageAction.ProjectLinkedPerson;
-            MessageService.Send(Request, messageAction, project.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), project.Title, contact.GetTitle());
 
             return ToContactWrapper(contact);
         }
@@ -164,7 +162,7 @@ namespace ASC.Api.CRM
 
             DaoFactory.GetContactDao().SetRelativeContactProject(contactIds, projectid);
 
-            MessageService.Send(Request, MessageAction.ProjectLinkedContacts, project.Title, contacts.Select(x => x.GetTitle()));
+            MessageService.Send(Request, MessageAction.ProjectLinkedContacts, MessageTarget.Create(contactIds), project.Title, contacts.Select(x => x.GetTitle()));
 
             return contacts.ConvertAll(ToContactWrapper);
         }
@@ -193,7 +191,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetContactDao().RemoveRelativeContactProject(contactid, projectid);
 
             var action = contact is Company ? MessageAction.ProjectUnlinkedCompany : MessageAction.ProjectUnlinkedPerson;
-            MessageService.Send(Request, action, project.Title, contact.GetTitle());
+            MessageService.Send(Request, action, MessageTarget.Create(contact.ID), project.Title, contact.GetTitle());
 
             return ToContactBaseWrapper(contact);
         }
@@ -223,7 +221,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetDealDao().AddMember(opportunityid, contactid);
 
             var messageAction = contact is Company ? MessageAction.OpportunityLinkedCompany : MessageAction.OpportunityLinkedPerson;
-            MessageService.Send(Request, messageAction, opportunity.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), opportunity.Title, contact.GetTitle());
 
             return ToOpportunityWrapper(opportunity);
         }
@@ -570,7 +568,8 @@ namespace ASC.Api.CRM
                 null);
 
             contacts = DaoFactory.GetContactDao().DeleteBatchContact(contacts);
-            MessageService.Send(Request, MessageAction.ContactsDeleted, contacts.Select(c => c.ID.ToString(CultureInfo.InvariantCulture)));
+
+            MessageService.Send(Request, MessageAction.ContactsDeleted, MessageTarget.Create(contacts.Select(c => c.ID)), contacts.Select(c => c.GetTitle()));
 
             return contacts.Select(ToContactBaseWrapper);
         }
@@ -620,7 +619,7 @@ namespace ASC.Api.CRM
             if (person == null || company == null || !CRMSecurity.CanAccessTo(person) || !CRMSecurity.CanAccessTo(company)) throw new ItemNotFoundException();
 
             DaoFactory.GetContactDao().AddMember(personid, companyid);
-            MessageService.Send(Request, MessageAction.CompanyLinkedPerson, company.GetTitle(), person.GetTitle());
+            MessageService.Send(Request, MessageAction.CompanyLinkedPerson, MessageTarget.Create(new[] { company.ID, person.ID }), company.GetTitle(), person.GetTitle());
 
             return (PersonWrapper)ToContactWrapper(person);
         }
@@ -648,7 +647,7 @@ namespace ASC.Api.CRM
 
             DaoFactory.GetContactDao().RemoveMember(personid);
 
-            MessageService.Send(Request, MessageAction.CompanyUnlinkedPerson, company.GetTitle(), person.GetTitle());
+            MessageService.Send(Request, MessageAction.CompanyUnlinkedPerson, MessageTarget.Create(new[] { company.ID, person.ID }), company.GetTitle(), person.GetTitle());
 
             return (PersonWrapper)ToContactWrapper(person);
         }
@@ -723,7 +722,7 @@ namespace ASC.Api.CRM
                 wrapper.SmallFotoUrl = ChangeContactPhoto(peopleInst.ID, photoList);
             }
 
-            MessageService.Send(Request, MessageAction.PersonCreated, peopleInst.GetTitle());
+            MessageService.Send(Request, MessageAction.PersonCreated, MessageTarget.Create(peopleInst.ID), peopleInst.GetTitle());
 
             return wrapper;
         }
@@ -826,7 +825,7 @@ namespace ASC.Api.CRM
             var resultContact = DaoFactory.GetContactDao().GetByID(tocontactid);
 
             var messageAction = resultContact is Person ? MessageAction.PersonsMerged : MessageAction.CompaniesMerged;
-            MessageService.Send(Request, messageAction, fromContact.GetTitle(), toContact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(new[] { fromContact.ID, toContact.ID }), fromContact.GetTitle(), toContact.GetTitle());
 
             return ToContactWrapper(resultContact);
         }
@@ -903,7 +902,7 @@ namespace ASC.Api.CRM
                 wrapper.SmallFotoUrl = ChangeContactPhoto(peopleInst.ID, photoList);
             }
 
-            MessageService.Send(Request, MessageAction.PersonUpdated, peopleInst.GetTitle());
+            MessageService.Send(Request, MessageAction.PersonUpdated, MessageTarget.Create(peopleInst.ID), peopleInst.GetTitle());
 
             return wrapper;
         }
@@ -978,7 +977,7 @@ namespace ASC.Api.CRM
                 wrapper.SmallFotoUrl = ChangeContactPhoto(companyInst.ID, photoList);
             }
 
-            MessageService.Send(Request, MessageAction.CompanyCreated, companyInst.GetTitle());
+            MessageService.Send(Request, MessageAction.CompanyCreated, MessageTarget.Create(companyInst.ID), companyInst.GetTitle());
 
             return wrapper;
         }
@@ -1075,11 +1074,9 @@ namespace ASC.Api.CRM
                 CRMSecurity.SetAccessTo(ct, selectedManagers);
             }
 
-            var wrappers = contacts.ConvertAll(ToContactBaseWrapper);
+            MessageService.Send(Request, MessageAction.PersonsCreated, MessageTarget.Create(contacts.Select(x => x.ID)), contacts.Select(x => x.GetTitle()));
 
-            MessageService.Send(Request, MessageAction.PersonsCreated, contacts.Select(x => x.GetTitle()));
-
-            return wrappers;
+            return contacts.ConvertAll(ToContactBaseWrapper);
         }
 
         /// <summary>
@@ -1134,7 +1131,7 @@ namespace ASC.Api.CRM
                 }
             }
 
-            MessageService.Send(Request, MessageAction.CompanyUpdated, companyInst.GetTitle());
+            MessageService.Send(Request, MessageAction.CompanyUpdated, MessageTarget.Create(companyInst.ID), companyInst.GetTitle());
 
             return (CompanyWrapper)ToContactWrapper(companyInst);
         }
@@ -1171,7 +1168,7 @@ namespace ASC.Api.CRM
             companyInst.StatusID = contactStatusid;
 
             var messageAction = companyInst is Company ? MessageAction.CompanyUpdatedTemperatureLevel : MessageAction.PersonUpdatedTemperatureLevel;
-            MessageService.Send(Request, messageAction, companyInst.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(companyInst.ID), companyInst.GetTitle());
 
             return ToContactWrapper(companyInst);
         }
@@ -1220,8 +1217,8 @@ namespace ASC.Api.CRM
 
             dao.UpdateContactStatus(forUpdateStatus, contactStatusid);
 
-            MessageService.Send(Request, MessageAction.CompanyUpdatedTemperatureLevel, companyInst.GetTitle());
-            MessageService.Send(Request, MessageAction.CompanyUpdatedPersonsTemperatureLevel, companyInst.GetTitle());
+            MessageService.Send(Request, MessageAction.CompanyUpdatedTemperatureLevel, MessageTarget.Create(companyInst.ID), companyInst.GetTitle());
+            MessageService.Send(Request, MessageAction.CompanyUpdatedPersonsTemperatureLevel, MessageTarget.Create(companyInst.ID), companyInst.GetTitle());
 
             return ToContactWrapper(companyInst);
         }
@@ -1290,8 +1287,8 @@ namespace ASC.Api.CRM
                 dao.UpdateContactStatus(forUpdateStatus, contactStatusid);
             }
 
-            MessageService.Send(Request, MessageAction.PersonUpdatedTemperatureLevel, personInst.GetTitle());
-            MessageService.Send(Request, MessageAction.PersonUpdatedCompanyTemperatureLevel, personInst.GetTitle());
+            MessageService.Send(Request, MessageAction.PersonUpdatedTemperatureLevel, MessageTarget.Create(personInst.ID), personInst.GetTitle());
+            MessageService.Send(Request, MessageAction.PersonUpdatedCompanyTemperatureLevel, MessageTarget.Create(personInst.ID), personInst.GetTitle());
 
             personInst = dao.GetByID(personInst.ID);
             return ToContactWrapper(personInst);
@@ -1462,7 +1459,7 @@ namespace ASC.Api.CRM
             if (contact == null) throw new ItemNotFoundException();
 
             var messageAction = contact is Person ? MessageAction.PersonDeleted : MessageAction.CompanyDeleted;
-            MessageService.Send(Request, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
             return ToContactWrapper(contact);
         }
@@ -1484,7 +1481,7 @@ namespace ASC.Api.CRM
             if (contactids == null) throw new ArgumentException();
 
             var contacts = DaoFactory.GetContactDao().DeleteBatchContact(contactids.ToArray());
-            MessageService.Send(Request, MessageAction.ContactsDeleted, contacts.Select(c => c.GetTitle()));
+            MessageService.Send(Request, MessageAction.ContactsDeleted, MessageTarget.Create(contactids), contacts.Select(c => c.GetTitle()));
 
             return contacts.Select(ToContactBaseWrapper);
         }
@@ -1579,7 +1576,13 @@ namespace ASC.Api.CRM
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contactid"></param>
+        /// <param name="count"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Read(@"contact/{contactid:[0-9]+}/tweets")]
         public List<Message> GetUserTweets(int contactid, int count)
         {
@@ -1592,7 +1595,7 @@ namespace ASC.Api.CRM
                                         new
                                         {
                                             message = "",
-                                            description = SocialMediaResource.SocialMediaAccountNotFoundTwitter
+                                            description = CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter
                                         }
                     ));
 
@@ -1614,7 +1617,7 @@ namespace ASC.Api.CRM
                                             new
                                             {
                                                 message = ex.Message,
-                                                description = String.Format("{0}: {1}", SocialMediaResource.ErrorUnknownTwitterAccount, twitterAccount.Data)
+                                                description = String.Format("{0}: {1}", CRMSocialMediaResource.ErrorUnknownTwitterAccount, twitterAccount.Data)
                                             }
                         ));
                 }
@@ -1625,7 +1628,7 @@ namespace ASC.Api.CRM
                                             new
                                             {
                                                 message = ex.Message,
-                                                description = String.Format("{0}: {1}", SocialMediaResource.ErrorUnknownTwitterAccount, twitterAccount.Data)
+                                                description = String.Format("{0}: {1}", CRMSocialMediaResource.ErrorUnknownTwitterAccount, twitterAccount.Data)
                                             }
                         ));
                 }
@@ -1637,7 +1640,12 @@ namespace ASC.Api.CRM
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchText"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Read(@"contact/twitterprofile")]
         public List<TwitterUserInfo> FindTwitterProfiles(string searchText)
         {
@@ -1645,7 +1653,7 @@ namespace ASC.Api.CRM
             {
                 TwitterApiInfo apiInfo = TwitterApiHelper.GetTwitterApiInfoForCurrentUser();
                 if (apiInfo == null)
-                    throw new SocialMediaAccountNotFound(SocialMediaResource.SocialMediaAccountNotFoundTwitter);
+                    throw new SocialMediaAccountNotFound(CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter);
 
                 TwitterDataProvider provider = new TwitterDataProvider(apiInfo);
                 List<TwitterUserInfo> users = provider.FindUsers(searchText);
@@ -1660,7 +1668,13 @@ namespace ASC.Api.CRM
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="isUser"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Read(@"contact/facebookprofile")]
         public List<FacebookUserInfo> FindFacebookProfiles(string searchText, bool isUser)
         {
@@ -1668,7 +1682,7 @@ namespace ASC.Api.CRM
             {
                 FacebookApiInfo apiInfo = FacebookApiHelper.GetFacebookApiInfoForCurrentUser();
                 if (apiInfo == null)
-                    throw new SocialMediaAccountNotFound(SocialMediaResource.SocialMediaAccountNotFoundFacebook);
+                    throw new SocialMediaAccountNotFound(CRMSocialMediaResource.SocialMediaAccountNotFoundFacebook);
 
                 FacebookDataProvider facebookProvider = new FacebookDataProvider(apiInfo);
 
@@ -1681,7 +1695,14 @@ namespace ASC.Api.CRM
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contactId"></param>
+        /// <param name="contactType"></param>
+        /// <param name="uploadOnly"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Delete(@"contact/{contactid:[0-9]+}/avatar")]
         public string DeleteContactAvatar(int contactId, string contactType, bool uploadOnly)
         {
@@ -1707,14 +1728,24 @@ namespace ASC.Api.CRM
             return "";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contactId"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Read(@"contact/{contactid:[0-9]+}/socialmediaavatar")]
         public List<SocialMediaImageDescription> GetContactSMImages(int contactId)
         {
             return new SocialMediaUI().GetContactSMImages(contactId);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="socialNetworks"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Create(@"contact/socialmediaavatar")]
         public List<SocialMediaImageDescription> GetContactSMImagesByNetworks(List<ContactInfoWrapper> socialNetworks)
         {
@@ -1732,11 +1763,19 @@ namespace ASC.Api.CRM
             return new SocialMediaUI().GetContactSMImages(twitter, facebook);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contactId"></param>
+        /// <param name="socialNetwork"></param>
+        /// <param name="userIdentity"></param>
+        /// <param name="uploadOnly"></param>
         /// <category>Contacts</category>
+        /// <returns></returns>
         [Update(@"contact/{contactid:[0-9]+}/avatar")]
         public string UploadUserAvatarFromSocialNetwork(int contactId, SocialNetworks socialNetwork, string userIdentity, bool uploadOnly)
         {
-            if (socialNetwork != SocialNetworks.Twitter && socialNetwork != SocialNetworks.Facebook && socialNetwork != SocialNetworks.LinkedIn)
+            if (socialNetwork != SocialNetworks.Twitter && socialNetwork != SocialNetworks.Facebook)
                 throw new ArgumentException();
 
             if (contactId != 0)
@@ -1768,7 +1807,7 @@ namespace ASC.Api.CRM
             if (contactIds == null || contactIds.Count == 0 || String.IsNullOrEmpty(body)) throw new ArgumentException();
 
             var contacts = DaoFactory.GetContactDao().GetContacts(contactIds.ToArray());
-            MessageService.Send(Request, MessageAction.CrmSmtpMailSent, contacts.Select(c => c.GetTitle()));
+            MessageService.Send(Request, MessageAction.CrmSmtpMailSent, MessageTarget.Create(contactIds), contacts.Select(c => c.GetTitle()));
 
             return MailSender.Start(fileIDs, contactIds, subject, body, storeInHistory);
         }
@@ -1800,6 +1839,32 @@ namespace ASC.Api.CRM
             return progressItem;
         }
 
+        /// <visible>false</visible>
+        [Update(@"contact/{contactid:[0-9]+}/creationdate")]
+        public void SetContactCreationDate(int contactId, ApiDateTime creationDate)
+        {
+            var dao = DaoFactory.GetContactDao();
+            var contact = dao.GetByID(contactId);
+
+            if (contact == null || !CRMSecurity.CanAccessTo(contact))
+                throw new ItemNotFoundException();
+
+            dao.SetContactCreationDate(contactId, creationDate);
+        }
+
+        /// <visible>false</visible>
+        [Update(@"contact/{contactid:[0-9]+}/lastmodifeddate")]
+        public void SetContactLastModifedDate(int contactId, ApiDateTime lastModifedDate)
+        {
+            var dao = DaoFactory.GetContactDao();
+            var contact = dao.GetByID(contactId);
+
+            if (contact == null || !CRMSecurity.CanAccessTo(contact))
+                throw new ItemNotFoundException();
+
+            dao.SetContactLastModifedDate(contactId, lastModifedDate);
+        }
+        
 
         private string UploadAvatar(int contactID, string imageUrl, bool uploadOnly)
         {

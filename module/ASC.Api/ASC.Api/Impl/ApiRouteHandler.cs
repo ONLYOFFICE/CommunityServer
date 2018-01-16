@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -32,18 +33,23 @@ using System.Web.Routing;
 using ASC.Api.Interfaces;
 using ASC.Api.Logging;
 using ASC.Api.Utils;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
+using Autofac;
 
 namespace ASC.Api.Impl
 {
     public class ApiRouteHandler : IApiRouteHandler
     {
+        public ILifetimeScope Container { get; set; }
+
+        public ApiRouteHandler(ILifetimeScope container)
+        {
+            Container = container;
+        }
+
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
-            var authorizations = container.ResolveAll<IApiAuthorization>().ToList();
-            var log = container.Resolve<ILog>();
+            var authorizations = Container.Resolve<IEnumerable<IApiAuthorization>>().ToList();
+            var log = Container.Resolve<ILog>();
 
             //Authorize request first
             log.Debug("Authorizing {0}", requestContext.HttpContext.Request.Url);
@@ -54,7 +60,7 @@ namespace ASC.Api.Impl
             {
                 //Authorization is not required for method
                 log.Debug("Authorization is not required");
-                return GetHandler(container, requestContext);
+                return GetHandler(Container, requestContext);
             }
 
             foreach (var apiAuthorization in authorizations)
@@ -62,7 +68,7 @@ namespace ASC.Api.Impl
                 log.Debug("Authorizing with:{0}", apiAuthorization.GetType().ToString());
                 if (apiAuthorization.Authorize(requestContext.HttpContext))
                 {
-                    return GetHandler(container, requestContext);
+                    return GetHandler(Container, requestContext);
                 }
             }
 
@@ -76,15 +82,17 @@ namespace ASC.Api.Impl
             return new ErrorHttpHandler(HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString());
         }
 
-        public virtual IHttpHandler GetHandler(IUnityContainer container, RequestContext requestContext)
+        public virtual IHttpHandler GetHandler(ILifetimeScope container, RequestContext requestContext)
         {
-            return container.Resolve<IApiHttpHandler>(new DependencyOverride(typeof (RouteData), requestContext.RouteData));
+            return container.BeginLifetimeScope().Resolve<IApiHttpHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
         }
     }
 
     class ApiAsyncRouteHandler : ApiRouteHandler
     {
-        public override IHttpHandler GetHandler(IUnityContainer container, RequestContext requestContext)
+        public ApiAsyncRouteHandler(ILifetimeScope container):base(container) { }
+
+        public override IHttpHandler GetHandler(ILifetimeScope container, RequestContext requestContext)
         {
             throw new NotImplementedException("This handler is not yet implemented");
         }

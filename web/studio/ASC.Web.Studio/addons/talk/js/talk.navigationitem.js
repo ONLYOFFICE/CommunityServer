@@ -17,6 +17,7 @@
                     }
                 });
             }
+            
             Teamlab.bind(Teamlab.events.getTalkUnreadMessages, ASC.Controls.TalkNavigationItem.getResponce);
 
             
@@ -44,6 +45,20 @@
         }
     };
 }
+
+jq(document).ready(function () {
+    if (ASC.SocketIO && !ASC.SocketIO.disabled()) {
+        ASC.SocketIO.Factory.counters
+            .on('getNewMessagesCount',
+                function(counts) {
+                    ASC.Controls.TalkNavigationItem.updateValue(counts.me);
+                })
+            .on('sendMessagesCount',
+                function(counts) {
+                    ASC.Controls.TalkNavigationItem.updateValue(counts);
+                });
+    }
+});
 
 if (!ASC.Controls.JabberClient) {
     ASC.Controls.JabberClient = {
@@ -74,6 +89,12 @@ if (!ASC.Controls.JabberClient) {
         },
         extendChat: function () {
             ASC.Controls.JabberClient.open();
+        },
+        redirectMain: function () {
+            try {
+                window.open('/');
+            } catch (err) {
+            }
         },
         open: function (jid) {
             var hWnd = null,
@@ -117,9 +138,8 @@ if (!ASC.Controls.JabberClient) {
 
             try {
                 ASC.Controls.TalkNavigationItem.updateValue(0);
-                if (ASC.Resources.Master.Hub.Url) {
-                    // SendMessagesCount
-                    jq.connection.ch.server.smec(0);
+                if (ASC.SocketIO && !ASC.SocketIO.disabled()) {
+                    ASC.SocketIO.Factory.counters.emit('sendMessagesCount', 0);
                 }
             } catch (e) {
                 console.error(e.message);

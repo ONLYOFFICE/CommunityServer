@@ -60,9 +60,8 @@
                     </div>
                 </td>
                 <td style="text-align:right;">
-                    <span class="gray-text">${ASC.CRM.Resources.CRMInvoiceResource.TotalInvoices}:</span>
+                    <span class="gray-text">${ASC.CRM.Resources.CRMInvoiceResource.TotalInvoices}:&nbsp;</span>
                     <span class="gray-text" id="totalInvoicesOnPage"></span>
-
                     <span class="gray-text">${ASC.CRM.Resources.CRMCommonResource.ShowOnPage}:&nbsp;</span>
                     <select class="top-align">
                         <option value="25">25</option>
@@ -209,7 +208,7 @@
             </div>
             <div class="headerPanelSmall-splitter">
                 <div class="header-base-small">${ASC.CRM.Resources.CRMInvoiceResource.FormInvoiceItemPrice}</div>
-                <input type="text" class="textEdit" id="newItemPrice">
+                <input type="text" class="textEdit" id="newItemPrice" maxlength="11">
             </div>
             <div class="button-container">
                 <a class="button gray disable create-btn">${ASC.CRM.Resources.CRMCommonResource.Create}</a>
@@ -344,7 +343,7 @@
                             {{if Number != null}}
                             <div class="background-gray invoice-number">
                                 <span class="font-22 font-gray">${Number.Item1}</span>
-                                <span class="font-16 font-gray">№</span>
+                                <span class="font-16 font-gray">&nbsp;№&nbsp;</span>
                                 <span class="font-16">${Number.Item2}</span>
                             </div>
                             {{/if}}

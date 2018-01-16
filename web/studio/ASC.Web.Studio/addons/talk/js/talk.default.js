@@ -315,7 +315,8 @@ window.TMTalk = (function ($) {
       case 'recv-invite' :
       case 'kick-occupant' :
       case 'create-mailing' :
-      case 'browser-notifications' :
+      case 'browser-notifications':
+      case 'delete-files':
         break;
       default :
         return undefined;
@@ -501,6 +502,7 @@ window.TMTalk = (function ($) {
                 var res = jq.parseJSON(data.result);
                 ASC.TMTalk.meseditorContainer.onSendFileComplete(res);
                 TMTalk.disableFileUploader(false);
+                jq("#pop").addClass("has-files");
             })
             .bind("fileuploadfail", function (e, data) {
                 var msg = data.errorThrown || data.textStatus;
@@ -560,8 +562,8 @@ window.TMTalk = (function ($) {
     minPageHeight = 300,
     offsetSidebarContainer = 0,
     offsetMeseditorContainer = 0,
-    minMeseditorContainer = 60,
-    minSidebarContainerWidth = 250,
+    minMeseditorContainer = 50,
+    minSidebarContainerWidth = 252,
     mcHeightOffset = 0,
     ccWidthOffset = 0,
     ccHeightOffset = 0,
@@ -620,7 +622,7 @@ window.TMTalk = (function ($) {
     return false;
   }
 //-------------------------------------------------------------------------------------------
-  function onMouseMoveVertSlider (evt) {
+  function onMouseMoveVertSlider(evt) {
     var
       contentContainerHeight = $contentContainer.height(),
       newMeseditorHeight = document.body.offsetHeight - evt.pageY - offsetMeseditorContainer;
@@ -631,9 +633,10 @@ window.TMTalk = (function ($) {
     if (newMeseditorHeight < minMeseditorContainer) {
       newMeseditorHeight = minMeseditorContainer;
     }
+    ASC.TMTalk.properties.meseditorHeight = newMeseditorHeight;
     meseditorContainer.style.height = newMeseditorHeight + 'px';
     //$meseditorContainer.height(newMeseditorHeight);
-    vertSlider.style.bottom = (newMeseditorHeight + vsBottomOffset+$vertSlider.height()/2) + 'px';
+    vertSlider.style.bottom = (newMeseditorHeight - 5) + 'px';
     //$vertSlider.css('bottom', newMeseditorHeight + vsBottomOffset + 'px');
     roomsContainer.style.height = contentContainerHeight - meseditorContainer.offsetHeight - roomsContainer.offsetTop - rcHeightOffset - 22 + (ASC.TMTalk.dom.hasClass(roomsContainer, 'multichat') ? 32:0) + 'px';
     //$roomsContainer.height(contentContainerHeight - $meseditorContainer.height() - parseInt($roomsContainer.css('top')) - rcHeightOffset);
@@ -645,7 +648,7 @@ window.TMTalk = (function ($) {
         var roomHeight = nodes[0].offsetHeight;
         nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'sub-panel', 'div');
         if (nodes.length > 0) {
-          nodes[0].style.height = Math.ceil(roomHeight / 2) - 70 + 'px';
+          nodes[0].style.height = Math.ceil(roomHeight / 2) - 90 + 'px';
         }
       }
     }
@@ -655,7 +658,7 @@ window.TMTalk = (function ($) {
             var roomHeight = nodes[0].offsetHeight;
             nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'sub-panel', 'div');
             if (nodes.length > 0) {
-                nodes[0].style.height = Math.ceil(roomHeight / 2) - 70 + 'px';
+                nodes[0].style.height = Math.ceil(roomHeight / 2) - 90 + 'px';
             }
         }
     }
@@ -687,10 +690,10 @@ window.TMTalk = (function ($) {
     return false;
   }
 //-------------------------------------------------------------------------------------------
-  function onMouseMoveHorSlider (evt) {
+  function onMouseMoveHorSlider(evt) {
     var
       mainContainerWidth = $mainContainer.width(),
-      newSidebarWidth = document.body.offsetWidth - evt.pageX - offsetSidebarContainer;
+      newSidebarWidth = evt.pageX ;
 
     if (newSidebarWidth * 2 > mainContainerWidth) { // if more 50%
       newSidebarWidth = Math.floor(mainContainerWidth / 2);
@@ -699,7 +702,7 @@ window.TMTalk = (function ($) {
       newSidebarWidth = minSidebarContainerWidth;
     }
     $sidebarContainer.width(newSidebarWidth);
-    $horSlider.css('right', newSidebarWidth + 'px');
+    $horSlider.css('left', newSidebarWidth + 'px');
     $contentContainer.width(mainContainerWidth - newSidebarWidth - ccWidthOffset);
     return false;
   }
@@ -805,8 +808,8 @@ window.TMTalk = (function ($) {
       meseditorHeight = minMeseditorContainer;
     }
     meseditorContainer.style.height = meseditorHeight + 'px';
-    //$meseditorContainer.height(meseditorHeight);
-    vertSlider.style.bottom = (meseditorHeight + vsBottomOffset +$vertSlider.height()/2) + 'px';
+      //$meseditorContainer.height(meseditorHeight);
+    vertSlider.style.bottom = (meseditorHeight - 5) + 'px';
     //$vertSlider.css('bottom', meseditorHeight + vsBottomOffset + 'px');
 
     var roomsContainerHeight = contentContainerHeight - roomsContainer.offsetTop - ($roomsContainer.hasClass('history') ? 2 : meseditorContainer.offsetHeight + rcHeightOffset);
@@ -828,7 +831,7 @@ window.TMTalk = (function ($) {
     }
     sidebarContainer.style.width = sidebarWidth + 'px';
     //$sidebarContainer.width(sidebarWidth);
-    horSlider.style.right = sidebarWidth + 'px';
+    horSlider.style.left = sidebarWidth + 'px';
     //$horSlider.css('right', sidebarWidth + 'px');
     contentContainer.style.width = mainContainerWidth - sidebarWidth - ccWidthOffset + 'px';
     //$contentContainer.width(mainContainerWidth - sidebarWidth - ccWidthOffset);
@@ -965,7 +968,7 @@ window.TMTalk = (function ($) {
         }
         sidebarContainer.style.width = sidebarWidth + 'px';
         //$sidebarContainer.width(sidebarWidth);
-        horSlider.style.right = sidebarWidth + 'px';
+        horSlider.style.left = sidebarWidth + 'px';
         //$horSlider.css('right', sidebarWidth + 'px');
         contentContainer.style.width = mainContainerWidth - sidebarWidth - ccWidthOffset + 'px';
         //$contentContainer.width(mainContainerWidth - sidebarWidth - ccWidthOffset);
@@ -980,7 +983,7 @@ window.TMTalk = (function ($) {
             var roomHeight = nodes[0].offsetHeight;
             nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'sub-panel', 'div');
             if (nodes.length > 0) {
-              nodes[0].style.height = Math.ceil(roomHeight / 2) - 70 + 'px';
+              nodes[0].style.height = Math.ceil(roomHeight / 2) - 90 + 'px';
             }
           }
         }
@@ -990,7 +993,7 @@ window.TMTalk = (function ($) {
                 var roomHeight = nodes[0].offsetHeight;
                 nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'sub-panel', 'div');
                 if (nodes.length > 0) {
-                    nodes[0].style.height = Math.ceil(roomHeight / 2) - 70 + 'px';
+                    nodes[0].style.height = Math.ceil(roomHeight / 2) - 90 + 'px';
                 }
             }
         }

@@ -300,6 +300,9 @@
   <data name="BlankModalMailServerTip2" xml:space="preserve">
     <value>Use the ready-made free default domain or add your own</value>
   </data>
+  <data name="BlankModalMailServerTip2Stanalone" xml:space="preserve">
+    <value>Import accounts and other data from MS Exchange</value>
+  </data>
   <data name="BlankModalMailServerTip3" xml:space="preserve">
     <value>Assign aliases to the users and organize them into groups</value>
   </data>
@@ -488,6 +491,9 @@
   </data>
   <data name="DomainHelperInformationText_2" xml:space="preserve">
     <value>This domain is common for all portals, so it is recommended that your corporate domain is used for corporate email correspondence</value>
+  </data>
+  <data name="DomainHelperExportFromMSExchange" xml:space="preserve">
+    <value>It is possible to {0}export data from the MS Exchange.{1}</value>
   </data>
   <data name="DoneLabel" xml:space="preserve">
     <value>Done</value>

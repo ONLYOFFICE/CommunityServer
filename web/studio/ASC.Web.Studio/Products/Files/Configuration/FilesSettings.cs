@@ -26,15 +26,13 @@
 
 using System;
 using System.Runtime.Serialization;
-using ASC.Core;
 using ASC.Core.Common.Settings;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files.Classes
 {
     [Serializable]
     [DataContract]
-    public class FilesSettings : ISettings
+    public class FilesSettings : BaseSettings<FilesSettings>
     {
         [DataMember(Name = "EnableThirdpartySettings")]
         public bool EnableThirdpartySetting { get; set; }
@@ -48,7 +46,7 @@ namespace ASC.Web.Files.Classes
         [DataMember(Name = "ConvertNotify")]
         public bool ConvertNotifySetting { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new FilesSettings
                 {
@@ -59,7 +57,7 @@ namespace ASC.Web.Files.Classes
                 };
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{03B382BD-3C20-4f03-8AB9-5A33F016316E}"); }
         }
@@ -68,49 +66,42 @@ namespace ASC.Web.Files.Classes
         {
             set
             {
-                var setting = new FilesSettings
-                    {
-                        EnableThirdpartySetting = value
-                    };
-                SettingsManager.Instance.SaveSettings(setting, TenantProvider.CurrentTenantID);
+                new FilesSettings { EnableThirdpartySetting = value }.Save();
             }
-            get { return SettingsManager.Instance.LoadSettings<FilesSettings>(TenantProvider.CurrentTenantID).EnableThirdpartySetting; }
+            get { return Load().EnableThirdpartySetting; }
         }
 
         public static bool StoreOriginalFiles
         {
             set
             {
-                var setting = SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID);
+                var setting = LoadForCurrentUser();
                 setting.StoreOriginalFilesSetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
-            get { return SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID).StoreOriginalFilesSetting; }
+            get { return LoadForCurrentUser().StoreOriginalFilesSetting; }
         }
 
         public static bool UpdateIfExist
         {
             set
             {
-                var setting = SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID);
+                var setting = LoadForCurrentUser();
                 setting.UpdateIfExistSetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
-            get { return SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID).UpdateIfExistSetting; }
+            get { return LoadForCurrentUser().UpdateIfExistSetting; }
         }
 
         public static bool ConvertNotify
         {
             set
             {
-                var setting = SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID);
+                var setting = LoadForCurrentUser();
                 setting.ConvertNotifySetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
-            get { return SettingsManager.Instance.LoadSettingsFor<FilesSettings>(SecurityContext.CurrentAccount.ID).ConvertNotifySetting; }
+            get { return LoadForCurrentUser().ConvertNotifySetting; }
         }
     }
 }

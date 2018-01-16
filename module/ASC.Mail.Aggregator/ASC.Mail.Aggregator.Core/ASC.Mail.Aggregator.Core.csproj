@@ -44,10 +44,10 @@
       <HintPath>..\..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\..\packages\MailKit.1.16.0\lib\net45\MailKit.dll</HintPath>
+      <HintPath>..\..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\..\packages\MimeKit.1.16.0\lib\net45\MimeKit.dll</HintPath>
+      <HintPath>..\..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

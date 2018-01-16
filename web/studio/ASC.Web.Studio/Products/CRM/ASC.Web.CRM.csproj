@@ -59,11 +59,16 @@
     <Reference Include="LumenWorks.Framework.IO">
       <HintPath>..\..\..\..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Client">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.SignalR.Client.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    <Reference Include="MailKit">
+      <HintPath>..\..\..\..\..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MimeKit">
+      <HintPath>..\..\..\..\..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -118,12 +123,15 @@
     <Reference Include="DotNetZip">
       <HintPath>..\..\..\..\..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio.Mvc">
-      <HintPath>..\..\..\..\..\packages\Twilio.Mvc.3.2.1\lib\3.5\Twilio.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="Twilio.Twiml">
+    <Reference Include="Twilio">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Twilio.TwiML.3.5.0\lib\3.5\Twilio.Twiml.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Twilio.5.6.0\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Common">
+      <HintPath>..\..\..\..\..\packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.AspNet.Mvc">
+      <HintPath>..\..\..\..\..\packages\Twilio.AspNet.Mvc.5.0.2\lib\net451\Twilio.AspNet.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +249,13 @@
     <Compile Include="Controls\Deals\ListDealView.ascx.designer.cs">
       <DependentUpon>ListDealView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\CurrencySettingsView.ascx.cs">
+      <DependentUpon>CurrencySettingsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\CurrencySettingsView.ascx.designer.cs">
+      <DependentUpon>CurrencySettingsView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\DealMilestoneView.ascx.cs">
       <DependentUpon>DealMilestoneView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -275,6 +290,20 @@
     </Compile>
     <Compile Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.designer.cs">
       <DependentUpon>InvoiceTaxesView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportsNavigation.ascx.cs">
+      <DependentUpon>ReportsNavigation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportsNavigation.ascx.designer.cs">
+      <DependentUpon>ReportsNavigation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportsView.ascx.cs">
+      <DependentUpon>ReportsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportsView.ascx.designer.cs">
+      <DependentUpon>ReportsView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Settings\VoipSettings\VoipCommon.ascx.cs">
       <DependentUpon>VoipCommon.ascx</DependentUpon>
@@ -324,6 +353,18 @@
     </Compile>
     <Compile Include="Controls\Tasks\ListTaskView.ascx.designer.cs">
       <DependentUpon>ListTaskView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Dao\ListItemHistoryDao.cs" />
+    <Compile Include="Core\Entities\ListItemHistory.cs" />
+    <Compile Include="Core\Enums\ReportTaskStatus.cs" />
+    <Compile Include="Core\Enums\ReportTimePeriodEnum.cs" />
+    <Compile Include="Core\Enums\ReportTypeEnum.cs" />
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Core\Dao\CurrencyRateDao.cs" />
     <Compile Include="Core\Dao\CurrencyInfoDao.cs" />
@@ -437,6 +478,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMPatternResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ReportHelper.cs" />
     <Compile Include="Utils\CurrencyProvider.cs" />
     <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
     <Compile Include="Classes\Global.cs" />
@@ -652,6 +694,7 @@
       <DependentUpon>Tasks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils\ExportToCSV.cs" />
+    <Compile Include="Utils\FileHelper.cs" />
     <Compile Include="Utils\Import\CSV\ImportBase.cs" />
     <Compile Include="Utils\Import\CSV\ImportCases.cs" />
     <Compile Include="Utils\Import\CSV\ImportContacts.cs" />
@@ -664,6 +707,7 @@
     <Compile Include="Utils\PdfCreator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Default\css\reports.less" />
     <Content Include="App_Themes\Default\images\contacts.png" />
     <Content Include="App_Themes\Default\images\empty_screen_phones.png" />
     <Content Include="App_Themes\Default\images\customize.png" />
@@ -715,14 +759,18 @@
     <Content Include="Controls\Common\HistoryView.ascx" />
     <Content Include="Controls\Deals\DealActionView.ascx" />
     <Content Include="Controls\Deals\DealDetailsView.ascx" />
+    <Content Include="Controls\Settings\CurrencySettingsView.ascx" />
     <Content Include="Controls\Settings\CustomFieldsView.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx" />
+    <Content Include="Controls\Reports\ReportsNavigation.ascx" />
+    <Content Include="Controls\Reports\ReportsView.ascx" />
     <Content Include="Controls\Settings\VoipSettings\VoipCommon.ascx" />
     <Content Include="Controls\Settings\VoipSettings\VoipNumbers.ascx" />
     <Content Include="Controls\Settings\VoipSettings\VoipCalls.ascx" />
+    <Content Include="Reports.aspx" />
     <Content Include="js\voip.common.js" />
     <Content Include="js\voip.numbers.js" />
     <Content Include="js\fileUploader.js" />
@@ -750,6 +798,12 @@
     <Content Include="Templates\SimpleContactListTemplate.html" />
     <Content Include="Templates\TasksTemplates.html" />
     <Content Include="Templates\VoipTemplates.html" />
+    <EmbeddedResource Include="Services\NotifyService\patterns.xml" />
+    <Content Include="Sender.aspx" />
+    <Content Include="Settings.aspx" />
+    <Content Include="Tasks.aspx" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\CRMErrorsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMErrorsResource.Designer.cs</LastGenOutput>
@@ -759,12 +813,6 @@
       <LastGenOutput>CRMVoipResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Services\NotifyService\patterns.xml" />
-    <Content Include="Sender.aspx" />
-    <Content Include="Settings.aspx" />
-    <Content Include="Tasks.aspx" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\CRMContactResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1013,10 +1061,6 @@
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
       <Name>ASC.VoipService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\controls\ASC.Web.UserControls.SocialMedia\ASC.Web.UserControls.SocialMedia.csproj">
-      <Project>{943ccb39-1944-4ac6-a094-da6f910bb33b}</Project>
-      <Name>ASC.Web.UserControls.SocialMedia</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
@@ -1030,7 +1074,36 @@
       <Name>ASC.Web.Files</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\SalesByManagers.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\SalesForecast.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\SalesFunnel.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\WorkloadByDeals.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\WorkloadByTasks.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\WorkloadByInvoices.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\WorkloadByContacts.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\SummaryForThePeriod.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\SummaryAtThisMoment.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportTemplates\WorkloadByVoip.docbuilder" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <CreateItem Include="$(ProjectDir)**\*.css">

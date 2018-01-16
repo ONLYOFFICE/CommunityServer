@@ -63,9 +63,27 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             if (SecurityContext.IsAuthenticated && User.ID != SecurityContext.CurrentAccount.ID)
             {
-                Response.Redirect(GetRefererURL());
+                Response.Redirect(GetRefererURL(), true);
                 return;
             }
+
+            if (IsPostBack && !Activation)
+            {
+                var user = GetUser();
+
+                try
+                {
+                    SmsManager.ValidateSmsCode(user, Request["phoneAuthcode"]);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSms);
+
+                    Response.Redirect(GetRefererURL(), true);
+                }
+                catch
+                {
+                    MessageService.Send(HttpContext.Current.Request, user.DisplayUserName(false), MessageAction.LoginFailViaSms, MessageTarget.Create(user.ID));
+                }
+            }
+
             var authCommunications = (AuthCommunications)LoadControl(AuthCommunications.Location);
             authCommunications.DisableJoin = true;
             _communitations.Controls.Add(authCommunications);
@@ -108,10 +126,15 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private UserInfo GetUser()
         {
-            return CoreContext.UserManager.GetUsers(
-                SecurityContext.IsAuthenticated
-                    ? SecurityContext.CurrentAccount.ID
-                    : new Guid(Context.Session["SmsAuthData"].ToString()));
+            var userId = SecurityContext.CurrentAccount.ID;
+            if (!SecurityContext.IsAuthenticated)
+            {
+                var smsAuthData = Context.Session["SmsAuthData"];
+                if (smsAuthData == null) return null;
+
+                userId = new Guid(smsAuthData.ToString());
+            }
+            return CoreContext.UserManager.GetUsers(userId);
         }
 
         private string GetRefererURL()
@@ -133,7 +156,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var user = GetUser();
             mobilePhone = SmsManager.SaveMobilePhone(user, mobilePhone);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedMobileNumber, user.DisplayUserName(false), mobilePhone);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedMobileNumber, MessageTarget.Create(user.ID), user.DisplayUserName(false), mobilePhone);
 
             var mustConfirm = StudioSmsNotificationSettings.Enable;
 
@@ -174,7 +197,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
             catch
             {
-                MessageService.Send(HttpContext.Current.Request, user.DisplayUserName(false), MessageAction.LoginFailViaSms);
+                MessageService.Send(HttpContext.Current.Request, user.DisplayUserName(false), MessageAction.LoginFailViaSms, MessageTarget.Create(user.ID));
                 throw;
             }
 

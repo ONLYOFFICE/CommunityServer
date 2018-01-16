@@ -6,7 +6,7 @@
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
-<%@ Import Namespace="ASC.Web.Files.Import" %>
+<%@ Import Namespace="ASC.Web.Files.Helpers" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Web.Files.Utils" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
@@ -74,7 +74,7 @@
     <%--Panels--%>
 
     <div id="settingCommon">
-        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ImportConfiguration.SupportInclusion && !Desktop)%>
+        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ThirdpartyConfiguration.SupportInclusion && !Desktop)%>
         <% { %>
         <span class="header-base"><%= FilesUCResource.ThirdPartyAccounts %></span>
         <br />

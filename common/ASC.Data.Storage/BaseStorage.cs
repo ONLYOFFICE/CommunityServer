@@ -102,6 +102,7 @@ namespace ASC.Data.Storage
         public abstract void Delete(string domain, string path);
         public abstract void DeleteFiles(string domain, string folderPath, string pattern, bool recursive);
         public abstract void DeleteFiles(string domain, List<string> paths);
+        public abstract void DeleteFiles(string domain, string folderPath, DateTime fromDate, DateTime toDate);
         public abstract void MoveDirectory(string srcdomain, string srcdir, string newdomain, string newdir);
         public abstract Uri Move(string srcdomain, string srcpath, string newdomain, string newpath);
         public abstract Uri SaveTemp(string domain, out string assignedPath, Stream stream);
@@ -112,6 +113,7 @@ namespace ASC.Data.Storage
         public abstract bool IsDirectory(string domain, string path);
         public abstract void DeleteDirectory(string domain, string path);
         public abstract long GetFileSize(string domain, string path);
+        public abstract long GetDirectorySize(string domain, string path);
         public abstract long ResetQuota(string domain);
         public abstract long GetUsedQuota(string domain);
         public abstract Uri Copy(string srcdomain, string path, string newdomain, string newpath);
@@ -182,6 +184,12 @@ namespace ASC.Data.Storage
         {
             return GetFileSize(string.Empty, path);
         }
+
+        public long GetDirectorySize(string path)
+        {
+            return GetDirectorySize(string.Empty, path);
+        }
+
 
         public Uri Copy(string path, string newdomain, string newpath)
         {

@@ -137,13 +137,13 @@
         &lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
-              &lt;a href="http://support.onlyoffice.com/" target="_blank" style="color: #333;"&gt;Send your question&lt;/a&gt;
+              &lt;a href="%SUPPORTURL%" target="_blank" style="color: #333;"&gt;Send your question&lt;/a&gt;
             &lt;/td&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
-              &lt;a href="mailto:sales@onlyoffice.com" style="color: #333;"&gt;Email us&lt;/a&gt;
+              &lt;a href="mailto:%SALESEMAIL%" style="color: #333;"&gt;Email us&lt;/a&gt;
             &lt;/td&gt;
             &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
-              &lt;a href="http://www.onlyoffice.com/demo-order.aspx" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
+              &lt;a href="%DEMOURL%" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
             &lt;/td&gt;
         &lt;/tr&gt;</value>
   </data>

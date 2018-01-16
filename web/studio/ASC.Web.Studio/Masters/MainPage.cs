@@ -31,9 +31,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
-using System.Web.UI;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.FederatedLogin.Profile;
 using ASC.Geolocation;
@@ -54,7 +52,7 @@ namespace ASC.Web.Studio
     /// <summary>
     /// Base page for all pages in projects
     /// </summary>
-    public class MainPage : Page
+    public class MainPage : BasePage
     {
         protected virtual bool MayNotAuth { get; set; }
 
@@ -62,22 +60,7 @@ namespace ASC.Web.Studio
 
         protected virtual bool MayPhoneNotActivate { get; set; }
 
-        protected virtual bool CheckWizardCompleted
-        {
-            get
-            {
-                return !CoreContext.Configuration.Standalone || Request.QueryString["warmup"] != "true";
-            }
-        }
-
-        protected virtual bool RedirectToStartup
-        {
-            get
-            {
-                if (!CoreContext.Configuration.Standalone) return false;
-                return !WarmUpController.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true";
-            }
-        }
+        protected virtual bool CheckWizardCompleted { get { return true; } }
 
         protected static ILog Log
         {
@@ -86,14 +69,9 @@ namespace ASC.Web.Studio
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (RedirectToStartup)
-            {
-                Response.Redirect("~/Startup.aspx");
-            }
-
             if (CheckWizardCompleted)
             {
-                var s = SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID);
+                var s = WizardSettings.Load();
                 if (!s.Completed)
                 {
                     Response.Redirect("~/wizard.aspx");
@@ -105,7 +83,7 @@ namespace ASC.Web.Studio
                 && !AuthByCookies()
                 && !MayNotAuth)
             {
-                if (SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone)
+                if (TenantAccessSettings.Load().Anyone)
                 {
                     OutsideAuth();
                 }
@@ -119,7 +97,7 @@ namespace ASC.Web.Studio
 
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (!MayNotPaid && TenantStatisticsProvider.IsNotPaid() && WarmUpController.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true")
+            if (!MayNotPaid && TenantStatisticsProvider.IsNotPaid())
             {
                 if (TariffSettings.HidePricingPage && !user.IsAdmin())
                 {
@@ -165,7 +143,7 @@ namespace ASC.Web.Studio
                 Response.Redirect("~/", true);
             }
 
-            if (SecurityContext.IsAuthenticated)
+            if (SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal)
             {
                 try
                 {
@@ -203,12 +181,16 @@ namespace ASC.Web.Studio
         private string GetRefererUrl()
         {
             var refererURL = Request.GetUrlRewriter().AbsoluteUri;
-            if (String.IsNullOrEmpty(refererURL)
-                || refererURL.IndexOf("Subgurim_FileUploader", StringComparison.InvariantCultureIgnoreCase) != -1
-                || (this is _Default)
-                || (this is ServerError)
-                )
+            if (this is _Default)
+            {
+                refererURL = "/";
+            }
+            else if (String.IsNullOrEmpty(refererURL) 
+                        ||refererURL.IndexOf("Subgurim_FileUploader", StringComparison.InvariantCultureIgnoreCase) != -1
+                        || (this is ServerError))
+            {
                 refererURL = (string)Session["refererURL"];
+            }
 
             return refererURL;
         }

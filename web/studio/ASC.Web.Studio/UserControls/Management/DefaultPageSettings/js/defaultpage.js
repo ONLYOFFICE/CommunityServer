@@ -26,17 +26,25 @@
 
 var DefaultPage = new function() {
     this.SaveSettings = function() {
-        var selectedProductID = jq("input[name='defaultPage']:checked").val();
-        
-        Teamlab.setDefaultpage({}, selectedProductID, {
-            bafore: function (params) { LoadingBanner.showLoaderBtn("#studio_defaultPageSettings"); },
-            after: function (params) { LoadingBanner.hideLoaderBtn("#studio_defaultPageSettings"); },
-            success: function (params, response) {
+        var selectedProductId = jq("input[name='defaultPage']:checked").val();
+
+        Teamlab.setDefaultpage({}, selectedProductId, {
+            bafore: function() { LoadingBanner.showLoaderBtn("#studio_defaultPageSettings"); },
+            after: function() { LoadingBanner.hideLoaderBtn("#studio_defaultPageSettings"); },
+            success: function() {
                 LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
             },
-            error: function (params, errors) {
+            error: function(params, errors) {
                 LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", errors[0], "error");
             }
         });
-    }
-}
+    };
+};
+
+jq(function() {
+    jq("input[name=defaultPage]").each(function() {
+        var obj = jq(this);
+        if (obj.attr("checked") == "checked")
+            obj.prop("checked", true);
+    });
+});

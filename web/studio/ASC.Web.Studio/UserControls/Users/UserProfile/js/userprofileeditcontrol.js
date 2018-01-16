@@ -83,6 +83,7 @@ window.EditProfileManager = (function () {
         jq('#userdataSex option[value=' + sex + ']').attr('selected', true);
 
         jq("#userType, .group-field").tlcombobox();
+        jq(".group-field.external").tlcombobox(false);
         jq("#userdataSex").tlcombobox();
         jq("#profileFirstName").focus();
 
@@ -211,7 +212,7 @@ window.EditProfileManager = (function () {
                 ShowRequiredError(jq("#profileSecondName"));
                 isError = true;
             }
-            if (!jq.isValidEmail(email)) {
+            if (!edit && !jq.isValidEmail(email)) {
                 ShowRequiredError(jq("#profileEmail"));
                 isError = true;
             }
@@ -254,13 +255,25 @@ window.EditProfileManager = (function () {
             var
             type = "",
             value = "",
+            isExternalContact = false,
             $contact = null,
             $contacts = jq(".contacts-group div.field-with-actions:not(.default)");
 
             for (var i = 0, n = $contacts.length; i < n; i++) {
                 $contact = $contacts.slice(i, i + 1);
+                isExternalContact = $contact.attr("isExternalContact");
                 type = $contact.find("select").val();
                 value = $contact.find("input.textEdit").val();
+
+                if (isExternalContact) {
+                    if (type === "mail") {
+                        type = "extmail";
+                    }
+                    else if (type === "mobphone") {
+                        type = "extmobphone";
+                    }
+                }
+
                 if (type && value) {
                     for (var j = 0, k = contacts.length; j < k; j++) {
                         if (type == contacts[j].Type && value == contacts[j].Value) {
@@ -316,7 +329,6 @@ window.EditProfileManager = (function () {
                 sex: sex,
                 title: position,
                 location: location,
-                email: email,
                 birthday: birthDate,
                 worksfrom: workFromDate,
                 contacts: contacts,
@@ -324,6 +336,9 @@ window.EditProfileManager = (function () {
                 department: departments
             };
 
+            if (!edit) {
+                profile.email = email;
+            }
 
             lockProfileActionPageElements();
             if (edit && typeof (window.userId) != "undefined") {
@@ -467,7 +482,30 @@ window.EditProfileManager = (function () {
             for (var i = 0, n = window.otherContacts.length; i < n; i++) {
                 var contact = window.otherContacts[i];
                 if (contact.hasOwnProperty("classname")) {
-                    addNewBlock(contact.classname, contact.text, "#contactInfoContainer");
+                    var classname = contact.classname;
+
+                    var isExternalContact = false;
+
+                    if (classname === "extmail") {
+                        classname = "mail";
+                        isExternalContact = true;
+                    }
+                    else if (classname === "extmobphone") {
+                        classname = "mobphone";
+                        isExternalContact = true;
+                    }
+
+                    var $newEl = addNewBlock(classname, contact.text, "#contactInfoContainer");
+
+                    if (isExternalContact) {
+                        $newEl.attr("isExternalContact", true);
+                        $newEl.find(".delete-field").css("visibility", "hidden");
+                        $newEl.find(".group-field").addClass("external");
+
+                        var title = jq("#profileFirstName").attr("title");
+                        $newEl.find(".textEdit").addClass("disable").attr("disabled", true).attr("title", title);
+
+                    }
                 }
             }
         }
@@ -495,6 +533,8 @@ window.EditProfileManager = (function () {
             $newSelect.find("select").val($newSelect.find("select").children("option:first").val());
         }
         $linkAdd.before($newSelect);
+
+        return $newSelect;
     };
 
     function onProfileError() {

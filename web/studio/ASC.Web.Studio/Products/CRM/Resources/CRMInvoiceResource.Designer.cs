@@ -808,6 +808,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The tax name already exist.
+        /// </summary>
+        public static string ExistTaxNameError {
+            get {
+                return ResourceManager.GetString("ExistTaxNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inventory stock.
         /// </summary>
         public static string FormInvoiceItemInventoryStock {
@@ -1015,7 +1024,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoice.
+        ///   Looks up a localized string similar to Invoices.
         /// </summary>
         public static string Invoices {
             get {

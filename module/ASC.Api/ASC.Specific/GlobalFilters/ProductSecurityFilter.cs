@@ -38,7 +38,6 @@ using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Web.Core;
-using Microsoft.Practices.ServiceLocation;
 
 namespace ASC.Specific.GlobalFilters
 {
@@ -76,9 +75,9 @@ namespace ASC.Specific.GlobalFilters
         }
 
 
-        public ProductSecurityFilter()
+        public ProductSecurityFilter(ILog log)
         {
-            log = ServiceLocator.Current.GetInstance<ILog>();
+            this.log = log;
         }
 
 

@@ -27,16 +27,15 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using ASC.Core;
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Core.Users
 {
     [Serializable]
     [DataContract]
-    public class UserHelpTourSettings : ISettings
+    public class UserHelpTourSettings : BaseSettings<UserHelpTourSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{DF4B94B7-42C8-4fce-AAE2-D479F3B39BDD}"); }
         }
@@ -47,7 +46,7 @@ namespace ASC.Web.Core.Users
         [DataMember(Name = "IsNewUser")]
         public bool IsNewUser { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new UserHelpTourSettings
                        {
@@ -59,20 +58,14 @@ namespace ASC.Web.Core.Users
         
     public class UserHelpTourHelper
     {
-        private static UserHelpTourSettings Settings
-        {
-            get { return SettingsManager.Instance.LoadSettingsFor<UserHelpTourSettings>(SecurityContext.CurrentAccount.ID); }
-            set { SettingsManager.Instance.SaveSettingsFor(value, SecurityContext.CurrentAccount.ID); }
-        }
-
         public static bool IsNewUser
         {
-            get { return Settings.IsNewUser; }
+            get { return UserHelpTourSettings.LoadForCurrentUser().IsNewUser; }
             set
             {
-                var settings = Settings;
+                var settings = UserHelpTourSettings.LoadForCurrentUser();
                 settings.IsNewUser = value;
-                Settings = settings;
+                settings.SaveForCurrentUser();
             }
         }
     }

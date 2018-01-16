@@ -143,7 +143,7 @@
             </div>
         </div>
 
-        <ul class="menu-list with-expander">
+        <ul id="menuContactsSettings" class="menu-list with-expander">
             <li  class="menu-item sub-list add-block">
             <div class="category-wrapper">
                 <span class="expander"></span>

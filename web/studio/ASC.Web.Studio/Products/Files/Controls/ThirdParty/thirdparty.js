@@ -34,6 +34,7 @@ window.ASC.Files.ThirdParty = (function () {
         DocuSign: { key: "DocuSign", customerTitle: ASC.Files.FilesJSResources.FolderTitleDocuSign, providerTitle: ASC.Files.FilesJSResources.TypeTitleDocuSign, getTokenUrl: ASC.Files.Constants.URL_OAUTH_DOCUSIGN, link: ASC.Files.Constants.URL_OAUTH_DOCUSIGN_LINK },
         Google: { key: "Google", customerTitle: ASC.Files.FilesJSResources.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResources.TypeTitleGoogle, getTokenUrl: "http://www.onlyoffice.com" },
         GoogleDrive: { key: "GoogleDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResources.TypeTitleGoogle, getTokenUrl: ASC.Files.Constants.URL_OAUTH2_GOOGLE },
+        OneDrive: { key: "OneDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
         SharePoint: { key: "SharePoint", customerTitle: ASC.Files.FilesJSResources.FolderTitleSharePoint, providerTitle: ASC.Files.FilesJSResources.TypeTitleSharePoint, urlRequest: true },
         SkyDrive: { key: "SkyDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
         WebDav: { key: "WebDav", customerTitle: ASC.Files.FilesJSResources.FolderTitleWebDav, providerTitle: ASC.Files.FilesJSResources.TypeTitleWebDav, urlRequest: true },
@@ -50,6 +51,7 @@ window.ASC.Files.ThirdParty = (function () {
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SaveThirdParty, onSaveThirdParty);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.DeleteThirdParty, onDeleteThirdParty);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.ChangeAccessToThirdparty, onChangeAccessToThirdparty);
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SaveDocuSign, onSaveDocuSign);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SendDocuSign, onSendDocuSign);
 
             jq(document).click(function (event) {
@@ -288,6 +290,10 @@ window.ASC.Files.ThirdParty = (function () {
         };
 
         if (thirdParty.key == ASC.Files.ThirdParty.thirdPartyList.DocuSign.key) {
+            if (token) {
+                ASC.Files.ServiceManager.saveDocuSign(ASC.Files.ServiceManager.events.SaveDocuSign, {thirdParty: thirdParty}, token);
+                return;
+            }
             data.canEdit = false;
             data.isNew = false;
             ASC.Files.ThirdParty.docuSignAttached(true);
@@ -938,6 +944,15 @@ window.ASC.Files.ThirdParty = (function () {
         }
 
         jq("#cbxEnableSettings").prop("checked", jsonData === true);
+    };
+
+    var onSaveDocuSign = function (jsonData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.UI.displayInfoPanel(errorMessage, true);
+            return;
+        }
+
+        addNewThirdParty(params.thirdParty);
     };
 
     var onSendDocuSign = function (url, params, errorMessage) {

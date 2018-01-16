@@ -38,9 +38,9 @@ namespace ASC.Web.Studio.Core.Users
 
         public ProfileHelper(string userNameOrUserId)
         {
-            if (SecurityContext.IsAuthenticated)
+            if (string.IsNullOrEmpty(userNameOrUserId) && SecurityContext.IsAuthenticated)
             {
-                userNameOrUserId = String.IsNullOrEmpty(userNameOrUserId) ? SecurityContext.CurrentAccount.ID.ToString() : userNameOrUserId;
+                UserInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
             }
 
             if (!String.IsNullOrEmpty(userNameOrUserId))
@@ -161,6 +161,7 @@ namespace ASC.Web.Studio.Core.Users
                 {
                     case "phone":
                     case "mobphone":
+                    case "extmobphone":
                         phones.Add(contacts[i]);
                         break;
                 }
@@ -179,6 +180,7 @@ namespace ASC.Web.Studio.Core.Users
                 switch (contacts[i].type)
                 {
                     case "mail":
+                    case "extmail":
                     case "gmail":
                         emails.Add(contacts[i]);
                         break;
@@ -221,10 +223,12 @@ namespace ASC.Web.Studio.Core.Users
                 switch (contacts[i].type)
                 {
                     case "mail":
+                    case "extmail":
                     case "gmail":
 
                     case "phone":
                     case "mobphone":
+                    case "extmobphone":
 
                     case "jabber":
                     case "skype":

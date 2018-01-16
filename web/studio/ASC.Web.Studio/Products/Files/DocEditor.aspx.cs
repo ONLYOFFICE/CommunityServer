@@ -289,7 +289,7 @@ namespace ASC.Web.Files
 
                 if (FileSharing.CanSetAccess(file))
                 {
-                    _configuration.EditorConfig.SharingSettingsUrl = CommonLinkUtility.GetFullAbsolutePath(Share.Location + "?" + FilesLinkUtility.FileId + "=" + file.ID);
+                    _configuration.EditorConfig.SharingSettingsUrl = CommonLinkUtility.GetFullAbsolutePath(Share.Location + "?" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()));
                 }
             }
 

@@ -1,0 +1,342 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+/*---table---*/
+
+.pm-tablebase {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+
+    thead td,
+    thead th {
+        text-align: left;
+        color: #82878D;
+        font-size: 12px;
+    }
+
+    tbody td {
+        text-align: left;
+        border-left: none;
+        border-right: none;
+        vertical-align: middle;
+    }
+}
+
+/*----total time-----*/
+.total-time-forFilter {
+    font-size: 12px;
+    visibility: hidden;
+    margin-top: -8px;
+    margin-bottom: 8px;
+
+    &.float-none {
+        float: none;
+    }
+
+    .total-count,
+    .billed-count {
+        margin-left: 24px;
+    }
+}
+
+#deselectAllTimers {
+    margin-left:10px;
+}
+#timeTrakingGroupActionMenu
+{
+    clear:left;
+}
+/*//////////////////////////////////////*/
+/*-------temporary for test-------*/
+/*//////////////////////////////////////*/
+.pm-ts-statusColumn {
+    padding: 0 0 0 4px;
+    width: 45px;
+}
+
+.pm-ts-statusCheckboxColumn {}
+
+.timeSpendRecord {
+    .checkbox {
+             width:20px;
+             padding: 0 0 0 4px;
+        }
+    .changeStatusCombobox {
+        display: block;
+        width: 35px;
+        border: 1px solid transparent;
+
+        &.canEdit {
+            border: 1px solid #d1d1d1;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            cursor: pointer;
+
+            span.arrow {
+                background-image: none;
+                height: 7px;
+                width: 7px;
+                display: inline-block;
+                position: relative;
+                margin: 0 4px 4px 1px;
+                *inline: inline;
+                *zoom: 1;
+
+                &:after {
+                    display: block;
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 4px solid #B8B8B8;
+                    content: "";
+                    height: 0;
+                    position: absolute;
+                    right: -1px;
+                    top: 50%;
+                    margin-top: -2px;
+                    width: 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .check {
+        float: left;
+        width: 38px;
+        height: 30px;
+        margin-left: 8px;
+    }
+
+    .changeStatusCombobox {
+        width: 38px;
+        height: 22px;
+        margin-top: 3px;
+        text-align: center;
+
+        span {
+            background: url('../images/projects_entity_statuses.png') no-repeat;
+            display: inline-block;
+            margin: 3px 0 0 2px;
+            width: 16px;
+            height: 16px;
+            *inline: inline;
+            *zoom: 1;
+        }
+
+        .not-chargeable {
+            background-position: 0 2px;
+        }
+
+        .not-billed {
+            background-position: 0 -19px;
+        }
+
+        .billed {
+            background-position: 0 -40px;
+        }
+
+        &.noEdit {
+            background-image: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+        }
+    }
+}
+
+.timeSpendRecord:hover .changeStatusCombobox.canEdit,
+.timeSpendRecord .changeStatusCombobox.canEdit.selected
+{
+    background-color: #eaeaea;
+    border-color: #a8a8a8;
+}
+.timeSpendRecord:hover .changeStatusCombobox.canEdit span.arrow:after,
+.timeSpendRecord .changeStatusCombobox.canEdit.selected  span.arrow:after {
+    border-top-color: #999999;
+}
+
+
+/*//////////////////////////////////////*/
+
+#timeSpendsList {
+    .entity-menu {
+        margin: 0;
+    }
+
+        .entity-menu.show,
+        .timeSpendRecord:hover .entity-menu.show,
+        .timeSpendRecord .entity-menu.show:hover {
+            border-color: #3b72a7;
+        }
+
+            .entity-menu.show:after,
+            .timeSpendRecord:hover .entity-menu.show:after,
+            .timeSpendRecord .entity-menu.show:hover:after {
+                border-top-color: #3b72a7;
+            }
+
+    thead td {
+        color: #82878D;
+        padding-bottom: 5px;
+    }
+
+    tbody {
+        border-top: 1px solid #D1D1D1;
+
+        td {
+            color: #333;
+            height: 40px;
+        }
+    }
+
+    .timeSpendRecord:hover,
+    .timeSpendRecord.checked-row:hover,
+    .timeSpendRecord.menuopen {
+        background: #E5E5E5;
+    }
+
+    .timeSpendRecord.checked-row {
+        background: #f2f2f2;
+    }
+
+    .pm-ts-noteColumn span {
+        color: #83888d;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+
+    .pm-ts-hoursColumn,
+    .pm-ts-dateColumn {
+        padding: 0 10px;
+        width: 75px;
+    }
+
+    .pm-ts-personColumn {
+        width: 170px;
+    }
+
+    .pm-ts-noteColumn a {
+        color: #333;
+        display: block;
+        font-weight: bold;
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        width: 93%;
+    }
+
+        .timeSpendRecord:hover .pm-ts-noteColumn a,
+        .pm-ts-noteColumn a:hover {
+            text-decoration: underline;
+        }
+
+    .pm-ts-personColumn span {
+        max-width: 160px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        b {
+            color: #666;
+        }
+    }
+
+    &.forProject {
+        .pm-ts-personColumn {
+            span {
+                cursor: pointer;
+                border-bottom: 1px dotted transparent;
+
+                &:hover {
+                    border-bottom: 1px dotted #333;
+                }
+
+                &.not-action,
+                &.not-action:hover {
+                    border: none;
+                    cursor: default;
+                }
+            }
+        }
+
+        .timeSpendRecord:hover {
+            .pm-ts-personColumn span {
+                border-bottom: 1px dotted #333;
+
+                &.not-action {
+                    border: none;
+                    cursor: default;
+                }
+            }
+        }
+    }
+
+    .pm-ts-actionsColumn {
+        width: 32px;
+    }
+}
+
+#emptyScreenForTimers {
+	display: none;
+}
+
+/*-----popup edit timer------*/
+
+#timeTrakingPopup {
+    .header-base {
+        width: 500px;
+        overflow: hidden;
+    }
+
+    .block-cnt-splitter {
+        .textEdit {
+            width: 30px;
+        }
+
+        #timeTrakingErrorPanel {
+            padding: 1px 0;
+            position: absolute;
+        }
+    }
+
+    .headerPanelSmall {
+        margin-top: 1px;
+    }
+
+    .addLogPanel-infoPanel {
+        padding: 7px 0 8px 24px;
+        margin-bottom: 16px;
+        background: url("../images/timer-icons.png") no-repeat 0 -95px;
+    }
+
+    #timeDescription {
+        width: 99%;
+        min-height: 70px;
+        resize: none;
+    }
+}

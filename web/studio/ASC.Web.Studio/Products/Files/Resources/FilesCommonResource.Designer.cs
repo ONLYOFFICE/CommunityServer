@@ -907,6 +907,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User not found.
+        /// </summary>
+        public static string ErrorMassage_UserNotFound {
+            get {
+                return ResourceManager.GetString("ErrorMassage_UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are not allowed to preview the elements in the Recycle Bin.
         /// </summary>
         public static string ErrorMassage_ViewTrashItem {
@@ -1281,6 +1290,15 @@ namespace ASC.Web.Files.Resources {
         public static string TitleCreated {
             get {
                 return ResourceManager.GetString("TitleCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents of the {!user} {0}.
+        /// </summary>
+        public static string TitleDeletedUserFolder {
+            get {
+                return ResourceManager.GetString("TitleDeletedUserFolder", resourceCulture);
             }
         }
         

@@ -16,8 +16,8 @@
             { %>
             <span class="ldap-lock-big" title="<%= Resources.Resource.LdapUsersListLockTitle %>"></span>
             <% }
-                else if (ProfileHelper.UserInfo.IsSSO())
-                { %>
+            if (ProfileHelper.UserInfo.IsSSO())
+            { %>
             <span class="sso-lock-big" title="<%= Resources.Resource.SsoUsersListLockTitle %>"></span>
             <% } %>
         <% } %>

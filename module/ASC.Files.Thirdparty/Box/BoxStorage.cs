@@ -152,7 +152,7 @@ namespace ASC.Files.Thirdparty.Box
                             Id = parentId
                         }
                 };
-            return _boxClient.FilesManager.UploadAsync(boxFileRequest, fileStream, _boxFields).Result;
+            return _boxClient.FilesManager.UploadAsync(boxFileRequest, fileStream, _boxFields, setStreamPositionToZero: false).Result;
         }
 
         public void DeleteItem(BoxItem boxItem)

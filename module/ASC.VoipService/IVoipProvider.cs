@@ -49,7 +49,7 @@ namespace ASC.VoipService
 
         void UpdateSettings(VoipPhone phone);
 
-        VoipRecord GetRecord(string recordId);
+        VoipRecord GetRecord(string callId, string recordId);
 
         void CreateQueue(VoipPhone newPhone);
 

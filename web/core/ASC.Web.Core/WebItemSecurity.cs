@@ -28,7 +28,6 @@ using ASC.Common.Caching;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
@@ -146,7 +145,7 @@ namespace ASC.Web.Core
 
         public static void SetSecurity(string id, bool enabled, params Guid[] subjects)
         {
-            if(SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone)
+            if(TenantAccessSettings.Load().Anyone)
                 throw new SecurityException("Security settings are disabled for an open portal");
             
             var securityObj = WebItemSecurityObject.Create(id);

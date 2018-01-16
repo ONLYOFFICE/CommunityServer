@@ -73,7 +73,7 @@ namespace ASC.Web.CRM.Controls.Cases
                     Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", fileName));
                     Response.Write(ExportToCSV.ExportCasesToCSV(cases, false));
 
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.CasesExportedToCsv, cases.Select(x => x.Title));
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.CasesExportedToCsv, MessageTarget.Create(cases.Select(x => x.ID)), cases.Select(x => x.Title));
 
                     Response.End();
                 }

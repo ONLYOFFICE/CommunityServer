@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
@@ -49,7 +48,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Upcoming milestones
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<returns>List of milestones</returns>
         [Read(@"milestone")]
         public IEnumerable<MilestoneWrapper> GetMilestones()
@@ -63,7 +62,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Milestones by filter
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="projectid" optional="true">Project ID</param>
         ///<param name="tag" optional="true">Project tag</param>
         ///<param name="status" optional="true">Milstone status/ Can be open or closed</param>
@@ -88,7 +87,7 @@ namespace ASC.Api.Projects
         {
             var milestoneEngine = EngineFactory.MilestoneEngine;
 
-            var filter = CreateFilter();
+            var filter = CreateFilter(EntityType.Milestone);
             filter.UserId = milestoneResponsible;
             filter.ParticipantId = taskResponsible;
             filter.TagId = tag;
@@ -118,7 +117,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Overdue milestones
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<returns>List of milestones</returns>
         [Read(@"milestone/late")]
         public IEnumerable<MilestoneWrapper> GetLateMilestones()
@@ -132,7 +131,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Milestones by full date
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="year">Deadline year</param>
         ///<param name="month">Deadline month</param>
         ///<param name="day">Deadline day</param>
@@ -150,7 +149,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Milestones by month
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="year">Deadline year</param>
         ///<param name="month">Deadline month</param>
         ///<returns>List of milestones</returns>
@@ -167,7 +166,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get milestone
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
         ///<returns>Milestone</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -185,7 +184,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get milestone tasks 
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="id">Milestone ID </param>
         ///<returns>Tasks list</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -202,7 +201,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update milestone
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
         ///<param name="title">Title</param>
         ///<param name="deadline">Deadline</param>
@@ -217,17 +216,17 @@ namespace ASC.Api.Projects
         ///<exception cref="ArgumentNullException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<example>
-        /// <![CDATA[
-        /// Sending data in application/json:
-        /// 
-        /// {
-        ///     title:"New title",
-        ///     deadline:"2011-03-23T14:27:14",
-        ///     isKey:false,
-        ///     status:"Open"
-        /// }
-        /// ]]>
-        /// </example>
+        ///<![CDATA[
+        ///Sending data in application/json:
+        ///
+        ///{
+        ///    title:"New title",
+        ///    deadline:"2011-03-23T14:27:14",
+        ///    isKey:false,
+        ///    status:"Open"
+        ///}
+        ///]]>
+        ///</example>
         [Update(@"milestone/{id:[0-9]+}")]
         public MilestoneWrapper UpdateMilestone(int id, string title, ApiDateTime deadline, bool? isKey, MilestoneStatus status, bool? isNotify, string description, int projectID, Guid responsible, bool notifyResponsible)
         {
@@ -254,7 +253,7 @@ namespace ASC.Api.Projects
             }
 
             milestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
-            MessageService.Send(Request, MessageAction.MilestoneUpdated, milestone.Project.Title, milestone.Title);
+            MessageService.Send(Request, MessageAction.MilestoneUpdated, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
             return new MilestoneWrapper(milestone);
         }
@@ -265,21 +264,21 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update milestone status
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
         ///<param name="status">Status</param>
         ///<returns>Updated milestone</returns>
         ///<exception cref="ArgumentNullException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<example>
-        /// <![CDATA[
-        /// Sending data in application/json:
-        /// 
-        /// {
-        ///     status:"Open"
-        /// }
-        /// ]]>
-        /// </example>
+        ///<![CDATA[
+        ///Sending data in application/json:
+        ///
+        ///{
+        ///    status:"Open"
+        ///}
+        ///]]>
+        ///</example>
         [Update(@"milestone/{id:[0-9]+}/status")]
         public MilestoneWrapper UpdateMilestone(int id, MilestoneStatus status)
         {
@@ -288,7 +287,7 @@ namespace ASC.Api.Projects
             var milestone = milestoneEngine.GetByID(id).NotFoundIfNull();
 
             milestoneEngine.ChangeStatus(milestone, status);
-            MessageService.Send(Request, MessageAction.MilestoneUpdatedStatus, milestone.Project.Title, milestone.Title, LocalizedEnumConverter.ConvertToString(milestone.Status));
+            MessageService.Send(Request, MessageAction.MilestoneUpdatedStatus, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title, LocalizedEnumConverter.ConvertToString(milestone.Status));
 
             return new MilestoneWrapper(milestone);
         }
@@ -299,7 +298,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Delete milestone
         ///</short>
-        /// <category>Milestones</category>
+        ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
         ///<returns>Deleted milestone</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -311,9 +310,39 @@ namespace ASC.Api.Projects
             var milestone = milestoneEngine.GetByID(id).NotFoundIfNull();
 
             milestoneEngine.Delete(milestone);
-            MessageService.Send(Request, MessageAction.MilestoneDeleted, milestone.Project.Title, milestone.Title);
+            MessageService.Send(Request, MessageAction.MilestoneDeleted, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
             return new MilestoneWrapper(milestone);
+        }
+
+        ///<summary>
+        ///Deletes milestones with the IDs specified in the request
+        ///</summary>
+        ///<short>
+        ///Delete milestones
+        ///</short>
+        ///<category>Milestones</category>
+        ///<param name="ids">Milestones ID</param>
+        ///<returns>Deleted milestones</returns>
+        ///<exception cref="ItemNotFoundException"></exception>
+        [Delete(@"milestone")]
+        public IEnumerable<MilestoneWrapper> DeleteMilestones(int[] ids)
+        {
+            var result = new List<MilestoneWrapper>(ids.Length);
+
+            foreach (var id in ids)
+            {
+                try
+                {
+                    result.Add(DeleteMilestone(id));
+                }
+                catch (Exception)
+                {
+                    
+                }
+            }
+
+            return result;
         }
 
         #endregion

@@ -883,7 +883,8 @@
                     inPopup: true,
                     onechosen: true,
                     showGroups: true,
-                    itemsDisabledIds: showme ? [] : [window.Teamlab.profile.id]
+                    itemsDisabledIds: showme ? [] : [window.Teamlab.profile.id],
+                    showDisabled: window.Teamlab.profile.isAdmin
                 });
             } catch (err) { }
             
@@ -2131,6 +2132,7 @@
                 //}
                 if (setUserSorter($container, sortervalue.id, { dsc: sortervalue.dsc === true || sortervalue.sortOrder === 'descending' }, true)) {
                     changeSorter = true;
+                    break;
                 }
             }
             if (sortervalue.def === true) {

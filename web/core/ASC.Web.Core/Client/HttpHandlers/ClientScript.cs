@@ -24,8 +24,6 @@
 */
 
 
-using HtmlAgilityPack;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,12 +32,20 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
+
+using ASC.Core;
+
+using HtmlAgilityPack;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Core.Client.HttpHandlers
 {
     public abstract class ClientScript
     {
+        protected virtual bool CheckAuth { get { return true; } }
+
         protected virtual string BaseNamespace
         {
             get { return "ASC.Resources"; }
@@ -82,6 +88,11 @@ namespace ASC.Web.Core.Client.HttpHandlers
                     continue;
                 }
 
+                if (CheckAuth && !SecurityContext.CurrentAccount.IsAuthenticated)
+                {
+                    continue;
+                }
+
                 builder.AppendFormat("jq.extend({0},{1});", BaseNamespace, JsonConvert.SerializeObject(clientObject.Value));
             }
             return builder.ToString();
@@ -120,6 +131,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
         public static string GetTemplateData(string input)
         {
+            input = Regex.Replace(input, @"\s*(<[^>]+>)\s*", "$1", RegexOptions.Singleline);
             var doc = new HtmlDocument();
             doc.LoadHtml(input);
             var nodes = doc.DocumentNode.SelectNodes("/script[@type='text/x-jquery-tmpl']");

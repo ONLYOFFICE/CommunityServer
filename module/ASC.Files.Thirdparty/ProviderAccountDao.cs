@@ -24,6 +24,10 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ASC.Web.Files.Helpers;
 using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
 using ASC.Common.Data;
@@ -37,15 +41,12 @@ using ASC.Files.Core;
 using ASC.Files.Thirdparty.Box;
 using ASC.Files.Thirdparty.Dropbox;
 using ASC.Files.Thirdparty.GoogleDrive;
+using ASC.Files.Thirdparty.OneDrive;
 using ASC.Files.Thirdparty.SharePoint;
 using ASC.Files.Thirdparty.Sharpbox;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
-using ASC.Web.Files.Import;
 using ASC.Web.Files.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Files.Thirdparty
 {
@@ -59,6 +60,7 @@ namespace ASC.Files.Thirdparty
             DropboxV2,
             Google,
             GoogleDrive,
+            OneDrive,
             SharePoint,
             SkyDrive,
             WebDav,
@@ -90,6 +92,27 @@ namespace ASC.Files.Thirdparty
         public virtual List<IProviderInfo> GetProvidersInfo(FolderType folderType, string searchText = null)
         {
             return GetProvidersInfoInternal(folderType: folderType, searchText: searchText);
+        }
+
+        public virtual List<IProviderInfo> GetProvidersInfo(Guid userId)
+        {
+            var querySelect = new SqlQuery(TableTitle)
+                .Select("id", "provider", "customer_title", "user_name", "password", "token", "user_id", "folder_type", "create_on", "url")
+                .Where("tenant_id", TenantID)
+                .Where(Exp.Eq("user_id", userId.ToString()));
+
+            try
+            {
+                using (var db = GetDb())
+                {
+                    return db.ExecuteList(querySelect).ConvertAll(ToProviderInfo).Where(p => p != null).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Global.Logger.Error(string.Format("GetProvidersInfoInternal: user = {0}", userId), e);
+                return new List<IProviderInfo>();
+            }
         }
 
 
@@ -188,7 +211,7 @@ namespace ASC.Files.Thirdparty
             }
         }
 
-        public virtual int UpdateProviderInfo(int linkId, string customerTitle, AuthData newAuthData, FolderType folderType)
+        public virtual int UpdateProviderInfo(int linkId, string customerTitle, AuthData newAuthData, FolderType folderType, Guid? userId = null)
         {
             var authData = new AuthData();
             if (newAuthData != null && !newAuthData.IsEmpty())
@@ -235,10 +258,26 @@ namespace ASC.Files.Thirdparty
             }
 
             var queryUpdate = new SqlUpdate(TableTitle)
-                .Set("customer_title", customerTitle)
-                .Set("folder_type", (int)folderType)
                 .Where("id", linkId)
                 .Where("tenant_id", TenantID);
+
+            if (!string.IsNullOrEmpty(customerTitle))
+            {
+                queryUpdate
+                    .Set("customer_title", customerTitle);
+            }
+
+            if (folderType != FolderType.DEFAULT)
+            {
+                queryUpdate
+                    .Set("folder_type", (int)folderType);
+            }
+
+            if (userId.HasValue)
+            {
+                queryUpdate
+                    .Set("user_id", userId.Value.ToString());
+            }
 
             if (!authData.IsEmpty())
             {
@@ -355,6 +394,18 @@ namespace ASC.Files.Thirdparty
                     createOn);
             }
 
+            if (key == ProviderTypes.OneDrive)
+            {
+                return new OneDriveProviderInfo(
+                    id,
+                    key.ToString(),
+                    providerTitle,
+                    token,
+                    owner,
+                    folderType,
+                    createOn);
+            }
+
             return new SharpBoxProviderInfo(
                 id,
                 key.ToString(),
@@ -421,13 +472,27 @@ namespace ASC.Files.Thirdparty
 
                     var config = CloudStorage.GetCloudConfigurationEasy(nSupportedCloudConfigurations.DropBox);
                     var accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config as DropBoxConfiguration,
-                                                                                                             ImportConfiguration.DropboxAppKey,
-                                                                                                             ImportConfiguration.DropboxAppSecret,
+                                                                                                             ThirdpartyConfiguration.DropboxAppKey,
+                                                                                                             ThirdpartyConfiguration.DropboxAppSecret,
                                                                                                              dropBoxRequestToken);
 
                     var base64Token = new CloudStorage().SerializeSecurityTokenToBase64Ex(accessToken, config.GetType(), new Dictionary<string, string>());
 
                     return new AuthData(token: base64Token);
+
+                case ProviderTypes.OneDrive:
+
+                    code = authData.Token;
+
+                    token = OAuth20TokenHelper.GetAccessToken(OneDriveLoginProvider.OneDriveOauthTokenUrl,
+                                                              OneDriveLoginProvider.OneDriveOAuth20ClientId,
+                                                              OneDriveLoginProvider.OneDriveOAuth20ClientSecret,
+                                                              OneDriveLoginProvider.OneDriveOAuth20RedirectUrl,
+                                                              code);
+
+                    if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
+
+                    return new AuthData(token: token.ToJson());
 
                 case ProviderTypes.SkyDrive:
 

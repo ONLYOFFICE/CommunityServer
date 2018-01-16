@@ -44,9 +44,9 @@ namespace ASC.Api.Projects
         ///Returns the list with the detailed information about all the time spent matching the filter parameters specified in the request
         ///</summary>
         ///<short>
-        /// Get time spent by filter
+        ///Get time spent by filter
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="projectid" optional="true"> Project Id</param>
         ///<param name="tag" optional="true">Project Tag</param>
         ///<param name="departament" optional="true">Departament GUID</param>
@@ -74,7 +74,7 @@ namespace ASC.Api.Projects
             int lastId,
             PaymentStatus? status)
         {
-            var filter = CreateFilter();
+            var filter = CreateFilter(EntityType.TimeSpend);
             filter.DepartmentId = departament;
             filter.UserId = participant;
             filter.FromDate = createdStart;
@@ -100,9 +100,9 @@ namespace ASC.Api.Projects
         ///Returns the total time spent matching the filter parameters specified in the request
         ///</summary>
         ///<short>
-        /// Get total time spent by tilter
+        ///Get total time spent by tilter
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="projectid" optional="true"> Project ID</param>
         ///<param name="tag" optional="true">Project tag</param>
         ///<param name="departament" optional="true">Departament GUID</param>
@@ -130,7 +130,7 @@ namespace ASC.Api.Projects
             int lastId,
             PaymentStatus? status)
         {
-            var filter = CreateFilter();
+            var filter = CreateFilter(EntityType.TimeSpend);
             filter.DepartmentId = departament;
             filter.UserId = participant;
             filter.FromDate = createdStart;
@@ -155,12 +155,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        /// Returns the time spent on the task with the ID specified in the request
+        ///Returns the time spent on the task with the ID specified in the request
         ///</summary>
         ///<short>
-        /// Get time spent
+        ///Get time spent
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="taskid">Task ID</param>
         ///<returns></returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -179,7 +179,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Add task time
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="taskid">Task ID</param>
         ///<param name="note">Note</param>
         ///<param name="date">Date</param>
@@ -211,7 +211,7 @@ namespace ASC.Api.Projects
                 };
 
             ts = EngineFactory.TimeTrackingEngine.SaveOrUpdate(ts);
-            MessageService.Send(Request, MessageAction.TaskTimeCreated, task.Project.Title, task.Title, ts.Note);
+            MessageService.Send(Request, MessageAction.TaskTimeCreated, MessageTarget.Create(ts.ID), task.Project.Title, task.Title, ts.Note);
 
             return new TimeWrapper(ts);
         }
@@ -222,7 +222,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update task time
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="timeid">ID of time spent</param>
         ///<param name="note">Note</param>
         ///<param name="date">Date</param>
@@ -247,7 +247,7 @@ namespace ASC.Api.Projects
             time.Note = note;
 
             timeTrackingEngine.SaveOrUpdate(time);
-            MessageService.Send(Request, MessageAction.TaskTimeUpdated, time.Task.Project.Title, time.Task.Title, time.Note);
+            MessageService.Send(Request, MessageAction.TaskTimeUpdated, MessageTarget.Create(time.ID), time.Task.Project.Title, time.Task.Title, time.Note);
 
             return new TimeWrapper(time);
         }
@@ -258,7 +258,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Updates the time status of payment
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="timeids">List IDs of time spent</param>
         ///<param name="status">Status</param>
         ///<returns>Created time</returns>
@@ -276,7 +276,7 @@ namespace ASC.Api.Projects
                 times.Add(new TimeWrapper(time));
             }
 
-            MessageService.Send(Request, MessageAction.TaskTimesUpdatedStatus, times.Select(t => t.Note), LocalizedEnumConverter.ConvertToString(status));
+            MessageService.Send(Request, MessageAction.TaskTimesUpdatedStatus, MessageTarget.Create(timeids), times.Select(t => t.Note), LocalizedEnumConverter.ConvertToString(status));
 
             return times;
         }
@@ -287,7 +287,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Delete time spents
         ///</short>
-        /// <category>Time</category>
+        ///<category>Time</category>
         ///<param name="timeids">IDs of time spents</param>
         ///<returns></returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -304,7 +304,7 @@ namespace ASC.Api.Projects
                 listDeletedTimers.Add(new TimeWrapper(time));
             }
 
-            MessageService.Send(Request, MessageAction.TaskTimesDeleted, listDeletedTimers.Select(t => t.Note));
+            MessageService.Send(Request, MessageAction.TaskTimesDeleted, MessageTarget.Create(timeids), listDeletedTimers.Select(t => t.Note));
 
             return listDeletedTimers;
         }

@@ -271,36 +271,36 @@ var defaults = function defaultsModule() {return {
 			
 			// dialog
 			dialogTemplate:               "",
-			dialogHeader:                 "Настройка повторения",
+			dialogHeader:                 "Recurrence setup",
 			
 			// start date
-			dialogFromLabel:              "начиная с",
+			dialogFromLabel:              "starting with",
 			
 			// end of repeat
-			dialogToLabel:                "окончание",
-			dialogOptionNever:            "никогда",
-			dialogOptionDate:             "дата",
-			dialogOptionCount:            "к-во циклов",
+			dialogToLabel:                "end",
+			dialogOptionNever:            "never",
+			dialogOptionDate:             "date",
+			dialogOptionCount:            "number of times",
 			
-			dialogAfterLabel:             "после",
-			dialogTimesLabel:             "раз",
+			dialogAfterLabel:             "after",
+			dialogTimesLabel:             "times",
 			
 			// repeat by 
-			dialogRepeatOnLabel:          "по",
-			dialogRepeatOn_days:          "дням",
-			dialogRepeatOn_weeks:         "неделям",
-			dialogRepeatOn_months:        "месяцам",
-			dialogRepeatOn_years:         "годам",
+			dialogRepeatOnLabel:          "by",
+			dialogRepeatOn_days:          "days",
+			dialogRepeatOn_weeks:         "weeks",
+			dialogRepeatOn_months:        "months",
+			dialogRepeatOn_years:         "years",
 			
 			// interval
-			dialogEachLabel:              "каждый",
-			dialogAliasLabel:             "каждый",
-			dialogIntervalOption_day:     "дн",
-			dialogIntervalOption_week:    "нед",
-			dialogIntervalOption_month:   "мес",
-			dialogIntervalOption_year:    "год",
+			dialogEachLabel:              "every",
+			dialogAliasLabel:             "every",
+			dialogIntervalOption_day:     "day",
+			dialogIntervalOption_week:    "week",
+			dialogIntervalOption_month:   "month",
+			dialogIntervalOption_year:    "yesr",
 			
-			dayNames:                     ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+			dayNames:                     ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 			
 			dayIndexResponse: {
 									su: 0,
@@ -311,28 +311,28 @@ var defaults = function defaultsModule() {return {
 									fr: 5,
 									sa: 6
 			},
-			dayNamesShort:                ['вс','пн','вт','ср','чт','пт','сб'],
-			dayAliasNames:                ['первый','второй','третий','предпоследний','последний'],
+			dayNamesShort:                ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			dayAliasNames:                ['first','second','third','last but one','last'],
 			
 			// buttons
-			dialogButton_save:            "Сохранить",
-			dialogButton_cancel:          "Отмена"
+			dialogButton_save:            "Save",
+			dialogButton_cancel:          "Cancel"
 		},
 		
 		deleteSettings: {
 			// dialog
 			dialogTemplate:               "",
-			dialogHeader:                 "Удалить повторяющееся событие",
-			dialogSingleHeader:           "Удалить событие",
-			dialogSingleBody:             "Вы действительно хотите удалить событие без возможности восстановления?",
+			dialogHeader:                 "Delete recurring event",
+			dialogSingleHeader:           "Delete event",
+			dialogSingleBody:             "The deleted event cannot be restored. Are you sure you want to continue?",
 			
-			dialogDeleteOnlyThisLabel:    "Только это событие",
-			dialogDeleteFollowingLabel:   "Это событие и все следующие",
-			dialogDeleteAllLabel:         "Все события серии",
+			dialogDeleteOnlyThisLabel:    "This event only",
+			dialogDeleteFollowingLabel:   "This event and all that follow",
+			dialogDeleteAllLabel:         "All events in the series",
 			
 			// buttons
-			dialogButton_save:            "Применить",
-			dialogButton_cancel:          "Отмена"
+			dialogButton_save:            "Apply",
+			dialogButton_cancel:          "Cancel"
 		},
 		
 		confirmPopup: {
@@ -359,27 +359,25 @@ var defaults = function defaultsModule() {return {
 		icalStream: {
 			// dialog
 			dialogTemplate:                       "",
-			newiCalTitle:                         "Новый iCal поток",
+			newiCalTitle:                         "Calendar from iCal feed",
 			
-			dialogHeader:                         "Экспорт событий календаря",
-			dialogDescription:                    "Используйте следующий адрес для доступа к своему календарю из других приложений.\n\n" + 
-												"Можно скопировать и вставить эту информацию в любой календарь, поддерживающий формат iCal.\n\n" + 
-												"Можно сохранить эти данные как файл в формате iCal и экспортировать события в другой календарь или приложение.",
+			dialogHeader:                         "Calendar event export",
+			dialogDescription:                    "Use the following address to access your calendar from other applications. You can copy and enter this information into any calendar supporting iCal format. You can save the data into a file in iCal format and export the events into another calendar or application.",
 			
-			dialogImportExportLabel:              "Импорт/Экспорт",
-			dialogStreamLink:                     "Экспорт событий из календаря",
-			dialogImportLabel:                    "Импорт событий из Google календаря",
+			dialogImportExportLabel:              "Import/Export",
+			dialogStreamLink:                     "Export events from ONLYOFFICE calendar",
+			dialogImportLabel:                    "Import events into ONLYOFFICE calendar",
 			
-			dialogButton_fileSelected:            "файл выбран",
-			dialogButton_fileNotSelected:         "файл не выбран",
-			dialog_incorrectFormat:               "неверный формат",
+			dialogButton_fileSelected:            "file is selected",
+			dialogButton_fileNotSelected:         "no file is selected",
+			dialog_incorrectFormat:               "Wrong format of the iCal file",
 			
-			dialogInputiCalLabel:                 "Введите ссылку iCal-потока",
-			dialogSavediCalLabel:                 "Ссылка iCal-потока:",
+			dialogInputiCalLabel:                 "Enter the iCal feed link",
+			dialogSavediCalLabel:                 "iCal feed link:",
 			
 			// buttons
-			dialogButton_close:                   "Закрыть",
-			dialogButton_browse:                  "Выбрать файл"
+			dialogButton_close:                   "Close",
+			dialogButton_browse:                  "Select file"
 		},
 
 		dayView: {

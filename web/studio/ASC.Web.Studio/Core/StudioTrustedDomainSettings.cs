@@ -32,23 +32,19 @@ namespace ASC.Web.Studio.Core
 {
     [Serializable]
     [DataContract]
-    public class StudioTrustedDomainSettings : ISettings
+    public class StudioTrustedDomainSettings : BaseSettings<StudioTrustedDomainSettings>
     {
         [DataMember(Name = "InviteUsersAsVisitors")]
         public bool InviteUsersAsVisitors { get; set; }
 
-        #region ISettings Members
-
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{00A2DB01-BAE3-48aa-BE32-CE768D7C874E}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new StudioTrustedDomainSettings { InviteUsersAsVisitors = false };
         }
-
-        #endregion
     }
 }

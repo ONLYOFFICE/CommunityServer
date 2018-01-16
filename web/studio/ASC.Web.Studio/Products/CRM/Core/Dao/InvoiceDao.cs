@@ -552,9 +552,9 @@ namespace ASC.CRM.Core.Dao
                               .InColumnValue("description", invoice.Description)
                               .InColumnValue("json_data", null)
                               .InColumnValue("file_id", 0)
-                              .InColumnValue("create_on", DateTime.UtcNow)
+                              .InColumnValue("create_on", invoice.CreateOn == DateTime.MinValue ? DateTime.UtcNow : invoice.CreateOn)
                               .InColumnValue("create_by", SecurityContext.CurrentAccount.ID)
-                              .InColumnValue("last_modifed_on", DateTime.UtcNow)
+                              .InColumnValue("last_modifed_on", invoice.CreateOn == DateTime.MinValue ? DateTime.UtcNow : invoice.CreateOn)
                               .InColumnValue("last_modifed_by", SecurityContext.CurrentAccount.ID)
                               .Identity(1, 0, true));
             }
@@ -713,10 +713,8 @@ namespace ASC.CRM.Core.Dao
         public InvoiceSetting SaveInvoiceSettings(InvoiceSetting invoiceSetting)
         {
             var tenantSettings = Global.TenantSettings;
-
             tenantSettings.InvoiceSetting = invoiceSetting;
-
-            SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
+            tenantSettings.Save();
 
             return tenantSettings.InvoiceSetting;
         }
@@ -960,5 +958,42 @@ namespace ASC.CRM.Core.Dao
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <param name="creationDate"></param>
+        public void SetInvoiceCreationDate(int invoiceId, DateTime creationDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_invoice")
+                       .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
+                       .Where(Exp.Eq("id", invoiceId)));
+            }
+            // Delete relative  keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
+        }
+
+        /// <summary>
+        /// Test method
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <param name="lastModifedDate"></param>
+        public void SetInvoiceLastModifedDate(int invoiceId, DateTime lastModifedDate)
+        {
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(
+                   Update("crm_invoice")
+                       .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
+                       .Where(Exp.Eq("id", invoiceId)));
+            }
+            // Delete relative  keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
+        }
     }
 }

@@ -59,25 +59,59 @@ namespace ASC.Projects.Core.Domain
 
         public bool IsManager { get; set; }
 
+        public ProjectTeamSecurity ProjectTeamSecurity
+        {
+            get
+            {
+                var result = ProjectTeamSecurity.None;
+
+                if (!CanReadFiles)
+                {
+                    result |= ProjectTeamSecurity.Files;
+                }
+                if (!CanReadMilestones)
+                {
+                    result |= ProjectTeamSecurity.Milestone;
+                }
+                if (!CanReadMessages)
+                {
+                    result |= ProjectTeamSecurity.Messages;
+                }
+                if (!CanReadTasks)
+                {
+                    result |= ProjectTeamSecurity.Tasks;
+                }
+                if (!CanReadContacts)
+                {
+                    result |= ProjectTeamSecurity.Contacts;
+                }
+
+                return result;
+            }
+            set
+            {
+                CanReadFiles = (value & ProjectTeamSecurity.Files) != ProjectTeamSecurity.Files;
+                CanReadMilestones = (value & ProjectTeamSecurity.Milestone) != ProjectTeamSecurity.Milestone;
+                CanReadMessages = (value & ProjectTeamSecurity.Messages) != ProjectTeamSecurity.Messages;
+                CanReadTasks = (value & ProjectTeamSecurity.Tasks) != ProjectTeamSecurity.Tasks;
+                CanReadContacts = (value & ProjectTeamSecurity.Contacts) != ProjectTeamSecurity.Contacts;
+
+                if (IsVisitor)
+                    CanReadContacts = false;
+            }
+        }
+
+        public Participant()
+        {
+            
+        }
+
         public Participant(Guid userID)
         {
             ID = userID;
             UserInfo = CoreContext.UserManager.GetUsers(ID);
             IsVisitor = UserInfo.IsVisitor();
             IsFullAdmin = UserInfo.IsAdmin();
-        }
-
-        public Participant(Guid userID, ProjectTeamSecurity security)
-            : this(userID)
-        {
-            CanReadFiles = (security & ProjectTeamSecurity.Files) != ProjectTeamSecurity.Files;
-            CanReadMilestones = (security & ProjectTeamSecurity.Milestone) != ProjectTeamSecurity.Milestone;
-            CanReadMessages = (security & ProjectTeamSecurity.Messages) != ProjectTeamSecurity.Messages;
-            CanReadTasks = (security & ProjectTeamSecurity.Tasks) != ProjectTeamSecurity.Tasks;
-            CanReadContacts = (security & ProjectTeamSecurity.Contacts) != ProjectTeamSecurity.Contacts;
-
-            if (IsVisitor)
-                CanReadContacts = false;
         }
 
         public override int GetHashCode()

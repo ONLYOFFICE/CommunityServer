@@ -259,6 +259,9 @@ namespace ASC.Mail.Aggregator.Common
         [IgnoreDataMember]
         public Stream HtmlBodyStream { get; set; }
 
+        [IgnoreDataMember]
+        public string Uidl { get; set; }
+
         public class Options
         {
             public Options()
@@ -272,6 +275,7 @@ namespace ASC.Mail.Aggregator.Common
             public bool NeedProxyHttp { get; set; }
             public bool NeedSanitizer { get; set; }
             public bool OnlyUnremoved { get; set; }
+            public bool LoadEmebbedAttachements { get; set; }
 
             public string ProxyHttpHandlerUrl { get; set; }
         }

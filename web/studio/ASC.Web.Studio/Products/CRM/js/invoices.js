@@ -2231,40 +2231,12 @@ ASC.CRM.InvoiceActionView = (function () {
     };
 
     var preInitAddressDialog = function () {
-        var html = ["<option value='' style='display:none;'></option>",
-                "<option value='",
-                ASC.CRM.Resources.CRMJSResource.ChooseCountry,
-                "' class='default-option'>",
-                jq.htmlEncodeLight(ASC.CRM.Resources.CRMJSResource.ChooseCountry),
-                "</option>"]
-            .join('');
-
-        html += ["<option class='option-first-in-group-separated' value='",
-                window.currentCultureName,
-                "'>",
-                jq.htmlEncodeLight(window.currentCultureName),
-                "</option>"].join('');
-
-        for (var i = 0, n = window.countryListExt.length; i < n; i++) {
-            var elt = window.countryListExt[i];
-            if (window.currentCultureName != elt) {
-                html += ["<option value='",
-                    elt,
-                    "'",
-                    i == 0 ? " class='option-first-in-group-separated'" : "",
-                    ">",
-                    jq.htmlEncodeLight(elt),
-                    "</option>"
-                ].join('');
-            }
-        }
-        jq("#invoiceContactCountry").html(html).val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
-
         jq("#addressDialog").find("[name='deliveryAddressID']").val(0);
         jq("#addressDialog").find("[name='billingAddressID']").val(0);
-        if (typeof (window.invoiceJsonData) != "undefined" && window.invoiceJsonData != "") {
+
+        if (window.invoiceJsonData) {
             try {
-                window.invoiceJsonData = window.invoiceJsonData ? jq.parseJSON(jq.base64.decode(window.invoiceJsonData)) : null;
+                window.invoiceJsonData = jq.parseJSON(jq.base64.decode(window.invoiceJsonData));
                 if (window.invoiceJsonData != null) {
                     if (!window.invoiceJsonData.hasOwnProperty("DeliveryAddressID") || isNaN(window.invoiceJsonData.DeliveryAddressID)) {
                         window.invoiceJsonData.DeliveryAddressID = 0;
@@ -2354,17 +2326,12 @@ ASC.CRM.InvoiceActionView = (function () {
         $dialog.find(".button.blue.middle").unbind().bind("click", function () {
 
             var categories = ["Home", "Postal", "Office", "Billing", "Other", "Work"],
-
                 ctg = $dialog.find(".address_category").val(),
                 str = jq.trim($dialog.find(".contact_street").val()),
                 cit = jq.trim($dialog.find(".contact_city").val()),
                 stt = jq.trim($dialog.find(".contact_state").val()),
                 zip = jq.trim($dialog.find(".contact_zip").val()),
-                cnt = $dialog.find(".contact_country").val();
-
-            if (cnt == ASC.CRM.Resources.CRMJSResource.ChooseCountry) {
-                cnt = "";
-            }
+                cnt = jq.trim($dialog.find(".contact_country").val());
 
             var data = {
                 id: address ? address.id : 0,
@@ -2379,7 +2346,7 @@ ASC.CRM.InvoiceActionView = (function () {
                 })
             };
 
-            if (str || cit || stt || zip) {
+            if (str || cit || stt || zip || cnt) {
                 saveAddress(contactId, data, isConsignee, isBilling);
             } else {
                 $dialog.hide();
@@ -2406,17 +2373,13 @@ ASC.CRM.InvoiceActionView = (function () {
             $dialog.find(".contact_city").val(jsonData.city);
             $dialog.find(".contact_state").val(jsonData.state);
             $dialog.find(".contact_zip").val(jsonData.zip);
-            if (jsonData.country != "") {
-                $dialog.find(".contact_country").val(jsonData.country);
-            } else {
-                $dialog.find(".contact_country").val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
-            }
+            $dialog.find(".contact_country").val(jsonData.country);
         } else {
             $dialog.find(".contact_street").val("");
             $dialog.find(".contact_city").val("");
             $dialog.find(".contact_state").val("");
             $dialog.find(".contact_zip").val("");
-            $dialog.find(".contact_country").val(ASC.CRM.Resources.CRMJSResource.ChooseCountry);
+            $dialog.find(".contact_country").val("");
         }
     };
 
@@ -2831,6 +2794,8 @@ ASC.CRM.InvoiceActionView = (function () {
     };
 
     var createNew = function (obj) {
+        if (jq(obj).hasClass("disable")) return;
+
         var $dialog = getParentObj(obj, ".selector");
         if ($dialog.attr("id") == "selectItemDialog") {
             var title = jq("#newItemName").val().trim(),
@@ -2924,7 +2889,7 @@ ASC.CRM.InvoiceActionView = (function () {
             }
             if (jq(this).is("#newItemPrice")) {
                 var price = Number(value);
-                if (price <= 0) {
+                if (price <= 0 || price > ASC.CRM.Data.MaxInvoiceItemPrice) {
                     enabled = false;
                 }
             }
@@ -3791,9 +3756,7 @@ ASC.CRM.InvoiceDetailsView = (function () {
                 break;
             case 2:
                 var dueDate = typeof (window.invoice.dueDate) == "string" ? window.ServiceFactory.serializeDate(window.invoice.dueDate) : window.invoice.dueDate;
-                var tmpDate = new Date();
-                var today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0);
-                if (dueDate < today) {
+                if (dueDate < new Date()) {
                     $statusLabel.addClass("overdue");
                     $statusLabel.text(ASC.CRM.Resources.CRMInvoiceResource.OverdueInvoicesFilter);
                 } else {

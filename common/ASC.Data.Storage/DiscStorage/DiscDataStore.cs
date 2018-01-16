@@ -261,11 +261,10 @@ namespace ASC.Data.Storage.DiscStorage
                 if (!File.Exists(target))
                     continue;
 
-                var obj = new FileInfo(target);
-
+                var size = new FileInfo(target).Length;
                 File.Delete(target);
 
-                QuotaUsedDelete(domain, obj.Length);
+                QuotaUsedDelete(domain, size);
             }
         }
 
@@ -283,6 +282,31 @@ namespace ASC.Data.Storage.DiscStorage
                     var size = new FileInfo(entry).Length;
                     File.Delete(entry);
                     QuotaUsedDelete(domain, size);
+                }
+            }
+            else
+            {
+                throw new DirectoryNotFoundException(string.Format("Directory '{0}' not found", targetDir));
+            }
+        }
+
+        public override void DeleteFiles(string domain, string folderPath, DateTime fromDate, DateTime toDate)
+        {
+            if (folderPath == null) throw new ArgumentNullException("folderPath");
+
+            //Return dirs
+            var targetDir = GetTarget(domain, folderPath);
+            if (Directory.Exists(targetDir))
+            {
+                var entries = Directory.GetFiles(targetDir, "*", SearchOption.AllDirectories);
+                foreach (var entry in entries)
+                {
+                    var fileInfo = new FileInfo(entry);
+                    if (fileInfo.LastWriteTime >= fromDate && fileInfo.LastWriteTime <= toDate)
+                    {
+                        File.Delete(entry);
+                        QuotaUsedDelete(domain, fileInfo.Length);
+                    }
                 }
             }
             else
@@ -389,6 +413,19 @@ namespace ASC.Data.Storage.DiscStorage
             throw new FileNotFoundException("file not found " + target);
         }
 
+        public override long GetDirectorySize(string domain, string path)
+        {
+            var target = GetTarget(domain, path);
+
+            if (Directory.Exists(target))
+            {
+                return Directory.GetFiles(target, "*.*", SearchOption.AllDirectories)
+                    .Select(entry => new FileInfo(entry))
+                    .Sum(info => info.Length);
+            }
+
+            throw new FileNotFoundException("directory not found " + target);
+        }
 
         public override Uri SaveTemp(string domain, out string assignedPath, Stream stream)
         {

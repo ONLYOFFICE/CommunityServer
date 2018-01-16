@@ -41,6 +41,7 @@ using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 
 using ASC.Projects.Core.Domain;
+using ASC.Web.Projects.Resources;
 
 namespace ASC.Projects.Core.Services.NotifyService
 {
@@ -645,8 +646,8 @@ namespace ASC.Projects.Core.Services.NotifyService
 
             if (task.Responsibles.Count != 0)
             {
-                var recip = task.Responsibles.Distinct().Select(ToRecipient).Where(r => r != null);
-                resp = recip.Select(r => r.Name).Aggregate(string.Empty, (a, b) => a + ", " + b);
+                var recip = task.Responsibles.Distinct().Select(ToRecipient).Where(r => r != null).ToList();
+                resp = recip.Select(r => r.Name).Aggregate((a, b) => a + ", " + b);
             }
             var interceptor = new InitiatorInterceptor(new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), ""));
             client.AddInterceptor(interceptor);
@@ -886,7 +887,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_ProjectTitle, task.Project.Title),
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
-                    new TagValue(NotifyConstants.Tag_SubEntityTitle, milestone.Title),
+                    new TagValue(NotifyConstants.Tag_SubEntityTitle, milestone != null ? milestone.Title : TaskResource.None),
                     new TagValue(NotifyConstants.Tag_AdditionalData, description),
                     ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
             }

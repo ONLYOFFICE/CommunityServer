@@ -18,8 +18,8 @@ fi
 
 echo "Platform: $PLATFORM"
 
-xbuild msbuild/build.proj /flp:LogFile=Build.log
-xbuild msbuild/deploy.proj /flp:LogFile=Deploy.log /p:DeployTo=$DeployTo
+msbuild msbuild/build.proj /flp:LogFile=Build.log
+msbuild msbuild/deploy.proj /flp:LogFile=Deploy.log /p:DeployTo=$DeployTo
 
 if [ "$PLATFORM" = "ubuntu" ]; then
 	cd install/deb

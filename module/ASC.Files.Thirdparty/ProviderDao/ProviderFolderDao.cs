@@ -153,7 +153,8 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var selector = GetSelector(folderId);
             if (IsCrossDao(folderId, toFolderId))
             {
-                return PerformCrossDaoFolderCopy(folderId, toFolderId, true).ID;
+                var newFolder = PerformCrossDaoFolderCopy(folderId, toFolderId, true);
+                return newFolder != null ? newFolder.ID : null;
             }
             else
             {
@@ -299,10 +300,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
                     select folderId).FirstOrDefault();
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId = null)
         {
             return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDUser(createIfNotExists)
+                    let folderId = selector.GetFolderDao(null).GetFolderIDUser(createIfNotExists, userId)
                     where folderId != null
                     select folderId).FirstOrDefault();
         }
@@ -315,10 +316,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
                     select folderId).FirstOrDefault();
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId = null)
         {
             return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDTrash(createIfNotExists)
+                    let folderId = selector.GetFolderDao(null).GetFolderIDTrash(createIfNotExists, userId)
                     where folderId != null
                     select folderId).FirstOrDefault();
         }

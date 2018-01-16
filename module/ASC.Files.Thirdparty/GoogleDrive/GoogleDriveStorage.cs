@@ -228,30 +228,23 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var body = FileConstructor(title, mimeType, parentId);
 
-            try
+            if (folder)
             {
-                if (folder)
-                {
-                    var requestFolder = _driveService.Files.Create(body);
-                    requestFolder.Fields = GoogleLoginProvider.FilesField;
-                    return requestFolder.Execute();
-                }
-
-                var request = _driveService.Files.Create(body, fileStream, mimeType);
-                request.Fields = GoogleLoginProvider.FilesField;
-
-                var result = request.Upload();
-                if (result.Exception != null)
-                {
-                    Global.Logger.Error("Error while trying to insert entity. GoogleDrive insert returned an error.", result.Exception);
-                }
-                return request.ResponseBody;
+                var requestFolder = _driveService.Files.Create(body);
+                requestFolder.Fields = GoogleLoginProvider.FilesField;
+                return requestFolder.Execute();
             }
-            catch (Exception error)
+
+            var request = _driveService.Files.Create(body, fileStream, mimeType);
+            request.Fields = GoogleLoginProvider.FilesField;
+
+            var result = request.Upload();
+            if (result.Exception != null)
             {
-                Global.Logger.Error("Error while trying to insert entity.", error);
-                return null;
+                if (request.ResponseBody == null) throw result.Exception;
+                Global.Logger.Error("Error while trying to insert entity. GoogleDrive insert returned an error.", result.Exception);
             }
+            return request.ResponseBody;
         }
 
         public void DeleteEntry(string entryId)
@@ -298,7 +291,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var request = _driveService.Files.Update(file, fileId, fileStream, mimeType);
             request.Fields = GoogleLoginProvider.FilesField;
-            request.Upload();
+            var result = request.Upload();
+            if (result.Exception != null)
+            {
+                if (request.ResponseBody == null) throw result.Exception;
+                Global.Logger.Error("Error while trying to insert entity. GoogleDrive save returned an error.", result.Exception);
+            }
 
             return request.ResponseBody;
         }

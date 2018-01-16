@@ -50,19 +50,18 @@ var DepartmentManagement = new function () {
               }
             ).on("showList", function (e, items) {
                 var $o = jq.tmpl("template-selector-selected-items", { Items: items });
-                jq("#membersDepartmentList").append($o);
+                jq("#membersDepartmentList").html($o);
 
                 var itemIds = [];
                 items.forEach(function (i) { itemIds.push(i.id); });
-                $membersAdvancedSelector.useradvancedSelector("disable", itemIds);
             });
 
             jq("#membersDepartmentList").on("click", "li .reset-icon:not(.disabled)", function () {
                 var $this = jq(this),
                     $elem = $this.parents("li");
-                $membersAdvancedSelector.useradvancedSelector("undisable", [$elem.attr("data-id")]);
+                $membersAdvancedSelector.useradvancedSelector("unselect", [$elem.attr("data-id")]);
                 $elem.remove();
-            })
+            });
         } else {
             $membersAdvancedSelector.useradvancedSelector("reset");
         }
@@ -90,7 +89,7 @@ var DepartmentManagement = new function () {
                   $headCnt.find(".result-name").attr("data-id", item.id).html(item.title);
                   $headCnt.removeClass("display-none");
                   jq(this).hide();
-              })
+              });
 
             jq("#departmentManager").find(".reset-icon").on("click", function () {
                 if (jq(this).hasClass("disabled")) return;
@@ -98,7 +97,7 @@ var DepartmentManagement = new function () {
                 jq("#departmentManager").addClass("display-none");
                 jq("#departmentManager .result-name").attr("data-id", "").text('');
                 $headAdvancedSelector.show();
-            })
+            });
         } else {
             $headAdvancedSelector.useradvancedSelector("reset");
         }
@@ -141,7 +140,7 @@ var DepartmentManagement = new function () {
         var $headAdvancedSelector = jq("#headAdvancedSelector"),
             $membersAdvancedSelector = jq("#membersAdvancedSelector");
 
-        if (gOwner.id && gOwner.id != "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {// profile removed
+        if (gOwner.id && gOwner.id !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {// profile removed
             var $headCnt = jq("#departmentManager");
             $headCnt.find(".result-name").attr("data-id", gOwner.id).html(gOwner.displayName);
             $headCnt.removeClass("display-none");
@@ -159,7 +158,7 @@ var DepartmentManagement = new function () {
             filter: filter,
             before: function () {
                 jq("#membersDepartmentList").html("");
-                $memberList.append("<div class=\"loading-link\">" + ASC.Resources.Master.Resource.LoadingPleaseWait + "</div>")
+                $memberList.append("<div class=\"loading-link\">" + ASC.Resources.Master.Resource.LoadingPleaseWait + "</div>");
             },
             after: function(){
                 $memberList.find(".loading-link").remove();
@@ -178,7 +177,7 @@ var DepartmentManagement = new function () {
                         }
                     });
 
-                    $membersAdvancedSelector.useradvancedSelector("disable", memberIds);
+                    $membersAdvancedSelector.useradvancedSelector("select", memberIds);
                     var $o = jq.tmpl("template-selector-selected-items", { Items: members.sort(SortData) });
                     jq("#membersDepartmentList").html($o);
                 }
@@ -193,7 +192,7 @@ var DepartmentManagement = new function () {
             return;
 
         var departmentName = jq("#studio_newDepName");
-        if (jq.trim(jq(departmentName).val()) == "") {
+        if (jq.trim(jq(departmentName).val()) === "") {
             ShowRequiredError(departmentName);
             return;
         }
@@ -216,7 +215,7 @@ var DepartmentManagement = new function () {
 
         if (DepartmentManagement._groupId == null) {
             Teamlab.addGroup(null, data, {
-                success: function (params) {
+                success: function () {
                     DepartmentManagement.CloseAddDepartmentDialog();
                     window.onbeforeunload = null;
                     window.location.reload(true);
@@ -229,7 +228,7 @@ var DepartmentManagement = new function () {
             });
         } else {
             Teamlab.updateGroup(null, DepartmentManagement._groupId, data, {
-                success: function (params) {
+                success: function () {
                     DepartmentManagement.CloseAddDepartmentDialog();
                     window.location.reload(true);
                 },

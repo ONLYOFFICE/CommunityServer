@@ -211,7 +211,7 @@ ASC.Projects.ReportView = (function() {
         jq("#autoGeneration").removeAttr("checked");
         jq("#reportTemplatePopup .template-params .comboBox").attr("disabled", "disabled");
         
-        StudioBlockUIManager.blockUI(jq('#reportTemplatePopup'), 400, 400, 0, "absolute");
+        StudioBlockUIManager.blockUI(jq('#reportTemplatePopup'), 400, 400, 0);
     };
 
     return {
@@ -237,7 +237,7 @@ ASC.Projects.GeneratedReportView = (function () {
         jq("#exportReportButton").click(function () {
             var showPopupFlag = localStorageManager.getItem("showExportReportPopupFlag");
             if (!showPopupFlag) {
-                StudioBlockUIManager.blockUI(jq('#exportPopup'), 500, 500, 0, "absolute");
+                StudioBlockUIManager.blockUI(jq('#exportPopup'), 500, 500, 0);
             } else {
                 reports.exportToCsv();
             }
@@ -602,7 +602,7 @@ ASC.Projects.Reports = (function () {
         }
 
         if (userFilter.isVisible()) {
-            allusers = ASC.Resources.Master.ApiResponses_Profiles.response.map(function (item) {
+            allusers = ASC.Resources.Master.ApiResponses_ActiveProfiles.response.map(function (item) {
                 return new AdvancedSelectorItem(item.id, item.displayName);
             });
 

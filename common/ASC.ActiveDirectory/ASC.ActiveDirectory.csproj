@@ -36,10 +36,16 @@
     <Reference Include="Mono.Security">
       <HintPath>..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Novell.Directory.LDAP">
-      <HintPath>..\..\packages\Novell.Directory.LDAP.2.2.3.0\lib\net45\Novell.Directory.LDAP.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Novell.Directory.LDAP.2.3.8.1\lib\net462\Novell.Directory.LDAP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -48,31 +54,45 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuiltIn\SystemLdapHelper.cs" />
-    <Compile Include="BuiltIn\SystemLdapSearcher.cs" />
-    <Compile Include="DirectoryServices\LdapHelper.cs" />
-    <Compile Include="DirectoryServices\LDAP\LDAPLogin.cs" />
-    <Compile Include="LDAPSupportSettingsResult.cs" />
-    <Compile Include="LDAPUserImporter.cs" />
-    <Compile Include="DirectoryServices\LdapSettingsChecker.cs" />
-    <Compile Include="DirectoryServices\Constants.cs" />
-    <Compile Include="DirectoryServices\Expressions\Criteria.cs" />
-    <Compile Include="DirectoryServices\Expressions\CriteriaType.cs" />
-    <Compile Include="DirectoryServices\Expressions\Expression.cs" />
-    <Compile Include="DirectoryServices\Expressions\Op.cs" />
-    <Compile Include="DirectoryServices\LDAP\LDAPObject.cs" />
-    <Compile Include="DirectoryServices\LDAP\LDAPObjectFactory.cs" />
-    <Compile Include="LDAPSupportSettings.cs" />
-    <Compile Include="Novell\NovellLdapCertificateConfirmRequest.cs" />
-    <Compile Include="Novell\NovellLdapEntryExtension.cs" />
+    <Compile Include="Base\Data\LdapObjectExtension.cs" />
+    <Compile Include="Base\Data\LdapLogin.cs" />
+    <Compile Include="Base\Data\LdapObject.cs" />
+    <Compile Include="Base\LdapHelper.cs" />
+    <Compile Include="Base\LdapUserImporter.cs" />
+    <Compile Include="Base\Settings\LdapSettingsChecker.cs" />
+    <Compile Include="Base\Settings\LdapSettingsStatus.cs" />
+    <Compile Include="Base\Settings\LdapSettings.cs" />
+    <Compile Include="ComplexOperations\Data\LdapItemChange.cs" />
+    <Compile Include="ComplexOperations\Data\LdapChangeCollection.cs" />
+    <Compile Include="ComplexOperations\Data\LdapChangeEnums.cs" />
+    <Compile Include="ComplexOperations\Data\LdapChange.cs" />
+    <Compile Include="ComplexOperations\LdapLocalization.cs" />
+    <Compile Include="ComplexOperations\LdapOperation.cs" />
+    <Compile Include="ComplexOperations\LdapOperationType.cs" />
+    <Compile Include="ComplexOperations\LdapSaveSyncOperation.cs" />
+    <Compile Include="LdapUserManager.cs" />
+    <Compile Include="ComplexOperations\LdapOperationStatus.cs" />
+    <Compile Include="Base\LdapConstants.cs" />
+    <Compile Include="Base\Expressions\Criteria.cs" />
+    <Compile Include="Base\Expressions\CriteriaType.cs" />
+    <Compile Include="Base\Expressions\Expression.cs" />
+    <Compile Include="Base\Expressions\Op.cs" />
+    <Compile Include="LdapUtils.cs" />
+    <Compile Include="Novell\Data\NovellLdapObject.cs" />
+    <Compile Include="Novell\NovellLdapUserImporter.cs" />
+    <Compile Include="Base\Data\LdapCertificateConfirmRequest.cs" />
+    <Compile Include="Novell\Extensions\NovellLdapEntryExtension.cs" />
     <Compile Include="Novell\NovellLdapHelper.cs" />
-    <Compile Include="Novell\NovellLdapTlsCertificateRequestedException.cs" />
+    <Compile Include="Novell\Exceptions\NovellLdapTlsCertificateRequestedException.cs" />
     <Compile Include="Novell\NovellLdapSearcher.cs" />
     <Compile Include="Novell\NovellLdapSettingsChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BuiltIn\SystemLdapSettingsChecker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02C40A64-FE22-41D0-9037-69F0D6F787A9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
@@ -86,6 +106,5 @@
       <Name>ASC.Data.Storage</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

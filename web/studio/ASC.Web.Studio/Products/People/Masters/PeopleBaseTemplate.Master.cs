@@ -27,6 +27,7 @@
 using System;
 using System.Web.UI;
 using ASC.Web.Core.Client.Bundling;
+using ASC.Web.People.Masters.ClientScripts;
 using ASC.Web.People.UserControls;
 using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.Utility;
@@ -47,9 +48,9 @@ namespace ASC.Web.People.Masters
 
             Master
                 .AddClientScript(
-                    new ClientScripts.ClientTemplateResources(),
-                    new ClientScripts.ClientCustomResources(),
-                    new ClientScripts.ClientLocalizationResources());
+                    new ClientSettingsResources(),
+                    new ClientCustomResources(),
+                    new ClientLocalizationResources());
         }
 
         private void InitScripts()
@@ -65,6 +66,7 @@ namespace ASC.Web.People.Masters
         {
             return (ScriptBundleData)
                 new ScriptBundleData("people", "people")
+                    .AddSource(ResolveUrl, new ClientTemplateResources())
                     .AddSource(ResolveUrl,
                         "~/products/people/js/peoplemanager.js",
                         "~/products/people/js/filterHandler.js",
@@ -73,6 +75,7 @@ namespace ASC.Web.People.Masters
                         "~/products/people/js/peopleCore.js",
                         "~/products/people/js/departmentmanagement.js",
                         "~/products/people/js/peopleActions.js",
+                        "~/products/people/js/reassigns.js",
                         "~/products/people/js/sideNavigationPanel.js");
         }
 

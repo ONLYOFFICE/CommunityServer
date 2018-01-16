@@ -25,10 +25,8 @@
 
 
 using System;
-using System.Linq;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
-using Microsoft.Practices.ServiceLocation;
 
 namespace ASC.Specific.SerializationFilters
 {
@@ -36,10 +34,10 @@ namespace ASC.Specific.SerializationFilters
     {
         public Type SerializerType { get; set; } 
 
-        public CustomSerializer(Type serializerType)
+        public CustomSerializer(Type serializerType, IApiResponder responder)
         {
             SerializerType = serializerType;
-            Responder = ServiceLocator.Current.GetInstance(SerializerType) as IApiResponder;
+            Responder = responder;
         }
 
         private IApiResponder Responder { get; set; }

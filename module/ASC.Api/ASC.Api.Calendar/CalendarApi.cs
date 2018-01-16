@@ -754,13 +754,26 @@ namespace ASC.Api.Calendar
                 var ddayCalendar = DDayICalParser.ConvertCalendar(icalendar);
                 ddayCalendar.Events.Clear();
 
-                foreach (var e in icalendar.LoadEvents(SecurityContext.CurrentAccount.ID, DateTime.MinValue, DateTime.MaxValue))
+                var events = icalendar.LoadEvents(SecurityContext.CurrentAccount.ID, DateTime.MinValue, DateTime.MaxValue);
+                var eventIds = new List<int>();
+
+                foreach ( var e in events)
+                {
+                    int evtId;
+
+                    if (int.TryParse(e.Id, out evtId))
+                        eventIds.Add(evtId);
+                }
+
+                var eventsHystory = _dataProvider.GetEventsHistory(eventIds.ToArray());
+
+                foreach (var e in events)
                 {
                     int evtId;
                     EventHistory evtHistory = null;
 
                     if (int.TryParse(e.Id, out evtId))
-                        evtHistory = _dataProvider.GetEventHistory(evtId);
+                        evtHistory = eventsHystory.FirstOrDefault(x => x.EventId == evtId);
 
                     if (evtHistory != null)
                     {
@@ -1721,10 +1734,10 @@ namespace ASC.Api.Calendar
                         var date = periodList.ToString();
 
                         //has time
-                        if (date.ToLower().IndexOf('t') >= 0)
+                        if (date.ToLowerInvariant().IndexOf('t') >= 0)
                         {
                             //is utc time
-                            if (date.ToLower().IndexOf('z') >= 0)
+                            if (date.ToLowerInvariant().IndexOf('z') >= 0)
                             {
                                 rrule += date;
                             }

@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail
 {
@@ -64,5 +65,7 @@ namespace ASC.AuditTrail
         public string Module { get; set; }
 
         public IList<string> Description { get; set; }
+
+        public MessageTarget Target { get; set; }
     }
 }

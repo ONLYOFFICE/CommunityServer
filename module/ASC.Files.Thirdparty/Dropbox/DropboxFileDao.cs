@@ -100,7 +100,7 @@ namespace ASC.Files.Thirdparty.Dropbox
             return GetDropboxItems(parentId, false).Select(entry => (object)MakeId(entry)).ToList();
         }
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FoldersOnly) return new List<File>();
 

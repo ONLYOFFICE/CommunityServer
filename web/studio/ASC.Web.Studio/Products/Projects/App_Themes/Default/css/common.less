@@ -26,11 +26,7 @@
 .loader-page{
     display:none
 }
-.gant-chart-link, .gant-chart-link:hover {
-    float: right;
-    margin-left: 6px;
-    margin-top: 3px;
-}
+
 .vertical-align-middle {
     vertical-align: middle;
 }
@@ -374,7 +370,11 @@ table.listContainer {
     margin-bottom: 16px;
     position: relative;
     min-height: 41px;
-    display:none;
+    display: none;
+
+    .count {
+        margin-left:2px;
+    }
 
     .project-total-info {
         max-height: 30px;
@@ -405,11 +405,12 @@ table.listContainer {
                 width: 12px;
             }
 
-            #subscribe{
-                float:left;
+            #subscribe {
+                float: left;
             }
+
             .entity-menu {
-                float:left;
+                float: left;
                 margin: 5px 0 0 7px;
             }
         }
@@ -428,13 +429,13 @@ table.listContainer {
 }
 
 body.media-width-0-1575:not(.media-width-0-1350) #essenceTitle.truncated-text {
-    max-width: 800px;
+    max-width: 1000px;
 }
 body.media-width-0-1350 #essenceTitle.truncated-text {
-    max-width: 600px;
+    max-width: 800px;
 }
 body.media-width-0-1150 #essenceTitle.truncated-text {
-    max-width: 400px;
+    max-width: 600px;
 }
 
 /*--- project navigation-----*/
@@ -894,9 +895,9 @@ table.table-list {
         &.title{
             color: #83888d;
             width: 100px;
+            margin-right: 2px;
         }
         &.value{
-            margin-right: 12px;
             max-width: 250px;
             a {
                 color: #000;
@@ -933,5 +934,13 @@ table.table-list {
         text-align: left;
         width: 120px;
         margin-top: 0;
+    }
+}
+
+#groupActionContainer {
+    display: none;
+
+    #groupActionMenuSelector {
+        margin-top: 24px;
     }
 }

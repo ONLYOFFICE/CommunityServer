@@ -24,6 +24,7 @@
 */
 
 
+using System.Globalization;
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
@@ -32,9 +33,8 @@ using ASC.Web.Studio.Utility;
 using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web;
+using ASC.Web.Talk.Addon;
 
 namespace ASC.Web.Talk.HttpHandlers
 {
@@ -57,15 +57,16 @@ namespace ASC.Web.Talk.HttpHandlers
                 }
 
                 var fileName = file.FileName.Replace("~", "-");
-                var storage = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "talk");
-                var fileURL = storage.Save(Path.Combine(MD5Hash, GenerateRandomString(), fileName), file.InputStream).ToString();
-                fileName = Path.GetFileName(fileURL);
+                var storage = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(CultureInfo.InvariantCulture), "talk");
+                var md5Hash = TalkSpaceUsageStatManager.GetUserMd5Hash(SecurityContext.CurrentAccount.ID);
+                var fileUrl = storage.Save(Path.Combine(md5Hash, GenerateRandomString(), fileName), file.InputStream).ToString();
+                fileName = Path.GetFileName(fileUrl);
 
                 return new FileUploadResult
                     {
                         FileName = fileName,
                         Data = FileSizeComment.FilesSizeToString(file.InputStream.Length),
-                        FileURL = CommonLinkUtility.GetFullAbsolutePath(fileURL),
+                        FileURL = CommonLinkUtility.GetFullAbsolutePath(fileUrl),
                         Success = true
                     };
             }
@@ -85,22 +86,6 @@ namespace ASC.Web.Talk.HttpHandlers
             var random = new Random();
             return new string(Enumerable.Repeat(chars, 4)
               .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-
-        private string MD5Hash
-        {
-            get
-            {
-                var data = MD5.Create().ComputeHash(Encoding.Default.GetBytes(SecurityContext.CurrentAccount.ID.ToString()));
-                var sBuilder = new StringBuilder();
-
-                for (Int32 i = 0, n = data.Length; i < n; i++)
-                {
-                    sBuilder.Append(data[i].ToString("x2"));
-                }
-
-                return sBuilder.ToString();
-            }
         }
     }
 }

@@ -68,9 +68,8 @@
                 </div>
             </td>
             <td style="text-align:right;">
-                <span class="gray-text"><%= CRMCommonResource.Total %>:</span>
+                <span class="gray-text"><%= CRMCommonResource.Total %>:&nbsp;</span>
                 <span class="gray-text" id="totalInvoiceItemsOnPage"></span>
-
                 <span class="gray-text"><%= CRMCommonResource.ShowOnPage %>:&nbsp;</span>
                 <select class="top-align">
                     <option value="25">25</option>

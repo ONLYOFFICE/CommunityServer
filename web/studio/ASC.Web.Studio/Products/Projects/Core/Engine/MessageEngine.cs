@@ -129,6 +129,11 @@ namespace ASC.Projects.Engine
             return messageDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
+        public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter)
+        {
+            return messageDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+        }
+
         public bool IsExists(int id)
         {
             return messageDao.IsExists(id);
@@ -209,7 +214,7 @@ namespace ASC.Projects.Engine
                 NotifyClient.Instance.SendAboutMessageDeleting(recipients, message);
             }
 
-            UnSubscribe(message);
+            UnSubscribeAll(message);
         }
 
 

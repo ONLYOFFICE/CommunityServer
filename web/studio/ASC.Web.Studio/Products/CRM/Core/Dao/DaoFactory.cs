@@ -126,9 +126,7 @@ namespace ASC.CRM.Core.Dao
 
         public ReportDao GetReportDao()
         {
-
             return new ReportDao(tenantID, storageKey);
-
         }
 
         public CurrencyRateDao GetCurrencyRateDao()

@@ -198,15 +198,20 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public object MoveFolder(object folderId, object toFolderId)
         {
-            var oldIdValue = MakeId(GetFolderById(folderId));
+            var entry = GetFolderById(folderId);
+            var folder = GetFolderById(toFolderId);
 
-            SharpBoxProviderInfo.Storage.MoveFileSystemEntry(MakePath(folderId), MakePath(toFolderId));
+            var oldFolderId = MakeId(entry);
+            var newFolderId = oldFolderId;
 
-            var newIdValue = MakeId(GetFolderById(folderId));
+            if (SharpBoxProviderInfo.Storage.MoveFileSystemEntry(entry, folder))
+            {
+                newFolderId = MakeId(entry);
+            }
 
-            UpdatePathInDB(oldIdValue, newIdValue);
+            UpdatePathInDB(oldFolderId,newFolderId);
 
-            return newIdValue;
+            return newFolderId;
         }
 
         public Folder CopyFolder(object folderId, object toFolderId)
@@ -315,7 +320,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return null;
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId)
         {
             return null;
         }
@@ -325,7 +330,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return null;
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId)
         {
             return null;
         }

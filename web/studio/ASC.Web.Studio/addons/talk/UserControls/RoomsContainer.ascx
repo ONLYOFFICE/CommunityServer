@@ -19,9 +19,9 @@
         </span>
         <span class="chat">
           <span class="department"></span>
-          <span class="separator"><%=TalkResource.LabelStatus%>:</span>
+          <span class="separator"></span>
           <span class="show"></span>
-          <span class="message"></span>
+         <!-- <span class="message"></span>  -->
         </span>
       </div>
     </div>
@@ -30,46 +30,44 @@
   <ul class="rooms">
       
     <li class="room default">
-        
-        <div class="filtering-panel" unselectable="on">
-            <hr />
-            <div style="float: right; width: 150px;">
+     <div class="filtering-panel close" unselectable="on" >
+            
+            <div class="filtering-panel-tools">
                 <div class="searchmessagecount">
                     <span class="currentfoundmessage">0</span>
                     <span><%=TalkResource.SeparatorOfFoundMessages%></span>
                     <span class="countfoundmessage">0</span>
                 </div>
-                <div class="button-container search-prev-message my" title="<%=TalkResource.HintSearchPrevMessage%>" unselectable="on">
-                    <div class="button-talk search-prev-message" unselectable="on"></div>
+                <div class="button-talk clear-search"></div>  
+                <div class="search_nextbutton_container">
+                    <div class="button-container search-next-message" title="<%=TalkResource.HintSearchNextMessage%>" unselectable="on">
+                        <div class="button-talk search-next-message" unselectable="on"></div>
+                    </div>
                 </div>
-                <div class="button-container search-next-message" title="<%=TalkResource.HintSearchNextMessage%>" unselectable="on">
-                    <div class="button-talk search-next-message" unselectable="on"></div>
+                <div class="search_prevbutton_container">
+                    <div class="button-container search-prev-message my" title="<%=TalkResource.HintSearchPrevMessage%>" unselectable="on">
+                        <div class="button-talk search-prev-message" unselectable="on"></div>
+                    </div>
                 </div>
-                <!--<div class="cha">
-                    <select class="historyPeriod" style="display: inline-block">
-                        <option class="filter-option" value="0"><%=TalkResource.HistoryFilterLastDay%></option>
-                        <option class="filter-option" value="1"><%=TalkResource.HistoryFilterLastWeek%></option>
-                        <option class="filter-option" value="2"><%=TalkResource.HistoryFilterLastMonth%></option>
-                        <option class="filter-option" value="3"><%=TalkResource.HistoryFilterAll%></option>
-                    </select>
-                </div> -->
-                <div class="button-talk clear-search"><%=TalkResource.Close%></div>  
+                
             </div>
             <div class="filtering-container">
                 <div class="textfield filtering-field" unselectable="on">
-                    <input class="search-value" placeholder="<%=TalkResource.SearchOnHistory%>" style="margin-left: 10px" /></div>
-                <div class="button-container search-start my" title="<%=TalkResource.HintSearch%>" unselectable="on">
-                    <div class="button-talk search-start" unselectable="on"></div>
+                    <input class="search-value" placeholder="<%=TalkResource.SearchOnHistory%>" style="margin-left: 6px" onfocus="ASC.TMTalk.roomsManager.focusHistorySearch()" onblur="ASC.TMTalk.roomsManager.blurHistorySearch()" onkeyup="ASC.TMTalk.roomsManager.keyupHistorySearch()" onkeypress="ASC.TMTalk.roomsManager.keydownHistorySearch()"/>
                 </div>
+               <div class="button-container search-start my" title="<%=TalkResource.HintSearch%>" unselectable="on">
+                    <div class="button-talk search-start" unselectable="on"></div>
+                </div> 
             </div>
         </div>
      
-      <!--<div class="room-title" unselectable="on">
-        <div class="size" unselectable="on"><%=TalkResource.TotalUsers%>: <span class="all" unselectable="on">0</span></div>
-        <div class="with-entity-menu openUserList">
-            <div class="entity-menu toggle-minimizing"></div>
-        </div> 
-      </div>-->
+      <div class="room-title" unselectable="on">
+        <div class="size with-entity-menu openUserList" unselectable="on"><%=TalkResource.TotalUsers%>: <span class="all" unselectable="on">0</span></div>
+        <div class="with-entity-menu removeRoom"><%=TalkResource.BtnRemoveConference%></div>
+        <div class="with-entity-menu removeMailing"><%=TalkResource.BtnRemoveMailing%></div>
+        
+      </div>
+
       <div class="sub-panel border webkit-scrollbar" unselectable="on">
         <div class="splash-contactlist" unselectable="on">
           <span class="label" unselectable="on">
@@ -77,9 +75,10 @@
             <span class="title" unselectable="on"><%=TalkResource.LabelConferenceSplash%></span>
           </span>
         </div>
-
+          <!--<div class="with-entity-menu removeRoom"><%=TalkResource.BtnRemoveConference%></div>
+        <div class="with-entity-menu removeMailing"><%=TalkResource.BtnRemoveMailing%></div>
         <div class="with-entity-menu openUserList"><%=TalkResource.ShowUserList%></div>
-           <!-- <div class="entity-menu toggle-minimizing"></div> -->
+          <div class="entity-menu toggle-minimizing"></div> -->
         
         <div class="size" unselectable="on"><%=TalkResource.TotalUsers%>: <span class="all" unselectable="on">0</span></div>
         
@@ -88,18 +87,14 @@
           <li class="contact default" unselectable="on">
             <div class="state" unselectable="on"></div>
             <div class="toolbar" unselectable="on">
-              <div class="button-talk remove-member" title="<%=TalkResource.BtnRemoveMember%>" unselectable="on"></div>
+            <div class="button-talk remove-member" title="<%=TalkResource.BtnRemoveMember%>" unselectable="on"></div>
             </div>
             <div class="title" unselectable="on"></div>
           </li>
         </ul>
         
       </div>
-        
-      <div class="room-separator" unselectable="on">            
-        <div class="button gray button-talk toggle-minimizing" unselectable="on">Ready</div>
-        <hr class="toggle-minimizing" style="margin-top: 17px" /> 
-      </div>
+     
       <div class="messages">
         <ul class="messages webkit-scrollbar">
             <li class="message default">
@@ -138,9 +133,9 @@
         <div class="button-talk close-history" id="closeHistory">   
             <div class="button gray button-label close-history"  title="<%=TalkResource.BtnCloseHistory%>" unselectable="on"><%=TalkResource.BtnCloseHistory%></div>          
         </div>
-    </div>-->
+    </div>
     <div id="closeHistory" class="button-container">
         <div class="button gray button-talk close-history" ><%=TalkResource.BtnCloseHistory%>
         <div class="button-talk close-history"></div></div>
-    </div>
+    </div>-->
 </div>

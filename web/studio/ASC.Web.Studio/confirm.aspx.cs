@@ -162,6 +162,12 @@ namespace ASC.Web.Studio
 
                             if (!SecurityContext.IsAuthenticated)
                             {
+                                if (!CoreContext.UserManager.UserExists(user.ID) || user.Status != EmployeeStatus.Active)
+                                {
+                                    ShowError(Resource.ErrorUserNotFound);
+                                    return false;
+                                }
+
                                 if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
                                 {
                                     Response.Redirect(SmsConfirmUrl(user), true);
@@ -211,11 +217,15 @@ namespace ASC.Web.Studio
                     checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_type + emplType, key, validInterval);
                     break;
 
+                case ConfirmType.EmailChange:
+                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + SecurityContext.CurrentAccount.ID, key, validInterval);
+                    break;
+
                 case ConfirmType.PasswordChange:
 
                     var userHash = !String.IsNullOrEmpty(Request["p"]) && Request["p"] == "1";
 
-                    String hash = String.Empty;
+                    var hash = String.Empty;
 
                     if (userHash)
                        hash = CoreContext.Authentication.GetUserPasswordHash(CoreContext.UserManager.GetUserByEmail(_email).ID);
@@ -325,7 +335,8 @@ namespace ASC.Web.Studio
                     user.ActivationStatus = EmployeeActivationStatus.Activated;
                     user = CoreContext.UserManager.SaveUserInfo(user);
 
-                    if (!CoreContext.Configuration.Personal && user.IsAdmin()) {
+                    var first = Request["first"] ?? "";
+                    if (first.ToLower() == "true" && !CoreContext.Configuration.Personal && user.IsAdmin()) {
                         StudioNotifyService.Instance.SendAdminWellcome(user);
                     }
 
@@ -356,11 +367,11 @@ namespace ASC.Web.Studio
 
         private void AuthRedirect(bool first)
         {
-            var wizardSettings = SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID);
+            var wizardSettings = WizardSettings.Load();
             if (first && wizardSettings.Completed)
             {
                 wizardSettings.Completed = false;
-                SettingsManager.Instance.SaveSettings(wizardSettings, TenantProvider.CurrentTenantID);
+                wizardSettings.Save();
             }
 
             string url;
@@ -405,12 +416,7 @@ namespace ASC.Web.Studio
             try
             {
                 LogManager.GetLogger("ASC.Web").Debug("SetDefaultModule " + module);
-                var defaultPageSettingsObj = new StudioDefaultPageSettings
-                    {
-                        DefaultProductID = new Guid(module),
-                    };
-                SettingsManager.Instance.SaveSettings(defaultPageSettingsObj, TenantProvider.CurrentTenantID);
-
+                new StudioDefaultPageSettings { DefaultProductID = new Guid(module) }.Save();
                 MessageService.Send(HttpContext.Current.Request, MessageAction.DefaultStartPageSettingsUpdated);
             }
             catch (Exception ex)

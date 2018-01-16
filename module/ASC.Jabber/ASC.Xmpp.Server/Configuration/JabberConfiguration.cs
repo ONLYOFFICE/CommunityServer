@@ -27,8 +27,6 @@
 using System;
 using System.Configuration;
 using System.Linq;
-using ASC.Thrdparty.Configuration;
-using ASC.Xmpp.Core;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.utils.Idn;
 using ASC.Xmpp.Server.Gateway;
@@ -39,7 +37,6 @@ namespace ASC.Xmpp.Server.Configuration
 {
     public static class JabberConfiguration
     {
-        
         public static bool ReplaceDomain
         {
             get;

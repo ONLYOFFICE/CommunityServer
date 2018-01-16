@@ -33,14 +33,16 @@ namespace ASC.SingleSignOn.Common
 {
     [Serializable]
     [DataContract]
-    public class SsoSettingsV2 : ISettings
+    public class SsoSettingsV2 : BaseSettings<SsoSettingsV2>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{1500187F-B8AB-406F-97B8-04BFE8261DBE}"); }
         }
 
-        public ISettings GetDefault()
+        public const string SSO_SP_LOGIN_LABEL = "Single Sign-on";
+
+        public override ISettings GetDefault()
         {
             return new SsoSettingsV2
                 {
@@ -86,7 +88,8 @@ namespace ASC.SingleSignOn.Common
                             Title = "title",
                             Location = "l",
                             Phone = "mobile"
-                        }
+                        },
+                    SpLoginLabel = SSO_SP_LOGIN_LABEL
                 };
         }
 
@@ -101,6 +104,9 @@ namespace ASC.SingleSignOn.Common
 
         [DataMember]
         public SsoIdpCertificateAdvanced IdpCertificateAdvanced { get; set; }
+
+        [DataMember]
+        public string SpLoginLabel { get; set; }
 
         [DataMember]
         public List<SsoCertificate> SpCertificates { get; set; }

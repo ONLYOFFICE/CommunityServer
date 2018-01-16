@@ -254,57 +254,50 @@ body.desktop .studio-top-panel {
         width: 16px;
 
         &.projects {
-            /*background-position: 0 -27px;*/
             background-position: -15px -52px;
         }
 
         &.crm {
-            /*background-position: 0 -79px;*/
             background-position: -15px -546px;
         }
 
         &.documents {
-            /*background-position: 0 -131px;*/
             background-position: -15px -156px;
         }
 
         &.community {
-            /*background-position: 0 -183px;*/
             background-position: -15px -442px;
         }
 
         &.people {
             background-position: -15px -26px;
-            /*background-position: 0 -235px;*/
         }
 
         &.tools {
-            /*background-position: 0 -287px;*/
             background-position: -15px -253px;
         }
 
         &.mail {
             background-position: -15px -1300px;
-            /*background-position: 0 -339px;*/
         }
 
         &.calendar {
             background-position: -15px -208px;
-            /*background-position: -15px -391px;*/
         }
 
         &.feed {
-            /*background-position: 0 -444px;*/
             background-position: -15px -702px;
         }
 
         &.settings {
-            /*background-position: 0 -495px;*/
             background-position: -15px -390px;
         }
 
+        &.apps {
+            background-position: -15px -832px;
+        }
+
         &.talk {
-            /*background-position: 0 -548px;*/
             background-position: -15px -1326px;
         }
     }
@@ -649,5 +642,18 @@ only screen and (                min-resolution: 2dppx)
 
     li {
         margin-bottom: 6px;
+    }
+}
+
+#appsPopupBody {
+    text-align: left;
+
+    .apps-list {
+        max-height: 300px;
+        overflow-y: auto;
+
+        img {
+            padding: 16px 10px 0 0;
+        }
     }
 }

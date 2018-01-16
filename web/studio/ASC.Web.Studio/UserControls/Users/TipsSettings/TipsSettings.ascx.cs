@@ -43,8 +43,7 @@ namespace ASC.Web.Studio.UserControls.Users.TipsSettings
 
         public TipsSettings()
         {
-            var userId = SecurityContext.CurrentAccount.ID;
-            ShowTips = SettingsManager.Instance.LoadSettingsFor<Core.TipsSettings>(userId).Show;
+            ShowTips = Core.TipsSettings.LoadForCurrentUser().Show;
         }
 
         protected void Page_Load(object sender, EventArgs e)

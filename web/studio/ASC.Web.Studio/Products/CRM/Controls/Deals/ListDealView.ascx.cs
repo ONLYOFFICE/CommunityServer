@@ -73,7 +73,7 @@ namespace ASC.Web.CRM.Controls.Deals
                     Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", fileName));
                     Response.Write(ExportToCSV.ExportDealsToCSV(deals, false));
 
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.OpportunitiesExportedToCsv, deals.Select(x => x.Title));
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.OpportunitiesExportedToCsv, MessageTarget.Create(deals.Select(x => x.ID)), deals.Select(x => x.Title));
                     
                     Response.End();
                 }

@@ -67,6 +67,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         groupFilter = "group",
         followedFilter = "followed",
         tagFilter = "tag",
+        notagFilter = "notag",
         textFilter = "text",
 
         projectFilter = "project",
@@ -449,6 +450,10 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     data.tag = val;
                     anchor = changeParamValue(anchor, tagFilter, data.tag);
                     break;
+                case notagFilter:
+                    data.tag = -1;
+                    anchor = changeParamValue(anchor, notagFilter, trueString);
+                    break;
                 case openFilter:
                 case pausedFilter:
                 case archivedFilter:
@@ -685,30 +690,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
 
         //Projects
 
-        pushFilterItem((currentProjectId == null) && visible,
-            filters,
-            typeFlag,
-            myprojectsFilter,
-            projectsFilterResource.MyProjects,
-            '',
-            projectsFilterResource.ByProject,
-            myprojectsFilter,
-            projectGroup);
-
-        pushFilterItem((currentProjectId == null) && visible,
-            filters,
-            typeCombobox,
-            projectFilter,
-            projectsFilterResource.OtherProjects,
-            projectsFilterResource.ByProject + ":",
-            projectsFilterResource.ByProject,
-            '',
-            projectGroup,
-            common.getProjectsForFilter(),
-            null,
-            projectsFilterResource.Select);
-
-        pushFilterItemsTags((currentProjectId == null) && visible, filters);
+        pushFilterItemsProjects(visible, filters);
 
         pushFilterItemsWithFixedOptions(visible, filters,
         [
@@ -924,32 +906,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             deadlineHashmark,
             deadlineGroup);
 
-        //Projects
-
-        pushFilterItem((currentProjectId == null) && visible,
-            filters,
-            typeFlag,
-            myprojectsFilter,
-            projectsFilterResource.MyProjects,
-            "",
-            projectsFilterResource.ByProject,
-            myprojectsFilter,
-            projectGroup);
-
-        pushFilterItem((currentProjectId == null) && visible,
-            filters,
-            typeCombobox,
-            projectFilter,
-            projectsFilterResource.OtherProjects,
-            projectsFilterResource.ByProject + ":",
-            projectsFilterResource.ByProject,
-            '',
-            projectGroup,
-            common.getProjectsForFilter(),
-            null,
-            projectsFilterResource.Select);
-
-        pushFilterItemsTags((currentProjectId == null) && visible, filters);
+        pushFilterItemsProjects(visible, filters);
 
         pushHiddenFilterItems(filters);
 
@@ -1040,6 +997,14 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                 tagsForFilter,
                 null,
                 projectsFilterResource.Select);
+
+            pushFilterItem(visible, filters,
+                typeFlag,
+                notagFilter,
+                projectsFilterResource.WithoutTag,
+                "",
+                projectsFilterResource.Other,
+                notagFilter);
         }
 
         pushHiddenFilterItems(filters, 2);
@@ -1130,55 +1095,29 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             personHashmark,
             creatoridgroup);
 
-        //Projects
-        pushFilterItem(currentProjectId == null && visible,
-            filters,
-            typeFlag,
-            myprojectsFilter,
-            projectsFilterResource.MyProjects,
-            "",
-            projectsFilterResource.ByProject,
-            "myprojects",
-            projectGroup);
-
-        pushFilterItem(currentProjectId == null && visible,
-            filters,
-            typeCombobox,
-            projectFilter,
-            projectsFilterResource.OtherProjects,
-            projectsFilterResource.ByProject + ":",
-            projectsFilterResource.ByProject,
-            projectHashmark,
-            projectGroup,
-            common.getProjectsForFilter(),
-            null,
-            projectsFilterResource.Select);
-
-        pushFilterItemsTags(currentProjectId == null && visible, filters);
+        pushFilterItemsProjects(visible, filters);
 
         //Milestones
-        if (milestonesForFilter.length > 1) {
-            pushFilterItem(visible, filters,
-                typeFlag,
-                mymilestonesFilter,
-                projectsFilterResource.MyMilestones,
-                null,
-                projectsFilterResource.ByMilestone,
-                "mymilestones",
-                milestoneFilter);
+        pushFilterItem(visible, filters,
+            typeFlag,
+            mymilestonesFilter,
+            projectsFilterResource.MyMilestones,
+            null,
+            projectsFilterResource.ByMilestone,
+            "mymilestones",
+            milestoneFilter);
 
-            pushFilterItem(visible, filters,
-                typeCombobox,
-                milestoneFilter,
-                projectsFilterResource.OtherMilestones,
-                projectsFilterResource.ByMilestone + ":",
-                projectsFilterResource.ByMilestone,
-                "milestone/{0}",
-                milestoneFilter,
-                milestonesForFilter,
-                null,
-                projectsFilterResource.Select);
-        }
+        pushFilterItem(visible, filters,
+            typeCombobox,
+            milestoneFilter,
+            projectsFilterResource.OtherMilestones,
+            projectsFilterResource.ByMilestone + ":",
+            projectsFilterResource.ByMilestone,
+            "milestone/{0}",
+            milestoneFilter,
+            milestonesForFilter,
+            null,
+            projectsFilterResource.Select);
         // Status
         pushFilterItemsWithFixedOptions(visible, filters,
         [
@@ -1287,55 +1226,29 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
 
         var startIndex = filters.length;
 
-        //Projects
-        pushFilterItem(currentProjectId == null && visible,
-            filters,
-            typeFlag,
-            myprojectsFilter,
-            projectsFilterResource.MyProjects,
-            "",
-            projectsFilterResource.ByProject,
-            myprojectsFilter,
-            projectGroup);
-
-        pushFilterItem(currentProjectId == null && visible,
-            filters,
-            typeCombobox,
-            projectFilter,
-            projectsFilterResource.OtherProjects,
-            projectsFilterResource.ByProject + ":",
-            projectsFilterResource.ByProject,
-            projectHashmark,
-            projectGroup,
-            common.getProjectsForFilter(),
-            null,
-            projectsFilterResource.Select);
-
-        pushFilterItemsTags(currentProjectId == null && visible, filters);
+        pushFilterItemsProjects(visible, filters);
 
         //Milestones
-        if (milestonesForFilter.length > 1) {
-            pushFilterItem(visible, filters,
-                typeFlag,
-                mymilestonesFilter,
-                projectsFilterResource.MyMilestones,
-                "",
-                projectsFilterResource.ByMilestone,
-                mymilestonesFilter,
-                milestoneFilter);
+        pushFilterItem(visible, filters,
+            typeFlag,
+            mymilestonesFilter,
+            projectsFilterResource.MyMilestones,
+            "",
+            projectsFilterResource.ByMilestone,
+            mymilestonesFilter,
+            milestoneFilter);
 
-            pushFilterItem(visible, filters,
-                typeCombobox,
-                milestoneFilter,
-                projectsFilterResource.OtherMilestones,
-                projectsFilterResource.ByMilestone + ":",
-                projectsFilterResource.ByMilestone,
-                milestineHashmark,
-                milestoneFilter,
-                milestonesForFilter,
-                null,
-                projectsFilterResource.Select);
-        }
+        pushFilterItem(visible, filters,
+            typeCombobox,
+            milestoneFilter,
+            projectsFilterResource.OtherMilestones,
+            projectsFilterResource.ByMilestone + ":",
+            projectsFilterResource.ByMilestone,
+            milestineHashmark,
+            milestoneFilter,
+            milestonesForFilter,
+            null,
+            projectsFilterResource.Select);
         // Responsible
 
         pushFilterItemPersonMe(typeof common.userInProjectTeam(currentUserId) !== "undefined" && currentProjectId != null && visible,
@@ -1538,8 +1451,32 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         }
     }
 
-    function pushFilterItemsTags(visible, filters) {
-        pushFilterItem(visible, filters,
+    function pushFilterItemsProjects(visible, filters) {
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeFlag,
+            myprojectsFilter,
+            projectsFilterResource.MyProjects,
+            '',
+            projectsFilterResource.ByProject,
+            myprojectsFilter,
+            projectGroup);
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeCombobox,
+            projectFilter,
+            projectsFilterResource.OtherProjects,
+            projectsFilterResource.ByProject + ":",
+            projectsFilterResource.ByProject,
+            projectHashmark,
+            projectGroup,
+            common.getProjectsForFilter(),
+            null,
+            projectsFilterResource.Select);
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
             typeCombobox,
             tagFilter,
             projectsFilterResource.ByTag,
@@ -1550,6 +1487,16 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             tagsForFilter,
             null,
             projectsFilterResource.Select);
+
+        pushFilterItem((currentProjectId == null) && visible,
+            filters,
+            typeFlag,
+            notagFilter,
+            projectsFilterResource.WithoutTag,
+            "",
+            projectsFilterResource.ByProject,
+            notagFilter,
+            projectGroup);
     }
 
     function pushHiddenFilterItems(filters, count) {

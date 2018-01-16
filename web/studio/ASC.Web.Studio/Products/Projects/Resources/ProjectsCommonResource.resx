@@ -552,4 +552,19 @@
   <data name="Replace" xml:space="preserve">
     <value>Replace</value>
   </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Common Settings</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Любой пользователь может создавать проект</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Стратовая страница</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Персональные настройки</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Hide Entities In Paused Projects</value>
+  </data>
 </root>

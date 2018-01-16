@@ -1459,7 +1459,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
   var onClientConnected = function () {
     $('#button-create-conference').bind('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'pointer');
     $('#button-create-conference').css('opacity', '1');
-    $('#button-clear-files').bind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
+    $('#button-clear-files').bind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');
     $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').bind('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkStatusMenu').removeClass('processing');
     if ($('#talkContactsContainer').find('li.contact:not(.default)').length === 0) {
@@ -1535,9 +1535,10 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
                       newCopyFragment += "---" + daysplit[0].innerText + "---" + '\n';
                   }
 
-                  var date = $(copyElements[i]).find('div.message-container div.date');
-                  if (date.length != 0 && date[0].innerText != "") {
-                      newCopyFragment += "[" + date[0].innerText.replace(/\s/g, '') +"] ";
+                  var time = $(copyElements[i]).find('div.message-container div.date');
+                  var day = $(copyElements[i]).find('span.daysplit span.value').attr('date') ? $(copyElements[i]).find('span.daysplit span.value').attr('date'):"";
+                  if (time.length != 0 && time[0].innerText != "") {
+                      newCopyFragment += "["+day+" "+ time[0].innerText.replace(/\s/g, '') + "] ";
                   }
                   
                   var title = $(copyElements[i]).find('div.message-container div.message div.head span.title');
@@ -2508,7 +2509,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         ASC.TMTalk.properties.item('grps', ASC.TMTalk.contactsContainer.getContactlistHash(), true);
       }
     }
-    if (ASC.TMTalk.dom.hasClass(selectedTargets[0], 'sub-panel')) {
+    if (ASC.TMTalk.dom.hasClass(selectedTargets[0], 'room')) {
       var
         fn = null,
         currentJid,
@@ -2754,10 +2755,10 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
               targets = [];
             nodes = currentRoomData === null ? [] : ASC.TMTalk.dom.getElementsByClassName('talkRoomsContainer', 'room' + (currentRoomData.type === 'conference' ? ' conference' : ' mailing') + ' current', 'li');
             if (nodes.length > 0) {
-              nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'sub-panel', 'div');
-              if (nodes.length > 0) {
+                //nodes = ASC.TMTalk.dom.getElementsByClassName(nodes[0], 'room', 'li');
+              //if (nodes.length > 0) {
                 targets.push(nodes[0]);
-              }
+              //}
             }
             groups = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group', 'li');
        
@@ -2796,12 +2797,12 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
           }
         } else if (ASC.TMTalk.dom.hasClass(element, 'contact-title')) {
           var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
-          if (currentRoomData && (currentRoomData.type === 'conference' || currentRoomData.type === 'mailing') && currentRoomData.minimized === false) {
+          if (currentRoomData && (currentRoomData.type === 'conference' || currentRoomData.type === 'mailing')) {
             var contact = element.parentNode;
             if (ASC.TMTalk.dom.hasClass(contact, 'contact') && !ASC.TMTalk.dom.hasClass(contact, 'master') && (currentRoomData.type === 'mailing' || (currentRoomData.type === 'conference' && !ASC.TMTalk.dom.hasClass(contact, 'offline')))) {
               var targets = ASC.TMTalk.dom.getElementsByClassName('talkRoomsContainer', 'room' + (currentRoomData.type === 'conference' ? ' conference' : ' mailing') + ' current', 'li');
               if (targets.length > 0) {
-                targets = ASC.TMTalk.dom.getElementsByClassName(targets[0], 'sub-panel', 'div');
+                targets = ASC.TMTalk.dom.getElementsByClassName(targets[0], 'room', 'li');
               }
               ASC.TMTalk.dragMaster.start(
                 evt,

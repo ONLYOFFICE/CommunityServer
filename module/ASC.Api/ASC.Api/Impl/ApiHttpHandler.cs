@@ -32,6 +32,8 @@ using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Routing;
+using ASC.Api.Interfaces;
+using Autofac;
 
 namespace ASC.Api.Impl
 {
@@ -62,7 +64,18 @@ namespace ASC.Api.Impl
 
                 if (Method != null)
                 {
-                    var responce = ApiManager.InvokeMethod(Method, ApiContext);
+                    object instance;
+
+                    if (!string.IsNullOrEmpty(Method.Name))
+                    {
+                        instance = Container.ResolveNamed(Method.Name, typeof(IApiEntryPoint), new TypedParameter(typeof(ApiContext), ApiContext));
+                    }
+                    else
+                    {
+                        instance = Container.Resolve(typeof(IApiEntryPoint));
+                    }
+
+                    var responce = ApiManager.InvokeMethod(Method, ApiContext, instance);
                     if (responce is Exception)
                     {
                         SetError(context, (Exception)responce, HttpStatusCode.InternalServerError);

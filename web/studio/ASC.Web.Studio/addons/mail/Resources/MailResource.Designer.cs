@@ -619,6 +619,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import accounts and other data from MS Exchange.
+        /// </summary>
+        public static string BlankModalMailServerTip2Stanalone {
+            get {
+                return ResourceManager.GetString("BlankModalMailServerTip2Stanalone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign aliases to the users and organize them into groups.
         /// </summary>
         public static string BlankModalMailServerTip3 {
@@ -1128,6 +1137,15 @@ namespace ASC.Web.Mail.Resources {
         public static string DisplayImagesLabel {
             get {
                 return ResourceManager.GetString("DisplayImagesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is possible to {0}export data from the MS Exchange.{1}.
+        /// </summary>
+        public static string DomainHelperExportFromMSExchange {
+            get {
+                return ResourceManager.GetString("DomainHelperExportFromMSExchange", resourceCulture);
             }
         }
         

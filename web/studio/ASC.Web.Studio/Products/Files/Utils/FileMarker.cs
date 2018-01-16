@@ -123,7 +123,7 @@ namespace ASC.Web.Files.Utils
 
                         foreach (var userID in userIDs)
                         {
-                            var userFolderId = folderDao.GetFolderID(FileConstant.ModuleId, "my", userID.ToString(), false);
+                            var userFolderId = folderDao.GetFolderIDUser(false, userID);
 
                             Folder rootFolder = null;
                             if (obj.FileEntry.ProviderEntry)
@@ -269,7 +269,7 @@ namespace ASC.Web.Files.Utils
 
                 object folderID;
                 int valueNew;
-                var userFolderId = folderDao.GetFolderID(FileConstant.ModuleId, "my", userID.ToString(), false);
+                var userFolderId = folderDao.GetFolderIDUser(false, userID);
 
                 var removeTags = new List<Tag>();
 

@@ -120,6 +120,10 @@
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Data.Reassigns\ASC.Data.Reassigns.csproj">
+      <Project>{104d045a-f9cc-4dd7-b04d-8da7543435dd}</Project>
+      <Name>ASC.Data.Reassigns</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
       <Name>ASC.MessagingSystem</Name>

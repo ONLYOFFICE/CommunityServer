@@ -227,6 +227,11 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             return IsPageEditProfileFlag ? UserInfo.Title.HtmlEncode() : String.Empty;
         }
 
+        public string GetLogin()
+        {
+            return IsPageEditProfileFlag ? UserInfo.UserName.HtmlEncode() : String.Empty;
+        }
+
         public string GetEmail()
         {
             return IsPageEditProfileFlag ? UserInfo.Email.HtmlEncode() : String.Empty;

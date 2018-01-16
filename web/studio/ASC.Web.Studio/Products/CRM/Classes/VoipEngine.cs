@@ -194,7 +194,7 @@ namespace ASC.Web.CRM.Classes
 
                 if (!string.IsNullOrEmpty(call.VoipRecord.Id))
                 {
-                    call.VoipRecord = VoipDao.GetProvider().GetRecord(call.VoipRecord.Id);
+                    call.VoipRecord = VoipDao.GetProvider().GetRecord(call.Id, call.VoipRecord.Id);
                     voipEngine.SaveOrUpdateCall(call);
                 }
 

@@ -562,8 +562,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
                          .Replace("%EMAILDOMAIN%", notificationAddressBase.Domain.Name.ToLowerInvariant())
                          .Replace("%EMAILHOSTNAME%", Path.GetFileNameWithoutExtension(notificationAddressBase.Domain.Name.ToLowerInvariant()));
 
-            var notificationAddressSettings =
-                                SettingsManager.Instance.LoadSettings<NotificationAddressSettings>(Tenant);
+            var notificationAddressSettings = NotificationAddressSettings.LoadForTenant(Tenant);
 
             if (!string.IsNullOrEmpty(notificationAddressSettings.NotificationAddress))
                 throw new Exception("Setting already exists. Remove first.");
@@ -572,7 +571,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
             notificationAddressSettings = new NotificationAddressSettings {NotificationAddress = address};
 
-            if (!SettingsManager.Instance.SaveSettings(notificationAddressSettings, Tenant))
+            if (!notificationAddressSettings.SaveForTenant(Tenant))
             {
                 _DeleteNotificationAddress(address);
                 throw new Exception("Could not save notification address setting.");
@@ -594,15 +593,14 @@ namespace ASC.Mail.Server.Administration.ServerModel
                 throw new ArgumentNullException("address", "ServerModel::DeleteNotificationAddress");
 
             var deleteAddress = address.ToLowerInvariant();
-            var notificationAddressSettings =
-                                SettingsManager.Instance.LoadSettings<NotificationAddressSettings>(Tenant);
+            var notificationAddressSettings = NotificationAddressSettings.LoadForTenant(Tenant);
 
             if (notificationAddressSettings.NotificationAddress != deleteAddress)
                 throw new ArgumentException("Mailbox not exists");
 
             _DeleteNotificationAddress(address);
 
-            if (!SettingsManager.Instance.SaveSettings(notificationAddressSettings.GetDefault(), Tenant))
+            if (!(notificationAddressSettings.GetDefault() as NotificationAddressSettings).SaveForTenant(Tenant))
             {
                 throw new Exception("Could not delete notification address setting.");
             }

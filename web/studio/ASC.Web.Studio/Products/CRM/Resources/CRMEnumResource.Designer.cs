@@ -322,6 +322,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VK.
+        /// </summary>
+        public static string ContactInfoType_VK {
+            get {
+                return ResourceManager.GetString("ContactInfoType_VK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Web site.
         /// </summary>
         public static string ContactInfoType_Website {

@@ -53,51 +53,39 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Core.Common.dll</HintPath>
+    <Reference Include="Facebook">
+      <HintPath>..\..\..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facebook\Exceptions.cs" />
+    <Compile Include="Facebook\FacebookApiInfo.cs" />
+    <Compile Include="Facebook\FacebookDataProvider.cs" />
+    <Compile Include="Facebook\FacebookMessage.cs" />
+    <Compile Include="Facebook\FacebookUserInfo.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProviderConstants.cs" />
-    <Compile Include="TokenHolder.cs" />
-    <Compile Include="TokenManagerHolder.cs" />
-    <Compile Include="TokenManagers\DbTokenManager.cs" />
-    <Compile Include="TokenManagers\IAssociatedTokenManager.cs" />
-    <Compile Include="TokenManagers\InMemoryTokenManager.cs" />
-    <Compile Include="WinowsLive\WindowsLiveLogin.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TokenManagers\Data\Shema\MySQL.sql" />
-    <None Include="TokenManagers\Data\Shema\SQLite.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
+    <Compile Include="SocialMediaException.cs" />
+    <Compile Include="SocialNetworks.cs" />
+    <Compile Include="InMemoryTokenManager.cs" />
+    <Compile Include="Twitter\TwitterConsumer.cs" />
+    <Compile Include="Twitter\Exceptions.cs" />
+    <Compile Include="Twitter\TwitterApiInfo.cs" />
+    <Compile Include="Twitter\TwitterDataProvider.cs" />
+    <Compile Include="Twitter\TwitterMessage.cs" />
+    <Compile Include="Twitter\TwitterUserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

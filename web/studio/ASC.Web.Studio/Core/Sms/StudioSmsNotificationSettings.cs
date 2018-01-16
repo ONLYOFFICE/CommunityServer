@@ -25,27 +25,23 @@
 
 
 using System;
-using System.Configuration;
-using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Core;
 using ASC.Core.Common.Settings;
-using ASC.Core.Tenants;
 using ASC.Web.Studio.Utility;
-using log4net;
 
 namespace ASC.Web.Studio.Core.SMS
 {
     [Serializable]
     [DataContract]
-    public class StudioSmsNotificationSettings : ISettings
+    public class StudioSmsNotificationSettings : BaseSettings<StudioSmsNotificationSettings>
     {
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{2802df61-af0d-40d4-abc5-a8506a5352ff}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new StudioSmsNotificationSettings { EnableSetting = false, };
         }
@@ -56,63 +52,12 @@ namespace ASC.Web.Studio.Core.SMS
 
         public static bool Enable
         {
-            get
-            {
-                return SettingsManager.Instance.LoadSettings<StudioSmsNotificationSettings>(TenantProvider.CurrentTenantID).EnableSetting && LeftSms > 0;
-            }
+            get { return Load().EnableSetting && SmsProviderManager.Enabled(); }
             set
             {
-                var settings = SettingsManager.Instance.LoadSettings<StudioSmsNotificationSettings>(TenantProvider.CurrentTenantID);
+                var settings = Load();
                 settings.EnableSetting = value;
-                SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
-            }
-        }
-
-        public static int LeftSms
-        {
-            get
-            {
-                var q = new TenantQuotaRowQuery(TenantProvider.CurrentTenantID) { Path = "/sms", };
-                var row = CoreContext.TenantManager.FindTenantQuotaRows(q).FirstOrDefault();
-                return PaidSms - (row != null ? (int)row.Counter : 0);
-            }
-        }
-
-        public static int PaidSms
-        {
-            get
-            {
-                try
-                {
-                    var products = CoreContext.TenantManager.GetTenantQuotas(true).Where(q => !string.IsNullOrEmpty(q.AvangateId)).ToDictionary(q => q.AvangateId, q => q);
-                    var paid = 0;
-                    var firstSmsCount = 0;
-                    foreach (var payment in CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID))
-                    {
-                        TenantQuota product;
-                        if (products.TryGetValue(payment.ProductId, out product))
-                        {
-                            if (product.GetFeature("sms-product"))
-                            {
-                                paid += product.ActiveUsers;
-                            }
-                            else if (0m < product.Price)
-                            {
-                                firstSmsCount = product.ActiveUsers;
-                            }
-                        }
-                    }
-                    if (firstSmsCount == 0m)
-                    {
-                        firstSmsCount = TenantExtra.GetTenantQuota().ActiveUsers;
-                    }
-                    return paid + firstSmsCount*int.Parse(ConfigurationManager.AppSettings["web.sms-count"] ?? "2");
-                }
-                catch (Exception e)
-                {
-                    LogManager.GetLogger("ASC.Web.Billing").Error(e);
-                }
-                return 0;
+                settings.Save();
             }
         }
 
@@ -120,13 +65,14 @@ namespace ASC.Web.Studio.Core.SMS
         {
             get
             {
-                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>() && TenantExtra.GetTenantQuota().Sms;
+                var quota = TenantExtra.GetTenantQuota();
+                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>()
+                       && (CoreContext.Configuration.Standalone
+                           || (!quota.Trial
+                               && !quota.NonProfit
+                               && !quota.Free
+                               && !quota.Open));
             }
-        }
-
-        public static void IncrementSentSms()
-        {
-            CoreContext.TenantManager.SetTenantQuotaRow(new TenantQuotaRow { Tenant = TenantProvider.CurrentTenantID, Path = "/sms", Counter = 1 }, true);
         }
     }
 }

@@ -843,25 +843,10 @@ ASC.CRM.Voip.QuickView = (function ($) {
         }
 
         for (var i = 0; i < operatorsResp.length; i++) {
-            operatorsResp[i].userInfo = getUserInfo(operatorsResp[i].id);
+            operatorsResp[i].userInfo = window.UserManager.getUser(operatorsResp[i].id);
         }
 
         return operatorsResp.filter(function (item) { return item.userInfo !== null; });
-    };
-
-    function getUserInfo(id) {
-        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-        if (!users) {
-            return null;
-        }
-
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].id == id) {
-                return users[i];
-            }
-        }
-
-        return null;
     };
 
     //#endregion

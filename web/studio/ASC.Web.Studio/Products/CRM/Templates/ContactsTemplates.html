@@ -65,7 +65,7 @@
                         </div>
                     </td>
                     <td style="text-align:right;">
-                        <span class="gray-text">${ASC.CRM.Resources.CRMContactResource.TotalContacts}:</span>
+                        <span class="gray-text">${ASC.CRM.Resources.CRMContactResource.TotalContacts}:&nbsp;</span>
                         <span class="gray-text" id="totalContactsOnPage"></span>
                         <span class="page-nav-info">
                             <span class="gray-text">${ASC.CRM.Resources.CRMCommonResource.ShowOnPage}:&nbsp;</span>
@@ -295,37 +295,37 @@
             {{else}}
             <span>${data}</span>
             {{/if}}
-            <span class="text-medium-describe"> (${categoryName})</span>
+            &nbsp;<span class="text-medium-describe">(${categoryName})</span>
         </div>
 
     {{else infoType == 1}}
         <div class="collectionItem">
             <a href="mailto:${data}" class="linkMedium">${data}</a>
-            <span class="text-medium-describe"> (${categoryName})</span>
+            &nbsp;<span class="text-medium-describe">(${categoryName})</span>
             {{if isPrimary == true}}<a class="linkDescribe baseLinkAction writeEmail" data-email="${data}">${ASC.CRM.Resources.CRMContactResource.WriteEmail}</a>{{/if}}
         </div>
 
     {{else infoType == 3 || infoType == 15 || infoType == 16}}
         <div class="collectionItem">
             <span>${data}</span>
-            <span class="text-medium-describe"> (${categoryName})</span>
+            &nbsp;<span class="text-medium-describe">(${categoryName})</span>
         </div>
 
     {{else infoType == 10  || infoType == 12 || infoType == 13}}
         <div class="collectionItem">
             <a href="mailto:${data}" class="linkMedium">${data}</a>
-            <span class="text-medium-describe"> (${categoryName})</span>
+            &nbsp;<span class="text-medium-describe">(${categoryName})</span>
         </div>
-    {{else infoType == 2 || infoType == 4 || infoType == 5 || infoType == 6 ||infoType == 8 ||infoType == 9 || infoType == 11 || infoType == 14}}
+    {{else infoType == 2 || infoType == 4 || infoType == 5 || infoType == 6 ||infoType == 8 ||infoType == 9 || infoType == 11 || infoType == 14 || infoType == 17}}
         <div class="collectionItem">
             <a href="${href}" target="_blank" class="linkMedium">${data}</a>
-            <span class="text-medium-describe"> (${categoryName})</span>
+            &nbsp;<span class="text-medium-describe">(${categoryName})</span>
         </div>
 
     {{else infoType == 7}}
         <div class="collectionItem">
             {{html data}}
-            <span class="text-medium-describe"> (${categoryName})</span><br/>
+            &nbsp;<span class="text-medium-describe">(${categoryName})</span><br/>
             <a style="text-decoration: underline;" href="${href}" target="_blank" class="linkMedium">
                 ${ASC.CRM.Resources.CRMContactResource.ShowOnMap}
             </a>

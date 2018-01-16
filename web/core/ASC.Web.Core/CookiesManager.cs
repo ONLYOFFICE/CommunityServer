@@ -69,7 +69,13 @@ namespace ASC.Web.Core
             HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = GetExpiresDate(session);
 
             if (type == CookiesType.AuthKey)
+            {
                 HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
+
+                if (HttpContext.Current.Request.GetUrlRewriter().Scheme == "https")
+                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].Secure = true;
+
+            }
         }
 
         public static void SetCookies(CookiesType type, string value, string domain, bool session = false)
@@ -81,7 +87,12 @@ namespace ASC.Web.Core
             HttpContext.Current.Response.Cookies[GetCookiesName(type)].Expires = GetExpiresDate(session);
 
             if (type == CookiesType.AuthKey)
+            {
                 HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
+
+                if (HttpContext.Current.Request.GetUrlRewriter().Scheme == "https")
+                    HttpContext.Current.Response.Cookies[GetCookiesName(type)].Secure = true;
+            }
         }
 
         public static string GetCookies(CookiesType type)

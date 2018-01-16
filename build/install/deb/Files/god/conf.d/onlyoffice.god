@@ -1,4 +1,4 @@
-%w{onlyofficeFeed onlyofficeIndex onlyofficeJabber onlyofficeSignalR onlyofficeNotify onlyofficeBackup onlyofficeMailWatchdog}.each do |serviceName|
+%w{onlyofficeFeed onlyofficeIndex onlyofficeJabber onlyofficeNotify onlyofficeBackup onlyofficeMailWatchdog}.each do |serviceName|
   God.watch do |w|
     w.name = serviceName
     w.group = "onlyoffice"

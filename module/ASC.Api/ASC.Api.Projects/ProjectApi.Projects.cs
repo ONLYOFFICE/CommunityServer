@@ -61,7 +61,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Projects
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<returns>List of projects</returns>
         [Read("")]
         public IEnumerable<ProjectWrapper> GetAllProjects()
@@ -75,7 +75,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Participated projects
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<returns>List of projects</returns>
         [Read(@"@self")]
         public IEnumerable<ProjectWrapper> GetMyProjects()
@@ -92,7 +92,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Followed projects
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<returns>List of projects</returns>
         [Read(@"@follow")]
         public IEnumerable<ProjectWrapper> GetFollowProjects()
@@ -109,7 +109,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project by status
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="status">"open"|"paused"|"closed"</param>
         ///<returns>List of projects</returns>
         [Read("{status:(open|paused|closed)}")]
@@ -124,7 +124,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project by ID
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<returns>Project</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -132,30 +132,31 @@ namespace ASC.Api.Projects
         public ProjectWrapperFull GetProject(int id)
         {
             var isFollow = EngineFactory.ProjectEngine.IsFollow(id, CurrentUserId);
-            return new ProjectWrapperFull(EngineFactory.ProjectEngine.GetFullProjectByID(id).NotFoundIfNull(), EngineFactory.FileEngine.GetRoot(id), isFollow);
+            var tags = EngineFactory.TagEngine.GetProjectTags(id).Select(r => r.Value).ToList();
+            return new ProjectWrapperFull(EngineFactory.ProjectEngine.GetFullProjectByID(id).NotFoundIfNull(), EngineFactory.FileEngine.GetRoot(id), isFollow, tags);
         }
 
-        /// <summary>
-        /// Returns the list of all the portal projects filtered using project title, status or participant ID and 'Followed' status specified in the request
-        /// </summary>
-        /// <short>
-        /// Projects
-        /// </short>
-        /// <category>Projects</category>
-        /// <param name="tag" optional="true">Project tag</param>
-        /// <param name="status" optional="true">Project status</param>
-        /// <param name="participant" optional="true">Participant GUID</param>
-        /// <param name="manager" optional="true">Project manager GUID</param>
-        /// <param name="departament"></param>
-        /// <param name="follow" optional="true">My followed project</param>
-        /// <returns>Projects list</returns>
+        ///<summary>
+        ///Returns the list of all the portal projects filtered using project title, status or participant ID and 'Followed' status specified in the request
+        ///</summary>
+        ///<short>
+        ///Projects
+        ///</short>
+        ///<category>Projects</category>
+        ///<param name="tag" optional="true">Project tag</param>
+        ///<param name="status" optional="true">Project status</param>
+        ///<param name="participant" optional="true">Participant GUID</param>
+        ///<param name="manager" optional="true">Project manager GUID</param>
+        ///<param name="departament"></param>
+        ///<param name="follow" optional="true">My followed project</param>
+        ///<returns>Projects list</returns>
         [Read(@"filter")]
         public IEnumerable<ProjectWrapperFull> GetProjectsByFilter(int tag, ProjectStatus? status, Guid participant,
             Guid manager, Guid departament, bool follow)
         {
             var projectEngine = EngineFactory.ProjectEngine;
 
-            var filter = CreateFilter();
+            var filter = CreateFilter(EntityType.Project);
             filter.ParticipantId = participant;
             filter.UserId = manager;
             filter.TagId = tag;
@@ -180,7 +181,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Search project
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<param name="query">Search query</param>
         ///<returns>List of results</returns>
@@ -198,7 +199,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Search all projects
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="query">Search query</param>
         ///<returns>List of results</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -212,27 +213,34 @@ namespace ASC.Api.Projects
 
         #region Create
 
-        /// <summary>
-        /// Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
-        /// </summary>
-        /// <short>
-        /// Create project
-        /// </short>
-        ///  <category>Projects</category>
-        /// <param name="title">Title</param>
-        /// <param name="description">Description</param>
-        /// <param name="responsibleId">Responsible ID</param>
-        /// <param name="tags">Tags</param>
-        /// <param name="private">Is project private</param>
-        /// <param name="participants" optional="true">Project participants</param>
-        /// <param name="notify" optional="true">Notify project manager</param>
-        /// <param name="tasks"></param>
-        /// <param name="milestones"></param>
-        /// <returns>Newly created project</returns>
-        /// <exception cref="ArgumentException"></exception>
+        ///<summary>
+        ///Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
+        ///</summary>
+        ///<short>
+        ///Create project
+        ///</short>
+        /// <category>Projects</category>
+        ///<param name="title">Title</param>
+        ///<param name="description">Description</param>
+        ///<param name="responsibleId">Responsible ID</param>
+        ///<param name="tags">Tags</param>
+        ///<param name="private">Is project private</param>
+        ///<param name="participants" optional="true">Project participants</param>
+        ///<param name="notify" optional="true">Notify project manager</param>
+        ///<param name="tasks"></param>
+        ///<param name="milestones"></param>
+        ///<returns>Newly created project</returns>
+        ///<exception cref="ArgumentException"></exception>
         [Create("")]
-        public ProjectWrapperFull CreateProject(string title, string description, Guid responsibleId, string tags, bool @private, 
-            IEnumerable<Guid> participants, bool? notify, IEnumerable<Task> tasks, IEnumerable<Milestone> milestones)
+        public ProjectWrapperFull CreateProject(string title,
+            string description,
+            Guid responsibleId,
+            string tags,
+            bool @private,
+            IEnumerable<Guid> participants,
+            bool? notify,
+            IEnumerable<Task> tasks,
+            IEnumerable<Milestone> milestones)
         {
             if (responsibleId == Guid.Empty) throw new ArgumentException(@"responsible can't be empty", "responsibleId");
             if (string.IsNullOrEmpty(title)) throw new ArgumentException(@"title can't be empty", "title");
@@ -284,9 +292,31 @@ namespace ASC.Api.Projects
                 taskEngine.SaveOrUpdate(task, null, false);
             }
 
-            MessageService.Send(Request, MessageAction.ProjectCreated, project.Title);
+            MessageService.Send(Request, MessageAction.ProjectCreated, MessageTarget.Create(project.ID), project.Title);
 
             return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1};
+        }
+
+        [Create("withSecurity")]
+        public ProjectWrapperFull CreateProject(string title,
+            string description,
+            Guid responsibleId,
+            string tags,
+            bool @private,
+            IEnumerable<Participant> participants,
+            bool? notify,
+            IEnumerable<Task> tasks,
+            IEnumerable<Milestone> milestones)
+        {
+            var project = CreateProject(title, description, responsibleId, tags, @private,
+                participants.Select(r => r.ID).ToList(), notify, tasks, milestones);
+
+            foreach (var participant in participants)
+            {
+                EngineFactory.ProjectEngine.SetTeamSecurity(project.Id, participant);
+            }
+
+            return project;
         }
 
         #endregion
@@ -299,7 +329,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update project
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<param name="title">Title</param>
         ///<param name="description">Description</param>
@@ -351,9 +381,27 @@ namespace ASC.Api.Projects
 
             project.ParticipantCount = participants.Count();
 
-            MessageService.Send(Request, MessageAction.ProjectUpdated, project.Title);
+            MessageService.Send(Request, MessageAction.ProjectUpdated, MessageTarget.Create(project.ID), project.Title);
 
             return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(id));
+        }
+
+        [Update(@"{id:[0-9]+}/withSecurityInfo")]
+        public ProjectWrapperFull UpdateProject(int id, string title, string description, Guid responsibleId,
+            string tags, IEnumerable<Participant> participants, ProjectStatus? status, bool? @private, bool notify)
+        {
+            var project = UpdateProject(id, title, description, responsibleId, tags,
+                participants.Select(r=> r.ID),
+                status,
+                @private,
+                notify);
+
+            foreach (var participant in participants)
+            {
+                EngineFactory.ProjectEngine.SetTeamSecurity(project.Id, participant);
+            }
+
+            return project;
         }
 
         ///<summary>
@@ -362,7 +410,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update project status
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<param name="status">Status. One of (Open|Paused|Closed)</param>
         ///<returns>Updated project</returns>
@@ -374,7 +422,7 @@ namespace ASC.Api.Projects
             var project = projectEngine.GetFullProjectByID(id).NotFoundIfNull();
 
             projectEngine.ChangeStatus(project, status);
-            MessageService.Send(Request, MessageAction.ProjectUpdatedStatus, project.Title, LocalizedEnumConverter.ConvertToString(project.Status));
+            MessageService.Send(Request, MessageAction.ProjectUpdatedStatus, MessageTarget.Create(project.ID), project.Title, LocalizedEnumConverter.ConvertToString(project.Status));
 
             return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(id));
         }
@@ -389,7 +437,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Delete project
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<returns>Deleted project</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -403,7 +451,7 @@ namespace ASC.Api.Projects
 
             var folderId = EngineFactory.FileEngine.GetRoot(id);
             projectEngine.Delete(id);
-            MessageService.Send(Request, MessageAction.ProjectDeleted, project.Title);
+            MessageService.Send(Request, MessageAction.ProjectDeleted, MessageTarget.Create(project.ID), project.Title);
 
             return new ProjectWrapperFull(project, folderId);
         }
@@ -418,9 +466,9 @@ namespace ASC.Api.Projects
         ///<short>
         ///Following/Unfollowing project
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="projectId">Project ID</param>
-        /// <returns>Project</returns>
+        ///<returns>Project</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{projectid:[0-9]+}/follow")]
         public ProjectWrapper FollowToProject(int projectId)
@@ -434,12 +482,12 @@ namespace ASC.Api.Projects
             if (participantEngine.GetFollowingProjects(CurrentUserId).Contains(projectId))
             {
                 participantEngine.RemoveFromFollowingProjects(projectId, CurrentUserId);
-                MessageService.Send(Request, MessageAction.ProjectUnfollowed, project.Title);
+                MessageService.Send(Request, MessageAction.ProjectUnfollowed, MessageTarget.Create(project.ID), project.Title);
             }
             else
             {
                 participantEngine.AddToFollowingProjects(projectId, CurrentUserId);
-                MessageService.Send(Request, MessageAction.ProjectFollowed, project.Title);
+                MessageService.Send(Request, MessageAction.ProjectFollowed, MessageTarget.Create(project.ID), project.Title);
             }
 
             return new ProjectWrapper(project);
@@ -451,7 +499,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update project tags
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<param name="tags">Tags</param>
         ///<returns>project</returns>
@@ -473,7 +521,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project time spent
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<returns>List of time spent</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -487,7 +535,7 @@ namespace ASC.Api.Projects
         ///<summary>
         ///
         ///</summary>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<returns>List of time spent</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -508,7 +556,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Add milestone
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<param name="title">Milestone title</param>
         ///<param name="deadline">Milestone deadline</param>
@@ -541,7 +589,7 @@ namespace ASC.Api.Projects
                     Responsible = responsible
                 };
             EngineFactory.MilestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
-            MessageService.Send(Request, MessageAction.MilestoneCreated, milestone.Project.Title, milestone.Title);
+            MessageService.Send(Request, MessageAction.MilestoneCreated, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
             return new MilestoneWrapper(milestone);
         }
@@ -552,7 +600,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get milestones by project ID
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<returns>List of milestones</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -575,7 +623,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Get milestones by project ID and milestone status
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<param name="status">Milestone status</param>
         ///<returns>List of milestones</returns>
@@ -602,8 +650,8 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project team
         ///</short>
-        /// <category>Team</category>
-        /// <param name="projectid">Project ID</param>
+        ///<category>Team</category>
+        ///<param name="projectid">Project ID</param>
         ///<returns>List of team members</returns>
         [Read(@"{projectid:[0-9]+}/team")]
         public IEnumerable<ParticipantWrapper> GetProjectTeam(int projectid)
@@ -622,8 +670,8 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project team
         ///</short>
-        /// <category>Team</category>
-        /// <param name="ids">Project IDs</param>
+        ///<category>Team</category>
+        ///<param name="ids">Project IDs</param>
         ///<returns>List of team members</returns>
         [Create(@"team")]
         public IEnumerable<ParticipantWrapper> GetProjectTeam(List<int> ids)
@@ -639,7 +687,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Add to team
         ///</short>
-        /// <category>Team</category>
+        ///<category>Team</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="userId">ID of the user to add</param>
         ///<returns>List of team members</returns>
@@ -663,7 +711,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Set team security
         ///</short>
-        /// <category>Team</category>
+        ///<category>Team</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="userId">ID of the user to set</param>
         ///<param name="security">Security rights</param>
@@ -689,7 +737,7 @@ namespace ASC.Api.Projects
             var user = team.SingleOrDefault(t => t.Id == userId);
             if (user != null)
             {
-                MessageService.Send(Request, MessageAction.ProjectUpdatedMemberRights, project.Title, HttpUtility.HtmlDecode(user.DisplayName));
+                MessageService.Send(Request, MessageAction.ProjectUpdatedMemberRights, MessageTarget.Create(project.ID), project.Title, HttpUtility.HtmlDecode(user.DisplayName));
             }
 
             return team;
@@ -701,7 +749,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Remove from team
         ///</short>
-        /// <category>Team</category>
+        ///<category>Team</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="userId">ID of the user to add</param>
         ///<returns>List of team members</returns>
@@ -717,18 +765,18 @@ namespace ASC.Api.Projects
             var particapant = EngineFactory.ParticipantEngine.GetByID(userId);
             projectEngine.RemoveFromTeam(project, particapant, true);
 
-            MessageService.Send(Request, MessageAction.ProjectDeletedMember, project.Title, particapant.UserInfo.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.ProjectDeletedMember, MessageTarget.Create(project.ID), project.Title, particapant.UserInfo.DisplayUserName(false));
 
             return GetProjectTeam(projectid);
         }
 
         ///<summary>
-        /// Updates the project team with the users IDs specified in the request
+        ///Updates the project team with the users IDs specified in the request
         ///</summary>
         ///<short>
         ///Updates project team
         ///</short>
-        /// <category>Team</category>
+        ///<category>Team</category>
         ///<param name="projectId">Project ID</param>
         ///<param name="participants">IDs of users to update team</param>
         ///<param name="notify">Notify project team</param>
@@ -746,7 +794,7 @@ namespace ASC.Api.Projects
             projectEngine.UpdateTeam(project, participantsList, notify);
 
             var team = GetProjectTeam(projectId);
-            MessageService.Send(Request, MessageAction.ProjectUpdatedTeam, project.Title, team.Select(t => t.DisplayName));
+            MessageService.Send(Request, MessageAction.ProjectUpdatedTeam, MessageTarget.Create(project.ID), project.Title, team.Select(t => t.DisplayName));
 
             return team;
         }
@@ -761,7 +809,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Tasks
         ///</short>
-        /// <category>Tasks</category>
+        ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
         ///<returns></returns>
         ///<exception cref="ItemNotFoundException">List of tasks</exception>
@@ -781,7 +829,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Add task
         ///</short>
-        /// <category>Tasks</category>
+        ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="description">Description</param>
         ///<param name="deadline">Deadline time</param>
@@ -834,7 +882,7 @@ namespace ASC.Api.Projects
                 };
             EngineFactory.TaskEngine.SaveOrUpdate(task, null, notify);
 
-            MessageService.Send(Request, MessageAction.TaskCreated, project.Title, task.Title);
+            MessageService.Send(Request, MessageAction.TaskCreated, MessageTarget.Create(task.ID), project.Title, task.Title);
 
             return GetTask(task);
         }
@@ -845,7 +893,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Add task
         ///</short>
-        /// <category>Tasks</category>
+        ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="messageid">Message ID</param>
         ///<returns>Created task</returns>
@@ -918,7 +966,7 @@ namespace ASC.Api.Projects
                 taskEngine.Subscribe(task, new Guid(participiant.ID));
             }
 
-            MessageService.Send(Request, MessageAction.TaskCreatedFromDiscussion, project.Title, discussion.Title, task.Title);
+            MessageService.Send(Request, MessageAction.TaskCreatedFromDiscussion, MessageTarget.Create(task.ID), project.Title, discussion.Title, task.Title);
 
             return new TaskWrapper(task);
         }
@@ -929,7 +977,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Tasks with status
         ///</short>
-        /// <category>Tasks</category>
+        ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="status">Task status. Can be one of: notaccept|open|closed|disable|unclassified|notinmilestone</param>
         ///<returns>List of tasks</returns>
@@ -949,7 +997,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///My tasks
         ///</short>
-        /// <category>Tasks</category>
+        ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="status">Task status. Can be one of: notaccept|open|closed|disable|unclassified|notinmilestone</param>
         ///<returns>List of tasks</returns>
@@ -974,7 +1022,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project files by project ID
         ///</short>
-        /// <category>Projects</category>
+        ///<category>Projects</category>
         ///<param name="id">Project ID</param>
         ///<returns>Project files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -995,7 +1043,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Entity files
         ///</short>
-        /// <category>Files</category>
+        ///<category>Files</category>
         ///<param name="entityType">Entity type</param>
         ///<param name="entityID">Entity ID</param>
         ///<returns>Message</returns>
@@ -1019,9 +1067,9 @@ namespace ASC.Api.Projects
         ///Uploads the selected files to the entity (project, milestone, task) with the type and ID specified
         ///</summary>
         ///<short>
-        /// Upload file to entity
+        ///Upload file to entity
         ///</short>
-        /// <category>Files</category>
+        ///<category>Files</category>
         ///<param name="entityType">Entity type </param>
         ///<param name="entityID">Entity ID</param>
         ///<param name="files">File IDs</param>
@@ -1054,9 +1102,9 @@ namespace ASC.Api.Projects
         ///Detaches the selected file from the entity (project, milestone, task) with the type and ID specified
         ///</summary>
         ///<short>
-        /// Detach file from entity
+        ///Detach file from entity
         ///</short>
-        /// <category>Files</category>
+        ///<category>Files</category>
         ///<param name="entityType">Entity type </param>
         ///<param name="entityID">Entity ID</param>
         ///<param name="fileid">File ID</param>
@@ -1085,18 +1133,18 @@ namespace ASC.Api.Projects
         ///Uploads the selected files to the entity (project, milestone, task) with the type and ID specified
         ///</summary>
         ///<short>
-        /// Upload file to entity
+        ///Upload file to entity
         ///</short>
-        /// <category>Files</category>
+        ///<category>Files</category>
         ///<param name="entityType">Entity type </param>
         ///<param name="entityID">Entity ID</param>
-        /// <param name="folderid">ID of the folder to upload to</param>
-        /// <param name="file" visible="false">Request enput stream</param>
-        /// <param name="contentType" visible="false">Content-type header</param>
-        /// <param name="contentDisposition" visible="false">Content disposition header</param>
-        /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
-        /// <param name="createNewIfExist" visible="false">Create new if exist</param>
-        /// <param name="storeOriginalFileFlag" visible="false">If true, upload documents in original formats as well</param>
+        ///<param name="folderid">ID of the folder to upload to</param>
+        ///<param name="file" visible="false">Request enput stream</param>
+        ///<param name="contentType" visible="false">Content-type header</param>
+        ///<param name="contentDisposition" visible="false">Content disposition header</param>
+        ///<param name="files" visible="false">List of files when posted as multipart/form-data</param>
+        ///<param name="createNewIfExist" visible="false">Create new if exist</param>
+        ///<param name="storeOriginalFileFlag" visible="false">If true, upload documents in original formats as well</param>
         ///<returns>Uploaded files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<visible>false</visible>
@@ -1142,15 +1190,15 @@ namespace ASC.Api.Projects
 
         #region contacts
 
-        /// <summary>
-        ///  Returns the list of all the projects linked with the contact with the ID specified in the request
-        /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <category>Contacts</category>
-        /// <short>Get projects for contact</short> 
-        /// <returns>
-        ///     Projects list
-        /// </returns>
+        ///<summary>
+        /// Returns the list of all the projects linked with the contact with the ID specified in the request
+        ///</summary>
+        ///<param name="contactid">Contact ID</param>
+        ///<category>Contacts</category>
+        ///<short>Get projects for contact</short> 
+        ///<returns>
+        ///    Projects list
+        ///</returns>
         ///<exception cref="ArgumentException"></exception>
         [Read("contact/{contactid:[0-9]+}")]
         public IEnumerable<ProjectWrapperFull> GetProjectsByContactID(int contactid)
@@ -1161,14 +1209,14 @@ namespace ASC.Api.Projects
                 .Select(x => new ProjectWrapperFull(x, EngineFactory.FileEngine.GetRoot(x.ID)));
         }
 
-        /// <summary>
-        ///  Adds the selected contact to the project with the ID specified in the request
-        /// </summary>
-        /// <param name="projectid">Project ID</param>
-        /// <param name="contactid">Contact ID</param>
-        /// <category>Contacts</category>
-        /// <short>Add project contact</short> 
-        /// <returns>Project</returns>
+        ///<summary>
+        /// Adds the selected contact to the project with the ID specified in the request
+        ///</summary>
+        ///<param name="projectid">Project ID</param>
+        ///<param name="contactid">Contact ID</param>
+        ///<category>Contacts</category>
+        ///<short>Add project contact</short> 
+        ///<returns>Project</returns>
         ///<exception cref="ArgumentException"></exception>
         [Create(@"{projectid:[0-9]+}/contact")]
         public ProjectWrapperFull AddProjectContact(int projectid, int contactid)
@@ -1184,19 +1232,19 @@ namespace ASC.Api.Projects
             projectEngine.AddProjectContact(projectid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CompanyLinkedProject : MessageAction.PersonLinkedProject;
-            MessageService.Send(Request, messageAction, contact.GetTitle(), project.Title);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(project.ID), contact.GetTitle(), project.Title);
 
             return new ProjectWrapperFull(project);
         }
 
-        /// <summary>
-        ///  Deletes the selected contact from the project with the ID specified in the request
-        /// </summary>       
-        /// <param name="projectid">Project ID</param>
-        /// <param name="contactid">Contact ID</param>
-        /// <category>Contacts</category>
-        /// <short>Delete project contact</short> 
-        /// <returns>Project</returns>
+        ///<summary>
+        /// Deletes the selected contact from the project with the ID specified in the request
+        ///</summary>       
+        ///<param name="projectid">Project ID</param>
+        ///<param name="contactid">Contact ID</param>
+        ///<category>Contacts</category>
+        ///<short>Delete project contact</short> 
+        ///<returns>Project</returns>
         ///<exception cref="ArgumentException"></exception>
         [Delete("{projectid:[0-9]+}/contact")]
         public ProjectWrapperFull DeleteProjectContact(int projectid, int contactid)
@@ -1212,7 +1260,7 @@ namespace ASC.Api.Projects
             projectEngine.DeleteProjectContact(projectid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CompanyUnlinkedProject : MessageAction.PersonUnlinkedProject;
-            MessageService.Send(Request, messageAction, contact.GetTitle(), project.Title);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(project.ID), contact.GetTitle(), project.Title);
 
             return new ProjectWrapperFull(project);
         }
@@ -1227,7 +1275,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Templates
         ///</short>
-        /// <category>Template</category>
+        ///<category>Template</category>
         ///<returns>List of templates</returns>
         [Read("template")]
         public IEnumerable<ObjectWrapperBase> GetAllTemplates()
@@ -1241,7 +1289,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Template by ID
         ///</short>
-        /// <category>Template</category>
+        ///<category>Template</category>
         ///<param name="id">Template ID</param>
         ///<returns>Template</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1258,7 +1306,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Create template
         ///</short>
-        /// <category>Template</category>
+        ///<category>Template</category>
         ///<param name="title">Title</param>
         ///<param name="description">JSON template structure. Sample: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
         ///<returns>Newly created template</returns>
@@ -1277,7 +1325,7 @@ namespace ASC.Api.Projects
                 };
 
             template = EngineFactory.TemplateEngine.SaveOrUpdate(template).NotFoundIfNull();
-            MessageService.Send(Request, MessageAction.ProjectTemplateCreated, template.Title);
+            MessageService.Send(Request, MessageAction.ProjectTemplateCreated, MessageTarget.Create(template.Id), template.Title);
 
             return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
         }
@@ -1288,7 +1336,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Update template
         ///</short>
-        /// <category>Template</category>
+        ///<category>Template</category>
         ///<param name="id">Template ID</param>
         ///<param name="title">Title</param>
         ///<param name="description">JSON template structure. Sample: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
@@ -1308,7 +1356,7 @@ namespace ASC.Api.Projects
             template.Description = Update.IfNotEmptyAndNotEquals(template.Description, description);
 
             templateEngine.SaveOrUpdate(template);
-            MessageService.Send(Request, MessageAction.ProjectTemplateUpdated, template.Title);
+            MessageService.Send(Request, MessageAction.ProjectTemplateUpdated, MessageTarget.Create(template.Id), template.Title);
 
             return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
         }
@@ -1319,7 +1367,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Delete template
         ///</short>
-        /// <category>Template</category>
+        ///<category>Template</category>
         ///<param name="id">Project ID</param>
         ///<returns>Deleted template</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1330,7 +1378,7 @@ namespace ASC.Api.Projects
             var template = templateEngine.GetByID(id).NotFoundIfNull();
 
             templateEngine.Delete(id);
-            MessageService.Send(Request, MessageAction.ProjectTemplateDeleted, template.Title);
+            MessageService.Send(Request, MessageAction.ProjectTemplateDeleted, MessageTarget.Create(template.Id), template.Title);
 
             return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
         }
@@ -1340,10 +1388,10 @@ namespace ASC.Api.Projects
         #region HACK: Hidden api methods
 
         ///<summary>
-        ///  Returns the basic information about the access rights
+        /// Returns the basic information about the access rights
         ///</summary>
         ///<short>
-        ///   Access rights info
+        ///  Access rights info
         ///</short>
         ///<category>Projects</category>
         ///<returns>Basic information about access rights</returns>

@@ -1,0 +1,325 @@
+
+builder.CreateFile("xlsx");
+
+var mainHeaderFontSize = 24;
+var headerFontSize = 14;
+var chartHeaderFontSize = 12;
+var smallFontSize = 10;
+var legendFontSize = 9;
+
+var blackFontColor = Api.CreateColorFromRGB(63, 63, 63);
+var grayFontColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var lightGrayBgColor = Api.CreateColorFromRGB(242, 242, 242);
+var darkGrayBgColor = Api.CreateColorFromRGB(216, 216, 216);
+
+var lightGrayBorderColor = Api.CreateColorFromRGB(216, 216, 216);
+var darkGrayBorderColor = Api.CreateColorFromRGB(127, 127, 127);
+
+var reportData = ${reportData};
+
+var oWorksheet = Api.GetActiveSheet();
+
+function toColumnName(num) {
+    for (var res = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+        res = String.fromCharCode(parseInt((num % b) / a) + 65) + res;
+    }
+    return res;
+}
+
+function customizeWorksheet() {
+    Api.SetThemeColors("Origin");
+
+    oWorksheet.SetName(reportData.resource.sheetName);
+    oWorksheet.SetDisplayGridlines(false);
+    oWorksheet.SetColumnWidth(0, 6);
+    oWorksheet.SetColumnWidth(1, 26);
+
+    for (var i = 2; i < 35; i++) {
+        oWorksheet.SetColumnWidth(i, 12);
+    }
+}
+
+function writeText() {
+    var sRange = oWorksheet.GetRange("B2");
+    sRange.SetFontSize(mainHeaderFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header);
+
+    sRange = oWorksheet.GetRange("B3");
+    sRange.SetFontSize(smallFontSize);
+    sRange.SetFontColor(grayFontColor);
+    sRange.SetBold(true);
+    sRange.SetValue(reportData.resource.dateRangeLabel);
+
+    sRange = oWorksheet.GetRange("B4");
+    sRange.SetFontSize(smallFontSize);
+    sRange.SetFontColor(grayFontColor);
+    sRange.SetAlignHorizontal("left");
+    sRange.SetValue(reportData.resource.dateRangeValue);
+
+    sRange = oWorksheet.GetRange("B53");
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header1);
+}
+
+function writeRow(startColIndex, startRowIndex, dataArray, fontSize, fontColor, bold, borderType, borderColor, bgColor, wrap) {
+    var range = toColumnName(startColIndex) + startRowIndex + ":";
+
+    for (var i = 0; i < dataArray.length; i++) {
+        var cell = oWorksheet.GetRange(toColumnName(startColIndex) + startRowIndex);
+
+        if (typeof(dataArray[i]) == "object") {
+            cell.SetNumberFormat(dataArray[i].format);
+            cell.SetValue(dataArray[i].value);
+        } else {
+            cell.SetValue(dataArray[i].toString());
+        }
+
+        if (i == 0) {
+            cell.SetAlignHorizontal("left");
+        } else {
+            cell.SetAlignHorizontal("right");
+        }
+
+        startColIndex++;
+    }
+
+    range += toColumnName(startColIndex - 1) + startRowIndex;
+
+    var sRange = oWorksheet.GetRange(range);
+
+    if (fontSize)
+        sRange.SetFontSize(fontSize);
+
+    if (fontColor)
+        sRange.SetFontColor(fontColor);
+
+    if (bold)
+        sRange.SetBold(true);
+
+    if (borderType)
+        sRange.SetBorders(borderType, "Thin", borderColor);
+
+    if (bgColor)
+        sRange.SetFillColor(bgColor);
+	
+	sRange.SetWrap(wrap || false);
+}
+
+function writeCharts(startColIndex, startRowIndex, rowIndex) {
+    var chartRange = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 1) + ":$" + toColumnName(startColIndex + 1) + "$" + (startRowIndex + 3);
+    var chartRange1 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 6) + ":$" + toColumnName(startColIndex + 1) + "$" + (startRowIndex + 5 + reportData.data.DealsInfo.ByStage.length);
+    var chartRange2 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 11 + reportData.data.DealsInfo.ByStage.length) + ":$" + toColumnName(startColIndex + 1) + "$" + (startRowIndex + 10 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length);
+    var chartRange3 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 13 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length) + ":$" + toColumnName(startColIndex + 1) + "$" + (startRowIndex + 12 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length + reportData.data.ContactsInfo.ByStage.length);
+    var chartRange4 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 17 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length + reportData.data.ContactsInfo.ByStage.length) + ":$" + toColumnName(startColIndex + 2) + "$" + (startRowIndex + 17 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length + reportData.data.ContactsInfo.ByStage.length + reportData.data.TasksInfo.length);
+    var chartRange5 = "$" + toColumnName(startColIndex) + "$" + (startRowIndex + 23 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length + reportData.data.ContactsInfo.ByStage.length + reportData.data.TasksInfo.length) + ":$" + toColumnName(startColIndex + 1) + "$" + (startRowIndex + 24 + reportData.data.DealsInfo.ByStage.length + reportData.data.ContactsInfo.ByType.length + reportData.data.ContactsInfo.ByStage.length + reportData.data.TasksInfo.length);
+
+    var oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange, true, "bar", 2, 120 * 36000, 70 * 36000, 1, 0, 7, 0);
+    oChart.SetTitle(reportData.resource.chartName, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+    oChart.SetVertAxisTickLabelPosition("none");
+    oChart.SetHorAxisTickLabelPosition("none");
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+    oChart.SetMajorHorizontalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    oChart.SetMajorVerticalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange1, false, "horizontalBar", 2, 120 * 36000, 70 * 36000, 5, -0.5 * 36000, 7, 0);
+    oChart.SetTitle(reportData.resource.chartName1, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+	oChart.SetLegendPos("none");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+    oChart.SetHorAxisTickLabelPosition("none");
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+    oChart.SetMajorHorizontalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    oChart.SetMajorVerticalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    oChart.SetVerAxisOrientation(false);
+
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange2, false, "pie", 2, 120 * 36000, 70 * 36000, 1, 0, 21, -0.5 * 36000);
+    oChart.SetTitle(reportData.resource.chartName2, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+	oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange3, false, "pie", 2, 120 * 36000, 70 * 36000, 5, -0.5 * 36000, 21, -0.5 * 36000);
+    oChart.SetTitle(reportData.resource.chartName3, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+	oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange4, false, "bar", 2, 120 * 36000, 70 * 36000, 1, 0, 35, -1 * 36000);
+    oChart.SetTitle(reportData.resource.chartName4, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+
+    oChart = oWorksheet.AddChart("'" + reportData.resource.sheetName + "'!" + chartRange5, true, "bar", 2, 120 * 36000, 70 * 36000, 5, -0.5 * 36000, 35, -1 * 36000);
+    oChart.SetTitle(reportData.resource.chartName5, chartHeaderFontSize, false);
+	oChart.ApplyChartStyle(0);
+    oChart.SetLegendPos("right");
+    oChart.SetLegendFontSize(legendFontSize);
+    oChart.SetShowDataLabels(false, false, true, false);
+    oChart.SetVertAxisTickLabelPosition("none");
+    oChart.SetHorAxisTickLabelPosition("none");
+    oChart.SetHorAxisLablesFontSize(legendFontSize);
+    oChart.SetVertAxisLablesFontSize(legendFontSize);
+    oChart.SetMajorHorizontalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+    oChart.SetMajorVerticalGridlines(Api.CreateStroke(0, Api.CreateNoFill()));
+}
+
+function writeTable(startColIndex, startRowIndex) {
+
+    var colIndex = startColIndex;
+    var rowIndex = startRowIndex;
+
+    //deals by status
+    writeRow(colIndex, rowIndex, [reportData.resource.status, reportData.resource.budget, reportData.resource.count], smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    writeRow(colIndex, rowIndex, [reportData.resource.open, {format: "0.00", value: (reportData.data.DealsInfo.Open[0][1] || 0).toString()}, reportData.data.DealsInfo.Open[0][0] || 0], smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+    rowIndex++;
+
+    writeRow(colIndex, rowIndex, [reportData.resource.overdue, {format: "0.00", value: (reportData.data.DealsInfo.Overdue[0][1] || 0).toString()}, reportData.data.DealsInfo.Overdue[0][0] || 0], smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+    rowIndex++;
+
+    writeRow(colIndex, rowIndex, [reportData.resource.near, {format: "0.00", value: (reportData.data.DealsInfo.Near[0][1] || 0).toString()}, reportData.data.DealsInfo.Near[0][0] || 0], smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+    rowIndex++;
+
+    rowIndex++;
+
+    //deals by count
+    writeRow(colIndex, rowIndex, [reportData.resource.stage, reportData.resource.budget, reportData.resource.count], smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    for (var i = 0; i < reportData.data.DealsInfo.ByStage.length; i++) {
+        var row = [reportData.data.DealsInfo.ByStage[i][0] || reportData.resource.notSpecified, {format: "0.00", value: (reportData.data.DealsInfo.ByStage[i][2] || 0).toString()}, reportData.data.DealsInfo.ByStage[i][1] || 0];
+
+        if (i == reportData.data.DealsInfo.ByStage.length - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, null, null, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+    }
+
+    rowIndex++;
+    rowIndex++;
+
+    //contacts by type
+    var sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header2);
+
+    rowIndex++;
+    rowIndex++;
+
+    writeRow(colIndex, rowIndex, [reportData.resource.type, ""], smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    for (var i = 0; i < reportData.data.ContactsInfo.ByType.length; i++) {
+        var row = reportData.data.ContactsInfo.ByType[i];
+
+        if(!row[0]) row[0] = reportData.resource.notSpecified;
+
+        if (i == reportData.data.ContactsInfo.ByType.length - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, null, null, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+    }
+
+    rowIndex++;
+
+    //contacts by stage
+    writeRow(colIndex, rowIndex, [reportData.resource.temperature, ""], smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    for (var i = 0; i < reportData.data.ContactsInfo.ByStage.length; i++) {
+        var row = reportData.data.ContactsInfo.ByStage[i];
+
+        if(!row[0]) row[0] = reportData.resource.notSpecified;
+
+        if (i == reportData.data.ContactsInfo.ByStage.length - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, null, null, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+    }
+
+    rowIndex++;
+    rowIndex++;
+
+    //tasks by the period
+    sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header3);
+
+    rowIndex++;
+    rowIndex++;
+
+    var headerRow = [reportData.resource.type, reportData.resource.open, reportData.resource.overdue];
+    writeRow(colIndex, rowIndex, headerRow, smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+
+    for (var i = 0; i < reportData.data.TasksInfo.length; i++) {
+    var row = reportData.data.TasksInfo[i];
+
+        if (i == reportData.data.TasksInfo.length - 1) {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, null, null, null);
+        } else {
+            writeRow(colIndex, rowIndex, row, smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+        }
+
+        rowIndex++;
+    }
+
+    rowIndex++;
+    rowIndex++;
+
+    //invoices by status
+    sRange = oWorksheet.GetRange(toColumnName(colIndex) + rowIndex);
+    sRange.SetFontSize(headerFontSize);
+    sRange.SetFontColor(blackFontColor);
+    sRange.SetValue(reportData.resource.header4);
+
+    rowIndex++;
+    rowIndex++;
+
+    writeRow(colIndex, rowIndex, [reportData.resource.status, ""], smallFontSize, grayFontColor, false, "Bottom", darkGrayBorderColor, null, true);
+    rowIndex++;
+    
+    writeRow(colIndex, rowIndex, [reportData.resource.billed, reportData.data.InvoicesInfo[0][0] || 0], smallFontSize, blackFontColor, false, "Bottom", lightGrayBorderColor, null);
+    rowIndex++;
+
+    writeRow(colIndex, rowIndex, [reportData.resource.overdue, reportData.data.InvoicesInfo[0][1] || 0], smallFontSize, blackFontColor, false, null, null, null);
+
+    writeCharts(startColIndex, startRowIndex, rowIndex);
+}
+
+customizeWorksheet();
+writeText();
+
+if (reportData.data) {
+    writeTable(2, 55);
+}
+
+builder.SaveFile("xlsx", "${outputFilePath}");
+builder.CloseFile();

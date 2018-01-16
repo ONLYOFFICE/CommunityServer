@@ -24,12 +24,6 @@
 */
 
 
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Classes;
-using ASC.Web.Files.Services.WCFService;
-using ASC.Web.Files.Services.WCFService.FileOperations;
-using ASC.Web.Studio.UserControls.Management;
-using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +31,12 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Files.Services.WCFService.FileOperations;
+using ASC.Web.Studio.UserControls.Management;
 
 namespace ASC.Web.Files.Controls
 {
@@ -99,8 +99,7 @@ namespace ASC.Web.Files.Controls
             List<FileOperationResult> tasks;
             try
             {
-                var docService = ServiceLocator.Current.GetInstance<IFileStorageService>();
-                tasks = docService.GetTasksStatuses();
+                tasks = Global.FileStorageService.GetTasksStatuses();
             }
             catch(Exception err)
             {

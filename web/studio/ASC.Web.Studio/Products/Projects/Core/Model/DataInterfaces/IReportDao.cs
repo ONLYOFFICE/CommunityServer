@@ -37,10 +37,6 @@ namespace ASC.Projects.Core.DataInterfaces
 {
     public interface IReportDao
     {
-        IList<object[]> BuildUsersStatisticsReport(TaskFilter filter);
-
-        IList<object[]> BuildUsersActivityReport(TaskFilter filter);
-
         List<ReportTemplate> GetTemplates(Guid userId);
 
         List<ReportTemplate> GetAutoTemplates();

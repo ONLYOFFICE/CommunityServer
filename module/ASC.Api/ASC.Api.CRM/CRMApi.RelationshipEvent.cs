@@ -182,7 +182,7 @@ namespace ASC.Api.CRM
 
             var messageAction = GetHistoryDeletedAction(item.EntityType, item.ContactID);
             var entityTitle = wrapper.Contact == null ? wrapper.Entity.EntityTitle : wrapper.Contact.DisplayName;
-            MessageService.Send(Request, messageAction, entityTitle, wrapper.Category.Title);
+            MessageService.Send(Request, messageAction, MessageTarget.Create(item.ID), entityTitle, wrapper.Category.Title);
 
             return wrapper;
         }
@@ -417,7 +417,7 @@ namespace ASC.Api.CRM
                 if (files.Any())
                 {
                     var fileAttachAction = GetFilesAttachAction(entityTypeObj, contactId);
-                    MessageService.Send(Request, fileAttachAction, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, fileAttachAction, MessageTarget.Create(item.ID), entityTitle, files.Select(x => x.Title));
                 }
             }
 
@@ -429,7 +429,7 @@ namespace ASC.Api.CRM
             var wrapper = ToRelationshipEventWrapper(item);
 
             var historyCreatedAction = GetHistoryCreatedAction(entityTypeObj, contactId);
-            MessageService.Send(Request, historyCreatedAction, entityTitle, category.Title);
+            MessageService.Send(Request, historyCreatedAction, MessageTarget.Create(item.ID), entityTitle, category.Title);
 
             return wrapper;
         }
@@ -453,22 +453,23 @@ namespace ASC.Api.CRM
             var files = FilesDaoFactory.GetFileDao().GetFiles(fileids.Cast<object>().ToArray());
 
             var entityTypeObj = ToEntityType(entityType);
-            var entityTitle = GetEntityTitle(entityTypeObj, entityid);
+            var entityTitle = GetEntityTitle(entityTypeObj, entityid, true);
+
             switch (entityTypeObj)
             {
                 case EntityType.Contact:
                     var relationshipEvent1 = DaoFactory.GetRelationshipEventDao().AttachFiles(entityid, EntityType.Any, 0, fileids.ToArray());
-                    var entity = DaoFactory.GetContactDao().GetByID(entityid);
-                    var messageAction = entity is Company ? MessageAction.CompanyAttachedFiles : MessageAction.PersonAttachedFiles;
-                    MessageService.Send(Request, messageAction, entityTitle, files.Select(x => x.Title));
+                    var entity1 = DaoFactory.GetContactDao().GetByID(entityid);
+                    var messageAction = entity1 is Company ? MessageAction.CompanyAttachedFiles : MessageAction.PersonAttachedFiles;
+                    MessageService.Send(Request, messageAction, MessageTarget.Create(entityid), entityTitle, files.Select(x => x.Title));
                     return ToRelationshipEventWrapper(relationshipEvent1);
                 case EntityType.Opportunity:
                     var relationshipEvent2 = DaoFactory.GetRelationshipEventDao().AttachFiles(0, entityTypeObj, entityid, fileids.ToArray());
-                    MessageService.Send(Request, MessageAction.OpportunityAttachedFiles, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, MessageAction.OpportunityAttachedFiles, MessageTarget.Create(entityid), entityTitle, files.Select(x => x.Title));
                     return ToRelationshipEventWrapper(relationshipEvent2);
                 case EntityType.Case:
                     var relationshipEvent3 = DaoFactory.GetRelationshipEventDao().AttachFiles(0, entityTypeObj, entityid, fileids.ToArray());
-                    MessageService.Send(Request, MessageAction.CaseAttachedFiles, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, MessageAction.CaseAttachedFiles, MessageTarget.Create(entityid), entityTitle, files.Select(x => x.Title));
                     return ToRelationshipEventWrapper(relationshipEvent3);
                 default:
                     throw new ArgumentException();
@@ -547,11 +548,11 @@ namespace ASC.Api.CRM
             foreach (var evt in events)
             {
                 var entityTitle = evt.ContactID > 0
-                                  ? DaoFactory.GetContactDao().GetByID(evt.ContactID).GetTitle()
+                                  ? GetEntityTitle(EntityType.Contact, evt.ContactID)
                                   : GetEntityTitle(evt.EntityType, evt.EntityID);
                 var messageAction = GetFilesDetachAction(evt.EntityType, evt.ContactID);
 
-                MessageService.Send(Request, messageAction, entityTitle, file.Title);
+                MessageService.Send(Request, messageAction, MessageTarget.Create(file.ID), entityTitle, file.Title);
             }
 
             return result;

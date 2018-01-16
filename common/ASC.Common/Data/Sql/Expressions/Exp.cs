@@ -143,6 +143,16 @@ namespace ASC.Common.Data.Sql.Expressions
             return new ExistsExp(query);
         }
 
+        public static Exp Sum(Exp exp)
+        {
+            return new SumExp(exp);
+        }
+
+        public static Exp If(Exp exp, object trueValue, object falseValue)
+        {
+            return new IfExp(exp, trueValue, falseValue);
+        }
+
         public static Exp operator &(Exp exp1, Exp exp2)
         {
             return And(exp1, exp2);

@@ -201,10 +201,6 @@
   <data name="DeleteUserProfiles" xml:space="preserve">
     <value>Delete the users from portal</value>
   </data>
-  <data name="DeleteUsersDescription" xml:space="preserve">
-    <value>The selected disabled users will be deleted from the portal. Please note that this action cannot be undone.
-You cannot delete the users if they have 'Active' or 'Pending' status, they need to be disabled first.</value>
-  </data>
   <data name="DepartmentMaster" xml:space="preserve">
     <value>{!Head}</value>
   </data>
@@ -355,8 +351,32 @@ You cannot delete the users if they have 'Active' or 'Pending' status, they need
   <data name="ProductUserOpportunities" xml:space="preserve">
     <value>Просматривать профили и отделы</value>
   </data>
+  <data name="ReassignsProgressText" xml:space="preserve">
+    <value>The process of data transfer is started, it can take a considerable time.{0}You can close this page. When the process is completed, the administrator who runs it will be notified by mail.</value>
+  </data>
   <data name="ReadAboutNonProfit" xml:space="preserve">
     <value>Or {0}read about non-profit usage{1}.</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>More about data transfer</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Employee to whom the data will be transferred —</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Will be transferred:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>General documents and personal documents that are available to other portal users;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Open projects, milestones and tasks;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Contacts, open tasks, unclosed opportunities and CRM cases;</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Reassignment of data</value>
   </data>
   <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
     <value>After the users confirm the invitation to the portal their status will change to 'Active'</value>
@@ -414,5 +434,20 @@ You cannot delete the users if they have 'Active' or 'Pending' status, they need
   </data>
   <data name="WriteButton" xml:space="preserve">
     <value>Write Letter</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Reassign data</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Personal documents of these users that are available to others will be deleted. To avoid this, you must start the data transfer process before deleting.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>The selected disabled users will be deleted from the portal.</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Reassign</value>
+  </data>
+  <data name="TerminateButton" xml:space="preserve">
+    <value>Terminate</value>
   </data>
 </root>

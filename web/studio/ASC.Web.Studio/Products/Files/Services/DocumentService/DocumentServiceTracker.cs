@@ -31,6 +31,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -117,7 +118,7 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             var callbackUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath
                                                                     + "?" + FilesLinkUtility.Action + "=track"
-                                                                    + "&" + FilesLinkUtility.FileId + "=" + fileId
+                                                                    + "&" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(fileId)
                                                                     + "&" + FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId));
             callbackUrl = DocumentServiceConnector.ReplaceCommunityAdress(callbackUrl);
             return DocumentServiceConnector.Command(CommandMethod.Info, docKeyForTrack, fileId, callbackUrl);
@@ -261,7 +262,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 if (user != null)
                     FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
 
-                SaveHistory(file, fileData.History.ToString(), fileData.ChangesUrl);
+                SaveHistory(file, (fileData.History ?? "").ToString(), fileData.ChangesUrl);
             }
 
             return saved
@@ -360,7 +361,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     var response = mailMergeTask.Run();
                     Global.Logger.InfoFormat("DocService mailMerge {0}/{1} send: {2}",
-                                             fileData.MailMerge.RecordIndex, fileData.MailMerge.RecordCount, response);
+                                             fileData.MailMerge.RecordIndex + 1, fileData.MailMerge.RecordCount, response);
                 }
                 sended = true;
             }

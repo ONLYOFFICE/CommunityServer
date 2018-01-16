@@ -24,8 +24,8 @@
 */
 
 
-var SmallChat = (function () {
-    var chat = jq.connection.c,
+var SmallChat = (function() {
+    var socket,
         currentAccount = null,
         already = false,
         bufferStates = {},
@@ -88,35 +88,46 @@ var SmallChat = (function () {
             d: "DisplayUserName",
             s: "State"
         },
-        userInformations = {};
+        userInformations = {},
+        isResizeChat;
     if (Teamlab.profile.id && sessionStorageManager.getItem("currentUserId") != Teamlab.profile.id) {
         sessionStorageManager.clear();
         sessionStorageManager.setItem("currentUserId", Teamlab.profile.id);
     }
 
-    if (typeof (chat) !== undefined) {
-        // initDataRetrieved
-        chat.client.idr = function (userName, showUserName, users, tenantId, tenantName) {
-            currentAccount = {
-                TenantName: tenantName,
-                TenantId: tenantId,
-                UserName: userName,
-                ShowUserName: showUserName
-            };
-            var $userList = jq(".user_list"),
-                usersOnline = {},
-                usersAway = {},
-                usersNotAvailable = {},
-                usersOffline = {},
-                stateNumber;
-            if ($userList.length) {
-                jq(".user_list").remove();
-            }
-            for (var i = 0; i < users.length; i++) {
-                users[i] = reMap(users[i], userStrContract);
-                stateNumber = users[i].State;
-                users[i].State = getImageByNumber(stateNumber);
-                switch (stateNumber) {
+    function initSocket() {
+        if (!(socket && ASC.Resources.Master.Hub.WebChat)) {
+            jq(".small_chat_main_window").addClass("display-none");
+            return;
+        }
+
+        socket
+            .on('disconnected', function () {
+                connectionStop();
+                hideChat();
+            })
+            .on('initDataRetrieved',
+            function(userName, showUserName, users, tenantId, tenantName) {
+                currentAccount = {
+                    TenantName: tenantName,
+                    TenantId: tenantId,
+                    UserName: userName,
+                    ShowUserName: showUserName
+                };
+                var $userList = jq(".user_list"),
+                    usersOnline = {},
+                    usersAway = {},
+                    usersNotAvailable = {},
+                    usersOffline = {},
+                    stateNumber;
+                if ($userList.length) {
+                    jq(".user_list").remove();
+                }
+                for (var i = 0; i < users.length; i++) {
+                    users[i] = reMap(users[i], userStrContract);
+                    stateNumber = users[i].State;
+                    users[i].State = getImageByNumber(stateNumber);
+                    switch (stateNumber) {
                     case NUMBER_ONLINE:
                         usersOnline[i] = users[i];
                         break;
@@ -128,148 +139,44 @@ var SmallChat = (function () {
                         break;
                     default:
                         usersOffline[i] = users[i];
-                }
-            }
-            var tenantGuid = sessionStorageManager.getItem("TenantGuid");
-            if (!tenantGuid) {
-                tenantGuid = guid();
-                sessionStorageManager.setItem("TenantGuid", tenantGuid);
-            }
-            var html = jq("#contactListTmpl").tmpl({
-                UsersOnline: usersOnline,
-                UsersAway: usersAway,
-                UsersNotAvailable: usersNotAvailable,
-                UsersOffline: usersOffline
-            }),
-                htmlTenant = jq("#tenantBlockTmpl").tmpl({
-                TenantGuid: tenantGuid,
-                TenantName: currentAccount.TenantName
-            }),
-                smallChatHeight = sessionStorageManager.getItem("SmallChatHeight");
-            if (smallChatHeight) {
-                jq(".small_chat_main_window").css("height", smallChatHeight);
-            }
-            jq(".chat_contact_loader").addClass("display-none");
-            jq(".conversation_block").removeClass("display-none");
-            jq(html).appendTo(".contact_container");
-            jq(".contact_container").find(".tenant_user_list").append(htmlTenant);
-            sessionStorageManager.setItem("WasConnected", true);
-            searchContact();
-            var status = sessionStorageManager.getItem("CurrentStatus");
-            if (status && status != OFFLINE) {
-                changeStatus(getUserNumberByState(status));
-            }
-            for (var un in bufferStates) {
-                setState(un, bufferStates[un]);
-            }
-            bufferStates = {};
-
-            for (var i = 0; i < offlineBuffer.length; i++) {
-                if (offlineBuffer[i] == "") {
-                    offlineBuffer[i] = sessionStorageManager.getItem("TenantGuid");
-                }
-                if (isDialogOpen(offlineBuffer[i])) {
-                    closeConversationBlock(offlineBuffer[i]);
-                }
-                removeUserInSessionIfExists(offlineBuffer[i]);
-                openMessageDialog(offlineBuffer[i]);
-                var result = flashConversationBlock(offlineBuffer[i], true);
-                if (result) {
-                    flashBlocks[offlineBuffer[i]] = result;
-                }
-            }
-            loadMessageDialogs(offlineBuffer);
-            offlineBuffer = [];
-            jq(".extend_chat_icon").off("click").on("click", extendChat);
-            ASC.Controls.JabberClient.extendChat = extendChat;
-            setPingSending();
-            SendMessagesCount();
-            already = false;
-        };
-
-        // sendInvite
-        chat.client.si = function (message) {
-            message = reMap(message, messageContract);
-            if (!isDialogOpen(sessionStorageManager.getItem("TenantGuid"))) {
-                openMessageDialog(sessionStorageManager.getItem("TenantGuid"));
-            }
-            putMessage({
-                IsMessageOfCurrentUser: false,
-                Name: message.UserName,
-                DateTime: Teamlab.getDisplayTime(new Date()),
-                Message: addBr(ASC.Resources.Master.ChatResource.ChatRoomInvite + " " + message.Text + ". " + ASC.Resources.Master.ChatResource.GoTalk),
-                NotRead: true
-            }, sessionStorageManager.getItem("TenantGuid"));
-        };
-
-        // send
-        chat.client.s = function (message, calleeUserName, isTenantUser) {
-            message = reMap(message, messageContract);
-            if (currentAccount != null) {
-                var userName = undefined,
-                    showUserName = undefined,
-                    $document = jq(document),
-                    isMessageOfCurrentUser = undefined;
-                if (!isTenantUser) {
-                    userName = message.UserName;
-                    isMessageOfCurrentUser = (userName == currentAccount.UserName);
-                    showUserName = isMessageOfCurrentUser ?
-                        currentAccount.ShowUserName :
-                        jq(".contact_block[data-username='" + message.UserName + "']").find(".contact_record").text();
-                } else {
-                    userName = sessionStorageManager.getItem("TenantGuid");
-                    showUserName = currentAccount.TenantName;
-                    isMessageOfCurrentUser = (userName == currentAccount.UserName);
-                }
-                var realUserName = isMessageOfCurrentUser ? calleeUserName : userName;
-                if (isDialogOpen(userName) || isDialogOpen(calleeUserName)) {
-                    if (!isMessageOfCurrentUser) {
-                        var $conversationBlock = jq(".conversation_block[data-username='" + userName + "']");
-                        hideTypingMessageNotification($conversationBlock, $conversationBlock.find(".message_bus_container"));
                     }
-                    putMessage({
-                        IsMessageOfCurrentUser: isMessageOfCurrentUser,
-                        Name: showUserName,
-                        DateTime: Teamlab.getDisplayTime(new Date()),
-                        Message: addBr(message.Text),
-                        NotRead: !isMessageOfCurrentUser
-                    }, realUserName);
-                } else if (isActive && !isMessageOfCurrentUser) {
-                    showMessageNotification({
-                        UserName: userName,
-                        Message: addBr(message.Text),
-                        ShowUserName: showUserName,
-                    });
                 }
-                if (!isMessageOfCurrentUser) {
-                    if (!isMobile && soundPath && localStorageManager.getItem("EnableSound")) {
-                        playSound(soundPath);
-                    }
-                    if (!isActive) {
-                        shouldOpenUserDialogs[shouldOpenUserDialogs.length] = userName;
-                        if (!titleTimerId) {
-                            originalTitle = $document.find("title").text();
-                            $document.find("title").text("*" + ASC.Resources.Master.ChatResource.NewMessageLabel + " " + originalTitle);
-                            titleTimerId = setInterval(function () {
-                                starsNumber++;
-                                $document.find("title").text(getStars(starsNumber) +
-                                    ASC.Resources.Master.ChatResource.NewMessageLabel + " " + originalTitle);
-                                if (starsNumber == 3) {
-                                    starsNumber = 0;
-                                }
-                            }, TITLE_INTERVAL);
-                        }
-                    }
-                } else {
-                    openMessageDialog(calleeUserName);
+                var tenantGuid = sessionStorageManager.getItem("TenantGuid");
+                if (!tenantGuid) {
+                    tenantGuid = guid();
+                    sessionStorageManager.setItem("TenantGuid", tenantGuid);
                 }
-            }
-        };
+                var html = jq("#contactListTmpl")
+                        .tmpl({
+                            UsersOnline: usersOnline,
+                            UsersAway: usersAway,
+                            UsersNotAvailable: usersNotAvailable,
+                            UsersOffline: usersOffline
+                        }),
+                    htmlTenant = jq("#tenantBlockTmpl")
+                        .tmpl({
+                            TenantGuid: tenantGuid,
+                            TenantName: currentAccount.TenantName
+                        }),
+                    smallChatHeight = sessionStorageManager.getItem("SmallChatHeight");
+                if (smallChatHeight) {
+                    jq(".small_chat_main_window").css("height", smallChatHeight);
+                }
+                jq(".chat_contact_loader").addClass("display-none");
+                jq(".conversation_block").removeClass("display-none");
+                jq(html).appendTo(".contact_container");
+                jq(".contact_container").find(".tenant_user_list").append(htmlTenant);
+                sessionStorageManager.setItem("WasConnected", true);
+                searchContact();
+                var status = sessionStorageManager.getItem("CurrentStatus");
+                if (status && status != OFFLINE) {
+                    changeStatus(getUserNumberByState(status));
+                }
+                for (var un in bufferStates) {
+                    setState(un, bufferStates[un]);
+                }
+                bufferStates = {};
 
-        // sendOfflineMessages
-        chat.client.som = function (userNames) {
-            offlineBuffer = userNames;
-            if (currentAccount && sessionStorageManager.getItem("WasConnected")) {
                 for (var i = 0; i < offlineBuffer.length; i++) {
                     if (offlineBuffer[i] == "") {
                         offlineBuffer[i] = sessionStorageManager.getItem("TenantGuid");
@@ -284,112 +191,256 @@ var SmallChat = (function () {
                         flashBlocks[offlineBuffer[i]] = result;
                     }
                 }
+                loadMessageDialogs(offlineBuffer);
                 offlineBuffer = [];
-            }
-        };
+                jq(".extend_chat_icon").off("click").on("click", extendChat);
+                ASC.Controls.JabberClient.extendChat = extendChat;
+                setPingSending();
+                SendMessagesCount();
+                already = false;
+            })
+        .on('sendInvite',
+            function (message) {
+                if (currentStatus === OFFLINE) return;
+                message = reMap(message, messageContract);
+                if (!isDialogOpen(sessionStorageManager.getItem("TenantGuid"))) {
+                    openMessageDialog(sessionStorageManager.getItem("TenantGuid"));
+                }
+                putMessage({
+                        IsMessageOfCurrentUser: false,
+                        Name: message.UserName,
+                        DateTime: Teamlab.getDisplayTime(new Date()),
+                        Message: addBr(ASC.Resources.Master.ChatResource.ChatRoomInvite +
+                            " " +
+                            message.Text +
+                            ". " +
+                            ASC.Resources.Master.ChatResource.GoTalk),
+                        NotRead: true
+                    },
+                    sessionStorageManager.getItem("TenantGuid"));
+            })
+        .on('send',
+            function (message, calleeUserName, isTenantUser) {
+                if (currentStatus === OFFLINE) return;
+                message = reMap(message, messageContract);
+                if (currentAccount != null) {
+                    var userName = undefined,
+                        showUserName = undefined,
+                        $document = jq(document),
+                        isMessageOfCurrentUser = undefined;
+                    if (!isTenantUser) {
+                        userName = message.UserName;
+                        isMessageOfCurrentUser = (userName == currentAccount.UserName);
+                        showUserName = isMessageOfCurrentUser
+                            ? currentAccount.ShowUserName
+                            : jq(".contact_block[data-username='" + message.UserName + "']")
+                            .find(".contact_record")
+                            .text();
+                    } else {
+                        userName = sessionStorageManager.getItem("TenantGuid");
+                        showUserName = currentAccount.TenantName;
+                        isMessageOfCurrentUser = (userName == currentAccount.UserName);
+                        openMessageDialog(userName);
+                    }
+                    var realUserName = isMessageOfCurrentUser ? calleeUserName : userName;
+                    if (isDialogOpen(userName) || isDialogOpen(calleeUserName)) {
+                        if (!isMessageOfCurrentUser) {
+                            var $conversationBlock = jq(".conversation_block[data-username='" + userName + "']");
+                            hideTypingMessageNotification($conversationBlock,
+                                $conversationBlock.find(".message_bus_container"));
+                        }
+                        putMessage({
+                                IsMessageOfCurrentUser: isMessageOfCurrentUser,
+                                Name: showUserName,
+                                DateTime: Teamlab.getDisplayTime(new Date()),
+                                Message: addBr(message.Text),
+                                NotRead: !isMessageOfCurrentUser
+                            },
+                            realUserName);
+                    } else if (isActive && !isMessageOfCurrentUser) {
+                        showMessageNotification({
+                            UserName: userName,
+                            Message: addBr(message.Text),
+                            ShowUserName: showUserName,
+                        });
+                    }
+                    if (!isMessageOfCurrentUser) {
+                        if (!isMobile && soundPath && localStorageManager.getItem("EnableSound")) {
+                            playSound(soundPath);
+                        }
+                        if (!isActive) {
+                            if (!isTenantUser) {
+                                shouldOpenUserDialogs[shouldOpenUserDialogs.length] = userName;
+                            }
+                            if (!titleTimerId) {
+                                originalTitle = $document.find("title").text();
+                                $document.find("title")
+                                    .text("*" +
+                                        ASC.Resources.Master.ChatResource.NewMessageLabel +
+                                        " " +
+                                        originalTitle);
+                                titleTimerId = setInterval(function() {
+                                        starsNumber++;
+                                        $document.find("title")
+                                            .text(getStars(starsNumber) +
+                                                ASC.Resources.Master.ChatResource.NewMessageLabel +
+                                                " " +
+                                                originalTitle);
+                                        if (starsNumber == 3) {
+                                            starsNumber = 0;
+                                        }
+                                    },
+                                    TITLE_INTERVAL);
+                            }
+                        }
+                    } else {
+                        openMessageDialog(calleeUserName);
+                    }
+                }
+            })
+        .on('sendOfflineMessage',
+            function(userNames) {
+                offlineBuffer = userNames;
+                if (currentAccount && sessionStorageManager.getItem("WasConnected")) {
+                    for (var i = 0; i < offlineBuffer.length; i++) {
+                        if (offlineBuffer[i] == "") {
+                            offlineBuffer[i] = sessionStorageManager.getItem("TenantGuid");
+                        }
+                        if (isDialogOpen(offlineBuffer[i])) {
+                            closeConversationBlock(offlineBuffer[i]);
+                        }
+                        removeUserInSessionIfExists(offlineBuffer[i]);
+                        openMessageDialog(offlineBuffer[i]);
+                        var result = flashConversationBlock(offlineBuffer[i], true);
+                        if (result) {
+                            flashBlocks[offlineBuffer[i]] = result;
+                        }
+                    }
+                    offlineBuffer = [];
+                }
+            })
+        .on('sendTypingSignal',
+            function (userName) {
+                if (currentStatus === OFFLINE) return;
+                if (isDialogOpen(userName)) {
+                    var $conversationBlock = jq(".conversation_block[data-username='" + userName + "']"),
+                        $typingMessageNotification = $conversationBlock.find(".typing_message_notification");
 
-        // sendTypingSignal
-        chat.client.sts = function (userName) {
-            if (isDialogOpen(userName)) {
-                var $conversationBlock = jq(".conversation_block[data-username='" + userName + "']"),
-                    $typingMessageNotification = $conversationBlock.find(".typing_message_notification");
-                
-                if ($typingMessageNotification.hasClass("display-none")) {
-                    $messageBusContainer = $conversationBlock.find(".message_bus_container");
+                    if ($typingMessageNotification.hasClass("display-none")) {
+                        $messageBusContainer = $conversationBlock.find(".message_bus_container");
 
-                    $typingMessageNotification.css("bottom", $conversationBlock.find(".message_input_area").outerHeight() + PX);
-                    $typingMessageNotification.removeClass("display-none");
+                        $typingMessageNotification.css("bottom",
+                            $conversationBlock.find(".message_input_area").outerHeight() + PX);
+                        $typingMessageNotification.removeClass("display-none");
+                    }
+                    if (typingSignalTimeout) {
+                        clearTimeout(typingSignalTimeout);
+                        typingSignalTimeout = null;
+                    }
+                    typingSignalTimeout = setTimeout(function() {
+                            hideTypingMessageNotification($conversationBlock,
+                                $conversationBlock.find(".message_bus_container"));
+                        },
+                        5000);
                 }
-                if (typingSignalTimeout) {
-                    clearTimeout(typingSignalTimeout);
-                    typingSignalTimeout = null;
+            })
+        .on('setState',
+            function(userName, stateNumber, isJabberClient) {
+                if (currentAccount != null) {
+                    setState(userName, stateNumber, isJabberClient);
+                } else {
+                    bufferStates[userName] = stateNumber;
                 }
-                typingSignalTimeout = setTimeout(function () {
-                    hideTypingMessageNotification($conversationBlock, $conversationBlock.find(".message_bus_container"));
-                }, 5000);
-            }
-        };
+            })
+        .on('statesRetrieved',
+            function(states) {
+                var keys = Object.keys(states),
+                    status = sessionStorageManager.getItem("CurrentStatus"),
+                    $conversationBlocks = jq(".conversation_block"),
+                    $chatMessagesLoading,
+                    $conversationBlock;
+                $conversationBlocks.removeClass("display-none");
+                for (var i = 0; i < keys.length; i++) {
+                    setState(keys[i], states[keys[i]]);
+                }
+                sessionStorageManager.setItem("WasConnected", true);
+                for (var i = 0; i < $conversationBlocks.length; i++) {
+                    $conversationBlock = jq($conversationBlocks[i]);
+                    if (!$conversationBlock.find(".chat_messages_loading").hasClass("display-none")) {
+                        getRecentMessagesOnStart($conversationBlock.attr("data-username"));
+                    }
+                }
+                if (status && status != OFFLINE) {
+                    changeStatus(getUserNumberByState(status));
+                }
+                for (var userName in bufferStates) {
+                    setState(userName, bufferStates[userName]);
+                }
+                searchContact();
+                bufferStates = {};
 
-        // setState
-        chat.client.ss = function (userName, stateNumber, isJabberClient) {
-            if (currentAccount != null) {
-                setState(userName, stateNumber, isJabberClient);
-            } else {
-                bufferStates[userName] = stateNumber;
-            }
-        };
-
-        // statesRetrieved
-        chat.client.sr = function (states) {
-            var keys = Object.keys(states),
-                status = sessionStorageManager.getItem("CurrentStatus"),
-                $conversationBlocks = jq(".conversation_block"),
-                $chatMessagesLoading,
-                $conversationBlock;
-            $conversationBlocks.removeClass("display-none");
-            for (var i = 0; i < keys.length; i++) {
-                setState(keys[i], states[keys[i]]);
-            }
-            sessionStorageManager.setItem("WasConnected", true);
-            for (var i = 0; i < $conversationBlocks.length; i++) {
-                $conversationBlock = jq($conversationBlocks[i]);
-                if (!$conversationBlock.find(".chat_messages_loading").hasClass("display-none")) {
-                    getRecentMessagesOnStart($conversationBlock.attr("data-username"));
+                for (var i = 0; i < offlineBuffer.length; i++) {
+                    if (offlineBuffer[i] == "") {
+                        offlineBuffer[i] = sessionStorageManager.getItem("TenantGuid");
+                    }
+                    if (isDialogOpen(offlineBuffer[i])) {
+                        closeConversationBlock(offlineBuffer[i]);
+                    }
+                    openMessageDialog(offlineBuffer[i]);
+                    var result = flashConversationBlock(offlineBuffer[i], true);
+                    if (result) {
+                        flashBlocks[offlineBuffer[i]] = result;
+                    }
                 }
-            }
-            if (status && status != OFFLINE) {
-                changeStatus(getUserNumberByState(status));
-            }
-            for (var userName in bufferStates) {
-                setState(userName, bufferStates[userName]);
-            }
-            searchContact();
-            bufferStates = {};
-
-            for (var i = 0; i < offlineBuffer.length; i++) {
-                if (offlineBuffer[i] == "") {
-                    offlineBuffer[i] = sessionStorageManager.getItem("TenantGuid");
-                }
-                if (isDialogOpen(offlineBuffer[i])) {
-                    closeConversationBlock(offlineBuffer[i]);
-                }
-                openMessageDialog(offlineBuffer[i]);
-                var result = flashConversationBlock(offlineBuffer[i], true);
-                if (result) {
-                    flashBlocks[offlineBuffer[i]] = result;
-                }
-            }
-            offlineBuffer = [];
-            jq(".extend_chat_icon").off("click").on("click", extendChat);
-            ASC.Controls.JabberClient.extendChat = extendChat;
-            setPingSending();
-            SendMessagesCount();
+                offlineBuffer = [];
+                jq(".extend_chat_icon").off("click").on("click", extendChat);
+                ASC.Controls.JabberClient.extendChat = extendChat;
+                setPingSending();
+                SendMessagesCount();
+                already = false;
+            })
+        .on('setStatus',
+            function(number) {
+                changeStatus(number);
+            })
+        .on('disconnectUser', function() {
             already = false;
-        };
+        })
+        .on('connectUser', function (error) {
+            var $smallChatMainWindow = jq(".small_chat_main_window");
+            if (error) {
+                $smallChatMainWindow.off("click", ".show_small_chat_icon");
+                $smallChatMainWindow.on("click", ".show_small_chat_icon", showOrHideSmallChat);
+                showErrorNotification();
+                closeChat();
+                already = false;
+                return;
+            }
 
-        // setStatus
-        chat.client.sst = function (number) {
-            changeStatus(number);
-        };
-
-        // error
-        chat.client.e = function () {
-            showErrorNotification();
-            connectionStop();
-            closeChat();
-        };
-    } else {
-        throw "Error! Chat proxy is undefined!!!";
+            $smallChatMainWindow.off("click", ".show_small_chat_icon");
+            $smallChatMainWindow.on("click", ".show_small_chat_icon", showOrHideSmallChat);
+            if (connectionStartTimer) {
+                clearTimeout(connectionStartTimer);
+                connectionStartTimer = null;
+            }
+            if (!currentAccount) {
+                socket.emit('getInitData', function (error) { if (error) already = false; });
+            } else {
+                socket.emit('getStates', function (error) { if (error) already = false; });
+            }
+        })
+        .on('e',
+            function() {
+                showErrorNotification();
+                connectionStop();
+                closeChat();
+            });
     }
 
     function SendMessagesCount() {
         try {
             ASC.Controls.TalkNavigationItem.updateValue(0);
-            var countersHub = jq.connection.ch;
-            if (typeof (countersHub) !== undefined) {
-                // SendMessagesCount
-                countersHub.server.smec(0);
-            }
+            ASC.SocketIO.Factory.counters.emit('sendMessagesCount', 0);
         } catch (e) {
             console.error(e.message);
         }
@@ -397,7 +448,7 @@ var SmallChat = (function () {
 
     function getRecentMessagesOnStart(u) {
         var userName = u;
-        chat.server.grm(userName == sessionStorageManager.getItem("TenantGuid") ? "" : userName, INT_MAX_VALUE).done(function (recentMessages) {
+        socket.emit('getRecentMessages', userName == sessionStorageManager.getItem("TenantGuid") ? "" : userName, INT_MAX_VALUE, function (recentMessages) {
             var $cb = jq(".conversation_block[data-username='" + userName + "']"),
                 $chatLoading = $cb.find(".chat_messages_loading");
             receiveRecentMessages(userName, recentMessages, $chatLoading, $cb, 0);
@@ -432,8 +483,7 @@ var SmallChat = (function () {
         }
         pingTimerId = setInterval(function () {
             if (sessionStorageManager.getItem("WasConnected")) {
-                // ping
-                chat.server.p(getUserNumberByState(sessionStorageManager.getItem("CurrentStatus")));
+                socket.emit('ping', getUserNumberByState(sessionStorageManager.getItem("CurrentStatus")));
             } else {
                 clearInterval(pingTimerId);
                 pingTimerId = null;
@@ -612,9 +662,12 @@ var SmallChat = (function () {
                 }
             } else {
                 if (sessionStorageManager.getItem("WasConnected")) {
-                    // getContactInfo
-                    chat.server.gci(userName).done(function (contact) {
-                        switch (contact.Item2) {
+                    socket.emit('getContactInfo', userName, function (calleeUserName, calleeUserState, error) {
+                        if (error) {
+                            showErrorNotification();
+                            return;
+                        }
+                        switch (calleeUserState) {
                             case NUMBER_ONLINE:
                                 ulClass = "online_user_list";
                                 break;
@@ -630,11 +683,9 @@ var SmallChat = (function () {
 
                         createContactInfo({
                             UserName: userName,
-                            ShowUserName: contact.Item1,
+                            ShowUserName: calleeUserName,
                             StateClass: ulClass
                         }, ulClass);
-                    }).fail(function (error) {
-                        showErrorNotification();
                     });
                 }
             }
@@ -647,7 +698,7 @@ var SmallChat = (function () {
                     $stateBlock.attr("title", getRealStateByNumber(stateNumber));
                 }
             }
-        } else if (!isJabberClient) {
+        } else {
             changeStatus(stateNumber);
         }
     }
@@ -681,6 +732,8 @@ var SmallChat = (function () {
                 $showSmallChatIcon.addClass("small_chat_icon_white");
                 $showSmallChatIcon.removeClass("small_chat_icon_green");
                 connectionStop();
+            } else if (currentStatus == OFFLINE) {
+                connectionStart();
             } else if (!NoIconGreen) {
                 $showSmallChatIcon.addClass("small_chat_icon_green");
                 $showSmallChatIcon.removeClass("small_chat_icon_white");
@@ -1041,7 +1094,7 @@ var SmallChat = (function () {
         jq(".contact_container").addClass("display-none");
         jq(".small_chat_top_panel").addClass("display-none");
         jq(".icon_ch_size").addClass("display-none");
-        if (!isMobile) {
+        if (isResizeChat) {
             $smallChatMainWindow.resizable("disable").removeClass("ui-state-disabled");
         }
         //restore default state
@@ -1061,9 +1114,10 @@ var SmallChat = (function () {
         jq(".contact_container").addClass("display-none");
         jq(".small_chat_top_panel").addClass("display-none");
         jq(".icon_ch_size").addClass("display-none");
-        if (!isMobile) {
+        if (isResizeChat) {
             $smallChatMainWindow.resizable("disable").removeClass("ui-state-disabled");
         }
+
         jq(".conversation_block").addClass("display-none");
         jq(".message_dialog_btn").addClass("display-none");
         jq(".detail_user_list").remove();
@@ -1073,10 +1127,11 @@ var SmallChat = (function () {
 
     function showOrHideSmallChat() {
         if (!sessionStorageManager.getItem("WasConnected") && currentStatus != OFFLINE) {
-            if (jq.connection.hub.state === jq.connection.connectionState.connected) {
-                connectionStart();
-                showChat();
-            }
+            socket.connect(
+                function() {
+                    connectionStart();
+                    showChat();
+                });
         } else {
             connectionStop();
             hideChat();
@@ -1304,20 +1359,18 @@ var SmallChat = (function () {
                         var arg1 = userName == sessionStorageManager.getItem("TenantGuid") ? "" : userName,
                             arg2 = $conversationBlock.attr("data-internal-id");
                         disable_scroll();
-                        // getRecentMessages
-                        chat.server.grm(arg1, arg2).done(function (recentMessages) {
+                        socket.emit('getRecentMessages', arg1, arg2, function (recentMessages, error) {
                             enable_scroll();
+                            if (error) return;
                             receiveRecentMessages(userName, recentMessages, $chatMessagesLoading, $conversationBlock, $conversationBlock.attr("data-scroll-height"));
-                        }).fail(function () {
-                            enable_scroll();
                         });
                     }
                 });
                 if (sessionStorageManager.getItem("WasConnected")) {
                     $chatMessagesLoading.removeClass("display-none");
                     // getRecentMessages
-                    chat.server.grm(userName == sessionStorageManager.getItem("TenantGuid") ? "" : userName,
-                        INT_MAX_VALUE).done(function (recentMessages) {
+                    socket.emit('getRecentMessages', userName == sessionStorageManager.getItem("TenantGuid") ? "" : userName,
+                        INT_MAX_VALUE, function (recentMessages) {
                             receiveRecentMessages(userName, recentMessages, $chatMessagesLoading, $conversationBlock, 0);
                     });
                 }
@@ -1770,7 +1823,7 @@ var SmallChat = (function () {
                     return true;
                 }
                 //Send
-                chat.server.s(isTenant ? "" : userName, text);
+                socket.emit('send', isTenant ? "" : userName, text);
                 putMessage({
                     IsMessageOfCurrentUser: true,
                     Name: currentAccount.ShowUserName,
@@ -1839,8 +1892,7 @@ var SmallChat = (function () {
             sendTypingSignalTimeout = setTimeout(function () {
                 sendTypingSignalTimeout = null;
             }, 3000);
-            //sendTyping
-            chat.server.st(userName);
+            socket.emit('sendTyping', userName);
         }
     }
 
@@ -1898,7 +1950,7 @@ var SmallChat = (function () {
 
         if (state != OFFLINE && sessionStorageManager.getItem("WasConnected")) {
             // sendStateToTenant
-            chat.server.sstt(getUserNumberByState(currentStatus));
+            socket.emit('sendStateToTenant', getUserNumberByState(currentStatus));
         }
     }
 
@@ -1996,6 +2048,7 @@ var SmallChat = (function () {
         });
 
         $chat.resizable("enable");
+        isResizeChat = true;
     }
 
     function initConnect() {
@@ -2005,37 +2058,12 @@ var SmallChat = (function () {
     }
 
     function connectionStart() {
-        if (jq.connection.hub.state !== jq.connection.connectionState.connected || already) {
+        if (!socket || !socket.connected() || already) {
             return;
         }
         already = true;
         
-        var $smallChatMainWindow = jq(".small_chat_main_window");
-        chat.server.cu(getUserNumberByStateForConnection()).done(function () {
-            $smallChatMainWindow.off("click", ".show_small_chat_icon");
-            $smallChatMainWindow.on("click", ".show_small_chat_icon", showOrHideSmallChat);
-            if (connectionStartTimer) {
-                clearTimeout(connectionStartTimer);
-                connectionStartTimer = null;
-            }
-            if (!currentAccount) {
-                // getInitData
-                chat.server.gid().fail(function () {
-                    already = false;
-                });
-            } else {
-                // getStates
-                chat.server.gs().fail(function () {
-                    already = false;
-                });
-            }
-        }).fail(function() {
-            $smallChatMainWindow.off("click", ".show_small_chat_icon");
-            $smallChatMainWindow.on("click", ".show_small_chat_icon", showOrHideSmallChat);
-            showErrorNotification();
-            closeChat();
-            already = false;
-        });
+        socket.emit('connectUser', getUserNumberByStateForConnection());
     }
 
     function showErrorNotification() {
@@ -2071,14 +2099,12 @@ var SmallChat = (function () {
 
     function connectionStop() {
         var $smallChatMainWindow = jq(".small_chat_main_window");
-        if (jq.connection.hub.state !== jq.connection.connectionState.connected || already) {
+        if (!socket || !socket.connected() || already) {
             return;
         }
         already = true;
         sessionStorageManager.setItem("WasConnected", false);
-        chat.server.dcu().done(function() {
-            already = false;
-        }).fail(function() {
+        socket.emit('disconnectUser', true, function() {
             already = false;
         });
         if (pingTimerId) {
@@ -2230,16 +2256,19 @@ var SmallChat = (function () {
             $body = jq("body"),
             $window = jq(window);
 
+        if (ASC.SocketIO && !ASC.SocketIO.disabled()) {
+            socket = ASC.SocketIO.Factory.chat;
+            initSocket();
+        }
+
         sessionStorageManager.setItem("WasLoad", false);
         if (!sessionStorageManager.getItem("dialogsNumber")) {
             sessionStorageManager.setItem("dialogsNumber", 0);
         }
         if (sessionStorageManager.getItem("WasConnected")) {
-            jq.connection.hub.stateChanged(function () {
-                if (jq.connection.hub.state === jq.connection.connectionState.connected) {
-                    connectionStart();
-                    showChat();
-                }
+            socket.connect(function () {
+                connectionStart();
+                showChat();
             });
         }
 
@@ -2493,7 +2522,7 @@ var SmallChat = (function () {
     }
 
     function logoutEvent() {
-        if (jq.connection.hub.state !== jq.connection.connectionState.disconnected) {
+        if (socket.connected()) {
             connectionStop();
         }
     }
@@ -2508,7 +2537,7 @@ var SmallChat = (function () {
     };
 })();
 
-jq(window).on("load", function () {
+jq(document).ready(function () {
     ASC.Controls.JabberClient.extendChat = SmallChat.extendChat;
     SmallChat.init();
 });

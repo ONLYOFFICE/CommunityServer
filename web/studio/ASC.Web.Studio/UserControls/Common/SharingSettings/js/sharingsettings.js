@@ -273,11 +273,16 @@ var SharingSettingsManager = function (elementId, sharingData) {
             }
         }
 
+        var newItemId;
         jq(users).each(function (j, user) {
             if (jq.inArray(user.id, selectedIds) != -1) {
                 addUserItem(user.id, user.title);
+                newItemId = newItemId || user.id;
             }
         });
+        if (newItemId) {
+            jq("#sharingSettingsItems").scrollTo(jq("#sharing_item_" + newItemId).prev());
+        }
         jq(".sharing-empty").toggle(_workData.items.length <= 1);
     };
 
@@ -329,11 +334,16 @@ var SharingSettingsManager = function (elementId, sharingData) {
             }
         }
 
+        var newItemId;
         jq(groups).each(function (j, group) {
             if (jq.inArray(group.id, selectedIds) != -1) {
                 addGroupItem(group.id, group.title);
+                newItemId = newItemId || group.id;
             }
         });
+        if (newItemId) {
+            jq("#sharingSettingsItems").scrollTo(jq("#sharing_item_" + newItemId).prev());
+        }
         jq(".sharing-empty").toggle(_workData.items.length <= 1);
     };
 
@@ -501,7 +511,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
                 });
         }
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\".sharing-save-button:visible\").click();";
+        PopupKeyUpActionProvider.EnterAction = PopupKeyUpActionProvider.CtrlEnterAction = "jq(\".sharing-save-button:visible\").click();";
     };
 
     this.SaveAndCloseDialog = function () {

@@ -47,6 +47,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
         protected AllowedActions Actions;
         protected string ProfileEditLink;
+        protected string ReassignDataLink;
         protected bool MyStaff;
         protected bool UserHasAvatar;
         protected bool HasActions;
@@ -69,6 +70,8 @@ namespace ASC.Web.Studio.UserControls.Users
                 Page is MyStaff
                     ? "/my.aspx?action=edit"
                     : "profileaction.aspx?action=edit&user=" + HttpUtility.UrlEncode(ProfileHelper.UserInfo.UserName);
+
+            ReassignDataLink = "reassigns.aspx?user=" + HttpUtility.UrlEncode(ProfileHelper.UserInfo.UserName);
 
             if (Request.Params["email_change"] == "success")
             {

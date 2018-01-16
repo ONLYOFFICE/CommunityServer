@@ -535,9 +535,6 @@
   <data name="BtnAddNewContact" xml:space="preserve">
     <value>Add new contact</value>
   </data>
-  <data name="ButtonBuy" xml:space="preserve">
-    <value>Buy</value>
-  </data>
   <data name="CallBtn" xml:space="preserve">
     <value>Call</value>
   </data>
@@ -643,9 +640,6 @@
   <data name="CompleteCallBtn" xml:space="preserve">
     <value>Disconnect</value>
   </data>
-  <data name="Confirmation" xml:space="preserve">
-    <value>Confirmation</value>
-  </data>
   <data name="ConfirmationTitle" xml:space="preserve">
     <value>Confirmation</value>
   </data>
@@ -682,10 +676,6 @@
   <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
     <value>Remove Comment</value>
   </data>
-  <data name="ConfirmRemoveUser" xml:space="preserve">
-    <value>This action cannot be undone.
-Are you sure want to delete {!user} {0}?</value>
-  </data>
   <data name="CongratulateBirthday" xml:space="preserve">
     <value>Congratulate</value>
   </data>
@@ -718,6 +708,18 @@ Are you sure want to delete {!user} {0}?</value>
   </data>
   <data name="ConsumersBoxSecret" xml:space="preserve">
     <value>client_secret</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Подключить приложение для включения двухфакторной авторизации через Clickatell.</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Добавив приложение сервиса Clickatell Вы сможете включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE.</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
   </data>
   <data name="ConsumersDocuSign" xml:space="preserve">
     <value>DocuSign</value>
@@ -815,6 +817,21 @@ Are you sure want to delete {!user} {0}?</value>
   <data name="ConsumersSkyDriveSecret" xml:space="preserve">
     <value>Client Secret</value>
   </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMS-центр</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>Подключить приложение для включения двухфакторной авторизации через SMS-центр.</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>Добавив приложение сервиса SMS-центр Вы сможете включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE. SMS-центр удобно использовать как sms провайдер для стран СНГ.</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Password or MD5 hash password in lowercase</value>
+  </data>
   <data name="ConsumersTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
@@ -840,16 +857,34 @@ Are you sure want to delete {!user} {0}?</value>
     <value>Twilio</value>
   </data>
   <data name="ConsumersTwilioDescription" xml:space="preserve">
-    <value>Подключить Twilio для получения возможности совершения вызовов контактов CRM прямо из браузера.</value>
+    <value>Подключить Twilio для совершения вызовов контактов CRM прямо из браузера или для включения двухфакторной авторизации.</value>
   </data>
   <data name="ConsumersTwilioInstruction" xml:space="preserve">
-    <value>Добавив Twilio Вы сможете звонить любому контакту из CRM прямо из браузера.</value>
+    <value>Добавив Twilio Вы сможете звонить любому контакту из CRM прямо из браузера и включить двухфакторную авторизацию для получения смс с кодом входа пользователя на портал ONLYOFFICE.</value>
   </data>
   <data name="ConsumersTwilioKey" xml:space="preserve">
     <value>Account Sid</value>
   </data>
   <data name="ConsumersTwilioSecret" xml:space="preserve">
     <value>Auth Token</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Phone number from twilio (required for sms authorization)</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Подключить приложение для импорта контактов Yahoo.</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Добавив приложение сервиса Yahoo Вы сможете из списка контактов добавлять новых пользователей портала ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Client Secret</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Contact Information</value>
@@ -2032,16 +2067,28 @@ Are you sure want to delete the {0} {!group}?</value>
     <value>Saving groups</value>
   </data>
   <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
-    <value>Удаление устаревших групп, загруженных по LDAP ранее</value>
+    <value>Removing outdated groups that have been loaded via LDAP earlier</value>
   </data>
   <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
-    <value>Удаление устаревших пользователей, загруженных по LDAP ранее</value>
+    <value>Removing outdated user profiles that have been loaded via LDAP earlier</value>
   </data>
   <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
     <value>Saving settings</value>
   </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>adding user</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>removing user</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>LDAP disconnecting</value>
+  </data>
   <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
     <value>Saving users</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Syncing users</value>
   </data>
   <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
     <value>A more secure authentication type is required. Please use encripted connection or enable plain authentication on the server.</value>
@@ -2436,11 +2483,11 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
-  <data name="PaidPeriodExpiredStandalone" xml:space="preserve">
-    <value>License has expired</value>
+  <data name="PaidPeriodExpiredStandaloneLife" xml:space="preserve">
+    <value>Your subscription to support and updates has expired</value>
   </data>
-  <data name="PaidPeriodStandalone" xml:space="preserve">
-    <value>License period: {0} {1}</value>
+  <data name="PaidPeriodStandaloneLife" xml:space="preserve">
+    <value>Your subscription to support and updates will expire in {0} {1}</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -2842,13 +2889,19 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Hurray</value>
   </data>
   <data name="SmsAuthDescription" xml:space="preserve">
-    <value>Two-factor authentication is available for paid portals only.{2} {0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from the SMS received to the mobile phone with the number which was specified at the first portal login via the two-factor authentication.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2} {0}Note{1}: when you are out of SMS the two-factor authentication portal access option will be automatically disabled. Do not forget to buy additional SMS package in good time.</value>
+    <value>{0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from the SMS received to the mobile phone with the number which was specified at the first portal login via the two-factor authentication.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2}</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Note{1}: when you are out of SMS the two-factor authentication portal access option will be automatically disabled. Do not forget to buy additional SMS package in good time.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Note{1}: two-factor authentication is available for paid portals only.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Note{1}: before you can use two-factor authentication, you need to select at least one SMS provider and configure it at the {3}{0}Third Party Authorization{1}{4} page.</value>
   </data>
   <data name="SmsAuthenticationMessageError" xml:space="preserve">
     <value>Incorrect code</value>
-  </data>
-  <data name="SmsAuthenticationMessageLeft" xml:space="preserve">
-    <value>SMS left - {0}</value>
   </data>
   <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
     <value>Code: {0}</value>
@@ -2859,26 +2912,14 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="SmsAuthTitle" xml:space="preserve">
     <value>Two-factor authentication</value>
   </data>
-  <data name="SmsAuthTurnOn" xml:space="preserve">
-    <value>Enable two-factor authentication</value>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} balance</value>
   </data>
-  <data name="SmsBuyHeader" xml:space="preserve">
-    <value>Buy SMS-package</value>
-  </data>
-  <data name="SmsCount" xml:space="preserve">
-    <value>SMS package: {0}/{1} SMS</value>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>see on your {0} account</value>
   </data>
   <data name="SmsNotAvailable" xml:space="preserve">
     <value>SMS settings are not available</value>
-  </data>
-  <data name="SmsNotPaidError" xml:space="preserve">
-    <value>The number of SMS for the selected plan has been exceeded</value>
-  </data>
-  <data name="SmsPackage" xml:space="preserve">
-    <value>{0} SMS-package for {1}</value>
-  </data>
-  <data name="SmsPackageHelper" xml:space="preserve">
-    <value>Buy more SMS</value>
   </data>
   <data name="SmsTooMuchError" xml:space="preserve">
     <value>You have sent too many text messages. Please try again later.</value>
@@ -3001,9 +3042,6 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="SsoSettingsWrongValidationType" xml:space="preserve">
     <value>Incorrect signature validation type</value>
   </data>
-  <data name="StartUpWaitText" xml:space="preserve">
-    <value>The initialization process might take some time, please wait...</value>
-  </data>
   <data name="StatisticsTitle" xml:space="preserve">
     <value>Statistics</value>
   </data>
@@ -3042,9 +3080,6 @@ We recommend that you use SAML protocol as more secure.</value>
   </data>
   <data name="SuccessChangeUserStatus" xml:space="preserve">
     <value>The user status has been successfully changed</value>
-  </data>
-  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
-    <value>User has been successfully deleted</value>
   </data>
   <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
     <value>Portal has been renamed successfully</value>
@@ -3133,8 +3168,8 @@ We recommend that you use SAML protocol as more secure.</value>
   <data name="TariffLinkStandalone" xml:space="preserve">
     <value>{0}Click here{1} to upload a license file for your portal.</value>
   </data>
-  <data name="TariffOverdueStandalone" xml:space="preserve">
-    <value>The payment is overdue or no license could be found.</value>
+  <data name="TariffLinkStandaloneLife" xml:space="preserve">
+    <value>To renew it, {0}click here{1}.</value>
   </data>
   <data name="TariffPaymentDelay" xml:space="preserve">
     <value>Your subscription has expired.</value>
@@ -3540,13 +3575,13 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Warning: you already have Mail Domain settings and mailboxes for users present in your {0}Mail{1} module. Changing the settings here you realize that these changes can affect their work and result in mail server failure. If you completely moved the {0}Mail Server{1} to another computer and/or changed database access credentials, just update the {0}Mail Server IP{1} and/or credentials here. If you created a new {0}Mail Server{1} and want to connect it, you need to delete the old data at the {2}Mail Server page{3} first.</value>
   </data>
   <data name="CookieSettingsHelp" xml:space="preserve">
-    <value>{0}Cookie Settings{1} allows to set cookie lifetime in minutes.{2}After save all the users will be logged out from portal.</value>
+    <value>{0}Session Lifetime{1} allows to set time (in minutes) before the portal users will need to enter the portal credentials again in order to access the portal.{2}After save all the users will be logged out from portal.</value>
   </data>
   <data name="CookieSettingsLifeTime" xml:space="preserve">
-    <value>Lifetime</value>
+    <value>Lifetime (min)</value>
   </data>
   <data name="CookieSettingsTitle" xml:space="preserve">
-    <value>Cookie Settings</value>
+    <value>Session Lifetime</value>
   </data>
   <data name="PricingPageSettingsCbxText" xml:space="preserve">
     <value>Pricing page available for administrators only</value>
@@ -3631,5 +3666,86 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="ConsumersFirebaseInstruction" xml:space="preserve">
     <value>Добавив Firebase Cloud Messaging Вы сможете получать уведомлений о полученных сообщениях, находясь не в сети.</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Import from Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Import from Yahoo</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} will be deleted.</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Reassign data</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>User's personal documents that are available to others will be deleted. To avoid this, you must start the data reassign process before deleting.</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Data reassign progress for {0} is not complete.</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Applications</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Extend your web office functionality using the third party applications. Contact your portal administrator to enable the apps you need.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>Find out more information in our {0}Help Center{1}</value>
+  </data>
+  <data name="DocServiceUrlDocbuilder" xml:space="preserve">
+    <value>Docbuilder Service Address</value>
+  </data>
+  <data name="DocServiceUrlDocbuilderHelp" xml:space="preserve">
+    <value>{0}{1}Docbuilder Service{2} is the server service which allows to convert the source docbuilder script into  OfficeOpen XML format  file.</value>
+  </data>
+  <data name="RememberHelper" xml:space="preserve">
+    <value>The default session lifetime is 20 minutes. Check this option to set it to 1 year. To set your own value, go to the settings.</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}Custom Navigation{1} - is the setting for changing the navigation menu.{2}Add your own items for greater usability of the portal.</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>Custom Navigation</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>Large icon, 100x100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>Change image</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="CustomNavigationEditDialogHeader" xml:space="preserve">
+    <value>Item Settings</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="CustomNavigationRemoveBtn" xml:space="preserve">
+    <value>Remove Item</value>
+  </data>
+  <data name="CustomNavigationShowInMenu" xml:space="preserve">
+    <value>Show in menu</value>
+  </data>
+  <data name="CustomNavigationShowOnHomePage" xml:space="preserve">
+    <value>Show on home page</value>
+  </data>
+  <data name="CustomNavigationSmallImgHeader" xml:space="preserve">
+    <value>Small icon, 16x16</value>
+  </data>
+  <data name="CustomNavigationURLHeader" xml:space="preserve">
+    <value>URL</value>
   </data>
 </root>

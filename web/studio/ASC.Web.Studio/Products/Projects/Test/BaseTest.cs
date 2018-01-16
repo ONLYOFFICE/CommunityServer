@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using ASC.Web.Core;
+using NUnit.Framework;
 
 namespace ASC.Web.Projects.Test
 {
@@ -8,7 +9,6 @@ namespace ASC.Web.Projects.Test
     using ASC.Core;
     using ASC.Projects.Core.Domain;
     using ASC.Projects.Engine;
-    using Core;
     using Studio.Utility;
 
     [TestFixture]

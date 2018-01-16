@@ -5,11 +5,10 @@
 
 <div id="talkTabContainer" class="studio-top-panel">
     <div class ="studio-top-logo">
-        <a title="" href=""><div class="talk-top-logo"></div></a>
-        <a title="" href=""><div class="talk-top-logo-label"></div></a>
-        <!--<a class="top-logo" title="" href="">
+        <a class="top-logo" title="" onclick="ASC.Controls.JabberClient.redirectMain()">
                 <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
-        </a> -->
+        </a> 
+        <a title="" href=""><div class="talk-top-logo-label" ><%=TalkResource.Chat%></div></a>
     </div>
   <ul class="tabs">
    <!--<li class ="studio-top-logo" </li>

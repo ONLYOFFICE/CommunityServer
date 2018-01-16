@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ASC.Files.Core;
-using ASC.Web.Files.Import.DocuSign;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
@@ -60,6 +60,10 @@ namespace ASC.Web.Files.Services.WCFService
         ItemList<FileOperationResult> MoveOrCopyItems(ItemList<String> items, String destFolderId, FileConflictResolveType resolveType, bool isCopyOperation, bool deleteAfter = false);
 
         ItemList<FileOperationResult> DeleteItems(string action, ItemList<String> items, bool ignoreException = false, bool deleteAfter = false);
+
+        void ReassignStorage(Guid userFromId, Guid userToId);
+
+        void DeleteStorage(Guid userId);
 
         #endregion
 
@@ -152,6 +156,8 @@ namespace ASC.Web.Files.Services.WCFService
         object DeleteThirdParty(String providerId);
 
         bool ChangeAccessToThirdparty(bool enableThirdpartySettings);
+
+        bool SaveDocuSign(String code);
 
         object DeleteDocuSign();
 

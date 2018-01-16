@@ -245,7 +245,7 @@ namespace ASC.Core.Billing
             return payments;
         }
 
-        public Uri GetShoppingUri(int? tenant, int quotaId, string affiliateId, string currency = null, string language = null)
+        public Uri GetShoppingUri(int? tenant, int quotaId, string affiliateId, string currency = null, string language = null, string customerId = null)
         {
             var key = tenant.HasValue
                 ? GetBillingUrlCacheKey(tenant.Value)
@@ -265,8 +265,8 @@ namespace ASC.Core.Billing
                         using (var client = GetBillingClient())
                         {
                             urls = tenant.HasValue ?
-                                client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value), "__Currency__", "__Language__") :
-                                client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null, "__Currency__", "__Language__");
+                                client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value), "__Currency__", "__Language__", "__CustomerID__") :
+                                client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null, "__Currency__", "__Language__", "__CustomerID__");
                         }
                     }
                     catch (Exception error)
@@ -293,7 +293,8 @@ namespace ASC.Core.Billing
 
                 result = new Uri(result.ToString()
                     .Replace("__Currency__", currency ?? "")
-                    .Replace("__Language__", (language ?? "").ToLower()));
+                    .Replace("__Language__", (language ?? "").ToLower())
+                    .Replace("__CustomerID__", customerId ?? ""));
                 return result;
             }
             return null;

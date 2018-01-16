@@ -88,7 +88,7 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
-        return jq(target).is(".textEdit");
+        return jq(target).is(".textEdit, .checkbox, input");
     };
 
     var collectEntryItems = function () {

@@ -24,25 +24,26 @@
 */
 
 
-using ASC.Common.Data.Sql;
-using ASC.Xmpp.Core.protocol;
-using ASC.Xmpp.Core.protocol.client;
-using ASC.Xmpp.Core.protocol.x;
-using ASC.Xmpp.Core.utils;
-using ASC.Xmpp.Server.Storage.Interface;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 
+using ASC.Core.Notify.Signalr;
+using ASC.Common.Data.Sql;
+using ASC.Xmpp.Core.protocol;
+using ASC.Xmpp.Core.protocol.client;
+using ASC.Xmpp.Core.protocol.x;
+using ASC.Xmpp.Core.utils;
+using ASC.Xmpp.Server.Storage.Interface;
+
 namespace ASC.Xmpp.Server.Storage
 {
     public class DbOfflineStore : DbStoreBase, IOfflineStore
     {
         private Dictionary<string, int> countCache = new Dictionary<string, int>();
-        private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient();
-        private static readonly string enableSignalr = ConfigurationManager.AppSettings["web.enable-signalr"] ?? "false";
+        private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient("counters");
         protected override SqlCreate[] GetCreateSchemaScript()
         {
             var t1 = new SqlCreate.Table("jabber_offmessage", true)
@@ -130,7 +131,7 @@ namespace ASC.Xmpp.Server.Storage
             }
             ExecuteBatch(batch);
 
-            if (enableSignalr == "true" && jids.Count > 0)
+            if (SignalrServiceClient.EnableSignalr && jids.Count > 0)
             {
                 Dictionary<string, int> unreadCounts = new Dictionary<string, int>();
                 string domain = null;

@@ -40,7 +40,7 @@ namespace ASC.Web.Files.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>
+            return new List<KeyValuePair<string, object>>(1)
             {
                 RegisterResourceSet("FilesJSResources", FilesJSResource.ResourceManager),
             };

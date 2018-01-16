@@ -30,7 +30,6 @@ using System.Threading;
 using System.Web;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
 using Newtonsoft.Json.Linq;
 

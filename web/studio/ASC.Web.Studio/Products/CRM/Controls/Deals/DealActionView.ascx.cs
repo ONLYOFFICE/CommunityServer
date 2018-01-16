@@ -266,7 +266,7 @@ namespace ASC.Web.CRM.Controls.Deals
                     {
                         NotifyClient.Instance.SendAboutResponsibleForOpportunity(deal);
                     }
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.OpportunityCreated, deal.Title);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.OpportunityCreated, MessageTarget.Create(deal.ID), deal.Title);
                 }
                 else
                 {
@@ -284,7 +284,7 @@ namespace ASC.Web.CRM.Controls.Deals
                     dao.GetDealDao().EditDeal(deal);
                     deal = dao.GetDealDao().GetByID(dealID);
                     SetPermission(deal, _isPrivate, _selectedUsersWithoutCurUsr);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.OpportunityUpdated, deal.Title);
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.OpportunityUpdated, MessageTarget.Create(deal.ID), deal.Title);
                 }
 
                 #region Members

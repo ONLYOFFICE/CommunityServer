@@ -45,10 +45,7 @@ using ASC.FullTextIndex;
 using ASC.HealthCheck.Classes;
 using ASC.HealthCheck.Resources;
 using ASC.Notify.Messages;
-using ASC.SignalR.Base.Hubs.Chat;
 using log4net;
-using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Transports;
 
 namespace ASC.HealthCheck.Models
 {
@@ -164,41 +161,42 @@ namespace ASC.HealthCheck.Models
 
         public override string Check(int tenantId)
         {
-            HubConnection hubConnection = null;
-            try
-            {
-                log.Debug("CheckMiniChatState");
-                IDictionary<string, string> queryString = new Dictionary<string, string>();
-                var fakeTenant = CoreContext.TenantManager.GetTenant(tenantId);
-                queryString["token"] =
-                    Signature.Create(string.Join(",", fakeTenant.TenantId, fakeUserId, fakeTenant.TenantAlias));
-                hubConnection = new HubConnection(hubUrl, queryString);
-                var hubProxy = hubConnection.CreateHubProxy("c"); // Chat
-                ServicePointManager.DefaultConnectionLimit = 10;
-                hubConnection.Start(new LongPollingTransport()).Wait();
-                // initDataRetrieved
-                hubProxy.On<string, string, UserClass[], int, string>("idr",
-                    (uName, displayUserName, users, userTenant, domain) => hubConnection.Stop());
+            return "";
+            //HubConnection hubConnection = null;
+            //try
+            //{
+            //    log.Debug("CheckMiniChatState");
+            //    IDictionary<string, string> queryString = new Dictionary<string, string>();
+            //    var fakeTenant = CoreContext.TenantManager.GetTenant(tenantId);
+            //    queryString["token"] =
+            //        Signature.Create(string.Join(",", fakeTenant.TenantId, fakeUserId, fakeTenant.TenantAlias));
+            //    hubConnection = new HubConnection(hubUrl, queryString);
+            //    var hubProxy = hubConnection.CreateHubProxy("c"); // Chat
+            //    ServicePointManager.DefaultConnectionLimit = 10;
+            //    hubConnection.Start(new LongPollingTransport()).Wait();
+            //    // initDataRetrieved
+            //    hubProxy.On<string, string, UserClass[], int, string>("idr",
+            //        (uName, displayUserName, users, userTenant, domain) => hubConnection.Stop());
 
-                hubProxy.Invoke("cu", StateOnline).Wait(); // ConnectUser
-                // hubProxy.Invoke("gid").Wait(); // GetInitData
+            //    hubProxy.Invoke("cu", StateOnline).Wait(); // ConnectUser
+            //    // hubProxy.Invoke("gid").Wait(); // GetInitData
 
-                log.Debug("MiniChat is OK!");
-                return string.Empty;
-            }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("SignalR is failed! {0} {1} {2}", ex.Message, ex.StackTrace,
-                    ex.InnerException != null ? ex.InnerException.Message : string.Empty);
-                return HealthCheckResource.ServiceCheckFailed;
-            }
-            finally
-            {
-                if (hubConnection != null)
-                {
-                    hubConnection.Stop();
-                }
-            }
+            //    log.Debug("MiniChat is OK!");
+            //    return string.Empty;
+            //}
+            //catch (Exception ex)
+            //{
+            //    log.ErrorFormat("SignalR is failed! {0} {1} {2}", ex.Message, ex.StackTrace,
+            //        ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+            //    return HealthCheckResource.ServiceCheckFailed;
+            //}
+            //finally
+            //{
+            //    if (hubConnection != null)
+            //    {
+            //        hubConnection.Stop();
+            //    }
+            //}
         }
     }
 

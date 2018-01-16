@@ -27,21 +27,22 @@
 using System;
 using System.Globalization;
 using System.Runtime.Serialization;
-using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
     [Serializable]
     [DataContract]
-    public class TariffSettings : ISettings
+    public class TariffSettings : BaseSettings<TariffSettings>
     {
         private static readonly CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("en-US");
 
         [DataMember(Name = "HideRecommendation")]
         public bool HideBuyRecommendationSetting { get; set; }
+
+        [DataMember(Name = "HideNotify")]
+        public bool HideNotifySetting { get; set; }
 
         [DataMember(Name = "HidePricingPage")]
         public bool HidePricingPageForUsers { get; set; }
@@ -49,40 +50,52 @@ namespace ASC.Web.Studio.UserControls.Management
         [DataMember(Name = "LicenseAccept")]
         public string LicenseAcceptSetting { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new TariffSettings
                 {
                     HideBuyRecommendationSetting = false,
+                    HideNotifySetting = false,
                     HidePricingPageForUsers = false,
                     LicenseAcceptSetting = DateTime.MinValue.ToString(CultureInfo),
                 };
         }
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{07956D46-86F7-433b-A657-226768EF9B0D}"); }
         }
 
         public static bool HideRecommendation
         {
-            get { return SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID).HideBuyRecommendationSetting; }
+            get { return LoadForCurrentUser().HideBuyRecommendationSetting; }
             set
             {
-                var tariffSettings = SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID);
+                var tariffSettings = LoadForCurrentUser();
                 tariffSettings.HideBuyRecommendationSetting = value;
-                SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
+                tariffSettings.SaveForCurrentUser();
+            }
+        }
+
+        public static bool HideNotify
+        {
+            get { return LoadForCurrentUser().HideNotifySetting; }
+            set
+            {
+                var tariffSettings = LoadForCurrentUser();
+                tariffSettings.HideNotifySetting = value;
+                tariffSettings.SaveForCurrentUser();
             }
         }
 
         public static bool HidePricingPage
         {
-            get { return SettingsManager.Instance.LoadSettings<TariffSettings>(TenantProvider.CurrentTenantID).HidePricingPageForUsers; }
+            get { return Load().HidePricingPageForUsers; }
             set
             {
-                var tariffSettings = SettingsManager.Instance.LoadSettings<TariffSettings>(TenantProvider.CurrentTenantID);
+                var tariffSettings = Load();
                 tariffSettings.HidePricingPageForUsers = value;
-                SettingsManager.Instance.SaveSettings(tariffSettings, TenantProvider.CurrentTenantID);
+                tariffSettings.Save();
             }
         }
 
@@ -90,16 +103,15 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             get
             {
-                return !DateTime.MinValue.ToString(CultureInfo)
-                                .Equals(SettingsManager.Instance.LoadSettings<TariffSettings>(Tenant.DEFAULT_TENANT).LicenseAcceptSetting);
+                return !DateTime.MinValue.ToString(CultureInfo).Equals(LoadForDefaultTenant().LicenseAcceptSetting);
             }
             set
             {
-                var tariffSettings = SettingsManager.Instance.LoadSettings<TariffSettings>(Tenant.DEFAULT_TENANT);
+                var tariffSettings = LoadForDefaultTenant();
                 if (DateTime.MinValue.ToString(CultureInfo).Equals(tariffSettings.LicenseAcceptSetting))
                 {
                     tariffSettings.LicenseAcceptSetting = DateTime.UtcNow.ToString(CultureInfo);
-                    SettingsManager.Instance.SaveSettings(tariffSettings, Tenant.DEFAULT_TENANT);
+                    tariffSettings.SaveForDefaultTenant();
                 }
             }
         }

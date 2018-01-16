@@ -171,7 +171,7 @@ namespace ASC.Api.CRM
             var contactInfoID = DaoFactory.GetContactInfoDao().Save(contactInfo);
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
-            MessageService.Send(Request, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
             var contactInfoWrapper = ToContactInfoWrapper(contactInfo);
             contactInfoWrapper.ID = contactInfoID;
@@ -284,7 +284,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetContactInfoDao().Update(contactInfo);
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
-            MessageService.Send(Request, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
             var contactInfoWrapper = ToContactInfoWrapper(contactInfo);
             return contactInfoWrapper;
@@ -390,7 +390,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetContactInfoDao().Delete(id);
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
-            MessageService.Send(Request, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
 
             return wrapper;
         }

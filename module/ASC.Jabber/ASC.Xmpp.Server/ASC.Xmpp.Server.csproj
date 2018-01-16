@@ -60,18 +60,13 @@
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Security">
       <HintPath>..\..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
       <Aliases>MonoAlias</Aliases>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Novell.Directory.LDAP">
-      <HintPath>..\..\..\packages\Novell.Directory.LDAP.2.2.3.0\lib\net45\Novell.Directory.LDAP.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -91,9 +86,6 @@
     <Compile Include="Authorization\AuthIQHandler.cs" />
     <Compile Include="Authorization\AuthHandshakeHandler.cs" />
     <Compile Include="Authorization\AuthTMTokenHandler.cs" />
-    <Compile Include="Authorization\ILdapHelper.cs" />
-    <Compile Include="Authorization\NovellLdapHelper.cs" />
-    <Compile Include="Authorization\SystemLdapHelper.cs" />
     <Compile Include="Authorization\XmppFailureError.cs" />
     <Compile Include="Configuration\IConfigurable.cs" />
     <Compile Include="Configuration\JabberConfiguration.cs" />
@@ -110,7 +102,6 @@
     <Compile Include="Gateway\XmppStartTlsOption.cs" />
     <Compile Include="JabberException.cs" />
     <Compile Include="Services\Jabber\StartTlsHandler.cs" />
-    <Compile Include="SignalrServiceClient.cs" />
     <Compile Include="Services\Jabber\CommandHandler.cs" />
     <Compile Include="Services\Jabber\TransferHandler.cs" />
     <Compile Include="Services\Jabber\MessageArchiveHandler.cs" />
@@ -249,6 +240,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj">
+      <Project>{e588e818-f163-470c-802c-3a6e45b36080}</Project>
+      <Name>ASC.ActiveDirectory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>

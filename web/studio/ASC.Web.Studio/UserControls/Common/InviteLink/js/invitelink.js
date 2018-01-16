@@ -29,18 +29,11 @@ jq(document).ready(function () {
         var inviteLinkShow = true;
 
         if (Teamlab.profile.isPortalOwner === true) {
-            if (typeof (ASC) !== "undefined" &&
-                ASC.hasOwnProperty("Resources") &&
-                ASC.Resources.hasOwnProperty("Master") &&
-                ASC.Resources.Master.hasOwnProperty("ApiResponses_Profiles") &&
-                ASC.Resources.Master.ApiResponses_Profiles.hasOwnProperty("response") &&
-                ASC.Resources.Master.ApiResponses_Profiles.response.length != 0) {
-                var users = ASC.Resources.Master.ApiResponses_Profiles.response;
-                for (var i = 0, n = users.length; i < n; i++) {
-                    if (users[i].isActivated === true && users[i].isOwner === false) {
-                        inviteLinkShow = false;
-                        break;
-                    }
+            var users = ASC.Resources.Master.ApiResponses_ActiveProfiles.response;
+            for (var i = 0, n = users.length; i < n; i++) {
+                if (users[i].isActivated === true && users[i].isOwner === false) {
+                    inviteLinkShow = false;
+                    break;
                 }
             }
             if (inviteLinkShow) {

@@ -7,7 +7,7 @@ Group: Applications/Internet
 URL: http://onlyoffice.com/
 Vendor: ONLYOFFICE (Online documents editor)
 Packager: ONLYOFFICE (Online documents editor) <support@onlyoffice.com>
-Requires: mono-complete >= 5.0.0, nginx >= 0.8.21, mysql-server >= 5.7.0, wget, mono-webserver-hyperfastcgi
+Requires: mono-complete >= 5.0.0, nginx >= 0.8.21, mysql-server >= 5.7.0, wget, mono-webserver-hyperfastcgi, nodejs >= 6.11.4
 BuildArch: noarch
 AutoReq: no
 AutoProv: no
@@ -124,7 +124,7 @@ systemctl enable redis
 systemctl enable nginx
 systemctl start redis
 
-for SVC in monoserve monoserveApiSystem onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+for SVC in monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 	if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 		systemctl enable $SVC
 	fi
@@ -142,7 +142,7 @@ semanage port --add --type http_port_t --proto tcp 8086-8087 || true
 %preun
 #if it is deinstallation then we stop and deregister all services
 if [ $1 -eq 0 ]; then
-	for SVC in monoserve monoserveApiSystem onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+	for SVC in monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 			systemctl stop $SVC
 			systemctl disable $SVC
@@ -154,7 +154,7 @@ fi
 %postun
 #if it was update then we can restart all services including nginx
 if [ $1 -ge 1 ]; then
-	for SVC in redis monoserve monoserveApiSystem onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+	for SVC in redis monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 			systemctl stop $SVC
 			systemctl start $SVC

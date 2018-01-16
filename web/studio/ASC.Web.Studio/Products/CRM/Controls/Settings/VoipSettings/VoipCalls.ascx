@@ -39,9 +39,9 @@
                     <div id="calls-paging-box"></div>
                 </td>
                 <td id="calls-paging-stat-box">
-                    <span><%= CRMCommonResource.Total %>: </span>
+                    <span><%= CRMCommonResource.Total %>:&nbsp;</span>
                     <span id="calls-paging-items-count"></span>
-                    <span><%= CRMCommonResource.ShowOnPage %>: </span>
+                    <span><%= CRMCommonResource.ShowOnPage %>:&nbsp;</span>
                     <select id="calls-paging-page-count">
                         <option value="25">25</option>
                         <option value="50">50</option>

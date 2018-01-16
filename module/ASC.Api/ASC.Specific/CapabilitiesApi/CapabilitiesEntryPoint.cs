@@ -27,12 +27,11 @@
 using System;
 using System.Configuration;
 using System.Web;
-using ASC.ActiveDirectory;
+using ASC.ActiveDirectory.Base.Settings;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.SingleSignOn.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -83,28 +82,26 @@ namespace ASC.Specific.CapabilitiesApi
                 }
                 else
                 {
-                    var settings = SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
+                    var settings = LdapSettings.Load();
 
                     ldapEnabled = settings.EnableLdapAuthentication;
                 }
 
-                string ssoUrl;
+                string ssoUrl = string.Empty;
+                string ssoLabel = string.Empty;
 
                 if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
                     (CoreContext.Configuration.Standalone &&
                      !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
                 {
                     ssoUrl = string.Empty;
+                    ssoLabel = string.Empty;
                 }
                 else
                 {
-                    var settings = SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID);
+                    var settings = SsoSettingsV2.Load();
 
-                    if (!settings.EnableSso)
-                    {
-                        ssoUrl = string.Empty;
-                    }
-                    else
+                    if (settings.EnableSso)
                     {
                         var uri = HttpContext.Current.Request.GetUrlRewriter();
 
@@ -112,13 +109,16 @@ namespace ASC.Specific.CapabilitiesApi
 
                         ssoUrl = string.Format("{0}://{1}{2}{3}", uri.Scheme, uri.Host,
                             (uri.Port == 80 || uri.Port == 443) ? "" : ":" + uri.Port, configUrl);
+
+                        ssoLabel = settings.SpLoginLabel;
                     }
                 }
 
                 var capa = new CapabilitiesData
                 {
                     LdapEnabled = ldapEnabled,
-                    SsoUrl = ssoUrl
+                    SsoUrl = ssoUrl,
+                    SsoLabel = ssoLabel
                 };
 
                 return capa;

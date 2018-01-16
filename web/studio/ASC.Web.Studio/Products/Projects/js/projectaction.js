@@ -26,11 +26,11 @@
 
 ASC.Projects.ProjectAction = (function() {
     var projectId,
-        activeTasksCount,
-        activeMilestonesCount,
+        activeTasksCount = 0,
+        activeMilestonesCount = 0,
         opportunityId = undefined,
         contactId = undefined,
-        projectTeam = new Array(),
+        teamIds = new Array(),
         currentUserId,
         projectResponsible,
         $projectManagerSelector,
@@ -55,21 +55,30 @@ ASC.Projects.ProjectAction = (function() {
         itemsDisplayListClass = ".items-display-list",
         tagAutocompleteSelectedItemClass = "tagAutocompleteSelectedItem";
 
-    var teamlab, loadingBanner;
+    var teamlab, loadingBanner, project, team = [];
 
     var init = function () {
         teamlab = Teamlab;
         loadingBanner = LoadingBanner;
-
         currentUserId = teamlab.profile.id;
         var param = jq.getURLParam("opportunityID");
         opportunityId = param ? param : undefined;
         param = jq.getURLParam("contactID");
         contactId = param ? param : undefined;
-
         projectId = jq.getURLParam("prjID");
-        activeTasksCount = parseInt(jq("#activeTasks").val());
-        activeMilestonesCount = parseInt(jq("#activeMilestones").val()),
+
+        if (!projectId) {
+            teamlab.getPrjTemplates({}, { success: onGetTemplates });
+        } else {
+            teamlab.getPrjProject({}, projectId, { success: onGetProject });
+        }
+    };
+
+    function initObjects() {
+        if (project) {
+            activeTasksCount = project.taskCount;
+            activeMilestonesCount = project.milestoneCount;
+        }
 
         $projectManagerSelector = jq("#projectManagerSelector"),
         $projectTeamSelector = jq("#projectTeamSelector");
@@ -94,11 +103,7 @@ ASC.Projects.ProjectAction = (function() {
                 clearFields();
             }
         }
-        
-        if (!projectId && jq("#templateContainer").length) {
-            teamlab.getPrjTemplates({}, { success: onGetTemplates });
-        }
-        // onChoosePM
+
 
         var selectedProjectManager = $projectManagerSelector.attr("data-id");
         $projectManagerSelector.useradvancedSelector({
@@ -108,31 +113,41 @@ ASC.Projects.ProjectAction = (function() {
             onechosen: true
         }).on("showList", onChooseProjectManager);
 
-        projectResponsible = jq("#projectResponsible").val();
+        $projectTeamSelector.useradvancedSelector({
+            itemsDisabledIds: projectId ? [$projectManagerSelector.attr("data-id")] : [],
+            itemsSelectedIds: projectId ? teamIds : [],
+            showGroups: true
+        }).on("showList", onChooseProjectTeam);
 
-        function onChooseProjectManager(e, item) {
-            var id = item.id,
-                name = item.title;
+        if (project) {
+            projectResponsible = project.responsible.id;
+            var statuses = ASC.Projects.Resources.ProjectStatus;
 
-            $projectManagerSelector.html(name).attr("data-id", id).removeClass("plus");
+            $projectStatus.advancedSelector({
+                itemsSelectedIds: project.status,
+                onechosen: true,
+                showSearch: false,
+                itemsChoose: statuses,
+                sortMethod: function () {
+                    return 0;
+                }
+            }).on("showList", function (event, item) {
+                $projectStatusContainer.find(".selected-before").removeClass("selected-before");
+                $projectStatus.attr("data-id", item.id).text(item.title).attr("title", item.title);
+                showCloseQuestion(item.id);
+            });
 
-            if (id == currentUserId) {
-                $notifyManagerCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
-                $followingProjectCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
-            } else {
-                $notifyManagerCheckbox.removeAttr(disabledAttr).prop(checkedProp, true);
-                $followingProjectCheckbox.removeAttr(disabledAttr);
+            team = ASC.Projects.Master.Team.filter(function (item) {
+                return item.id !== projectResponsible;
+            });
+            if ($projectManagerSelector.attr("data-id") == currentUserId) {
+                $projectManagerSelector.useradvancedSelector("selectBeforeShow", { id: currentUserId, title: ASC.Resources.Master.Resource.MeLabel });
             }
+            displayProjectTeam();
+        }
+    }
 
-            if (projectResponsible) {
-                $projectTeamSelector.useradvancedSelector("undisable", [projectResponsible]);
-            }
-            $projectTeamSelector.useradvancedSelector("disable", [id]);
-            $projectParticipantsContainer.find("li[participantId=" + id + "] .reset-action ").addClass("hidden");
-            projectResponsible = id;
-            $projectParticipantsContainer.find(".items-display-list_i[participantid='" + id + "'] .reset-action").click();
-        };
-        
+    function initEvents() {
         jq("[id$=inputUserName]").keyup(function (eventObject) {
             if (eventObject.which == 13) {
                 var id = jq("#login").attr("value");
@@ -148,44 +163,6 @@ ASC.Projects.ProjectAction = (function() {
             }
         });
 
-        $projectTeamSelector.useradvancedSelector({
-            itemsDisabledIds: projectId ? [$projectManagerSelector.attr("data-id")] : [],
-            itemsSelectedIds: projectId ? projectTeam : [],
-            showGroups: true
-        }).on("showList", onChooseProjectTeam);
-
-        function onChooseProjectTeam(e, items) {
-            projectTeam = [];
-
-            $projectParticipantsContainer.find(itemsDisplayListClass).empty();
-            $projectParticipantsContainer.hide();
-            displayProjectTeam(items);
-            return false;
-        };
-
-        if (projectId) {
-            var statuses = $projectStatus.attr("data-status").split(";").map(
-                function(item) {
-                    var keyValuePair = item.split(",");
-                    return { id: keyValuePair[0], title: keyValuePair[1] }
-                });
-
-            $projectStatus.advancedSelector({
-                itemsSelectedIds: $projectStatus.attr("data-id"),
-                onechosen: true,
-                showSearch: false,
-                itemsChoose: statuses,
-                sortMethod: function() {
-                    return 0;
-                }
-            }).on("showList", function(event, item) {
-                $projectStatusContainer.find(".selected-before").removeClass("selected-before");
-                $projectStatus.attr("data-id", item.id).text(item.title).attr("title", item.title);
-                showCloseQuestion(item.id);
-            });
-        }
-
-        // tags
         jq("body").click(function (event) {
             var target = (event.target) ? event.target : event.srcElement;
             var element = jq(target);
@@ -229,11 +206,11 @@ ASC.Projects.ProjectAction = (function() {
             var code = eventObject.which;
             //left
             if (code == 37) { return; }
-            //up
+                //up
             else if (code == 38) { moveSelected(true); return; }
-            //right
+                //right
             else if (code == 39) { return; }
-            //down
+                //down
             else if (code == 40) { moveSelected(false); return; }
 
             var tagName = titles[titles.length - 1];
@@ -251,7 +228,7 @@ ASC.Projects.ProjectAction = (function() {
 
         // popup and other button
 
-        jq("#projectActionButton").click(function() {
+        jq("#projectActionButton").click(function () {
             if (!validateProjectData() || jq(this).hasClass("disable")) return;
 
             jq(this).addClass("disable");
@@ -268,7 +245,7 @@ ASC.Projects.ProjectAction = (function() {
 
         jq("#projectDeleteButton").click(function () {
             ASC.Projects.Base.showCommonPopup("projectRemoveWarning",
-                function() {
+                function () {
                     lockProjectActionPageElements();
                     teamlab.removePrjProject({}, projectId, { success: onDeleteProject, error: unlockProjectActionPageElements });
                 });
@@ -279,37 +256,93 @@ ASC.Projects.ProjectAction = (function() {
             window.onbeforeunload = null;
             document.location.href = document.referrer;
         });
-        
-        $projectParticipantsContainer.on("click", itemsDisplayListClass + " .reset-action", function () {
-            var id = jq(this).attr("data-userid");
-            deleteItemInArray(projectTeam, id);
-            $projectParticipants.attr("value", projectTeam.join());
-            if (projectTeam.length == 0) {
+
+        $projectParticipantsContainer.on("click", ".reset-action", function () {
+            var $tr = jq(this).parents("tr.pm-projectTeam-participantContainer");
+            var id = $tr.attr("data-partisipantid");
+            deleteItemInArray(teamIds, id);
+            $projectParticipants.attr("value", teamIds.join());
+            if (teamIds.length == 0) {
                 $projectParticipantsContainer.hide();
             }
-            if (ASC.Projects.MilestoneContainer) return;
-            $projectParticipantsContainer.find("li[participantId=" + id + "]").remove();
+            
+            $tr.remove();
             $projectTeamSelector.useradvancedSelector("undisable", [id]).useradvancedSelector("unselect", [id]);
+
+            ASC.Projects.CreateProjectStructure.onResetAction(id);
         });
 
-        if (projectId) {
-            var teamPrj = ASC.Projects.Master.Team.map(function(el) {
-                return {
-                    id: el.id,
-                    title: el.displayName,
-                    profileUrl: el.profileUrl
-                };
-            });
-            if ($projectManagerSelector.attr("data-id") == currentUserId) {
-                $projectManagerSelector.useradvancedSelector("selectBeforeShow", { id: currentUserId, title: ASC.Resources.Master.Resource.MeLabel });
+        $projectParticipantsContainer.on("click", ".right-checker", function () {
+            var checker = jq(this);
+            if (checker.closest("tr").hasClass("disable") || checker.hasClass("no-dotted")) {
+                return;
             }
-            displayProjectTeam(teamPrj);
-        }
+
+            var onClass = "pm-projectTeam-modulePermissionOn",
+                offClass = "pm-projectTeam-modulePermissionOff";
+
+            if (checker.hasClass(offClass)) {
+                checker.removeClass(offClass).addClass(onClass);
+            } else if (checker.hasClass(onClass)) {
+                checker.removeClass(onClass).addClass(offClass);
+            }
+
+            var id = checker.parents("tr.pm-projectTeam-participantContainer").attr("data-partisipantid");
+            team.find(function(item) { return item.id === id; })[checker.attr("data-flag")] = checker.hasClass(onClass);
+        });
+
+
         if (!projectId && ASC.Projects.MilestoneContainer) {
             ASC.Projects.MilestoneContainer.init();
         }
         jq.confirmBeforeUnload(confirmBeforeUnloadCheck);
 
+        $projectPrivacyCheckbox.on("change", function(e) {
+            displayProjectTeam();
+        });
+    }
+
+    function onChooseProjectTeam(e, items) {
+        teamIds = [];
+
+        var findInTeam = function(i) {
+            return function(item) { return item.id === items[i].id; };
+        };
+        var newTeam = [];
+        for (var i = 0, j = items.length; i < j; i++) {
+            var exist = team.find(findInTeam(i));
+            if (exist) {
+                newTeam.push(exist);
+            } else {
+                newTeam.push(items[i]);
+            }
+        }
+
+        team = newTeam;
+        displayProjectTeam();
+        return false;
+    };
+
+    function onChooseProjectManager(e, item) {
+        var id = item.id,
+            name = item.title;
+
+        $projectManagerSelector.html(name).attr("data-id", id).removeClass("plus");
+
+        if (id == currentUserId) {
+            $notifyManagerCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
+            $followingProjectCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
+        } else {
+            $notifyManagerCheckbox.removeAttr(disabledAttr).prop(checkedProp, true);
+            $followingProjectCheckbox.removeAttr(disabledAttr);
+        }
+
+        if (projectResponsible) {
+            $projectTeamSelector.useradvancedSelector("undisable", [projectResponsible]);
+        }
+        projectResponsible = id;
+        $projectParticipantsContainer.find("tr[data-partisipantid='" + id + "'] .reset-action").click();
+        $projectTeamSelector.useradvancedSelector("disable", [id]);
     };
 
     function confirmBeforeUnloadCheck() {
@@ -324,19 +357,56 @@ ASC.Projects.ProjectAction = (function() {
             (project.participants && project.participants.length);
     };
 
-    function displayProjectTeam(team) {
-        projectTeam = team.map(function (item) { return item.id; });
+    function displayProjectTeam() {
+        teamIds = team.map(function (item) { return item.id; });
+
         var projectManagerId = $projectManagerSelector.attr("data-id");
-        $projectParticipants.attr("value", projectTeam.join());
+        $projectParticipants.attr("value", teamIds.join());
+
         if (team.length > 0) {
-            jq.tmpl("projectParticipant", team).appendTo($projectParticipantsContainer.find(itemsDisplayListClass));
+            var teamForTemplate = team.map(function(item) {
+                return jq.extend({}, item, window.UserManager.getUser(item.id));
+            });
+
+            var data = jq.tmpl('member_template_without_photo',
+            {
+                team: teamForTemplate.map(mapTeamMember),
+                project: {
+                    canEditTeam: true,
+                    isPrivate: $projectPrivacyCheckbox.is(":" + checkedProp)
+                }
+            });
+
+            $projectParticipantsContainer.html(data);
+
             if (projectManagerId) {
-                $projectParticipantsContainer.find("li[participantId=" + projectManagerId + "] .reset-action").addClass("hidden");
+                $projectParticipantsContainer.find("li[participantId=" + projectManagerId + "] .reset-action")
+                    .addClass("hidden");
             }
             $projectParticipantsContainer.show();
-            $projectTeamSelector.useradvancedSelector("select", projectTeam);
+            $projectTeamSelector.useradvancedSelector("select", teamIds);
+        } else {
+            $projectParticipantsContainer.empty().hide();
         }
     };
+
+    function mapTeamMember(item) {
+        var resources = ASC.Projects.Resources;
+        item.isManager = projectResponsible === item.id;
+        return jq.extend({
+                security: [
+                    security(item, "canReadMessages", resources.MessageResource.Messages),
+                    security(item, "canReadFiles", resources.ProjectsFileResource.Documents),
+                    security(item, "canReadTasks", resources.TasksResource.AllTasks),
+                    security(item, "canReadMilestones", resources.MilestoneResource.Milestones),
+                    security(item, "canReadContacts", resources.CommonResource.ModuleContacts)
+                ]
+            }, item);
+    }
+
+    function security(item, flag, title) {
+        return { check: getPropertyOrDefault(item, flag), flag: flag, title: title };
+    }
 
     function clearFields() {
         $projectTitle.add($projectDescription).add($projectTags).val("");
@@ -380,7 +450,7 @@ ASC.Projects.ProjectAction = (function() {
         var project =
         {
             title: jq.trim($projectTitle.val()),
-            responsibleid: $projectManagerSelector.attr("data-id"),
+            responsibleid: projectResponsible,
             notify: $notifyManagerCheckbox.is(":" + checkedProp),
             description: $projectDescription.val(),
             tags: $projectTags.val(),
@@ -388,25 +458,33 @@ ASC.Projects.ProjectAction = (function() {
             templateProjectId: jq("#SelectedTemplateID").val()
         };
         
-        if (ASC.Projects.CreateMilestoneContainer) {
-            project.milestones = ASC.Projects.CreateMilestoneContainer.getProjMilestones();
-            project.tasks = ASC.Projects.CreateMilestoneContainer.getProjTasks();
+        if (ASC.Projects.CreateProjectStructure) {
+            project.milestones = ASC.Projects.CreateProjectStructure.getProjMilestones();
+            project.tasks = ASC.Projects.CreateProjectStructure.getProjTasks();
         }
 
         if (projectId) {
             project.status = $projectStatus.attr("data-id");
         }
-        if ($projectParticipants.length != 0) {
-            var participants = $projectParticipants.attr("value"),
-                team = [];
-            if (participants) {
-                team = participants.split(",");
-                if (team.length > 0)
-                    project.participants = team;
-            }
+        if (team) {
+            project.participants = team.map(function (item) {
+                return {
+                    ID: item.id,
+                    CanReadMessages: getPropertyOrDefault(item, "canReadMessages"),
+                    CanReadFiles: getPropertyOrDefault(item, "canReadFiles"),
+                    CanReadTasks: getPropertyOrDefault(item, "canReadTasks"),
+                    CanReadMilestones: getPropertyOrDefault(item, "canReadMilestones"),
+                    CanReadContacts: getPropertyOrDefault(item, "canReadContacts")
+                }
+            });
+
         }
         return project;
     };
+
+    function getPropertyOrDefault(item, property) {
+        return item.hasOwnProperty(property) ? item[property] : true;
+    }
 
     function removeContactFromProject(contactid) {
         var contactContainer = jq("#contactTable");
@@ -472,7 +550,7 @@ ASC.Projects.ProjectAction = (function() {
         var following = $followingProjectCheckbox.is(":" + checkedProp);
 
         var isManager = project.responsible.id == currentUserId;
-        var isInTeam = getArrayIndex(currentUserId, projectTeam) != -1;
+        var isInTeam = getArrayIndex(currentUserId, teamIds) != -1;
         if (following && !isInTeam & !isManager) {
             teamlab.followingPrjProject({}, project.id, { projectId: project.id }, { success: onFollowingProject });
         } else {
@@ -682,6 +760,29 @@ ASC.Projects.ProjectAction = (function() {
     };
 
     function onGetTemplates(params, data) {
+        jq("#projectActionPage").html(jq.tmpl("projects_action_create",
+        {
+            IsProjectCreatedFromCrm: isProjectsCreatedFromCRM(),
+            hideChooseTeam: ASC.Resources.Master.ApiResponses_ActiveProfiles.response.length === 1,
+            showTemplates: data.length > 0,
+            pageTitle: ASC.Projects.Resources.ProjectResource.CreateNewProject,
+            IsPrivateDisabled: false,
+            project: {
+                title: "",
+                description: "",
+                manager: {
+                    id: "",
+                    name: ASC.Projects.Resources.ProjectResource.AddProjectManager
+                },
+                "private": true,
+                canDelete: true,
+                tags: []
+            },
+            actionButton: ASC.Projects.Resources.ProjectResource.AddNewProject
+        }));
+        initObjects();
+        initEvents();
+
         jq("#templateContainer").removeClass("display-none");
         var templateSelect = jq("#templateSelect");
         templateSelect.projectadvancedSelector(
@@ -693,7 +794,7 @@ ASC.Projects.ProjectAction = (function() {
         
         templateSelect.on("showList", function (event, item) {
             templateSelect.text(item.title).attr("title", item.title);
-            ASC.Projects.CreateMilestoneContainer.onGetTemplate({}, item);
+            ASC.Projects.CreateProjectStructure.onGetTemplate({}, item);
         });
         
         var tmplid = jq.getURLParam("tmplid");
@@ -703,7 +804,39 @@ ASC.Projects.ProjectAction = (function() {
                 templateSelect.projectadvancedSelector("selectBeforeShow", tmpl);
         }
     };
-    
+
+    function onGetProject(params, data) {
+        project = data;
+        jq("#projectActionPage").html(jq.tmpl("projects_action_create",
+            {
+                IsProjectCreatedFromCrm: isProjectsCreatedFromCRM(),
+                hideChooseTeam: ASC.Resources.Master.ApiResponses_ActiveProfiles.response.length === 1,
+                showTemplates: false,
+                pageTitle: ASC.Projects.Resources.ProjectResource.EditProject,
+                IsPrivateDisabled: false,
+                project: {
+                    title: data.title,
+                    description: data.description,
+                    manager: {
+                        id: data.responsible.id,
+                        name: data.responsible.displayName
+                    },
+                    status: ASC.Projects.Resources.ProjectStatus.find(function(item) {
+                        return item.id === data.status;
+                    }),
+                    "private": data.isPrivate,
+                    canDelete: data.canDelete,
+                    url: "tasks.aspx?prjID=" + data.ID,
+                    tags: data.tags.length ? data.tags.reduce(function (previousValue, currentValue) {
+                        return previousValue + ", " + currentValue;
+                    }) : ""
+                },
+                actionButton: ASC.Projects.Resources.ProjectResource.SaveProject
+            }));
+        initObjects();
+        initEvents();
+    }
+
     return {
         init: init
     };

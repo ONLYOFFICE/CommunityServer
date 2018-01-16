@@ -35,7 +35,7 @@ namespace ASC.Web.Core.WhiteLabel
 {
     [Serializable]
     [DataContract]
-    public class MailWhiteLabelSettings : ISettings
+    public class MailWhiteLabelSettings : BaseSettings<MailWhiteLabelSettings>
     {
         [DataMember(Name = "FooterEnabled")]
         public bool FooterEnabled { get; set; }
@@ -78,12 +78,12 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region ISettings Members
 
-        public Guid ID
+        public override Guid ID
         {
             get { return new Guid("{C3602052-5BA2-452A-BD2A-ADD0FAF8EB88}"); }
         }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new MailWhiteLabelSettings
                 {
@@ -152,7 +152,7 @@ namespace ASC.Web.Core.WhiteLabel
         {
             get
             {
-                return SettingsManager.Instance.LoadSettings<MailWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+                return LoadForDefaultTenant();
             }
         }
     }

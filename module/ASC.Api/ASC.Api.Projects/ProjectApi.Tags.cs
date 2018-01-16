@@ -42,7 +42,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project tags
         ///</short>
-        /// <category>Tags</category>
+        ///<category>Tags</category>
         ///<returns>List of tags</returns>
         [Read(@"tag")]
         public IEnumerable<ObjectWrapperBase> GetAllTags()
@@ -56,7 +56,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Project by tag
         ///</short>
-        /// <category>Tags</category>
+        ///<category>Tags</category>
         ///<param name="tag">Tag name</param>
         ///<returns>List of projects</returns>
         [Read(@"tag/{tag}")]
@@ -73,7 +73,7 @@ namespace ASC.Api.Projects
         ///<short>
         ///Tags by tag name
         ///</short>
-        /// <category>Tags</category>
+        ///<category>Tags</category>
         ///<param name="tagName">Tag name</param>
         ///<returns>List of tags</returns>
         [Read(@"tag/search")]

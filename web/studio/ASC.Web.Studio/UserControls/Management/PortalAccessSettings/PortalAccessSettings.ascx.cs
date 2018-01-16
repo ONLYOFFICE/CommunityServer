@@ -24,7 +24,6 @@
 */
 
 
-using ASC.Core.Common.Settings;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -68,7 +67,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var managementPage = Page as Studio.Management;
 
-            Settings = managementPage != null ? managementPage.TenantAccess : SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
+            Settings = managementPage != null ? managementPage.TenantAccess : TenantAccessSettings.Load();
 
             var currentTenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
 
@@ -95,7 +94,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
 
-                var currentSettings = SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
+                var currentSettings = TenantAccessSettings.Load();
 
                 //do nothing if no changes detected
                 if (currentSettings.Anyone != anyone)
@@ -112,9 +111,9 @@ namespace ASC.Web.Studio.UserControls.Management
                             WebItemSecurity.SetSecurity(item.ID.ToString(), item.ID != WebItemManager.CRMProductID, null); //disable crm product
                         }
 
-                        SettingsManager.Instance.SaveSettings(new TenantAccessSettings { Anyone = true, RegisterUsersImmediately = registerUsers }, TenantProvider.CurrentTenantID);
-                        SettingsManager.Instance.SaveSettings(new StudioTrustedDomainSettings { InviteUsersAsVisitors = false }, TenantProvider.CurrentTenantID);
-                        SettingsManager.Instance.SaveSettings(new StudioAdminMessageSettings { Enable = true }, TenantProvider.CurrentTenantID);
+                        new TenantAccessSettings { Anyone = true, RegisterUsersImmediately = registerUsers }.Save();
+                        new StudioTrustedDomainSettings { InviteUsersAsVisitors = false }.Save();
+                        new StudioAdminMessageSettings { Enable = true }.Save();
 
                         IPRestrictionsService.Save(new List<string>(), TenantProvider.CurrentTenantID);
 
@@ -126,9 +125,9 @@ namespace ASC.Web.Studio.UserControls.Management
                         var freeQuota = CoreContext.TenantManager.GetTenantQuotas(true).FirstOrDefault(q => q.Id == Tariff.CreateDefault().QuotaId);
                         SetQuota(freeQuota);
 
-                        SettingsManager.Instance.SaveSettings(new TenantAccessSettings { Anyone = false, RegisterUsersImmediately = false }, TenantProvider.CurrentTenantID);
-                        SettingsManager.Instance.SaveSettings(new StudioTrustedDomainSettings { InviteUsersAsVisitors = false }, TenantProvider.CurrentTenantID);
-                        SettingsManager.Instance.SaveSettings(new StudioAdminMessageSettings { Enable = false }, TenantProvider.CurrentTenantID);
+                        new TenantAccessSettings { Anyone = false, RegisterUsersImmediately = false }.Save();
+                        new StudioTrustedDomainSettings { InviteUsersAsVisitors = false }.Save();
+                        new StudioAdminMessageSettings { Enable = false }.Save();
 
                         foreach (var item in items)
                         {
@@ -143,7 +142,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 }
                 else if (anyone && currentSettings.RegisterUsersImmediately != registerUsers)
                 {
-                    SettingsManager.Instance.SaveSettings(new TenantAccessSettings { Anyone = true, RegisterUsersImmediately = registerUsers }, TenantProvider.CurrentTenantID);
+                    new TenantAccessSettings { Anyone = true, RegisterUsersImmediately = registerUsers }.Save();
                     tenant.TrustedDomainsType = registerUsers ? TenantTrustedDomainsType.All : TenantTrustedDomainsType.None;
                     CoreContext.TenantManager.SaveTenant(tenant);
                 }

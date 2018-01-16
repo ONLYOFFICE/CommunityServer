@@ -94,6 +94,11 @@ namespace ASC.Api.Projects.Wrappers
             Description = task.Description;
             Status = (int)task.Status;
 
+            if (Status > 2)
+            {
+                Status = 1;
+            }
+
             if (task.Responsibles != null)
             {
                 Responsibles = task.Responsibles.Select(EmployeeWraper.Get).OrderBy(r => r.DisplayName).ToList();

@@ -40,7 +40,6 @@ using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
-using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;

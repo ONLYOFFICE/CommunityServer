@@ -150,7 +150,7 @@ namespace ASC.Web.Projects.Classes
             var parameters = new XsltArgumentList();
             var columns = report.GetColumns(view, templateID);
             var logo = string.IsNullOrEmpty(SetupInfo.MainLogoMailTmplURL) ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true)) : SetupInfo.MainLogoMailTmplURL;
-            var logoText = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID).LogoText;
+            var logoText = TenantWhiteLabelSettings.Load().LogoText;
 
             for (var i = 0; i < columns.Count; i++)
             {

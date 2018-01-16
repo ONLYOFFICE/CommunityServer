@@ -34,6 +34,8 @@ server {
 
         add_header Access-Control-Allow-Origin *;
 
-        include /etc/nginx/includes/onlyoffice-communityserver-*.conf;
+	large_client_header_buffers 4 16k;
+        
+	include /etc/nginx/includes/onlyoffice-communityserver-*.conf;
 
 }	

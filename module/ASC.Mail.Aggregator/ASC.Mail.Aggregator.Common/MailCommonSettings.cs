@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using ASC.Core;
 using ASC.Core.Common.Settings;
 
 namespace ASC.Mail.Aggregator.Common
 {
     [Serializable]
     [DataContract]
-    public class MailCommonSettings : ISettings
+    public class MailCommonSettings : BaseSettings<MailCommonSettings>
     {
         [DataMember(Name = "EnableConversations")]
         public bool EnableConversationsSetting { get; set; }
@@ -21,7 +20,7 @@ namespace ASC.Mail.Aggregator.Common
         [DataMember(Name = "EnableGoNextAfterMove")]
         public bool EnableGoNextAfterMoveSetting { get; set; }
 
-        public ISettings GetDefault()
+        public override ISettings GetDefault()
         {
             return new MailCommonSettings
             {
@@ -32,14 +31,7 @@ namespace ASC.Mail.Aggregator.Common
             };
         }
 
-        public static MailCommonSettings GetSettings()
-        {
-            var settings = SettingsManager.Instance.LoadSettingsFor<MailCommonSettings>(SecurityContext.CurrentAccount.ID);
-
-            return settings;
-        }
-
-        public Guid ID {
+        public override Guid ID {
             get { return new Guid("{AA4E16A0-B9F5-402A-A71E-9A1EC6E6B57A}"); }
         }
 
@@ -47,17 +39,13 @@ namespace ASC.Mail.Aggregator.Common
         {
             set
             {
-                var setting = GetSettings();
-
+                var setting = LoadForCurrentUser();
                 setting.EnableConversationsSetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
             get
             {
-                return
-                    SettingsManager.Instance.LoadSettingsFor<MailCommonSettings>(SecurityContext.CurrentAccount.ID)
-                        .EnableConversationsSetting;
+                return LoadForCurrentUser().EnableConversationsSetting;
             }
         }
 
@@ -65,17 +53,13 @@ namespace ASC.Mail.Aggregator.Common
         {
             set
             {
-                var setting = GetSettings();
-
+                var setting = LoadForCurrentUser();
                 setting.AlwaysDisplayImagesSetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
             get
             {
-                return
-                    SettingsManager.Instance.LoadSettingsFor<MailCommonSettings>(SecurityContext.CurrentAccount.ID)
-                        .AlwaysDisplayImagesSetting;
+                return LoadForCurrentUser().AlwaysDisplayImagesSetting;
             }
         }
 
@@ -83,17 +67,13 @@ namespace ASC.Mail.Aggregator.Common
         {
             set
             {
-                var setting = GetSettings();
-
+                var setting = LoadForCurrentUser();
                 setting.CacheUnreadMessagesSetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
             get
             {
-                return
-                    SettingsManager.Instance.LoadSettingsFor<MailCommonSettings>(SecurityContext.CurrentAccount.ID)
-                        .CacheUnreadMessagesSetting;
+                return LoadForCurrentUser().CacheUnreadMessagesSetting;
             }
         }
 
@@ -101,17 +81,13 @@ namespace ASC.Mail.Aggregator.Common
         {
             set
             {
-                var setting = GetSettings();
-
+                var setting = LoadForCurrentUser();
                 setting.EnableGoNextAfterMoveSetting = value;
-
-                SettingsManager.Instance.SaveSettingsFor(setting, SecurityContext.CurrentAccount.ID);
+                setting.SaveForCurrentUser();
             }
             get
             {
-                return
-                    SettingsManager.Instance.LoadSettingsFor<MailCommonSettings>(SecurityContext.CurrentAccount.ID)
-                        .EnableGoNextAfterMoveSetting;
+                return LoadForCurrentUser().EnableGoNextAfterMoveSetting;
             }
         }
     }

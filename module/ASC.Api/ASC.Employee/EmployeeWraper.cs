@@ -24,12 +24,12 @@
 */
 
 
+using System;
+using System.Runtime.Serialization;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Runtime.Serialization;
 
 namespace ASC.Api.Employee
 {
@@ -48,7 +48,7 @@ namespace ASC.Api.Employee
             {
                 Title = userInfo.Title;
             }
-            AvatarSmall = UserPhotoManager.GetSizedPhotoUrl(userInfo.ID, 64, 64);
+            AvatarSmall = CommonLinkUtility.GetFullAbsolutePath(UserPhotoManager.GetSizedPhotoUrl(userInfo.ID, 64, 64));
         }
 
 
@@ -71,7 +71,7 @@ namespace ASC.Api.Employee
             {
                 if (Id == Guid.Empty) return string.Empty;
                 var profileUrl = CommonLinkUtility.GetUserProfile(Id.ToString(), false);
-                return CommonLinkUtility.ToAbsolute(profileUrl);
+                return CommonLinkUtility.GetFullAbsolutePath(profileUrl);
             }
         }
 

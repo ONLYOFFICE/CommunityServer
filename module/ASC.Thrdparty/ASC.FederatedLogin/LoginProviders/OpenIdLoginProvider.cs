@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using ASC.FederatedLogin.Profile;
-using ASC.Thrdparty;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;

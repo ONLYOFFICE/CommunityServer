@@ -73,7 +73,6 @@ window.ASC.Files.Filter = (function () {
     };
 
     var disableFilter = function () {
-        var isMy = ASC.Files.Folders.folderContainer == "my";
         var isForMe = ASC.Files.Folders.folderContainer == "forme";
         var isRootProject = ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_PROJECT;
         var isPersonal = ASC.Resources.Master.Personal == true;
@@ -83,11 +82,11 @@ window.ASC.Files.Filter = (function () {
         ASC.Files.Filter.advansedFilter.advansedFilter({
             filters: [
                 {id: "selected-type", visible: !isRootProject},
-                {id: "selected-person", visible: !isMy && !isRootProject && !isPersonal},
-                {id: "selected-group", visible: !isMy && !isRootProject && !isPersonal}
+                {id: "selected-person", visible: !isRootProject && !isPersonal},
+                {id: "selected-group", visible: !isRootProject && !isPersonal}
             ],
             sorters: [
-                {id: "Author", visible: !isMy}
+                {id: "Author", visible: !isPersonal}
             ]
         });
 
@@ -106,7 +105,7 @@ window.ASC.Files.Filter = (function () {
             return;
         }
 
-        ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, false, true);
+        ASC.Files.Anchor.navigationSet(ASC.Files.Folders.currentFolder.id, false);
     };
 
     var clearFilter = function (safeMode) {

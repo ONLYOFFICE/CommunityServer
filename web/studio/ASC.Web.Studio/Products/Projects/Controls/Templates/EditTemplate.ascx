@@ -3,8 +3,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditTemplate.ascx.cs" Inherits="ASC.Web.Projects.Controls.Templates.EditTemplate" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 
-<%@ Register TagPrefix="act" TagName="AddMilestoneContainer" Src="../../Controls/Common/AddMilestoneContainer.ascx" %>
-
 <div class="projects-templates-container">
     <div id="pageHeader">
         <div class="pageTitle"><%= GetPageTitle() %></div>
@@ -17,7 +15,9 @@
         <div class="headerPanelSmall"><%=ProjectTemplatesResource.TemplateTitle %>:</div>
         <input id="templateTitle" type="text" value="" class="textEdit" maxlength="250"/>
     </div>
-    <act:AddMilestoneContainer runat="server" Edit="True"/>
+
+    <span id="amContainer"></span>
+
     <div class="buttonContainer big-button-container">
         <a id="saveTemplate" class="button blue big">
             <%= ProjectTmplId >= 0 ? ProjectTemplatesResource.SaveChanges :  ProjectTemplatesResource.SaveTemplate%>

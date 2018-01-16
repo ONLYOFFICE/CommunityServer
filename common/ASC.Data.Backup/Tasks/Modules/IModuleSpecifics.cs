@@ -58,7 +58,7 @@ namespace ASC.Data.Backup.Tasks.Modules
 
         IEnumerable<TableInfo> GetTablesOrdered(); 
             
-        IDbCommand CreateSelectCommand(IDbConnection connection, int tenantId, TableInfo table);
+        IDbCommand CreateSelectCommand(IDbConnection connection, int tenantId, TableInfo table, int limit, int offset);
         IDbCommand CreateDeleteCommand(IDbConnection connection, int tenantId, TableInfo table);
         IDbCommand CreateInsertCommand(IDbConnection connection, ColumnMapper columnMapper, TableInfo table, DataRowInfo row);
 

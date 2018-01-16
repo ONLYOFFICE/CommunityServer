@@ -1437,9 +1437,9 @@ ASC.Projects.GantChartPage = (function () {
             createdDate = project.created ? new Date(project.created) : new Date(), // нужна ли эта дата вообще?
             ganttIndex = project.ganttIndex;
 
-        var respUser = common.getUserById(project.responsibleId);
+        var respUser = window.UserManager.getUser(project.responsibleId);
 
-        if ('User not found' === respUser) {
+        if (!respUser) {
             if (undefined !== project.responsible && undefined !== project.responsible.displayName) {
                 respName = project.responsible;
             }
@@ -1491,7 +1491,7 @@ ASC.Projects.GantChartPage = (function () {
     var getFullResponsiblesWrapper = function (respIds) {
         var i, length = respIds.length, fullUsers = [];
         for (i = 0; i < length; ++i) {
-            fullUsers.push(common.getUserById(respIds[i]));
+            fullUsers.push(window.UserManager.getUser(respIds[i]));
         }
         return fullUsers;
     };

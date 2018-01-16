@@ -57,5 +57,15 @@ namespace ASC.Api.CRM
 
         [DataMember]
         public decimal Rate { get; set; }
+
+        public static CurrencyRateWrapper GetSample()
+        {
+            return new CurrencyRateWrapper(1)
+            {
+                FromCurrency = "EUR",
+                ToCurrency = "USD",
+                Rate = (decimal)1.1
+            };
+        }
     }
 }

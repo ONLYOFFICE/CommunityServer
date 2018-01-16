@@ -37,12 +37,16 @@ namespace ASC.Specific.CapabilitiesApi
         [DataMember]
         public string SsoUrl { get; set; } // if empty sso is disabled
 
+        [DataMember]
+        public string SsoLabel { get; set; }
+
         public static CapabilitiesData GetSample()
         {
             return new CapabilitiesData
             {
                 LdapEnabled = false,
-                SsoUrl = string.Empty
+                SsoUrl = string.Empty,
+                SsoLabel = string.Empty
             };
         }
     }

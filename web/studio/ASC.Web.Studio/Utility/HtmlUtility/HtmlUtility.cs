@@ -147,7 +147,7 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
                 return;
             }
 
-            foreach (var node in doc.DocumentNode.SelectNodes("//*"))
+            foreach (var node in nodes)
             {
                 var toRemove = node.Attributes
                                    .Where(htmlAttribute => htmlAttribute.Name.StartsWith("on", StringComparison.OrdinalIgnoreCase)
@@ -238,7 +238,16 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
 
         private static void ProcessMaliciousTag(HtmlDocument doc)
         {
-            var nodes = doc.DocumentNode.SelectNodes("//script|//meta|//style");
+            var nodes = doc.DocumentNode.SelectNodes("//*");
+            if (nodes == null || nodes.Count == 0)
+                return;
+
+            foreach (var node in nodes.Where(node => Regex.IsMatch(node.Name, "\\W")))
+            {
+                node.ParentNode.RemoveChild(node);
+            }
+
+            nodes = doc.DocumentNode.SelectNodes("//script|//meta|//style");
 
             if (nodes == null || nodes.Count == 0)
                 return;

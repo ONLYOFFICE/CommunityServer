@@ -24,6 +24,13 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Security;
+using System.Security.Authentication;
+using System.Security.Principal;
+using System.Threading;
+using System.Web;
 using ASC.Common.Security;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
@@ -34,13 +41,6 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Security.Cryptography;
 using log4net;
-using System;
-using System.Collections.Generic;
-using System.Security;
-using System.Security.Authentication;
-using System.Security.Principal;
-using System.Threading;
-using System.Web;
 
 namespace ASC.Core
 {
@@ -92,7 +92,19 @@ namespace ASC.Core
                 DateTime expire;
                 int indexUser;
 
-                if (CookieStorage.DecryptCookie(cookie, out tenant, out userid, out login, out password, out indexTenant, out expire, out indexUser))
+                if (cookie.Equals("Bearer", StringComparison.InvariantCulture))
+                {
+                    var ipFrom = string.Empty;
+                    var address = string.Empty;
+                    if (HttpContext.Current != null)
+                    {
+                        var request = HttpContext.Current.Request;
+                        ipFrom = "from " + (request.Headers["X-Forwarded-For"] ?? request.UserHostAddress);
+                        address = "for " + request.GetUrlRewriter();
+                    }
+                    log.InfoFormat("Empty Bearer cookie: {0} {1}", ipFrom, address);
+                }
+                else if (CookieStorage.DecryptCookie(cookie, out tenant, out userid, out login, out password, out indexTenant, out expire, out indexUser))
                 {
                     if (tenant != CoreContext.TenantManager.GetCurrentTenant().TenantId)
                     {
@@ -131,22 +143,30 @@ namespace ASC.Core
                     catch (InvalidCredentialException ice)
                     {
                         log.DebugFormat("{0}: cookie {1}, tenant {2}, userid {3}, login {4}, pass {5}",
-                            ice.Message, cookie, tenant, userid, login, password);
+                                        ice.Message, cookie, tenant, userid, login, password);
                     }
                     catch (SecurityException se)
                     {
                         log.DebugFormat("{0}: cookie {1}, tenant {2}, userid {3}, login {4}, pass {5}",
-                            se.Message, cookie, tenant, userid, login, password);
+                                        se.Message, cookie, tenant, userid, login, password);
                     }
                     catch (Exception err)
                     {
                         log.ErrorFormat("Authenticate error: cookie {0}, tenant {1}, userid {2}, login {3}, pass {4}: {5}",
-                            cookie, tenant, userid, login, password, err);
+                                        cookie, tenant, userid, login, password, err);
                     }
                 }
                 else
                 {
-                    log.WarnFormat("Can not decrypt cookie: {0}", cookie);
+                    var ipFrom = string.Empty;
+                    var address = string.Empty;
+                    if (HttpContext.Current != null)
+                    {
+                        var request = HttpContext.Current.Request;
+                        address = "for " + request.GetUrlRewriter();
+                        ipFrom = "from " + (request.Headers["X-Forwarded-For"] ?? request.UserHostAddress);
+                    }
+                    log.WarnFormat("Can not decrypt cookie: {0} {1} {2}", cookie, ipFrom, address);
                 }
             }
             return false;

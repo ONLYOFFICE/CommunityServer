@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
 using ASC.Api.Interfaces;
-using Microsoft.Practices.Unity;
+using Autofac;
 
 namespace ASC.Api.Impl.Routing
 {
@@ -46,18 +46,14 @@ namespace ASC.Api.Impl.Routing
             }
         }
 
-        public Route GetRoute(IApiRouteHandler routeHandler, IApiMethodCall method)
-        {
-            return GetRoute(routeHandler, method, string.Empty);
-        }
-
-        public Route GetRoute(IApiRouteHandler routeHandler, IApiMethodCall method, string extension)
+        public Route GetRoute(IApiRouteHandler routeHandler, IApiMethodCall method, string extension = "")
         {
             var dataTokens = new RouteValueDictionary
                 {
                     { DataTokenConstants.RequiresAuthorization, method.RequiresAuthorization },
                     { DataTokenConstants.CheckPayment, method.CheckPayment },
                 };
+
             return new Route(method.FullPath + extension, null, method.Constraints, dataTokens, routeHandler);
         }
     }

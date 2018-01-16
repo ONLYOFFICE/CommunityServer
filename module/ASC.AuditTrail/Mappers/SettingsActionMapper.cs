@@ -394,6 +394,15 @@ namespace ASC.AuditTrail.Mappers
                                 ProductResourceName = "SettingsProduct",
                                 ModuleResourceName = "ProductsModule"
                             }
+                    },
+                    {
+                        MessageAction.CustomNavigationSettingsUpdated, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "UpdateActionType",
+                                ActionTextResourceName = "CustomNavigationSettingsUpdated",
+                                ProductResourceName = "SettingsProduct",
+                                ModuleResourceName = "ProductsModule"
+                            }
                     }
                 };
         }

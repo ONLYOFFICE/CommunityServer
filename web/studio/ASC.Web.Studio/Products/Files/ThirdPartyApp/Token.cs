@@ -93,11 +93,10 @@ namespace ASC.Web.Files.ThirdPartyApp
             using (var db = new DbManager(FileConstant.DatabaseId))
             {
                 var queryInsert = new SqlInsert(TableTitle, true)
+                    .InColumnValue("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)
                     .InColumnValue("user_id", SecurityContext.CurrentAccount.ID.ToString())
                     .InColumnValue("app", token.App)
-                    .InColumnValue("token", EncryptToken(token))
-                    .InColumnValue("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)
-                    .InColumnValue("modified_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()));
+                    .InColumnValue("token", EncryptToken(token));
 
                 db.ExecuteNonQuery(queryInsert);
             }
@@ -125,13 +124,13 @@ namespace ASC.Web.Files.ThirdPartyApp
             }
         }
 
-        public static void DeleteToken(string app)
+        public static void DeleteToken(string app, Guid? userId = null)
         {
             using (var db = new DbManager(FileConstant.DatabaseId))
             {
                 db.ExecuteNonQuery(new SqlDelete(TableTitle)
                                        .Where("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)
-                                       .Where("user_id", SecurityContext.CurrentAccount.ID.ToString())
+                                       .Where("user_id", (userId ?? SecurityContext.CurrentAccount.ID).ToString())
                                        .Where("app", app));
             }
         }

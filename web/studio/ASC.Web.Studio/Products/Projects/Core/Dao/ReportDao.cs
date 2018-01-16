@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Projects.Core.DataInterfaces;
@@ -111,80 +110,6 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 db.ExecuteNonQuery(Delete(ReportTable).Where("id", id));
-            }
-        }
-
-        public IList<object[]> BuildUsersStatisticsReport(TaskFilter filter)
-        {
-            var query = new SqlQuery(TasksTable + " t")
-                .Select("r.responsible_id")
-                .InnerJoin(TasksResponsibleTable + " r", Exp.EqColumns("r.task_id", "t.id") & Exp.EqColumns("r.tenant_id", "t.tenant_id"))
-                .SelectSum("0")
-                .SelectSum("case t.status when 2 then 0 else 1 end")
-                .SelectSum("case t.status when 2 then 1 else 0 end")
-                .Where("t.tenant_id", Tenant)
-                .GroupBy(1);
-            if (filter.HasUserId)
-            {
-                query.Where(Exp.In("r.responsible_id", filter.GetUserIds()));
-            }
-            else
-            {
-                query.Where(!Exp.Eq("r.responsible_id", Guid.Empty.ToString()));
-            }
-
-            query.Where(filter.HasProjectIds ? Exp.In("t.project_id", filter.ProjectIds) : Exp.Gt("t.project_id", 0));
-
-            if (filter.TagId != 0)
-            {
-                query.InnerJoin(ProjectTagTable + " ptag", Exp.EqColumns("ptag.project_id", "t.project_id"));
-                query.Where("ptag.tag_id", filter.TagId);
-            }
-
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query)
-                    .ConvertAll(r => new object[] {ToGuid(r[0]), Convert.ToInt64(r[1]), Convert.ToInt64(r[2]), Convert.ToInt64(r[3])});
-            }
-        }
-
-        public IList<object[]> BuildUsersActivityReport(TaskFilter filter)
-        {
-            /* query:
-                select u, sum(case t when 't' then c else 0 end), sum(case t when 'm' then c else 0 end), sum(case t when 'd' then c else 0 end)
-                from (
-                    select create_by u, 't' t, count(*) c from projects_tasks where tenant_id = 0 group by 1, 2
-                    union all
-                    select create_by u, 'm' t, count(*) c from projects_milestones where tenant_id = 0 group by 1, 2
-                    union all
-                    select create_by u, 'd' t, count(*) c from projects_messages where tenant_id = 0 group by 1, 2) s
-                group by 1
-             */
-
-            var where = Exp.Eq("tenant_id", Tenant) & Exp.Between("create_on", filter.GetFromDate(true), filter.GetToDate(true));
-            if (filter.HasUserId)
-            {
-                where &= Exp.In("create_by", filter.GetUserIds());
-            }
-
-            var subq = new SqlQuery(TasksTable).Select("create_by u").Select("'t'").Select("count(*) c").Where(where).GroupBy(1, 2)
-                .UnionAll(new SqlQuery(MilestonesTable).Select("create_by u").Select("'m'").Select("count(*) c").Where(where).GroupBy(1, 2))
-                .UnionAll(new SqlQuery(MessagesTable).Select("create_by u").Select("'d'").Select("count(*) c").Where(where).GroupBy(1, 2));
-
-            var q = new SqlQuery()
-                .Select("u")
-                .SelectSum("case t when 't' then c else 0 end")
-                .SelectSum("case t when 'm' then c else 0 end")
-                .SelectSum("case t when 'd' then c else 0 end")
-                .From(subq, "s")
-                .GroupBy(1);
-
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(q)
-                    .Select(r => new { UserId = new Guid((string)r[0]), Tasks = Convert.ToInt32(r[1]), Milestones = Convert.ToInt32(r[2]), Messages = Convert.ToInt32(r[3]) })
-                    .Select(r => new object[] { r.UserId, r.Tasks, r.Milestones, r.Messages, 0, r.Tasks + r.Milestones + r.Messages })
-                    .ToList();
             }
         }
 

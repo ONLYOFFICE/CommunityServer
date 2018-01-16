@@ -50,7 +50,7 @@ window.mailCache = (function($) {
                 function (cb) {
 
                     if (commonSettingsPage.isConversationsEnabled()) {
-                        Teamlab.getMailConversation(null,
+                        Teamlab.getMailConversation({ skipIO: true },
                             id,
                             data,
                             {
@@ -63,7 +63,7 @@ window.mailCache = (function($) {
                                 async: true
                             });
                     } else {
-                        Teamlab.getMailMessage(null,
+                        Teamlab.getMailMessage({ skipIO: true },
                             id,
                             data,
                             {

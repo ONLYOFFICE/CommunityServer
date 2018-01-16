@@ -237,6 +237,9 @@ window.ASC.TMTalk.msManager = (function () {
       eventManager.call(customEvents.openList, window, [list.id, list]);
 
       var contacts = list.contacts;
+      if (contacts.length > 0) {
+          jQuery('div#talkRoomsContainer ul.rooms li.room.current').addClass('minimized');
+      }
       for (var i = 0, n = contacts.length; i < n; i++) {
         eventManager.call(customEvents.addContact, window, [list.id, contacts[i].jid]);
       }

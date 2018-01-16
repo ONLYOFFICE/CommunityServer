@@ -209,7 +209,6 @@ ASC.Projects.Base = (function () {
         isInit = false,
         clickBody = "click.body",
         clickEvent = "click",
-        statusComboboxClass = ".changeStatusCombobox.canEdit",
         entityMenuClass = ".entity-menu",
         withEntityMenuClass = ".with-entity-menu",
         activeClass = "active",
@@ -222,7 +221,6 @@ ASC.Projects.Base = (function () {
         $noContentBlock = jq("#emptyScrCtrlPrj"),
         $groupeMenu = jq("#groupActionContainer"),
         $describePanel,
-        $statusListContainer,
         $actionPanel,
         $activeEntityMenu;
 
@@ -241,7 +239,7 @@ ASC.Projects.Base = (function () {
     var descriptionPanel = ASC.Projects.DescriptionPanel;
     var EventBinder = ASC.Projects.EventBinder;
 
-    var baseInit = function (settings, pageNavigatorSettings, statusListObject, showEntityMenuHandler, events) {
+    var baseInit = function (settings, pageNavigatorSettings, statusListObject, showEntityMenuHandler, events, dpSetting) {
         initProperties();
         showLoader();
         checkElementNotFound(settings.elementNotFoundError);
@@ -251,22 +249,12 @@ ASC.Projects.Base = (function () {
             pageNavigator.init(this, pageNavigatorSettings);
         }
 
-        initChangeStatusCombobox(statusListObject);
+        ASC.Projects.StatusList.init(statusListObject, $commonListContainer);
         initActionPanel(showEntityMenuHandler);
 
-        jq('body')
-            .off(clickBody)
-            .on(clickBody, function() {
-                setTimeout(function () {
-                    hideListStatus();
-
-                    if ($describePanel) {
-                        $describePanel.hide();
-                    }
-                }, 1);
-            });
-
         EventBinder.bind(events);
+
+        descriptionPanel.init($commonListContainer, filter, dpSetting);
     }
 
     function initProperties() {
@@ -287,7 +275,9 @@ ASC.Projects.Base = (function () {
         popup = {
             projectRemoveWarning: createPopupData([projectResource.DeleteProjectPopup, commonResource.PopupNoteUndone], projectResource.DeleteProject, projectResource.DeleteProject),
             taskRemoveWarning: createPopupData([tasksResource.RemoveTaskPopup, commonResource.PopupNoteUndone], tasksResource.RemoveTask, tasksResource.RemoveTask),
+            tasksRemoveWarning: createPopupData([tasksResource.RemoveTasksPopup, commonResource.PopupNoteUndone], tasksResource.RemoveTasks, tasksResource.RemoveTasks),
             milestoneRemoveWarning: createPopupData([milestoneResource.DeleteMilestonePopup, commonResource.PopupNoteUndone], milestoneResource.DeleteMilestone, milestoneResource.DeleteMilestone),
+            milestonesRemoveWarning: createPopupData([milestoneResource.DeleteMilestonesPopup, commonResource.PopupNoteUndone], milestoneResource.DeleteMilestones, milestoneResource.DeleteMilestones),
             trackingRemoveWarning: createPopupData([timeTrackingResource.DeleteTimersQuestion, commonResource.PopupNoteUndone], timeTrackingResource.DeleteTimers, timeTrackingResource.DeleteTimers),
             discussionRemoveWarning: createPopupData([messageResource.DeleteDiscussionPopup, commonResource.PopupNoteUndone], messageResource.DeleteMessage, messageResource.DeleteMessage),
             projectTemplateRemoveWarning: createPopupData([templatesResource.RemoveQuestion, commonResource.PopupNoteUndone], templatesResource.RemoveTemplateTitlePopup, templatesResource.RemoveTemplateTitlePopup),
@@ -296,6 +286,7 @@ ASC.Projects.Base = (function () {
             taskLinksRemoveDeadlineWarning: createPopupData([jq.format(commonResource.UpdateDeadlineNote, "")], commonResource.TaskUpdateButton, commonResource.UpdateDeadlineHeader),
 
             closedTaskQuestion: createPopupData([tasksResource.TryingToCloseTheTask, tasksResource.BetterToReturn], tasksResource.EndAllSubtasksCloseTask, tasksResource.ClosingTheTask),
+            closedTasksQuestion: createPopupData([tasksResource.TryingToCloseTasks, tasksResource.BetterToReturnTasks], tasksResource.EndAllSubtasksCloseTasks, tasksResource.ClosingTasks),
             projectOpenTaskWarning: createPopupData([projectResource.NotClosePrjWithActiveTasks], projectResource.ViewActiveTasks, projectResource.ViewActiveTasks),
             projectOpenMilestoneWarning: createPopupData([projectResource.NotClosedPrjWithActiveMilestone], projectResource.ViewActiveMilestones, projectResource.CloseProject),
             closeMilestoneWithOpenTasks: createPopupData([milestoneResource.NotCloseMilWithActiveTasks], projectResource.ViewActiveTasks, milestoneResource.CloseMilestone),
@@ -383,7 +374,7 @@ ASC.Projects.Base = (function () {
     };
 
     var clearTables = function () {
-        hideDescrPanel(false);
+        descriptionPanel.hide(false);
         if (pageNavigator) {
             pageNavigator.hide();
         }
@@ -396,7 +387,8 @@ ASC.Projects.Base = (function () {
     };
 
     function showOrHideData(settings, data, filterCount) {
-        groupMenu = settings.groupMenuEnabled;
+        groupMenu = settings.groupMenu;
+
         if (pageNavigator && pageNavigator.pgNavigator) {
             pageNavigator.update(filterCount);
         }
@@ -408,7 +400,9 @@ ASC.Projects.Base = (function () {
             }
 
             if (groupMenu) {
+                ASC.Projects.GroupActionPanel.init(groupMenu, settings.$container);
                 $groupeMenu.show();
+                $groupeMenu.find(".contentMenu").show();
             }
 
             settings.$container.html(jq.tmpl(settings.tmplName, data));
@@ -472,90 +466,13 @@ ASC.Projects.Base = (function () {
 
         getFunc({}, {
             filter: this.currentFilter,
-            success: function () {
+            success: function (params, data) {
                 clearTables();
+                currentData = data;
                 success.apply(null, arguments);
             }
         });
     };
-
-    function showDescPanel(obj, $targetObject, readmore) {
-        descriptionPanel.init($commonListContainer, filter);
-        descriptionPanel.show(obj, $targetObject, readmore);
-    };
-
-    function hideDescrPanel(over) {
-        descriptionPanel.hide(over);
-    };
-
-    function initChangeStatusCombobox(statusListObject) {
-        if (!statusListObject) return;
-        var panelId = "#statusChangePanel";
-
-        jq(panelId).remove();
-        $commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
-        $statusListContainer = jq(panelId);
-
-        $commonListContainer.on(clickEvent, statusComboboxClass, function () {
-            showListStatus.call(this);
-            return false;
-        });
-
-        $commonListContainer.on(clickEvent, "#statusList .dropdown-item", function () {
-            if (jq(this).is('.active')) return;
-            var id = $statusListContainer.attr('objid'),
-                status = jq(this).attr('class').split(" ")[0];
-
-            statusListObject.handler(id, status);
-        });
-    };
-
-    var currentListStatusObjid;
-    function showListStatus() {
-        var isVisible = $statusListContainer.is(":visible");
-        var $obj = jq(this);
-        var objid = $obj.attr('data-id'),
-            status = $obj.children('span').attr('class').split(" ")[0],
-            offset = $obj.offset();
-
-        hideListStatus();
-
-        if (currentListStatusObjid === objid && isVisible) {
-            return;
-        }
-
-        currentListStatusObjid = objid;
-
-
-        if (status === 'overdue' || status === 'active') {
-            status = 'open';
-        }
-
-        $statusListContainer.attr('objid', objid);
-        $obj.addClass('selected');
-
-        $statusListContainer.css(
-        {
-            left: offset.left,
-            top: offset.top + 28
-        });
-
-
-        $statusListContainer.find('li').show().removeClass(activeClass);
-        $statusListContainer.find('.' + status).addClass(activeClass);
-        if (status === "closed") {
-            $statusListContainer.find('.paused').hide();
-        }
-
-        $statusListContainer.show();
-    };
-
-    function hideListStatus() {
-        if ($statusListContainer) {
-            $statusListContainer.hide();
-        }
-        $commonListContainer.find(statusComboboxClass).removeClass("selected");
-    }
 
     function initActionPanel(getActionMenuItems, $container) {
         if (!getActionMenuItems) {
@@ -704,9 +621,6 @@ ASC.Projects.Base = (function () {
         $commonListContainer: $commonListContainer,
 
         showOrHideData: showOrHideData,
-
-        showDescPanel: showDescPanel,
-        hideDescrPanel: hideDescrPanel,
 
         unbindEvents: unbindEvents,
         initActionPanel: initActionPanel,

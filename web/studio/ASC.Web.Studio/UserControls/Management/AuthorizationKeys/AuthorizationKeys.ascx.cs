@@ -30,17 +30,19 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using ASC.FederatedLogin.LoginProviders;
-using ASC.VoipService.Twilio;
-using ASC.Web.Core.WhiteLabel;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Data.Storage;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.MessagingSystem;
 using ASC.Thrdparty.Configuration;
+using ASC.VoipService.Twilio;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Utility;
+using log4net;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -53,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private List<AuthService> _authServiceList;
 
-        protected List<AuthService> AuthServiceList
+        public List<AuthService> AuthServiceList
         {
             get { return _authServiceList ?? (_authServiceList = GetAuthServices().ToList()); }
         }
@@ -142,6 +144,10 @@ namespace ASC.Web.Studio.UserControls.Management
                     "Twilio",
                     new TwilioLoginProvider()
                 },
+                {
+                    "Smsc",
+                    new SmscProvider()
+                }
             };
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
@@ -195,7 +201,7 @@ namespace ASC.Web.Studio.UserControls.Management
             return changed;
         }
 
-        private void RemoveOldNumberFromTwilio(IValidateKeysProvider provider)
+        private static void RemoveOldNumberFromTwilio(IValidateKeysProvider provider)
         {
             try
             {
@@ -207,7 +213,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
             catch (Exception e)
             {
-                log4net.LogManager.GetLogger("ASC").Error(e);
+                LogManager.GetLogger(typeof(AuthorizationKeys)).Error(e);
             }
         }
     }

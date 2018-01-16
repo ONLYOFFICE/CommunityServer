@@ -154,6 +154,9 @@ PopupBox = function(id, width, height, backgroundCSSClass, borderCSSClass, serve
         eval(this.ApiMethodName + "({popupBoxID: \"" + this.ID + "\"}," + methodParams + "," +
         "{" +
         "success:" + this.ApiCallback + "," +
+        "error:" + function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            } + "," +
         "before:" + function() {
                 PopupBoxManager.GetPopupBoxByID(popupBoxID).SetContent('<img class="popupbox-loader" src="' + StudioManager.GetImage('loader_32.gif') + '" alt="">');
                 PopupBoxManager.GetPopupBoxByID(popupBoxID).Show(idElement);
@@ -261,7 +264,7 @@ PopupBox = function(id, width, height, backgroundCSSClass, borderCSSClass, serve
         }
     };
 
-    this.StopTimer = function(id) {
+    this.StopTimer = function() {
         try {
             this.IsVisible = false;
             clearInterval(this.TimerHandler);

@@ -168,7 +168,8 @@ namespace ASC.Files.Thirdparty.Box
 
         public bool IsExist(string title, string folderId)
         {
-            return GetBoxItems(folderId, true).FirstOrDefault(x => x.Name.Contains(title)) != null;
+            return GetBoxItems(folderId, true)
+                .Any(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public void DeleteFolder(object folderId)
@@ -231,6 +232,7 @@ namespace ASC.Files.Thirdparty.Box
 
             BoxProviderInfo.CacheReset(newBoxFolder);
             BoxProviderInfo.CacheReset(newBoxFolder.Id, false);
+            BoxProviderInfo.CacheReset(toBoxFolder.Id);
 
             return ToFolder(newBoxFolder);
         }
@@ -327,7 +329,7 @@ namespace ASC.Files.Thirdparty.Box
             return null;
         }
 
-        public object GetFolderIDUser(bool createIfNotExists)
+        public object GetFolderIDUser(bool createIfNotExists, Guid? userId)
         {
             return null;
         }
@@ -337,7 +339,7 @@ namespace ASC.Files.Thirdparty.Box
             return null;
         }
 
-        public object GetFolderIDTrash(bool createIfNotExists)
+        public object GetFolderIDTrash(bool createIfNotExists, Guid? userId)
         {
             return null;
         }

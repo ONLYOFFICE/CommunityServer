@@ -31,11 +31,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Web;
-using System.Web.UI;
+using ASC.Web.Core;
 
 namespace ASC.Web.Mail
 {
-    public partial class OAuth : Page
+    public partial class OAuth : BasePage
     {
         public static string Location
         {

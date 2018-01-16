@@ -424,7 +424,7 @@ namespace ASC.Web.Mail
                 .AppendFormat("ASC.Mail.Presets.DisplayImagesAddresses = {0};\r\n",
                     JsonConvert.SerializeObject(GetDisplayImagesAddresses(), new HtmlEncodeStringPropertiesConverter()))
                 .AppendFormat("ASC.Mail.Presets.CommonSettings = {0};\r\n",
-                    JsonConvert.SerializeObject(MailCommonSettings.GetSettings(), new HtmlEncodeStringPropertiesConverter()));
+                    JsonConvert.SerializeObject(MailCommonSettings.LoadForCurrentUser(), new HtmlEncodeStringPropertiesConverter()));
 
             return sbScript.ToString();
         }

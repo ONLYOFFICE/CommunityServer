@@ -88,10 +88,10 @@ namespace ASC.Web.Studio.Utility
                 var smtpSettingsStr = jsonObject["SmtpSettings"].ToString();
                 var defaultCultureName = jsonObject["DefaultCulture"].ToString();
 
-                SettingsManager.Instance.SaveSettings(companySettings, Tenant.DEFAULT_TENANT);
-                SettingsManager.Instance.SaveSettings(additionalSettings, Tenant.DEFAULT_TENANT);
-                SettingsManager.Instance.SaveSettings(mailSettings, Tenant.DEFAULT_TENANT);
-                SettingsManager.Instance.SaveSettings(tenantSettings, Tenant.DEFAULT_TENANT);
+                companySettings.SaveForDefaultTenant();
+                additionalSettings.SaveForDefaultTenant();
+                mailSettings.SaveForDefaultTenant();
+                tenantSettings.SaveForDefaultTenant();
 
                 if (!String.IsNullOrEmpty(smtpSettingsStr))
                 {
@@ -127,7 +127,7 @@ namespace ASC.Web.Studio.Utility
 
                 if (!firstVisit) return;
 
-                var tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+                var tenantInfoSettings = TenantInfoSettings.Load();
                 tenantInfoSettings.RestoreDefaultTenantName();
             }
             catch (Exception e)

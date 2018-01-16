@@ -87,7 +87,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             }
             catch (Exception e)
             {
-                Global.Logger.Error("CheckAccess", e);
+                Global.Logger.Warn("CheckAccess", e);
                 return false;
             }
         }

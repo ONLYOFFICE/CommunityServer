@@ -98,16 +98,15 @@ namespace ASC.Files.Core
         /// </summary>
         /// <param name="parentId">folder id</param>
         /// <param name="orderBy"></param>
-        /// <param name="subjectID"></param>
         /// <param name="filterType">filterType type</param>
+        /// <param name="subjectID"></param>
         /// <param name="searchText"> </param>
         /// <param name="withSubfolders"> </param>
-        /// <param name="my"> </param>
         /// <returns>list of files</returns>
         /// <remarks>
         ///    Return only the latest versions of files of a folder
         /// </remarks>
-        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false, bool my = false);
+        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false);
 
         /// <summary>
         /// Get stream of file

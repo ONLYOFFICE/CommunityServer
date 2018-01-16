@@ -53,8 +53,6 @@ namespace ASC.Web.Studio.UserControls.Users
     {
         protected bool EnableInviteLink = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
 
-        protected string ImportServiceUrl = SetupInfo.GetImportServiceUrl();
-
         private static readonly ProgressQueue progressQueue = new ProgressQueue(1, TimeSpan.FromMinutes(5), true);
 
         private static Dictionary<string, string> GetHttpHeaders(HttpRequest httpRequest)
@@ -270,7 +268,7 @@ namespace ASC.Web.Studio.UserControls.Users
                         UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), false, true, importUsersAsCollaborators);
 
                         var messageAction = importUsersAsCollaborators ? MessageAction.GuestImported : MessageAction.UserImported;
-                        MessageService.Send(httpHeaders, messageAction, userInfo.DisplayUserName(false));
+                        MessageService.Send(httpHeaders, messageAction, MessageTarget.Create(userInfo.ID), userInfo.DisplayUserName(false));
 
                         Data.Add(new UserResults { Email = userData.Email, Result = String.Empty });
                         Percentage += percentStep;

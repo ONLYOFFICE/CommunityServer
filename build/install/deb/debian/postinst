@@ -67,6 +67,12 @@ install_db(){
 		sed "s/max_connections.*/max_connections = 1000/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
+	    if ! grep -q "^group_concat_max_len"  ${CNF_PATH}; then
+        	sed '/\[mysqld\]/a group_concat_max_len = 2048' -i ${CNF_PATH}
+	    else
+		sed "s/group_concat_max_len.*/group_concat_max_len = 2048/" -i ${CNF_PATH} || true # ignore errors
+	    fi
+
 	    if ! grep -q "^max_allowed_packet"  ${CNF_PATH}; then
         	sed '/\[mysqld\]/a max_allowed_packet = 1048576000' -i ${CNF_PATH}
 	    else
@@ -220,9 +226,6 @@ case "$1" in
 		chown onlyoffice:www-data -R /var/run/onlyoffice
 		chmod g+s+w /var/run/onlyoffice
 
-		# import common ssl certificates
-		mozroots --import --sync --machine --quiet
-
 		# configure ngninx for onlyoffice
 		rm -f /etc/nginx/sites-enabled/default
 		rm -f /etc/nginx/sites-enabled/onlyoffice-apisystem
@@ -248,7 +251,11 @@ END
 		NGINX_ROOT_DIR="/etc/nginx";
 		DOCUMENT_SERVER_PROTOCOL="http";
 		DOCUMENT_SERVER_HOST="localhost:8083";
-		DOCUMENT_SERVER_API_URL="\/web-apps\/apps\/api\/documents\/api\.js";
+		DOCUMENT_SERVER_HOST_PROXY="localhost\/ds-vpath";
+		DOCUMENT_SERVER_API_URL="\/ds-vpath\/web-apps\/apps\/api\/documents\/api\.js";
+		DOCUMENT_SERVER_JWT_ENABLED=${DOCUMENT_SERVER_JWT_ENABLED:-false};
+		DOCUMENT_SERVER_JWT_SECRET=${DOCUMENT_SERVER_JWT_SECRET:-""};
+		DOCUMENT_SERVER_JWT_HEADER=${DOCUMENT_SERVER_JWT_HEADER:-""};
 		LICENSE_FILE_PATH="/var/www/onlyoffice/Data/license.lic";
 		ONLYOFFICE_ROOT_DIR="$DIR/WebStudio";
 		CONTROL_PANEL_PORT_80_TCP_ADDR="localhost:8082";
@@ -256,6 +263,17 @@ END
 		SERVICE_SSO_AUTH_HOST_ADDR="localhost";
 		SERVER_HOST="localhost";
 
+		db_get onlyoffice-communityserver/ds-jwt-enabled || true
+
+		DOCUMENT_SERVER_JWT_ENABLED="$RET";
+
+		db_get onlyoffice-communityserver/ds-jwt-secret || true
+	
+		DOCUMENT_SERVER_JWT_SECRET="$RET";
+
+		db_get onlyoffice-communityserver/ds-jwt-secret-header || true
+		
+		DOCUMENT_SERVER_JWT_HEADER="$RET";
 
 		# setup enterprise
 
@@ -269,6 +287,8 @@ END
     			sed '/files\.docservice\.url\.api/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
     			sed '/files\.docservice\.url\.storage/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/FileUploader\.ashx\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
     			sed '/files\.docservice\.url\.command/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/coauthoring\/CommandService\.ashx\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+			sed '/files\.docservice\.url\.docbuilder/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_PROTOCOL}':\/\/'${DOCUMENT_SERVER_HOST}'\/docbuilder\"!' -i  ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+
 
 			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
 
@@ -279,6 +299,11 @@ END
     			fi
 
 			sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+
+   			if [ "${DOCUMENT_SERVER_JWT_ENABLED}" = "true" ]; then
+	    			sed '/files\.docservice\.secret/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_SECRET}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+	    			sed '/files\.docservice\.secret.header/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_JWT_HEADER}'\"!' -i ${ONLYOFFICE_ROOT_DIR}/web.appsettings.config
+   			fi
 
 		fi
 

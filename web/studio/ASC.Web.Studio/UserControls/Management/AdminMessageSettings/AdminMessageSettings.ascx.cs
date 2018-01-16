@@ -55,9 +55,9 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.RegisterBodyScripts("~/usercontrols/Management/AdminMessageSettings/js/admmess.js")
                 .RegisterStyle("~/usercontrols/management/AdminMessageSettings/css/admmess.less");
 
-            _studioAdmMessNotifSettings = SettingsManager.Instance.LoadSettings<StudioAdminMessageSettings>(TenantProvider.CurrentTenantID);
+            _studioAdmMessNotifSettings = StudioAdminMessageSettings.Load();
 
-            Enabled = !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+            Enabled = !TenantAccessSettings.Load().Anyone;
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }
@@ -69,8 +69,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-                var passwordSettingsObj = new StudioAdminMessageSettings {Enable = turnOn};
-                SettingsManager.Instance.SaveSettings(passwordSettingsObj, TenantProvider.CurrentTenantID);
+                new StudioAdminMessageSettings {Enable = turnOn}.Save();
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.AdministratorMessageSettingsUpdated);
 

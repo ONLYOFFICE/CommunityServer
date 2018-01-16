@@ -41,9 +41,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         public void SetShare(FileShareRecord r)
         {
-            var selector = GetSelector(r.EntryId);
-
-            selector.GetSecurityDao(r.EntryId).SetShare(r);
+            TryGetSecurityDao().SetShare(r);
         }
 
         public IEnumerable<FileShareRecord> GetShares(params FileEntry[] entries)

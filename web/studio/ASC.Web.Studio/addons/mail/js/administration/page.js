@@ -449,12 +449,17 @@ window.administrationPage = (function($) {
 
         var domainEl = page.find('.domain_table_container[domain_id="' + domainId + '"]');
         var expander = domainEl.find('.domain_menu .name_column .expander-icon');
+
         expander.toggleClass('open');
 
+        var mbs = administrationManager.getMailboxesByDomain(domainId);
+
+        var el = domainEl.find(mbs.length > 0 ? '.domain_content' : '.blankContent');
+
         if (expander.hasClass('open')) {
-            domainEl.find('.domain_content').show();
+            el.show();
         } else {
-            domainEl.find('.domain_content').hide();
+            el.hide();
         }
     }
 
@@ -480,9 +485,9 @@ window.administrationPage = (function($) {
             }
             domainEl.find('.domain_menu .name_column .expander-icon').hide();
         }
-        else if (domains.length == 2) {
+        else if (domains.length > 1) {
             var expanders = page.find('.domain_table_container .domain_menu .name_column .expander-icon');
-            expanders.each(function() {
+            expanders.each(function () {
                 $(this).addClass('open');
                 $(this).show();
             });

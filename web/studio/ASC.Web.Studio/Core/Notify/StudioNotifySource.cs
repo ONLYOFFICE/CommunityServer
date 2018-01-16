@@ -56,6 +56,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionPasswordChange,
                     Constants.ActionActivateEmail,
                     Constants.ActionProfileDelete,
+                    Constants.ActionReassignsCompleted,
                     Constants.ActionPhoneChange,
                     Constants.ActionMigrationPortalStart,
                     Constants.ActionMigrationPortalSuccess,
@@ -64,7 +65,6 @@ namespace ASC.Web.Studio.Core.Notify
 
                     Constants.ActionUserMessageToAdmin,
 
-                    Constants.ActionSmsBalance,
                     Constants.ActionVoipWarning,
                     Constants.ActionVoipBlocked,
 
@@ -116,6 +116,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionEnterpriseAdminInviteTeammates,
                     Constants.ActionEnterpriseAdminWithoutActivity,
                     Constants.ActionEnterpriseAdminUserDocsTips,
+                    Constants.ActionEnterpriseAdminUserPowerfulTips,
                     Constants.ActionEnterpriseAdminUserMailTips,
                     Constants.ActionEnterpriseAdminUserCrmTips,
                     Constants.ActionEnterpriseAdminUserTeamTips,
@@ -132,6 +133,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionSaasAdminInviteTeammates,
                     Constants.ActionSaasAdminWithoutActivity,
                     Constants.ActionSaasAdminUserDocsTips,
+                    Constants.ActionSaasAdminUserPowerfulTips,
                     Constants.ActionSaasAdminUserMailTips,
                     Constants.ActionSaasAdminUserCrmTips,
                     Constants.ActionSaasAdminUserTeamTips,
@@ -228,7 +230,6 @@ namespace ASC.Web.Studio.Core.Notify
                 if (Constants.ActionSelfProfileUpdated.ID == action.ID ||
                     Constants.ActionUserHasJoin.ID == action.ID ||
                     Constants.ActionUserMessageToAdmin.ID == action.ID ||
-                    Constants.ActionSmsBalance.ID == action.ID ||
                     Constants.ActionVoipWarning.ID == action.ID ||
                     Constants.ActionVoipBlocked.ID == action.ID
                     )

@@ -24,16 +24,18 @@
 */
 
 
-using ASC.Api.Batch;
-using ASC.Api.Logging;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Routing;
+
+using ASC.Api.Batch;
+using ASC.Api.Interfaces;
+using ASC.Api.Logging;
+
+using Autofac;
 
 namespace ASC.Api
 {
@@ -42,6 +44,7 @@ namespace ASC.Api
         private static bool? available = null;
         private readonly HttpContextBase _context;
         private readonly ApiBatchHttpHandler _batchHandler;
+        private readonly IComponentContext container;
 
 
         public static bool Available
@@ -50,8 +53,7 @@ namespace ASC.Api
             {
                 if (!available.HasValue)
                 {
-                    var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
-                    available = container.IsRegistered<ILog>();
+                    available = ApiSetup.Builder.IsRegistered<ILog>();
                 }
                 return available.Value;
             }
@@ -69,10 +71,21 @@ namespace ASC.Api
         public ApiServer(HttpContextBase context)
         {
             _context = context;
-            var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
-            var routeHandler = container.Resolve<ApiBatchRouteHandler>();
+            container = ApiSetup.Builder;
+            var config = container.Resolve<IApiConfiguration>();
+            var route = RouteTable.Routes.OfType<Route>().First(r=> r.Url.EndsWith(config.GetBasePath() + "batch"));
+            if (route == null)
+            {
+                throw new ArgumentException("Couldn't resolve api");
+            }
+            var routeHandler = route.RouteHandler as ApiBatchRouteHandler;
+            if (routeHandler == null)
+            {
+                throw new ArgumentException("Couldn't resolve api");
+            }
+            
             var requestContext = new RequestContext(context, new RouteData(new Route("batch", routeHandler), routeHandler));
-            _batchHandler = routeHandler.GetHandler(container, requestContext) as ApiBatchHttpHandler;
+            _batchHandler = routeHandler.GetHttpHandler(requestContext) as ApiBatchHttpHandler;
             if (_batchHandler == null)
             {
                 throw new ArgumentException("Couldn't resolve api");
@@ -112,7 +125,7 @@ namespace ASC.Api
 
         public ApiBatchResponse CallApiMethod(string apiUrl, string httpMethod, string body)
         {
-            return CallApiMethod(new ApiBatchRequest() { Method = httpMethod, RelativeUrl = apiUrl, Body = body });
+            return CallApiMethod(new ApiBatchRequest { Method = httpMethod, RelativeUrl = apiUrl, Body = body });
         }
 
         public ApiBatchResponse CallApiMethod(ApiBatchRequest request)

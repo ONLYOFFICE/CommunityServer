@@ -129,8 +129,6 @@ ASC.CRM.ListDealView = (function() {
     var _getDeals = function(startIndex) {
         var filters = ASC.CRM.ListDealView.getFilterSettings(startIndex);
 
-        //EventTracker.Track('crm_search_opportunities_by_filter');
-
         Teamlab.getCrmOpportunities({ startIndex: startIndex || 0 }, { filter: filters, success: callback_get_opportunities_by_filter });
     };
 
@@ -514,7 +512,7 @@ ASC.CRM.ListDealView = (function() {
         if (ASC.CRM.Data.IsCRMAdmin === true || Teamlab.profile.id == deal.createdBy.id) {
             jq("#dealActionMenu .setPermissionsLink").show();
             jq("#dealActionMenu .setPermissionsLink").unbind("click").bind("click", function() {
-                jq("#dealcaseActionMenu").hide();
+                jq("#dealActionMenu").hide();
                 jq("#dealTable .entity-menu.active").removeClass("active");
 
                 ASC.CRM.ListDealView.deselectAll();
@@ -1274,8 +1272,6 @@ ASC.CRM.ListDealView = (function() {
         },
 
         _dealItemFactory : function(deal, selectedIDs) {
-            var tmpDate = new Date(),
-                nowDate = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0);
 
             deal.isOverdue = false;
 
@@ -1290,7 +1286,7 @@ ASC.CRM.ListDealView = (function() {
                     break;
                 case 0:
                     deal.closedStatusString = "";
-                    if (deal.expectedCloseDateString != "" && deal.expectedCloseDate.getTime() < nowDate.getTime()) {
+                    if (deal.expectedCloseDateString != "" && deal.expectedCloseDate < new Date()) {
                         deal.isOverdue = true;
                         deal.classForTitle = "linkHeaderMedium red-text";
                     } else {

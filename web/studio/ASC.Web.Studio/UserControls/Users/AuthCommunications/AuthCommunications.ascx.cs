@@ -31,7 +31,6 @@ using System.Web;
 using System.Web.UI;
 using AjaxPro;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
@@ -72,7 +71,7 @@ namespace ASC.Web.Studio.UserControls
         {
             get
             {
-                var setting = SettingsManager.Instance.LoadSettings<StudioAdminMessageSettings>(TenantProvider.CurrentTenantID);
+                var setting = StudioAdminMessageSettings.Load();
                 return setting.Enable || TenantStatisticsProvider.IsNotPaid();
             }
         }
@@ -160,7 +159,7 @@ namespace ASC.Web.Studio.UserControls
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
                 if (tenant != null)
                 {
-                    var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+                    var settings = IPRestrictionsSettings.Load();
                     if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
                     {
                         resp.rs2 = Resource.ErrorAccessRestricted;
@@ -169,7 +168,7 @@ namespace ASC.Web.Studio.UserControls
                 }
 
 
-                var trustedDomainSettings = SettingsManager.Instance.LoadSettings<StudioTrustedDomainSettings>(TenantProvider.CurrentTenantID);
+                var trustedDomainSettings = StudioTrustedDomainSettings.Load();
                 var emplType = trustedDomainSettings.InviteUsersAsVisitors ? EmployeeType.Visitor : EmployeeType.User;
                 var enableInviteUsers = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
 

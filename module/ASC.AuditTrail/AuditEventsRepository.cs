@@ -33,6 +33,7 @@ using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using Newtonsoft.Json;
 
 namespace ASC.AuditTrail
@@ -52,7 +53,8 @@ namespace ASC.AuditTrail
                     "user_id",
                     "page",
                     "action",
-                    "description"
+                    "description",
+                    "target"
                 };
 
 
@@ -136,7 +138,9 @@ namespace ASC.AuditTrail
                         new JsonSerializerSettings { DateTimeZoneHandling = DateTimeZoneHandling.Utc });
                 }
 
-                evt.UserName = (row[11] != null && row[12] != null) ? UserFormatter.GetUserName(Convert.ToString(row[11]), Convert.ToString(row[12])) :
+                evt.Target = MessageTarget.Parse(Convert.ToString(row[11]));
+
+                evt.UserName = (row[12] != null && row[13] != null) ? UserFormatter.GetUserName(Convert.ToString(row[12]), Convert.ToString(row[13])) :
                     evt.UserId == Core.Configuration.Constants.CoreSystem.ID ? AuditReportResource.SystemAccount :
                         evt.UserId == Core.Configuration.Constants.Guest.ID ? AuditReportResource.GuestAccount : 
                             evt.Initiator ?? AuditReportResource.UnknownAccount;

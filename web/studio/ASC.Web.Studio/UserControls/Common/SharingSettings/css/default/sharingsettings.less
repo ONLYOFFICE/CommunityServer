@@ -29,23 +29,39 @@
 }
 #sharingSettingsItems {
     border-top: 1px solid #d1d1d1;
-    height: 232px;
-    min-height: 232px;
+    height: 318px;
+    min-height: 318px;
     overflow: auto;
 }
-.sharing-empty {
-    float: left;
-    margin-top: -115px;
-    text-align: center;
-    width: 100%;
+#sharingSettingsItems.with-share-link {
+    height: 274px;
+    min-height: 274px;
+}
+#sharingSettingsItems.with-message-panel {
+    height: 276px;
+    min-height: 276px;
 }
 #sharingSettingsDialogBody.with-message #sharingSettingsItems {
+    height: 216px;
+    min-height: 216px;
+}
+#sharingSettingsItems.with-share-link.with-message-panel {
+    height: 232px;
+    min-height: 232px;
+}
+#sharingSettingsDialogBody.with-message #sharingSettingsItems.with-share-link {
     height: 172px;
     min-height: 172px;
 }
 body.mobile #sharingSettingsItems {
     height: auto !important;
     overflow: visible !important;
+}
+.sharing-empty {
+    float: left;
+    margin-top: -150px;
+    text-align: center;
+    width: 100%;
 }
 #studio_sharingSettingsDialog .sharingItem {
     border-top: none;

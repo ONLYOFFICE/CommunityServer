@@ -24,6 +24,10 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
 using ASC.Common.Utils;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
@@ -31,14 +35,10 @@ using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Files.Classes;
-using ASC.Web.Files.Import;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
 
 namespace ASC.Web.Files.Configuration
 {
@@ -81,7 +81,7 @@ namespace ASC.Web.Files.Configuration
             {
                 result = folderDao.Search(text, FolderType.USER, FolderType.COMMON).Where(security.CanRead);
 
-                if (ImportConfiguration.SupportInclusion
+                if (ThirdpartyConfiguration.SupportInclusion
                     && (Global.IsAdministrator || FilesSettings.EnableThirdParty))
                 {
                     var id = Global.FolderMy;

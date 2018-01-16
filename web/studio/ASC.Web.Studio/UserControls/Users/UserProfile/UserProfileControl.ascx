@@ -68,6 +68,15 @@
                                 <span id="typeUserProfile" class="field-value"><%= CustomNamingPeople.Substitute<Resource>(UserInfo.IsVisitor() ? "Guest" : "User").HtmlEncode() %></span>
                             </div>
                             <%} %>
+                            
+                            <% if (UserInfo.IsLDAP())
+                               { %>
+                            <div class="field">
+                               <span class="field-title describe-text"><%= Resource.Login%>:</span>
+                                <span id="loginUserProfile" class="field-value"><%=HttpUtility.HtmlEncode(UserInfo.UserName.ToLower())%></span>
+                            </div>
+                            <% } %>
+
                             <asp:PlaceHolder ID="_phEmailControlsHolder" runat="server"></asp:PlaceHolder>
 
                              <% if(!isPersonal){ %>

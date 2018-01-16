@@ -141,8 +141,10 @@ window.Teamlab = (function () {
         removeSubtask: 'removesubtask',
         updateSubtask: 'updateSubtask',
         removePrjTask: 'removePrjTask',
+        removePrjTasks: 'removePrjTasks',
         updatePrjTask: 'updatePrjTask',
         updatePrjTaskStatus: 'updatePrjTaskStatus',
+        updatePrjTasksStatus: 'updatePrjTasksStatus',
         addPrjTask: 'addPrjTask',
         copyPrjTask: 'copyPrjTask',
         addPrjMilestone: 'addPrjMilestone',
@@ -282,17 +284,6 @@ window.Teamlab = (function () {
             params,
             GET,
             'settings/checkrecalculatequota.json',
-            null,
-            options
-        );
-    };
-
-    var checkWarmUpProgress = function (options) {
-        return addRequest(
-            null,
-            {},
-            GET,
-            'warmup/progress.json',
             null,
             options
         );
@@ -515,6 +506,17 @@ window.Teamlab = (function () {
             UPDATE,
             'people/invite.json',
             data,
+            options
+        );
+    };
+
+    var removeUser = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            REMOVE,
+            'people/' + id + '.json',
+            null,
             options
         );
     };
@@ -893,6 +895,28 @@ window.Teamlab = (function () {
         );
     };
 
+    var updatePrjSettings = function (data, options) {
+        return addRequest(
+            null,
+            {},
+            UPDATE,
+            'project/settings.json',
+            data,
+            options
+        );
+    }
+
+    var getPrjSettings = function (options) {
+        return addRequest(
+            null,
+            {},
+            GET,
+            'project/settings.json',
+            null,
+            options
+        );
+    }
+
     var getPrjTags = function (params, options) {
         return addRequest(
             null,
@@ -1064,6 +1088,30 @@ window.Teamlab = (function () {
         return true;
     };
 
+    var updatePrjTasksMilestone = function (data, options) {
+        addRequest(
+            null,
+            null,
+            UPDATE,
+            'project/task/milestone.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updatePrjTasksStatus = function(data, options) {
+        addRequest(
+            customEvents.updatePrjTasksStatus,
+            null,
+            UPDATE,
+            'project/task/status.json',
+            data,
+            options
+        );
+        return true;
+    }
+
     var removePrjTask = function (params, id, options) {
         addRequest(
             customEvents.removePrjTask,
@@ -1071,6 +1119,18 @@ window.Teamlab = (function () {
             REMOVE,
             'project/task/' + id + '.json',
             id,
+            options
+        );
+        return true;
+    };
+
+    var removePrjTasks = function (data, options) {
+        addRequest(
+            customEvents.removePrjTasks,
+            null,
+            REMOVE,
+            'project/task.json',
+            data,
             options
         );
         return true;
@@ -1340,13 +1400,25 @@ window.Teamlab = (function () {
         return true;
     };
 
-    var removePrjMilestone = function (params, id, options) {
+    var removePrjMilestone = function (id, options) {
         addRequest(
             customEvents.removePrjMilestone,
-            params,
+            null,
             REMOVE,
             'project/milestone/' + id + '.json',
             id,
+            options
+        );
+        return true;
+    };
+
+    var removePrjMilestones = function (data, options) {
+        addRequest(
+            null,
+            null,
+            REMOVE,
+            'project/milestone.json',
+            data,
             options
         );
         return true;
@@ -1527,7 +1599,7 @@ window.Teamlab = (function () {
             null,
             params,
             ADD,
-            'project.json',
+            'project/withSecurity.json',
             data,
             options
         );
@@ -1551,7 +1623,7 @@ window.Teamlab = (function () {
             }
         }
         if (fldInd > 1) {
-            updateItem = null;
+            updateItem = "withSecurityInfo";
         }
 
         addRequest(
@@ -2538,7 +2610,7 @@ window.Teamlab = (function () {
         );
     };
 
-    var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, options) {
+    var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, docServiceUrlDocbuilder, options) {
         return addRequest(
             null,
             null,
@@ -2550,6 +2622,7 @@ window.Teamlab = (function () {
                 docServiceUrlStorage: docServiceUrlStorage,
                 docServiceUrlConverter: docServiceUrlConverter,
                 docServiceUrlPortal: docServiceUrlPortal,
+                docServiceUrlDocbuilder: docServiceUrlDocbuilder
             },
             options
         );
@@ -3817,6 +3890,28 @@ window.Teamlab = (function () {
             UPDATE,
             'crm/settings/currency.json',
             { currency: currency },
+            options
+        );
+    };
+
+    var setCrmCurrencyRates = function (params, currency, rates, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/currency/setrates.json',
+            { currency: currency, rates: rates },
+            options
+        );
+    };
+
+    var addCrmCurrencyRates = function (params, rates, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/currency/addrates.json',
+            { rates: rates },
             options
         );
     };
@@ -5094,6 +5189,77 @@ window.Teamlab = (function () {
         return true;
     };
     
+    //#endregion
+
+    //#region Reports
+
+    var getCrmReportFiles = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'crm/report/files.json',
+            null,
+            options
+        );
+    };
+
+    var removeCrmReportFile = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'crm/report/file/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCrmReportStatus = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/report/status.json',
+            null,
+            options
+        );
+    };
+
+    var terminateCrmReport = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'crm/report/terminate.json',
+            null,
+            options
+        );
+    };
+
+    var checkCrmReport = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/report/check.json',
+            data,
+            options
+        );
+    };
+
+    var generateCrmReport = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'crm/report/generate.json',
+            data,
+            options
+        );
+    };
+
     //#endregion
 
     /* </crm> */
@@ -6628,6 +6794,70 @@ window.Teamlab = (function () {
         return true;
     };
 
+    //#region CustomNavigation
+
+    var getCustomNavigationItems = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/customnavigation/getall.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCustomNavigationItemSample = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/customnavigation/getsample.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCustomNavigationItem = function(params, id, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/customnavigation/get/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var createCustomNavigationItem = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'settings/customnavigation/create.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var deleteCustomNavigationItem = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'settings/customnavigation/delete/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    //#endregion
+
     var getCalendars = function (params, dateStart, dateEnd, options) {
         var start = dateStart instanceof Date ? Teamlab.serializeTimestamp(dateStart, true) : dateStart;
         var end = dateEnd instanceof Date ? Teamlab.serializeTimestamp(dateEnd, true) : dateEnd;
@@ -6679,6 +6909,111 @@ window.Teamlab = (function () {
         return true;
     };
 
+    //#region Bar
+
+    var getBarPromotions = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'portal/bar/promotions.json',
+            {
+                domain: window.location.hostname,
+                page: window.location.pathname + window.location.search
+            },
+            options
+        );
+    };
+
+    var markBarPromotion = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'portal/bar/promotions/mark/{0}.json'.format(id),
+            { id: id },
+            options
+        );
+    };
+
+    var getBarTips = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'portal/bar/tips.json',
+            {
+                page: window.location.pathname + window.location.search + window.location.hash,
+                productAdmin: ASC.Resources.Master.IsProductAdmin
+            },
+            options
+        );
+    };
+
+    var markBarTip = function (params, id, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'portal/bar/tips/mark/{0}.json'.format(id),
+            { id: id },
+            options
+        );
+    };
+
+    var deleteBarTips = function (params, options) {
+        return addRequest(
+            customEvents.removeNotificationAddress,
+            params,
+            REMOVE,
+            'portal/bar/tips.json',
+            null,
+            options
+        );
+    };
+
+    //#endregion
+
+    //#region Reassign user data
+
+    var getReassignProgress = function (params, userId, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "people/getreassignprogress.json",
+            { userId: userId },
+            options
+        );
+        return true;
+    };
+
+    var terminateReassign = function (params, userId, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/terminatereassign.json',
+            { userId: userId },
+            options
+        );
+        return true;
+    };
+
+    var startReassign = function (params, fromUserId, toUserId, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            "people/startreassign.json",
+            { fromUserId: fromUserId, toUserId: toUserId },
+            options
+        );
+        return true;
+    };
+
+    //#endregion
+
     return {
         events: customEvents,
 
@@ -6710,7 +7045,6 @@ window.Teamlab = (function () {
         getQuotas: getQuotas,
         recalculateQuota: recalculateQuota,
         checkRecalculateQuota: checkRecalculateQuota,
-        checkWarmUpProgress: checkWarmUpProgress,
 
         remindPwd: remindPwd,
         thirdPartyLinkAccount: thirdPartyLinkAccount,
@@ -6731,6 +7065,7 @@ window.Teamlab = (function () {
         updateUserPhoto: updateUserPhoto,
         removeUserPhoto: removeUserPhoto,
         sendInvite: sendInvite,
+        removeUser: removeUser,
         removeUsers: removeUsers,
         getUserGroups: getUserGroups,
         removeSelf: removeSelf,
@@ -6806,6 +7141,8 @@ window.Teamlab = (function () {
         getShortenLink: getShortenLink,
         updatePortalName: updatePortalName,
 
+        updatePrjSettings: updatePrjSettings,
+        getPrjSettings: getPrjSettings,
         getPrjSecurityinfo: getPrjSecurityinfo,
         addPrjEntityFiles: addPrjEntityFiles,
         uploadFilesToPrjEntity: uploadFilesToPrjEntity,
@@ -6815,6 +7152,8 @@ window.Teamlab = (function () {
         copyPrjSubtask: copyPrjSubtask,
         updatePrjSubtask: updatePrjSubtask,
         updatePrjTask: updatePrjTask,
+        updatePrjTasksStatus: updatePrjTasksStatus,
+        updatePrjTasksMilestone: updatePrjTasksMilestone,
         removePrjSubtask: removePrjSubtask,
         addPrjTask: addPrjTask,
         copyPrjTask: copyPrjTask,
@@ -6826,6 +7165,7 @@ window.Teamlab = (function () {
         addPrjMilestone: addPrjMilestone,
         updatePrjMilestone: updatePrjMilestone,
         removePrjMilestone: removePrjMilestone,
+        removePrjMilestones: removePrjMilestones,
         getPrjMilestone: getPrjMilestone,
         getPrjMilestones: getPrjMilestones,
         addPrjDiscussion: addPrjDiscussion,
@@ -6961,6 +7301,7 @@ window.Teamlab = (function () {
         removeCrmListItem: removeCrmListItem,
         reorderCrmListItems: reorderCrmListItems,
         removePrjTask: removePrjTask,
+        removePrjTasks: removePrjTasks,
         addCrmTask: addCrmTask,
         addCrmTaskGroup: addCrmTaskGroup,
         getCrmTask: getCrmTask,
@@ -6994,6 +7335,8 @@ window.Teamlab = (function () {
         getCrmCurrencyConvertion: getCrmCurrencyConvertion,
         getCrmCurrencySummaryTable: getCrmCurrencySummaryTable,
         updateCrmCurrency: updateCrmCurrency,
+        setCrmCurrencyRates: setCrmCurrencyRates,
+        addCrmCurrencyRates: addCrmCurrencyRates,
         updateCRMContactStatusSettings: updateCRMContactStatusSettings,
         updateCRMContactTagSettings: updateCRMContactTagSettings,
         updateCRMContactMailToHistorySettings: updateCRMContactMailToHistorySettings,
@@ -7114,6 +7457,13 @@ window.Teamlab = (function () {
         getVoipToken: getVoipToken,
         getVoipUploads: getVoipUploads,
         deleteVoipUploads: deleteVoipUploads,
+
+        getCrmReportFiles: getCrmReportFiles,
+        removeCrmReportFile: removeCrmReportFile,
+        getCrmReportStatus: getCrmReportStatus,
+        terminateCrmReport: terminateCrmReport,
+        checkCrmReport: checkCrmReport,
+        generateCrmReport: generateCrmReport,
 
         getMailFilteredMessages: getMailFilteredMessages,
         getMailFolders: getMailFolders,
@@ -7245,6 +7595,12 @@ window.Teamlab = (function () {
         saveWhiteLabelSettings: saveWhiteLabelSettings,
         restoreWhiteLabelSettings: restoreWhiteLabelSettings,
 
+        getCustomNavigationItems: getCustomNavigationItems,
+        getCustomNavigationItemSample: getCustomNavigationItemSample,
+        getCustomNavigationItem: getCustomNavigationItem,
+        createCustomNavigationItem: createCustomNavigationItem,
+        deleteCustomNavigationItem: deleteCustomNavigationItem,
+
         getCalendars: getCalendars,
         getCalendarEventByUid: getCalendarEventByUid,
         getCalendarEventById: getCalendarEventById,
@@ -7254,6 +7610,16 @@ window.Teamlab = (function () {
         getLdapSettings: getLdapSettings,
         getLdapDefaultSettings: getLdapDefaultSettings,
         getLdapStatus: getLdapStatus,
-        syncLdap: syncLdap
+        syncLdap: syncLdap,
+
+        getBarPromotions: getBarPromotions,
+        markBarPromotion: markBarPromotion,
+        getBarTips: getBarTips,
+        markBarTip: markBarTip,
+        deleteBarTips: deleteBarTips,
+
+        getReassignProgress: getReassignProgress,
+        terminateReassign: terminateReassign,
+        startReassign: startReassign
     };
 })();

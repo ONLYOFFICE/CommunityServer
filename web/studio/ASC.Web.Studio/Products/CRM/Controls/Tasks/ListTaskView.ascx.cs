@@ -82,7 +82,7 @@ namespace ASC.Web.CRM.Controls.Tasks
                         Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", fileName));
                         Response.Write(ExportToCSV.ExportTasksToCSV(tasks, false));
 
-                        MessageService.Send(HttpContext.Current.Request, MessageAction.CrmTasksExportedToCsv, tasks.Select(x => x.Title));
+                        MessageService.Send(HttpContext.Current.Request, MessageAction.CrmTasksExportedToCsv, MessageTarget.Create(tasks.Select(x => x.ID)), tasks.Select(x => x.Title));
                         
                         Response.End();
                     }

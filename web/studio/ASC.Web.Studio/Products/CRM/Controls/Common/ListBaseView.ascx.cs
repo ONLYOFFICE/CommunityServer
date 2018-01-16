@@ -56,11 +56,8 @@ namespace ASC.Web.CRM.Controls.Common
 
         private void InitPage()
         {
-            Page.RegisterClientScript(new Masters.ClientScripts.ListContactViewData());
-            Page.RegisterClientScript(new Masters.ClientScripts.ListTaskViewData());
-            Page.RegisterClientScript(new Masters.ClientScripts.ListCasesViewData());
-            Page.RegisterClientScript(new Masters.ClientScripts.ListDealViewData());
-            Page.RegisterClientScript(new Masters.ClientScripts.ListInvoiceViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ListViewData());
+            Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
 
             var privatePanel = (PrivatePanel)LoadControl(PrivatePanel.Location);
             var usersWhoHasAccess = new List<string> {CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser")};
@@ -68,9 +65,6 @@ namespace ASC.Web.CRM.Controls.Common
             privatePanel.DisabledUsers = new List<Guid> {SecurityContext.CurrentAccount.ID};
             privatePanel.HideNotifyPanel = true;
             _phPrivatePanel.Controls.Add(privatePanel);
-
-            Page.RegisterClientScript(new Masters.ClientScripts.ListDealViewData());
-            Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
         }
 
 

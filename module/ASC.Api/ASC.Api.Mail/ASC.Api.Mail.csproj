@@ -110,9 +110,6 @@
       <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.0.1\lib\net46\Ical.Net.Collections.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="NodaTime">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\NodaTime.2.0.1\lib\net45\NodaTime.dll</HintPath>

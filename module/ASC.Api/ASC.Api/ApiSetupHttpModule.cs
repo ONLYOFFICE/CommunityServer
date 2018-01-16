@@ -46,8 +46,7 @@ namespace ASC.Api
                     {
                         try
                         {
-                            ApiSetup.ConfigureEntryPoints();
-                            ApiSetup.RegisterRoutes();
+                            ApiSetup.Init();
                             initialized = true;
                         }
                         catch (Exception err)

@@ -23,6 +23,9 @@ window.ASC.TMTalk.connectionManager = (function () {
     onlineStatusId = 1,
     offlineStatusId = 0,
     newStatus = null,
+    reconnectionAttempts = 5,
+    reconnectTimeout = 2000,
+    reconnectCount = 0;
     statuses = [
       {id : 0, name : 'Offline', show : 'offline', title : 'Offline', isCurrent : true, className : 'offline'},
       {id : 1, name : 'Online', show : 'online', title : 'Online', isCurrent : false, className : 'online'},
@@ -179,9 +182,18 @@ window.ASC.TMTalk.connectionManager = (function () {
       return undefined;
     }
     JabberClient.GetAuthToken(function (response) {
-      if (response && typeof response.value === 'string' && response.value) {
-        ASC.TMTalk.connectionManager.connect(null, response.value);
-      }
+        if (response && typeof response.value === 'string' && response.value) {
+            ASC.TMTalk.connectionManager.connect(null, response.value);
+        } else {
+            if (reconnectCount < reconnectionAttempts) {
+                var lastStatusId = ASC.TMTalk.properties.item(ASC.TMTalk.contactsContainer.constants.propertyStatusId);
+                lastStatusId = isFinite(+lastStatusId) ? +lastStatusId : ASC.TMTalk.connectionManager.onlineStatusId;
+                setTimeout(function () {
+                    reconnectCount++;
+                    ASC.TMTalk.connectionManager.status(lastStatusId);
+                }, reconnectTimeout);
+            }
+        }
     });
   };
 
@@ -977,9 +989,8 @@ window.ASC.TMTalk.connectionManager = (function () {
 
   var sendMessage = function (jid, body, type) {
     var userName = escape(ASC.TMTalk.contactsManager.getContactName());
-    var tenantId = ASC.Resources.Master.CurrentTenantId;
     connectionManager.send(
-      $msg({ id: getMessageId(), tenantId: tenantId, from: connectionManager.jid, to: jid, username: userName, type: type })
+      $msg({ id: getMessageId(), from: connectionManager.jid, to: jid, username: userName, type: type })
         .c('active', {xmlns : Strophe.NS.CHATSTATES}).up()
         .c('body').t(body).up()
         .tree()

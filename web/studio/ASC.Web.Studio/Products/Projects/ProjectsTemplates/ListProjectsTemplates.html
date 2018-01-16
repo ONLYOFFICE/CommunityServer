@@ -1,21 +1,16 @@
 ﻿<script id="projects_projectTmpl" type="text/x-jquery-tmpl">
 
-    <tr {{if statusList.cls !='open'}} class="noActiveProj" {{/if}} id="${id}">
+    <tr {{if status !== 0}} class="noActiveProj" {{/if}} id="${id}">
         {{if !isSimpleView}}
         <td class="status">
-            <div class="changeStatusCombobox {{if canEdit && !Teamlab.profile.isVisitor}}canEdit{{else}}noEdit{{/if}}" data-id="${id}">
-                <span class="${statusList.cls}" title="${statusList.title}"></span>
-                {{if canEdit && !Teamlab.profile.isVisitor}}
-                <span class="arrow"></span>
-                {{/if}}
-            </div>
+            {{tmpl({canEdit: $item.data.canEdit, status: ASC.Projects.StatusList.getById($item.data.status)}) 'projects_statusChangeContainer'}}
         </td>
         {{/if}}
     <td class="nameProject stretch">
         {{if isPrivate}}
             <span title="${ASC.Projects.Resources.ProjectResource.HiddenProject}" class="private"></span>
         {{/if}}
-        <a href="${projLink}" class="linkHeaderMedium {{if statusList.cls != 'open'}} gray-text{{/if}}">${title}</a>
+        <a href="${projLink}" class="linkHeaderMedium {{if status !== 0}} gray-text{{/if}}">${title}</a>
     </td>
     <td class="taskCount">
         {{if taskCount != 0}}
@@ -41,12 +36,13 @@
 </script>
 
 <script id="memberTemplate" type="text/x-jquery-tmpl">
-    <tbody>
+    <table class="listContainer">
+        <tbody>
         {{each team}}
-        <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isAdministrator || isManager}} disable{{/if}}" data-partisipantId="${id}">
+        <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isAdmin || isManager}} disable{{/if}}" data-partisipantId="${id}">
             <td style="" class="user-info">
                 <div class="pm-projectTeam-userPhotoContainer">
-                    <img src="${avatarSmall}" />
+                    <img src="${avatarSmall}"/>
                     {{if status == 2}}
                     <span class="status-blocked"></span>
                     {{/if}}
@@ -54,7 +50,7 @@
                     {{if isVisitor}}
                     <span class="role collaborator"></span>
                     {{/if}}
-                    {{if (isAdmin || isAdministrator) && status!=2}}
+                    {{if isAdmin && status!=2}}
                     <span class="role admin"></span>
                     {{/if}}
                     {{/if}}
@@ -86,7 +82,41 @@
             </td>
         </tr>
         {{/each}}
-    </tbody>
+        </tbody>
+    </table>
+</script>
+
+<script id="member_template_without_photo" type="text/x-jquery-tmpl">
+    <table class="listContainer">
+        <tbody>
+        {{each team}}
+        <tr class="with-entity-menu pm-projectTeam-participantContainer {{if isAdmin || isManager}} disable{{/if}}" data-partisipantId="${id}">
+            <td style="" class="user-info">
+                <div class="user-info-container">
+                    <a class="user-name {{if typeof title === 'undefined' }} without-title{{/if}}" href="${profileUrl}" title="${displayName}">
+                        ${displayName}
+                    </a>
+                </div>
+            </td>
+            {{if project.canEditTeam && project.isPrivate}}
+            <td class="right-settings">
+                {{if status!=2}}
+                <div>
+                    {{each security}}
+                    {{tmpl(security[$index], {showSplitter: $index !== security.length - 1}) 'projects_securityItem'}}
+                    {{/each}}
+                </div>
+                {{/if}}
+            </td>
+            {{/if}}
+
+            <td class="menupoint-container">
+                <div class="reset-action"></div>
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
 </script>
 
 <script id="projects_securityItem" type="text/x-jquery-tmpl">
@@ -159,7 +189,7 @@
         {{/if}}
     </div>
 
-    <table id="team_container" class="block-cnt-splitter {{if !project.canEditTeam}} no-access{{/if}}  listContainer">
+    <div id="team_container" class="block-cnt-splitter {{if !project.canEditTeam}} no-access{{/if}}">
         {{tmpl 'memberTemplate'}}
-    </table>
+    </div>
 </script>

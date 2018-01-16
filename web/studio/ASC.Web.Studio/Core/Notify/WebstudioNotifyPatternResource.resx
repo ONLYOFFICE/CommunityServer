@@ -211,7 +211,7 @@
     <value>Add your email account to ${LetterLogoText} Mail and manage all correspondence in one place</value>
   </data>
   <data name="ItemAddFilesCreatWorkspace" xml:space="preserve">
-    <value>Add files from your cloud storages to create a single workspace for all your docs</value>
+    <value>Connect cloud storages you use to ONLYOFFICE to create a single workspace for all your docs.</value>
   </data>
   <data name="ItemAddTeamlabMail" xml:space="preserve">
     <value>Add your email account and manage all correspondence in one place</value>
@@ -343,7 +343,7 @@
     <value>Tip #5: Secure the access to your web-office</value>
   </data>
   <data name="ItemSecureAccessText" xml:space="preserve">
-    <value>${LetterLogoText} portals are hosted on Amazon Web Services, which is one of the most well-established cloud computing platform today. But you can always make use of an extra security level by enabling the confirmation SMS code option. Go to Settings &gt;&gt; Security &gt;&gt; Portal Access</value>
+    <value>${LetterLogoText} portals are hosted on Amazon Web Services, one of the most protected cloud computing platforms today, but you can always add an extra security layer. Set the password strength and enable 2-factor authentication to protect your data. To do so, go to Settings &gt;&gt; Security &gt;&gt; Portal Access</value>
   </data>
   <data name="ItemTryOnlineDocEditor" xml:space="preserve">
     <value>Try full-featured online document editing in your browser</value>
@@ -389,13 +389,6 @@ We're glad you're here. Stay tuned!
 
 Sincerely,
 ONLYOFFICE™ Team.</value>
-  </data>
-  <data name="pattern_admin_sms_balance" xml:space="preserve">
-    <value>h1.Message from the "${__VirtualRootPath}":"${__VirtualRootPath}" portal
-
-Current SMS balance: $Body
-
-*Please note* that when you are out of SMS the two-factor authentication portal access option will be automatically disabled. Do not forget to buy additional SMS package in good time.</value>
   </data>
   <data name="pattern_admin_voip_blocked" xml:space="preserve">
     <value>h1.Message from the "${__VirtualRootPath}":"${__VirtualRootPath}" VoIP disabled</value>
@@ -953,9 +946,6 @@ ONLYOFFICE Team</value>
   <data name="subject_activate_personal" xml:space="preserve">
     <value>Welcome to ${LetterLogoText} for personal use!</value>
   </data>
-  <data name="subject_admin_sms_balance" xml:space="preserve">
-    <value>Notification to administrators about SMS balance</value>
-  </data>
   <data name="subject_admin_voip_blocked" xml:space="preserve">
     <value>VoIP disabled</value>
   </data>
@@ -1084,7 +1074,7 @@ ONLYOFFICE Team
   <data name="pattern_enterprise_admin_activation" xml:space="preserve">
     <value>Dear $UserName,
 
-You have just created the ONLYOFFICE portal, your company's portal that would enhance internal cooperation. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
+You have just created the ONLYOFFICE portal, safe and secure web-office that would enhance your company collaboration. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}". (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
 
  p=. "Click here for confirmation":"$InviteLink"
 
@@ -1106,7 +1096,7 @@ ONLYOFFICE Team
   <data name="pattern_enterprise_whitelabel_admin_activation" xml:space="preserve">
     <value>Dear $UserName,
 
-You have just created the ${LetterLogoText} portal, your company's portal that would enhance internal cooperation. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address:
+You have just created the ${LetterLogoText} portal, safe and secure web-office that would enhance your company collaboration. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}". (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot). Follow the link below to confirm your email address: 
 
  p=. "Click here for confirmation":"$InviteLink"
 
@@ -1160,19 +1150,19 @@ ${LetterLogoText} Team</value>
   <data name="pattern_enterprise_admin_welcome" xml:space="preserve">
     <value>Dear $UserName,
 
-To make the portal management quick and easy, ONLYOFFICE provides you with Control Panel, a set of automation tools that allows you to:
-
-- Change the default portal logos to brand your web-office;
+ONLYOFFICE provides you with security tools that allows you to:
 
 - Turn on HTTPS to keep your portal data secure;
 
-- Import users from your LDAP server;
-
 - Backup your portal data on a regular basis to avoid any data-loss;
 
-- Check for available ONLYOFFICE updates;
+- Track login history and receive the audit trail data;
 
-- Track login history and receive the audit trail data.
+- Enable two-factor authentication. 
+
+To turn on two-factor authentication, connect one of the service providers in Settings &gt;&gt; Integration &gt;&gt;Third Party Authorization, and then go to Settings &gt;&gt; Security &gt;&gt; Two-factor authentication to enable the feature
+
+The rest of the tools are available in Control Panel, where you can also change the default portal logos, import users from your LDAP server and check for available ONLYOFFICE updates.
 
 $GreenButton
 
@@ -1185,19 +1175,19 @@ ONLYOFFICE Team
   <data name="pattern_enterprise_whitelabel_admin_welcome" xml:space="preserve">
     <value>Dear $UserName,
 
-To make the portal management quick and easy, ${LetterLogoText} provides you with Control Panel, a set of automation tools that allows you to:
-
-- Change the default portal logos to brand your web-office;
+${LetterLogoText} provides you with security tools that allows you to:
 
 - Turn on HTTPS to keep your portal data secure;
 
-- Import users from your LDAP server;
-
 - Backup your portal data on a regular basis to avoid any data-loss;
 
-- Check for available ${LetterLogoText} updates;
+- Track login history and receive the audit trail data;
 
-- Track login history and receive the audit trail data.
+- Enable two-factor authentication. 
+
+To turn on two-factor authentication, connect one of the service providers in Settings &gt;&gt; Integration &gt;&gt;Third Party Authorization, and then go to Settings &gt;&gt; Security &gt;&gt; Two-factor authentication to enable the feature
+
+The rest of the tools are available in Control Panel, where you can also change the default portal logos, import users from your LDAP server and check for available ${LetterLogoText} updates.
 
 $GreenButton
 
@@ -1232,15 +1222,17 @@ For more information we invite you to browse our "Help Center":"https://helpcent
 
 Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free and can be connected to your ONLYOFFICE portal. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
+Let your team also use ONLYOFFICE Documents app to manage and edit docs on iOS devices "Get it on App Store":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972".
+
 Truly yours,
 ONLYOFFICE Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="subject_enterprise_admin_welcome" xml:space="preserve">
-    <value>Easy Way to Manage Your Portal</value>
+    <value>Easy Way to Make Your Portal More Secure</value>
   </data>
   <data name="subject_enterprise_whitelabel_admin_welcome" xml:space="preserve">
-    <value>Easy Way to Manage Your Portal</value>
+    <value>Easy Way to Make Your Portal More Secure</value>
   </data>
   <data name="subject_freecloud_admin_activation" xml:space="preserve">
     <value>Welcome to ${LetterLogoText} Portal!</value>
@@ -1286,7 +1278,7 @@ ${LetterLogoText} Team</value>
   <data name="pattern_enterprise_user_activation" xml:space="preserve">
     <value>Dear $UserName,
 
-$__AuthorName has invited you to join ONLYOFFICE - your team's portal that would enchance internal cooperation. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+$__AuthorName has invited you to join ONLYOFFICE - your company's portal, safe and secure web-office that would enhance your company collaboration. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
 
 You can accept the invitation by following the link below, it is only valid for 7 days:
 
@@ -1301,24 +1293,31 @@ ONLYOFFICE Team
   <data name="pattern_enterprise_user_welcome" xml:space="preserve">
     <value>Dear $UserName,
 
-Your user profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}".
+Your user profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}". Get started with it today!
 
-h3.Get started with your portal:
+h3.Start working with Documents:
 
-# Edit your "profile":"$MyStaffLink" to add personal and contact details.
-# Create, edit and organize "Documents":"${__VirtualRootPath}/products/files/".
+# Create and edit text documents, spreadsheet and presentations.
+# Connect cloud storages you use to create a single workspace for all of your docs.
+# Share documents with your team members.
+# Explore different ways of working on docs together: two real-time co-editing modes, review, comments, chat.
+
+h3.Try additional ONLYOFFICE tools:
+
 # Add your email account to "ONLYOFFICE Mail":"${__VirtualRootPath}/addons/mail/".
 # Create "Projects":"${__VirtualRootPath}/products/projects/" and manage your workflow by adding milestones and tasks.
-# Manage your customer relations using "CRM":"${__VirtualRootPath}/products/crm/" module, identify priority contacts, track communication history and sales performance.
+# Manage your customer relations using "CRM":"${__VirtualRootPath}/products/crm/".
 # Use "Community":"${__VirtualRootPath}/products/community/" to start your blogs, forums, add events, share bookmarks.
 # Organize your work schedule with the built-in "Calendar":"${__VirtualRootPath}/addons/calendar/".
 # Start "Talk":"${__VirtualRootPath}/addons/talk/" to chat with your teammates online.
 
 $GreenButton
 
-If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
 An additional tip: use free ONLYOFFICE Desktop Editors to work on documents, spreadsheets and presentations offline. Connect the application to your portal to get access to documents stored there. "Download now":"http://www.onlyoffice.com/desktop.aspx"
+
+If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
 
 Truly yours,
 ONLYOFFICE Team
@@ -1327,7 +1326,7 @@ ONLYOFFICE Team
   <data name="pattern_enterprise_whitelabel_user_activation" xml:space="preserve">
     <value>Dear $UserName,
 
-$__AuthorName has invited you to join ${LetterLogoText} - your team's portal that would enchance internal cooperation. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
+$__AuthorName has invited you to join ${LetterLogoText} - your company's portal, safe and secure web-office that would enhance your company collaboration. Your portal address is "${__VirtualRootPath}":"${__VirtualRootPath}" (adding this link to your bookmarks is a good idea, you are most likely to get to use it a lot).
 
 You can accept the invitation by following the link below, it is only valid for 7 days:
 
@@ -1339,15 +1338,20 @@ ${LetterLogoText} Team</value>
   <data name="pattern_enterprise_whitelabel_user_welcome" xml:space="preserve">
     <value>Dear $UserName,
 
-Your user profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}".
+Your user profile has been successfully added to the portal at "${__VirtualRootPath}":"${__VirtualRootPath}". Get started with it today!
 
-h3.Get started with your portal:
+h3.Start working with Documents:
 
-# Edit your "profile":"$MyStaffLink" to add personal and contact details.
-# Create, edit and organize "Documents":"${__VirtualRootPath}/products/files/".
+# Create and edit text documents, spreadsheet and presentations.
+# Connect cloud storages you use to create a single workspace for all of your docs.
+# Share documents with your team members.
+# Explore different ways of working on docs together: two real-time co-editing modes, review, comments, chat.
+
+h3.Try additional ${LetterLogoText} tools:
+
 # Add your email account to "${LetterLogoText} Mail":"${__VirtualRootPath}/addons/mail/".
 # Create "Projects":"${__VirtualRootPath}/products/projects/" and manage your workflow by adding milestones and tasks.
-# Manage your customer relations using "CRM":"${__VirtualRootPath}/products/crm/" module, identify priority contacts, track communication history and sales performance.
+# Manage your customer relations using "CRM":"${__VirtualRootPath}/products/crm/".
 # Use "Community":"${__VirtualRootPath}/products/community/" to start your blogs, forums, add events, share bookmarks.
 # Organize your work schedule with the built-in "Calendar":"${__VirtualRootPath}/addons/calendar/".
 # Start "Talk":"${__VirtualRootPath}/addons/talk/" to chat with your teammates online.
@@ -1499,6 +1503,8 @@ If you need help with your portal, we invite you to browse our "Help Center":"ht
 
 An additional tip: use free ONLYOFFICE Desktop Editors to work on documents offline. Connect the application to your portal to get access to documents stored in the cloud and collaborate. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+
 Truly yours,
 ONLYOFFICE Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
@@ -1568,6 +1574,8 @@ h3.Get started with your portal:
 $GreenButton
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
 Just a tip: use free ONLYOFFICE Desktop Editors, if you need to edit documents, spreadsheets and presentations without Internet connection. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
@@ -1731,6 +1739,8 @@ If you need help with your portal, we invite you to browse our "Help Center":"ht
 
 Just a tip: use free ONLYOFFICE Desktop Editors, if you need to edit documents, spreadsheets and presentations without Internet connection. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+
 Truly yours,
 ONLYOFFICE Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
@@ -1799,7 +1809,7 @@ ONLYOFFICE Team
     <value>Dear $UserName,
 
 It’s likely that ONLYOFFICE is a new experience for you so we figured that you might like some tips and tricks to get you started.
-$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItemsBtm
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 $GreenButton
    
 Done. It's time to invite teammates to your web-office!
@@ -1807,6 +1817,8 @@ Done. It's time to invite teammates to your web-office!
 For more information we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
 
 Note that all members of your team can use ONLYOFFICE Desktop Editors to work on documents offline. The application is free and can be connected to your ONLYOFFICE portal. "Download now":"http://www.onlyoffice.com/desktop.aspx"
+
+Let your team also use ONLYOFFICE Documents app to manage and edit docs on iOS devices Get it on "App Store":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"
 
 Truly yours,
 ONLYOFFICE Team
@@ -1850,14 +1862,16 @@ Mail me at "support@onlyoffice.com":"mailto:support@onlyoffice.com" whenever you
   <data name="pattern_enterprise_user_organize_workplace" xml:space="preserve">
     <value>Dear $UserName,
 
-With ${LetterLogoText} you have all your data stored in one place. There is no more need for additional desktop software or flash drives. Be productive and access your office at "${__VirtualRootPath}":"${__VirtualRootPath}" from anywhere!
+With ONLYOFFICE you have all your data stored in one place available from the cloud. Be productive and access your web-office at "${__VirtualRootPath}":"${__VirtualRootPath}" from anywhere! 
 
-Start your migration to the cloud office with these 5 steps:
-$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+Start now:
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
 
 $GreenButton
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
 Truly yours,
 ONLYOFFICE Team
@@ -1882,6 +1896,8 @@ In almost every business we are to deal with documents every day - contracts, re
 
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
 $GreenButton
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx" 
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
 
@@ -1969,7 +1985,7 @@ Sometimes the most useful tools are not the most obvious. There is always much t
 
 Here is the Top 5 ONLYOFFICE CRM features which you might have missed:
 
-$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
 $GreenButton
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
@@ -1996,6 +2012,8 @@ ONLYOFFICE Team
     <value>Collaboration is the most effective way to solve a problem. But working as a team is not always easy. ONLYOFFICE offers you a set of tools designed to help you to improve your team collaboration:
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 $GreenButton
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx" 
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
 
@@ -2139,7 +2157,7 @@ Sometimes the most useful tools are not the most obvious. There is always much t
 
 Here is the Top 5 ONLYOFFICE CRM features which you might have missed:
 
-$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
 $GreenButton
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
@@ -2155,6 +2173,8 @@ In almost every business we are to deal with documents every day - contracts, re
 
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
 $GreenButton
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
 
@@ -2181,6 +2201,8 @@ ONLYOFFICE Team
 $TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
 $GreenButton
 
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+
 If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com" or visit our "Forum":"http://cloud.onlyoffice.org".
 
 Truly yours,
@@ -2203,10 +2225,10 @@ Mail me at "support@onlyoffice.com":"mailto:support@onlyoffice.com" whenever you
   <data name="pattern_saas_user_organize_workplace" xml:space="preserve">
     <value>Dear $UserName,
 
-With ONLYOFFICE you have all your data stored in one place available from the cloud. There is no more need for additional desktop software or flash drives. Be productive and access your office at "${__VirtualRootPath}":"${__VirtualRootPath}" from anywhere!
+With ONLYOFFICE you have all your data stored in one place available from the cloud. Be productive and access your web-office at "${__VirtualRootPath}":"${__VirtualRootPath}" from anywhere!
 
-Start your migration to the cloud office with these 5 steps:
-$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+Start now:
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItemsBtm
 
 $GreenButton
 
@@ -2244,6 +2266,8 @@ Thank you for having given ONLYOFFICE a try. The free plan for your portal at "$
 
 To continue using your account, proceed to the "Pricing page":"$PricingPage", where you can check out all the models and choose the most suitable for you.
 
+And just a quick reminder: you may as well deploy ONLYOFFICE on your private network if you are looking for enhanced security options. "Learn more":"https://www.onlyoffice.com/server-solutions.aspx"
+
 Truly yours,
 ONLYOFFICE Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
@@ -2260,6 +2284,8 @@ If you're not going to increase it considerably, we can recommend you a $$Price/
 Please, check all the available options and choose the most suitable rate for your business.
 
 $GreenButton
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
 
 $BlueButton
 
@@ -2283,6 +2309,8 @@ Today you have a chance to get 20 additional days of the trial or a 20% discount
 $GreenButton
 
 $BlueButton
+
+And just a quick reminder: you may as well deploy ONLYOFFICE on your private network if you are looking for enhanced security options. "Learn more":"https://www.onlyoffice.com/server-solutions.aspx"
 
 Truly yours,
 ONLYOFFICE Team
@@ -2422,6 +2450,7 @@ $GreenButton
 
 Moreover, you can use our free ONLYOFFICE Desktop Editors - an office suite for working on documents, spreadsheets and presentations without Internet connection. "Download now":"http://www.onlyoffice.com/desktop.aspx"
 
+You can also use ONLYOFFICE Documents app to manage and edit docs on iOS devices Get it on "App Store":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"
 
 Truly yours,
 ONLYOFFICE Team
@@ -2448,15 +2477,11 @@ ONLYOFFICE Team
   <data name="pattern_saas_admin_trial_warning_after_half_year" xml:space="preserve">
     <value>Dear $UserName,
 
-You haven't entered your ONLYOFFICE "${__VirtualRootPath}":"${__VirtualRootPath}" cloud portal for more than half a year. Perhaps you have decided not to use it anymore. Unfortunately, we will delete your account today, because you no longer need it.
+You haven't entered your ONLYOFFICE "${__VirtualRootPath}":"${__VirtualRootPath}" portal for more than half a year. Since you have decided not to use it anymore, your web-office will be deleted. Please note that after the portal deletion all the data stored there will be fully deleted.
 
-Access to your portal will be blocked by this day and it will be completely removed in the nearest time. Please note that after the portal deletion all the created tasks, data in CRM, messages and other information will be fully deleted.
+We would appreciate if you take the time "to tell us":"$FeedBackUrl" why you decided to stop using ONLYOFFICE. It will help us to improve our services.
 
-We are very sorry that you did not use ONLYOFFICE Cloud Solution in your work. We would appreciate if you take the time "to tell us":"$FeedBackUrl" why you decided to refuse from using our platform. It is important for us to understand this, so that we can improve the service and make it more useful for you and for other clients.
-
-And of course, you can always sign up for a new ONLYOFFICE portal.
-
-Work and communicate with pleasure!
+If you think this is a mistake and want to continue using ONLYOFFICE, please "contact our support team":"mailto:support@onlyoffice.com".
 
 Truly yours,
 ONLYOFFICE Team
@@ -2467,5 +2492,85 @@ ONLYOFFICE Team
   </data>
   <data name="ButtonSendRequest" xml:space="preserve">
     <value>Send Request</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Dear $UserName,
+
+The process of reassign data from user "$FromUserName":"$FromUserLink" to user "$ToUserName":"$ToUserLink" has been successfully completed.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Reassigns user data is completed</value>
+  </data>
+  <data name="ItemVoIP" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="ItemVoIPText" xml:space="preserve">
+    <value>Receive incoming calls from your customers and make outgoing calls right from a web browser using virtual numbers provided by the Twilio service.</value>
+  </data>
+  <data name="pattern_saas_admin_user_powerful_tips" xml:space="preserve">
+    <value>Dear $UserName!
+
+Do you know that ONLYOFFICE has the most powerful online editors in the world? Working on them we managed to achieve these goals:
+
+# Support for all popular formats. 100% compatibility with MS Office;
+# Complex formatting available online;
+# 100% view, conversion and pagination fidelity in any browser/OS.
+
+Have a look at the comparison with different online office suites and find out for yourself. "Watch presentations":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+
+Like our editors but still concerned out your privacy and your data security? Deploy ONLYOFFICE on your private network.
+
+Benefits of using ONLYOFFICE on-premise:
+
+# Full control of your data;
+# 100% open source solution;
+# Variety of installation options (Docker image/script, pre-built binaries, virtual machines);
+# Control Panel for quick configuration and updates. 
+
+$GreenButton
+
+Truly yours,
+ONLYOFFICE Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="subject_saas_admin_user_powerful_tips" xml:space="preserve">
+    <value>Use the most powerful office suite in the cloud or on your private network</value>
+  </data>
+  <data name="ItemCoAuthoringDocuments" xml:space="preserve">
+    <value>Explore different ways of co-authoring documents - real-time co-editing, chat, comments, review.</value>
+  </data>
+  <data name="ItemShareDocuments" xml:space="preserve">
+    <value>Share documents with your teammates.</value>
+  </data>
+  <data name="Item3rdParty" xml:space="preserve">
+    <value>Tip #5:  Connect your portal with the 3rd-party services</value>
+  </data>
+  <data name="Item3rdPartyText" xml:space="preserve">
+    <value>Let your team members use Facebook, Twitter, Google or LinkedIn to sign in. Link up your portal  with Box, Dropbox, OneDrive and Google to transfer your documents. Connect DocuSign to use  e-signature, Twilio - for VoIP, Bitly - to shorten links and Firebase to get notifications when you're offline.</value>
+  </data>
+  <data name="pattern_enterprise_admin_user_powerful_tips" xml:space="preserve">
+    <value>Dear $UserName,
+
+Do you know that ONLYOFFICE has the most powerful online editors in the world? Having combined the best from Microsoft Office and Google Docs, we managed to achieve these goals:
+
+# Support for all popular formats. 100% compatibility with MS Office;
+# Complex formatting available online;
+# 100% view, conversion and pagination fidelity in any browser/OS.
+# More collaboration capabilities: two real-time co-editing modes, review, comments, chat. 
+
+Have a look at the "comparison with different online office suites":"https://www.onlyoffice.com/document-editor-comparison.aspx" or go to your portal to check everything yourself.
+
+$GreenButton
+
+If you need help with your portal, we invite you to browse our "Help Center":"https://helpcenter.onlyoffice.com".
+
+Truly yours,
+ONLYOFFICE Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="subject_enterprise_admin_user_powerful_tips" xml:space="preserve">
+    <value>Why ONLYOFFICE is better than MS Office Online or Google Docs?</value>
   </data>
 </root>

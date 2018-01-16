@@ -1,6 +1,6 @@
 ﻿<script id="feed-inner-comment-tmpl" type="text/x-jquery-tmpl">
     <div class="comment">
-        <a href="${author.ProfileUrl}" target="_blank"><img class="comment-avatar" src="${author.avatarBig}"/></a>
+        <a href="${author.profileUrl}" target="_blank"><img class="comment-avatar" src="${author.avatarBig}"/></a>
         <div class="comment-content-box">
             <div class="comment-author">
                 <a href="${author.profileUrl}" class="title" target="_blank">${author.displayName}</a>,
@@ -36,8 +36,7 @@
                     <span class="grouped-feeds-count">
                         ${ASC.Resources.Master.FeedResource.OtherFeedsCountMsg.format(groupedFeeds.length)}
                     </span>
-                    {{/if}}
-                    {{if isNew}}
+                    {{/if}}{{if isNew}}
                     <span class="new-indicator" title="${ASC.Resources.Master.FeedResource.NewFeedIndicator}">${ASC.Resources.Master.FeedResource.NewFeedIndicator}</span>
                     {{/if}}
                 </div>
@@ -46,8 +45,7 @@
                     <span class="product">${productText}.</span>
                     {{if location}}
                     <span class="location">${location}.</span>
-                    {{/if}}
-                    {{if extraLocation}}
+                    {{/if}}{{if extraLocation}}
                     <span class="extra-location">
                         <a href="${extraLocationUrl}" class="title" title="${extraLocation}" target="_blank">
                             ${extraLocation}</a>.

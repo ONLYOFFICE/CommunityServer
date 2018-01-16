@@ -25,7 +25,7 @@
                     <%= Resource.CookieSettingsLifeTime%>:
                 </div>
                 <div>
-                    <input type="text" class="textEdit" maxlength="3" id="lifeTimeTxt" value="<%= LifeTime %>" style="width: 100px; margin-top: 6px;" />
+                    <input type="text" class="textEdit" maxlength="3" id="lifeTimeTxt" value="<%= LifeTime > 0 ? LifeTime : 1440 %>" style="width: 100px; margin-top: 6px;" />
                 </div>
             </div>
 

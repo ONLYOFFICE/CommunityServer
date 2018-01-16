@@ -48,30 +48,33 @@ namespace ASC.Mail.Aggregator.Core.Iterators
         private readonly int _minMailboxId;
         private readonly int _maxMailboxId;
 
+        private readonly int _tenant;
+        private readonly string _userId;
+
         // Constructor
-        public MailboxIterator(MailBoxManager mailBoxManager)
+        public MailboxIterator(MailBoxManager mailBoxManager, string userId = null, int tenant = -1)
         {
             _mailBoxManager = mailBoxManager;
-            _mailBoxManager.GetMailboxesRange(out _minMailboxId, out _maxMailboxId);
+            _mailBoxManager.GetMailboxesRange(out _minMailboxId, out _maxMailboxId, userId, tenant);
+            _tenant = tenant;
+            _userId = userId;
         }
 
         // Gets first item
         public MailBox First()
         {
-            Current = _mailBoxManager.GetMailBox(_minMailboxId);
+            Current = _mailBoxManager.GetMailBox(_minMailboxId, _userId, _tenant);
             return Current;
         }
 
         // Gets next item
         public MailBox Next()
         {
-            if (!IsDone)
-            {
-                Current = _mailBoxManager.GetNextMailBox(Current.MailBoxId);
-                return Current;
-            }
+            if (IsDone) 
+                return null;
 
-            return null;
+            Current = _mailBoxManager.GetNextMailBox(Current.MailBoxId, _userId, _tenant);
+            return Current;
         }
 
         // Gets current iterator item

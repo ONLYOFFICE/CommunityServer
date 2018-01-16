@@ -39,6 +39,33 @@ namespace ASC.Web.CRM {
     public partial class BasicTemplate {
         
         /// <summary>
+        /// SideNavigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SideNavigation;
+        
+        /// <summary>
+        /// BTSidePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder BTSidePanel;
+        
+        /// <summary>
+        /// AdditionalColumns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder AdditionalColumns;
+        
+        /// <summary>
         /// BTPageContentWithoutCommonContainer control.
         /// </summary>
         /// <remarks>
@@ -64,24 +91,6 @@ namespace ASC.Web.CRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder BTPageContent;
-        
-        /// <summary>
-        /// SideNavigation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SideNavigation;
-        
-        /// <summary>
-        /// BTSidePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder BTSidePanel;
         
         /// <summary>
         /// Master property.

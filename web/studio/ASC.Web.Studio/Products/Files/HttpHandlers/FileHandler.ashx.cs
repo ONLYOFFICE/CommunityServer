@@ -35,10 +35,8 @@ using System.Web;
 using System.Web.Services;
 using ASC.Common.Web;
 using ASC.Core;
-using ASC.Data.Storage.DiscStorage;
 using ASC.Data.Storage.S3;
 using ASC.Files.Core;
-using ASC.Files.Core.Data;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
@@ -161,6 +159,7 @@ namespace ASC.Web.Files
 
         private static void DownloadFile(HttpContext context, bool inline)
         {
+            var flushed = false;
             try
             {
                 var id = context.Request[FilesLinkUtility.FileId];
@@ -192,6 +191,8 @@ namespace ASC.Web.Files
                         context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                         return;
                     }
+
+                    if (!string.IsNullOrEmpty(file.Error)) throw new Exception(file.Error);
 
                     if (!fileDao.IsExistOnStorage(file))
                     {
@@ -286,12 +287,13 @@ namespace ASC.Web.Files
 
                                 if (!context.Response.IsClientConnected)
                                 {
-                                    Global.Logger.Error(String.Format("Download file error {0} {1} Connection is lost. Too long to buffer the file", file.Title, file.ID));
+                                    Global.Logger.Warn(String.Format("Download file error {0} {1} Connection is lost. Too long to buffer the file", file.Title, file.ID));
                                 }
 
                                 FilesMessageService.Send(file, context.Request, MessageAction.FileDownloaded, file.Title);
 
                                 context.Response.Flush();
+                                flushed = true;
                             }
                             else
                             {
@@ -320,7 +322,7 @@ namespace ASC.Web.Files
                                 }
 
                                 var dataToRead = file.ContentLength;
-                                const int bufferSize = 8 * 1024; // 8KB
+                                const int bufferSize = 8*1024; // 8KB
                                 var buffer = new Byte[bufferSize];
 
                                 if (!FileConverter.EnableConvert(file, ext))
@@ -387,12 +389,13 @@ namespace ASC.Web.Files
                                     {
                                         context.Response.OutputStream.Write(buffer, 0, length);
                                         context.Response.Flush();
+                                        flushed = true;
                                         dataToRead = dataToRead - length;
                                     }
                                     else
                                     {
                                         dataToRead = -1;
-                                        Global.Logger.Error(String.Format("IsClientConnected is false. Why? Download file {0} {1} Connection is lost. ", file.Title, file.ID));
+                                        Global.Logger.Warn(String.Format("IsClientConnected is false. Why? Download file {0} {1} Connection is lost. ", file.Title, file.ID));
                                     }
                                 }
                             }
@@ -408,7 +411,6 @@ namespace ASC.Web.Files
                         {
                             if (fileStream != null)
                             {
-                                fileStream.Flush();
                                 fileStream.Close();
                                 fileStream.Dispose();
                             }
@@ -417,6 +419,7 @@ namespace ASC.Web.Files
                         try
                         {
                             context.Response.End();
+                            flushed = true;
                         }
                         catch (HttpException)
                         {
@@ -437,8 +440,11 @@ namespace ASC.Web.Files
                 var line = frame.GetFileLineNumber();
 
                 Global.Logger.ErrorFormat("Url: {0} {1} IsClientConnected:{2}, line number:{3} frame:{4}", context.Request.Url, ex, context.Response.IsClientConnected, line, frame);
-                context.Response.StatusCode = 400;
-                context.Response.Write(HttpUtility.HtmlEncode(ex.Message));
+                if (!flushed && context.Response.IsClientConnected)
+                {
+                    context.Response.StatusCode = 400;
+                    context.Response.Write(HttpUtility.HtmlEncode(ex.Message));
+                }
             }
         }
 
@@ -493,6 +499,9 @@ namespace ASC.Web.Files
                     var file = version > 0
                                    ? fileDao.GetFile(id, version)
                                    : fileDao.GetFile(id);
+
+                    if (!string.IsNullOrEmpty(file.Error)) throw new Exception(file.Error);
+
                     using (var stream = fileDao.GetFileStream(file))
                     {
                         context.Response.AddHeader("Content-Length",
@@ -605,9 +614,8 @@ namespace ASC.Web.Files
                 }
                 else
                 {
-                    var template = context.Request["template"];
                     var docType = context.Request["doctype"];
-                    file = CreateFileFromTemplate(folder, template, fileTitle, docType);
+                    file = CreateFileFromTemplate(folder, fileTitle, docType);
                 }
             }
             catch (Exception ex)
@@ -634,7 +642,7 @@ namespace ASC.Web.Files
                     : (FilesLinkUtility.GetFileWebEditorUrl(file.ID) + "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.MessageFileCreated, folder.Title))));
         }
 
-        private static File CreateFileFromTemplate(Folder folder, string template, string fileTitle, string docType)
+        private static File CreateFileFromTemplate(Folder folder, string fileTitle, string docType)
         {
             var storeTemplate = Global.GetStoreTemplate();
 
@@ -650,32 +658,12 @@ namespace ASC.Web.Files
                     fileExt = tmpFileExt;
             }
 
-            string templatePath;
-            string templateName;
-            if (string.IsNullOrEmpty(template))
-            {
-                templateName = "new" + fileExt;
+            var templateName = "new" + fileExt;
 
-                templatePath = FileConstant.NewDocPath + lang + "/";
-                if (!storeTemplate.IsDirectory(templatePath))
-                    templatePath = FileConstant.NewDocPath + "default/";
-                templatePath += templateName;
-            }
-            else
-            {
-                templateName = template + fileExt;
-
-                templatePath = FileConstant.TemplateDocPath + lang + "/";
-                if (!storeTemplate.IsDirectory(templatePath))
-                    templatePath = FileConstant.TemplateDocPath + "default/";
-                templatePath += templateName;
-
-                if (!storeTemplate.IsFile(templatePath))
-                {
-                    templatePath = FileConstant.TemplateDocPath + "default/";
-                    templatePath += templateName;
-                }
-            }
+            var templatePath = FileConstant.NewDocPath + lang + "/";
+            if (!storeTemplate.IsDirectory(templatePath))
+                templatePath = FileConstant.NewDocPath + "default/";
+            templatePath += templateName;
 
             if (string.IsNullOrEmpty(fileTitle))
             {
@@ -803,6 +791,8 @@ namespace ASC.Web.Files
                 {
                     JsonWebToken.JsonSerializer = new DocumentService.JwtSerializer();
                     var stringPayload = JsonWebToken.Decode(header, FileUtility.SignatureSecret);
+
+                    Global.Logger.Debug("DocService track payload: " + stringPayload);
                     var jsonPayload = JObject.Parse(stringPayload);
                     data = jsonPayload["payload"];
                 }

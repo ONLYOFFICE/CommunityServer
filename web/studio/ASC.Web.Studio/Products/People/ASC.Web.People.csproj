@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -57,6 +58,13 @@
   <ItemGroup>
     <Compile Include="Classes\MyGroup.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reassigns.aspx.cs">
+      <DependentUpon>Reassigns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reassigns.aspx.designer.cs">
+      <DependentUpon>Reassigns.aspx</DependentUpon>
     </Compile>
     <Compile Include="Core\SearchHendler.cs" />
     <Compile Include="Help.aspx.cs">
@@ -67,6 +75,7 @@
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
     <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
+    <Compile Include="Masters\ClientScripts\ClientSettingsResources.cs" />
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
     <Compile Include="Masters\PeopleBaseTemplate.Master.cs">
       <DependentUpon>PeopleBaseTemplate.Master</DependentUpon>
@@ -92,6 +101,7 @@
     </Compile>
     <Compile Include="ProfileAction.aspx.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProfileAction.aspx.designer.cs">
       <DependentUpon>ProfileAction.aspx</DependentUpon>
@@ -116,6 +126,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Reassigns.aspx" />
+    <Content Include="js\reassigns.js" />
     <Content Include="js\departmentmanagement.js" />
     <Content Include="js\peopleActions.js" />
     <Content Include="js\PeopleManager.js" />
@@ -133,6 +145,7 @@
     <EmbeddedResource Include="Resources\PeopleJSResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleJSResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PeopleResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -128,7 +128,7 @@ ASC.Controls.ConfirmMobileManager = function () {
             return false;
         });
 
-        jq("#phoneAuthcode").keyup(function (event) {
+        jq("#phoneAuthcode").keydown(function (event) {
             if (!e) {
                 var e = event;
             }

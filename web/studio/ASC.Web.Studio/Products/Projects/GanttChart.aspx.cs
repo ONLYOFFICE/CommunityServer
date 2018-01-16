@@ -48,8 +48,7 @@ namespace ASC.Web.Projects
             _moveTaskOutMilestone.Options.IsPopup = true;
             _addNewLinkPopup.Options.IsPopup = true;
 
-            Page.RegisterStyle("~/products/projects/app_themes/default/css/common.css",
-                "~/products/projects/app_themes/default/css/ganttchart.css");
+            Page.RegisterStyle("~/products/projects/app_themes/default/css/ganttchart.css");
 
             Title = HeaderStringHelper.GetPageTitle(ProjectResource.GanttGart);
         }

@@ -2,11 +2,11 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SideNavigationPanel.ascx.cs" Inherits="ASC.Web.People.UserControls.SideNavigationPanel" %>
 <%@ Import Namespace="ASC.Web.People" %>
 <%@ Import Namespace="ASC.Web.People.Classes" %>
-<%@ Import Namespace="ASC.Web.People.Core" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
+<%@ Import Namespace="ASC.Web.Studio.ThirdParty.ImportContacts" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
+<%@ Import Namespace="Resources" %>
 
 <!-- is first button -->
 <button style="display:none">&nbsp;</button>
@@ -19,7 +19,7 @@
       <span id="menuCreateNewButtonText" class="main-button-text"><%=PeopleResource.LblCreateNew%></span>
       <span class="white-combobox"></span>
     </li>
-    <li id="menuOtherActionsButton" class="menu-gray-button" title="<%=Resources.Resource.MoreActions %>">
+    <li id="menuOtherActionsButton" class="menu-gray-button" title="<%= Resource.MoreActions %>">
       <span class="btn_other-actions">...</span>
     </li>
   </ul>
@@ -28,13 +28,13 @@
     <ul class="dropdown-content">
       <li>
         <% if (EnableAddUsers) { %>
-          <a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=user"><%= CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %></a>
+          <a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=user"><%= CustomNamingPeople.Substitute<Resource>("User").HtmlEncode() %></a>
         <% } else { %>
-          <span class="dropdown-item disable"><%= CustomNamingPeople.Substitute<Resources.Resource>("User").HtmlEncode() %></span>
+          <span class="dropdown-item disable"><%= CustomNamingPeople.Substitute<Resource>("User").HtmlEncode() %></span>
         <% } %>
       </li>
-      <li><a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=guest"><%= CustomNamingPeople.Substitute<Resources.Resource>("Guest").HtmlEncode() %></a></li>
-      <li><a class="dropdown-item add-group"><%= CustomNamingPeople.Substitute<Resources.Resource>("Department").HtmlEncode() %></a></li>
+      <li><a class="dropdown-item add-profile" href="profileaction.aspx?action=create&type=guest"><%= CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode() %></a></li>
+      <li><a class="dropdown-item add-group"><%= CustomNamingPeople.Substitute<Resource>("Department").HtmlEncode() %></a></li>
     </ul>
   </div>
 
@@ -58,9 +58,9 @@
             {%>
           <span class="expander"></span>
           <% } %>
-          <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %>" href="#sortorder=ascending">
+          <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %>" href="#sortorder=ascending">
             <span class="menu-item-icon people"></span>
-            <span class="menu-item-label inner-text"><%= CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %></span>
+            <span class="menu-item-label inner-text"><%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %></span>
           </a>
         </div>
     <%}%>
@@ -126,10 +126,10 @@
          <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
 
   </ul>
-    <% if (CurrentUserAdmin && !string.IsNullOrEmpty(SetupInfo.GetImportServiceUrl()))
+    <% if (CurrentUserAdmin && Import.Enable)
        { %>
     <div class="people-import-banner">
-        <div class="people-import-banner_text"><%=PeopleResource.ImportPeople %></div>
+        <div class="people-import-banner_text"><%= PeopleResource.ImportPeople %></div>
         <div class="people-import-banner_img"></div>
     </div>
     <% } %>

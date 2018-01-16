@@ -24,7 +24,6 @@
 */
 
 
-using ASC.Collections;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -280,7 +279,7 @@ namespace ASC.Api.Utils
             {
                 value = new Regex("(?'prefix'^" + Regex.Escape(prefix) +
                     @"(?'arrleft'\[){0,1}(?'pos'[\d]+){0,1}(?'arrright'\]){0,1})(?'suffix'.+){0,1}",
-                    RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                    RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Compiled);
                 CollectionPrefixCache.TryAdd(prefix, value);
             }
             return value;

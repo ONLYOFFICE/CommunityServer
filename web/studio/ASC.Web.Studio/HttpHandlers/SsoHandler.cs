@@ -30,7 +30,6 @@ using AjaxPro;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Utils;
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.SingleSignOn.Common;
@@ -75,7 +74,7 @@ namespace ASC.Web.Studio.HttpHandlers
                         AUTH_PAGE + "?m=" + HttpUtility.UrlEncode(Resource.ErrorNotAllowedOption), false);
                     return;
                 }
-                var settings = SettingsManager.Instance.LoadSettings<SsoSettingsV2>(TenantProvider.CurrentTenantID);
+                var settings = SsoSettingsV2.Load();
 
                 if (context.Request["config"] == "saml")
                 {

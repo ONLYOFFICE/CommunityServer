@@ -36,7 +36,8 @@ namespace ASC.Data.Storage.DiscStorage
 {
     public class DiscDataHandler : IRouteHandler, IHttpHandler
     {
-        private readonly string physPath;
+        private readonly string _physPath;
+        private readonly bool _checkAuth;
 
 
         public bool IsReusable
@@ -45,13 +46,14 @@ namespace ASC.Data.Storage.DiscStorage
         }
 
 
-        public DiscDataHandler(string physPath)
+        public DiscDataHandler(string physPath, bool checkAuth = true)
         {
-            this.physPath = physPath;
+            _physPath = physPath;
+            _checkAuth = checkAuth;
         }
 
 
-        public static void RegisterVirtualPath(string virtPath, string physPath)
+        public static void RegisterVirtualPath(string virtPath, string physPath, bool publicRoute = false)
         {
             var pos = virtPath.IndexOf('{');
             if (0 <= pos)
@@ -59,26 +61,29 @@ namespace ASC.Data.Storage.DiscStorage
                 virtPath = virtPath.Substring(0, pos);
             }
 
-            pos = physPath.IndexOf('{');
-            if (0 <= pos)
-            {
-                physPath = physPath.Substring(0, pos);
-            }
-
             virtPath = virtPath.TrimStart('/');
             if (virtPath != string.Empty)
             {
                 var url = virtPath + "{*pathInfo}";
-                var exists = false;
+                bool exists;
                 using (var readLock = RouteTable.Routes.GetReadLock())
                 {
                     exists = RouteTable.Routes.OfType<Route>().Any(r => r.Url == url);
                 }
                 if (!exists)
                 {
+                    pos = physPath.IndexOf('{');
+                    if (0 <= pos)
+                    {
+                        physPath = physPath.Substring(0, pos);
+                    }
+
                     using (var writeLock = RouteTable.Routes.GetWriteLock())
                     {
-                        RouteTable.Routes.Add(new Route(url, new DiscDataHandler(physPath)));
+                        RouteTable.Routes.Add(new Route(url,
+                                                        publicRoute
+                                                            ? (IRouteHandler)new PublicDiscDataHandler(physPath)
+                                                            : new DiscDataHandler(physPath)));
                     }
                 }
             }
@@ -86,20 +91,25 @@ namespace ASC.Data.Storage.DiscStorage
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            var vpath = requestContext.HttpContext.Request.CurrentExecutionFilePath;
-            var path = Path.Combine(physPath, requestContext.RouteData.Values["pathInfo"].ToString().Replace('/', Path.DirectorySeparatorChar));
+            var path = Path.Combine(_physPath, requestContext.RouteData.Values["pathInfo"].ToString().Replace('/', Path.DirectorySeparatorChar));
             return new DiscDataHandler(path);
         }
 
         public void ProcessRequest(HttpContext context)
         {
-            if (File.Exists(physPath))
+            if (_checkAuth && !Core.SecurityContext.IsAuthenticated)
             {
-                var lastwrite = File.GetLastWriteTime(physPath);
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return;
+            }
+
+            if (File.Exists(_physPath))
+            {
+                var lastwrite = File.GetLastWriteTime(_physPath);
                 var etag = '"' + lastwrite.Ticks.ToString("X8", CultureInfo.InvariantCulture) + '"';
 
                 var notmodified = context.Request.Headers["If-None-Match"] == etag ||
-                    context.Request.Headers["If-Modified-Since"] == lastwrite.ToString("R");
+                                  context.Request.Headers["If-Modified-Since"] == lastwrite.ToString("R");
 
                 if (notmodified)
                 {
@@ -107,17 +117,17 @@ namespace ASC.Data.Storage.DiscStorage
                 }
                 else
                 {
-                    if (File.Exists(physPath + ".gz"))
+                    if (File.Exists(_physPath + ".gz"))
                     {
-                        context.Response.WriteFile(physPath + ".gz");
+                        context.Response.WriteFile(_physPath + ".gz");
                         context.Response.Headers["Content-Encoding"] = "gzip";
                     }
                     else
                     {
-                        context.Response.WriteFile(physPath);
+                        context.Response.WriteFile(_physPath);
                     }
 
-                    context.Response.ContentType = MimeMapping.GetMimeMapping(physPath);
+                    context.Response.ContentType = MimeMapping.GetMimeMapping(_physPath);
                     context.Response.Cache.SetVaryByCustom("*");
                     context.Response.Cache.SetAllowResponseInBrowserHistory(true);
                     context.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(1));
@@ -130,6 +140,34 @@ namespace ASC.Data.Storage.DiscStorage
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
+        }
+    }
+
+    public class PublicDiscDataHandler : IRouteHandler, IHttpHandler
+    {
+        private readonly string _physPath;
+
+
+        public bool IsReusable
+        {
+            get { return true; }
+        }
+
+
+        public PublicDiscDataHandler(string physPath)
+        {
+            _physPath = physPath;
+        }
+
+        public IHttpHandler GetHttpHandler(RequestContext requestContext)
+        {
+            var path = Path.Combine(_physPath, requestContext.RouteData.Values["pathInfo"].ToString().Replace('/', Path.DirectorySeparatorChar));
+            return new PublicDiscDataHandler(path);
+        }
+
+        public void ProcessRequest(HttpContext context)
+        {
+            new DiscDataHandler(_physPath, false).ProcessRequest(context);
         }
     }
 }

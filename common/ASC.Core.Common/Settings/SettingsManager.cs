@@ -38,7 +38,7 @@ using log4net;
 
 namespace ASC.Core.Common.Settings
 {
-    public class SettingsManager
+    internal class SettingsManager
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SettingsManager));
 
@@ -69,17 +69,17 @@ namespace ASC.Core.Common.Settings
             return SaveSettingsFor(settings, tenantID, Guid.Empty);
         }
 
-        public bool SaveSettingsFor<T>(T settings, Guid userID) where T : ISettings
+        public bool SaveSettingsFor<T>(T settings, Guid userID) where T : class, ISettings
         {
             return SaveSettingsFor(settings, CoreContext.TenantManager.GetCurrentTenant().TenantId, userID);
         }
 
-        public T LoadSettings<T>(int tenantID) where T : ISettings
+        public T LoadSettings<T>(int tenantID) where T : class, ISettings
         {
             return LoadSettingsFor<T>(tenantID, Guid.Empty);
         }
 
-        public T LoadSettingsFor<T>(Guid userID) where T : ISettings
+        public T LoadSettingsFor<T>(Guid userID) where T : class, ISettings
         {
             return LoadSettingsFor<T>(CoreContext.TenantManager.GetCurrentTenant().TenantId, userID);
         }
@@ -116,7 +116,7 @@ namespace ASC.Core.Common.Settings
                     notify.Publish(new SettingsCacheItem { Key = key }, CacheNotifyAction.Remove);
                     db.ExecuteNonQuery(i);
                 }
-                cache.Insert(key, data, expirationTimeout);
+                cache.Insert(key, settings, expirationTimeout);
                 return true;
             }
             catch (Exception ex)
@@ -126,43 +126,45 @@ namespace ASC.Core.Common.Settings
             }
         }
 
-        internal T LoadSettingsFor<T>(int tenantID, Guid userID) where T : ISettings
+        internal T LoadSettingsFor<T>(int tenantID, Guid userID) where T : class, ISettings
         {
             var settingsInstance = (ISettings)Activator.CreateInstance<T>();
-            var settings = settingsInstance.GetDefault();
             var key = settingsInstance.ID.ToString() + tenantID + userID;
+
             try
             {
-                var data = cache.Get<byte[]>(key);
-                if (data == null)
-                {
-                    using (var db = GetDbManager())
-                    {
-                        var q = new SqlQuery("webstudio_settings")
-                            .Select("data")
-                            .Where("id", settingsInstance.ID.ToString())
-                            .Where("tenantid", tenantID)
-                            .Where("userid", userID.ToString());
+                var settings = cache.Get<T>(key);
+                if (settings != null) return settings;
 
-                        var result = db.ExecuteScalar<object>(q);
-                        if (result != null)
-                        {
-                            data = result is string ? Encoding.UTF8.GetBytes((string)result) : (byte[])result;
-                        }
-                        else
-                        {
-                            data = Serialize(settings);
-                        }
+                using (var db = GetDbManager())
+                {
+                    var q = new SqlQuery("webstudio_settings")
+                        .Select("data")
+                        .Where("id", settingsInstance.ID.ToString())
+                        .Where("tenantid", tenantID)
+                        .Where("userid", userID.ToString());
+
+                    var result = db.ExecuteScalar<object>(q);
+                    if (result != null)
+                    {
+                        var data = result is string ? Encoding.UTF8.GetBytes((string) result) : (byte[]) result;
+                        settings = Deserialize<T>(data);
                     }
-                    cache.Insert(key, data, expirationTimeout);
+                    else
+                    {
+                        settings = (T) settingsInstance.GetDefault();
+                    }
                 }
-                return Deserialize<T>(data);
+
+                cache.Insert(key, settings, expirationTimeout);
+
+                return settings;
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
-            return (T)settings;
+            return (T)settingsInstance.GetDefault();
         }
 
         private T Deserialize<T>(byte[] data)

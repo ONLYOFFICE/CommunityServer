@@ -36,6 +36,7 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
+using ASC.Web.CRM.Classes;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -292,6 +293,9 @@ namespace ASC.CRM.Core.Dao
         {
             if (invoiceItem.Price <= 0 || String.IsNullOrEmpty(invoiceItem.Title))
                 throw new ArgumentException();
+
+            if (invoiceItem.Price > Global.MaxInvoiceItemPrice)
+                throw new ArgumentException("Max Invoice Item Price: " + Global.MaxInvoiceItemPrice);
 
             if (!CRMSecurity.IsAdmin) CRMSecurity.CreateSecurityException();
 

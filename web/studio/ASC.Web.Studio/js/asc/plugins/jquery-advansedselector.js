@@ -1128,7 +1128,11 @@
             for (var i = 0, length = data.length; i < length; i++) {
                 var newObj = {};
                 newObj.title = data[i].displayName || data[i].title || data[i].name || data[i].Name;
-                newObj.id = (data[i].id && data[i].id.toString()) || data[i].Id.toString();
+                if (data[i].hasOwnProperty("id")) {
+                    newObj.id = data[i].id;
+                } else if (data[i].hasOwnProperty("Id")) {
+                    newObj.id = data[i].Id;
+                }
 
 
                 if (data[i].hasOwnProperty("isPending")) {

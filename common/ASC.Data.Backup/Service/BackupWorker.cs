@@ -50,6 +50,7 @@ namespace ASC.Data.Backup.Service
         private static string tempFolder;
         private static string currentRegion;
         private static Dictionary<string, string> configPaths;
+        private static int limit;
 
         public static void Start(BackupConfigurationSection config)
         {
@@ -59,6 +60,7 @@ namespace ASC.Data.Backup.Service
                 Directory.CreateDirectory(tempFolder);
             }
 
+            limit = config.Limit;
             currentRegion = config.WebConfigs.CurrentRegion;
             configPaths = config.WebConfigs.Cast<WebConfigElement>().ToDictionary(el => el.Region, el => PathHelper.ToRootedConfigPath(el.Path));
             configPaths[currentRegion] = PathHelper.ToRootedConfigPath(config.WebConfigs.CurrentPath);
@@ -280,7 +282,7 @@ namespace ASC.Data.Backup.Service
                 var tempFile = Path.Combine(tempFolder, backupName);
                 try
                 {
-                    var backupTask = new BackupPortalTask(Log, TenantId, configPaths[currentRegion], tempFile);
+                    var backupTask = new BackupPortalTask(Log, TenantId, configPaths[currentRegion], tempFile, limit);
                     if (!BackupMail)
                     {
                         backupTask.IgnoreModule(ModuleName.Mail);
@@ -472,7 +474,7 @@ namespace ASC.Data.Backup.Service
                 {
                     NotifyHelper.SendAboutTransferStart(TenantId, TargetRegion, Notify);
 
-                    var transferProgressItem = new TransferPortalTask(Log, TenantId, configPaths[currentRegion], configPaths[TargetRegion]) { BackupDirectory = tempFolder };
+                    var transferProgressItem = new TransferPortalTask(Log, TenantId, configPaths[currentRegion], configPaths[TargetRegion], limit) { BackupDirectory = tempFolder };
                     transferProgressItem.ProgressChanged += (sender, args) => Percentage = args.Progress;
                     if (!TransferMail)
                     {

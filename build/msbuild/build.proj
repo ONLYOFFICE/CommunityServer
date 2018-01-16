@@ -42,7 +42,6 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.FullTextIndex\ASC.FullTextIndex.csproj"/>
 
     <!-- Web -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\DotNetOpenAuth.ApplicationBlock\DotNetOpenAuth.ApplicationBlock.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api\ASC.Api.Core.csproj"/>
@@ -77,9 +76,6 @@
 
     <!-- Recycle -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Recycle\ASC.Recycle.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Recycle\' ) "/>
-
-    <!-- SocialMedia -->
-    <ProjectToBuild Include="$(ASCDir)web\controls\ASC.Web.UserControls.SocialMedia\ASC.Web.UserControls.SocialMedia.csproj"/>
 
     <!-- CRM -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj"/>
@@ -117,6 +113,9 @@
     <!-- Autoreply -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\ASC.Mail.Autoreply\ASC.Mail.Autoreply.csproj" Condition=" Exists('$(ASCDir)module\ASC.Mail\ASC.Mail.Autoreply\') "/>
 
+    <!-- Reassigns -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Data.Reassigns\ASC.Data.Reassigns.csproj" Condition=" Exists('$(ASCDir)module\ASC.Data.Reassigns\') "/>
+
     <!-- Api -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Employee\ASC.Api.Employee.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Community\ASC.Api.Community.csproj"/>
@@ -141,8 +140,8 @@
     <!-- Uploader -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Upload\ASC.Web.Upload.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Upload\ASC.Web.Upload.csproj' ) "/>
 
-    <!-- SignalR service -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj" Condition=" Exists( '$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj' ) "/>
+    <!-- SocketIO service -->
+	<ProjectToBuild Include="$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj' ) "/>
 
 	<ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj"/>
     <!-- ThumbnailHelper -->
@@ -182,6 +181,8 @@
         Properties="Configuration=$(ConfigurationSites);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath)"
         RebaseOutputs="true"
         StopOnFirstFailure="true"/>
+		
+	<Exec Command="npm install" WorkingDirectory="$(ASCDir)module\ASC.Socket.IO\" ContinueOnError="true"/>
 
   </Target>
 

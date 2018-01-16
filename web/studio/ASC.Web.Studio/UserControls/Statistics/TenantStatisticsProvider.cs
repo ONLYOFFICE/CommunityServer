@@ -39,9 +39,10 @@ namespace ASC.Web.Studio.UserControls.Statistics
     {
         public static bool IsNotPaid()
         {
+            Tariff tariff;
             return TenantExtra.EnableTarrifSettings
-                   && (TenantExtra.GetCurrentTariff().State >= TariffState.NotPaid
-                       || TenantExtra.Enterprise && !TenantExtra.EnterprisePaid);
+                   && ((tariff = TenantExtra.GetCurrentTariff()).State >= TariffState.NotPaid
+                       || TenantExtra.Enterprise && !TenantExtra.EnterprisePaid && tariff.LicenseDate == DateTime.MaxValue);
         }
 
         public static int GetUsersCount()

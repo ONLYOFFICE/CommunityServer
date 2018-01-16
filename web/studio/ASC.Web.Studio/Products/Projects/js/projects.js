@@ -81,12 +81,17 @@ ASC.Projects.Description = (function () {
 
         }
 
+        var tags = project.tags.length ? project.tags.reduce(function (previousValue, currentValue) {
+                return previousValue + ", " + currentValue;
+            }) : "";
+
         baseProjects.DescriptionTab
             .init()
             .push(resources.CommonResource.ProjectName, formatDescription(project.title))
             .push(projectResource.ProjectLeader, project.responsible.displayName)
             .push(resources.ProjectsFilterResource.ByCreateDate, project.displayDateCrtdate)
             .push(resources.CommonResource.Description, jq.linksParser(formatDescription(project.description)))
+            .push(projectResource.Tags, tags)
             .pushStatus(projectsJSResource.StatusOpenProject, 0, onChangeStatus.bind(null, 0))
             .pushStatus(projectsJSResource.StatusSuspendProject, 2, onChangeStatus.bind(null, 2))
             .pushStatus(projectsJSResource.StatusClosedProject, 1, onChangeStatus.bind(null, 1))
@@ -150,7 +155,7 @@ ASC.Projects.AllProject = (function () {
                             location.href = "projects.aspx?action=add";
                         },
                         canCreate: function() {
-                            return ASC.Projects.Master.IsModuleAdmin;
+                            return ASC.Projects.Master.CanCreateProject;
                         }
                     }
                 },
@@ -183,63 +188,35 @@ ASC.Projects.AllProject = (function () {
             },
             {
                 handler: changeStatus,
+                getItem: getProjectByTarget,
                 statuses: [
-                    { cssClass: "open", text: resources.StatusOpenProject },
-                    { cssClass: "paused", text: resources.StatusSuspend },
-                    { cssClass: "closed", text: resources.StatusClosedProject }
+                    { cssClass: "open", text: resources.StatusOpenProject, id: 0 },
+                    { cssClass: "paused", text: resources.StatusSuspend, id: 2 },
+                    { cssClass: "closed", text: resources.StatusClosedProject, id:1 }
                 ]
             },
             undefined,
             [
                 ASC.Projects.Event(teamlab.events.addPrjTask, onAddTask)
-            ]);
+            ],
+            {
+                getItem: getProjectByTarget,
+                selector: '.nameProject a',
+                getLink: function (item) {
+                    return "projects.aspx?prjID=" + item.id + "#";
+                }
+            });
 
-            $projectsTable.on(clickEvent, ".nameProject a", goToProjectClick);
-            $projectsTable.on(clickEvent, ".taskCount a", goToProjectClick);
+            $projectsTable.on(clickEvent, ".nameProject a", baseObject.Common.goToWithoutReload);
+            $projectsTable.on(clickEvent, ".taskCount a", baseObject.Common.goToWithoutReload);
+            $projectsTable.on(clickEvent, ".responsible .participants", baseObject.Common.goToWithoutReload);
 
             $projectsTable.on(clickEvent, "td.responsible span.userLink", function () {
                 var project = getProjectById(jq(this).parents("#tableListProjects tr").attr("id"));
                 ASC.Projects.ProjectsAdvansedFilter.addUser('project_manager', project.responsible.id, ['team_member']);
             });
-
-            var mouseenterEvent = "mouseenter",
-                mouseleaveEvent = "mouseleave";
-
-            // discribe panel
-            $projectsTable.on(mouseenterEvent, ".nameProject a", function (event) {
-                var $targetObject = jq(event.target);
-                var projectId = $targetObject.parents("#tableListProjects tr").attr("id");
-                self.showDescPanel(getProjectById(projectId), $targetObject);
-            });
-            $projectsTable.on(mouseleaveEvent, '.nameProject a', function () {
-                self.hideDescrPanel(false);
-            });
         }
     };
-
-    function goToProjectClick() {
-        var $self = jq(this),
-            href = $self.attr("href"),
-            id = $self.parents("tr").attr("id");
-        return goToProject(href, id);
-    }
-
-    function goToProject(href, id) {
-        history.pushState({ href: href }, { href: href }, href);
-        ASC.Controls.AnchorController.historyCheck();
-        Teamlab.getPrjTeam({},
-            id,
-            function (params, team) {
-                if (!baseObject) {
-                    baseObject = ASC.Projects;
-                }
-                baseObject.Master.TeamWithBlockedUsers = team;
-                baseObject.Master.Team = baseObject.Common.removeBlockedUsersFromTeam(baseObject.Master.TeamWithBlockedUsers);
-                baseObject.Base.clearTables();
-                baseObject.Common.baseInit();
-            });
-        return false;
-    }
 
     var unbindListEvents = function () {
         if (!isInit) return;
@@ -267,20 +244,10 @@ ASC.Projects.AllProject = (function () {
             linkMilest: jq.format('{0}milestones.aspx?prjID={1}#sortBy=deadline&sortOrder=ascending&status=open', moduleLocationPath, proj.id),
             linkTasks: jq.format('{0}tasks.aspx?prjID={1}#sortBy=deadline&sortOrder=ascending&status=open', moduleLocationPath, proj.id),
             participants: proj.participantCount ? proj.participantCount - 1 : "",
-            linkParticip: jq.format('{0}projectTeam.aspx?prjID={1}', moduleLocationPath, proj.id),
-            isSimpleView: isSimpleView || false,
-            statusList: getStatusList(proj)
+            linkParticip: jq.format('{0}projectteam.aspx?prjID={1}', moduleLocationPath, proj.id),
+            isSimpleView: isSimpleView || false
         });
     };
-
-    function getStatusList(proj) {
-        var res = baseObject ? baseObject.Resources.ProjectResource : undefined;
-        return proj.status == 0
-            ? { cls: 'open', title: res ? res.ActiveProject : "" }
-            : (proj.status == 2
-                ? { cls: 'paused', title: res ? res.PausedProject : "" }
-                : { cls: 'closed', title: res ? res.ClosedProject : "" });
-    }
 
     function onGetListProject(params, listProj) {
         currentListProjects = listProj;
@@ -304,7 +271,7 @@ ASC.Projects.AllProject = (function () {
     }
 
     function changeStatus(id, status) {
-        if (status === 'closed' && showQuestionWindow(id)) {
+        if (status === 1 && showQuestionWindow(id)) {
             return;
         }
         var data = { id: id, status: status };
@@ -318,8 +285,8 @@ ASC.Projects.AllProject = (function () {
 
     function changeCboxStatus(project) {
         var $project = $projectsTable.find('tr#' + project.id);
-        var statusList = getStatusList(project);
-        $project.find('span:first-child').attr('class', statusList.cls);
+
+        $project.find('span:first-child').attr('class', ASC.Projects.StatusList.getById(project.status).cssClass);
         if (project.isPrivate) {
             $project.find('span:first-child').addClass('private');
         }
@@ -336,7 +303,7 @@ ASC.Projects.AllProject = (function () {
 
     function showQuestionWindow(projId, cancel) {
         self = typeof self === "undefined" ? this : self;
-        var project = typeof projId === "string" ? getProjectById(projId) : getProjTmpl(projId);
+        var project = typeof projId === "number" ? getProjectById(projId) : getProjTmpl(projId);
 
         if (project.taskCount) {
             self.showCommonPopup("projectOpenTaskWarning", function () {
@@ -358,6 +325,10 @@ ASC.Projects.AllProject = (function () {
         return currentListProjects.find(function(item) { return item.id == id });
     };
 
+    function getProjectByTarget($targetObject) {
+        return getProjectById(jq($targetObject).parents("#tableListProjects tr").attr("id"));
+    }
+
     function getProjectItem(id) {
         return $projectsTable.find(jq.format("tr#{0}", id));
     }
@@ -377,8 +348,7 @@ ASC.Projects.AllProject = (function () {
         init: init,
         renderListProjects: renderListProjects,
         unbindListEvents: unbindListEvents,
-        showQuestionWindow: showQuestionWindow,
-        goToProject: goToProject
+        showQuestionWindow: showQuestionWindow
     }, ASC.Projects.Base);
 })(jQuery);
 

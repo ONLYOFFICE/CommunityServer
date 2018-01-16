@@ -22,3 +22,18 @@ Type: boolean
 Default: false
 Description: Remove database?
  This operation will remove the database which contain all ONLYOFFICE data. It is recommended to take backup before removing the database.
+
+Template: onlyoffice-communityserver/ds-jwt-enabled
+Type: boolean
+Default: false
+Description: To enabled Document Server JWT?:
+
+Template: onlyoffice-communityserver/ds-jwt-secret
+Type: string
+Default: onlyoffice
+Description: Document Server JWT Secret:
+
+Template: onlyoffice-communityserver/ds-jwt-secret-header
+Type: string
+Default: AuthorizationJwt
+Description: Document Server Secret Header:

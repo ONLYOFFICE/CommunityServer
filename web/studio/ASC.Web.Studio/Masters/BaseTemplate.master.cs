@@ -26,21 +26,18 @@
 
 using System;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
-using ASC.Core.Billing;
-using ASC.Core.Common.Settings;
-using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
+using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WebZones;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
@@ -48,7 +45,6 @@ using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.Banner;
 using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
-using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
 
@@ -59,11 +55,6 @@ namespace ASC.Web.Studio.Masters
         /// <summary>
         /// Block side panel
         /// </summary>
-        /// 
-        protected Tuple<string, string> TariffNotify;
-
-        public bool DisableTariffNotify { get; set; }
-
         public bool DisabledSidePanel { get; set; }
 
         public bool DisabledTopStudioPanel { get; set; }
@@ -98,10 +89,10 @@ namespace ASC.Web.Studio.Masters
             if (!_enableWebChat.HasValue || _enableWebChat.Value)
             {
                 EnabledWebChat = Convert.ToBoolean(ConfigurationManager.AppSettings["web.chat"] ?? "false") &&
-                             WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).
-                                            Any(id => id.ID == WebItemManager.TalkProductID) &&
-                             !(Request.Browser != null && Request.Browser.Browser == "IE" &&
-                               (Request.Browser.MajorVersion == 8 || Request.Browser.MajorVersion == 9 || Request.Browser.MajorVersion == 10));
+                                 WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).
+                                                Any(id => id.ID == WebItemManager.TalkProductID) &&
+                                 !(Request.Browser != null && Request.Browser.Browser == "IE" &&
+                                   (Request.Browser.MajorVersion == 8 || Request.Browser.MajorVersion == 9 || Request.Browser.MajorVersion == 10));
             }
 
             IsMobile = MobileDetector.IsMobile;
@@ -111,7 +102,7 @@ namespace ASC.Web.Studio.Masters
                 SmallChatHolder.Controls.Add(LoadControl(UserControls.Common.SmallChat.SmallChat.Location));
             }
 
-            if (!DisabledSidePanel)
+            if (!DisabledSidePanel && !CoreContext.Configuration.Personal)
             {
                 /** InvitePanel popup **/
                 InvitePanelHolder.Controls.Add(LoadControl(InvitePanel.Location));
@@ -120,7 +111,7 @@ namespace ASC.Web.Studio.Masters
             if ((!DisabledSidePanel || !DisabledTopStudioPanel) && !TopStudioPanel.DisableSettings &&
                 HubUrl != string.Empty && SecurityContext.IsAuthenticated)
             {
-                AddBodyScripts(ResolveUrl, "~/js/third-party/jquery/jquery.signalr.js", "~/js/asc/plugins/jquery.hubs.js");
+                AddBodyScripts(ResolveUrl, "~/js/third-party/socket.io.js", "~/js/asc/core/asc.socketio.js");
             }
 
             if (!DisabledTopStudioPanel)
@@ -145,28 +136,14 @@ namespace ASC.Web.Studio.Masters
 
             var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (DisabledSidePanel)
+            if (!DisabledSidePanel)
             {
-                DisableTariffNotify = true;
-            }
-            else
-            {
-                if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal
-                    || curUser.IsVisitor())
-                {
-                    DisableTariffNotify = true;
-                }
-                else
-                {
-                    TariffNotify = GetTariffNotify();
-                    if (TariffNotify == null)
-                        DisableTariffNotify = true;
-                }
+                TariffNotifyHolder.Controls.Add(LoadControl(TariffNotify.Location));
             }
 
             if (curUser.IsVisitor() && !curUser.IsOutsider())
             {
-                var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(curUser.ID);
+                var collaboratorPopupSettings = CollaboratorSettings.LoadForCurrentUser();
                 if (collaboratorPopupSettings.FirstVisit)
                 {
                     AddBodyScripts(ResolveUrl, "~/js/asc/core/collaborators.js");
@@ -176,145 +153,34 @@ namespace ASC.Web.Studio.Masters
 
             #region third-party scripts
 
-            var GoogleTagManagerScriptLocation = "~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx";
-            if (File.Exists(HttpContext.Current.Server.MapPath(GoogleTagManagerScriptLocation)) &&
-                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
+            if (TenantExtra.Saas)
             {
-                GoogleTagManagerPlaceHolder.Controls.Add(LoadControl(GoogleTagManagerScriptLocation));
-            } else {
-                GoogleTagManagerPlaceHolder.Visible = false;
-            }
+                if (SetupInfo.CustomScripts.Length != 0)
+                {
+                    YandexMetrikaScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/YandexMetrikaScript.ascx"));
 
-            var GoogleAnalyticsScriptLocation = "~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx";
-            if (File.Exists(HttpContext.Current.Server.MapPath(GoogleAnalyticsScriptLocation)) &&
-                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0
-                && ASC.Core.SecurityContext.IsAuthenticated)
-            {
-                GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl(GoogleAnalyticsScriptLocation));
-            } else {
-                GoogleAnalyticsScriptPlaceHolder.Visible = false;
+                    GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
+                    if (!CoreContext.Configuration.Personal)
+                    {
+                        GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx"));
+                    }
+                    else
+                    {
+                        GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptPersonal.ascx"));
+                    }
+                }
             }
-            
+            else if (TenantExtra.Opensource
+                     && WizardSettings.Load().Analytics
+                     && SecurityContext.IsAuthenticated)
+            {
+                YandexMetrikaScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/YandexMetrikaScript.ascx"));
 
-            var YandexMetrikaScriptLocation = "~/UserControls/Common/ThirdPartyScripts/YandexMetrikaScript.ascx";
-            if (File.Exists(HttpContext.Current.Server.MapPath(YandexMetrikaScriptLocation)) &&
-                !CoreContext.Configuration.Standalone && CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
-            {
-                YandexMetrikaScriptPlaceHolder.Controls.Add(LoadControl(YandexMetrikaScriptLocation));
+                GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
+                GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptOpenSource.ascx"));
             }
-            else
-            {
-                YandexMetrikaScriptPlaceHolder.Visible = false;
-            }
-
-
-            var GoogleConversionPersonScriptLocation = "~/UserControls/Common/ThirdPartyScripts/GoogleConversionPersonScript.ascx";
-            if (File.Exists(HttpContext.Current.Server.MapPath(GoogleConversionPersonScriptLocation)) &&
-                !CoreContext.Configuration.Standalone && CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
-            {
-                GoogleConversionPersonScriptPlaceHolder.Controls.Add(LoadControl(GoogleConversionPersonScriptLocation));
-            }
-            else
-            {
-                GoogleConversionPersonScriptPlaceHolder.Visible = false;
-            }
-
 
             #endregion
-        }
-
-        private static Tuple<string, string> GetTariffNotify()
-        {
-            var tariff = TenantExtra.GetCurrentTariff();
-
-            var count = tariff.DueDate.Date.Subtract(DateTime.Today).Days;
-            if (tariff.State == TariffState.Trial)
-            {
-                if (count <= 5)
-                {
-                    var text = String.Format(CoreContext.Configuration.Standalone ? Resource.TariffLinkStandalone : Resource.TrialPeriodInfoText,
-                                             "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
-
-                    if (count <= 0)
-                        return new Tuple<string, string>(Resource.TrialPeriodExpired, text);
-
-                    var end = GetNumeralResourceByCount(count, Resource.Day, Resource.DaysOne, Resource.DaysTwo);
-                    return new Tuple<string, string>(string.Format(Resource.TrialPeriod, count, end), text);
-                }
-
-                if (CoreContext.Configuration.Standalone)
-                {
-                    return new Tuple<string, string>(Resource.TrialPeriodInfoTextLicense, string.Empty);
-                }
-            }
-
-            if (tariff.State == TariffState.Paid)
-            {
-                if (CoreContext.Configuration.Standalone)
-                {
-                    if (count < 10)
-                    {
-                        var text = String.Format(Resource.TariffLinkStandalone,
-                                                 "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
-                        if (count <= 0)
-                            return new Tuple<string, string>(Resource.PaidPeriodExpiredStandalone, text);
-
-                        var end = GetNumeralResourceByCount(count, Resource.Day, Resource.DaysOne, Resource.DaysTwo);
-                        return new Tuple<string, string>(string.Format(Resource.PaidPeriodStandalone, count, end), text);
-                    }
-
-                    if (tariff.QuotaId.Equals(Tenant.DEFAULT_TENANT) && TenantExtra.EnableTarrifSettings)
-                    {
-                        var text = String.Format(Resource.TariffLinkStandalone,
-                                                 "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
-                        return new Tuple<string, string>(Resource.TariffOverdueStandalone, text);
-                    }
-                }
-                else
-                {
-                    var quota = TenantExtra.GetTenantQuota();
-                    long notifySize;
-                    long.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.storage"] ?? "314572800", out notifySize); //300 MB
-                    if (notifySize > 0 && quota.MaxTotalSize - TenantStatisticsProvider.GetUsedSize() < notifySize)
-                    {
-                        var head = string.Format(Resource.TariffExceedLimit, FileSizeComment.FilesSizeToString(quota.MaxTotalSize));
-                        var text = String.Format(Resource.TariffExceedLimitInfoText, "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
-                        return new Tuple<string, string>(head, text);
-                    }
-                }
-            }
-
-            if (tariff.State == TariffState.Delay)
-            {
-                var text = String.Format(Resource.TariffPaymentDelayText,
-                                         "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>",
-                                         tariff.DelayDueDate.Date.ToLongDateString());
-                return new Tuple<string, string>(Resource.TariffPaymentDelay, text);
-            }
-
-            return null;
-        }
-
-        public static string GetNumeralResourceByCount(int count, string resource, string resourceOne, string resourceTwo)
-        {
-            var num = count % 100;
-            if (num >= 11 && num <= 19)
-            {
-                return resourceTwo;
-            }
-
-            var i = count % 10;
-            switch (i)
-            {
-                case (1):
-                    return resource;
-                case (2):
-                case (3):
-                case (4):
-                    return resourceOne;
-                default:
-                    return resourceTwo;
-            }
         }
 
         protected string RenderStatRequest()
@@ -371,8 +237,8 @@ namespace ASC.Web.Studio.Masters
 
         private void InitStudioSettingsInlineScript()
         {
-            var showPromotions = SettingsManager.Instance.LoadSettings<PromotionsSettings>(TenantProvider.CurrentTenantID).Show;
-            var showTips = SettingsManager.Instance.LoadSettingsFor<TipsSettings>(SecurityContext.CurrentAccount.ID).Show;
+            var showPromotions = PromotionsSettings.Load().Show;
+            var showTips = TipsSettings.LoadForCurrentUser().Show;
 
             var script = new StringBuilder();
             script.AppendFormat("window.ASC.Resources.Master.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
