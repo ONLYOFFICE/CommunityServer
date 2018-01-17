@@ -5,6 +5,9 @@ for %%D in ("%CD%") do set "parentdir=%%~nxD"
 set version=
 if not "%~2" == "" set version=%~2
 
+SET parent=%~dp0
+FOR %%a IN ("%parent:~0,-1%") DO SET grandparent=%%~dpa
+
 if "%~1" == "--install" (
 	sc create Onlyoffice%parentdir%%version%      start= auto binPath= "\"%basepath%\TeamLabSvc.exe\"
 	goto Exit
@@ -16,9 +19,10 @@ if "%~1" == "--install-all" (
 	sc create OnlyofficeIndex%version%            start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.FullTextIndex.Service.FullTextIndexLauncher, ASC.FullTextIndex\" --log Index"
 	sc create OnlyofficeFeed%version%             start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Feed.Aggregator.FeedAggregatorLauncher, ASC.Feed.Aggregator\" --log Feed"
 	sc create OnlyofficeBackup%version%           start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Backup.Service.BackupServiceLauncher, ASC.Data.Backup\" --log Backup"
-	sc create OnlyofficeAutoreplay%version%       start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Mail.Autoreply.AutoreplyServiceController, ASC.Mail.Autoreply\" --log Autoreply"
-	sc create OnlyofficeSignalR%version%          start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.SignalR.Base.SignalRLauncher, ASC.SignalR.Base\" --log SignalR"
-	sc create OnlyofficeHealthCheck%version%      start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.HealthCheck.Infrastructure.HealthCheckLauncher, ASC.HealthCheck\" --log HealthCheck"
+	sc create OnlyOfficeSocketIO%version%         start= auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc\" --log SocketIO"
+	sc create OnlyOfficeMailAggregator%version%   start= auto binPath= "\"%grandparent%\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe\""
+	sc create OnlyOfficeMailWatchdog%version%     start= auto binPath= "\"%grandparent%\MailWatchdog\ASC.Mail.Watchdog.Service.exe\""
+	
 	goto Exit
 )
 if "%~1" == "--uninstall" (
@@ -37,13 +41,13 @@ if "%~1" == "--uninstall-all" (
 	net stop  OnlyofficeFeed%version%
 	sc delete OnlyofficeFeed%version%
 	net stop  OnlyofficeBackup%version%
-	sc delete OnlyofficeBackup%version%
-	net stop  OnlyofficeAutoreplay%version%
-	sc delete OnlyofficeAutoreplay%version%
-	net stop  OnlyofficeSignalR%version%
-	sc delete OnlyofficeSignalR%version%
-	net stop  OnlyofficeHealthCheck%version%
-	sc delete OnlyofficeHealthCheck%version%
+	sc delete OnlyofficeBackup%version%	
+	net stop  OnlyOfficeSocketIO%version%
+	sc delete OnlyOfficeSocketIO%version%	
+	net stop  OnlyOfficeMailAggregator%version%
+	sc delete OnlyOfficeMailAggregator%version%	
+	net stop  OnlyOfficeMailWatchdog%version%
+	sc delete OnlyOfficeMailWatchdog%version%	
 	goto Exit
 )
 
