@@ -30,6 +30,7 @@ using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
+using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
 using AppLimit.CloudComputing.SharpBox;
 
@@ -140,7 +141,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
             {
                 //Create with id
                 var savedfolder = SharpBoxProviderInfo.Storage.CreateFolder(MakePath(folder.ID));
-                return MakeId(savedfolder);
+				if(savedfolder != null)
+				{
+					return MakeId(savedfolder);	
+				}
+				else
+				{
+					throw new Exception(FilesCommonResource.ErrorMassage_SharpBoxException);
+				}
             }
             if (folder.ParentFolderID != null)
             {
@@ -149,7 +157,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 folder.Title = GetAvailableTitle(folder.Title, parentFolder, IsExist);
 
                 var newFolder = SharpBoxProviderInfo.Storage.CreateFolder(folder.Title, parentFolder);
-                return MakeId(newFolder);
+				if(newFolder != null)
+				{
+					return MakeId(newFolder);	
+				}
+				else
+				{
+					throw new Exception(FilesCommonResource.ErrorMassage_SharpBoxException);
+				}
             }
             return null;
         }
