@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
@@ -35,6 +36,7 @@ using ASC.Web.Core.Files;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
 using AppLimit.CloudComputing.SharpBox;
+using AppLimit.CloudComputing.SharpBox.Exceptions;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.Sharpbox
@@ -214,8 +216,27 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
             if (entry != null)
             {
-                entry.GetDataTransferAccessor().Transfer(fileStream, nTransferDirection.nUpload);
-                return ToFile(entry);
+				try
+				{
+					entry.GetDataTransferAccessor().Transfer(fileStream, nTransferDirection.nUpload);
+					return ToFile(entry);
+				}
+				catch (SharpBoxException sharpBoxException)
+				{
+					if (sharpBoxException.InnerException is WebException)
+					{
+						var we = (WebException)sharpBoxException.InnerException;
+						var response = we.Response as HttpWebResponse;
+						if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden)
+						{
+							throw new Exception(FilesCommonResource.ErrorMassage_SecurityException);
+						}
+						else
+						{
+							throw;
+						}	
+					}
+				}
             }
             return null;
         }
