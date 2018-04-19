@@ -231,6 +231,13 @@ namespace ASC.Files.Core
         #region Only in TMFileDao
 
         /// <summary>
+        /// Set created by
+        /// </summary>
+        /// <param name="fileIds"></param>
+        /// <param name="newOwnerId"></param>
+        void ReassignFiles(object[] fileIds, Guid newOwnerId);
+
+        /// <summary>
         /// Search files in SharedWithMe & Projects
         /// </summary>
         /// <param name="parentIds"></param>

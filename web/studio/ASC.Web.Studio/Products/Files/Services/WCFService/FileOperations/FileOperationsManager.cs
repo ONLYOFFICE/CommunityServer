@@ -114,9 +114,9 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             return QueueTask(op);
         }
 
-        public ItemList<FileOperationResult> Delete(List<object> folders, List<object> files, bool ignoreException, bool holdResult, Dictionary<string, string> headers)
+        public ItemList<FileOperationResult> Delete(List<object> folders, List<object> files, bool ignoreException, bool holdResult, bool immediately, Dictionary<string, string> headers)
         {
-            var op = new FileDeleteOperation(folders, files, ignoreException, holdResult, headers);
+            var op = new FileDeleteOperation(folders, files, ignoreException, holdResult, immediately, headers);
             return QueueTask(op);
         }
 

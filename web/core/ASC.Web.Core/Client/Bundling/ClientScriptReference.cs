@@ -45,7 +45,7 @@ namespace ASC.Web.Core.Client.Bundling
     [ToolboxData("<{0}:ClientScriptReference runat=server></{0}:ClientScriptReference>")]
     public class ClientScriptReference : WebControl
     {
-        private static readonly ICache cache = AscCache.Default;
+        private static readonly ICache Cache = AscCache.Default;
         private List<ClientScript> includes;
 
 
@@ -56,7 +56,11 @@ namespace ASC.Web.Core.Client.Bundling
 
         public ClientScriptReference AddScript(ClientScript clientScript)
         {
-            includes.Add(clientScript);
+            if (includes.All(r => r.GetType().FullName != clientScript.GetType().FullName))
+            {
+                includes.Add(clientScript);
+            }
+
             return this;
         }
 
@@ -74,16 +78,16 @@ namespace ASC.Web.Core.Client.Bundling
             var filename = string.Empty;
             foreach (var type in includes)
             {
-                filename += type.GetType().FullName.ToLowerInvariant();
+                filename += (type.GetType().FullName ?? "").ToLowerInvariant();
             }
             var filenameHash = GetHash(filename) + "_" + CultureInfo.CurrentCulture.Name.ToLowerInvariant();
 
-            var scripts = cache.Get<List<string>>(filenameHash);
+            var scripts = Cache.Get<List<string>>(filenameHash);
             if (scripts == null)
             {
 
                 scripts = includes.Select(type => type.GetType().AssemblyQualifiedName).ToList();
-                cache.Insert(filenameHash, scripts, DateTime.MaxValue);
+                Cache.Insert(filenameHash, scripts, DateTime.MaxValue);
             }
 
             return string.Format("~{0}{1}.js?ver={2}", BundleHelper.CLIENT_SCRIPT_VPATH, filenameHash, GetContentHash(filenameHash));
@@ -119,7 +123,7 @@ namespace ASC.Web.Core.Client.Bundling
                 var fileName = Path.GetFileNameWithoutExtension(uri.Split('.').FirstOrDefault() ?? uri);
                 foreach (var script in GetClientScriptListFromCache(fileName))
                 {
-                    content.Append(script.GetData(HttpContext.Current));
+                    script.GetData(HttpContext.Current, content);
                 }
 
             }
@@ -180,7 +184,7 @@ namespace ASC.Web.Core.Client.Bundling
         {
             if (!includes.Any())
             {
-                var fromCache = cache.Get<List<string>>(fileName);
+                var fromCache = Cache.Get<List<string>>(fileName);
 
                 if (fromCache != null)
                 {

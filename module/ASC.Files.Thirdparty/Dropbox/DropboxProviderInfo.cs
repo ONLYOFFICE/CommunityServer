@@ -243,7 +243,7 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             if (dropboxItem != null)
             {
-                CacheNotify.Publish(new DropboxCacheItem { IsFile = dropboxItem.AsFolder != null, Key = ID + "-" + dropboxItem.PathDisplay + "/" + dropboxItem.Name }, CacheNotifyAction.Remove);
+                CacheNotify.Publish(new DropboxCacheItem { IsFile = dropboxItem.AsFolder != null, Key = ID + "-" + dropboxItem.PathDisplay }, CacheNotifyAction.Remove);
             }
         }
 

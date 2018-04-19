@@ -46,5 +46,11 @@ namespace ASC.Data.Storage
             }
             return tenant;
         }
+
+        public static bool TryGetTenant(string tenantPath, out int tenant)
+        {
+            tenantPath = tenantPath.Replace("/", "");
+            return int.TryParse(tenantPath, out tenant);
+        }
     }
 }

@@ -313,6 +313,15 @@ namespace ASC.AuditTrail.Mappers
                                 ProductResourceName = "PeopleProduct",
                                 ModuleResourceName = "UsersModule"
                             }
+                    },
+                    {
+                        MessageAction.UserDataRemoving, new MessageMaps
+                            {
+                                ActionTypeTextResourceName = "DeleteActionType",
+                                ActionTextResourceName = "UserDataRemoving",
+                                ProductResourceName = "PeopleProduct",
+                                ModuleResourceName = "UsersModule"
+                            }
                     }
                 };
         }

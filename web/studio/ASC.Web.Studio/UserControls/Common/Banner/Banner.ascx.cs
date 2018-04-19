@@ -31,6 +31,7 @@ using System.Web.UI;
 using System.Collections.Generic;
 using ASC.Core;
 using ASC.Data.Storage;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 using Resources;
@@ -74,7 +75,7 @@ namespace ASC.Web.Studio.UserControls.Common.Banner
 
             banners = new List<BannerType>();
 
-            if (CoreContext.Configuration.Personal)
+            if (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)
             {
                 banners.Add(new BannerType
                 {

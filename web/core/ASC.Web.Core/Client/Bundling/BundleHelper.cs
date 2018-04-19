@@ -32,6 +32,12 @@ using System.Web.Optimization;
 
 using ASC.Core;
 using ASC.Data.Storage;
+using ASC.Data.Storage.Configuration;
+using System.Web.Configuration;
+using ASC.Data.Storage.Selectel;
+using ASC.Data.Storage.S3;
+using ASC.Data.Storage.GoogleCloud;
+using ASC.Data.Storage.RackspaceCloud;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -54,7 +60,7 @@ namespace ASC.Web.Core.Client.Bundling
                 }
                 AddBundle(bundle);
             }
-            
+
             return bundle.GetLink(path);
         }
 
@@ -142,16 +148,50 @@ namespace ASC.Web.Core.Client.Bundling
                 Transforms.Add(new CopyrigthTransform());
 
                 if (!BundleTable.Bundles.UseCdn) return;
+                              
+                bool isCDN = false;
 
-                if (CoreContext.Configuration.Standalone)
+                var section = (StorageConfigurationSection)WebConfigurationManager.GetSection("storage");
+
+                foreach (HandlerConfigurationElement h in section.Handlers)
                 {
-                    Transforms.Add(new DiscTransform());
-                    CdnPath = DiscTransform.GetUri(Path, ContentType);
+                    if (String.Compare(h.Name, "cdn", true) != 0) continue;
+
+                    if (h.Type.Equals(typeof(SelectelStorage)))
+                    {
+                        Transforms.Add(new SelectelStorageTransform());
+                    }
+                    else if (h.Type.Equals(typeof(S3Storage)))
+                    {
+                        Transforms.Add(new CloudFrontTransform());
+                    }
+                    else if (h.Type.Equals(typeof(GoogleCloudStorage)))
+                    {
+                        Transforms.Add(new GoogleCloudStorageTransform());
+                    }
+                    else if (h.Type.Equals(typeof(RackspaceCloudStorage)))
+                    {
+                        Transforms.Add(new RackspaceCloudStorageTransform());
+                    }
+                    else
+                    {
+                        throw new Exception("unknown argument");
+                    }
+
+                    isCDN = true;
+
+                    break;
                 }
-                else
+
+                if (!isCDN)
                 {
-                    Transforms.Add(new CdnTransform());
+                    if (CoreContext.Configuration.Standalone)
+                    {
+                        Transforms.Add(new DiscTransform());
+                        CdnPath = DiscTransform.GetUri(Path, ContentType);
+                    }                
                 }
+
             }
 
             public virtual Bundle Include(string path)
@@ -198,7 +238,7 @@ namespace ASC.Web.Core.Client.Bundling
 
         internal class ASCJsBundle : ASCBundle
         {
-            public bool UseCache {  get; set; }
+            public bool UseCache { get; set; }
             protected override string ContentType { get { return "text/javascript"; } }
             public override IBundleOrderer Orderer { get { return new NullOrderer(); } }
 

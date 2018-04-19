@@ -95,7 +95,7 @@ case "$1" in
 		get_pid
 		[ -n "$PID" ] && do_stop
 		rm -f "$LOCKFILE"
-		sleep 2
+#		sleep 2
 		do_start
 	;;
 

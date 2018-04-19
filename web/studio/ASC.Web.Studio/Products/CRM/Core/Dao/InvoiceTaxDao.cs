@@ -42,8 +42,8 @@ namespace ASC.CRM.Core.Dao
     {
         private readonly HttpRequestDictionary<InvoiceTax> _invoiceTaxCache = new HttpRequestDictionary<InvoiceTax>("crm_invoice_tax");
 
-        public CachedInvoiceTaxDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedInvoiceTaxDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -80,19 +80,17 @@ namespace ASC.CRM.Core.Dao
 
     public class InvoiceTaxDao : AbstractDao
     {
-        public InvoiceTaxDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public InvoiceTaxDao(int tenantID)
+            : base(tenantID)
         {
         }
 
 
         public Boolean IsExist(int invoiceTaxID)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<bool>(@"select exists(select 1 from crm_invoice_tax where tenant_id = @tid and id = @id)",
-                                new { tid = TenantID, id = invoiceTaxID });
-            }
+            return Db.ExecuteScalar<bool>(
+                    @"select exists(select 1 from crm_invoice_tax where tenant_id = @tid and id = @id)",
+                    new {tid = TenantID, id = invoiceTaxID});
         }
 
         public Boolean IsExist(String invoiceName)
@@ -103,59 +101,41 @@ namespace ASC.CRM.Core.Dao
                 .Where("name", invoiceName)
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<bool>(q);
-            }
+            return Db.ExecuteScalar<bool>(q);
         }
 
         public Boolean CanDelete(int invoiceTaxID)
         {
-            using (var db = GetDb())
-            {
-                var count1 = db.ExecuteScalar<int>(@"select count(*) from crm_invoice_item where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)",
-                    new { tid = TenantID, id = invoiceTaxID });
-                var count2 = db.ExecuteScalar<int>(@"select count(*) from crm_invoice_line where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)", 
-                    new { tid = TenantID, id = invoiceTaxID });
+            var count1 = Db.ExecuteScalar<int>(@"select count(*) from crm_invoice_item where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)",
+                new { tid = TenantID, id = invoiceTaxID });
+            var count2 = Db.ExecuteScalar<int>(@"select count(*) from crm_invoice_line where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)", 
+                new { tid = TenantID, id = invoiceTaxID });
 
-                return count1 == 0 && count2 == 0;
-            }
+            return count1 == 0 && count2 == 0;
         }
 
         #region Get
 
         public virtual List<InvoiceTax> GetAll()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetInvoiceTaxSqlQuery(null)).ConvertAll(ToInvoiceTax);
-            }
+            return Db.ExecuteList(GetInvoiceTaxSqlQuery(null)).ConvertAll(ToInvoiceTax);
         }
 
         public DateTime GetMaxLastModified()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<DateTime>(Query("crm_invoice_tax").Select("last_modifed_on"));
-            }
+            return Db.ExecuteScalar<DateTime>(Query("crm_invoice_tax").Select("last_modifed_on"));
         }
 
         public virtual List<InvoiceTax> GetByID(int[] ids)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetInvoiceTaxSqlQuery(Exp.In("id", ids))).ConvertAll(ToInvoiceTax);
-            }
+            return Db.ExecuteList(GetInvoiceTaxSqlQuery(Exp.In("id", ids))).ConvertAll(ToInvoiceTax);
         }
 
         public virtual InvoiceTax GetByID(int id)
         {
-            using (var db = GetDb())
-            {
-                var invoiceTaxes = db.ExecuteList(GetInvoiceTaxSqlQuery(Exp.Eq("id", id))).ConvertAll(ToInvoiceTax);
+            var invoiceTaxes = Db.ExecuteList(GetInvoiceTaxSqlQuery(Exp.Eq("id", id))).ConvertAll(ToInvoiceTax);
 
-                return invoiceTaxes.Count > 0 ? invoiceTaxes[0] : null;
-            }
+            return invoiceTaxes.Count > 0 ? invoiceTaxes[0] : null;
         }
 
         #endregion
@@ -167,13 +147,10 @@ namespace ASC.CRM.Core.Dao
             /*_cache.Remove(_invoiceItemCacheKey);
             _cache.Insert(_invoiceTaxCacheKey, String.Empty);*/
 
-            using (var db = GetDb())
-            {
-                return SaveOrUpdateInvoiceTax(invoiceTax, db);
-            }
+            return SaveOrUpdateInvoiceTaxInDb(invoiceTax);
         }
 
-        private InvoiceTax SaveOrUpdateInvoiceTax(InvoiceTax invoiceTax, DbManager db)
+        private InvoiceTax SaveOrUpdateInvoiceTaxInDb(InvoiceTax invoiceTax)
         {
             if (String.IsNullOrEmpty(invoiceTax.Name))
                 throw new ArgumentException();
@@ -181,12 +158,12 @@ namespace ASC.CRM.Core.Dao
             invoiceTax.LastModifedBy = SecurityContext.CurrentAccount.ID;
             invoiceTax.LastModifedOn = DateTime.UtcNow;
 
-            if (db.ExecuteScalar<int>(Query("crm_invoice_tax").SelectCount().Where(Exp.Eq("id", invoiceTax.ID))) == 0)
+            if (Db.ExecuteScalar<int>(Query("crm_invoice_tax").SelectCount().Where(Exp.Eq("id", invoiceTax.ID))) == 0)
             {
                 invoiceTax.CreateOn = DateTime.UtcNow;
                 invoiceTax.CreateBy = SecurityContext.CurrentAccount.ID;
 
-                invoiceTax.ID = db.ExecuteScalar<int>(
+                invoiceTax.ID = Db.ExecuteScalar<int>(
                                Insert("crm_invoice_tax")
                               .InColumnValue("id", 0)
                               .InColumnValue("name", invoiceTax.Name)
@@ -200,13 +177,13 @@ namespace ASC.CRM.Core.Dao
             }
             else
             {
-                var oldInvoiceTax = db.ExecuteList(GetInvoiceTaxSqlQuery(Exp.Eq("id", invoiceTax.ID)))
+                var oldInvoiceTax = Db.ExecuteList(GetInvoiceTaxSqlQuery(Exp.Eq("id", invoiceTax.ID)))
                     .ConvertAll(ToInvoiceTax)
                     .FirstOrDefault();
 
                 CRMSecurity.DemandEdit(oldInvoiceTax);
 
-                db.ExecuteNonQuery(
+                Db.ExecuteNonQuery(
                     Update("crm_invoice_tax")
                         .Set("name", invoiceTax.Name)
                         .Set("description", invoiceTax.Description)
@@ -232,10 +209,7 @@ namespace ASC.CRM.Core.Dao
 
             CRMSecurity.DemandDelete(invoiceTax);
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_invoice_tax").Where("id", invoiceTaxID));
-            }
+            Db.ExecuteNonQuery(Delete("crm_invoice_tax").Where("id", invoiceTaxID));
 
            /* _cache.Remove(_invoiceItemCacheKey);
             _cache.Insert(_invoiceTaxCacheKey, String.Empty);*/

@@ -126,7 +126,7 @@ ASC.Projects.PageNavigator = (function () {
         if (isNaN(newValue)) {
             return;
         }
-        if (entryCountOnPage == newValue) return;
+        if (entryCountOnPage === newValue) return;
 
         entryCountOnPage = newValue * 1;
         currentPage = 0;
@@ -237,7 +237,7 @@ ASC.Projects.Base = (function () {
         templatesResource,
         popup;
     var descriptionPanel = ASC.Projects.DescriptionPanel;
-    var EventBinder = ASC.Projects.EventBinder;
+    var eventBinder = ASC.Projects.EventBinder;
 
     var baseInit = function (settings, pageNavigatorSettings, statusListObject, showEntityMenuHandler, events, dpSetting) {
         initProperties();
@@ -252,7 +252,7 @@ ASC.Projects.Base = (function () {
         ASC.Projects.StatusList.init(statusListObject, $commonListContainer);
         initActionPanel(showEntityMenuHandler);
 
-        EventBinder.bind(events);
+        eventBinder.bind(events);
 
         descriptionPanel.init($commonListContainer, filter, dpSetting);
     }
@@ -302,7 +302,7 @@ ASC.Projects.Base = (function () {
         } else {
             if (loaderTimeOut > 0) return;
             loaderTimeOut = setTimeout(function() {
-                loadingBanner.displayLoading(true);
+                loadingBanner.displayLoading();
             }, 500);
         }
     };
@@ -450,7 +450,7 @@ ASC.Projects.Base = (function () {
             return;
         }
 
-        if (pageNavigator && pageNavigator.currentPage > 0) {
+        if (pageNavigator && pageNavigator.currentPage >= 0) {
             pageNavigator.setMaxPage(filterCount);
             this.getData();
             return;
@@ -466,9 +466,8 @@ ASC.Projects.Base = (function () {
 
         getFunc({}, {
             filter: this.currentFilter,
-            success: function (params, data) {
+            success: function () {
                 clearTables();
-                currentData = data;
                 success.apply(null, arguments);
             }
         });
@@ -493,7 +492,7 @@ ASC.Projects.Base = (function () {
             }
             if (jq(this).is($activeEntityMenu)) {
                 $activeEntityMenu = undefined;
-                return;
+                return undefined;
             }
 
             $activeEntityMenu = jq(this);
@@ -601,7 +600,7 @@ ASC.Projects.Base = (function () {
         }
         $commonListContainer.unbind();
         $commonPopupContainer.unbind();
-        EventBinder.unbind();
+        eventBinder.unbind();
     }
 
     function createPopupData(notes, okButton, header) {

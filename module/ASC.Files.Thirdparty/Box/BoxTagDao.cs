@@ -47,7 +47,7 @@ namespace ASC.Files.Thirdparty.Box
 
         #region ITagDao Members
 
-        public IEnumerable<Tag> GetTags(TagType tagType, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)
         {
             return null;
         }
@@ -121,25 +121,39 @@ namespace ASC.Files.Thirdparty.Box
             }
         }
 
-        public IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetNewTags(Guid subject, IEnumerable<FileEntry> fileEntries)
         {
             return null;
         }
 
-        public IEnumerable<Tag> SaveTags(params Tag[] tag)
+        public IEnumerable<Tag> GetNewTags(Guid subject, FileEntry fileEntry)
         {
             return null;
         }
 
-        public void UpdateNewTags(params Tag[] tag)
+        public IEnumerable<Tag> SaveTags(IEnumerable<Tag> tag)
+        {
+            return null;
+        }
+
+        public IEnumerable<Tag> SaveTags(Tag tag)
+        {
+            return null;
+        }
+
+        public void UpdateNewTags(IEnumerable<Tag> tag)
         {
         }
 
-        public void RemoveTags(params Tag[] tag)
+        public void UpdateNewTags(Tag tag)
         {
         }
 
-        public void RemoveTags(params int[] tagIds)
+        public void RemoveTags(IEnumerable<Tag> tag)
+        {
+        }
+
+        public void RemoveTags(Tag tag)
         {
         }
 

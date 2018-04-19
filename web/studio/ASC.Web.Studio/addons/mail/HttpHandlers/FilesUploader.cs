@@ -116,7 +116,7 @@ namespace ASC.Web.Mail.HttpHandlers
                                 };
                         }
 
-                        attachment = MailBoxManager.AttachFile(TenantId, Username, mailId, fileName, postedFile.InputStream);
+                        attachment = MailBoxManager.AttachFileToDraft(TenantId, Username, mailId, fileName, postedFile.InputStream);
 
                         return new FileUploadResult
                             {

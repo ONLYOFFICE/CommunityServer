@@ -42,7 +42,7 @@ namespace ASC.Xmpp.Server.Storage.Interface
 
         void RemoveMuc(Jid mucName);
 
-        List<Message> GetMucMessages(Jid mucName, int count);
+        List<Message> GetMucMessages(Jid mucName, int count, int startindex);
 
         void AddMucMessages(Jid mucName, params Message[] message);
 

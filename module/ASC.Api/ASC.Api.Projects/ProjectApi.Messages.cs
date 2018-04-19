@@ -86,7 +86,7 @@ namespace ASC.Api.Projects
 
             SetTotalCount(messageEngine.GetByFilterCount(filter));
 
-            return messageEngine.GetByFilter(filter).NotFoundIfNull().Select(r => new MessageWrapper(r));
+            return messageEngine.GetByFilter(filter).NotFoundIfNull().Select(MessageWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -104,9 +104,9 @@ namespace ASC.Api.Projects
         {
             var project = EngineFactory.ProjectEngine.GetByID(projectid).NotFoundIfNull();
 
-            if (!ProjectSecurity.CanReadMessages(project)) throw ProjectSecurity.CreateSecurityException();
+            if (!ProjectSecurity.CanRead<Message>(project)) throw ProjectSecurity.CreateSecurityException();
 
-            return EngineFactory.MessageEngine.GetByProject(projectid).Select(x => new MessageWrapper(x));
+            return EngineFactory.MessageEngine.GetByProject(projectid).Select(MessageWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -131,7 +131,7 @@ namespace ASC.Api.Projects
             if (string.IsNullOrEmpty(content)) throw new ArgumentException(@"description can't be empty", "content");
 
             var project = EngineFactory.ProjectEngine.GetByID(projectid).NotFoundIfNull();
-            ProjectSecurity.DemandCreateMessage(project);
+            ProjectSecurity.DemandCreate<Message>(project);
 
             var messageEngine = EngineFactory.MessageEngine;
             var discussion = new Message
@@ -143,8 +143,8 @@ namespace ASC.Api.Projects
 
             messageEngine.SaveOrUpdate(discussion, notify.HasValue ? notify.Value : true, ToGuidList(participants));
             MessageService.Send(Request, MessageAction.DiscussionCreated, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
-            
-            return new MessageWrapper(discussion);
+
+            return MessageWrapperSelector(discussion);
         }
 
         ///<summary>
@@ -179,7 +179,7 @@ namespace ASC.Api.Projects
             messageEngine.SaveOrUpdate(discussion, notify.HasValue ? notify.Value : true, ToGuidList(participants));
             MessageService.Send(Request, MessageAction.DiscussionUpdated, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
 
-            return new MessageWrapperFull(discussion, new ProjectWrapperFull(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)),  GetProjectMessageSubscribers(messageid));
+            return new MessageWrapperFull(this, discussion, new ProjectWrapperFull(this, discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)),  GetProjectMessageSubscribers(messageid));
         }
 
         ///<summary>
@@ -205,7 +205,7 @@ namespace ASC.Api.Projects
             messageEngine.ChangeStatus(discussion);
             MessageService.Send(Request, MessageAction.DiscussionUpdated, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
 
-            return new MessageWrapper(discussion);
+            return MessageWrapperSelector(discussion);
         }
 
         ///<summary>
@@ -228,8 +228,8 @@ namespace ASC.Api.Projects
             
             discussionEngine.Delete(discussion);
             MessageService.Send(Request, MessageAction.DiscussionDeleted, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
-            
-            return new MessageWrapper(discussion);
+
+            return MessageWrapperSelector(discussion);
         }
 
         private static IEnumerable<Guid> ToGuidList(string participants)
@@ -253,11 +253,11 @@ namespace ASC.Api.Projects
         public MessageWrapperFull GetProjectMessage(int messageid)
         {
             var discussion = EngineFactory.MessageEngine.GetByID(messageid).NotFoundIfNull();
-            var project = new ProjectWrapperFull(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID));
+            var project = ProjectWrapperFullSelector(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID));
             var subscribers = GetProjectMessageSubscribers(messageid);
-            var files = EngineFactory.MessageEngine.GetFiles(discussion).Select(x => new FileWrapper(x));
+            var files = EngineFactory.MessageEngine.GetFiles(discussion).Select(FileWrapperSelector);
             var comments = EngineFactory.CommentEngine.GetComments(discussion);
-            return new MessageWrapperFull(discussion, project, subscribers, files, comments.Where(r=>r.Parent.Equals(Guid.Empty)).Select(x => GetCommentInfo(comments, x, discussion)).ToList());
+            return new MessageWrapperFull(this, discussion, project, subscribers, files, comments.Where(r=>r.Parent.Equals(Guid.Empty)).Select(x => GetCommentInfo(comments, x, discussion)).ToList());
         }
 
         ///<summary>
@@ -278,7 +278,7 @@ namespace ASC.Api.Projects
 
             ProjectSecurity.DemandReadFiles(message.Project);
 
-            return messageEngine.GetFiles(message).Select(x => new FileWrapper(x));
+            return messageEngine.GetFiles(message).Select(FileWrapperSelector);
         }
 
         ///<summary>
@@ -312,7 +312,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.DiscussionAttachedFiles, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title, attachments.Select(x => x.Title));
 
-            return new MessageWrapper(discussion);
+            return MessageWrapperSelector(discussion);
         }
 
         ///<summary>
@@ -339,7 +339,7 @@ namespace ASC.Api.Projects
             messageEngine.DetachFile(discussion, fileid);
             MessageService.Send(Request, MessageAction.DiscussionDetachedFile, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title, file.Title);
 
-            return new MessageWrapper(discussion);
+            return MessageWrapperSelector(discussion);
         }
 
         ///<summary>
@@ -354,7 +354,7 @@ namespace ASC.Api.Projects
         [Read(@"message")]
         public IEnumerable<MessageWrapper> GetProjectRecentMessages()
         {
-            return EngineFactory.MessageEngine.GetMessages((int)StartIndex, (int)Count).Select(x => new MessageWrapper(x));
+            return EngineFactory.MessageEngine.GetMessages((int)StartIndex, (int)Count).Select(MessageWrapperSelector);
         }
 
         ///<summary>
@@ -372,8 +372,8 @@ namespace ASC.Api.Projects
         {
             var messageEngine = EngineFactory.MessageEngine;
             var message = messageEngine.GetByID(messageid).NotFoundIfNull();
-            
-            return EngineFactory.CommentEngine.GetComments(message).Select(x => new CommentWrapper(x, message));
+
+            return EngineFactory.CommentEngine.GetComments(message).Select(x => new CommentWrapper(this, x, message));
         }
 
         ///<summary>
@@ -413,7 +413,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.DiscussionCommentCreated, MessageTarget.Create(comment.ID), message.Project.Title, message.Title);
             
-            return new CommentWrapper(comment, message);
+            return new CommentWrapper(this, comment, message);
         }
 
         ///<summary>
@@ -437,7 +437,7 @@ namespace ASC.Api.Projects
             discussionEngine.Follow(discussion);
             MessageService.Send(Request, MessageAction.DiscussionUpdatedFollowing, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
 
-            return new MessageWrapperFull(discussion, new ProjectWrapperFull(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)), GetProjectMessageSubscribers(messageid));
+            return new MessageWrapperFull(this, discussion, ProjectWrapperFullSelector(discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)), GetProjectMessageSubscribers(messageid));
         }
 
         ///<summary>
@@ -479,7 +479,7 @@ namespace ASC.Api.Projects
 
             ProjectSecurity.DemandAuthentication();
 
-            return messageEngine.GetSubscribers(message).Select(r=> new EmployeeWraperFull(CoreContext.UserManager.GetUsers(new Guid(r.ID))))
+            return messageEngine.GetSubscribers(message).Select(r=> GetEmployeeWraperFull(new Guid(r.ID)))
                 .OrderBy(r=> r.DisplayName).ToList();
         }
 

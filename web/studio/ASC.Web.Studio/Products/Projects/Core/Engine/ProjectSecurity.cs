@@ -25,623 +25,806 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Data;
 using ASC.Web.Core;
-using System.Web;
-using System.IO;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Projects;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Projects.Engine
 {
-    public class ProjectSecurity
+    public class ProjectSecurityCommon
     {
-        private static bool? ganttJsExists;
-
-
-        #region Properties
-
-        private static Guid CurrentUserId
+        public bool Can(Guid userId)
         {
-            get { return SecurityContext.CurrentAccount.ID; }
+            return !IsVisitor(userId) && IsProjectsEnabled(userId);
         }
 
-        public static bool CurrentUserAdministrator
+        public bool Can()
         {
-            get { return IsAdministrator(CurrentUserId); }
+            return Can(CurrentUserId);
         }
 
-        private static bool CurrentUserIsVisitor
+        public Guid CurrentUserId { get; private set; }
+
+        public bool CurrentUserAdministrator { get; private set; }
+
+        private bool CurrentUserIsVisitor { get; set; }
+
+        internal bool CurrentUserIsOutsider { get; set; }
+
+        public bool CurrentUserIsProjectsEnabled { get; private set; }
+
+        public bool CurrentUserIsCRMEnabled { get; private set; }
+
+        public bool IsPrivateDisabled { get; private set; }
+
+        public IDaoFactory DaoFactory { get; set; }
+
+        public EngineFactory EngineFactory { get; set; }
+
+        public ProjectSecurityCommon()
         {
-            get { return IsVisitor(CurrentUserId); }
+            CurrentUserId = SecurityContext.CurrentAccount.ID;
+            CurrentUserAdministrator = CoreContext.UserManager.IsUserInGroup(CurrentUserId, Constants.GroupAdmin.ID) ||
+                   WebItemSecurity.IsProductAdministrator(WebItemManager.ProjectsProductID, CurrentUserId);
+            CurrentUserIsVisitor = CoreContext.UserManager.GetUsers(CurrentUserId).IsVisitor();
+            CurrentUserIsOutsider = IsOutsider(CurrentUserId);
+            IsPrivateDisabled = TenantAccessSettings.Load().Anyone;
+            CurrentUserIsProjectsEnabled = IsModuleEnabled(WebItemManager.ProjectsProductID, CurrentUserId);
+            CurrentUserIsCRMEnabled = IsModuleEnabled(WebItemManager.CRMProductID, CurrentUserId);
         }
 
-        private static bool CurrentUserIsOutsider
+        public bool IsAdministrator(Guid userId)
         {
-            get { return IsOutsider(CurrentUserId); }
+            if (userId == CurrentUserId) return CurrentUserAdministrator;
+
+            return CoreContext.UserManager.IsUserInGroup(userId, Constants.GroupAdmin.ID) ||
+                   WebItemSecurity.IsProductAdministrator(WebItemManager.ProjectsProductID, userId);
         }
 
-        public static bool IsPrivateDisabled
+        public bool IsProjectsEnabled()
         {
-            get { return TenantAccessSettings.Load().Anyone; }
+            return IsProjectsEnabled(CurrentUserId);
         }
 
-        public static bool IsProjectsEnabled()
+        public bool IsProjectsEnabled(Guid userID)
         {
-            return IsProjectsEnabled(SecurityContext.CurrentAccount.ID);
+            if (userID == CurrentUserId) return CurrentUserIsProjectsEnabled;
+
+            return IsModuleEnabled(WebItemManager.ProjectsProductID, userID);
         }
 
-        public static bool IsProjectsEnabled(Guid userID)
+        public bool IsCrmEnabled()
         {
-            var projects = WebItemManager.Instance[WebItemManager.ProjectsProductID];
+            return IsCrmEnabled(CurrentUserId);
+        }
+
+        public bool IsCrmEnabled(Guid userID)
+        {
+            if (userID == CurrentUserId) return CurrentUserIsCRMEnabled;
+
+            return IsModuleEnabled(WebItemManager.CRMProductID, userID);
+        }
+
+        private bool IsModuleEnabled(Guid module, Guid userId)
+        {
+            var projects = WebItemManager.Instance[module];
 
             if (projects != null)
             {
-                return !projects.IsDisabled(userID);
+                return !projects.IsDisabled(userId);
             }
 
             return false;
         }
 
-        public static bool IsCrmEnabled(Guid userID)
+        public bool IsVisitor(Guid userId)
         {
-            var projects = WebItemManager.Instance[WebItemManager.CRMProductID];
+            if (userId == CurrentUserId) return CurrentUserIsVisitor;
 
-            if (projects != null)
-            {
-                return !projects.IsDisabled(userID);
-            }
+            return CoreContext.UserManager.GetUsers(userId).IsVisitor();
+        }
 
+        public bool IsOutsider(Guid userId)
+        {
+            return CoreContext.UserManager.GetUsers(userId).IsOutsider();
+        }
+
+        public bool IsProjectManager(Project project)
+        {
+            return IsProjectManager(project, CurrentUserId);
+        }
+
+        public bool IsProjectManager(Project project, Guid userId)
+        {
+            return (IsAdministrator(userId) || (project != null && project.Responsible == userId)) &&
+                   !CurrentUserIsVisitor;
+        }
+
+        public bool IsInTeam(Project project)
+        {
+            return IsInTeam(project, CurrentUserId);
+        }
+
+        public bool IsInTeam(Project project, Guid userId, bool includeAdmin = true)
+        {
+            var isAdmin = includeAdmin && IsAdministrator(userId);
+            return isAdmin || (project != null && DaoFactory.ProjectDao.IsInTeam(project.ID, userId));
+        }
+
+        public bool IsFollow(Project project, Guid userID)
+        {
+            var isAdmin = IsAdministrator(userID);
+            var isPrivate = project != null && (!project.Private || isAdmin);
+
+            return isPrivate && DaoFactory.ProjectDao.IsFollow(project.ID, userID);
+        }
+
+        public bool GetTeamSecurity(Project project, ProjectTeamSecurity security)
+        {
+            return GetTeamSecurity(project, CurrentUserId, security);
+        }
+
+        public bool GetTeamSecurity(Project project, Guid userId, ProjectTeamSecurity security)
+        {
+            if (IsProjectManager(project, userId) || project == null || !project.Private) return true;
+            var dao = DaoFactory.ProjectDao;
+            var s = dao.GetTeamSecurity(project.ID, userId);
+            return (s & security) != security && dao.IsInTeam(project.ID, userId);
+        }
+
+        public bool GetTeamSecurityForParticipants(Project project, Guid userId, ProjectTeamSecurity security)
+        {
+            if (IsProjectManager(project, userId) || !project.Private) return true;
+            var s = DaoFactory.ProjectDao.GetTeamSecurity(project.ID, userId);
+            return (s & security) != security;
+        }
+    }
+
+    public abstract class ProjectSecurityTemplate<T> where T : DomainObject<int>
+    {
+        public ProjectSecurityCommon Common { get; set; }
+
+        public virtual bool CanCreateEntities(Project project)
+        {
+            return project != null && Common.Can();
+        }
+
+        public virtual bool CanReadEntities(Project project, Guid userId)
+        {
+            return Common.IsProjectsEnabled(userId);
+        }
+
+        public bool CanReadEntities(Project project)
+        {
+            return CanReadEntities(project, Common.CurrentUserId);
+        }
+
+        public virtual bool CanReadEntity(T entity, Guid userId)
+        {
+            return entity != null && Common.Can(userId);
+        }
+
+        public bool CanReadEntity(T entity)
+        {
+            return CanReadEntity(entity, Common.CurrentUserId);
+        }
+
+        public virtual bool CanUpdateEntity(T entity)
+        {
+            return Common.Can() && entity != null;
+        }
+
+        public virtual bool CanDeleteEntity(T entity)
+        {
+            return Common.Can() && entity != null;
+        }
+
+        public virtual bool CanCreateComment(T entity)
+        {
             return false;
         }
 
-        #endregion
-
-        #region Can Go To Feed
-
-        public static bool CanGoToFeed(Project project, Guid userId)
+        public virtual bool CanEditFiles(T entity)
         {
-            if (project == null || !IsProjectsEnabled(userId))
+            return false;
+        }
+
+        public virtual bool CanEditComment(T entity, Comment comment)
+        {
+            return false;
+        }
+
+        public virtual bool CanGoToFeed(T entity, Guid userId)
+        {
+            return false;
+        }
+    }
+
+    public sealed class ProjectSecurityProject : ProjectSecurityTemplate<Project>
+    {
+        public override bool CanCreateEntities(Project project)
+        {
+            return Common.Can() && (Common.CurrentUserAdministrator || ProjectsCommonSettings.Load().EverebodyCanCreate);
+        }
+
+        public override bool CanReadEntity(Project project, Guid userId)
+        {
+            if (!Common.IsProjectsEnabled(userId)) return false;
+            if (project == null) return false;
+            if (project.Private && Common.IsPrivateDisabled) return false;
+            return !project.Private || Common.IsInTeam(project, userId);
+        }
+
+        public override bool CanUpdateEntity(Project project)
+        {
+            return base.CanUpdateEntity(project) && Common.IsProjectManager(project);
+        }
+
+        public override bool CanDeleteEntity(Project project)
+        {
+            return base.CanDeleteEntity(project) && Common.CurrentUserAdministrator;
+        }
+
+        public override bool CanGoToFeed(Project project, Guid userId)
+        {
+            if (project == null || !Common.IsProjectsEnabled(userId))
             {
                 return false;
             }
             return WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, userId)
-                   || IsInTeam(project, userId, false)
-                   || IsFollow(project, userId);
+                   || Common.IsInTeam(project, userId, false)
+                   || Common.IsFollow(project, userId);
         }
 
-        public static bool CanGoToFeed(ParticipantFull participant, Guid userId)
+        public bool CanEditTeam(Project project)
         {
-            if (participant == null || !IsProjectsEnabled(userId))
-            {
-                return false;
-            }
-            return IsInTeam(participant.Project, userId, false) || IsFollow(participant.Project, userId);
+            return Common.Can() && Common.IsProjectManager(project);
         }
 
-        public static bool CanGoToFeed(Milestone milestone, Guid userId)
+        public bool CanReadFiles(Project project)
         {
-            if (milestone == null || !IsProjectsEnabled(userId))
-            {
-                return false;
-            }
-            if (!IsInTeam(milestone.Project, userId, false) && !IsFollow(milestone.Project, userId))
-            {
-                return false;
-            }
-            return milestone.Responsible == userId || GetTeamSecurityForParticipants(milestone.Project, userId, ProjectTeamSecurity.Milestone);
+            return Common.IsProjectsEnabled() && Common.GetTeamSecurity(project, ProjectTeamSecurity.Files);
         }
 
-        public static bool CanGoToFeed(Message discussion, Guid userId)
+        public bool CanReadFiles(Project project, Guid userId)
         {
-            if (discussion == null || !IsProjectsEnabled(userId))
-            {
-                return false;
-            }
-            if (discussion.CreateBy == userId)
-            {
-                return true;
-            }
-            if (!IsInTeam(discussion.Project, userId, false) && !IsFollow(discussion.Project, userId))
-            {
-                return false;
-            }
-
-            var isSubscriber = new MessageEngine(GetFactory(), null).GetSubscribers(discussion).Any(r => new Guid(r.ID).Equals(userId));
-            return isSubscriber && GetTeamSecurityForParticipants(discussion.Project, userId, ProjectTeamSecurity.Messages);
+            return Common.IsProjectsEnabled(userId) && Common.GetTeamSecurity(project, userId, ProjectTeamSecurity.Files);
         }
 
-        public static bool CanGoToFeed(Task task, Guid userId)
+        public override bool CanEditComment(Project project, Comment comment)
         {
-            if (task == null || !IsProjectsEnabled(userId))
-            {
-                return false;
-            }
-            if (task.CreateBy == userId)
-            {
-                return true;
-            }
-            if (!IsInTeam(task.Project, userId, false) && !IsFollow(task.Project, userId))
-            {
-                return false;
-            }
-            if (task.Responsibles.Contains(userId))
-            {
-                return true;
-            }
-            if (task.Milestone != 0 && !CanReadMilestones(task.Project, userId))
-            {
-                var milestone = GetFactory().GetMilestoneDao().GetById(task.Milestone);
-                if (milestone.Responsible == userId)
-                {
-                    return true;
-                }
-            }
-            return GetTeamSecurityForParticipants(task.Project, userId, ProjectTeamSecurity.Tasks);
+            if (!Common.IsProjectsEnabled()) return false;
+            if (project == null || comment == null) return false;
+            return comment.CreateBy == Common.CurrentUserId || Common.IsProjectManager(project);
         }
 
-        #endregion
-
-        #region Can Read
-
-        public static bool CanReadMessages(Project project, Guid userId)
+        public bool CanReadContacts(Project project)
         {
-            return IsProjectsEnabled(userId) && GetTeamSecurity(project, userId, ProjectTeamSecurity.Messages);
+            return Common.IsCrmEnabled() && Common.IsProjectsEnabled() &&
+                   Common.GetTeamSecurity(project, ProjectTeamSecurity.Contacts);
         }
 
-        public static bool CanReadMessages(Project project)
+        public bool CanLinkContact(Project project)
         {
-            return CanReadMessages(project, CurrentUserId);
+            return Common.IsProjectsEnabled() && CanUpdateEntity(project);
+        }
+    }
+
+    public sealed class ProjectSecurityTask : ProjectSecurityTemplate<Task>
+    {
+        public ProjectSecurityProject ProjectSecurityProject { get; set; }
+
+        public ProjectSecurityMilestone ProjectSecurityMilestone { get; set; }
+
+        public override bool CanCreateEntities(Project project)
+        {
+            if (!base.CanCreateEntities(project)) return false;
+            if (Common.IsProjectManager(project)) return true;
+            return Common.IsInTeam(project) && CanReadEntities(project);
         }
 
-        public static bool CanReadFiles(Project project, Guid userId)
+        public override bool CanReadEntities(Project project, Guid userId)
         {
-            return IsProjectsEnabled(userId) && GetTeamSecurity(project, userId, ProjectTeamSecurity.Files);
+            return base.CanReadEntities(project, userId) && Common.GetTeamSecurity(project, userId, ProjectTeamSecurity.Tasks);
         }
 
-        public static bool CanReadFiles(Project project)
+        public override bool CanReadEntity(Task task, Guid userId)
         {
-            return CanReadFiles(project, CurrentUserId);
-        }
-
-        public static bool CanReadTasks(Project project, Guid userId)
-        {
-            return IsProjectsEnabled(userId) && GetTeamSecurity(project, userId, ProjectTeamSecurity.Tasks);
-        }
-
-        public static bool CanReadTasks(Project project)
-        {
-            return CanReadTasks(project, CurrentUserId);
-        }
-
-        public static bool CanLinkContact(Project project)
-        {
-            return IsProjectsEnabled(CurrentUserId) && CanEdit(project);
-        }
-
-        public static bool CanReadMilestones(Project project, Guid userId)
-        {
-            return IsProjectsEnabled(userId) && GetTeamSecurity(project, userId, ProjectTeamSecurity.Milestone);
-        }
-
-        public static bool CanReadMilestones(Project project)
-        {
-            return CanReadMilestones(project, CurrentUserId);
-        }
-
-        public static bool CanReadContacts(Project project, Guid userId)
-        {
-            return IsCrmEnabled(userId) && IsProjectsEnabled(userId) && GetTeamSecurity(project, userId, ProjectTeamSecurity.Contacts);
-        }
-
-        public static bool CanReadContacts(Project project)
-        {
-            return CanReadContacts(project, CurrentUserId);
-        }
-
-        public static bool CanRead(Project project, Guid userId)
-        {
-            if (!IsProjectsEnabled(userId)) return false;
-            if (project == null) return false;
-            if (project.Private && IsPrivateDisabled) return false;
-            return !project.Private || IsInTeam(project, userId);
-        }
-
-        public static bool CanRead(Project project)
-        {
-            return CanRead(project, CurrentUserId);
-        }
-
-        public static bool CanRead(Task task, Guid userId)
-        {
-            if (task == null || !CanRead(task.Project, userId)) return false;
+            if (task == null || !ProjectSecurityProject.CanReadEntity(task.Project, userId)) return false;
 
             if (task.Responsibles.Contains(userId)) return true;
 
-            if (!CanReadTasks(task.Project, userId)) return false;
-            if (task.Milestone != 0 && !CanReadMilestones(task.Project, userId))
+            if (!CanReadEntities(task.Project, userId)) return false;
+
+            if (task.Milestone != 0 && !ProjectSecurityMilestone.CanReadEntities(task.Project, userId))
             {
-                var m = GetFactory().GetMilestoneDao().GetById(task.Milestone);
-                if (!CanRead(m, userId)) return false;
+                var m = Common.DaoFactory.MilestoneDao.GetById(task.Milestone);
+                if (!ProjectSecurityMilestone.CanReadEntity(m, userId)) return false;
             }
 
             return true;
         }
 
-        public static bool CanRead(Task task)
+        public override bool CanUpdateEntity(Task task)
         {
-            return CanRead(task, CurrentUserId);
-        }
-
-        public static bool CanRead(Subtask subtask)
-        {
-            if (!IsProjectsEnabled(CurrentUserId)) return false;
-            if (subtask == null) return false;
-            return subtask.Responsible == CurrentUserId;
-        }
-
-        public static bool CanRead(Milestone milestone, Guid userId)
-        {
-            if (milestone == null || !CanRead(milestone.Project, userId)) return false;
-            if (milestone.Responsible == userId) return true;
-
-            return CanReadMilestones(milestone.Project, userId);
-        }
-
-        public static bool CanRead(Milestone milestone)
-        {
-            return CanRead(milestone, CurrentUserId);
-        }
-
-        public static bool CanRead(Message message, Guid userId)
-        {
-            if (message == null || !CanRead(message.Project, userId)) return false;
-
-            return CanReadMessages(message.Project, userId);
-        }
-
-        public static bool CanRead(Message message)
-        {
-            return CanRead(message, CurrentUserId);
-        }
-
-        public static bool CanRead(DomainObject<int> entity, Guid userId)
-        {
-            switch (entity.EntityType)
-            {
-                case EntityType.Project:
-                    return CanRead((Project) entity);
-                case EntityType.Task:
-                    return CanRead((Task) entity);
-                case EntityType.Message:
-                    return CanRead((Message) entity);
-                case EntityType.Milestone:
-                    return CanRead((Milestone) entity);
-                case EntityType.SubTask:
-                case EntityType.Comment:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        public static bool CanRead(DomainObject<int> entity)
-        {
-            return CanRead(entity, CurrentUserId);
-        }
-
-        public static bool CanReadGantt(Project project)
-        {
-            if (!ganttJsExists.HasValue && HttpContext.Current != null)
-            {
-                var file = HttpContext.Current.Server.MapPath("~/products/projects/js/ganttchart_min.js ");
-                ganttJsExists = File.Exists(file);
-            }
-            if (ganttJsExists.HasValue && ganttJsExists.Value == false)
-            {
-                return false;
-            }
-            return CanReadTasks(project) && CanReadMilestones(project);
-        }
-
-        #endregion
-
-        #region Can Create
-
-        public static bool Can()
-        {
-            return !CurrentUserIsVisitor && IsProjectsEnabled(CurrentUserId);
-        }
-
-        public static bool Can(object obj)
-        {
-            if (!Can()) return false;
-            return obj != null;
-        }
-
-        public static bool CanCreateProject()
-        {
-            return Can() && (CurrentUserAdministrator || ProjectsCommonSettings.Load().EverebodyCanCreate);
-        }
-
-        public static bool CanCreateMilestone(Project project)
-        {
-            return Can(project) && IsProjectManager(project);
-        }
-
-        public static bool CanCreateMessage(Project project)
-        {
-            if (!Can(project)) return false;
-            if (IsProjectManager(project)) return true;
-            return IsInTeam(project) && CanReadMessages(project);
-        }
-
-        public static bool CanCreateTask(Project project)
-        {
-            if (!Can(project)) return false;
-            if (IsProjectManager(project)) return true;
-            return IsInTeam(project) && CanReadTasks(project);
-        }
-
-        public static bool CanCreateSubtask(Task task)
-        {
-            if (!Can(task)) return false;
-            if (IsProjectManager(task.Project)) return true;
-
-            return IsInTeam(task.Project) &&
-                   ((task.CreateBy == CurrentUserId) ||
-                    !task.Responsibles.Any() ||
-                    task.Responsibles.Contains(CurrentUserId));
-        }
-
-        public static bool CanCreateComment(ProjectEntity entity)
-        {
-            var message = entity as Message;
-            return CanRead(entity) && 
-                (message == null || message.Status == MessageStatus.Open) && 
-                IsProjectsEnabled(CurrentUserId) && 
-                SecurityContext.IsAuthenticated && 
-                !CurrentUserIsOutsider;
-        }
-
-        public static bool CanCreateTimeSpend(Project project)
-        {
-            if (project.Status == ProjectStatus.Closed) return false;
-            return Can(project) && IsInTeam(project);
-        }
-
-        public static bool CanCreateTimeSpend(Task task)
-        {
-            if (!Can(task)) return false;
-            if (task.Project.Status != ProjectStatus.Open) return false;
-            if (IsInTeam(task.Project)) return true;
-
-            return task.Responsibles.Contains(CurrentUserId) ||
-                   task.SubTasks.Select(r => r.Responsible).Contains(CurrentUserId);
-        }
-
-        #endregion
-
-        #region Can Edit
-
-        public static bool CanEdit(Project project)
-        {
-            return Can(project) && IsProjectManager(project);
-        }
-
-        public static bool CanEdit(Milestone milestone)
-        {
-            if (!Can(milestone)) return false;
-            if (milestone.Project.Status == ProjectStatus.Closed) return false;
-            if (IsProjectManager(milestone.Project)) return true;
-            if (!CanRead(milestone)) return false;
-
-            return IsInTeam(milestone.Project) &&
-                   (milestone.CreateBy == CurrentUserId ||
-                    milestone.Responsible == CurrentUserId);
-        }
-
-        public static bool CanEdit(Message message)
-        {
-            if (!Can(message)) return false;
-            if (IsProjectManager(message.Project)) return true;
-            if (!CanRead(message)) return false;
-
-            return IsInTeam(message.Project) && message.CreateBy == CurrentUserId;
-        }
-
-        public static bool CanEdit(Task task)
-        {
-            if (!Can(task)) return false;
+            if (!base.CanUpdateEntity(task)) return false;
             if (task.Project.Status == ProjectStatus.Closed) return false;
-            if (IsProjectManager(task.Project)) return true;
+            if (Common.IsProjectManager(task.Project)) return true;
 
-            return IsInTeam(task.Project) &&
-                   (task.CreateBy == CurrentUserId ||
+            return Common.IsInTeam(task.Project) &&
+                   (task.CreateBy == Common.CurrentUserId ||
                     !task.Responsibles.Any() ||
-                    task.Responsibles.Contains(CurrentUserId) ||
-                    task.SubTasks.Select(r => r.Responsible).Contains(CurrentUserId));
+                    task.Responsibles.Contains(Common.CurrentUserId) ||
+                    task.SubTasks.Select(r => r.Responsible).Contains(Common.CurrentUserId));
         }
 
-        public static bool CanEdit(Task task, Subtask subtask)
+        public override bool CanDeleteEntity(Task task)
         {
-            if (!Can(subtask)) return false;
-            if (CanEdit(task)) return true;
+            if (!base.CanDeleteEntity(task)) return false;
+            if (Common.IsProjectManager(task.Project)) return true;
 
-            return IsInTeam(task.Project) &&
-                   (subtask.CreateBy == CurrentUserId ||
-                    subtask.Responsible == CurrentUserId);
+            return Common.IsInTeam(task.Project) && task.CreateBy == Common.CurrentUserId;
         }
 
-        public static bool CanEditTeam(Project project)
+        public override bool CanCreateComment(Task entity)
         {
-            return Can(project) && IsProjectManager(project);
+            return CanReadEntity(entity) &&
+                Common.IsProjectsEnabled() &&
+                SecurityContext.IsAuthenticated &&
+                !Common.CurrentUserIsOutsider;
         }
 
-        public static bool CanEditComment(Project project, Comment comment)
+        public bool CanEdit(Task task, Subtask subtask)
         {
-            if (!IsProjectsEnabled(CurrentUserId)) return false;
-            if (project == null || comment == null) return false;
-            return comment.CreateBy == CurrentUserId || IsProjectManager(project);
+            if (subtask == null || !Common.Can()) return false;
+            if (CanUpdateEntity(task)) return true;
+
+            return Common.IsInTeam(task.Project) &&
+                   (subtask.CreateBy == Common.CurrentUserId ||
+                    subtask.Responsible == Common.CurrentUserId);
+        }
+
+        public override bool CanGoToFeed(Task task, Guid userId)
+        {
+            if (task == null || !Common.IsProjectsEnabled(userId)) return false;
+            if (task.CreateBy == userId) return true;
+            if (!Common.IsInTeam(task.Project, userId, false) && !Common.IsFollow(task.Project, userId)) return false;
+            if (task.Responsibles.Contains(userId)) return true;
+            if (task.Milestone != 0 && !ProjectSecurityMilestone.CanReadEntities(task.Project, userId))
+            {
+                var milestone = Common.DaoFactory.MilestoneDao.GetById(task.Milestone);
+                if (milestone.Responsible == userId)
+                {
+                    return true;
+                }
+            }
+            return Common.GetTeamSecurityForParticipants(task.Project, userId, ProjectTeamSecurity.Tasks);
+        }
+
+        public override bool CanEditFiles(Task entity)
+        {
+            if (!Common.IsProjectsEnabled()) return false;
+            if(entity.Project.Status == ProjectStatus.Closed) return false;
+            if (Common.IsProjectManager(entity.Project)) return true;
+
+            return CanUpdateEntity(entity);
+        }
+
+        public override bool CanEditComment(Task entity, Comment comment)
+        {
+            if (entity == null) return false;
+
+            return ProjectSecurityProject.CanEditComment(entity.Project, comment);
+        }
+
+        public bool CanCreateSubtask(Task task)
+        {
+            if (task== null || !Common.Can()) return false;
+            if (Common.IsProjectManager(task.Project)) return true;
+
+            return Common.IsInTeam(task.Project) &&
+                   ((task.CreateBy == Common.CurrentUserId) ||
+                    !task.Responsibles.Any() ||
+                    task.Responsibles.Contains(Common.CurrentUserId));
+        }
+
+        public bool CanCreateTimeSpend(Task task)
+        {
+            if (task == null || !Common.Can()) return false;
+            if (task.Project.Status != ProjectStatus.Open) return false;
+            if (Common.IsInTeam(task.Project)) return true;
+
+            return task.Responsibles.Contains(Common.CurrentUserId) ||
+                   task.SubTasks.Select(r => r.Responsible).Contains(Common.CurrentUserId);
+        }
+    }
+
+    public sealed class ProjectSecurityMilestone : ProjectSecurityTemplate<Milestone>
+    {
+        public ProjectSecurityProject ProjectSecurityProject { get; set; }
+
+        public override bool CanCreateEntities(Project project)
+        {
+            return base.CanCreateEntities(project) && Common.IsProjectManager(project);
+        }
+
+        public override bool CanReadEntities(Project project, Guid userId)
+        {
+            return base.CanReadEntities(project, userId) && Common.GetTeamSecurity(project, userId, ProjectTeamSecurity.Milestone);
+        }
+
+        public override bool CanReadEntity(Milestone entity, Guid userId)
+        {
+            if (entity == null || !ProjectSecurityProject.CanReadEntity(entity.Project, userId)) return false;
+            if (entity.Responsible == userId) return true;
+
+            return CanReadEntities(entity.Project, userId);
+        }
+
+        public override bool CanUpdateEntity(Milestone milestone)
+        {
+            if (!base.CanUpdateEntity(milestone)) return false;
+            if (milestone.Project.Status == ProjectStatus.Closed) return false;
+            if (Common.IsProjectManager(milestone.Project)) return true;
+            if (!CanReadEntity(milestone)) return false;
+
+            return Common.IsInTeam(milestone.Project) &&
+                   (milestone.CreateBy == Common.CurrentUserId ||
+                    milestone.Responsible == Common.CurrentUserId);
+        }
+
+        public override bool CanDeleteEntity(Milestone milestone)
+        {
+            if (!base.CanDeleteEntity(milestone)) return false;
+            if (Common.IsProjectManager(milestone.Project)) return true;
+
+            return Common.IsInTeam(milestone.Project) && milestone.CreateBy == Common.CurrentUserId;
+        }
+
+        public override bool CanGoToFeed(Milestone milestone, Guid userId)
+        {
+            if (milestone == null || !Common.IsProjectsEnabled(userId)) return false;
+            if (!Common.IsInTeam(milestone.Project, userId, false) && !Common.IsFollow(milestone.Project, userId)) return false;
+            return milestone.Responsible == userId || Common.GetTeamSecurityForParticipants(milestone.Project, userId, ProjectTeamSecurity.Milestone);
+        }
+    }
+
+    public sealed class ProjectSecurityMessage : ProjectSecurityTemplate<Message>
+    {
+        public ProjectSecurityProject ProjectSecurityProject { get; set; }
+
+        public override bool CanCreateEntities(Project project)
+        {
+            if (!base.CanCreateEntities(project)) return false;
+            if (Common.IsProjectManager(project)) return true;
+            return Common.IsInTeam(project) && CanReadEntities(project);
+        }
+
+        public override bool CanReadEntities(Project project, Guid userId)
+        {
+            return base.CanReadEntities(project, userId) && Common.GetTeamSecurity(project, userId, ProjectTeamSecurity.Messages);
+        }
+
+        public override bool CanReadEntity(Message entity, Guid userId)
+        {
+            if (entity == null || !ProjectSecurityProject.CanReadEntity(entity.Project, userId)) return false;
+
+            return CanReadEntities(entity.Project, userId);
+        }
+
+        public override bool CanUpdateEntity(Message message)
+        {
+            if (!base.CanUpdateEntity(message)) return false;
+            if (Common.IsProjectManager(message.Project)) return true;
+            if (!CanReadEntity(message)) return false;
+
+            return Common.IsInTeam(message.Project) && message.CreateBy == Common.CurrentUserId;
+        }
+
+        public override bool CanDeleteEntity(Message message)
+        {
+            return CanUpdateEntity(message);
+        }
+
+        public override bool CanCreateComment(Message message)
+        {
+            return CanReadEntity(message) &&
+                (message == null || message.Status == MessageStatus.Open) &&
+                Common.IsProjectsEnabled() &&
+                SecurityContext.IsAuthenticated &&
+                !Common.CurrentUserIsOutsider;
+        }
+
+        public override bool CanGoToFeed(Message message, Guid userId)
+        {
+            if (message == null || !Common.IsProjectsEnabled(userId)) return false;
+            if (message.CreateBy == userId) return true;
+            if (!Common.IsInTeam(message.Project, userId, false) && !Common.IsFollow(message.Project, userId)) return false;
+
+            var isSubscriber = Common.EngineFactory.MessageEngine.GetSubscribers(message).Any(r => new Guid(r.ID).Equals(userId));
+            return isSubscriber && Common.GetTeamSecurityForParticipants(message.Project, userId, ProjectTeamSecurity.Messages);
+        }
+
+        public override bool CanEditComment(Message message, Comment comment)
+        {
+            return message.Status == MessageStatus.Open && ProjectSecurityProject.CanEditComment(message.Project, comment);
+        }
+
+        public override bool CanEditFiles(Message entity)
+        {
+            if (!Common.IsProjectsEnabled()) return false;
+            if (entity.Status == MessageStatus.Archived || entity.Project.Status == ProjectStatus.Closed) return false;
+            if (Common.IsProjectManager(entity.Project)) return true;
+
+            return Common.IsInTeam(entity.Project);
+        }
+    }
+
+    public sealed class ProjectSecurityTimeTracking : ProjectSecurityTemplate<TimeSpend>
+    {
+        public ProjectSecurityTask ProjectSecurityTask { get; set; }
+
+        public override bool CanCreateEntities(Project project)
+        {
+            if (!base.CanCreateEntities(project)) return false;
+            if (project.Status == ProjectStatus.Closed) return false;
+            return Common.IsInTeam(project);
+        }
+
+        public override bool CanReadEntities(Project project, Guid userId)
+        {
+            return ProjectSecurityTask.CanReadEntities(project, userId);
+        }
+
+        public override bool CanReadEntity(TimeSpend entity, Guid userId)
+        {
+            return ProjectSecurityTask.CanReadEntity(entity.Task, userId);
+        }
+
+        public override bool CanUpdateEntity(TimeSpend timeSpend)
+        {
+            if (!base.CanUpdateEntity(timeSpend)) return false;
+            if (Common.IsProjectManager(timeSpend.Task.Project)) return true;
+            if (timeSpend.PaymentStatus == PaymentStatus.Billed) return false;
+
+            return timeSpend.Person == Common.CurrentUserId || timeSpend.CreateBy == Common.CurrentUserId;
+        }
+
+        public override bool CanDeleteEntity(TimeSpend timeSpend)
+        {
+            if (!base.CanDeleteEntity(timeSpend)) return false;
+            if (Common.IsProjectManager(timeSpend.Task.Project)) return true;
+            if (timeSpend.PaymentStatus == PaymentStatus.Billed) return false;
+
+            return Common.IsInTeam(timeSpend.Task.Project) &&
+                   (timeSpend.CreateBy == Common.CurrentUserId || timeSpend.Person == Common.CurrentUserId);
+        }
+
+        public bool CanEditPaymentStatus(TimeSpend timeSpend)
+        {
+            return timeSpend != null && Common.Can() && Common.IsProjectManager(timeSpend.Task.Project);
+        }
+    }
+
+    public class ProjectSecurity
+    {
+        public static bool CanCreate<T>(Project project) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanCreateEntities(project);
+            }
+        }
+
+        public static bool CanEdit<T>(T entity) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanUpdateEntity(entity);
+            }
+        }
+
+        public static bool CanRead<T>(T entity) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntity(entity);
+            }
+        }
+
+        public static bool CanRead<T>(T entity, Guid userId) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntity(entity, userId);
+            }
+        }
+
+        public static bool CanRead<T>(Project project) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanReadEntities(project);
+            }
+        }
+
+        public static bool CanDelete<T>(T entity) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanDeleteEntity(entity);
+            }
         }
 
         public static bool CanEditComment(ProjectEntity entity, Comment comment)
         {
-            if (entity == null) return false;
+            using (var scope = DIHelper.Resolve())
+            {
+                var task = entity as Task;
+                if (task != null)
+                {
+                    return scope.Resolve<ProjectSecurityTask>().CanEditComment(task, comment);
+                }
 
-            var message = entity as Message;
-            return (message == null || message.Status == MessageStatus.Open) && CanEditComment(entity.Project, comment);
+                var message = entity as Message;
+                return scope.Resolve<ProjectSecurityMessage>().CanEditComment(message, comment);
+            }
         }
 
-        public static bool CanEditFiles(Message entity)
+        public static bool CanEditComment(Project entity, Comment comment)
         {
-            if (!IsProjectsEnabled(CurrentUserId)) return false;
-            if (entity.Status == MessageStatus.Archived || entity.Project.Status != ProjectStatus.Open) return false;
-            if (IsProjectManager(entity.Project)) return true;
-
-            return IsInTeam(entity.Project);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanEditComment(entity, comment);
+            }
         }
 
-        public static bool CanEditFiles(Task entity)
+        public static bool CanCreateComment(ProjectEntity entity)
         {
-            if (!IsProjectsEnabled(CurrentUserId)) return false;
-            if (IsProjectManager(entity.Project)) return true;
+            using (var scope = DIHelper.Resolve())
+            {
+                var task = entity as Task;
+                if (task != null)
+                {
+                    return scope.Resolve<ProjectSecurityTask>().CanCreateComment(task);
+                }
 
-            return CanEdit(entity) && entity.Project.Status == ProjectStatus.Open;
+                var message = entity as Message;
+                return scope.Resolve<ProjectSecurityMessage>().CanCreateComment(message);
+            }
         }
 
-        public static bool CanEdit(TimeSpend timeSpend)
+        public static bool CanCreateComment(Project project)
         {
-            if (!Can(timeSpend)) return false;
-            if (IsProjectManager(timeSpend.Task.Project)) return true;
-            if (timeSpend.PaymentStatus == PaymentStatus.Billed) return false;
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanCreateComment(project);
+            }
+        }
 
-            return timeSpend.Person == CurrentUserId || timeSpend.CreateBy == CurrentUserId;
+        public static bool CanEdit(Task task, Subtask subtask)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTask>().CanEdit(task, subtask);
+            }
+        }
+
+        public static bool CanReadFiles(Project project, Guid userId)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanReadFiles(project, userId);
+            }
+        }
+
+        public static bool CanReadFiles(Project project)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanReadFiles(project);
+            }
+        }
+
+        public static bool CanEditFiles<T>(T entity) where T : DomainObject<int>
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanEditFiles(entity);
+            }
+        }
+
+        public static bool CanEditTeam(Project project)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanEditTeam(project);
+            }
+        }
+
+        public static bool CanLinkContact(Project project)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanLinkContact(project);
+            }
+        }
+
+        public static bool CanReadContacts(Project project)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityProject>().CanReadContacts(project);
+            }
         }
 
         public static bool CanEditPaymentStatus(TimeSpend timeSpend)
         {
-            return Can(timeSpend) && IsProjectManager(timeSpend.Task.Project);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTimeTracking>().CanEditPaymentStatus(timeSpend);
+            }
         }
 
-        #endregion
-
-        #region Can Delete
-
-        public static bool CanDelete(Project project)
+        public static bool CanCreateSubtask(Task task)
         {
-            return CurrentUserAdministrator;
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTask>().CanCreateSubtask(task);
+            }
         }
 
-        public static bool CanDelete(Task task)
+        public static bool CanCreateTimeSpend(Task task)
         {
-            if (!Can(task)) return false;
-            if (IsProjectManager(task.Project)) return true;
-
-            return IsInTeam(task.Project) && task.CreateBy == CurrentUserId;
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTask>().CanCreateTimeSpend(task);
+            }
         }
 
-        public static bool CanDelete(Milestone milestone)
+        public static bool CanGoToFeed<T>(T entity, Guid userId) where T : DomainObject<int>
         {
-            if (!Can(milestone)) return false;
-            if (IsProjectManager(milestone.Project)) return true;
-
-            return IsInTeam(milestone.Project) && milestone.CreateBy == CurrentUserId;
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityTemplate<T>>().CanGoToFeed(entity, userId);
+            }
         }
 
-        public static bool CanDelete(TimeSpend timeSpend)
+        public static bool CanGoToFeed(ParticipantFull participant, Guid userId)
         {
-            if (!Can(timeSpend)) return false;
-            if (IsProjectManager(timeSpend.Task.Project)) return true;
-            if (timeSpend.PaymentStatus == PaymentStatus.Billed) return false;
-
-            return IsInTeam(timeSpend.Task.Project) &&
-                   (timeSpend.CreateBy == CurrentUserId || timeSpend.Person == CurrentUserId);
+            using (var scope = DIHelper.Resolve())
+            {
+                var common = scope.Resolve<ProjectSecurityCommon>();
+                if (participant == null || !IsProjectsEnabled(userId)) return false;
+                return common.IsInTeam(participant.Project, userId, false) || common.IsFollow(participant.Project, userId);
+            }
         }
 
-        #endregion
-
-        #region Demand
-
-        public static void DemandCreateProject()
+        public static bool IsInTeam(Project project, Guid userId, bool includeAdmin = true)
         {
-            if (!CanCreateProject()) throw CreateSecurityException();
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityCommon>().IsInTeam(project, userId, includeAdmin);
+            }
         }
 
-        public static void DemandCreateMessage(Project project)
+        public static void DemandCreate<T>(Project project) where T : DomainObject<int>
         {
-            if (!CanCreateMessage(project)) throw CreateSecurityException();
+            if (!CanCreate<T>(project)) throw CreateSecurityException();
         }
 
-        public static void DemandCreateMilestone(Project project)
+        public static void DemandEdit<T>(T entity) where T : DomainObject<int>
         {
-            if (!CanCreateMilestone(project)) throw CreateSecurityException();
-        }
-
-        public static void DemandCreateTask(Project project)
-        {
-            if (!CanCreateTask(project)) throw CreateSecurityException();
-        }
-
-        public static void DemandCreateComment(ProjectEntity entity)
-        {
-            if (!CanCreateComment(entity)) throw CreateSecurityException();
-        }
-
-        public static void DemandRead(Milestone milestone)
-        {
-            if (!CanRead(milestone != null ? milestone.Project : null)) throw CreateSecurityException();
-        }
-
-        public static void DemandRead(Message message)
-        {
-            if (!CanRead(message)) throw CreateSecurityException();
-        }
-
-        public static void DemandRead(Task task)
-        {
-            if (!CanRead(task)) throw CreateSecurityException();
-        }
-
-        public static void DemandReadFiles(Project project)
-        {
-            if (!CanReadFiles(project)) throw CreateSecurityException();
-        }
-
-        public static void DemandReadTasks(Project project)
-        {
-            if (!CanReadTasks(project)) throw CreateSecurityException();
-        }
-
-        public static void DemandLinkContact(Project project)
-        {
-            if (!CanEdit(project)) throw CreateSecurityException();
-        }
-
-
-        public static void DemandEdit(Project project)
-        {
-            if (!CanEdit(project)) throw CreateSecurityException();
-        }
-
-        public static void DemandEdit(Message message)
-        {
-            if (!CanEdit(message)) throw CreateSecurityException();
-        }
-
-        public static void DemandEdit(Milestone milestone)
-        {
-            if (!CanEdit(milestone)) throw CreateSecurityException();
-        }
-
-        public static void DemandEdit(Task task)
-        {
-            if (!CanEdit(task)) throw CreateSecurityException();
+            if (!CanEdit(entity)) throw CreateSecurityException();
         }
 
         public static void DemandEdit(Task task, Subtask subtask)
@@ -649,9 +832,40 @@ namespace ASC.Projects.Engine
             if (!CanEdit(task, subtask)) throw CreateSecurityException();
         }
 
-        public static void DemandEdit(TimeSpend timeSpend)
+        public static void DemandDelete<T>(T entity) where T : DomainObject<int>
         {
-            if (!CanEdit(timeSpend)) throw CreateSecurityException();
+            if (!CanDelete(entity)) throw CreateSecurityException();
+        }
+
+        public static void DemandEditComment(ProjectEntity entity, Comment comment)
+        {
+            if (!CanEditComment(entity, comment)) throw CreateSecurityException();
+        }
+
+        public static void DemandEditComment(Project entity, Comment comment)
+        {
+            if (!CanEditComment(entity, comment)) throw CreateSecurityException();
+        }
+
+        public static void DemandCreateComment(Project project)
+        {
+            if (!CanCreateComment(project)) throw CreateSecurityException();
+        }
+
+        public static void DemandCreateComment(ProjectEntity entity)
+        {
+            if (!CanCreateComment(entity)) throw CreateSecurityException();
+        }
+
+        public static void DemandLinkContact(Project project)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                if (!scope.Resolve<ProjectSecurityProject>().CanLinkContact(project))
+                {
+                    throw CreateSecurityException();
+                }
+            }
         }
 
         public static void DemandEditTeam(Project project)
@@ -659,32 +873,10 @@ namespace ASC.Projects.Engine
             if (!CanEditTeam(project)) throw CreateSecurityException();
         }
 
-        public static void DemandEditComment(Project project, Comment comment)
+        public static void DemandReadFiles(Project project)
         {
-            if (!CanEditComment(project, comment)) throw CreateSecurityException();
+            if (!CanReadFiles(project)) throw CreateSecurityException();
         }
-
-        public static void DemandEditComment(Message message, Comment comment)
-        {
-            if (!CanEditComment(message, comment)) throw CreateSecurityException();
-        }
-
-
-        public static void DemandDeleteTimeSpend(TimeSpend timeSpend)
-        {
-            if (!CanDelete(timeSpend)) throw CreateSecurityException();
-        }
-
-        public static void DemandDelete(Task task)
-        {
-            if (!CanDelete(task)) throw CreateSecurityException();
-        }
-
-        public static void DemandDelete(Milestone milestone)
-        {
-            if (!CanDelete(milestone)) throw CreateSecurityException();
-        }
-
 
         public static void DemandAuthentication()
         {
@@ -694,87 +886,158 @@ namespace ASC.Projects.Engine
             }
         }
 
-        #endregion
-
-        #region GetFactory
-
-        private static Core.DataInterfaces.IDaoFactory GetFactory()
+        public static bool CurrentUserAdministrator
         {
-            return new DaoFactory(Global.DbID, CoreContext.TenantManager.GetCurrentTenant().TenantId);
+            get
+            {
+                using (var scope = DIHelper.Resolve())
+                {
+                    return scope.Resolve<ProjectSecurityCommon>().CurrentUserAdministrator;
+                }
+            }
         }
 
-        #endregion
-
-        #region Is.. block
-
-        public static bool IsAdministrator(Guid userId)
+        public static bool IsPrivateDisabled
         {
-            return CoreContext.UserManager.IsUserInGroup(userId, Constants.GroupAdmin.ID) ||
-                   WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, userId);
+            get
+            {
+                using (var scope = DIHelper.Resolve())
+                {
+                    return scope.Resolve<ProjectSecurityCommon>().IsPrivateDisabled;
+                }
+            }
         }
 
-        private static bool IsProjectManager(Project project)
+        public static bool IsVisitor()
         {
-            return IsProjectManager(project, CurrentUserId);
-        }
-
-        private static bool IsProjectManager(Project project, Guid userId)
-        {
-            return (IsAdministrator(userId) || (project != null && project.Responsible == userId)) &&
-                   !CurrentUserIsVisitor;
+            return IsVisitor(SecurityContext.CurrentAccount.ID);
         }
 
         public static bool IsVisitor(Guid userId)
         {
-            return CoreContext.UserManager.GetUsers(userId).IsVisitor();
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityCommon>().IsVisitor(userId);
+            }
         }
 
-        public static bool IsOutsider(Guid userId)
+        public static bool IsAdministrator()
         {
-            return CoreContext.UserManager.GetUsers(userId).IsOutsider();
+            return IsAdministrator(SecurityContext.CurrentAccount.ID);
         }
 
-        public static bool IsInTeam(Project project)
+        public static bool IsAdministrator(Guid userId)
         {
-            return IsInTeam(project, CurrentUserId);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityCommon>().IsAdministrator(userId);
+            }
         }
 
-        public static bool IsInTeam(Project project, Guid userId, bool includeAdmin = true)
+        public static bool IsProjectsEnabled()
         {
-            var isAdmin = includeAdmin && IsAdministrator(userId);
-            return isAdmin || (project != null && GetFactory().GetProjectDao().IsInTeam(project.ID, userId));
+            return IsProjectsEnabled(SecurityContext.CurrentAccount.ID);
         }
 
-        private static bool IsFollow(Project project, Guid userId)
+        public static bool IsProjectsEnabled(Guid userId)
         {
-            var isAdmin = IsAdministrator(userId);
-            var isPrivate = project != null && (!project.Private || isAdmin);
-
-            return isPrivate && GetFactory().GetProjectDao().IsFollow(project.ID, userId);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<ProjectSecurityCommon>().IsProjectsEnabled(userId);
+            }
         }
 
-        #endregion
 
-        #region TeamSecurity
-
-        private static bool GetTeamSecurity(Project project, Guid userId, ProjectTeamSecurity security)
+        public static void GetProjectSecurityInfo(Project project)
         {
-            if (IsProjectManager(project, userId) || project == null || !project.Private) return true;
-            var dao = GetFactory().GetProjectDao();
-            var s = dao.GetTeamSecurity(project.ID, userId);
-            return (s & security) != security && dao.IsInTeam(project.ID, userId);
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
+                var milestoneSecurity = scope.Resolve<ProjectSecurityMilestone>();
+                var messageSecurity = scope.Resolve<ProjectSecurityMessage>();
+                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
+                var timeSpendSecurity = scope.Resolve<ProjectSecurityTimeTracking>();
+
+                project.Security = GetProjectSecurityInfoWithSecurity(project, projectSecurity, milestoneSecurity, messageSecurity, taskSecurity, timeSpendSecurity);
+            }
         }
 
-        private static bool GetTeamSecurityForParticipants(Project project, Guid userId, ProjectTeamSecurity security)
+        public static void GetProjectSecurityInfo(IEnumerable<Project> projects)
         {
-            if (IsProjectManager(project, userId) || !project.Private) return true;
-            var s = GetFactory().GetProjectDao().GetTeamSecurity(project.ID, userId);
-            return (s & security) != security;
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
+                var milestoneSecurity = scope.Resolve<ProjectSecurityMilestone>();
+                var messageSecurity = scope.Resolve<ProjectSecurityMessage>();
+                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
+                var timeSpendSecurity = scope.Resolve<ProjectSecurityTimeTracking>();
+
+                foreach (var project in projects)
+                {
+                    project.Security = GetProjectSecurityInfoWithSecurity(project, projectSecurity, milestoneSecurity, messageSecurity, taskSecurity, timeSpendSecurity);
+                }
+            }
         }
 
-        #endregion
+        public static void GetTaskSecurityInfo(Task task)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
+                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
 
-        #region Exception
+                task.Security = GetTaskSecurityInfoWithSecurity(task, projectSecurity, taskSecurity);
+            }
+        }
+
+        public static void GetTaskSecurityInfo(IEnumerable<Task> tasks)
+        {
+            using (var scope = DIHelper.Resolve())
+            {
+                var projectSecurity = scope.Resolve<ProjectSecurityProject>();
+                var taskSecurity = scope.Resolve<ProjectSecurityTask>();
+
+                foreach (var task in tasks)
+                {
+                    task.Security = GetTaskSecurityInfoWithSecurity(task, projectSecurity, taskSecurity);
+                }
+            }
+        }
+
+        private static ProjectSecurityInfo GetProjectSecurityInfoWithSecurity(Project project, ProjectSecurityProject projectSecurity, ProjectSecurityMilestone milestoneSecurity, ProjectSecurityMessage messageSecurity, ProjectSecurityTask taskSecurity, ProjectSecurityTimeTracking timeSpendSecurity)
+        {
+            return new ProjectSecurityInfo
+            {
+                CanCreateMilestone = milestoneSecurity.CanCreateEntities(project),
+                CanCreateMessage = messageSecurity.CanCreateEntities(project),
+                CanCreateTask = taskSecurity.CanCreateEntities(project),
+                CanCreateTimeSpend = timeSpendSecurity.CanCreateEntities(project),
+
+                CanEditTeam = projectSecurity.CanEditTeam(project),
+                CanReadFiles = projectSecurity.CanReadFiles(project),
+                CanReadMilestones = milestoneSecurity.CanReadEntities(project),
+                CanReadMessages = messageSecurity.CanReadEntities(project),
+                CanReadTasks = taskSecurity.CanReadEntities(project),
+                IsInTeam = milestoneSecurity.Common.IsInTeam(project, SecurityContext.CurrentAccount.ID, false),
+                CanLinkContact = projectSecurity.CanLinkContact(project),
+                CanReadContacts = projectSecurity.CanReadContacts(project),
+
+                CanEdit = projectSecurity.CanUpdateEntity(project),
+                CanDelete = projectSecurity.CanDeleteEntity(project),
+            };
+        }
+
+        private static TaskSecurityInfo GetTaskSecurityInfoWithSecurity(Task task, ProjectSecurityProject projectSecurity, ProjectSecurityTask taskSecurity)
+        {
+            return new TaskSecurityInfo
+            {
+                CanEdit = taskSecurity.CanUpdateEntity(task),
+                CanCreateSubtask = taskSecurity.CanCreateSubtask(task),
+                CanCreateTimeSpend = taskSecurity.CanCreateTimeSpend(task),
+                CanDelete = taskSecurity.CanDeleteEntity(task),
+                CanReadFiles = projectSecurity.CanReadFiles(task.Project)
+            };
+        }
 
         public static Exception CreateSecurityException()
         {
@@ -786,6 +1049,8 @@ namespace ASC.Projects.Engine
             throw new System.Security.SecurityException("A guest cannot be appointed as responsible.");
         }
 
-        #endregion
+
     }
+
+    // TimeTracking, Subtask, Contact, File
 }

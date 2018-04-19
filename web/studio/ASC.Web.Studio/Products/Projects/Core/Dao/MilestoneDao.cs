@@ -25,7 +25,6 @@
 
 
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -45,8 +44,8 @@ namespace ASC.Projects.Data.DAO
         private readonly HttpRequestDictionary<Milestone> projectCache = new HttpRequestDictionary<Milestone>("milestone");
 
 
-        public CachedMilestoneDao(string dbId, int tenant)
-            : base(dbId, tenant)
+        public CachedMilestoneDao(int tenant)
+            : base(tenant)
         {
         }
 
@@ -85,27 +84,21 @@ namespace ASC.Projects.Data.DAO
     {
         private readonly Converter<object[], Milestone> converter;
 
-        public MilestoneDao(string dbId, int tenant)
-            : base(dbId, tenant)
+        public MilestoneDao(int tenant)
+            : base(tenant)
         {
             converter = ToMilestone;
         }
 
         public List<Milestone> GetAll()
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery()).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery()).ConvertAll(converter);
         }
 
         public List<Milestone> GetByProject(int projectId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.project_id", projectId))
+            return Db.ExecuteList(CreateQuery().Where("t.project_id", projectId))
                     .ConvertAll(converter);
-            }
         }
 
         public List<Milestone> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -135,10 +128,7 @@ namespace ASC.Projects.Data.DAO
 
             query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -153,10 +143,7 @@ namespace ASC.Projects.Data.DAO
 
             var queryCount = new SqlQuery().SelectCount().From(query, "t1");
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(queryCount);
-            }
+            return Db.ExecuteScalar<int>(queryCount);
         }
 
         public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -182,19 +169,13 @@ namespace ASC.Projects.Data.DAO
                 .GroupBy("t1.create_by")
                 .From(query, "t1");
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
-            }
+            return Db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
         }
 
         public List<Milestone> GetByStatus(int projectId, MilestoneStatus milestoneStatus)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).Where("t.status", milestoneStatus))
+            return Db.ExecuteList(CreateQuery().Where("t.project_id", projectId).Where("t.status", milestoneStatus))
                     .ConvertAll(converter);
-            }
         }
 
         public List<Milestone> GetUpcomingMilestones(int offset, int max, params int[] projects)
@@ -211,10 +192,7 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.In("p.id", projects.Take(0 < max ? max : projects.Length).ToArray()));
             }
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Milestone> GetLateMilestones(int offset, int max)
@@ -229,47 +207,32 @@ namespace ASC.Projects.Data.DAO
                 .SetMaxResults(max)
                 .OrderBy("t.deadline", true);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Milestone> GetByDeadLine(DateTime deadline)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.deadline", deadline.Date).OrderBy("t.deadline", true))
+            return Db.ExecuteList(CreateQuery().Where("t.deadline", deadline.Date).OrderBy("t.deadline", true))
                     .ConvertAll(converter);
-            }
         }
 
         public virtual Milestone GetById(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.id", id))
+            return Db.ExecuteList(CreateQuery().Where("t.id", id))
                     .ConvertAll(converter)
                     .SingleOrDefault();
-            }
         }
 
         public List<Milestone> GetById(int[] id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where(Exp.In("t.id", id)))
+            return Db.ExecuteList(CreateQuery().Where(Exp.In("t.id", id)))
                     .ConvertAll(converter);
-            }
         }
 
         public bool IsExists(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var count = db.ExecuteScalar<long>(Query(MilestonesTable).SelectCount().Where("id", id));
-                return 0 < count;
-            }
+            var count = Db.ExecuteScalar<long>(Query(MilestonesTable).SelectCount().Where("id", id));
+            return 0 < count;
         }
 
         public List<object[]> GetInfoForReminder(DateTime deadline)
@@ -283,49 +246,42 @@ namespace ASC.Projects.Data.DAO
                 .Where("p.status", ProjectStatus.Open)
                 .Where("t.is_notify", 1);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(q)
+                return Db.ExecuteList(q)
                     .ConvertAll(r => new object[] { Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2]) });
-            }
         }
 
         public virtual Milestone Save(Milestone milestone)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                if (milestone.DeadLine.Kind != DateTimeKind.Local)
-                    milestone.DeadLine = TenantUtil.DateTimeFromUtc(milestone.DeadLine);
+            if (milestone.DeadLine.Kind != DateTimeKind.Local)
+                milestone.DeadLine = TenantUtil.DateTimeFromUtc(milestone.DeadLine);
 
-                var insert = Insert(MilestonesTable)
-                    .InColumnValue("id", milestone.ID)
-                    .InColumnValue("project_id", milestone.Project != null ? milestone.Project.ID : 0)
-                    .InColumnValue("title", milestone.Title)
-                    .InColumnValue("create_by", milestone.CreateBy.ToString())
-                    .InColumnValue("create_on", TenantUtil.DateTimeToUtc(milestone.CreateOn))
-                    .InColumnValue("last_modified_by", milestone.LastModifiedBy.ToString())
-                    .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(milestone.LastModifiedOn))
-                    .InColumnValue("deadline", milestone.DeadLine)
-                    .InColumnValue("status", milestone.Status)
-                    .InColumnValue("is_notify", milestone.IsNotify)
-                    .InColumnValue("is_key", milestone.IsKey)
-                    .InColumnValue("description", milestone.Description)
-                    .InColumnValue("status_changed", milestone.StatusChangedOn)
-                    .InColumnValue("responsible_id", milestone.Responsible.ToString())
-                    .Identity(1, 0, true);
-                milestone.ID = db.ExecuteScalar<int>(insert);
-                return milestone;
-            }
+            var insert = Insert(MilestonesTable)
+                .InColumnValue("id", milestone.ID)
+                .InColumnValue("project_id", milestone.Project != null ? milestone.Project.ID : 0)
+                .InColumnValue("title", milestone.Title)
+                .InColumnValue("create_by", milestone.CreateBy.ToString())
+                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(milestone.CreateOn))
+                .InColumnValue("last_modified_by", milestone.LastModifiedBy.ToString())
+                .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(milestone.LastModifiedOn))
+                .InColumnValue("deadline", milestone.DeadLine)
+                .InColumnValue("status", milestone.Status)
+                .InColumnValue("is_notify", milestone.IsNotify)
+                .InColumnValue("is_key", milestone.IsKey)
+                .InColumnValue("description", milestone.Description)
+                .InColumnValue("status_changed", milestone.StatusChangedOn)
+                .InColumnValue("responsible_id", milestone.Responsible.ToString())
+                .Identity(1, 0, true);
+            milestone.ID = Db.ExecuteScalar<int>(insert);
+            return milestone;
         }
 
         public virtual void Delete(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Milestone>(id)));
-                db.ExecuteNonQuery(Update(TasksTable).Set("milestone_id", 0).Where("milestone_id", id));
-                db.ExecuteNonQuery(Delete(MilestonesTable).Where("id", id));
+                Db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Milestone>(id)));
+                Db.ExecuteNonQuery(Update(TasksTable).Set("milestone_id", 0).Where("milestone_id", id));
+                Db.ExecuteNonQuery(Delete(MilestonesTable).Where("id", id));
 
                 tx.Commit();
             }
@@ -333,26 +289,23 @@ namespace ASC.Projects.Data.DAO
 
         public string GetLastModified()
         {
-            using (var db = new DbManager(DatabaseId))
+            var query = Query(MilestonesTable).SelectMax("last_modified_on").SelectCount();
+            var data = Db.ExecuteList(query).FirstOrDefault();
+            if (data == null)
             {
-                var query = Query(MilestonesTable).SelectMax("last_modified_on").SelectCount();
-                var data = db.ExecuteList(query).FirstOrDefault();
-                if (data == null)
-                {
-                    return "";
-                }
-                var lastModified = "";
-                if (data[0] != null)
-                {
-                    lastModified += TenantUtil.DateTimeFromUtc(Convert.ToDateTime(data[0])).ToString(CultureInfo.InvariantCulture);
-                }
-                if (data[1] != null)
-                {
-                    lastModified += data[1];
-                }
-
-                return lastModified;
+                return "";
             }
+            var lastModified = "";
+            if (data[0] != null)
+            {
+                lastModified += TenantUtil.DateTimeFromUtc(Convert.ToDateTime(data[0])).ToString(CultureInfo.InvariantCulture);
+            }
+            if (data[1] != null)
+            {
+                lastModified += data[1];
+            }
+
+            return lastModified;
         }
 
         private SqlQuery CreateQuery()
@@ -475,12 +428,9 @@ namespace ASC.Projects.Data.DAO
             };
         }
 
-        internal List<Milestone> GetMilestones(Exp where)
+        public List<Milestone> GetMilestones(Exp where)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
         }
 
         private void CheckSecurity(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)

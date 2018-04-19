@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -42,8 +41,7 @@ namespace ASC.Projects.Data.DAO
     {
         private readonly HttpRequestDictionary<Subtask> _subtaskCache = new HttpRequestDictionary<Subtask>("subtask");
 
-        public CachedSubtaskDao(string dbId, int tenantID)
-            : base(dbId, tenantID)
+        public CachedSubtaskDao(int tenantID) : base(tenantID)
         {
         }
 
@@ -81,151 +79,117 @@ namespace ASC.Projects.Data.DAO
     class SubtaskDao : BaseDao, ISubtaskDao
     {
         private readonly Converter<object[], Subtask> converter;
-        public SubtaskDao(string dbId, int tenantID)
-            : base(dbId, tenantID)
+
+        public SubtaskDao(int tenantID) : base(tenantID)
         {
             converter = ToSubTask;
         }
 
         public List<Subtask> GetSubtasks(int taskid)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("task_id", taskid)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where("task_id", taskid)).ConvertAll(converter);
         }
 
         public void GetSubtasksForTasks(ref List<Task> tasks)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var taskIds = tasks.Select(t => t.ID).ToArray();
-                var subtasks = db.ExecuteList(CreateQuery().Where(Exp.In("task_id", taskIds)))//bug: there may be too large set of tasks
-                    .ConvertAll(converter);
+            var taskIds = tasks.Select(t => t.ID).ToArray();
+            var subtasks = Db.ExecuteList(CreateQuery().Where(Exp.In("task_id", taskIds)))//bug: there may be too large set of tasks
+                .ConvertAll(converter);
 
-                tasks = tasks.GroupJoin(subtasks, task => task.ID, subtask => subtask.Task, (task, subtaskCol) =>
-                            {
-                                task.SubTasks.AddRange(subtaskCol.ToList());
-                                return task;
-                            }).ToList();
-            }
+            tasks = tasks.GroupJoin(subtasks, task => task.ID, subtask => subtask.Task, (task, subtaskCol) =>
+                        {
+                            task.SubTasks.AddRange(subtaskCol.ToList());
+                            return task;
+                        }).ToList();
         }
 
         public List<Subtask> GetSubtasks(Exp where)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
         }
 
         public virtual Subtask GetById(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("id", id)).ConvertAll(converter).SingleOrDefault();
-            }
+            return Db.ExecuteList(CreateQuery().Where("id", id)).ConvertAll(converter).SingleOrDefault();
         }
 
         public List<Subtask> GetById(ICollection<int> ids)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where(Exp.In("id", ids.ToArray()))).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where(Exp.In("id", ids.ToArray()))).ConvertAll(converter);
         }
 
         public List<Subtask> GetUpdates(DateTime from, DateTime to)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Select("status_changed")
-                                                 .Where(Exp.Between("create_on", from, to) |
-                                                        Exp.Between("last_modified_on", from, to) |
-                                                        Exp.Between("status_changed", from, to)))
-                                .ConvertAll(x =>
-                                                {
-                                                    var st = ToSubTask(x);
-                                                    st.StatusChangedOn = Convert.ToDateTime(x.Last());
-                                                    return st;
-                                                }).ToList();
-            }
+            return Db.ExecuteList(CreateQuery().Select("status_changed")
+                                                .Where(Exp.Between("create_on", from, to) |
+                                                    Exp.Between("last_modified_on", from, to) |
+                                                    Exp.Between("status_changed", from, to)))
+                            .ConvertAll(x =>
+                                            {
+                                                var st = ToSubTask(x);
+                                                st.StatusChangedOn = Convert.ToDateTime(x.Last());
+                                                return st;
+                                            }).ToList();
         }
 
         public List<Subtask> GetByResponsible(Guid id, TaskStatus? status = null)
         {
-            using (var db = new DbManager(DatabaseId))
+            var query = CreateQuery().Where("responsible_id", id);
+
+            if (status.HasValue)
             {
-                var query = CreateQuery().Where("responsible_id", id);
-
-                if (status.HasValue)
-                {
-                    query.Where("status", status.Value);
-                }
-
-                return db.ExecuteList(query).ConvertAll(converter);
+              query.Where("status", status.Value);
             }
+
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public int GetSubtaskCount(int taskid, params TaskStatus[] statuses)
         {
-            using (var db = new DbManager(DatabaseId))
+            var query = Query(SubtasksTable)
+                .SelectCount()
+                .Where("task_id", taskid);
+            if (statuses != null && 0 < statuses.Length)
             {
-                var query = Query(SubtasksTable)
-                    .SelectCount()
-                    .Where("task_id", taskid);
-                if (statuses != null && 0 < statuses.Length)
-                {
-                    query.Where(Exp.In("status", statuses));
-                }
-                return db.ExecuteScalar<int>(query);
+                query.Where(Exp.In("status", statuses));
             }
+            return Db.ExecuteScalar<int>(query);
         }
 
         public virtual Subtask Save(Subtask subtask)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var insert = Insert(SubtasksTable)
-                    .InColumnValue("id", subtask.ID)
-                    .InColumnValue("task_id", subtask.Task)
-                    .InColumnValue("title", subtask.Title)
-                    .InColumnValue("responsible_id", subtask.Responsible.ToString())
-                    .InColumnValue("status", subtask.Status)
-                    .InColumnValue("create_by", subtask.CreateBy.ToString())
-                    .InColumnValue("create_on", TenantUtil.DateTimeToUtc(subtask.CreateOn))
-                    .InColumnValue("last_modified_by", subtask.LastModifiedBy.ToString())
-                    .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(subtask.LastModifiedOn))
-                    .InColumnValue("status_changed", TenantUtil.DateTimeToUtc(subtask.StatusChangedOn))
-                    .Identity(1, 0, true);
+            var insert = Insert(SubtasksTable)
+                .InColumnValue("id", subtask.ID)
+                .InColumnValue("task_id", subtask.Task)
+                .InColumnValue("title", subtask.Title)
+                .InColumnValue("responsible_id", subtask.Responsible.ToString())
+                .InColumnValue("status", subtask.Status)
+                .InColumnValue("create_by", subtask.CreateBy.ToString())
+                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(subtask.CreateOn))
+                .InColumnValue("last_modified_by", subtask.LastModifiedBy.ToString())
+                .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(subtask.LastModifiedOn))
+                .InColumnValue("status_changed", TenantUtil.DateTimeToUtc(subtask.StatusChangedOn))
+                .Identity(1, 0, true);
 
-                subtask.ID = db.ExecuteScalar<int>(insert);
-                return subtask;
-            }
+            subtask.ID = Db.ExecuteScalar<int>(insert);
+            return subtask;
         }
 
         public void CloseAllSubtasks(Task task)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    Update(SubtasksTable)
-                        .Set("status", TaskStatus.Closed)
-                        .Set("last_modified_by", CurrentUserID)
-                        .Set("last_modified_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
-                        .Set("status_changed", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
-                        .Where("status", TaskStatus.Open)
-                        .Where("task_id", task.ID));
-            }
-
+            Db.ExecuteNonQuery(
+                Update(SubtasksTable)
+                    .Set("status", TaskStatus.Closed)
+                    .Set("last_modified_by", CurrentUserID)
+                    .Set("last_modified_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                    .Set("status_changed", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                    .Where("status", TaskStatus.Open)
+                    .Where("task_id", task.ID));
         }
 
         public virtual void Delete(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(Delete(SubtasksTable).Where("id", id));
-            }
+            Db.ExecuteNonQuery(Delete(SubtasksTable).Where("id", id));
         }
 
         private SqlQuery CreateQuery()

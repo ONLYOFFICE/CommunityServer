@@ -31,12 +31,23 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using ASC.Common.Security;
+using ASC.CRM.Core.Dao;
+using ASC.Web.CRM.Core;
 using ASC.Web.Studio;
+using Autofac;
 
 namespace ASC.Web.CRM
 {
     public abstract class BasePage : MainPage
     {
+        protected ILifetimeScope Scope { get; set; }
+        protected internal DaoFactory DaoFactory { get; set; }
+
+        protected BasePage()
+        {
+            Scope = DIHelper.Resolve();
+            DaoFactory = Scope.Resolve<DaoFactory>();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,5 +70,13 @@ namespace ASC.Web.CRM
       
         protected abstract void PageLoad();
 
+        protected override void OnUnload(EventArgs e)
+        {
+            if (Scope != null)
+            {
+                Scope.Dispose();
+            }
+            base.OnUnload(e);
+        }
     }
 }

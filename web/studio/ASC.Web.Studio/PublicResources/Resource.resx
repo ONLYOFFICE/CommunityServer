@@ -405,10 +405,10 @@
     <value>Edit word docs, spreadsheets and presentations online</value>
   </data>
   <data name="AuthDocsEmailHint" xml:space="preserve">
-    <value>Enter your email address</value>
+    <value>Enter your email</value>
   </data>
   <data name="AuthDocsEnterViaSocial" xml:space="preserve">
-    <value>Or enter via your social networks</value>
+    <value>Or sign in with</value>
   </data>
   <data name="AuthDocsForgotPswd" xml:space="preserve">
     <value>Forgot password?</value>
@@ -417,7 +417,7 @@
     <value>It is Free</value>
   </data>
   <data name="AuthDocsMetaDescription" xml:space="preserve">
-    <value>ONLYOFFICE Personal is a free online office perfectly compatible with Microsoft(R) formats. It is an alternative to MS Office and enables you to edit word documents, spreadsheets and presentations online for free.</value>
+    <value>ONLYOFFICE Personal is a free online editing suite for text documents, spreadsheets and presentations with an individual cloud storage.</value>
   </data>
   <data name="AuthDocsMetaKeywords" xml:space="preserve">
     <value>edit word online, word editor online, word online free, word office online</value>
@@ -426,7 +426,7 @@
     <value>Not registered yet?</value>
   </data>
   <data name="AuthDocsOr" xml:space="preserve">
-    <value>or sign in</value>
+    <value>Or sign in with</value>
   </data>
   <data name="AuthDocsSendActivationEmail" xml:space="preserve">
     <value>Your activation email has been sent to </value>
@@ -438,10 +438,10 @@
     <value>Thank you for registering your Personal ONLYOFFICE™.</value>
   </data>
   <data name="AuthDocsTitle" xml:space="preserve">
-    <value>Free Alternative{0}to Microsoft® Office</value>
+    <value>Your personal online office</value>
   </data>
   <data name="AuthDocsTitlePage" xml:space="preserve">
-    <value>Get Free Office In The Cloud</value>
+    <value>Personal online office</value>
   </data>
   <data name="Authentication" xml:space="preserve">
     <value>Authentication</value>
@@ -1069,23 +1069,17 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="DocServiceUrlApi" xml:space="preserve">
     <value>Document Editing Service Address</value>
   </data>
-  <data name="DocServiceUrlCommand" xml:space="preserve">
-    <value>Document Command Service Address</value>
-  </data>
-  <data name="DocServiceUrlConverter" xml:space="preserve">
-    <value>Document Conversion Service Address</value>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>Document Service Address for requests from the Community Server</value>
   </data>
   <data name="DocServiceUrlExample" xml:space="preserve">
     <value>Example: {0}</value>
   </data>
-  <data name="DocServiceUrlHelp" xml:space="preserve">
-    <value>{1}Document Service{2} is the server service which allows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used to notify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which is used to get the external link to the opened document.{0}{1}Conversion Service{2} is the server service which allows to convert the document file into the appropriate OfficeOpen XML format.</value>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>{1}Document Service{2} is the server service which allows to perform the document editing and allows to convert the document file into the appropriate OfficeOpen XML format.</value>
   </data>
-  <data name="DocServiceUrlPortal" xml:space="preserve">
-    <value>Community Server Address</value>
-  </data>
-  <data name="DocServiceUrlStorage" xml:space="preserve">
-    <value>Document Storage Service Address</value>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>Community Server Address for requests from the Document Service</value>
   </data>
   <data name="DoneButton" xml:space="preserve">
     <value>Done</value>
@@ -3523,6 +3517,12 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="BackupDocsThirdparty" xml:space="preserve">
     <value>Dropbox, Box, OneDrive, Google Drive...</value>
   </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
   <data name="MailService" xml:space="preserve">
     <value>Mail Service</value>
   </data>
@@ -3561,9 +3561,6 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="MailServiceCouldNotGetErrorMsg" xml:space="preserve">
     <value>Error: Сould not get hostname or auth token</value>
-  </data>
-  <data name="MailServicePingErrorMsg" xml:space="preserve">
-    <value>Error pinging host {0}:3306</value>
   </data>
   <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
     <value>Service successfully connected</value>
@@ -3697,11 +3694,14 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="AppsDescriptionHelp" xml:space="preserve">
     <value>Find out more information in our {0}Help Center{1}</value>
   </data>
-  <data name="DocServiceUrlDocbuilder" xml:space="preserve">
-    <value>Docbuilder Service Address</value>
-  </data>
   <data name="DocServiceUrlDocbuilderHelp" xml:space="preserve">
     <value>{0}{1}Docbuilder Service{2} is the server service which allows to convert the source docbuilder script into  OfficeOpen XML format  file.</value>
+  </data>
+  <data name="MailServiceHost" xml:space="preserve">
+    <value>Mail Server database host</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>Error pinging host {0}:{1}</value>
   </data>
   <data name="RememberHelper" xml:space="preserve">
     <value>The default session lifetime is 20 minutes. Check this option to set it to 1 year. To set your own value, go to the settings.</value>
@@ -3747,5 +3747,167 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="CustomNavigationURLHeader" xml:space="preserve">
     <value>URL</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>Delete personal data</value>
+  </data>
+  <data name="ConsumersWordpress" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
+  <data name="ConsumersWordpressDescription" xml:space="preserve">
+    <value>Подключить приложение для публикации документов в WordPress.</value>
+  </data>
+  <data name="ConsumersWordpressInstruction" xml:space="preserve">
+    <value>Добавив приложение WordPress Вы сможете легко, сохраняя форматирование, публиковать документы на своем сайте WordPress.</value>
+  </data>
+  <data name="ConsumersWordpressKey" xml:space="preserve">
+    <value>WordPress Key</value>
+  </data>
+  <data name="ConsumersWordpressSecret" xml:space="preserve">
+    <value>WordPress Secret</value>
+  </data>
+  <data name="ConsumersEasyBib" xml:space="preserve">
+    <value>EasyBib</value>
+  </data>
+  <data name="ConsumersEasyBibDescription" xml:space="preserve">
+    <value>Подключить приложение EasyBib для создания библиографических списков.</value>
+  </data>
+  <data name="ConsumersEasyBibInstruction" xml:space="preserve">
+    <value>Добавив приложение EasyBib Вы сможете легко создавать библиографические списки в своих документах.</value>
+  </data>
+  <data name="ConsumersEasyBibSecret" xml:space="preserve">
+    <value>App key</value>
+  </data>
+  <data name="AuthDocsAccess" xml:space="preserve">
+    <value>Access</value>
+  </data>
+  <data name="AuthDocsAccessOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="AuthDocsAccessOfflineText" xml:space="preserve">
+    <value>No internet connection? Switch to {0} and edit offline from anywhere.</value>
+  </data>
+  <data name="AuthDocsAccessOnline" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="AuthDocsAccessOnlineText" xml:space="preserve">
+    <value>Work online from any browser and operating system without formatting loss.</value>
+  </data>
+  <data name="AuthDocsAccessOnlyofficeDesktop" xml:space="preserve">
+    <value>ONLYOFFICE Desktop</value>
+  </data>
+  <data name="AuthDocsAccessOnlyofficeIOS" xml:space="preserve">
+    <value>ONLYOFFICE for iOS</value>
+  </data>
+  <data name="AuthDocsAccessOnMobile" xml:space="preserve">
+    <value>On mobile</value>
+  </data>
+  <data name="AuthDocsAccessOnMobileText" xml:space="preserve">
+    <value>Edit and collaborate on-the-go with {0}.</value>
+  </data>
+  <data name="AuthDocsCapabilitiesTextOne" xml:space="preserve">
+    <value>ONLYOFFICE is fully compatible with Office formats and supports DOC, DOCX, ODT, RTF, TXT, PDF, HTML, EPUB, DjVu, XLS, XLSX, ODS, CSV, PPT, PPTX and ODP.</value>
+  </data>
+  <data name="AuthDocsCapabilitiesTextThree" xml:space="preserve">
+    <value>Use addons to make the most of your editing: insert videos, edit pictures, translate texts and much more.</value>
+  </data>
+  <data name="AuthDocsCapabilitiesTextTwo" xml:space="preserve">
+    <value>All formatting tools are at your hand along with every desired object, from autoshapes and charts to mathematical equations and Text Art.</value>
+  </data>
+  <data name="AuthDocsCompatibleText" xml:space="preserve">
+    <value>100% compatible with Microsoft Office formats</value>
+  </data>
+  <data name="AuthDocsCreate" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="AuthDocsCreateCaptivatingPres" xml:space="preserve">
+    <value>Captivating presentations</value>
+  </data>
+  <data name="AuthDocsCreateCaptivatingPresText" xml:space="preserve">
+    <value>Choose from multiple layouts and style options, create schemes and infographics for any purpose, present comfortably with Presenter View.</value>
+  </data>
+  <data name="AuthDocsCreateProfSpreadsheets" xml:space="preserve">
+    <value>Professional spreadsheets</value>
+  </data>
+  <data name="AuthDocsCreateProfSpreadsheetsText" xml:space="preserve">
+    <value>Organize your data with multiple cell and row actions and perform complex calculations with Organize your data with multiple cell and row actions and perform complex calculations with over 430 formulas. Apply styles and templates to put finishing touches.</value>
+  </data>
+  <data name="AuthDocsCreateSterlingDocuments" xml:space="preserve">
+    <value>Sterling documents</value>
+  </data>
+  <data name="AuthDocsCreateSterlingDocumentsText" xml:space="preserve">
+    <value>Enjoy professional writing capabilities with Review features, page appearance settings and additional layout elements like footnotes and drop caps.</value>
+  </data>
+  <data name="AuthDocsCustomerExperience" xml:space="preserve">
+    <value>Customer experience</value>
+  </data>
+  <data name="AuthDocsExtend" xml:space="preserve">
+    <value>Extend</value>
+  </data>
+  <data name="AuthDocsExtendKeeping" xml:space="preserve">
+    <value>Already keeping files in cloud storages like {0} or {1}?</value>
+  </data>
+  <data name="AuthDocsExtendKeepingText" xml:space="preserve">
+    <value>Connect third-party services to create an integrated document management space and work with your documents directly from any cloud.</value>
+  </data>
+  <data name="AuthDocsFreeChargeText" xml:space="preserve">
+    <value>Free of charge</value>
+  </data>
+  <data name="AuthDocsLogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="AuthDocsRightBrowserText" xml:space="preserve">
+    <value>Right in your browser</value>
+  </data>
+  <data name="AuthDocsShareСollaborate" xml:space="preserve">
+    <value>Share and collaborate</value>
+  </data>
+  <data name="AuthDocsShareСollaborateDiscuss" xml:space="preserve">
+    <value>Discuss the process</value>
+  </data>
+  <data name="AuthDocsShareСollaborateDiscussText" xml:space="preserve">
+    <value>With comments and chat, discuss the editing process and communicate without leaving the editor.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateEmberDocuments" xml:space="preserve">
+    <value>Embed your documents</value>
+  </data>
+  <data name="AuthDocsShareСollaborateEmberDocumentsText" xml:space="preserve">
+    <value>Add documents wherever you want, be it a blog or a website, using special embedding properties.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateInviteUsers" xml:space="preserve">
+    <value>Invite users for collaboration</value>
+  </data>
+  <data name="AuthDocsShareСollaborateInviteUsersText" xml:space="preserve">
+    <value>Invite anyone via external links to edit documents together or get reviews on your work</value>
+  </data>
+  <data name="AuthDocsShareСollaborateNavigateHistory" xml:space="preserve">
+    <value>Navigate through document history</value>
+  </data>
+  <data name="AuthDocsShareСollaborateNavigateHistoryText" xml:space="preserve">
+    <value>Check Version History to see and control each input by everyone in your document.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateReviewResults" xml:space="preserve">
+    <value>Review the results</value>
+  </data>
+  <data name="AuthDocsShareСollaborateReviewResultsText" xml:space="preserve">
+    <value>Use Track Changes mode to highlight your inputs. Different preview modes will help you see how your texts would look with or without changes.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateSelectRight" xml:space="preserve">
+    <value>Select the right co-editing mode</value>
+  </data>
+  <data name="AuthDocsShareСollaborateSelectRightText" xml:space="preserve">
+    <value>Choose Fast mode to work in real time or Strict mode to edit parts of the document privately.</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>Account Login</value>
+  </data>
+  <data name="RegistryButtonStartEditing" xml:space="preserve">
+    <value>Start editing</value>
+  </data>
+  <data name="AuthDocsAccessAndroidIOSText" xml:space="preserve">
+    <value>Edit and collaborate on-the-go with ONLYOFFICE for IOS and Android</value>
+  </data>
+  <data name="InviteLinkValidInterval" xml:space="preserve">
+    <value>This link is valid for {0} days only.</value>
   </data>
 </root>

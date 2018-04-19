@@ -32,89 +32,219 @@ if (typeof ASC.People === "undefined")
 
 ASC.People.Reassigns = (function () {
     var isInit = false,
+        removeData = false,
+        aborted = false,
         fromUserId = null,
-        toUserId = null;
+        toUserId = null,
+        timeoutDelay = 3000,
+        progressStatus = {
+            queued: 0,
+            started: 1,
+            done: 2,
+            failed: 3
+        };
+
+    function renderStatus(targetObj, statusClass, statusMessage, errorMessage) {
+        targetObj.html(jq.tmpl("reassignStatus", { statusClass: statusClass, statusMessage: statusMessage, errorMessage: errorMessage }));
+    }
+
+    function renderItemStatus(item, data) {
+        var step = item.attr("data-step");
+
+        if (data.status == progressStatus.queued) {
+            renderStatus(item, "queued", ASC.People.Resources.PeopleResource.ReassignStatusQueued, null);
+            return;
+        }
+
+        if (step < data.percentage) {
+            renderStatus(item, "finished", removeData ? ASC.People.Resources.PeopleResource.RemovingStatusFinished : ASC.People.Resources.PeopleResource.ReassignStatusFinished, null);
+        } else if (step == data.percentage) {
+            if (data.status == progressStatus.failed) {
+                renderStatus(item, "error", removeData ? ASC.People.Resources.PeopleResource.RemovingStatusAborted : ASC.People.Resources.PeopleResource.ReassignStatusAborted, data.error);
+            } else {
+                renderStatus(item, "started", ASC.People.Resources.PeopleResource.ReassignStatusStarted, null);
+            }
+        } else {
+            renderStatus(item, "notstarted", removeData ? ASC.People.Resources.PeopleResource.RemovingStatusNotStarted : ASC.People.Resources.PeopleResource.ReassignStatusNotStarted, null);
+        }
+    }
+
+    function renderUserInfo(from, to) {
+        if (from) {
+            fromUserId = from;
+            var fromUser = window.UserManager.getUser(fromUserId);
+            jq(".from-user-link").attr("href", fromUser.profileUrl).html(fromUser.displayName);
+        }
+
+        if (to) {
+            toUserId = to;
+            var toUser = window.UserManager.getUser(toUserId);
+            jq(".to-user-link").attr("href", toUser.profileUrl).html(toUser.displayName);
+        }
+    }
 
     function setBindings() {
         var $userSelector = jq("#userSelector");
 
-        $userSelector.useradvancedSelector({
-            itemsChoose: [],
-            itemsDisabledIds: [],
-            canadd: false,
-            isAdmin: false,
-            showGroups: true,
-            withGuests: false,
-            onechosen: true
-        });
+        if ($userSelector.length) {
+            $userSelector.useradvancedSelector({
+                itemsChoose: [],
+                itemsDisabledIds: [],
+                canadd: false,
+                isAdmin: false,
+                showGroups: true,
+                withGuests: false,
+                onechosen: true
+            });
 
-        $userSelector.on("showList", function(event, item) {
-            jq(this).html(item.title);
-            toUserId = item.id;
-            jq("#reassignBtn").removeClass("disable");
-        });
+            $userSelector.on("showList", function(event, item) {
+                jq(this).html(item.title);
+                toUserId = item.id;
+                jq(".start-btn").removeClass("disable");
+            });
+        }
 
-        jq("#reassignBtn").on("click", function () {
+        jq(".start-btn").on("click", function () {
             if (jq(this).hasClass("disable")) return;
 
-            Teamlab.startReassign({}, fromUserId, toUserId, {
-                success: function() {
-                    showContainer(false);
-                },
+            aborted = false;
+
+            var options = {
                 before: LoadingBanner.displayLoading,
                 after: LoadingBanner.hideLoading,
+                success: function(params, data) {
+                    renderUserInfo(data.fromUser, data.toUser);
+                    showActionContainer(false);
+                    renderProgress(data);
+                },
                 error: function(params, errors) {
                     toastr.error(errors[0]);
                 }
-            });
+            };
+
+            if (removeData) {
+                Teamlab.startRemove({}, fromUserId, options);
+            } else {
+                Teamlab.startReassign({}, fromUserId, toUserId, options);
+            }
         });
 
-        jq("#terminateBtn").on("click", function () {
-            Teamlab.terminateReassign({}, fromUserId, {
-                success: function() {
-                    window.location.replace(jq("#сancelBtn").attr("href"));
-                },
+        jq(".abort-btn").on("click", function () {
+            aborted = true;
+
+            var options = {
                 before: LoadingBanner.displayLoading,
                 after: LoadingBanner.hideLoading,
+                success: function() {
+                    var started = jq(".progress-container .progress-block .started");
+                    var targetObj = started.length ? started.parent() : jq(".progress-container .progress-block .progress-desc:first");
+                    renderStatus(targetObj, "aborted", removeData ? ASC.People.Resources.PeopleResource.RemovingStatusAborted : ASC.People.Resources.PeopleResource.ReassignStatusAborted, null);
+                    toastr.warning(removeData ? ASC.People.Resources.PeopleResource.RemovingAbortToastrMsg : ASC.People.Resources.PeopleResource.ReassignAbortToastrMsg);
+                    showAbortBtn(false);
+                },
                 error: function(params, errors) {
                     toastr.error(errors[0]);
                 }
-            });
+            };
+
+            if (removeData) {
+                Teamlab.terminateRemove({}, fromUserId, options);
+            } else {
+                Teamlab.terminateReassign({}, fromUserId, options);
+            }
+        });
+        
+        jq(".restart-btn").on("click", function () {
+            showActionContainer(true);
         });
     }
 
-    function showContainer(action) {
-        if (action) {
-            jq("#reassignActionContainer").removeClass("display-none");
-            jq("#reassignProgressContainer").addClass("display-none");
+    function showActionContainer(show) {
+        if (show) {
+            jq(".action-container").removeClass("display-none");
+            jq(".progress-container").addClass("display-none");
         } else {
-            jq("#reassignActionContainer").addClass("display-none");
-            jq("#reassignProgressContainer").removeClass("display-none");
+            jq(".action-container").addClass("display-none");
+            jq(".progress-container").removeClass("display-none");
         }
     }
 
-    function checkProgress() {
-        Teamlab.getReassignProgress({}, fromUserId, {
-            success: function (params, data) {
-                if (data && data.hasOwnProperty("isCompleted")) {
-                    showContainer(data.isCompleted);
-                } else {
-                    showContainer(true);
-                }
-            },
-            before: LoadingBanner.displayLoading,
-            after: LoadingBanner.hideLoading,
-            error: function (params, errors) {
-                showContainer(true);
-                toastr.error(errors[0]);
-            }
-        });
+    function showAbortBtn(show) {
+        if (show) {
+            jq(".abort-btn").removeClass("display-none");
+            jq(".restart-btn").addClass("display-none");
+        } else {
+            jq(".abort-btn").addClass("display-none");
+            jq(".restart-btn").removeClass("display-none");
+        }
     }
 
-    function init(userId) {
+    function renderProgress(data) {
+        jq(".progress-block .progress-row .progress-desc").each(function (index, obj) {
+            renderItemStatus(jq(obj), data);
+        });
+
+        if (data.status == progressStatus.failed)
+            toastr.error(removeData ? ASC.People.Resources.PeopleResource.RemovingErrorToastrMsg : ASC.People.Resources.PeopleResource.ReassignErrorToastrMsg);
+
+        if (data.isCompleted) {
+            showAbortBtn(false);
+        } else {
+            showAbortBtn(true);
+            setTimeout(trackProgress, timeoutDelay);
+        }  
+    }
+
+    function checkProgress() {
+        var options = {
+            before: LoadingBanner.displayLoading,
+            after: LoadingBanner.hideLoading,
+            success: function(params, data) {
+                if (data && data.hasOwnProperty("isCompleted")) {
+                    renderUserInfo(data.fromUser, data.toUser);
+                    showActionContainer(false);
+                    renderProgress(data);
+                } else {
+                    showActionContainer(true);
+                }
+            },
+            error: function(params, errors) {
+                showActionContainer(true);
+                toastr.error(errors[0]);
+            }
+        };
+
+        if (removeData) {
+            Teamlab.getRemoveProgress({}, fromUserId, options);
+        } else {
+            Teamlab.getReassignProgress({}, fromUserId, options);
+        }
+    }
+    
+    function trackProgress() {
+        if (aborted) return;
+
+        var options = {
+            success: function(params, data) {
+                renderProgress(data);
+            },
+            error: function(params, errors) {
+                toastr.error(errors[0]);
+            }
+        };
+
+        if (removeData) {
+            Teamlab.getRemoveProgress({}, fromUserId, options);
+        } else {
+            Teamlab.getReassignProgress({}, fromUserId, options);
+        }
+    }
+
+    function init(userId, remove) {
         if (!userId || isInit) return;
-        
+
         fromUserId = userId;
+        removeData = remove;
         setBindings();
         checkProgress();
         isInit = true;

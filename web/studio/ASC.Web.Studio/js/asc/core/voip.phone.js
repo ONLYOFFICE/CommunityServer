@@ -215,8 +215,8 @@ ASC.CRM.Voip.PhoneView = (function($) {
                 Twilio.Device.setup(data);
 
                 Twilio.Device.ready(function () {
-                    Twilio.Device.sounds.incoming(false);
-                    Twilio.Device.sounds.disconnect(true);
+                    Twilio.Device.audio.incoming(false);
+                    Twilio.Device.audio.disconnect(true);
                     Twilio.Device.incoming(function (connection) { incomingTwilioHandler(connection) });
                     Twilio.Device.cancel(cancelTwilioHandler);
 

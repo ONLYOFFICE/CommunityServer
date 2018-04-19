@@ -30,7 +30,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using ASC.Core;
 using ASC.Core.Users;
-using System.Collections.Generic;
 using HtmlAgilityPack;
 
 namespace ASC.Web.Studio.Utility.HtmlUtility
@@ -150,15 +149,17 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
             foreach (var node in nodes)
             {
                 var toRemove = node.Attributes
-                                   .Where(htmlAttribute => htmlAttribute.Name.StartsWith("on", StringComparison.OrdinalIgnoreCase)
-                                                           ||
-                                                           htmlAttribute.Value.TrimStart().StartsWith("javascript", StringComparison.OrdinalIgnoreCase)
-                                                           ||
-                                                           htmlAttribute.Value.TrimStart().StartsWith("data", StringComparison.OrdinalIgnoreCase)
-                                                           ||
-                                                           htmlAttribute.Value.TrimStart().StartsWith("vbscript", StringComparison.OrdinalIgnoreCase)
-                                                           ||
-                                                           htmlAttribute.Value.TrimStart().StartsWith(">", StringComparison.OrdinalIgnoreCase)
+                                   .Where(htmlAttribute =>
+                                       {
+                                           var name = htmlAttribute.Name;
+                                           if (name.Contains("/")) name = name.Split('/').Last();
+                                           var value = htmlAttribute.Value.Replace("&Tab;", "").TrimStart();
+                                           return name.StartsWith("on", StringComparison.OrdinalIgnoreCase)
+                                                  || value.StartsWith("javascript", StringComparison.OrdinalIgnoreCase)
+                                                  || value.StartsWith("data", StringComparison.OrdinalIgnoreCase)
+                                                  || value.StartsWith("vbscript", StringComparison.OrdinalIgnoreCase)
+                                                  || value.StartsWith(">", StringComparison.OrdinalIgnoreCase);
+                                       }
                     ).ToList();
                 foreach (var htmlAttribute in toRemove)
                 {

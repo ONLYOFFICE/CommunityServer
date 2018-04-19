@@ -142,7 +142,7 @@ namespace ASC.Api.CRM.Wrappers
             : base(company)
         {
             CompanyName = company.CompanyName;
-            //  PersonsCount = Global.DaoFactory.GetContactDao().GetMembersCount(company.ID);
+            //  PersonsCount = Global.DaoFactory.ContactDao.GetMembersCount(company.ID);
         }
 
 

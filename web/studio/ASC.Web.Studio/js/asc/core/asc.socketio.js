@@ -51,8 +51,24 @@ ASC.SocketIO.disabled = function () {
     return !ASC.Resources.Master.Hub || !ASC.Resources.Master.Hub.Url;
 }
 
+ASC.SocketIO.init = function () {
+    var master = ASC.Resources.Master;
+    if (master.Hub && master.Hub.Url) {
+        var url = ASC.Resources.Master.Hub.Url;
+        var lastIndexSlash = url.length - 1;
+        if (url.lastIndexOf("/") === url.length - 1) {
+            url = url.substring(0, lastIndexSlash);
+        }
+        jq.ajax({
+            type: "OPTIONS",
+            url: url + "/?EIO=3&transport=polling",
+            async: true
+        });
+    }
+}
+
 ASC.SocketIO.Factory = (function () {
-    var chat, voip, counters;
+    var chat, voip, counters, files;
 
     return {
         get chat() {
@@ -72,11 +88,18 @@ ASC.SocketIO.Factory = (function () {
                 counters = new ASC.SocketIO("/counters");
             }
             return counters;
+        },
+        get files() {
+            if (!files) {
+                files = new ASC.SocketIO("/files");
+            }
+            return files;
         }
     };
 })();
 
 jq(document).ready(function () {
+    ASC.SocketIO.init();
     ASC.SocketIO.Factory.counters
     .on('getNewMessagesCount', function (counts) {
         if (ASC.Controls.MailReader) {

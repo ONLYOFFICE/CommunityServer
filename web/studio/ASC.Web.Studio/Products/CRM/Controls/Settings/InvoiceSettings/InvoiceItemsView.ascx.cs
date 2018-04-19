@@ -37,6 +37,7 @@ using ASC.Web.CRM.Resources;
 using Newtonsoft.Json.Linq;
 using ASC.CRM.Core.Entities;
 using System.Collections.Generic;
+using ASC.CRM.Core.Dao;
 
 #endregion
 
@@ -68,7 +69,7 @@ namespace ASC.Web.CRM.Controls.Settings
             }
             else // export to csv
             {
-                var invoiceItems = GetInvoiceItemsByFilter();
+                var invoiceItems = GetInvoiceItemsByFilter(DaoFactory);
 
                 if (invoiceItems.Count != 0)
                 {
@@ -189,7 +190,7 @@ namespace ASC.Web.CRM.Controls.Settings
             return result;
         }
 
-        protected List<InvoiceItem> GetInvoiceItemsByFilter()
+        protected List<InvoiceItem> GetInvoiceItemsByFilter(DaoFactory daoFactory)
         {
             var filterObj = GetFilterObjectFromCookie();
 
@@ -201,7 +202,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
             var isAsc = !String.IsNullOrEmpty(filterObj.SortOrder) && filterObj.SortOrder != "descending";
 
-            return Global.DaoFactory.GetInvoiceItemDao().GetInvoiceItems(
+            return daoFactory.InvoiceItemDao.GetInvoiceItems(
                                                            filterObj.FilterValue,
                                                            0,
                                                            filterObj.InventoryStock,

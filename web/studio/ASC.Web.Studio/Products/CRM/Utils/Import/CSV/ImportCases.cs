@@ -35,6 +35,7 @@ using ASC.Web.CRM.Resources;
 using LumenWorks.Framework.IO.Csv;
 using Newtonsoft.Json.Linq;
 using ASC.Common.Threading.Progress;
+using ASC.CRM.Core.Dao;
 
 #endregion
 
@@ -42,16 +43,16 @@ namespace ASC.Web.CRM.Classes
 {
     public partial class ImportDataOperation
     {
-        private void ImportCaseData()
+        private void ImportCaseData(DaoFactory _daoFactory)
         {
             using (var CSVFileStream = _dataStore.GetReadStream("temp", _CSVFileURI))
             using (CsvReader csv = ImportFromCSV.CreateCsvReaderInstance(CSVFileStream, _importSettings))
             {
                 int currentIndex = 0;
 
-                var casesDao = _daoFactory.GetCasesDao();
-                var customFieldDao = _daoFactory.GetCustomFieldDao();
-                var tagDao = _daoFactory.GetTagDao();
+                var casesDao = _daoFactory.CasesDao;
+                var customFieldDao = _daoFactory.CustomFieldDao;
+                var tagDao = _daoFactory.TagDao;
 
                 var findedTags = new Dictionary<int, List<String>>();
                 var findedCustomField = new List<CustomField>();
@@ -119,7 +120,7 @@ namespace ASC.Web.CRM.Classes
 
                         foreach (var item in membersList)
                         {
-                            var findedMember = _daoFactory.GetContactDao().GetContactsByName(item, true);
+                            var findedMember = _daoFactory.ContactDao.GetContactsByName(item, true);
 
                             if (findedMember.Count > 0)
                             {
@@ -127,7 +128,7 @@ namespace ASC.Web.CRM.Classes
                             }
                             else
                             {
-                                findedMember = _daoFactory.GetContactDao().GetContactsByName(item, false);
+                                findedMember = _daoFactory.ContactDao.GetContactsByName(item, false);
                                 if (findedMember.Count > 0)
                                 {
                                     localMembersCases.Add(findedMember[0].ID);
@@ -180,7 +181,7 @@ namespace ASC.Web.CRM.Classes
 
                 foreach (var findedCasesMemberKey in findedCasesMembers.Keys)
                 {
-                    _daoFactory.GetDealDao().SetMembers(newIDs[findedCasesMemberKey], findedCasesMembers[findedCasesMemberKey].ToArray());
+                    _daoFactory.DealDao.SetMembers(newIDs[findedCasesMemberKey], findedCasesMembers[findedCasesMemberKey].ToArray());
                 }
 
                 Percentage += 12.5;

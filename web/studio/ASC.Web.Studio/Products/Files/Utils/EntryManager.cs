@@ -166,8 +166,8 @@ namespace ASC.Web.Files.Utils
 
                 entries = FilterEntries(entries, filter, subjectId, searchText);
 
-                parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f is Folder ? ((Folder)f).TotalFiles : 1));
-                parent.TotalSubFolders = entries.Aggregate(0, (a, f) => a + (f is Folder ? ((Folder)f).TotalSubFolders + 1 : 0));
+                parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalFiles : 1));
+                parent.TotalSubFolders = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalSubFolders + 1 : 0));
             }
             else if (parent.FolderType == FolderType.SHARE)
             {
@@ -177,8 +177,8 @@ namespace ASC.Web.Files.Utils
                 shared = FilterEntries(shared, filter, subjectId, searchText);
                 entries = entries.Concat(shared);
 
-                parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f is Folder ? ((Folder)f).TotalFiles : 1));
-                parent.TotalSubFolders = entries.Aggregate(0, (a, f) => a + (f is Folder ? ((Folder)f).TotalSubFolders + 1 : 0));
+                parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalFiles : 1));
+                parent.TotalSubFolders = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalSubFolders + 1 : 0));
             }
             else
             {
@@ -220,7 +220,7 @@ namespace ASC.Web.Files.Utils
                 if (0 < count) entries = entries.Take(count);
             }
 
-            SetFileStatus(entries.Where(r => r != null && r.ID != null && r is File).Select(r => r as File).ToList());
+            SetFileStatus(entries.Where(r => r != null && r.ID != null && r.FileEntryType == FileEntryType.File).Select(r => r as File).ToList());
 
             return entries;
         }
@@ -243,28 +243,7 @@ namespace ASC.Web.Files.Utils
 
                     var providers = providerDao.GetProvidersInfo(parent.RootFolderType, searchText);
                     folderList = providers
-                        .Select(providerInfo =>
-                                //Fake folder. Don't send request to third party
-                                new Folder
-                                {
-                                    ID = providerInfo.RootFolderId,
-                                    ParentFolderID = parent.ID,
-                                    CreateBy = providerInfo.Owner,
-                                    CreateOn = providerInfo.CreateOn,
-                                    FolderType = FolderType.DEFAULT,
-                                    ModifiedBy = providerInfo.Owner,
-                                    ModifiedOn = providerInfo.CreateOn,
-                                    ProviderId = providerInfo.ID,
-                                    ProviderKey = providerInfo.ProviderKey,
-                                    RootFolderCreator = providerInfo.Owner,
-                                    RootFolderId = providerInfo.RootFolderId,
-                                    RootFolderType = providerInfo.RootFolderType,
-                                    Shareable = false,
-                                    Title = providerInfo.CustomerTitle,
-                                    TotalFiles = 0,
-                                    TotalSubFolders = 0
-                                }
-                        )
+                        .Select(providerInfo => GetFakeThirdpartyFolder(providerInfo, parent.ID))
                         .Where(fileSecurity.CanRead).ToList();
                 }
 
@@ -304,14 +283,14 @@ namespace ASC.Web.Files.Utils
                 case FilterType.DocumentsOnly:
                 case FilterType.ArchiveOnly:
                 case FilterType.FilesOnly:
-                    where = f => f is File && (((File)f).FilterType == filter || filter == FilterType.FilesOnly);
+                    where = f => f.FileEntryType == FileEntryType.File && (((File)f).FilterType == filter || filter == FilterType.FilesOnly);
                     break;
                 case FilterType.FoldersOnly:
-                    where = f => f is Folder;
+                    where = f => f.FileEntryType == FileEntryType.Folder;
                     break;
                 case FilterType.ByExtension:
                     var filterExt = (searchText ?? string.Empty).ToLower().Trim();
-                    where = f => !string.IsNullOrEmpty(filterExt) && f is File && FileUtility.GetFileExtension(f.Title).Contains(filterExt);
+                    where = f => !string.IsNullOrEmpty(filterExt) && f.FileEntryType == FileEntryType.File && FileUtility.GetFileExtension(f.Title).Contains(filterExt);
                     break;
             }
 
@@ -342,7 +321,7 @@ namespace ASC.Web.Files.Utils
                     sorter = (x, y) =>
                              {
                                  var cmp = 0;
-                                 if (x is File && y is File)
+                                 if (x.FileEntryType == FileEntryType.File && y.FileEntryType == FileEntryType.File)
                                      cmp = c * (FileUtility.GetFileExtension((x.Title)).CompareTo(FileUtility.GetFileExtension(y.Title)));
                                  return cmp == 0 ? x.Title.CompareTo(y.Title) : cmp;
                              };
@@ -358,7 +337,7 @@ namespace ASC.Web.Files.Utils
                     sorter = (x, y) =>
                              {
                                  var cmp = 0;
-                                 if (x is File && y is File)
+                                 if (x.FileEntryType == FileEntryType.File && y.FileEntryType == FileEntryType.File)
                                      cmp = c * ((File)x).ContentLength.CompareTo(((File)y).ContentLength);
                                  return cmp == 0 ? x.Title.CompareTo(y.Title) : cmp;
                              };
@@ -397,8 +376,8 @@ namespace ASC.Web.Files.Utils
             if (orderBy.SortedBy != SortedByType.New)
             {
                 // folders on top
-                var folders = entries.OfType<Folder>().Cast<FileEntry>().ToList();
-                var files = entries.OfType<File>().Cast<FileEntry>().ToList();
+                var folders = entries.Where(r => r.FileEntryType == FileEntryType.Folder).ToList();
+                var files = entries.Where(r => r.FileEntryType == FileEntryType.File).ToList();
                 folders.Sort(sorter);
                 files.Sort(sorter);
 
@@ -410,6 +389,31 @@ namespace ASC.Web.Files.Utils
             result.Sort(sorter);
 
             return result;
+        }
+
+        public static Folder GetFakeThirdpartyFolder(IProviderInfo providerInfo, object parentFolderId = null)
+        {
+            //Fake folder. Don't send request to third party
+            return new Folder
+                {
+                    ParentFolderID = parentFolderId,
+
+                    ID = providerInfo.RootFolderId,
+                    CreateBy = providerInfo.Owner,
+                    CreateOn = providerInfo.CreateOn,
+                    FolderType = FolderType.DEFAULT,
+                    ModifiedBy = providerInfo.Owner,
+                    ModifiedOn = providerInfo.CreateOn,
+                    ProviderId = providerInfo.ID,
+                    ProviderKey = providerInfo.ProviderKey,
+                    RootFolderCreator = providerInfo.Owner,
+                    RootFolderId = providerInfo.RootFolderId,
+                    RootFolderType = providerInfo.RootFolderType,
+                    Shareable = false,
+                    Title = providerInfo.CustomerTitle,
+                    TotalFiles = 0,
+                    TotalSubFolders = 0
+                };
         }
 
 
@@ -477,14 +481,14 @@ namespace ASC.Web.Files.Utils
         {
             if (file == null || file.ID == null) return;
 
-            SetFileStatus(new List<File> { file });
+            SetFileStatus(new List<File>(1) { file });
         }
 
         public static void SetFileStatus(IEnumerable<File> files)
         {
             using (var tagDao = Global.DaoFactory.GetTagDao())
             {
-                var tagsNew = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, files.ToArray());
+                var tagsNew = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, files);
 
                 var tagsLocked = tagDao.GetTags(TagType.Locked, files.ToArray());
 
@@ -572,16 +576,13 @@ namespace ASC.Web.Files.Utils
                     if (FileUtility.ExtsConvertible.Keys.Contains(newExtension)
                         && FileUtility.ExtsConvertible[newExtension].Contains(currentExt))
                     {
-                        var key = DocumentServiceConnector.GenerateRevisionId(downloadUri ?? Guid.NewGuid().ToString());
                         if (stream != null)
                         {
-                            using (var tmpStream = new MemoryStream())
-                            {
-                                stream.CopyTo(tmpStream);
-                                downloadUri = DocumentServiceConnector.GetExternalUri(tmpStream, newExtension, key);
-                            }
+                            downloadUri = PathProvider.GetTempUrl(stream, newExtension);
+                            downloadUri = DocumentServiceConnector.ReplaceCommunityAdress(downloadUri);
                         }
 
+                        var key = DocumentServiceConnector.GenerateRevisionId(downloadUri);
                         DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, false, out downloadUri);
 
                         stream = null;
@@ -702,12 +703,12 @@ namespace ASC.Web.Files.Utils
                         ID = fromFile.ID,
                         Version = currFile.Version + 1,
                         VersionGroup = currFile.VersionGroup,
-                        Title = fromFile.Title,
+                        Title = FileUtility.ReplaceFileExtension(currFile.Title, FileUtility.GetFileExtension(fromFile.Title)),
                         ContentLength = fromFile.ContentLength,
-                        FileStatus = fromFile.FileStatus,
-                        FolderID = fromFile.FolderID,
-                        CreateBy = fromFile.CreateBy,
-                        CreateOn = fromFile.CreateOn,
+                        FileStatus = currFile.FileStatus,
+                        FolderID = currFile.FolderID,
+                        CreateBy = currFile.CreateBy,
+                        CreateOn = currFile.CreateOn,
                         ModifiedBy = fromFile.ModifiedBy,
                         ModifiedOn = fromFile.ModifiedOn,
                         ConvertedType = fromFile.ConvertedType,
@@ -828,12 +829,15 @@ namespace ASC.Web.Files.Utils
             foreach (var folder in folders)
             {
                 DeleteSubitems(folder.ID, folderDao, fileDao);
+
+                Global.Logger.InfoFormat("Delete folder {0} in {1}", folder.ID, parentId);
                 folderDao.DeleteFolder(folder.ID);
             }
 
             var files = fileDao.GetFiles(parentId, null, FilterType.None, Guid.Empty, string.Empty);
             foreach (var file in files)
             {
+                Global.Logger.InfoFormat("Delete file {0} in {1}", file.ID, parentId);
                 fileDao.DeleteFile(file.ID);
             }
         }
@@ -849,6 +853,7 @@ namespace ASC.Web.Files.Utils
                              && fileSecurity.GetShares(folder).Any(record => record.Share != FileShare.Restrict);
                 if (shared)
                 {
+                    Global.Logger.InfoFormat("Move shared folder {0} from {1} to {2}", folder.ID, parentId, toId);
                     folderDao.MoveFolder(folder.ID, toId);
                 }
                 else
@@ -866,27 +871,22 @@ namespace ASC.Web.Files.Utils
                                                    record.Subject != FileConstant.ShareLinkId
                                                    && record.Share != FileShare.Restrict)))
             {
+                Global.Logger.InfoFormat("Move shared file {0} from {1} to {2}", file.ID, parentId, toId);
                 fileDao.MoveFile(file.ID, toId);
             }
         }
 
         public static void ReassignItems(object parentId, Guid fromUserId, Guid toUserId, IFolderDao folderDao, IFileDao fileDao)
         {
-            var files = fileDao.GetFiles(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, fromUserId, null, withSubfolders: true)
-                               .Where(file => file.CreateBy == fromUserId);
-            foreach (var file in files)
-            {
-                file.CreateBy = toUserId;
-                fileDao.SaveFile(file, null);
-            }
+            var fileIds = fileDao.GetFiles(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, fromUserId, null, true)
+                                 .Where(file => file.CreateBy == fromUserId).Select(file => file.ID);
 
-            var folders = folderDao.GetFolders(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, fromUserId, null, true)
-                                   .Where(folder => folder.CreateBy == fromUserId);
-            foreach (var folder in folders)
-            {
-                folder.CreateBy = toUserId;
-                folderDao.SaveFolder(folder);
-            }
+            fileDao.ReassignFiles(fileIds.ToArray(), toUserId);
+
+            var folderIds = folderDao.GetFolders(parentId, new OrderBy(SortedByType.AZ, true), FilterType.ByUser, fromUserId, null, true)
+                                     .Where(folder => folder.CreateBy == fromUserId).Select(folder => folder.ID);
+
+            folderDao.ReassignFolders(folderIds.ToArray(), toUserId);
         }
     }
 }

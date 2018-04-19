@@ -490,7 +490,7 @@ window.mailCalendar = (function ($) {
                             }
 
                             function doReply(decision) {
-                                window.LoadingBanner.displayLoading(true, true);
+                                window.LoadingBanner.displayMailLoading();
 
                                 html.find(".cal_buttons > input:radio").button({ disabled: true });
 

@@ -41,6 +41,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Web;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -115,7 +117,6 @@ namespace ASC.Web.CRM.Classes
             _CSVFileURI = CSVFileURI;
             _dataStore = Global.GetStore();
             _tenantID = TenantProvider.CurrentTenantID;
-            _daoFactory = Global.DaoFactory;
             _entityType = entityType;
             _author = SecurityContext.CurrentAccount;
 
@@ -142,8 +143,6 @@ namespace ASC.Web.CRM.Classes
         private readonly NotifyClient _notifyClient;
 
         private readonly int _tenantID;
-
-        private readonly DaoFactory _daoFactory;
 
         private readonly String _CSVFileURI;
 
@@ -230,32 +229,35 @@ namespace ASC.Web.CRM.Classes
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-
                 SecurityContext.AuthenticateMe(_author);
 
-                var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
-
-                System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
-                System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
-
-                ImportDataCache.Insert(_entityType, (ImportDataOperation)Clone());
-
-                switch (_entityType)
+                using (var scope = DIHelper.Resolve())
                 {
-                    case EntityType.Contact:
-                        ImportContactsData();
-                        break;
-                    case EntityType.Opportunity:
-                        ImportOpportunityData();
-                        break;
-                    case EntityType.Case:
-                        ImportCaseData();
-                        break;
-                    case EntityType.Task:
-                        ImportTaskData();
-                        break;
-                    default:
-                        throw new ArgumentException(CRMErrorsResource.EntityTypeUnknown);
+                    var daoFactory = scope.Resolve<DaoFactory>();
+                    var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
+
+                    System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
+
+                    ImportDataCache.Insert(_entityType, (ImportDataOperation) Clone());
+
+                    switch (_entityType)
+                    {
+                        case EntityType.Contact:
+                            ImportContactsData(daoFactory);
+                            break;
+                        case EntityType.Opportunity:
+                            ImportOpportunityData(daoFactory);
+                            break;
+                        case EntityType.Case:
+                            ImportCaseData(daoFactory);
+                            break;
+                        case EntityType.Task:
+                            ImportTaskData(daoFactory);
+                            break;
+                        default:
+                            throw new ArgumentException(CRMErrorsResource.EntityTypeUnknown);
+                    }
                 }
             }
             catch (OperationCanceledException)

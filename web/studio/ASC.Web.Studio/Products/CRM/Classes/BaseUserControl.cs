@@ -26,6 +26,7 @@
 
 using System.Web;
 using System.Web.UI;
+using ASC.CRM.Core.Dao;
 
 namespace ASC.Web.CRM
 {
@@ -34,6 +35,11 @@ namespace ASC.Web.CRM
         public new BasePage Page
         {
             get { return base.Page as BasePage; }
+        }
+
+        public DaoFactory DaoFactory
+        {
+            get { return Page.DaoFactory; }
         }
 
         protected string GetCookieKeyForFilterForExport()

@@ -68,8 +68,8 @@ server {
 
 ## HTTPS host
 server {
-	listen 0.0.0.0:443 ssl http2;
-	listen [::]:443 ssl http2 default_server;
+	listen 0.0.0.0:443 ssl;
+	listen [::]:443 ssl default_server;
 	server_tokens off;
 	root /usr/share/nginx/html;
 
@@ -114,6 +114,13 @@ server {
 	ssl_dhparam {{SSL_DHPARAM_PATH}};
 
 	large_client_header_buffers 4 16k;
+
+        set $X_REWRITER_URL $the_scheme://$the_host;
+
+        if ($http_x_rewriter_url != '') {
+                set $X_REWRITER_URL $http_x_rewriter_url ;
+        }
+
 
         include /etc/nginx/includes/onlyoffice-communityserver-*.conf;
 }

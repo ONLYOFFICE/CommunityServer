@@ -9,7 +9,7 @@
         if(!request.user || !request.user.id) return;
         const userId = request.user.id;
         const tenantId = request.portal.tenantId;
-        const userName = request.user.userName.toLowerCase();
+        const userName = (request.user.userName || "").toLowerCase();
 
         console.log(`a user ${userName} in portal ${tenantId} connected`);
 
@@ -64,7 +64,14 @@
 
         function updateMailUserActivity(request, userOnline = true) {
             if(request.user.isVisitor) return;
-            apiRequestManager.put("mail/accounts/updateuseractivity.json", request, { userOnline });
+
+            setTimeout(function(){
+                if((!userOnline && typeof onlineUsers[tenantId][userId] != "undefined") || 
+                (userOnline && !onlineUsers[tenantId][userId])) return;
+    
+                apiRequestManager.put("mail/accounts/updateuseractivity.json", request, { userOnline });
+                console.log(`updateuseractivity ${userOnline}`);
+            }, 3000);
         }
 
         function getNewMessagesCount() {

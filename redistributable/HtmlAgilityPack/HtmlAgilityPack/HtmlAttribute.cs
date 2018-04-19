@@ -1,4 +1,9 @@
-// HtmlAgilityPack V1.0 - Simon Mourier <simon underscore mourier at hotmail dot com>
+// Description: Html Agility Pack - HTML Parsers, selectors, traversors, manupulators.
+// Website & Documentation: http://html-agility-pack.net
+// Forum & Issues: https://github.com/zzzprojects/html-agility-pack
+// License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
+// More projects: http://www.zzzprojects.com/
+// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
 #region
 
@@ -6,6 +11,7 @@ using System;
 using System.Diagnostics;
 
 #endregion
+// ReSharper disable InconsistentNaming
 
 namespace HtmlAgilityPack
 {
@@ -69,7 +75,7 @@ namespace HtmlAgilityPack
             {
                 if (_name == null)
                 {
-                    _name = _ownerdocument._text.Substring(_namestartindex, _namelength);
+                    _name = _ownerdocument.Text.Substring(_namestartindex, _namelength);
                 }
                 return _name.ToLower();
             }
@@ -82,8 +88,7 @@ namespace HtmlAgilityPack
                 _name = value;
                 if (_ownernode != null)
                 {
-                    _ownernode._innerchanged = true;
-                    _ownernode._outerchanged = true;
+                    _ownernode.SetChanged();
                 }
             }
         }
@@ -136,26 +141,44 @@ namespace HtmlAgilityPack
         {
             get
             {
+                // A null value has been provided, the attribute should be considered as "hidden"
+                if (_value == null && _ownerdocument.Text == null && _valuestartindex == 0 && _valuelength == 0)
+                {
+                    return null;
+                }
+
                 if (_value == null)
                 {
-                    _value = _ownerdocument._text.Substring(_valuestartindex, _valuelength);
+                    _value = _ownerdocument.Text.Substring(_valuestartindex, _valuelength);
                 }
+
                 return _value;
             }
             set
             {
                 _value = value;
+
                 if (_ownernode != null)
                 {
-                    _ownernode._innerchanged = true;
-                    _ownernode._outerchanged = true;
+                    _ownernode.SetChanged();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the DeEntitized value of the attribute.
+        /// </summary>
+        public string DeEntitizeValue
+        {
+            get
+            {
+                return HtmlEntity.DeEntitize(Value);
             }
         }
 
         internal string XmlName
         {
-            get { return HtmlDocument.GetXmlName(Name); }
+            get { return HtmlDocument.GetXmlName(Name, true); }
         }
 
         internal string XmlValue
@@ -207,6 +230,7 @@ namespace HtmlAgilityPack
             HtmlAttribute att = new HtmlAttribute(_ownerdocument);
             att.Name = Name;
             att.Value = Value;
+            att.QuoteType = QuoteType;
             return att;
         }
 

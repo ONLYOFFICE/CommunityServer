@@ -69,7 +69,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                 FileMarker.RemoveMarkAsNew(x, ((IAccount)Thread.CurrentPrincipal.Identity).ID);
 
-                if (x is File)
+                if (x.FileEntryType == FileEntryType.File)
                 {
                     ProcessedFile(x.ID.ToString());
                 }

@@ -73,7 +73,7 @@ namespace ASC.Files.Core
             if (entry != null)
             {
                 EntryId = entry.ID;
-                EntryType = entry is File ? FileEntryType.File : FileEntryType.Folder;
+                EntryType = entry.FileEntryType;
             }
         }
 

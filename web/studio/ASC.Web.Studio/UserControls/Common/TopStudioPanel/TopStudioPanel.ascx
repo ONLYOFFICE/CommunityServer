@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TopStudioPanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.TopStudioPanel" %>
 
+<%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Core" %>
@@ -20,6 +21,22 @@
 
         <% if (CoreContext.Configuration.Personal && !SecurityContext.IsAuthenticated && !DisableLoginPersonal)
            {%>
+            <div class="personal-languages">
+                <div class="personal-languages_select <%= CultureInfo.CurrentUICulture.Name %>" data-lang="<%= CultureInfo.CurrentUICulture.TwoLetterISOLanguageName %>">
+                    <span><%= CultureInfo.CurrentUICulture.DisplayName %></span>
+                </div>
+                <div id="AuthFormLanguagesPanel" class="studio-action-panel">
+                    <ul class="personal-languages_list dropdown-content">
+                        <% foreach (var ci in SetupInfo.EnabledCulturesPersonal)
+                            { %>
+                        <li class="dropdown-item <%= ci.Name %>">
+                            <a href="<%= Request.Path %>?lang=<%= ci.TwoLetterISOLanguageName %>"><%= ci.DisplayName %></a>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+
             <li id="personalLogin" class="personal-login">
                 <a><%= Resource.Login %></a>
             </li>
@@ -160,7 +177,9 @@
                                         </p>
                                         <div class="apps-list">
                                         <% foreach (var service in AuthServiceList) { %>
-                                        <img src="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".png") %>" alt="<%= service.Title %>" />
+                                            <span>
+                                                <img src="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/management/authorizationkeys/img/" + service.Name.ToLower() + ".png") %>" alt="<%= service.Title %>" />
+                                            </span>
                                         <% } %>
                                         </div>
                                         <div class="small-button-container">

@@ -63,7 +63,7 @@ namespace ASC.VoipService.Twilio
 
             var provider = new TwilioProvider(TwilioAccountSid, TwilioAuthToken);
 
-            var dao = new CachedVoipDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, "default");
+            var dao = new CachedVoipDao(CoreContext.TenantManager.GetCurrentTenant().TenantId);
             var numbers= dao.GetNumbers();
             foreach (var number in numbers)
             {

@@ -78,7 +78,6 @@
 
     .studio-action-panel {
         .dropdown-item {
-            display: block;
             line-height: 32px;
         }
     }
@@ -99,7 +98,7 @@
         }
 
         .usr-prof {
-            .textDotted();
+            text-decoration:none;
             .text-overflow();
             display: inline-block;
             max-width: 220px;
@@ -114,7 +113,7 @@
 
         .inner-text {
             .borderRadius();
-            background: url("@{img-change-url}top-studio-menu.png") no-repeat 0 0 @bg-header-icons;
+            background: url("@{img-change-url}top-studio-menu.png") no-repeat 0 0;
             cursor: pointer;
             display: block !important;
             height: 32px;
@@ -313,8 +312,8 @@ body.desktop .studio-top-panel {
     }
 
     .product-cur-link {
-        .textDotted();
         .text-overflow();
+        text-decoration:none;
         color: @textTopPanel;
         float: left;
         font-size: 14px;
@@ -652,8 +651,23 @@ only screen and (                min-resolution: 2dppx)
         max-height: 300px;
         overflow-y: auto;
 
-        img {
-            padding: 16px 10px 0 0;
+        span {
+            border: 1px solid #d1d1d1;
+            display: inline-block;
+            float: left;
+            height: 40px;
+            margin: 5px 5px 0 0;
+            width: 158px;
+            position: relative;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                margin: auto;
+            }
         }
     }
 }

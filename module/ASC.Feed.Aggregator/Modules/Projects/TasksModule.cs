@@ -115,10 +115,13 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 new SqlQuery("projects_tasks t")
                     .Select(TaskColumns().Select(t => "t." + t).ToArray())
                     .LeftOuterJoin("projects_tasks_responsible r", Exp.EqColumns("r.task_id", "t.id") & Exp.Eq("r.tenant_id", filter.Tenant))
+
                     .Select("group_concat(distinct r.responsible_id)")
                     .InnerJoin("projects_projects p", Exp.EqColumns("p.id", "t.project_id") & Exp.Eq("p.tenant_id", filter.Tenant))
+
                     .Select(ProjectColumns().Select(p => "p." + p).ToArray())
                     .LeftOuterJoin("projects_comments c", Exp.EqColumns("c.target_uniq_id", "concat('Task_', convert(t.id, char))") & Exp.Eq("c.tenant_id", filter.Tenant) & Exp.Eq("c.inactive", 0))
+
                     .Select(CommentColumns().Select(c => "c." + c).ToArray())
                     .Where("t.tenant_id", filter.Tenant)
                     .Where(Exp.Between("t.create_on", filter.Time.From, filter.Time.To) | Exp.Between("c.create_on", filter.Time.From, filter.Time.To))
@@ -207,7 +210,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                             StartDate = Convert.ToDateTime(r[9]),
                             CreateBy = new Guid(Convert.ToString(r[10])),
                             CreateOn = Convert.ToDateTime(r[11]),
-                            LastModifiedBy = new Guid(Convert.ToString(r[12])),
+                            LastModifiedBy = ToGuid(r[12]),
                             LastModifiedOn = Convert.ToDateTime(r[13]),
                             Responsibles =
                                 r[14] != null
@@ -224,7 +227,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                                     Private = Convert.ToBoolean(r[21]),
                                     CreateBy = new Guid(Convert.ToString(r[22])),
                                     CreateOn = Convert.ToDateTime(r[23]),
-                                    LastModifiedBy = new Guid(Convert.ToString(r[24])),
+                                    LastModifiedBy = ToGuid(r[24]),
                                     LastModifiedOn = Convert.ToDateTime(r[25]),
                                 }
                         }

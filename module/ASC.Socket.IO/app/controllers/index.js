@@ -1,4 +1,4 @@
-﻿module.exports = (counters, chat, voip) => {
+﻿module.exports = (counters, chat, voip, files) => {
     const router = require('express').Router(),
         bodyParser = require('body-parser'),
         authService = require('../middleware/authService.js')();
@@ -19,7 +19,8 @@
         .use("/counters", require(`./counters.js`)(counters))
         .use("/mail", require(`./mail.js`)(counters))
         .use("/chat", require(`./chat.js`)(chat))
-        .use("/voip", require(`./voip.js`)(voip));
+        .use("/voip", require(`./voip.js`)(voip))
+        .use("/files", require(`./files.js`)(files));
 
     return router;
 }

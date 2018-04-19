@@ -1,0 +1,114 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+.sso-settings-title {
+    margin: 0 0 20px 0;
+}
+
+.sso-settings-container {
+    clear: both;
+}
+
+.sso-settings-disabled {
+    color: #d1d1d1;
+    cursor: default;
+    -moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.sso-settings-block {
+    float: left;
+    clear: both;
+    margin: 14px 0 0 0;
+}
+
+.sso-settings-container .textEdit {
+    padding: 1px;
+    width: 350px;
+}
+
+.sso-settings-text {
+    padding: 0 0 4px 0;
+    font-weight: bold;
+}
+
+.sso-settings-public-key-area, .sso-settings-client-public-key-area {
+    resize: none;
+    width: 350px;
+}
+
+.sso-settings-loader {
+    width: 12px;
+    height: 12px;
+    background: url(images/loader_12.gif) no-repeat transparent;
+    margin: 10px 5px 0 0;
+    float: left;
+}
+
+.sso-settings-status {
+    margin: 7px 0 0 0;
+    float: left;
+}
+
+#ssoCertFile {
+    margin: 10px 0;
+    display: none;
+}
+
+#ssoCertFile .name {
+    width: 170px;
+    display: inline-block;
+}
+
+#ssoCertFile .trash {
+    display: inline-block;
+    float: none;
+    margin: 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.sso-required-field {
+    color: #c00;
+    font-size: 12px;
+    vertical-align: text-top;
+    height: 16px;
+    width: 6px;
+    display: inline-block;
+    margin-top: -4px;
+    margin-left: -2px;
+}
+
+.sso-link-not-active {
+   pointer-events: none;
+   cursor: default !important;
+   color: #b2b2b2 !important;
+}

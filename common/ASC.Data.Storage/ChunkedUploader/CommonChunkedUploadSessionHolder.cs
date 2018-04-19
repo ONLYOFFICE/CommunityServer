@@ -41,7 +41,7 @@ namespace ASC.Core.ChunkedUploader
         private long MaxChunkUploadSize { get; set; }
         private const string StoragePath = "sessions";
 
-        public CommonChunkedUploadSessionHolder(IDataStore dataStore, string domain, long maxChunkUploadSize = 5 * 1024 * 1024)
+        public CommonChunkedUploadSessionHolder(IDataStore dataStore, string domain, long maxChunkUploadSize = 10 * 1024 * 1024)
         {
             DataStore = dataStore;
             Domain = domain;
@@ -134,7 +134,7 @@ namespace ASC.Core.ChunkedUploader
             var uploadId = uploadSession.UploadId;
             var chunkNumber = uploadSession.GetItemOrDefault<int>("ChunksUploaded") + 1;
 
-            var eTag = DataStore.UploadChunk(Domain, tempPath, uploadId, stream, chunkNumber, length);
+            var eTag = DataStore.UploadChunk(Domain, tempPath, uploadId, stream, MaxChunkUploadSize,  chunkNumber, length);
 
             uploadSession.Items["ChunksUploaded"] = chunkNumber;
             uploadSession.BytesUploaded += length;

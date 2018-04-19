@@ -37,6 +37,9 @@ using ASC.Web.Studio.Controls.FileUploader;
 using ASC.Web.Studio.Core;
 using System;
 using System.Web;
+using ASC.CRM.Core.Dao;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 
 namespace ASC.Web.CRM.Classes
@@ -52,9 +55,12 @@ namespace ASC.Web.CRM.Classes
             Contact contact = null;
             if (contactId != 0)
             {
-                contact = Global.DaoFactory.GetContactDao().GetByID(contactId);
-                if (!CRMSecurity.CanAccessTo(contact))
-                    throw CRMSecurity.CreateSecurityException();
+                using (var scope = DIHelper.Resolve())
+                {
+                    contact = scope.Resolve<DaoFactory>().ContactDao.GetByID(contactId);
+                    if (!CRMSecurity.CanEdit(contact))
+                        throw CRMSecurity.CreateSecurityException();
+                }
             }
 
             var fileUploadResult = new FileUploadResult();
@@ -85,22 +91,22 @@ namespace ASC.Web.CRM.Classes
 
             try
             {
-                string photoUri;
+                ContactPhotoManager.PhotoData photoData;
                 if (contactId != 0)
                 {
-                    photoUri = ContactPhotoManager.UploadPhoto(file.InputStream, contactId, uploadOnly);
+                    photoData = ContactPhotoManager.UploadPhoto(file.InputStream, contactId, uploadOnly);
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(tmpDirName))
+                    if (String.IsNullOrEmpty(tmpDirName) || tmpDirName == "null")
                     {
                         tmpDirName = Guid.NewGuid().ToString();
                     }
-                    photoUri = ContactPhotoManager.UploadPhoto(file.InputStream, tmpDirName);
+                    photoData = ContactPhotoManager.UploadPhotoToTemp(file.InputStream, tmpDirName);
                 }
 
                 fileUploadResult.Success = true;
-                fileUploadResult.Data = photoUri;
+                fileUploadResult.Data = photoData;
             }
             catch (Exception e)
             {

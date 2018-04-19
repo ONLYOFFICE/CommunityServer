@@ -31,6 +31,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Web;
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -47,14 +48,10 @@ namespace ASC.Core.Common.Settings
 
         private readonly TimeSpan expirationTimeout = TimeSpan.FromMinutes(5);
         private readonly IDictionary<Type, DataContractJsonSerializer> jsonSerializers = new Dictionary<Type, DataContractJsonSerializer>();
-        private readonly string dbId = "webstudio";
+        private readonly string dbId = "default";
 
 
-        public static SettingsManager Instance
-        {
-            get;
-            private set;
-        }
+        public static SettingsManager Instance { get; private set; }
 
 
         static SettingsManager()
@@ -92,7 +89,8 @@ namespace ASC.Core.Common.Settings
             {
                 var key = settings.ID.ToString() + tenantID + userID;
                 var data = Serialize(settings);
-                using (var db = GetDbManager())
+
+                using(var db = GetDbManager())
                 {
                     var defaultData = Serialize(settings.GetDefault());
 
@@ -113,9 +111,10 @@ namespace ASC.Core.Common.Settings
                             .InColumnValue("tenantid", tenantID)
                             .InColumnValue("data", data);
                     }
-                    notify.Publish(new SettingsCacheItem { Key = key }, CacheNotifyAction.Remove);
+                    notify.Publish(new SettingsCacheItem {Key = key}, CacheNotifyAction.Remove);
                     db.ExecuteNonQuery(i);
                 }
+
                 cache.Insert(key, settings, expirationTimeout);
                 return true;
             }
@@ -128,7 +127,7 @@ namespace ASC.Core.Common.Settings
 
         internal T LoadSettingsFor<T>(int tenantID, Guid userID) where T : class, ISettings
         {
-            var settingsInstance = (ISettings)Activator.CreateInstance<T>();
+            var settingsInstance = (ISettings) Activator.CreateInstance<T>();
             var key = settingsInstance.ID.ToString() + tenantID + userID;
 
             try
@@ -157,24 +156,23 @@ namespace ASC.Core.Common.Settings
                 }
 
                 cache.Insert(key, settings, expirationTimeout);
-
                 return settings;
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
-            return (T)settingsInstance.GetDefault();
+            return (T) settingsInstance.GetDefault();
         }
 
         private T Deserialize<T>(byte[] data)
         {
             using (var stream = new MemoryStream(data))
             {
-                var settings = data[0] == 0 ?
-                    new BinaryFormatter().Deserialize(stream) :
-                    GetJsonSerializer(typeof(T)).ReadObject(stream);
-                return (T)settings;
+                var settings = data[0] == 0
+                    ? new BinaryFormatter().Deserialize(stream)
+                    : GetJsonSerializer(typeof(T)).ReadObject(stream);
+                return (T) settings;
             }
         }
 
@@ -187,7 +185,7 @@ namespace ASC.Core.Common.Settings
             }
         }
 
-        private DbManager GetDbManager()
+        private IDbManager GetDbManager()
         {
             return DbManager.FromHttpContext(dbId);
         }

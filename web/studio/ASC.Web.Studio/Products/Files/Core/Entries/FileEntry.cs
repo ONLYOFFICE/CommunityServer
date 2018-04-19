@@ -109,6 +109,8 @@ namespace ASC.Files.Core
 
         public abstract bool IsNew { get; set; }
 
+        public FileEntryType FileEntryType;
+
         public String UniqID
         {
             get { return String.Format("{0}_{1}", GetType().Name.ToLower(), ID); }

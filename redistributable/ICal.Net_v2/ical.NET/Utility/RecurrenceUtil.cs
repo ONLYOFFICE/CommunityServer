@@ -24,7 +24,7 @@ namespace Ical.Net.Utility
         public static HashSet<Occurrence> GetOccurrences(IRecurrable recurrable, IDateTime periodStart, IDateTime periodEnd, bool includeReferenceDateInResults)
         {
             var evaluator = recurrable.GetService(typeof (IEvaluator)) as IEvaluator;
-            if (evaluator == null)
+            if (evaluator == null || recurrable.Start == null)
             {
                 return new HashSet<Occurrence>();
             }

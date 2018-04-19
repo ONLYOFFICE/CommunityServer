@@ -3630,6 +3630,7 @@ div#talkTabContainer div.navigation div.popupContainerClass.hiddenTabs ul.contac
 
 div#talkContactsContainer ul.contactlist li.contact.new-message div.state.few-message,
 div#talkContactsContainer ul.contactlist li.contact.online.new-message div.state.few-message,
+div#talkContactsContainer ul.contactlist li.contact.offline.new-message div.state.few-message,
 div#talkStatusMenu div#talkCurrentStatus.online.new-message div.state.few-message,
 div#talkContactsContainer ul.contactlist li.contact.xa.new-message div.state.few-message,
 div#talkStatusMenu div#talkCurrentStatus.xa.new-message div.state.few-message,

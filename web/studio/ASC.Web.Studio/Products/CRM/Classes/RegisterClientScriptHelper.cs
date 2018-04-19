@@ -38,13 +38,16 @@ using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.SocialMedia;
 using ASC.Web.Studio.Core;
+using Autofac;
 using Newtonsoft.Json;
 
 #endregion
@@ -120,25 +123,27 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataContactFullCardView(BasePage page, Contact targetContact)
         {
+            var daoFactory = page.DaoFactory;
+
             List<CustomField> data;
 
             if (targetContact is Company)
-                data = Global.DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Company, targetContact.ID, false);
+                data = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Company, targetContact.ID, false);
             else
-                data = Global.DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Person, targetContact.ID, false);
+                data = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Person, targetContact.ID, false);
 
             var networks =
-                Global.DaoFactory.GetContactInfoDao().GetList(targetContact.ID, null, null, null)
+                daoFactory.ContactInfoDao.GetList(targetContact.ID, null, null, null)
                     .OrderBy(i => i.IsPrimary).ToList()
                     .ConvertAll(
-                    n => new
-                    {
-                        data = n.Data.HtmlEncode(),
-                        infoType = n.InfoType,
-                        isPrimary = n.IsPrimary,
-                        categoryName = n.CategoryToString(),
-                        infoTypeLocalName = n.InfoType.ToLocalizedString()
-                    });
+                        n => new
+                        {
+                            data = n.Data.HtmlEncode(),
+                            infoType = n.InfoType,
+                            isPrimary = n.IsPrimary,
+                            categoryName = n.CategoryToString(),
+                            infoTypeLocalName = n.InfoType.ToLocalizedString()
+                        });
 
             String json;
             using (var stream = new MemoryStream())
@@ -148,45 +153,47 @@ namespace ASC.Web.CRM.Classes
                 json = Encoding.UTF8.GetString(stream.ToArray());
             }
 
-            var listItems = Global.DaoFactory.GetListItemDao().GetItems(ListType.ContactStatus);
+            var listItems = daoFactory.ListItemDao.GetItems(ListType.ContactStatus);
 
-            var tags = Global.DaoFactory.GetTagDao().GetEntityTags(EntityType.Contact, targetContact.ID);
-            var availableTags = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Contact).Where(item => !tags.Contains(item));
+            var tags = daoFactory.TagDao.GetEntityTags(EntityType.Contact, targetContact.ID);
+            var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Contact).Where(item => !tags.Contains(item));
             var responsibleIDs = CRMSecurity.GetAccessSubjectGuidsTo(targetContact);
 
             var script = String.Format(@"
-                            var customFieldList = {0};
-                            var contactNetworks = {1};
-                            var sliderListItems = {2};
-                            var contactTags = {3};
-                            var contactAvailableTags = {4};
-                            var contactResponsibleIDs = {5}; ",
-                        json,
-                        JsonConvert.SerializeObject(networks),
-                        JsonConvert.SerializeObject(new
-                        {
-                            id = targetContact.ID,
-                            status = targetContact.StatusID,
-                            positionsCount = listItems.Count,
-                            items = listItems.ConvertAll(n => new
-                            {
-                                id = n.ID,
-                                color = n.Color,
-                                title = n.Title.HtmlEncode()
-                            })
-                        }),
-                        JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
-                        JsonConvert.SerializeObject(availableTags.ToList().ConvertAll(t => t.HtmlEncode())),
-                        JsonConvert.SerializeObject(responsibleIDs)
-                        );
+                        var customFieldList = {0};
+                        var contactNetworks = {1};
+                        var sliderListItems = {2};
+                        var contactTags = {3};
+                        var contactAvailableTags = {4};
+                        var contactResponsibleIDs = {5}; ",
+                json,
+                JsonConvert.SerializeObject(networks),
+                JsonConvert.SerializeObject(new
+                {
+                    id = targetContact.ID,
+                    status = targetContact.StatusID,
+                    positionsCount = listItems.Count,
+                    items = listItems.ConvertAll(n => new
+                    {
+                        id = n.ID,
+                        color = n.Color,
+                        title = n.Title.HtmlEncode()
+                    })
+                }),
+                JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
+                JsonConvert.SerializeObject(availableTags.ToList().ConvertAll(t => t.HtmlEncode())),
+                JsonConvert.SerializeObject(responsibleIDs)
+                );
 
             page.RegisterInlineScript(script, onReady: false);
         }
 
         public static void DataContactActionView(BasePage page, Contact targetContact, List<CustomField> data, List<ContactInfo> networks)
         {
-            var tags = targetContact != null ? Global.DaoFactory.GetTagDao().GetEntityTags(EntityType.Contact, targetContact.ID) : new string[] { };
-            var availableTags = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Contact).Where(item => !tags.Contains(item));
+            var daoFactory = page.DaoFactory;
+
+            var tags = targetContact != null ? daoFactory.TagDao.GetEntityTags(EntityType.Contact, targetContact.ID) : new string[] { };
+            var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Contact).Where(item => !tags.Contains(item));
 
             String json;
             using (var stream = new MemoryStream())
@@ -196,12 +203,12 @@ namespace ASC.Web.CRM.Classes
                 json = Encoding.UTF8.GetString(stream.ToArray());
             }
 
-            var listItems = Global.DaoFactory.GetListItemDao().GetItems(ListType.ContactType);
+            var listItems = daoFactory.ListItemDao.GetItems(ListType.ContactType);
 
             var presetCompanyForPersonJson = "";
             if (targetContact != null && targetContact is Person && ((Person)targetContact).CompanyID > 0)
             {
-                var company = Global.DaoFactory.GetContactDao().GetByID(((Person)targetContact).CompanyID);
+                var company = daoFactory.ContactDao.GetByID(((Person)targetContact).CompanyID);
                 if (company == null)
                 {
                     log4net.LogManager.GetLogger("ASC.CRM").ErrorFormat("Can't find parent company (CompanyID = {0}) for person with ID = {1}", ((Person)targetContact).CompanyID, targetContact.ID);
@@ -220,7 +227,7 @@ namespace ASC.Web.CRM.Classes
             var presetPersonsForCompanyJson = "";
             if (targetContact != null && targetContact is Company)
             {
-                var people = Global.DaoFactory.GetContactDao().GetMembers(targetContact.ID);
+                var people = daoFactory.ContactDao.GetMembers(targetContact.ID);
                 if (people.Count != 0) {
                     presetPersonsForCompanyJson = JsonConvert.SerializeObject(people.ConvertAll(item => new
                         {
@@ -292,9 +299,10 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataCasesFullCardView(BasePage page, ASC.CRM.Core.Entities.Cases targetCase)
         {
-            var customFieldList = Global.DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Case, targetCase.ID, false);
-            var tags = Global.DaoFactory.GetTagDao().GetEntityTags(EntityType.Case, targetCase.ID);
-            var availableTags = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Case).Where(item => !tags.Contains(item));
+            var daoFactory = page.DaoFactory;
+            var customFieldList = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Case, targetCase.ID, false);
+            var tags = daoFactory.TagDao.GetEntityTags(EntityType.Case, targetCase.ID);
+            var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Case).Where(item => !tags.Contains(item));
             var responsibleIDs = new List<Guid>();
             if (CRMSecurity.IsPrivate(targetCase)) {
                 responsibleIDs = CRMSecurity.GetAccessSubjectGuidsTo(targetCase);
@@ -313,25 +321,26 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataCasesActionView(BasePage page, ASC.CRM.Core.Entities.Cases targetCase)
         {
+            var daoFactory = page.DaoFactory;
             var customFieldList = targetCase != null
-                ? Global.DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Case, targetCase.ID, true)
-                : Global.DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case);
-            var tags = targetCase != null ? Global.DaoFactory.GetTagDao().GetEntityTags(EntityType.Case, targetCase.ID) : new string[] { };
-            var availableTags = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Case).Where(item => !tags.Contains(item));
+                ? daoFactory.CustomFieldDao.GetEnityFields(EntityType.Case, targetCase.ID, true)
+                : daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Case);
+            var tags = targetCase != null ? daoFactory.TagDao.GetEntityTags(EntityType.Case, targetCase.ID) : new string[] { };
+            var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Case).Where(item => !tags.Contains(item));
 
 
             var presetContactsJson = "";
             var selectedContacts = new List<Contact>();
             if (targetCase != null)
             {
-                selectedContacts = Global.DaoFactory.GetContactDao().GetContacts(Global.DaoFactory.GetCasesDao().GetMembers(targetCase.ID));
+                selectedContacts = daoFactory.ContactDao.GetContacts(daoFactory.CasesDao.GetMembers(targetCase.ID));
             }
             else
             {
                 var URLContactID = UrlParameters.ContactID;
                 if (URLContactID != 0)
                 {
-                    var target = Global.DaoFactory.GetContactDao().GetByID(URLContactID);
+                    var target = daoFactory.ContactDao.GetByID(URLContactID);
                     if (target != null)
                     {
                         selectedContacts.Add(target);
@@ -368,9 +377,10 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataDealFullCardView(BasePage page, Deal targetDeal)
         {
-            var customFieldList = Global.DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Opportunity, targetDeal.ID, false);
-            var tags = Global.DaoFactory.GetTagDao().GetEntityTags(EntityType.Opportunity, targetDeal.ID);
-            var availableTags = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Opportunity).Where(item => !tags.Contains(item));
+            var daoFactory = page.DaoFactory;
+            var customFieldList = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Opportunity, targetDeal.ID, false);
+            var tags = daoFactory.TagDao.GetEntityTags(EntityType.Opportunity, targetDeal.ID);
+            var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Opportunity).Where(item => !tags.Contains(item));
 
             var responsibleIDs = new List<Guid>();
             if (CRMSecurity.IsPrivate(targetDeal)) {
@@ -392,9 +402,10 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataDealActionView(BasePage page, Deal targetDeal)
         {
+            var daoFactory = page.DaoFactory;
              var customFieldList = targetDeal != null
-                ? Global.DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Opportunity, targetDeal.ID, true)
-                : Global.DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Opportunity);
+                ? daoFactory.CustomFieldDao.GetEnityFields(EntityType.Opportunity, targetDeal.ID, true)
+                : daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Opportunity);
            
             var dealExcludedIDs = new List<Int32>();
             var dealClientIDs = new List<Int32>();
@@ -402,7 +413,7 @@ namespace ASC.Web.CRM.Classes
             
             if (targetDeal != null)
             {
-                dealExcludedIDs = Global.DaoFactory.GetDealDao().GetMembers(targetDeal.ID).ToList();
+                dealExcludedIDs = daoFactory.DealDao.GetMembers(targetDeal.ID).ToList();
                 dealMembersIDs = new List<int>(dealExcludedIDs);
                 if (targetDeal.ContactID != 0) {
                     dealMembersIDs.Remove(targetDeal.ContactID);
@@ -419,7 +430,7 @@ namespace ASC.Web.CRM.Classes
 
             if (targetDeal != null && targetDeal.ContactID != 0)
             {
-                var contact = Global.DaoFactory.GetContactDao().GetByID(targetDeal.ContactID);
+                var contact = daoFactory.ContactDao.GetByID(targetDeal.ContactID);
                 if(contact != null)
                 {
                     selectedContacts.Add(contact);
@@ -430,7 +441,7 @@ namespace ASC.Web.CRM.Classes
                 var URLContactID = UrlParameters.ContactID;
                 if (URLContactID != 0)
                 {
-                    var target = Global.DaoFactory.GetContactDao().GetByID(URLContactID);
+                    var target = daoFactory.ContactDao.GetByID(URLContactID);
                     if (target != null)
                     {
                         selectedContacts.Add(target);
@@ -450,7 +461,7 @@ namespace ASC.Web.CRM.Classes
 
 
             selectedContacts = new List<Contact>();
-            selectedContacts.AddRange(Global.DaoFactory.GetContactDao().GetContacts(dealMembersIDs.ToArray()));
+            selectedContacts.AddRange(daoFactory.ContactDao.GetContacts(dealMembersIDs.ToArray()));
             if (selectedContacts.Count > 0)
             {
                 showMembersPanel = true;
@@ -485,7 +496,7 @@ namespace ASC.Web.CRM.Classes
 
             page.RegisterInlineScript(script, onReady: false);
             page.JsonPublisher(customFieldList, "customFieldList");
-            page.JsonPublisher(Global.DaoFactory.GetDealMilestoneDao().GetAll(), "dealMilestones");
+            page.JsonPublisher(daoFactory.DealMilestoneDao.GetAll(), "dealMilestones");
 
             if (targetDeal != null) {
                 page.JsonPublisher(targetDeal, "targetDeal");
@@ -498,7 +509,8 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataInvoicesActionView(BasePage page, Invoice targetInvoice)
         {
-            var invoiceItems = Global.DaoFactory.GetInvoiceItemDao().GetAll();
+            var daoFactory = page.DaoFactory;
+            var invoiceItems = daoFactory.InvoiceItemDao.GetAll();
             var invoiceItemsJson = JsonConvert.SerializeObject(invoiceItems.ConvertAll(item => new
                 {
                     id = item.ID,
@@ -513,7 +525,7 @@ namespace ASC.Web.CRM.Classes
                     invoiceTax2ID = item.InvoiceTax2ID
                 }));
 
-            var invoiceTaxes = Global.DaoFactory.GetInvoiceTaxDao().GetAll();
+            var invoiceTaxes = daoFactory.InvoiceTaxDao.GetAll();
             var invoiceTaxesJson = JsonConvert.SerializeObject(invoiceTaxes.ConvertAll(item => new
                 {
                     id = item.ID,
@@ -535,7 +547,7 @@ namespace ASC.Web.CRM.Classes
             var presetContactID = UrlParameters.ContactID;
             if (targetInvoice == null && presetContactID != 0)
             {
-                var targetContact = Global.DaoFactory.GetContactDao().GetByID(presetContactID);
+                var targetContact = daoFactory.ContactDao.GetByID(presetContactID);
                 if (targetContact != null)
                 {
                     presetContactsJson = JsonConvert.SerializeObject(new
@@ -548,7 +560,7 @@ namespace ASC.Web.CRM.Classes
                 }
             }
 
-            var currencyRates = Global.DaoFactory.GetCurrencyRateDao().GetAll();
+            var currencyRates = daoFactory.CurrencyRateDao.GetAll();
             var currencyRatesJson = JsonConvert.SerializeObject(currencyRates.ConvertAll(item => new
             {
                 id = item.ID,
@@ -627,7 +639,7 @@ namespace ASC.Web.CRM.Classes
         {
             var defaultCurrency = Global.TenantSettings.DefaultCurrency.Abbreviation;
 
-            var currencyRates = Global.DaoFactory.GetCurrencyRateDao().GetAll();
+            var currencyRates = page.DaoFactory.CurrencyRateDao.GetAll();
 
             var currencyRatesJson = JsonConvert.SerializeObject(currencyRates.ConvertAll(item => new
             {

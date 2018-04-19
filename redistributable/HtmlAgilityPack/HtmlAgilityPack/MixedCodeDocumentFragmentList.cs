@@ -1,6 +1,15 @@
-// HtmlAgilityPack V1.0 - Simon Mourier <simon underscore mourier at hotmail dot com>
+// Description: Html Agility Pack - HTML Parsers, selectors, traversors, manupulators.
+// Website & Documentation: http://html-agility-pack.net
+// Forum & Issues: https://github.com/zzzprojects/html-agility-pack
+// License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
+// More projects: http://www.zzzprojects.com/
+// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+
+#if !METRO
+
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace HtmlAgilityPack
 {
@@ -9,23 +18,23 @@ namespace HtmlAgilityPack
     /// </summary>
     public class MixedCodeDocumentFragmentList : IEnumerable
     {
-        #region Fields
+#region Fields
 
         private MixedCodeDocument _doc;
-        private ArrayList _items = new ArrayList();
+        private IList<MixedCodeDocumentFragment> _items = new List<MixedCodeDocumentFragment>();
 
-        #endregion
+#endregion
 
-        #region Constructors
+#region Constructors
 
         internal MixedCodeDocumentFragmentList(MixedCodeDocument doc)
         {
             _doc = doc;
         }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         ///<summary>
         /// Gets the Document
@@ -51,9 +60,9 @@ namespace HtmlAgilityPack
             get { return _items[index] as MixedCodeDocumentFragment; }
         }
 
-        #endregion
+#endregion
 
-        #region IEnumerable Members
+#region IEnumerable Members
 
         /// <summary>
         /// Gets an enumerator that can iterate through the fragment list.
@@ -63,9 +72,9 @@ namespace HtmlAgilityPack
             return GetEnumerator();
         }
 
-        #endregion
+#endregion
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Appends a fragment to the list of fragments.
@@ -137,9 +146,9 @@ namespace HtmlAgilityPack
             _items.RemoveAt(index);
         }
 
-        #endregion
+#endregion
 
-        #region Internal Methods
+#region Internal Methods
 
         internal void Clear()
         {
@@ -162,33 +171,33 @@ namespace HtmlAgilityPack
             return -1;
         }
 
-        #endregion
+#endregion
 
-        #region Nested type: MixedCodeDocumentFragmentEnumerator
+#region Nested type: MixedCodeDocumentFragmentEnumerator
 
         /// <summary>
         /// Represents a fragment enumerator.
         /// </summary>
         public class MixedCodeDocumentFragmentEnumerator : IEnumerator
         {
-            #region Fields
+#region Fields
 
             private int _index;
-            private ArrayList _items;
+            private IList<MixedCodeDocumentFragment> _items;
 
-            #endregion
+#endregion
 
-            #region Constructors
+#region Constructors
 
-            internal MixedCodeDocumentFragmentEnumerator(ArrayList items)
+            internal MixedCodeDocumentFragmentEnumerator(IList<MixedCodeDocumentFragment> items)
             {
                 _items = items;
                 _index = -1;
             }
 
-            #endregion
+#endregion
 
-            #region Properties
+#region Properties
 
             /// <summary>
             /// Gets the current element in the collection.
@@ -198,9 +207,9 @@ namespace HtmlAgilityPack
                 get { return (MixedCodeDocumentFragment) (_items[_index]); }
             }
 
-            #endregion
+#endregion
 
-            #region IEnumerator Members
+#region IEnumerator Members
 
             /// <summary>
             /// Gets the current element in the collection.
@@ -228,9 +237,10 @@ namespace HtmlAgilityPack
                 _index = -1;
             }
 
-            #endregion
+#endregion
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

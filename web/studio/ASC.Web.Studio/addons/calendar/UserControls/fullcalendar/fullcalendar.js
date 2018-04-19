@@ -1875,7 +1875,7 @@ function Calendar(element, options, eventSources) {
 
 	        if (attendeesEmails.length) {
 	            ASC.CalendarController.Busy = true;
-	            window.LoadingBanner.displayLoading(true);
+	            window.LoadingBanner.displayLoading();
 	        
 	            ASC.Mail.Utility.SendCalendarUpdate(eventObj.sourceId, eventObj.uniqueId, attendeesEmails)
                     .done(function() {
@@ -2874,7 +2874,7 @@ function CategoryDialog(calendar) {
 				_dialog.find(".ical-file-selected").html(ic.dialogButton_fileSelected).css("color", "grey");
 				},
 			onSubmit: function(file, extension) {
-				LoadingBanner.displayLoading(true); 
+				LoadingBanner.displayLoading(); 
 				},
 			onComplete: function(file, response) { 
 				LoadingBanner.hideLoading(true);
@@ -3327,10 +3327,10 @@ function SubscriptionDialog(calendar) {
 				_dialog.find(".ical-file-selected").html(ic.dialogButton_fileSelected).css("color", "grey");
 				},
 			onSubmit: function(file, extension) {
-				LoadingBanner.displayLoading(true); 
+				LoadingBanner.displayLoading(); 
 				},
 			onComplete: function(file, response) { 
-				LoadingBanner.hideLoading(true);
+				LoadingBanner.hideLoading();
 				calendar.refetchEvents();
 				}
 			});
@@ -6344,7 +6344,7 @@ function EventEditor(calendar, uiBlocker) {
 
 	    if (attendeesEmails.length && method) {
 	        ASC.CalendarController.Busy = true;
-	        window.LoadingBanner.displayLoading(true);
+	        window.LoadingBanner.displayLoading();
 	        
 	        method.call(this, sourceId, uniqueId, attendeesEmails)
                 .done(function() {
@@ -7127,7 +7127,7 @@ function EventEditor(calendar, uiBlocker) {
         _dialog.find(".viewer .reply-button").removeClass("active");
 
         ASC.CalendarController.Busy = true;
-        window.LoadingBanner.displayLoading(true);
+        window.LoadingBanner.displayLoading();
 
         ASC.Mail.Utility.SendCalendarReply(calendarId, eventUid, attendeeEmail, partstat)
             .done(function () {
@@ -8654,7 +8654,7 @@ function EventPage(calendar) {
 
         if (attendeesEmails.length && method) {
             ASC.CalendarController.Busy = true;
-            window.LoadingBanner.displayLoading(true);
+            window.LoadingBanner.displayLoading();
             
             method.call(this, sourceId, uniqueId, attendeesEmails)
                 .done(function() {
@@ -8682,7 +8682,7 @@ function EventPage(calendar) {
             return;
 
         ASC.CalendarController.Busy = true;
-        window.LoadingBanner.displayLoading(true);
+        window.LoadingBanner.displayLoading();
         
         ASC.Mail.Utility.SendCalendarReply(calendarId, eventUid, replyDecisionSettings.email, replyDecisionSettings.decision)
             .done(function () {

@@ -83,14 +83,17 @@ namespace ASC.Notify.Model
 
 
 
-        public void RegisterSendMethod(Action<DateTime> method, string cron)
+        public INotifyClient RegisterSendMethod(Action<DateTime> method, string cron)
         {
             ctx.NotifyEngine.RegisterSendMethod(method, cron);
+            return this;
         }
 
-        public void UnregisterSendMethod(Action<DateTime> method)
+        public INotifyClient UnregisterSendMethod(Action<DateTime> method)
         {
             ctx.NotifyEngine.UnregisterSendMethod(method);
+            return this;
+
         }
 
         public void BeginSingleRecipientEvent(string name)

@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 
@@ -46,5 +47,8 @@ namespace ASC.Api.Projects.Wrappers
 
         [DataMember(Order = 30, EmitDefaultValue = false)]
         public EmployeeWraper Responsible { get; set; }
+
+        [DataMember(Order = 30, EmitDefaultValue = false)]
+        public Guid ResponsibleId { get; set; }
     }
 }

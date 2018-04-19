@@ -52,15 +52,29 @@ namespace ASC.Data.Storage.DiscStorage
             _checkAuth = checkAuth;
         }
 
+        protected internal static string CombinePath(string physPath, RequestContext requestContext)
+        {
+            var pathInfo = requestContext.RouteData.Values["pathInfo"].ToString().Replace('/', Path.DirectorySeparatorChar);
+
+            var path = Path.Combine(physPath, pathInfo);
+
+            var tenant = (requestContext.RouteData.Values["0"] ?? "").ToString();
+            if (string.IsNullOrEmpty(tenant))
+            {
+                tenant = Path.Combine((requestContext.RouteData.Values["t1"] ?? "").ToString(),
+                                      (requestContext.RouteData.Values["t2"] ?? "").ToString(),
+                                      (requestContext.RouteData.Values["t3"] ?? "").ToString());
+            }
+
+            //todo: compare with current tenant id
+
+            path = path.Replace("{0}", tenant);
+            return path;
+        }
+
 
         public static void RegisterVirtualPath(string virtPath, string physPath, bool publicRoute = false)
         {
-            var pos = virtPath.IndexOf('{');
-            if (0 <= pos)
-            {
-                virtPath = virtPath.Substring(0, pos);
-            }
-
             virtPath = virtPath.TrimStart('/');
             if (virtPath != string.Empty)
             {
@@ -72,18 +86,17 @@ namespace ASC.Data.Storage.DiscStorage
                 }
                 if (!exists)
                 {
-                    pos = physPath.IndexOf('{');
-                    if (0 <= pos)
-                    {
-                        physPath = physPath.Substring(0, pos);
-                    }
-
                     using (var writeLock = RouteTable.Routes.GetWriteLock())
                     {
-                        RouteTable.Routes.Add(new Route(url,
-                                                        publicRoute
-                                                            ? (IRouteHandler)new PublicDiscDataHandler(physPath)
-                                                            : new DiscDataHandler(physPath)));
+                        var route = publicRoute
+                                        ? (IRouteHandler)new PublicDiscDataHandler(physPath)
+                                        : new DiscDataHandler(physPath);
+
+                        RouteTable.Routes.Add(new Route(url, route));
+
+                        url = url.Replace("{0}", "{t1}/{t2}/{t3}");
+
+                        RouteTable.Routes.Add(new Route(url, route));
                     }
                 }
             }
@@ -91,7 +104,7 @@ namespace ASC.Data.Storage.DiscStorage
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            var path = Path.Combine(_physPath, requestContext.RouteData.Values["pathInfo"].ToString().Replace('/', Path.DirectorySeparatorChar));
+            var path = CombinePath(_physPath, requestContext);
             return new DiscDataHandler(path);
         }
 
@@ -161,7 +174,7 @@ namespace ASC.Data.Storage.DiscStorage
 
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            var path = Path.Combine(_physPath, requestContext.RouteData.Values["pathInfo"].ToString().Replace('/', Path.DirectorySeparatorChar));
+            var path = DiscDataHandler.CombinePath(_physPath, requestContext);
             return new PublicDiscDataHandler(path);
         }
 

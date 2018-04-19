@@ -42,8 +42,8 @@ namespace ASC.CRM.Core.Dao
     {
         private readonly HttpRequestDictionary<ContactInfo> _contactInfoCache = new HttpRequestDictionary<ContactInfo>("crm_contact_info");
 
-        public CachedContactInfo(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public CachedContactInfo(int tenantID)
+            : base(tenantID)
         {
 
         }
@@ -91,8 +91,8 @@ namespace ASC.CRM.Core.Dao
     {
         #region Constructor
 
-        public ContactInfoDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public ContactInfoDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -100,48 +100,36 @@ namespace ASC.CRM.Core.Dao
 
         public virtual ContactInfo GetByID(int id)
         {
-            using (var db = GetDb())
-            {
-                var sqlResult = db.ExecuteList(GetSqlQuery(Exp.Eq("id", id))).ConvertAll(row => ToContactInfo(row));
+            var sqlResult = Db.ExecuteList(GetSqlQuery(Exp.Eq("id", id))).ConvertAll(row => ToContactInfo(row));
 
-                if (sqlResult.Count == 0) return null;
+            if (sqlResult.Count == 0) return null;
 
-                return sqlResult[0];
-            }
+            return sqlResult[0];
         }
 
         public virtual void Delete(int id)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.Eq("id", id)));
-            }
+            Db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.Eq("id", id)));
         }
 
         public virtual void DeleteByContact(int contactID)
         {
             if (contactID <= 0) return;
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.Eq("contact_id", contactID)));
-            }
+            Db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.Eq("contact_id", contactID)));
         }
 
         public virtual int Update(ContactInfo contactInfo)
         {
-            using (var db = GetDb())
-            {
-                return Update(contactInfo, db);
-            }
+            return UpdateInDb(contactInfo);
         }
 
-        private int Update(ContactInfo contactInfo, DbManager db)
+        private int UpdateInDb(ContactInfo contactInfo)
         {
             if (contactInfo == null || contactInfo.ID == 0 || contactInfo.ContactID == 0)
                 throw new ArgumentException();
 
-            db.ExecuteNonQuery(Update("crm_contact_info")
+            Db.ExecuteNonQuery(Update("crm_contact_info")
                                               .Where("id", contactInfo.ID)
                                               .Set("data", contactInfo.Data)
                                               .Set("category", contactInfo.Category)
@@ -157,15 +145,12 @@ namespace ASC.CRM.Core.Dao
 
         public int Save(ContactInfo contactInfo)
         {
-            using (var db = GetDb())
-            {
-                return Save(contactInfo, db);        
-            }
+            return SaveInDb(contactInfo);
         }
 
-        private int Save(ContactInfo contactInfo, DbManager db)
+        private int SaveInDb(ContactInfo contactInfo)
         {
-            return db.ExecuteScalar<int>(Insert("crm_contact_info")
+            return Db.ExecuteScalar<int>(Insert("crm_contact_info")
                                                                .InColumnValue("id", 0)
                                                                .InColumnValue("data", contactInfo.Data)
                                                                .InColumnValue("category", contactInfo.Category)
@@ -196,10 +181,7 @@ namespace ASC.CRM.Core.Dao
 
             sqlQuery.Where(Exp.In("contact_id", contactID));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(row => ToContactInfo(row));
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContactInfo(row));
         }
 
         public virtual List<ContactInfo> GetList(int contactID, ContactInfoType? infoType, int? categoryID, bool? isPrimary)
@@ -223,10 +205,7 @@ namespace ASC.CRM.Core.Dao
             //  sqlQuery.OrderBy("is_primary", true);
 
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(row => ToContactInfo(row));
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContactInfo(row));
         }
 
 
@@ -237,11 +216,10 @@ namespace ASC.CRM.Core.Dao
 
             var result = new List<int>();
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction(true))
+            using (var tx = Db.BeginTransaction(true))
             {
                 foreach (var contactInfo in items)
-                    result.Add(Update(contactInfo, db));
+                    result.Add(UpdateInDb(contactInfo));
 
 
                 tx.Commit();
@@ -259,11 +237,10 @@ namespace ASC.CRM.Core.Dao
 
             var result = new List<int>();
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction(true))
+            using (var tx = Db.BeginTransaction(true))
             {
                 foreach (var contactInfo in items)
-                    result.Add(Save(contactInfo, db));
+                    result.Add(SaveInDb(contactInfo));
 
 
                 tx.Commit();

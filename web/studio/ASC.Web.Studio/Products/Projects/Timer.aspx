@@ -130,7 +130,7 @@
             <div class="headerPanelSmall">
                 <b><%= ProjectResource.ProjectDescription %>:</b>
             </div>
-            <textarea id="textareaTimeDesc" style="resize:none;" MaxLength="250"></textarea>
+            <textarea id="textareaTimeDesc" style="resize:none;max-height:55px;height:55px;" MaxLength="250" cols="22" rows="3"></textarea>
         </div>
         <div class="block-cnt-splitter">
             <a class="button blue middle" id="addLog">

@@ -36,10 +36,13 @@ using ASC.Core.Users;
 using ASC.Notify.Cron;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
+using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Projects.Core.Services.NotifyService;
-using ASC.Projects.Data;
+using ASC.Projects.Engine;
+using ASC.Web.Projects.Core;
 using ASC.Web.Studio.Core.Notify;
+using Autofac;
 using log4net;
 
 namespace ASC.Web.Projects.Classes
@@ -51,7 +54,15 @@ namespace ASC.Web.Projects.Classes
             try
             {
                 var now = DateTime.UtcNow;
-                foreach (var r in new DaoFactory(Global.DbID, Tenant.DEFAULT_TENANT).GetTaskDao().GetTasksForReminder(now))
+                List<object[]> tasks;
+
+                using (var scope = DIHelper.Resolve(Tenant.DEFAULT_TENANT))
+                {
+                    var daoFactory = scope.Resolve<IDaoFactory>();
+                    tasks = daoFactory.TaskDao.GetTasksForReminder(now);
+                }
+
+                foreach (var r in tasks)
                 {
                     var tenant = CoreContext.TenantManager.GetTenant((int)r[0]);
                     if (tenant == null ||
@@ -71,20 +82,24 @@ namespace ASC.Web.Projects.Classes
                     {
                         CoreContext.TenantManager.SetCurrentTenant(tenant);
                         SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                        var t = Global.EngineFactory.TaskEngine.GetByID((int)r[1]);
-                        if (t == null) continue;
-
-                        foreach (var responsible in t.Responsibles)
+                        using (var scope = DIHelper.Resolve())
                         {
-                            var user = CoreContext.UserManager.GetUsers(t.CreateBy);
-                            if (!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)
+                            var engineFactory = scope.Resolve<EngineFactory>();
+                            var t = engineFactory.TaskEngine.GetByID((int)r[1]);
+                            if (t == null) continue;
+
+                            foreach (var responsible in t.Responsibles)
                             {
-                                SecurityContext.AuthenticateMe(user.ID);
+                                var user = CoreContext.UserManager.GetUsers(t.CreateBy);
+                                if (!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)
+                                {
+                                    SecurityContext.AuthenticateMe(user.ID);
 
-                                Thread.CurrentThread.CurrentCulture = user.GetCulture();
-                                Thread.CurrentThread.CurrentUICulture = user.GetCulture();
+                                    Thread.CurrentThread.CurrentCulture = user.GetCulture();
+                                    Thread.CurrentThread.CurrentUICulture = user.GetCulture();
 
-                                NotifyClient.Instance.SendReminderAboutTaskDeadline(new List<Guid> { responsible }, t);
+                                    NotifyClient.Instance.SendReminderAboutTaskDeadline(new List<Guid> {responsible}, t);
+                                }
                             }
                         }
                     }
@@ -119,7 +134,16 @@ namespace ASC.Web.Projects.Classes
             try
             {
                 var now = DateTime.UtcNow.Date.AddHours(DateTime.UtcNow.Hour);
-                foreach (var t in new DaoFactory(Global.DbID, -1).GetReportDao().GetAutoTemplates())
+
+                List<ReportTemplate> templates;
+
+                using (var scope = DIHelper.Resolve(Tenant.DEFAULT_TENANT))
+                {
+                    var daoFactory = scope.Resolve<IDaoFactory>();
+                    templates = daoFactory.ReportDao.GetAutoTemplates();
+                }
+
+                foreach (var t in templates)
                 {
                     try
                     {
@@ -171,7 +195,16 @@ namespace ASC.Web.Projects.Classes
         public static void SendMsgMilestoneDeadline(DateTime scheduleDate)
         {
             var date = DateTime.UtcNow.AddDays(2);
-            foreach (var r in new DaoFactory(Global.DbID, Tenant.DEFAULT_TENANT).GetMilestoneDao().GetInfoForReminder(date))
+
+            List<object[]> milestones;
+
+            using (var scope = DIHelper.Resolve(Tenant.DEFAULT_TENANT))
+            {
+                var daoFactory = scope.Resolve<IDaoFactory>();
+                milestones = daoFactory.MilestoneDao.GetInfoForReminder(date);
+            }
+
+            foreach (var r in milestones)
             {
                 var tenant = CoreContext.TenantManager.GetTenant((int)r[0]);
                 if (tenant == null ||
@@ -188,19 +221,22 @@ namespace ASC.Web.Projects.Classes
                     {
                         CoreContext.TenantManager.SetCurrentTenant(tenant);
                         SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                        var m = new DaoFactory(Global.DbID, tenant.TenantId).GetMilestoneDao().GetById((int)r[1]);
-                        if (m != null)
+                        using (var scope = DIHelper.Resolve())
                         {
-                            var sender = !m.Responsible.Equals(Guid.Empty) ? m.Responsible : m.Project.Responsible;
-                            var user = CoreContext.UserManager.GetUsers(sender);
-                            if (!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)
+                            var m = scope.Resolve<IDaoFactory>().MilestoneDao.GetById((int)r[1]);
+                            if (m != null)
                             {
-                                SecurityContext.AuthenticateMe(user.ID);
+                                var sender = !m.Responsible.Equals(Guid.Empty) ? m.Responsible : m.Project.Responsible;
+                                var user = CoreContext.UserManager.GetUsers(sender);
+                                if (!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)
+                                {
+                                    SecurityContext.AuthenticateMe(user.ID);
 
-                                Thread.CurrentThread.CurrentCulture = user.GetCulture();
-                                Thread.CurrentThread.CurrentUICulture = user.GetCulture();
+                                    Thread.CurrentThread.CurrentCulture = user.GetCulture();
+                                    Thread.CurrentThread.CurrentUICulture = user.GetCulture();
 
-                                NotifyClient.Instance.SendMilestoneDeadline(sender, m);
+                                    NotifyClient.Instance.SendMilestoneDeadline(sender, m);
+                                }
                             }
                         }
                     }

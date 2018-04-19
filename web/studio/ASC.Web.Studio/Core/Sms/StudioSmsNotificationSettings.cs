@@ -68,7 +68,8 @@ namespace ASC.Web.Studio.Core.SMS
                 var quota = TenantExtra.GetTenantQuota();
                 return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>()
                        && (CoreContext.Configuration.Standalone
-                           || (!quota.Trial
+                           || ((!quota.Trial
+                                || SetupInfo.SmsTrial)
                                && !quota.NonProfit
                                && !quota.Free
                                && !quota.Open));

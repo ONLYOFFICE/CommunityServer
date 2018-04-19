@@ -35,13 +35,17 @@ namespace ASC.Files.Core.Security
 
         IEnumerable<FileShareRecord> GetShares(IEnumerable<Guid> subjects);
 
-        IEnumerable<FileShareRecord> GetShares(params FileEntry[] entry);
+        IEnumerable<FileShareRecord> GetShares(IEnumerable<FileEntry> entry);
+
+        IEnumerable<FileShareRecord> GetShares(FileEntry entry);
 
         void RemoveSubject(Guid subject);
 
-        IEnumerable<FileShareRecord> GetPureShareRecords(params FileEntry[] entries);
+        IEnumerable<FileShareRecord> GetPureShareRecords(IEnumerable<FileEntry> entries);
 
-        void DeleteShareRecords(params FileShareRecord[] records);
+        IEnumerable<FileShareRecord> GetPureShareRecords(FileEntry entry);
+
+        void DeleteShareRecords(IEnumerable<FileShareRecord> records);
 
         bool IsShared(object entryId, FileEntryType type);
     }

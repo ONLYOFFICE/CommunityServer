@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Studio.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -88,10 +91,8 @@
     <Compile Include="ProjectApi.Milestones.cs" />
     <Compile Include="ProjectApi.TimeSpend.cs" />
     <Compile Include="ProjectBootstrap.cs" />
-    <Compile Include="Wrappers\CommonSecurityInfo.cs" />
     <Compile Include="Wrappers\ParticipantFullWrapper.cs" />
     <Compile Include="Wrappers\ParticipantWrapper.cs" />
-    <Compile Include="Wrappers\ProjectSecurityInfo.cs" />
     <Compile Include="Wrappers\ReportTemplateWrapper.cs" />
     <Compile Include="Wrappers\SimpleMilestoneWrapper.cs" />
     <Compile Include="Wrappers\SimpleTaskWrapper.cs" />

@@ -31,7 +31,7 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using RestSharp.Contrib;
+using RestSharp.Extensions;
 
 
 namespace ASC.HealthCheck.Classes
@@ -84,7 +84,7 @@ namespace ASC.HealthCheck.Classes
 
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(url.Replace("{phone}", number).Replace("{text}", HttpUtility.UrlEncode(message)));
+                var request = (HttpWebRequest)WebRequest.Create(url.Replace("{phone}", number).Replace("{text}", message.UrlEncode()));
                 request.Method = method;
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.Timeout = 1000;

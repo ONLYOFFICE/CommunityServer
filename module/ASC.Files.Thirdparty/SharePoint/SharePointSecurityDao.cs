@@ -47,7 +47,12 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public IEnumerable<FileShareRecord> GetShares(params FileEntry[] entry)
+        public IEnumerable<FileShareRecord> GetShares(IEnumerable<FileEntry> entry)
+        {
+            return null;
+        }
+
+        public IEnumerable<FileShareRecord> GetShares(FileEntry entry)
         {
             return null;
         }
@@ -56,12 +61,17 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
         }
 
-        public IEnumerable<FileShareRecord> GetPureShareRecords(params FileEntry[] entries)
+        public IEnumerable<FileShareRecord> GetPureShareRecords(IEnumerable<FileEntry> entries)
         {
             return null;
         }
 
-        public void DeleteShareRecords(params FileShareRecord[] records)
+        public IEnumerable<FileShareRecord> GetPureShareRecords(FileEntry entry)
+        {
+            return null;
+        }
+
+        public void DeleteShareRecords(IEnumerable<FileShareRecord> records)
         {
         }
 

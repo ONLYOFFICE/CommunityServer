@@ -113,14 +113,19 @@ namespace ASC.Web.Files.Services.DocumentService
 
         #endregion
 
-
-        public static bool StartTrack(string fileId, string docKeyForTrack)
+        public static string GetCallbackUrl(string fileId)
         {
             var callbackUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath
                                                                     + "?" + FilesLinkUtility.Action + "=track"
                                                                     + "&" + FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(fileId)
                                                                     + "&" + FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId));
             callbackUrl = DocumentServiceConnector.ReplaceCommunityAdress(callbackUrl);
+            return callbackUrl;
+        }
+
+        public static bool StartTrack(string fileId, string docKeyForTrack)
+        {
+            var callbackUrl = GetCallbackUrl(fileId);
             return DocumentServiceConnector.Command(CommandMethod.Info, docKeyForTrack, fileId, callbackUrl);
         }
 
@@ -131,6 +136,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 case TrackerStatus.NotFound:
                 case TrackerStatus.Closed:
                     FileTracker.Remove(fileId);
+                    Global.SocketManager.FilesChangeEditors(fileId, true);
                     break;
 
                 case TrackerStatus.Editing:
@@ -191,6 +197,7 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 FileTracker.Remove(fileId, userId: removeUserId);
             }
+            Global.SocketManager.FilesChangeEditors(fileId);
         }
 
         private static string ProcessSave(string fileId, TrackerData fileData)
@@ -264,6 +271,8 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 SaveHistory(file, (fileData.History ?? "").ToString(), fileData.ChangesUrl);
             }
+
+            Global.SocketManager.FilesChangeEditors(fileId, true);
 
             return saved
                        ? "0" //error:0 - saved

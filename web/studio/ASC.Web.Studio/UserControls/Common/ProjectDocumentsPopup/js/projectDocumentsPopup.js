@@ -314,12 +314,11 @@ window.ProjectDocumentsPopup = (function() {
             }
             if (!Attachments.isAddedFile(fileName, fileId)) {
                 massFileId.push(fileId);
-                var downloadUrl = ASC.Files.Utility.GetFileDownloadUrl(fileId);
-                var viewUrl = ASC.Files.Utility.GetFileViewUrl(fileId);
+                var viewUrl = ASC.Files.Utility.GetFileDownloadUrl(fileId);
                 var docEditUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileId);
                 var editUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileId);
                 var fileTmpl = { title: fileName, access: access, type: type, exttype: exttype, id: fileId, version: version, versionGroup: versionGroup,
-                    viewUrl: viewUrl, downloadUrl: downloadUrl, editUrl: editUrl, docEditUrl: docEditUrl, fromProjectDocs: true, trashAction: "deattach"
+                    viewUrl: viewUrl, editUrl: editUrl, docEditUrl: docEditUrl, fromProjectDocs: true, trashAction: "deattach"
                 };
                 listfiles.push(fileTmpl);
                 fileTmpl.attachFromPrjDocFlag = true;

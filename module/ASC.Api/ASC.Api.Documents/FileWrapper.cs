@@ -131,7 +131,7 @@ namespace ASC.Api.Documents
             Comment = file.Comment;
             try
             {
-                ViewUrl = CommonLinkUtility.GetFullAbsolutePath(file.ViewUrl);
+                ViewUrl = CommonLinkUtility.GetFullAbsolutePath(file.DownloadUrl);
 
                 WebUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID));
             }

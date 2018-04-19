@@ -286,6 +286,41 @@ namespace Ical.Net
         }
 
         /// <summary>
+        /// Adds a system time zone to the iCalendar.  This time zone may
+        /// then be used in date/time objects contained in the 
+        /// calendar.
+        /// </summary>
+        /// <param name="tzi">A System.TimeZoneInfo object to add to the calendar.</param>
+        /// <returns>The time zone added to the calendar.</returns>
+        public ITimeZone AddTimeZone(TimeZoneInfo tzi)
+        {
+            ITimeZone tz = VTimeZone.FromSystemTimeZone(tzi);
+            this.AddChild(tz);
+            return tz;
+        }
+
+        public ITimeZone AddTimeZone(TimeZoneInfo tzi, DateTime earliestDateTimeToSupport, bool includeHistoricalData)
+        {
+            ITimeZone tz = VTimeZone.FromSystemTimeZone(tzi, earliestDateTimeToSupport, includeHistoricalData);
+            this.AddChild(tz);
+            return tz;
+        }
+
+        public ITimeZone AddTimeZone(string tzId)
+        {
+            ITimeZone tz = VTimeZone.FromTzId(tzId);
+            this.AddChild(tz);
+            return tz;
+        }
+
+        public ITimeZone AddTimeZone(string tzId, DateTime earliestDateTimeToSupport, bool includeHistoricalData)
+        {
+            ITimeZone tz = VTimeZone.FromTzId(tzId, earliestDateTimeToSupport, includeHistoricalData);
+            this.AddChild(tz);
+            return tz;
+        }
+
+        /// <summary>
         /// Adds a time zone to the iCalendar.  This time zone may
         /// then be used in date/time objects contained in the 
         /// calendar.
@@ -293,6 +328,13 @@ namespace Ical.Net
         /// <returns>The time zone added to the calendar.</returns>
         public ITimeZone AddTimeZone(ITimeZone tz)
         {
+            this.AddChild(tz);
+            return tz;
+        }
+
+        public ITimeZone AddLocalTimeZone(DateTime earliestDateTimeToSupport, bool includeHistoricalData)
+        {
+            ITimeZone tz = VTimeZone.FromLocalTimeZone(earliestDateTimeToSupport, includeHistoricalData);
             this.AddChild(tz);
             return tz;
         }

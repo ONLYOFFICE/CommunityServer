@@ -24,48 +24,61 @@
 */
 
 
+using System;
+using ASC.Common.Web;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
 using ASC.VoipService;
 using ASC.VoipService.Dao;
+using ASC.Web.Projects.Core;
+using Autofac;
 using FilesGlobal = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Api.CRM
 {
-    public class CRMApiBase
+    public class CRMApiBase : IDisposable
     {
-        private DaoFactory crmDaoFactory;
-        private Projects.Data.DaoFactory projectsDaoFactory;
         private IDaoFactory filesDaoFactory;
 
-        protected DaoFactory DaoFactory
+        private readonly ILifetimeScope scope;
+        private readonly ILifetimeScope crmScope;
+
+        public CRMApiBase()
         {
-            get
-            {
-                return crmDaoFactory ??
-                       (crmDaoFactory = new DaoFactory(CoreContext.TenantManager.GetCurrentTenant().TenantId, CRMConstants.DatabaseId));
-            }
+            scope = DIHelper.Resolve();
+            ProjectsDaoFactory = scope.Resolve<Projects.Core.DataInterfaces.IDaoFactory>();
+
+            crmScope = Web.CRM.Core.DIHelper.Resolve();
+            DaoFactory = crmScope.Resolve<DaoFactory>();
         }
+
+        protected DaoFactory DaoFactory { get; private set; }
 
         protected IVoipProvider VoipProvider
         {
             get { return VoipDao.GetProvider(); }
         }
 
-        protected Projects.Data.DaoFactory ProjectsDaoFactory
-        {
-            get
-            {
-                return projectsDaoFactory ??
-                       (projectsDaoFactory = new Projects.Data.DaoFactory("projects", CoreContext.TenantManager.GetCurrentTenant().TenantId));
-            }
-        }
+        protected Projects.Core.DataInterfaces.IDaoFactory ProjectsDaoFactory { get; private set; }
 
         protected IDaoFactory FilesDaoFactory
         {
             get { return filesDaoFactory ?? (filesDaoFactory = FilesGlobal.DaoFactory); }
+        }
+
+        public void Dispose()
+        {
+            if (scope != null)
+            {
+                scope.Dispose();
+            }
+
+            if (crmScope != null)
+            {
+                crmScope.Dispose();
+            }
         }
     }
 }

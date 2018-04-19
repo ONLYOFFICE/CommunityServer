@@ -57,8 +57,11 @@ namespace Ical.Net.DataTypes
 
         public Organizer(string value) : this()
         {
-            var serializer = new OrganizerSerializer();
-            CopyFrom(serializer.Deserialize(new StringReader(value)) as ICopyable);
+            if (value != null)
+            {
+                var serializer = new OrganizerSerializer();
+                CopyFrom(serializer.Deserialize(new StringReader(value)) as ICopyable);
+            }
         }
 
         protected bool Equals(Organizer other)

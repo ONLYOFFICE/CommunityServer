@@ -4,7 +4,7 @@ using System.Linq;
 
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using ASC.Web.Projects.Classes;
+using Autofac;
 
 namespace ASC.Web.Projects.Core.Engine
 {
@@ -19,25 +19,28 @@ namespace ASC.Web.Projects.Core.Engine
 
         public ProjectsReassign()
         {
-            var factory = Global.EngineFactory;
-            factory.DisableNotifications = true;
-            ProjectEngine = factory.ProjectEngine;
-            MilestoneEngine = factory.MilestoneEngine;
-            TaskEngine = factory.TaskEngine;
-            SubtaskEngine = factory.SubtaskEngine;
             FromUserProjects = new List<Project>();
         }
 
         public void Reassign(Guid fromUserId, Guid toUserId)
         {
-            FromUserProjects = ProjectEngine.GetByParticipant(fromUserId).ToList();
-            ToUserProjects = ProjectEngine.GetByParticipant(toUserId).ToList();
+            using (var scope = DIHelper.Resolve(true))
+            {
+                var factory = scope.Resolve<EngineFactory>();
+                ProjectEngine = factory.ProjectEngine;
+                MilestoneEngine = factory.MilestoneEngine;
+                TaskEngine = factory.TaskEngine;
+                SubtaskEngine = factory.SubtaskEngine;
 
-            ReplaceTeam(fromUserId, toUserId);
-            ReassignProjectManager(fromUserId, toUserId);
-            ReassignMilestones(fromUserId, toUserId);
-            ReassignTasks(fromUserId, toUserId);
-            ReassignSubtasks(fromUserId, toUserId);
+                FromUserProjects = ProjectEngine.GetByParticipant(fromUserId).ToList();
+                ToUserProjects = ProjectEngine.GetByParticipant(toUserId).ToList();
+
+                ReplaceTeam(fromUserId, toUserId);
+                ReassignProjectManager(fromUserId, toUserId);
+                ReassignMilestones(fromUserId, toUserId);
+                ReassignTasks(fromUserId, toUserId);
+                ReassignSubtasks(fromUserId, toUserId);
+            }
         }
 
         private void ReplaceTeam(Guid fromUserId, Guid toUserId)

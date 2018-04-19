@@ -82,7 +82,8 @@ namespace ASC.Web.Projects
                                      "actionmanager.js",
                                      "anchormanager.js",
                                      "foldermanager.js",
-                                     "eventhandler.js"
+                                     "eventhandler.js",
+                                     "socketmanager.js"
                 )
                 .RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
                                      "controls/createmenu/createmenu.js",

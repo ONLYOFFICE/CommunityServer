@@ -15,5 +15,26 @@ namespace ASC.Socket.IO.Svc
         {
             get { return (string)base["port"]; }
         }
+
+        [ConfigurationProperty("redis")]
+        public RedisCfgElement Redis
+        {
+            get { return (RedisCfgElement)base["redis"]; }
+        }
+    }
+
+    public class RedisCfgElement : ConfigurationElement
+    {
+        [ConfigurationProperty("host")]
+        public string Host
+        {
+            get { return (string)base["host"]; }
+        }
+
+        [ConfigurationProperty("port")]
+        public string Port
+        {
+            get { return (string)base["port"]; }
+        }
     }
 }

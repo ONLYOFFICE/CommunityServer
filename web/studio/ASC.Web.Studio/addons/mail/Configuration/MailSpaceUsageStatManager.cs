@@ -32,13 +32,14 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Mail.Configuration
 {
-    public class MailSpaceUsageStatManager : SpaceUsageStatManager
+    public class MailSpaceUsageStatManager : SpaceUsageStatManager, IUserSpaceUsage
     {
         private const string MailDatabaseId = "mail";
 
@@ -65,11 +66,27 @@ namespace ASC.Web.Mail.Configuration
                                     Name = DisplayUserSettings.GetFullUserName(user, false),
                                     ImgUrl = UserPhotoManager.GetSmallPhotoURL(user.ID),
                                     Url = CommonLinkUtility.GetUserProfile(user.ID),
-                                    SpaceUsage = Convert.ToInt64(r[1])
+                                    SpaceUsage = Convert.ToInt64(r[1]),
+                                    Disabled = user.Status == EmployeeStatus.Terminated
                                 };
                             return item;
                         })
                     .ToList();
+            }
+        }
+
+        public long GetUserSpaceUsage(Guid userId)
+        {
+            using (var mail_db = new DbManager(MailDatabaseId))
+            {
+                var query = new SqlQuery("mail_attachment a")
+                    .InnerJoin("mail_mail m", Exp.EqColumns("a.id_mail", "m.id"))
+                    .Select("sum(a.size) as size")
+                    .Where("a.tenant", TenantProvider.CurrentTenantID)
+                    .Where("m.id_user", userId)
+                    .Where("a.need_remove", 0);
+
+                return mail_db.ExecuteScalar<long>(query);
             }
         }
     }

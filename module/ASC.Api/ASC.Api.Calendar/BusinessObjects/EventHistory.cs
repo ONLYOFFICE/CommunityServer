@@ -39,7 +39,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             var isExist = History
                 .Where(x => x.Method == calendar.Method)
                 .Select(x => x.Events.First())
-                .Any(x => x.Sequence == eventObj.Sequence && x.DtStamp.AsUtc == eventObj.DtStamp.AsUtc);
+                .Any(x => x.Sequence == eventObj.Sequence && DDayICalParser.ToUtc(x.DtStamp) == DDayICalParser.ToUtc(eventObj.DtStamp));
 
             return isExist;
         }

@@ -45,28 +45,26 @@ namespace ASC.CRM.Core.Dao
 {
     public class AbstractDao
     {
-        private readonly string dbid;
-
         protected readonly List<EntityType> _supportedEntityType = new List<EntityType>();
         protected readonly ILog _log = LogManager.GetLogger("ASC.CRM");
 
         protected readonly ICache _cache = AscCache.Default;
+        public IDbManager Db { get; set; }
         /*
         protected readonly String _invoiceItemCacheKey;
         protected readonly String _invoiceTaxCacheKey;
         protected readonly String _invoiceLineCacheKey;
         */
-        protected AbstractDao(int tenantID, String storageKey)
+        protected AbstractDao(int tenantID)
         {
             TenantID = tenantID;
-            dbid = storageKey;
 
             _supportedEntityType.Add(EntityType.Company);
             _supportedEntityType.Add(EntityType.Person);
             _supportedEntityType.Add(EntityType.Contact);
             _supportedEntityType.Add(EntityType.Opportunity);
             _supportedEntityType.Add(EntityType.Case);
-            
+
             /*
             _invoiceItemCacheKey = String.Concat(TenantID, "/invoiceitem");
             _invoiceTaxCacheKey = String.Concat(TenantID, "/invoicetax");
@@ -87,11 +85,6 @@ namespace ASC.CRM.Core.Dao
              */
         }
 
-        protected DbManager GetDb()
-        {
-            return new DbManager(dbid);
-        }
-
         protected int TenantID
         {
             get;
@@ -104,28 +97,26 @@ namespace ASC.CRM.Core.Dao
                 throw new ArgumentException();
 
             var tagIDs = new List<int>();
-            using (var db = GetDb())
-            {
-                foreach (var tag in tags)
-                    tagIDs.Add(db.ExecuteScalar<int>(Query("crm_tag")
-                          .Select("id")
-                          .Where(Exp.Eq("entity_type", (int)entityType) & Exp.Eq("trim(lower(title))", tag.Trim().ToLower()))));
 
-                var sqlQuery = new SqlQuery("crm_entity_tag")
-                    .Select("entity_id")
-                    .Select("count(*) as count")
-                    .GroupBy("entity_id")
-                    .Having(Exp.Eq("count", tags.Count()));
+            foreach (var tag in tags)
+                tagIDs.Add(Db.ExecuteScalar<int>(Query("crm_tag")
+                        .Select("id")
+                        .Where(Exp.Eq("entity_type", (int)entityType) & Exp.Eq("trim(lower(title))", tag.Trim().ToLower()))));
 
-                if (exceptIDs != null && exceptIDs.Length > 0)
-                    sqlQuery.Where(Exp.In("entity_id", exceptIDs) & Exp.Eq("entity_type", (int)entityType));
-                else
-                    sqlQuery.Where(Exp.Eq("entity_type", (int)entityType));
+            var sqlQuery = new SqlQuery("crm_entity_tag")
+                .Select("entity_id")
+                .Select("count(*) as count")
+                .GroupBy("entity_id")
+                .Having(Exp.Eq("count", tags.Count()));
 
-                sqlQuery.Where(Exp.In("tag_id", tagIDs));
+            if (exceptIDs != null && exceptIDs.Length > 0)
+                sqlQuery.Where(Exp.In("entity_id", exceptIDs) & Exp.Eq("entity_type", (int)entityType));
+            else
+                sqlQuery.Where(Exp.Eq("entity_type", (int)entityType));
 
-                return db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToInt32(row[0]));
-            }
+            sqlQuery.Where(Exp.In("tag_id", tagIDs));
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToInt32(row[0]));
         }
 
         protected Dictionary<int, int[]> GetRelativeToEntity(int[] contactID, EntityType entityType, int[] entityID)
@@ -137,25 +128,19 @@ namespace ASC.CRM.Core.Dao
             else if (entityID != null && entityID.Length > 0 && (contactID == null || contactID.Length == 0))
                 sqlQuery.Select("entity_id", "contact_id").Where(Exp.Eq("entity_type", entityType) & Exp.In("entity_id", entityID));
 
-            using (var db = GetDb())
-            {
-                var sqlResult = db.ExecuteList(sqlQuery);
+            var sqlResult = Db.ExecuteList(sqlQuery);
 
-                return sqlResult.GroupBy(item => item[0])
-                       .ToDictionary(item => Convert.ToInt32(item.Key),
-                                    item => item.Select(x => Convert.ToInt32(x[1])).ToArray());
-            }
+            return sqlResult.GroupBy(item => item[0])
+                    .ToDictionary(item => Convert.ToInt32(item.Key),
+                                item => item.Select(x => Convert.ToInt32(x[1])).ToArray());
         }
 
         protected int[] GetRelativeToEntity(int? contactID, EntityType entityType, int? entityID)
         {
-            using (var db = GetDb())
-            {
-                return GetRelativeToEntity(contactID, entityType, entityID, db);
-            }
+            return GetRelativeToEntityInDb(contactID, entityType, entityID);
         }
 
-        protected int[] GetRelativeToEntity(int? contactID, EntityType entityType, int? entityID, DbManager db)
+        protected int[] GetRelativeToEntityInDb(int? contactID, EntityType entityType, int? entityID)
         {
             var sqlQuery = new SqlQuery("crm_entity_contact");
 
@@ -164,42 +149,45 @@ namespace ASC.CRM.Core.Dao
             else if (!contactID.HasValue && entityID.HasValue)
                 sqlQuery.Select("contact_id").Where(Exp.Eq("entity_type", entityType) & Exp.Eq("entity_id", entityID.Value));
 
-            return db.ExecuteList(sqlQuery).Select(row => Convert.ToInt32(row[0])).ToArray();
+            return Db.ExecuteList(sqlQuery).Select(row => Convert.ToInt32(row[0])).ToArray();
         }
 
         protected void SetRelative(int[] contactID, EntityType entityType, int entityID)
         {
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            if (entityID == 0)
+                throw new ArgumentException();
+
+            using (var tx = Db.BeginTransaction())
             {
+                var sqlQuery = new SqlQuery("crm_entity_contact")
+                    .Select("contact_id")
+                    .Where(Exp.Eq("entity_type", entityType) & Exp.Eq("entity_id", entityID));
 
-                var sqlDelete = new SqlDelete("crm_entity_contact");
-
-                if (entityID == 0)
-                    throw new ArgumentException();
-
-                sqlDelete.Where(Exp.Eq("entity_type", entityType) & Exp.Eq("entity_id", entityID));
-
-                db.ExecuteNonQuery(sqlDelete);
+                var exists = Db.ExecuteList(sqlQuery).Select(row => Convert.ToInt32(row[0])).ToList();
+                foreach (var existContact in exists)
+                {
+                    var sqlDelete = new SqlDelete("crm_entity_contact").Where(Exp.Eq("entity_type", entityType) & Exp.Eq("entity_id", entityID) & Exp.Eq("contact_id", existContact));
+                    Db.ExecuteNonQuery(sqlDelete);
+                }
 
                 if (!(contactID == null || contactID.Length == 0))
                     foreach (var id in contactID)
-                        SetRelative(id, entityType, entityID, db);
+                        SetRelative(id, entityType, entityID);
 
                 tx.Commit();
             }
         }
 
-        protected void SetRelative(int contactID, EntityType entityType, int entityID, DbManager db)
+        protected void SetRelative(int contactID, EntityType entityType, int entityID)
         {
-            db.ExecuteNonQuery(new SqlInsert("crm_entity_contact", true)
+            Db.ExecuteNonQuery(new SqlInsert("crm_entity_contact", true)
                                        .InColumnValue("entity_id", entityID)
                                        .InColumnValue("entity_type", (int)entityType)
                                        .InColumnValue("contact_id", contactID)
                                     );
         }
 
-        protected void RemoveRelative(int[] contactID, EntityType entityType, int[] entityID, DbManager db)
+        protected void RemoveRelativeInDb(int[] contactID, EntityType entityType, int[] entityID)
         {
 
             if ((contactID == null || contactID.Length == 0) && (entityID == null || entityID.Length == 0))
@@ -213,10 +201,10 @@ namespace ASC.CRM.Core.Dao
             if (entityID != null && entityID.Length > 0)
                 sqlQuery.Where(Exp.In("entity_id", entityID) & Exp.Eq("entity_type", (int)entityType));
 
-            db.ExecuteNonQuery(sqlQuery);
+            Db.ExecuteNonQuery(sqlQuery);
         }
 
-        protected void RemoveRelative(int contactID, EntityType entityType, int entityID, DbManager db)
+        protected void RemoveRelative(int contactID, EntityType entityType, int entityID)
         {
             int[] contactIDs = null;
             int[] entityIDs = null;
@@ -229,23 +217,20 @@ namespace ASC.CRM.Core.Dao
                 entityIDs = new[] { entityID };
 
 
-            RemoveRelative(contactIDs, entityType, entityIDs, db);
+            RemoveRelativeInDb(contactIDs, entityType, entityIDs);
         }
 
 
         public int SaveOrganisationLogo(byte[] bytes)
         {
             var logo_id = 0;
-            using (var db = GetDb())
-            {
-                logo_id = db.ExecuteScalar<int>(
-                                          Insert("crm_organisation_logo")
-                                         .InColumnValue("id", 0)
-                                         .InColumnValue("content", Convert.ToBase64String(bytes))
-                                         .InColumnValue("create_on", DateTime.UtcNow)
-                                         .InColumnValue("create_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                                         .Identity(1, 0, true));
-            }
+            logo_id = Db.ExecuteScalar<int>(
+                                        Insert("crm_organisation_logo")
+                                        .InColumnValue("id", 0)
+                                        .InColumnValue("content", Convert.ToBase64String(bytes))
+                                        .InColumnValue("create_on", DateTime.UtcNow)
+                                        .InColumnValue("create_by", ASC.Core.SecurityContext.CurrentAccount.ID)
+                                        .Identity(1, 0, true));
             return logo_id;
         }
 
@@ -254,13 +239,10 @@ namespace ASC.CRM.Core.Dao
             var content = "";
             if (logo_id <= 0) throw new ArgumentException();
 
-            using (var db = GetDb())
-            {
-                content = db.ExecuteList(
-                                        new SqlQuery("crm_organisation_logo")
-                                        .Select("content")
-                                        .Where("id", logo_id)).Select(row => Convert.ToString(row[0])).FirstOrDefault();
-            }
+            content = Db.ExecuteList(
+                                    new SqlQuery("crm_organisation_logo")
+                                    .Select("content")
+                                    .Where("id", logo_id)).Select(row => Convert.ToString(row[0])).FirstOrDefault();
             return content;
         }
 
@@ -268,12 +250,9 @@ namespace ASC.CRM.Core.Dao
 
         public bool HasActivity()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<bool>(@"select exists(select 1 from crm_case where tenant_id = @tid) or " +
-                    "exists(select 1 from crm_deal where tenant_id = @tid) or exists(select 1 from crm_task where tenant_id = @tid) or " +
-                    "exists(select 1 from crm_contact where tenant_id = @tid)", new { tid = TenantID });
-            }
+            return Db.ExecuteScalar<bool>(@"select exists(select 1 from crm_case where tenant_id = @tid) or " +
+                "exists(select 1 from crm_deal where tenant_id = @tid) or exists(select 1 from crm_task where tenant_id = @tid) or " +
+                "exists(select 1 from crm_contact where tenant_id = @tid)", new { tid = TenantID });
         }
 
         #endregion

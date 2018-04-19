@@ -90,8 +90,8 @@ namespace ASC.Web.Studio.UserControls.Management
             get
             {
                 return InEuro
-                           ? new[] { 4.50m, 1.80m, 0.90m }
-                           : new[] { 5.0m, 2.0m, 1.0m };
+                           ? new[] { 4.25m, 2.40m, 1.60m }
+                           : new[] { 5.0m, 3.0m, 2.0m };
             }
         }
 

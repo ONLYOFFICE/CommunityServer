@@ -200,7 +200,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                             Description = Convert.ToString(r[2]),
                             CreateBy = new Guid(Convert.ToString(r[3])),
                             CreateOn = Convert.ToDateTime(r[4]),
-                            LastModifiedBy = new Guid(Convert.ToString(r[5])),
+                            LastModifiedBy = ToGuid(r[5]),
                             LastModifiedOn = Convert.ToDateTime(r[6]),
                             Project = new Project
                                 {
@@ -213,7 +213,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                                     Private = Convert.ToBoolean(r[13]),
                                     CreateBy = new Guid(Convert.ToString(r[14])),
                                     CreateOn = Convert.ToDateTime(r[15]),
-                                    LastModifiedBy = new Guid(Convert.ToString(r[16])),
+                                    LastModifiedBy = ToGuid(r[16]),
                                     LastModifiedOn = Convert.ToDateTime(r[17]),
                                 }
                         }

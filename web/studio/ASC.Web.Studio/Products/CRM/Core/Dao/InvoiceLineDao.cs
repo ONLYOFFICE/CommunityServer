@@ -43,8 +43,8 @@ namespace ASC.CRM.Core.Dao
     {
         private readonly HttpRequestDictionary<InvoiceLine> _invoiceLineCache = new HttpRequestDictionary<InvoiceLine>("crm_invoice_line");
 
-        public CachedInvoiceLineDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedInvoiceLineDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -81,8 +81,8 @@ namespace ASC.CRM.Core.Dao
     
     public class InvoiceLineDao : AbstractDao
     {
-        public InvoiceLineDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public InvoiceLineDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -113,41 +113,29 @@ namespace ASC.CRM.Core.Dao
 
         public virtual List<InvoiceLine> GetAll()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetInvoiceLineSqlQuery(null)).ConvertAll(ToInvoiceLine);
-            }
+            return Db.ExecuteList(GetInvoiceLineSqlQuery(null)).ConvertAll(ToInvoiceLine);
         }
 
         public virtual List<InvoiceLine> GetByID(int[] ids)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetInvoiceLineSqlQuery(Exp.In("id", ids))).ConvertAll(ToInvoiceLine);
-            }
+            return Db.ExecuteList(GetInvoiceLineSqlQuery(Exp.In("id", ids))).ConvertAll(ToInvoiceLine);
         }
 
         public virtual InvoiceLine GetByID(int id)
         {
-            using (var db = GetDb())
-            {
-                var invoiceLines = db.ExecuteList(GetInvoiceLineSqlQuery(Exp.Eq("id", id))).ConvertAll(ToInvoiceLine);
+            var invoiceLines = Db.ExecuteList(GetInvoiceLineSqlQuery(Exp.Eq("id", id))).ConvertAll(ToInvoiceLine);
 
-                return invoiceLines.Count > 0 ? invoiceLines[0] : null;
-            }
+            return invoiceLines.Count > 0 ? invoiceLines[0] : null;
         }
         
         public List<InvoiceLine> GetInvoiceLines(int invoiceID)
         {
-            using (var db = GetDb())
-            {
-                return GetInvoiceLines(invoiceID, db);
-            }
+            return GetInvoiceLinesInDb(invoiceID);
         }
 
-        public List<InvoiceLine> GetInvoiceLines(int invoiceID, DbManager db)
+        public List<InvoiceLine> GetInvoiceLinesInDb(int invoiceID)
         {
-            return db.ExecuteList(GetInvoiceLineSqlQuery(Exp.Eq("invoice_id", invoiceID)).OrderBy("sort_order", true)).ConvertAll(ToInvoiceLine);
+            return Db.ExecuteList(GetInvoiceLineSqlQuery(Exp.Eq("invoice_id", invoiceID)).OrderBy("sort_order", true)).ConvertAll(ToInvoiceLine);
         }
 
         #endregion
@@ -159,13 +147,10 @@ namespace ASC.CRM.Core.Dao
         {
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
-            using (var db = GetDb())
-            {
-                return SaveOrUpdateInvoiceLine(invoiceLine, db);
-            }
+            return SaveOrUpdateInvoiceLineInDb(invoiceLine);
         }
 
-        private int SaveOrUpdateInvoiceLine(InvoiceLine invoiceLine, DbManager db)
+        private int SaveOrUpdateInvoiceLineInDb(InvoiceLine invoiceLine)
         {
             if (invoiceLine.InvoiceID <= 0 || invoiceLine.InvoiceItemID <= 0)
                 throw new ArgumentException();
@@ -175,9 +160,9 @@ namespace ASC.CRM.Core.Dao
                 invoiceLine.Description = String.Empty;
             }
 
-            if (db.ExecuteScalar<int>(Query("crm_invoice_line").SelectCount().Where(Exp.Eq("id", invoiceLine.ID))) == 0)
+            if (Db.ExecuteScalar<int>(Query("crm_invoice_line").SelectCount().Where(Exp.Eq("id", invoiceLine.ID))) == 0)
             {
-                invoiceLine.ID = db.ExecuteScalar<int>(
+                invoiceLine.ID = Db.ExecuteScalar<int>(
                                Insert("crm_invoice_line")
                               .InColumnValue("id", 0)
                               .InColumnValue("invoice_id", invoiceLine.InvoiceID)
@@ -194,7 +179,7 @@ namespace ASC.CRM.Core.Dao
             else
             {
 
-                db.ExecuteNonQuery(
+                Db.ExecuteNonQuery(
                     Update("crm_invoice_line")
                         .Set("invoice_id", invoiceLine.InvoiceID)
                         .Set("invoice_item_id", invoiceLine.InvoiceItemID)
@@ -221,10 +206,7 @@ namespace ASC.CRM.Core.Dao
 
             if (invoiceLine == null) return;
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_invoice_line").Where("id", invoiceLineID));
-            }
+            Db.ExecuteNonQuery(Delete("crm_invoice_line").Where("id", invoiceLineID));
 
             /*_cache.Remove(_invoiceItemCacheKey);
             _cache.Insert(_invoiceLineCacheKey, String.Empty);*/
@@ -232,10 +214,7 @@ namespace ASC.CRM.Core.Dao
 
         public void DeleteInvoiceLines(int invoiceID)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_invoice_line").Where(Exp.Eq("invoice_id", invoiceID)));
-            }
+            Db.ExecuteNonQuery(Delete("crm_invoice_line").Where(Exp.Eq("invoice_id", invoiceID)));
 
             /*_cache.Remove(_invoiceItemCacheKey);
             _cache.Insert(_invoiceLineCacheKey, String.Empty);*/
@@ -243,21 +222,18 @@ namespace ASC.CRM.Core.Dao
 
         public Boolean CanDelete(int invoiceLineID)
         {
-            using (var db = GetDb())
-            {
-                return CanDelete(invoiceLineID, db);
-            }
+            return CanDeleteInDb(invoiceLineID);
         }
 
-        public Boolean CanDelete(int invoiceLineID, DbManager db)
+        public Boolean CanDeleteInDb(int invoiceLineID)
         {
 
-                var invoiceID = db.ExecuteScalar<int>(Query("crm_invoice_line").Select("invoice_id")
+                var invoiceID = Db.ExecuteScalar<int>(Query("crm_invoice_line").Select("invoice_id")
                                      .Where(Exp.Eq("id", invoiceLineID)));
 
                 if (invoiceID == 0) return false;
 
-                var count = db.ExecuteScalar<int>(Query("crm_invoice_line").SelectCount()
+                var count = Db.ExecuteScalar<int>(Query("crm_invoice_line").SelectCount()
                                         .Where(Exp.Eq("invoice_id", invoiceID)));
 
                 return count > 1;

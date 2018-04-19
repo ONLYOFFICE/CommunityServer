@@ -402,6 +402,9 @@
   <data name="CommonSettings" xml:space="preserve">
     <value>Common Settings</value>
   </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Confirmation dialog for deletion to recycle bin</value>
+  </data>
   <data name="ConfirmOverwrite" xml:space="preserve">
     <value>Overwrite confirmation</value>
   </data>

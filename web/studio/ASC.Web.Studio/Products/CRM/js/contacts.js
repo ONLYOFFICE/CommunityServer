@@ -64,11 +64,15 @@ ASC.CRM.ListContactView = (function() {
         }
 
         var unlockDelete = false,
+            unlockAddTag = false,
             unlockSendEmail = false;
 
         for (var i = 0; i < count; i++) {
             if (ASC.CRM.ListContactView.selectedItems[i].canDelete) {
                 unlockDelete = true;
+            }
+            if (ASC.CRM.ListContactView.selectedItems[i].canEdit) {
+                unlockAddTag = true;
             }
             if (ASC.CRM.ListContactView.selectedItems[i].primaryEmail != null) {
                 unlockSendEmail = true;
@@ -81,7 +85,12 @@ ASC.CRM.ListContactView = (function() {
             jq("#contactsHeaderMenu .menuActionDelete.unlockAction").removeClass("unlockAction");
         }
 
-        jq("#contactsHeaderMenu .menuActionAddTag:not(.unlockAction)").addClass("unlockAction");
+        if (unlockAddTag) {
+            jq("#contactsHeaderMenu .menuActionAddTag:not(.unlockAction)").addClass("unlockAction");
+        } else {
+            jq("#contactsHeaderMenu .menuActionAddTag.unlockAction").removeClass("unlockAction");
+        }
+
         jq("#contactsHeaderMenu .menuActionPermissions:not(.unlockAction)").addClass("unlockAction");
         jq("#contactsHeaderMenu .menuActionAddTask:not(.unlockAction)").addClass("unlockAction");
 
@@ -797,7 +806,8 @@ ASC.CRM.ListContactView = (function() {
     var _addTag = function(params) {
         var selectedIDs = new Array();
         for (var i = 0, n = ASC.CRM.ListContactView.selectedItems.length; i < n; i++) {
-            selectedIDs.push(ASC.CRM.ListContactView.selectedItems[i].id);
+            if (ASC.CRM.ListContactView.selectedItems[i].canEdit)
+                selectedIDs.push(ASC.CRM.ListContactView.selectedItems[i].id);
         }
         params.contactIDs = selectedIDs;
 
@@ -2468,7 +2478,7 @@ ASC.CRM.ListContactView = (function() {
 ASC.CRM.ContactPhotoUploader = (function() {
     return {
         initPhotoUploader: function(parentDialog, photoImg, data) {
-            new AjaxUpload('changeLogo', {
+            var a = new AjaxUpload('changeLogo', {
                 action: 'ajaxupload.ashx?type=ASC.Web.CRM.Classes.ContactPhotoHandler,ASC.Web.CRM',
                 autoSubmit: true,
                 data: data,
@@ -2476,9 +2486,6 @@ ASC.CRM.ContactPhotoUploader = (function() {
                     var tmpDirName = "";
                     if (jq("#uploadPhotoPath").length == 1) {
                         tmpDirName = jq("#uploadPhotoPath").val();
-                        if (tmpDirName != "") {
-                            tmpDirName = tmpDirName.substr(0, tmpDirName.lastIndexOf("/"))
-                        }
                     }
                     this.setData(jQuery.extend({ tmpDirName: tmpDirName }, data));
                 },
@@ -2508,13 +2515,13 @@ ASC.CRM.ContactPhotoUploader = (function() {
                     jq("#divLoadPhotoFromPC .fileUploadDscr").show();
                     PopupKeyUpActionProvider.CloseDialog();
                     if (jq("#uploadPhotoPath").length == 1) {
-                        jq("#uploadPhotoPath").val(responseObj.Data);
+                        jq("#uploadPhotoPath").val(responseObj.Data.Path);
                     }
 
                     var now = new Date();
-                    photoImg.attr("src", responseObj.Data + '?' + now.getTime());
+                    photoImg.attr("src", responseObj.Data.Url + '?' + now.getTime());
                     jq(".under_logo .linkChangePhoto").removeClass("disable");
-                    jq(window).trigger("contactPhotoUploadSuccessComplete", responseObj.Data);
+                    jq(window).trigger("contactPhotoUploadSuccessComplete", responseObj.Data.Url);
                     LoadingBanner.hideLoading();
                 },
                 parentDialog: parentDialog,
@@ -2530,7 +2537,7 @@ ASC.CRM.ContactFullCardView = (function () {
     var _cookiePath = "/";
     var _cookieToggledBlocksKey = "contactFullCardToggledBlocks";
 
-    var initSliderControl = function() {
+    var initSliderControl = function (canEdit) {
         if (typeof (window.sliderListItems) != "undefined" && window.sliderListItems != null) {
             var colors = [],
                 values = [],
@@ -2560,7 +2567,8 @@ ASC.CRM.ContactFullCardView = (function () {
                                 changeContactStatus(0);
                             }
                         }
-                    }
+                    },
+                    disabled: !canEdit
                 });
             }
         }
@@ -3328,7 +3336,8 @@ ASC.CRM.ContactFullCardView = (function () {
                         addTagToContactGroupAuto,
                         writeMailToHistoryAuto,
                         contactPhotoFileSizeNote,
-                        additionalContactsCount) {
+                        additionalContactsCount,
+                        canEdit) {
 
             ASC.CRM.ContactFullCardView.contactID = contactID;
             ASC.CRM.ContactFullCardView.isCompany = isCompany;
@@ -3349,11 +3358,13 @@ ASC.CRM.ContactFullCardView = (function () {
             var $avatar = jq("#contactProfile .contact_photo:first");
             ASC.CRM.Common.loadContactFoto($avatar, $avatar, $avatar.attr("data-avatarurl"));
 
-            initUploadPhotoPanel(contactPhotoFileSizeNote, ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyMediumSizePhoto" : "PersonMediumSizePhoto"]);
-            ASC.CRM.ContactPhotoUploader.initPhotoUploader(
-                jq("#divLoadPhotoWindow"),
-                jq("#contactProfile .contact_photo"),
-                {contactID: jq.getURLParam("id"), uploadOnly: false});
+            if (canEdit) {
+                initUploadPhotoPanel(contactPhotoFileSizeNote, ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyMediumSizePhoto" : "PersonMediumSizePhoto"]);
+                ASC.CRM.ContactPhotoUploader.initPhotoUploader(
+                    jq("#divLoadPhotoWindow"),
+                    jq("#contactProfile .contact_photo"),
+                    { contactID: jq.getURLParam("id"), uploadOnly: false });
+            }
 
             for (var i = 0, n = window.contactTags.length; i < n; i++) {
                 window.contactTags[i] = Encoder.htmlDecode(window.contactTags[i]);
@@ -3365,7 +3376,8 @@ ASC.CRM.ContactFullCardView = (function () {
             jq.tmpl("tagViewTmpl",
                     {
                       tags          : window.contactTags,
-                      availableTags : window.contactAvailableTags
+                      availableTags : window.contactAvailableTags,
+                      readonly      : !canEdit
                     })
                     .appendTo("#contactTagsTR>td:last");
 
@@ -3397,7 +3409,7 @@ ASC.CRM.ContactFullCardView = (function () {
             initDeleteTagFromContactGroupConfirmationPanel();
             initMergePanel();
 
-            initSliderControl();
+            initSliderControl(canEdit);
             if (jq.trim(jq("#contactManagerList").text()).length == 0) {
                 jq("#contactManagerList").parents("tr:first").remove();
             }
@@ -5207,6 +5219,7 @@ ASC.CRM.ContactActionView = (function () {
 jQuery.fn.sliderWithSections = function (settings) {
     //accessible slider options
     var options = jQuery.extend({
+        disabled: false,
         value: null,
         colors: null,
         values: null,
@@ -5307,6 +5320,9 @@ jQuery.fn.sliderWithSections = function (settings) {
             bColor = jQuery(this).parents('.ui-slider-tooltip').css('backgroundColor');
         jQuery(this).css('border-top', bWidth + ' solid ' + bColor);
     });
+
+    if (options.disabled)
+        sliderComponent.slider('disable');
 
     return this;
 };

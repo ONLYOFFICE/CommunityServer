@@ -239,7 +239,7 @@ namespace ASC.Web.CRM.Controls.Deals
                     stageType = DealMilestoneStatus.ClosedAndWon;
             }
 
-            return Global.DaoFactory.GetDealDao().GetDeals(
+            return DaoFactory.DealDao.GetDeals(
                 filterObj.FilterValue,
                 filterObj.ResponsibleID,
                 filterObj.OpportunityStagesID,

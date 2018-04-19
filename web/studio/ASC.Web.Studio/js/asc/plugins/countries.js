@@ -194,7 +194,7 @@
         { title: ASC.Resources.Countries.Slovenia, key: "SI", country_code: "+386", vat: true },
         { title: ASC.Resources.Countries.SolomonIslands, key: "SB", country_code: "+677" },
         { title: ASC.Resources.Countries.Somalia, key: "SO", country_code: "+252" },
-        { title: ASC.Resources.Countries.SouthAfrica, key: "ZA", country_code: "" + 27 },
+        { title: ASC.Resources.Countries.SouthAfrica, key: "ZA", country_code: "+27" },
         { title: ASC.Resources.Countries.SouthSudan, key: "SS", country_code: "+211" },
         { title: ASC.Resources.Countries.Spain, key: "ES", country_code: "+34", vat: true },
         { title: ASC.Resources.Countries.SriLanka, key: "LK", country_code: "+94" },

@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Files.Core.Security;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Projects.Engine
 {
@@ -51,18 +53,21 @@ namespace ASC.Projects.Engine
                 return id;
             }).ToList();
 
-            return Global.EngineFactory.ProjectEngine.GetByID(projectIds, false).
-                ToDictionary(
-                    r =>
-                    {
-                        var folder = data.First(d => d.Value == r.ID.ToString());
-                        if (!folder.Equals(default(KeyValuePair<string, string>)))
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<EngineFactory>().ProjectEngine.GetByID(projectIds, false).
+                    ToDictionary(
+                        r =>
                         {
-                            return (object) folder.Key;
-                        }
-                        return "";
-                    }, 
-                r => (IFileSecurity)new SecurityAdapter(r));
+                            var folder = data.First(d => d.Value == r.ID.ToString());
+                            if (!folder.Equals(default(KeyValuePair<string, string>)))
+                            {
+                                return (object) folder.Key;
+                            }
+                            return "";
+                        },
+                        r => (IFileSecurity) new SecurityAdapter(r));
+            }
         }
 
         public IFileSecurity GetFileSecurity(int projectId)

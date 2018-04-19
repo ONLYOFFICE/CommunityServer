@@ -231,7 +231,7 @@ namespace ASC.Web.CRM.Controls.Tasks
 
             var isAsc = !String.IsNullOrEmpty(filterObj.SortOrder) && filterObj.SortOrder != "descending";
 
-            return Global.DaoFactory.GetTaskDao().GetTasks(
+            return DaoFactory.TaskDao.GetTasks(
                 filterObj.FilterValue,
                 filterObj.ResponsibleID,
                 filterObj.CategoryID,

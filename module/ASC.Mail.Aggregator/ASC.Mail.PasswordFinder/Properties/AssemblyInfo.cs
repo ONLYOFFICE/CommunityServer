@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ASC.Mail.PasswordFinder")]
-[assembly: AssemblyDescription("Get connection settings for all mailboxes.")]
+[assembly: AssemblyDescription("Get connection settings for mailboxes on Onlyoffice MailServer.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("OnlyOffice")]
-[assembly: AssemblyCopyright("Ascensio System SIA©  2016")]
+[assembly: AssemblyCopyright("Ascensio System SIA©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.2")]

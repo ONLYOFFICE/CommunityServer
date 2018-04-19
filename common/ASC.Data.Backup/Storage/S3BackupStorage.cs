@@ -50,11 +50,6 @@ namespace ASC.Data.Backup.Storage
             this.secretAccessKey = secretAccessKey;
             this.bucket = bucket;
             this.region = region;
-
-            if (Type.GetType("Mono.Runtime") != null)
-            {
-                ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
-            }
         }
 
         public string Upload(string storageBasePath, string localPath, Guid userId)

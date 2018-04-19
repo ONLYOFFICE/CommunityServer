@@ -83,7 +83,8 @@ window.ASC.Files.FileChoice = (function () {
                                     file: {
                                         fileType: fileExt,
                                         url: url
-                                    }
+                                    },
+                                    Referer: "onlyoffice"
                                 };
 
                                 message = JSON.stringify(data);
@@ -99,7 +100,11 @@ window.ASC.Files.FileChoice = (function () {
             }
 
             ASC.Files.FileSelector.onCancel = function () {
-                var message = JSON.stringify({file: null});
+                var data = {
+                    file: null,
+                    Referer: "onlyoffice"
+                };
+                var message = JSON.stringify(data);
                 window.parent.postMessage(message, "*");
             };
 

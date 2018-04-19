@@ -45,13 +45,12 @@ using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using MailKit.Security;
 using ASC.Mail.Aggregator.Common.DataStorage;
-using ASC.Mail.Aggregator.Common.Utils;
+using ASC.Mail.Aggregator.Core;
 using ASC.Mail.Aggregator.Core.Clients;
 using log4net;
 using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MimeKit;
-using MySql.Data.MySqlClient;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
@@ -492,7 +491,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             try
             {
                 client = new MailClient(mailbox, cancelToken, _tasksConfig.TcpTimeout,
-                    _tasksConfig.SslCertificateErrorsPermit, _tasksConfig.ProtocolLogPath, log, true);
+                   mailbox.IsTeamlab || _tasksConfig.SslCertificateErrorsPermit, _tasksConfig.ProtocolLogPath, log, true);
 
                 log.Debug("MailClient.LoginImapPop(Tenant = {0}, MailboxId = {1} Address = '{2}')",
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail);
@@ -730,7 +729,6 @@ namespace ASC.Mail.Aggregator.CollectionService
                 var uid = mailClientMessageEventArgs.MessageUid;
                 var folder = mailClientMessageEventArgs.Folder;
                 var unread = mailClientMessageEventArgs.Unread;
-                var fromEmail = mimeMessage.From.Mailboxes.FirstOrDefault();
                 log = mailClientMessageEventArgs.Logger;
 
                 log.Debug("ClientOnGetMessage MailboxId = {0}, Address = '{1}'",
@@ -739,86 +737,26 @@ namespace ASC.Mail.Aggregator.CollectionService
                 CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
                 SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
 
-                var manager = new MailBoxManager(log);
-
-                var md5 =
-                    string.Format("{0}|{1}|{2}|{3}",
-                        mimeMessage.From.Mailboxes.Any() ? mimeMessage.From.Mailboxes.First().Address : "",
-                        mimeMessage.Subject, mimeMessage.Date.UtcDateTime, mimeMessage.MessageId).GetMd5();
-
                 var uidl = mailbox.Imap ? string.Format("{0}-{1}", uid, folder.FolderId) : uid;
 
-                var fromThisMailBox = fromEmail != null &&
-                                      fromEmail.Address.ToLowerInvariant()
-                                          .Equals(mailbox.EMail.Address.ToLowerInvariant());
+                var message = MailRepository.Save(mailbox, mimeMessage, uidl, folder, unread, log);
 
-                var toThisMailBox =
-                    mimeMessage.To.Mailboxes.Select(addr => addr.Address.ToLowerInvariant())
-                        .Contains(mailbox.EMail.Address.ToLowerInvariant());
-
-                log.Info(
-                    @"Message: Subject: '{1}' Date: {2} Unread: {5} FolderId: {3} ('{4}') MimeId: '{0}' Uidl: '{6}' Md5: '{7}' To->From: {8} From->To: {9}",
-                    mimeMessage.MessageId, mimeMessage.Subject, mimeMessage.Date, folder.FolderId, folder.Name, unread,
-                    uidl, md5, fromThisMailBox, toThisMailBox);
-
-                List<int> tagsIds = null;
-
-                if (folder.Tags.Any())
-                {
-                    log.Debug("GetOrCreateTags()");
-
-                    tagsIds = manager.GetOrCreateTags(mailbox.TenantId, mailbox.UserId, folder.Tags);
-                }
-
-                log.Debug("SearchExistingMessagesAndUpdateIfNeeded()");
-
-                var found = manager.SearchExistingMessagesAndUpdateIfNeeded(mailbox, folder.FolderId, uidl, md5,
-                    mimeMessage.MessageId, fromThisMailBox, toThisMailBox, tagsIds);
-
-                var needSave = !found;
-                if (!needSave)
-                    return;
-
-                log.Debug("DetectChainId()");
-
-                var chainId = manager.DetectChainId(mailbox, mimeMessage.MessageId, mimeMessage.InReplyTo,
-                    mimeMessage.Subject);
-
-                var streamId = MailUtil.CreateStreamId();
-
-                log.Debug("Convert MimeMessage->MailMessage");
-
-                var message = ConvertToMailMessage(mimeMessage, folder, unread, chainId, streamId, log);
-
-                log.Debug("TryStoreMailData()");
-
-                if (!TryStoreMailData(message, mailbox, log))
-                {
-                    failed = true;
-                    return;
-                }
-
-                log.Debug("MailSave()");
-
-                if (TrySaveMail(manager, mailbox, message, folder, uidl, md5, log))
+                if (message != null && message.Id > 0)
                 {
                     log.Debug("DoOptionalOperations->START");
 
+                    List<int> tagsIds = null;
+
+                    if (folder.Tags.Any())
+                    {
+                        log.Debug("GetOrCreateTags()");
+
+                        var manager = new MailBoxManager(log);
+
+                        tagsIds = manager.GetOrCreateTags(mailbox.TenantId, mailbox.UserId, folder.Tags);
+                    }
+
                     DoOptionalOperations(message, mimeMessage, mailbox, tagsIds, log);
-                }
-                else
-                {
-                    failed = true;
-
-                    if (manager.TryRemoveMailDirectory(mailbox, message.StreamId))
-                    {
-                        log.Info("Problem with mail proccessing(Account:{0}). Body and attachment have been deleted", mailbox.EMail);
-                    }
-                    else
-                    {
-                        throw new Exception("Can't delete mail folder with data");
-                    }
-
                 }
             }
             catch (Exception ex)
@@ -836,67 +774,6 @@ namespace ASC.Mail.Aggregator.CollectionService
                     LogStat(PROCESS_MESSAGE, mailbox, watch.Elapsed, failed);
                 }
             }
-        }
-
-        private static MailMessage ConvertToMailMessage(MimeMessage mimeMessage, MailFolder folder, bool unread, string chainId, string streamId, ILogger log)
-        {
-            MailMessage message;
-
-            try
-            {
-                message = mimeMessage.CreateMailMessage(folder.FolderId, unread, chainId, streamId, log);
-            }
-            catch (Exception ex)
-            {
-                log.Error("Convert MimeMessage->MailMessage: Exception: {0}", ex.ToString());
-
-                log.Debug("Creating fake message with original MimeMessage in attachments");
-
-                message = mimeMessage.CreateCorruptedMesage(folder.FolderId, unread, chainId, streamId);
-            }
-
-            return message;
-        }
-
-        private static bool TrySaveMail(MailBoxManager manager, MailBox mailbox, MailMessage message, MailFolder folder,  string uidl, string md5, ILogger log)
-        {
-            try
-            {
-                var folderRestoreId = folder.FolderId == MailFolder.Ids.spam ? MailFolder.Ids.inbox : folder.FolderId;
-
-                var attempt = 1;
-
-                while (attempt < 3)
-                {
-                    try
-                    {
-                        message.Id = manager.MailSave(mailbox, message, 0, folder.FolderId, folderRestoreId,
-                            uidl, md5, true);
-
-                        break;
-                    }
-                    catch (MySqlException exSql)
-                    {
-                        if (!exSql.Message.StartsWith("Deadlock found"))
-                            throw;
-
-                        if (attempt > 2)
-                            throw;
-
-                        log.Warn("[DEADLOCK] MailSave() try again (attempt {0}/2)", attempt);
-
-                        attempt++;
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                log.Error("TrySaveMail Exception:\r\n{0}\r\n", ex.ToString());
-            }
-
-            return false;
         }
 
         enum MailboxState
@@ -1084,46 +961,6 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
 
             return string.Empty;
-        }
-
-        private static bool TryStoreMailData(MailMessage message, MailBox mailbox, ILogger log)
-        {
-            var manager = new MailBoxManager(log);
-
-            try
-            {
-                if (message.Attachments.Any())
-                {
-                    log.Debug("StoreAttachments()");
-                    var index = 0;
-                    message.Attachments.ForEach(att =>
-                    {
-                        att.fileNumber = ++index;
-                        att.mailboxId = mailbox.MailBoxId;
-                    });
-                    manager.StoreAttachments(mailbox, message.Attachments, message.StreamId);
-
-                    log.Debug("MailMessage.ReplaceEmbeddedImages()");
-                    message.ReplaceEmbeddedImages(log);
-                }
-
-                log.Debug("StoreMailBody()");
-                manager.StoreMailBody(mailbox, message);
-            }
-            catch (Exception ex)
-            {
-                log.Error("TryStoreMailData(Account:{0}): Exception:\r\n{1}\r\n", mailbox.EMail, ex.ToString());
-
-                //Trying to delete all attachments and mailbody
-                if (manager.TryRemoveMailDirectory(mailbox, message.StreamId))
-                {
-                    log.Info("Problem with mail proccessing(Account:{0}). Body and attachment have been deleted", mailbox.EMail);
-                }
-
-                return false;
-            }
-
-            return true;
         }
 
         private void FreeTask(TaskData taskData, ICollection<TaskData> tasks)

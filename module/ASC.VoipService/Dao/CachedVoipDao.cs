@@ -51,8 +51,8 @@ namespace ASC.VoipService.Dao
         }
 
 
-        public CachedVoipDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedVoipDao(int tenantID)
+            : base(tenantID)
         {
         }
 

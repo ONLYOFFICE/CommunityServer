@@ -66,7 +66,7 @@ namespace ASC.Web.CRM
 
             if (int.TryParse(UrlParameters.ID, out contactID))
             {
-                var targetContact = Global.DaoFactory.GetContactDao().GetByID(contactID);
+                var targetContact = DaoFactory.ContactDao.GetByID(contactID);
 
                 if (targetContact == null || !CRMSecurity.CanAccessTo(targetContact))
                 {

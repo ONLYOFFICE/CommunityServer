@@ -24,6 +24,7 @@
 */
 
 
+using System.Text;
 using System.Web.Optimization;
 using ASC.Web.Core.Client.HttpHandlers;
 using Microsoft.Ajax.Utilities;
@@ -36,9 +37,11 @@ namespace ASC.Web.Core.Client.Bundling
         {
             if (!BundleTable.EnableOptimizations) return input;
 
+            var stringBuilder = new StringBuilder();
             if (includedVirtualPath.EndsWith("html"))
             {
-                input = ClientScript.GetTemplateData(input);
+                ClientScript.GetTemplateData(input, stringBuilder);
+                return new Minifier().MinifyJavaScript(stringBuilder.ToString());
             }
 
             return new Minifier().MinifyJavaScript(input);

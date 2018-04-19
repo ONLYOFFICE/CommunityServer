@@ -451,9 +451,9 @@ window.ASC.TMTalk.connectionManager = (function () {
       if (!messageIds.hasOwnProperty(from)) {
         messageIds[from] = {};
       }
-      if (messageIds[from].hasOwnProperty(id)) {
+      /*if (messageIds[from].hasOwnProperty(id)) {
         return true;
-      }
+      }*/
       messageIds[from][id] = true;
     }
 

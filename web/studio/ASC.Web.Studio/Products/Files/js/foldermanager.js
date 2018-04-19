@@ -105,7 +105,7 @@ window.ASC.Files.Folders = (function () {
         version = version || fileData.version || 0;
 
         if (ASC.Files.Utility.CanWebView(fileTitle)) {
-            return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false && !jq.browser.mobile);
+            return ASC.Files.Converter.checkCanOpenEditor(fileId, fileTitle, version, forEdit != false);
         }
 
         if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(fileTitle)) {
@@ -114,7 +114,7 @@ window.ASC.Files.Folders = (function () {
             return true;
         }
 
-        var url = ASC.Files.Utility.GetFileViewUrl(fileId, version);
+        var url = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
         window.open(url, "_blank");
         return ASC.Files.Marker.removeNewIcon("file", fileId);
     };
@@ -1058,19 +1058,22 @@ window.ASC.Files.Folders = (function () {
         checkRemoveItem();
         jq("#confirmRemoveList dd [type='checkbox']").change(checkRemoveItem);
 
+        var mustConfirm = jq("#cbxDeleteConfirm").prop("checked") == true;
         if (ASC.Files.ThirdParty && ASC.Files.ThirdParty.isThirdParty()) {
+            mustConfirm = true;
             jq("#confirmRemoveSharpBoxTextDescription").show();
         } else {
             jq("#confirmRemoveSharpBoxTextDescription").hide();
         }
 
         if (ASC.Files.Folders.folderContainer == "trash") {
+            mustConfirm = true;
             jq("#confirmRemoveTextDescription").show();
         } else {
             jq("#confirmRemoveTextDescription").hide();
         }
 
-        jq("#removeConfirmBtn").unbind("click").click(function () {
+        var doDeletion = function () {
             PopupKeyUpActionProvider.CloseDialog();
 
             var data = {};
@@ -1089,11 +1092,17 @@ window.ASC.Files.Folders = (function () {
 
             ASC.Files.UI.updateMainContentHeader();
             ASC.Files.ServiceManager.deleteItem(ASC.Files.ServiceManager.events.DeleteItem, { list: data.entry, doNow: true }, { stringList: data });
-        });
+        };
 
-        ASC.Files.UI.blockUI("#confirmRemove", 420, 0, -150);
+        if (mustConfirm) {
+            jq("#removeConfirmBtn").unbind("click").click(doDeletion);
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#removeConfirmBtn\").click();";
+            ASC.Files.UI.blockUI("#confirmRemove", 420, 0, -150);
+
+            PopupKeyUpActionProvider.EnterAction = "jq(\"#removeConfirmBtn\").click();";
+        } else {
+            doDeletion();
+        }
     };
 
     var cancelTasksStatuses = function () {
@@ -1279,8 +1288,9 @@ window.ASC.Files.Folders = (function () {
                         var fileObj = fileData.entryObject;
 
                         ASC.Files.UI.lockEditFile(fileObj, true);
-                        setTimeout(ASC.Files.UI.checkEditing, 5000);
-                        
+                        ASC.Files.Socket.subscribeChangeEditors(fileData.id);
+                        ASC.Files.UI.checkEditingDefer();
+
                         ASC.Files.Actions.hideAllActionPanels();
                         fileObj.removeClass("isNewForWebEditor");
                     }
@@ -1350,6 +1360,13 @@ window.ASC.Files.Folders = (function () {
             jq("#overwriteList, #overwriteListHide").hide();
         });
 
+        jq("#cbxDeleteConfirm").on("change", function () {
+            var enable = jq(this).prop("checked") == true;
+            ASC.Files.ServiceManager.changeDeleteConfrim(ASC.Files.ServiceManager.events.ChangeDeleteConfrim, { value: enable === true });
+
+            return false;
+        });
+
         jq("#ownerSelector")
             .useradvancedSelector({
                 inPopup: true,
@@ -1395,7 +1412,7 @@ window.ASC.Files.Folders = (function () {
             }
         };
         if (!ASC.Files.Folders.isFirstLoad) {
-            LoadingBanner.displayLoading(true);
+            LoadingBanner.displayLoading();
         }
         if (jq.browser.msie) {
             //fix Flash & IE URL hash problem

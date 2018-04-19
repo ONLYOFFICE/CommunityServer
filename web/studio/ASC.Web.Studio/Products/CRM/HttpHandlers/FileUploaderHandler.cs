@@ -24,13 +24,17 @@
 */
 
 
+using System;
+using System.Web;
+
 using ASC.Files.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Controls.FileUploader;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
 using ASC.Web.Studio.Core;
-using System;
-using System.Web;
+using ASC.CRM.Core.Dao;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -51,27 +55,29 @@ namespace ASC.Web.CRM.Classes
                 throw FileSizeComment.FileSizeException;
 
             var fileName = file.FileName.LastIndexOf('\\') != -1
-                               ? file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1)
-                               : file.FileName;
+                ? file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1)
+                : file.FileName;
 
-            var document = new File
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var document = new File
                 {
                     Title = fileName,
-                    FolderID = Global.DaoFactory.GetFileDao().GetRoot(),
+                    FolderID = daoFactory.FileDao.GetRoot(),
                     ContentLength = file.ContentLength
                 };
 
-            document = Global.DaoFactory.GetFileDao().SaveFile(document, file.InputStream);
+                document = daoFactory.FileDao.SaveFile(document, file.InputStream);
 
-            fileUploadResult.Data = document.ID;
-            fileUploadResult.FileName = document.Title;
-            fileUploadResult.FileURL = document.FileDownloadUrl;
-
-
-            fileUploadResult.Success = true;
+                fileUploadResult.Data = document.ID;
+                fileUploadResult.FileName = document.Title;
+                fileUploadResult.FileURL = document.DownloadUrl;
+                fileUploadResult.Success = true;
 
 
-            return fileUploadResult;
+                return fileUploadResult;
+            }
         }
     }
 }

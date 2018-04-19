@@ -34,8 +34,10 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using ASC.Core;
+using ASC.Core.Common.Settings;
 using ASC.Core.Users;
 using ASC.Files.Core;
+using ASC.Thrdparty.Configuration;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
@@ -299,6 +301,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 _configuration = configuration;
 
                 Customization = new CustomizationConfig(_configuration);
+                Plugins = new PluginsConfig();
                 Embedded = new EmbeddedConfig();
                 _userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
@@ -321,6 +324,9 @@ namespace ASC.Web.Files.Services.DocumentService
             private readonly UserInfo _userInfo;
             private EmbeddedConfig _embeddedConfig;
 
+            [DataMember(Name = "callbackUrl", EmitDefaultValue = false)]
+            public string CallbackUrl;
+
             [DataMember(Name = "createUrl", EmitDefaultValue = false)]
             public string CreateUrl
             {
@@ -333,6 +339,9 @@ namespace ASC.Web.Files.Services.DocumentService
                     return GetCreateUrl(_configuration.GetFileType);
                 }
             }
+
+            [DataMember(Name = "plugins", EmitDefaultValue = false)]
+            public PluginsConfig Plugins;
 
             [DataMember(Name = "customization", EmitDefaultValue = false)]
             public CustomizationConfig Customization;
@@ -427,6 +436,24 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 [DataMember(Name = "toolbarDocked")]
                 public string ToolbarDocked = "top";
+            }
+
+            [DataContract(Name = "plugins", Namespace = "")]
+            public class PluginsConfig
+            {
+                [DataMember(Name = "pluginsData", EmitDefaultValue = false)]
+                public string[] pluginsData
+                {
+                    set { }
+                    get
+                    {
+                        return new string[]
+                            {
+                                 KeyStorage.Get("easyBibappkey") != "" ? CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/easybib/config.json") : null,
+                                 (KeyStorage.Get("wpClientId") != "" && KeyStorage.Get("wpClientSecret") != "" && KeyStorage.Get("wpRedirectUrl") != "") ? CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/wordpress/config.json"): null
+                            }; 
+                    }
+                }
             }
 
             [DataContract(Name = "customization", Namespace = "")]

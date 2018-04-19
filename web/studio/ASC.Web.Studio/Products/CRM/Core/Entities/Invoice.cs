@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using ASC.Common.Security;
+using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
 using ASC.Web.CRM.Classes;
 
@@ -91,19 +92,19 @@ namespace ASC.CRM.Core.Entities
         }
 
 
-        public List<InvoiceLine> GetInvoiceLines()
+        public List<InvoiceLine> GetInvoiceLines(DaoFactory daoFactory)
         {
-            return Global.DaoFactory.GetInvoiceLineDao().GetInvoiceLines(ID);
+            return daoFactory.InvoiceLineDao.GetInvoiceLines(ID);
         }
 
-        public File GetInvoiceFile()
+        public File GetInvoiceFile(DaoFactory daoFactory)
         {
-            return Global.DaoFactory.GetFileDao().GetFile(FileID, 0);
+            return daoFactory.FileDao.GetFile(FileID, 0);
         }
 
-        public decimal GetInvoiceCost()
+        public decimal GetInvoiceCost(DaoFactory daoFactory)
         {
-            var lines = GetInvoiceLines();
+            var lines = GetInvoiceLines(daoFactory);
             decimal cost = 0;
             foreach (var line in lines)
             {
@@ -112,7 +113,7 @@ namespace ASC.CRM.Core.Entities
                 
                 if (line.InvoiceTax1ID > 0)
                 {
-                    tax = Global.DaoFactory.GetInvoiceTaxDao().GetByID(line.InvoiceTax1ID);
+                    tax = daoFactory.InvoiceTaxDao.GetByID(line.InvoiceTax1ID);
                     if (tax != null)
                     {
                         taxRate += tax.Rate;
@@ -120,7 +121,7 @@ namespace ASC.CRM.Core.Entities
                 }
                 if (line.InvoiceTax2ID > 0)
                 {
-                    tax = Global.DaoFactory.GetInvoiceTaxDao().GetByID(line.InvoiceTax2ID);
+                    tax = daoFactory.InvoiceTaxDao.GetByID(line.InvoiceTax2ID);
                     if (tax != null)
                     {
                         taxRate += tax.Rate;

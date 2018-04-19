@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using ASC.Core.Users;
@@ -34,13 +35,26 @@ using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Core.Iterators;
 using log4net.Config;
+using Newtonsoft.Json;
 
 namespace ASC.Mail.PasswordFinder
 {
-    internal class Program
+    internal partial class Program
     {
-        private static void Main()
+        const string IMAP = "IMAP";
+        const string POP3 = "POP3";
+        const string SMTP = "SMTP";
+
+        private static void Main(string[] args)
         {
+            var options = new Options();
+
+            if (!CommandLine.Parser.Default.ParseArgumentsStrict(args, options,
+                () => Console.WriteLine("Bad command line parameters.")))
+            {
+                return;
+            }
+            
             try
             {
                 XmlConfigurator.Configure();
@@ -54,11 +68,21 @@ namespace ASC.Mail.PasswordFinder
                 if (mailbox == null)
                 {
                     Console.WriteLine("Accounts not found.");
-                    ShowAnyKey();
+                    ShowAnyKey(options);
                     return;
                 }
 
-                var sbuilder = new StringBuilder();
+                StringBuilder sbuilder = null;
+                List<MailAccount> accounts = null;
+
+                if (!options.NeedJson)
+                {
+                    sbuilder = new StringBuilder();
+                }
+                else
+                {
+                    accounts = new List<MailAccount>();
+                }
 
                 var i = 0;
 
@@ -76,38 +100,49 @@ namespace ASC.Mail.PasswordFinder
 
                     var isUserRemoved = userInfo == null || userInfo.Equals(Constants.LostUser);
 
-                    current.AppendFormat("#{0}. Id: {1} MailBox: {2}, Tenant: {3}, User: '{4}' {5}\r\n",
-                        ++i, mailbox.MailBoxId, mailbox.EMail, mailbox.TenantId,
-                        isUserRemoved ? mailbox.UserId : userInfo.UserName, 
-                        isUserRemoved ? "user is removed" : "");
+                    var user = isUserRemoved ? "user is removed" : userInfo.UserName;
+
+                    current.AppendFormat("#{0}. Id: {1} MailBox: {2}, Tenant: {3}, User: '{4}' ID: {5}\r\n",
+                        ++i, mailbox.MailBoxId, mailbox.EMail, mailbox.TenantId, user,
+                        mailbox.UserId);
 
                     current.AppendLine();
 
-                    current.AppendFormat("\t\t{0} settings:\r\n", mailbox.Imap ? "Imap4" : "Pop3");
+                    var inType = mailbox.Imap ? IMAP : POP3;
+
+                    current.AppendFormat("\t\t{0} settings:\r\n", inType);
                     current.AppendFormat("\t\tLogin:\t\t{0}\r\n", mailbox.Account);
+
+                    string inPassword;
 
                     if (!mailbox.IsOAuth)
                     {
-                        current.AppendFormat("\t\tPassword:\t{0}\r\n",
+                        inPassword = 
                             string.IsNullOrEmpty(mailbox.Password)
                                 ? "[-=! ERROR: Invalid Decription !=-]"
-                                : mailbox.Password);
+                                : mailbox.Password;
                     }
                     else
                     {
-                        current.AppendFormat("\t\tPassword:\t[-=! OAuth: no password stored !=-]\r\n");
+                        inPassword = "[-=! OAuth: no password stored !=-]";
                     }
+
+                     current.AppendFormat("\t\tPassword:\t{0}\r\n", inPassword);
 
                     current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.Server);
                     current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.Port);
-                    current.AppendFormat("\t\tAuthType:\t{0}\r\n",
-                        Enum.GetName(typeof(SaslMechanism), mailbox.Authentication));
-                    current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
-                        Enum.GetName(typeof(EncryptionType), mailbox.Encryption));
+
+                    var inAuthentication = Enum.GetName(typeof(SaslMechanism), mailbox.Authentication);
+
+                    current.AppendFormat("\t\tAuthType:\t{0}\r\n", inAuthentication);
+
+                    var inEncryption = Enum.GetName(typeof(EncryptionType), mailbox.Encryption);
+
+                    current.AppendFormat("\t\tEncryptType:\t{0}\r\n", inEncryption);
 
                     current.AppendLine();
 
-                    current.Append("\t\tSmtp settings:\r\n");
+                    current.AppendFormat("\t\t{0} settings:\r\n", SMTP);
                     current.AppendFormat("\t\tSmtpAuth:\t{0}\r\n", mailbox.SmtpAuth);
                     if (mailbox.SmtpAuth)
                     {
@@ -126,41 +161,107 @@ namespace ASC.Mail.PasswordFinder
                     }
                     current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.SmtpServer);
                     current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.SmtpPort);
-                    current.AppendFormat("\t\tAuthType:\t{0}\r\n",
-                        Enum.GetName(typeof(SaslMechanism), mailbox.SmtpAuthentication));
-                    current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
-                        Enum.GetName(typeof(EncryptionType), mailbox.SmtpEncryption));
+
+                    var outAuthentication = Enum.GetName(typeof(SaslMechanism), mailbox.SmtpAuthentication);
+
+                    current.AppendFormat("\t\tAuthType:\t{0}\r\n", outAuthentication);
+
+                    var outEncryption = Enum.GetName(typeof(EncryptionType), mailbox.SmtpEncryption);
+
+                    current.AppendFormat("\t\tEncryptType:\t{0}\r\n", outEncryption);
 
                     current.AppendLine();
 
                     Console.WriteLine(current.ToString());
 
-                    sbuilder.Append(current);
+                    if (!options.NeedJson)
+                    {
+                        if (sbuilder != null) 
+                            sbuilder.Append(current);
+                    }
+                    else
+                    {
+                        if (accounts != null)
+                        {
+                            accounts.Add(new MailAccount
+                            {
+                                email = mailbox.EMail.Address,
+                                tenantId = mailbox.TenantId,
+                                user = user,
+                                userId = mailbox.UserId,
+                                settings = new List<MailAccountSetting>
+                                {
+                                    new MailAccountSetting
+                                    {
+                                        type = inType,
+                                        host = mailbox.Server,
+                                        port = mailbox.Port.ToString(),
+                                        authentication = inAuthentication,
+                                        encryption = inEncryption,
+                                        login = mailbox.Account,
+                                        password = inPassword
+                                    },
+                                    new MailAccountSetting
+                                    {
+                                        type = SMTP,
+                                        host = mailbox.SmtpServer,
+                                        port = mailbox.SmtpPort.ToString(),
+                                        authentication = outAuthentication,
+                                        encryption = outEncryption,
+                                        login = mailbox.SmtpAccount,
+                                        password = inPassword
+                                    }
+                                }
+                            });
+                        }
+                    }
 
                     mailbox = mailboxIterator.Next();
                 }
 
-                Console.WriteLine("Try StoreToFile");
+                string text = null;
 
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mailboxes.txt");
+                if (!options.NeedJson)
+                {
+                    if (sbuilder != null)
+                    {
+                        text = sbuilder.ToString();
+                    }
+                }
+                else
+                {
+                    text = JsonConvert.SerializeObject(accounts, Formatting.Indented);
+                }
 
-                var pathFile = StoreToFile(sbuilder.ToString(), path, true);
+                if (!string.IsNullOrEmpty(text))
+                {
+                    Console.WriteLine("Try StoreToFile");
 
-                Console.WriteLine("[SUCCESS] File was stored into path \"{0}\"", pathFile);
+                    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                        options.NeedJson ? "mailboxes.json" : "mailboxes.txt");
+
+                    var pathFile = StoreToFile(text, path, true);
+
+                    Console.WriteLine("[SUCCESS] File was stored into path \"{0}\"", pathFile);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
 
-            ShowAnyKey();
+            ShowAnyKey(options);
         }
 
-        private static void ShowAnyKey()
+        private static void ShowAnyKey(Options options)
         {
             Console.WriteLine();
+
+            if (options.ExitOnEnd)
+                return;
+
             Console.WriteLine("Any key to exit...");
-            Console.ReadKey();
+            Console.Read();
         }
 
         private static string StoreToFile(string text, string fileName, bool useTemp)
@@ -183,7 +284,7 @@ namespace ASC.Mail.PasswordFinder
 
             if (string.IsNullOrEmpty(Path.GetFileName(fileName)))
             {
-                var savePath = Path.Combine(fileName, Path.GetFileNameWithoutExtension(tempPath) + ".eml");
+                var savePath = Path.Combine(fileName, Path.GetFileNameWithoutExtension(tempPath) + ".txt");
                 File.Move(tempPath, savePath);
                 File.Delete(tempPath);
                 return savePath;
@@ -195,5 +296,35 @@ namespace ASC.Mail.PasswordFinder
 
             return fileName;
         }
+    }
+
+    internal class MailAccount
+    {
+        public string email;
+
+        public string user;
+
+        public int tenantId;
+
+        public string userId;
+
+        public List<MailAccountSetting> settings;
+    }
+
+    internal class MailAccountSetting
+    {
+        public string type;
+
+        public string host;
+
+        public string port;
+
+        public string authentication;
+
+        public string encryption;
+
+        public string login;
+
+        public string password;
     }
 }

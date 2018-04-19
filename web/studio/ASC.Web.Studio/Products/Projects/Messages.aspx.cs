@@ -36,7 +36,7 @@ namespace ASC.Web.Projects
 {
     public partial class Messages : BasePage
     {
-        protected override bool CanRead { get { return !RequestContext.IsInConcreteProject || ProjectSecurity.CanReadMessages(Project); } }
+        protected override bool CanRead { get { return !RequestContext.IsInConcreteProject || ProjectSecurity.CanRead<Message>(Project); } }
 
         protected override void PageLoad()
         {
@@ -76,7 +76,7 @@ namespace ASC.Web.Projects
             {
                 if (action.HasValue && action.Value == UrlAction.Add)
                 {
-                    if (!RequestContext.IsInConcreteProject || ProjectSecurity.CanCreateMessage(RequestContext.GetCurrentProject(false)))
+                    if (!RequestContext.IsInConcreteProject || ProjectSecurity.CanCreate<Message>(RequestContext.GetCurrentProject(false)))
                     {
                         LoadDiscussionActionControl(null);
 

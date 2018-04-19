@@ -61,7 +61,7 @@ namespace ASC.Web.CRM.Controls.Contacts
         protected void Page_Load(object sender, EventArgs e)
         {
             TargetCompanyIfPerson = TargetContact is Person && ((Person)TargetContact).CompanyID != 0 ?
-                Global.DaoFactory.GetContactDao().GetByID(((Person)TargetContact).CompanyID) :
+                DaoFactory.ContactDao.GetByID(((Person)TargetContact).CompanyID) :
                 null;
 
             RegisterClientScriptHelper.DataContactFullCardView(Page, TargetContact);
@@ -87,7 +87,7 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         protected string GetMailingHistoryUrl()
         {
-            var primaryEmail = Global.DaoFactory.GetContactInfoDao().GetList(TargetContact.ID, ContactInfoType.Email, null, true).FirstOrDefault();
+            var primaryEmail = DaoFactory.ContactInfoDao.GetList(TargetContact.ID, ContactInfoType.Email, null, true).FirstOrDefault();
             if (primaryEmail == null || string.IsNullOrEmpty(primaryEmail.Data))
             {
                 return string.Empty;
@@ -105,7 +105,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             var additionalContactsCount = 0;
             if (TargetContact is Company)
             {
-                var members = Global.DaoFactory.GetContactDao().GetMembersIDsAndShareType(TargetContact.ID);
+                var members = DaoFactory.ContactDao.GetMembersIDsAndShareType(TargetContact.ID);
                 foreach (var m in members) {
                     if (CRMSecurity.CanAccessTo(m.Key, EntityType.Person, m.Value, 0)) {
                         additionalContactsCount++;
@@ -118,7 +118,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             }
 
             sb.AppendFormat(@"
-                    ASC.CRM.ContactFullCardView.init({0},{1},{2},{3},{4},{5},""{6}"", {7});",
+                    ASC.CRM.ContactFullCardView.init({0},{1},{2},{3},{4},{5},""{6}"",{7},{8});",
                 TargetContact.ID,
                 (TargetContact is Company).ToString().ToLower(),
                 TargetContact is Person ? ((Person)TargetContact).CompanyID : 0,
@@ -126,7 +126,8 @@ namespace ASC.Web.CRM.Controls.Contacts
                 Global.TenantSettings.AddTagToContactGroupAuto != null ? Global.TenantSettings.AddTagToContactGroupAuto.ToString().ToLower() : "null",
                 Global.TenantSettings.WriteMailToHistoryAuto.ToString().ToLower(),
                 Studio.Core.FileSizeComment.GetFileImageSizeNote(CRMContactResource.ContactPhotoInfo, true),
-                additionalContactsCount
+                additionalContactsCount,
+                CRMSecurity.CanEdit(TargetContact).ToString().ToLower()
             );
 
             Page.RegisterInlineScript(sb.ToString());

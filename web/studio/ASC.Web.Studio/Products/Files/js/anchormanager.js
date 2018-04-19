@@ -96,7 +96,7 @@ window.ASC.Files.Anchor = (function () {
     };
 
     var onFolderSelect = function (itemid) {
-        if (jq.browser.safari || jq.browser.mozilla) {
+        if (jq.browser.safari || jq.browser.mozilla || jq.browser.chrome) {
             itemid = decodeURIComponent(itemid);
         }
 
@@ -112,7 +112,7 @@ window.ASC.Files.Anchor = (function () {
     };
 
     var onPreview = function (fileId) {
-        if (jq.browser.safari || jq.browser.mozilla) {
+        if (jq.browser.safari || jq.browser.mozilla || jq.browser.chrome) {
             fileId = decodeURIComponent(fileId);
         }
         if (typeof ASC.Files.ImageViewer != "undefined") {

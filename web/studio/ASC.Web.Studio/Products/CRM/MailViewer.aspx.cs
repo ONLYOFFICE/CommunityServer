@@ -50,7 +50,7 @@ namespace ASC.Web.CRM
             int eventID;
             if (int.TryParse(UrlParameters.ID, out eventID))
             {
-                var targetEvent = ASC.Web.CRM.Classes.Global.DaoFactory.GetRelationshipEventDao().GetByID(eventID);
+                var targetEvent = DaoFactory.RelationshipEventDao.GetByID(eventID);
 
                 //Title = HeaderStringHelper.GetPageTitle("");
 

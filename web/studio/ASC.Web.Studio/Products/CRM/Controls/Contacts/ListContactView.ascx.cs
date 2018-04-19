@@ -240,7 +240,7 @@ namespace ASC.Web.CRM.Controls.Contacts
 
             var isAsc = !String.IsNullOrEmpty(filterObj.SortOrder) && filterObj.SortOrder != "descending";
 
-            return Global.DaoFactory.GetContactDao().GetContacts(
+            return DaoFactory.ContactDao.GetContacts(
                 filterObj.FilterValue,
                 filterObj.Tags,
                 filterObj.ContactStage,

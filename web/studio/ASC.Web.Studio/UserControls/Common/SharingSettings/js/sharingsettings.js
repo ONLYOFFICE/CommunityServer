@@ -470,7 +470,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
         if (link && jq("#shareGetLink").length) {
             jq("#shareGetLink").show();
-            ASC.Clipboard.destroy(_clipLink);
+            _clipLink = ASC.Clipboard.destroy(_clipLink);
             _clipLink = ASC.Clipboard.create(link, "shareGetLink", {
                 onComplete: _manager.OnCopyLink
             });

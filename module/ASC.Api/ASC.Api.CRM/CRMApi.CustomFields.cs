@@ -53,7 +53,7 @@ namespace ASC.Api.CRM
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/customfield/definitions")]
         public IEnumerable<CustomFieldWrapper> GetCustomFieldDefinitions(string entityType)
         {
-            return DaoFactory.GetCustomFieldDao().GetFieldsDescription(ToEntityType(entityType)).ConvertAll(ToCustomFieldWrapper).ToSmartList();
+            return DaoFactory.CustomFieldDao.GetFieldsDescription(ToEntityType(entityType)).ConvertAll(ToCustomFieldWrapper).ToSmartList();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace ASC.Api.CRM
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/{entityid:[0-9]+}/customfield")]
         public IEnumerable<CustomFieldBaseWrapper> GetCustomFieldForSubject(string entityType, int entityid)
         {
-            return DaoFactory.GetCustomFieldDao().GetEnityFields(ToEntityType(entityType), entityid, false).ConvertAll(ToCustomFieldBaseWrapper).ToItemList();
+            return DaoFactory.CustomFieldDao.GetEnityFields(ToEntityType(entityType), entityid, false).ConvertAll(ToCustomFieldBaseWrapper).ToItemList();
         }
 
         /// <summary>
@@ -85,14 +85,14 @@ namespace ASC.Api.CRM
         [Create(@"{entityType:(contact|person|company|opportunity|case)}/{entityid:[0-9]+}/customfield/{fieldid:[0-9]+}")]
         public CustomFieldBaseWrapper SetEntityCustomFieldValue(string entityType, int entityid, int fieldid, string fieldValue)
         {
-            var customField = DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldid);
+            var customField = DaoFactory.CustomFieldDao.GetFieldDescription(fieldid);
 
             var entityTypeStr = ToEntityType(entityType);
 
             customField.EntityID = entityid;
             customField.Value = fieldValue;
 
-            DaoFactory.GetCustomFieldDao().SetFieldValue(entityTypeStr, entityid, fieldid, fieldValue);
+            DaoFactory.CustomFieldDao.SetFieldValue(entityTypeStr, entityid, fieldid, fieldValue);
 
             return ToCustomFieldBaseWrapper(customField);
         }
@@ -194,13 +194,13 @@ namespace ASC.Api.CRM
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
             var entityTypeObj = ToEntityType(entityType);
-            var fieldID = DaoFactory.GetCustomFieldDao().CreateField(entityTypeObj, label, (CustomFieldType)fieldType, mask);
-            var wrapper = DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldID);
+            var fieldID = DaoFactory.CustomFieldDao.CreateField(entityTypeObj, label, (CustomFieldType)fieldType, mask);
+            var wrapper = DaoFactory.CustomFieldDao.GetFieldDescription(fieldID);
 
             var messageAction = GetCustomFieldCreatedAction(entityTypeObj);
             MessageService.Send(Request, messageAction, MessageTarget.Create(wrapper.ID), wrapper.Label);
 
-            return ToCustomFieldWrapper(DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldID));
+            return ToCustomFieldWrapper(DaoFactory.CustomFieldDao.GetFieldDescription(fieldID));
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace ASC.Api.CRM
         public CustomFieldWrapper UpdateCustomFieldValue(int id, string entityType, string label, int fieldType, int position, string mask)
         {
             if (id <= 0) throw new ArgumentException();
-            if (!DaoFactory.GetCustomFieldDao().IsExist(id)) throw new ItemNotFoundException();
+            if (!DaoFactory.CustomFieldDao.IsExist(id)) throw new ItemNotFoundException();
 
             var entityTypeObj = ToEntityType(entityType);
 
@@ -245,9 +245,9 @@ namespace ASC.Api.CRM
                     Position = position
                 };
 
-            DaoFactory.GetCustomFieldDao().EditItem(customField);
+            DaoFactory.CustomFieldDao.EditItem(customField);
 
-            customField = DaoFactory.GetCustomFieldDao().GetFieldDescription(id);
+            customField = DaoFactory.CustomFieldDao.GetFieldDescription(id);
 
             var messageAction = GetCustomFieldUpdatedAction(entityTypeObj);
             MessageService.Send(Request, messageAction, MessageTarget.Create(customField.ID), customField.Label);
@@ -273,11 +273,11 @@ namespace ASC.Api.CRM
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
             if (fieldid <= 0) throw new ArgumentException();
 
-            var customField = DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldid);
+            var customField = DaoFactory.CustomFieldDao.GetFieldDescription(fieldid);
             if (customField == null) throw new ItemNotFoundException();
 
             var result = ToCustomFieldWrapper(customField);
-            DaoFactory.GetCustomFieldDao().DeleteField(fieldid);
+            DaoFactory.CustomFieldDao.DeleteField(fieldid);
 
             var messageAction = GetCustomFieldDeletedAction(ToEntityType(entityType));
             MessageService.Send(Request, messageAction, MessageTarget.Create(customField.ID), result.Label);
@@ -306,11 +306,11 @@ namespace ASC.Api.CRM
             var customFields = new List<CustomField>();
             foreach (var id in fieldids)
             {
-                if (!DaoFactory.GetCustomFieldDao().IsExist(id)) throw new ItemNotFoundException();
-                customFields.Add(DaoFactory.GetCustomFieldDao().GetFieldDescription(id));
+                if (!DaoFactory.CustomFieldDao.IsExist(id)) throw new ItemNotFoundException();
+                customFields.Add(DaoFactory.CustomFieldDao.GetFieldDescription(id));
             }
 
-            DaoFactory.GetCustomFieldDao().ReorderFields(fieldids.ToArray());
+            DaoFactory.CustomFieldDao.ReorderFields(fieldids.ToArray());
 
             var messageAction = GetCustomFieldsUpdatedOrderAction(ToEntityType(entityType));
             MessageService.Send(Request, messageAction, MessageTarget.Create(fieldids), customFields.Select(x => x.Label));
@@ -327,7 +327,7 @@ namespace ASC.Api.CRM
         {
             var result = new CustomFieldWrapper(customField)
                 {
-                    RelativeItemsCount = DaoFactory.GetCustomFieldDao().GetContactLinkCount(customField.EntityType, customField.ID)
+                    RelativeItemsCount = DaoFactory.CustomFieldDao.GetContactLinkCount(customField.EntityType, customField.ID)
                 };
             return result;
         }

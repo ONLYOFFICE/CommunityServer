@@ -25,12 +25,15 @@
 
 
 using System;
+using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
+using Autofac;
 
 namespace ASC.Web.CRM.Configuration
 {
@@ -63,7 +66,10 @@ namespace ASC.Web.CRM.Configuration
 
         public override SearchResultItem[] Search(string searchText)
         {
-            return Global.DaoFactory.GetSearchDao().Search(searchText);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<DaoFactory>().SearchDao.Search(searchText);
+            }
         }
     }
 }

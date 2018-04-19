@@ -28,6 +28,7 @@
 
 using System;
 using System.Diagnostics;
+using ASC.Web.Projects.Classes;
 
 #endregion
 
@@ -58,6 +59,8 @@ namespace ASC.Projects.Core.Domain
         public Guid Responsible { get; set; }
 
         public bool Private { get; set; }
+
+        public ProjectSecurityInfo Security { get; set; }
 
 
         public Guid CreateBy { get; set; }

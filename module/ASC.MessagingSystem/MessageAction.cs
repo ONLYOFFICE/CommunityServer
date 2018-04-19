@@ -366,6 +366,7 @@ namespace ASC.MessagingSystem
         GroupDeleted = 4028,
 
         UserDataReassigns = 4030,
+        UserDataRemoving = 4031,
 
         #endregion
 

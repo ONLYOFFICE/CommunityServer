@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ASC.Projects.Engine;
+using ASC.Web.Projects.Classes;
 
 namespace ASC.Projects.Core.Domain
 {
@@ -60,6 +61,8 @@ namespace ASC.Projects.Core.Domain
 
         public DateTime StartDate { get; set; }
 
+        public TaskSecurityInfo Security { get; set; }
+
         private int progress;
 
         public int Progress
@@ -91,6 +94,8 @@ namespace ASC.Projects.Core.Domain
 
         public override bool CanEdit()
         {
+            if (Security != null) return Security.CanEdit;
+
             return ProjectSecurity.CanEdit(this);
         }
     }

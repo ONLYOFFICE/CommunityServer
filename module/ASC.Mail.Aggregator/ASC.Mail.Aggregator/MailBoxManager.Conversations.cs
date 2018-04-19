@@ -44,6 +44,8 @@ using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.DbSchema;
 using ASC.Mail.Aggregator.Extension;
 using ASC.Mail.Aggregator.Filter;
+using ASC.Web.CRM.Core;
+using Autofac;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Mail.Aggregator
@@ -499,26 +501,29 @@ namespace ASC.Mail.Aggregator
 
         public void LinkChainToCrm(int messageId, int tenant, string user, List<CrmContactEntity> contactIds, string httpContextScheme)
         {
-            var factory = new DaoFactory(CoreContext.TenantManager.GetCurrentTenant().TenantId, CRMConstants.DatabaseId);
-            foreach (var crmContactEntity in contactIds)
+            using (var scope = DIHelper.Resolve())
             {
-                switch (crmContactEntity.Type)
+                var factory = scope.Resolve<DaoFactory>();
+                foreach (var crmContactEntity in contactIds)
                 {
-                    case CrmContactEntity.EntityTypes.Contact:
-                        var crmContact = factory.GetContactDao().GetByID(crmContactEntity.Id);
-                        CRMSecurity.DemandAccessTo(crmContact);
-                        break;
-                    case CrmContactEntity.EntityTypes.Case:
-                        var crmCase = factory.GetCasesDao().GetByID(crmContactEntity.Id);
-                        CRMSecurity.DemandAccessTo(crmCase);
-                        break;
-                    case CrmContactEntity.EntityTypes.Opportunity:
-                        var crmOpportunity = factory.GetDealDao().GetByID(crmContactEntity.Id);
-                        CRMSecurity.DemandAccessTo(crmOpportunity);
-                        break;
+                    switch (crmContactEntity.Type)
+                    {
+                        case CrmContactEntity.EntityTypes.Contact:
+                            var crmContact = factory.ContactDao.GetByID(crmContactEntity.Id);
+                            CRMSecurity.DemandAccessTo(crmContact);
+                            break;
+                        case CrmContactEntity.EntityTypes.Case:
+                            var crmCase = factory.CasesDao.GetByID(crmContactEntity.Id);
+                            CRMSecurity.DemandAccessTo(crmCase);
+                            break;
+                        case CrmContactEntity.EntityTypes.Opportunity:
+                            var crmOpportunity = factory.DealDao.GetByID(crmContactEntity.Id);
+                            CRMSecurity.DemandAccessTo(crmOpportunity);
+                            break;
+                    }
                 }
             }
-            
+
             using (var db = GetDb())
             {
                 var chainInfo = GetMessageChainInfo(db, tenant, user, messageId);

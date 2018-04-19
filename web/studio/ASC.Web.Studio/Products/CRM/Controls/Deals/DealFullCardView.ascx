@@ -30,7 +30,7 @@
                 <td class="describe-text" style="white-space:nowrap;"><%= CRMDealResource.CurrentDealMilestone%>:</td>
                 <td></td>
                 <td>
-                    <span id="dealMilestoneSwitcher" class="baseLinkAction linkMedium crm-withArrowDown"><%= Global.DaoFactory.GetDealMilestoneDao().GetByID(TargetDeal.DealMilestoneID).Title.HtmlEncode() %></span>
+                    <span id="dealMilestoneSwitcher" class="baseLinkAction linkMedium crm-withArrowDown"><%= DaoFactory.DealMilestoneDao.GetByID(TargetDeal.DealMilestoneID).Title.HtmlEncode() %></span>
                 </td>
             </tr>
             <tr>

@@ -63,7 +63,7 @@
     }
 
     .dropdown-content {
-        list-style-type: none;
+        list-style: none outside none;
         margin: 0;
         max-height: 400px;
         overflow-x: hidden;
@@ -82,6 +82,7 @@
 
             &.dropdown-item-seporator {
                 margin: 8px 0;
+                height: 0;
             }
         }
 
@@ -305,3 +306,21 @@
     padding:0 12px;
     text-transform: uppercase;
 }
+
+/*Edge hack bug 37123*/
+@supports (-ms-ime-align:auto) {
+    .studio-action-panel .dropdown-content li,
+    .studio-action-panel .dropdown-content li {
+        text-overflow: initial;
+        -o-text-overflow: initial;
+        -moz-text-overflow: initial;
+        -webkit-text-overflow: initial;
+    }
+
+    .studio-action-panel .dropdown-content .dropdown-item,
+    .studio-action-panel .dropdown-content .dropdown-item a {
+        display: inline-block;
+        width: 100%;
+    }
+}
+

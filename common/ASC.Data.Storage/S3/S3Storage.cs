@@ -50,8 +50,6 @@ namespace ASC.Data.Storage.S3
     {
         private readonly List<string> _domains = new List<string>();
         private readonly Dictionary<string, S3CannedACL> _domainsAcl;
-        private readonly Dictionary<string, TimeSpan> _domainsExpires;
-        private readonly string _tenant;
         private readonly S3CannedACL _moduleAcl;
         private string _accessKeyId = "";
         private string _bucket = "";
@@ -72,7 +70,8 @@ namespace ASC.Data.Storage.S3
             _dataList = new DataList(moduleConfig);
             _domains.AddRange(
                 moduleConfig.Domains.Cast<DomainConfigurationElement>().Select(x => string.Format("{0}/", x.Name)));
-            //Make acl
+
+            //Make expires
             _domainsExpires =
                 moduleConfig.Domains.Cast<DomainConfigurationElement>().Where(x => x.Expires != TimeSpan.Zero).
                     ToDictionary(x => x.Name,
@@ -98,11 +97,6 @@ namespace ASC.Data.Storage.S3
             return _moduleAcl;
         }
 
-        private TimeSpan GetExpire(string domain)
-        {
-            return _domainsExpires.ContainsKey(domain) ? _domainsExpires[domain] : _domainsExpires[string.Empty];
-        }
-
         private S3CannedACL GetS3Acl(ACL acl)
         {
             switch (acl)
@@ -114,12 +108,17 @@ namespace ASC.Data.Storage.S3
             }
         }
 
+        public Uri GetUriInternal(string path)
+        {
+            return new Uri(SecureHelper.IsSecure() ? _bucketSSlRoot : _bucketRoot, path);
+        }
+
         public Uri GetUriShared(string domain, string path)
         {
             return new Uri(SecureHelper.IsSecure() ? _bucketSSlRoot : _bucketRoot, MakePath(domain, path));
         }
 
-        public override Uri GetPreSignedUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
+        public override Uri GetInternalUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
         {
             if (expire == TimeSpan.Zero || expire == TimeSpan.MinValue || expire == TimeSpan.MaxValue)
             {
@@ -136,9 +135,9 @@ namespace ASC.Data.Storage.S3
                 Expires = DateTime.UtcNow.Add(expire),
                 Key = MakePath(domain, path),
                 Protocol = SecureHelper.IsSecure() ? Protocol.HTTPS : Protocol.HTTP,
-                Verb = HttpVerb.GET
+                Verb = HttpVerb.GET                
             };
-
+            
             if (headers != null && headers.Any())
             {
                 var headersOverrides = new ResponseHeaderOverrides();
@@ -183,12 +182,6 @@ namespace ASC.Data.Storage.S3
             if (0 < offset) request.ByteRange = new ByteRange(offset, int.MaxValue);
 
             return new ResponseStreamWrapper(GetClient().GetObject(request));
-        }
-
-        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
-        {
-            return GetS3Objects(domain, path, true).Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
-                .Select(x => x.Key.Substring(MakePath(domain, path + "/").Length).TrimStart('/')).ToArray();
         }
 
         protected override Uri SaveWithAutoAttachment(string domain, string path, Stream stream, string attachmentFileName)
@@ -325,7 +318,7 @@ namespace ASC.Data.Storage.S3
             }
         }
 
-        public override string UploadChunk(string domain, string path, string uploadId, Stream stream, int chunkNumber, long chunkLength)
+        public override string UploadChunk(string domain, string path, string uploadId, Stream stream, long defaultChunkSize, int chunkNumber, long chunkLength)
         {
             var request = new UploadPartRequest
             {
@@ -603,9 +596,11 @@ namespace ASC.Data.Storage.S3
             return Save(domain, assignedPath, stream);
         }
 
-        public override Uri[] List(string domain, string path, bool recursive)
+        public override string[] ListDirectoriesRelative(string domain, string path, bool recursive)
         {
-            throw new NotSupportedException();
+            return GetS3Objects(domain, path)
+                .Select(x => x.Key.Substring(MakePath(domain, path + "/").Length))
+                .ToArray();
         }
 
 
@@ -838,11 +833,11 @@ namespace ASC.Data.Storage.S3
         }
 
 
-        public override Uri[] ListFiles(string domain, string path, string pattern, bool recursive)
+        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
             return GetS3Objects(domain, path)
                 .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
-                .Select(x => GetUriInternal(x.Key))
+                .Select(x => x.Key.Substring(MakePath(domain, path + "/").Length).TrimStart('/'))
                 .ToArray();
         }
 
@@ -1010,16 +1005,16 @@ namespace ASC.Data.Storage.S3
                 _recycleDir = props["recycleDir"];
             }
 
+            _region = props["region"];
+
             _bucketRoot = props.ContainsKey("cname") && Uri.IsWellFormedUriString(props["cname"], UriKind.Absolute)
                               ? new Uri(props["cname"], UriKind.Absolute)
-                              : new Uri(string.Format("http://{0}.s3.amazonaws.com", _bucket), UriKind.Absolute);
+                              : new Uri(String.Format("http://{0}.s3.{1}.amazonaws.com", _bucket, _region), UriKind.Absolute);
             _bucketSSlRoot = props.ContainsKey("cnamessl") &&
                              Uri.IsWellFormedUriString(props["cnamessl"], UriKind.Absolute)
                                  ? new Uri(props["cnamessl"], UriKind.Absolute)
-                                 : new Uri(string.Format("https://s3.amazonaws.com/{0}/", _bucket), UriKind.Absolute);
-
-            _region = props["region"];
-
+                                 : new Uri(String.Format("https://s3.{1}.amazonaws.com/{0}/", _bucket, _region), UriKind.Absolute);
+                      
             if (props.ContainsKey("lower"))
             {
                 bool.TryParse(props["lower"], out _lowerCasing);
@@ -1093,21 +1088,16 @@ namespace ASC.Data.Storage.S3
             client.CopyObject(copyObjectRequest);
         }
 
-        public override Uri GetUriInternal(string path)
-        {
-            return new Uri(SecureHelper.IsSecure() ? _bucketSSlRoot : _bucketRoot, path);
-        }
-
         private IAmazonCloudFront GetCloudFrontClient()
         {
             var cfg = new AmazonCloudFrontConfig { MaxErrorRetry = 3 };
-            return AWSClientFactory.CreateAmazonCloudFrontClient(_accessKeyId, _secretAccessKeyId, cfg);
+            return new  AmazonCloudFrontClient(_accessKeyId, _secretAccessKeyId, cfg);
         }
 
         private IAmazonS3 GetClient()
         {
             var cfg = new AmazonS3Config { UseHttp = true, MaxErrorRetry = 3, RegionEndpoint = RegionEndpoint.GetBySystemName(_region) };
-            return AWSClientFactory.CreateAmazonS3Client(_accessKeyId, _secretAccessKeyId, cfg);
+            return new AmazonS3Client(_accessKeyId, _secretAccessKeyId, cfg);
         }
 
         public Stream GetWriteStream(string domain, string path)

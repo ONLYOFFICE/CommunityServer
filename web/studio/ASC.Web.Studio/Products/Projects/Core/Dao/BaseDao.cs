@@ -25,6 +25,7 @@
 
 
 using System;
+using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Core;
 
@@ -53,13 +54,12 @@ namespace ASC.Projects.Data
 
         protected Guid CurrentUserID { get; private set; }
 
-        protected string DatabaseId { get; private set; }
+        public IDbManager Db { get; set; }
 
-        protected BaseDao(string dbId, int tenant)
+        protected BaseDao(int tenant)
         {
             Tenant = tenant;
             CurrentUserID = SecurityContext.CurrentAccount.ID;
-            DatabaseId = dbId;
         }
 
 
@@ -68,9 +68,9 @@ namespace ASC.Projects.Data
             return new SqlQuery(table).Where("tenant_id", Tenant);
         }
 
-        protected SqlInsert Insert(string table)
+        protected SqlInsert Insert(string table, bool replace = true)
         {
-            return new SqlInsert(table, true).InColumnValue("tenant_id", Tenant);
+            return new SqlInsert(table, replace).InColumnValue("tenant_id", Tenant);
         }
 
         protected SqlUpdate Update(string table)

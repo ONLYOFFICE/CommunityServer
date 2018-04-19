@@ -54,8 +54,8 @@ namespace ASC.CRM.Core.Dao
 
         #region Constructor
 
-        public CachedListItemHistory(int tenantId, String storageKey)
-            : base(tenantId, storageKey)
+        public CachedListItemHistory(int tenantId, DaoFactory factory)
+            : base(tenantId, factory)
         {
 
         }
@@ -88,11 +88,12 @@ namespace ASC.CRM.Core.Dao
     {
         #region Constructor
 
-        public ListItemHistoryDao(int tenantId, String storageKey)
-            : base(tenantId, storageKey)
+        private DaoFactory DaoFactory { get; set; }
+
+        public ListItemHistoryDao(int tenantId, DaoFactory daoFactory)
+            : base(tenantId)
         {
-
-
+            DaoFactory = daoFactory;
         }
 
         #endregion
@@ -107,11 +108,8 @@ namespace ASC.CRM.Core.Dao
             if (endDate.HasValue)
                 sqlQuery.Where(Exp.Lt("modifed_on", endDate));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery.OrderBy("entity_id", true))
-                     .ConvertAll(ToListItemHistory);
-            }
+            return Db.ExecuteList(sqlQuery.OrderBy("entity_id", true))
+                .ConvertAll(ToListItemHistory);
         }
 
         public int GetItemsCount(EntityType entityType, int statusID, DateTime? startDate, DateTime? endDate)
@@ -126,33 +124,24 @@ namespace ASC.CRM.Core.Dao
             if (endDate.HasValue)
                 sqlQuery.Where(Exp.Lt("modifed_on", endDate));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<int>(sqlQuery);
-            }
+            return Db.ExecuteScalar<int>(sqlQuery);
         }
 
         public virtual ListItemHistory GetByID(int id)
         {
             var sqlQuery = GetListItemSqlQuery(Exp.Eq("id", id));
             
-            using (var db = GetDb())
-            {
-                var result = db.ExecuteList(sqlQuery).ConvertAll(ToListItemHistory);
+            var result = Db.ExecuteList(sqlQuery).ConvertAll(ToListItemHistory);
 
-                return result.Count > 0 ? result[0] : null;
-            }
+            return result.Count > 0 ? result[0] : null;
         }
 
         public virtual List<ListItemHistory> GetAll(EntityType entityType)
         {
             var sqlQuery = GetListItemSqlQuery(Exp.Eq("entity_type", (int) entityType))
                 .OrderBy("entity_id", true);
-            
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToListItemHistory);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToListItemHistory);
         }
 
         public virtual int CreateItem(ListItemHistory item)
@@ -161,13 +150,13 @@ namespace ASC.CRM.Core.Dao
                 throw new ArgumentException();
 
             if (item.EntityType == EntityType.Opportunity &&
-                (Global.DaoFactory.GetDealDao().GetByID(item.EntityID) == null ||
-                 Global.DaoFactory.GetDealMilestoneDao().GetByID(item.StatusID) == null))
+                (DaoFactory.DealDao.GetByID(item.EntityID) == null ||
+                 DaoFactory.DealMilestoneDao.GetByID(item.StatusID) == null))
                 throw new ArgumentException();
 
             if (item.EntityType == EntityType.Contact &&
-                (Global.DaoFactory.GetContactDao().GetByID(item.EntityID) == null ||
-                 Global.DaoFactory.GetListItemDao().GetByID(item.StatusID) == null))
+                (DaoFactory.ContactDao.GetByID(item.EntityID) == null ||
+                 DaoFactory.ListItemDao.GetByID(item.StatusID) == null))
                 throw new ArgumentException();
 
             var sqlQuery = Insert("crm_item_history")
@@ -179,10 +168,7 @@ namespace ASC.CRM.Core.Dao
                 .InColumnValue("modifed_by", SecurityContext.CurrentAccount.ID)
                 .Identity(1, 0, true);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<int>(sqlQuery);
-            }
+            return Db.ExecuteScalar<int>(sqlQuery);
         }
 
         public virtual void DeleteItem(EntityType entityType, int statusID)
@@ -193,10 +179,7 @@ namespace ASC.CRM.Core.Dao
             var sqlQuery = Delete("crm_item_history")
                 .Where(Exp.Eq("entity_type", (int) entityType) & Exp.Eq("status", statusID));
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(sqlQuery);
-            }
+            Db.ExecuteNonQuery(sqlQuery);
         }
 
         private bool HaveRelativeItems(EntityType entityType, int statusID)
@@ -217,10 +200,7 @@ namespace ASC.CRM.Core.Dao
                     throw new ArgumentException();
             }
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<int>(sqlQuery.SelectCount()) > 0;
-            }
+            return Db.ExecuteScalar<int>(sqlQuery.SelectCount()) > 0;
         }
 
         private SqlQuery GetListItemSqlQuery(Exp where)

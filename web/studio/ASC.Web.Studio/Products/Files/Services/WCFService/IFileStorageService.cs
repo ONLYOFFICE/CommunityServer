@@ -59,7 +59,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<FileOperationResult> MoveOrCopyItems(ItemList<String> items, String destFolderId, FileConflictResolveType resolveType, bool isCopyOperation, bool deleteAfter = false);
 
-        ItemList<FileOperationResult> DeleteItems(string action, ItemList<String> items, bool ignoreException = false, bool deleteAfter = false);
+        ItemList<FileOperationResult> DeleteItems(string action, ItemList<String> items, bool ignoreException = false, bool deleteAfter = false, bool immediately = false);
 
         void ReassignStorage(Guid userFromId, Guid userToId);
 
@@ -122,6 +122,8 @@ namespace ASC.Web.Files.Services.WCFService
         bool StoreOriginal(bool store);
 
         bool UpdateIfExist(bool update);
+
+        bool ChangeDeleteConfrim(bool update);
 
         String GetHelpCenter();
 

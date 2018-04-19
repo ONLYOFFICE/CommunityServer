@@ -103,7 +103,7 @@ case "$1" in
 			do_stop
 		fi
 		rm -f "$LOCKFILE"
-		sleep 5
+#		sleep 5
 		do_start
 	;;
 

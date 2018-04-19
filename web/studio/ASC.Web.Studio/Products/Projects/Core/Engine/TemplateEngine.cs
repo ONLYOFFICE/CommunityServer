@@ -35,26 +35,21 @@ namespace ASC.Projects.Engine
 {
     public class TemplateEngine
     {
-        private readonly ITemplateDao dao;
-
-		public TemplateEngine(IDaoFactory daoFactory)
-		{
-		    dao = daoFactory.GetTemplateDao();			
-		}
+        public IDaoFactory DaoFactory { get; set; }
 
         public List<Template> GetAll()
         {
-            return dao.GetAll();
+            return DaoFactory.TemplateDao.GetAll();
         }
 
         public int GetCount()
         {
-            return dao.GetCount();
+            return DaoFactory.TemplateDao.GetCount();
         }
 
         public Template GetByID(int id)
         {
-            return dao.GetByID(id);
+            return DaoFactory.TemplateDao.GetByID(id);
         }
 
         public Template SaveOrUpdate(Template template)
@@ -68,12 +63,12 @@ namespace ASC.Projects.Engine
             template.LastModifiedBy = SecurityContext.CurrentAccount.ID;
             template.LastModifiedOn = TenantUtil.DateTimeNow();
 
-            return dao.Save(template);
+            return DaoFactory.TemplateDao.Save(template);
         }
 
         public void Delete(int id)
         {
-            dao.Delete(id);
+            DaoFactory.TemplateDao.Delete(id);
         }
     }
 }

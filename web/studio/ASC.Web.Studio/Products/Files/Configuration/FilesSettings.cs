@@ -37,6 +37,9 @@ namespace ASC.Web.Files.Classes
         [DataMember(Name = "EnableThirdpartySettings")]
         public bool EnableThirdpartySetting { get; set; }
 
+        [DataMember(Name = "FastDelete")]
+        public bool FastDeleteSetting { get; set; }
+
         [DataMember(Name = "StoreOriginalFiles")]
         public bool StoreOriginalFilesSetting { get; set; }
 
@@ -50,6 +53,7 @@ namespace ASC.Web.Files.Classes
         {
             return new FilesSettings
                 {
+                    FastDeleteSetting = false,
                     EnableThirdpartySetting = true,
                     StoreOriginalFilesSetting = true,
                     UpdateIfExistSetting = false,
@@ -60,6 +64,17 @@ namespace ASC.Web.Files.Classes
         public override Guid ID
         {
             get { return new Guid("{03B382BD-3C20-4f03-8AB9-5A33F016316E}"); }
+        }
+
+        public static bool ConfirmDelete
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.FastDeleteSetting = !value;
+                setting.SaveForCurrentUser();
+            }
+            get { return !LoadForCurrentUser().FastDeleteSetting; }
         }
 
         public static bool EnableThirdParty

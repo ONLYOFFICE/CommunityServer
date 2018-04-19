@@ -163,7 +163,7 @@ jq(document).ready(function () {
             .replaceWith(jq("#appsPopupBody").removeClass("display-none").addClass("containerBodyBlock"));
 
         $appsBtn.on("click", function () {
-            StudioBlockUIManager.blockUI('#appsPopup', 550, 500);
+            StudioBlockUIManager.blockUI('#appsPopup', 565, 500);
             jq('.studio-action-panel').hide();
         });
     }

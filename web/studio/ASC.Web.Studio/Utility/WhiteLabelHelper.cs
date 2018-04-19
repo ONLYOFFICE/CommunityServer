@@ -64,7 +64,7 @@ namespace ASC.Web.Studio.Utility
 
             try
             {
-                var partnerdataStorage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_partnerdata");
+                var partnerdataStorage = StorageFactory.GetStorage(string.Empty, "static_partnerdata");
 
                 if (partnerdataStorage == null) return;
 

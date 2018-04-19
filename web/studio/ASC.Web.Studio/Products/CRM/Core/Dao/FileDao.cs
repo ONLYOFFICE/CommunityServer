@@ -35,8 +35,8 @@ namespace ASC.CRM.Core.Dao
 {
     public class FileDao : AbstractDao
     {
-        public FileDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public FileDao(int tenantID)
+            : base(tenantID)
         {
         }
 

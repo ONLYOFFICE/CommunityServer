@@ -49,8 +49,7 @@ namespace ASC.Api.CRM
                 {
                     if (WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(), userid))
                     {
-                        var factory = new DaoFactory(CoreContext.TenantManager.GetCurrentTenant().TenantId, CRMConstants.DatabaseId);
-                        return new List<BaseCalendar> {new CRMCalendar(factory, userid)};
+                        return new List<BaseCalendar> {new CRMCalendar(userid)};
                     }
                     return new List<BaseCalendar>();
                 });

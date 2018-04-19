@@ -61,7 +61,8 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public float TimeSpend { get; set; }
 
-        public TaskWrapperFull(Task task, Milestone milestone, ProjectWrapperFull project, IEnumerable<FileWrapper> files, IEnumerable<CommentInfo> comments, int commentsCount, bool isSubscribed, float timeSpend) : base(task, milestone)
+        public TaskWrapperFull(ProjectApiBase projectApiBase, Task task, Milestone milestone, ProjectWrapperFull project, IEnumerable<FileWrapper> files, IEnumerable<CommentInfo> comments, int commentsCount, bool isSubscribed, float timeSpend)
+            : base(projectApiBase, task, milestone)
         {
             Files = files.ToList();
             CommentsCount = commentsCount;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -15,8 +16,8 @@ namespace ASC.Socket.IO.Svc
 {
     public class Launcher : IServiceController
     {
-        private static int retries = 0;
-        private static int maxretries = 10;
+        private static int retries;
+        private static readonly int maxretries = 10;
         private static Process proc;
         private static ProcessStartInfo startInfo;
         private static WebSocket webSocket;
@@ -46,6 +47,13 @@ namespace ASC.Socket.IO.Svc
 
                 startInfo.EnvironmentVariables.Add("core.machinekey", appSettings["core.machinekey"]);
                 startInfo.EnvironmentVariables.Add("port", cfg.Port);
+
+                if (cfg.Redis != null && !string.IsNullOrEmpty(cfg.Redis.Host) && !string.IsNullOrEmpty(cfg.Redis.Port))
+                {
+                    startInfo.EnvironmentVariables.Add("redis:host", cfg.Redis.Host);
+                    startInfo.EnvironmentVariables.Add("redis:port", cfg.Redis.Port);
+                }
+
                 if (CoreContext.Configuration.Standalone)
                 {
                     startInfo.EnvironmentVariables.Add("portal.internal.url", "http://localhost");

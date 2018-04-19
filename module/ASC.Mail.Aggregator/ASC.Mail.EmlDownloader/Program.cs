@@ -80,7 +80,7 @@ namespace ASC.Mail.EmlDownloader
                                                 ConfigurationManager.AppSettings["mail.certificate-permit"]);
 
                     string messageEml;
-                    using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: certificatePermit))
+                    using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: mailbox.IsTeamlab || certificatePermit))
                     {
                         var message = client.GetInboxMessage(options.MessageUid);
                         messageEml = message.ToString();

@@ -29,8 +29,8 @@ using System.Collections.Specialized;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+using AjaxPro;
 using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
@@ -40,7 +40,6 @@ using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 using Resources;
 using Constants = ASC.Core.Users.Constants;
 
@@ -122,30 +121,30 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
-        private static void UserAuth(UserInfo user)
+        private void UserAuth(UserInfo user)
         {
             if (SecurityContext.IsAuthenticated) return;
 
             if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
             {
-                HttpContext.Current.Session["refererURL"] = HttpContext.Current.Request.Url.AbsoluteUri;
-                HttpContext.Current.Response.Redirect(Confirm.SmsConfirmUrl(user), true);
+                Session["refererURL"] = Request.GetUrlRewriter().AbsoluteUri;
+                Response.Redirect(Confirm.SmsConfirmUrl(user), true);
                 return;
             }
 
             var cookiesKey = SecurityContext.AuthenticateMe(user.ID);
             CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
+            MessageService.Send(Request, MessageAction.LoginSuccess);
         }
 
-        private static void ActivateMail(UserInfo user)
+        private void ActivateMail(UserInfo user)
         {
             if (user.ActivationStatus == EmployeeActivationStatus.Activated) return;
 
             user.ActivationStatus = EmployeeActivationStatus.Activated;
             CoreContext.UserManager.SaveUserInfo(user);
 
-            MessageService.Send(HttpContext.Current.Request,
+            MessageService.Send(Request,
                                 user.IsVisitor() ? MessageAction.GuestActivated : MessageAction.UserActivated,
                                 MessageTarget.Create(user.ID),
                                 user.DisplayUserName(false));
@@ -179,10 +178,10 @@ namespace ASC.Web.Studio.UserControls.Management
                 UserManagerWrapper.CheckPasswordPolicy(pwd);
 
                 SecurityContext.SetUserPassword(User.ID, pwd);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedPassword);
+                MessageService.Send(Request, MessageAction.UserUpdatedPassword);
 
                 CookiesManager.ResetUserCookie();
-                MessageService.Send(HttpContext.Current.Request, MessageAction.CookieSettingsUpdated);
+                MessageService.Send(Request, MessageAction.CookieSettingsUpdated);
             }
             catch (Exception ex)
             {
@@ -265,7 +264,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 CoreContext.UserManager.SaveUserInfo(user);
 
                 StudioNotifyService.Instance.SendEmailActivationInstructions(user, newEmail);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, MessageTarget.Create(user.ID), user.DisplayUserName(false));
+                MessageService.Send(Request, MessageAction.UserSentActivationInstructions, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
                 response.message = String.Format(Resource.MessageEmailActivationInstuctionsSentOnEmail, "<b>" + newEmail + "</b>");
                 return response;
@@ -300,7 +299,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 return EmailValidationKeyProvider.ValidationResult.Invalid;
             }
 
-            return EmailValidationKeyProvider.ValidateEmailKey(email + type, key, SetupInfo.ValidEamilKeyInterval);
+            return EmailValidationKeyProvider.ValidateEmailKey(email + type, key, SetupInfo.ValidEmailKeyInterval);
         }
 
         private static NameValueCollection BuildRequestFromQueryString(string queryString)

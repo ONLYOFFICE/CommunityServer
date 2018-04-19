@@ -29,28 +29,36 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Data.Storage.Configuration;
 
 namespace ASC.Data.Storage.DiscStorage
 {
     public class DiscDataStore : BaseStorage
     {
-        private const int BufferSize = 4096;
+        private const int BufferSize = 8192;
         private readonly Dictionary<string, MappedPath> _mappedPaths = new Dictionary<string, MappedPath>();
 
+      
 
         public DiscDataStore(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
+            _tenant = tenant;
             //Fill map path
             _modulename = moduleConfig.Name;
             _dataList = new DataList(moduleConfig);
             foreach (DomainConfigurationElement domain in moduleConfig.Domains)
             {
-                _mappedPaths.Add(domain.Name, new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, domain.VirtualPath, handlerConfig.GetProperties()));
+                _mappedPaths.Add(domain.Name, new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, handlerConfig.GetProperties()));
             }
             //Add default
-            _mappedPaths.Add(string.Empty, new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), moduleConfig.VirtualPath, handlerConfig.GetProperties()));
+            _mappedPaths.Add(string.Empty, new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), handlerConfig.GetProperties()));
+
+            //Make expires
+            _domainsExpires =
+                moduleConfig.Domains.Cast<DomainConfigurationElement>().Where(x => x.Expires != TimeSpan.Zero).
+                    ToDictionary(x => x.Name,
+                                 y => y.Expires);
+            _domainsExpires.Add(string.Empty, moduleConfig.Expires);
         }
 
         public String GetPhysicalPath(string domain, string path)
@@ -65,24 +73,9 @@ namespace ASC.Data.Storage.DiscStorage
             return (pathMap.PhysicalPath + EnsureLeadingSlash(path)).Replace('\\', '/');
         }
 
-        public override Uri GetPreSignedUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
+        public override bool IsSupportInternalUri
         {
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-
-            var pathMap = GetPath(domain);
-            var uri = pathMap.VirtualPath.IsAbsoluteUri ?
-                new MonoUri(pathMap.VirtualPath, pathMap.VirtualPath.LocalPath.TrimEnd('/') + EnsureLeadingSlash(path.Replace('\\', '/'))) :
-                new MonoUri(pathMap.VirtualPath.ToString().TrimEnd('/') + EnsureLeadingSlash(path.Replace('\\', '/')), UriKind.Relative);
-
-            return uri;
-        }
-
-        private static string EnsureLeadingSlash(string str)
-        {
-            return "/" + str.TrimStart('/');
+            get { return false; }
         }
 
         public override Stream GetReadStream(string domain, string path)
@@ -181,6 +174,14 @@ namespace ASC.Data.Storage.DiscStorage
             return Save(domain, path, stream);
         }
 
+        public override bool IsSupportedPreSignedUri
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         #region chunking
 
         public override string InitiateChunkedUpload(string domain, string path)
@@ -190,7 +191,7 @@ namespace ASC.Data.Storage.DiscStorage
             return target;
         }
 
-        public override string UploadChunk(string domain, string path, string uploadId, Stream stream, int chunkNumber, long chunkLength)
+        public override string UploadChunk(string domain, string path, string uploadId, Stream stream, long defaultChunkSize, int chunkNumber, long chunkLength)
         {
             var target = GetTarget(domain, path);
             var mode = chunkNumber == 0 ? FileMode.Create : FileMode.Append;
@@ -484,7 +485,7 @@ namespace ASC.Data.Storage.DiscStorage
         }
 
 
-        public override Uri[] List(string domain, string path, bool recursive)
+        public override string[] ListDirectoriesRelative(string domain, string path, bool recursive)
         {
             if (path == null) throw new ArgumentNullException("path");
 
@@ -496,12 +497,12 @@ namespace ASC.Data.Storage.DiscStorage
                 var entries = Directory.GetDirectories(targetDir, "*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
                 return Array.ConvertAll(
                     entries,
-                    x => GetUri(domain, Path.Combine(path != null ? PathUtils.Normalize(path) : string.Empty, x.Substring(targetDir.Length))));
+                    x => x.Substring(targetDir.Length));
             }
-            return new Uri[0];
+            return new string[0];
         }
 
-        public override Uri[] ListFiles(string domain, string path, string pattern, bool recursive)
+        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
             if (path == null) throw new ArgumentNullException("path");
 
@@ -513,15 +514,9 @@ namespace ASC.Data.Storage.DiscStorage
                 var entries = Directory.GetFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
                 return Array.ConvertAll(
                     entries,
-                    x => GetUri(domain, Path.Combine(PathUtils.Normalize(path), x.Substring(targetDir.Length))));
+                    x => x.Substring(targetDir.Length));
             }
-            return new Uri[0];
-        }
-
-        public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
-        {
-            var dirPath = GetUri(domain, path).ToString();
-            return ListFiles(domain, path, pattern, /*true*/recursive).Select(x => x.ToString().Substring(dirPath.Length).TrimStart('/')).ToArray();
+            return new string[0];
         }
 
         public override bool IsFile(string domain, string path)
@@ -616,11 +611,6 @@ namespace ASC.Data.Storage.DiscStorage
             }
         }
 
-        public override Uri GetUriInternal(string path)
-        {
-            return GetUri(string.Empty, path);
-        }
-
 
         private MappedPath GetPath(string domain)
         {
@@ -667,28 +657,5 @@ namespace ASC.Data.Storage.DiscStorage
                 throw new ArgumentException("bad path");
             }
         }
-
-        private class MonoUri : Uri
-        {
-            public MonoUri(Uri baseUri, string relativeUri)
-                : base(baseUri, relativeUri)
-            {
-            }
-
-            public MonoUri(string uriString, UriKind uriKind)
-                : base(uriString, uriKind)
-            {
-            }
-
-            public override string ToString()
-            {
-                var s = base.ToString();
-                if (WorkContext.IsMono && s.StartsWith(UriSchemeFile + SchemeDelimiter))
-                {
-                    return s.Substring(7);
-                }
-                return s;
-            }
         }
-    }
 }

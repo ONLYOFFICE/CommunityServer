@@ -90,8 +90,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         protected void Page_Load(object sender, EventArgs e)
         {
             Settings = AdditionalWhiteLabelSettings.Instance;
-            //Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-            
+
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
             InitScript();

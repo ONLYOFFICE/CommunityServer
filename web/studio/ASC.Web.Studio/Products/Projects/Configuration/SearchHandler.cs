@@ -34,6 +34,8 @@ using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 
 using ASC.Projects.Engine;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Web.Projects.Configuration
 {
@@ -66,7 +68,10 @@ namespace ASC.Web.Projects.Configuration
 
         public override SearchResultItem[] Search(string text)
         {
-            return Global.EngineFactory.SearchEngine.Search(text).Select(GetSearchResultItem).ToArray();
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<EngineFactory>().SearchEngine.Search(text).Select(GetSearchResultItem).ToArray();
+            }
         }
 
         public SearchResultItem GetSearchResultItem(SearchItem searchResultItem)

@@ -34,14 +34,16 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="UAParser">
-      <HintPath>..\..\packages\UAParser.2.1.0.0\lib\net40-client\UAParser.dll</HintPath>
+      <HintPath>..\..\packages\UAParser.3.0.0\lib\netstandard1.3\UAParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

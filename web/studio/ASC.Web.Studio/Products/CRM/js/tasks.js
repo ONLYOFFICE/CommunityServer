@@ -1222,12 +1222,8 @@ ASC.CRM.TaskActionView = new function() {
 
     var _initTaskResponsibleByResponsible = function (responsible) {
         jq("#taskActionViewAdvUsrSrContainer").useradvancedSelector("reset");
-        if (responsible.activationStatus != 2) {
-            jq("#taskActionViewAdvUsrSrContainer").useradvancedSelector("select", [responsible.id]);
-        } else {
-            jq("#taskActionViewAdvUsrSrContainer .taskResponsibleLabel").text(responsible.displayName);
-            jq("#taskActionViewAdvUsrSrContainer").attr("data-responsible-id", "");
-        }
+        jq("#taskActionViewAdvUsrSrContainer").attr("data-responsible-id", responsible.activationStatus != 2 ? responsible.id : "");
+        jq("#taskActionViewAdvUsrSrContainer .taskResponsibleLabel").text(Encoder.htmlDecode(responsible.displayName));
     };
 
     var _initTaskCategorySelector = function () {

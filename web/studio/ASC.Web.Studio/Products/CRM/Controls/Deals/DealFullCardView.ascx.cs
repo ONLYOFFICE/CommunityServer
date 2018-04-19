@@ -61,11 +61,11 @@ namespace ASC.Web.CRM.Controls.Deals
         protected void Page_Load(object sender, EventArgs e)
         {
             if (TargetDeal.ContactID != 0) {
-                TargetDealContact = Global.DaoFactory.GetContactDao().GetByID(TargetDeal.ContactID);
+                TargetDealContact = DaoFactory.ContactDao.GetByID(TargetDeal.ContactID);
             }
 
             RegisterClientScriptHelper.DataDealFullCardView(Page, TargetDeal);
-            AllDealMilestones = Global.DaoFactory.GetDealMilestoneDao().GetAll();
+            AllDealMilestones = DaoFactory.DealMilestoneDao.GetAll();
 
             ExecHistoryView();
             RegisterScript();

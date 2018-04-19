@@ -24,6 +24,13 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Web;
+using System.Web.Configuration;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -37,18 +44,12 @@ using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Security.Cryptography;
+using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 using log4net;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Web;
-using System.Web.Configuration;
 
 namespace ASC.Web.Studio.Core.Notify
 {
@@ -91,6 +92,10 @@ namespace ASC.Web.Studio.Core.Notify
                 else if (TenantExtra.Hosted)
                 {
                     client.RegisterSendMethod(SendHostedTariffLetters, cron);
+                }
+                else if (TenantExtra.Opensource)
+                {
+                    client.RegisterSendMethod(SendOpensourceTariffLetters, cron);
                 }
                 else
                 {
@@ -207,20 +212,21 @@ namespace ASC.Web.Studio.Core.Notify
         public void UserPasswordChange(UserInfo userInfo)
         {
             var hash = Hasher.Base64Hash(CoreContext.Authentication.GetUserPasswordHash(userInfo.ID));
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(userInfo.Email, ConfirmType.PasswordChange, hash);
+
             client.SendNoticeToAsync(
-                CoreContext.Configuration.Personal ? Constants.ActionPasswordChangePersonal : Constants.ActionPasswordChange,
+                CoreContext.Configuration.Personal ? Constants.ActionPersonalPasswordChange : Constants.ActionPasswordChange,
                         null,
                         RecipientFromEmail(new[] { userInfo.Email }, false),
                         new[] { EMailSenderName },
                         null,
                         new TagValue(Constants.TagUserName, SecurityContext.IsAuthenticated ? DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID) : ((HttpContext.Current != null) ? HttpContext.Current.Request.UserHostAddress : null)),
-                        new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(userInfo.Email, ConfirmType.PasswordChange, hash)),
+                        new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonChangePassword, confirmationUrl),
                         new TagValue(Constants.TagBody, string.Empty),
                         new TagValue(Constants.TagUserDisplayName, userInfo.DisplayUserName()),
-                        Constants.TagSignatureStart,
-                        Constants.TagSignatureEnd,
-                        new TagValue(CommonTags.WithPhoto, CoreContext.Configuration.Personal ? "personal" : ""),
-                        new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
+                        new TagValue(CommonTags.Footer, CoreContext.Configuration.Personal ? "personal" : ""),
+                        new TagValue(CommonTags.IsPersonal, CoreContext.Configuration.Personal ? "true" : "false"),
                         Constants.UnsubscribeLink);
         }
 
@@ -230,26 +236,29 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendEmailChangeInstructions(UserInfo user, string email)
         {
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailChange, SecurityContext.CurrentAccount.ID);
+
             client.SendNoticeToAsync(
-                CoreContext.Configuration.Personal ? Constants.ActionEmailChangePersonal : Constants.ActionEmailChange,
+                CoreContext.Configuration.Personal ? Constants.ActionPersonalEmailChange : Constants.ActionEmailChange,
                         null,
                         RecipientFromEmail(new[] { email }, false),
                         new[] { EMailSenderName },
                         null,
                         new TagValue(Constants.TagUserName, SecurityContext.IsAuthenticated ? DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID) : ((HttpContext.Current != null) ? HttpContext.Current.Request.UserHostAddress : null)),
-                        new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailChange, SecurityContext.CurrentAccount.ID)),
+                        new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonChangeEmail, confirmationUrl),
                         new TagValue(Constants.TagBody, string.Empty),
                         new TagValue(Constants.TagUserDisplayName, string.Empty),
-                        Constants.TagSignatureStart,
-                        Constants.TagSignatureEnd,
-                        new TagValue(CommonTags.WithPhoto, CoreContext.Configuration.Personal ? "personal" : ""),
-                        new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
+                        new TagValue(CommonTags.Footer, CoreContext.Configuration.Personal ? "personal" : ""),
+                        new TagValue(CommonTags.IsPersonal, CoreContext.Configuration.Personal ? "true" : "false"),
                         new TagValue(CommonTags.Culture, user.GetCulture().Name),
                         Constants.UnsubscribeLink);
         }
 
         public void SendEmailActivationInstructions(UserInfo user, string email)
         {
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailActivation);
+
             client.SendNoticeToAsync(
                         Constants.ActionActivateEmail,
                         null,
@@ -257,11 +266,12 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { EMailSenderName },
                         null,
                         new TagValue(Constants.TagUserName, SecurityContext.IsAuthenticated ? DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID) : ((HttpContext.Current != null) ? HttpContext.Current.Request.UserHostAddress : null)),
-                        new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmailActivation)),
+                        new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonActivateEmail, confirmationUrl),
                         new TagValue(Constants.TagBody, string.Empty),
                         new TagValue(Constants.TagUserDisplayName, (user.DisplayUserName() ?? string.Empty).Trim()),
-                        new TagValue(CommonTags.WithPhoto, CoreContext.Configuration.Personal ? "personal" : "common"),
-                        new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
+                        new TagValue(CommonTags.Footer, CoreContext.Configuration.Personal ? "personal" : "common"),
+                        new TagValue(CommonTags.IsPersonal, CoreContext.Configuration.Personal ? "true" : "false"),
                         Constants.UnsubscribeLink);
         }
 
@@ -269,13 +279,16 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendMsgMobilePhoneChange(UserInfo userInfo)
         {
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(userInfo.Email.ToLower(), ConfirmType.PhoneActivation);
+
             client.SendNoticeToAsync(
                 Constants.ActionPhoneChange,
                 null,
                 RecipientFromEmail(new[] { userInfo.Email.ToLower() }, false),
                 new[] { EMailSenderName },
                 null,
-                new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(userInfo.Email.ToLower(), ConfirmType.PhoneActivation)),
+                new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonChangePhone, confirmationUrl),
                 new TagValue(Constants.TagUserDisplayName, userInfo.DisplayUserName()));
         }
 
@@ -313,9 +326,10 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { EMailSenderName },
                         null,
                         new TagValue(Constants.TagUserName, SecurityContext.IsAuthenticated ? DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID) : ((HttpContext.Current != null) ? HttpContext.Current.Request.UserHostAddress : null)),
-                        new TagValue(Constants.TagInviteLink, inviteUrl),
+                        new TagValue(Constants.TagInviteLink, inviteUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonJoin, inviteUrl),
                         new TagValue(Constants.TagBody, inviteMessage ?? string.Empty),
-                        new TagValue(CommonTags.WithPhoto, "common"),
+                        new TagValue(CommonTags.Footer, "common"),
                         new TagValue(Constants.TagUserDisplayName, (user.DisplayUserName() ?? "").Trim()),
                         CreateSendFromTag());
         }
@@ -333,7 +347,7 @@ namespace ASC.Web.Studio.Core.Notify
 
             if (CoreContext.Configuration.Personal)
             {
-                notifyAction = Constants.ActionAfterRegistrationPersonal1;
+                notifyAction = Constants.ActionPersonalAfterRegistration1;
                 footer = "personal";
             }
             else if (TenantExtra.Enterprise)
@@ -370,19 +384,10 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
                 new TagValue(Constants.TagUserEmail, newUserInfo.Email),
                 new TagValue(Constants.TagMyStaffLink, GetMyStaffLink()),
-                Constants.TagMarkerStart,
-                Constants.TagMarkerEnd,
-                Constants.TagFrameStart,
-                Constants.TagFrameEnd,
-                Constants.TagHeaderStart,
-                Constants.TagHeaderEnd,
-                Constants.TagStrongStart,
-                Constants.TagStrongEnd,
-                Constants.TagSignatureStart,
-                Constants.TagSignatureEnd,
                 Constants.TagGreenButton(greenButtonText, CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/')),
-                new TagValue(CommonTags.WithPhoto, footer),
-                new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
+                new TagValue(CommonTags.Footer, footer),
+                new TagValue(CommonTags.IsPersonal, CoreContext.Configuration.Personal ? "true" : "false"),
+                new TagValue(CommonTags.MasterTemplate, CoreContext.Configuration.Personal ? "HtmlMasterPersonal" : "HtmlMaster"),
                 Constants.UnsubscribeLink);
         }
 
@@ -458,16 +463,18 @@ namespace ASC.Web.Studio.Core.Notify
                 }
             }
 
+            var confirmationUrl = GenerateActivationConfirmUrl(newUserInfo);
+
             client.SendNoticeToAsync(
                 notifyAction,
                 null,
                 RecipientFromEmail(new[] { newUserInfo.Email.ToLower() }, false),
                 new[] { EMailSenderName },
                 null,
-                new TagValue(Constants.TagInviteLink, GenerateActivationConfirmUrl(newUserInfo)),
+                new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonJoin, confirmationUrl),
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
-                new TagValue(CommonTags.WithPhoto, footer),
-                new TagValue(CommonTags.IsPromoLetter, "false"),
+                new TagValue(CommonTags.Footer, footer),
                 new TagValue("noUnsubscribeLink", "true"),
                 CreateSendFromTag());
         }
@@ -506,28 +513,34 @@ namespace ASC.Web.Studio.Core.Notify
                 }
             }
 
+            var confirmationUrl = GenerateActivationConfirmUrl(newUserInfo);
+
             client.SendNoticeToAsync(
                 notifyAction,
                 null,
                 RecipientFromEmail(new[] { newUserInfo.Email.ToLower() }, false),
                 new[] { EMailSenderName },
                 null,
-                new TagValue(Constants.TagInviteLink, GenerateActivationConfirmUrl(newUserInfo)),
+                new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonJoin, confirmationUrl),
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
-                new TagValue(CommonTags.WithPhoto, footer),
+                new TagValue(CommonTags.Footer, footer),
                 new TagValue("noUnsubscribeLink", "true"),
                 CreateSendFromTag());
         }
 
         public void SendMsgProfileDeletion(string email)
         {
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.ProfileRemove);
+
             client.SendNoticeToAsync(
-                        Constants.ActionProfileDelete,
-                        null,
-                        RecipientFromEmail(new[] { email }, false),
-                        new[] { EMailSenderName },
-                        null,
-                        new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.ProfileRemove)));
+                Constants.ActionProfileDelete,
+                null,
+                RecipientFromEmail(new[] { email }, false),
+                new[] { EMailSenderName },
+                null,
+                new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonRemoveProfile, confirmationUrl));
         }
 
         public void SendMsgReassignsCompleted(Guid recipientId, UserInfo fromUser, UserInfo toUser)
@@ -543,6 +556,53 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(Constants.TagFromUserLink, GetUserProfileLink(fromUser.ID)),
                 new TagValue(Constants.TagToUserName, toUser.DisplayUserName()),
                 new TagValue(Constants.TagToUserLink, GetUserProfileLink(toUser.ID)));
+        }
+
+        public void SendMsgReassignsFailed(Guid recipientId, UserInfo fromUser, UserInfo toUser, string message)
+        {
+            client.SendNoticeToAsync(
+                Constants.ActionReassignsFailed,
+                null,
+                new[] { ToRecipient(recipientId) },
+                new[] { EMailSenderName },
+                null,
+                new TagValue(Constants.TagUserName, DisplayUserSettings.GetFullUserName(recipientId)),
+                new TagValue(Constants.TagFromUserName, fromUser.DisplayUserName()),
+                new TagValue(Constants.TagFromUserLink, GetUserProfileLink(fromUser.ID)),
+                new TagValue(Constants.TagToUserName, toUser.DisplayUserName()),
+                new TagValue(Constants.TagToUserLink, GetUserProfileLink(toUser.ID)),
+                new TagValue(Constants.TagMessage, message));
+        }
+
+        public void SendMsgRemoveUserDataCompleted(Guid recipientId, Guid fromUserId, string fromUserName, long docsSpace, long crmSpace, long mailSpace, long talkSpace)
+        {
+            client.SendNoticeToAsync(
+                Constants.ActionRemoveUserDataCompleted,
+                null,
+                new[] { ToRecipient(recipientId) },
+                new[] { EMailSenderName },
+                null,
+                new TagValue(Constants.TagUserName, DisplayUserSettings.GetFullUserName(recipientId)),
+                new TagValue(Constants.TagFromUserName, fromUserName.HtmlEncode()),
+                new TagValue(Constants.TagFromUserLink, GetUserProfileLink(fromUserId)),
+                new TagValue("DocsSpace", FileSizeComment.FilesSizeToString(docsSpace)),
+                new TagValue("CrmSpace", FileSizeComment.FilesSizeToString(crmSpace)),
+                new TagValue("MailSpace", FileSizeComment.FilesSizeToString(mailSpace)),
+                new TagValue("TalkSpace", FileSizeComment.FilesSizeToString(talkSpace)));
+        }
+
+        public void SendMsgRemoveUserDataFailed(Guid recipientId, Guid fromUserId, string fromUserName, string message)
+        {
+            client.SendNoticeToAsync(
+                Constants.ActionRemoveUserDataFailed,
+                null,
+                new[] { ToRecipient(recipientId) },
+                new[] { EMailSenderName },
+                null,
+                new TagValue(Constants.TagUserName, DisplayUserSettings.GetFullUserName(recipientId)),
+                new TagValue(Constants.TagFromUserName, fromUserName.HtmlEncode()),
+                new TagValue(Constants.TagFromUserLink, GetUserProfileLink(fromUserId)),
+                new TagValue(Constants.TagMessage, message));
         }
 
         public void SendAdminWellcome(UserInfo newUserInfo)
@@ -629,8 +689,6 @@ namespace ASC.Web.Studio.Core.Notify
                 new[] { EMailSenderName },
                 null,
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
-                Constants.TagStrongStart,
-                Constants.TagStrongEnd,
                 Constants.TagGreenButton(greenBtnText, greenBtnLink),
                 Constants.TagTableTop(),
                 Constants.TagTableItem(1, tableItemText1, string.Empty, tableItemImg1, tableItemComment1, string.Empty, string.Empty),
@@ -639,8 +697,7 @@ namespace ASC.Web.Studio.Core.Notify
                 Constants.TagTableItem(4, tableItemText4, string.Empty, tableItemImg4, tableItemComment4, string.Empty, string.Empty),
                 Constants.TagTableItem(5, tableItemText5, string.Empty, tableItemImg5, tableItemComment5, string.Empty, string.Empty),
                 Constants.TagTableBottom(),
-                new TagValue(CommonTags.WithPhoto, "common"),
-                new TagValue(CommonTags.IsPromoLetter, "false"),
+                new TagValue(CommonTags.Footer, "common"),
                 CreateSendFromTag());
         }
 
@@ -704,7 +761,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { EMailSenderName },
                         null,
                         new TagValue(Constants.TagActivateUrl, a_url),
-                        new TagValue(Constants.TagDeactivateUrl, d_url),
+                        new TagValue(Constants.TagDeactivateUrl, d_url), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonDeactivatePortal, d_url),
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
         }
 
@@ -717,7 +775,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { u },
                         new[] { EMailSenderName },
                         null,
-                        new TagValue(Constants.TagDeleteUrl, url),
+                        new TagValue(Constants.TagDeleteUrl, url), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonDeletePortal, url),
                         new TagValue(Constants.TagAutoRenew, showAutoRenewText.ToString()),
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
         }
@@ -734,7 +793,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { u },
                         new[] { EMailSenderName },
                         null,
-                        new TagValue(Constants.TagFeedBackUrl, url),
+                        new TagValue(Constants.TagFeedBackUrl, url), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonLeaveFeedback, url),
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
         }
 
@@ -749,7 +809,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { u },
                         new[] { EMailSenderName },
                         null,
-                        new TagValue("ConfirmDnsUpdate", confirmDnsUpdateUrl),
+                        new TagValue("ConfirmDnsUpdate", confirmDnsUpdateUrl),//TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonConfirmPortalAddressChange, confirmDnsUpdateUrl),
                         new TagValue("PortalAddress", AddHttpToUrl(portalAddress)),
                         new TagValue("PortalDns", AddHttpToUrl(portalDns ?? string.Empty)),
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
@@ -765,7 +826,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { u },
                         new[] { EMailSenderName },
                         null,
-                        new TagValue("ConfirmPortalOwnerUpdate", confirmOwnerUpdateUrl),
+                        new TagValue("ConfirmPortalOwnerUpdate", confirmOwnerUpdateUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                        Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonConfirmPortalOwnerUpdate, confirmOwnerUpdateUrl),
                         new TagValue(Constants.TagUserName, newOwnerName),
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
         }
@@ -789,6 +851,11 @@ namespace ASC.Web.Studio.Core.Notify
                 else if (TenantExtra.Hosted)
                 {
                     notifyAction = defaultRebranding ? Constants.ActionHostedAdminActivation : Constants.ActionHostedWhitelabelAdminActivation;
+                }
+                else if (TenantExtra.Opensource)
+                {
+                    notifyAction = Constants.ActionOpensourceAdminActivation;
+                    footer = "opensource";
                 }
                 else
                 {
@@ -816,8 +883,10 @@ namespace ASC.Web.Studio.Core.Notify
                     new TagValue(Constants.TagUserEmail, u.Email),
                     new TagValue(Constants.TagMyStaffLink, GetMyStaffLink()),
                     new TagValue(Constants.TagSettingsLink, CommonLinkUtility.GetAdministration(ManagementType.General)),
-                    new TagValue(Constants.TagInviteLink, confirmationUrl),
-                    new TagValue(CommonTags.WithPhoto, footer));
+                    new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
+                    Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonForConfirmation, confirmationUrl),
+                    new TagValue(CommonTags.Footer, footer),
+                    Constants.UnsubscribeLink);
             }
             catch (Exception error)
             {
@@ -834,7 +903,7 @@ namespace ASC.Web.Studio.Core.Notify
 
             log.Info("Start SendSaasTariffLetters");
 
-            var activeTenants = CoreContext.TenantManager.GetTenants().Where(t => t.Status == TenantStatus.Active).ToList();
+            var activeTenants = CoreContext.TenantManager.GetTenants().ToList();
 
             if (activeTenants.Count <= 0)
             {
@@ -1250,9 +1319,16 @@ namespace ASC.Web.Studio.Core.Notify
                                               System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + owner.FirstName +
                                                                                  "\",\"lastname\":\"" + owner.LastName +
                                                                                  "\",\"alias\":\"" + tenant.TenantAlias +
-                                                                                 "\",\"email\":\"" + owner.Email + "\"}"));
-
+                                                                                 "\",\"email\":\"" + owner.Email + "\"}")); 
+                        }
+                        else if (duedate != DateTime.MaxValue && duedate.AddMonths(6).AddDays(7) <= now)
+                        {
                             CoreContext.TenantManager.RemoveTenant(tenant.TenantId, true);
+
+                            if (!String.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
+                            {
+                                ApiSystemHelper.RemoveTenantFromCache(tenant.TenantAlias);
+                            }
                         }
 
                         #endregion
@@ -1376,7 +1452,7 @@ namespace ASC.Web.Studio.Core.Notify
                             Constants.TagTableItem(6, tableItemText6(), tableItemUrl6, tableItemImg6, tableItemComment6(), tableItemLearnMoreText6(), tableItemLearnMoreUrl6),
                             Constants.TagTableItem(7, tableItemText7(), tableItemUrl7, tableItemImg7, tableItemComment7(), tableItemLearnMoreText7(), tableItemLearnMoreUrl7),
                             Constants.TagTableBottom(),
-                            new TagValue(CommonTags.WithPhoto, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty),
+                            new TagValue(CommonTags.Footer, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty),
                             new TagValue(Constants.TagFeedBackUrl, feedbackUrl));
                     }
                 }
@@ -1399,9 +1475,7 @@ namespace ASC.Web.Studio.Core.Notify
 
             var defaultRebranding = MailWhiteLabelSettings.Instance.IsDefault;
 
-            var activeTenants = CoreContext.TenantManager.GetTenants()
-                                           .Where(t => t.Status == TenantStatus.Active)
-                                           .ToList();
+            var activeTenants = CoreContext.TenantManager.GetTenants();
 
             if (activeTenants.Count <= 0)
             {
@@ -1879,7 +1953,7 @@ namespace ASC.Web.Studio.Core.Notify
                             Constants.TagTableItem(6, tableItemText6(), tableItemUrl6, tableItemImg6, tableItemComment6(), tableItemLearnMoreText6(), tableItemLearnMoreUrl6),
                             Constants.TagTableItem(7, tableItemText7(), tableItemUrl7, tableItemImg7, tableItemComment7(), tableItemLearnMoreText7(), tableItemLearnMoreUrl7),
                             Constants.TagTableBottom(),
-                            new TagValue(CommonTags.WithPhoto, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty));
+                            new TagValue(CommonTags.Footer, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty));
                     }
                 }
                 catch (Exception err)
@@ -1900,9 +1974,7 @@ namespace ASC.Web.Studio.Core.Notify
 
             var defaultRebranding = MailWhiteLabelSettings.Instance.IsDefault;
 
-            var activeTenants = CoreContext.TenantManager.GetTenants()
-                                           .Where(t => t.Status == TenantStatus.Active)
-                                           .ToList();
+            var activeTenants = CoreContext.TenantManager.GetTenants();
 
             if (activeTenants.Count <= 0)
             {
@@ -2022,7 +2094,7 @@ namespace ASC.Web.Studio.Core.Notify
                             Constants.TagTableItem(4, tableItemText4(), tableItemUrl4, tableItemImg4, tableItemComment4(), tableItemLearnMoreText4(), tableItemLearnMoreUrl4),
                             Constants.TagTableItem(5, tableItemText5(), tableItemUrl5, tableItemImg5, tableItemComment5(), tableItemLearnMoreText5(), tableItemLearnMoreUrl5),
                             Constants.TagTableBottom(),
-                            new TagValue(CommonTags.WithPhoto, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty));
+                            new TagValue(CommonTags.Footer, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty));
                     }
                 }
                 catch (Exception err)
@@ -2032,6 +2104,182 @@ namespace ASC.Web.Studio.Core.Notify
             }
 
             log.Info("End SendHostedTariffLetters");
+        }
+
+        public void SendOpensourceTariffLetters(DateTime scheduleDate)
+        {
+            var log = LogManager.GetLogger("ASC.Notify");
+            var now = scheduleDate.Date;
+
+            log.Info("Start SendOpensourceTariffLetters");
+
+            var activeTenants = CoreContext.TenantManager.GetTenants();
+
+            if (activeTenants.Count <= 0)
+            {
+                log.Info("End SendOpensourceTariffLetters");
+                return;
+            }
+
+            foreach (var tenant in activeTenants)
+            {
+                try
+                {
+                    CoreContext.TenantManager.SetCurrentTenant(tenant.TenantId);
+
+                    INotifyAction action = null;
+
+                    Func<string> greenButtonText = () => string.Empty;
+                    var greenButtonUrl = string.Empty;
+
+                    Func<string> tableItemText1 = () => string.Empty;
+                    Func<string> tableItemText2 = () => string.Empty;
+                    Func<string> tableItemText3 = () => string.Empty;
+                    Func<string> tableItemText4 = () => string.Empty;
+                    Func<string> tableItemText5 = () => string.Empty;
+                    Func<string> tableItemText6 = () => string.Empty;
+                    Func<string> tableItemText7 = () => string.Empty;
+
+                    var tableItemUrl1 = string.Empty;
+                    var tableItemUrl2 = string.Empty;
+                    var tableItemUrl3 = string.Empty;
+                    var tableItemUrl4 = string.Empty;
+                    var tableItemUrl5 = string.Empty;
+                    var tableItemUrl6 = string.Empty;
+                    var tableItemUrl7 = string.Empty;
+
+                    var tableItemImg1 = string.Empty;
+                    var tableItemImg2 = string.Empty;
+                    var tableItemImg3 = string.Empty;
+                    var tableItemImg4 = string.Empty;
+                    var tableItemImg5 = string.Empty;
+                    var tableItemImg6 = string.Empty;
+                    var tableItemImg7 = string.Empty;
+
+                    Func<string> tableItemComment1 = () => string.Empty;
+                    Func<string> tableItemComment2 = () => string.Empty;
+                    Func<string> tableItemComment3 = () => string.Empty;
+                    Func<string> tableItemComment4 = () => string.Empty;
+                    Func<string> tableItemComment5 = () => string.Empty;
+                    Func<string> tableItemComment6 = () => string.Empty;
+                    Func<string> tableItemComment7 = () => string.Empty;
+
+                    Func<string> tableItemLearnMoreText1 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText2 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText3 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText4 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText5 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText6 = () => string.Empty;
+                    Func<string> tableItemLearnMoreText7 = () => string.Empty;
+
+                    var tableItemLearnMoreUrl1 = string.Empty;
+                    var tableItemLearnMoreUrl2 = string.Empty;
+                    var tableItemLearnMoreUrl3 = string.Empty;
+                    var tableItemLearnMoreUrl4 = string.Empty;
+                    var tableItemLearnMoreUrl5 = string.Empty;
+                    var tableItemLearnMoreUrl6 = string.Empty;
+                    var tableItemLearnMoreUrl7 = string.Empty;
+
+
+                    #region After registration letters
+
+                    #region 7 days after registration to admins
+
+                        if (tenant.CreatedDateTime.Date.AddDays(7) == now)
+                        {
+                            action = Constants.ActionOpensourceAdminSecurityTips;
+
+                            greenButtonText = () => WebstudioNotifyPatternResource.ButtonStartFreeTrial;
+                            greenButtonUrl = "https://www.onlyoffice.com/enterprise-edition-free.aspx";
+                        }
+
+                    #endregion
+
+                    #region 3 weeks after registration to admins
+
+                        else if (tenant.CreatedDateTime.Date.AddDays(21) == now)
+                        {
+                            action = Constants.ActionOpensourceAdminDocsTips;
+
+                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-01-100.png";
+                            tableItemComment1 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips1;
+                            tableItemLearnMoreUrl1 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
+                            tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-02-100.png";
+                            tableItemComment2 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips2;
+                            tableItemLearnMoreUrl2 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
+                            tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-07-100.png";
+                            tableItemComment3 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips3;
+                            tableItemLearnMoreUrl3 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
+                            tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-03-100.png";
+                            tableItemComment4 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips4;
+                            tableItemLearnMoreUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/documents.aspx#SharingDocuments_block";
+                            tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-04-100.png";
+                            tableItemComment5 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips5;
+                            tableItemLearnMoreUrl5 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/UseMailMerge.aspx";
+                            tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.LinkLearnMore;
+
+                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-08-100.png";
+                            tableItemComment6 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips6;
+                            tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
+                            tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
+
+                            tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-05-100.png";
+                            tableItemComment7 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips7;
+                            tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
+                            tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
+                        }
+
+                        #endregion
+
+                    #endregion
+
+
+                    if (action == null) continue;
+
+                    var users = GetRecipients(true, false, false);
+
+                    foreach (var u in users)
+                    {
+                        var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
+                        Thread.CurrentThread.CurrentCulture = culture;
+                        Thread.CurrentThread.CurrentUICulture = culture;
+
+                        client.SendNoticeToAsync(
+                            action,
+                            null,
+                            new[] { ToRecipient(u.ID) },
+                            new[] { EMailSenderName },
+                            null,
+                            new TagValue(Constants.TagUserName, u.DisplayUserName()),
+                            Constants.TagGreenButton(greenButtonText(), greenButtonUrl),
+                            Constants.TagTableTop(),
+                            Constants.TagTableItem(1, tableItemText1(), tableItemUrl1, tableItemImg1, tableItemComment1(), tableItemLearnMoreText1(), tableItemLearnMoreUrl1),
+                            Constants.TagTableItem(2, tableItemText2(), tableItemUrl2, tableItemImg2, tableItemComment2(), tableItemLearnMoreText2(), tableItemLearnMoreUrl2),
+                            Constants.TagTableItem(3, tableItemText3(), tableItemUrl3, tableItemImg3, tableItemComment3(), tableItemLearnMoreText3(), tableItemLearnMoreUrl3),
+                            Constants.TagTableItem(4, tableItemText4(), tableItemUrl4, tableItemImg4, tableItemComment4(), tableItemLearnMoreText4(), tableItemLearnMoreUrl4),
+                            Constants.TagTableItem(5, tableItemText5(), tableItemUrl5, tableItemImg5, tableItemComment5(), tableItemLearnMoreText5(), tableItemLearnMoreUrl5),
+                            Constants.TagTableItem(6, tableItemText6(), tableItemUrl6, tableItemImg6, tableItemComment6(), tableItemLearnMoreText6(), tableItemLearnMoreUrl6),
+                            Constants.TagTableItem(7, tableItemText7(), tableItemUrl7, tableItemImg7, tableItemComment7(), tableItemLearnMoreText7(), tableItemLearnMoreUrl7),
+                            Constants.TagTableBottom(),
+                            new TagValue(CommonTags.Footer, "opensource"),
+                            Constants.UnsubscribeLink);
+                    }
+                }
+                catch (Exception err)
+                {
+                    log.Error(err);
+                }
+            }
+
+            log.Info("End SendOpensourceTariffLetters");
         }
 
 
@@ -2083,15 +2331,17 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendLettersPersonal(DateTime scheduleDate)
         {
-
             var log = LogManager.GetLogger("ASC.Notify");
 
             log.Info("Start SendLettersPersonal...");
 
-            foreach (var tenant in CoreContext.TenantManager.GetTenants().Where(t => t.Status == TenantStatus.Active))
+            foreach (var tenant in CoreContext.TenantManager.GetTenants())
             {
                 try
                 {
+                    Func<string> greenButtonText = () => string.Empty;
+                    var greenButtonUrl = string.Empty;
+
                     int sendCount = 0;
 
                     CoreContext.TenantManager.SetCurrentTenant(tenant.TenantId);
@@ -2099,7 +2349,6 @@ namespace ASC.Web.Studio.Core.Notify
                     log.InfoFormat("Current tenant: {0}", tenant.TenantId);
 
                     var users = CoreContext.UserManager.GetUsers(EmployeeStatus.Active);
-
 
                     foreach (var user in users)
                     {
@@ -2129,13 +2378,18 @@ namespace ASC.Web.Studio.Core.Notify
                         switch (dayAfterRegister)
                         {
                             case 7:
-                                action = Constants.ActionAfterRegistrationPersonal7;
+                                action = Constants.ActionPersonalAfterRegistration7;
                                 break;
                             case 14:
-                                action = Constants.ActionAfterRegistrationPersonal14;
+                                action = Constants.ActionPersonalAfterRegistration14;
                                 break;
                             case 21:
-                                action = Constants.ActionAfterRegistrationPersonal21;
+                                action = Constants.ActionPersonalAfterRegistration21;
+                                break;
+                            case 28:
+                                action = Constants.ActionPersonalAfterRegistration28;
+                                greenButtonText = () => WebstudioNotifyPatternResource.ButtonStartFreeTrial;
+                                greenButtonUrl = "https://www.onlyoffice.com/enterprise-edition-free.aspx";
                                 break;
                             default:
                                 continue;
@@ -2153,22 +2407,14 @@ namespace ASC.Web.Studio.Core.Notify
                           RecipientFromEmail(new[] { user.Email.ToLower() }, true),
                           new[] { EMailSenderName },
                           null,
-                          Constants.TagMarkerStart,
-                          Constants.TagMarkerEnd,
-                          Constants.TagFrameStart,
-                          Constants.TagFrameEnd,
-                          Constants.TagHeaderStart,
-                          Constants.TagHeaderEnd,
-                          Constants.TagStrongStart,
-                          Constants.TagStrongEnd,
-                          Constants.TagSignatureStart,
-                          Constants.TagSignatureEnd,
-                          new TagValue(CommonTags.WithPhoto, "personal"),
-                          new TagValue(CommonTags.IsPromoLetter, "true"));
+                          Constants.TagPersonalHeaderStart,
+                          Constants.TagPersonalHeaderEnd,
+                          Constants.TagGreenButton(greenButtonText(), greenButtonUrl),
+                          new TagValue(CommonTags.Footer, "personal"),
+                          new TagValue(CommonTags.IsPersonal, "true"));
                     }
 
                     log.InfoFormat("Total send count: {0}", sendCount);
-
                 }
                 catch (Exception err)
                 {
@@ -2182,51 +2428,39 @@ namespace ASC.Web.Studio.Core.Notify
         public void SendInvitePersonal(string email, string additionalMember = "")
         {
             var newUserInfo = CoreContext.UserManager.GetUserByEmail(email);
-            if (!CoreContext.UserManager.UserExists(newUserInfo.ID))
-            {
-                var confirmUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmpInvite, (int)EmployeeType.User)
-                                 + "&emplType=" + (int)EmployeeType.User
-                                 + "&lang=" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName
-                                 + additionalMember;
+            if (CoreContext.UserManager.UserExists(newUserInfo.ID)) return;
 
-                client.SendNoticeToAsync(
-                            Constants.ActionConfirmationPersonal,
-                            null,
-                            RecipientFromEmail(new string[] { email }, false),
-                            new[] { EMailSenderName },
-                            null,
-                            new TagValue(Constants.TagInviteLink, confirmUrl),
-                            Constants.TagSignatureStart,
-                            Constants.TagSignatureEnd,
-                            new TagValue(CommonTags.WithPhoto, "personal"),
-                            new TagValue(CommonTags.IsPromoLetter, "true"),
-                            Constants.UnsubscribeLink,
-                            new TagValue(CommonTags.Culture, Thread.CurrentThread.CurrentUICulture.Name));
-            }
+            var confirmUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.EmpInvite, (int)EmployeeType.User)
+                             + "&emplType=" + (int)EmployeeType.User
+                             + "&lang=" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName
+                             + additionalMember;
+
+            client.SendNoticeToAsync(
+                Constants.ActionPersonalConfirmation,
+                null,
+                RecipientFromEmail(new[] { email }, false),
+                new[] { EMailSenderName },
+                null,
+                new TagValue(Constants.TagInviteLink, confirmUrl),
+                new TagValue(CommonTags.Footer, "personal"),
+                new TagValue(CommonTags.IsPersonal, "true"),
+                Constants.UnsubscribeLink,
+                new TagValue(CommonTags.Culture, Thread.CurrentThread.CurrentUICulture.Name));
         }
 
         public void SendUserWelcomePersonal(UserInfo newUserInfo)
         {
             client.SendNoticeToAsync(
-                Constants.ActionAfterRegistrationPersonal1,
+                Constants.ActionPersonalAfterRegistration1,
                 null,
                 RecipientFromEmail(new[] { newUserInfo.Email.ToLower() }, true),
                 new[] { EMailSenderName },
                 null,
                 new TagValue(Constants.TagInviteLink, GenerateActivationConfirmUrl(newUserInfo)),
                 new TagValue(Constants.TagUserName, newUserInfo.DisplayUserName()),
-                Constants.TagMarkerStart,
-                Constants.TagMarkerEnd,
-                Constants.TagFrameStart,
-                Constants.TagFrameEnd,
-                Constants.TagHeaderStart,
-                Constants.TagHeaderEnd,
-                Constants.TagStrongStart,
-                Constants.TagStrongEnd,
-                Constants.TagSignatureStart,
-                Constants.TagSignatureEnd,
-                new TagValue(CommonTags.WithPhoto, "personal"),
-                new TagValue(CommonTags.IsPromoLetter, "true"),
+                new TagValue(CommonTags.Footer, "personal"),
+                new TagValue(CommonTags.IsPersonal, "true"),
+                new TagValue(CommonTags.MasterTemplate, "HtmlMasterPersonal"),
                 Constants.UnsubscribeLink,
                 CreateSendFromTag());
         }

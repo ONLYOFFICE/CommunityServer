@@ -20,6 +20,7 @@
         {{/if}}
         {{if (user.isOwner !== "true") && ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")}}
             <li><a class="reassign-data dropdown-item">${ASC.People.Resources.PeopleResource.LblReassignData}</a></li>
+            <li><a class="remove-data dropdown-item">${ASC.People.Resources.PeopleResource.LblRemoveData}</a></li>
         {{/if}}
         {{if (user.isOwner !== "true") && ((($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")) || ($data.isMe === true) && (user.isLDAP === "false"))}}
             <li><a class="delete-profile dropdown-item">${ASC.People.Resources.PeopleResource.LblDeleteProfile}</a></li>
@@ -185,4 +186,11 @@
         <span class="splitter-buttons"></span>
         <a class="button gray middle">${ASC.People.Resources.PeopleResource.CancelButton}</a>
     </div>
+</script>
+
+<script id="reassignStatus" type="text/x-jquery-tmpl">
+    <div class="${statusClass}">${statusMessage}</div>
+    {{if errorMessage}}
+    <div class="red-text">${ASC.People.Resources.PeopleResource.ReassignStatusError}:&nbsp;${errorMessage}</div>
+    {{/if}}
 </script>

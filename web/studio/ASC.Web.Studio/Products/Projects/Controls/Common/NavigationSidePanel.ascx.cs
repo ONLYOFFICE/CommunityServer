@@ -33,7 +33,6 @@ using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core.Mobile;
-using ASC.Web.Projects.Classes;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.Support;

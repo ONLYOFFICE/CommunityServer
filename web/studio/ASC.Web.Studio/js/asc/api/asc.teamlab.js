@@ -1160,7 +1160,8 @@ window.Teamlab = (function () {
 
     var getPrjTasks = function (params, options) {
         if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
-            filter = options.filter;
+            var filter = options.filter;
+            filter.simple = true;
         }
 
         return addRequest(
@@ -1460,6 +1461,7 @@ window.Teamlab = (function () {
 
         if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
             var filter = options.filter;
+            filter.simple = true;
             for (var fld in filter) {
                 switch (fld) {
                     case 'participant':
@@ -1549,6 +1551,7 @@ window.Teamlab = (function () {
         var type = null;
         if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
             var filter = options.filter;
+            filter.simple = true;
             for (var fld in filter) {
                 switch (fld) {
                     case 'participant':
@@ -1692,6 +1695,7 @@ window.Teamlab = (function () {
         var filter = null;
         if (options && typeof options === 'object' && options.hasOwnProperty('filter')) {
             filter = options.filter;
+            filter.simple = true;
             for (var fld in filter) {
                 switch (fld) {
                     case 'tag':
@@ -2610,19 +2614,16 @@ window.Teamlab = (function () {
         );
     };
 
-    var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, docServiceUrlDocbuilder, options) {
+    var saveDocServiceUrl = function (docServiceUrl, docServiceUrlInternal, docServiceUrlPortal, options) {
         return addRequest(
             null,
             null,
             UPDATE,
             'files/docservice.json',
             {
-                docServiceUrlApi: docServiceUrlApi,
-                docServiceUrlCommand: docServiceUrlCommand,
-                docServiceUrlStorage: docServiceUrlStorage,
-                docServiceUrlConverter: docServiceUrlConverter,
+                docServiceUrl: docServiceUrl,
+                docServiceUrlInternal: docServiceUrlInternal,
                 docServiceUrlPortal: docServiceUrlPortal,
-                docServiceUrlDocbuilder: docServiceUrlDocbuilder
             },
             options
         );
@@ -6412,7 +6413,7 @@ window.Teamlab = (function () {
         );
     };
 
-    var connectMailServerInfo = function (params, ip, user, password, options) {
+    var connectMailServerInfo = function (params, ip, sqlip, user, password, options) {
         return addRequest(
             null,
             params,
@@ -6420,6 +6421,7 @@ window.Teamlab = (function () {
             'mail/mailservice/connect.json',
             {
                 ip: ip,
+                sqlip: sqlip,
                 user: user,
                 password: password
             },
@@ -6427,7 +6429,7 @@ window.Teamlab = (function () {
         );
     };
 
-    var saveMailServerInfo = function (params, ip, user, password, token, host, options) {
+    var saveMailServerInfo = function (params, ip, sqlip, user, password, token, host, options) {
         return addRequest(
             null,
             params,
@@ -6435,6 +6437,7 @@ window.Teamlab = (function () {
             'mail/mailservice/save.json',
             {
                 ip: ip,
+                sqlip: sqlip,
                 user: user,
                 password: password,
                 token: token,
@@ -6981,7 +6984,7 @@ window.Teamlab = (function () {
             null,
             params,
             GET,
-            "people/getreassignprogress.json",
+            "people/reassign/progress.json",
             { userId: userId },
             options
         );
@@ -6993,7 +6996,7 @@ window.Teamlab = (function () {
             null,
             params,
             UPDATE,
-            'people/terminatereassign.json',
+            'people/reassign/terminate.json',
             { userId: userId },
             options
         );
@@ -7005,8 +7008,48 @@ window.Teamlab = (function () {
             null,
             params,
             ADD,
-            "people/startreassign.json",
+            "people/reassign/start.json",
             { fromUserId: fromUserId, toUserId: toUserId },
+            options
+        );
+        return true;
+    };
+
+    //#endregion
+
+    //#region Remove user data
+
+    var getRemoveProgress = function (params, userId, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            "people/remove/progress.json",
+            { userId: userId },
+            options
+        );
+        return true;
+    };
+
+    var terminateRemove = function (params, userId, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'people/remove/terminate.json',
+            { userId: userId },
+            options
+        );
+        return true;
+    };
+
+    var startRemove = function (params, userId, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            "people/remove/start.json",
+            { userId: userId },
             options
         );
         return true;
@@ -7620,6 +7663,10 @@ window.Teamlab = (function () {
 
         getReassignProgress: getReassignProgress,
         terminateReassign: terminateReassign,
-        startReassign: startReassign
+        startReassign: startReassign,
+
+        getRemoveProgress: getRemoveProgress,
+        terminateRemove: terminateRemove,
+        startRemove: startRemove
     };
 })();

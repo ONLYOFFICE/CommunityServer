@@ -75,10 +75,6 @@ namespace ASC.Web.Studio
 
             if (!SecurityContext.IsAuthenticated && CoreContext.Configuration.Personal)
             {
-                if (Request["campaign"] == "personal")
-                {
-                    Session["campaign"] = "personal";
-                }
                 SetLanguage();
             }
         }
@@ -127,8 +123,8 @@ namespace ASC.Web.Studio
             var emplType = Request["emplType"] ?? "";
             var social = Request["social"] ?? "";
 
-            var validInterval = SetupInfo.ValidEamilKeyInterval;
-            var authInterval = TimeSpan.FromHours(1);
+            var validInterval = SetupInfo.ValidEmailKeyInterval;
+            var authInterval = SetupInfo.ValidAuthKeyInterval;
 
             EmailValidationKeyProvider.ValidationResult checkKeyResult;
             switch (_type)

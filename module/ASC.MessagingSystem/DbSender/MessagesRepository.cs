@@ -24,87 +24,168 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using Newtonsoft.Json;
+using UAParser;
+using IsolationLevel = System.Data.IsolationLevel;
 
 namespace ASC.MessagingSystem.DbSender
 {
     internal class MessagesRepository
     {
-        private const string messagesDbId = "core";
+        private const string MessagesDbId = "default";
+        private static DateTime lastSave = DateTime.UtcNow;
+        private static readonly TimeSpan CacheTime;
+        private static readonly IDictionary<string, EventMessage> Cache;
+        private static Parser Parser { get; set; }
+        private static readonly Timer Timer;
+        private static bool timerStarted;
 
+        static MessagesRepository()
+        {
+            CacheTime = TimeSpan.FromMinutes(1);
+            Cache = new Dictionary<string, EventMessage>();
+            Parser = Parser.GetDefault();
+            Timer = new Timer(FlushCache);
+            timerStarted = false;
+        }
 
         public static void Add(EventMessage message)
         {
             // messages with action code < 2000 are related to login-history
             if ((int)message.Action < 2000)
             {
-                AddLoginEvent(message);
+                using (var db = DbManager.FromHttpContext(MessagesDbId))
+                {
+                    AddLoginEvent(message, db);
+                }
+                return;
             }
-            else
+
+            var now = DateTime.UtcNow;
+            var key = string.Format("{0}|{1}|{2}|{3}", message.TenantId, message.UserId, message.Id, now.Ticks);
+
+            lock (Cache)
             {
-                AddAuditEvent(message);
+                Cache[key] = message;
+
+                if (!timerStarted)
+                {
+                    Timer.Change(0, 100);
+                    timerStarted = true;
+                }
+            }
+
+        }
+
+        private static void FlushCache(object state)
+        {
+            List<EventMessage> events = null;
+
+            if (CacheTime < DateTime.UtcNow - lastSave || Cache.Count > 100)
+            {
+                lock (Cache)
+                {
+                    Timer.Change(-1, -1);
+                    timerStarted = false;
+
+                    events = new List<EventMessage>(Cache.Values);
+                    Cache.Clear();
+                    lastSave = DateTime.UtcNow;
+                }
+            }
+
+            if (events == null) return;
+
+            using (var db = DbManager.FromHttpContext(MessagesDbId))
+            using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
+            {
+                foreach (var message in events)
+                {
+                    if (!string.IsNullOrEmpty(message.UAHeader))
+                    {
+                        try
+                        {
+                            var clientInfo = Parser.Parse(message.UAHeader);
+
+                            if (clientInfo != null)
+                            {
+                                message.Browser = GetBrowser(clientInfo);
+                                message.Platform = GetPlatform(clientInfo);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+
+                    // messages with action code < 2000 are related to login-history
+                    if ((int)message.Action >= 2000)
+                    {
+                        AddAuditEvent(message, db);
+                    }
+                }
+
+                tx.Commit();
             }
         }
 
-
-        private static void AddLoginEvent(EventMessage message)
+        private static void AddLoginEvent(EventMessage message, IDbManager dbManager)
         {
-            using (var db = new DbManager(messagesDbId))
+            var i = new SqlInsert("login_events")
+                .InColumnValue("ip", message.IP)
+                .InColumnValue("login", message.Initiator)
+                .InColumnValue("browser", message.Browser)
+                .InColumnValue("platform", message.Platform)
+                .InColumnValue("date", message.Date)
+                .InColumnValue("tenant_id", message.TenantId)
+                .InColumnValue("user_id", message.UserId)
+                .InColumnValue("page", message.Page)
+                .InColumnValue("action", message.Action);
+
+            if (message.Description != null && message.Description.Any())
             {
-                var i = new SqlInsert("login_events")
-                    .InColumnValue("ip", message.IP)
-                    .InColumnValue("login", message.Initiator)
-                    .InColumnValue("browser", message.Browser)
-                    .InColumnValue("platform", message.Platform)
-                    .InColumnValue("date", message.Date)
-                    .InColumnValue("tenant_id", message.TenantId)
-                    .InColumnValue("user_id", message.UserId)
-                    .InColumnValue("page", message.Page)
-                    .InColumnValue("action", message.Action);
-
-                if (message.Description != null && message.Description.Any())
-                {
-                    i = i.InColumnValue("description", JsonConvert.SerializeObject(message.Description, new JsonSerializerSettings
-                        {
-                            DateTimeZoneHandling = DateTimeZoneHandling.Utc
-                        }));
-                }
-
-                db.ExecuteNonQuery(i);
+                i = i.InColumnValue("description",
+                    JsonConvert.SerializeObject(message.Description, new JsonSerializerSettings
+                    {
+                        DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                    }));
             }
+
+            dbManager.ExecuteNonQuery(i);
         }
 
-        private static void AddAuditEvent(EventMessage message)
+        private static void AddAuditEvent(EventMessage message, IDbManager dbManager)
         {
-            using (var db = new DbManager(messagesDbId))
+            var i = new SqlInsert("audit_events")
+                .InColumnValue("ip", message.IP)
+                .InColumnValue("initiator", message.Initiator)
+                .InColumnValue("browser", message.Browser)
+                .InColumnValue("platform", message.Platform)
+                .InColumnValue("date", message.Date)
+                .InColumnValue("tenant_id", message.TenantId)
+                .InColumnValue("user_id", message.UserId)
+                .InColumnValue("page", message.Page)
+                .InColumnValue("action", message.Action);
+
+            if (message.Description != null && message.Description.Any())
             {
-                var i = new SqlInsert("audit_events")
-                    .InColumnValue("ip", message.IP)
-                    .InColumnValue("initiator", message.Initiator)
-                    .InColumnValue("browser", message.Browser)
-                    .InColumnValue("platform", message.Platform)
-                    .InColumnValue("date", message.Date)
-                    .InColumnValue("tenant_id", message.TenantId)
-                    .InColumnValue("user_id", message.UserId)
-                    .InColumnValue("page", message.Page)
-                    .InColumnValue("action", message.Action);
-
-                if (message.Description != null && message.Description.Any())
-                {
-                    i = i.InColumnValue("description", JsonConvert.SerializeObject(GetSafeDescription(message.Description), new JsonSerializerSettings
-                        {
-                            DateTimeZoneHandling = DateTimeZoneHandling.Utc
-                        }));
-                }
-
-                i.InColumnValue("target", message.Target == null ? null : message.Target.ToString());
-
-                db.ExecuteNonQuery(i);
+                i = i.InColumnValue("description",
+                    JsonConvert.SerializeObject(GetSafeDescription(message.Description), new JsonSerializerSettings
+                    {
+                        DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                    }));
             }
+
+            i.InColumnValue("target", message.Target == null ? null : message.Target.ToString());
+
+            dbManager.ExecuteNonQuery(i);
         }
 
         private static IList<string> GetSafeDescription(IEnumerable<string> description)
@@ -129,6 +210,20 @@ namespace ASC.MessagingSystem.DbSender
             }
 
             return safe;
+        }
+
+        private static string GetBrowser(ClientInfo clientInfo)
+        {
+            return clientInfo == null
+                       ? null
+                       : string.Format("{0} {1}", clientInfo.UserAgent.Family, clientInfo.UserAgent.Major);
+        }
+
+        private static string GetPlatform(ClientInfo clientInfo)
+        {
+            return clientInfo == null
+                       ? null
+                       : string.Format("{0} {1}", clientInfo.OS.Family, clientInfo.OS.Major);
         }
     }
 }

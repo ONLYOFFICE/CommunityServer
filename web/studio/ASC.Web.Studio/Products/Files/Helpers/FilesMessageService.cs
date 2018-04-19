@@ -88,12 +88,6 @@ namespace ASC.Web.Files.Helpers
 
         public static void Send(FileEntry entry, MessageInitiator initiator, MessageAction action, params string[] description)
         {
-            SendInitiatorMessage(entry, initiator, action, description);
-        }
-
-        private static void SendInitiatorMessage(FileEntry entry, MessageInitiator initiator, MessageAction action, params string[] description)
-        {
-            // do not log actions in users folder
             if (entry == null || entry.RootFolderType == FolderType.USER) return;
 
             MessageService.Send(initiator, action, MessageTarget.Create(entry.ID), description);

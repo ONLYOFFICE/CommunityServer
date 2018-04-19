@@ -34,11 +34,13 @@
     <Compile Include="app\apiRequestManager.js" />
     <Compile Include="app\controllers\chat.js" />
     <Compile Include="app\controllers\counters.js" />
+    <Compile Include="app\controllers\files.js" />
     <Compile Include="app\controllers\index.js" />
     <Compile Include="app\controllers\mail.js" />
     <Compile Include="app\controllers\voip.js" />
     <Compile Include="app\hubs\chat.js" />
     <Compile Include="app\hubs\counters.js" />
+    <Compile Include="app\hubs\files.js" />
     <Compile Include="app\hubs\voip.js" />
     <Compile Include="app\hubs\voipListPhones.js" />
     <Compile Include="app\hubs\voipPhone.js" />

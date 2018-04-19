@@ -47,12 +47,15 @@ namespace ASC.Api.Mail
 
         /// <visible>false</visible>
         [Create("mailservice/connect")]
-        public object ConnectMailServer(string ip, string user, string password)
+        public object ConnectMailServer(string ip, string sqlip, string user, string password)
         {
             try
             {
                 if (string.IsNullOrEmpty(ip))
                     throw new ArgumentException("ip");
+
+                if (string.IsNullOrEmpty(sqlip))
+                    sqlip = ip;
 
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
@@ -60,10 +63,13 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(password))
                     throw new ArgumentException("password");
 
-                if (!PingHost(ip, 3306))
-                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, ip));
+                if (!PingHost(ip, 8081))
+                    throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, ip, 8081));
 
-                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
+                if (!PingHost(sqlip, 3306))
+                    throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, sqlip, 3306));
+
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, MailServiceHelper.DefaultDatabase, user, password);
 
                 var data = GetAuthData(connectionString, ip);
 
@@ -72,6 +78,7 @@ namespace ASC.Api.Mail
                     status = "success",
                     message = Resource.MailServiceConnectSuccessMsg,
                     ip,
+                    sqlip,
                     user,
                     password,
                     token = data[0],
@@ -92,12 +99,15 @@ namespace ASC.Api.Mail
 
         /// <visible>false</visible>
         [Create("mailservice/save")]
-        public object SaveMailServerInfo(string ip, string user, string password, string token, string host)
+        public object SaveMailServerInfo(string ip, string sqlip, string user, string password, string token, string host)
         {
             try
             {
                 if (string.IsNullOrEmpty(ip))
                     throw new ArgumentException("ip");
+
+                if (string.IsNullOrEmpty(sqlip))
+                    sqlip = ip;
 
                 if (string.IsNullOrEmpty(user))
                     throw new ArgumentException("user");
@@ -111,7 +121,7 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(host))
                     throw new ArgumentException("host");
 
-                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
+                var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, sqlip, MailServiceHelper.DefaultDatabase, user, password);
 
                 Save(connectionString, ip, token, host);
 
@@ -153,8 +163,11 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(ip))
                     throw new Exception("could not get host ip");
 
+                if (!PingHost(ip, 8081))
+                    throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, ip, 8081));
+
                 if (!PingHost(ip, 3306))
-                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, ip));
+                    throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, ip, 3306));
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, ip, MailServiceHelper.DefaultDatabase, user, password);
 
@@ -208,8 +221,11 @@ namespace ASC.Api.Mail
                 if (string.IsNullOrEmpty(mysqlIp))
                     throw new Exception("could not get mysqlHost ip");
 
+                if (!PingHost(mailIp, 8081))
+                    throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, mailIp, 8081));
+
                 if (!PingHost(mysqlIp, 3306))
-                    throw new Exception(string.Format(Resource.MailServicePingErrorMsg, mysqlIp));
+                    throw new Exception(string.Format(Resource.MailServicePingingErrorMsg, mysqlIp, 3306));
 
                 var connectionString = string.Format(MailServiceHelper.ConnectionStringFormat, mysqlIp, MailServiceHelper.DefaultDatabase, mysqlUser, mysqlPassword);
 
@@ -239,8 +255,10 @@ namespace ASC.Api.Mail
         {
             try
             {
-                var client = new TcpClient(host, port);
-                return client.Connected;
+                using (var client = new TcpClient(host, port))
+                {
+                    return client.Connected;
+                }
             }
             catch (Exception)
             {

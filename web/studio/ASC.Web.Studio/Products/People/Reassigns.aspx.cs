@@ -45,6 +45,8 @@ namespace ASC.Web.People
 
         protected string ProfileLink { get; private set; }
 
+        protected bool RemoveData { get; private set; }
+
         protected bool IsAdmin()
         {
             return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
@@ -67,17 +69,19 @@ namespace ASC.Web.People
                 Response.Redirect("~/products/people/", true);
             }
 
-            PageTitle = UserInfo.DisplayUserName(false) + " - " + PeopleResource.ReassignmentData;
+            RemoveData = string.Equals(Request["remove"], bool.TrueString, StringComparison.InvariantCultureIgnoreCase);
+
+            PageTitle = UserInfo.DisplayUserName(false) + " - " + (RemoveData ? PeopleResource.RemovingData : PeopleResource.ReassignmentData);
 
             Title = HeaderStringHelper.GetPageTitle(PageTitle);
 
             PageTitle = HttpUtility.HtmlEncode(PageTitle);
 
-            HelpLink = CommonLinkUtility.GetHelpLink();
+            HelpLink = CommonLinkUtility.GetHelpLink().TrimEnd('/');
 
             ProfileLink = CommonLinkUtility.GetUserProfile(UserInfo.ID);
 
-            Page.RegisterInlineScript(string.Format("ASC.People.Reassigns.init(\"{0}\");", UserInfo.ID));
+            Page.RegisterInlineScript(string.Format("ASC.People.Reassigns.init(\"{0}\", {1});", UserInfo.ID, RemoveData.ToString().ToLowerInvariant()));
         }
     }
 }

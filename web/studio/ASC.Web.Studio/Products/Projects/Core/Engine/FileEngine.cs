@@ -104,7 +104,7 @@ namespace ASC.Projects.Engine
             foreach (var file in uploadedFiles)
             {
                 var fileInfo = String.Format("{0} ({1})", file.Title, Path.GetExtension(file.Title).ToUpper());
-                fileListInfoHashtable.Add(fileInfo, file.ViewUrl);
+                fileListInfoHashtable.Add(fileInfo, file.DownloadUrl);
             }
 
             return fileListInfoHashtable;
@@ -112,36 +112,13 @@ namespace ASC.Projects.Engine
 
         internal FileShare GetFileShare(FileEntry file, int projectId)
         {
-            if (!CanRead(file, projectId)) return FileShare.Restrict;
-            if (!CanCreate(file, projectId) || !CanEdit(file, projectId)) return FileShare.Read;
-            if (!CanDelete(file, projectId)) return FileShare.ReadWrite;
+            var fileSecurity = securityAdapterProvider.GetFileSecurity(projectId);
+            var currentUserId = SecurityContext.CurrentAccount.ID;
+            if (!fileSecurity.CanRead(file, currentUserId)) return FileShare.Restrict;
+            if (!fileSecurity.CanCreate(file, currentUserId) || !fileSecurity.CanEdit(file, currentUserId)) return FileShare.Read;
+            if (!fileSecurity.CanDelete(file, currentUserId)) return FileShare.ReadWrite;
 
             return FileShare.None;
-        }
-
-        private bool CanCreate(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanCreate(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        private bool CanDelete(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanDelete(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        private bool CanEdit(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanEdit(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        private bool CanRead(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanRead(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        private IFileSecurity GetFileSecurity(int projectId)
-        {
-            return securityAdapterProvider.GetFileSecurity(projectId);
         }
     }
 }

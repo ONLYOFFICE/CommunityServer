@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvitePanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.InvitePanel" %>
 <%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -10,6 +11,7 @@
      <div>
         <% if (EnableInviteLink) { %>
         <p><%= Resource.HelpAnswerLinkInviteSettings %></p>
+        <p><%= String.Format(Resource.InviteLinkValidInterval, SetupInfo.ValidEmailKeyInterval.Days) %></p>
         <% } else { %>
         <p>
             <%= UserControlsCommonResource.TariffUserLimitReason%>

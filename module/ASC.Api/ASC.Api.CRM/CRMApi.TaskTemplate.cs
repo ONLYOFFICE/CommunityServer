@@ -59,7 +59,7 @@ namespace ASC.Api.CRM
                     Title = title
                 };
 
-            taskTemplateContainer.ID = DaoFactory.GetTaskTemplateContainerDao().SaveOrUpdate(taskTemplateContainer);
+            taskTemplateContainer.ID = DaoFactory.TaskTemplateContainerDao.SaveOrUpdate(taskTemplateContainer);
             return ToTaskTemplateContainerWrapper(taskTemplateContainer);
         }
 
@@ -75,7 +75,7 @@ namespace ASC.Api.CRM
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/tasktemplatecontainer")]
         public IEnumerable<TaskTemplateContainerWrapper> GetTaskTemplateContainers(string entityType)
         {
-            return ToTaskListTemplateContainerWrapper(DaoFactory.GetTaskTemplateContainerDao().GetItems(ToEntityType(entityType)));
+            return ToTaskListTemplateContainerWrapper(DaoFactory.TaskTemplateContainerDao.GetItems(ToEntityType(entityType)));
         }
 
         /// <summary>
@@ -94,10 +94,10 @@ namespace ASC.Api.CRM
         {
             if (containerid <= 0) throw new ArgumentException();
 
-            var result = ToTaskTemplateContainerWrapper(DaoFactory.GetTaskTemplateContainerDao().GetByID(containerid));
+            var result = ToTaskTemplateContainerWrapper(DaoFactory.TaskTemplateContainerDao.GetByID(containerid));
             if (result == null) throw new ItemNotFoundException();
 
-            DaoFactory.GetTaskTemplateContainerDao().Delete(containerid);
+            DaoFactory.TaskTemplateContainerDao.Delete(containerid);
 
             return result;
         }
@@ -119,12 +119,12 @@ namespace ASC.Api.CRM
         {
             if (containerid <= 0 || string.IsNullOrEmpty(title)) throw new ArgumentException();
 
-            var result = DaoFactory.GetTaskTemplateContainerDao().GetByID(containerid);
+            var result = DaoFactory.TaskTemplateContainerDao.GetByID(containerid);
             if (result == null) throw new ItemNotFoundException();
 
             result.Title = title;
 
-            DaoFactory.GetTaskTemplateContainerDao().SaveOrUpdate(result);
+            DaoFactory.TaskTemplateContainerDao.SaveOrUpdate(result);
 
             return ToTaskTemplateContainerWrapper(result);
         }
@@ -145,7 +145,7 @@ namespace ASC.Api.CRM
         {
             if (containerid <= 0) throw new ArgumentException();
 
-            var item = DaoFactory.GetTaskTemplateContainerDao().GetByID(containerid);
+            var item = DaoFactory.TaskTemplateContainerDao.GetByID(containerid);
             if (item == null) throw new ItemNotFoundException();
 
             return ToTaskTemplateContainerWrapper(item);
@@ -167,10 +167,10 @@ namespace ASC.Api.CRM
         {
             if (containerid <= 0) throw new ArgumentException();
 
-            var container = DaoFactory.GetTaskTemplateContainerDao().GetByID(containerid);
+            var container = DaoFactory.TaskTemplateContainerDao.GetByID(containerid);
             if (container == null) throw new ItemNotFoundException();
 
-            return DaoFactory.GetTaskTemplateDao().GetList(containerid).ConvertAll(ToTaskTemplateWrapper);
+            return DaoFactory.TaskTemplateDao.GetList(containerid).ConvertAll(ToTaskTemplateWrapper);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace ASC.Api.CRM
         {
             if (containerid <= 0 || string.IsNullOrEmpty(title) || categoryid <= 0) throw new ArgumentException();
 
-            var container = DaoFactory.GetTaskTemplateContainerDao().GetByID(containerid);
+            var container = DaoFactory.TaskTemplateContainerDao.GetByID(containerid);
             if (container == null) throw new ItemNotFoundException();
 
             var item = new TaskTemplate
@@ -218,7 +218,7 @@ namespace ASC.Api.CRM
                     Offset = TimeSpan.FromTicks(offsetTicks)
                 };
 
-            item.ID = DaoFactory.GetTaskTemplateDao().SaveOrUpdate(item);
+            item.ID = DaoFactory.TaskTemplateDao.SaveOrUpdate(item);
 
             return ToTaskTemplateWrapper(item);
         }
@@ -255,10 +255,10 @@ namespace ASC.Api.CRM
         {
             if (containerid <= 0 || string.IsNullOrEmpty(title) || categoryid <= 0) throw new ArgumentException();
 
-            var updatingItem = DaoFactory.GetTaskTemplateDao().GetByID(id);
+            var updatingItem = DaoFactory.TaskTemplateDao.GetByID(id);
             if (updatingItem == null) throw new ItemNotFoundException();
 
-            var container = DaoFactory.GetTaskTemplateContainerDao().GetByID(containerid);
+            var container = DaoFactory.TaskTemplateContainerDao.GetByID(containerid);
             if (container == null) throw new ItemNotFoundException();
 
             var item = new TaskTemplate
@@ -274,7 +274,7 @@ namespace ASC.Api.CRM
                     Offset = TimeSpan.FromTicks(offsetTicks)
                 };
 
-            item.ID = DaoFactory.GetTaskTemplateDao().SaveOrUpdate(item);
+            item.ID = DaoFactory.TaskTemplateDao.SaveOrUpdate(item);
 
             return ToTaskTemplateWrapper(item);
         }
@@ -293,12 +293,12 @@ namespace ASC.Api.CRM
         {
             if (id <= 0) throw new ArgumentException();
 
-            var taskTemplate = DaoFactory.GetTaskTemplateDao().GetByID(id);
+            var taskTemplate = DaoFactory.TaskTemplateDao.GetByID(id);
             if (taskTemplate == null) throw new ItemNotFoundException();
 
             var result = ToTaskTemplateWrapper(taskTemplate);
 
-            DaoFactory.GetTaskTemplateDao().Delete(id);
+            DaoFactory.TaskTemplateDao.Delete(id);
 
             return result;
         }
@@ -317,7 +317,7 @@ namespace ASC.Api.CRM
         {
             if (id <= 0) throw new ArgumentException();
 
-            var taskTemplate = DaoFactory.GetTaskTemplateDao().GetByID(id);
+            var taskTemplate = DaoFactory.TaskTemplateDao.GetByID(id);
             if (taskTemplate == null) throw new ItemNotFoundException();
 
             return ToTaskTemplateWrapper(taskTemplate);
@@ -343,7 +343,7 @@ namespace ASC.Api.CRM
         {
             var result = new List<TaskTemplateContainerWrapper>();
 
-            var taskTemplateDictionary = DaoFactory.GetTaskTemplateDao().GetAll()
+            var taskTemplateDictionary = DaoFactory.TaskTemplateDao.GetAll()
                                                    .GroupBy(item => item.ContainerID)
                                                    .ToDictionary(x => x.Key, y => y.Select(ToTaskTemplateWrapper));
 

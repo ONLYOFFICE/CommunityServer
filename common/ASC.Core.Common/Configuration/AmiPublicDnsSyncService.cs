@@ -48,7 +48,7 @@ namespace ASC.Core.Configuration
         {
             if (CoreContext.Configuration.Standalone)
             {
-                var tenants = CoreContext.TenantManager.GetTenants().Where(t => MappedDomainNotSettedByUser(t.MappedDomain));
+                var tenants = CoreContext.TenantManager.GetTenants(false).Where(t => MappedDomainNotSettedByUser(t.MappedDomain));
                 if (tenants.Any())
                 {
                     var dnsname = GetAmiPublicDnsName();

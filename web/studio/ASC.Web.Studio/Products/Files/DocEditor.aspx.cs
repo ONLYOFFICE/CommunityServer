@@ -33,6 +33,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using ASC.Core;
+using ASC.Security.Cryptography;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
@@ -139,7 +140,7 @@ namespace ASC.Web.Files
             if (_valideShareLink)
                 return;
 
-            var refererURL = Request.Url.AbsoluteUri;
+            var refererURL = Request.GetUrlRewriter().AbsoluteUri;
             Session["refererURL"] = refererURL;
             Response.Redirect("~/auth.aspx");
         }
@@ -198,31 +199,6 @@ namespace ASC.Web.Files
                     var fileTitle = Request[FilesLinkUtility.FileTitle];
                     if (string.IsNullOrEmpty(fileTitle))
                         fileTitle = Path.GetFileName(HttpUtility.UrlDecode(fileUri)) ?? "";
-
-                    if (CoreContext.Configuration.Standalone)
-                    {
-                        try
-                        {
-                            var webRequest = (HttpWebRequest)WebRequest.Create(RequestFileUrl);
-
-                            // hack. http://ubuntuforums.org/showthread.php?t=1841740
-                            if (WorkContext.IsMono)
-                            {
-                                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
-                            }
-
-                            using (var response = webRequest.GetResponse())
-                            using (var responseStream = new ResponseStream(response))
-                            {
-                                var externalFileKey = DocumentServiceConnector.GenerateRevisionId(RequestFileUrl);
-                                fileUri = DocumentServiceConnector.GetExternalUri(responseStream, MimeMapping.GetMimeMapping(fileTitle), externalFileKey);
-                            }
-                        }
-                        catch (Exception error)
-                        {
-                            Global.Logger.Error("Cannot receive external url for \"" + RequestFileUrl + "\"", error);
-                        }
-                    }
 
                     file = new File
                         {
@@ -303,6 +279,9 @@ namespace ASC.Web.Files
             if (_configuration.EditorConfig.ModeWrite)
             {
                 _tabId = FileTracker.Add(file.ID);
+
+                Global.SocketManager.FilesChangeEditors(file.ID);
+
                 if (SecurityContext.IsAuthenticated)
                 {
                     _configuration.EditorConfig.FileChoiceUrl = CommonLinkUtility.GetFullAbsolutePath(FileChoice.Location) + "?" + FileChoice.ParamFilterExt + "=xlsx&" + FileChoice.MailMergeParam + "=true";
@@ -351,6 +330,11 @@ namespace ASC.Web.Files
                 docServiceParams.FileVersion = _configuration.Document.Info.File.Version;
 
                 _configuration.Token = DocumentServiceHelper.GetSignature(_configuration);
+
+                if (!string.IsNullOrEmpty(_configuration.Token))
+                {
+                    _configuration.EditorConfig.CallbackUrl = DocumentServiceTracker.GetCallbackUrl(_configuration.Document.Info.File.ID.ToString());
+                }
             }
 
             inlineScript.AppendFormat("\nASC.Files.Editor.docServiceParams = {0};",

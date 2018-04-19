@@ -26,28 +26,20 @@
 
 using System;
 using System.Linq;
-
-using ASC.Notify;
-using ASC.Notify.Engine;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
-using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Utility;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Masters.ClientScripts;
 using ASC.Web.Projects.Resources;
-
-using log4net;
 
 
 namespace ASC.Web.Projects.Configuration
 {
     public class ProductEntryPoint : Product
     {
-        private static readonly object Locker = new object();
-        private static bool registered;
-
         private ProductContext context;
 
         public static readonly Guid ID = EngineFactory.ProductId;
@@ -120,93 +112,19 @@ namespace ASC.Web.Projects.Configuration
 
             FileEngine.RegisterFileSecurityProvider();
             SearchHandlerManager.Registry(new SearchHandler());
-
-            var securityInterceptor = new SendInterceptorSkeleton(
-                "ProjectInterceptorSecurity",
-                InterceptorPlace.DirectSend,
-                InterceptorLifetime.Global,
-                (r, p) =>
-                    {
-                        try
-                        {
-                            var data = r.ObjectID.Split('_');
-                            var entityType = data[0];
-                            var entityId = Convert.ToInt32(data[1]);
-
-                            var projectId = 0;
-                            
-                            if(data.Length == 3)
-                                projectId = Convert.ToInt32(r.ObjectID.Split('_')[2]);
-
-                            switch (entityType)
-                            {
-                                case "Task":
-                                    var task = Global.EngineFactory.TaskEngine.GetByID(entityId, false);
-
-                                    if (task == null && projectId != 0)
-                                    {
-                                        var project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
-                                        return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
-                                    }
-
-                                    return !ProjectSecurity.CanRead(task, new Guid(r.Recipient.ID));
-                                case "Message":
-                                    var discussion = Global.EngineFactory.MessageEngine.GetByID(entityId, false);
-
-                                    if (discussion == null && projectId != 0)
-                                    {
-                                        var project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
-                                        return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
-                                    }
-
-                                    return !ProjectSecurity.CanRead(discussion, new Guid(r.Recipient.ID));
-                                case "Milestone":
-                                    var milestone = Global.EngineFactory.MilestoneEngine.GetByID(entityId, false);
-
-                                    if (milestone == null && projectId != 0)
-                                    {
-                                        var project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
-                                        return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
-                                    }
-
-                                    return !ProjectSecurity.CanRead(milestone, new Guid(r.Recipient.ID));
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            LogManager.GetLogger("ASC.Projects.Tasks").Error("Send", ex);
-                        }
-                        return false;
-                    });
-
-            NotifyClient.Instance.Client.AddInterceptor(securityInterceptor);
+            NotifyClient.RegisterSecurityInterceptor();
             ClientScriptLocalization = new ClientLocalizationResources();
+            DIHelper.Register();
         }
 
         public override void Shutdown()
         {
-            if (registered)
-            {
-                NotifyClient.Instance.Client.UnregisterSendMethod(NotifyHelper.SendMsgMilestoneDeadline);
-                NotifyClient.Instance.Client.UnregisterSendMethod(NotifyHelper.SendAutoReports);
-                NotifyClient.Instance.Client.UnregisterSendMethod(NotifyHelper.SendAutoReminderAboutTask);
-
-                NotifyClient.Instance.Client.RemoveInterceptor("ProjectInterceptorSecurity");
-            }
+            NotifyClient.UnregisterSendMethods();
         }
 
         public static void RegisterSendMethods()
         {
-            lock (Locker)
-            {
-                if (!registered)
-                {
-                    registered = true;
-                    NotifyClient.Instance.Client.RegisterSendMethod(NotifyHelper.SendMsgMilestoneDeadline, "0 0 7 ? * *");
-                    NotifyClient.Instance.Client.RegisterSendMethod(NotifyHelper.SendAutoReports, "0 0 * ? * *");
-                    NotifyClient.Instance.Client.RegisterSendMethod(NotifyHelper.SendAutoReminderAboutTask, "0 0 * ? * *");
-                }
-            }
+            NotifyClient.RegisterSendMethods();
         }
     }
 }

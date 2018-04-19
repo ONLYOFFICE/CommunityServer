@@ -1,4 +1,10 @@
-// HtmlAgilityPack V1.0 - Simon Mourier <simon underscore mourier at hotmail dot com>
+// Description: Html Agility Pack - HTML Parsers, selectors, traversors, manupulators.
+// Website & Documentation: http://html-agility-pack.net
+// Forum & Issues: https://github.com/zzzprojects/html-agility-pack
+// License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
+// More projects: http://www.zzzprojects.com/
+// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +18,7 @@ namespace HtmlAgilityPack
     {
         #region Fields
 
-        internal Dictionary<string, HtmlAttribute> Hashitems = new Dictionary<string, HtmlAttribute>();
+        internal Dictionary<string, HtmlAttribute> Hashitems = new Dictionary<string, HtmlAttribute>(StringComparer.OrdinalIgnoreCase);
         private HtmlNode _ownernode;
         private List<HtmlAttribute> items = new List<HtmlAttribute>();
 
@@ -40,7 +46,8 @@ namespace HtmlAgilityPack
                 {
                     throw new ArgumentNullException("name");
                 }
-                return Hashitems.ContainsKey(name.ToLower()) ? Hashitems[name.ToLower()] : null;
+                HtmlAttribute value;
+                return Hashitems.TryGetValue(name, out value) ? value : null;
             }
             set { Append(value); }
         }
@@ -155,8 +162,7 @@ namespace HtmlAgilityPack
             item._ownernode = _ownernode;
             items.Insert(index, item);
 
-            _ownernode._innerchanged = true;
-            _ownernode._outerchanged = true;
+            _ownernode.SetChanged();
         }
 
         /// <summary>
@@ -179,8 +185,7 @@ namespace HtmlAgilityPack
             Hashitems.Remove(att.Name);
             items.RemoveAt(index);
 
-            _ownernode._innerchanged = true;
-            _ownernode._outerchanged = true;
+            _ownernode.SetChanged();
         }
 
         #endregion
@@ -213,8 +218,7 @@ namespace HtmlAgilityPack
             newAttribute._ownernode = _ownernode;
             items.Add(newAttribute);
 
-            _ownernode._innerchanged = true;
-            _ownernode._outerchanged = true;
+            _ownernode.SetChanged();
             return newAttribute;
         }
 
@@ -248,9 +252,11 @@ namespace HtmlAgilityPack
         /// <returns></returns>
         public bool Contains(string name)
         {
+            string lname = name.ToLower();
+
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].Name.Equals(name.ToLower()))
+                if (items[i].Name.Equals(lname))
                     return true;
             }
             return false;
@@ -315,8 +321,7 @@ namespace HtmlAgilityPack
             Hashitems.Clear();
             items.Clear();
 
-            _ownernode._innerchanged = true;
-            _ownernode._outerchanged = true;
+            _ownernode.SetChanged();
         }
 
         #endregion
@@ -343,8 +348,7 @@ namespace HtmlAgilityPack
         /// </summary>
         public void Remove()
         {
-            foreach (HtmlAttribute item in items)
-                item.Remove();
+            items.Clear();
         }
 
         #endregion

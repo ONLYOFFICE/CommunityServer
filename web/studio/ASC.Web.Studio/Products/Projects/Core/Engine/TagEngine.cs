@@ -32,48 +32,41 @@ namespace ASC.Projects.Engine
 {
     public class TagEngine
     {
-        private readonly ITagDao _tagDao;
-
-
-        public TagEngine(IDaoFactory daoFactory)
-        {
-            _tagDao = daoFactory.GetTagDao();
-        }
-
+        public IDaoFactory DaoFactory { get; set; }
 
         public Dictionary<int, string> GetTags()
         {
-            return _tagDao.GetTags();
+            return DaoFactory.TagDao.GetTags();
         }
 
         public Dictionary<int, string> GetTags(string prefix)
         {
-            return _tagDao.GetTags(prefix);
+            return DaoFactory.TagDao.GetTags(prefix);
         }
 
         public string GetById(int id)
         {
-            return _tagDao.GetById(id);
+            return DaoFactory.TagDao.GetById(id);
         }
 
         public int[] GetTagProjects(string tagName)
         {
-            return _tagDao.GetTagProjects(tagName);
+            return DaoFactory.TagDao.GetTagProjects(tagName);
         }
 
         public int[] GetTagProjects(int tagID)
         {
-            return _tagDao.GetTagProjects(tagID);
+            return DaoFactory.TagDao.GetTagProjects(tagID);
         }
 
         public Dictionary<int, string> GetProjectTags(int projectId)
         {
-            return _tagDao.GetProjectTags(projectId);
+            return DaoFactory.TagDao.GetProjectTags(projectId);
         }
 
         public void SetProjectTags(int projectId, string tags)
         {
-            _tagDao.SetProjectTags(projectId, FromString(tags));
+            DaoFactory.TagDao.SetProjectTags(projectId, FromString(tags));
         }
 
         private string[] FromString(string tags)

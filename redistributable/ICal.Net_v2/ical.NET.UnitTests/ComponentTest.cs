@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace Ical.Net.UnitTests
@@ -15,5 +16,7 @@ namespace Ical.Net.UnitTests
             Assert.IsNull(evt.Created); // We don't want this to be set automatically
             Assert.IsNotNull(evt.DtStamp);
         }
+
+        
     }
 }

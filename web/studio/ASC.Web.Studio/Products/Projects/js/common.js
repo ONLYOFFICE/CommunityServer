@@ -119,7 +119,7 @@ ASC.Projects.Common = (function () {
         initControl(baseObject.MilestoneAction);
 
         //init projNavPanel
-        if (jq.getURLParam('prjId') && href.indexOf("ganttchart.aspx") == -1 && href.indexOf("timer.aspx") == -1) {
+        if (jq.getURLParam('prjId') && href.indexOf("ganttchart.aspx") === -1 && href.indexOf("timer.aspx") === -1) {
             baseObject.projectNavPanel.init();
         } else {
             baseObject.projectNavPanel.hide();
@@ -163,7 +163,7 @@ ASC.Projects.Common = (function () {
                 }
 
                 jq('#projectTitleContainer .inputTitleContainer').css('width', '100%');
-                if (action == "edit") {
+                if (action === "edit") {
                     jq('.dottedHeader').removeClass('dottedHeader');
                     jq('#projectDescriptionContainer').show();
                     jq('#notifyManagerCheckbox').attr('disabled', 'disabled');
@@ -233,7 +233,7 @@ ASC.Projects.Common = (function () {
     function bindCommonEvents() {
         if (handlers.length) return;
         handlers.push(teamlab.bind(teamlab.events.getException, function (params, errors) {
-            if (errors && errors[0] == "unauthorized request") {
+            if (errors && errors[0] === "unauthorized request") {
                 window.location = "/auth.aspx";
             }
         }));
@@ -318,7 +318,7 @@ ASC.Projects.Common = (function () {
 
     var removeBlockedUsersFromTeam = function (team) {
         return team.filter(function(item) {
-            return item.status == 1;
+            return item.status === 1;
         });
     };
 
@@ -349,7 +349,7 @@ ASC.Projects.Common = (function () {
         var params = "width=" + width + ",height=" + height + ",resizable=yes";
         var windowName = "displayTimerWindow";
         var hWnd = null;
-        var isExist = false;
+        var isExist;
 
         try {
             hWnd = window.open('', windowName, params);
@@ -377,11 +377,6 @@ ASC.Projects.Common = (function () {
 
         if (!isExist) {
             hWnd = window.open(url, windowName, params);
-            isExist = true;
-        }
-
-        if (!isExist) {
-            return undefined;
         }
 
         try {
@@ -400,7 +395,7 @@ ASC.Projects.Common = (function () {
     var userInProjectTeam = function (userId) {
         if (typeof master.Team === "undefined") return false;
         return master.Team.find(function (item) {
-            return item.id == userId;
+            return item.id === userId;
         });
     };
 
@@ -492,7 +487,7 @@ ASC.Projects.Common = (function () {
         return (a < b) ? 1 : (a > b) ? -1 : 0;
     };
 
-    var milestoneSort = function (a, b) {
+    function milestoneSort(a, b) {
         var deadlineSort = defaultSort(a.deadline, b.deadline);
         return deadlineSort ? deadlineSort : defaultSort(a.title, b.title, true);
     };
@@ -510,6 +505,8 @@ ASC.Projects.Common = (function () {
                 return master.Projects[i];
             }
         }
+
+        return undefined;
     };
 
     function getProjectByIdFromCache(projectId) {
@@ -571,7 +568,7 @@ ASC.Projects.Common = (function () {
 
     function chooseMonthNumeralCase(count) {
         var resources = baseObject.Resources;
-        return count == 0 ? "" : count + " " +
+        return count === 0 ? "" : count + " " +
             chooseNumeralCase(count,
                 resources.MonthNominative,
                 resources.MonthGenitiveSingular,
@@ -579,13 +576,13 @@ ASC.Projects.Common = (function () {
     }
 
     function chooseNumeralCase(number, nominative, genitiveSingular, genitivePlural) {
-        if (number == 0.5) {
+        if (number === 0.5) {
             if (ASC.Resources.Master.TwoLetterISOLanguageName === "ru") {
                 return genitiveSingular;
             }
         }
 
-        if (number == 1) {
+        if (number === 1) {
             return nominative;
         }
 
@@ -597,7 +594,7 @@ ASC.Projects.Common = (function () {
             var formsTable = [2, 0, 1, 1, 1, 2, 2, 2, 2, 2];
 
             number = Math.abs(number);
-            var res = formsTable[((((number % 100) / 10) != 1) ? 1 : 0) * (number % 10)];
+            var res = formsTable[((((number % 100) / 10) !== 1) ? 1 : 0) * (number % 10)];
             switch (res) {
             case 0:
                 return nominative;

@@ -24,30 +24,17 @@
 */
 
 
-#region Import
-
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Net;
-using System.Web;
-using System.Linq;
-using ASC.Collections;
-using ASC.Common.Threading.Workers;
-using ASC.Data.Storage;
-using ASC.Web.CRM.Configuration;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Controls.FileUploader;
-using ASC.Web.Studio.Core;
 using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
-using ASC.Web.CRM.Resources;
+using System.IO;
+using ASC.CRM.Core.Dao;
+using ASC.Data.Storage;
 using ASC.Web.Core;
-
-#endregion
+using ASC.Web.Core.Utility.Skins;
+using ASC.Web.CRM.Configuration;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -63,22 +50,6 @@ namespace ASC.Web.CRM.Classes
         public static readonly Size OrganisationLogoSize = new Size(200, 150);
 
         private static readonly Object _synchronizedObj = new Object();
-
-        #endregion
-
-        #region DataStore Methods
-
-        private static String FromDataStore()
-        {
-            var directoryPath = BuildFileDirectory();
-            var filesURI = Global.GetStore().ListFiles(directoryPath, OrganisationLogoImgName + "*", false);
-
-            if (filesURI.Length == 0)
-            {
-                return String.Empty;
-            }
-            return filesURI[0].ToString();
-        }
 
         #endregion
 
@@ -135,7 +106,10 @@ namespace ASC.Web.CRM.Classes
         public static String GetOrganisationLogoBase64(int logoID)
         {
             if (logoID <= 0) { return ""; }
-            return Global.DaoFactory.GetInvoiceDao().GetOrganisationLogoBase64(logoID);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<DaoFactory>().InvoiceDao.GetOrganisationLogoBase64(logoID);
+            }
         }
 
         public static String GetOrganisationLogoSrc(int logoID)
@@ -162,9 +136,8 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        public static int TryUploadOrganisationLogoFromTmp()
+        public static int TryUploadOrganisationLogoFromTmp(DaoFactory factory)
         {
-            var logo_id = 0;
             var directoryPath = BuildFileDirectory();
             var dataStore = Global.GetStore();
 
@@ -173,18 +146,19 @@ namespace ASC.Web.CRM.Classes
 
             try
             {
-                var photoPath = FromDataStore();
-                photoPath = photoPath.Substring(photoPath.IndexOf(directoryPath));
+                var photoPaths = Global.GetStore().ListFilesRelative("", directoryPath, OrganisationLogoImgName + "*", false);
+                if (photoPaths.Length == 0)
+                    return 0;
 
                 byte[] bytes;
-                using (var photoTmpStream = dataStore.GetReadStream(photoPath))
+                using (var photoTmpStream = dataStore.GetReadStream(Path.Combine(directoryPath, photoPaths[0])))
                 {
                     bytes = Global.ToByteArray(photoTmpStream);
                 }
 
-                logo_id = Global.DaoFactory.GetInvoiceDao().SaveOrganisationLogo(bytes);
+                var logoID = factory.InvoiceDao.SaveOrganisationLogo(bytes);
                 dataStore.DeleteFiles(directoryPath, "*", false);
-                return logo_id;
+                return logoID;
             }
 
             catch (Exception ex)

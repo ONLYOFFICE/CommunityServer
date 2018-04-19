@@ -48,16 +48,19 @@ namespace ASC.Web.Studio.Core.SMS
         public static readonly ClickatellProvider ClickatellProvider;
         public static readonly TwilioProvider TwilioProvider;
 
+        public static readonly ClickatellProvider ClickatellUSAProvider = null;
+
         static SmsProviderManager()
         {
             SmscProvider = new SmscProvider();
-            ClickatellProvider = new ClickatellProvider();
+            ClickatellProvider = new ClickatellProvider(KeyStorage.Get("clickatellapiKey"));
+            ClickatellUSAProvider = new ClickatellProvider(KeyStorage.Get("clickatellUSAapiKey"), KeyStorage.Get("clickatellUSAsender"));
             TwilioProvider = new TwilioProvider();
         }
 
         public static bool Enabled()
         {
-            return SmscProvider.Enable() || ClickatellProvider.Enable() || TwilioProvider.Enable();
+            return SmscProvider.Enable() || ClickatellProvider.Enable() || ClickatellUSAProvider.Enable() || TwilioProvider.Enable();
         }
 
         public static bool SendMessage(string number, string message)
@@ -68,6 +71,13 @@ namespace ASC.Web.Studio.Core.SMS
             if (ClickatellProvider.Enable())
             {
                 provider = ClickatellProvider;
+            }
+
+            string smsUsa;
+            if (ClickatellUSAProvider.Enable()
+                && !string.IsNullOrEmpty(smsUsa = KeyStorage.Get("clickatellUSA")) && Regex.IsMatch(number, smsUsa))
+            {
+                provider = ClickatellUSAProvider;
             }
 
             if (provider == null && TwilioProvider.Enable())
@@ -101,7 +111,6 @@ namespace ASC.Web.Studio.Core.SMS
         protected virtual string GetBalanceUrlFormat { get; set; }
         protected virtual string Key { get; set; }
         protected virtual string Secret { get; set; }
-        protected virtual string KeyDefault { get; set; }
         protected virtual string Sender { get; set; }
 
         public virtual bool Enable()
@@ -114,7 +123,6 @@ namespace ASC.Web.Studio.Core.SMS
             return SendMessageUrlFormat
                 .Replace("{key}", Key)
                 .Replace("{secret}", Secret)
-                .Replace("{keydefault}", KeyDefault)
                 .Replace("{sender}", Sender);
         }
 
@@ -123,10 +131,11 @@ namespace ASC.Web.Studio.Core.SMS
             try
             {
                 var url = SendMessageUrl();
+                url = url.Replace("{phone}", number).Replace("{text}", HttpUtility.UrlEncode(message));
 
-                var request = (HttpWebRequest)WebRequest.Create(url.Replace("{phone}", number).Replace("{text}", HttpUtility.UrlEncode(message)));
+                var request = (HttpWebRequest)WebRequest.Create(url);
                 request.ContentType = "application/x-www-form-urlencoded";
-                request.Timeout = 1000;
+                request.Timeout = 15000;
 
                 using (var response = request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -147,46 +156,6 @@ namespace ASC.Web.Studio.Core.SMS
                 Log.Error("Failed to send sms message", ex);
             }
             return false;
-        }
-
-        private string GetBalanceUrl()
-        {
-            return GetBalanceUrlFormat
-                .Replace("{key}", Key)
-                .Replace("{secret}", Secret)
-                .Replace("{keydefault}", KeyDefault);
-        }
-
-        public virtual string GetBalance(bool eraseCache = false)
-        {
-            try
-            {
-                var url = GetBalanceUrl();
-
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.Timeout = 1000;
-
-                using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
-                {
-                    if (stream != null)
-                    {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            var result = reader.ReadToEnd();
-                            Log.InfoFormat("SMS balance service returned: {0}", result);
-
-                            return result;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Failed request sms balance", ex);
-            }
-            return string.Empty;
         }
     }
 
@@ -216,12 +185,6 @@ namespace ASC.Web.Studio.Core.SMS
             set { }
         }
 
-        protected override string KeyDefault
-        {
-            get { return string.Empty; }
-            set { }
-        }
-
         protected override string Sender
         {
             get { return KeyStorage.Get("smscsender"); }
@@ -235,7 +198,7 @@ namespace ASC.Web.Studio.Core.SMS
                 && !string.IsNullOrEmpty(Secret);
         }
 
-        public override string GetBalance(bool eraseCache = false)
+        public string GetBalance(bool eraseCache = false)
         {
             var key = "sms/smsc/" + TenantProvider.CurrentTenantID;
             if (eraseCache) Cache.Remove(key);
@@ -244,12 +207,46 @@ namespace ASC.Web.Studio.Core.SMS
 
             if (string.IsNullOrEmpty(balance))
             {
-                balance = base.GetBalance(eraseCache);
+                try
+                {
+                    var url = GetBalanceUrl();
+
+                    var request = (HttpWebRequest)WebRequest.Create(url);
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.Timeout = 1000;
+
+                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
+                    {
+                        if (stream != null)
+                        {
+                            using (var reader = new StreamReader(stream))
+                            {
+                                var result = reader.ReadToEnd();
+                                Log.InfoFormat("SMS balance service returned: {0}", result);
+
+                                balance = result;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Failed request sms balance", ex);
+                    balance = string.Empty;
+                }
 
                 Cache.Insert(key, balance, TimeSpan.FromMinutes(1));
             }
 
             return balance;
+        }
+
+        private string GetBalanceUrl()
+        {
+            return GetBalanceUrlFormat
+                .Replace("{key}", Key)
+                .Replace("{secret}", Secret);
         }
 
         public bool SuitableNumber(string number)
@@ -267,26 +264,35 @@ namespace ASC.Web.Studio.Core.SMS
 
     public class ClickatellProvider : SmsProvider
     {
+        private readonly string _secret;
+        private readonly string _sender;
+        public ClickatellProvider(string secret, string sender = null)
+        {
+            _secret = secret;
+            _sender = sender;
+        }
+
         protected override string SendMessageUrlFormat
         {
-            get { return "https://platform.clickatell.com/messages/http/send?apiKey={secret}&to={phone}&content={text}"; }
+            get { return "https://platform.clickatell.com/messages/http/send?apiKey={secret}&to={phone}&content={text}&from={sender}"; }
             set { }
         }
 
         protected override string Secret
         {
-            get { return KeyStorage.Get("clickatellapiKey"); }
+            get { return _secret; }
+            set { }
+        }
+
+        protected override string Sender
+        {
+            get { return _sender; }
             set { }
         }
 
         public override bool Enable()
         {
             return !string.IsNullOrEmpty(Secret);
-        }
-
-        public override string GetBalance(bool eraseCache = false)
-        {
-            return string.Empty;
         }
     }
 
@@ -321,11 +327,6 @@ namespace ASC.Web.Studio.Core.SMS
             //Log.Error("Failed to send sms message: " + smsMessage.RestException.Message);
 
             return false;
-        }
-
-        public override string GetBalance(bool eraseCache = false)
-        {
-            return string.Empty;
         }
     }
 }

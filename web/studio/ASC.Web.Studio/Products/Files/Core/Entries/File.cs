@@ -63,6 +63,7 @@ namespace ASC.Files.Core
         {
             Version = 1;
             VersionGroup = 1;
+            FileEntryType = FileEntryType.File;
         }
 
         public object FolderID { get; set; }
@@ -168,14 +169,9 @@ namespace ASC.Files.Core
             }
         }
 
-        public String FileDownloadUrl
+        public String DownloadUrl
         {
             get { return FilesLinkUtility.GetFileDownloadUrl(ID); }
-        }
-
-        public String ViewUrl
-        {
-            get { return FilesLinkUtility.GetFileViewUrl(ID); }
         }
 
         public string ConvertedType { get; set; }

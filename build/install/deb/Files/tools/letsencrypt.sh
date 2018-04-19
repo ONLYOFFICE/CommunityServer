@@ -10,6 +10,7 @@ done
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="/var/www/onlyoffice/Data/certs";
+mkdir -p ${ROOT_DIR}
 
 certbot certonly --expand --webroot -w ${ROOT_DIR} --noninteractive --agree-tos --email support@$1 $_domains;
 

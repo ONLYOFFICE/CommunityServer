@@ -1,0 +1,19 @@
+{
+    "name"       : "WordPress",
+    "guid"       : "asc.{0847b6a4-b007-11e7-abc4-cec278b6b50a}",
+    "baseUrl"    : "",
+    "variations" : [
+        {
+            "description"         : "WordPress",
+            "url"                 : "index.html",
+            "icons"               : ["wordpress_blue_white.png", "wordpress_blue_white@2x.png"],
+            "isViewer"            : false,
+            "EditorsSupport"      : ["word"],
+            "initDataType"        : "html",
+            "isVisual"            : true,
+            "isModal"             : false,
+            "isInsideMode"        : true,
+            "isUpdateOleOnResize" : false
+        }
+    ]
+}

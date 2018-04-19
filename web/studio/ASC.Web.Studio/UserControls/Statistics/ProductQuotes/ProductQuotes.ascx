@@ -41,6 +41,7 @@
                         <tr class="borderBase <%# Container.ItemIndex >= 10 ? "display-none" : "" %>" >
                             <td class="icon">
                                 <%# String.IsNullOrEmpty((string)Eval("Icon")) ? "" : "<img src=\"" + Eval("Icon") + "\" alt=\"" + ((string)Eval("Name")).HtmlEncode() + "\" />"%>
+                                <%# (!String.IsNullOrEmpty((string)Eval("Icon")) && (bool)Eval("Disabled")) ? "<span class=\"disabled\"></span>" : "" %>
                             </td>
                             <td class="name">
                                 <div>

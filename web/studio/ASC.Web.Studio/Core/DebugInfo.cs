@@ -84,7 +84,7 @@ namespace ASC.Web.Studio.Core
                 fileContent = fileContent.Replace("{DocServiceApi}", FilesLinkUtility.DocServiceApiUrl.HtmlEncode());
                 fileContent = fileContent.Replace("{DocServiceCommand}", FilesLinkUtility.DocServiceCommandUrl.HtmlEncode());
                 fileContent = fileContent.Replace("{DocServiceConverter}", FilesLinkUtility.DocServiceConverterUrl.HtmlEncode());
-                fileContent = fileContent.Replace("{DocServiceStorage}", FilesLinkUtility.DocServiceStorageUrl.HtmlEncode());
+                fileContent = fileContent.Replace("{DocServiceDocbuilder}", FilesLinkUtility.DocServiceDocbuilderUrl.HtmlEncode());
 
                 var firstCommitIDNode = nodes.FirstOrDefault();
                 if (firstCommitIDNode != null)

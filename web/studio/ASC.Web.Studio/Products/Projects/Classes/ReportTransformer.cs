@@ -32,7 +32,6 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
-using ASC.Core.Common.Settings;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Projects.Resources;

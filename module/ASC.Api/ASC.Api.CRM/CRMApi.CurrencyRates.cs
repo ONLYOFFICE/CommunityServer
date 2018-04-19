@@ -47,7 +47,7 @@ namespace ASC.Api.CRM
         [Read(@"currency/rates")]
         public IEnumerable<CurrencyRateWrapper> GetCurrencyRates()
         {
-            return DaoFactory.GetCurrencyRateDao().GetAll().ConvertAll(ToCurrencyRateWrapper);
+            return DaoFactory.CurrencyRateDao.GetAll().ConvertAll(ToCurrencyRateWrapper);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ASC.Api.CRM
         {
             if (id <= 0) throw new ArgumentException();
 
-            var currencyRate = DaoFactory.GetCurrencyRateDao().GetByID(id);
+            var currencyRate = DaoFactory.CurrencyRateDao.GetByID(id);
 
             return ToCurrencyRateWrapper(currencyRate);
         }
@@ -84,7 +84,7 @@ namespace ASC.Api.CRM
             if (string.IsNullOrEmpty(fromCurrency) || string.IsNullOrEmpty(toCurrency))
                 throw new ArgumentException();
 
-            var currencyRate = DaoFactory.GetCurrencyRateDao().GetByCurrencies(fromCurrency, toCurrency);
+            var currencyRate = DaoFactory.CurrencyRateDao.GetByCurrencies(fromCurrency, toCurrency);
 
             return ToCurrencyRateWrapper(currencyRate);
         }
@@ -108,7 +108,7 @@ namespace ASC.Api.CRM
                     Rate = rate
                 };
 
-            currencyRate.ID = DaoFactory.GetCurrencyRateDao().SaveOrUpdate(currencyRate);
+            currencyRate.ID = DaoFactory.CurrencyRateDao.SaveOrUpdate(currencyRate);
             MessageService.Send(Request, MessageAction.CurrencyRateUpdated, fromCurrency, toCurrency);
 
             return ToCurrencyRateWrapper(currencyRate);
@@ -134,7 +134,7 @@ namespace ASC.Api.CRM
                     Rate = rate
                 };
 
-            currencyRate.ID = DaoFactory.GetCurrencyRateDao().SaveOrUpdate(currencyRate);
+            currencyRate.ID = DaoFactory.CurrencyRateDao.SaveOrUpdate(currencyRate);
             MessageService.Send(Request, MessageAction.CurrencyRateUpdated, fromCurrency, toCurrency);
 
             return ToCurrencyRateWrapper(currencyRate);
@@ -166,7 +166,7 @@ namespace ASC.Api.CRM
                 MessageService.Send(Request, MessageAction.CrmDefaultCurrencyUpdated);
             }
 
-            rates = DaoFactory.GetCurrencyRateDao().SetCurrencyRates(rates);
+            rates = DaoFactory.CurrencyRateDao.SetCurrencyRates(rates);
 
             foreach (var rate in rates)
             {
@@ -187,7 +187,7 @@ namespace ASC.Api.CRM
         {
             if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
 
-            var existingRates = DaoFactory.GetCurrencyRateDao().GetAll();
+            var existingRates = DaoFactory.CurrencyRateDao.GetAll();
 
             foreach (var rate in rates)
             {
@@ -199,7 +199,7 @@ namespace ASC.Api.CRM
                         continue;
 
                     existingRate.Rate = rate.Rate;
-                    DaoFactory.GetCurrencyRateDao().SaveOrUpdate(existingRate);
+                    DaoFactory.CurrencyRateDao.SaveOrUpdate(existingRate);
                     MessageService.Send(Request, MessageAction.CurrencyRateUpdated, rate.FromCurrency, rate.ToCurrency);
                     exist = true;
                     break;
@@ -207,7 +207,7 @@ namespace ASC.Api.CRM
 
                 if (exist) continue;
 
-                rate.ID = DaoFactory.GetCurrencyRateDao().SaveOrUpdate(rate);
+                rate.ID = DaoFactory.CurrencyRateDao.SaveOrUpdate(rate);
                 MessageService.Send(Request, MessageAction.CurrencyRateUpdated, rate.FromCurrency, rate.ToCurrency);
                 existingRates.Add(rate);
             }
@@ -226,9 +226,9 @@ namespace ASC.Api.CRM
         {
             if (id <= 0) throw new ArgumentException();
 
-            var currencyRate = DaoFactory.GetCurrencyRateDao().GetByID(id);
+            var currencyRate = DaoFactory.CurrencyRateDao.GetByID(id);
 
-            DaoFactory.GetCurrencyRateDao().Delete(id);
+            DaoFactory.CurrencyRateDao.Delete(id);
 
             return ToCurrencyRateWrapper(currencyRate);
         }

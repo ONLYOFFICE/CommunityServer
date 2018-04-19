@@ -25,7 +25,6 @@
 
 
 using System;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Projects.Core.DataInterfaces;
 using System.Collections.Generic;
@@ -34,69 +33,56 @@ namespace ASC.Projects.Data.DAO
 {
     class ParticipantDao : BaseDao, IParticipantDao
     {
-        public ParticipantDao(string dbId, int tenant) : base(dbId, tenant) { }
+        public IProjectDao ProjectDao { get; set; }
 
+        public ParticipantDao(int tenant, IProjectDao projectDao) : base(tenant)
+        {
+            ProjectDao = projectDao;
+        }
 
         public int[] GetFollowingProjects(Guid participant)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(new SqlQuery(FollowingProjectTable).Select("project_id").Where("participant_id", participant.ToString()))
-                    .ConvertAll(r => Convert.ToInt32(r[0]))
-                    .ToArray();
-            }
+            return Db.ExecuteList(new SqlQuery(FollowingProjectTable).Select("project_id").Where("participant_id", participant.ToString()))
+                .ConvertAll(r => Convert.ToInt32(r[0]))
+                .ToArray();
         }
 
         public int[] GetMyProjects(Guid participant)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(new SqlQuery(ParticipantTable).Select("project_id").Where("participant_id", participant.ToString()))
-                    .ConvertAll(r => Convert.ToInt32(r[0]))
-                    .ToArray();
-            }
+            return Db.ExecuteList(new SqlQuery(ParticipantTable).Select("project_id").Where("participant_id", participant.ToString()))
+                .ConvertAll(r => Convert.ToInt32(r[0]))
+                .ToArray();
         }
         public List<int> GetInterestedProjects(Guid participant)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var unionQ = new SqlQuery(FollowingProjectTable).Select("project_id")
-                                                                .Where("participant_id", participant.ToString())
-                                                                .Union(
-                                                                new SqlQuery(ParticipantTable)
-                                                                .Select("project_id")
-                                                                .Where("participant_id",participant.ToString()));
+            var unionQ = new SqlQuery(FollowingProjectTable).Select("project_id")
+                                                            .Where("participant_id", participant.ToString())
+                                                            .Union(
+                                                            new SqlQuery(ParticipantTable)
+                                                            .Select("project_id")
+                                                            .Where("participant_id",participant.ToString()));
 
-                return db.ExecuteList(unionQ).ConvertAll(r => Convert.ToInt32(r[0]));
-            }
+            return Db.ExecuteList(unionQ).ConvertAll(r => Convert.ToInt32(r[0]));
         }
 
         public void AddToFollowingProjects(int project, Guid participant)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    new SqlInsert(FollowingProjectTable, true)
-                        .InColumnValue("project_id", project)
-                        .InColumnValue("participant_id", participant.ToString()));
+            Db.ExecuteNonQuery(
+                new SqlInsert(FollowingProjectTable, true)
+                    .InColumnValue("project_id", project)
+                    .InColumnValue("participant_id", participant.ToString()));
 
-                var projDao = new ProjectDao(db.DatabaseId, Tenant);
-                projDao.UpdateLastModified(project);
-            }
+            ProjectDao.UpdateLastModified(project);
         }
 
         public void RemoveFromFollowingProjects(int project, Guid participant)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    new SqlDelete(FollowingProjectTable)
-                        .Where("project_id", project)
-                        .Where("participant_id", participant.ToString()));
+            Db.ExecuteNonQuery(
+                new SqlDelete(FollowingProjectTable)
+                    .Where("project_id", project)
+                    .Where("participant_id", participant.ToString()));
 
-                var projDao = new ProjectDao(db.DatabaseId, Tenant);
-                projDao.UpdateLastModified(project);
-            }
+            ProjectDao.UpdateLastModified(project);
         }
     }
 }

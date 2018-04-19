@@ -58,7 +58,7 @@ namespace ASC.Web.Files.Utils
             {
                 object parentFolderId;
 
-                if (obj.FileEntry is File)
+                if (obj.FileEntry.FileEntryType == FileEntryType.File)
                     parentFolderId = ((File)obj.FileEntry).FolderID;
                 else
                     parentFolderId = obj.FileEntry.ID;
@@ -124,6 +124,7 @@ namespace ASC.Web.Files.Utils
                         foreach (var userID in userIDs)
                         {
                             var userFolderId = folderDao.GetFolderIDUser(false, userID);
+                            if (Equals(userFolderId, 0)) continue;
 
                             Folder rootFolder = null;
                             if (obj.FileEntry.ProviderEntry)
@@ -192,7 +193,7 @@ namespace ASC.Web.Files.Utils
 
                         var entries = userEntriesData[userID].Distinct().ToList();
 
-                        var exist = tagDao.GetNewTags(userID, entries.ToArray()).ToList();
+                        var exist = tagDao.GetNewTags(userID, entries).ToList();
                         var update = exist.Where(t => t.EntryType == FileEntryType.Folder).ToList();
                         update.ForEach(t => t.Count++);
                         updateTags.AddRange(update);
@@ -207,9 +208,9 @@ namespace ASC.Web.Files.Utils
                     }
 
                     if (updateTags.Any())
-                        tagDao.UpdateNewTags(updateTags.ToArray());
+                        tagDao.UpdateNewTags(updateTags);
                     if (newTags.Any())
-                        tagDao.SaveTags(newTags.ToArray());
+                        tagDao.SaveTags(newTags);
                 }
             }
         }
@@ -273,7 +274,7 @@ namespace ASC.Web.Files.Utils
 
                 var removeTags = new List<Tag>();
 
-                if (fileEntry is File)
+                if (fileEntry.FileEntryType == FileEntryType.File)
                 {
                     folderID = ((File)fileEntry).FolderID;
 
@@ -363,9 +364,9 @@ namespace ASC.Web.Files.Utils
                 }
 
                 if (updateTags.Any())
-                    tagDao.UpdateNewTags(updateTags.ToArray());
+                    tagDao.UpdateNewTags(updateTags);
                 if (removeTags.Any())
-                    tagDao.RemoveTags(removeTags.ToArray());
+                    tagDao.RemoveTags(removeTags);
             }
         }
 
@@ -375,7 +376,7 @@ namespace ASC.Web.Files.Utils
 
             using (var tagDao = Global.DaoFactory.GetTagDao())
             {
-                var tags = tagDao.GetTags(fileEntry.ID, fileEntry is File ? FileEntryType.File : FileEntryType.Folder, TagType.New);
+                var tags = tagDao.GetTags(fileEntry.ID, fileEntry.FileEntryType == FileEntryType.File ? FileEntryType.File : FileEntryType.Folder, TagType.New);
                 userIDs = tags.Select(tag => tag.Owner).Distinct().ToList();
             }
 
@@ -418,7 +419,7 @@ namespace ASC.Web.Files.Utils
                 using (var folderDao = Global.DaoFactory.GetFolderDao())
                 {
 
-                    requestTags = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, folderDao.GetFolders(requestIds.ToArray()).ToArray());
+                    requestTags = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, folderDao.GetFolders(requestIds.ToArray()));
                 }
 
                 requestIds.ForEach(requestId =>
@@ -479,7 +480,7 @@ namespace ASC.Web.Files.Utils
             {
                 var entry = entryTag.Key;
                 var parentId =
-                    entryTag.Key is File
+                    entryTag.Key.FileEntryType == FileEntryType.File
                         ? ((File)entry).FolderID
                         : ((Folder)entry).ParentFolderID;
 
@@ -568,7 +569,7 @@ namespace ASC.Web.Files.Utils
 
                                 foreach (var folderFromList in parentsList)
                                 {
-                                    var parentTreeTag = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, new FileEntry[] { folderFromList }).FirstOrDefault();
+                                    var parentTreeTag = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, folderFromList).FirstOrDefault();
 
                                     if (parentTreeTag == null)
                                     {

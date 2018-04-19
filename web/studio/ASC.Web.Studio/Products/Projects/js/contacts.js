@@ -76,13 +76,13 @@ ASC.Projects.Contacts = (function($) {
 
         teamlab.bind(teamlab.events.getCrmContactsForProject,
             function(param, data) {
-                if (data.length != 0) {
+                if (data.length !== 0) {
                     jq.extend(dataForContactSelectorInit, { presetSelectedContactsJson: jq.toJSON(data) });
                 }
                 window["projContactSelector"] = new ASC.CRM.ContactSelector
                     .ContactSelector("projContactSelector", dataForContactSelectorInit);
 
-                if (data.length == 0) {
+                if (data.length === 0) {
                     $escNoContacts.removeClass(displayNoneClass).show();
                 } else {
                     $contactsForProjectPanel.show();
@@ -95,7 +95,7 @@ ASC.Projects.Contacts = (function($) {
             });
         //remove success
         setTimeout(function() {
-            teamlab.getCrmContactsForProject(makeParams(), currentProjectId)
+            teamlab.getCrmContactsForProject(makeParams(), currentProjectId);
         }, 0);
 
         jq("#escNoContacts .emptyScrBttnPnl>a").bind("click", function() {
@@ -104,7 +104,7 @@ ASC.Projects.Contacts = (function($) {
         });
     };
 
-    var addContactToProject = function(obj, params) {
+    function addContactToProject (obj, params) {
         if (jq("#contactItem_" + obj.id).length > 0) {
             return false;
         }
@@ -130,9 +130,10 @@ ASC.Projects.Contacts = (function($) {
             }
         });
 
+        return true;
     };
 
-    var removeContactFromProject = function(id) {
+    function removeContactFromProject (id) {
         teamlab.removeCrmEntityMember({ contactID: id }, "project", currentProjectId, id, {
             before: function(params) {
                 jq("#trashImg_" + params.contactID).hide();
@@ -147,7 +148,7 @@ ASC.Projects.Contacts = (function($) {
 
                 setTimeout(function() {
                     jq("#contactItem_" + params.contactID).remove();
-                    if (window.projContactSelector.SelectedContacts.length == 0) {
+                    if (window.projContactSelector.SelectedContacts.length === 0) {
                         $contactsForProjectPanel.hide();
                         $escNoContacts.removeClass(displayNoneClass).show();
                     }

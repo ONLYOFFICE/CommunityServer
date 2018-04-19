@@ -235,7 +235,7 @@ namespace ASC.Web.Files.Utils
                         Account = SecurityContext.CurrentAccount,
                         Delete = deleteAfter,
                         StartDateTime = DateTime.Now,
-                        Url = HttpContext.Current != null && HttpContext.Current.Request != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null
+                        Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null
                     };
                 conversionQueue.Add(file, queueResult);
                 cache.Insert(GetKey(file), queueResult, TimeSpan.FromMinutes(10));
@@ -627,7 +627,7 @@ namespace ASC.Web.Files.Utils
                     if (tags.Any())
                     {
                         tags.ForEach(r => r.EntryId = newFile.ID);
-                        tagDao.SaveTags(tags.ToArray());
+                        tagDao.SaveTags(tags);
                     }
                 }
 

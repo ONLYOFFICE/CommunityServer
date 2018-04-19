@@ -113,7 +113,7 @@
 						  </div>
 					  </div>
 				  </td>
-                   <td>
+					<td style="vertical-align:middle; padding-bottom: 15px;">
 					  <div class="tintMedium" style="width: 122px;">
 						  <div class="header-base" style="margin-top: 40px;"></div>
 						  <div class="talkAdiumClientImage">

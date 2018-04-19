@@ -46,21 +46,21 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public SubtaskWrapper(Subtask subtask, Task task)
+        public SubtaskWrapper(ProjectApiBase projectApiBase, Subtask subtask, Task task)
         {
             Id = subtask.ID;
             Title = subtask.Title;
             Status = (int)subtask.Status;
             if (subtask.Responsible != Guid.Empty)
             {
-                Responsible = EmployeeWraper.Get(subtask.Responsible);
+                Responsible = projectApiBase.GetEmployeeWraper(subtask.Responsible);
             }
             Created = (ApiDateTime)subtask.CreateOn;
-            CreatedBy = EmployeeWraper.Get(subtask.CreateBy);
+            CreatedBy = projectApiBase.GetEmployeeWraper(subtask.CreateBy);
             Updated = (ApiDateTime)subtask.LastModifiedOn;
             if (subtask.CreateBy != subtask.LastModifiedBy)
             {
-                UpdatedBy = EmployeeWraper.Get(subtask.LastModifiedBy);
+                UpdatedBy = projectApiBase.GetEmployeeWraper(subtask.LastModifiedBy);
             }
             CanEdit = ProjectSecurity.CanEdit(task, subtask);
 

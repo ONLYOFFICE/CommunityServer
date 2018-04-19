@@ -123,7 +123,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                             Private = Convert.ToBoolean(r[9]),
                             CreateBy = new Guid(Convert.ToString(r[10])),
                             CreateOn = Convert.ToDateTime(r[11]),
-                            LastModifiedBy = new Guid(Convert.ToString(r[12])),
+                            LastModifiedBy = ToGuid(r[12]),
                             LastModifiedOn = Convert.ToDateTime(r[13])
                         }
                 };

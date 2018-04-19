@@ -74,7 +74,7 @@ namespace ASC.Web.CRM
 
         protected void ExecTaskDetailsView(int taskID)
         {
-            var task = Global.DaoFactory.GetTaskDao().GetByID(taskID);
+            var task = DaoFactory.TaskDao.GetByID(taskID);
 
             if (!CRMSecurity.CanAccessTo(task))
             {

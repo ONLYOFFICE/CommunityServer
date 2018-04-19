@@ -39,7 +39,8 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/MailService/MailService.ascx";
 
-        protected string ServerIp;
+        protected string SqlHost;
+        protected string ApiHost;
         protected string User;
         protected string Password;
 
@@ -53,18 +54,22 @@ namespace ASC.Web.Studio.UserControls.Management
 
             if (mailServerInfo == null)
             {
-                ServerIp = string.Empty;
+                SqlHost = string.Empty;
+                ApiHost = string.Empty;
                 User = MailServiceHelper.DefaultUser;
                 Password = MailServiceHelper.DefaultPassword;
             }
             else
             {
-                ServerIp = mailServerInfo.Api.Server;
+                ApiHost = mailServerInfo.Api.Server;
 
                 var connectionParts = mailServerInfo.DbConnection.Split(';');
 
                 foreach (var connectionPart in connectionParts)
                 {
+                    if (connectionPart.StartsWith("Server="))
+                        SqlHost = connectionPart.Replace("Server=", "");
+
                     if (connectionPart.StartsWith("User ID="))
                         User = connectionPart.Replace("User ID=", "");
 

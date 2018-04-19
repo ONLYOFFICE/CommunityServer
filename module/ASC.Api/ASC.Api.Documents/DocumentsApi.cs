@@ -41,17 +41,22 @@ using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Api.Utils;
 using ASC.Core;
+using ASC.Core.Users;
+using ASC.FederatedLogin.Helpers;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.HttpHandlers;
+using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
+using ASC.FederatedLogin.LoginProviders;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using FilesNS = ASC.Web.Files.Services.WCFService;
@@ -715,11 +720,12 @@ namespace ASC.Api.Documents
         /// <category>Files</category>
         /// <param name="fileId">File ID</param>
         /// <param name="deleteAfter">Delete after finished</param>
+        /// <param name="immediately">Don't move to the Recycle Bin</param>
         /// <returns>Operation result</returns>
         [Delete("file/{fileId}")]
-        public IEnumerable<FileOperationWraper> DeleteFile(String fileId, bool deleteAfter)
+        public IEnumerable<FileOperationWraper> DeleteFile(String fileId, bool deleteAfter, bool immediately)
         {
-            return DeleteBatchItems(null, new[] { fileId }, deleteAfter);
+            return DeleteBatchItems(null, new[] { fileId }, deleteAfter, immediately);
         }
 
         /// <summary>
@@ -790,11 +796,12 @@ namespace ASC.Api.Documents
         /// <category>Folders</category>
         /// <param name="folderId">Folder ID</param>
         /// <param name="deleteAfter">Delete after finished</param>
+        /// <param name="immediately">Don't move to the Recycle Bin</param>
         /// <returns>Operation result</returns>
         [Delete("folder/{folderId}")]
-        public IEnumerable<FileOperationWraper> DeleteFolder(String folderId, bool deleteAfter)
+        public IEnumerable<FileOperationWraper> DeleteFolder(String folderId, bool deleteAfter, bool immediately)
         {
-            return DeleteBatchItems(new[] { folderId }, null, deleteAfter);
+            return DeleteBatchItems(new[] { folderId }, null, deleteAfter, immediately);
         }
 
         /// <summary>
@@ -946,18 +953,19 @@ namespace ASC.Api.Documents
         /// <param name="folderIds">Folder ID list</param>
         /// <param name="fileIds">File ID list</param>
         /// <param name="deleteAfter">Delete after finished</param>
+        /// <param name="immediately">Don't move to the Recycle Bin</param>
         /// <short>Delete files and folders</short>
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/delete")]
-        public IEnumerable<FileOperationWraper> DeleteBatchItems(IEnumerable<String> folderIds, IEnumerable<String> fileIds, bool deleteAfter)
+        public IEnumerable<FileOperationWraper> DeleteBatchItems(IEnumerable<String> folderIds, IEnumerable<String> fileIds, bool deleteAfter, bool immediately)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
             itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
             itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.DeleteItems("delete", itemList, false, deleteAfter).Select(o => new FileOperationWraper(o));
+            return _fileStorageService.DeleteItems("delete", itemList, false, deleteAfter, immediately).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -1275,26 +1283,27 @@ namespace ASC.Api.Documents
         /// <summary>
         ///  Checking document service location
         /// </summary>
-        /// <param name="docServiceUrlApi">Document editing service Address</param>
-        /// <param name="docServiceUrlCommand">Document command service Address</param>
-        /// <param name="docServiceUrlStorage">Document storage service Address</param>
-        /// <param name="docServiceUrlConverter">Document conversion service Address</param>
+        /// <param name="docServiceUrl">Document editing service Domain</param>
+        /// <param name="docServiceUrlInternal">Document command service Domain</param>
         /// <param name="docServiceUrlPortal">Community Server Address</param>
-        /// <param name="docServiceUrlDocbuilder">Docbuilder Service Address</param>
         /// <returns></returns>
         [Update("docservice")]
-        public bool CheckDocServiceUrl(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal, string docServiceUrlDocbuilder)
+        public IEnumerable<string> CheckDocServiceUrl(string docServiceUrl, string docServiceUrlInternal, string docServiceUrlPortal)
         {
-            FilesLinkUtility.DocServiceApiUrl = docServiceUrlApi;
-            FilesLinkUtility.DocServiceCommandUrl = docServiceUrlCommand;
-            FilesLinkUtility.DocServiceStorageUrl = docServiceUrlStorage;
-            FilesLinkUtility.DocServiceConverterUrl = docServiceUrlConverter;
+            FilesLinkUtility.DocServiceUrl = docServiceUrl;
+            FilesLinkUtility.DocServiceUrlInternal = docServiceUrlInternal;
             FilesLinkUtility.DocServicePortalUrl = docServiceUrlPortal;
-            FilesLinkUtility.DocServiceDocbuilderUrl = docServiceUrlDocbuilder;
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.DocumentServiceLocationSetting);
 
-            return DocumentServiceConnector.CheckDocServiceUrl();
+            DocumentServiceConnector.CheckDocServiceUrl();
+
+            return new[]
+                {
+                    FilesLinkUtility.DocServiceUrl,
+                    FilesLinkUtility.DocServiceUrlInternal,
+                    FilesLinkUtility.DocServicePortalUrl
+                };
         }
 
         /// <visible>false</visible>
@@ -1374,6 +1383,203 @@ namespace ASC.Api.Documents
                                             startIndex);
         }
 
+        #region wordpress
+
+        /// <visible>false</visible>
+        [Read("wordpress-info")]
+        public object GetWordpressInfo()
+        {
+            var token = WordpressToken.GetToken();
+            if (token != null)
+            {
+                var meInfo = WordpressHelper.GetWordpressMeInfo(token.AccessToken);
+                var blogId = JObject.Parse(meInfo).Value<string>("token_site_id");
+                var wordpressUserName = JObject.Parse(meInfo).Value<string>("username");
+
+                var blogInfo = RequestHelper.PerformRequest(WordpressLoginProvider.WordpressSites + blogId, "", "GET", "");
+                var jsonBlogInfo = JObject.Parse(blogInfo);
+                jsonBlogInfo.Add("username", wordpressUserName);
+
+                blogInfo = jsonBlogInfo.ToString();
+                return new
+                    {
+                        success = true,
+                        data = blogInfo
+                    };
+            }
+            return new
+                {
+                    success = false
+                };
+        }
+
+        /// <visible>false</visible>
+        [Read("wordpress-delete")]
+        public object DeleteWordpressInfo()
+        {
+            var token = WordpressToken.GetToken();
+            if (token != null)
+            {
+                WordpressToken.DeleteToken(token);
+                return new
+                    {
+                        success = true
+                    };
+            }
+            return new
+                {
+                    success = false
+                };
+        }
+
+        /// <visible>false</visible>
+        [Create("wordpress-save")]
+        public object WordpressSave(string code)
+        {
+            if (code == "")
+            {
+                return new
+                    {
+                        success = false
+                    };
+            }
+            try
+            {
+                var token = WordpressLoginProvider.GetAccessToken(code);
+                WordpressToken.SaveToken(token);
+                var meInfo = WordpressHelper.GetWordpressMeInfo(token.AccessToken);
+                var blogId = JObject.Parse(meInfo).Value<string>("token_site_id");
+
+                var wordpressUserName = JObject.Parse(meInfo).Value<string>("username");
+
+                var blogInfo = RequestHelper.PerformRequest(WordpressLoginProvider.WordpressSites + blogId, "", "GET", "");
+                var jsonBlogInfo = JObject.Parse(blogInfo);
+                jsonBlogInfo.Add("username", wordpressUserName);
+
+                blogInfo = jsonBlogInfo.ToString();
+                return new
+                    {
+                        success = true,
+                        data = blogInfo
+                    };
+            }
+            catch (Exception)
+            {
+                return new
+                    {
+                        success = false
+                    };
+            }
+        }
+
+        /// <visible>false</visible>
+        [Create("wordpress")]
+        public bool CreateWordpressPost(string code, string title, string content, int status)
+        {
+            try
+            {
+                var token = WordpressToken.GetToken();
+                var meInfo = WordpressHelper.GetWordpressMeInfo(token.AccessToken);
+                var parser = JObject.Parse(meInfo);
+                if (parser == null) return false;
+                var blogId = parser.Value<string>("token_site_id");
+
+                if (blogId != null)
+                {
+                    var createPost = WordpressHelper.CreateWordpressPost(title, content, status, blogId, token);
+                    return createPost;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region easybib
+
+        /// <visible>false</visible>
+        [Read("easybib-citation-list")]
+        public object GetEasybibCitationList(int source, string data)
+        {
+            try
+            {
+                var citationList = EasyBibHelper.GetEasyBibCitationsList(source, data);
+                return new
+                    {
+                        success = true,
+                        citations = citationList
+                    };
+            }
+            catch (Exception)
+            {
+                return new
+                    {
+                        success = false
+                    };
+            }
+
+        }
+
+        /// <visible>false</visible>
+        [Read("easybib-styles")]
+        public object GetEasybibStyles()
+        {
+            try
+            {
+                var data = EasyBibHelper.GetEasyBibStyles();
+                return new
+                    {
+                        success = true,
+                        styles = data
+                    };
+            }
+            catch (Exception)
+            {
+                return new
+                    {
+                        success = false
+                    };
+            }
+        }
+
+        /// <visible>false</visible>
+        [Create("easybib-citation")]
+        public object EasyBibCitationBook(string citationData)
+        {
+            try
+            {
+                var citat = EasyBibHelper.GetEasyBibCitation(citationData);
+                if (citat != null)
+                {
+                    return new
+                        {
+                            success = true,
+                            citation = citat
+                        };
+                }
+                else
+                {
+                    return new
+                        {
+                            success = false
+                        };
+                }
+
+            }
+            catch (Exception)
+            {
+                return new
+                    {
+                        success = false
+                    };
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Result of file conversation operation.

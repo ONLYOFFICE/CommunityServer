@@ -80,6 +80,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 53)]
         public List<EmployeeWraper> Responsibles { get; set; }
 
+        [DataMember(Order = 53, EmitDefaultValue=false)]
+        public List<Guid> ResponsibleIds { get; set; }
+
         [DataMember(Order = 54, EmitDefaultValue = false)]
         public SimpleMilestoneWrapper Milestone { get; set; }
 
@@ -87,7 +90,7 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public TaskWrapper(Task task)
+        public TaskWrapper(ProjectApiBase projectApiBase, Task task)
         {
             Id = task.ID;
             Title = task.Title;
@@ -99,29 +102,18 @@ namespace ASC.Api.Projects.Wrappers
                 Status = 1;
             }
 
-            if (task.Responsibles != null)
-            {
-                Responsibles = task.Responsibles.Select(EmployeeWraper.Get).OrderBy(r => r.DisplayName).ToList();
-            }
-
 
             Deadline = (task.Deadline == DateTime.MinValue ? null : new ApiDateTime(task.Deadline, TimeZoneInfo.Local));
             Priority = task.Priority;
             ProjectOwner = new SimpleProjectWrapper(task.Project);
             MilestoneId = task.Milestone;
             Created = (ApiDateTime)task.CreateOn;
-            CreatedBy = EmployeeWraper.Get(task.CreateBy);
             Updated = (ApiDateTime)task.LastModifiedOn;
             StartDate = task.StartDate.Equals(DateTime.MinValue) ? null : (ApiDateTime)task.StartDate;
 
-            if (task.CreateBy != task.LastModifiedBy)
-            {
-                UpdatedBy = EmployeeWraper.Get(task.LastModifiedBy);
-            }
-
             if (task.SubTasks != null)
             {
-                Subtasks = task.SubTasks.Select(x => new SubtaskWrapper(x, task)).ToList();
+                Subtasks = task.SubTasks.Select(x => new SubtaskWrapper(projectApiBase, x, task)).ToList();
             }
 
             Progress = task.Progress;
@@ -136,14 +128,42 @@ namespace ASC.Api.Projects.Wrappers
                 Links = task.Links.Select(r => new TaskLinkWrapper(r));
             }
 
-            CanEdit = ProjectSecurity.CanEdit(task);
-            CanCreateSubtask = ProjectSecurity.CanCreateSubtask(task);
-            CanCreateTimeSpend = ProjectSecurity.CanCreateTimeSpend(task);
-            CanDelete = ProjectSecurity.CanDelete(task);
-            CanReadFiles = ProjectSecurity.CanReadFiles(task.Project);
+            if (task.Security == null)
+            {
+                ProjectSecurity.GetTaskSecurityInfo(task);
+            }
+
+            if (projectApiBase.Context.GetRequestValue("simple") != null)
+            {
+                CreatedById = task.CreateBy;
+                UpdatedById = task.LastModifiedBy;
+                if (task.Responsibles != null)
+                {
+                    ResponsibleIds = task.Responsibles;
+                }
+            }
+            else
+            {
+                CreatedBy = projectApiBase.GetEmployeeWraper(task.CreateBy);
+                if (task.CreateBy != task.LastModifiedBy)
+                {
+                    UpdatedBy = projectApiBase.GetEmployeeWraper(task.LastModifiedBy);
+                }
+                if (task.Responsibles != null)
+                {
+                    Responsibles = task.Responsibles.Select(projectApiBase.GetEmployeeWraper).OrderBy(r => r.DisplayName).ToList();
+                }
+            }
+
+            CanEdit = task.Security.CanEdit;
+            CanCreateSubtask = task.Security.CanCreateSubtask;
+            CanCreateTimeSpend = task.Security.CanCreateTimeSpend;
+            CanDelete = task.Security.CanDelete;
+            CanReadFiles = task.Security.CanReadFiles;
         }
 
-        public TaskWrapper(Task task, Milestone milestone) : this(task)
+        public TaskWrapper(ProjectApiBase projectApiBase, Task task, Milestone milestone)
+            : this(projectApiBase, task)
         {
             if (milestone != null && task.Milestone != 0)
                 Milestone = new SimpleMilestoneWrapper(milestone);

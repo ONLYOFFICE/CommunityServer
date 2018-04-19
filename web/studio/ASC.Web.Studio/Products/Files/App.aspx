@@ -14,7 +14,7 @@
             <div class="files-app-content <%= IsConvert?"":"files-app-content-create" %>">
                 <% if (IsConvert)
                    { %>
-
+                <div class="files-app-baner"></div>
                 <%: FilesCommonResource.AppConvertCopy %>
                 <asp:CheckBox runat="server" ID="ConvertCheck" CssClass="files-app-checkbox" />
                 <asp:Button runat="server" ID="ButtonConvert" CssClass="files-app-convert button big blue" />

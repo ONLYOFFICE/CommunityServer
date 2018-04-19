@@ -221,7 +221,7 @@ window.DocumentsPopup = (function($) {
                 }
 
                 var downloadUrl = ASC.Files.Utility.GetFileDownloadUrl(file.id);
-                var viewUrl = ASC.Files.Utility.GetFileViewUrl(file.id);
+                var viewUrl = ASC.Files.Utility.GetFileDownloadUrl(file.id);
                 var docViewUrl = ASC.Files.Utility.GetFileWebViewerUrl(file.id);
                 var editUrl = ASC.Files.Utility.GetFileWebEditorUrl(file.id);
 

@@ -24,86 +24,63 @@
 */
 
 
-#region Usings
-
 using ASC.Projects.Core.DataInterfaces;
-using ASC.Projects.Data.DAO;
-
-#endregion
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Projects.Data
 {
     public class DaoFactory : IDaoFactory
     {
-        private readonly string dbId;
-        private readonly int tenant;
+        public ILifetimeScope Container { get; set; }
+        private TypedParameter Tenant { get; set; }
 
-
-        public DaoFactory(string dbId, int tenant)
+        public DaoFactory(int tenantId)
         {
-            this.dbId = dbId;
-            this.tenant = tenant;
+            Tenant = DIHelper.GetParameter(tenantId);
         }
 
+        private IProjectDao projectDao;
+        public IProjectDao ProjectDao { get { return projectDao ?? (projectDao = Container.Resolve<IProjectDao>(Tenant)); } }
 
-        public IProjectDao GetProjectDao()
+        private IParticipantDao participantDao;
+        public IParticipantDao ParticipantDao
         {
-            return new CachedProjectDao(dbId, tenant);
+            get
+            {
+                return participantDao ?? (participantDao = Container.Resolve<IParticipantDao>(Tenant, DIHelper.GetParameter(ProjectDao)));
+            }
         }
 
-        public IParticipantDao GetParticipantDao()
-        {
-            return new ParticipantDao(dbId, tenant);
-        }
+        private IMilestoneDao milestoneDao;
+        public IMilestoneDao MilestoneDao { get { return milestoneDao ??(milestoneDao = Container.Resolve<IMilestoneDao>(Tenant)); } }
 
-        public IMilestoneDao GetMilestoneDao()
-        {
-            return new CachedMilestoneDao(dbId, tenant);
-        }
+        private ITaskDao taskDao;
+        public ITaskDao TaskDao { get { return taskDao ?? (taskDao = Container.Resolve<ITaskDao>(Tenant, DIHelper.GetParameter(this))); } }
 
-        public ITaskDao GetTaskDao()
-        {
-            return new CachedTaskDao(dbId, tenant);
-        }
+        private ISubtaskDao subtaskDao;
+        public ISubtaskDao SubtaskDao { get { return subtaskDao ?? (subtaskDao = Container.Resolve<ISubtaskDao>(Tenant)); } }
 
-        public ISubtaskDao GetSubtaskDao()
-        {
-            return new CachedSubtaskDao(dbId, tenant);
-        }
+        private IMessageDao messageDao;
+        public IMessageDao MessageDao { get { return messageDao ?? (messageDao = Container.Resolve<IMessageDao>(Tenant)); } }
 
-        public IMessageDao GetMessageDao()
-        {
-            return new CachedMessageDao(dbId, tenant);
-        }
+        private ICommentDao commentDao;
+        public ICommentDao CommentDao { get { return commentDao ??  (commentDao = Container.Resolve<ICommentDao>(Tenant)); } }
 
-        public ICommentDao GetCommentDao()
-        {
-            return new CommentDao(dbId, tenant);
-        }
+        private ITemplateDao templateDao;
+        public ITemplateDao TemplateDao { get { return templateDao ?? (templateDao = Container.Resolve<ITemplateDao>(Tenant)); } }
 
-        public ITemplateDao GetTemplateDao()
-        {
-            return new TemplateDao(dbId, tenant);
-        }
+        private ITimeSpendDao timeSpendDao;
+        public ITimeSpendDao TimeSpendDao { get { return timeSpendDao ?? (timeSpendDao = Container.Resolve<ITimeSpendDao>(Tenant)); } }
 
-        public ITimeSpendDao GetTimeSpendDao()
-        {
-            return new TimeSpendDao(dbId, tenant);
-        }
+        private IReportDao reportDao;
+        public IReportDao ReportDao { get { return reportDao ?? (reportDao = Container.Resolve<IReportDao>(Tenant)); } }
 
-        public IReportDao GetReportDao()
-        {
-            return new ReportDao(dbId, tenant);
-        }
+        private ISearchDao searchDao;
+        public ISearchDao SearchDao { get { return searchDao ?? (searchDao = Container.Resolve<ISearchDao>(Tenant, DIHelper.GetParameter(this))); } }
 
-        public ISearchDao GetSearchDao()
-        {
-            return new SearchDao(dbId, tenant);
-        }
+        private ITagDao tagDao;
+        public ITagDao TagDao { get { return tagDao ?? (tagDao = Container.Resolve<ITagDao>(Tenant)); } }
 
-        public ITagDao GetTagDao()
-        {
-            return new TagDao(dbId, tenant);
-        }
     }
 }

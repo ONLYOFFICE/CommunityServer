@@ -468,6 +468,9 @@ ASC.People.PeopleController = (function() {
             else if (jq(this).hasClass("reassign-data")) {
                 window.location.replace("reassigns.aspx?user=" + encodeURIComponent(username));
             }
+            else if (jq(this).hasClass("remove-data")) {
+                window.location.replace("reassigns.aspx?remove=true&user=" + encodeURIComponent(username));
+            }
             else if (jq(this).hasClass("delete-profile")) {
                 if (personId == Teamlab.profile.id) {
                     jq("#studio_deleteProfileDialog").find(".email").attr("href", "../../addons/mail/#composeto/email=" + email).html(email);

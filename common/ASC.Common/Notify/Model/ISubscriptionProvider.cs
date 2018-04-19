@@ -42,6 +42,7 @@ namespace ASC.Notify.Model
 
         IRecipient[] GetRecipients(INotifyAction action, string objectID);
 
+        object GetSubscriptionRecord(INotifyAction action, IRecipient recipient, string objectID);
 
         bool IsUnsubscribe(IDirectRecipient recipient, INotifyAction action, string objectID);
 
@@ -60,15 +61,32 @@ namespace ASC.Notify.Model
 
     public static class SubscriptionProviderHelper
     {
-        public static bool IsSubscribed(this ISubscriptionProvider provider, INotifyAction action, IRecipient recipient,
-                                        string objectID)
+        public static bool IsSubscribed(this ISubscriptionProvider provider, INotifyAction action, IRecipient recipient, string objectID)
         {
-            var subscriptions = provider.GetSubscriptions(action, recipient);
+            var result = false;
 
-            return subscriptions.Any(
-                    id =>
-                    (string.Compare(id, objectID, StringComparison.OrdinalIgnoreCase) == 0) ||
-                    (string.IsNullOrEmpty(id) && string.IsNullOrEmpty(objectID)));
+            try
+            {
+                var subscriptionRecord = provider.GetSubscriptionRecord(action, recipient, objectID);
+                if (subscriptionRecord != null)
+                {
+                    var properties = subscriptionRecord.GetType().GetProperties();
+                    if (properties.Any())
+                    {
+                        var property = properties.Single(p => p.Name == "Subscribed");
+                        if (property != null)
+                        {
+                            result = (bool)property.GetValue(subscriptionRecord, null);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                log4net.LogManager.GetLogger(typeof(SubscriptionProviderHelper)).Error(exception);
+            }
+
+            return result;
         }
     }
 }

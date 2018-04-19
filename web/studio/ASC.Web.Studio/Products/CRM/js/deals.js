@@ -1746,7 +1746,15 @@ ASC.CRM.DealActionView = (function() {
             jq("#advUserSelectorResponsible").attr("data-responsible-id", window.responsibleId);
             jq("#advUserSelectorResponsible .dealResponsibleLabel").text(Encoder.htmlDecode(responsible.title));
         } else {
-            jq("#advUserSelectorResponsible").attr("data-responsible-id", "");
+            responsible = window.UserManager.getUser(window.responsibleId);
+            if (responsible != null) {
+                jq("#advUserSelectorResponsible").attr("data-responsible-id", responsible.id);
+                jq("#advUserSelectorResponsible .dealResponsibleLabel").text(Encoder.htmlDecode(responsible.displayName + (responsible.isTerminated ? " (" + ASC.CRM.Resources.DisabledEmployeeTitle.toLowerCase() + ")" : "")));
+            } else {
+                responsible = window.UserManager.getRemovedProfile();
+                jq("#advUserSelectorResponsible").attr("data-responsible-id", "");
+                jq("#advUserSelectorResponsible .dealResponsibleLabel").text(Encoder.htmlDecode(responsible.displayName));
+            }
         }
 
         jq("#advUserSelectorResponsible").on("showList", function (event, item) {

@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Core.DataInterfaces
@@ -43,5 +44,7 @@ namespace ASC.Projects.Core.DataInterfaces
         Comment Save(Comment comment);
 
         void Delete(Guid id);
+
+        List<Comment> GetComments(Exp where);
     }
 }

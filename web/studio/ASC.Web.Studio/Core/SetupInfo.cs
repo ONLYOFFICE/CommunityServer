@@ -182,7 +182,13 @@ namespace ASC.Web.Studio.Core
             get { return VirtualPathUtility.ToAbsolute(GetAppSettings("api.url", "~/api/2.0/")); }
         }
 
-        public static TimeSpan ValidEamilKeyInterval
+        public static TimeSpan ValidEmailKeyInterval
+        {
+            get;
+            private set;
+        }
+
+        public static TimeSpan ValidAuthKeyInterval
         {
             get;
             private set;
@@ -207,6 +213,11 @@ namespace ASC.Web.Studio.Core
             return web_display_mobapps_banner.Contains(product, StringComparer.InvariantCultureIgnoreCase);
         }
 
+        public static bool DisplayPersonalBanners
+        {
+            get;
+            private set;
+        }
 
         public static string ShareGooglePlusUrl
         {
@@ -263,6 +274,19 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
+
+        public static bool SmsTrial
+        {
+            get;
+            private set;
+        }
+
+        public static bool SmsRegistration
+        {
+            get;
+            private set;
+        }
+
         static SetupInfo()
         {
             Refresh();
@@ -300,10 +324,13 @@ namespace ASC.Web.Studio.Core
             UserForum = GetAppSettings("web.user-forum", string.Empty);
             SupportFeedback = GetAppSettings("web.support-feedback", string.Empty);
 
-            ValidEamilKeyInterval = GetAppSettings("email.validinterval", TimeSpan.FromDays(7));
+            ValidEmailKeyInterval = GetAppSettings("email.validinterval", TimeSpan.FromDays(7));
+            ValidAuthKeyInterval = GetAppSettings("auth.validinterval", TimeSpan.FromHours(1));
+
             SalesEmail = GetAppSettings("web.payment.email", "sales@onlyoffice.com");
             web_autotest_secret_email = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();
             web_display_mobapps_banner = (ConfigurationManager.AppSettings["web.display.mobapps.banner"] ?? "").Trim().Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            DisplayPersonalBanners = GetAppSettings("web.display.personal.banners", false);
             ShareGooglePlusUrl = GetAppSettings("web.share.google-plus", "https://plus.google.com/share?url={0}");
             ShareTwitterUrl = GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}");
             ShareFacebookUrl = GetAppSettings("web.share.facebook", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}");
@@ -315,6 +342,9 @@ namespace ASC.Web.Studio.Core
             SsoSamlLogoutUrl = GetAppSettings("web.sso.saml.logout.url", "");
 
             hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries);
+
+            SmsTrial = GetAppSettings("core.sms.trial", false);
+            SmsRegistration = GetAppSettings("core.sms.registration", false);
         }
 
 

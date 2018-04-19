@@ -415,7 +415,7 @@ window.messagePage = (function ($) {
         var message = prepareMessageData(message_id);
 
         if (showLoader)
-            LoadingBanner.displayLoading(window.MailScriptResource.SavingMessage);
+            LoadingBanner.displayMailLoading(window.MailScriptResource.SavingMessage);
 
         ASC.Mail.Utility.SaveMessageInDrafts(message)
             .then(function() {
@@ -512,8 +512,7 @@ window.messagePage = (function ($) {
         if (AttachmentManager.IsLoading()) {
             messageIsSending = true;
             window.AttachmentManager.Bind(window.AttachmentManager.CustomEvents.UploadComplete, onAttachmentsUploadComplete);
-            window.LoadingBanner.strLoading = window.MailScriptResource.SendingMessage + ": " + window.MailScriptResource.LoadingAttachments;
-            window.LoadingBanner.displayMailLoading(true, true);
+            window.LoadingBanner.displayMailLoading(window.MailScriptResource.SendingMessage + ": " + window.MailScriptResource.LoadingAttachments);
             return;
         }
 
@@ -549,7 +548,7 @@ window.messagePage = (function ($) {
         window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
         clearTimeout(saveTimeout);
 
-        LoadingBanner.displayLoading(window.MailScriptResource.SendingMessage);
+        LoadingBanner.displayMailLoading(window.MailScriptResource.SendingMessage);
 
         ASC.Mail.Utility.SendMessage(message, { skipAccountsCheck: true, skipSave: true })
             .done(onSendMessage)

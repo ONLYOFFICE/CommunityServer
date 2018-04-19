@@ -162,6 +162,19 @@ namespace ASC.Api.Mail
             }
         }
 
+        /// <summary>
+        /// Test mailbox connection tcp timeout (10 sec is default)
+        /// </summary>
+        private int TcpTimeout
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["mail.tcp-timeout"] != null
+                    ? Convert.ToInt32(ConfigurationManager.AppSettings["mail.tcp-timeout"])
+                    : 10000;
+            }
+        }
+
         ///<summary>
         /// Constructor
         ///</summary>

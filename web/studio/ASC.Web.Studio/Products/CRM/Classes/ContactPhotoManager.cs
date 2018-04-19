@@ -196,18 +196,39 @@ namespace ASC.Web.CRM.Classes
             return filesURI[0].ToString();
         }
 
-        private static String FromDataStore(Size photoSize, String tmpDirName)
+        private static String FromDataStoreRelative(int contactID, Size photoSize, Boolean isTmpDir, String tmpDirName)
+        {
+            var directoryPath = !isTmpDir
+                                    ? BuildFileDirectory(contactID)
+                                    : (String.IsNullOrEmpty(tmpDirName) ? BuildFileTmpDirectory(contactID) : BuildFileTmpDirectory(tmpDirName));
+
+            var filesPaths = Global.GetStore().ListFilesRelative("", directoryPath, BuildFileName(contactID, photoSize) + "*", false);
+
+            if (filesPaths.Length == 0 && photoSize == _bigSize)
+            {
+                filesPaths = Global.GetStore().ListFilesRelative("", directoryPath, BuildFileName(contactID, _oldBigSize) + "*", false);
+            }
+
+            if (filesPaths.Length == 0)
+            {
+                return String.Empty;
+            }
+
+            return Path.Combine(directoryPath, filesPaths[0]);
+        }
+
+        private static PhotoData FromDataStore(Size photoSize, String tmpDirName)
         {
             var directoryPath = BuildFileTmpDirectory(tmpDirName);
 
             if (!Global.GetStore().IsDirectory(directoryPath))
-                return String.Empty;
+                return null;
 
             var filesURI = Global.GetStore().ListFiles(directoryPath, BuildFileName(0, photoSize) + "*", false);
 
-            if (filesURI.Length == 0) return String.Empty;
+            if (filesURI.Length == 0) return null;
 
-            return filesURI[0].ToString();
+            return new PhotoData { Url = filesURI[0].ToString(), Path = tmpDirName };
         }
 
         #endregion
@@ -246,21 +267,7 @@ namespace ASC.Web.CRM.Classes
 
         private static String BuildFileTmpDirectory(string tmpDirName)
         {
-            if (String.IsNullOrEmpty(tmpDirName))
-                throw new ArgumentException();
-            if (tmpDirName.StartsWith(PathProvider.BaseAbsolutePath))
-            {
-                tmpDirName = tmpDirName.Substring(PathProvider.BaseAbsolutePath.Length - 1);
-            }
-            if (tmpDirName.Contains(PhotosBaseDirName))
-            {
-                tmpDirName = String.Concat(tmpDirName.Substring(tmpDirName.IndexOf(PhotosBaseDirName)).TrimEnd('/'), "/");
-            }
-            else
-            {
-                tmpDirName = String.Concat(PhotosBaseDirName, "/", tmpDirName.TrimEnd('/'), "/");
-            }
-            return tmpDirName;
+            return String.Concat(PhotosBaseDirName, "/", tmpDirName.TrimEnd('/'), "/");
         }
 
         private static String BuildFileName(int contactID, Size photoSize)
@@ -356,9 +363,9 @@ namespace ASC.Web.CRM.Classes
 
         #region Delete Methods
 
-        public static void DeletePhoto(int contactID, bool isTmpDir)
+        public static void DeletePhoto(int contactID)
         {
-            DeletePhoto(contactID, isTmpDir, null, true);
+            DeletePhoto(contactID, false, null, true);
         }
 
         public static void DeletePhoto(int contactID, bool isTmpDir, string tmpDirName, bool recursive)
@@ -396,9 +403,19 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        public static void DeletePhoto(int contactID)
+        public static void DeletePhoto(string tmpDirName)
         {
-            DeletePhoto(contactID, false);
+            lock (locker)
+            {
+
+                var photoDirectory = BuildFileTmpDirectory(tmpDirName);
+                var store = Global.GetStore();
+
+                if (store.IsDirectory(photoDirectory))
+                {
+                    store.DeleteFiles(photoDirectory, "*", false);
+                }
+            }
         }
 
         #endregion
@@ -420,9 +437,9 @@ namespace ASC.Web.CRM.Classes
                 }
                 foreach (var photoSize in new[] {_bigSize, _mediumSize, _smallSize})
                 {
-                    var photoTmpPath = FromDataStore(isNewContact ? 0 : contactID, photoSize, true, tmpDirName);
-                    photoTmpPath = photoTmpPath.Substring(photoTmpPath.IndexOf(directoryTmpPath));
-                    var imageExtension = photoTmpPath.Substring(photoTmpPath.LastIndexOf("."));
+                    var photoTmpPath = FromDataStoreRelative(isNewContact ? 0 : contactID, photoSize, true, tmpDirName);
+
+                    var imageExtension = Path.GetExtension(photoTmpPath);
 
                     var photoPath = String.Concat(directoryPath, BuildFileName(contactID, photoSize), imageExtension).TrimStart('/');
 
@@ -430,7 +447,6 @@ namespace ASC.Web.CRM.Classes
                     using (var photoTmpStream = dataStore.GetReadStream(photoTmpPath))
                     {
                         data = Global.ToByteArray(photoTmpStream);
-
                     }
                     using (var fileStream = new MemoryStream(data))
                     {
@@ -476,12 +492,12 @@ namespace ASC.Web.CRM.Classes
 
         #endregion
 
-        private static String ResizeToBigSize(byte[] imageData, string tmpDirName)
+        private static PhotoData ResizeToBigSize(byte[] imageData, string tmpDirName)
         {
             return ResizeToBigSize(imageData, 0, true, tmpDirName);
         }
 
-        private static String ResizeToBigSize(byte[] imageData, int contactID, bool uploadOnly, string tmpDirName)
+        private static PhotoData ResizeToBigSize(byte[] imageData, int contactID, bool uploadOnly, string tmpDirName)
         {
             var resizeWorkerItem = new ResizeWorkerItem
                 {
@@ -497,11 +513,11 @@ namespace ASC.Web.CRM.Classes
 
             if (!uploadOnly)
             {
-                return FromCache(contactID, _bigSize);
+                return new PhotoData { Url = FromCache(contactID, _bigSize) };
             }
             else if (String.IsNullOrEmpty(tmpDirName))
             {
-                return FromDataStore(contactID, _bigSize, true, null);
+                return new PhotoData { Url = FromDataStore(contactID, _bigSize, true, null), Path = PhotosDefaultTmpDirName };
             }
             else
             {
@@ -548,7 +564,7 @@ namespace ASC.Web.CRM.Classes
 
         #region UploadPhoto Methods
 
-        public static String UploadPhoto(String imageUrl, int contactID, bool uploadOnly)
+        public static PhotoData UploadPhoto(String imageUrl, int contactID, bool uploadOnly)
         {
             var request = (HttpWebRequest)WebRequest.Create(imageUrl);
             using (var response = request.GetResponse())
@@ -561,13 +577,13 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        public static String UploadPhoto(Stream inputStream, int contactID, bool uploadOnly)
+        public static PhotoData UploadPhoto(Stream inputStream, int contactID, bool uploadOnly)
         {
             var imageData = Global.ToByteArray(inputStream);
             return UploadPhoto(imageData, contactID, uploadOnly);
         }
 
-        public static String UploadPhoto(byte[] imageData, int contactID, bool uploadOnly)
+        private static PhotoData UploadPhoto(byte[] imageData, int contactID, bool uploadOnly)
         {
             if (contactID == 0)
                 throw new ArgumentException();
@@ -579,22 +595,8 @@ namespace ASC.Web.CRM.Classes
             return ResizeToBigSize(imageData, contactID, uploadOnly, null);
         }
 
-        public static String UploadPhoto(String imageUrl, int contactID)
-        {
-            return UploadPhoto(imageUrl, contactID, false);
-        }
 
-        public static String UploadPhoto(Stream inputStream, int contactID)
-        {
-            return UploadPhoto(inputStream, contactID, false);
-        }
-
-        public static String UploadPhoto(byte[] imageData, int contactID)
-        {
-            return UploadPhoto(imageData, contactID, false);
-        }
-
-        public static String UploadPhoto(String imageUrl, String tmpDirName)
+        public static PhotoData UploadPhotoToTemp(String imageUrl, String tmpDirName)
         {
             var request = (HttpWebRequest)WebRequest.Create(imageUrl);
             using (var response = request.GetResponse())
@@ -602,21 +604,35 @@ namespace ASC.Web.CRM.Classes
                 using (var inputStream = response.GetResponseStream())
                 {
                     var imageData = ToByteArray(inputStream, (int)response.ContentLength);
-                    return UploadPhoto(imageData, tmpDirName);
+                    if (string.IsNullOrEmpty(tmpDirName))
+                    {
+                        tmpDirName = Guid.NewGuid().ToString();
+                    }
+                    return UploadPhotoToTemp(imageData, tmpDirName);
                 }
             }
         }
 
-        public static String UploadPhoto(Stream inputStream, String tmpDirName)
+        public static PhotoData UploadPhotoToTemp(Stream inputStream, String tmpDirName)
         {
             var imageData = Global.ToByteArray(inputStream);
-            return UploadPhoto(imageData, tmpDirName);
+            return UploadPhotoToTemp(imageData, tmpDirName);
         }
 
-        public static String UploadPhoto(byte[] imageData, String tmpDirName)
+        private static PhotoData UploadPhotoToTemp(byte[] imageData, String tmpDirName)
         {
+            DeletePhoto(tmpDirName);
+
             ExecGenerateThumbnail(imageData, tmpDirName);
+
             return ResizeToBigSize(imageData, tmpDirName);
+        }
+
+
+        public class PhotoData
+        {
+            public string Url;
+            public string Path;
         }
 
         #endregion

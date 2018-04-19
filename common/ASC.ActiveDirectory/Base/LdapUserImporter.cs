@@ -35,6 +35,7 @@ using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Core;
 using ASC.Core.Users;
 using log4net;
+// ReSharper disable RedundantToStringCall
 
 namespace ASC.ActiveDirectory.Base
 {
@@ -75,6 +76,8 @@ namespace ASC.ActiveDirectory.Base
         public LdapHelper LdapHelper { get; private set; }
         public LdapLocalization Resource { get; private set; }
 
+        private List<string> _watchedNestedGroups;
+
         private readonly ILog _log;
 
         public LdapUserImporter(LdapHelper ldapHelper, LdapLocalization resource)
@@ -89,6 +92,8 @@ namespace ASC.ActiveDirectory.Base
             Resource = resource;
 
             _log = LogManager.GetLogger(typeof(LdapUserImporter));
+
+            _watchedNestedGroups = new List<string>();
         }
 
         public List<UserInfo> GetDiscoveredUsersByAttributes()
@@ -124,9 +129,16 @@ namespace ASC.ActiveDirectory.Base
 
         public List<UserInfo> GetGroupUsers(GroupInfo groupInfo)
         {
+            return GetGroupUsers(groupInfo, true);
+        }
+
+        private List<UserInfo> GetGroupUsers(GroupInfo groupInfo, bool clearCache)
+        {
             if (!LdapHelper.IsConnected)
                 LdapHelper.Connect();
-            
+
+            _log.DebugFormat("LdapUserImporter.GetGroupUsers(Group name: {0})", groupInfo.Name);
+
             var users = new List<UserInfo>();
 
             if (!AllDomainGroups.Any() && !TryLoadLDAPGroups())
@@ -148,11 +160,11 @@ namespace ASC.ActiveDirectory.Base
 
                 foreach (var ldapUser in ldapUsers)
                 {
-                    var userInfo = ldapUser.ToUserInfo(this, _log);
+                        var userInfo = ldapUser.ToUserInfo(this, _log);
 
-                    if (!users.Exists(u => u.Sid == userInfo.Sid))
-                        users.Add(userInfo);
-                }
+                        if (!users.Exists(u => u.Sid == userInfo.Sid))
+                            users.Add(userInfo);
+                    }
             }
             else
             {
@@ -171,9 +183,22 @@ namespace ASC.ActiveDirectory.Base
 
                         if (nestedLdapGroup != null)
                         {
+                            _log.DebugFormat("Found nested LDAP Group: {0}", nestedLdapGroup.DistinguishedName);
+
+                            if (clearCache)
+                                _watchedNestedGroups = new List<string>();
+
+                            if (_watchedNestedGroups.Contains(nestedLdapGroup.DistinguishedName))
+                            {
+                                _log.DebugFormat("Skip already watched nested LDAP Group: {0}", nestedLdapGroup.DistinguishedName);
+                                continue;
+                            }
+
+                            _watchedNestedGroups.Add(nestedLdapGroup.DistinguishedName);
+
                             var nestedGroupInfo = nestedLdapGroup.ToGroupInfo(Settings, _log);
 
-                            var nestedGroupUsers = GetGroupUsers(nestedGroupInfo);
+                            var nestedGroupUsers = GetGroupUsers(nestedGroupInfo, false);
 
                             foreach (var groupUser in nestedGroupUsers)
                             {
@@ -185,11 +210,11 @@ namespace ASC.ActiveDirectory.Base
                         continue;
                     }
 
-                    var userInfo = ldapUser.ToUserInfo(this, _log);
+                        var userInfo = ldapUser.ToUserInfo(this, _log);
 
-                    if (!users.Exists(u => u.Sid == userInfo.Sid))
-                        users.Add(userInfo);
-                }
+                        if (!users.Exists(u => u.Sid == userInfo.Sid))
+                            users.Add(userInfo);
+                    }
             }
 
             return users;
@@ -216,7 +241,9 @@ namespace ASC.ActiveDirectory.Base
                 if (!LdapHelper.IsConnected)
                     LdapHelper.Connect();
 
-                var userGroups = ldapUser.GetAttributes(LdapConstants.ADSchemaAttributes.MEMBER_OF, _log);
+                var userGroups = ldapUser.GetAttributes(LdapConstants.ADSchemaAttributes.MEMBER_OF, _log)
+                    .Select(s => s.Replace("\\", string.Empty))
+                    .ToList();
 
                 if (!userGroups.Any())
                 {
@@ -567,6 +594,8 @@ namespace ASC.ActiveDirectory.Base
 
         private List<LdapObject> FindUsersByPrimaryGroup()
         {
+            _log.Debug("LdapUserImporter.FindUsersByPrimaryGroup()");
+
             if (!AllDomainUsers.Any() && !TryLoadLDAPUsers())
                 return null;
 
@@ -588,6 +617,8 @@ namespace ASC.ActiveDirectory.Base
             if (!AllDomainUsers.Any() && !TryLoadLDAPUsers())
                 return null;
 
+            _log.DebugFormat("LdapUserImporter.FindUserByMember(user attr: {0})", userAttributeValue);
+
             return AllDomainUsers.FirstOrDefault(u =>
                 u.DistinguishedName.Equals(userAttributeValue, StringComparison.InvariantCultureIgnoreCase)
                 || Convert.ToString(u.GetValue(Settings.UserAttribute)).Equals(userAttributeValue,
@@ -598,6 +629,8 @@ namespace ASC.ActiveDirectory.Base
         {
             if (!AllDomainGroups.Any() && !TryLoadLDAPGroups())
                 return null;
+
+            _log.DebugFormat("LdapUserImporter.FindGroupByMember(member: {0})", member);
 
             return AllDomainGroups.FirstOrDefault(g =>
                 g.DistinguishedName.Equals(member, StringComparison.InvariantCultureIgnoreCase));

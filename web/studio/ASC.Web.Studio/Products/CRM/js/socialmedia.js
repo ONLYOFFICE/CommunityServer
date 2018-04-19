@@ -327,6 +327,9 @@ ASC.CRM.SocialMedia = (function() {
             var uploadOnly = jq("#divImagesHolder").attr("data-uploadOnly") == "true",
                 data = { contactId: contactId, socialNetwork: socialNetwork, userIdentity: userIdentity, uploadOnly: uploadOnly };
 
+            if (jq("#uploadPhotoPath").length == 1) {
+                data.tmpDirName = jq("#uploadPhotoPath").val();
+            }
 
             Teamlab.updateCrmContactAvatar({}, contactId, data, { 
                 success: function (params, response) {
@@ -335,9 +338,9 @@ ASC.CRM.SocialMedia = (function() {
                         LoadingBanner.hideLoading();
 
                         var now = new Date();
-                        jq("img.contact_photo").attr("src", response + '?' + now.getTime());
+                        jq("img.contact_photo").attr("src", response.url + '?' + now.getTime());
                         if (jq("#uploadPhotoPath").length == 1) {
-                            jq("#uploadPhotoPath").val(response);
+                            jq("#uploadPhotoPath").val(response.path);
                         }
                     },
                 error: function (params, errors) {
@@ -374,9 +377,6 @@ ASC.CRM.SocialMedia = (function() {
                             '?',
                             now.getTime()]
                         .join(''));
-                    if (jq("#uploadPhotoPath").length == 1) {
-                        jq("#uploadPhotoPath").val(response);
-                    }
                 },
                 error: function (params, errors) {
                     PopupKeyUpActionProvider.CloseDialog();

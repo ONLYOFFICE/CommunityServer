@@ -110,11 +110,12 @@ namespace ASC.Xmpp.Server.Storage
             RemoveMucMessages(mucName);
         }
 
-        public List<Message> GetMucMessages(Jid mucName, int count)
+        public List<Message> GetMucMessages(Jid mucName, int count, int startindex = 0)
         {
             if (Jid.IsNullOrEmpty(mucName)) throw new ArgumentNullException("mucName");
 
             var q = new SqlQuery("jabber_room_history").Select("message").Where("jid", mucName.Bare).OrderBy("id", false);
+            if (startindex < int.MaxValue){q.SetFirstResult(startindex);}
             if (0 < count && count < int.MaxValue) q.SetMaxResults(count);
 
             var messages = ExecuteList(q).ConvertAll(m => ElementSerializer.DeSerializeElement<Message>((string)m[0]));

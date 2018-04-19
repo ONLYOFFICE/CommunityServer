@@ -125,17 +125,19 @@ namespace ASC.Common.Data
 
         #endregion
 
-        public static DbManager FromHttpContext(string databaseId)
+        public static IDbManager FromHttpContext(string databaseId)
         {
             if (HttpContext.Current != null)
             {
                 var dbManager = DisposableHttpContext.Current[databaseId] as DbManager;
                 if (dbManager == null || dbManager.disposed)
                 {
-                    dbManager = new DbManager(databaseId);
-                    DisposableHttpContext.Current[databaseId] = dbManager;
+                    var localDbManager = new DbManager(databaseId);
+                    var dbManagerAdapter = new DbManagerProxy(localDbManager);
+                    DisposableHttpContext.Current[databaseId] = localDbManager;
+                    return dbManagerAdapter;
                 }
-                return dbManager;
+                return new DbManagerProxy(dbManager);
             }
             return new DbManager(databaseId);
         }
@@ -292,6 +294,83 @@ namespace ASC.Common.Data
             return !string.IsNullOrEmpty(str) ?
                 str.Replace(Environment.NewLine, " ").Replace("\n", "").Replace("\r", "").Replace("\t", " ") :
                 string.Empty;
+        }
+    }
+
+    public class DbManagerProxy : IDbManager
+    {
+        private DbManager dbManager { get; set; }
+
+        public DbManagerProxy(DbManager dbManager)
+        {
+            this.dbManager = dbManager;
+        }
+
+        public void Dispose()
+        {
+            if (HttpContext.Current == null)
+            {
+                dbManager.Dispose();
+            }
+        }
+
+        public IDbConnection Connection { get { return dbManager.Connection; } }
+        public string DatabaseId { get { return dbManager.DatabaseId; } }
+        public bool InTransaction { get { return dbManager.InTransaction; } }
+
+        public IDbTransaction BeginTransaction()
+        {
+            return dbManager.BeginTransaction();
+        }
+
+        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        {
+            return dbManager.BeginTransaction(isolationLevel);
+        }
+
+        public IDbTransaction BeginTransaction(bool nestedIfAlreadyOpen)
+        {
+            return dbManager.BeginTransaction(nestedIfAlreadyOpen);
+        }
+
+        public List<object[]> ExecuteList(string sql, params object[] parameters)
+        {
+            return dbManager.ExecuteList(sql, parameters);
+        }
+
+        public List<object[]> ExecuteList(ISqlInstruction sql)
+        {
+            return dbManager.ExecuteList(sql);
+        }
+
+        public List<T> ExecuteList<T>(ISqlInstruction sql, Converter<IDataRecord, T> converter)
+        {
+            return dbManager.ExecuteList<T>(sql, converter);
+        }
+
+        public T ExecuteScalar<T>(string sql, params object[] parameters)
+        {
+            return dbManager.ExecuteScalar<T>(sql, parameters);
+        }
+
+        public T ExecuteScalar<T>(ISqlInstruction sql)
+        {
+            return dbManager.ExecuteScalar<T>(sql);
+        }
+
+        public int ExecuteNonQuery(string sql, params object[] parameters)
+        {
+            return dbManager.ExecuteNonQuery(sql, parameters);
+        }
+
+        public int ExecuteNonQuery(ISqlInstruction sql)
+        {
+            return dbManager.ExecuteNonQuery(sql);
+        }
+
+        public int ExecuteBatch(IEnumerable<ISqlInstruction> batch)
+        {
+            return dbManager.ExecuteBatch(batch);
         }
     }
 }

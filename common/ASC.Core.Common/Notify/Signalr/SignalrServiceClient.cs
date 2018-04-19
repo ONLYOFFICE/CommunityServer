@@ -249,6 +249,18 @@ namespace ASC.Core.Notify.Signalr
             }
         }
 
+        public void FilesChangeEditors(int tenantId, string fileId, bool finish)
+        {
+            try
+            {
+                MakeRequest("changeEditors", new { tenantId, fileId, finish });
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
+            }
+        }
+
         public T GetAgent<T>(string numberId, List<Guid> contactsResponsibles)
         {
             try

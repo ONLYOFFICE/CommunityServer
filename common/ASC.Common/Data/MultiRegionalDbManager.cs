@@ -36,14 +36,15 @@ namespace ASC.Common.Data
 {
     public class MultiRegionalDbManager : IDbManager
     {
-        private readonly List<DbManager> databases;
+        private readonly List<IDbManager> databases;
 
-        private readonly DbManager localDb;
+        private readonly IDbManager localDb;
 
         private volatile bool disposed;
 
 
         public string DatabaseId { get; private set; }
+        public bool InTransaction { get { return localDb.InTransaction; } }
 
         public IDbConnection Connection
         {
@@ -66,7 +67,7 @@ namespace ASC.Common.Data
             localDb = databases.SingleOrDefault(db => db.DatabaseId.Equals(dbId, cmp));
         }
 
-        public MultiRegionalDbManager(IEnumerable<DbManager> databases)
+        public MultiRegionalDbManager(IEnumerable<IDbManager> databases)
         {
             this.databases = databases.ToList();
             localDb = databases.FirstOrDefault();
@@ -85,6 +86,16 @@ namespace ASC.Common.Data
         public static MultiRegionalDbManager FromHttpContext(string databaseId)
         {
             return new MultiRegionalDbManager(databaseId);
+        }
+
+        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        {
+            return localDb.BeginTransaction(isolationLevel);
+        }
+
+        public IDbTransaction BeginTransaction(bool nestedIfAlreadyOpen)
+        {
+            return localDb.BeginTransaction(nestedIfAlreadyOpen);
         }
 
         public List<object[]> ExecuteList(string sql, params object[] parameters)

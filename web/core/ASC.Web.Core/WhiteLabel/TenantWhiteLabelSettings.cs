@@ -393,7 +393,7 @@ namespace ASC.Web.Core.WhiteLabel
 
             if (partnerSettings.GetIsDefault(type)) return null;
 
-            var partnerStorage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_partnerdata");
+            var partnerStorage = StorageFactory.GetStorage(string.Empty, "static_partnerdata");
 
             if (partnerStorage == null) return null;
 
@@ -434,7 +434,7 @@ namespace ASC.Web.Core.WhiteLabel
 
             if (partnerSettings.GetIsDefault(type)) return null;
 
-            var partnerStorage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_partnerdata");
+            var partnerStorage = StorageFactory.GetStorage(string.Empty, "static_partnerdata");
 
             if (partnerStorage == null) return null;
 

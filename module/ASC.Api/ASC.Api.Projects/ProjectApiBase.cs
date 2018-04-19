@@ -25,39 +25,87 @@
 
 
 using System;
-using System.Runtime.Remoting.Messaging;
+using System.Collections.Generic;
+using ASC.Api.Documents;
+using ASC.Api.Employee;
 using ASC.Api.Impl;
-using ASC.CRM.Core;
+using ASC.Api.Projects.Wrappers;
+using ASC.Collections;
 using ASC.CRM.Core.Dao;
 using ASC.Core;
+using ASC.Files.Core;
+using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
+using ASC.Web.Projects.Core;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using Autofac;
 
 namespace ASC.Api.Projects
 {
-    public class ProjectApiBase
+    public class ProjectApiBase: IDisposable
     {
-        internal const string DbId = "projects"; //Copied from projects
-        protected ApiContext _context;
-        private EngineFactory _engineFactory;
+        protected internal ApiContext Context;
+        private readonly ILifetimeScope scope;
+        private readonly ILifetimeScope crmScope;
+        
+        protected EngineFactory EngineFactory { get; private set; }
+        protected DaoFactory CrmDaoFactory { get; private set; }
+        private readonly HttpRequestDictionary<EmployeeWraperFull> employeeFullCache = new HttpRequestDictionary<EmployeeWraperFull>("employeeFullCache");
+        private readonly HttpRequestDictionary<EmployeeWraper> employeeCache = new HttpRequestDictionary<EmployeeWraper>("employeeCache");
 
-        protected EngineFactory EngineFactory
-        {
-            get { return _engineFactory ?? (_engineFactory = new EngineFactory(DbId, TenantId)); }
-        }
+        protected Func<Task, TaskWrapper> TaskWrapperSelector;
+        protected Func<Message, MessageWrapper> MessageWrapperSelector;
+        protected Func<Milestone, MilestoneWrapper> MilestoneWrapperSelector;
+        protected internal Func<Project, ProjectWrapper> ProjectWrapperSelector;
+        protected internal Func<Project,object, ProjectWrapperFull> ProjectWrapperFullSelector;
+        protected internal Func<File, FileWrapper> FileWrapperSelector;
+        protected internal Func<TimeSpend, TimeWrapper> TimeWrapperSelector;
 
-        protected DaoFactory CrmDaoFactory
+        public ProjectApiBase()
         {
-            get { return new DaoFactory(TenantId, CRMConstants.DatabaseId); }
-        }
+            scope = DIHelper.Resolve();
+            EngineFactory = scope.Resolve<EngineFactory>();
 
-        private static int TenantId
-        {
-            get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
+            crmScope = Web.CRM.Core.DIHelper.Resolve();
+            CrmDaoFactory = crmScope.Resolve<DaoFactory>();
+
+            TaskWrapperSelector = r => new TaskWrapper(this, r);
+            MessageWrapperSelector = r => new MessageWrapper(this, r);
+            MilestoneWrapperSelector = r => new MilestoneWrapper(this, r);
+            ProjectWrapperSelector = r => new ProjectWrapper(this, r);
+            ProjectWrapperFullSelector = (p,f) => new ProjectWrapperFull(this, p, f);
+            FileWrapperSelector = x => new FileWrapper(x);
+            TimeWrapperSelector = x => new TimeWrapper(this, x);
         }
 
         protected static Guid CurrentUserId
         {
             get { return SecurityContext.CurrentAccount.ID; }
+        }
+
+        public EmployeeWraperFull GetEmployeeWraperFull(Guid userId)
+        {
+            return employeeFullCache.Get(userId.ToString(), () => EmployeeWraperFull.GetFull(CoreContext.UserManager.GetUsers(userId)));
+        }
+
+        public EmployeeWraper GetEmployeeWraper(Guid userId)
+        {
+            var employee = employeeFullCache.Get(userId.ToString());
+            return employee ??
+                   employeeCache.Get(userId.ToString(), () => EmployeeWraper.Get(CoreContext.UserManager.GetUsers(userId)));
+        }
+
+        public void Dispose()
+        {
+            if (scope != null)
+            {
+                scope.Dispose();
+            }
+
+            if (crmScope != null)
+            {
+                crmScope.Dispose();
+            }
         }
     }
 }

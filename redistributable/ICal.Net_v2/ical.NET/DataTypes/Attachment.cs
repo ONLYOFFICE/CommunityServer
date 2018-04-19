@@ -45,11 +45,16 @@ namespace Ical.Net.DataTypes
 
         public Attachment(byte[] value) : this()
         {
-            Data = value;
+            if (value != null)
+            {
+                Data = value;
+            }
         }
 
         public Attachment(string value) : this()
         {
+            if (value == null) return;
+
             var serializer = new AttachmentSerializer();
             var a = serializer.Deserialize(value);
             if (a == null)

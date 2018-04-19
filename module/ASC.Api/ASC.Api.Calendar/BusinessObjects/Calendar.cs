@@ -173,10 +173,12 @@ namespace ASC.Api.Calendar.BusinessObjects
                     return new List<IEvent>();
                 }
             }
-            else
+
+            using (var provider = new DataProvider())
             {
-                var provider = new DataProvider();
-                return provider.LoadEvents(Convert.ToInt32(this.Id), userId, TenantId, utcStartDate, utcEndDate).Cast<IEvent>().ToList();
+                return provider.LoadEvents(Convert.ToInt32(this.Id), userId, TenantId, utcStartDate, utcEndDate)
+                        .Cast<IEvent>()
+                        .ToList();
             }
         }
     }    

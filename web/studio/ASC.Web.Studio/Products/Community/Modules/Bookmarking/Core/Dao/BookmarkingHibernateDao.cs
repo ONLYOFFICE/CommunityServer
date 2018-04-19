@@ -43,9 +43,9 @@ namespace ASC.Bookmarking.Dao
 {
     public class BookmarkingHibernateDao : BookmarkingSessionObject<BookmarkingHibernateDao>
     {
-        private static DbManager DbManager
+        private static IDbManager DbManager
         {
-            get { return DbManager.FromHttpContext(BookmarkingBusinessConstants.BookmarkingDbID); }
+            get { return ASC.Common.Data.DbManager.FromHttpContext(BookmarkingBusinessConstants.BookmarkingDbID); }
         }
 
         private static int Tenant

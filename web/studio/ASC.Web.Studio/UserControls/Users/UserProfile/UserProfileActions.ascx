@@ -88,14 +88,19 @@
             </a>
         </li>
         <% }
-           if (Actions.AllowAddOrDelete)
+           if (Actions.AllowAddOrDelete && ProfileHelper.UserInfo.Status == EmployeeStatus.Terminated)
            { %>
-        <li class="reassign-data <%= (ProfileHelper.UserInfo.Status == EmployeeStatus.Terminated) ? "" :  "display-none"%>">
+        <li class="reassign-data">
             <a class="dropdown-item" title="<%= Resource.ReassignData %>" href="<%= ReassignDataLink %>">
                 <%= Resource.ReassignData %>
             </a>
         </li>
-        <li class="delete-self <%= (ProfileHelper.UserInfo.Status == EmployeeStatus.Terminated) ? "" :  "display-none"%>">
+        <li class="remove-data">
+            <a class="dropdown-item" title="<%= Resource.RemoveData %>" href="<%= ReassignDataLink + "&remove=true" %>">
+                <%= Resource.RemoveData %>
+            </a>
+        </li>
+        <li class="delete-self">
             <a class="dropdown-item" title="<%= Resource.DeleteSelfProfile %>">
                 <%= Resource.DeleteSelfProfile %>
             </a>

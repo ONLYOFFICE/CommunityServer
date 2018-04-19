@@ -30,8 +30,9 @@ jq(document).ready(function () {
         switcherSelector: ".personal-languages_select",
         dropdownID: "AuthFormLanguagesPanel",
         addTop: 2,
-        addLeft: 16,
+        addLeft: -2,
+        rightPos: true,
         inPopup: true,
-        alwaysUp: true
+        alwaysUp: false
     });
 });

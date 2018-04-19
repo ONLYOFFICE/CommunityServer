@@ -407,6 +407,7 @@ ASC.Projects.TasksManager = (function () {
 
     function gaRemoveHandler(taskids) {
         self.showCommonPopup("tasksRemoveWarning", function () {
+            LoadingBanner.displayLoading();
             teamlab.removePrjTasks({ taskids: taskids },
             {
                 success: function (params, data) {
@@ -417,6 +418,7 @@ ASC.Projects.TasksManager = (function () {
                     common.displayInfoPanel(projectsJsResource.TasksRemoved);
                 }
             });
+            jq.unblockUI();
         });
         return false;
     };
@@ -464,7 +466,7 @@ ASC.Projects.TasksManager = (function () {
 
                 function update() {
                     teamlab.updatePrjTasksMilestone(data, {
-                        error: function(params, resp) {
+                        error: function() {
                             jq.unblockUI();
                         },
                         success: function (params, resp) {

@@ -45,6 +45,8 @@ using ASC.FullTextIndex;
 using ASC.HealthCheck.Classes;
 using ASC.HealthCheck.Resources;
 using ASC.Notify.Messages;
+using ASC.Web.CRM.Core;
+using Autofac;
 using log4net;
 
 namespace ASC.HealthCheck.Models
@@ -305,31 +307,36 @@ namespace ASC.HealthCheck.Models
                     About = "Cool dude"
                 };
 
-                var dao = new ContactDao(tenantId, CRMConstants.DatabaseId);
-                var personId = dao.SaveContact(person);
+                int personId;
 
-                CRMSecurity.SetAccessTo(person, new List<Guid> {userGuid});
-
-                // waiting while service is collecting news
-                var feedCfg = FeedConfigurationSection.GetFeedSection();
-
-                Thread.Sleep(feedCfg.AggregatePeriod + TimeSpan.FromSeconds(30));
-
-                var feedItemId = string.Format("person_{0}", personId);
-
-                var feedItem = FeedAggregateDataProvider.GetFeedItem(feedItemId);
-                if (feedItem == null)
+                using (var scope = DIHelper.Resolve(tenantId))
                 {
-                    log.ErrorFormat("Error! Feed Item is null, feedItemId = {0}", feedItemId);
+                    var dao = scope.Resolve<DaoFactory>().ContactDao;
+                    personId = dao.SaveContact(person);
+
+                    CRMSecurity.SetAccessTo(person, new List<Guid> {userGuid});
+
+                    // waiting while service is collecting news
+                    var feedCfg = FeedConfigurationSection.GetFeedSection();
+
+                    Thread.Sleep(feedCfg.AggregatePeriod + TimeSpan.FromSeconds(30));
+
+                    var feedItemId = string.Format("person_{0}", personId);
+
+                    var feedItem = FeedAggregateDataProvider.GetFeedItem(feedItemId);
+                    if (feedItem == null)
+                    {
+                        log.ErrorFormat("Error! Feed Item is null, feedItemId = {0}", feedItemId);
+                        dao.DeleteContact(personId);
+                        FeedAggregateDataProvider.RemoveFeedItem(feedItemId);
+                        return HealthCheckResource.FeedService_NewsGenerationError;
+                    }
+
                     dao.DeleteContact(personId);
                     FeedAggregateDataProvider.RemoveFeedItem(feedItemId);
-                    return HealthCheckResource.FeedService_NewsGenerationError;
+                    log.Debug("Feed is OK!");
+                    return string.Empty;
                 }
-
-                dao.DeleteContact(personId);
-                FeedAggregateDataProvider.RemoveFeedItem(feedItemId);
-                log.Debug("Feed is OK!");
-                return string.Empty;
             }
             catch (Exception ex)
             {

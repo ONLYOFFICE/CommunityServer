@@ -238,7 +238,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
     function initialisation(objct) {
         basePath = objct.basePath;
         var res = /sortBy=(.+)\&sortOrder=(.+)/ig.exec(basePath);
-        if (res && res.length == 3) {
+        if (res && res.length === 3) {
             baseSortBy = res[1];
         }
 
@@ -268,14 +268,14 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
         var sortOrder = getUrlParam(sortOrderFilter, hash);
         var sortBy = getUrlParam(sortByFilter, hash);
 
-        if (sortBy == "" && sortOrder == "") {
+        if (sortBy === "" && sortOrder === "") {
             hash = basePath + "&" + hash;
         }
 
         for (var i = massNameFilters.length; i--;) {
             var filterParam = getUrlParam(massNameFilters[i], filter);
             var hashParam = getUrlParam(massNameFilters[i], hash);
-            if (filterParam != hashParam) {
+            if (filterParam !== hashParam) {
                 return false;
             }
         }
@@ -284,7 +284,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
 
     function setFilterByUrl() {
         var hash = ASC.Controls.AnchorController.getAnchor();
-        if (hash == "") {
+        if (hash === "") {
             location.hash = basePath;
             return;
         }
@@ -359,7 +359,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             data.projectId = currentProjectId;
         }
         var filtersLength = filters.length;
-        self.baseFilter = filtersLength === 1 && filters[0].id == "sorter";
+        self.baseFilter = filtersLength === 1 && filters[0].id === "sorter";
 
         for (var filterInd = 0; filterInd < filtersLength; filterInd++) {
             var params = filters[filterInd].params;
@@ -1565,7 +1565,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
     }
 
     function addUser(name, value, removeParams) {
-        if (value != "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {
+        if (value !== "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {
             add(name, value, removeParams);
         }
     }

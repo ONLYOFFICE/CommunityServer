@@ -26,14 +26,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Web;
 
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Common.Contracts;
-using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Notify.Cron;
@@ -51,14 +49,6 @@ namespace ASC.Web.Studio.Core.Backup
     [AjaxNamespace("AjaxPro.Backup")]
     public class BackupAjaxHandler
     {
-        public BackupAjaxHandler()
-        {
-            if (WorkContext.IsMono)
-            {
-                ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
-            }
-        }
-
         #region backup
 
         [AjaxMethod]

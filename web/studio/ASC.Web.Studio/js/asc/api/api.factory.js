@@ -257,7 +257,7 @@ window.ServiceFactory = (function() {
             apiHandler('doc-file', /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/upload\.json/),
             apiHandler('doc-file', /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/text\.json/),
             apiHandler('doc-miss', /files\/fileops.json/),
-            apiHandler('doc-check', /files\/checkdocservice.json/),
+            apiHandler('doc-check', /files\/docservice.json/),
             apiHandler('crm-addresses', /crm\/contact\/[\w\d-]+\/data\.json/, get),
             apiHandler('crm-address', /crm\/contact\/[\w\d-]+\/data\/[\w\d-]+\.json/),
             apiHandler('crm-address', /crm\/contact\/[\w\d-]+\/data\.json/, post),
@@ -842,7 +842,7 @@ window.ServiceFactory = (function() {
     };
 
     var serializeDate = (function() {
-        if (new Date(Date.parse('1970-01-01T00:00:00.000Z')).getTime() === new Date(Date.parse('1970-01-01T00:00:00.000Z')).getTime() && false) {
+        if (false && new Date(Date.parse('1970-01-01T00:00:00.000Z')).getTime() === new Date(Date.parse('1970-01-01T00:00:00.000Z')).getTime()) {
             return function(d, toLocalTime) {
                 if (!d) {
                     return null;
@@ -983,9 +983,7 @@ window.ServiceFactory = (function() {
             return '';
         }
 
-        var hours = date.getHours(),
-            amhours = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours,
-            output = '',
+        var output = '',
             term = '',
             islit = false;
         format = format.split('');
@@ -1018,27 +1016,24 @@ window.ServiceFactory = (function() {
     };
 
     var getDisplayTime = function(date) {
-        var displaydate = date ? date.toLocaleTimeString() : '';
         if (date && formatTime) {
-            displaydate = formattingDate(date, formatTime, dayShortNames, dayNames, monthShortNames, monthNames);
+            return formattingDate(date, formatTime, dayShortNames, dayNames, monthShortNames, monthNames);
         }
-        return displaydate;
+        return date ? date.toLocaleTimeString() : '';
     };
 
     var getDisplayDate = function(date) {
-        var displaydate = date ? date.toLocaleDateString() : '';
         if (date && formatDate) {
-            displaydate = formattingDate(date, formatDate, dayShortNames, dayNames, monthShortNames, monthNames);
+            return formattingDate(date, formatDate, dayShortNames, dayNames, monthShortNames, monthNames);
         }
-        return displaydate;
+        return date ? date.toLocaleDateString() : '';
     };
 
     var getDisplayDatetime = function(date) {
-        var displaydate = date ? date.toLocaleTimeString() + ' ' + date.toLocaleDateString() : '';
         if (date && formatDatetime) {
-            displaydate = formattingDate(date, formatDatetime, dayShortNames, dayNames, monthShortNames, monthNames);
+            return formattingDate(date, formatDatetime, dayShortNames, dayNames, monthShortNames, monthNames);
         }
-        return displaydate;
+        return date ? date.toLocaleTimeString() + ' ' + date.toLocaleDateString() : '';
     };
 
     function createGroup(o) {
@@ -1114,6 +1109,7 @@ window.ServiceFactory = (function() {
             tel: contacts.telephones.length > 0 ? contacts.telephones[0].val : '',
             contacts: contacts,
             avatar: o.avatar || o.avatarSmall || defaultAvatar,
+            avatarBig: o.avatarBig,
             avatarSmall: o.avatarSmall || defaultAvatarSmall,
             group: createGroup(o.groups && o.groups.length > 0 ? o.groups[0] || null : null),
             groups: createGroups(o.groups || []),
@@ -1537,9 +1533,38 @@ window.ServiceFactory = (function() {
 
     /* projects */
     factories.prj = {
-        item: function(response) {
-            var createdBy = createPerson(response.createdBy || response.author),
-                responsible = createPerson(response.responsible ? response.responsible : (response.responsibles && response.responsibles.length > 0 ? response.responsibles[0] : null)),
+        item: function (response) {
+            var createdBy, responsible, updatedBy, responsibles  = [];
+
+            if (typeof response.createdBy === "object") {
+                createdBy = createPerson(response.createdBy);
+            } else if (typeof response.createdById === "string") {
+                createdBy = UserManager.getPerson(response.createdById, createPerson);
+            } else {
+                createdBy = createPerson(response.author);
+            }
+
+            if (typeof response.updatedBy === "object") {
+                updatedBy = createPerson(response.updatedBy);
+            } else if (typeof response.updatedById === "string") {
+                updatedBy = UserManager.getPerson(response.updatedById, createPerson);
+            }
+
+            if (typeof response.responsible === "object") {
+                responsible = createPerson(response.responsible);
+            } else if (typeof response.responsibleId === "string") {
+                responsible = UserManager.getPerson(response.responsibleId, createPerson);
+            }
+
+            if (response.responsibles) {
+                responsibles = createPersons(response.responsibles || response.responsible);
+            } else if (response.responsibleIds) {
+                responsibles = response.responsibleIds.map(function(item) {
+                    return UserManager.getPerson(item, createPerson);
+                });
+            }
+
+            var
                 crtdate = serializeDate(response.created),
                 uptdate = serializeDate(response.updated);
 
@@ -1552,9 +1577,9 @@ window.ServiceFactory = (function() {
                 displayUptdate: getDisplayDatetime(uptdate),
                 displayDateUptdate: getDisplayDate(uptdate),
                 createdBy: createdBy,
-                updatedBy: createPerson(response.updatedBy),
-                responsible: responsible,
-                responsibles: createPersons(response.responsibles || response.responsible),
+                updatedBy: updatedBy,
+                responsible: responsible || responsibles[0],
+                responsibles: responsibles,
                 canEdit: response.canEdit || false,
                 isPrivate: response.isPrivate || false,
                 isShared: response.isShared || false,
@@ -1571,16 +1596,18 @@ window.ServiceFactory = (function() {
             var dlndate = serializeDate(response.deadline, false),
                 startdate = serializeDate(response.startDate, false),
                 todaydate = new Date(),
-                tomorrowdate = new Date();
+                year = todaydate.getFullYear(),
+                month = todaydate.getMonth(),
+                day = todaydate.getDate();
 
-            todaydate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate(), 0, 0, 0, 0);
-            tomorrowdate = new Date(tomorrowdate.getFullYear(), tomorrowdate.getMonth(), tomorrowdate.getDate() + 1, 0, 0, 0, 0);
-
+            todaydate = new Date(year, month, day, 0, 0, 0, 0);
+            var tomorrowdate = new Date(year, month, day + 1, 0, 0, 0, 0);
+            var hasProjectOwner = response.hasOwnProperty('projectOwner');
 
             return extend(this.item(response), {
                 type: 'task',
-                projectId: response.hasOwnProperty('projectOwner') ? response.projectOwner.id : -1,
-                projectTitle: response.hasOwnProperty('projectOwner') ? response.projectOwner.title : '',
+                projectId: hasProjectOwner ? response.projectOwner.id : -1,
+                projectTitle: hasProjectOwner ? response.projectOwner.title : '',
                 projectOwner: response.projectOwner,
                 canCreateSubtask: response.canCreateSubtask,
                 canCreateTimeSpend: response.canCreateTimeSpend,
@@ -1621,11 +1648,12 @@ window.ServiceFactory = (function() {
             var dlndate = serializeDate(response.deadline, false),
                 startdate = serializeDate(response.startDate, false),
                 todaydate = new Date(),
-                tomorrowdate = new Date();
+                year = todaydate.getFullYear(),
+                month = todaydate.getMonth(),
+                day = todaydate.getDate();
 
-            todaydate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate(), 0, 0, 0, 0);
-            tomorrowdate = new Date(tomorrowdate.getFullYear(), tomorrowdate.getMonth(), tomorrowdate.getDate() + 1, 0, 0, 0, 0);
-
+            todaydate = new Date(year, month, day, 0, 0, 0, 0);
+            var tomorrowdate = new Date(year, month, day + 1, 0, 0, 0, 0);
 
             return extend(this.item(response), {
                 type: 'task',
@@ -1658,10 +1686,12 @@ window.ServiceFactory = (function() {
         milestone: function(response) {
             var dlndate = serializeDate(response.deadline, false),
                 todaydate = new Date(),
-                tomorrowdate = new Date();
+                year = todaydate.getFullYear(),
+                month = todaydate.getMonth(),
+                day = todaydate.getDate();
 
-            todaydate = new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate(), 0, 0, 0, 0);
-            tomorrowdate = new Date(tomorrowdate.getFullYear(), tomorrowdate.getMonth(), tomorrowdate.getDate() + 1, 0, 0, 0, 0);
+            todaydate = new Date(year, month, day, 0, 0, 0, 0);
+            var tomorrowdate = new Date(year, month, day + 1, 0, 0, 0, 0);
 
             return extend(this.item(response), {
                 type: 'milestone',
@@ -1706,8 +1736,22 @@ window.ServiceFactory = (function() {
         },
 
         project: function (response) {
-            var createdBy = createPerson(response.createdBy);
-            var responsible = createPerson(response.responsible);
+            var createdBy;
+            var responsible;
+
+            if (typeof response.createdBy === "object") {
+                createdBy = createPerson(response.createdBy);
+            } else if (typeof response.createdById === "string") {
+                createdBy = UserManager.getPerson(response.createdById, createPerson);
+            }
+
+            if (typeof response.responsible === "object") {
+                responsible = createPerson(response.responsible);
+            } else if (typeof response.responsibleId === "string") {
+                responsible = UserManager.getPerson(response.responsibleId, createPerson);
+            } else if (typeof response.responsible === "string") {
+                responsible = UserManager.getPerson(response.responsible, createPerson);
+            }
 
             return {
                 id: response.id,
@@ -1792,7 +1836,7 @@ window.ServiceFactory = (function() {
             });
         },
 
-        tasks: function(response) {
+        tasks: function (response) {
             return collection(response, this.item, function(response) {
                 return factories.prj.task(response);
             });
@@ -2099,8 +2143,8 @@ window.ServiceFactory = (function() {
                 contentLength: response.contentLength,
                 pureContentLength: response.pureContentLength,
                 webUrl: fixUrl(response.webUrl || ''),
-                viewUrl: fixUrl(response.viewUri || response.viewUrl || ''),
-                fileUrl: fixUrl(response.fileUri || response.fileUrl || ''),
+                viewUrl: fixUrl(response.viewUrl || ''),
+                fileUrl: fixUrl(response.fileUrl || ''),
                 isSupported: isSupportedFileType(extension),
                 isUploaded: false
             });

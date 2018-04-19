@@ -30,5 +30,8 @@ namespace ASC.Data.Storage
     {
         public const string CONFIG_DIR = "CONFIG_DIR";
         public const string STORAGE_ROOT_PARAM = "$STORAGE_ROOT";
+        public const string QUERY_AUTH = "auth";
+        public const string QUERY_EXPIRE = "expire";
+        public const string QUERY_HEADER = "headers";
     }
 }

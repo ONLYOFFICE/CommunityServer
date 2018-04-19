@@ -45,6 +45,7 @@ using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.Banner;
 using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
 
@@ -157,8 +158,6 @@ namespace ASC.Web.Studio.Masters
             {
                 if (SetupInfo.CustomScripts.Length != 0)
                 {
-                    YandexMetrikaScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/YandexMetrikaScript.ascx"));
-
                     GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
                     if (!CoreContext.Configuration.Personal)
                     {
@@ -174,8 +173,6 @@ namespace ASC.Web.Studio.Masters
                      && WizardSettings.Load().Analytics
                      && SecurityContext.IsAuthenticated)
             {
-                YandexMetrikaScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/YandexMetrikaScript.ascx"));
-
                 GoogleTagManagerPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx"));
                 GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptOpenSource.ascx"));
             }
@@ -237,8 +234,9 @@ namespace ASC.Web.Studio.Masters
 
         private void InitStudioSettingsInlineScript()
         {
-            var showPromotions = PromotionsSettings.Load().Show;
-            var showTips = TipsSettings.LoadForCurrentUser().Show;
+            var paid = !TenantStatisticsProvider.IsNotPaid();
+            var showPromotions = paid && PromotionsSettings.Load().Show;
+            var showTips = paid && TipsSettings.LoadForCurrentUser().Show;
 
             var script = new StringBuilder();
             script.AppendFormat("window.ASC.Resources.Master.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());

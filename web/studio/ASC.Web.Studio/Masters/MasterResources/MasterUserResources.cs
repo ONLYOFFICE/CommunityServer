@@ -160,7 +160,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 created = userInfo.CreateDate,
                 email = userInfo.Email,
                 isLDAP = userInfo.IsLDAP(),
-                isSSO = userInfo.IsSSO()
+                isSSO = userInfo.IsSSO(),
+                isTerminated = userInfo.Status == EmployeeStatus.Terminated
             };
         }
     }

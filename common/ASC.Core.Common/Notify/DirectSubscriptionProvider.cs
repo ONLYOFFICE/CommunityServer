@@ -50,6 +50,14 @@ namespace ASC.Core.Notify
         }
 
 
+        public object GetSubscriptionRecord(INotifyAction action, IRecipient recipient, string objectID)
+        {
+            if (action == null) throw new ArgumentNullException("action");
+            if (recipient == null) throw new ArgumentNullException("recipient");
+
+            return subscriptionManager.GetSubscriptionRecord(sourceID, action.ID, recipient.ID, objectID);
+        }
+
         public string[] GetSubscriptions(INotifyAction action, IRecipient recipient, bool checkSubscribe = true)
         {
             if (action == null) throw new ArgumentNullException("action");

@@ -1,5 +1,7 @@
 ﻿<script id="tagViewTmpl" type="text/x-jquery-tmpl">
     <div id="tagContainer">
+        ${( $data.readonly = $data.readonly || false ),''}
+        {{if !readonly }}
         <span>
             <span id="addNewTag" class="baseLinkAction crm-withArrowDown" title="${ASC.CRM.Resources.CRMCommonResource.AddNewTag}">${ASC.CRM.Resources.CRMCommonResource.AddNewTag}</span>
 
@@ -15,9 +17,10 @@
                 <a id="addThisTag" class="button blue" title="${ASC.CRM.Resources.CRMCommonResource.OK}">${ASC.CRM.Resources.CRMCommonResource.OK}</a>
             </div>
         </span>
+        {{/if}}
         <div style="display:inline;">
             {{each tags}}
-                {{tmpl({"tagLabel": $value}) 'taqTmpl'}}
+                {{tmpl({"tagLabel": $value, "readonly": $data.readonly}) 'taqTmpl'}}
             {{/each}}
         </div>
 
@@ -30,8 +33,11 @@
 <script id="taqTmpl" type="text/x-jquery-tmpl">
     <span class="tag_item">
         <span class="tag_title" data-value="${jQuery.base64.encode(tagLabel)}">${ASC.CRM.Common.convertText(tagLabel, true)}</span>
+        ${( $data.readonly = $data.readonly || false ),''}
+        {{if !readonly }}
         <a class="delete_tag" alt="${ASC.CRM.Resources.CRMCommonResource.DeleteTag}" title="${ASC.CRM.Resources.CRMCommonResource.DeleteTag}"
             onclick="ASC.CRM.TagView.deleteTag(jq(this).parent())">&times;</a>
+        {{/if}}
      </span>
 </script>
 

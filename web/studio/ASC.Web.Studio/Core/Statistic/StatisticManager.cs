@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Web;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -35,7 +36,7 @@ namespace ASC.Web.Studio.Core.Statistic
 {
     public class StatisticManager
     {
-        private const string dbId = "webstudio";
+        private const string dbId = "default";
         private static DateTime lastSave = DateTime.UtcNow;
         private static readonly TimeSpan cacheTime = TimeSpan.FromMinutes(2);
         private static readonly IDictionary<string, UserVisit> cache = new Dictionary<string, UserVisit>();
@@ -83,7 +84,7 @@ namespace ASC.Web.Studio.Core.Statistic
                             .GroupBy(1)
                             .OrderBy("FirstVisitTime", true)
                     )
-                    .ConvertAll(r => new Guid((string)r[0]));
+                    .ConvertAll(r => new Guid((string) r[0]));
                 lock (cache)
                 {
                     foreach (var visit in cache.Values)
@@ -103,13 +104,15 @@ namespace ASC.Web.Studio.Core.Statistic
             using (var db = GetDb())
             {
                 return db.ExecuteList(new SqlQuery("webstudio_uservisit")
-                                          .Select("VisitDate")
-                                          .SelectSum("VisitCount")
-                                          .Where(Exp.Between("VisitDate", startDate, endPeriod))
-                                          .Where("TenantID", tenantID)
-                                          .GroupBy("VisitDate")
-                                          .OrderBy("VisitDate", true))
-                         .ConvertAll(r => new UserVisit { VisitDate = Convert.ToDateTime(r[0]), VisitCount = Convert.ToInt32(r[1]) });
+                    .Select("VisitDate")
+                    .SelectSum("VisitCount")
+                    .Where(Exp.Between("VisitDate", startDate, endPeriod))
+                    .Where("TenantID", tenantID)
+                    .GroupBy("VisitDate")
+                    .OrderBy("VisitDate", true))
+                    .ConvertAll(
+                        r =>
+                            new UserVisit {VisitDate = Convert.ToDateTime(r[0]), VisitCount = Convert.ToInt32(r[1])});
             }
         }
 
@@ -118,12 +121,18 @@ namespace ASC.Web.Studio.Core.Statistic
             using (var db = GetDb())
             {
                 return db.ExecuteList(new SqlQuery("webstudio_uservisit")
-                                          .Select("VisitDate", "UserId")
-                                          .Where(Exp.Between("VisitDate", startDate, endPeriod))
-                                          .Where("TenantID", tenantID)
-                                          .GroupBy("UserId", "VisitDate")
-                                          .OrderBy("VisitDate", true))
-                         .ConvertAll(r => new UserVisit { VisitDate = Convert.ToDateTime(r[0]), UserID = new Guid(Convert.ToString(r[1])) });
+                    .Select("VisitDate", "UserId")
+                    .Where(Exp.Between("VisitDate", startDate, endPeriod))
+                    .Where("TenantID", tenantID)
+                    .GroupBy("UserId", "VisitDate")
+                    .OrderBy("VisitDate", true))
+                    .ConvertAll(
+                        r =>
+                            new UserVisit
+                            {
+                                VisitDate = Convert.ToDateTime(r[0]),
+                                UserID = new Guid(Convert.ToString(r[1]))
+                            });
             }
         }
 
@@ -139,12 +148,13 @@ namespace ASC.Web.Studio.Core.Statistic
                 lastSave = DateTime.UtcNow;
             }
 
-            using (var db = GetDb())
+            using(var db = GetDb())
             using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 foreach (var v in visits)
                 {
-                    var sql = "insert into webstudio_uservisit(tenantid, productid, userid, visitdate, firstvisittime, lastvisittime, visitcount) values " +
+                    var sql =
+                        "insert into webstudio_uservisit(tenantid, productid, userid, visitdate, firstvisittime, lastvisittime, visitcount) values " +
                         "(@TenantId, @ProductId, @UserId, @VisitDate, @FirstVisitTime, @LastVisitTime, @VisitCount) " +
                         "on duplicate key update lastvisittime = @LastVisitTime, visitcount = visitcount + @VisitCount";
 
@@ -163,9 +173,9 @@ namespace ASC.Web.Studio.Core.Statistic
             }
         }
 
-        private static DbManager GetDb()
+        private static IDbManager GetDb()
         {
-            return new DbManager(dbId);
+            return DbManager.FromHttpContext(dbId);
         }
     }
 }

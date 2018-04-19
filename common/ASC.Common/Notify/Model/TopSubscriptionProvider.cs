@@ -140,6 +140,27 @@ namespace ASC.Notify.Model
             subscriptionProvider.UpdateSubscriptionMethod(action, recipient, senderNames);
         }
 
+        public virtual object GetSubscriptionRecord(INotifyAction action, IRecipient recipient, string objectID)
+        {
+            if (recipient == null) throw new ArgumentNullException("recipient");
+            if (action == null) throw new ArgumentNullException("action");
+
+            var subscriptionRecord = subscriptionProvider.GetSubscriptionRecord(action, recipient, objectID);
+
+            if (subscriptionRecord != null) return subscriptionRecord;
+
+            var parents = WalkUp(recipient);
+
+            foreach (var parent in parents)
+            {
+                subscriptionRecord = subscriptionProvider.GetSubscriptionRecord(action, parent, objectID);
+
+                if (subscriptionRecord != null) break;
+            }
+
+            return subscriptionRecord;
+        }
+
         public virtual string[] GetSubscriptions(INotifyAction action, IRecipient recipient, bool checkSubscription = true)
         {
             if (recipient == null) throw new ArgumentNullException("recipient");

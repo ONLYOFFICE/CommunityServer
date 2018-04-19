@@ -40,7 +40,7 @@ ASC.Projects.Tab.prototype.select = function () {
 
         var currentHash = ASC.Controls.AnchorController.getAnchor();
 
-        if (currentHash == this.emptyScreen.button.hash && $addFirstElement.length > 0) {
+        if (currentHash === this.emptyScreen.button.hash && $addFirstElement.length > 0) {
             $addFirstElement.click();
         }
 
@@ -368,7 +368,7 @@ ASC.Projects.DescriptionPanel = (function() {
     };
 
     function checkProperty(prop) {
-        return typeof prop != 'undefined' && jq.trim(prop) != "" && prop != null;
+        return typeof prop != 'undefined' && jq.trim(prop) !== "" && prop != null;
     }
 
     function showDescPanelByObject($targetObject) {
@@ -669,7 +669,7 @@ ASC.Projects.StatusList = (function () {
         hide();
 
         if (currentListStatusObjid === objid && isVisible) {
-            return;
+            return undefined;
         }
 
         currentListStatusObjid = objid;

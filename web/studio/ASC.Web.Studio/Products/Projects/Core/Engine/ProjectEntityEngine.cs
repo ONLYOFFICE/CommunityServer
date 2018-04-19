@@ -39,19 +39,18 @@ namespace ASC.Projects.Engine
 {
     public class ProjectEntityEngine
     {
-        ISubscriptionProvider SubscriptionProvider { get; set; }
-        IRecipientProvider RecipientProvider { get; set; }
-        INotifyAction NotifyAction { get; set; }
-        FileEngine FileEngine { get; set; }
-        EngineFactory Factory { get; set; }
+        public ISubscriptionProvider SubscriptionProvider { get; set; }
+        public IRecipientProvider RecipientProvider { get; set; }
+        public INotifyAction NotifyAction { get; set; }
+        public FileEngine FileEngine { get; set; }
+        public bool DisableNotifications { get; set; }
 
-        public ProjectEntityEngine(INotifyAction notifyAction, EngineFactory factory)
+        public ProjectEntityEngine(INotifyAction notifyAction, bool disableNotifications)
         {
             SubscriptionProvider = NotifySource.Instance.GetSubscriptionProvider();
             RecipientProvider = NotifySource.Instance.GetRecipientsProvider();
             NotifyAction = notifyAction;
-            FileEngine = factory != null ? factory.FileEngine : null;
-            Factory = factory;
+            DisableNotifications = disableNotifications;
         }
 
         public virtual ProjectEntity GetEntityByID(int id)
@@ -181,7 +180,7 @@ namespace ASC.Projects.Engine
                 file = FileEngine.GetFile(fileId, 0);
             }
 
-            if (notify && !Factory.DisableNotifications)
+            if (notify && !DisableNotifications)
             {
                 var senders = GetSubscribers(entity);
                 NotifyClient.Instance.SendNewFile(senders, entity, file.Title);

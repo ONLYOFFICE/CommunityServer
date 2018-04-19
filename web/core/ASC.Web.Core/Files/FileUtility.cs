@@ -296,7 +296,7 @@ namespace ASC.Web.Core.Files
         {
             var result = WebConfigurationManager.AppSettings["files.docservice.secret"] ?? "";
 
-            Regex regex = new Regex(@"^\s+$");
+            var regex = new Regex(@"^\s+$");
 
             if (regex.IsMatch(result))
                 result = "";
@@ -306,9 +306,10 @@ namespace ASC.Web.Core.Files
 
         private static string GetSignatureHeader()
         {
-            var result = WebConfigurationManager.AppSettings["files.docservice.secret.header"] ?? "Authorization";
-
-            return result.Trim();
+            var result = (WebConfigurationManager.AppSettings["files.docservice.secret.header"] ?? "").Trim();
+            if (string.IsNullOrEmpty(result))
+                result = "Authorization";
+            return result;
         }
 
         #endregion

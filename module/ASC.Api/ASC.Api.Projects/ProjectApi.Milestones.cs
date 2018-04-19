@@ -53,7 +53,7 @@ namespace ASC.Api.Projects
         [Read(@"milestone")]
         public IEnumerable<MilestoneWrapper> GetMilestones()
         {
-            return EngineFactory.MilestoneEngine.GetUpcomingMilestones((int)Count).Select(x => new MilestoneWrapper(x));
+            return EngineFactory.MilestoneEngine.GetUpcomingMilestones((int)Count).Select(MilestoneWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -108,7 +108,7 @@ namespace ASC.Api.Projects
 
             SetTotalCount(milestoneEngine.GetByFilterCount(filter));
 
-            return milestoneEngine.GetByFilter(filter).NotFoundIfNull().Select(r => new MilestoneWrapper(r));
+            return milestoneEngine.GetByFilter(filter).NotFoundIfNull().Select(MilestoneWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -122,7 +122,7 @@ namespace ASC.Api.Projects
         [Read(@"milestone/late")]
         public IEnumerable<MilestoneWrapper> GetLateMilestones()
         {
-            return EngineFactory.MilestoneEngine.GetLateMilestones((int)Count).ConvertAll(x => new MilestoneWrapper(x));
+            return EngineFactory.MilestoneEngine.GetLateMilestones((int)Count).Select(MilestoneWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -140,7 +140,7 @@ namespace ASC.Api.Projects
         public IEnumerable<MilestoneWrapper> GetMilestonesByDeadLineFull(int year, int month, int day)
         {
             var milestones = EngineFactory.MilestoneEngine.GetByDeadLine(new DateTime(year, month, day));
-            return milestones.Select(x => new MilestoneWrapper(x));
+            return milestones.Select(MilestoneWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -157,7 +157,7 @@ namespace ASC.Api.Projects
         public IEnumerable<MilestoneWrapper> GetMilestonesByDeadLineMonth(int year, int month)
         {
             var milestones = EngineFactory.MilestoneEngine.GetByDeadLine(new DateTime(year, month, DateTime.DaysInMonth(year, month)));
-            return milestones.Select(x => new MilestoneWrapper(x));
+            return milestones.Select(MilestoneWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -175,7 +175,7 @@ namespace ASC.Api.Projects
         {
             var milestoneEngine = EngineFactory.MilestoneEngine;
             if (!milestoneEngine.IsExists(id)) throw new ItemNotFoundException();
-            return new MilestoneWrapper(milestoneEngine.GetByID(id));
+            return MilestoneWrapperSelector(milestoneEngine.GetByID(id));
         }
 
         ///<summary>
@@ -192,7 +192,7 @@ namespace ASC.Api.Projects
         public IEnumerable<TaskWrapper> GetMilestoneTasks(int id)
         {
             if (!EngineFactory.MilestoneEngine.IsExists(id)) throw new ItemNotFoundException();
-            return EngineFactory.TaskEngine.GetMilestoneTasks(id).Select(x => new TaskWrapper(x));
+            return EngineFactory.TaskEngine.GetMilestoneTasks(id).Select(TaskWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -255,7 +255,7 @@ namespace ASC.Api.Projects
             milestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
             MessageService.Send(Request, MessageAction.MilestoneUpdated, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
-            return new MilestoneWrapper(milestone);
+            return MilestoneWrapperSelector(milestone);
         }
 
         ///<summary>
@@ -289,7 +289,7 @@ namespace ASC.Api.Projects
             milestoneEngine.ChangeStatus(milestone, status);
             MessageService.Send(Request, MessageAction.MilestoneUpdatedStatus, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title, LocalizedEnumConverter.ConvertToString(milestone.Status));
 
-            return new MilestoneWrapper(milestone);
+            return MilestoneWrapperSelector(milestone);
         }
 
         ///<summary>
@@ -312,7 +312,7 @@ namespace ASC.Api.Projects
             milestoneEngine.Delete(milestone);
             MessageService.Send(Request, MessageAction.MilestoneDeleted, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
-            return new MilestoneWrapper(milestone);
+            return MilestoneWrapperSelector(milestone);
         }
 
         ///<summary>

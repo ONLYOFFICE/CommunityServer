@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Web;
 using ASC.Api.Calendar.BusinessObjects;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -76,46 +75,56 @@ namespace ASC.Api.Calendar.Notification
         {
             try
             {
-                foreach (var data in new DataProvider().ExtractAndRecountNotifications(scheduleDate))
+                using (var provider = new DataProvider())
                 {
-                    if (data.Event == null || data.Event.Status == EventStatus.Cancelled)
+                    foreach (var data in provider.ExtractAndRecountNotifications(scheduleDate))
                     {
-                        continue;
+                        if (data.Event == null || data.Event.Status == EventStatus.Cancelled)
+                        {
+                            continue;
+                        }
+
+                        var tenant = CoreContext.TenantManager.GetTenant(data.TenantId);
+                        if (tenant == null ||
+                            tenant.Status != TenantStatus.Active ||
+                            TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenant.TenantId).State)
+                        {
+                            continue;
+                        }
+                        CoreContext.TenantManager.SetCurrentTenant(tenant);
+
+                        var r =
+                            CalendarNotifySource.Instance.GetRecipientsProvider().GetRecipient(data.UserId.ToString());
+                        if (r == null)
+                        {
+                            continue;
+                        }
+
+                        var startDate = data.GetUtcStartDate();
+                        var endDate = data.GetUtcEndDate();
+
+                        if (!data.Event.AllDayLong)
+                        {
+                            startDate = startDate.Add(data.TimeZone.BaseUtcOffset);
+                            endDate = (endDate == DateTime.MinValue
+                                ? DateTime.MinValue
+                                : endDate.Add(data.TimeZone.BaseUtcOffset));
+                        }
+
+                        _notifyClient.SendNoticeAsync(CalendarNotifySource.EventAlert,
+                            null,
+                            r,
+                            true,
+                            new TagValue("EventName", data.Event.Name),
+                            new TagValue("EventDescription", data.Event.Description ?? ""),
+                            new TagValue("EventStartDate",
+                                startDate.ToShortDateString() + " " + startDate.ToShortTimeString()),
+                            new TagValue("EventEndDate",
+                                (endDate > startDate)
+                                    ? (endDate.ToShortDateString() + " " + endDate.ToShortTimeString())
+                                    : ""),
+                            new TagValue("Priority", 1));
                     }
-
-                    var tenant = CoreContext.TenantManager.GetTenant(data.TenantId);
-                    if (tenant == null || 
-                        tenant.Status != TenantStatus.Active ||
-                        TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenant.TenantId).State)
-                    {
-                        continue;
-                    }
-                    CoreContext.TenantManager.SetCurrentTenant(tenant);
-
-                    var r = CalendarNotifySource.Instance.GetRecipientsProvider().GetRecipient(data.UserId.ToString());
-                    if (r == null)
-                    {
-                        continue;
-                    }
-
-                    var startDate = data.GetUtcStartDate();
-                    var endDate = data.GetUtcEndDate();
-
-                    if (!data.Event.AllDayLong)
-                    {
-                        startDate = startDate.Add(data.TimeZone.BaseUtcOffset);
-                        endDate = (endDate == DateTime.MinValue ? DateTime.MinValue : endDate.Add(data.TimeZone.BaseUtcOffset));
-                    }
-
-                    _notifyClient.SendNoticeAsync(CalendarNotifySource.EventAlert,
-                        null,
-                        r,
-                        true,
-                        new TagValue("EventName", data.Event.Name),
-                        new TagValue("EventDescription", data.Event.Description ?? ""),
-                        new TagValue("EventStartDate", startDate.ToShortDateString() + " " + startDate.ToShortTimeString()),
-                        new TagValue("EventEndDate", (endDate > startDate) ? (endDate.ToShortDateString() + " " + endDate.ToShortTimeString()) : ""),
-                        new TagValue("Priority", 1));
                 }
             }
             catch (Exception error)

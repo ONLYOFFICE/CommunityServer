@@ -122,6 +122,7 @@ namespace ASC.Blogs.Core.Domain
                 return result;
 
             string content = ResizeImgForLetter(this.content).Replace("\r\n", "");
+            content = ASC.Web.Studio.Utility.HtmlUtility.HtmlUtility.GetFull(content);
 
             IList<string> tagExcludeList = new List<string>();
             tagExcludeList.Add("img");
@@ -217,10 +218,12 @@ namespace ASC.Blogs.Core.Domain
 
                 if (tagList.Peek() != closeTag)
                 {
-                    while (tagExcludeList.Contains(tagList.Peek().ToLower()))
+                    while (tagList.Count > 0 && tagExcludeList.Contains(tagList.Peek().ToLower()))
+                    {
                         tagList.Pop();
+                    }
                 }
-                if (tagList.Peek() == closeTag)
+                if (tagList.Count > 0 && tagList.Peek() == closeTag)
                     outStr += "</" + tagList.Pop() + ">";
                 else
                     outStr += "</" + closeTag + ">";

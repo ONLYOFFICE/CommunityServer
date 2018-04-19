@@ -27,7 +27,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+#if DEBUG
 using System.Diagnostics;
+#endif
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -1174,55 +1176,75 @@ namespace ASC.Mail.Aggregator
 
                 if (!item.HasParseError)
                 {
+#if DEBUG
+
                     var watch = new Stopwatch();
                     double swtGetBodyMilliseconds;
                     double swtSanitazeilliseconds = 0;
+#endif
 
                     var dataStore = MailDataStore.GetDataStore(tenant);
                     var key =  MailStoragePathCombiner.GetBodyKey(user, item.StreamId);
 
                     try
                     {
+#if DEBUG
+                        _log.Debug(
+                            "Mail->GetMailInfo(id={0})->Start Body Load tenant: {1}, user: '{2}', key='{3}'",
+                            messageId, tenant, user, key);
+
                         watch.Start();
+#endif
                         using (var s = dataStore.GetReadStream(string.Empty, key))
                         {
                             htmlBody = Encoding.UTF8.GetString(s.ReadToEnd());
                         }
-
+#if DEBUG
                         watch.Stop();
                         swtGetBodyMilliseconds = watch.Elapsed.TotalMilliseconds;
                         watch.Reset();
-
+#endif
                         if (options.NeedSanitizer && item.Folder != MailFolder.Ids.drafts && !item.From.Equals(MailDaemonEmail))
                         {
+#if DEBUG
                             watch.Start();
+#endif
                             bool imagesAreBlocked;
                             var htmlSanitizer =
                                 new HtmlSanitizer(new HtmlSanitizer.Options(options.LoadImages, options.NeedProxyHttp));
 
+                            _log.Debug(
+                            "Mail->GetMailInfo(id={0})->Start Sanitize Body tenant: {1}, user: '{2}', BodyLength: {3} bytes",
+                            messageId, tenant, user, htmlBody.Length);
+
                             htmlBody = htmlSanitizer.Sanitize(htmlBody, out imagesAreBlocked);
+
+#if DEBUG
                             watch.Stop();
                             swtSanitazeilliseconds = watch.Elapsed.TotalMilliseconds;
+#endif
                             item.ContentIsBlocked = imagesAreBlocked;
                         }
-
+#if DEBUG
                         _log.Debug(
                             "Mail->GetMailInfo(id={0})->Elapsed: BodyLoad={1}ms, Sanitaze={2}ms (NeedSanitizer={3}, NeedProxyHttp={4})",
                             messageId, swtGetBodyMilliseconds, swtSanitazeilliseconds, options.NeedSanitizer, options.NeedProxyHttp);
+#endif
                     }
                     catch (Exception ex)
                     {
                         item.IsBodyCorrupted = true;
                         htmlBody = "";
                         _log.Error(
-                            string.Format("Load stored body error: tenant={0} user=\"{1}\" messageId={2} key=\"{3}\"",
+                            string.Format("Mail->GetMailInfo(tenant={0} user=\"{1}\" messageId={2} key=\"{3}\")",
                                 tenant, user, messageId, key), ex);
-
+#if DEBUG
                         watch.Stop();
                         swtGetBodyMilliseconds = watch.Elapsed.TotalMilliseconds;
                         _log.Debug(
                             "Mail->GetMailInfo(id={0})->Elapsed [BodyLoadFailed]: BodyLoad={1}ms, Sanitaze={2}ms (NeedSanitizer={3}, NeedProxyHttp={4})",
                             messageId, swtGetBodyMilliseconds, swtSanitazeilliseconds, options.NeedSanitizer, options.NeedProxyHttp);
+#endif
                     }
                 }
 

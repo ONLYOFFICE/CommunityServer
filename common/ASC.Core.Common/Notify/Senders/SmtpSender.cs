@@ -30,6 +30,7 @@ using ASC.Notify.Patterns;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using MailKit;
@@ -262,11 +263,13 @@ namespace ASC.Core.Notify.Senders
 
         private MailKit.Net.Smtp.SmtpClient GetSmtpClient()
         {
+            var sslCertificatePermit = ConfigurationManager.AppSettings["mail.certificate-permit"] != null &&
+                                    Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
+
             var smtpClient = new MailKit.Net.Smtp.SmtpClient
             {
                 ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                    WorkContext.IsMono ||
-                    MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
+                    sslCertificatePermit || MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                 Timeout = NETWORK_TIMEOUT
             };
 

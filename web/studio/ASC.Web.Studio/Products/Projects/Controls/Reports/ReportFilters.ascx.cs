@@ -25,19 +25,9 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Core.Users;
-using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
-using ASC.Web.Core.Helpers;
-using ASC.Web.Core.Users;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Resources;
-using ASC.Web.Studio.Core.Users;
 
 namespace ASC.Web.Projects.Controls.Reports
 {
@@ -49,8 +39,37 @@ namespace ASC.Web.Projects.Controls.Reports
         {
             if (Report.ReportType == ReportType.UsersActivity || Report.ReportType == ReportType.TimeSpend)
             {
-                fromDate.Text = TenantUtil.DateTimeNow().ToString(DateTimeExtension.DateFormatPattern);
-                toDate.Text = TenantUtil.DateTimeNow().AddDays(7).ToString(DateTimeExtension.DateFormatPattern);
+                DateTime fromDateTime;
+                DateTime toDateTime;
+
+                if (!TryParseFilter("ffrom", out fromDateTime) || !TryParseFilter("fto", out toDateTime))
+                {
+                    fromDateTime = TenantUtil.DateTimeNow();
+                    toDateTime = fromDateTime.AddDays(7);
+                }
+
+                fromDate.Text = fromDateTime.ToString(DateTimeExtension.DateFormatPattern);
+                toDate.Text = toDateTime.ToString(DateTimeExtension.DateFormatPattern);
+            }
+        }
+
+        private bool TryParseFilter(string requestParam, out DateTime result)
+        {
+            result = new DateTime();
+
+            var param = Request.QueryString[requestParam];
+
+            if (string.IsNullOrEmpty(param)) return false;
+
+            try
+            {
+                result = new DateTime(Convert.ToInt32(param.Substring(0, 4)), Convert.ToInt32(param.Substring(4, 2)), Convert.ToInt32(param.Substring(6, 2)));
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }

@@ -66,7 +66,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -101,6 +101,7 @@
     <Compile Include="LoginMode.cs" />
     <Compile Include="LoginProviders\BitlyLoginProvider.cs" />
     <Compile Include="LoginProviders\BoxLoginProvider.cs" />
+    <Compile Include="LoginProviders\WordpressLoginProvider.cs" />
     <Compile Include="LoginProviders\YahooLoginProvider.cs" />
     <Compile Include="LoginProviders\IValidateKeysProvider.cs" />
     <Compile Include="LoginProviders\DocuSignLoginProvider.cs" />

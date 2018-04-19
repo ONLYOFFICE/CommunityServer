@@ -28,6 +28,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Linq;
+using ASC.Collections;
 using ASC.Notify.Recipients;
 
 namespace ASC.Core.Users
@@ -35,6 +37,8 @@ namespace ASC.Core.Users
     [Serializable]
     public sealed class UserInfo : IDirectRecipient, ICloneable
     {
+        private readonly HttpRequestDictionary<GroupInfo[]> groupCache = new HttpRequestDictionary<GroupInfo[]>("UserInfo-Groups");
+
         public UserInfo()
         {
             Status = EmployeeStatus.Active;
@@ -145,6 +149,22 @@ namespace ASC.Core.Users
             return MemberwiseClone();
         }
 
+        internal GroupInfo[] GetGroups(IncludeType includeType, Guid? categoryId)
+        {
+            var groups = groupCache.Get(ID.ToString(), () => CoreContext.UserManager.GetUserGroups(ID, IncludeType.Distinct, null));
+
+            if (categoryId.HasValue)
+            {
+                return groups.Where(r => r.CategoryID.Equals(categoryId.Value)).ToArray();
+            }
+
+            return groups;
+        }
+
+        internal void ResetGroupCache()
+        {
+            groupCache.Reset(ID.ToString());
+        }
 
         internal string ContactsToString()
         {

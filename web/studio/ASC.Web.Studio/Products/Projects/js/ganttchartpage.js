@@ -919,7 +919,7 @@ ASC.Projects.GantChartPage = (function () {
         });
 
         Teamlab.getPrjProjects({ reload: reload }, {
-            filter: { sortBy: '', sortOrder: '', status: '', fields: 'id,title,security,isPrivate,status,responsible' },
+            filter: { sortBy: '', sortOrder: '', status: '', fields: 'id,title,security,isPrivate,status,responsibleId' },
             success: function (param, projects) {
                 ASC.Projects.Master.Projects = projects;
                 initLoadEvents(param.reload);
@@ -1437,7 +1437,7 @@ ASC.Projects.GantChartPage = (function () {
             createdDate = project.created ? new Date(project.created) : new Date(), // нужна ли эта дата вообще?
             ganttIndex = project.ganttIndex;
 
-        var respUser = window.UserManager.getUser(project.responsibleId);
+        var respUser = window.UserManager.getUser(project.responsibleId) || window.UserManager.getRemovedProfile(project.responsibleId);
 
         if (!respUser) {
             if (undefined !== project.responsible && undefined !== project.responsible.displayName) {
@@ -1491,7 +1491,7 @@ ASC.Projects.GantChartPage = (function () {
     var getFullResponsiblesWrapper = function (respIds) {
         var i, length = respIds.length, fullUsers = [];
         for (i = 0; i < length; ++i) {
-            fullUsers.push(window.UserManager.getUser(respIds[i]));
+            fullUsers.push(window.UserManager.getUser(respIds[i]) || window.UserManager.getRemovedProfile(respIds[i]));
         }
         return fullUsers;
     };

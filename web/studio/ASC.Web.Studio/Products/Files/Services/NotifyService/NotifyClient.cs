@@ -100,11 +100,11 @@ namespace ASC.Web.Files.Services.NotifyService
 
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
-                if (fileEntry is File
+                if (fileEntry.FileEntryType == FileEntryType.File
                     && folderDao.GetFolder(((File)fileEntry).FolderID) == null) return;
 
                 String url;
-                if (fileEntry is File)
+                if (fileEntry.FileEntryType == FileEntryType.File)
                 {
                     url = FilesLinkUtility.GetFileWebPreviewUrl(fileEntry.Title, fileEntry.ID);
                 }
@@ -124,7 +124,7 @@ namespace ASC.Web.Files.Services.NotifyService
                     var recipient = recipientsProvider.GetRecipient(u.ID.ToString());
 
                     Instance.SendNoticeAsync(
-                        fileEntry is File ? NotifyConstants.Event_ShareDocument : NotifyConstants.Event_ShareFolder,
+                        fileEntry.FileEntryType == FileEntryType.File ? NotifyConstants.Event_ShareDocument : NotifyConstants.Event_ShareFolder,
                         fileEntry.UniqID,
                         recipient,
                         true,

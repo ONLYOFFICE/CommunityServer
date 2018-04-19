@@ -52,6 +52,7 @@ using ASC.Web.Core.Mobile;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.FirstTime;
 using ASC.Web.Studio.Utility;
@@ -621,6 +622,11 @@ namespace ASC.Api.Portal
                     var currentUser = CoreContext.UserManager.GetUsers(userid);
                     StudioNotifyService.Instance.SendCongratulations(currentUser);
                     FirstTimeTenantSettings.SendInstallInfo(currentUser);
+
+                    if (SetupInfo.SmsRegistration && !SetupInfo.IsSecretEmail(currentUser.Email))
+                    {
+                        StudioSmsNotificationSettings.Enable = true;
+                    }
                     break;
                 default:
                     throw new SecurityException("Access Denied.");

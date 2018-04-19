@@ -72,8 +72,7 @@ if (typeof window.serviceManager === 'undefined') {
                 var loadingMessage = arguments.length > paramsCount ? arguments[arguments.length - 1] : undefined;
                 var options;
                 if (loadingMessage) {
-                    window.LoadingBanner.strLoading = loadingMessage;
-                    window.LoadingBanner.displayMailLoading(true, true);
+                    window.LoadingBanner.displayMailLoading(loadingMessage);
                     options = arguments[arguments.length - 2] || {};
                     options.success = options.hasOwnProperty('success') && typeof options.success === 'function' ?
                         wrapHideCallback(options.success) : hideCallback;

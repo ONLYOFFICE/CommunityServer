@@ -168,7 +168,8 @@ var defineBodyMediaClass = function () {
     // init RenderPromoBar
     if (ASC.Resources.Master.SetupInfoNotifyAddress &&
         ASC.Resources.Master.IsAuthenticated == true &&
-        ASC.Resources.Master.ApiResponsesMyProfile.response) {
+        ASC.Resources.Master.ApiResponsesMyProfile.response && 
+        ASC.Resources.Master.ShowPromotions) {
 
         Teamlab.getBarPromotions({}, {
             success: function(params, content) {

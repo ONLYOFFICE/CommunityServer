@@ -30,7 +30,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.Configuration;
-using ASC.Common.DependencyInjection;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
@@ -40,6 +39,7 @@ using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Files.Core;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Utils;
@@ -70,15 +70,18 @@ namespace ASC.Web.Files.Classes
             {
                 if (isInit) return;
 
-                lock(Locker)
+                lock (Locker)
                 {
                     if (isInit) return;
 
-                    var container = AutofacConfigLoader.Load("files").Build();
+                    DIHelper.Register();
+
+                    var container = DIHelper.Resolve();
+
                     IDaoFactory factory;
                     if (!container.TryResolve(out factory))
                     {
-                        factory =  new DaoFactory();
+                        factory = new DaoFactory();
                         Logger.Fatal("Could not resolve IDaoFactory instance. Using default DaoFactory instead.");
                     }
 
@@ -91,6 +94,8 @@ namespace ASC.Web.Files.Classes
 
                     DaoFactory = factory;
                     FileStorageService = storageService;
+                    SocketManager = new SocketManager();
+
                     isInit = true;
                 }
             }
@@ -196,6 +201,11 @@ namespace ASC.Web.Files.Classes
                 }
                 return myFolderId;
             }
+            protected internal set
+            {
+                var cacheKey = string.Format("my/{0}/{1}", TenantProvider.CurrentTenantID, value);
+                UserRootFolderCache.Remove(cacheKey);
+            }
         }
 
         private static readonly IDictionary<int, object> CommonFolderCache =
@@ -264,6 +274,11 @@ namespace ASC.Web.Files.Classes
                 }
                 return trashFolderId;
             }
+            protected internal set
+            {
+                var cacheKey = string.Format("trash/{0}/{1}", TenantProvider.CurrentTenantID, value);
+                TrashFolderCache.Remove(cacheKey);
+            }
         }
 
         #endregion
@@ -278,6 +293,8 @@ namespace ASC.Web.Files.Classes
         public static IDaoFactory DaoFactory { get; private set; }
 
         public static IFileStorageService FileStorageService { get; private set; }
+
+        public static SocketManager SocketManager { get; private set; }
 
         public static IDataStore GetStore(bool currentTenant = true)
         {
@@ -369,14 +386,10 @@ namespace ASC.Web.Files.Classes
             foreach (var file in storeTemplate.ListFilesRelative("", path, "*", false))
             {
                 SaveFile(fileDao, folderId, path + file, storeTemplate);
-            }
+            }            
 
-            if (storeTemplate is S3Storage) return;
-
-            foreach (var folderUri in storeTemplate.List(path, false))
+            foreach (var folderName in storeTemplate.ListDirectoriesRelative(path, false))
             {
-                var folderName = Path.GetFileName(folderUri.ToString());
-
                 var subFolderId = folderDao.SaveFolder(new Folder
                     {
                         Title = folderName,

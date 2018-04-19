@@ -167,7 +167,7 @@ namespace ASC.Web.CRM
 
                         if (!String.IsNullOrEmpty(idParam))
                         {
-                            targetInvoiceItem = Global.DaoFactory.GetInvoiceItemDao().GetByID(Convert.ToInt32(idParam));
+                            targetInvoiceItem = DaoFactory.InvoiceItemDao.GetByID(Convert.ToInt32(idParam));
                             if (targetInvoiceItem == null)
                             {
                                 Response.Redirect(PathProvider.StartURL() + "settings.aspx?type=invoice_items");

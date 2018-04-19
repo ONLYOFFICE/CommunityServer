@@ -32,7 +32,6 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WebZones;
 using ASC.Web.Core.WhiteLabel;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -88,7 +87,7 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 if (CoreContext.Configuration.Personal)
                     return String.Format("height:72px; width: 220px; background: url('{0}') no-repeat;",
-                                         WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth.png"));
+                                         WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth_old.png"));
 
                 var general = !TenantLogoManager.IsRetina(Request);
 
@@ -133,28 +132,7 @@ namespace ASC.Web.Studio.UserControls.Common
         {
             get
             {
-                if (_authServiceList != null) return _authServiceList;
-
-                var sortOrder = new List<int> {1, 5, 14, 13, 3, 2, 8, 9, 4, 6, 7, 11, 10, 12};
-
-                _authServiceList = new List<AuthService>();
-
-                var services = new AuthorizationKeys().AuthServiceList;
-
-                foreach (var order in sortOrder)
-                {
-                    var service = services.First(x => x.Order.HasValue && x.Order.Value == order);
-
-                    if (service != null)
-                        _authServiceList.Add(service);
-                }
-
-                foreach (var service in services.Where(x => !x.Order.HasValue || !sortOrder.Contains(x.Order.Value)))
-                {
-                    _authServiceList.Add(service);
-                }
-
-                return _authServiceList;
+                return _authServiceList ?? (_authServiceList = new AuthorizationKeys().AuthServiceList);
             }
         }
 

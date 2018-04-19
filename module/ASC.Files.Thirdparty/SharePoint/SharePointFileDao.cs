@@ -291,6 +291,10 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         #region Only in TMFileDao
 
+        public void ReassignFiles(object[] fileIds, Guid newOwnerId)
+        {
+        }
+
         public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
         {
             return new List<File>();

@@ -38,6 +38,9 @@ using ASC.Web.Studio.Core.Users;
 using Newtonsoft.Json.Linq;
 using System.Web;
 using System.Text;
+using ASC.CRM.Core.Dao;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Web.CRM.Controls.Cases
 {
@@ -100,68 +103,73 @@ namespace ASC.Web.CRM.Controls.Cases
 
         #region Save Or Update Case
 
-        protected void SaveOrUpdateCase(Object sender, CommandEventArgs e)
+        protected void SaveOrUpdateCase(object sender, CommandEventArgs e)
         {
             try
             {
-                int caseID;
-
-                if (TargetCase != null)
+                using (var scope = DIHelper.Resolve())
                 {
-                    caseID = TargetCase.ID;
-                    TargetCase.Title = Request["caseTitle"];
-                    Global.DaoFactory.GetCasesDao().UpdateCases(TargetCase);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.CaseUpdated, MessageTarget.Create(TargetCase.ID), TargetCase.Title);
-                    SetPermission(TargetCase);
-                }
-                else
-                {
-                    caseID = Global.DaoFactory.GetCasesDao().CreateCases(Request["caseTitle"]);
-                    var newCase = Global.DaoFactory.GetCasesDao().GetByID(caseID);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.CaseCreated, MessageTarget.Create(newCase.ID), newCase.Title);
-                    SetPermission(newCase);
-                }
+                    var daoFactory = scope.Resolve<DaoFactory>();
+                    int caseID;
 
-
-                Global.DaoFactory.GetCasesDao().SetMembers(caseID,
-                                                           !String.IsNullOrEmpty(Request["memberID"])
-                                                               ? Request["memberID"].Split(',').Select(
-                                                                   id => Convert.ToInt32(id)).ToArray()
-                                                               : new List<int>().ToArray());
-
-
-                var assignedTags = Request["baseInfo_assignedTags"];
-                if (assignedTags != null)
-                {
-                    var oldTagList = Global.DaoFactory.GetTagDao().GetEntityTags(EntityType.Case, caseID);
-                    foreach (var tag in oldTagList)
+                    if (TargetCase != null)
                     {
-                        Global.DaoFactory.GetTagDao().DeleteTagFromEntity(EntityType.Case, caseID, tag);
+                        caseID = TargetCase.ID;
+                        TargetCase.Title = Request["caseTitle"];
+                        daoFactory.CasesDao.UpdateCases(TargetCase);
+                        MessageService.Send(HttpContext.Current.Request, MessageAction.CaseUpdated, MessageTarget.Create(TargetCase.ID), TargetCase.Title);
+                        SetPermission(TargetCase);
                     }
-                    if (assignedTags != string.Empty)
+                    else
                     {
-                        var tagListInfo = JObject.Parse(assignedTags)["tagListInfo"].ToArray();
-                        var newTagList = tagListInfo.Select(t => t.ToString()).ToArray();
-                        Global.DaoFactory.GetTagDao().SetTagToEntity(EntityType.Case, caseID, newTagList);
+                        caseID = daoFactory.CasesDao.CreateCases(Request["caseTitle"]);
+                        var newCase = daoFactory.CasesDao.GetByID(caseID);
+                        MessageService.Send(HttpContext.Current.Request, MessageAction.CaseCreated, MessageTarget.Create(newCase.ID), newCase.Title);
+                        SetPermission(newCase);
                     }
+
+
+                    daoFactory.CasesDao.SetMembers(caseID,
+                        !String.IsNullOrEmpty(Request["memberID"])
+                            ? Request["memberID"].Split(',').Select(
+                                id => Convert.ToInt32(id)).ToArray()
+                            : new List<int>().ToArray());
+
+
+                    var assignedTags = Request["baseInfo_assignedTags"];
+                    if (assignedTags != null)
+                    {
+                        var oldTagList = daoFactory.TagDao.GetEntityTags(EntityType.Case, caseID);
+                        foreach (var tag in oldTagList)
+                        {
+                            daoFactory.TagDao.DeleteTagFromEntity(EntityType.Case, caseID, tag);
+                        }
+                        if (assignedTags != string.Empty)
+                        {
+                            var tagListInfo = JObject.Parse(assignedTags)["tagListInfo"].ToArray();
+                            var newTagList = tagListInfo.Select(t => t.ToString()).ToArray();
+                            daoFactory.TagDao.SetTagToEntity(EntityType.Case, caseID, newTagList);
+                        }
+                    }
+
+                    foreach (var customField in Request.Form.AllKeys)
+                    {
+                        if (!customField.StartsWith("customField_")) continue;
+                        int fieldID = Convert.ToInt32(customField.Split('_')[1]);
+                        string fieldValue = Request.Form[customField];
+
+                        if (String.IsNullOrEmpty(fieldValue) && TargetCase == null)
+                            continue;
+
+                        daoFactory.CustomFieldDao.SetFieldValue(EntityType.Case, caseID, fieldID, fieldValue);
+                    }
+
+                    Response.Redirect(
+                        string.Compare(e.CommandArgument.ToString(), "0", StringComparison.OrdinalIgnoreCase) == 0
+                            ? string.Format("cases.aspx?id={0}", caseID)
+                            : "cases.aspx?action=manage", false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
-
-                foreach (var customField in Request.Form.AllKeys)
-                {
-                    if (!customField.StartsWith("customField_")) continue;
-                    int fieldID = Convert.ToInt32(customField.Split('_')[1]);
-                    string fieldValue = Request.Form[customField];
-
-                    if (String.IsNullOrEmpty(fieldValue) && TargetCase == null)
-                        continue;
-
-                    Global.DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, caseID, fieldID, fieldValue);
-                }
-
-                Response.Redirect(string.Compare(e.CommandArgument.ToString(), "0", StringComparison.OrdinalIgnoreCase) == 0
-                                      ? string.Format("cases.aspx?id={0}", caseID)
-                                      : "cases.aspx?action=manage", false);
-                Context.ApplicationInstance.CompleteRequest();
             }
             catch (Exception ex)
             {
@@ -233,7 +241,7 @@ namespace ASC.Web.CRM.Controls.Cases
 
                     if (notifyPrivateUsers)
                     {
-                        Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, caseItem.ID, selectedUserList.ToArray());
+                        Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, caseItem.ID, DaoFactory,selectedUserList.ToArray());
                     }
 
                     selectedUserList.Add(SecurityContext.CurrentAccount.ID);

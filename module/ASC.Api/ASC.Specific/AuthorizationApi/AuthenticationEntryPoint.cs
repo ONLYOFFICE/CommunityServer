@@ -218,10 +218,9 @@ namespace ASC.Specific.AuthorizationApi
         /// </summary>
         /// <param name="email">Email address</param>
         /// <param name="lang">Culture</param>
-        /// <param name="campaign"></param>
         /// <visible>false</visible>
         [Create(@"register", false)] //NOTE: this method doesn't requires auth!!!
-        public string RegisterUserOnPersonal(string email, string lang, bool campaign = false)
+        public string RegisterUserOnPersonal(string email, string lang)
         {
             if (!CoreContext.Configuration.Personal) throw new MethodAccessException("Method is only available on personal.onlyoffice.com");
 
@@ -257,7 +256,7 @@ namespace ASC.Specific.AuthorizationApi
                     }
                 }
 
-                StudioNotifyService.Instance.SendInvitePersonal(email, campaign ? "&campaign=personal" : "");
+                StudioNotifyService.Instance.SendInvitePersonal(email);
             }
             catch (Exception ex)
             {

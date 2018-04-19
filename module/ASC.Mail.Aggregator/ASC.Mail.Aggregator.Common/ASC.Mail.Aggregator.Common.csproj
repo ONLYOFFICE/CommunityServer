@@ -84,15 +84,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ical.Net">
-      <HintPath>..\..\..\packages\Ical.Net.2.3.0.1\lib\net46\Ical.Net.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.2.3.5.1\lib\net46\Ical.Net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ical.Net.Collections">
-      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.0.1\lib\net46\Ical.Net.Collections.dll</HintPath>
+      <HintPath>..\..\..\packages\Ical.Net.Collections.2.3.5.1\lib\net46\Ical.Net.Collections.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net">
@@ -108,7 +108,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NLog">
@@ -117,11 +117,11 @@
     </Reference>
     <Reference Include="NodaTime">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NodaTime.2.0.1\lib\net45\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\RestSharpSigned.105.1.0\lib\net45\RestSharp.dll</HintPath>
+      <HintPath>..\..\..\packages\RestSharp.106.1.0\lib\net452\RestSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

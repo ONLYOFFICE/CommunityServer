@@ -90,5 +90,12 @@ namespace ASC.Data.Storage.Configuration
             get { return (bool) this[Schema.VISIBLE]; }
             set { this[Schema.VISIBLE] = value; }
         }
+
+        [ConfigurationProperty(Schema.PUBLIC)]
+        public bool Public
+        {
+            get { return (bool)this[Schema.PUBLIC]; }
+            set { this[Schema.PUBLIC] = value; }
+        }
     }
 }

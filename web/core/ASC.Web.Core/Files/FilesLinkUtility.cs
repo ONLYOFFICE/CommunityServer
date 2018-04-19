@@ -63,56 +63,156 @@ namespace ASC.Web.Core.Files
             get { return FilesBaseAbsolutePath + "httphandlers/filehandler.ashx"; }
         }
 
+        public static string DocServiceUrl
+        {
+            get
+            {
+                var url = GetUrlSetting("public");
+                if (!string.IsNullOrEmpty(url) && url != "/")
+                {
+                    url = url.TrimEnd('/') + "/";
+                }
+                return url;
+            }
+            set
+            {
+                SetUrlSetting("api", null);
+
+                value = (value ?? "").Trim().ToLowerInvariant();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.TrimEnd('/') + "/";
+                    if (!new Regex(@"(^https?:\/\/)|^\/", RegexOptions.CultureInvariant).IsMatch(value))
+                    {
+                        value = "http://" + value;
+                    }
+                }
+
+                SetUrlSetting("public", value);
+            }
+        }
+
+        public static string DocServiceUrlInternal
+        {
+            get
+            {
+                var url = GetUrlSetting("internal");
+                if (string.IsNullOrEmpty(url))
+                {
+                    url = DocServiceUrl;
+                }
+                else
+                {
+                    url = url.TrimEnd('/') + "/";
+                }
+                return url;
+            }
+            set
+            {
+                SetUrlSetting("converter", null);
+                SetUrlSetting("storage", null);
+                SetUrlSetting("command", null);
+                SetUrlSetting("docbuilder", null);
+
+                value = (value ?? "").Trim().ToLowerInvariant();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.TrimEnd('/') + "/";
+                    if (!new Regex(@"(^https?:\/\/)", RegexOptions.CultureInvariant).IsMatch(value))
+                    {
+                        value = "http://" + value;
+                    }
+                }
+
+                SetUrlSetting("internal", value);
+            }
+        }
+
         public static string DocServiceApiUrl
         {
-            get { return GetUrlSetting("api"); }
-            set { SetUrlSetting("api", value); }
+            get
+            {
+                var url = GetUrlSetting("api");
+                if (string.IsNullOrEmpty(url))
+                {
+                    url = DocServiceUrl;
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        url += "web-apps/apps/api/documents/api.js";
+                    }
+                }
+                return url;
+            }
         }
 
         public static string DocServiceConverterUrl
         {
-            get { return GetUrlSetting("converter"); }
-            set { SetUrlSetting("converter", value); }
-        }
-
-        public static string DocServiceStorageUrl
-        {
-            get { return GetUrlSetting("storage"); }
-            set { SetUrlSetting("storage", value); }
+            get
+            {
+                var url = GetUrlSetting("converter");
+                if (string.IsNullOrEmpty(url))
+                {
+                    url = DocServiceUrlInternal;
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        url += "ConvertService.ashx";
+                    }
+                }
+                return url;
+            }
         }
 
         public static string DocServiceCommandUrl
         {
-            get { return GetUrlSetting("command"); }
-            set { SetUrlSetting("command", value); }
+            get
+            {
+                var url = GetUrlSetting("command");
+                if (string.IsNullOrEmpty(url))
+                {
+                    url = DocServiceUrlInternal;
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        url += "coauthoring/CommandService.ashx";
+                    }
+                }
+                return url;
+            }
         }
 
         public static string DocServiceDocbuilderUrl
         {
-            get { return GetUrlSetting("docbuilder"); }
-            set { SetUrlSetting("docbuilder", value); }
+            get
+            {
+                var url = GetUrlSetting("docbuilder");
+                if (string.IsNullOrEmpty(url))
+                {
+                    url = DocServiceUrlInternal;
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        url += "docbuilder";
+                    }
+                }
+                return url;
+            }
         }
 
         public static string DocServicePortalUrl
         {
             get { return GetUrlSetting("portal"); }
-            set { SetUrlSetting("portal", value); }
-        }
+            set
+            {
+                value = (value ?? "").Trim().ToLowerInvariant();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.TrimEnd('/') + "/";
+                    if (!new Regex(@"(^https?:\/\/)", RegexOptions.CultureInvariant).IsMatch(value))
+                    {
+                        value = "http://" + value;
+                    }
+                }
 
-        public static string FileViewUrlString
-        {
-            get { return FileHandlerPath + "?" + Action + "=view&" + FileId + "={0}"; }
-        }
-
-        public static string GetFileViewUrl(object fileId)
-        {
-            return GetFileViewUrl(fileId, 0);
-        }
-
-        public static string GetFileViewUrl(object fileId, int fileVersion)
-        {
-            return string.Format(FileViewUrlString, HttpUtility.UrlEncode(fileId.ToString()))
-                   + (fileVersion > 0 ? string.Empty : "&" + Version + "=" + fileVersion);
+                SetUrlSetting("portal", value);
+            }
         }
 
         public static string FileDownloadUrlString
@@ -155,7 +255,7 @@ namespace ASC.Web.Core.Files
             get { return FilesBaseAbsolutePath + EditorPage + "?" + FileUri + "={0}&" + FileTitle + "={1}&" + FolderUrl + "={2}"; }
         }
 
-        public static string GetFileWebViewerExternalUrl(string fileUri, string fileTitle, string refererUrl)
+        public static string GetFileWebViewerExternalUrl(string fileUri, string fileTitle, string refererUrl = "")
         {
             return string.Format(FileWebViewerExternalUrlString, HttpUtility.UrlEncode(fileUri), HttpUtility.UrlEncode(fileTitle), HttpUtility.UrlEncode(refererUrl));
         }
@@ -205,7 +305,7 @@ namespace ASC.Web.Core.Files
                 return GetFileWebEditorUrl(fileId);
             }
 
-            return GetFileViewUrl(fileId);
+            return GetFileDownloadUrl(fileId);
         }
 
         public static string GetFileRedirectPreviewUrl(object enrtyId, bool isFile)

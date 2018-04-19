@@ -1,11 +1,19 @@
-// HtmlAgilityPack V1.0 - Simon Mourier <simon underscore mourier at hotmail dot com>
+// Description: Html Agility Pack - HTML Parsers, selectors, traversors, manupulators.
+// Website & Documentation: http://html-agility-pack.net
+// Forum & Issues: https://github.com/zzzprojects/html-agility-pack
+// License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
+// More projects: http://www.zzzprojects.com/
+// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+
+#if !METRO
+
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
-
+#pragma warning disable 0649
 namespace HtmlAgilityPack
 {
     /// <summary>
@@ -17,10 +25,10 @@ namespace HtmlAgilityPack
 
         private int _attindex;
         private HtmlNode _currentnode;
-        private HtmlDocument _doc = new HtmlDocument();
-        private HtmlNameTable _nametable = new HtmlNameTable();
+        private readonly HtmlDocument _doc = new HtmlDocument();
+        private readonly HtmlNameTable _nametable = new HtmlNameTable();
 
-        internal bool Trace = false;
+        internal bool Trace;
 
         #endregion
 
@@ -129,6 +137,7 @@ namespace HtmlAgilityPack
             Reset();
         }
 
+#if !NETSTANDARD
         /// <summary>
         /// Initializes a new instance of the HtmlNavigator and loads an HTML document from a file.
         /// </summary>
@@ -185,10 +194,10 @@ namespace HtmlAgilityPack
             _doc.Load(path, encoding, detectEncodingFromByteOrderMarks, buffersize);
             Reset();
         }
+#endif
+#endregion
 
-        #endregion
-
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Gets the base URI for the current node.
@@ -414,9 +423,9 @@ namespace HtmlAgilityPack
             }
         }
 
-        #endregion
+#endregion
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Creates a new HtmlNavigator positioned at the same node as this HtmlNavigator.
@@ -709,9 +718,9 @@ namespace HtmlAgilityPack
             InternalTrace(null);
         }
 
-        #endregion
+#endregion
 
-        #region Internal Methods
+#region Internal Methods
 
         [Conditional("TRACE")]
         internal void InternalTrace(object traceValue)
@@ -720,8 +729,13 @@ namespace HtmlAgilityPack
             {
                 return;
             }
-            StackFrame sf = new StackFrame(1, true);
+
+#if !NETSTANDARD
+            StackFrame sf = new StackFrame(1);
             string name = sf.GetMethod().Name;
+#else
+            string name = "";
+#endif
             string nodename = _currentnode == null ? "(null)" : _currentnode.Name;
             string nodevalue;
             if (_currentnode == null)
@@ -749,12 +763,13 @@ namespace HtmlAgilityPack
                         break;
                 }
             }
-            System.Diagnostics.Trace.WriteLine(string.Format("oid={0},n={1},a={2},v={3},{4}", GetHashCode(), nodename, _attindex, nodevalue, traceValue), "N!" + name);
+           
+            HtmlAgilityPack.Trace.WriteLine(string.Format("oid={0},n={1},a={2},v={3},{4}", GetHashCode(), nodename, _attindex, nodevalue, traceValue), "N!" + name);
         }
 
-        #endregion
+#endregion
 
-        #region Private Methods
+#region Private Methods
 
         private void Reset()
         {
@@ -763,6 +778,7 @@ namespace HtmlAgilityPack
             _attindex = -1;
         }
 
-        #endregion
+#endregion
     }
 }
+#endif

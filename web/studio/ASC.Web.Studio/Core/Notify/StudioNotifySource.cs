@@ -57,6 +57,9 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionActivateEmail,
                     Constants.ActionProfileDelete,
                     Constants.ActionReassignsCompleted,
+                    Constants.ActionReassignsFailed,
+                    Constants.ActionRemoveUserDataCompleted,
+                    Constants.ActionRemoveUserDataFailed,
                     Constants.ActionPhoneChange,
                     Constants.ActionMigrationPortalStart,
                     Constants.ActionMigrationPortalSuccess,
@@ -74,6 +77,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionHostedAdminActivation,
                     Constants.ActionHostedWhitelabelAdminActivation,
                     Constants.ActionFreeCloudAdminActivation,
+                    Constants.ActionOpensourceAdminActivation,
 
                     Constants.ActionSaasAdminWellcome,
                     Constants.ActionEnterpriseAdminWellcome,
@@ -149,7 +153,10 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionSaasAdminPaymentWarningAfter3,
                     Constants.ActionSaasAdminPaymentWarningDelayDue,
 
-                    Constants.ActionSaasAdminPaymentAfterMonthlySubscriptions
+                    Constants.ActionSaasAdminPaymentAfterMonthlySubscriptions,
+
+                    Constants.ActionOpensourceAdminSecurityTips,
+                    Constants.ActionOpensourceAdminDocsTips
                 );
         }
 
@@ -174,6 +181,10 @@ namespace ASC.Web.Studio.Core.Notify
                 this.provider = provider;
             }
 
+            public object GetSubscriptionRecord(INotifyAction action, IRecipient recipient, string objectID)
+            {
+                return provider.GetSubscriptionRecord(GetAdminAction(action), recipient, objectID);
+            }
 
             public string[] GetSubscriptions(INotifyAction action, IRecipient recipient, bool checkSubscription = true)
             {

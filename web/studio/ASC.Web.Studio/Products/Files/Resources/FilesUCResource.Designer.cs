@@ -871,6 +871,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation dialog for deletion to recycle bin.
+        /// </summary>
+        public static string ConfirmDelete {
+            get {
+                return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There will be two different files in the folder..
         /// </summary>
         public static string ConfirmDuplicateDescr {

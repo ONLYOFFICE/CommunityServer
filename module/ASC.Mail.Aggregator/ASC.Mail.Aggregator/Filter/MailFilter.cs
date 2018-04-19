@@ -93,8 +93,7 @@ namespace ASC.Mail.Aggregator.Filter
 
         public bool IsDefault()
         {
-            return !Unread.HasValue && 
-                   !Attachments.HasValue &&
+            return !Attachments.HasValue &&
                    !PeriodFrom.HasValue &&
                    !PeriodTo.HasValue &&
                    !Important.HasValue &&

@@ -285,9 +285,6 @@
   <data name="LblEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="LblImportAccounts" xml:space="preserve">
-    <value>Import accounts</value>
-  </data>
   <data name="LblMobilePhone" xml:space="preserve">
     <value>Primary Mobile Phone</value>
   </data>
@@ -350,9 +347,6 @@
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
     <value>Просматривать профили и отделы</value>
-  </data>
-  <data name="ReassignsProgressText" xml:space="preserve">
-    <value>The process of data transfer is started, it can take a considerable time.{0}You can close this page. When the process is completed, the administrator who runs it will be notified by mail.</value>
   </data>
   <data name="ReadAboutNonProfit" xml:space="preserve">
     <value>Or {0}read about non-profit usage{1}.</value>
@@ -447,7 +441,103 @@
   <data name="ReassignButton" xml:space="preserve">
     <value>Reassign</value>
   </data>
-  <data name="TerminateButton" xml:space="preserve">
-    <value>Terminate</value>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>Abort transfer</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>Data transfer aborted</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>Data transfer interrupted due to server error</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="ReassignRestartButton" xml:space="preserve">
+    <value>Start transfer again</value>
+  </data>
+  <data name="ReassignsProgressNotifyInfo" xml:space="preserve">
+    <value>You can close this page. When the process is completed, the administrator who runs it will be notified by mail.</value>
+  </data>
+  <data name="ReassignsProgressUserInfo" xml:space="preserve">
+    <value>The process of reassign data from user {0} to user {1} is started, it can take a considerable time.</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>Interrupted, some data could be transferred</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>Server error</value>
+  </data>
+  <data name="ReassignStatusFinished" xml:space="preserve">
+    <value>All data transfered</value>
+  </data>
+  <data name="ReassignStatusNotStarted" xml:space="preserve">
+    <value>Data was not transmitted</value>
+  </data>
+  <data name="ReassignStatusQueued" xml:space="preserve">
+    <value>Queued</value>
+  </data>
+  <data name="ReassignStatusStarted" xml:space="preserve">
+    <value>Started</value>
+  </data>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>Delete personal data</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="RemovingAbortButton" xml:space="preserve">
+    <value>Abort removing</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>Data deletion aborted</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>Deleting personal data</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>Data deletion interrupted due to server error</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>Will be removed:</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>All personal documents;</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>CRM report files;</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>All emails and attached files;</value>
+  </data>
+  <data name="RemovingListItem4" xml:space="preserve">
+    <value>Attached from Talk  files;</value>
+  </data>
+  <data name="RemovingProgressUserInfo" xml:space="preserve">
+    <value>The process of deleting personal data from user {0} is started, it can take a considerable time.</value>
+  </data>
+  <data name="RemovingReadMore" xml:space="preserve">
+    <value>More about deleting personal data</value>
+  </data>
+  <data name="RemovingRestartButton" xml:space="preserve">
+    <value>Start removing again</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>Interrupted, some data could be deleted</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>All data deleted</value>
+  </data>
+  <data name="RemovingStatusNotStarted" xml:space="preserve">
+    <value>Data was not deleted</value>
   </data>
 </root>

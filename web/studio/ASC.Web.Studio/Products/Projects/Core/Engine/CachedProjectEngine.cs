@@ -26,7 +26,6 @@
 
 using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using System;
 
@@ -44,10 +43,10 @@ namespace ASC.Projects.Engine
             notify.Subscribe<ProjectCacheItem>((i, a) => cache.Remove(GetCountKey(i.Tenant)));
         }
 
-
-        public CachedProjectEngine(IDaoFactory daoFactory, EngineFactory factory)
-            : base(daoFactory, factory)
+        public CachedProjectEngine(bool disableNotificationParameter, EngineFactory factory)
+            : base(disableNotificationParameter, factory)
         {
+            
         }
 
         public override int CountOpen()

@@ -38,6 +38,7 @@ window.ASC.Files.FileChoice = (function () {
             }
 
             var finishSubmit = function (data) {
+                data.Referer = "onlyoffice";
                 var message = JSON.stringify(data);
                 window.parent.postMessage(message, "*");
             };

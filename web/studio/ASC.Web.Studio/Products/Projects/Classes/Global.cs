@@ -24,36 +24,18 @@
 */
 
 
-using System;
 using System.Collections.Generic;
-using ASC.Projects.Engine;
 using ASC.Web.Core.Files;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Projects.Classes
 {
     public class Global
     {
-
-        #region Constants
-
-        public static readonly string DbID = "projects";
+        public static readonly string DbID = "default";
 
         public static readonly int EntryCountOnPage = 25;
         public static readonly int VisiblePageCount = 3;
 
-        public static readonly KeyValuePair<FileUtility.CsvDelimiter, string> ReportCsvDelimiter =
-            new KeyValuePair<FileUtility.CsvDelimiter, string>(FileUtility.CsvDelimiter.Comma, ",");
-
-        #endregion
-
-        #region Property
-
-        public static EngineFactory EngineFactory
-        {
-            get { return new EngineFactory(DbID, TenantProvider.CurrentTenantID); }
-        }
-
-        #endregion
+        public static readonly KeyValuePair<FileUtility.CsvDelimiter, string> ReportCsvDelimiter = new KeyValuePair<FileUtility.CsvDelimiter, string>(FileUtility.CsvDelimiter.Comma, ",");
     }
 }

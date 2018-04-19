@@ -63,7 +63,7 @@ namespace ASC.Api.Projects
             var comment = EngineFactory.CommentEngine.GetByID(commentid).NotFoundIfNull();
             var entity = EngineFactory.CommentEngine.GetEntityByTargetUniqId(comment).NotFoundIfNull();
 
-            return new CommentWrapper(comment, entity);
+            return new CommentWrapper(this, comment, entity);
         }
 
         /////<summary>
@@ -165,7 +165,7 @@ namespace ASC.Api.Projects
         {
             var commentEngine = EngineFactory.CommentEngine;
 
-            var comment = commentEngine.GetByID(new Guid(commentid));
+            var comment = commentEngine.GetByID(new Guid(commentid)).NotFoundIfNull();
             comment.Inactive = true;
 
             var entity = commentEngine.GetEntityByTargetUniqId(comment);
@@ -203,11 +203,10 @@ namespace ASC.Api.Projects
                 comment.Parent = new Guid(parentcommentid);
 
             var commentEngine = EngineFactory.CommentEngine;
-            var entity = commentEngine.GetEntityByTargetUniqId(comment);
-            if (entity == null) throw new Exception("Access denied.");
-            ProjectSecurity.DemandCreateComment(entity);
+            var entity = commentEngine.GetEntityByTargetUniqId(comment).NotFoundIfNull();
 
             comment = commentEngine.SaveOrUpdateComment(entity, comment);
+
             MessageService.Send(Request, MessageAction.TaskCommentCreated, MessageTarget.Create(comment.ID), entity.Project.Title, entity.Title);
 
             return GetCommentInfo(null, comment, entity);
@@ -230,9 +229,8 @@ namespace ASC.Api.Projects
             var entity = commentEngine.GetEntityByTargetUniqId(comment);
             if (entity == null) throw new Exception("Access denied.");
 
-            ProjectSecurity.DemandEditComment(entity.Project, comment);
-
             commentEngine.SaveOrUpdateComment(entity, comment);
+
             MessageService.Send(Request, MessageAction.TaskCommentUpdated, MessageTarget.Create(comment.ID), entity.Project.Title, entity.Title);
 
             return HtmlUtility.GetFull(content);
@@ -266,13 +264,6 @@ namespace ASC.Api.Projects
                 }
 
             return oCommentInfo;
-        }
-
-        private Comment SaveComment(Comment comment, out string type)
-        {
-            var entity = EngineFactory.CommentEngine.GetEntityByTargetUniqId(comment).NotFoundIfNull();
-            type = comment.TargetType;
-            return EngineFactory.CommentEngine.SaveOrUpdateComment(entity, comment);
         }
 
         #endregion

@@ -47,15 +47,16 @@ namespace ASC.CRM.Core.Dao
 
         private Dictionary<EntityType, IEnumerable<int>> _findedIDs;
         private bool _fullTextSearchEnable;
+        private DaoFactory DaoFactory { get; set; }
 
         #endregion
 
         #region Constructor
 
-        public SearchDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public SearchDao(int tenantID, DaoFactory daoFactory)
+            : base(tenantID)
         {
-
+            DaoFactory = daoFactory;
         }
 
         #endregion
@@ -118,11 +119,7 @@ namespace ASC.CRM.Core.Dao
 
             if (searchQuery == null) return new SearchResultItem[0];
 
-
-            using (var db = GetDb())
-            {
-                return ToSearchResultItem(db.ExecuteList(searchQuery));
-            }
+            return ToSearchResultItem(Db.ExecuteList(searchQuery));
         }
 
         #endregion
@@ -139,20 +136,17 @@ namespace ASC.CRM.Core.Dao
                          .Distinct()
                         .Where(BuildLike(new[] { "content" }, keywords));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(historyQuery).ConvertAll(row =>
-                    {
-                        var entityID = Convert.ToInt32(row[1]);
+            return Db.ExecuteList(historyQuery).ConvertAll(row =>
+                {
+                    var entityID = Convert.ToInt32(row[1]);
 
-                        if (entityID > 0)
-                            return new[] { row[1], row[2] };
+                    if (entityID > 0)
+                        return new[] { row[1], row[2] };
 
-                        return new[] { row[0], (int)EntityType.Contact };
+                    return new[] { row[0], (int)EntityType.Contact };
 
-                    }).GroupBy(row => row[1])
-                       .ToDictionary(x => (EntityType)x.Key, x => x.SelectMany(item => item).Select(Convert.ToInt32));
-            }
+                }).GroupBy(row => row[1])
+                    .ToDictionary(x => (EntityType)x.Key, x => x.SelectMany(item => item).Select(Convert.ToInt32));
         }
 
         private Dictionary<EntityType, IEnumerable<int>> SearchByCustomFields(String[] keywords)
@@ -164,25 +158,19 @@ namespace ASC.CRM.Core.Dao
               .Distinct()
               .Where(BuildLike(new[] { "value" }, keywords));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(customFieldQuery)
-                      .GroupBy(row => row[1])
-                      .ToDictionary(x => (EntityType)x.Key, x => x.SelectMany(item => item).Select(Convert.ToInt32));
-            }
+            return Db.ExecuteList(customFieldQuery)
+                    .GroupBy(row => row[1])
+                    .ToDictionary(x => (EntityType)x.Key, x => x.SelectMany(item => item).Select(Convert.ToInt32));
         }
 
         private Dictionary<EntityType, IEnumerable<int>> SearchByContactInfos(String[] keywords)
         {
-            using (var db = GetDb())
-            {
-                var sqlResult = db.ExecuteList(Query("crm_contact_info").Distinct()
-                                                .Select("contact_id")
-                                                .Where(BuildLike(new[] { "data" }, keywords))).Select(item => Convert.ToInt32(item[0]));
+            var sqlResult = Db.ExecuteList(Query("crm_contact_info").Distinct()
+                                            .Select("contact_id")
+                                            .Where(BuildLike(new[] { "data" }, keywords))).Select(item => Convert.ToInt32(item[0]));
 
 
-                return new Dictionary<EntityType, IEnumerable<int>> { { EntityType.Contact, sqlResult } };
-            }
+            return new Dictionary<EntityType, IEnumerable<int>> { { EntityType.Contact, sqlResult } };
         }
 
         public static ModuleInfo[] GetFullTextSearchModule(EntityType entityType, string text, params string[] columns)
@@ -357,7 +345,7 @@ namespace ASC.CRM.Core.Dao
                     case EntityType.Contact:
                         {
 
-                            var contact = Global.DaoFactory.GetContactDao().GetByID(Convert.ToInt32(id));
+                            var contact = DaoFactory.ContactDao.GetByID(Convert.ToInt32(id));
 
                             if (contact == null || !CRMSecurity.CanAccessTo(contact)) continue;
 
@@ -375,7 +363,7 @@ namespace ASC.CRM.Core.Dao
                     case EntityType.Opportunity:
                         {
 
-                            var deal = Global.DaoFactory.GetDealDao().GetByID(Convert.ToInt32(id));
+                            var deal = DaoFactory.DealDao.GetByID(Convert.ToInt32(id));
 
                             if (deal == null || !CRMSecurity.CanAccessTo(deal)) continue;
 
@@ -387,7 +375,7 @@ namespace ASC.CRM.Core.Dao
                         }
                     case EntityType.Case:
                         {
-                            var cases = Global.DaoFactory.GetCasesDao().GetByID(Convert.ToInt32(id));
+                            var cases = DaoFactory.CasesDao.GetByID(Convert.ToInt32(id));
 
                             if (cases == null || !CRMSecurity.CanAccessTo(cases)) continue;
 
@@ -400,7 +388,7 @@ namespace ASC.CRM.Core.Dao
                         }
                     case EntityType.Task:
                         {
-                            var task = Global.DaoFactory.GetTaskDao().GetByID(Convert.ToInt32(id));
+                            var task = DaoFactory.TaskDao.GetByID(Convert.ToInt32(id));
 
                             if (task == null || !CRMSecurity.CanAccessTo(task)) continue;
 
@@ -412,7 +400,7 @@ namespace ASC.CRM.Core.Dao
                         }
                     case EntityType.Invoice:
                         {
-                            var invoice = Global.DaoFactory.GetInvoiceDao().GetByID(Convert.ToInt32(id));
+                            var invoice = DaoFactory.InvoiceDao.GetByID(Convert.ToInt32(id));
 
                             if (invoice == null || !CRMSecurity.CanAccessTo(invoice)) continue;
 
@@ -454,20 +442,20 @@ namespace ASC.CRM.Core.Dao
             if (contactID == 0) return String.Empty;
 
             if (entityID == 0)
-                return Global.DaoFactory.GetContactDao().GetByID(contactID).GetTitle();
+                return DaoFactory.ContactDao.GetByID(contactID).GetTitle();
 
             switch (entityType)
             {
                 case EntityType.Company:
                 case EntityType.Person:
                 case EntityType.Contact:
-                    var contact = Global.DaoFactory.GetContactDao().GetByID(contactID);
+                    var contact = DaoFactory.ContactDao.GetByID(contactID);
                     return contact == null ? string.Empty : contact.GetTitle();
                 case EntityType.Opportunity:
-                    var opportunity = Global.DaoFactory.GetDealDao().GetByID(entityID);
+                    var opportunity = DaoFactory.DealDao.GetByID(entityID);
                     return opportunity == null ? string.Empty : opportunity.Title;
                 case EntityType.Case:
-                    var @case = Global.DaoFactory.GetCasesDao().GetByID(entityID);
+                    var @case = DaoFactory.CasesDao.GetByID(entityID);
                     return @case == null ? string.Empty : @case.Title;
                 default:
                     throw new ArgumentException();

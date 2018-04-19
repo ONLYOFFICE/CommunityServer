@@ -125,7 +125,18 @@ CustomNavigationManager = new function () {
         obj = jq("#urlText");
         value = obj.val().trim();
         item.url = value;
-        value ? obj.removeClass("with-error") : (obj.addClass("with-error") && (valid = false));
+
+        if (value) {
+            obj.removeClass("with-error");
+            var urlpattern = /^(ftp|http|https):\/\//;
+            if (!urlpattern.test(value)) {
+                var trimpattern = /^\/+/g;
+                item.url = "http://" + value.replace(trimpattern, "");
+            }
+        } else {
+            obj.addClass("with-error");
+            valid = false;
+        }
 
         item.showInMenu = jq("#showInMenuCbx").is(":checked");
 

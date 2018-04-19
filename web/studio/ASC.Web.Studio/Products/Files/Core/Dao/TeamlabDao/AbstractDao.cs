@@ -25,76 +25,36 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Security.Cryptography;
 using ASC.Common.Caching;
+using ASC.Web.Files.Core;
+using Autofac;
 
 namespace ASC.Files.Core.Data
 {
     public class AbstractDao : IDisposable
     {
-        private readonly string _dbId;
-
-
         protected int TenantID { get; private set; }
-
         protected readonly ICache cache = AscCache.Default;
+        protected IDbManager dbManager { get; private set; }
+        protected ILifetimeScope scope { get; private set; }
 
 
         protected AbstractDao(int tenantID, String storageKey)
         {
             TenantID = tenantID;
-            _dbId = storageKey;
-        }
-
-        protected DbManager GetDb()
-        {
-            return new DbManager(_dbId);
+            scope = DIHelper.Resolve();
+            dbManager = scope.Resolve<IDbManager>();
         }
 
         public void Dispose()
         {
-        }
-
-
-        protected List<object[]> ExecList(ISqlInstruction sql)
-        {
-            using (var manager = GetDb())
-            {
-                return manager.ExecuteList(sql);
-            }
-        }
-
-        protected List<object[]> ExecList(string sql)
-        {
-            using (var manager = GetDb())
-            {
-                return manager.ExecuteList(sql);
-            }
-        }
-
-        protected T ExecScalar<T>(ISqlInstruction sql)
-        {
-            using (var manager = GetDb())
-            {
-                return manager.ExecuteScalar<T>(sql);
-            }
-        }
-
-        protected int ExecNonQuery(ISqlInstruction sql)
-        {
-            using (var manager = GetDb())
-            {
-                return manager.ExecuteNonQuery(sql);
-            }
+            scope.Dispose();
         }
 
 
@@ -188,7 +148,7 @@ namespace ASC.Files.Core.Data
 
         protected SqlUpdate GetRecalculateFilesCountUpdate(object folderId)
         {
-            if (DbRegistry.GetSqlDialect(_dbId).SupportMultiTableUpdate)
+            if (DbRegistry.GetSqlDialect("default").SupportMultiTableUpdate)
             {
                 return new SqlUpdate("files_folder d, files_folder_tree t")
                     .Set(
@@ -220,34 +180,31 @@ namespace ASC.Files.Core.Data
 
             object result;
 
-            using (var DbManager = GetDb())
+            if (id.ToString().StartsWith("sbox")
+                || id.ToString().StartsWith("box")
+                || id.ToString().StartsWith("dropbox")
+                || id.ToString().StartsWith("spoint")
+                || id.ToString().StartsWith("drive")
+                || id.ToString().StartsWith("onedrive"))
             {
-                if (id.ToString().StartsWith("sbox")
-                    || id.ToString().StartsWith("box")
-                    || id.ToString().StartsWith("dropbox")
-                    || id.ToString().StartsWith("spoint")
-                    || id.ToString().StartsWith("drive")
-                    || id.ToString().StartsWith("onedrive"))
-                {
-                    result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
-                }
-                else
-                {
-                    result = DbManager.ExecuteScalar<String>(
-                        Query("files_thirdparty_id_mapping")
-                            .Select("id")
-                            .Where(Exp.Eq("hash_id", id))
-                        );
-                }
+                result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
+            }
+            else
+            {
+                result = dbManager.ExecuteScalar<String>(
+                    Query("files_thirdparty_id_mapping")
+                        .Select("id")
+                        .Where(Exp.Eq("hash_id", id))
+                    );
+            }
 
-                if (saveIfNotExist)
-                {
-                    DbManager.ExecuteNonQuery(
-                        Insert("files_thirdparty_id_mapping")
-                            .InColumnValue("id", id)
-                            .InColumnValue("hash_id", result)
-                        );
-                }
+            if (saveIfNotExist)
+            {
+                dbManager.ExecuteNonQuery(
+                    Insert("files_thirdparty_id_mapping")
+                        .InColumnValue("id", id)
+                        .InColumnValue("hash_id", result)
+                    );
             }
 
             return result;

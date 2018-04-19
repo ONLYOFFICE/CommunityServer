@@ -121,7 +121,7 @@ ASC.Projects.TimeTraking = (function($) {
         if (!$addLog.length)
             return;
 
-        window.onbeforeunload = function(evt) {
+        window.onbeforeunload = function() {
             if ($startButton.hasClass(stopClass)) {
                 playPauseTimer();
                 return '';
@@ -130,13 +130,14 @@ ASC.Projects.TimeTraking = (function($) {
             if (ifNotAdded()) {
                 return '';
             }
+
             return;
         };
 
         unlockElements();
         $inputHours.focus();
             
-        if ($("#teamList option").length == 0 || $("#selectUserTasks option").length == 0) {
+        if ($("#teamList option").length === 0 || $("#selectUserTasks option").length === 0) {
             lockStartAndAddButtons();
         }
 
@@ -147,7 +148,7 @@ ASC.Projects.TimeTraking = (function($) {
         $inputDate.mask(ASC.Resources.Master.DatePatternJQ);
         $inputDate.datepicker('setDate', teamlab.getDisplayDate(new Date()));
 
-        $('#timerTime #selectUserProjects').bind('change', function(event) {
+        $('#timerTime #selectUserProjects').bind('change', function() {
             var prjid = parseInt($("#selectUserProjects option:selected").val());
 
             teamlab.getPrjTeam({}, prjid, {
@@ -247,16 +248,16 @@ ASC.Projects.TimeTraking = (function($) {
             teamlab.addPrjTime({}, taskid, data, { success: onAddTaskTime });
         });
 
-        $inputMinutes.on("blur", function (e) {
+        $inputMinutes.on("blur", function () {
             var min = $inputMinutes.val();
-            if (min.length == 1) {
+            if (min.length === 1) {
                 $inputMinutes.val("0" + min);
             }
         });
     };
 
     function isInt(input) {
-        return parseInt(input, 10) == input;
+        return typeof input === "number";
     };
 
     function playTimer() {
@@ -271,10 +272,10 @@ ASC.Projects.TimeTraking = (function($) {
 
     function timerTick() {
         timerSec++;
-        if (timerSec == 60) {
+        if (timerSec === 60) {
             timerSec = 0;
             timerMin++;
-            if (timerMin == 60) {
+            if (timerMin === 60) {
                 timerMin = 0;
                 timerHours++;
             }
@@ -390,7 +391,7 @@ ASC.Projects.TimeTraking = (function($) {
         }
     };
 
-    function onAddTaskTime(data) {
+    function onAddTaskTime() {
         $errorPanel.removeClass(errorClass).addClass(successClass);
         $errorPanel.text(resources.SuccessfullyAdded);
         $textareaTimeDesc.val('');
@@ -407,12 +408,12 @@ ASC.Projects.TimeTraking = (function($) {
         team = ASC.Projects.Common.excludeVisitors(team);
         
         team.forEach(function (item) {
-            if (item.displayName != "profile removed") {
+            if (item.displayName !== "profile removed") {
                 teamList.append('<option value="' + item.id + '" id="optionUser_' + item.id + '">' + item.displayName + '</option>');
             }
         });
         
-        if (teamList.find('option').length == 0) {
+        if (teamList.find('option').length === 0) {
             lockStartAndAddButtons();
         } else {
             unlockStartAndAddButtons();
@@ -424,10 +425,10 @@ ASC.Projects.TimeTraking = (function($) {
 
         tasks.forEach(function (item) {
             var opt = '<option value="' + item.id + '" id="optionUser_' + item.id + '">' + $.htmlEncodeLight(item.title) + '</option>';
-            if (item.status == 1) {
+            if (item.status === 1) {
                 $openTasks.append(opt);
             }
-            if (item.status == 2) {
+            if (item.status === 2) {
                 $closedTasks.append(opt);
             }
         });
@@ -440,7 +441,7 @@ ASC.Projects.TimeTraking = (function($) {
     };
 
     function ifNotAdded() {
-        return seconds > 0 || $inputHours.val() != '' || $inputMinutes.val() != '';
+        return seconds > 0 || $inputHours.val() !== '' || $inputMinutes.val() !== '';
     };
 
     return {
@@ -455,6 +456,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
         loadListTeamFlag = false,
         commonPopupContainer = $("#commonPopupContainer"),
         $popupContainer,
+        $timerDate,
         inputMinutes,
         inputHours,
         errorPanel,
@@ -497,17 +499,17 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
         inputHours = $("#inputTimeHours");
         errorPanel = $("#timeTrakingErrorPanel");
         
-        inputMinutes.on("blur", function (e) {
+        inputMinutes.on("blur", function () {
             var min = inputMinutes.val();
-            if (min.length == 1) {
+            if (min.length === 1) {
                 inputMinutes.val("0" + min);
             }
         });
 
-        $('#timeTrakingPopup .middle-button-container a.button.blue.middle').bind('click', function (event) {
+        $('#timeTrakingPopup .middle-button-container a.button.blue.middle').bind('click', function () {
             
-            var h = inputHours.val();
-            var m = inputMinutes.val();
+            var h = parseInt(inputHours.val(), 10);
+            var m = parseInt(inputMinutes.val(), 10);
 
             if (checkError(h, m, $('#timeTrakingPopup #timeTrakingDate').val())) {
                 return;
@@ -550,7 +552,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
             error = true;
         }
         
-        if ($.trim(d) == "" || d == null || !$.isDateFormat(d)) {
+        if ($.trim(d) === "" || d == null || !$.isDateFormat(d)) {
             errorPanel.text(resources.IncorrectDate);
             $('#timeTrakingPopup #timeTrakingDate').focus();
             error = true;
@@ -565,7 +567,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
     };
     
     function isInt(input) {
-        return parseInt(input, 10) == input;
+        return input && typeof input === "number";
     };
     
     var showPopup = function (prjid, taskid, taskName, timeId, time, date, description, responsible) {
@@ -611,14 +613,14 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
     function appendListOptions(team) {
         var teamListSelect = $('select#teamList');
         team.forEach(function (item) {
-            if (timeCreator == item.id) {
+            if (timeCreator === item.id) {
                 teamListSelect.append($('<option value="' + item.id + '" selected="selected"></option>').html(item.displayName));
             } else {
                 teamListSelect.append($('<option value="' + item.id + '"></option>').html(item.displayName));
             }
         });
     };
-    function onUpdatePrjTimeError(params, data) {
+    function onUpdatePrjTimeError(params) {
         $("div.entity-menu[timeid=" + params.timeid + "]").hide();
     };
 

@@ -77,7 +77,7 @@ namespace ASC.Core
 
         public List<Tenant> GetTenants(DateTime from)
         {
-            return tenantService.GetTenants(from).Select(t => AddRegion(t)).ToList();
+            return tenantService.GetTenants(from).Select(AddRegion).ToList();
         }
 
         public List<Tenant> FindTenants(string login)
@@ -170,7 +170,7 @@ namespace ASC.Core
         {
             var passwordhash = Hasher.Base64Hash(password, HashAlg.SHA256);
             var u = userService.GetUser(tenantId, login, passwordhash);
-            return u != null ? CookieStorage.EncryptCookie(tenantId, u.ID, login, passwordhash) : null;
+            return u != null ? CreateAuthenticationCookie(tenantId, u.ID, login, passwordhash) : null;
         }
 
         public string CreateAuthenticationCookie(int tenantId, Guid userId)
@@ -178,7 +178,15 @@ namespace ASC.Core
             var u = userService.GetUser(tenantId, userId);
             var password = userService.GetUserPassword(tenantId, userId);
             var passwordhash = Hasher.Base64Hash(password, HashAlg.SHA256);
-            return u != null ? CookieStorage.EncryptCookie(tenantId, userId, u.Email, passwordhash) : null;
+            return u != null ? CreateAuthenticationCookie(tenantId, userId, u.Email, passwordhash) : null;
+        }
+
+        private string CreateAuthenticationCookie(int tenantId, Guid userId, string login, string passwordhash)
+        {
+            var tenantSettings =  tenantService.LoadSettings<TenantCookieSettings>(tenantId, Guid.Empty);
+            var expires = tenantSettings.IsDefault() ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMinutes(tenantSettings.LifeTime);
+            var userSettings = tenantService.LoadSettings<TenantCookieSettings>(tenantId, userId);
+            return CookieStorage.EncryptCookie(tenantId, userId, login, passwordhash, tenantSettings.Index, expires, userSettings.Index);
         }
 
         public Tariff GetTariff(int tenant, bool withRequestToPaymentSystem = true)

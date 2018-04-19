@@ -32,7 +32,6 @@ using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
-using ASC.SingleSignOn.Common;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
@@ -40,6 +39,9 @@ using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
 using Resources;
+using LogoutSsoUserData = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.LogoutSsoUserData;
+using SsoSettingsV2 = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2;
+using SsoUserData = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoUserData;
 
 namespace ASC.Web.Studio.HttpHandlers
 {

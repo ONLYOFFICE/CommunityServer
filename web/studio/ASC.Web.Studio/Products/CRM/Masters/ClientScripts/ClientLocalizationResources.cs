@@ -31,6 +31,7 @@ using ASC.Web.CRM.Resources;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.CRM.Classes;
 using ASC.Web.Studio.Core.Users;
+using Resources;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
 {
@@ -77,7 +78,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                             str = ASC.CRM.Core.DealMilestoneStatus.ClosedAndLost.ToLocalizedString()
                         }
                     },
-                    smptQuotas = string.Format(CRMSettingResource.InternalSMTP, MailSender.GetQuotas())
+                    smtpQuotas = string.Format(CRMSettingResource.InternalSMTP, MailSender.GetQuotas())
                 })
             };
         }
@@ -102,7 +103,8 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                            CurrentUser = CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(),
                            PrivatePanelAccessListLable = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode(),
                            PrivatePanelDescription = CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode(),
-                           SocialMediaAccountNotFoundTwitter = CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode()
+                           SocialMediaAccountNotFoundTwitter = CRMSocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode(),
+                           DisabledEmployeeTitle = Resource.DisabledEmployeeTitle.HtmlEncode()
                        })
                    };
         }

@@ -2706,9 +2706,9 @@ namespace Ical.Net.UnitTests
 
             var us = new CultureInfo("en-US");
 
-            var startDate = new CalDateTime(DateTime.Parse("30/3/08 11:59:40 PM", us));
-            var fromDate = new CalDateTime(DateTime.Parse("30/3/08 11:59:40 PM", us));
-            var toDate = new CalDateTime(DateTime.Parse("31/3/08 12:00:11 AM", us));
+            var startDate = new CalDateTime(DateTime.Parse("3/30/08 11:59:40 PM", us));
+            var fromDate = new CalDateTime(DateTime.Parse("3/30/08 11:59:40 PM", us));
+            var toDate = new CalDateTime(DateTime.Parse("3/31/08 12:00:11 AM", us));
 
             var evaluator = pattern.GetService(typeof(IEvaluator)) as IEvaluator;
             Assert.IsNotNull(evaluator);
@@ -2721,10 +2721,10 @@ namespace Ical.Net.UnitTests
                 .OrderBy(o => o.StartTime)
                 .ToList();
             Assert.AreEqual(4, occurrences.Count);
-            Assert.AreEqual(new CalDateTime(DateTime.Parse("30/3/08 11:59:40 PM", us)), occurrences[0].StartTime);
-            Assert.AreEqual(new CalDateTime(DateTime.Parse("30/3/08 11:59:50 PM", us)), occurrences[1].StartTime);
-            Assert.AreEqual(new CalDateTime(DateTime.Parse("31/3/08 12:00:00 AM", us)), occurrences[2].StartTime);
-            Assert.AreEqual(new CalDateTime(DateTime.Parse("31/3/08 12:00:10 AM", us)), occurrences[3].StartTime);
+            Assert.AreEqual(new CalDateTime(DateTime.Parse("03/30/08 11:59:40 PM", us)), occurrences[0].StartTime);
+            Assert.AreEqual(new CalDateTime(DateTime.Parse("03/30/08 11:59:50 PM", us)), occurrences[1].StartTime);
+            Assert.AreEqual(new CalDateTime(DateTime.Parse("03/31/08 12:00:00 AM", us)), occurrences[2].StartTime);
+            Assert.AreEqual(new CalDateTime(DateTime.Parse("03/31/08 12:00:10 AM", us)), occurrences[3].StartTime);
         }
 
         [Test, Category("Recurrence")]
@@ -2736,9 +2736,9 @@ namespace Ical.Net.UnitTests
 
             var us = new CultureInfo("en-US");
 
-            var startDate = new CalDateTime(DateTime.Parse("31/3/2008 12:00:10 AM", us));
-            var fromDate = new CalDateTime(DateTime.Parse("1/4/2008 10:08:10 AM", us));
-            var toDate = new CalDateTime(DateTime.Parse("1/4/2008 10:43:23 AM", us));
+            var startDate = new CalDateTime(DateTime.Parse("3/31/2008 12:00:10 AM", us));
+            var fromDate = new CalDateTime(DateTime.Parse("4/1/2008 10:08:10 AM", us));
+            var toDate = new CalDateTime(DateTime.Parse("4/1/2008 10:43:23 AM", us));
 
             var evaluator = pattern.GetService(typeof(IEvaluator)) as IEvaluator;
             Assert.IsNotNull(evaluator);

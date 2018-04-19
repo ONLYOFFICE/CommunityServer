@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 
 #endregion
@@ -67,5 +68,7 @@ namespace ASC.Projects.Core.DataInterfaces
         void Delete(int id);
 
         string GetLastModified();
+
+        List<Milestone> GetMilestones(Exp where);
     }
 }

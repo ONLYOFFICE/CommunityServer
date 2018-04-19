@@ -52,6 +52,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -102,7 +104,7 @@ namespace ASC.Web.CRM.Classes
 
         public static void SetCancelFlag()
         {
-            Cache.Insert(GetCancelCacheKey(), true, TimeSpan.FromMinutes(1));
+            Cache.Insert(GetCancelCacheKey(), "true", TimeSpan.FromMinutes(1));
         }
 
         public static void ResetAll(int tenantId = -1)
@@ -121,7 +123,6 @@ namespace ASC.Web.CRM.Classes
             _author = SecurityContext.CurrentAccount;
             _dataStore = Global.GetStore();
             _tenantID = TenantProvider.CurrentTenantID;
-            _daoFactory = Global.DaoFactory;
             _notifyClient = NotifyClient.Instance;
             _log = LogManager.GetLogger("ASC.CRM");
             Id = TenantProvider.CurrentTenantID;
@@ -144,8 +145,6 @@ namespace ASC.Web.CRM.Classes
         private readonly IAccount _author;
 
         private readonly int _tenantID;
-
-        private readonly DaoFactory _daoFactory;
 
         private readonly NotifyClient _notifyClient;
 
@@ -245,23 +244,25 @@ namespace ASC.Web.CRM.Classes
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-
                 SecurityContext.AuthenticateMe(_author);
 
-                var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
+                using (var scope = DIHelper.Resolve())
+                {
+                    var daoFactory = scope.Resolve<DaoFactory>();
+                    var userCulture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
 
-                System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
-                System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
+                    System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
 
-                _log.Debug("Start Export Data");
+                    _log.Debug("Start Export Data");
 
-                ExportDataCache.Insert((ExportDataOperation)Clone());
+                    ExportDataCache.Insert((ExportDataOperation) Clone());
 
-                if (_externalData == null)
-                    ExportAllData();
-                else
-                    ExportPartData();
-
+                    if (_externalData == null)
+                        ExportAllData(daoFactory);
+                    else
+                        ExportPartData(daoFactory);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -285,17 +286,17 @@ namespace ASC.Web.CRM.Classes
             ExportDataCache.Insert((ExportDataOperation)Clone());
         }
 
-        private void ExportAllData()
+        private void ExportAllData(DaoFactory _daoFactory)
         {
             using (var stream = TempStream.Create())
             {
-                var contactDao = _daoFactory.GetContactDao();
-                var contactInfoDao = _daoFactory.GetContactInfoDao();
-                var dealDao = _daoFactory.GetDealDao();
-                var casesDao = _daoFactory.GetCasesDao();
-                var taskDao = _daoFactory.GetTaskDao();
-                var historyDao = _daoFactory.GetRelationshipEventDao();
-                var invoiceItemDao = _daoFactory.GetInvoiceItemDao();
+                var contactDao = _daoFactory.ContactDao;
+                var contactInfoDao = _daoFactory.ContactInfoDao;
+                var dealDao = _daoFactory.DealDao;
+                var casesDao = _daoFactory.CasesDao;
+                var taskDao = _daoFactory.TaskDao;
+                var historyDao = _daoFactory.RelationshipEventDao;
+                var invoiceItemDao = _daoFactory.InvoiceItemDao;
 
                 _totalCount += contactDao.GetAllContactsCount();
                 _totalCount += dealDao.GetDealsCount();
@@ -323,32 +324,32 @@ namespace ASC.Web.CRM.Classes
                                                    }
                                                });
 
-                    var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportContactsToCSV(contactData, contactInfos)));
+                    var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportContactsToCSV(contactData, contactInfos, _daoFactory)));
                     zipEntryData.StreamCopyTo(zipStream);
 
                     zipStream.PutNextEntry("oppotunities.csv");
                     var dealData = dealDao.GetAllDeals();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCSV(dealData)));
+                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCSV(dealData, _daoFactory)));
                     zipEntryData.StreamCopyTo(zipStream);
 
                     zipStream.PutNextEntry("cases.csv");
                     var casesData = casesDao.GetAllCases();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCSV(casesData)));
+                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCSV(casesData, _daoFactory)));
                     zipEntryData.StreamCopyTo(zipStream);
 
                     zipStream.PutNextEntry("tasks.csv");
                     var taskData = taskDao.GetAllTasks();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCSV(taskData)));
+                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCSV(taskData, _daoFactory)));
                     zipEntryData.StreamCopyTo(zipStream);
 
                     zipStream.PutNextEntry("history.csv");
                     var historyData = historyDao.GetAllItems();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCSV(historyData)));
+                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCSV(historyData, _daoFactory)));
                     zipEntryData.StreamCopyTo(zipStream);
 
                     zipStream.PutNextEntry("products_services.csv");
                     var invoiceItemData = invoiceItemDao.GetAll();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCSV(invoiceItemData)));
+                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCSV(invoiceItemData, _daoFactory)));
                     zipEntryData.StreamCopyTo(zipStream);
 
                     zipStream.Flush();
@@ -357,14 +358,14 @@ namespace ASC.Web.CRM.Classes
                     stream.Position = 0;
                 }
 
-                var assignedURI = _dataStore.SavePrivate(String.Empty, "exportdata.zip", stream, DateTime.Now.AddDays(1));
+                var assignedURI = CommonLinkUtility.GetFullAbsolutePath(_dataStore.SavePrivate(String.Empty, "exportdata.zip", stream, DateTime.Now.AddDays(1)));
                 Status = assignedURI;
                 _notifyClient.SendAboutExportCompleted(_author.ID, assignedURI);
                 Complete();
             }
         }
 
-        private void ExportPartData()
+        private void ExportPartData(DaoFactory _daoFactory)
         {
             _totalCount = _externalData.Count;
 
@@ -373,7 +374,7 @@ namespace ASC.Web.CRM.Classes
 
             if (_externalData is List<Contact>)
             {
-                var contactInfoDao = _daoFactory.GetContactInfoDao();
+                var contactInfoDao = _daoFactory.ContactInfoDao;
 
                 var contacts = (List<Contact>)_externalData;
 
@@ -392,30 +393,30 @@ namespace ASC.Web.CRM.Classes
                                                    contactInfos.Add(contactInfoKey, item.Data);
                                            });
 
-                Status = ExportContactsToCSV(contacts, contactInfos);
+                Status = ExportContactsToCSV(contacts, contactInfos, _daoFactory);
             }
             else if (_externalData is List<Deal>)
-                Status = ExportDealsToCSV((List<Deal>)_externalData);
+                Status = ExportDealsToCSV((List<Deal>)_externalData, _daoFactory);
             else if (_externalData is List<ASC.CRM.Core.Entities.Cases>)
-                Status = ExportCasesToCSV((List<ASC.CRM.Core.Entities.Cases>)_externalData);
+                Status = ExportCasesToCSV((List<ASC.CRM.Core.Entities.Cases>)_externalData, _daoFactory);
             else if (_externalData is List<RelationshipEvent>)
-                Status = ExportHistoryToCSV((List<RelationshipEvent>)_externalData);
+                Status = ExportHistoryToCSV((List<RelationshipEvent>)_externalData, _daoFactory);
             else if (_externalData is List<Task>)
-                Status = ExportTasksToCSV((List<Task>)_externalData);
+                Status = ExportTasksToCSV((List<Task>)_externalData, _daoFactory);
             else if (_externalData is List<InvoiceItem>)
-                Status = ExportInvoiceItemsToCSV((List<InvoiceItem>)_externalData);
+                Status = ExportInvoiceItemsToCSV((List<InvoiceItem>)_externalData, _daoFactory);
             else
                 throw new ArgumentException();
 
             Complete();
         }
 
-        private String ExportContactsToCSV(IEnumerable<Contact> contacts, StringDictionary contactInfos)
+        private String ExportContactsToCSV(IEnumerable<Contact> contacts, StringDictionary contactInfos, DaoFactory _daoFactory)
         {
-            var listItemDao = _daoFactory.GetListItemDao();
-            var tagDao = _daoFactory.GetTagDao();
-            var customFieldDao = _daoFactory.GetCustomFieldDao();
-            var contactDao = _daoFactory.GetContactDao();
+            var listItemDao = _daoFactory.ListItemDao;
+            var tagDao = _daoFactory.TagDao;
+            var customFieldDao = _daoFactory.CustomFieldDao;
+            var contactDao = _daoFactory.ContactDao;
 
             var dataTable = new DataTable();
 
@@ -669,12 +670,12 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCSV(dataTable);
         }
 
-        private String ExportDealsToCSV(IEnumerable<Deal> deals)
+        private String ExportDealsToCSV(IEnumerable<Deal> deals, DaoFactory _daoFactory)
         {
-            var tagDao = _daoFactory.GetTagDao();
-            var customFieldDao = _daoFactory.GetCustomFieldDao();
-            var dealMilestoneDao = _daoFactory.GetDealMilestoneDao();
-            var contactDao = _daoFactory.GetContactDao();
+            var tagDao = _daoFactory.TagDao;
+            var customFieldDao = _daoFactory.CustomFieldDao;
+            var dealMilestoneDao = _daoFactory.DealMilestoneDao;
+            var contactDao = _daoFactory.ContactDao;
 
             var dataTable = new DataTable();
 
@@ -853,10 +854,10 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCSV(dataTable);
         }
 
-        private String ExportCasesToCSV(IEnumerable<ASC.CRM.Core.Entities.Cases> cases)
+        private String ExportCasesToCSV(IEnumerable<ASC.CRM.Core.Entities.Cases> cases, DaoFactory _daoFactory)
         {
-            var tagDao = _daoFactory.GetTagDao();
-            var customFieldDao = _daoFactory.GetCustomFieldDao();
+            var tagDao = _daoFactory.TagDao;
+            var customFieldDao = _daoFactory.CustomFieldDao;
 
             var dataTable = new DataTable();
 
@@ -930,12 +931,12 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCSV(dataTable);
         }
 
-        private String ExportHistoryToCSV(IEnumerable<RelationshipEvent> events)
+        private String ExportHistoryToCSV(IEnumerable<RelationshipEvent> events, DaoFactory _daoFactory)
         {
-            var listItemDao = _daoFactory.GetListItemDao();
-            var dealDao = _daoFactory.GetDealDao();
-            var casesDao = _daoFactory.GetCasesDao();
-            var contactDao = _daoFactory.GetContactDao();
+            var listItemDao = _daoFactory.ListItemDao;
+            var dealDao = _daoFactory.DealDao;
+            var casesDao = _daoFactory.CasesDao;
+            var contactDao = _daoFactory.ContactDao;
 
             var dataTable = new DataTable();
 
@@ -1041,19 +1042,19 @@ namespace ASC.Web.CRM.Classes
                         contactTitle,
                         entityTitle,
                         CoreContext.UserManager.GetUsers(item.CreateBy).DisplayUserName(false),
-                        item.CreateOn.ToString(DateTimeExtension.DateFormatPattern)
+                        item.CreateOn.ToShortString()
                     });
             }
 
             return DataTableToCSV(dataTable);
         }
 
-        private String ExportTasksToCSV(IEnumerable<Task> tasks)
+        private String ExportTasksToCSV(IEnumerable<Task> tasks, DaoFactory _daoFactory)
         {
-            var listItemDao = _daoFactory.GetListItemDao();
-            var dealDao = _daoFactory.GetDealDao();
-            var casesDao = _daoFactory.GetCasesDao();
-            var contactDao = _daoFactory.GetContactDao();
+            var listItemDao = _daoFactory.ListItemDao;
+            var dealDao = _daoFactory.DealDao;
+            var casesDao = _daoFactory.CasesDao;
+            var contactDao = _daoFactory.ContactDao;
 
             var dataTable = new DataTable();
 
@@ -1169,9 +1170,9 @@ namespace ASC.Web.CRM.Classes
             return DataTableToCSV(dataTable);
         }
 
-        private String ExportInvoiceItemsToCSV(IEnumerable<InvoiceItem> invoiceItems)
+        private String ExportInvoiceItemsToCSV(IEnumerable<InvoiceItem> invoiceItems, DaoFactory _daoFactory)
         {
-            var taxes = _daoFactory.GetInvoiceTaxDao().GetAll();
+            var taxes = _daoFactory.InvoiceTaxDao.GetAll();
             var dataTable = new DataTable();
 
             dataTable.Columns.AddRange(new[]

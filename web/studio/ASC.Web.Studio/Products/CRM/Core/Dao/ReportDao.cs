@@ -49,13 +49,14 @@ namespace ASC.CRM.Core.Dao
     public class ReportDao : AbstractDao
     {
         const string TimeFormat = "[h]:mm:ss;@";
+        private DaoFactory DaoFactory {get; set; }
 
         #region Constructor
 
-        public ReportDao(int tenantId, string storageKey)
-            : base(tenantId, storageKey)
+        public ReportDao(int tenantID, DaoFactory daoFactory)
+            : base(tenantID)
         {
-
+            this.DaoFactory = daoFactory;
         }
 
         #endregion
@@ -209,10 +210,8 @@ namespace ASC.CRM.Core.Dao
                 .Where(!Exp.Eq("d.bid_currency", defaultCurrency))
                 .Where(!Exp.In("d.bid_currency", existingRatesQuery));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(missingRatesQuery).ConvertAll(row => row[0].ToString());
-            }
+
+            return Db.ExecuteList(missingRatesQuery).ConvertAll(row => row[0].ToString());
         }
 
         #endregion
@@ -226,7 +225,7 @@ namespace ASC.CRM.Core.Dao
 
             var storeTemplate = Global.GetStoreTemplate();
 
-            if (storeTemplate == null || storeTemplate is S3Storage) return result;
+            if (storeTemplate == null) return result;
 
             var culture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture() ??
                           CoreContext.TenantManager.GetCurrentTenant().GetCulture();
@@ -239,8 +238,6 @@ namespace ASC.CRM.Core.Dao
                 if (!storeTemplate.IsDirectory(path)) return result;
             }
 
-            var daoFactory = Global.DaoFactory;
-
             foreach (var filePath in storeTemplate.ListFilesRelative("", path, "*", false).Select(x => path + x))
             {
                 using (var stream = storeTemplate.GetReadStream("", filePath))
@@ -248,13 +245,13 @@ namespace ASC.CRM.Core.Dao
                     var document = new Files.Core.File
                         {
                             Title = Path.GetFileName(filePath),
-                            FolderID = daoFactory.GetFileDao().GetRoot(),
+                            FolderID = DaoFactory.FileDao.GetRoot(),
                             ContentLength = stream.Length
                         };
 
-                    var file = daoFactory.GetFileDao().SaveFile(document, stream);
+                    var file = DaoFactory.FileDao.SaveFile(document, stream);
 
-                    daoFactory.GetReportDao().SaveFile((int) file.ID, -1);
+                    SaveFile((int) file.ID, -1);
 
                     result.Add(file);
                 }
@@ -274,10 +271,9 @@ namespace ASC.CRM.Core.Dao
                 .Select("file_id")
                 .Where("create_by", userId);
 
-            using (var db = GetDb())
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                var fileIds = db.ExecuteList(query).ConvertAll(row => row[0]).ToArray();
+                var fileIds = Db.ExecuteList(query).ConvertAll(row => row[0]).ToArray();
                 return fileIds.Length > 0 ? filedao.GetFiles(fileIds) : new List<Files.Core.File>();
             }
         }
@@ -288,10 +284,7 @@ namespace ASC.CRM.Core.Dao
                 .Select("file_id")
                 .Where("create_by", userId);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(query).ConvertAll(row => Convert.ToInt32(row[0]));
-            }
+            return Db.ExecuteList(query).ConvertAll(row => Convert.ToInt32(row[0]));
         }
 
         public Files.Core.File GetFile(int fileid)
@@ -306,10 +299,9 @@ namespace ASC.CRM.Core.Dao
                 .Where("file_id", fileid)
                 .Where("create_by", userId);
 
-            using (var db = GetDb())
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                return db.ExecuteScalar<int>(query) > 0 ? filedao.GetFile(fileid) : null;
+                return Db.ExecuteScalar<int>(query) > 0 ? filedao.GetFile(fileid) : null;
             }
         }
 
@@ -319,10 +311,9 @@ namespace ASC.CRM.Core.Dao
                 .Where("file_id", fileid)
                 .Where("create_by", SecurityContext.CurrentAccount.ID);
 
-            using (var db = GetDb())
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                db.ExecuteNonQuery(query);
+                Db.ExecuteNonQuery(query);
                 filedao.DeleteFile(fileid);
             }
         }
@@ -334,10 +325,9 @@ namespace ASC.CRM.Core.Dao
             var query = Delete("crm_report_file")
                 .Where("create_by", userId);
 
-            using (var db = GetDb())
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                db.ExecuteNonQuery(query);
+                Db.ExecuteNonQuery(query);
 
                 foreach (var fileId in fileIds)
                 {
@@ -348,16 +338,13 @@ namespace ASC.CRM.Core.Dao
 
         public void SaveFile(int fileId, int reportType)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteScalar<int>(
-                  Insert("crm_report_file")
-                 .InColumnValue("file_id", fileId)
-                 .InColumnValue("report_type", reportType)
-                 .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
-                 .InColumnValue("create_by", SecurityContext.CurrentAccount.ID)
-                 .Identity(1, 0, true));
-            }
+            Db.ExecuteScalar<int>(
+                Insert("crm_report_file")
+                .InColumnValue("file_id", fileId)
+                .InColumnValue("report_type", reportType)
+                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                .InColumnValue("create_by", SecurityContext.CurrentAccount.ID)
+                .Identity(1, 0, true));
         }
 
         #endregion
@@ -380,10 +367,7 @@ namespace ASC.CRM.Core.Dao
                 .Where(Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
         }
 
         public object GetSalesByManagersReportData(ReportTimePeriod timePeriod, Guid[] managers, string defaultCurrency)
@@ -442,10 +426,8 @@ namespace ASC.CRM.Core.Dao
                 .Where(Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .GroupBy("responsible_id", "close_date");
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToSalesByManagers);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToSalesByManagers);
         }
 
         private static SalesByManager ToSalesByManagers(object[] row)
@@ -758,10 +740,7 @@ namespace ASC.CRM.Core.Dao
                 .Where(Exp.Between("d.expected_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
         }
 
         public object GetSalesForecastReportData(ReportTimePeriod timePeriod, Guid[] managers, string defaultCurrency)
@@ -818,11 +797,8 @@ namespace ASC.CRM.Core.Dao
                 .Where(managers != null && managers.Any() ? Exp.In("d.responsible_id", managers) : Exp.Empty)
                 .Where(Exp.Between("d.expected_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .GroupBy("close_date");
-            
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToSalesForecast);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToSalesForecast);
         }
 
         private static SalesForecast ToSalesForecast(object[] row)
@@ -1012,10 +988,7 @@ namespace ASC.CRM.Core.Dao
                 .Where(Exp.Between("d.create_on", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
         }
 
         public object GetSalesFunnelReportData(ReportTimePeriod timePeriod, Guid[] managers, string defaultCurrency)
@@ -1052,10 +1025,8 @@ namespace ASC.CRM.Core.Dao
                 .GroupBy("m.id")
                 .OrderBy("m.sort_order", true);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToSalesFunnel);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToSalesFunnel);
         }
 
         private static SalesFunnel ToSalesFunnel(object[] row)
@@ -1149,10 +1120,8 @@ namespace ASC.CRM.Core.Dao
                 .Where(timePeriod == ReportTimePeriod.DuringAllTime ? Exp.Empty : Exp.Between("c.create_on", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
+           
         }
 
         public object GetWorkloadByContactsReportData(ReportTimePeriod timePeriod, Guid[] managers)
@@ -1184,10 +1153,7 @@ namespace ASC.CRM.Core.Dao
                 .GroupBy("c.create_by", "i.id")
                 .OrderBy("i.sort_order, i.title", true);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByContacts);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByContacts);
         }
 
         private static WorkloadByContacts ToWorkloadByContacts(object[] row)
@@ -1262,12 +1228,11 @@ namespace ASC.CRM.Core.Dao
 
             bool res;
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                res = db.ExecuteList(sqlNewTasksQuery).Any() ||
-                      db.ExecuteList(sqlClosedTasksQuery).Any() ||
-                      db.ExecuteList(sqlOverdueTasksQuery).Any();
+                res = Db.ExecuteList(sqlNewTasksQuery).Any() ||
+                      Db.ExecuteList(sqlClosedTasksQuery).Any() ||
+                      Db.ExecuteList(sqlOverdueTasksQuery).Any();
 
                 tx.Commit();
             }
@@ -1336,14 +1301,13 @@ namespace ASC.CRM.Core.Dao
 
             Dictionary<string, List<WorkloadByTasks>> res;
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 res = new Dictionary<string, List<WorkloadByTasks>>
                     {
-                        {"Created", db.ExecuteList(sqlNewTasksQuery).ConvertAll(ToWorkloadByTasks)},
-                        {"Closed", db.ExecuteList(sqlClosedTasksQuery).ConvertAll(ToWorkloadByTasks)},
-                        {"Overdue", db.ExecuteList(sqlOverdueTasksQuery).ConvertAll(ToWorkloadByTasks)}
+                        {"Created", Db.ExecuteList(sqlNewTasksQuery).ConvertAll(ToWorkloadByTasks)},
+                        {"Closed", Db.ExecuteList(sqlClosedTasksQuery).ConvertAll(ToWorkloadByTasks)},
+                        {"Overdue", Db.ExecuteList(sqlOverdueTasksQuery).ConvertAll(ToWorkloadByTasks)}
                     };
 
                 tx.Commit();
@@ -1407,10 +1371,7 @@ namespace ASC.CRM.Core.Dao
                                 Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate))))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
         }
 
         public object GetWorkloadByDealsReportData(ReportTimePeriod timePeriod, Guid[] managers, string defaultCurrency)
@@ -1448,10 +1409,8 @@ namespace ASC.CRM.Core.Dao
                                 Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate))))
                 .GroupBy("d.responsible_id", "m.status");
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByDeals);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByDeals);
         }
 
         private static WorkloadByDeals ToWorkloadByDeals(object[] row)
@@ -1526,10 +1485,7 @@ namespace ASC.CRM.Core.Dao
                 .Where(Exp.Or(Exp.Or(sent, paid), Exp.Or(rejected, overdue)))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
         }
 
         public object GetWorkloadByInvoicesReportData(ReportTimePeriod timePeriod, Guid[] managers)
@@ -1565,10 +1521,8 @@ namespace ASC.CRM.Core.Dao
                 .Where(managers != null && managers.Any() ? Exp.In("i.create_by", managers) : Exp.Empty)
                 .GroupBy("i.create_by");
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByInvoices);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByInvoices);
         }
 
         private static WorkloadByInvoices ToWorkloadByInvoices(object[] row)
@@ -1633,10 +1587,7 @@ namespace ASC.CRM.Core.Dao
                         Exp.Between("c.dial_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .SetMaxResults(1);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).Any();
-            }
+            return Db.ExecuteList(sqlQuery).Any();
         }
 
         public object GetWorkloadByViopReportData(ReportTimePeriod timePeriod, Guid[] managers)
@@ -1667,10 +1618,8 @@ namespace ASC.CRM.Core.Dao
                         Exp.Between("c.dial_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .GroupBy("c.answered_by", "c.status");
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByViop);
-            }
+
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToWorkloadByViop);
         }
 
         private static WorkloadByViop ToWorkloadByViop(object[] row)
@@ -1800,16 +1749,15 @@ namespace ASC.CRM.Core.Dao
 
             bool res;
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                res = db.ExecuteList(newDealsSqlQuery).Any() ||
-                      db.ExecuteList(closedDealsSqlQuery).Any() ||
-                      db.ExecuteList(overdueDealsSqlQuery).Any() ||
-                      db.ExecuteList(invoicesSqlQuery).Any() ||
-                      db.ExecuteList(contactsSqlQuery).Any() ||
-                      db.ExecuteList(tasksSqlQuery).Any() ||
-                      db.ExecuteList(voipSqlQuery).Any();
+                res = Db.ExecuteList(newDealsSqlQuery).Any() ||
+                      Db.ExecuteList(closedDealsSqlQuery).Any() ||
+                      Db.ExecuteList(overdueDealsSqlQuery).Any() ||
+                      Db.ExecuteList(invoicesSqlQuery).Any() ||
+                      Db.ExecuteList(contactsSqlQuery).Any() ||
+                      Db.ExecuteList(tasksSqlQuery).Any() ||
+                      Db.ExecuteList(voipSqlQuery).Any();
 
                 tx.Commit();
             }
@@ -1952,22 +1900,21 @@ namespace ASC.CRM.Core.Dao
 
             object res;
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 res = new
                     {
                         DealsInfo = new
                             {
-                                Created = db.ExecuteList(newDealsSqlQuery),
-                                Won = db.ExecuteList(wonDealsSqlQuery),
-                                Lost = db.ExecuteList(lostDealsSqlQuery),
-                                Overdue = db.ExecuteList(overdueDealsSqlQuery),
+                                Created = Db.ExecuteList(newDealsSqlQuery),
+                                Won = Db.ExecuteList(wonDealsSqlQuery),
+                                Lost = Db.ExecuteList(lostDealsSqlQuery),
+                                Overdue = Db.ExecuteList(overdueDealsSqlQuery),
                             },
-                        InvoicesInfo = db.ExecuteList(invoicesSqlQuery),
-                        ContactsInfo = db.ExecuteList(contactsSqlQuery),
-                        TasksInfo = db.ExecuteList(tasksSqlQuery),
-                        VoipInfo = db.ExecuteList(voipSqlQuery) 
+                        InvoicesInfo = Db.ExecuteList(invoicesSqlQuery),
+                        ContactsInfo = Db.ExecuteList(contactsSqlQuery),
+                        TasksInfo = Db.ExecuteList(tasksSqlQuery),
+                        VoipInfo = Db.ExecuteList(voipSqlQuery) 
                     };
 
                 tx.Commit();
@@ -2066,13 +2013,12 @@ namespace ASC.CRM.Core.Dao
 
             bool res;
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                res = db.ExecuteList(dealsSqlQuery).Any() ||
-                      db.ExecuteList(contactsSqlQuery).Any() ||
-                      db.ExecuteList(tasksSqlQuery).Any() ||
-                      db.ExecuteList(invoicesSqlQuery).Any();
+                res = Db.ExecuteList(dealsSqlQuery).Any() ||
+                      Db.ExecuteList(contactsSqlQuery).Any() ||
+                      Db.ExecuteList(tasksSqlQuery).Any() ||
+                      Db.ExecuteList(invoicesSqlQuery).Any();
 
                 tx.Commit();
             }
@@ -2213,25 +2159,24 @@ namespace ASC.CRM.Core.Dao
 
             object res;
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 res = new
                     {
                         DealsInfo = new
                             {
-                                Open = db.ExecuteList(openDealsSqlQuery),
-                                Overdue = db.ExecuteList(overdueDealsSqlQuery),
-                                Near = db.ExecuteList(nearDealsSqlQuery),
-                                ByStage = db.ExecuteList(dealsByStageSqlQuery)
+                                Open = Db.ExecuteList(openDealsSqlQuery),
+                                Overdue = Db.ExecuteList(overdueDealsSqlQuery),
+                                Near = Db.ExecuteList(nearDealsSqlQuery),
+                                ByStage = Db.ExecuteList(dealsByStageSqlQuery)
                             },
                         ContactsInfo = new
                             {
-                                ByType = db.ExecuteList(contactsByTypeSqlQuery),
-                                ByStage = db.ExecuteList(contactsByStageSqlQuery)
+                                ByType = Db.ExecuteList(contactsByTypeSqlQuery),
+                                ByStage = Db.ExecuteList(contactsByStageSqlQuery)
                             },
-                        TasksInfo = db.ExecuteList(tasksSqlQuery),
-                        InvoicesInfo = db.ExecuteList(invoicesSqlQuery),
+                        TasksInfo = Db.ExecuteList(tasksSqlQuery),
+                        InvoicesInfo = Db.ExecuteList(invoicesSqlQuery),
                     };
 
                 tx.Commit();

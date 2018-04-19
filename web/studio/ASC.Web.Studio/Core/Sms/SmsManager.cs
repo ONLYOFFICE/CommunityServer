@@ -38,7 +38,7 @@ namespace ASC.Web.Studio.Core.SMS
 {
     public static class SmsManager
     {
-        private static readonly ICache CodeCache = AscCache.Default;
+        private static readonly ICache CodeCache = AscCache.Memory;
 
         public static string GetPhoneValueDigits(string mobilePhone)
         {

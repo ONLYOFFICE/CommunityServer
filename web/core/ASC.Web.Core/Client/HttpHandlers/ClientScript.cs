@@ -55,12 +55,10 @@ namespace ASC.Web.Core.Client.HttpHandlers
         protected abstract IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context);
 
 
-        public string GetData(HttpContext context)
+        public void GetData(HttpContext context, StringBuilder builder)
         {
             var store = GetClientVariables(context);
-            if (store == null) return string.Empty;
-
-            var builder = new StringBuilder();
+            if (store == null) return;
 
             if (!string.IsNullOrEmpty(BaseNamespace))
             {
@@ -84,7 +82,8 @@ namespace ASC.Web.Core.Client.HttpHandlers
                 var templateSet = clientObject.Value as ClientTemplateSet;
                 if (templateSet != null)
                 {
-                    builder.AppendFormat("{0}{1}", Environment.NewLine, templateSet.GetClientTemplates());
+                    builder.Append(Environment.NewLine);
+                    templateSet.GetClientTemplates(builder);
                     continue;
                 }
 
@@ -95,7 +94,6 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
                 builder.AppendFormat("jq.extend({0},{1});", BaseNamespace, JsonConvert.SerializeObject(clientObject.Value));
             }
-            return builder.ToString();
         }
 
         protected internal virtual string GetCacheHash()
@@ -129,7 +127,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
             };
         }
 
-        public static string GetTemplateData(string input)
+        public static void GetTemplateData(string input, StringBuilder builder)
         {
             input = Regex.Replace(input, @"\s*(<[^>]+>)\s*", "$1", RegexOptions.Singleline);
             var doc = new HtmlDocument();
@@ -137,12 +135,10 @@ namespace ASC.Web.Core.Client.HttpHandlers
             var nodes = doc.DocumentNode.SelectNodes("/script[@type='text/x-jquery-tmpl']");
             var templates = nodes.ToDictionary(x => x.Attributes["id"].Value, y => y.InnerHtml);
 
-            var result = new StringBuilder();
-
             foreach (var template in templates)
             {
                 // only for jqTmpl for now
-                result.Append(string.Format("jQuery.template('{0}', '{1}');{2}",
+                builder.Append(string.Format("jQuery.template('{0}', '{1}');{2}",
                     template.Key,
                     template.Value
                         .Replace("\r\n", "")
@@ -151,8 +147,6 @@ namespace ASC.Web.Core.Client.HttpHandlers
                         .Replace(Environment.NewLine, "")
                         .Replace("'", "\\'"), Environment.NewLine));
             }
-
-            return result.ToString();
         }
 
         class ClientTemplateSet
@@ -164,9 +158,9 @@ namespace ASC.Web.Core.Client.HttpHandlers
                 this.input = input;
             }
 
-            public string GetClientTemplates()
+            public void GetClientTemplates(StringBuilder builder)
             {
-                return GetTemplateData(input);
+                GetTemplateData(input, builder);
             }
         }
 

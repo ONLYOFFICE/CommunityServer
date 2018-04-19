@@ -110,22 +110,27 @@ namespace ASC.Xmpp.Server.Authorization
                             {
                                 var settings = LdapSettings.Load();
 
-                                using (var ldapHelper = new NovellLdapHelper(settings))
+                                if (settings.EnableLdapAuthentication)
                                 {
-                                    var accountName = ldapHelper.GetUserBySid(user.Sid);
-
-                                    if (accountName != null)
+                                    using (var ldapHelper = new NovellLdapHelper(settings))
                                     {
-                                        ldapHelper.CheckCredentials(settings.Login, password, settings.Server,
-                                            settings.PortNumber, settings.StartTls, settings.Ssl,
-                                            settings.AcceptCertificate, settings.AcceptCertificateHash);
+                                        var ldapUser = ldapHelper.GetUserBySid(user.Sid);
 
-                                        // ldap user
-                                        isAuth = true;
+                                        if (ldapUser != null)
+                                        {
+                                            ldapHelper.CheckCredentials(ldapUser.DistinguishedName, password,
+                                                settings.Server,
+                                                settings.PortNumber, settings.StartTls, settings.Ssl,
+                                                settings.AcceptCertificate, settings.AcceptCertificateHash);
+
+                                            // ldap user
+                                            isAuth = true;
+                                        }
                                     }
                                 }
                             }
-                            else if (user.Password == password)
+
+                            if (user.Password == password)
                             {
                                 // usual user
                                 isAuth = true;

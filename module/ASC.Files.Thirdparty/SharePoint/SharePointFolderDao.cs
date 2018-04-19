@@ -53,7 +53,10 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public Folder GetFolder(string title, object parentId)
         {
-            return ProviderInfo.ToFolder(ProviderInfo.GetFolderFolders(parentId).FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
+            return
+                ProviderInfo.ToFolder(
+                    ProviderInfo.GetFolderFolders(parentId)
+                        .FirstOrDefault(item => item.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public Folder GetRootFolder(object folderId)
@@ -71,11 +74,12 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.GetFolderFolders(parentId).Select(r => ProviderInfo.ToFolder(r)).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID,
+            string searchText, bool withSubfolders = false)
         {
             if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
 
-            var folders = GetFolders(parentId).AsEnumerable(); 
+            var folders = GetFolders(parentId).AsEnumerable();
             //Filter
             switch (filterType)
             {
@@ -100,13 +104,17 @@ namespace ASC.Files.Thirdparty.SharePoint
             switch (orderBy.SortedBy)
             {
                 case SortedByType.Author:
-                    folders = orderBy.IsAsc ? folders.OrderBy(x => x.CreateBy) : folders.OrderByDescending(x => x.CreateBy);
+                    folders = orderBy.IsAsc
+                        ? folders.OrderBy(x => x.CreateBy)
+                        : folders.OrderByDescending(x => x.CreateBy);
                     break;
                 case SortedByType.AZ:
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.Title) : folders.OrderByDescending(x => x.Title);
                     break;
                 case SortedByType.DateAndTime:
-                    folders = orderBy.IsAsc ? folders.OrderBy(x => x.CreateOn) : folders.OrderByDescending(x => x.CreateOn);
+                    folders = orderBy.IsAsc
+                        ? folders.OrderBy(x => x.CreateOn)
+                        : folders.OrderByDescending(x => x.CreateOn);
                     break;
                 default:
                     folders = orderBy.IsAsc ? folders.OrderBy(x => x.Title) : folders.OrderByDescending(x => x.Title);
@@ -116,7 +124,8 @@ namespace ASC.Files.Thirdparty.SharePoint
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false,
+            bool checkShare = true)
         {
             return folderIds.Select(GetFolder).ToList();
         }
@@ -130,7 +139,8 @@ namespace ASC.Files.Thirdparty.SharePoint
                 do
                 {
                     path.Add(ProviderInfo.ToFolder(folder));
-                } while (folder != ProviderInfo.RootFolder && !(folder is SharePointFolderErrorEntry) && (folder = ProviderInfo.GetParentFolder(folder.ServerRelativeUrl)) != null);
+                } while (folder != ProviderInfo.RootFolder && !(folder is SharePointFolderErrorEntry) &&
+                         (folder = ProviderInfo.GetParentFolder(folder.ServerRelativeUrl)) != null);
             }
             path.Reverse();
             return path;
@@ -141,7 +151,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             if (folder.ID != null)
             {
                 //Create with id
-                var savedfolder = ProviderInfo.CreateFolder((string)folder.ID);
+                var savedfolder = ProviderInfo.CreateFolder((string) folder.ID);
                 return ProviderInfo.ToFolder(savedfolder).ID;
             }
 
@@ -172,23 +182,31 @@ namespace ASC.Files.Thirdparty.SharePoint
             {
                 using (var tx = dbManager.BeginTransaction())
                 {
-                    var hashIDs = dbManager.ExecuteList(Query("files_thirdparty_id_mapping").Select("hash_id").Where(Exp.Like("id", folder.ServerRelativeUrl, SqlLike.StartWith))).ConvertAll(x => x[0]);
+                    var hashIDs =
+                        dbManager.ExecuteList(
+                            Query("files_thirdparty_id_mapping")
+                                .Select("hash_id")
+                                .Where(Exp.Like("id", folder.ServerRelativeUrl, SqlLike.StartWith)))
+                            .ConvertAll(x => x[0]);
 
                     dbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
-                    dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
+                    dbManager.ExecuteNonQuery(
+                        Delete("files_tag")
+                            .Where(Exp.EqColumns("0",
+                                Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
                     dbManager.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", hashIDs)));
                     dbManager.ExecuteNonQuery(Delete("files_thirdparty_id_mapping").Where(Exp.In("hash_id", hashIDs)));
 
                     tx.Commit();
                 }
             }
-            ProviderInfo.DeleteFolder((string)folderId);
+            ProviderInfo.DeleteFolder((string) folderId);
         }
 
         public object MoveFolder(object folderId, object toFolderId)
         {
             var newFolderId = ProviderInfo.MoveFolder(folderId, toFolderId);
-            UpdatePathInDB(ProviderInfo.MakeId((string)folderId), (string)newFolderId);
+            UpdatePathInDB(ProviderInfo.MakeId((string) folderId), (string) newFolderId);
             return newFolderId;
         }
 
@@ -204,7 +222,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public object RenameFolder(Folder folder, string newTitle)
         {
-            var oldId = ProviderInfo.MakeId((string)folder.ID);
+            var oldId = ProviderInfo.MakeId((string) folder.ID);
             var newFolderId = oldId;
             if (ProviderInfo.SpRootFolderId.Equals(folder.ID))
             {
@@ -214,7 +232,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             }
             else
             {
-                newFolderId = (string)ProviderInfo.RenameFolder(folder.ID, newTitle);
+                newFolderId = (string) ProviderInfo.RenameFolder(folder.ID, newTitle);
             }
             UpdatePathInDB(oldId, newFolderId);
             return newFolderId;
@@ -247,13 +265,21 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload = false)
         {
-            return 2L * 1024L * 1024L * 1024L;
+            return 2L*1024L*1024L*1024L;
         }
-
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
+        public void ReassignFolders(object[] folderIds, Guid newOwnerId)
+        {
+        }
+
+        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        {
+            return null;
+        }
+
+        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
         {
             return null;
         }
@@ -263,7 +289,8 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public IEnumerable<object> GetFolderIDs(string module, string bunch, IEnumerable<string> data, bool createIfNotExists)
+        public IEnumerable<object> GetFolderIDs(string module, string bunch, IEnumerable<string> data,
+            bool createIfNotExists)
         {
             return new List<object>();
         }
@@ -293,6 +320,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             return null;
         }
+
         public object GetFolderIDProjects(bool createIfNotExists)
         {
             return null;

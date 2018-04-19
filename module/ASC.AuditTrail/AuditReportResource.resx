@@ -1449,4 +1449,7 @@
   <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
     <value>Custom Navigation Settings Updated</value>
   </data>
+  <data name="UserDataRemoving" xml:space="preserve">
+    <value>User data for {0} has been deleted</value>
+  </data>
 </root>

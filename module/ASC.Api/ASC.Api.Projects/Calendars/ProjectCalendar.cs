@@ -31,6 +31,8 @@ using ASC.Web.Core.Calendars;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Core;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Api.Projects.Calendars
 {
@@ -42,13 +44,11 @@ namespace ASC.Api.Projects.Calendars
         }
 
         private readonly Project project;
-        private readonly EngineFactory engine;
         private readonly bool following;
 
-        public ProjectCalendar(EngineFactory engine, Project project, string backgroundColor, string textColor, SharingOptions sharingOptions, bool following)
+        public ProjectCalendar(Project project, string backgroundColor, string textColor, SharingOptions sharingOptions, bool following)
         {
             this.project = project;
-            this.engine = engine;
             this.following = following;
 
             Context.HtmlBackgroundColor = backgroundColor;
@@ -65,14 +65,17 @@ namespace ASC.Api.Projects.Calendars
 
         public override List<IEvent> LoadEvents(Guid userId, DateTime startDate, DateTime endDate)
         {
-            var tasks = new List<Task>();
-            if (!following)
-                tasks.AddRange(engine.TaskEngine.GetByProject(project.ID, TaskStatus.Open, userId));
+            using (var scope = DIHelper.Resolve())
+            {
+                var engine = scope.Resolve<EngineFactory>();
+                var tasks = new List<Task>();
+                if (!following)
+                    tasks.AddRange(engine.TaskEngine.GetByProject(project.ID, TaskStatus.Open, userId));
 
-            var milestones = engine.MilestoneEngine.GetByStatus(project.ID, MilestoneStatus.Open);
+                var milestones = engine.MilestoneEngine.GetByStatus(project.ID, MilestoneStatus.Open);
 
-            var events = milestones
-                .Select(m => new Event
+                var events = milestones
+                    .Select(m => new Event
                     {
                         AlertType = EventAlertType.Never,
                         CalendarId = Id,
@@ -83,40 +86,41 @@ namespace ASC.Api.Projects.Calendars
                         Name = Web.Projects.Resources.MilestoneResource.Milestone + ": " + m.Title,
                         Description = m.Description
                     })
-                .Where(e => IsVisibleEvent(startDate, endDate, e.UtcStartDate, e.UtcEndDate))
-                .Cast<IEvent>()
-                .ToList();
+                    .Where(e => IsVisibleEvent(startDate, endDate, e.UtcStartDate, e.UtcEndDate))
+                    .Cast<IEvent>()
+                    .ToList();
 
-            foreach (var t in tasks)
-            {
-                var start = t.StartDate;
-
-                if (!t.Deadline.Equals(DateTime.MinValue))
+                foreach (var t in tasks)
                 {
-                    start = start.Equals(DateTime.MinValue) ? t.Deadline : t.StartDate;
-                }
-                else
-                {
-                    start = DateTime.MinValue;
+                    var start = t.StartDate;
+
+                    if (!t.Deadline.Equals(DateTime.MinValue))
+                    {
+                        start = start.Equals(DateTime.MinValue) ? t.Deadline : t.StartDate;
+                    }
+                    else
+                    {
+                        start = DateTime.MinValue;
+                    }
+
+                    var projectEvent = new Event
+                    {
+                        AlertType = EventAlertType.Never,
+                        CalendarId = Id,
+                        UtcStartDate = start,
+                        UtcEndDate = t.Deadline,
+                        AllDayLong = true,
+                        Id = t.UniqID,
+                        Name = Web.Projects.Resources.TaskResource.Task + ": " + t.Title,
+                        Description = t.Description
+                    };
+
+                    if (IsVisibleEvent(startDate, endDate, projectEvent.UtcStartDate, projectEvent.UtcEndDate))
+                        events.Add(projectEvent);
                 }
 
-                var projectEvent = new Event
-                                   {
-                                       AlertType = EventAlertType.Never,
-                                       CalendarId = Id,
-                                       UtcStartDate = start,
-                                       UtcEndDate = t.Deadline,
-                                       AllDayLong = true,
-                                       Id = t.UniqID,
-                                       Name = Web.Projects.Resources.TaskResource.Task + ": " + t.Title,
-                                       Description = t.Description
-                                   };
-
-                if (IsVisibleEvent(startDate, endDate, projectEvent.UtcStartDate, projectEvent.UtcEndDate))
-                    events.Add(projectEvent);
+                return events;
             }
-
-            return events;
         }
 
         public override TimeZoneInfo TimeZone

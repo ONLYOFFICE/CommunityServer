@@ -24,22 +24,23 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
     class FileDeleteOperation : FileOperation
     {
-        private object trashId;
-        private readonly bool ignoreException;
-        private readonly Dictionary<string, string> headers;
+        private object _trashId;
+        private readonly bool _ignoreException;
+        private readonly bool _immediately;
+        private readonly Dictionary<string, string> _headers;
 
         public override FileOperationType OperationType
         {
@@ -47,17 +48,18 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         }
 
 
-        public FileDeleteOperation(List<object> folders, List<object> files, bool ignoreException = false, bool holdResult = true, Dictionary<string, string> headers = null)
+        public FileDeleteOperation(List<object> folders, List<object> files, bool ignoreException = false, bool holdResult = true, bool immediately = false, Dictionary<string, string> headers = null)
             : base(folders, files, holdResult)
         {
-            this.ignoreException = ignoreException;
-            this.headers = headers;
+            _ignoreException = ignoreException;
+            _immediately = immediately;
+            _headers = headers;
         }
 
-        
+
         protected override void Do()
         {
-            trashId = FolderDao.GetFolderIDTrash(true);
+            _trashId = FolderDao.GetFolderIDTrash(true);
             Folder root = null;
             if (0 < Folders.Count)
             {
@@ -76,7 +78,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             DeleteFolders(Folders);
         }
 
-        private void DeleteFolders(List<object> folderIds)
+        private void DeleteFolders(IEnumerable<object> folderIds)
         {
             foreach (var folderId in folderIds)
             {
@@ -92,7 +94,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFolder;
                 }
-                else if (!ignoreException && !FilesSecurity.CanDelete(folder))
+                else if (!_ignoreException && !FilesSecurity.CanDelete(folder))
                 {
                     canCalculate = FolderDao.CanCalculateSubitems(folderId) ? null : folderId;
 
@@ -108,24 +110,24 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         if (ProviderDao != null)
                         {
                             ProviderDao.RemoveProviderInfo(folder.ProviderId);
-                            FilesMessageService.Send(folder, headers, MessageAction.ThirdPartyDeleted, folder.ID.ToString(), folder.ProviderKey);
+                            FilesMessageService.Send(folder, _headers, MessageAction.ThirdPartyDeleted, folder.ID.ToString(), folder.ProviderKey);
                         }
 
                         ProcessedFolder(folderId);
                     }
                     else
                     {
-                        if (FolderDao.UseTrashForRemove(folder))
+                        if (!_immediately && FolderDao.UseTrashForRemove(folder))
                         {
                             var files = FileDao.GetFiles(folder.ID);
-                            if (!ignoreException && files.Exists(FileTracker.IsEditing))
+                            if (!_ignoreException && files.Exists(FileTracker.IsEditing))
                             {
                                 Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFolder;
                             }
                             else
                             {
-                                FolderDao.MoveFolder(folder.ID, trashId);
-                                FilesMessageService.Send(folder, headers, MessageAction.FolderMovedToTrash, folder.Title);
+                                FolderDao.MoveFolder(folder.ID, _trashId);
+                                FilesMessageService.Send(folder, _headers, MessageAction.FolderMovedToTrash, folder.Title);
 
                                 ProcessedFolder(folderId);
                             }
@@ -155,7 +157,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             }
         }
 
-        private void DeleteFiles(List<object> fileIds)
+        private void DeleteFiles(IEnumerable<object> fileIds)
         {
             foreach (var fileId in fileIds)
             {
@@ -166,25 +168,25 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_FileNotFound;
                 }
-                else if (!ignoreException && EntryManager.FileLockedForMe(file.ID))
+                else if (!_ignoreException && EntryManager.FileLockedForMe(file.ID))
                 {
                     Error = FilesCommonResource.ErrorMassage_LockedFile;
                 }
-                else if (!ignoreException && FileTracker.IsEditing(file.ID))
+                else if (!_ignoreException && FileTracker.IsEditing(file.ID))
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFile;
                 }
-                else if (!ignoreException && !FilesSecurity.CanDelete(file))
+                else if (!_ignoreException && !FilesSecurity.CanDelete(file))
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteFile;
                 }
                 else
                 {
                     FileMarker.RemoveMarkAsNewForAll(file);
-                    if (FileDao.UseTrashForRemove(file))
+                    if (!_immediately && FileDao.UseTrashForRemove(file))
                     {
-                        FileDao.MoveFile(file.ID, trashId);
-                        FilesMessageService.Send(file, headers, MessageAction.FileMovedToTrash, file.Title);
+                        FileDao.MoveFile(file.ID, _trashId);
+                        FilesMessageService.Send(file, _headers, MessageAction.FileMovedToTrash, file.Title);
                     }
                     else
                     {

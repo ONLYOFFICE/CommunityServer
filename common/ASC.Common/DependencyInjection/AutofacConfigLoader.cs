@@ -43,6 +43,9 @@ namespace ASC.Common.DependencyInjection
                     case "per-lifetime-scope":
                         builder.InstancePerLifetimeScope();
                         break;
+                    case "per-request":
+                        builder.InstancePerRequest();
+                        break;
                 }
 
                 if (component.InjectProperties == "yes")

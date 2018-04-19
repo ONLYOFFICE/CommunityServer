@@ -41,7 +41,7 @@
   <div id="otherActions" class="studio-action-panel">
     <ul class="dropdown-content">
       <li><a class="dropdown-item invite-link" id="sideNavInviteLink"><%= PeopleResource.InviteLink %></a></li>
-      <li><a class="dropdown-item add-profiles"><%= PeopleResource.LblImportAccounts %></a></li>
+      <li><a class="dropdown-item add-profiles"><%= PeopleResource.ImportPeople %></a></li>
       <% if (HasPendingProfiles)
          { %>
       <li><a class="dropdown-item send-invites"><%= PeopleResource.LblResendInvites %></a></li>

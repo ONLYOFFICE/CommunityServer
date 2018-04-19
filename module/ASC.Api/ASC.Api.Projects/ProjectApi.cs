@@ -38,6 +38,9 @@ using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core.Calendars;
 using ASC.Web.Projects;
+using ASC.Web.Projects.Core;
+using ASC.Web.Studio.Utility;
+using Autofac;
 
 namespace ASC.Api.Projects
 {
@@ -60,21 +63,21 @@ namespace ASC.Api.Projects
         {
             var filter = new TaskFilter
                    {
-                       SortOrder = !_context.SortDescending,
-                       SearchText = _context.FilterValue,
-                       Offset = _context.StartIndex,
-                       Max = _context.Count
+                       SortOrder = !Context.SortDescending,
+                       SearchText = Context.FilterValue,
+                       Offset = Context.StartIndex,
+                       Max = Context.Count
                    };
 
-            if (!string.IsNullOrEmpty(_context.SortBy))
+            if (!string.IsNullOrEmpty(Context.SortBy))
             {
                 var type = entityType.ToString();
                 var sortColumns = filter.SortColumns.ContainsKey(type) ? filter.SortColumns[type] : null;
                 if (sortColumns != null && sortColumns.Any())
-                    filter.SortBy = sortColumns.ContainsKey(_context.SortBy) ? _context.SortBy : sortColumns.First().Key;
+                    filter.SortBy = sortColumns.ContainsKey(Context.SortBy) ? Context.SortBy : sortColumns.First().Key;
             }
 
-            _context.SetDataFiltered().SetDataPaginated().SetDataSorted();
+            Context.SetDataFiltered().SetDataPaginated().SetDataSorted();
 
             return filter;
         }
@@ -88,22 +91,22 @@ namespace ASC.Api.Projects
         {
             this.documentsApi = documentsApi;
 
-            _context = context;
+            Context = context;
         }
 
         private void SetTotalCount(int count)
         {
-            _context.SetTotalCount(count);
+            Context.SetTotalCount(count);
         }
 
         private long StartIndex
         {
-            get { return _context.StartIndex; }
+            get { return Context.StartIndex; }
         }
 
         private long Count
         {
-            get { return _context.Count; }
+            get { return Context.Count; }
         }
 
         private static HttpRequest Request
@@ -114,66 +117,74 @@ namespace ASC.Api.Projects
 
         internal static List<BaseCalendar> GetUserCalendars(Guid userId)
         {
-            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-            var engineFactory = new EngineFactory(DbId, tenantId);
-
-            var cals = new List<BaseCalendar>();
-            var engine = engineFactory.ProjectEngine;
-            var projects = engine.GetByParticipant(userId);
-
-            if (projects != null)
+            using (var scope = DIHelper.Resolve())
             {
-                var team = engine.GetTeam(projects.Select(r => r.ID).ToList());
+                var engineFactory = scope.Resolve<EngineFactory>();
 
-                foreach (var project in projects)
+                var cals = new List<BaseCalendar>();
+                var engine = engineFactory.ProjectEngine;
+                var projects = engine.GetByParticipant(userId);
+
+                if (projects != null)
                 {
-                    var p = project;
+                    var team = engine.GetTeam(projects.Select(r => r.ID).ToList());
 
-                    var sharingOptions = new SharingOptions();
-                    foreach (var participant in team.Where(r => r.ProjectID == p.ID))
+                    foreach (var project in projects)
                     {
-                        sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = participant.ID, IsGroup = false});
+                        var p = project;
+
+                        var sharingOptions = new SharingOptions();
+                        foreach (var participant in team.Where(r => r.ProjectID == p.ID))
+                        {
+                            sharingOptions.PublicItems.Add(new SharingOptions.PublicItem
+                            {
+                                Id = participant.ID,
+                                IsGroup = false
+                            });
+                        }
+
+                        var index = project.ID%CalendarColors.BaseColors.Count;
+                        cals.Add(new ProjectCalendar(
+                            project,
+                            CalendarColors.BaseColors[index].BackgroudColor,
+                            CalendarColors.BaseColors[index].TextColor,
+                            sharingOptions, false));
                     }
-
-                    var index = project.ID % CalendarColors.BaseColors.Count;
-                    cals.Add(new ProjectCalendar(
-                                 engineFactory,
-                                 project,
-                                 CalendarColors.BaseColors[index].BackgroudColor,
-                                 CalendarColors.BaseColors[index].TextColor,
-                                 sharingOptions, false));
                 }
-            }
 
-            var folowingProjects = engine.GetFollowing(userId);
-            if (folowingProjects != null)
-            {
-                var team = engine.GetTeam(folowingProjects.Select(r => r.ID).ToList());
-
-                foreach (var project in folowingProjects)
+                var folowingProjects = engine.GetFollowing(userId);
+                if (folowingProjects != null)
                 {
-                    var p = project;
+                    var team = engine.GetTeam(folowingProjects.Select(r => r.ID).ToList());
 
-                    if (projects != null && projects.Any(proj => proj.ID == p.ID)) continue;
-
-                    var sharingOptions = new SharingOptions();
-                    sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = userId, IsGroup = false});
-                    foreach (var participant in team.Where(r => r.ProjectID == p.ID))
+                    foreach (var project in folowingProjects)
                     {
-                        sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = participant.ID, IsGroup = false});
+                        var p = project;
+
+                        if (projects != null && projects.Any(proj => proj.ID == p.ID)) continue;
+
+                        var sharingOptions = new SharingOptions();
+                        sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = userId, IsGroup = false});
+                        foreach (var participant in team.Where(r => r.ProjectID == p.ID))
+                        {
+                            sharingOptions.PublicItems.Add(new SharingOptions.PublicItem
+                            {
+                                Id = participant.ID,
+                                IsGroup = false
+                            });
+                        }
+
+                        var index = p.ID%CalendarColors.BaseColors.Count;
+                        cals.Add(new ProjectCalendar(
+                            p,
+                            CalendarColors.BaseColors[index].BackgroudColor,
+                            CalendarColors.BaseColors[index].TextColor,
+                            sharingOptions, true));
                     }
-
-                    var index = p.ID % CalendarColors.BaseColors.Count;
-                    cals.Add(new ProjectCalendar(
-                                 engineFactory,
-                                 p,
-                                 CalendarColors.BaseColors[index].BackgroudColor,
-                                 CalendarColors.BaseColors[index].TextColor,
-                                 sharingOptions, true));
                 }
-            }
 
-            return cals;
+                return cals;
+            }
         }
 
         [Update(@"settings")]

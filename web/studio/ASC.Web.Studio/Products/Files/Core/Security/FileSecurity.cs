@@ -134,7 +134,7 @@ namespace ASC.Files.Core.Security
                         {
                             Level = int.MaxValue,
                             EntryId = fileEntry.ID,
-                            EntryType = fileEntry is File ? FileEntryType.File : FileEntryType.Folder,
+                            EntryType = fileEntry.FileEntryType,
                             Share = DefaultCommonShare,
                             Subject = Constants.GroupEveryone.ID,
                             Tenant = TenantProvider.CurrentTenantID,
@@ -158,7 +158,7 @@ namespace ASC.Files.Core.Security
                         {
                             Level = int.MaxValue,
                             EntryId = fileEntry.ID,
-                            EntryType = fileEntry is File ? FileEntryType.File : FileEntryType.Folder,
+                            EntryType = fileEntry.FileEntryType,
                             Share = DefaultMyShare,
                             Subject = fileEntry.RootFolderCreator,
                             Tenant = TenantProvider.CurrentTenantID,
@@ -294,13 +294,13 @@ namespace ASC.Files.Core.Security
                         continue;
                     }
 
-                    if (action != FilesSecurityActions.Read && e is Folder && ((Folder) e).FolderType == FolderType.Projects)
+                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder) e).FolderType == FolderType.Projects)
                     {
                         // Root Projects folder read-only
                         continue;
                     }
 
-                    if (action != FilesSecurityActions.Read && e is Folder && ((Folder) e).FolderType == FolderType.SHARE)
+                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder) e).FolderType == FolderType.SHARE)
                     {
                         // Root Share folder read-only
                         continue;
@@ -318,7 +318,7 @@ namespace ASC.Files.Core.Security
                         continue;
                     }
 
-                    if (DefaultCommonShare == FileShare.Read && action == FilesSecurityActions.Read && e is Folder &&
+                    if (DefaultCommonShare == FileShare.Read && action == FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder &&
                         ((Folder) e).FolderType == FolderType.COMMON)
                     {
                         // all can read Common folder
@@ -326,7 +326,7 @@ namespace ASC.Files.Core.Security
                         continue;
                     }
 
-                    if (action == FilesSecurityActions.Read && e is Folder &&
+                    if (action == FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder &&
                         ((Folder) e).FolderType == FolderType.SHARE)
                     {
                         // all can read Share folder
@@ -343,12 +343,12 @@ namespace ASC.Files.Core.Security
 
                     if (shares == null)
                     {
-                        shares = GetShares(entries.ToArray()).Join(subjects, r => r.Subject, s => s, (r, s) => r).ToList();
+                        shares = GetShares(entries).Join(subjects, r => r.Subject, s => s, (r, s) => r).ToList();
                         // shares ordered by level
                     }
 
                     FileShareRecord ace;
-                    if (e is File)
+                    if (e.FileEntryType == FileEntryType.File)
                     {
                         ace = shares
                             .OrderBy(r => r, new SubjectComparer(subjects))
@@ -379,7 +379,7 @@ namespace ASC.Files.Core.Security
                     else if (action == FilesSecurityActions.Review && (e.Access == FileShare.Review || e.Access == FileShare.ReadWrite)) result.Add(e);
                     else if (action == FilesSecurityActions.Edit && e.Access == FileShare.ReadWrite) result.Add(e);
                     else if (action == FilesSecurityActions.Create && e.Access == FileShare.ReadWrite) result.Add(e);
-                    else if (e.Access != FileShare.Restrict && e.CreateBy == userId && (e is File || ((Folder) e).FolderType != FolderType.COMMON)) result.Add(e);
+                    else if (e.Access != FileShare.Restrict && e.CreateBy == userId && (e.FileEntryType == FileEntryType.File || ((Folder)e).FolderType != FolderType.COMMON)) result.Add(e);
 
                     if (e.CreateBy == userId) e.Access = FileShare.None; //HACK: for client
                 }
@@ -457,10 +457,9 @@ namespace ASC.Files.Core.Security
                 using (var folderDao = daoFactory.GetFolderDao())
                 {
                     var mytrashId = folderDao.GetFolderIDTrash(false, userId);
-                    foreach (var e in entries.Where(filter))
+                    if (!Equals(mytrashId, 0))
                     {
-                        // only in my trash
-                        if (Equals(e.RootFolderId, mytrashId)) result.Add(e);
+                        result.AddRange(entries.Where(filter).Where(e => Equals(e.RootFolderId, mytrashId)));
                     }
                 }
             }
@@ -494,11 +493,19 @@ namespace ASC.Files.Core.Security
             }
         }
 
-        public IEnumerable<FileShareRecord> GetShares(params FileEntry[] entries)
+        public IEnumerable<FileShareRecord> GetShares(IEnumerable<FileEntry> entries)
         {
             using (var securityDao = daoFactory.GetSecurityDao())
             {
                 return securityDao.GetShares(entries);
+            }
+        }
+
+        public IEnumerable<FileShareRecord> GetShares(FileEntry entry)
+        {
+            using (var securityDao = daoFactory.GetSecurityDao())
+            {
+                return securityDao.GetShares(entry);
             }
         }
 
@@ -580,7 +587,7 @@ namespace ASC.Files.Core.Security
 
                 foreach (var failedEntry in failedEntries)
                 {
-                    var entryType = failedEntry is Folder ? FileEntryType.Folder : FileEntryType.File;
+                    var entryType = failedEntry.FileEntryType;
 
                     var failedRecord = records.First(x => x.EntryId.Equals(failedEntry.ID) && x.EntryType == entryType);
 
@@ -591,7 +598,7 @@ namespace ASC.Files.Core.Security
 
                 if (failedRecords.Any())
                 {
-                    securityDao.DeleteShareRecords(failedRecords.ToArray());
+                    securityDao.DeleteShareRecords(failedRecords);
                 }
 
                 return entries.Where(x => String.IsNullOrEmpty(x.Error)).ToList();

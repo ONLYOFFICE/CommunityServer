@@ -53,7 +53,7 @@ namespace ASC.Data.Storage.Configuration
         public const string ACL = "acl";
         public const string EXPIRES = "expires";
         public const string DOMAINS = "domain";
-        public const string PUBLICDISC = "publicdisc";
+        public const string PUBLIC = "public";
 
     }
 }

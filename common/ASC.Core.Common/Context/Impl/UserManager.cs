@@ -225,7 +225,7 @@ namespace ASC.Core
             userService.RemoveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
         }
 
-        public void SaveUserPhoto(Guid id, Guid notused, byte[] photo)
+        public void SaveUserPhoto(Guid id, byte[] photo)
         {
             if (IsSystemUser(id)) return;
             SecurityContext.DemandPermissions(new UserSecurityProvider(id), Constants.Action_EditUser);
@@ -233,7 +233,7 @@ namespace ASC.Core
             userService.SetUserPhoto(CoreContext.TenantManager.GetCurrentTenant().TenantId, id, photo);
         }
 
-        public byte[] GetUserPhoto(Guid id, Guid notused)
+        public byte[] GetUserPhoto(Guid id)
         {
             if (IsSystemUser(id)) return null;
             return userService.GetUserPhoto(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
@@ -241,35 +241,38 @@ namespace ASC.Core
 
         public GroupInfo[] GetUserGroups(Guid id)
         {
-            return GetUserGroups(id, Guid.Empty);
+            return GetUsers(id).GetGroups(IncludeType.Distinct, Guid.Empty);
         }
 
         public GroupInfo[] GetUserGroups(Guid id, Guid categoryID)
         {
-            return GetUserGroups(id, IncludeType.Distinct, categoryID);
+            return GetUsers(id).GetGroups(IncludeType.Distinct, categoryID);
         }
 
         public GroupInfo[] GetUserGroups(Guid userID, IncludeType includeType)
         {
-            return GetUserGroups(userID, includeType, null);
+            return GetUsers(userID).GetGroups(includeType, null);
         }
 
-        private GroupInfo[] GetUserGroups(Guid userID, IncludeType includeType, Guid? categoryId)
+        internal GroupInfo[] GetUserGroups(Guid userID, IncludeType includeType, Guid? categoryId)
         {
             var result = new List<GroupInfo>();
             var distinctUserGroups = new List<GroupInfo>();
 
             var refs = GetRefsInternal();
             IEnumerable<UserGroupRef> userRefs = null;
-            if (refs is UserGroupRefStore)
+            var store = refs as UserGroupRefStore;
+            if (store != null)
             {
-                userRefs = ((UserGroupRefStore)refs).GetRefsByUser(userID);
+                userRefs = store.GetRefsByUser(userID);
             }
+
+            var userRefsContainsNotRemoved = userRefs != null ? userRefs.Where(r => !r.Removed && r.RefType == UserGroupRefType.Contains).ToList() : null;
 
             foreach (var g in GetGroupsInternal().Where(g => !categoryId.HasValue || g.CategoryID == categoryId))
             {
                 if (((g.CategoryID == Constants.SysGroupCategoryId || userRefs == null) && IsUserInGroupInternal(userID, g.ID, refs)) ||
-                    (userRefs != null && userRefs.Any(r => !r.Removed && r.RefType == UserGroupRefType.Contains && r.GroupId == g.ID)))
+                    (userRefsContainsNotRemoved != null && userRefsContainsNotRemoved.Any(r => r.GroupId == g.ID)))
                 {
                     distinctUserGroups.Add(g);
                 }
@@ -307,6 +310,8 @@ namespace ASC.Core
             userService.SaveUserGroupRef(
                 CoreContext.TenantManager.GetCurrentTenant().TenantId,
                 new UserGroupRef(userId, groupId, UserGroupRefType.Contains));
+
+            GetUsers(userId).ResetGroupCache();
         }
 
         public void RemoveUserFromGroup(Guid userId, Guid groupId)
@@ -315,6 +320,8 @@ namespace ASC.Core
             SecurityContext.DemandPermissions(Constants.Action_EditGroups);
 
             userService.RemoveUserGroupRef(CoreContext.TenantManager.GetCurrentTenant().TenantId, userId, groupId, UserGroupRefType.Contains);
+
+            GetUsers(userId).ResetGroupCache();
         }
 
         #endregion Users

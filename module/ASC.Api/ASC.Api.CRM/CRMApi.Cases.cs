@@ -58,7 +58,7 @@ namespace ASC.Api.CRM
         {
             if (caseid <= 0) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().CloseCases(caseid);
+            var cases = DaoFactory.CasesDao.CloseCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
             MessageService.Send(Request, MessageAction.CaseClosed, MessageTarget.Create(cases.ID), cases.Title);
@@ -82,7 +82,7 @@ namespace ASC.Api.CRM
         {
             if (caseid <= 0) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().ReOpenCases(caseid);
+            var cases = DaoFactory.CasesDao.ReOpenCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
             MessageService.Send(Request, MessageAction.CaseOpened, MessageTarget.Create(cases.ID), cases.Title);
@@ -127,7 +127,7 @@ namespace ASC.Api.CRM
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentException();
 
-            var casesID = DaoFactory.GetCasesDao().CreateCases(title);
+            var casesID = DaoFactory.CasesDao.CreateCases(title);
 
             var cases = new Cases
                 {
@@ -142,22 +142,22 @@ namespace ASC.Api.CRM
             var membersList = members != null ? members.ToList() : new List<int>();
             if (membersList.Any())
             {
-                var contacts = DaoFactory.GetContactDao().GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
+                var contacts = DaoFactory.ContactDao.GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
                 membersList = contacts.Select(m => m.ID).ToList();
-                DaoFactory.GetCasesDao().SetMembers(cases.ID, membersList.ToArray());
+                DaoFactory.CasesDao.SetMembers(cases.ID, membersList.ToArray());
             }
 
             if (customFieldList != null)
             {
-                var existingCustomFieldList = DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
+                var existingCustomFieldList = DaoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
                 foreach (var field in customFieldList)
                 {
                     if (string.IsNullOrEmpty(field.Value) || !existingCustomFieldList.Contains(field.Key)) continue;
-                    DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
+                    DaoFactory.CustomFieldDao.SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
                 }
             }
 
-            return ToCasesWrapper(DaoFactory.GetCasesDao().GetByID(casesID));
+            return ToCasesWrapper(DaoFactory.CasesDao.GetByID(casesID));
         }
 
         /// <summary>
@@ -201,12 +201,12 @@ namespace ASC.Api.CRM
         {
             if ((caseid <= 0) || (string.IsNullOrEmpty(title))) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().GetByID(caseid);
+            var cases = DaoFactory.CasesDao.GetByID(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
             cases.Title = title;
 
-            DaoFactory.GetCasesDao().UpdateCases(cases);
+            DaoFactory.CasesDao.UpdateCases(cases);
 
             if (CRMSecurity.IsAdmin || cases.CreateBy == Core.SecurityContext.CurrentAccount.ID)
             {
@@ -216,18 +216,18 @@ namespace ASC.Api.CRM
             var membersList = members != null ? members.ToList() : new List<int>();
             if (membersList.Any())
             {
-                var contacts = DaoFactory.GetContactDao().GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
+                var contacts = DaoFactory.ContactDao.GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
                 membersList = contacts.Select(m => m.ID).ToList();
-                DaoFactory.GetCasesDao().SetMembers(cases.ID, membersList.ToArray());
+                DaoFactory.CasesDao.SetMembers(cases.ID, membersList.ToArray());
             }
 
             if (customFieldList != null)
             {
-                var existingCustomFieldList = DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
+                var existingCustomFieldList = DaoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
                 foreach (var field in customFieldList)
                 {
                     if (string.IsNullOrEmpty(field.Value) || !existingCustomFieldList.Contains(field.Key)) continue;
-                    DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
+                    DaoFactory.CustomFieldDao.SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
                 }
             }
 
@@ -252,7 +252,7 @@ namespace ASC.Api.CRM
         {
             if (casesid <= 0) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().GetByID(casesid);
+            var cases = DaoFactory.CasesDao.GetByID(casesid);
             if (cases == null) throw new ItemNotFoundException();
 
             if (!(CRMSecurity.IsAdmin || cases.CreateBy == Core.SecurityContext.CurrentAccount.ID)) throw CRMSecurity.CreateSecurityException();
@@ -268,7 +268,7 @@ namespace ASC.Api.CRM
                 if (isNotify)
                 {
                     accessListLocal = accessListLocal.Where(u => u != SecurityContext.CurrentAccount.ID).ToList();
-                    ASC.Web.CRM.Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, cases.ID, accessListLocal.ToArray());
+                    ASC.Web.CRM.Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, cases.ID, DaoFactory, accessListLocal.ToArray());
                 }
 
                 if (!accessListLocal.Contains(SecurityContext.CurrentAccount.ID))
@@ -313,7 +313,7 @@ namespace ASC.Api.CRM
         {
             var result = new List<Cases>();
 
-            var cases = DaoFactory.GetCasesDao().GetCases(casesid);
+            var cases = DaoFactory.CasesDao.GetCases(casesid);
 
             if (!cases.Any()) return new List<CasesWrapper>();
 
@@ -356,7 +356,7 @@ namespace ASC.Api.CRM
         {
             var result = new List<Cases>();
 
-            var caseses = DaoFactory.GetCasesDao().GetCases(_context.FilterValue, contactid, isClosed, tags, 0, 0, null);
+            var caseses = DaoFactory.CasesDao.GetCases(_context.FilterValue, contactid, isClosed, tags, 0, 0, null);
 
             if (!caseses.Any()) return new List<CasesWrapper>();
 
@@ -386,7 +386,7 @@ namespace ASC.Api.CRM
         {
             if (caseid <= 0) throw new ItemNotFoundException();
 
-            var cases = DaoFactory.GetCasesDao().GetByID(caseid);
+            var cases = DaoFactory.CasesDao.GetByID(caseid);
             if (cases == null || !CRMSecurity.CanAccessTo(cases)) throw new ItemNotFoundException();
 
             return ToCasesWrapper(cases);
@@ -432,7 +432,7 @@ namespace ASC.Api.CRM
             {
                 result = ToListCasesWrappers(
                     DaoFactory
-                        .GetCasesDao()
+                        .CasesDao
                         .GetCases(
                             searchString,
                             contactid,
@@ -450,7 +450,7 @@ namespace ASC.Api.CRM
             {
                 result = ToListCasesWrappers(
                     DaoFactory
-                        .GetCasesDao()
+                        .CasesDao
                         .GetCases(
                             searchString, contactid, isClosed,
                             tags,
@@ -467,7 +467,7 @@ namespace ASC.Api.CRM
             }
             else
             {
-                totalCount = DaoFactory.GetCasesDao().GetCasesCount(searchString, contactid, isClosed, tags);
+                totalCount = DaoFactory.CasesDao.GetCasesCount(searchString, contactid, isClosed, tags);
             }
 
             _context.SetTotalCount(totalCount);
@@ -490,7 +490,7 @@ namespace ASC.Api.CRM
         {
             if (caseid <= 0) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().DeleteCases(caseid);
+            var cases = DaoFactory.CasesDao.DeleteCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
             MessageService.Send(Request, MessageAction.CaseDeleted, MessageTarget.Create(cases.ID), cases.Title);
@@ -515,7 +515,7 @@ namespace ASC.Api.CRM
             if (casesids == null) throw new ArgumentException();
 
             casesids = casesids.Distinct();
-            var caseses = DaoFactory.GetCasesDao().DeleteBatchCases(casesids.ToArray());
+            var caseses = DaoFactory.CasesDao.DeleteBatchCases(casesids.ToArray());
 
             MessageService.Send(Request, MessageAction.CasesDeleted, MessageTarget.Create(casesids), caseses.Select(c => c.Title));
 
@@ -538,10 +538,10 @@ namespace ASC.Api.CRM
         [Delete(@"case/filter")]
         public IEnumerable<CasesWrapper> DeleteBatchCases(int contactid, bool? isClosed, IEnumerable<string> tags)
         {
-            var caseses = DaoFactory.GetCasesDao().GetCases(_context.FilterValue, contactid, isClosed, tags, 0, 0, null);
+            var caseses = DaoFactory.CasesDao.GetCases(_context.FilterValue, contactid, isClosed, tags, 0, 0, null);
             if (!caseses.Any()) return new List<CasesWrapper>();
 
-            caseses = DaoFactory.GetCasesDao().DeleteBatchCases(caseses);
+            caseses = DaoFactory.CasesDao.DeleteBatchCases(caseses);
 
             MessageService.Send(Request, MessageAction.CasesDeleted, MessageTarget.Create(caseses.Select(c => c.ID)), caseses.Select(c => c.Title));
 
@@ -559,10 +559,10 @@ namespace ASC.Api.CRM
         [Read(@"case/{caseid:[0-9]+}/contact")]
         public IEnumerable<ContactWrapper> GetCasesMembers(int caseid)
         {
-            var contactIDs = DaoFactory.GetCasesDao().GetMembers(caseid);
+            var contactIDs = DaoFactory.CasesDao.GetMembers(caseid);
             return contactIDs == null
                        ? new ItemList<ContactWrapper>()
-                       : ToListContactWrapper(DaoFactory.GetContactDao().GetContacts(contactIDs));
+                       : ToListContactWrapper(DaoFactory.ContactDao.GetContacts(contactIDs));
         }
 
         /// <summary>
@@ -582,13 +582,13 @@ namespace ASC.Api.CRM
         {
             if ((caseid <= 0) || (contactid <= 0)) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().GetByID(caseid);
+            var cases = DaoFactory.CasesDao.GetByID(caseid);
             if (cases == null || !CRMSecurity.CanAccessTo(cases)) throw new ItemNotFoundException();
 
-            var contact = DaoFactory.GetContactDao().GetByID(contactid);
+            var contact = DaoFactory.ContactDao.GetByID(contactid);
             if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
 
-            DaoFactory.GetCasesDao().AddMember(caseid, contactid);
+            DaoFactory.CasesDao.AddMember(caseid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CaseLinkedCompany : MessageAction.CaseLinkedPerson;
             MessageService.Send(Request, messageAction, MessageTarget.Create(cases.ID), cases.Title, contact.GetTitle());
@@ -613,15 +613,15 @@ namespace ASC.Api.CRM
         {
             if ((caseid <= 0) || (contactid <= 0)) throw new ArgumentException();
 
-            var cases = DaoFactory.GetCasesDao().GetByID(caseid);
+            var cases = DaoFactory.CasesDao.GetByID(caseid);
             if (cases == null || !CRMSecurity.CanAccessTo(cases)) throw new ItemNotFoundException();
 
-            var contact = DaoFactory.GetContactDao().GetByID(contactid);
+            var contact = DaoFactory.ContactDao.GetByID(contactid);
             if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
 
             var result = ToContactWrapper(contact);
 
-            DaoFactory.GetCasesDao().RemoveMember(caseid, contactid);
+            DaoFactory.CasesDao.RemoveMember(caseid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CaseUnlinkedCompany : MessageAction.CaseUnlinkedPerson;
             MessageService.Send(Request, messageAction, MessageTarget.Create(cases.ID), cases.Title, contact.GetTitle());
@@ -646,7 +646,7 @@ namespace ASC.Api.CRM
 
             if (contactID > 0)
             {
-                var findedCases = DaoFactory.GetCasesDao().GetCases(string.Empty, contactID, null, null, 0, 0, null);
+                var findedCases = DaoFactory.CasesDao.GetCases(string.Empty, contactID, null, null, 0, 0, null);
 
                 foreach (var item in findedCases)
                 {
@@ -661,7 +661,7 @@ namespace ASC.Api.CRM
             else
             {
                 const int maxItemCount = 30;
-                var findedCases = DaoFactory.GetCasesDao().GetCasesByPrefix(prefix, 0, maxItemCount);
+                var findedCases = DaoFactory.CasesDao.GetCasesByPrefix(prefix, 0, maxItemCount);
 
                 foreach (var item in findedCases)
                 {
@@ -681,12 +681,12 @@ namespace ASC.Api.CRM
             var contactIDs = new List<int>();
             var casesIDs = items.Select(item => item.ID).ToArray();
 
-            var customFields = DaoFactory.GetCustomFieldDao()
+            var customFields = DaoFactory.CustomFieldDao
                                          .GetEnityFields(EntityType.Case, casesIDs)
                                          .GroupBy(item => item.EntityID)
                                          .ToDictionary(item => item.Key, item => item.Select(ToCustomFieldBaseWrapper));
 
-            var casesMembers = DaoFactory.GetCasesDao().GetMembers(casesIDs);
+            var casesMembers = DaoFactory.CasesDao.GetMembers(casesIDs);
 
             foreach (var value in casesMembers.Values)
             {
@@ -694,7 +694,7 @@ namespace ASC.Api.CRM
             }
 
             var contacts = DaoFactory
-                .GetContactDao()
+                .ContactDao
                 .GetContacts(contactIDs.Distinct().ToArray())
                 .ToDictionary(item => item.ID, ToContactBaseWrapper);
 
@@ -721,15 +721,15 @@ namespace ASC.Api.CRM
             var casesWrapper = new CasesWrapper(cases)
                 {
                     CustomFields = DaoFactory
-                        .GetCustomFieldDao()
+                        .CustomFieldDao
                         .GetEnityFields(EntityType.Case, cases.ID, false)
                         .ConvertAll(item => new CustomFieldBaseWrapper(item))
                         .ToSmartList(),
                     Members = new List<ContactBaseWrapper>()
                 };
 
-            var memberIDs = DaoFactory.GetCasesDao().GetMembers(cases.ID);
-            var membersList = DaoFactory.GetContactDao().GetContacts(memberIDs);
+            var memberIDs = DaoFactory.CasesDao.GetMembers(cases.ID);
+            var membersList = DaoFactory.ContactDao.GetContacts(memberIDs);
 
             var membersWrapperList = new List<ContactBaseWrapper>();
 

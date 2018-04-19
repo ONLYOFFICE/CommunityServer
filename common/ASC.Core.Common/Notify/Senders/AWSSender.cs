@@ -50,7 +50,7 @@ namespace ASC.Core.Notify.Senders
         private DateTime lastRefresh;
         private DateTime lastSend;
         private TimeSpan sendWindow = TimeSpan.MinValue;
-        private GetSendQuotaResult quota;
+        private GetSendQuotaResponse quota;
 
 
         public override void Init(IDictionary<string, string> properties)
@@ -147,11 +147,6 @@ namespace ASC.Core.Notify.Senders
             }
 
             ThrottleIfNeeded();
-              
-            if (WorkContext.IsMono)
-            {
-                ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
-            }
                      
             var response = ses.SendEmail(request);
             lastSend = DateTime.UtcNow;
@@ -189,11 +184,6 @@ namespace ASC.Core.Notify.Senders
                     lastRefresh = DateTime.UtcNow.AddMinutes(1);
                     try
                     {
-                        if (WorkContext.IsMono)
-                        {
-                            ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
-                        }
-
                         var r = new GetSendQuotaRequest();
                         quota = ses.GetSendQuota(r);
                         sendWindow = TimeSpan.FromSeconds(1.0 / quota.MaxSendRate);

@@ -783,6 +783,7 @@ window.ASC.Files.Share = (function () {
         } else {
             data = { needUpdate: false };
         }
+        data.Referer = "onlyoffice";
 
         var message = JSON.stringify(data);
         window.parent.postMessage(message, "*");

@@ -65,13 +65,13 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public CommentWrapper(Comment comment, ProjectEntity entity)
+        public CommentWrapper(ProjectApiBase projectApiBase, Comment comment, ProjectEntity entity)
         {
             Id = comment.OldGuidId;
             ParentId = comment.Parent;
             Text = comment.Content;
             Created = Updated = (ApiDateTime)comment.CreateOn;
-            CreatedBy = EmployeeWraper.Get(comment.CreateBy);
+            CreatedBy = projectApiBase.GetEmployeeWraper(comment.CreateBy);
             Inactive = comment.Inactive;
             CanEdit = ProjectSecurity.CanEditComment(entity, comment);
         }

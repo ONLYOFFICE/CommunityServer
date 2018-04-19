@@ -1,0 +1,19 @@
+{
+    "name"       : "EasyBib",
+    "guid"       : "asc.{c9d216a5-4f1a-49f2-9ff0-67c510a73523}",
+    "baseUrl"    : "",
+    "variations" : [
+        {
+            "description"         : "EasyBib",
+            "url"                 : "index.html",
+            "icons"               : ["logo.png", "logo@2x.png"],
+            "isViewer"            : false,
+            "EditorsSupport"      : ["word"],
+            "initDataType"        : "html",
+            "isVisual"            : true,
+            "isModal"             : false,
+            "isInsideMode"        : true,
+            "isUpdateOleOnResize" : false
+        }
+    ]
+}

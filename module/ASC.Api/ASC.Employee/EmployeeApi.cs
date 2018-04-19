@@ -702,9 +702,9 @@ namespace ASC.Api.Employee
 
             var userName = user.DisplayUserName(false);
 
-            UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
+            UserPhotoManager.RemovePhoto(user.ID);
             CoreContext.UserManager.DeleteUser(user.ID);
-            QueueWorker.StartRemove(TenantProvider.CurrentTenantID, user.ID, SecurityContext.CurrentAccount.ID);
+            QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID);
 
             MessageService.Send(Request, MessageAction.UserDeleted, MessageTarget.Create(user.ID), userName);
 
@@ -824,7 +824,7 @@ namespace ASC.Api.Employee
 
             SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
 
-            UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
+            UserPhotoManager.RemovePhoto(user.ID);
 
             CoreContext.UserManager.SaveUserInfo(user);
             MessageService.Send(Request, MessageAction.UserDeletedAvatar, MessageTarget.Create(user.ID), user.DisplayUserName(false));
@@ -1097,9 +1097,9 @@ namespace ASC.Api.Employee
             {
                 if (user.Status != EmployeeStatus.Terminated) continue;
 
-                UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
+                UserPhotoManager.RemovePhoto(user.ID);
                 CoreContext.UserManager.DeleteUser(user.ID);
-                QueueWorker.StartRemove(TenantProvider.CurrentTenantID, user.ID, SecurityContext.CurrentAccount.ID);
+                QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID);
             }
 
             MessageService.Send(Request, MessageAction.UsersDeleted, MessageTarget.Create(users.Select(x => x.ID)), userNames);
@@ -1204,10 +1204,10 @@ namespace ASC.Api.Employee
         /// <summary>
         /// Returns the progress of the started reassign process
         /// </summary>
-        /// <param name="userId">User Id</param>
+        /// <param name="userId">User ID whose data is reassigned</param>
         /// <category>Reassign user data</category>
         /// <returns>Reassign Progress</returns>
-        [Read(@"getreassignprogress")]
+        [Read(@"reassign/progress")]
         public ReassignProgressItem GetReassignProgress(Guid userId)
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
@@ -1218,9 +1218,9 @@ namespace ASC.Api.Employee
         /// <summary>
         /// Terminate reassign process
         /// </summary>
-        /// <param name="userId">User Id</param>
+        /// <param name="userId">User ID whose data is reassigned</param>
         /// <category>Reassign user data</category>
-        [Update(@"terminatereassign")]
+        [Update(@"reassign/terminate")]
         public void TerminateReassign(Guid userId)
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
@@ -1231,11 +1231,11 @@ namespace ASC.Api.Employee
         /// <summary>
         /// Start a reassign process
         /// </summary>
-        /// <param name="fromUserId">From User Id</param>
-        /// <param name="toUserId">To User Id</param>
+        /// <param name="fromUserId">From User ID</param>
+        /// <param name="toUserId">To User ID</param>
         /// <category>Reassign user data</category>
         /// <returns>Reassign Progress</returns>
-        [Create(@"startreassign")]
+        [Create(@"reassign/start")]
         public ReassignProgressItem StartReassign(Guid fromUserId, Guid toUserId)
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
@@ -1270,6 +1270,60 @@ namespace ASC.Api.Employee
                 var userName = CoreContext.UserManager.GetUsers(userId).DisplayUserName();
                 throw new Exception(string.Format(Resource.ReassignDataRemoveUserError, userName));
             }
+        }
+
+        #endregion
+
+
+        #region Remove user data
+
+        /// <summary>
+        /// Returns the progress of the started remove process
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <category>Remove user data</category>
+        /// <returns>Remove Progress</returns>
+        [Read(@"remove/progress")]
+        public RemoveProgressItem GetRemoveProgress(Guid userId)
+        {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
+
+            return QueueWorker.GetProgressItemStatus(TenantProvider.CurrentTenantID, userId, typeof(RemoveProgressItem)) as RemoveProgressItem;
+        }
+
+        /// <summary>
+        /// Terminate remove process
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <category>Remove user data</category>
+        [Update(@"remove/terminate")]
+        public void TerminateRemove(Guid userId)
+        {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
+
+            QueueWorker.Terminate(TenantProvider.CurrentTenantID, userId, typeof(RemoveProgressItem));
+        }
+
+        /// <summary>
+        /// Start a remove process
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <category>Remove user data</category>
+        /// <returns>Remove Progress</returns>
+        [Create(@"remove/start")]
+        public RemoveProgressItem StartRemove(Guid userId)
+        {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
+
+            var user = CoreContext.UserManager.GetUsers(userId);
+
+            if (user == null || user.ID == Core.Users.Constants.LostUser.ID)
+                throw new ArgumentException("User with id = " + userId + " not found");
+
+            if (user.IsOwner() || user.IsMe() || user.Status != EmployeeStatus.Terminated)
+                throw new ArgumentException("Can not delete user with id = " + userId);
+
+            return QueueWorker.StartRemove(HttpContext.Current, TenantProvider.CurrentTenantID, user, SecurityContext.CurrentAccount.ID);
         }
 
         #endregion

@@ -33,12 +33,7 @@ namespace ASC.Data.Storage
 {
     class PathUtils
     {
-        public static string Normalize(string path)
-        {
-            return Normalize(path, false);
-        }
-
-        public static string Normalize(string path, bool addTailingSeparator)
+        public static string Normalize(string path, bool addTailingSeparator = false)
         {
             path = path
                 .Replace('/', Path.DirectorySeparatorChar)
@@ -47,6 +42,14 @@ namespace ASC.Data.Storage
                 .Replace("//", Path.DirectorySeparatorChar.ToString())
                 .TrimEnd(Path.DirectorySeparatorChar);
             return addTailingSeparator && 0 < path.Length ? path + Path.DirectorySeparatorChar : path;
+        }
+
+        public static string ResolveVirtualPath(string module, string domain)
+        {
+            var url = string.Format("~/storage/{0}/{1}/",
+                                 module,
+                                 string.IsNullOrEmpty(domain) ? "root" : domain);
+            return ResolveVirtualPath(url);
         }
 
         public static string ResolveVirtualPath(string virtPath, bool addTrailingSlash = true)
@@ -73,7 +76,7 @@ namespace ASC.Data.Storage
 
         public static string ResolvePhysicalPath(string physPath, IDictionary<string, string> storageConfig)
         {
-            physPath = PathUtils.Normalize(physPath, false).TrimStart('~');
+            physPath = Normalize(physPath, false).TrimStart('~');
 
             if (physPath.Contains(Constants.STORAGE_ROOT_PARAM))
             {

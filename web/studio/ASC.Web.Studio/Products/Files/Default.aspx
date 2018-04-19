@@ -55,12 +55,12 @@
         <asp:PlaceHolder ID="CommonSideHolder" runat="server"></asp:PlaceHolder>
     </div>
 
-    <% if (CoreContext.Configuration.Personal)
+    <% if (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)
        { %>
     <a href="#more" class="morefeatures-link banner-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
     <% } %>
 
-    <% if (DisplayAppsBanner)
+    <% if (DisplayAppsBanner && (!CoreContext.Configuration.Personal || (CoreContext.Configuration.Personal && SetupInfo.DisplayPersonalBanners)))
        { %>
     <a href="https://itunes.apple.com/app/onlyoffice-documents/id944896972?mt=8" target="_blank"
         class="mobile-app-banner banner-link gray-text"><%= string.Format(FilesUCResource.AppStore, "<br>", "<span>", "</span>") %></a>
@@ -74,27 +74,15 @@
     <%--Panels--%>
 
     <div id="settingCommon">
-        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ThirdpartyConfiguration.SupportInclusion && !Desktop)%>
-        <% { %>
-        <span class="header-base"><%= FilesUCResource.ThirdPartyAccounts %></span>
-        <br />
-        <br />
-        <input type="checkbox" id="cbxEnableSettings" class="on-off-checkbox" <%= FilesSettings.EnableThirdParty ? "checked='checked'" : "" %> />
-        <label for="cbxEnableSettings">
-            <%= FilesUCResource.ThirdPartyEnableSettings %>
-        </label>
-        <br />
-        <br />
-        <br />
-        <% } %>
-
         <span class="header-base"><%= FilesUCResource.SettingUpdateIfExist %></span>
+
         <br />
         <br />
         <input type="checkbox" id="cbxUpdateIfExist" class="update-if-exist on-off-checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %> />
         <label for="cbxUpdateIfExist">
-            <%= string.Format(FilesUCResource.ConfirmUpdateIfExist, "<br/><span class=\"text-medium-describe\">", "</span>")%>
+            <%= string.Format(FilesUCResource.ConfirmUpdateIfExist, "<br/><span class=\"text-medium-describe\">", "</span>") %>
         </label>
+
         <% if (FileConverter.EnableAsUploaded)
            { %>
         <br />
@@ -102,6 +90,27 @@
         <input type="checkbox" id="cbxStoreOriginal" class="store-original on-off-checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
         <label for="cbxStoreOriginal">
             <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
+        </label>
+        <% } %>
+
+        <br />
+        <br />
+        <input type="checkbox" id="cbxDeleteConfirm" class="on-off-checkbox" <%= FilesSettings.ConfirmDelete ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxDeleteConfirm">
+            <%= FilesUCResource.ConfirmDelete %>
+        </label>
+
+        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ThirdpartyConfiguration.SupportInclusion && !Desktop) 
+           { %>
+        <br />
+        <br />
+        <br />
+        <span class="header-base"><%= FilesUCResource.ThirdPartyAccounts %></span>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxEnableSettings" class="on-off-checkbox" <%= FilesSettings.EnableThirdParty ? "checked='checked'" : "" %> />
+        <label for="cbxEnableSettings">
+            <%= FilesUCResource.ThirdPartyEnableSettings %>
         </label>
         <% } %>
     </div>

@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
 using ASC.Specific;
@@ -39,6 +40,9 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 51, EmitDefaultValue = false)]
         public EmployeeWraper CreatedBy { get; set; }
 
+        [DataMember(Order = 51, EmitDefaultValue = false)]
+        public Guid CreatedById { get; set; }
+
         private ApiDateTime updated;
 
         [DataMember(Order = 52, EmitDefaultValue = false)]
@@ -50,5 +54,8 @@ namespace ASC.Api.Projects.Wrappers
 
         [DataMember(Order = 41, EmitDefaultValue = false)]
         public EmployeeWraper UpdatedBy { get; set; }
+
+        [DataMember(Order = 41, EmitDefaultValue = false)]
+        public Guid UpdatedById { get; set; }
     }
 }

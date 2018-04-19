@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using ASC.CRM.Core.Dao;
 
 namespace ASC.Web.CRM.Controls.Cases
 {
@@ -59,7 +60,7 @@ namespace ASC.Web.CRM.Controls.Cases
             }
             else
             {
-                var cases = GetCasesByFilter();
+                var cases = GetCasesByFilter(DaoFactory);
 
                 if (UrlParameters.View != "editor")
                 {
@@ -156,7 +157,7 @@ namespace ASC.Web.CRM.Controls.Cases
             return result;
         }
 
-        protected List<ASC.CRM.Core.Entities.Cases> GetCasesByFilter()
+        protected List<ASC.CRM.Core.Entities.Cases> GetCasesByFilter(DaoFactory daofactory)
         {
             var filterObj = GetFilterObjectFromCookie();
 
@@ -168,7 +169,7 @@ namespace ASC.Web.CRM.Controls.Cases
 
             var isAsc = !String.IsNullOrEmpty(filterObj.SortOrder) && filterObj.SortOrder != "descending";
 
-            return Global.DaoFactory.GetCasesDao().GetCases(
+            return daofactory.CasesDao.GetCases(
                 filterObj.FilterValue,
                 0,
                 filterObj.IsClosed,

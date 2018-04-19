@@ -34,7 +34,7 @@ namespace ASC.Core
     {
         void ValidateDomain(string domain);
 
-        IEnumerable<Tenant> GetTenants(DateTime from);
+        IEnumerable<Tenant> GetTenants(DateTime from, bool active = true);
 
         IEnumerable<Tenant> GetTenants(string login, string passwordHash);
 
@@ -51,6 +51,8 @@ namespace ASC.Core
         byte[] GetTenantSettings(int tenant, string key);
 
         void SetTenantSettings(int tenant, string key, byte[] data);
+
+        T LoadSettings<T>(int tenantId, Guid userId);
 
         IEnumerable<TenantVersion> GetTenantVersions();
     }

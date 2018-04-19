@@ -37,43 +37,31 @@ namespace ASC.CRM.Core.Dao
 {
     public class CurrencyInfoDao : AbstractDao
     {
-        public CurrencyInfoDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public CurrencyInfoDao(int tenantID)
+            : base(tenantID)
         {
         }
 
         public virtual List<CurrencyInfo> GetAll()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetSqlQuery(null)).ConvertAll(ToCurrencyInfo);
-            }
+            return Db.ExecuteList(GetSqlQuery(null)).ConvertAll(ToCurrencyInfo);
         }
         
         public virtual CurrencyInfo GetByAbbreviation(string abbreviation)
         {
-            using (var db = GetDb())
-            {
-                var currencies = db.ExecuteList(GetSqlQuery(Exp.Eq("abbreviation", abbreviation))).ConvertAll(ToCurrencyInfo);
+            var currencies = Db.ExecuteList(GetSqlQuery(Exp.Eq("abbreviation", abbreviation))).ConvertAll(ToCurrencyInfo);
 
-                return currencies.Count > 0 ? currencies[0] : null;
-            }
+            return currencies.Count > 0 ? currencies[0] : null;
         }
 
         public List<CurrencyInfo> GetBasic()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetSqlQuery(Exp.Eq("is_basic", true))).ConvertAll(ToCurrencyInfo);
-            }
+            return Db.ExecuteList(GetSqlQuery(Exp.Eq("is_basic", true))).ConvertAll(ToCurrencyInfo);
         }
 
         public List<CurrencyInfo> GetOther()
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetSqlQuery(Exp.Eq("is_basic", false))).ConvertAll(ToCurrencyInfo);
-            }
+            return Db.ExecuteList(GetSqlQuery(Exp.Eq("is_basic", false))).ConvertAll(ToCurrencyInfo);
         }
 
         private SqlQuery GetSqlQuery(Exp where)

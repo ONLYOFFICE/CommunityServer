@@ -24,10 +24,8 @@
 */
 
 
-using System;
 using System.Runtime.Serialization;
 using ASC.Api.Employee;
-using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
@@ -35,43 +33,16 @@ using ASC.Specific;
 namespace ASC.Api.Projects.Wrappers
 {
     [DataContract(Name = "message", Namespace = "")]
-    public class MessageWrapper : IApiSortableDate
+    public class MessageWrapper : ObjectWrapperFullBase
     {
-        [DataMember(Order = 1)]
-        public int Id { get; set; }
-
         [DataMember(Order = 14)]
         public SimpleProjectWrapper ProjectOwner { get; set; }
 
-        [DataMember(Order = 9)]
-        public string Title { get; set; }
-
-        [DataMember(Order = 10)]
+        [DataMember(Order = 20)]
         public string Text { get; set; }
-
-        [DataMember(Order = 11)]
-        public MessageStatus Status { get; set; }
-
-        [DataMember(Order = 50)]
-        public ApiDateTime Created { get; set; }
-
-        [DataMember(Order = 51)]
-        public EmployeeWraper CreatedBy { get; set; }
 
         [DataMember]
         public bool CanCreateComment { get; set; }
-
-        private ApiDateTime updated;
-
-        [DataMember(Order = 50)]
-        public ApiDateTime Updated
-        {
-            get { return updated >= Created ? updated : Created; }
-            set { updated = value; }
-        }
-
-        [DataMember(Order = 41)]
-        public EmployeeWraper UpdatedBy { get; set; }
 
         [DataMember]
         public bool CanEdit { get; set; }
@@ -84,7 +55,7 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public MessageWrapper(Message message)
+        public MessageWrapper(ProjectApiBase projectApiBase, Message message)
         {
             Id = message.ID;
             if (message.Project != null)
@@ -94,15 +65,25 @@ namespace ASC.Api.Projects.Wrappers
             Title = message.Title;
             Text = message.Description;
             Created = (ApiDateTime)message.CreateOn;
-            CreatedBy = new EmployeeWraperFull(CoreContext.UserManager.GetUsers(message.CreateBy));
             Updated = (ApiDateTime)message.LastModifiedOn;
-            if (message.CreateBy != message.LastModifiedBy)
+
+            if (projectApiBase.Context.GetRequestValue("simple") != null)
             {
-                UpdatedBy = EmployeeWraper.Get(message.LastModifiedBy);
+                CreatedById = message.CreateBy;
+                UpdatedById = message.LastModifiedBy;
             }
+            else
+            {
+                CreatedBy = projectApiBase.GetEmployeeWraper(message.CreateBy);
+                if (message.CreateBy != message.LastModifiedBy)
+                {
+                    UpdatedBy = projectApiBase.GetEmployeeWraper(message.LastModifiedBy);
+                }
+            }
+
             CanEdit = ProjectSecurity.CanEdit(message);
             CommentsCount = message.CommentsCount;
-            Status = message.Status;
+            Status = (int)message.Status;
             CanCreateComment = ProjectSecurity.CanCreateComment(message);
         }
 

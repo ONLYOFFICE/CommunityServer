@@ -24,46 +24,33 @@
 */
 
 
-using ASC.Core.Caching;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Web.Projects.Classes
 {
     public class SecurityAdapter : IFileSecurity
     {
-        private readonly int projectId;
-
-        private Project project;
-        private readonly TrustInterval interval = new TrustInterval();
-        private readonly TimeSpan timeout = TimeSpan.FromSeconds(10);
-
-        private Project Project
-        {
-            get
-            {
-                if (interval != null && interval.Expired)
-                {
-                    project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
-                    interval.Start(timeout);
-                }
-                return project;
-            }
-        }
+        private readonly Project project;
 
         public SecurityAdapter(int projectId)
         {
-            this.projectId = projectId;
+            using (var scope = DIHelper.Resolve())
+            {
+                project = scope.Resolve<EngineFactory>().ProjectEngine.GetByID(projectId);
+            }
         }
 
         public SecurityAdapter(Project project)
         {
-            interval = null;
             this.project = project;
         }
 
@@ -94,40 +81,49 @@ namespace ASC.Web.Projects.Classes
 
         private bool Can(FileEntry fileEntry, Guid userId, SecurityAction action)
         {
-            if (fileEntry == null || Project == null) return false;
+            if (fileEntry == null || project == null) return false;
 
-            if (!ProjectSecurity.CanReadFiles(Project, userId)) return false;
+            if (!ProjectSecurity.CanReadFiles(project, userId)) return false;
 
-            if (Project.Status != ProjectStatus.Open
+            if (project.Status == ProjectStatus.Closed
                 && action != SecurityAction.Read)
                 return false;
 
             if (ProjectSecurity.IsAdministrator(userId)) return true;
 
-            var folder = fileEntry as Folder;
-            if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId) return true;
-
-            var file = fileEntry as File;
-            if (file != null && file.CreateBy == userId) return true;
-
-            switch (action)
+            using (var scope = DIHelper.Resolve())
             {
-                case SecurityAction.Read:
-                    return !Project.Private || Global.EngineFactory.ProjectEngine.IsInTeam(Project.ID, userId);
-                case SecurityAction.Create:
-                case SecurityAction.Edit:
-                    return Global.EngineFactory.ProjectEngine.IsInTeam(Project.ID, userId)
-                           && (!ProjectSecurity.IsVisitor(userId) || folder != null && folder.FolderType == FolderType.BUNCH);
-                case SecurityAction.Delete:
-                    return !ProjectSecurity.IsVisitor(userId) && Project.Responsible == userId;
-                default:
-                    return false;
+                var projectEngine = scope.Resolve<EngineFactory>().ProjectEngine;
+
+                var folder = fileEntry as Folder;
+                if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId) return true;
+
+                var file = fileEntry as File;
+                if (file != null && file.CreateBy == userId) return true;
+
+                switch (action)
+                {
+                    case SecurityAction.Read:
+                        return !project.Private || projectEngine.IsInTeam(project.ID, userId);
+                    case SecurityAction.Create:
+                    case SecurityAction.Edit:
+                        return projectEngine.IsInTeam(project.ID, userId) &&
+                               (!ProjectSecurity.IsVisitor(userId) ||
+                                folder != null && folder.FolderType == FolderType.BUNCH);
+                    case SecurityAction.Delete:
+                        return !ProjectSecurity.IsVisitor(userId) && project.Responsible == userId;
+                    default:
+                        return false;
+                }
             }
         }
 
         public IEnumerable<Guid> WhoCanRead(FileEntry fileEntry)
         {
-            return Global.EngineFactory.ProjectEngine.GetTeam(Project.ID).Select(p => p.ID);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<EngineFactory>().ProjectEngine.GetTeam(project.ID).Select(p => p.ID).ToList();
+            }
         }
 
         private enum SecurityAction

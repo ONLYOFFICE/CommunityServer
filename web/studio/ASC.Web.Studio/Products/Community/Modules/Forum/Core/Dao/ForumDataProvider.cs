@@ -142,11 +142,11 @@ namespace ASC.Forum
 
     public class ForumDataProvider
     {
-        internal static DbManager DbManager
+        internal static IDbManager DbManager
         {
             get
             {
-                return DbManager.FromHttpContext(ASC.Web.Community.Forum.ForumManager.DbId);
+                return Common.Data.DbManager.FromHttpContext(ASC.Web.Community.Forum.ForumManager.DbId);
             }
         }
 

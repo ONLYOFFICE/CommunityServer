@@ -64,8 +64,6 @@ window.ASC.Files.Editor = (function () {
 
         var eventsConfig = {
             "onAppReady": ASC.Files.Editor.readyEditor,
-            //todo: remove
-            "onReady": ASC.Files.Editor.readyEditor,
         };
 
         if (configuration) {
@@ -196,7 +194,8 @@ window.ASC.Files.Editor = (function () {
     };
 
     var subscribeEdit = function (event) {
-        if (doStartEdit) {
+        if (!ASC.Files.Editor.configurationParams.editorConfig.callbackUrl
+            && doStartEdit) {
             doStartEdit = false;
 
             ASC.Files.ServiceManager.startEdit(event, {
@@ -266,7 +265,8 @@ window.ASC.Files.Editor = (function () {
     };
 
     var infoEditor = function (event) {
-        if (event && event.data && event.data.mode == "view") {
+        if (!!ASC.Files.Editor.configurationParams.editorConfig.callbackUrl
+            || event && event.data && event.data.mode == "view") {
             clearTimeout(trackEditTimeout);
             trackEditTimeout = null;
         }
@@ -299,6 +299,9 @@ window.ASC.Files.Editor = (function () {
             return;
         }
         if (!doStartEdit) {
+            return;
+        }
+        if (!!ASC.Files.Editor.configurationParams.editorConfig.callbackUrl) {
             return;
         }
 

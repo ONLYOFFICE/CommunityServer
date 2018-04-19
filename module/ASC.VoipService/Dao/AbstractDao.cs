@@ -33,12 +33,11 @@ namespace ASC.VoipService.Dao
 {
     public class AbstractDao
     {
-        private readonly string dbid;
+        private readonly string dbid = "default";
 
-        protected AbstractDao(int tenantID, String storageKey)
+        protected AbstractDao(int tenantID)
         {
             TenantID = tenantID;
-            dbid = storageKey;
         }
 
         protected DbManager GetDb()

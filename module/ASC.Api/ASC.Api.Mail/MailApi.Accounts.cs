@@ -115,7 +115,7 @@ namespace ASC.Api.Mail
                     {
                         LoginResult loginResult;
 
-                        using (var client = new MailClient(mb, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
+                        using (var client = new MailClient(mb, CancellationToken.None, TcpTimeout, SslCertificatesErrorPermit, log: _log))
                         {
                             loginResult = client.TestLogin();
                         }
@@ -377,7 +377,7 @@ namespace ASC.Api.Mail
 
             LoginResult loginResult;
 
-            using (var client = new MailClient(mbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
+            using (var client = new MailClient(mbox, CancellationToken.None, certificatePermit: SslCertificatesErrorPermit, log: _log))
             {
                 loginResult = client.TestLogin();
             }
@@ -508,7 +508,7 @@ namespace ASC.Api.Mail
                 {
                     LoginResult loginResult;
 
-                    using (var client = new MailClient(mbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
+                    using (var client = new MailClient(mbox, CancellationToken.None, certificatePermit: SslCertificatesErrorPermit, log: _log))
                     {
                         loginResult = client.TestLogin();
                     }
@@ -605,7 +605,7 @@ namespace ASC.Api.Mail
 
                 LoginResult loginResult;
 
-                using (var client = new MailClient(mailbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
+                using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: SslCertificatesErrorPermit, log: _log))
                 {
                     loginResult = client.TestLogin();
                 }

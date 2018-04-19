@@ -38,6 +38,7 @@ using ASC.Web.Studio.Core.Users;
 using LumenWorks.Framework.IO.Csv;
 using Newtonsoft.Json.Linq;
 using ASC.Common.Threading.Progress;
+using ASC.CRM.Core.Dao;
 
 #endregion
 
@@ -46,7 +47,7 @@ namespace ASC.Web.CRM.Classes
     public partial class ImportDataOperation
     {
 
-        private void ImportOpportunityData()
+        private void ImportOpportunityData(DaoFactory _daoFactory)
         {
             var allUsers = ASC.Core.CoreContext.UserManager.GetUsers(EmployeeStatus.All).ToList();
 
@@ -55,11 +56,11 @@ namespace ASC.Web.CRM.Classes
             {
                 int currentIndex = 0;
 
-                var customFieldDao = _daoFactory.GetCustomFieldDao();
-                var contactDao = _daoFactory.GetContactDao();
-                var tagDao = _daoFactory.GetTagDao();
-                var dealDao = _daoFactory.GetDealDao();
-                var dealMilestoneDao = _daoFactory.GetDealMilestoneDao();
+                var customFieldDao = _daoFactory.CustomFieldDao;
+                var contactDao = _daoFactory.ContactDao;
+                var tagDao = _daoFactory.TagDao;
+                var dealDao = _daoFactory.DealDao;
+                var dealMilestoneDao = _daoFactory.DealMilestoneDao;
 
                 var findedTags = new Dictionary<int, List<String>>();
                 var findedCustomField = new List<CustomField>();
@@ -224,7 +225,7 @@ namespace ASC.Web.CRM.Classes
                             }
                             else
                             {
-                                findedMember = _daoFactory.GetContactDao().GetContactsByName(item, false);
+                                findedMember = _daoFactory.ContactDao.GetContactsByName(item, false);
                                 if (findedMember.Count > 0)
                                 {
                                     localMembersDeal.Add(findedMember[0].ID);

@@ -385,21 +385,102 @@ namespace ASC.ActiveDirectory
             ldapUser.Contacts = newContacts;
         }
 
-        private static bool NeedUpdateUser(UserInfo portalUser, UserInfo ldapUser)
+        private bool NeedUpdateUser(UserInfo portalUser, UserInfo ldapUser)
         {
-            var needUpdate =
-                !portalUser.FirstName.Equals(ldapUser.FirstName, StringComparison.InvariantCultureIgnoreCase) ||
-                !portalUser.LastName.Equals(ldapUser.LastName, StringComparison.InvariantCultureIgnoreCase) ||
-                !portalUser.UserName.Equals(ldapUser.UserName, StringComparison.InvariantCultureIgnoreCase) ||
-                !portalUser.Email.Equals(ldapUser.Email, StringComparison.InvariantCultureIgnoreCase) ||
-                string.IsNullOrEmpty(portalUser.Sid) && !string.IsNullOrEmpty(ldapUser.Sid) ||
-                !portalUser.Sid.Equals(ldapUser.Sid, StringComparison.InvariantCultureIgnoreCase) ||
-                !portalUser.Title.Equals(ldapUser.Title, StringComparison.InvariantCultureIgnoreCase) ||
-                !portalUser.Location.Equals(ldapUser.Location, StringComparison.InvariantCultureIgnoreCase) ||
-                portalUser.ActivationStatus != ldapUser.ActivationStatus ||
-                portalUser.Status != ldapUser.Status ||
-                ldapUser.Contacts.Count != portalUser.Contacts.Count ||
-                !ldapUser.Contacts.All(portalUser.Contacts.Contains);
+            var needUpdate = false;
+
+            try
+            {
+                Func<string, string, bool> notEqual =
+                    (f1, f2) =>
+                        f1 == null && f2 != null ||
+                        f1 != null && !f1.Equals(f2, StringComparison.InvariantCultureIgnoreCase);
+
+                if (notEqual(portalUser.FirstName, ldapUser.FirstName))
+                {
+                    _log.DebugFormat("NeedUpdateUser by FirstName -> portal: '{0}', ldap: '{1}'", 
+                        portalUser.FirstName ?? "NULL",
+                        ldapUser.FirstName ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (notEqual(portalUser.LastName, ldapUser.LastName))
+                {
+                    _log.DebugFormat("NeedUpdateUser by LastName -> portal: '{0}', ldap: '{1}'",
+                        portalUser.LastName ?? "NULL",
+                        ldapUser.LastName ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (notEqual(portalUser.UserName, ldapUser.UserName))
+                {
+                    _log.DebugFormat("NeedUpdateUser by UserName -> portal: '{0}', ldap: '{1}'",
+                        portalUser.UserName ?? "NULL",
+                        ldapUser.UserName ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (notEqual(portalUser.Email, ldapUser.Email))
+                {
+                    _log.DebugFormat("NeedUpdateUser by Email -> portal: '{0}', ldap: '{1}'",
+                        portalUser.Email ?? "NULL",
+                        ldapUser.Email ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (notEqual(portalUser.Sid, ldapUser.Sid))
+                {
+                    _log.DebugFormat("NeedUpdateUser by Sid -> portal: '{0}', ldap: '{1}'",
+                        portalUser.Sid ?? "NULL",
+                        ldapUser.Sid ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (notEqual(portalUser.Title, ldapUser.Title))
+                {
+                    _log.DebugFormat("NeedUpdateUser by Title -> portal: '{0}', ldap: '{1}'",
+                        portalUser.Title ?? "NULL",
+                        ldapUser.Title ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (notEqual(portalUser.Location, ldapUser.Location))
+                {
+                    _log.DebugFormat("NeedUpdateUser by Location -> portal: '{0}', ldap: '{1}'",
+                        portalUser.Location ?? "NULL",
+                        ldapUser.Location ?? "NULL");
+                    needUpdate = true;
+                }
+
+                if (portalUser.ActivationStatus != ldapUser.ActivationStatus)
+                {
+                    _log.DebugFormat("NeedUpdateUser by ActivationStatus -> portal: '{0}', ldap: '{1}'",
+                        portalUser.ActivationStatus,
+                        ldapUser.ActivationStatus);
+                    needUpdate = true;
+                }
+
+                if (portalUser.Status != ldapUser.Status)
+                {
+                    _log.DebugFormat("NeedUpdateUser by Status -> portal: '{0}', ldap: '{1}'",
+                        portalUser.Status,
+                        ldapUser.Status);
+                    needUpdate = true;
+                }
+
+                if (ldapUser.Contacts.Count != portalUser.Contacts.Count ||
+                    !ldapUser.Contacts.All(portalUser.Contacts.Contains))
+                {
+                    _log.DebugFormat("NeedUpdateUser by Contacts -> portal: '{0}', ldap: '{1}'",
+                        string.Join("|", portalUser.Contacts),
+                        string.Join("|", ldapUser.Contacts));
+                    needUpdate = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.DebugFormat("NeedUpdateUser failed: error: {0}", ex);
+            }
 
             return needUpdate;
         }

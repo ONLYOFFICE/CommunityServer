@@ -535,7 +535,8 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
 
   var insertSmile = function (src, title) {
     if (taWindow) {
-      insertSmileToTextarea(taWindow, src, title);
+        insertSmileToTextarea(taWindow, src, title);
+        $('div#talkTextareaContainer ul.textareas li.textarea.current div.meseditorContainerPlaceholder').hide();
     }
   };
 
@@ -740,9 +741,9 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         var o = document.createElement('div');
         o.innerHTML = getTextareaContent(taWindow);
         if (translateSymbols(trim(getNodeContent(o))).length <= 0) {
-            $('div#talkTextareaContainer ul.textareas li.textarea div.meseditorContainerPlaceholder').show();
+            $('div#talkTextareaContainer ul.textareas li.textarea.current div.meseditorContainerPlaceholder').show();
         } else {
-            $('div#talkTextareaContainer ul.textareas li.textarea div.meseditorContainerPlaceholder').hide();
+            $('div#talkTextareaContainer ul.textareas li.textarea.current div.meseditorContainerPlaceholder').hide();
         }
         resizeMeseditorcontainer();
         TMTalk.keyup(evt);

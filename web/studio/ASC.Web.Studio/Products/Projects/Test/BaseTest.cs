@@ -1,4 +1,6 @@
 ﻿using ASC.Web.Core;
+using ASC.Web.Projects.Core;
+using Autofac;
 using NUnit.Framework;
 
 namespace ASC.Web.Projects.Test
@@ -9,11 +11,11 @@ namespace ASC.Web.Projects.Test
     using ASC.Core;
     using ASC.Projects.Core.Domain;
     using ASC.Projects.Engine;
-    using Studio.Utility;
 
     [TestFixture]
     public class BaseTest
     {
+        protected ILifetimeScope Scope { get; set; }
         protected TaskEngine TaskEngine { get; set; }
         protected MilestoneEngine MilestoneEngine { get; set; }
         protected MessageEngine MessageEngine { get; set; }
@@ -40,7 +42,9 @@ namespace ASC.Web.Projects.Test
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             SecurityContext.AuthenticateMe(tenant.OwnerId);
 
-            var engineFactory = new EngineFactory("test", TenantProvider.CurrentTenantID);
+            Scope = DIHelper.Resolve(true);
+
+            var engineFactory = Scope.Resolve<EngineFactory>();
             ProjectEngine = engineFactory.ProjectEngine;
             ParticipantEngine = engineFactory.ParticipantEngine;
             TaskEngine = engineFactory.TaskEngine;
@@ -59,6 +63,11 @@ namespace ASC.Web.Projects.Test
         public void Cleanup()
         {
             Delete(Project);
+
+            if (Scope != null)
+            {
+                Scope.Dispose();
+            }
         }
 
         protected Project GenerateProject(Guid userId)

@@ -39,7 +39,7 @@ using ASC.Web.Studio.UserControls.Statistics;
 
 namespace ASC.Web.Talk.Addon
 {
-    public class TalkSpaceUsageStatManager : SpaceUsageStatManager
+    public class TalkSpaceUsageStatManager : SpaceUsageStatManager, IUserSpaceUsage
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
@@ -58,11 +58,16 @@ namespace ASC.Web.Talk.Addon
                                      .ToList();
             }
 
-            return CoreContext.UserManager.GetUsers()
+            return CoreContext.UserManager.GetUsers(EmployeeStatus.All, EmployeeType.All)
                               .Select(userInfo => ToUsageSpaceStatItem(storage, userInfo))
                               .Where(item => item != null)
                               .OrderByDescending(item => item.SpaceUsage)
                               .ToList();
+        }
+
+        public long GetUserSpaceUsage(Guid userId)
+        {
+            return GetSpaceUsage(userId);
         }
 
         private static IDataStore GetStorage()
@@ -85,7 +90,8 @@ namespace ASC.Web.Talk.Addon
                     SpaceUsage = storage.GetDirectorySize(md5Hash),
                     Name = userInfo.DisplayUserName(false),
                     ImgUrl = userInfo.GetSmallPhotoURL(),
-                    Url = userInfo.GetUserProfilePageURL()
+                    Url = userInfo.GetUserProfilePageURL(),
+                    Disabled = userInfo.Status == EmployeeStatus.Terminated
                 };
         }
 
@@ -105,11 +111,16 @@ namespace ASC.Web.Talk.Addon
 
         public static long GetSpaceUsage()
         {
+            return GetSpaceUsage(SecurityContext.CurrentAccount.ID);
+        }
+
+        private static long GetSpaceUsage(Guid userId)
+        {
             var storage = GetStorage();
 
             if (storage == null) throw new Exception("storage not found");
 
-            var hash = GetUserMd5Hash(SecurityContext.CurrentAccount.ID);
+            var hash = GetUserMd5Hash(userId);
 
             return storage.IsDirectory(hash) ? storage.GetDirectorySize(hash) : 0;
         }

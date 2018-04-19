@@ -45,8 +45,8 @@ namespace ASC.Projects.Data.DAO
     {
         private readonly HttpRequestDictionary<Project> projectCache = new HttpRequestDictionary<Project>("project");
 
-        public CachedProjectDao(string dbId, int tenantId)
-            : base(dbId, tenantId)
+        public CachedProjectDao(int tenantId)
+            : base(tenantId)
         {
         }
 
@@ -62,13 +62,13 @@ namespace ASC.Projects.Data.DAO
             base.RemoveFromTeam(projectId, participantId);
         }
 
-        public override Project Save(Project project)
+        public override Project Update(Project project)
         {
             if (project != null)
             {
                 ResetCache(project.ID);
             }
-            return base.Save(project);
+            return base.Update(project);
         }
 
         public override Project GetById(int projectId)
@@ -98,13 +98,12 @@ namespace ASC.Projects.Data.DAO
     {
         public static readonly string[] ProjectColumns = new[] { "id", "title", "description", "status", "responsible_id", "private", "create_by", "create_on", "last_modified_by", "last_modified_on" };
 
-        private static readonly HttpRequestDictionary<TeamCacheItem> teamCache = new HttpRequestDictionary<TeamCacheItem>("ProjectDao-TeamCacheItem");
-        private static readonly HttpRequestDictionary<List<Guid>> followCache = new HttpRequestDictionary<List<Guid>>("ProjectDao-FollowCache");
+        private readonly HttpRequestDictionary<TeamCacheItem> teamCache = new HttpRequestDictionary<TeamCacheItem>("ProjectDao-TeamCacheItem");
+        private readonly HttpRequestDictionary<List<Guid>> followCache = new HttpRequestDictionary<List<Guid>>("ProjectDao-FollowCache");
         private readonly Converter<object[], Project> converter;
 
 
-        public ProjectDao(string dbId, int tenantId)
-            : base(dbId, tenantId)
+        public ProjectDao(int tenantId) : base(tenantId)
         {
             converter = ToProject;
         }
@@ -118,10 +117,7 @@ namespace ASC.Projects.Data.DAO
                 .OrderBy("title", true);
             if (status != null) query.Where("status", status);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Project> GetLast(ProjectStatus? status, int offset, int max)
@@ -133,10 +129,7 @@ namespace ASC.Projects.Data.DAO
                 .OrderBy("create_on", false);
             if (status != null) query.Where("status", status);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Project> GetOpenProjectsWithTasks(Guid participantId)
@@ -155,32 +148,24 @@ namespace ASC.Projects.Data.DAO
                     .Where("ppp.participant_id", participantId);
 
             }
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public DateTime GetMaxLastModified()
         {
             var query = Query(ProjectsTable).SelectMax("last_modified_on");
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return TenantUtil.DateTimeFromUtc(db.ExecuteScalar<DateTime>(query));
-            }
+            return TenantUtil.DateTimeFromUtc(Db.ExecuteScalar<DateTime>(query));
         }
 
         public void UpdateLastModified(int projectId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    Update(ProjectsTable)
-                        .Set("last_modified_on", DateTime.UtcNow)
-                        .Set("last_modified_by", CurrentUserID)
-                        .Where("id", projectId));
-            }
+            Db.ExecuteNonQuery(
+                Update(ProjectsTable)
+                    .Set("last_modified_on", DateTime.UtcNow)
+                    .Set("last_modified_by", CurrentUserID)
+                    .Where("id", projectId));
         }
 
         public List<Project> GetByParticipiant(Guid participantId, ProjectStatus status)
@@ -192,10 +177,7 @@ namespace ASC.Projects.Data.DAO
                 .Where("participant_id", participantId.ToString())
                 .OrderBy("title", true);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Project> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -232,10 +214,7 @@ namespace ASC.Projects.Data.DAO
 
             query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(ToProjectFull);
-            }
+            return Db.ExecuteList(query).ConvertAll(ToProjectFull);
         }
 
         public int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -248,10 +227,7 @@ namespace ASC.Projects.Data.DAO
 
             var queryCount = new SqlQuery().SelectCount().From(query, "t1");
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(queryCount);
-            }
+            return Db.ExecuteScalar<int>(queryCount);
         }
 
         private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -341,54 +317,39 @@ namespace ASC.Projects.Data.DAO
                 .Where("status", ProjectStatus.Open)
                 .OrderBy("create_on", true);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public bool IsFollow(int projectId, Guid participantId)
         {
-            using (var db = new DbManager(DatabaseId))
+            var users = followCache[projectId.ToString(CultureInfo.InvariantCulture)];
+            if (users == null)
             {
-                var users = followCache[projectId.ToString(CultureInfo.InvariantCulture)];
-                if (users == null)
-                {
-                    var q = new SqlQuery(FollowingProjectTable).Select("participant_id").Where("project_id", projectId);
-                    users = db.ExecuteList(q).ConvertAll(r => new Guid((string)r[0]));
-                    followCache.Add(projectId.ToString(CultureInfo.InvariantCulture), users);
-                }
-
-                return users.Contains(participantId);
+                var q = new SqlQuery(FollowingProjectTable).Select("participant_id").Where("project_id", projectId);
+                users = Db.ExecuteList(q).ConvertAll(r => new Guid((string)r[0]));
+                followCache.Add(projectId.ToString(CultureInfo.InvariantCulture), users);
             }
+
+            return users.Contains(participantId);
         }
 
         public virtual Project GetById(int projectId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where("id", projectId))
-                    .ConvertAll(converter)
-                    .SingleOrDefault();
-            }
+            return Db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where("id", projectId))
+                .ConvertAll(converter)
+                .SingleOrDefault();
         }
 
         public List<Project> GetById(ICollection projectIDs)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where(Exp.In("id", projectIDs)))
-                    .ConvertAll(converter);
-            }
+            return Db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where(Exp.In("id", projectIDs)))
+                .ConvertAll(converter);
         }
 
         public bool IsExists(int projectId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var count = db.ExecuteScalar<int>(Query(ProjectsTable).SelectCount().Where("id", projectId));
-                return 0 < count;
-            }
+            var count = Db.ExecuteScalar<int>(Query(ProjectsTable).SelectCount().Where("id", projectId));
+            return 0 < count;
         }
 
         public List<Project> GetByContactID(int contactId)
@@ -423,19 +384,16 @@ namespace ASC.Projects.Data.DAO
                 .Where(Exp.In("p.id", projectIds.ToList()))
                 .Where("p.tenant_id", Tenant);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query)
-                    .Select(r =>
-                                {
-                                    var prj = ToProject(r);
-                                    prj.TaskCount = Convert.ToInt32(r[11]);
-                                    prj.MilestoneCount = Convert.ToInt32(r[10]);
-                                    prj.ParticipantCount = Convert.ToInt32(r[12]);
-                                    return prj;
-                                }
-                    ).ToList();
-            }
+            return Db.ExecuteList(query)
+                .Select(r =>
+                            {
+                                var prj = ToProject(r);
+                                prj.TaskCount = Convert.ToInt32(r[11]);
+                                prj.MilestoneCount = Convert.ToInt32(r[10]);
+                                prj.ParticipantCount = Convert.ToInt32(r[12]);
+                                return prj;
+                            }
+                ).ToList();
         }
 
         public void AddProjectContact(int projectID, int contactID)
@@ -456,10 +414,7 @@ namespace ASC.Projects.Data.DAO
 
         public int Count()
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(Query(ProjectsTable).SelectCount());
-            }
+            return Db.ExecuteScalar<int>(Query(ProjectsTable).SelectCount());
         }
 
         public List<int> GetTaskCount(List<int> projectId, TaskStatus? taskStatus, bool isAdmin)
@@ -486,18 +441,15 @@ namespace ASC.Projects.Data.DAO
                     .LeftOuterJoin(ParticipantTable + " ppp", Exp.EqColumns("p.id", "ppp.project_id") & Exp.EqColumns("p.tenant_id", "ppp.tenant") & Exp.Eq("ppp.removed", false) & Exp.Eq("ppp.participant_id", CurrentUserID))
                     .Where(Exp.Eq("p.private", false) | !Exp.Eq("ptr.responsible_id", null) | (Exp.Eq("p.private", true) & !Exp.Eq("ppp.security", null) & !Exp.Eq("ppp.security & " + (int)ProjectTeamSecurity.Tasks, (int)ProjectTeamSecurity.Tasks)));
             }
-            using (var db = new DbManager(DatabaseId))
-            {
-                var result = db.ExecuteList(query);
+            var result = Db.ExecuteList(query);
 
-                return projectId.ConvertAll(
-                    pid =>
-                        {
-                            var res = result.Find(r => Convert.ToInt32(r[0]) == pid);
-                            return res == null ? 0 : Convert.ToInt32(res[1]);
-                        }
-                    );
-            }
+            return projectId.ConvertAll(
+                pid =>
+                    {
+                        var res = result.Find(r => Convert.ToInt32(r[0]) == pid);
+                        return res == null ? 0 : Convert.ToInt32(res[1]);
+                    }
+                );
         }
 
         public int GetMessageCount(int projectId)
@@ -506,10 +458,7 @@ namespace ASC.Projects.Data.DAO
                 .SelectCount()
                 .Where("project_id", projectId);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(query);
-            }
+            return Db.ExecuteScalar<int>(query);
         }
 
         public int GetTotalTimeCount(int projectId)
@@ -518,10 +467,7 @@ namespace ASC.Projects.Data.DAO
                 .SelectCount()
                 .Where("project_id", projectId);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(query);
-            }
+            return Db.ExecuteScalar<int>(query);
         }
 
         public int GetMilestoneCount(int projectId, params MilestoneStatus[] statuses)
@@ -534,133 +480,128 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.In("status", statuses));
             }
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(query);
-            }
+            return Db.ExecuteScalar<int>(query);
         }
 
-        public virtual Project Save(Project project)
+        public Project Create(Project project)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var insert = Insert(ProjectsTable)
-                    .InColumns(ProjectColumns)
-                    .Values(
-                        project.ID,
-                        project.Title,
-                        project.Description,
-                        project.Status,
-                        project.Responsible.ToString(),
-                        project.Private,
-                        project.CreateBy.ToString(),
-                        TenantUtil.DateTimeToUtc(project.CreateOn),
-                        project.LastModifiedBy.ToString(),
-                        TenantUtil.DateTimeToUtc(project.LastModifiedOn))
-                    .InColumnValue("status_changed", project.StatusChangedOn)
-                    .Identity(1, 0, true);
-                project.ID = db.ExecuteScalar<int>(insert);
-            }
+            var insert = Insert(ProjectsTable, false)
+                .InColumns("id", "title", "description", "status", "responsible_id", "private", "create_by", "create_on", "last_modified_on")
+                .Values(
+                    project.ID,
+                    project.Title,
+                    project.Description,
+                    project.Status,
+                    project.Responsible.ToString(),
+                    project.Private,
+                    project.CreateBy.ToString(),
+                    TenantUtil.DateTimeToUtc(project.CreateOn),
+                    TenantUtil.DateTimeToUtc(project.LastModifiedOn))
+                .Identity(1, 0, true);
+
+            project.ID = Db.ExecuteScalar<int>(insert);
+
+            return project;
+        }
+
+        public virtual Project Update(Project project)
+        {
+            var update = Update(ProjectsTable)
+                .Set("title" ,project.Title)
+                .Set("description" ,project.Description)
+                .Set("status" ,project.Status)
+                .Set("status_changed", project.StatusChangedOn)
+                .Set("responsible_id", project.Responsible.ToString())
+                .Set("private", project.Private)
+                .Set("last_modified_by", project.LastModifiedBy.ToString())
+                .Set("last_modified_on", TenantUtil.DateTimeToUtc(project.LastModifiedOn))
+                .Where("id", project.ID);
+
+            Db.ExecuteNonQuery(update);
 
             return project;
         }
 
         public virtual void Delete(int projectId, out List<int> messages, out List<int> tasks)
         {
-            using (var db = new DbManager(DatabaseId))
+            using (var tx = Db.BeginTransaction())
             {
-                using (var tx = db.BeginTransaction())
-                {
-                    db.ExecuteNonQuery(new SqlDelete(ParticipantTable).Where("project_id", projectId).Where("tenant", Tenant));
-                    db.ExecuteNonQuery(new SqlDelete(FollowingProjectTable).Where("project_id", projectId));
-                    db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
-                    db.ExecuteNonQuery(Delete(TimeTrackingTable).Where("project_id", projectId));
-
-                    messages = db.ExecuteList(Query(MessagesTable)
+                    messages = Db.ExecuteList(Query(MessagesTable)
                                 .Select("id")
                                 .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    var milestones = db.ExecuteList(Query(MilestonesTable)
+                    var milestones = Db.ExecuteList(Query(MilestonesTable)
                                                         .Select("id")
                                                         .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
-                    tasks = db.ExecuteList(Query(TasksTable)
+                    tasks = Db.ExecuteList(Query(TasksTable)
                                                    .Select("id")
                                                    .Where("project_id", projectId)).ConvertAll(r => Convert.ToInt32(r[0]));
 
                     if (messages.Any())
                     {
-                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages.Select(r => "Message_" + r).ToList())));
-                        db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
+                        Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages.Select(r => "Message_" + r).ToList())));
+                        Db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
                     }
                     if (milestones.Any())
                     {
-                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones.Select(r => "Milestone_" + r).ToList())));
-                        db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
+                        Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones.Select(r => "Milestone_" + r).ToList())));
+                        Db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
                     }
                     if (tasks.Any())
                     {
-                        db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", tasks.Select(r => "Task_" + r).ToList())));
-                        db.ExecuteNonQuery(Delete(TasksOrderTable).Where("project_id", projectId));
-                        db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where(Exp.In("task_id", tasks)));
-                        db.ExecuteNonQuery(Delete(SubtasksTable).Where(Exp.In("task_id", tasks)));
-                        db.ExecuteNonQuery(Delete(TasksTable).Where("project_id", projectId));
+                        Db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", tasks.Select(r => "Task_" + r).ToList())));
+                        Db.ExecuteNonQuery(Delete(TasksOrderTable).Where("project_id", projectId));
+                        Db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where(Exp.In("task_id", tasks)));
+                        Db.ExecuteNonQuery(Delete(SubtasksTable).Where(Exp.In("task_id", tasks)));
+                        Db.ExecuteNonQuery(Delete(TasksTable).Where("project_id", projectId));
                     }
 
-                    db.ExecuteNonQuery(Delete(ProjectsTable).Where("id", projectId));
+                Db.ExecuteNonQuery(new SqlDelete(ParticipantTable).Where("project_id", projectId).Where("tenant", Tenant));
+                Db.ExecuteNonQuery(new SqlDelete(FollowingProjectTable).Where("project_id", projectId));
+                Db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
+                Db.ExecuteNonQuery(Delete(TimeTrackingTable).Where("project_id", projectId));
+                Db.ExecuteNonQuery(Delete(ProjectsTable).Where("id", projectId));
 
-                    tx.Commit();
-                }
-                db.ExecuteNonQuery(Delete(TagsTable).Where(!Exp.In("id", new SqlQuery("projects_project_tag").Select("tag_id"))));
+                tx.Commit();
             }
+            Db.ExecuteNonQuery(Delete(TagsTable).Where(!Exp.In("id", new SqlQuery("projects_project_tag").Select("tag_id"))));
         }
 
 
         public virtual void AddToTeam(int projectId, Guid participantId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    new SqlInsert(ParticipantTable, true)
-                        .InColumnValue("project_id", projectId)
-                        .InColumnValue("participant_id", participantId.ToString())
-                        .InColumnValue("created", DateTime.UtcNow)
-                        .InColumnValue("updated", DateTime.UtcNow)
-                        .InColumnValue("removed", false)
-                        .InColumnValue("tenant", Tenant));
-            }
+            Db.ExecuteNonQuery(
+                new SqlInsert(ParticipantTable, true)
+                    .InColumnValue("project_id", projectId)
+                    .InColumnValue("participant_id", participantId.ToString())
+                    .InColumnValue("created", DateTime.UtcNow)
+                    .InColumnValue("updated", DateTime.UtcNow)
+                    .InColumnValue("removed", false)
+                    .InColumnValue("tenant", Tenant));
 
             UpdateLastModified(projectId);
 
-            lock (teamCache)
-            {
-                var key = string.Format("{0}|{1}", projectId, participantId);
-                var item = teamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
-                if (item != null) item.InTeam = true;
-            }
+            var key = string.Format("{0}|{1}", projectId, participantId);
+            var item = teamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
+            if (item != null) item.InTeam = true;
         }
 
         public virtual void RemoveFromTeam(int projectId, Guid participantId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    new SqlUpdate(ParticipantTable)
-                        .Set("removed", true)
-                        .Set("updated", DateTime.UtcNow)
-                        .Where("tenant", Tenant)
-                        .Where("project_id", projectId)
-                        .Where("participant_id", participantId.ToString()));
-            }
+            Db.ExecuteNonQuery(
+                new SqlUpdate(ParticipantTable)
+                    .Set("removed", true)
+                    .Set("updated", DateTime.UtcNow)
+                    .Where("tenant", Tenant)
+                    .Where("project_id", projectId)
+                    .Where("participant_id", participantId.ToString()));
 
             UpdateLastModified(projectId);
 
-            lock (teamCache)
-            {
-                var key = string.Format("{0}|{1}", projectId, participantId);
-                var item = teamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
-                if (item != null) item.InTeam = false;
-            }
+            var key = string.Format("{0}|{1}", projectId, participantId);
+            var item = teamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
+            if (item != null) item.InTeam = false;
         }
 
         public bool IsInTeam(int projectId, Guid participantId)
@@ -672,79 +613,61 @@ namespace ASC.Projects.Data.DAO
         {
             if (project == null) return new List<Participant>();
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(
-                    new SqlQuery(ParticipantTable + " pp")
-                        .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
-                        .Select("pp.participant_id, pp.security, pp.project_id")
-                        .Select(Exp.EqColumns("pp.project_id", "pt.id"))
-                        .Where("pp.tenant", Tenant)
-                        .Where("pp.project_id", project.ID)
-                        .Where("pp.removed", false))
-                    .ConvertAll(ToParticipant);
-            }
+            return Db.ExecuteList(
+                new SqlQuery(ParticipantTable + " pp")
+                    .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
+                    .Select("pp.participant_id, pp.security, pp.project_id")
+                    .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                    .Where("pp.tenant", Tenant)
+                    .Where("pp.project_id", project.ID)
+                    .Where("pp.removed", false))
+                .ConvertAll(ToParticipant);
         }
 
         public List<Participant> GetTeam(IEnumerable<Project> projects)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(
-                    new SqlQuery(ParticipantTable + " pp")
-                        .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
-                        .Select("distinct pp.participant_id, pp.security, pp.project_id")
-                        .Select(Exp.EqColumns("pp.project_id", "pt.id"))
-                        .Where("pp.tenant", Tenant)
-                        .Where(Exp.In("pp.project_id", projects.Select(r => r.ID).ToArray()))
-                        .Where("pp.removed", false))
-                    .ConvertAll(ToParticipant);
-            }
+            return Db.ExecuteList(
+                new SqlQuery(ParticipantTable + " pp")
+                    .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
+                    .Select("distinct pp.participant_id, pp.security, pp.project_id")
+                    .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                    .Where("pp.tenant", Tenant)
+                    .Where(Exp.In("pp.project_id", projects.Select(r => r.ID).ToArray()))
+                    .Where("pp.removed", false))
+                .ConvertAll(ToParticipant);
         }
 
         public List<ParticipantFull> GetTeamUpdates(DateTime from, DateTime to)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var query = new SqlQuery(ProjectsTable + " p")
-                    .Select(ProjectColumns.Select(x => "p." + x).ToArray())
-                    .Select("pp.participant_id", "pp.removed", "pp.created", "pp.updated")
-                    .LeftOuterJoin("projects_project_participant pp", Exp.EqColumns("pp.project_id", "p.id"))
-                    .Where(Exp.Between("pp.created", from, to) | Exp.Between("pp.updated", from, to));
+            var query = new SqlQuery(ProjectsTable + " p")
+                .Select(ProjectColumns.Select(x => "p." + x).ToArray())
+                .Select("pp.participant_id", "pp.removed", "pp.created", "pp.updated")
+                .LeftOuterJoin("projects_project_participant pp", Exp.EqColumns("pp.project_id", "p.id"))
+                .Where(Exp.Between("pp.created", from, to) | Exp.Between("pp.updated", from, to));
 
-                return db.ExecuteList(query).ConvertAll(ToParticipantFull);
-            }
+            return Db.ExecuteList(query).ConvertAll(ToParticipantFull);
         }
 
         public DateTime GetTeamMaxLastModified()
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var query = new SqlQuery(ParticipantTable).SelectMax("updated").Where("tenant", Tenant);
+            var query = new SqlQuery(ParticipantTable).SelectMax("updated").Where("tenant", Tenant);
 
-                return TenantUtil.DateTimeFromUtc(db.ExecuteScalar<DateTime>(query));
-            }
+            return TenantUtil.DateTimeFromUtc(Db.ExecuteScalar<DateTime>(query));
         }
 
         public void SetTeamSecurity(int projectId, Guid participantId, ProjectTeamSecurity teamSecurity)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(
-                    new SqlUpdate(ParticipantTable)
-                        .Set("updated", DateTime.UtcNow)
-                        .Set("security", (int)teamSecurity)
-                        .Where("tenant", Tenant)
-                        .Where("project_id", projectId)
-                        .Where("participant_id", participantId.ToString()));
-            }
+            Db.ExecuteNonQuery(
+                new SqlUpdate(ParticipantTable)
+                    .Set("updated", DateTime.UtcNow)
+                    .Set("security", (int)teamSecurity)
+                    .Where("tenant", Tenant)
+                    .Where("project_id", projectId)
+                    .Where("participant_id", participantId.ToString()));
 
-            lock (teamCache)
-            {
-                var key = string.Format("{0}|{1}", projectId, participantId);
-                var item = teamCache.Get(key);
-                if (item != null) teamCache[key].Security = teamSecurity;
-            }
+            var key = string.Format("{0}|{1}", projectId, participantId);
+            var item = teamCache.Get(key);
+            if (item != null) teamCache[key].Security = teamSecurity;
         }
 
         public ProjectTeamSecurity GetTeamSecurity(int projectId, Guid participantId)
@@ -756,58 +679,49 @@ namespace ASC.Projects.Data.DAO
         {
             var key = string.Format("{0}|{1}", projectId, participantId);
 
-            lock (teamCache)
+            var item = teamCache.Get(key);
+            if (item != null) return item;
+
+            item = teamCache.Get(string.Format("{0}|{1}", 0, participantId));
+            if (item != null) return new TeamCacheItem(false, ProjectTeamSecurity.None);
+
+            var projectList = Db.ExecuteList(
+                new SqlQuery(ParticipantTable)
+                    .Select("project_id", "security")
+                    .Where("tenant", Tenant)
+                    .Where("participant_id", participantId.ToString())
+                    .Where("removed", false));
+
+            var teamCacheItem = new TeamCacheItem(true, ProjectTeamSecurity.None);
+            teamCache.Add(string.Format("{0}|{1}", 0, participantId), teamCacheItem);
+
+            foreach (var prj in projectList)
             {
-                var item = teamCache.Get(key);
-                if (item != null) return item;
-
-                item = teamCache.Get(string.Format("{0}|{1}", 0, participantId));
-                if (item != null) return new TeamCacheItem(false, ProjectTeamSecurity.None);
-
-                List<object[]> projectList;
-
-                using (var db = new DbManager(DatabaseId))
-                {
-                    projectList = db.ExecuteList(
-                        new SqlQuery(ParticipantTable)
-                            .Select("project_id", "security")
-                            .Where("tenant", Tenant)
-                            .Where("participant_id", participantId.ToString())
-                            .Where("removed", false));
-                }
-
-                var teamCacheItem = new TeamCacheItem(true, ProjectTeamSecurity.None);
-                teamCache.Add(string.Format("{0}|{1}", 0, participantId), teamCacheItem);
-
-                foreach (var prj in projectList)
-                {
-                    teamCacheItem = new TeamCacheItem(true, (ProjectTeamSecurity)Convert.ToInt32(prj[1]));
-                    key = string.Format("{0}|{1}", prj[0], participantId);
-                    teamCache.Add(key, teamCacheItem);
-                }
-
-                var currentProject = projectList.Find(r => Convert.ToInt32(r[0]) == projectId);
-                teamCacheItem = new TeamCacheItem(currentProject != null,
-                                                  currentProject != null
-                                                      ? (ProjectTeamSecurity)Convert.ToInt32(currentProject[1])
-                                                      : ProjectTeamSecurity.None);
-                key = string.Format("{0}|{1}", projectId, participantId);
+                teamCacheItem = new TeamCacheItem(true, (ProjectTeamSecurity)Convert.ToInt32(prj[1]));
+                key = string.Format("{0}|{1}", prj[0], participantId);
                 teamCache.Add(key, teamCacheItem);
-                return teamCacheItem;
             }
+
+            var currentProject = projectList.Find(r => Convert.ToInt32(r[0]) == projectId);
+            teamCacheItem = new TeamCacheItem(currentProject != null,
+                                                currentProject != null
+                                                    ? (ProjectTeamSecurity)Convert.ToInt32(currentProject[1])
+                                                    : ProjectTeamSecurity.None);
+            key = string.Format("{0}|{1}", projectId, participantId);
+            teamCache.Add(key, teamCacheItem);
+            return teamCacheItem;
         }
 
 
         public void SetTaskOrder(int projectID, string order)
         {
-            using (var db = new DbManager(DatabaseId))
-            using(var tr = db.BeginTransaction())
+            using(var tr = Db.BeginTransaction())
             {
                 var query = Insert(TasksOrderTable)
                   .InColumnValue("project_id", projectID)
                   .InColumnValue("task_order", order);
 
-                db.ExecuteNonQuery(query);
+                Db.ExecuteNonQuery(query);
 
                 try
                 {
@@ -816,7 +730,7 @@ namespace ASC.Projects.Data.DAO
 
                     for(var i = 0; i < newTaskOrder.Count; i++)
                     {
-                        db.ExecuteNonQuery(Update(TasksTable)
+                        Db.ExecuteNonQuery(Update(TasksTable)
                             .Where("project_id", projectID)
                             .Where("id", newTaskOrder[i])
                             .Set("sort_order", i));
@@ -831,14 +745,11 @@ namespace ASC.Projects.Data.DAO
 
         public string GetTaskOrder(int projectID)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var query = Query(TasksOrderTable)
-                  .Select("task_order")
-                  .Where("project_id", projectID);
+            var query = Query(TasksOrderTable)
+                .Select("task_order")
+                .Where("project_id", projectID);
 
-                return db.ExecuteList(query, r => Convert.ToString(r[0])).FirstOrDefault();
-            }
+            return Db.ExecuteList(query, r => Convert.ToString(r[0])).FirstOrDefault();
         }
 
         public static ParticipantFull ToParticipantFull(object[] x)
@@ -906,12 +817,9 @@ namespace ASC.Projects.Data.DAO
         }
 
 
-        internal IEnumerable<Project> GetProjects(Exp where)
+        public IEnumerable<Project> GetProjects(Exp where)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(Query(ProjectsTable + " p").Select(ProjectColumns).Where(where)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(Query(ProjectsTable + " p").Select(ProjectColumns).Where(where)).ConvertAll(converter);
         }
     }
 }

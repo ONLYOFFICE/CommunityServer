@@ -60,7 +60,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
         private void RegisterScript()
         {
-            Page.JsonPublisher(Global.DaoFactory.GetCurrencyRateDao().GetAll(), "currencyRates");
+            Page.JsonPublisher(DaoFactory.CurrencyRateDao.GetAll(), "currencyRates");
             Page.JsonPublisher(Global.TenantSettings.DefaultCurrency.Abbreviation, "defaultCurrency");
 
             Page.RegisterInlineScript("ASC.CRM.CurrencySettingsView.init();");

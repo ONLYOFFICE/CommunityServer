@@ -30,7 +30,6 @@ using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
-using ASC.SingleSignOn.Common;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.Utility.Skins;
@@ -39,6 +38,7 @@ using ASC.Web.Studio.UserControls;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.AuthorizeDocs;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
 
 namespace ASC.Web.Studio
 {
@@ -66,13 +66,9 @@ namespace ASC.Web.Studio
             {
                 if (CoreContext.Configuration.Personal)
                 {
-                    if (Request["campaign"] == "personal")
-                    {
-                        Session["campaign"] = "personal";
-                    }
                     CheckSocialMedia();
 
-                    SetLanguage(abTesting: true);
+                    SetLanguage();
                 }
 
                 var token = Request["asc_auth_key"];

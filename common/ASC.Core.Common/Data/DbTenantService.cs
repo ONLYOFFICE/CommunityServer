@@ -30,10 +30,14 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Utils;
+using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 
@@ -59,9 +63,18 @@ namespace ASC.Core.Data
             }
         }
 
-        public IEnumerable<Tenant> GetTenants(DateTime from)
+        public IEnumerable<Tenant> GetTenants(DateTime from, bool active = true)
         {
-            return GetTenants(from != default(DateTime) ? Exp.Ge("last_modified", from) : Exp.Empty);
+            return GetTenants(
+                Exp.And(
+                    active
+                        ? Exp.Eq("t.status", (int)TenantStatus.Active)
+                        : Exp.Empty,
+                    from != default(DateTime)
+                        ? Exp.Ge("last_modified", from)
+                        : Exp.Empty
+                    )
+                );
         }
 
         public IEnumerable<Tenant> GetTenants(string login, string passwordHash)
@@ -245,6 +258,35 @@ namespace ASC.Core.Data
                 (ISqlInstruction)new SqlDelete("core_settings").Where("tenant", tenant).Where("id", key) :
                 (ISqlInstruction)new SqlInsert("core_settings", true).InColumns("tenant", "id", "value").Values(tenant, key, data);
             ExecNonQuery(i);
+        }
+
+        public T LoadSettings<T>(int tenantId, Guid userId)
+        {
+            var settingsInstance = (ISettings) Activator.CreateInstance<T>();
+
+            var query = new SqlQuery("webstudio_settings")
+                .Select("data")
+                .Where("id", settingsInstance.ID)
+                .Where("tenantid", tenantId)
+                .Where("userid", userId);
+
+            var result = ExecScalar<object>(query);
+
+            if (result == null)
+                return (T) settingsInstance.GetDefault();
+
+            var data = result is string ? Encoding.UTF8.GetBytes((string) result) : (byte[]) result;
+
+            object settings;
+
+            using (var stream = new MemoryStream(data))
+            {
+                settings = data[0] == 0
+                               ? new BinaryFormatter().Deserialize(stream)
+                               : new DataContractJsonSerializer(typeof (T)).ReadObject(stream);
+            }
+
+            return (T) settings;
         }
 
         private IEnumerable<Tenant> GetTenants(Exp where)

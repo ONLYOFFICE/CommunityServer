@@ -49,9 +49,9 @@ namespace ASC.Notify
         void SendNoticeAsync(INotifyAction action, string objectID, IRecipient recipient, bool checkSubscription, params ITagValue[] args);
 
 
-        void RegisterSendMethod(Action<DateTime> method, string cron);
+        INotifyClient RegisterSendMethod(Action<DateTime> method, string cron);
 
-        void UnregisterSendMethod(Action<DateTime> method);
+        INotifyClient UnregisterSendMethod(Action<DateTime> method);
 
 
         void BeginSingleRecipientEvent(string name);

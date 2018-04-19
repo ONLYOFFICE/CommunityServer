@@ -35,16 +35,7 @@ namespace ASC.Projects.Engine
 {
     public class TimeTrackingEngine
     {
-        private readonly ITimeSpendDao timeSpendDao;
-        private readonly ITaskDao taskDao;
-
-
-        public TimeTrackingEngine(IDaoFactory daoFactory)
-        {
-            timeSpendDao = daoFactory.GetTimeSpendDao();
-            daoFactory.GetProjectDao();
-            taskDao = daoFactory.GetTaskDao();
-        }
+        public IDaoFactory DaoFactory { get; set; }
 
         public List<TimeSpend> GetByFilter(TaskFilter filter)
         {
@@ -54,7 +45,7 @@ namespace ASC.Projects.Engine
 
             while (true)
             {
-                var timeSpend = timeSpendDao.GetByFilter(filter, isAdmin, anyOne);
+                var timeSpend = DaoFactory.TimeSpendDao.GetByFilter(filter, isAdmin, anyOne);
                 timeSpend = GetTasks(timeSpend).Where(r=> r.Task != null).ToList();
 
                 if (filter.LastId != 0)
@@ -86,24 +77,24 @@ namespace ASC.Projects.Engine
 
         public int GetByFilterCount(TaskFilter filter)
         {
-            return timeSpendDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+            return DaoFactory.TimeSpendDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
         public float GetByFilterTotal(TaskFilter filter)
         {
-            return timeSpendDao.GetByFilterTotal(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+            return DaoFactory.TimeSpendDao.GetByFilterTotal(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
 
         public List<TimeSpend> GetByTask(int taskId)
         {
-            var timeSpend = timeSpendDao.GetByTask(taskId);
+            var timeSpend = DaoFactory.TimeSpendDao.GetByTask(taskId);
             return GetTasks(timeSpend).FindAll(r => ProjectSecurity.CanRead(r.Task));
         }
 
         public List<TimeSpend> GetByProject(int projectId)
         {
-            var timeSpend = timeSpendDao.GetByProject(projectId);
+            var timeSpend = DaoFactory.TimeSpendDao.GetByProject(projectId);
             return GetTasks(timeSpend).FindAll(r => ProjectSecurity.CanRead(r.Task));
         }
 
@@ -119,10 +110,10 @@ namespace ASC.Projects.Engine
 
         public TimeSpend GetByID(int id)
         {
-            var timeSpend = timeSpendDao.GetById(id);
+            var timeSpend = DaoFactory.TimeSpendDao.GetById(id);
             if (timeSpend != null)
             {
-                timeSpend.Task = taskDao.GetById(timeSpend.Task.ID);
+                timeSpend.Task = DaoFactory.TaskDao.GetById(timeSpend.Task.ID);
             }
             return timeSpend;
         }
@@ -142,7 +133,7 @@ namespace ASC.Projects.Engine
                 timeSpend.CreateOn = DateTime.UtcNow;
             }
 
-            return timeSpendDao.Save(timeSpend);
+            return DaoFactory.TimeSpendDao.Save(timeSpend);
         }
 
         public TimeSpend ChangePaymentStatus(TimeSpend timeSpend, PaymentStatus newStatus)
@@ -151,7 +142,7 @@ namespace ASC.Projects.Engine
 
             if (timeSpend == null) throw new ArgumentNullException("timeSpend");
 
-            var task = taskDao.GetById(timeSpend.Task.ID);
+            var task = DaoFactory.TaskDao.GetById(timeSpend.Task.ID);
 
             if (task == null) throw new Exception("Task can't be null.");
 
@@ -163,18 +154,18 @@ namespace ASC.Projects.Engine
 
             timeSpend.StatusChangedOn = DateTime.UtcNow;
 
-            return timeSpendDao.Save(timeSpend);
+            return DaoFactory.TimeSpendDao.Save(timeSpend);
         }
 
         public void Delete(TimeSpend timeSpend)
         {
-            ProjectSecurity.DemandDeleteTimeSpend(timeSpend);
-            timeSpendDao.Delete(timeSpend.ID);
+            ProjectSecurity.DemandDelete(timeSpend);
+            DaoFactory.TimeSpendDao.Delete(timeSpend.ID);
         }
 
         private List<TimeSpend> GetTasks(List<TimeSpend> listTimeSpend)
         {
-            var listTasks = taskDao.GetById(listTimeSpend.Select(r => r.Task.ID).ToList());
+            var listTasks = DaoFactory.TaskDao.GetById(listTimeSpend.Select(r => r.Task.ID).ToList());
 
             listTimeSpend.ForEach(t => t.Task = listTasks.Find(task => task.ID == t.Task.ID));
 

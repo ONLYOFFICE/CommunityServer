@@ -25,12 +25,14 @@
                             title="<%= TargetContact.GetTitle().HtmlEncode() %>"
                             alt="<%= TargetContact.GetTitle().HtmlEncode() %>" />
                     </div>
-
+                    <% if (CRMSecurity.CanEdit(TargetContact)) %>
+                    <% { %>
                     <div class="under_logo">
                         <a onclick="ASC.CRM.SocialMedia.OpenLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
                              <span class="bold"><%= CRMContactResource.ChangePhoto%></span>
                         </a>
                     </div>
+                    <% } %>
                 </div>
             </td>
             <td>
@@ -89,7 +91,7 @@
                     <tr>
                         <td class="describe-text" style="white-space:nowrap;"><%= CRMContactResource.ContactType %>:</td>
                         <td></td>
-                        <td><%= Global.DaoFactory.GetListItemDao().GetByID(TargetContact.ContactTypeID).Title.HtmlEncode()%></td>
+                        <td><%= DaoFactory.ListItemDao.GetByID(TargetContact.ContactTypeID).Title.HtmlEncode()%></td>
                     </tr>
                     <% } %>
 

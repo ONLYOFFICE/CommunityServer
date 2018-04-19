@@ -1,10 +1,15 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Auth.aspx.cs" Inherits="ASC.Web.Studio.Auth" %>
+<%@ Import Namespace="ASC.Core.Billing" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="Resources" %>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <% if (CoreContext.Configuration.Standalone)
+       { %>
+    <input type="hidden" id="customerId" value="<%= HttpUtility.HtmlEncode(LicenseReader.CustomerId ?? "") %>" />
+    <% } %>
+
     <% if (CoreContext.Configuration.Personal)
        { %>
     <asp:PlaceHolder runat="server" ID="AutorizeDocuments"></asp:PlaceHolder>

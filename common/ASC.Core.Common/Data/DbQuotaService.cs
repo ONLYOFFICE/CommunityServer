@@ -85,8 +85,8 @@ namespace ASC.Core.Data
 
             var i = Insert(tenants_quota, quota.Id)
                 .InColumnValue("name", quota.Name)
-                .InColumnValue("max_file_size", quota.MaxFileSize / 1024 / 1024) // save in MB
-                .InColumnValue("max_total_size", quota.MaxTotalSize / 1024 / 1024) // save in MB
+                .InColumnValue("max_file_size", GetInMBytes(quota.MaxFileSize))
+                .InColumnValue("max_total_size", GetInMBytes(quota.MaxTotalSize))
                 .InColumnValue("active_users", quota.ActiveUsers)
                 .InColumnValue("features", quota.Features)
                 .InColumnValue("price", quota.Price)
@@ -109,7 +109,7 @@ namespace ASC.Core.Data
         {
             if (row == null) throw new ArgumentNullException("row");
 
-            using (var db = GetDb())
+            using(var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
                 var counter = db.ExecuteScalar<long>(Query(tenants_quotarow, row.Tenant)
@@ -166,6 +166,12 @@ namespace ASC.Core.Data
         {
             const long MB = 1024 * 1024;
             return bytes < MB ? bytes * MB : bytes;
+        }
+
+        private static long GetInMBytes(long bytes)
+        {
+            const long MB = 1024 * 1024;
+            return bytes < MB * MB ? bytes / MB : bytes;
         }
     }
 }

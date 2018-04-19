@@ -62,7 +62,7 @@ namespace ASC.Web.CRM.Controls.Settings
             RegisterClientScript(entityType);
 
             //var cntrlCategorySelector = (CategorySelector)LoadControl(CategorySelector.Location);
-            //cntrlCategorySelector.Categories = Global.DaoFactory.GetListItemDao().GetItems(ListType.TaskCategory);
+            //cntrlCategorySelector.Categories = Global.DaoFactory.ListItemDao.GetItems(ListType.TaskCategory);
             //cntrlCategorySelector.ID = "taskTemplateCategorySelector";
             //phCategorySelector.Controls.Add(cntrlCategorySelector);
 

@@ -30,6 +30,7 @@ using System;
 using System.Collections.Generic;
 using ASC.Projects.Core.Domain;
 using System.Collections;
+using ASC.Common.Data.Sql.Expressions;
 
 #endregion
 
@@ -70,7 +71,8 @@ namespace ASC.Projects.Core.DataInterfaces
         
         int GetMilestoneCount(int projectId, params MilestoneStatus[] milestoneStatus);
 
-        Project Save(Project project);
+        Project Create(Project project);
+        Project Update(Project project);
 
         void Delete(int projectId, out List<int> messages, out List<int> tasks);
 
@@ -109,5 +111,7 @@ namespace ASC.Projects.Core.DataInterfaces
         void SetTaskOrder(int projectID, string order);
 
         string GetTaskOrder(int projectID);
+
+        IEnumerable<Project> GetProjects(Exp where);
     }
 }

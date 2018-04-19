@@ -44,8 +44,8 @@ namespace ASC.CRM.Core.Dao
     {
         private readonly HttpRequestDictionary<InvoiceItem> _invoiceItemCache = new HttpRequestDictionary<InvoiceItem>("crm_invoice_item");
 
-        public CachedInvoiceItemDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedInvoiceItemDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -82,65 +82,50 @@ namespace ASC.CRM.Core.Dao
 
     public class InvoiceItemDao : AbstractDao
     {
-        public InvoiceItemDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public InvoiceItemDao(int tenantID)
+            : base(tenantID)
         {
         }
 
 
         public Boolean IsExist(int invoiceItemID)
         {
-            using (var db = GetDb())
-            {
-                return IsExist(invoiceItemID, db);
-            }
+            return IsExistInDb(invoiceItemID);
         }
 
-        public Boolean IsExist(int invoiceItemID, DbManager db)
+        public Boolean IsExistInDb(int invoiceItemID)
         {
-             return db.ExecuteScalar<bool>(@"select exists(select 1 from crm_invoice_item where tenant_id = @tid and id = @id)",
+             return Db.ExecuteScalar<bool>(@"select exists(select 1 from crm_invoice_item where tenant_id = @tid and id = @id)",
                             new { tid = TenantID, id = invoiceItemID });
         }
 
         public Boolean CanDelete(int invoiceItemID)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<int>(@"select count(*) from crm_invoice_line where tenant_id = @tid and invoice_item_id = @id",
-                              new { tid = TenantID, id = invoiceItemID }) == 0;
-            }
+            return Db.ExecuteScalar<int>(@"select count(*) from crm_invoice_line where tenant_id = @tid and invoice_item_id = @id",
+                            new { tid = TenantID, id = invoiceItemID }) == 0;
         }
 
         #region Get
 
         public virtual List<InvoiceItem> GetAll()
         {
-            using (var db = GetDb())
-            {
-                return GetAll(db);
-            }
+            return GetAllInDb();
         }
-        public virtual List<InvoiceItem> GetAll(DbManager db)
+        public virtual List<InvoiceItem> GetAllInDb()
         {
-            return db.ExecuteList(GetInvoiceItemSqlQuery(null)).ConvertAll(ToInvoiceItem);
+            return Db.ExecuteList(GetInvoiceItemSqlQuery(null)).ConvertAll(ToInvoiceItem);
         }
 
         public virtual List<InvoiceItem> GetByID(int[] ids)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetInvoiceItemSqlQuery(Exp.In("id", ids))).ConvertAll(ToInvoiceItem);
-            }
+            return Db.ExecuteList(GetInvoiceItemSqlQuery(Exp.In("id", ids))).ConvertAll(ToInvoiceItem);
         }
 
         public virtual InvoiceItem GetByID(int id)
         {
-            using (var db = GetDb())
-            {
-                var invoiceItems = db.ExecuteList(GetInvoiceItemSqlQuery(Exp.Eq("id", id))).ConvertAll(ToInvoiceItem);
+            var invoiceItems = Db.ExecuteList(GetInvoiceItemSqlQuery(Exp.Eq("id", id))).ConvertAll(ToInvoiceItem);
 
-                return invoiceItems.Count > 0 ? invoiceItems[0] : null;
-            }
+            return invoiceItems.Count > 0 ? invoiceItems[0] : null;
         }
 
         public List<InvoiceItem> GetInvoiceItems(IEnumerable<int> ids)
@@ -149,10 +134,7 @@ namespace ASC.CRM.Core.Dao
 
             var sqlQuery = GetInvoiceItemSqlQuery(Exp.In("id", ids.ToArray()));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToInvoiceItem);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToInvoiceItem);
         }
 
         public List<InvoiceItem> GetInvoiceItems(
@@ -209,10 +191,7 @@ namespace ASC.CRM.Core.Dao
                 sqlQuery.OrderBy("title", true);
             }
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToInvoiceItem);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToInvoiceItem);
         }
 
 
@@ -241,29 +220,26 @@ namespace ASC.CRM.Core.Dao
 
             int result;
 
-            using (var db = GetDb())
+            if (withParams)
             {
-                if (withParams)
-                {
-                    var whereConditional = WhereConditional(exceptIDs, searchText, status, inventoryStock);
-                    result = whereConditional != null ? db.ExecuteScalar<int>(Query("crm_invoice_item").Where(whereConditional).SelectCount()) : 0;
-                }
-                else
-                {
-                    var countWithoutPrivate = db.ExecuteScalar<int>(Query("crm_invoice_item").SelectCount());
-                    var privateCount = exceptIDs.Count;
+                var whereConditional = WhereConditional(exceptIDs, searchText, status, inventoryStock);
+                result = whereConditional != null ? Db.ExecuteScalar<int>(Query("crm_invoice_item").Where(whereConditional).SelectCount()) : 0;
+            }
+            else
+            {
+                var countWithoutPrivate = Db.ExecuteScalar<int>(Query("crm_invoice_item").SelectCount());
+                var privateCount = exceptIDs.Count;
 
-                    if (privateCount > countWithoutPrivate)
-                    {
-                        _log.ErrorFormat(@"Private invoice items count more than all cases. Tenant: {0}. CurrentAccount: {1}", 
-                                                               TenantID, 
-                                                               SecurityContext.CurrentAccount.ID);
+                if (privateCount > countWithoutPrivate)
+                {
+                    _log.ErrorFormat(@"Private invoice items count more than all cases. Tenant: {0}. CurrentAccount: {1}", 
+                                                            TenantID, 
+                                                            SecurityContext.CurrentAccount.ID);
                  
-                        privateCount = 0;
-                    }
-
-                    result = countWithoutPrivate - privateCount;
+                    privateCount = 0;
                 }
+
+                result = countWithoutPrivate - privateCount;
             }
 
             if (result > 0)
@@ -283,13 +259,10 @@ namespace ASC.CRM.Core.Dao
             /*_cache.Remove(_invoiceItemCacheKey);
             _cache.Insert(_invoiceItemCacheKey, String.Empty);*/
 
-            using (var db = GetDb())
-            {
-                return SaveOrUpdateInvoiceItem(invoiceItem, db);
-            }
+            return SaveOrUpdateInvoiceItemInDb(invoiceItem);
         }
 
-        private InvoiceItem SaveOrUpdateInvoiceItem(InvoiceItem invoiceItem, DbManager db)
+        private InvoiceItem SaveOrUpdateInvoiceItemInDb(InvoiceItem invoiceItem)
         {
             if (invoiceItem.Price <= 0 || String.IsNullOrEmpty(invoiceItem.Title))
                 throw new ArgumentException();
@@ -307,9 +280,9 @@ namespace ASC.CRM.Core.Dao
                 invoiceItem.StockKeepingUnit = String.Empty;
             }
 
-            if (!IsExist(invoiceItem.ID, db))
+            if (!IsExistInDb(invoiceItem.ID))
             {
-                invoiceItem.ID = db.ExecuteScalar<int>(
+                invoiceItem.ID = Db.ExecuteScalar<int>(
                                Insert("crm_invoice_item")
                               .InColumnValue("id", 0)
                               .InColumnValue("title", invoiceItem.Title)
@@ -336,13 +309,13 @@ namespace ASC.CRM.Core.Dao
             else
             {
 
-                var oldInvoiceItem = db.ExecuteList(GetInvoiceItemSqlQuery(Exp.Eq("id", invoiceItem.ID)))
+                var oldInvoiceItem = Db.ExecuteList(GetInvoiceItemSqlQuery(Exp.Eq("id", invoiceItem.ID)))
                     .ConvertAll(ToInvoiceItem)
                     .FirstOrDefault();
 
                 CRMSecurity.DemandEdit(oldInvoiceItem);
 
-                db.ExecuteNonQuery(
+                Db.ExecuteNonQuery(
                     Update("crm_invoice_item")
                         .Set("title", invoiceItem.Title)
                         .Set("description", invoiceItem.Description)
@@ -377,10 +350,7 @@ namespace ASC.CRM.Core.Dao
 
             CRMSecurity.DemandDelete(invoiceItem);
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_invoice_item").Where("id", invoiceItemID));
-            }
+            Db.ExecuteNonQuery(Delete("crm_invoice_item").Where("id", invoiceItemID));
 
             /*_cache.Remove(_invoiceItemCacheKey);
             _cache.Insert(_invoiceItemCacheKey, String.Empty);*/
@@ -413,14 +383,11 @@ namespace ASC.CRM.Core.Dao
         {
             var ids = items.Select(x => x.ID).ToArray();
 
-            using (var db = GetDb())
-            {
-                //using (var tx = db.BeginTransaction(true))
-                ///{
-                    db.ExecuteNonQuery(Delete("crm_invoice_item").Where(Exp.In("id", ids)));
-                //    tx.Commit();
-                //}
-            }
+            //using (var tx = db.BeginTransaction(true))
+            ///{
+                Db.ExecuteNonQuery(Delete("crm_invoice_item").Where(Exp.In("id", ids)));
+            //    tx.Commit();
+            //}
         }
 
         private static InvoiceItem ToInvoiceItem(object[] row)

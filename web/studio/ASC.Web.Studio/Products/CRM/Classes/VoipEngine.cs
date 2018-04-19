@@ -5,11 +5,14 @@ using ASC.Common.Threading.Workers;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
 using ASC.CRM.Core.Entities;
 using ASC.VoipService;
 using ASC.VoipService.Dao;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
+using Autofac;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -17,10 +20,15 @@ namespace ASC.Web.CRM.Classes
     {
         private static readonly WorkerQueue<QueueItem> Queue = new WorkerQueue<QueueItem>(1, TimeSpan.FromMinutes(30));
         private static readonly object Locker = new object();
+        private readonly DaoFactory daoFactory;
 
+        public VoipEngine(DaoFactory daoFactory)
+        {
+            this.daoFactory = daoFactory;
+        }
         public VoipCall SaveOrUpdateCall(VoipCall callHistory)
         {
-            var dao = Global.DaoFactory.GetVoipDao();
+            var dao = daoFactory.VoipDao;
             var call = dao.GetCall(callHistory.Id) ?? callHistory;
 
             if (string.IsNullOrEmpty(call.ParentID))
@@ -86,9 +94,9 @@ namespace ASC.Web.CRM.Classes
             return dao.SaveOrUpdateCall(call);
         }
 
-        public static void AddHistoryToCallContact(VoipCall call)
+        public static void AddHistoryToCallContact(VoipCall call, DaoFactory daoFactory)
         {
-            var listItemDao = Global.DaoFactory.GetListItemDao();
+            var listItemDao = daoFactory.ListItemDao;
 
             if (call == null || call.ContactId == 0) return;
 
@@ -98,7 +106,7 @@ namespace ASC.Web.CRM.Classes
                 category = new ListItem(CRMCommonResource.HistoryCategory_Call, "event_category_call.png");
                 category.ID = listItemDao.CreateItem(ListType.HistoryCategory, category);
             }
-            var contact = Global.DaoFactory.GetContactDao().GetByID(call.ContactId);
+            var contact = daoFactory.ContactDao.GetByID(call.ContactId);
             if (contact != null && CRMSecurity.CanAccessTo(contact))
             {
                 var note = call.Status == VoipCallStatus.Incoming || call.Status == VoipCallStatus.Answered
@@ -117,7 +125,7 @@ namespace ASC.Web.CRM.Classes
                     CreateBy = SecurityContext.CurrentAccount.ID
                 };
 
-                Global.DaoFactory.GetRelationshipEventDao().CreateItem(relationshipEvent);
+                daoFactory.RelationshipEventDao.CreateItem(relationshipEvent);
             }
         }
 
@@ -130,13 +138,13 @@ namespace ASC.Web.CRM.Classes
 
             var contactPhone = call.Status == VoipCallStatus.Incoming || call.Status == VoipCallStatus.Answered ? call.From : call.To;
 
-            var newContactIds = Global.DaoFactory.GetContactDao().GetContactIDsByContactInfo(ContactInfoType.Phone, contactPhone.TrimStart('+'), null, true);
+            var newContactIds = daoFactory.ContactDao.GetContactIDsByContactInfo(ContactInfoType.Phone, contactPhone.TrimStart('+'), null, true);
 
             foreach (var newContactId in newContactIds)
             {
                 if (newContactId != 0)
                 {
-                    var existContact = Global.DaoFactory.GetContactDao().GetByID(newContactId);
+                    var existContact = daoFactory.ContactDao.GetByID(newContactId);
                     if (CRMSecurity.CanAccessTo(existContact))
                     {
                         call.ContactId = newContactId;
@@ -148,9 +156,9 @@ namespace ASC.Web.CRM.Classes
             return null;
         }
 
-        public List<Contact> GetContacts(string contactPhone)
+        public List<Contact> GetContacts(string contactPhone, DaoFactory daoFactory)
         {
-            var dao = Global.DaoFactory.GetContactDao();
+            var dao = daoFactory.ContactDao;
             var ids = dao.GetContactIDsByContactInfo(ContactInfoType.Phone, contactPhone.TrimStart('+'), null, true);
             return ids.Select(r => dao.GetByID(r)).ToList();
         }
@@ -173,33 +181,36 @@ namespace ASC.Web.CRM.Classes
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(queueItem.TenantID);
-
-                var voipEngine = new VoipEngine();
-                var dao = Global.DaoFactory.GetVoipDao();
-                
-                var call = dao.GetCall(queueItem.CallID);
-
-                GetPriceAndDuration(call);
-
-                if (call.ChildCalls.Any())
+                using (var scope = DIHelper.Resolve())
                 {
-                    call.ChildCalls.ForEach(r =>
+                    var daoFactory = scope.Resolve<DaoFactory>();
+                    var voipEngine = new VoipEngine(daoFactory);
+                    var dao = daoFactory.VoipDao;
+
+                    var call = dao.GetCall(queueItem.CallID);
+
+                    GetPriceAndDuration(call);
+
+                    if (call.ChildCalls.Any())
                     {
-                        GetPriceAndDuration(r);
-                        voipEngine.SaveOrUpdateCall(r);
-                    });
+                        call.ChildCalls.ForEach(r =>
+                        {
+                            GetPriceAndDuration(r);
+                            voipEngine.SaveOrUpdateCall(r);
+                        });
+                    }
+
+                    call = voipEngine.SaveOrUpdateCall(call);
+
+                    if (!string.IsNullOrEmpty(call.VoipRecord.Id))
+                    {
+                        call.VoipRecord = VoipDao.GetProvider().GetRecord(call.Id, call.VoipRecord.Id);
+                        voipEngine.SaveOrUpdateCall(call);
+                    }
+
+                    SecurityContext.AuthenticateMe(call.AnsweredBy);
+                    AddHistoryToCallContact(call, daoFactory);
                 }
-
-                call = voipEngine.SaveOrUpdateCall(call);
-
-                if (!string.IsNullOrEmpty(call.VoipRecord.Id))
-                {
-                    call.VoipRecord = VoipDao.GetProvider().GetRecord(call.Id, call.VoipRecord.Id);
-                    voipEngine.SaveOrUpdateCall(call);
-                }
-
-                SecurityContext.AuthenticateMe(call.AnsweredBy);
-                AddHistoryToCallContact(call);
             }
             catch (Exception ex)
             {
@@ -219,7 +230,7 @@ namespace ASC.Web.CRM.Classes
         {
             call.AnsweredBy = SecurityContext.CurrentAccount.ID;
             call.Status = VoipCallStatus.Answered;
-            Global.DaoFactory.GetVoipDao().SaveOrUpdateCall(call);
+            daoFactory.VoipDao.SaveOrUpdateCall(call);
         }
 
         public Contact CreateContact(string contactPhone)
@@ -233,9 +244,9 @@ namespace ASC.Web.CRM.Classes
                 CreateOn = DateTime.UtcNow
             };
 
-            contact.ID = Global.DaoFactory.GetContactDao().SaveContact(contact);
+            contact.ID = daoFactory.ContactDao.SaveContact(contact);
 
-            Global.DaoFactory.GetContactInfoDao()
+            daoFactory.ContactInfoDao
                 .Save(new ContactInfo
                 {
                     ContactID = contact.ID,

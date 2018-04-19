@@ -29,9 +29,12 @@ using System.Linq;
 using System.Web;
 using ASC.Api.Attributes;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
-using ASC.SingleSignOn.Common;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
+using ASC.Web.Studio.Utility;
 using Newtonsoft.Json;
 using Resources;
 
@@ -193,6 +196,25 @@ namespace ASC.Api.Settings
                 existingSsoUser.ConvertExternalContactsToOrdinary();
 
                 CoreContext.UserManager.SaveUserInfo(existingSsoUser);
+            }
+        }
+
+        private static bool CheckUri(string uriName)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(uriName, UriKind.Absolute, out uriResult) &&
+                   (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
+
+        private static void CheckSsoPermissions()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
+                (CoreContext.Configuration.Standalone &&
+                 !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "Sso");
             }
         }
     }

@@ -43,7 +43,7 @@
         <div class="middle-button-container">
             <a id="sendCodeButton" class="button blue big"><%= Resource.ActivateSendButton %></a>
             <span class="splitter-buttons"></span>
-            <a id="getCodeAgainButton" class="button gray big"><%= Resource.ActivateAgainGetCodeButton %></a>
+            <a id="getCodeAgainButton" class="disable button gray big"><%= Resource.ActivateAgainGetCodeButton %><span></span></a>
         </div>
     </div>
 </div>

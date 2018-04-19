@@ -24,10 +24,12 @@
 */
 
 
+using System;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Web;
 
 namespace ASC.Core.Data
 {
@@ -49,47 +51,32 @@ namespace ASC.Core.Data
 
         protected T ExecScalar<T>(ISqlInstruction sql)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<T>(sql);
-            }
+            return Execute(db => db.ExecuteScalar<T>(sql));
         }
 
         protected int ExecNonQuery(ISqlInstruction sql)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteNonQuery(sql);
-            }
+            return Execute(db => db.ExecuteNonQuery(sql));
         }
 
         protected List<object[]> ExecList(ISqlInstruction sql)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sql);
-            }
+            return Execute(db => db.ExecuteList(sql));
         }
 
         protected void ExecBatch(params ISqlInstruction[] batch)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteBatch(batch);
-            }
+            Execute(db => db.ExecuteBatch(batch));
         }
 
         protected void ExecBatch(IEnumerable<ISqlInstruction> batch)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteBatch(batch);
-            }
+            Execute(db => db.ExecuteBatch(batch));
         }
 
         protected IDbManager GetDb()
         {
-            return new DbManager(dbid);
+            return DbManager.FromHttpContext(dbid);
         }
 
         protected SqlQuery Query(string table, int tenant)
@@ -116,6 +103,14 @@ namespace ASC.Core.Data
         {
             var pos = table.LastIndexOf(' ');
             return (0 < pos ? table.Substring(pos).Trim() + '.' : string.Empty) + TenantColumn;
+        }
+
+        private T Execute<T>(Func<IDbManager, T> action)
+        {
+            using (var db = GetDb())
+            {
+                return action(db);
+            }
         }
     }
 }

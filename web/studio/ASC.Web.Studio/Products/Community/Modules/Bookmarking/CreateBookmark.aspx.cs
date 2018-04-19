@@ -56,7 +56,7 @@ namespace ASC.Web.Community.Bookmarking
             var s = string.Empty;
             if (!string.IsNullOrEmpty(url))
             {
-                s = string.Format(" getBookmarkUrlInput().val(\"{0}\"); getBookmarkByUrlButtonClick(); ", url);
+                s = string.Format(" getBookmarkUrlInput().val(\"{0}\"); getBookmarkByUrlButtonClick(); ", url.Replace("\"", "\\\""));
             }
 
             var script = string.Format("showAddBookmarkPanel(); {0}", s);

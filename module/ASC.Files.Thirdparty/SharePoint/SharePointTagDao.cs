@@ -46,7 +46,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             ProviderInfo.Dispose();
         }
 
-        public IEnumerable<Tag> GetTags(TagType tagType, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)
         {
             return new List<Tag>();
         }
@@ -122,25 +122,39 @@ namespace ASC.Files.Thirdparty.SharePoint
             }
         }
 
-        public IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetNewTags(Guid subject, IEnumerable<FileEntry> fileEntries)
         {
             return new List<Tag>();
         }
 
-        public IEnumerable<Tag> SaveTags(params Tag[] tag)
+        public IEnumerable<Tag> GetNewTags(Guid subject, FileEntry fileEntry)
         {
             return new List<Tag>();
         }
 
-        public void UpdateNewTags(params Tag[] tag)
+        public IEnumerable<Tag> SaveTags(IEnumerable<Tag> tag)
+        {
+            return new List<Tag>();
+        }
+
+        public IEnumerable<Tag> SaveTags(Tag tag)
+        {
+            return new List<Tag>();
+        }
+
+        public void UpdateNewTags(IEnumerable<Tag> tag)
         {
         }
 
-        public void RemoveTags(params Tag[] tag)
+        public void UpdateNewTags(Tag tag)
         {
         }
 
-        public void RemoveTags(params int[] tagIds)
+        public void RemoveTags(IEnumerable<Tag> tag)
+        {
+        }
+
+        public void RemoveTags(Tag tag)
         {
         }
 

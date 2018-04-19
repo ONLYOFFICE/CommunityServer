@@ -33,10 +33,12 @@ namespace ASC.Data.Backup.Storage
     internal class DataStoreBackupStorage : IBackupStorage
     {
         private readonly string webConfigPath;
+        private readonly int _tenant;
 
-        public DataStoreBackupStorage(string webConfigPath)
+        public DataStoreBackupStorage(int tenant, string webConfigPath)
         {
             this.webConfigPath = webConfigPath;
+            _tenant = tenant;
         }
 
         public string Upload(string storageBasePath, string localPath, Guid userId)
@@ -79,7 +81,7 @@ namespace ASC.Data.Backup.Storage
 
         protected virtual IDataStore GetDataStore()
         {
-            return StorageFactory.GetStorage(webConfigPath, "backup", "backup", null);
+            return StorageFactory.GetStorage(webConfigPath, _tenant.ToString(), "backup", null);
         }
     }
 }

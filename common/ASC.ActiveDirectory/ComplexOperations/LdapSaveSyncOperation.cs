@@ -34,6 +34,7 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using Newtonsoft.Json;
+// ReSharper disable RedundantToStringCall
 
 namespace ASC.ActiveDirectory.ComplexOperations
 {
@@ -85,24 +86,24 @@ namespace ASC.ActiveDirectory.ComplexOperations
             {
                 Logger.ErrorFormat(
                     "CheckSettings(acceptCertificate={0}, cert thumbprint: {1}): NovellLdapTlsCertificateRequestedException: {2}",
-                    LDAPSettings.AcceptCertificate, LDAPSettings.AcceptCertificateHash, ex);
+                    LDAPSettings.AcceptCertificate, LDAPSettings.AcceptCertificateHash, ex.ToString());
                 Error = Resource.LdapSettingsStatusCertificateVerification;
 
                 //TaskInfo.SetProperty(CERT_REQUEST, ex.CertificateConfirmRequest);
             }
             catch (TenantQuotaException e)
             {
-                Logger.ErrorFormat("TenantQuotaException. {0}", e);
+                Logger.ErrorFormat("TenantQuotaException. {0}", e.ToString());
                 Error = Resource.LdapSettingsTenantQuotaSettled;
             }
             catch (FormatException e)
             {
-                Logger.ErrorFormat("FormatException error. {0}", e);
+                Logger.ErrorFormat("FormatException error. {0}", e.ToString());
                 Error = Resource.LdapSettingsErrorCantCreateUsers;
             }
             catch (Exception e)
             {
-                Logger.ErrorFormat("Internal server error. {0}", e);
+                Logger.ErrorFormat("Internal server error. {0}", e.ToString());
                 Error = Resource.LdapSettingsInternalServerError;
             }
             finally

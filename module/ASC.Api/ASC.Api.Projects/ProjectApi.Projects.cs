@@ -44,6 +44,7 @@ using ASC.MessagingSystem;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
+using ASC.Web.Projects.Classes;
 using Comment = ASC.Projects.Core.Domain.Comment;
 using Task = ASC.Projects.Core.Domain.Task;
 
@@ -66,7 +67,7 @@ namespace ASC.Api.Projects
         [Read("")]
         public IEnumerable<ProjectWrapper> GetAllProjects()
         {
-            return EngineFactory.ProjectEngine.GetAll().Select(x => new ProjectWrapper(x));
+            return EngineFactory.ProjectEngine.GetAll().Select(ProjectWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -83,7 +84,8 @@ namespace ASC.Api.Projects
             return EngineFactory
                 .ProjectEngine
                 .GetByParticipant(CurrentUserId)
-                .Select(x => new ProjectWrapper(x));
+                .Select(ProjectWrapperSelector)
+                .ToList();
         }
 
         ///<summary>
@@ -100,7 +102,8 @@ namespace ASC.Api.Projects
             return EngineFactory
                 .ProjectEngine
                 .GetFollowing(CurrentUserId)
-                .Select(x => new ProjectWrapper(x));
+                .Select(ProjectWrapperSelector)
+                .ToList();
         }
 
         ///<summary>
@@ -115,7 +118,7 @@ namespace ASC.Api.Projects
         [Read("{status:(open|paused|closed)}")]
         public IEnumerable<ProjectWrapper> GetProjects(ProjectStatus status)
         {
-            return EngineFactory.ProjectEngine.GetAll(status, 0).Select(x => new ProjectWrapper(x));
+            return EngineFactory.ProjectEngine.GetAll(status, 0).Select(ProjectWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -133,7 +136,7 @@ namespace ASC.Api.Projects
         {
             var isFollow = EngineFactory.ProjectEngine.IsFollow(id, CurrentUserId);
             var tags = EngineFactory.TagEngine.GetProjectTags(id).Select(r => r.Value).ToList();
-            return new ProjectWrapperFull(EngineFactory.ProjectEngine.GetFullProjectByID(id).NotFoundIfNull(), EngineFactory.FileEngine.GetRoot(id), isFollow, tags);
+            return new ProjectWrapperFull(this, EngineFactory.ProjectEngine.GetFullProjectByID(id).NotFoundIfNull(), EngineFactory.FileEngine.GetRoot(id), isFollow, tags);
         }
 
         ///<summary>
@@ -171,8 +174,9 @@ namespace ASC.Api.Projects
             var projects = projectEngine.GetByFilter(filter).NotFoundIfNull();
             var projectIds = projects.Select(p => p.ID).ToList();
             var projectRoots = EngineFactory.FileEngine.GetRoots(projectIds).ToList();
+            ProjectSecurity.GetProjectSecurityInfo(projects);
 
-            return projects.Select((t, i) => new ProjectWrapperFull(t, projectRoots[i])).ToList();
+            return projects.Select((t, i) => ProjectWrapperFullSelector(t, projectRoots[i])).ToList();
         }
 
         ///<summary>
@@ -247,7 +251,7 @@ namespace ASC.Api.Projects
 
             if (@private && ProjectSecurity.IsPrivateDisabled) throw new ArgumentException(@"private", "private");
 
-            ProjectSecurity.DemandCreateProject();
+            ProjectSecurity.DemandCreate<Project>(null);
 
             var projectEngine = EngineFactory.ProjectEngine;
             var participantEngine = EngineFactory.ParticipantEngine;
@@ -294,7 +298,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.ProjectCreated, MessageTarget.Create(project.ID), project.Title);
 
-            return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1};
+            return new ProjectWrapperFull(this, project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1};
         }
 
         [Create("withSecurity")]
@@ -383,7 +387,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.ProjectUpdated, MessageTarget.Create(project.ID), project.Title);
 
-            return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(id));
+            return ProjectWrapperFullSelector(project, EngineFactory.FileEngine.GetRoot(id));
         }
 
         [Update(@"{id:[0-9]+}/withSecurityInfo")]
@@ -424,7 +428,7 @@ namespace ASC.Api.Projects
             projectEngine.ChangeStatus(project, status);
             MessageService.Send(Request, MessageAction.ProjectUpdatedStatus, MessageTarget.Create(project.ID), project.Title, LocalizedEnumConverter.ConvertToString(project.Status));
 
-            return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(id));
+            return ProjectWrapperFullSelector(project, EngineFactory.FileEngine.GetRoot(id));
         }
 
         #endregion
@@ -453,7 +457,7 @@ namespace ASC.Api.Projects
             projectEngine.Delete(id);
             MessageService.Send(Request, MessageAction.ProjectDeleted, MessageTarget.Create(project.ID), project.Title);
 
-            return new ProjectWrapperFull(project, folderId);
+            return ProjectWrapperFullSelector(project, folderId);
         }
 
         #endregion
@@ -490,7 +494,7 @@ namespace ASC.Api.Projects
                 MessageService.Send(Request, MessageAction.ProjectFollowed, MessageTarget.Create(project.ID), project.Title);
             }
 
-            return new ProjectWrapper(project);
+            return ProjectWrapperSelector(project);
         }
 
         ///<summary>
@@ -512,7 +516,7 @@ namespace ASC.Api.Projects
 
             EngineFactory.TagEngine.SetProjectTags(id, tags);
 
-            return new ProjectWrapperFull(project, EngineFactory.FileEngine.GetRoot(id));
+            return ProjectWrapperFullSelector(project, EngineFactory.FileEngine.GetRoot(id));
         }
 
         ///<summary>
@@ -529,7 +533,7 @@ namespace ASC.Api.Projects
         public IEnumerable<TimeWrapper> GetProjectTime(int id)
         {
             if (!EngineFactory.ProjectEngine.IsExists(id)) throw new ItemNotFoundException();
-            return EngineFactory.TimeTrackingEngine.GetByProject(id).Select(x => new TimeWrapper(x));
+            return EngineFactory.TimeTrackingEngine.GetByProject(id).Select(TimeWrapperSelector);
         }
 
         ///<summary>
@@ -575,7 +579,7 @@ namespace ASC.Api.Projects
             if (deadline == DateTime.MinValue) throw new ArgumentNullException("deadline");
 
             var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
-            ProjectSecurity.DemandCreateMilestone(project);
+            ProjectSecurity.DemandCreate<Milestone>(project);
 
             var milestone = new Milestone
                 {
@@ -591,7 +595,7 @@ namespace ASC.Api.Projects
             EngineFactory.MilestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
             MessageService.Send(Request, MessageAction.MilestoneCreated, MessageTarget.Create(milestone.ID), milestone.Project.Title, milestone.Title);
 
-            return new MilestoneWrapper(milestone);
+            return MilestoneWrapperSelector(milestone);
         }
 
         ///<summary>
@@ -610,11 +614,11 @@ namespace ASC.Api.Projects
             var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
 
             //NOTE: move to engine
-            if (!ProjectSecurity.CanReadMilestones(project)) throw ProjectSecurity.CreateSecurityException();
+            if (!ProjectSecurity.CanRead<Milestone>(project)) throw ProjectSecurity.CreateSecurityException();
 
             var milestones = EngineFactory.MilestoneEngine.GetByProject(id);
 
-            return milestones.Select(x => new MilestoneWrapper(x));
+            return milestones.Select(MilestoneWrapperSelector);
         }
 
         ///<summary>
@@ -633,11 +637,11 @@ namespace ASC.Api.Projects
         {
             var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
 
-            if (!ProjectSecurity.CanReadMilestones(project)) throw ProjectSecurity.CreateSecurityException();
+            if (!ProjectSecurity.CanRead<Milestone>(project)) throw ProjectSecurity.CreateSecurityException();
 
             var milestones = EngineFactory.MilestoneEngine.GetByStatus(id, status);
 
-            return milestones.Select(x => new MilestoneWrapper(x));
+            return milestones.Select(MilestoneWrapperSelector);
         }
 
         #endregion
@@ -820,7 +824,8 @@ namespace ASC.Api.Projects
 
             return EngineFactory
                 .TaskEngine.GetByProject(projectid, TaskStatus.Open, Guid.Empty)
-                .Select(x => new TaskWrapper(x));
+                .Select(TaskWrapperSelector)
+                .ToList();
         }
 
         ///<summary>
@@ -852,9 +857,9 @@ namespace ASC.Api.Projects
 
             var project = projectEngine.GetByID(projectid).NotFoundIfNull();
 
-            ProjectSecurity.DemandCreateTask(project);
+            ProjectSecurity.DemandCreate<Task>(project);
 
-            if (!EngineFactory.MilestoneEngine.IsExists(milestoneid) && milestoneid > 0)
+            if (milestoneid > 0 && !EngineFactory.MilestoneEngine.IsExists(milestoneid))
             {
                 throw new ItemNotFoundException("Milestone not found");
             }
@@ -909,7 +914,7 @@ namespace ASC.Api.Projects
             var project = projectEngine.GetByID(projectid).NotFoundIfNull();
             var discussion = messageEngine.GetByID(messageid).NotFoundIfNull();
 
-            ProjectSecurity.DemandCreateTask(project);
+            ProjectSecurity.DemandCreate<Task>(project);
 
             var task = new Task
                 {
@@ -968,7 +973,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.TaskCreatedFromDiscussion, MessageTarget.Create(task.ID), project.Title, discussion.Title, task.Title);
 
-            return new TaskWrapper(task);
+            return TaskWrapperSelector(task);
         }
 
         ///<summary>
@@ -988,7 +993,7 @@ namespace ASC.Api.Projects
             if (!EngineFactory.ProjectEngine.IsExists(projectid)) throw new ItemNotFoundException();
             return EngineFactory
                 .TaskEngine.GetByProject(projectid, status, Guid.Empty)
-                .Select(x => new TaskWrapper(x));
+                .Select(TaskWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -1009,7 +1014,8 @@ namespace ASC.Api.Projects
 
             return EngineFactory
                 .TaskEngine.GetByProject(projectid, status, CurrentUserId)
-                .Select(x => new TaskWrapper(x));
+                .Select(TaskWrapperSelector)
+                .ToList();
         }
 
         #endregion
@@ -1095,7 +1101,7 @@ namespace ASC.Api.Projects
 
             var listFiles = filesList.Select(r => fileEngine.GetFile(r).NotFoundIfNull()).ToList();
 
-            return listFiles.Select(x => new FileWrapper(x));
+            return listFiles.Select(FileWrapperSelector);
         }
 
         ///<summary>
@@ -1126,7 +1132,7 @@ namespace ASC.Api.Projects
             }
 
             var file = EngineFactory.FileEngine.GetFile(fileid).NotFoundIfNull();
-            return new FileWrapper(file);
+            return FileWrapperSelector(file);
         }
 
         ///<summary>
@@ -1206,7 +1212,7 @@ namespace ASC.Api.Projects
             if (contactid <= 0) throw new ArgumentException();
 
             return EngineFactory.ProjectEngine.GetProjectsByContactID(contactid)
-                .Select(x => new ProjectWrapperFull(x, EngineFactory.FileEngine.GetRoot(x.ID)));
+                .Select(x => ProjectWrapperFullSelector(x, EngineFactory.FileEngine.GetRoot(x.ID))).ToList();
         }
 
         ///<summary>
@@ -1221,7 +1227,7 @@ namespace ASC.Api.Projects
         [Create(@"{projectid:[0-9]+}/contact")]
         public ProjectWrapperFull AddProjectContact(int projectid, int contactid)
         {
-            var contact = CrmDaoFactory.GetContactDao().GetByID(contactid);
+            var contact = CrmDaoFactory.ContactDao.GetByID(contactid);
             if (contact == null) throw new ArgumentException();
 
             var projectEngine = EngineFactory.ProjectEngine;
@@ -1234,7 +1240,7 @@ namespace ASC.Api.Projects
             var messageAction = contact is Company ? MessageAction.CompanyLinkedProject : MessageAction.PersonLinkedProject;
             MessageService.Send(Request, messageAction, MessageTarget.Create(project.ID), contact.GetTitle(), project.Title);
 
-            return new ProjectWrapperFull(project);
+            return ProjectWrapperFullSelector(project, null);
         }
 
         ///<summary>
@@ -1249,7 +1255,7 @@ namespace ASC.Api.Projects
         [Delete("{projectid:[0-9]+}/contact")]
         public ProjectWrapperFull DeleteProjectContact(int projectid, int contactid)
         {
-            var contact = CrmDaoFactory.GetContactDao().GetByID(contactid);
+            var contact = CrmDaoFactory.ContactDao.GetByID(contactid);
             if (contact == null) throw new ArgumentException();
 
             var projectEngine = EngineFactory.ProjectEngine;
@@ -1262,7 +1268,7 @@ namespace ASC.Api.Projects
             var messageAction = contact is Company ? MessageAction.CompanyUnlinkedProject : MessageAction.PersonUnlinkedProject;
             MessageService.Send(Request, messageAction, MessageTarget.Create(project.ID), contact.GetTitle(), project.Title);
 
-            return new ProjectWrapperFull(project);
+            return ProjectWrapperFullSelector(project, null);
         }
 
         #endregion
@@ -1316,7 +1322,7 @@ namespace ASC.Api.Projects
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentException(@"title can't be empty", "title");
 
-            ProjectSecurity.DemandCreateProject();
+            ProjectSecurity.DemandCreate<Project>(null);
 
             var template = new Template
                 {

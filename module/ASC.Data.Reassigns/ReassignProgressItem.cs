@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
+using ASC.Web.CRM.Core;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Projects.Core.Engine;
 using ASC.Web.Studio.Core.Notify;
+using Autofac;
 using CrmDaoFactory = ASC.CRM.Core.Dao.DaoFactory;
 
 namespace ASC.Data.Reassigns
@@ -23,7 +24,6 @@ namespace ASC.Data.Reassigns
         private readonly Guid _toUserId;
         private readonly Guid _currentUserId;
 
-        private readonly CrmDaoFactory _crmDaoFactory;
         private readonly IFileStorageService _docService;
         private readonly ProjectsReassign _projectsReassign;
 
@@ -32,18 +32,19 @@ namespace ASC.Data.Reassigns
         public object Error { get; set; }
         public double Percentage { get; set; }
         public bool IsCompleted { get; set; }
+        public Guid FromUser { get { return _fromUserId; } }
+        public Guid ToUser { get { return _toUserId; } }
 
         public ReassignProgressItem(HttpContext context, int tenantId, Guid fromUserId, Guid toUserId, Guid currentUserId)
         {
             _context = context;
-            _httpHeaders = GetHttpHeaders(context.Request);
+            _httpHeaders = QueueWorker.GetHttpHeaders(context.Request);
 
             _tenantId = tenantId;
             _fromUserId = fromUserId;
             _toUserId = toUserId;
             _currentUserId = currentUserId;
 
-            _crmDaoFactory = Web.CRM.Classes.Global.DaoFactory;
             _docService = Web.Files.Classes.Global.FileStorageService;
             _projectsReassign = new ProjectsReassign();
 
@@ -56,6 +57,8 @@ namespace ASC.Data.Reassigns
 
         public void RunJob()
         {
+            var logger = log4net.LogManager.GetLogger("ASC.Web");
+
             try
             {
                 Percentage = 0;
@@ -64,29 +67,45 @@ namespace ASC.Data.Reassigns
                 CoreContext.TenantManager.SetCurrentTenant(_tenantId);
                 SecurityContext.AuthenticateMe(_currentUserId);
 
-                _crmDaoFactory.GetContactDao().ReassignContactsResponsible(_fromUserId, _toUserId);
-                _crmDaoFactory.GetDealDao().ReassignDealsResponsible(_fromUserId, _toUserId);
-                _crmDaoFactory.GetTaskDao().ReassignTasksResponsible(_fromUserId, _toUserId);
-                _crmDaoFactory.GetCasesDao().ReassignCasesResponsible(_fromUserId, _toUserId);
+                logger.InfoFormat("reassignment of data from {0} to {1}", _fromUserId, _toUserId);
 
+                logger.Info("reassignment of data from documents");
+
+                Percentage = 33;
                 _docService.ReassignStorage(_fromUserId, _toUserId);
 
+                logger.Info("reassignment of data from projects");
+
+                Percentage = 66;
                 _projectsReassign.Reassign(_fromUserId, _toUserId);
 
-                SendNotify();
+                logger.Info("reassignment of data from crm");
+
+                Percentage = 99;
+                using (var scope = DIHelper.Resolve(_tenantId))
+                {
+                    var crmDaoFactory = scope.Resolve<CrmDaoFactory>();
+                    crmDaoFactory.ContactDao.ReassignContactsResponsible(_fromUserId, _toUserId);
+                    crmDaoFactory.DealDao.ReassignDealsResponsible(_fromUserId, _toUserId);
+                    crmDaoFactory.TaskDao.ReassignTasksResponsible(_fromUserId, _toUserId);
+                    crmDaoFactory.CasesDao.ReassignCasesResponsible(_fromUserId, _toUserId);
+                }
+
+                SendSuccessNotify();
 
                 Percentage = 100;
                 Status = ProgressStatus.Done;
             }
             catch (Exception ex)
             {
-                log4net.LogManager.GetLogger("ASC.Web").Error(ex);
-                Percentage = 0;
+                logger.Error(ex);
                 Status = ProgressStatus.Failed;
                 Error = ex.Message;
+                SendErrorNotify(ex.Message);
             }
             finally
             {
+                logger.Info("data reassignment is complete");
                 IsCompleted = true;
             }
         }
@@ -96,14 +115,7 @@ namespace ASC.Data.Reassigns
             return MemberwiseClone();
         }
 
-        private static Dictionary<string, string> GetHttpHeaders(HttpRequest httpRequest)
-        {
-            return httpRequest == null
-                       ? null
-                       : httpRequest.Headers.AllKeys.ToDictionary(key => key, key => httpRequest.Headers[key]);
-        }
-
-        private void SendNotify()
+        private void SendSuccessNotify()
         {
             var fromUser = CoreContext.UserManager.GetUsers(_fromUserId);
             var toUser = CoreContext.UserManager.GetUsers(_toUserId);
@@ -123,6 +135,14 @@ namespace ASC.Data.Reassigns
                 MessageService.Send(_context.Request, MessageAction.UserDataReassigns, fromUserName,
                                     toUserName);
             }
+        }
+
+        private void SendErrorNotify(string errorMessage)
+        {
+            var fromUser = CoreContext.UserManager.GetUsers(_fromUserId);
+            var toUser = CoreContext.UserManager.GetUsers(_toUserId);
+
+            StudioNotifyService.Instance.SendMsgReassignsFailed(_currentUserId, fromUser, toUser, errorMessage);
         }
     }
 }

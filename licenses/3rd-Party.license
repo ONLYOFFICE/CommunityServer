@@ -284,10 +284,6 @@ Newtonsoft.Json - Newtonsoft.Json is a popular high-performance JSON framework f
 License:        The MIT License (MIT)
 License File:   Newtonsoft.Json.license
 
-Nito.AsyncEx - A helper library for the Task-Based Asynchronous Pattern (TAP).
-License:        Microsoft Public License (Ms-PL)
-License File:   Nito.AsyncEx.license
-
 NLog - NLog is a logging platform for .NET with rich log routing and management capabilities. It can help you produce and manage high-quality logs for your application regardless of its size or complexity. (http://nlog-project.org/)
 License:        AS-IS
 License File:   NLog.license
@@ -387,10 +383,6 @@ License File:   YamlDotNet.license
 YUICompressor - http://developer.yahoo.com/yui/compressor/
 License:        New BSD License
 License File:   YUICompressor.license
-
-Zlib.Portable - A Portable Class Library port of the popular Zlib library from http://dotnetzip.codeplex.com. Works on .NET 4, 4.0.3, & 4.5.x, Sliverlight 5, Windows Phone 8.x, Windows 8.x, Xamarin.iOS, & Xamarin.Android.
-License:        zlib License
-License File:   Zlib.Portable.license
 
 jquery.placeholder.js - Placeholder plugin for jQuery (http://www.xiper.net/examples/js-plugins/html5-and-css3/placeholder/js/jquery.placeholder.js)
 License:        MIT, BSD, GPL

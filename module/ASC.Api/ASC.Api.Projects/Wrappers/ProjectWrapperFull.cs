@@ -24,15 +24,15 @@
 */
 
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ASC.Api.Employee;
-using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
+using ASC.Web.Projects.Classes;
+
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Linq;
 
 namespace ASC.Api.Projects.Wrappers
 {
@@ -86,23 +86,39 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public ProjectWrapperFull(Project project, object filesRoot = null, bool isFollow = false, IEnumerable<string> tags = null)
+        public ProjectWrapperFull(ProjectApiBase projectApiBase, Project project, object filesRoot = null, bool isFollow = false, IEnumerable<string> tags = null)
         {
             Id = project.ID;
             Title = project.Title;
             Description = project.Description;
             Status = (int)project.Status;
-            Responsible = new EmployeeWraperFull(CoreContext.UserManager.GetUsers(project.Responsible));
-            Created = (ApiDateTime)project.CreateOn;
-            CreatedBy = EmployeeWraper.Get(project.CreateBy);
-            Updated = (ApiDateTime)project.LastModifiedOn;
-            if (project.CreateBy != project.LastModifiedBy)
+            if (projectApiBase.Context.GetRequestValue("simple") != null)
             {
-                UpdatedBy = EmployeeWraper.Get(project.LastModifiedBy);
+                ResponsibleId = project.Responsible;
+                CreatedById = project.CreateBy;
+                UpdatedById = project.LastModifiedBy;
             }
-            Security = new ProjectSecurityInfo(project);
-            CanEdit = ProjectSecurity.CanEdit(project);
-            CanDelete = ProjectSecurity.CanDelete(project);
+            else
+            {
+                Responsible = projectApiBase.GetEmployeeWraperFull(project.Responsible);
+                CreatedBy = projectApiBase.GetEmployeeWraper(project.CreateBy);
+                if (project.CreateBy != project.LastModifiedBy)
+                {
+                    UpdatedBy = projectApiBase.GetEmployeeWraper(project.LastModifiedBy);
+                }
+            }
+
+            Created = (ApiDateTime)project.CreateOn;
+            Updated = (ApiDateTime)project.LastModifiedOn;
+
+
+            if (project.Security == null)
+            {
+                ProjectSecurity.GetProjectSecurityInfo(project);
+            }
+            Security = project.Security;
+            CanEdit = Security.CanEdit;
+            CanDelete = Security.CanDelete;
             ProjectFolder = filesRoot;
             IsPrivate = project.Private;
 

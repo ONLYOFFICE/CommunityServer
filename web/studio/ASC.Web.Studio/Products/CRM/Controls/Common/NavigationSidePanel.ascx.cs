@@ -107,7 +107,7 @@ namespace ASC.Web.CRM.Controls.Common
                 int contactID;
                 if (int.TryParse(UrlParameters.ID, out contactID))
                 {
-                    var targetContact = Global.DaoFactory.GetContactDao().GetByID(contactID);
+                    var targetContact = DaoFactory.ContactDao.GetByID(contactID);
                     if (targetContact == null || !CRMSecurity.CanAccessTo(targetContact))
                         Response.Redirect(PathProvider.StartURL());
                     CurrentPage = targetContact is Company ? "companies" : "persons";

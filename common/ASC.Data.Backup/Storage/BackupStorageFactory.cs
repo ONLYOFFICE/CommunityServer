@@ -45,7 +45,7 @@ namespace ASC.Data.Backup.Storage
                 case BackupStorageType.ThridpartyDocuments:
                     return new DocumentsBackupStorage(tenantId, webConfigPath);
                 case BackupStorageType.DataStore:
-                    return new DataStoreBackupStorage(webConfigPath);
+                    return new DataStoreBackupStorage(tenantId, webConfigPath);
                 case BackupStorageType.CustomCloud:
                     var s3Config = CoreContext.Configuration.GetSection<AmazonS3Settings>(tenantId);
                     return new S3BackupStorage(s3Config.AccessKeyId, s3Config.SecretAccessKey, s3Config.Bucket, s3Config.Region);

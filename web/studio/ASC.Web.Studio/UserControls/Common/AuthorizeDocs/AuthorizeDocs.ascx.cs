@@ -56,8 +56,8 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             LoginMessage = Request["m"];
 
-            Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less")
-                .RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js", "~/usercontrols/common/authorize/js/authorize.js");
+            Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less", "~/usercontrols/common/authorizedocs/css/slick.less")
+                .RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js", "~/usercontrols/common/authorize/js/authorize.js", "~/js/third-party/slick.min.js");
 
             Page.Title = Resource.AuthDocsTitlePage;
             Page.MetaDescription = Resource.AuthDocsMetaDescription.HtmlEncode();

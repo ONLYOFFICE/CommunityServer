@@ -91,12 +91,12 @@ namespace ASC.Data.Storage.DiscStorage
             {
                 mappedPaths.Add(
                     domain.Name,
-                    new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, domain.VirtualPath, storageConfig));
+                    new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, storageConfig));
             }
 
             mappedPaths.Add(
                 string.Empty,
-                new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), moduleConfig.VirtualPath, storageConfig));
+                new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), storageConfig));
 
             return mappedPaths;
         }

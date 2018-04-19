@@ -40,12 +40,12 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 32)]
         public bool IsPrivate { get; set; }
 
-        public ProjectWrapper(Project project)
+        public ProjectWrapper(ProjectApiBase projectApiBase, Project project)
         {
             Id = project.ID;
             Title = project.Title;
             Description = project.Description;
-            Responsible = EmployeeWraper.Get(project.Responsible);
+            Responsible = projectApiBase.GetEmployeeWraper(project.Responsible);
             Status = (int)project.Status;
             CanEdit = ProjectSecurity.CanEdit(project);
             IsPrivate = project.Private;

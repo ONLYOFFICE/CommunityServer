@@ -24,12 +24,12 @@
 */
 
 
-using ASC.Core;
-using log4net;
+
 using System;
 using System.Collections.Generic;
 using System.Web;
-using UAParser;
+using ASC.Core;
+using log4net;
 
 namespace ASC.MessagingSystem
 {
@@ -40,40 +40,24 @@ namespace ASC.MessagingSystem
         private const string forwardedHeader = "X-Forwarded-For";
         private const string hostHeader = "Host";
         private const string refererHeader = "Referer";
-
+        
 
         public static EventMessage Create(HttpRequest request, string initiator, MessageAction action, MessageTarget target, params string[] description)
         {
             try
             {
-                var clientInfo = (ClientInfo)null;
-                if (request != null)
-                {
-                    try
-                    {
-                        var uaParser = Parser.GetDefault();
-                        var userAgent = request.Headers[userAgentHeader];
-                        clientInfo = userAgent != null ? uaParser.Parse(userAgent) : null;
-                    }
-                    catch (Exception)
-                    {
-                        // ignore
-                    }
-                }
-
                 return new EventMessage
                     {
                         IP = request != null ? request.Headers[forwardedHeader] ?? request.UserHostAddress : null,
                         Initiator = initiator,
-                        Browser = GetBrowser(clientInfo),
-                        Platform = GetPlatform(clientInfo),
                         Date = DateTime.UtcNow,
                         TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                         UserId = SecurityContext.CurrentAccount.ID,
                         Page = request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null,
                         Action = action,
                         Description = description,
-                        Target = target
+                        Target = target,
+                        UAHeader = request != null ? request.Headers[userAgentHeader] : null
                     };
             }
             catch (Exception ex)
@@ -104,21 +88,8 @@ namespace ASC.MessagingSystem
                     var host = headers.ContainsKey(hostHeader) ? headers[hostHeader] : null;
                     var referer = headers.ContainsKey(refererHeader) ? headers[refererHeader] : null;
 
-                    var uaParser = Parser.GetDefault();
-                    ClientInfo clientInfo;
-
-                    try
-                    {
-                        clientInfo = userAgent != null ? uaParser.Parse(userAgent) : null;
-                    }
-                    catch (Exception)
-                    {
-                        clientInfo = null;
-                    }
-
                     message.IP = forwarded ?? host;
-                    message.Browser = GetBrowser(clientInfo);
-                    message.Platform = GetPlatform(clientInfo);
+                    message.UAHeader = userAgent;
                     message.Page = referer;
                 }
 
@@ -152,18 +123,6 @@ namespace ASC.MessagingSystem
             }
         }
 
-        private static string GetBrowser(ClientInfo clientInfo)
-        {
-            return clientInfo == null
-                       ? null
-                       : string.Format("{0} {1}", clientInfo.UserAgent.Family, clientInfo.UserAgent.Major);
-        }
 
-        private static string GetPlatform(ClientInfo clientInfo)
-        {
-            return clientInfo == null
-                       ? null
-                       : string.Format("{0} {1}", clientInfo.OS.Family, clientInfo.OS.Major);
-        }
     }
 }

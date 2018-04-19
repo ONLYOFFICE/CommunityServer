@@ -49,8 +49,8 @@ namespace ASC.CRM.Core.Dao
 
         private readonly HttpRequestDictionary<Contact> _contactCache = new HttpRequestDictionary<Contact>("crm_contact");
 
-        public CachedContactDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedContactDao(int tenantID)
+            : base(tenantID)
         {
 
         }
@@ -105,8 +105,8 @@ namespace ASC.CRM.Core.Dao
     {
         #region Constructor
 
-        public ContactDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public ContactDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -165,10 +165,7 @@ namespace ASC.CRM.Core.Dao
             if (0 < from && from < int.MaxValue) query.SetFirstResult(from);
             if (0 < count && count < int.MaxValue) query.SetMaxResults(count);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(query).ConvertAll(ToContact);
-            }
+            return Db.ExecuteList(query).ConvertAll(ToContact);
         }
 
         private static Exp ExistAclRecord(bool forCurrentUser, string contactTebleAlias = "")
@@ -249,8 +246,6 @@ namespace ASC.CRM.Core.Dao
                                             isShared);
             int result;
 
-            using (var db = GetDb())
-            {
                 if (withParams)
                 {
                     ICollection<int> excludedContactIDs;
@@ -259,20 +254,20 @@ namespace ASC.CRM.Core.Dao
                     {
                         case ContactListViewType.Person:
                             excludedContactIDs = CRMSecurity.GetPrivateItems(typeof(Person))
-                                                .Except(db.ExecuteList(Query("crm_contact").Select("id")
+                                                .Except(Db.ExecuteList(Query("crm_contact").Select("id")
                                                         .Where(Exp.In("is_shared", new[] { (int)ShareType.Read, (int)ShareType.ReadWrite }) & Exp.Eq("is_company", false)))
                                                   .Select(x => Convert.ToInt32(x[0]))).ToList();
                             break;
                         case ContactListViewType.Company:
                             excludedContactIDs = CRMSecurity.GetPrivateItems(typeof(Company))
-                                               .Except(db.ExecuteList(Query("crm_contact").Select("id")
+                                               .Except(Db.ExecuteList(Query("crm_contact").Select("id")
                                                       .Where(Exp.In("is_shared", new[] { (int)ShareType.Read, (int)ShareType.ReadWrite }) & Exp.Eq("is_company", true)))
                                                       .Select(x => Convert.ToInt32(x[0]))).ToList();
 
                             break;
                         default:
                             excludedContactIDs = CRMSecurity.GetPrivateItems(typeof(Company)).Union(CRMSecurity.GetPrivateItems(typeof(Person)))
-                                        .Except(db.ExecuteList(Query("crm_contact").Select("id").Where(Exp.In("is_shared", new[] { (int)ShareType.Read, (int)ShareType.ReadWrite })))
+                                        .Except(Db.ExecuteList(Query("crm_contact").Select("id").Where(Exp.In("is_shared", new[] { (int)ShareType.Read, (int)ShareType.ReadWrite })))
                                               .Select(x => Convert.ToInt32(x[0]))).ToList();
 
 
@@ -291,63 +286,62 @@ namespace ASC.CRM.Core.Dao
                                                             responsibleid,
                                                             isShared);
 
-                    if (whereConditional != null)
+                if (whereConditional != null)
+                {
+                    if (!isShared.HasValue)
                     {
-                        if (!isShared.HasValue)
-                        {
-                            var sqlQuery = Query("crm_contact").SelectCount().Where(whereConditional);
-                            result = db.ExecuteScalar<int>(sqlQuery);
-                        }
-                        else
-                        {
-                            var sqlQuery = Query("crm_contact").Select("id, is_company, is_shared").Where(whereConditional);
-                            var sqlResultRows = db.ExecuteList(sqlQuery);
-
-                            var resultContactsNewScheme_Count = sqlResultRows.Where(row => row[2] != null).ToList().Count; //new scheme
-
-                            var fakeContactsOldScheme = sqlResultRows
-                                .Where(row => row[2] == null).ToList() // old scheme
-                                .ConvertAll(row =>  Convert.ToBoolean(row[1]) == true ? new Company() {ID = Convert.ToInt32(row[0])} as Contact : new Person() {ID = Convert.ToInt32(row[0])} as Contact );
-                            var resultFakeContactsOldScheme_Count = fakeContactsOldScheme.Where(fc => {
-                                var accessSubjectToContact = CRMSecurity.GetAccessSubjectTo(fc);
-                                if (isShared.Value == true)
-                                {
-                                    return !accessSubjectToContact.Any();
-                                }
-                                else
-                                {
-                                    return accessSubjectToContact.Any();
-                                }
-                            }).ToList().Count;
-
-                            return resultContactsNewScheme_Count + resultFakeContactsOldScheme_Count;
-                        }
+                        var sqlQuery = Query("crm_contact").SelectCount().Where(whereConditional);
+                        result = Db.ExecuteScalar<int>(sqlQuery);
                     }
                     else
                     {
-                        result = 0;
+                        var sqlQuery = Query("crm_contact").Select("id, is_company, is_shared").Where(whereConditional);
+                        var sqlResultRows = Db.ExecuteList(sqlQuery);
+
+                        var resultContactsNewScheme_Count = sqlResultRows.Where(row => row[2] != null).ToList().Count; //new scheme
+
+                        var fakeContactsOldScheme = sqlResultRows
+                            .Where(row => row[2] == null).ToList() // old scheme
+                            .ConvertAll(row =>  Convert.ToBoolean(row[1]) == true ? new Company() {ID = Convert.ToInt32(row[0])} as Contact : new Person() {ID = Convert.ToInt32(row[0])} as Contact );
+                        var resultFakeContactsOldScheme_Count = fakeContactsOldScheme.Where(fc => {
+                            var accessSubjectToContact = CRMSecurity.GetAccessSubjectTo(fc);
+                            if (isShared.Value == true)
+                            {
+                                return !accessSubjectToContact.Any();
+                            }
+                            else
+                            {
+                                return accessSubjectToContact.Any();
+                            }
+                        }).ToList().Count;
+
+                        return resultContactsNewScheme_Count + resultFakeContactsOldScheme_Count;
                     }
                 }
                 else
                 {
-                    var countWithoutPrivate = db.ExecuteScalar<int>(Query("crm_contact").SelectCount());
-
-                    var privateCount = CRMSecurity.GetPrivateItemsCount(typeof(Person)) +
-                                       CRMSecurity.GetPrivateItemsCount(typeof(Company)) -
-                                       db.ExecuteScalar<int>(Query("crm_contact").Where(Exp.In("is_shared", new[] { (int)ShareType.Read, (int)ShareType.ReadWrite })).SelectCount());
-
-                    if (privateCount < 0)
-                        privateCount = 0;
-
-                    if (privateCount > countWithoutPrivate)
-                    {
-                        _log.Error("Private contacts count more than all contacts");
-
-                        privateCount = 0;
-                    }
-
-                    result = countWithoutPrivate - privateCount;
+                    result = 0;
                 }
+            }
+            else
+            {
+                var countWithoutPrivate = Db.ExecuteScalar<int>(Query("crm_contact").SelectCount());
+
+                var privateCount = CRMSecurity.GetPrivateItemsCount(typeof(Person)) +
+                                    CRMSecurity.GetPrivateItemsCount(typeof(Company)) -
+                                    Db.ExecuteScalar<int>(Query("crm_contact").Where(Exp.In("is_shared", new[] { (int)ShareType.Read, (int)ShareType.ReadWrite })).SelectCount());
+
+                if (privateCount < 0)
+                    privateCount = 0;
+
+                if (privateCount > countWithoutPrivate)
+                {
+                    _log.Error("Private contacts count more than all contacts");
+
+                    privateCount = 0;
+                }
+
+                result = countWithoutPrivate - privateCount;
             }
             if (result > 0)
             {
@@ -390,50 +384,47 @@ namespace ASC.CRM.Core.Dao
             var isAdmin = CRMSecurity.IsAdmin;
             const int count_per_query = 100;
 
-            using (var db = GetDb())
+            var f = 0;
+            do
             {
-                var f = 0;
-                do
+                var query = getBaseQuery();
+
+                if (ids.Any())
                 {
-                    var query = getBaseQuery();
+                    var partIds = ids.Skip(f).Take(count_per_query).ToList();
 
-                    if (ids.Any())
-                    {
-                        var partIds = ids.Skip(f).Take(count_per_query).ToList();
-
-                        if (!partIds.Any())
-                            break;
-
-                        query
-                            .Where(Exp.In("cci.id", partIds));
-                    }
-                    else
-                    {
-                        query
-                            .Where(Exp.Like("concat(cc.display_name, ' ', cci.data)", searchText, SqlLike.AnyWhere))
-                            .SetFirstResult(f)
-                            .SetMaxResults(count_per_query);
-                    }
-
-                    var partContacts = db.ExecuteList(query)
-                        .ConvertAll(ToContact);
-
-                    foreach (var partContact in partContacts)
-                    {
-                        if (maxCount - contacts.Count == 0)
-                            return contacts;
-
-                        if (isAdmin || CRMSecurity.CanAccessTo(partContact))
-                            contacts.Add(partContact);
-                    }
-
-                    if (maxCount - contacts.Count == 0 || !partContacts.Any() || partContacts.Count < count_per_query)
+                    if (!partIds.Any())
                         break;
 
-                    f += count_per_query;
+                    query
+                        .Where(Exp.In("cci.id", partIds));
+                }
+                else
+                {
+                    query
+                        .Where(Exp.Like("concat(cc.display_name, ' ', cci.data)", searchText, SqlLike.AnyWhere))
+                        .SetFirstResult(f)
+                        .SetMaxResults(count_per_query);
+                }
 
-                } while (true);
-            }
+                var partContacts = Db.ExecuteList(query)
+                    .ConvertAll(ToContact);
+
+                foreach (var partContact in partContacts)
+                {
+                    if (maxCount - contacts.Count == 0)
+                        return contacts;
+
+                    if (isAdmin || CRMSecurity.CanAccessTo(partContact))
+                        contacts.Add(partContact);
+                }
+
+                if (maxCount - contacts.Count == 0 || !partContacts.Any() || partContacts.Count < count_per_query)
+                    break;
+
+                f += count_per_query;
+
+            } while (true);
 
             return contacts;
         }
@@ -706,22 +697,19 @@ namespace ASC.CRM.Core.Dao
                     conditions.Add(Exp.Eq("is_company", false));
                     break;
                 case ContactListViewType.WithOpportunity:
-                    using (var db = GetDb())
+                    if (ids.Count > 0)
                     {
-                        if (ids.Count > 0)
-                        {
-                            ids = db.ExecuteList(new SqlQuery("crm_entity_contact").Select("contact_id")
-                                                    .Distinct()
-                                                    .Where(Exp.In("contact_id", ids) & Exp.Eq("entity_type", (int)EntityType.Opportunity)))
-                                                    .ConvertAll(row => Convert.ToInt32(row[0]));
-                        }
-                        else
-                        {
-                            ids = db.ExecuteList(new SqlQuery("crm_entity_contact").Select("contact_id")
-                                                    .Distinct()
-                                                    .Where(Exp.Eq("entity_type", (int)EntityType.Opportunity)))
-                                                    .ConvertAll(row => Convert.ToInt32(row[0]));
-                        }
+                        ids = Db.ExecuteList(new SqlQuery("crm_entity_contact").Select("contact_id")
+                                                .Distinct()
+                                                .Where(Exp.In("contact_id", ids) & Exp.Eq("entity_type", (int)EntityType.Opportunity)))
+                                                .ConvertAll(row => Convert.ToInt32(row[0]));
+                    }
+                    else
+                    {
+                        ids = Db.ExecuteList(new SqlQuery("crm_entity_contact").Select("contact_id")
+                                                .Distinct()
+                                                .Where(Exp.Eq("entity_type", (int)EntityType.Opportunity)))
+                                                .ConvertAll(row => Convert.ToInt32(row[0]));
                     }
 
                     if (ids.Count == 0) return null;
@@ -767,10 +755,7 @@ namespace ASC.CRM.Core.Dao
 
                 if (exceptIDs.Count > _MaxCountForSQLNotIn)
                 {
-                    using (var db = GetDb())
-                    {
-                        ids = db.ExecuteList(Query("crm_contact").Select("id")).ConvertAll(row => Convert.ToInt32(row[0])); //get all contact ids
-                    }
+                    ids = Db.ExecuteList(Query("crm_contact").Select("id")).ConvertAll(row => Convert.ToInt32(row[0])); //get all contact ids
                     ids = ids.Except(exceptIDs).ToList();
                     if (ids.Count == 0) return null;
 
@@ -864,16 +849,14 @@ namespace ASC.CRM.Core.Dao
                 }
             }
 
-            using (var db = GetDb())
-            {
-                var data = db.ExecuteList(sqlQuery);
 
-                var contacts = data.ConvertAll(ToContact);
+            var data = Db.ExecuteList(sqlQuery);
 
-                return selectIsSharedInNewScheme && isShared.HasValue ?
-                    contacts.Where(c => (isShared.Value ? c.ShareType != ShareType.None : c.ShareType == ShareType.None)).ToList() :
-                    contacts;
-            }
+            var contacts = data.ConvertAll(ToContact);
+
+            return selectIsSharedInNewScheme && isShared.HasValue ?
+                contacts.Where(c => (isShared.Value ? c.ShareType != ShareType.None : c.ShareType == ShareType.None)).ToList() :
+                contacts;
         }
 
         public List<Contact> GetContactsByName(String title, bool isCompany)
@@ -884,13 +867,10 @@ namespace ASC.CRM.Core.Dao
 
             if (isCompany)
             {
-                using (var db = GetDb())
-                {
-                    return db.ExecuteList(
-                        GetContactSqlQuery(Exp.Eq("display_name", title) & Exp.Eq("is_company", true)))
-                            .ConvertAll(ToContact)
-                            .FindAll(CRMSecurity.CanAccessTo);
-                }
+                return Db.ExecuteList(
+                    GetContactSqlQuery(Exp.Eq("display_name", title) & Exp.Eq("is_company", true)))
+                        .ConvertAll(ToContact)
+                        .FindAll(CRMSecurity.CanAccessTo);
             }
             else
             {
@@ -898,19 +878,16 @@ namespace ASC.CRM.Core.Dao
 
                 if (titleParts.Length == 1 || titleParts.Length == 2)
                 {
-                    using (var db = GetDb())
-                    {
-                        if (titleParts.Length == 1)
-                            return db.ExecuteList(
-                                GetContactSqlQuery(Exp.Eq("display_name", title) & Exp.Eq("is_company", false)))
-                                   .ConvertAll(ToContact)
-                                   .FindAll(CRMSecurity.CanAccessTo);
-                        else
-                            return db.ExecuteList(
-                                GetContactSqlQuery(Exp.Eq("display_name", String.Concat(titleParts[0], _displayNameSeparator, titleParts[1])) & Exp.Eq("is_company", false)))
-                                      .ConvertAll(ToContact)
-                                      .FindAll(CRMSecurity.CanAccessTo);
-                    }
+                    if (titleParts.Length == 1)
+                        return Db.ExecuteList(
+                            GetContactSqlQuery(Exp.Eq("display_name", title) & Exp.Eq("is_company", false)))
+                                .ConvertAll(ToContact)
+                                .FindAll(CRMSecurity.CanAccessTo);
+                    else
+                        return Db.ExecuteList(
+                            GetContactSqlQuery(Exp.Eq("display_name", String.Concat(titleParts[0], _displayNameSeparator, titleParts[1])) & Exp.Eq("is_company", false)))
+                                    .ConvertAll(ToContact)
+                                    .FindAll(CRMSecurity.CanAccessTo);
                 }
             }
             return GetContacts(title, null, -1, -1, isCompany ? ContactListViewType.Company : ContactListViewType.Person, DateTime.MinValue, DateTime.MinValue, 0, 0, null);
@@ -920,36 +897,27 @@ namespace ASC.CRM.Core.Dao
         {
             if ((peopleID == null) || (peopleID.Length == 0)) return;
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Update("crm_contact").Set("company_id", 0).Where(Exp.In("id", peopleID)));
-                RemoveRelative(null, EntityType.Person, peopleID, db);
-            }
+            Db.ExecuteNonQuery(Update("crm_contact").Set("company_id", 0).Where(Exp.In("id", peopleID)));
+            RemoveRelativeInDb(null, EntityType.Person, peopleID);
         }
 
         public void RemoveMember(int peopleID)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Update("crm_contact").Set("company_id", 0).Where("id", peopleID));
-                RemoveRelative(0, EntityType.Person, peopleID, db);
-            }
+            Db.ExecuteNonQuery(Update("crm_contact").Set("company_id", 0).Where("id", peopleID));
+            RemoveRelative(0, EntityType.Person, peopleID);
         }
 
-        public void AddMember(int peopleID, int companyID, DbManager db)
+        public void AddMemberInDb(int peopleID, int companyID)
         {
-            db.ExecuteNonQuery(Update("crm_contact")
+            Db.ExecuteNonQuery(Update("crm_contact")
                .Set("company_id", companyID)
                .Where("id", peopleID));
-            SetRelative(companyID, EntityType.Person, peopleID, db);
+            SetRelative(companyID, EntityType.Person, peopleID);
         }
 
         public void AddMember(int peopleID, int companyID)
         {
-            using (var db = GetDb())
-            {
-                AddMember(peopleID, companyID, db);
-            }
+            AddMemberInDb(peopleID, companyID);
         }
 
         public void SetMembers(int companyID, params int[] peopleIDs)
@@ -957,25 +925,24 @@ namespace ASC.CRM.Core.Dao
             if (companyID == 0)
                 throw new ArgumentException();
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                db.ExecuteNonQuery(new SqlDelete("crm_entity_contact")
+                Db.ExecuteNonQuery(new SqlDelete("crm_entity_contact")
                                         .Where(Exp.Eq("entity_type", EntityType.Person) &
                                          Exp.Eq("contact_id", companyID)));
 
-                db.ExecuteNonQuery(Update("crm_contact")
+                Db.ExecuteNonQuery(Update("crm_contact")
                                        .Set("company_id", 0)
                                        .Where(Exp.Eq("company_id", companyID)));
 
 
                 if (!(peopleIDs == null || peopleIDs.Length == 0))
                 {
-                    db.ExecuteNonQuery(Update("crm_contact")
+                    Db.ExecuteNonQuery(Update("crm_contact")
                         .Set("company_id", companyID)
                         .Where(Exp.In("id", peopleIDs)));
                     foreach (var peopleID in peopleIDs)
-                        SetRelative(companyID, EntityType.Person, peopleID, db);
+                        SetRelative(companyID, EntityType.Person, peopleID);
                 }
 
                 tx.Commit();
@@ -986,13 +953,12 @@ namespace ASC.CRM.Core.Dao
 
         public void SetRelativeContactProject(IEnumerable<int> contactid, int projectid)
         {
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 foreach (var id in contactid)
                 {
 
-                    db.ExecuteNonQuery(Insert("crm_projects")
+                    Db.ExecuteNonQuery(Insert("crm_projects")
                                                   .InColumnValue("contact_id", id)
                                                   .InColumnValue("project_id", projectid));
                 }
@@ -1003,28 +969,21 @@ namespace ASC.CRM.Core.Dao
 
         public void RemoveRelativeContactProject(int contactid, int projectid)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(Delete("crm_projects")
-                .Where(Exp.Eq("contact_id", contactid) & Exp.Eq("project_id", projectid)));
-            }
-
+            Db.ExecuteNonQuery(Delete("crm_projects")
+            .Where(Exp.Eq("contact_id", contactid) & Exp.Eq("project_id", projectid)));
         }
 
 
         public IEnumerable<Contact> GetContactsByProjectID(int projectid)
         {
-            using (var db = GetDb())
-            {
-                var contactIds = db.ExecuteList(Query("crm_projects")
-                                .Select("contact_id")
-                                .Where("project_id", projectid)).Select(x => Convert.ToInt32(x[0]));
+            var contactIds = Db.ExecuteList(Query("crm_projects")
+                            .Select("contact_id")
+                            .Where("project_id", projectid)).Select(x => Convert.ToInt32(x[0]));
 
 
-                if (!contactIds.Any()) return new List<Contact>();
+            if (!contactIds.Any()) return new List<Contact>();
 
-                return GetContacts(contactIds.ToArray());
-            }
+            return GetContacts(contactIds.ToArray());
         }
 
         public List<Contact> GetMembers(int companyID)
@@ -1046,77 +1005,63 @@ namespace ASC.CRM.Core.Dao
                        .Where(Exp.In("contact_id", companyID) & Exp.Eq("entity_type", (int)EntityType.Person))
                        .GroupBy("contact_id");
 
-            using (var db = GetDb())
-            {
-                var sqlResult = db.ExecuteList(sqlQuery);
+            var sqlResult = Db.ExecuteList(sqlQuery);
 
-                return sqlResult.ToDictionary(item => Convert.ToInt32(item[0]), item => Convert.ToInt32(item[1]));
-            }
+            return sqlResult.ToDictionary(item => Convert.ToInt32(item[0]), item => Convert.ToInt32(item[1]));
         }
 
 
         public int GetMembersCount(int companyID)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<int>(
-                    new SqlQuery("crm_entity_contact")
-                   .SelectCount()
-                   .Where(Exp.Eq("contact_id", companyID) & Exp.Eq("entity_type", (int)EntityType.Person)));
-            }
+            return Db.ExecuteScalar<int>(
+                new SqlQuery("crm_entity_contact")
+                .SelectCount()
+                .Where(Exp.Eq("contact_id", companyID) & Exp.Eq("entity_type", (int)EntityType.Person)));
         }
 
         public List<int> GetMembersIDs(int companyID)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(
-                    new SqlQuery("crm_entity_contact")
-                   .Select("entity_id")
-                   .Where(Exp.Eq("contact_id", companyID) & Exp.Eq("entity_type", (int)EntityType.Person)))
-                   .ConvertAll(row => (int)(row[0]));
-            }
+            return Db.ExecuteList(
+                new SqlQuery("crm_entity_contact")
+                .Select("entity_id")
+                .Where(Exp.Eq("contact_id", companyID) & Exp.Eq("entity_type", (int)EntityType.Person)))
+                .ConvertAll(row => (int)(row[0]));
         }
 
         public Dictionary<int, ShareType?> GetMembersIDsAndShareType(int companyID)
         {
             var result = new Dictionary<int, ShareType?>();
-            using (var db = GetDb())
-            {
-                var query = new SqlQuery("crm_entity_contact ec")
-                   .Select("ec.entity_id")
-                   .Select("c.is_shared")
-                   .LeftOuterJoin("crm_contact c", Exp.EqColumns("ec.entity_id", "c.id"))
-                   .Where(Exp.Eq("ec.contact_id", companyID) & Exp.Eq("ec.entity_type", (int)EntityType.Person));
-                var rows = db.ExecuteList(query);
 
-                foreach (var row in rows) {
-                    if (row[1] == null)
-                    {
-                        result.Add((int)(row[0]), null);
-                    }
-                    else
-                    {
-                        result.Add((int)(row[0]), (ShareType)(Convert.ToInt32(row[1])));
-                    }
+            var query = new SqlQuery("crm_entity_contact ec")
+                .Select("ec.entity_id")
+                .Select("c.is_shared")
+                .LeftOuterJoin("crm_contact c", Exp.EqColumns("ec.entity_id", "c.id"))
+                .Where(Exp.Eq("ec.contact_id", companyID) & Exp.Eq("ec.entity_type", (int)EntityType.Person));
+            var rows = Db.ExecuteList(query);
+
+            foreach (var row in rows) {
+                if (row[1] == null)
+                {
+                    result.Add((int)(row[0]), null);
                 }
-
+                else
+                {
+                    result.Add((int)(row[0]), (ShareType)(Convert.ToInt32(row[1])));
+                }
             }
+
             return result;
         }
 
 
         public virtual void UpdateContact(Contact contact)
         {
-            using (var db = GetDb())
-            {
-                UpdateContact(contact, db);
-            }
+            UpdateContactFromDb(contact);
         }
 
-        private void UpdateContact(Contact contact, DbManager db)
+        private void UpdateContactFromDb(Contact contact)
         {
-            var originalContact = GetByID(contact.ID, db);
+            var originalContact = GetByID(contact.ID);
             if (originalContact == null) throw new ArgumentException();
             CRMSecurity.DemandEdit(originalContact);
 
@@ -1157,7 +1102,7 @@ namespace ASC.CRM.Core.Dao
 
                 if (companyID > 0)
                 {
-                    AddMember(people.ID, companyID, db);
+                    AddMemberInDb(people.ID, companyID);
                 }
 
                 if (String.IsNullOrEmpty(firstName))// || String.IsNullOrEmpty(lastName)) lastname is not required field now
@@ -1175,7 +1120,7 @@ namespace ASC.CRM.Core.Dao
                 contact.Industry = contact.Industry.Trim();
 
 
-            db.ExecuteNonQuery(
+            Db.ExecuteNonQuery(
                Update("crm_contact")
                    .Set("first_name", firstName)
                    .Set("last_name", lastName)
@@ -1199,13 +1144,10 @@ namespace ASC.CRM.Core.Dao
 
         public void UpdateContactStatus(IEnumerable<int> contactid, int statusid)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                   Update("crm_contact")
-                       .Set("status_id", statusid)
-                       .Where(Exp.In("id", contactid.ToArray())));
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_contact")
+                    .Set("status_id", statusid)
+                    .Where(Exp.In("id", contactid.ToArray())));
             // Delete relative  keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }
@@ -1223,18 +1165,13 @@ namespace ASC.CRM.Core.Dao
 
             if (resultReal)
             {
-                using (var db = GetDb())
-                {
-                    result = db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToInt32(row[0]));
-                }
+                result = Db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToInt32(row[0]));
             }
             else
             {
                 List<string> emailsAlreadyExists;
-                using (var db = GetDb())
-                {
-                    emailsAlreadyExists = db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToString(row[1]));
-                }
+
+                emailsAlreadyExists = Db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToString(row[1]));
 
                 if (emailsAlreadyExists.Count != 0) {
                     result = items.Where(i => emailsAlreadyExists.Contains(i.Data)).Select(i => i.ContactID).ToList();
@@ -1247,8 +1184,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual Dictionary<int, int> SaveContactList(List<Contact> items)
         {
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 var result = new Dictionary<int, int>();
 
@@ -1259,7 +1195,7 @@ namespace ASC.CRM.Core.Dao
                     if (item.ID == 0)
                         item.ID = index;
 
-                    result.Add(item.ID, SaveContact(item, db));
+                    result.Add(item.ID, SaveContactToDb(item));
                 }
 
                 tx.Commit();
@@ -1273,8 +1209,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual void UpdateContactList(List<Contact> items)
         {
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 for (int index = 0; index < items.Count; index++)
                 {
@@ -1283,7 +1218,7 @@ namespace ASC.CRM.Core.Dao
                     if (item.ID == 0)
                         item.ID = index;
 
-                    UpdateContact(item, db);
+                    UpdateContactFromDb(item);
                 }
 
                 tx.Commit();
@@ -1297,29 +1232,22 @@ namespace ASC.CRM.Core.Dao
         {
             if (contactId <= 0) throw new ArgumentException();
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                Update("crm_contact")
-               .Set("is_shared", isShared)
-                    .Where(Exp.Eq("id", contactId)));
-
-            }
+            Db.ExecuteNonQuery(
+            Update("crm_contact")
+            .Set("is_shared", isShared)
+                .Where(Exp.Eq("id", contactId)));
 
         }
 
         public virtual int SaveContact(Contact contact)
         {
-            using (var db = GetDb())
-            {
-                var result = SaveContact(contact, db);
-                // Delete relative  keys
-                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
-                return result;
-            }
+            var result = SaveContactToDb(contact);
+            // Delete relative  keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
+            return result;
         }
 
-        private int SaveContact(Contact contact, DbManager db)
+        private int SaveContactToDb(Contact contact)
         {
             String firstName;
             String lastName;
@@ -1376,7 +1304,7 @@ namespace ASC.CRM.Core.Dao
             if (!String.IsNullOrEmpty(contact.Industry))
                 contact.Industry = contact.Industry.Trim();
 
-            var contactID = db.ExecuteScalar<int>(
+            var contactID = Db.ExecuteScalar<int>(
                 Insert("crm_contact")
                    .InColumnValue("id", 0)
                    .InColumnValue("first_name", firstName)
@@ -1401,27 +1329,21 @@ namespace ASC.CRM.Core.Dao
             contact.ID = contactID;
 
             if (companyID > 0)
-                AddMember(contactID, companyID, db);
+                AddMemberInDb(contactID, companyID);
 
             return contactID;
         }
 
         public Boolean IsExist(int contactID)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<bool>("select exists(select 1 from crm_contact where tenant_id = @tid and id = @id)", 
-                    new { tid = TenantID, id = contactID });
-            }
+            return Db.ExecuteScalar<bool>("select exists(select 1 from crm_contact where tenant_id = @tid and id = @id)", 
+                new { tid = TenantID, id = contactID });
         }
 
         public Boolean CanDelete(int contactID)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteScalar<int>("select count(*) from crm_invoice where tenant_id = @tid and (contact_id = @id or consignee_id = @id)",
-                    new { tid = TenantID, id = contactID }) == 0;
-            }
+            return Db.ExecuteScalar<int>("select count(*) from crm_invoice where tenant_id = @tid and (contact_id = @id or consignee_id = @id)",
+                new { tid = TenantID, id = contactID }) == 0;
         }
 
         public Dictionary<int, bool> CanDelete(int[] contactID)
@@ -1436,15 +1358,12 @@ namespace ASC.CRM.Core.Dao
 
             List<int> hasInvoiceIDs;
 
-            using (var db = GetDb())
-            {
-                var query = String.Format(
-                    @"select distinct contact_id from crm_invoice where tenant_id = {0} and contact_id in ({1})
-                    union all
-                    select distinct consignee_id from crm_invoice where tenant_id = {0} and consignee_id in ({1})", TenantID, contactIDsDBString);
+            var query = String.Format(
+                @"select distinct contact_id from crm_invoice where tenant_id = {0} and contact_id in ({1})
+                union all
+                select distinct consignee_id from crm_invoice where tenant_id = {0} and consignee_id in ({1})", TenantID, contactIDsDBString);
 
-                hasInvoiceIDs = db.ExecuteList(query).ConvertAll(row => Convert.ToInt32(row[0]));
-            }
+            hasInvoiceIDs = Db.ExecuteList(query).ConvertAll(row => Convert.ToInt32(row[0]));
 
             foreach (var cid in contactIDs)
             {
@@ -1456,17 +1375,14 @@ namespace ASC.CRM.Core.Dao
 
         public virtual Contact GetByID(int contactID)
         {
-            using (var db = GetDb())
-            {
-                return GetByID(contactID, db);
-            }
+            return GetByIDFromDb(contactID);
         }
 
-        public Contact GetByID(int contactID, DbManager db)
+        public Contact GetByIDFromDb(int contactID)
         {
             SqlQuery sqlQuery = GetContactSqlQuery(Exp.Eq("id", contactID));
 
-            var contacts = db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row));
+            var contacts = Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row));
 
             if (contacts.Count == 0) return null;
 
@@ -1479,10 +1395,7 @@ namespace ASC.CRM.Core.Dao
 
             SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row)).FindAll(CRMSecurity.CanAccessTo);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row)).FindAll(CRMSecurity.CanAccessTo);
         }
 
         public List<Contact> GetRestrictedContacts(int[] contactID)
@@ -1491,10 +1404,7 @@ namespace ASC.CRM.Core.Dao
 
             SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row)).FindAll(cont => !CRMSecurity.CanAccessTo(cont));
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row)).FindAll(cont => !CRMSecurity.CanAccessTo(cont));
         }
 
         public List<Contact> GetRestrictedAndAccessedContacts(int[] contactID)
@@ -1503,10 +1413,7 @@ namespace ASC.CRM.Core.Dao
 
             SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row));
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row));
         }
 
         public virtual List<Contact> DeleteBatchContact(int[] contactID)
@@ -1573,35 +1480,34 @@ namespace ASC.CRM.Core.Dao
             var contactID = newContactID.ToArray();
             var filesIDs = new object[0];
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             using (var tagdao = FilesIntegration.GetTagDao())
             {
-                var tagNames = db.ExecuteList(Query("crm_relationship_event").Select("id").Where(Exp.In("contact_id", contactID) & Exp.Eq("have_files", true))).Select(row => String.Format("RelationshipEvent_{0}", row[0])).ToArray();
+                var tagNames = Db.ExecuteList(Query("crm_relationship_event").Select("id").Where(Exp.In("contact_id", contactID) & Exp.Eq("have_files", true))).Select(row => String.Format("RelationshipEvent_{0}", row[0])).ToArray();
                 if (0 < tagNames.Length)
                 {
                     filesIDs = tagdao.GetTags(tagNames, TagType.System).Where(t => t.EntryType == FileEntryType.File).Select(t => t.EntryId).ToArray();
                 }
 
-                db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.In("entity_id", contactID) & Exp.In("entity_type", new[] { (int)EntityType.Contact, (int)EntityType.Person, (int)EntityType.Company })));
-                db.ExecuteNonQuery(Delete("crm_task").Where(Exp.In("contact_id", contactID)));
-                db.ExecuteNonQuery(new SqlDelete("crm_entity_tag").Where(Exp.In("entity_id", contactID) & Exp.Eq("entity_type", (int)EntityType.Contact)));
+                Db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.In("entity_id", contactID) & Exp.In("entity_type", new[] { (int)EntityType.Contact, (int)EntityType.Person, (int)EntityType.Company })));
+                Db.ExecuteNonQuery(Delete("crm_task").Where(Exp.In("contact_id", contactID)));
+                Db.ExecuteNonQuery(new SqlDelete("crm_entity_tag").Where(Exp.In("entity_id", contactID) & Exp.Eq("entity_type", (int)EntityType.Contact)));
 
-                db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.In("contact_id", contactID)));
-                db.ExecuteNonQuery(Update("crm_deal").Set("contact_id", 0).Where(Exp.In("contact_id", contactID)));
+                Db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.In("contact_id", contactID)));
+                Db.ExecuteNonQuery(Update("crm_deal").Set("contact_id", 0).Where(Exp.In("contact_id", contactID)));
 
                 if (companyID.Count > 0)
                 {
-                    db.ExecuteNonQuery(Update("crm_contact").Set("company_id", 0).Where(Exp.In("company_id", companyID)));
+                    Db.ExecuteNonQuery(Update("crm_contact").Set("company_id", 0).Where(Exp.In("company_id", companyID)));
                 }
                 if (personsID.Count > 0)
                 {
-                    RemoveRelative(null, EntityType.Person, personsID.ToArray(), db);
+                    RemoveRelativeInDb(null, EntityType.Person, personsID.ToArray());
                 }
-                RemoveRelative(contactID, EntityType.Any, null, db);
+                RemoveRelativeInDb(contactID, EntityType.Any, null);
 
-                db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.In("contact_id", contactID)));
-                db.ExecuteNonQuery(Delete("crm_contact").Where(Exp.In("id", contactID)));
+                Db.ExecuteNonQuery(Delete("crm_contact_info").Where(Exp.In("contact_id", contactID)));
+                Db.ExecuteNonQuery(Delete("crm_contact").Where(Exp.In("id", contactID)));
 
                 tx.Commit();
             }
@@ -1617,7 +1523,7 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
-        private void MergeContactInfo(Contact fromContact, Contact toContact, DbManager db)
+        private void MergeContactInfo(Contact fromContact, Contact toContact)
         {
 
             if ((toContact is Person) && (fromContact is Person))
@@ -1643,7 +1549,7 @@ namespace ASC.CRM.Core.Dao
             if (String.IsNullOrEmpty(toContact.About))
                 toContact.About = fromContact.About;
 
-            UpdateContact(toContact, db);
+            UpdateContactFromDb(toContact);
         }
 
         public void MergeDublicate(int fromContactID, int toContactID)
@@ -1661,13 +1567,12 @@ namespace ASC.CRM.Core.Dao
             if (fromContact == null || toContact == null)
                 throw new ArgumentException();
 
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 ISqlInstruction q = Update("crm_task")
                     .Set("contact_id", toContactID)
                     .Where(Exp.Eq("contact_id", fromContactID));
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_entity_contact
                 q = new SqlQuery("crm_entity_contact l")
@@ -1676,27 +1581,27 @@ namespace ASC.CRM.Core.Dao
                     .Where(Exp.EqColumns("l.entity_id", "r.entity_id") & Exp.EqColumns("l.entity_type", "r.entity_type"))
                     .Where("l.contact_id", fromContactID)
                     .Where("r.contact_id", toContactID);
-                db.ExecuteList(q)
+                Db.ExecuteList(q)
                     .ForEach(row =>
-                        db.ExecuteNonQuery(new SqlDelete("crm_entity_contact").Where("entity_id", row[0]).Where("entity_type", row[1]).Where("contact_id", row[2]))
+                        Db.ExecuteNonQuery(new SqlDelete("crm_entity_contact").Where("entity_id", row[0]).Where("entity_type", row[1]).Where("contact_id", row[2]))
                  );
 
                 q = new SqlUpdate("crm_entity_contact")
                     .Set("contact_id", toContactID)
                     .Where("contact_id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_deal
                 q = Update("crm_deal")
                     .Set("contact_id", toContactID)
                     .Where("contact_id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_invoice
                 q = Update("crm_invoice")
                     .Set("contact_id", toContactID)
                     .Where("contact_id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_projects
                 q = new SqlQuery("crm_projects p")
@@ -1705,19 +1610,19 @@ namespace ASC.CRM.Core.Dao
                     .Where(Exp.EqColumns("p.project_id", "r.project_id"))
                     .Where("p.contact_id", fromContactID)
                     .Where("r.contact_id", toContactID);
-                var dublicateProjectID = db.ExecuteList(q).ConvertAll(row => row[0]);
+                var dublicateProjectID = Db.ExecuteList(q).ConvertAll(row => row[0]);
 
                 q = new SqlDelete("crm_projects").Where(Exp.Eq("contact_id", fromContactID) & Exp.In("project_id", dublicateProjectID));
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 q = new SqlUpdate("crm_projects").Set("contact_id", toContactID).Where("contact_id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_relationship_event
                 q = Update("crm_relationship_event")
                     .Set("contact_id", toContactID)
                     .Where("contact_id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_entity_tag
                 q = new SqlQuery("crm_entity_tag l")
@@ -1726,13 +1631,13 @@ namespace ASC.CRM.Core.Dao
                     .Where(Exp.EqColumns("l.tag_id", "r.tag_id") & Exp.EqColumns("l.entity_type", "r.entity_type"))
                     .Where("l.entity_id", fromContactID)
                     .Where("r.entity_id", toContactID);
-                var dublicateTagsID = db.ExecuteList(q).ConvertAll(row => row[0]);
+                var dublicateTagsID = Db.ExecuteList(q).ConvertAll(row => row[0]);
 
                 q = new SqlDelete("crm_entity_tag").Where(Exp.Eq("entity_id", fromContactID) & Exp.Eq("entity_type", (int)EntityType.Contact) & Exp.In("tag_id", dublicateTagsID));
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 q = new SqlUpdate("crm_entity_tag").Set("entity_id", toContactID).Where("entity_id", fromContactID).Where("entity_type", (int)EntityType.Contact);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 // crm_field_value
                 q = Query("crm_field_value l")
@@ -1741,19 +1646,19 @@ namespace ASC.CRM.Core.Dao
                     .Where(Exp.EqColumns("l.tenant_id", "r.tenant_id") & Exp.EqColumns("l.field_id", "r.field_id") & Exp.EqColumns("l.entity_type", "r.entity_type"))
                     .Where("l.entity_id", fromContactID)
                     .Where("r.entity_id", toContactID);
-                var dublicateCustomFieldValueID = db.ExecuteList(q).ConvertAll(row => row[0]);
+                var dublicateCustomFieldValueID = Db.ExecuteList(q).ConvertAll(row => row[0]);
 
                 q = Delete("crm_field_value")
                     .Where("entity_id", fromContactID)
                     .Where(Exp.In("entity_type", new[] { (int)EntityType.Contact, (int)EntityType.Person, (int)EntityType.Company }))
                     .Where(Exp.In("field_id", dublicateCustomFieldValueID));
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 q = Update("crm_field_value")
                     .Set("entity_id", toContactID)
                     .Where("entity_id", fromContactID)
                     .Where("entity_type", (int)EntityType.Contact);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
 
                 // crm_contact_info
@@ -1769,13 +1674,13 @@ namespace ASC.CRM.Core.Dao
                    .Where(!Exp.EqColumns("l.data", "r.data"))
                    .Where("l.contact_id", fromContactID)
                    .Where("r.contact_id", toContactID);
-                var dublicatePrimaryContactInfoID = db.ExecuteList(q).ConvertAll(row => row[0]);
+                var dublicatePrimaryContactInfoID = Db.ExecuteList(q).ConvertAll(row => row[0]);
 
                 q = Update("crm_contact_info")
                     .Set("is_primary", false)
                     .Where("contact_id", fromContactID)
                     .Where(Exp.In("id", dublicatePrimaryContactInfoID));
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 q = Query("crm_contact_info l")
                     .From("crm_contact_info r")
@@ -1787,21 +1692,21 @@ namespace ASC.CRM.Core.Dao
                     .Where(Exp.EqColumns("l.data", "r.data"))
                     .Where("l.contact_id", fromContactID)
                     .Where("r.contact_id", toContactID);
-                var dublicateContactInfoID = db.ExecuteList(q).ConvertAll(row => row[0]);
+                var dublicateContactInfoID = Db.ExecuteList(q).ConvertAll(row => row[0]);
 
                 q = Delete("crm_contact_info")
                     .Where("contact_id", fromContactID)
                     .Where(Exp.In("id", dublicateContactInfoID));
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
 
                 q = Update("crm_contact_info")
                     .Set("contact_id", toContactID)
                     .Where("contact_id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
 
-                MergeContactInfo(fromContact, toContact, db);
+                MergeContactInfo(fromContact, toContact);
 
                 // crm_contact
                 if ((fromContact is Company) && (toContact is Company))
@@ -1809,11 +1714,11 @@ namespace ASC.CRM.Core.Dao
                     q = Update("crm_contact")
                         .Set("company_id", toContactID)
                         .Where("company_id", fromContactID);
-                    db.ExecuteNonQuery(q);
+                    Db.ExecuteNonQuery(q);
                 }
 
                 q = Delete("crm_contact").Where("id", fromContactID);
-                db.ExecuteNonQuery(q);
+                Db.ExecuteNonQuery(q);
 
                 tx.Commit();
             }
@@ -1823,14 +1728,11 @@ namespace ASC.CRM.Core.Dao
 
         public List<int> GetContactIDsByCompanyIds(List<int> companyIDs)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(Query("crm_contact")
-                    .Select("id")
-                    .Distinct()
-                    .Where(Exp.In("company_id", companyIDs) & Exp.Eq("is_company", false)))
-                    .ConvertAll(row => Convert.ToInt32(row[0]));
-            }
+            return Db.ExecuteList(Query("crm_contact")
+                .Select("id")
+                .Distinct()
+                .Where(Exp.In("company_id", companyIDs) & Exp.Eq("is_company", false)))
+                .ConvertAll(row => Convert.ToInt32(row[0]));
         }
 
         public List<int> GetContactIDsByContactInfo(ContactInfoType infoType, String data, int? category, bool? isPrimary)
@@ -1854,12 +1756,7 @@ namespace ASC.CRM.Core.Dao
                 q = q.Where("is_primary", isPrimary.Value);
             }
 
-
-            using (var db = GetDb())
-            {
-                ids = db.ExecuteList(q).ConvertAll(row => (int)row[0]);
-
-            }
+            ids = Db.ExecuteList(q).ConvertAll(row => (int)row[0]);
             return ids;
         }
 
@@ -1975,13 +1872,10 @@ namespace ASC.CRM.Core.Dao
         /// <param name="creationDate"></param>
         public void SetContactCreationDate(int contactId, DateTime creationDate)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                   Update("crm_contact")
-                       .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
-                       .Where(Exp.Eq("id", contactId)));
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_contact")
+                    .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
+                    .Where(Exp.Eq("id", contactId)));
             // Delete relative keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }
@@ -1993,13 +1887,10 @@ namespace ASC.CRM.Core.Dao
         /// <param name="lastModifedDate"></param>
         public void SetContactLastModifedDate(int contactId, DateTime lastModifedDate)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                   Update("crm_contact")
-                       .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
-                       .Where(Exp.Eq("id", contactId)));
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_contact")
+                    .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
+                    .Where(Exp.Eq("id", contactId)));
             // Delete relative keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }

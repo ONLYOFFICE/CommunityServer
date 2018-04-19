@@ -8,20 +8,25 @@
 
     <p><%= String.Format(Resource.MailServiceText.HtmlEncode(), "<b>", "</b>", "<a  class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#MailServer_block'>", "</a>") %></p>
 
-    <div class="mail-service-item">
-        <div class="header-base-small"><%= Resource.MailServiceServerIp %></div>
-        <input id="mailServiceIp" type="text" class="mail-service-value textEdit" value="<%= ServerIp %>" placeholder="127.0.0.1" />
+    <div class="mail-service-item requiredField">
+        <div class="header-base-small headerPanelSmall"><%= Resource.MailServiceServerIp %></div>
+        <input id="mailServiceIp" type="text" class="mail-service-value textEdit" value="<%= ApiHost %>" placeholder="127.0.0.1" />
         <div class="gray-text"><%= string.Format(Resource.MailServiceExample, "127.0.0.1") %></div>
     </div>
         
     <div class="settings-switcher-content display-none">
         <div class="mail-service-item">
-            <div class="header-base-small"><%= Resource.MailServiceUser %></div>
+            <div class="header-base-small headerPanelSmall"><%= Resource.MailServiceHost %></div>
+            <input id="mailServiceSqlIp" type="text" class="mail-service-value textEdit" value="<%= SqlHost %>" placeholder="127.0.0.1" />
+            <div class="gray-text"><%= string.Format(Resource.MailServiceExample, "127.0.0.1") %></div>
+        </div>
+        <div class="mail-service-item requiredField">
+            <div class="header-base-small headerPanelSmall"><%= Resource.MailServiceUser %></div>
             <input id="mailServiceUser" type="text" class="mail-service-value textEdit" value="<%= User %>" placeholder="<%= MailServiceHelper.DefaultUser %>" />
             <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultUser) %></div>
         </div>
-        <div class="mail-service-item">
-            <div class="header-base-small"><%= Resource.MailServicePassword %></div>
+        <div class="mail-service-item requiredField">
+            <div class="header-base-small headerPanelSmall"><%= Resource.MailServicePassword %></div>
             <input id="mailServicePassword" type="text" class="mail-service-value textEdit" value="<%= Password %>" placeholder="<%= MailServiceHelper.DefaultPassword %>" />
             <div class="gray-text"><%= string.Format(Resource.MailServiceExample, MailServiceHelper.DefaultPassword) %></div>
         </div>
@@ -36,7 +41,7 @@
         <span id="mailServiceSaveBtn" class="button blue disable"><%= Resource.SaveButton %></span>
         <span class="splitter-buttons"></span>
         <span id="mailServiceConnectBtn" class="button gray"><%= Resource.ConnectButton %></span>
-        <a id="mailServiceLink" class="link underline <% if(string.IsNullOrEmpty(ServerIp)) { %>display-none<% } %>" target="_blank" href="<%= CommonLinkUtility.ToAbsolute("~/addons/mail/#administration") %>">
+        <a id="mailServiceLink" class="link underline <% if(string.IsNullOrEmpty(ApiHost)) { %>display-none<% } %>" target="_blank" href="<%= CommonLinkUtility.ToAbsolute("~/addons/mail/#administration") %>">
             <%= Resource.MailServiceGoToMailserver %>
         </a>
     </div>
@@ -46,7 +51,7 @@
     <p><%= String.Format(Resource.MailServiceHelp.HtmlEncode(), "<b>", "</b>", "<a href='https://helpcenter.onlyoffice.com/server/docker/mail/docker-installation.aspx'>", "</a>", "<br/>") %></p>
 </div>
 
-<% if(!string.IsNullOrEmpty(ServerIp)) { %>
+<% if(!string.IsNullOrEmpty(ApiHost)) { %>
 <div class="disable">
     <div class="settings-help-block" style="float: none;">
         <p><%= String.Format(Resource.MailServiceWarning.HtmlEncode(), "<b>", "</b>", "<a href='" + CommonLinkUtility.ToAbsolute("~/addons/mail/#administration") + "'>", "</a>") %></p>

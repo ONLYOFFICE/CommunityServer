@@ -381,14 +381,13 @@ window.Attachments = (function() {
         var versionGroup = parseInt(fileData.versionGroup);
         if (!version) {
             version = 1;
-            fileTmpl.viewUrl = ASC.Files.Utility.GetFileViewUrl(fileTmpl.id, version);
+            fileTmpl.viewUrl = ASC.Files.Utility.GetFileDownloadUrl(fileTmpl.id, version);
         }
         fileTmpl.version = version;
         if (!versionGroup) {
             versionGroup = 1;
         }
         fileTmpl.versionGroup = versionGroup;
-        fileTmpl.downloadUrl = ASC.Files.Utility.GetFileDownloadUrl(fileTmpl.id);
         fileTmpl.docEditUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileTmpl.id);
         fileTmpl.editUrl = ASC.Files.Utility.GetFileWebEditorUrl(fileTmpl.id);
         fileTmpl.fileStatus = fileData.fileStatus;

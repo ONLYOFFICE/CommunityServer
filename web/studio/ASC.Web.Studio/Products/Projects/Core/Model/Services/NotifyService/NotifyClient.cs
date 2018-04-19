@@ -36,12 +36,18 @@ using ASC.Core.Common.Notify;
 using ASC.Core.Common.Notify.Push;
 
 using ASC.Notify;
+using ASC.Notify.Engine;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 
 using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
+using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Resources;
+using Autofac;
+using log4net;
 
 namespace ASC.Projects.Core.Services.NotifyService
 {
@@ -50,6 +56,8 @@ namespace ASC.Projects.Core.Services.NotifyService
         private static NotifyClient instance;
         private readonly INotifyClient client;
         private readonly INotifySource source;
+        private static bool registered;
+        private static readonly object Locker = new object();
 
         public static NotifyClient Instance
         {
@@ -66,7 +74,7 @@ namespace ASC.Projects.Core.Services.NotifyService
             }
         }
 
-        public INotifyClient Client
+        private INotifyClient Client
         {
             get { return client; }
         }
@@ -78,6 +86,101 @@ namespace ASC.Projects.Core.Services.NotifyService
             this.source = source;
         }
 
+        public static void RegisterSecurityInterceptor()
+        {
+            var securityInterceptor = new SendInterceptorSkeleton(
+            "ProjectInterceptorSecurity",
+            InterceptorPlace.DirectSend,
+            InterceptorLifetime.Global,
+            (r, p) =>
+            {
+                try
+                {
+                    using (var scope = DIHelper.Resolve())
+                    {
+                        var factory = scope.Resolve<EngineFactory>();
+                        var data = r.ObjectID.Split('_');
+                        var entityType = data[0];
+                        var entityId = Convert.ToInt32(data[1]);
+
+                        var projectId = 0;
+
+                        if (data.Length == 3)
+                            projectId = Convert.ToInt32(r.ObjectID.Split('_')[2]);
+
+                        switch (entityType)
+                        {
+                            case "Task":
+                                var task = factory.TaskEngine.GetByID(entityId, false);
+
+                                if (task == null && projectId != 0)
+                                {
+                                    var project = factory.ProjectEngine.GetByID(projectId, false);
+                                    return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
+                                }
+
+                                return !ProjectSecurity.CanRead(task, new Guid(r.Recipient.ID));
+                            case "Message":
+                                var discussion = factory.MessageEngine.GetByID(entityId, false);
+
+                                if (discussion == null && projectId != 0)
+                                {
+                                    var project = factory.ProjectEngine.GetByID(projectId, false);
+                                    return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
+                                }
+
+                                return !ProjectSecurity.CanRead(discussion, new Guid(r.Recipient.ID));
+                            case "Milestone":
+                                var milestone = factory.MilestoneEngine.GetByID(entityId, false);
+
+                                if (milestone == null && projectId != 0)
+                                {
+                                    var project = factory.ProjectEngine.GetByID(projectId, false);
+                                    return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
+                                }
+
+                                return !ProjectSecurity.CanRead(milestone, new Guid(r.Recipient.ID));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Projects.Tasks").Error("Send", ex);
+                }
+                return false;
+            });
+
+            Instance.Client.AddInterceptor(securityInterceptor);
+        }
+
+        public static void RegisterSendMethods()
+        {
+            if (!registered)
+            {
+                lock (Locker)
+                {
+                    if (!registered)
+                    {
+                        Instance.Client.RegisterSendMethod(NotifyHelper.SendMsgMilestoneDeadline, "0 0 7 ? * *")
+                            .RegisterSendMethod(NotifyHelper.SendAutoReports, "0 0 * ? * *")
+                            .RegisterSendMethod(NotifyHelper.SendAutoReminderAboutTask, "0 0 * ? * *");
+                        registered = true;
+                    }
+                }
+            }
+        }
+
+        public static void UnregisterSendMethods()
+        {
+            if (registered)
+            {
+                Instance.Client.UnregisterSendMethod(NotifyHelper.SendMsgMilestoneDeadline)
+                               .UnregisterSendMethod(NotifyHelper.SendAutoReports)
+                               .UnregisterSendMethod(NotifyHelper.SendAutoReminderAboutTask);
+
+                Instance.Client.RemoveInterceptor("ProjectInterceptorSecurity");
+            }
+        }
 
         public void SendInvaiteToProjectTeam(Guid userId, Project project)
         {

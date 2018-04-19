@@ -47,8 +47,8 @@ namespace ASC.CRM.Core.Dao
     {
         private readonly HttpRequestDictionary<Cases> _casesCache = new HttpRequestDictionary<Cases>("crm_cases");
 
-        public CachedCasesDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedCasesDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -85,17 +85,14 @@ namespace ASC.CRM.Core.Dao
 
     public class CasesDao : AbstractDao
     {
-        public CasesDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public CasesDao(int tenantID)
+            : base(tenantID)
         {
         }
 
         public void AddMember(int caseID, int memberID)
         {
-            using (var db = GetDb())
-            {
-                SetRelative(memberID, EntityType.Case, caseID, db);
-            }
+            SetRelative(memberID, EntityType.Case, caseID);
         }
 
         public Dictionary<int, int[]> GetMembers(int[] caseID)
@@ -115,18 +112,14 @@ namespace ASC.CRM.Core.Dao
 
         public void RemoveMember(int caseID, int memberID)
         {
-            using (var db = GetDb())
-            {
-                RemoveRelative(memberID, EntityType.Case, caseID, db);
-            }
+            RemoveRelative(memberID, EntityType.Case, caseID);
         }
 
         public virtual int[] SaveCasesList(List<Cases> items)
         {
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                var result = items.Select(item => CreateCases(item.Title, db)).ToArray();
+                var result = items.Select(item => CreateCasesInDb(item.Title)).ToArray();
                 tx.Commit();
                 // Delete relative keys
                 _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "cases.*"));
@@ -145,14 +138,11 @@ namespace ASC.CRM.Core.Dao
 
             CRMSecurity.DemandAccessTo(cases);
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                    Update("crm_case")
-                        .Set("is_closed", true)
-                        .Where("id", caseID)
-                    );
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_case")
+                    .Set("is_closed", true)
+                    .Where("id", caseID)
+                );
             cases.IsClosed = true;
             return cases;
         }
@@ -167,32 +157,26 @@ namespace ASC.CRM.Core.Dao
 
             CRMSecurity.DemandAccessTo(cases);
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                   Update("crm_case")
-                   .Set("is_closed", false)
-                   .Where("id", caseID)
-                );
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_case")
+                .Set("is_closed", false)
+                .Where("id", caseID)
+            );
             cases.IsClosed = false;
             return cases;
         }
 
         public int CreateCases(String title)
         {
-            using (var db = GetDb())
-            {
-                var result = CreateCases(title, db);
-                // Delete relative keys
-                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
-                return result;
-            }
+            var result = CreateCasesInDb(title);
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
+            return result;
         }
 
-        private int CreateCases(String title, DbManager db)
+        private int CreateCasesInDb(String title)
         {
-            return db.ExecuteScalar<int>(
+            return Db.ExecuteScalar<int>(
                   Insert("crm_case")
                  .InColumnValue("id", 0)
                  .InColumnValue("title", title)
@@ -211,17 +195,14 @@ namespace ASC.CRM.Core.Dao
             // Delete relative keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                     Update("crm_case")
-                    .Set("title", cases.Title)
-                    .Set("is_closed", cases.IsClosed)
-                    .Set("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
-                    .Set("last_modifed_by", SecurityContext.CurrentAccount.ID)
-                    .Where("id", cases.ID)
-                );
-            }
+            Db.ExecuteNonQuery(
+                    Update("crm_case")
+                .Set("title", cases.Title)
+                .Set("is_closed", cases.IsClosed)
+                .Set("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                .Set("last_modifed_by", SecurityContext.CurrentAccount.ID)
+                .Where("id", cases.ID)
+            );
         }
 
         public virtual Cases DeleteCases(int casesID)
@@ -272,21 +253,20 @@ namespace ASC.CRM.Core.Dao
         {
             var casesID = caseses.Select(x => x.ID).ToArray();
 
-            using (var db = GetDb())
             using (var tagdao = FilesIntegration.GetTagDao())
             {
-                var tagNames = db.ExecuteList(Query("crm_relationship_event").Select("id")
+                var tagNames = Db.ExecuteList(Query("crm_relationship_event").Select("id")
                     .Where(Exp.Eq("have_files", true) & Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)))
                     .Select(row => String.Format("RelationshipEvent_{0}", row[0])).ToArray();
                 var filesIDs = tagdao.GetTags(tagNames, TagType.System).Where(t => t.EntryType == FileEntryType.File).Select(t => t.EntryId).ToArray();
 
-                using (var tx = db.BeginTransaction(true))
+                using (var tx = Db.BeginTransaction(true))
                 {
-                    db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
-                    db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
-                    db.ExecuteNonQuery(Delete("crm_task").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
-                    db.ExecuteNonQuery(new SqlDelete("crm_entity_tag").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
-                    db.ExecuteNonQuery(Delete("crm_case").Where(Exp.In("id", casesID)));
+                    Db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
+                    Db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
+                    Db.ExecuteNonQuery(Delete("crm_task").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
+                    Db.ExecuteNonQuery(new SqlDelete("crm_entity_tag").Where(Exp.In("entity_id", casesID) & Exp.Eq("entity_type", (int)EntityType.Case)));
+                    Db.ExecuteNonQuery(Delete("crm_case").Where(Exp.In("id", casesID)));
 
                     tx.Commit();
                 }
@@ -350,30 +330,27 @@ namespace ASC.CRM.Core.Dao
 
             int result;
 
-            using (var db = GetDb())
+            if (withParams)
             {
-                if (withParams)
+                var whereConditional = WhereConditional(exceptIDs, searchText, contactID, isClosed, tags);
+                result = whereConditional != null ? Db.ExecuteScalar<int>(Query("crm_case").Where(whereConditional).SelectCount()) : 0;
+            }
+            else
+            {
+                var countWithoutPrivate = Db.ExecuteScalar<int>(Query("crm_case").SelectCount());
+                var privateCount = exceptIDs.Count;
+
+                if (privateCount > countWithoutPrivate)
                 {
-                    var whereConditional = WhereConditional(exceptIDs, searchText, contactID, isClosed, tags);
-                    result = whereConditional != null ? db.ExecuteScalar<int>(Query("crm_case").Where(whereConditional).SelectCount()) : 0;
+                    _log.ErrorFormat(@"Private cases count more than all cases. Tenant: {0}. CurrentAccount: {1}",
+                                                            TenantID,
+                                                            SecurityContext.CurrentAccount.ID);
+
+                    privateCount = 0;
                 }
-                else
-                {
-                    var countWithoutPrivate = db.ExecuteScalar<int>(Query("crm_case").SelectCount());
-                    var privateCount = exceptIDs.Count;
 
-                    if (privateCount > countWithoutPrivate)
-                    {
-                        _log.ErrorFormat(@"Private cases count more than all cases. Tenant: {0}. CurrentAccount: {1}",
-                                                               TenantID,
-                                                               SecurityContext.CurrentAccount.ID);
+                result = countWithoutPrivate - privateCount;
 
-                        privateCount = 0;
-                    }
-
-                    result = countWithoutPrivate - privateCount;
-
-                }
             }
 
             if (result > 0)
@@ -427,10 +404,8 @@ namespace ASC.CRM.Core.Dao
 
                 if (ids.Count > 0)
                     sqlQuery.Where(Exp.In("entity_id", ids));
-                using (var db = GetDb())
-                {
-                    ids = db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList();
-                }
+                
+                ids = Db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList();
                 if (ids.Count == 0) return null;
             }
 
@@ -473,10 +448,7 @@ namespace ASC.CRM.Core.Dao
 
             var sqlQuery = GetCasesSqlQuery(Exp.In("id", casesID.ToArray()));
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToCases).FindAll(CRMSecurity.CanAccessTo);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToCases).FindAll(CRMSecurity.CanAccessTo);
         }
 
         public List<Cases> GetCases(
@@ -524,10 +496,7 @@ namespace ASC.CRM.Core.Dao
                 }
 
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToCases);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToCases);
         }
 
         public List<Cases> GetCasesByPrefix(String prefix, int from, int count)
@@ -556,19 +525,13 @@ namespace ASC.CRM.Core.Dao
             if (0 < from && from < int.MaxValue) q.SetFirstResult(from);
             if (0 < count && count < int.MaxValue) q.SetMaxResults(count);
 
-            using (var db = GetDb())
-            {
-                var sqlResult = db.ExecuteList(q).ConvertAll(row => ToCases(row)).FindAll(CRMSecurity.CanAccessTo);
-                return sqlResult.OrderBy(cases => cases.Title).ToList();
-            }
+            var sqlResult = Db.ExecuteList(q).ConvertAll(row => ToCases(row)).FindAll(CRMSecurity.CanAccessTo);
+            return sqlResult.OrderBy(cases => cases.Title).ToList();
         }
 
         public virtual List<Cases> GetByID(int[] ids)
         {
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetCasesSqlQuery(Exp.In("id", ids))).ConvertAll(ToCases);
-            }
+            return Db.ExecuteList(GetCasesSqlQuery(Exp.In("id", ids))).ConvertAll(ToCases);
         }
 
         public virtual Cases GetByID(int id)

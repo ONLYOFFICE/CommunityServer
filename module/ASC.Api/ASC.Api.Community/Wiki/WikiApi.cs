@@ -89,7 +89,13 @@ namespace ASC.Api.Community
         [Read("wiki/{name}")]
         public PageWrapper GetPage(string name, int? version)
         {
-            return version != null ? new PageWrapper(_engine.GetPage(name, (int)version)) : new PageWrapper(_engine.GetPage(name));
+            if(string.IsNullOrEmpty(name)) throw new ArgumentException();
+
+            var page = version != null ? _engine.GetPage(name, (int)version) : _engine.GetPage(name);
+
+            if (page == null) throw new Exception("wiki page not found");
+
+            return new PageWrapper(page);
         }
 
         /// <summary>

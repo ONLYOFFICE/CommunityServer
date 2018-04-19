@@ -35,6 +35,12 @@ server {
 	add_header Access-Control-Allow-Origin *;
 
 	large_client_header_buffers 4 16k;
+
+        set $X_REWRITER_URL $the_scheme://$the_host;
+
+        if ($http_x_rewriter_url != '') {
+                set $X_REWRITER_URL $http_x_rewriter_url ;
+        }
         
 	include /etc/nginx/includes/onlyoffice-communityserver-*.conf;
 }

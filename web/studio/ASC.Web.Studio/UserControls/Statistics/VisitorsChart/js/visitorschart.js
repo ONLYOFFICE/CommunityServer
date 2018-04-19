@@ -270,7 +270,7 @@
               }
           });
 
-        showChart('filterbyweek');
+        showChart('filterBy3Months');
 
         $(window).bind("resize resizeWinTimerWithMaxDelay", function (event) {
             var plot = jq("#visitorsChartCanvas").data("plot");

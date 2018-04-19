@@ -12,7 +12,7 @@ location /controlpanel {
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header X-Forwarded-Host $server_name;
                 proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_set_header X-REWRITER-URL $scheme://$http_host;
+                proxy_set_header X-REWRITER-URL $X_REWRITER_URL;
 }
 
 location /sso/ {
@@ -29,7 +29,7 @@ location /sso/ {
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header X-Forwarded-Host $server_name;
                 proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_set_header X-REWRITER-URL $scheme://$http_host;
+                proxy_set_header X-REWRITER-URL $X_REWRITER_URL;
 
 		proxy_redirect / /;
 

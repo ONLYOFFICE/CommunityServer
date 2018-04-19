@@ -25,10 +25,13 @@
 
 
 jq(function () {
-
+    jq('#login').blur();
+    
     function bindEvents () {
         jq(function () {
             jq("#loginSignUp").on("click", function () {
+                enableScroll();
+                jq('#login').blur();
                 jq("#loginPopup").hide();
                 jq("#confirmEmail").focus();
             });
@@ -40,7 +43,10 @@ jq(function () {
         }
         // close popup window
         jq(".default-personal-popup_closer").on("click", function () {
-            jq(this).parents(".default-personal-popup").fadeOut(200);
+            jq(this).parents(".default-personal-popup").fadeOut(200, function() {
+                enableScroll();
+            });
+            
         });
 
         // confirm the email
@@ -64,7 +70,9 @@ jq(function () {
             }
 
             if (code == 27) {
-                jq(".default-personal-popup").fadeOut(200);
+                jq(".default-personal-popup").fadeOut(200, function () {
+                    enableScroll();
+                });
             }
         });
 
@@ -94,7 +102,7 @@ jq(function () {
             var data = {
                 "email": email,
                 "lang": jq(".personal-languages_select").attr("data-lang"),
-                "campaign": !!(jq("#confirmEmailBtn").attr("data-campaign").length),
+                "campaign": jq("#confirmEmailBtn").attr("data-campaign") ? !!(jq("#confirmEmailBtn").attr("data-campaign").length) : false,
             };
 
             var onError = function (error) {
@@ -117,15 +125,32 @@ jq(function () {
                 }
             });
         });
+        var $body = jq(window.document.body);
+        var marginRight;
+        function disableScroll() {
+            var bodyWidth = $body.innerWidth();
+            $body.css('overflow-y', 'hidden');
+            marginRight = $body.innerWidth() - bodyWidth;
+            $body.css('marginRight', ($body.css('marginRight') ? '+=' : '') + marginRight);
+        }
 
+        function enableScroll() {
+            if (parseInt($body.css('marginRight')) >= marginRight) {
+                $body.css('marginRight', '-=' + marginRight);
+            }
+            $body.css('overflow-y', 'auto');
+        }
         // Login
         jq("#personalLogin a").on("click", function () {
             jq("#loginPopup").show();
+            jq('#login').focus();
+            disableScroll();
         });
 
         var loginMessage = jq(".login-message[value!='']").val();
         if (loginMessage && loginMessage.length) {
             jq("#loginPopup").show();
+            disableScroll();
             var type = jq(".login-message[value!='']").attr("data-type");
             if (type | 0) {
                 toastr.success(loginMessage);
@@ -164,8 +189,8 @@ jq(function () {
                 }
                 jq("#personalReviewTmpl").tmpl(review).appendTo("#reviewsContainer");
             });
-
-
+            
+            carouselAuto(reviews.length);
         });
     }
 
@@ -188,19 +213,65 @@ jq(function () {
     }
 
     function carouselSlider ($carousel) {
-        var blockHeight = $carousel.find('.carousel-block').outerHeight(true);
-        $carousel.animate({top: "-" + blockHeight + "px"}, 800, function () {
+        var blockWidth = $carousel.find('.carousel-block').outerWidth(true);
+        $carousel.animate({ left: "-" + blockWidth + "px" }, 800, function () {
             $carousel.find(".carousel-block").eq(0).clone().appendTo($carousel);
             $carousel.find(".carousel-block").eq(0).remove();
-            $carousel.css({"top": "0px"});
+            $carousel.css({ "left": "0px" });
         });
     }
+    var StickyElement = function (node) {
+        var doc = jq(document),
+            fixed = false,
+            anchor = node.find('.auth-form-with_form_w_anchor'),
+            content = node.find('.auth-form-with_form_w');
+        var onScroll = function (e) {
+            var docTop = doc.scrollTop(),
+                anchorTop = anchor.offset().top;
 
-    function carouselAuto () {
-        var $carousel = jq("#reviewsContainer");
+            if (docTop > anchorTop) {
+                if (!fixed) {
+                    anchor.height(content.outerHeight());
+                    content.addClass('fixed');
+                    fixed = true;
+                }
+            } else {
+                if (fixed) {
+                    anchor.height(0);
+                    content.removeClass('fixed');
+                    fixed = false;
+                }
+            }
+        };
+
+        jq(window).on('scroll', onScroll);
+    };
+
+    
+    var StEl = jq(window).width() >= '700'? new StickyElement(jq('.auth-form-head')) : null;
+    
+    jq('.share-collaborate-picture-carousel').slick({
+           slidesToShow: 1,
+           dots: true,
+           arrows: true,
+        });
+    function carouselAuto(slidesCount) {
+       jq('.carousel').slick({
+           slidesToShow: slidesCount < 3 ? slidesCount : 2,
+           centerMode: false,
+           responsive: [
+            {
+                breakpoint: 1041,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }]
+        });
+       
+       /* var $carousel = jq("#reviewsContainer");
         setInterval(function () {
             carouselSlider($carousel);
-        }, 8000);
+        }, 8000);*/
     }
 
     jq.fn.duplicate = function (count, cloneEvents) {
@@ -210,8 +281,23 @@ jq(function () {
         }
         return this.pushStack(tmp);
     };
-
+    
+    jq('.create-carousel').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slick-carousel'
+    });
+    jq('.slick-carousel').slick({
+        slidesToShow: 1,
+        arrows: true,
+        dots: true,
+        centerMode: true,
+        asNavFor: '.create-carousel'
+    });
+    
     bindEvents();
     getReviewList();
-    carouselAuto();
+    
 });

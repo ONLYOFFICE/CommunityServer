@@ -30,21 +30,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text.RegularExpressions;
-using System.Threading;
 using StackExchange.Redis.Extensions.Core.Configuration;
 
 namespace ASC.Common.Caching
 {
-    /*
-     * add locks MemoryCache to fix bug: https://bugzilla.xamarin.com/show_bug.cgi?id=25522
-     * see also https://github.com/alexanderkyte/mono/commit/311e03221901d24435aa1560dac0b046b9dfe4fc
-     * remove locks when mono bug will be fixed
-     */
     public class AscCache : ICache, ICacheNotify
     {
-        private static readonly object locker = new object();
-
-
         public static readonly ICache Default;
 
         public static readonly ICache Memory;
@@ -52,74 +43,57 @@ namespace ASC.Common.Caching
         public static readonly ICacheNotify Notify;
 
 
-        private readonly ConcurrentDictionary<Type, Action<object, CacheNotifyAction>> actions = new ConcurrentDictionary<Type, Action<object, CacheNotifyAction>>();
+        private readonly ConcurrentDictionary<Type, Action<object, CacheNotifyAction>> actions =
+            new ConcurrentDictionary<Type, Action<object, CacheNotifyAction>>();
 
 
         static AscCache()
         {
             Memory = new AscCache();
-            Default = RedisCachingSectionHandlerExtension.IsEnabled() ? (ICache)new RedisCache() : Memory;
-            Notify = (ICacheNotify)Default;
+            Default = RedisCachingSectionHandlerExtension.IsEnabled() ? new RedisCache() : Memory;
+            Notify = (ICacheNotify) Default;
         }
 
         private AscCache()
         {
-
         }
 
 
         public T Get<T>(string key) where T : class
         {
             var cache = GetCache();
-            lock (locker)
-            {
-                return cache.Get(key) as T;
-            }
+            return cache.Get(key) as T;
         }
 
         public void Insert(string key, object value, TimeSpan sligingExpiration)
         {
             var cache = GetCache();
-            lock (locker)
-            {
-                cache.Set(key, value, new CacheItemPolicy { SlidingExpiration = sligingExpiration });
-            }
+            cache.Set(key, value, new CacheItemPolicy {SlidingExpiration = sligingExpiration});
         }
 
         public void Insert(string key, object value, DateTime absolutExpiration)
         {
             var cache = GetCache();
-            lock (locker)
-            {
-                cache.Set(key, value, absolutExpiration == DateTime.MaxValue ? DateTimeOffset.MaxValue : new DateTimeOffset(absolutExpiration));
-            }
+            cache.Set(key, value,
+                absolutExpiration == DateTime.MaxValue ? DateTimeOffset.MaxValue : new DateTimeOffset(absolutExpiration));
         }
 
         public void Remove(string key)
         {
             var cache = GetCache();
-            lock (locker)
-            {
-                cache.Remove(key);
-            }
+            cache.Remove(key);
         }
 
         public void Remove(Regex pattern)
         {
             var cache = GetCache();
-            Dictionary<string, object> copy;
-            lock (locker)
-            {
-                copy = cache.ToDictionary(p => p.Key, p => p.Value);
-            }
+
+            var copy = cache.ToDictionary(p => p.Key, p => p.Value);
 
             var keys = copy.Select(p => p.Key).Where(k => pattern.IsMatch(k)).ToArray();
-            lock (locker)
+            foreach (var key in keys)
             {
-                foreach (var key in keys)
-                {
-                    cache.Remove(key);
-                }
+                cache.Remove(key);
             }
         }
 
@@ -127,54 +101,45 @@ namespace ASC.Common.Caching
         public IDictionary<string, T> HashGetAll<T>(string key)
         {
             var cache = GetCache();
-            lock (locker)
-            {
-                var dic = (IDictionary<string, T>)cache.Get(key);
-                return dic != null ? new Dictionary<string, T>(dic) : new Dictionary<string, T>();
-            }
+            var dic = (IDictionary<string, T>) cache.Get(key);
+            return dic != null ? new Dictionary<string, T>(dic) : new Dictionary<string, T>();
         }
 
         public T HashGet<T>(string key, string field)
         {
             var cache = GetCache();
-            lock (locker)
+            T value;
+            var dic = (IDictionary<string, T>) cache.Get(key);
+            if (dic != null && dic.TryGetValue(field, out value))
             {
-                T value;
-                var dic = (IDictionary<string, T>)cache.Get(key);
-                if (dic != null && dic.TryGetValue(field, out value))
-                {
-                    return value;
-                }
-                return default(T);
+                return value;
             }
+            return default(T);
         }
 
         public void HashSet<T>(string key, string field, T value)
         {
             var cache = GetCache();
-            lock (locker)
+            var dic = (IDictionary<string, T>) cache.Get(key);
+            if (value != null)
             {
-                var dic = (IDictionary<string, T>)cache.Get(key);
-                if (value != null)
+                if (dic == null)
                 {
-                    if (dic == null)
-                    {
-                        dic = new Dictionary<string, T>();
-                    }
-                    dic[field] = value;
-                    cache.Set(key, dic, null);
+                    dic = new Dictionary<string, T>();
                 }
-                else if (dic != null)
+                dic[field] = value;
+                cache.Set(key, dic, null);
+            }
+            else if (dic != null)
+            {
+                dic.Remove(field);
+                if (dic.Count == 0)
                 {
-                    dic.Remove(field);
-                    if (dic.Count == 0)
-                    {
-                        cache.Remove(key);
-                    }
-                    else
-                    {
-                        cache.Set(key, dic, null);
-                    }
+                    cache.Remove(key);
+                }
+                else
+                {
+                    cache.Set(key, dic, null);
                 }
             }
         }
@@ -184,7 +149,7 @@ namespace ASC.Common.Caching
         {
             if (onchange != null)
             {
-                actions[typeof(T)] = (o, a) => onchange((T)o, a);
+                actions[typeof(T)] = (o, a) => onchange((T) o, a);
             }
             else
             {

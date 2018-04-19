@@ -26,8 +26,10 @@
 
 #region usings
 
+using System;
 using System.Globalization;
 using System.Net.Mime;
+using ASC.Api.Impl.Routing;
 
 #endregion
 
@@ -41,6 +43,14 @@ namespace ASC.Api.Utils
             if (index != -1 && index > startIndex)
             {
                 path = path.Remove(index);
+            }
+            else
+            {
+                index = path.LastIndexOf(ApiRouteRegistrator.ExtensionBrace, StringComparison.Ordinal);
+                if (index != -1 && index > startIndex)
+                {
+                    path = path.Remove(index);
+                }
             }
             return path;
         }

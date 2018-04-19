@@ -60,7 +60,8 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember]
         public ProjectWrapperFull Project { get; set; }
 
-        public MessageWrapperFull(Message message, ProjectWrapperFull project, IEnumerable<EmployeeWraperFull> subscribers) : base(message)
+        public MessageWrapperFull(ProjectApiBase projectApiBase, Message message, ProjectWrapperFull project, IEnumerable<EmployeeWraperFull> subscribers)
+            : base(projectApiBase, message)
         {
             CanEditFiles = ProjectSecurity.CanEditFiles(message);
             CanReadFiles = ProjectSecurity.CanReadFiles(message.Project);
@@ -69,8 +70,8 @@ namespace ASC.Api.Projects.Wrappers
             Subscribers = subscribers.ToList();
         }
 
-        public MessageWrapperFull(Message message, ProjectWrapperFull project, IEnumerable<EmployeeWraperFull> subscribers, IEnumerable<FileWrapper> files, IEnumerable<CommentInfo> comments) : 
-            this(message, project, subscribers)
+        public MessageWrapperFull(ProjectApiBase projectApiBase, Message message, ProjectWrapperFull project, IEnumerable<EmployeeWraperFull> subscribers, IEnumerable<FileWrapper> files, IEnumerable<CommentInfo> comments) :
+            this(projectApiBase, message, project, subscribers)
         {
             Files = files.ToList();
             var creator = CoreContext.UserManager.GetUsers(message.CreateBy);

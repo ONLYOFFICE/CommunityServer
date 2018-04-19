@@ -89,36 +89,75 @@ window.ASC.Files.UI = (function () {
             }
             entryObject = entryObject.closest(selectorObject);
         }
+
         if (entryObject.length == 0) {
             return null;
         }
 
-        var entryDataStr = entryObject.find(selectorData).val();
-        var result = null;
-        try {
-            result = jq.parseJSON(entryDataStr || null);
-        } catch (e) {
-            if (console && console.log) {
-                console.log("Error parseJSON: \n" + entryDataStr);
-            }
-        }
-
-        if (!result) {
+        var dataObject = entryObject.find(selectorData);
+        if (!dataObject.length) {
             return null;
         }
 
-        result.id = result.entryId = entryObject.find(selectorData).attr("data-id");
+        //todo: remove old scheme
+        var entryDataStr = dataObject.val();
+        if (entryDataStr) {
+            result = null;
+            try {
+                result = jq.parseJSON(entryDataStr || null);
+            } catch (e) {
+                if (console && console.log) {
+                    console.log("Error parseJSON: \n" + entryDataStr);
+                }
+            }
+
+            if (!result) {
+                return null;
+            }
+
+            result.id = result.entryId = entryObject.find(selectorData).attr("data-id");
+            if (!ASC.Files.Common.isCorrectId(result.id)) {
+                return null;
+            }
+
+            result.entryType = (result.entryType === "file" ? "file" : "folder");
+            result.create_by = entryObject.find("input:hidden[name=\"create_by\"]").val();
+            result.modified_by = entryObject.find("input:hidden[name=\"modified_by\"]").val();
+            result.comment = entryObject.find("input:hidden[name=\"comment\"]").val();
+            result.entryObject = entryObject;
+            result.error = (result.error != "" ? result.error : false);
+            result.title = (result.title || "").trim();
+            return result;
+        }
+
+
+        var result = {};
+        result.id = result.entryId = dataObject.attr("data-id");
         if (!ASC.Files.Common.isCorrectId(result.id)) {
             return null;
         }
-
-        result.entryType = (result.entryType === "file" ? "file" : "folder");
-        result.create_by = entryObject.find("input:hidden[name=\"create_by\"]").val();
-        result.modified_by = entryObject.find("input:hidden[name=\"modified_by\"]").val();
-        result.comment = entryObject.find("input:hidden[name=\"comment\"]").val();
         result.entryObject = entryObject;
+
+        result.access = dataObject.attr("data-access");
+        result.comment = dataObject.attr("data-comment");
+        result.content_length = dataObject.attr("data-content_length");
+        result.create_by = dataObject.attr("data-create_by");
+        result.create_by_id = dataObject.attr("data-create_by_id");
+        result.create_on = dataObject.attr("data-create_on");
+        result.entryType = (dataObject.attr("data-entryType") || "").trim() === "file" ? "file" : "folder";
+        result.error = dataObject.attr("data-error");
         result.error = (result.error != "" ? result.error : false);
-        result.title = (result.title || "").trim();
+        result.file_status = dataObject.attr("data-file_status");
+        result.isnew = dataObject.attr("data-isnew") | 0;
+        result.modified_by = dataObject.attr("data-modified_by");
+        result.modified_on = dataObject.attr("data-modified_on");
+        result.provider_id = dataObject.attr("data-provider_id") | 0;
+        result.provider_key = dataObject.attr("data-provider_key");
+        result.shared = dataObject.attr("data-shared") === "true";
+        result.title = (dataObject.attr("data-title") || "").trim();
+        result.version = dataObject.attr("data-version") | 0;
+        result.version_group = dataObject.attr("data-version_group") | 0;
+
         return result;
     };
 
@@ -677,16 +716,6 @@ window.ASC.Files.UI = (function () {
                 ? ASC.Files.UI.getObjectData(entryObj)
                 : ASC.Files.Folders.currentFolder);
 
-        var access = ASC.Files.Constants.ADMIN || !entryData || entryData.create_by_id == Teamlab.profile.id;
-
-        if (entryData
-            && entryData.entryType == "folder"
-            && (entryData.entryId === ASC.Files.Constants.FOLDER_ID_SHARE
-                || entryData.entryId === ASC.Files.Constants.FOLDER_ID_PROJECT
-                || entryData.entryId === ASC.Files.Constants.FOLDER_ID_TRASH)) {
-            access = false;
-        }
-
         var entryId = entryData ? entryData.entryId : null;
         var entryType = entryData ? entryData.entryType : null;
         if (entryType == "folder") {
@@ -723,7 +752,15 @@ window.ASC.Files.UI = (function () {
             case ASC.Files.Constants.AceStatusEnum.Review:
                 return !!review;
             default:
-                return access;
+                if (entryData
+                    && entryData.entryType == "folder"
+                    && (entryData.entryId === ASC.Files.Constants.FOLDER_ID_SHARE
+                        || entryData.entryId === ASC.Files.Constants.FOLDER_ID_PROJECT
+                        || entryData.entryId === ASC.Files.Constants.FOLDER_ID_TRASH)) {
+                    return false;
+                }
+
+                return ASC.Files.Constants.ADMIN || !entryData || entryData.create_by_id == Teamlab.profile.id;
         }
     };
 
@@ -790,7 +827,6 @@ window.ASC.Files.UI = (function () {
     };
 
     var checkEditing = function () {
-        clearTimeout(ASC.Files.UI.timeCheckEditing);
 
         var list = jq(".files-content-panel #filesMainContent .file-row.on-edit:not(.cannot-edit)");
         if (list.length == 0) {
@@ -805,6 +841,11 @@ window.ASC.Files.UI = (function () {
         };
 
         ASC.Files.ServiceManager.checkEditing(ASC.Files.ServiceManager.events.CheckEditing, { list: data.entry }, { stringList: data });
+    };
+
+    var checkEditingDefer = function () {
+        clearTimeout(ASC.Files.UI.timeCheckEditing);
+        ASC.Files.UI.timeCheckEditing = setTimeout(ASC.Files.UI.checkEditing, 20000);
     };
 
     var displayEntryTooltip = function (entryObj, entryType, entryId) {
@@ -1085,6 +1126,7 @@ window.ASC.Files.UI = (function () {
 
         checkEditing: checkEditing,
         timeCheckEditing: timeCheckEditing,
+        checkEditingDefer: checkEditingDefer,
 
         lockEditFileById: lockEditFileById,
         lockEditFile: lockEditFile,

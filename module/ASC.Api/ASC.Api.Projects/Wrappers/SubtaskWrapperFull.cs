@@ -35,8 +35,8 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Name = "parent")]
         public SimpleTaskWrapper ParentTask { get; set; }
 
-        public SubtaskWrapperFull(Subtask subtask)
-            : base(subtask, subtask.ParentTask)
+        public SubtaskWrapperFull(ProjectApiBase projectApiBase,Subtask subtask)
+            : base(projectApiBase, subtask, subtask.ParentTask)
         {
             ParentTask = new SimpleTaskWrapper(subtask.ParentTask);
         }

@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -94,7 +94,6 @@
     <Compile Include="SettingsApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsWrapper.cs" />
-    <Compile Include="SsoSettingsApi.cs" Condition=" Exists('..\..\..\module\ASC.Api\ASC.Api.Settings\SsoSettingsApi.cs') " />
     <Compile Include="TenantVersionWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,10 +124,6 @@
     <ProjectReference Include="..\..\..\common\ASC.IPSecurity\ASC.IPSecurity.csproj">
       <Project>{2ff2177f-2d1a-4396-84eb-51f14fd99385}</Project>
       <Name>ASC.IPSecurity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.SingleSignOn\ASC.SingleSignOn.csproj" Condition=" Exists('..\..\..\common\ASC.SingleSignOn\ASC.SingleSignOn.csproj') ">
-      <Project>{ef3ae6b9-4503-42a3-88bc-c622e178a59e}</Project>
-      <Name>ASC.SingleSignOn</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>

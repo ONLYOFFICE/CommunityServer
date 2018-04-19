@@ -33,22 +33,22 @@
       <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.446\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="Box.V2">
-      <HintPath>..\..\packages\Box.V2.2.14.0\lib\portable-net40+sl50+win+wp80\Box.V2.dll</HintPath>
+      <HintPath>..\..\packages\Box.V2.3.3.0\lib\net45\Box.V2.dll</HintPath>
     </Reference>
     <Reference Include="Dropbox.Api">
-      <HintPath>..\..\packages\Dropbox.Api.4.1.3\lib\net45\Dropbox.Api.dll</HintPath>
+      <HintPath>..\..\packages\Dropbox.Api.4.6.0\lib\net45\Dropbox.Api.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis">
-      <HintPath>..\..\packages\Google.Apis.1.21.0\lib\net45\Google.Apis.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.1.31.1\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Auth">
-      <HintPath>..\..\packages\Google.Apis.Auth.1.21.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Auth.1.31.1\lib\net45\Google.Apis.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Core">
-      <HintPath>..\..\packages\Google.Apis.Core.1.21.0\lib\net45\Google.Apis.Core.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Core.1.31.1\lib\net45\Google.Apis.Core.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Drive.v3">
-      <HintPath>..\..\packages\Google.Apis.Drive.v3.1.21.0.761\lib\net45\Google.Apis.Drive.v3.dll</HintPath>
+      <HintPath>..\..\packages\Google.Apis.Drive.v3.1.31.1.1058\lib\net45\Google.Apis.Drive.v3.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
@@ -72,11 +72,8 @@
       <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Nito.AsyncEx">
-      <HintPath>..\..\packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -87,9 +84,6 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
-    <Reference Include="Zlib.Portable">
-      <HintPath>..\..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Box\BoxDaoSelector.cs" />

@@ -49,7 +49,7 @@ namespace ASC.Web.Studio
 
         public static VoipPhone CurrentNumber
         {
-            get { return new CachedVoipDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, "default").GetCurrentNumber(); }
+            get { return new CachedVoipDao(CoreContext.TenantManager.GetCurrentTenant().TenantId).GetCurrentNumber(); }
         }
 
         public static bool CanMakeOrReceiveCall

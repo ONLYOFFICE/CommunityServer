@@ -54,7 +54,7 @@ namespace ASC.Web.CRM
 
             if (int.TryParse(UrlParameters.ID, out invoiceID))
             {
-                ASC.CRM.Core.Entities.Invoice targetInvoice = Global.DaoFactory.GetInvoiceDao().GetByID(invoiceID);
+                ASC.CRM.Core.Entities.Invoice targetInvoice = DaoFactory.InvoiceDao.GetByID(invoiceID);
 
                 if (targetInvoice == null || !CRMSecurity.CanAccessTo(targetInvoice))
                     Response.Redirect(PathProvider.StartURL() + "invoices.aspx");
@@ -123,11 +123,11 @@ namespace ASC.Web.CRM
 
         protected void ExecInvoicePdfView(ASC.CRM.Core.Entities.Invoice targetInvoice)
         {
-            var pdfFile = Global.GetInvoicePdfExistingOrCreate(targetInvoice);
+            var pdfFile = Global.GetInvoicePdfExistingOrCreate(targetInvoice, DaoFactory);
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.InvoiceDownloaded, MessageTarget.Create(targetInvoice.ID), targetInvoice.Number);
 
-            Response.Redirect(CommonLinkUtility.GetFullAbsolutePath(pdfFile.FileDownloadUrl));
+            Response.Redirect(CommonLinkUtility.GetFullAbsolutePath(pdfFile.DownloadUrl));
         }
 
         protected void ExecInvoiceActionView(ASC.CRM.Core.Entities.Invoice targetInvoice, InvoiceActionType actionType)

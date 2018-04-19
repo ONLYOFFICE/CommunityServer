@@ -52,7 +52,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
@@ -83,7 +83,7 @@
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Web.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -271,6 +271,7 @@
     <Compile Include="Utils\HttpRequestExtensions.cs" />
     <Compile Include="Utils\MailAddressUtils.cs" />
     <Compile Include="Utils\MimeHeaderUtils.cs" />
+    <Compile Include="Utils\RandomString.cs" />
     <Compile Include="Utils\TimeZoneConverter\TimeZoneConverter.cs" />
     <Compile Include="Utils\Signature.cs" />
     <Compile Include="Utils\VelocityFormatter.cs" />

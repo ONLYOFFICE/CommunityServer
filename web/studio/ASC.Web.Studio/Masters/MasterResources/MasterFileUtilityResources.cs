@@ -34,7 +34,10 @@ namespace ASC.Web.Studio.Masters.MasterResources
 {
     public class MasterFileUtilityResources : ClientScript
     {
-        protected override bool CheckAuth { get { return false; } }
+        protected override bool CheckAuth
+        {
+            get { return false; }
+        }
 
         protected override string BaseNamespace
         {
@@ -44,35 +47,34 @@ namespace ASC.Web.Studio.Masters.MasterResources
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
             return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(new
-                                      {
-                                          FileUtility.ExtsImagePreviewed, 
-                                          FileUtility.ExtsWebPreviewed, 
-                                          FileUtility.ExtsWebEdited, 
-                                          FileUtility.ExtsWebReviewed, 
-                                          FileUtility.ExtsCoAuthoring, 
-                                          FileUtility.ExtsMustConvert, 
-                                          FileUtility.ExtsConvertible, 
-                                          FileUtility.ExtsUploadable, 
-                                          FileUtility.ExtsArchive, 
-                                          FileUtility.ExtsVideo, 
-                                          FileUtility.ExtsAudio, 
-                                          FileUtility.ExtsImage, 
-                                          FileUtility.ExtsSpreadsheet, 
-                                          FileUtility.ExtsPresentation, 
-                                          FileUtility.ExtsDocument,
-                                          InternalFormats = FileUtility.InternalExtension,
-                                          ParamVersion = FilesLinkUtility.Version,
-                                          ParamOutType = FilesLinkUtility.OutType, 
-                                          FilesLinkUtility.FileViewUrlString, 
-                                          FilesLinkUtility.FileDownloadUrlString, 
-                                          FilesLinkUtility.FileWebViewerUrlString, 
-                                          FilesLinkUtility.FileWebViewerExternalUrlString, 
-                                          FilesLinkUtility.FileWebEditorUrlString, 
-                                          FilesLinkUtility.FileWebEditorExternalUrlString
-                                      })
-                   };
+                {
+                    RegisterObject(new
+                        {
+                            FileUtility.ExtsImagePreviewed,
+                            FileUtility.ExtsWebPreviewed,
+                            FileUtility.ExtsWebEdited,
+                            FileUtility.ExtsWebReviewed,
+                            FileUtility.ExtsCoAuthoring,
+                            FileUtility.ExtsMustConvert,
+                            FileUtility.ExtsConvertible,
+                            FileUtility.ExtsUploadable,
+                            FileUtility.ExtsArchive,
+                            FileUtility.ExtsVideo,
+                            FileUtility.ExtsAudio,
+                            FileUtility.ExtsImage,
+                            FileUtility.ExtsSpreadsheet,
+                            FileUtility.ExtsPresentation,
+                            FileUtility.ExtsDocument,
+                            InternalFormats = FileUtility.InternalExtension,
+                            ParamVersion = FilesLinkUtility.Version,
+                            ParamOutType = FilesLinkUtility.OutType,
+                            FilesLinkUtility.FileDownloadUrlString,
+                            FilesLinkUtility.FileWebViewerUrlString,
+                            FilesLinkUtility.FileWebViewerExternalUrlString,
+                            FilesLinkUtility.FileWebEditorUrlString,
+                            FilesLinkUtility.FileWebEditorExternalUrlString
+                        })
+                };
         }
 
         protected override string GetCacheHash()

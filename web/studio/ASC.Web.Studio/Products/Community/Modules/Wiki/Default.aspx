@@ -5,6 +5,7 @@
     MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
 <%@ Import Namespace="ASC.Web.Community.Product" %>
+<%@ Import Namespace="ASC.Web.UserControls.Wiki" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.Wiki" %>
 
@@ -137,7 +138,7 @@
         </asp:Repeater>
     </asp:PlaceHolder>
     <div id="wikiCommentsDiv">
-        <input type="hidden" id="hdnPageName" value="<%=HttpUtility.HtmlEncode(WikiPageName)%>"/>
+        <input type="hidden" id="hdnPageName" value="<%=HttpUtility.HtmlEncode(PageNameUtil.Decode(WikiPage))%>"/>
         <scl:Commentslist id="commentList" runat="server" style="width: 100%;" Visible="false"> </scl:Commentslist>
     </div>
 </div>

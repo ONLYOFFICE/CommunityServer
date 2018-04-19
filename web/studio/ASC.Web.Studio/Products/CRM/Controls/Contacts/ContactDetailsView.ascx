@@ -5,6 +5,7 @@
 <%@ Assembly Name="ASC.Data.Storage" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ContactDetailsView.ascx.cs" Inherits="ASC.Web.CRM.Controls.Contacts.ContactDetailsView" %>
 
+<%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.CRM.Core.Entities" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
@@ -150,6 +151,8 @@
     </div>
 </div>
 
+<% if (CRMSecurity.CanEdit(TargetContact)) %>
+<% { %>
 <div id="contactDetailsMenuPanel" class="studio-action-panel">
     <ul class="dropdown-content">
         <li>
@@ -165,6 +168,7 @@
         </li>
     </ul>
 </div>
+<% } %>
 
 <% if (!MobileVer) %>
 <% { %>

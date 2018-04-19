@@ -27,7 +27,10 @@
 using ASC.Core;
 using ASC.Data.Storage.Configuration;
 using ASC.Data.Storage.DiscStorage;
+using ASC.Data.Storage.GoogleCloud;
+using ASC.Data.Storage.RackspaceCloud;
 using ASC.Data.Storage.S3;
+using ASC.Data.Storage.Selectel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -93,10 +96,27 @@ namespace ASC.Data.Storage
             {
                 return new DiscCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
             }
+
             if (string.Equals(srcModuleConfig.Type, "s3", StringComparison.OrdinalIgnoreCase))
             {
                 return new S3CrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
             }
+
+            if (string.Equals(srcModuleConfig.Type, "google", StringComparison.OrdinalIgnoreCase))
+            {
+                return new GoogleCloudCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
+            }
+
+            if (string.Equals(srcModuleConfig.Type, "selectel", StringComparison.OrdinalIgnoreCase))
+            {
+                return new SelectelCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
+            }
+
+            if (string.Equals(srcModuleConfig.Type, "rackspace", StringComparison.OrdinalIgnoreCase))
+            {
+                return new RackspaceCloudCrossModuleTransferUtility(TennantPath.CreatePath(srcTenant.ToString()), srcModuleConfig, srcHandlerConfig.GetProperties(), TennantPath.CreatePath(destTenant.ToString()), destModuleConfig, destHandlerConfig.GetProperties());
+            }
+
             return null;
         }
 
@@ -117,8 +137,7 @@ namespace ASC.Data.Storage
             return
                 section.Modules
                     .Cast<ModuleConfigurationElement>()
-                    .Where(x => x.Name.Equals(modulename, StringComparison.OrdinalIgnoreCase))
-                    .Single()
+                    .Single(x => x.Name.Equals(modulename, StringComparison.OrdinalIgnoreCase))
                     .Domains.Cast<DomainConfigurationElement>()
                     .Where(x => x.Visible)
                     .Select(x => x.Name);
@@ -134,17 +153,20 @@ namespace ASC.Data.Storage
             var section = GetSection(config);
             if (section != null)
             {
+                //old scheme
                 var discHandler = section.Handlers.GetHandler("disc");
                 if (discHandler != null)
                 {
                     var props = discHandler.GetProperties();
                     foreach (var m in section.Modules.Cast<ModuleConfigurationElement>().Where(m => m.Type == "disc"))
                     {
-                        DiscDataHandler.RegisterVirtualPath(
-                            PathUtils.ResolveVirtualPath(m.VirtualPath),
-                            PathUtils.ResolvePhysicalPath(m.Path, props), m.PublicDisc);
+                        if (m.Path.Contains(Constants.STORAGE_ROOT_PARAM))
+                            DiscDataHandler.RegisterVirtualPath(
+                                PathUtils.ResolveVirtualPath(m.VirtualPath),
+                                PathUtils.ResolvePhysicalPath(m.Path, props),
+                                m.Public);
 
-                        foreach (var d in m.Domains.Cast<DomainConfigurationElement>().Where(d => d.Type == "disc" || string.IsNullOrEmpty(d.Type)))
+                        foreach (var d in m.Domains.Cast<DomainConfigurationElement>().Where(d => (d.Type == "disc" || string.IsNullOrEmpty(d.Type)) && d.Path.Contains(Constants.STORAGE_ROOT_PARAM)))
                         {
                             DiscDataHandler.RegisterVirtualPath(
                                 PathUtils.ResolveVirtualPath(d.VirtualPath),
@@ -152,6 +174,27 @@ namespace ASC.Data.Storage
                         }
                     }
                 }
+
+                //new scheme
+                foreach (var m in section.Modules.Cast<ModuleConfigurationElement>())
+                {
+                    //todo: add path criterion
+                    if (m.Type == "disc" || !m.Public || m.Path.Contains(Constants.STORAGE_ROOT_PARAM))
+                        StorageHandler.RegisterVirtualPath(
+                            m.Name,
+                            string.Empty,
+                            m.Public);
+
+                    //todo: add path criterion
+                    foreach (var d in m.Domains.Cast<DomainConfigurationElement>().Where(d => d.Path.Contains(Constants.STORAGE_ROOT_PARAM)))
+                    {
+                        StorageHandler.RegisterVirtualPath(
+                            m.Name,
+                            d.Name,
+                            d.Public);
+                    }
+                }
+
             }
         }
 

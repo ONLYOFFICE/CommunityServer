@@ -141,7 +141,7 @@ namespace ASC.Mail.Aggregator
                         using (var memStream = new MemoryStream())
                         {
                             readStream.StreamCopyTo(memStream);
-                            result = AttachFile(tenant, user, messageId, fileName, memStream);
+                            result = AttachFileToDraft(tenant, user, messageId, fileName, memStream);
                             _log.Info("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName,result.fileName, result.storedFileUrl);
                         }
                     }
@@ -153,7 +153,7 @@ namespace ASC.Mail.Aggregator
                         if (readStream == null)
                             throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied,"Access denied.");
 
-                        result = AttachFile(tenant, user, messageId, file.Title, readStream);
+                        result = AttachFileToDraft(tenant, user, messageId, file.Title, readStream);
                        _log.Info("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName, result.fileName, result.storedFileUrl);
                     }
                 }
@@ -162,31 +162,16 @@ namespace ASC.Mail.Aggregator
             return result;
         }
 
-        public MailAttachment AttachFile(int tenant, string user, int messageId,
+        public MailAttachment AttachFile(int tenant, string user, MailMessage message,
             string name, Stream inputStream, string contentType = null)
         {
-            if (messageId < 1)
-                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_message' must have non-negative value.");
-
-            if (tenant < 0)
-                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_tenant' must have non-negative value.");
-
-            if (String.IsNullOrEmpty(user))
-                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_user' is empty.");
-
-            if (inputStream.Length == 0)
-                throw new AttachmentsException(AttachmentsException.Types.EmptyFile, "Empty files not supported.");
-
-            var message = GetMailInfo(tenant, user, messageId, new MailMessage.Options());
-
-            if(message == null)
+            if (message == null)
                 throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
-
-            if (message.Folder != MailFolder.Ids.drafts && message.Folder != MailFolder.Ids.temp)
-                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Message is not a draft.");
 
             if (string.IsNullOrEmpty(message.StreamId))
                 throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "StreamId is empty.");
+
+            var messageId = (int) message.Id;
 
             var totalSize = GetAttachmentsTotalSize(messageId) + inputStream.Length;
 
@@ -232,6 +217,29 @@ namespace ASC.Mail.Aggregator
             }
 
             return attachment;
+        }
+
+        public MailAttachment AttachFileToDraft(int tenant, string user, int messageId,
+            string name, Stream inputStream, string contentType = null)
+        {
+            if (messageId < 1)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_message' must have non-negative value.");
+
+            if (tenant < 0)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_tenant' must have non-negative value.");
+
+            if (String.IsNullOrEmpty(user))
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_user' is empty.");
+
+            if (inputStream.Length == 0)
+                throw new AttachmentsException(AttachmentsException.Types.EmptyFile, "Empty files not supported.");
+
+            var message = GetMailInfo(tenant, user, messageId, new MailMessage.Options());
+
+            if (message.Folder != MailFolder.Ids.drafts && message.Folder != MailFolder.Ids.temp)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Message is not a draft.");
+
+            return AttachFile(tenant, user, message, name, inputStream, contentType);
         }
 
         public int GetAttachmentId(int messageId, string contentId)

@@ -41,6 +41,9 @@ using ASC.Web.CRM.Resources;
 using log4net;
 using System.Security.Principal;
 using System.Xml.Linq;
+using ASC.CRM.Core.Dao;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 #endregion
 
@@ -65,17 +68,21 @@ namespace ASC.Web.CRM.Classes
 
         static CurrencyProvider()
         {
-            var currencies = Global.DaoFactory.GetCurrencyInfoDao().GetAll();
-
-            if (currencies == null || currencies.Count == 0)
+            using (var scope = DIHelper.Resolve())
             {
-                currencies = new List<CurrencyInfo>
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var currencies = daoFactory.CurrencyInfoDao.GetAll();
+
+                if (currencies == null || currencies.Count == 0)
+                {
+                    currencies = new List<CurrencyInfo>
                     {
                         new CurrencyInfo("Currency_UnitedStatesDollar", "USD", "$", "US", true, true)
                     };
-            }
+                }
 
-            _currencies = currencies.ToDictionary(c => c.Abbreviation);
+                _currencies = currencies.ToDictionary(c => c.Abbreviation);
+            }
         }
 
         #endregion

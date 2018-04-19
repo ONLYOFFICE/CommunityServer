@@ -903,6 +903,123 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access.
+        /// </summary>
+        public static string AuthDocsAccess {
+            get {
+                return ResourceManager.GetString("AuthDocsAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit and collaborate on-the-go with ONLYOFFICE for IOS and Android.
+        /// </summary>
+        public static string AuthDocsAccessAndroidIOSText {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessAndroidIOSText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline.
+        /// </summary>
+        public static string AuthDocsAccessOffline {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No internet connection? Switch to {0} and edit offline from anywhere..
+        /// </summary>
+        public static string AuthDocsAccessOfflineText {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOfflineText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        public static string AuthDocsAccessOnline {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work online from any browser and operating system without formatting loss..
+        /// </summary>
+        public static string AuthDocsAccessOnlineText {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOnlineText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Desktop.
+        /// </summary>
+        public static string AuthDocsAccessOnlyofficeDesktop {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOnlyofficeDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE for iOS.
+        /// </summary>
+        public static string AuthDocsAccessOnlyofficeIOS {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOnlyofficeIOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On mobile.
+        /// </summary>
+        public static string AuthDocsAccessOnMobile {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOnMobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit and collaborate on-the-go with {0}..
+        /// </summary>
+        public static string AuthDocsAccessOnMobileText {
+            get {
+                return ResourceManager.GetString("AuthDocsAccessOnMobileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE is fully compatible with Office formats and supports DOC, DOCX, ODT, RTF, TXT, PDF, HTML, EPUB, DjVu, XLS, XLSX, ODS, CSV, PPT, PPTX and ODP..
+        /// </summary>
+        public static string AuthDocsCapabilitiesTextOne {
+            get {
+                return ResourceManager.GetString("AuthDocsCapabilitiesTextOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use addons to make the most of your editing: insert videos, edit pictures, translate texts and much more..
+        /// </summary>
+        public static string AuthDocsCapabilitiesTextThree {
+            get {
+                return ResourceManager.GetString("AuthDocsCapabilitiesTextThree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All formatting tools are at your hand along with every desired object, from autoshapes and charts to mathematical equations and Text Art..
+        /// </summary>
+        public static string AuthDocsCapabilitiesTextTwo {
+            get {
+                return ResourceManager.GetString("AuthDocsCapabilitiesTextTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check your email inbox to confirm the account..
         /// </summary>
         public static string AuthDocsCheckEmail {
@@ -930,6 +1047,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 100% compatible with Microsoft Office formats.
+        /// </summary>
+        public static string AuthDocsCompatibleText {
+            get {
+                return ResourceManager.GetString("AuthDocsCompatibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string AuthDocsCreate {
+            get {
+                return ResourceManager.GetString("AuthDocsCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Captivating presentations.
+        /// </summary>
+        public static string AuthDocsCreateCaptivatingPres {
+            get {
+                return ResourceManager.GetString("AuthDocsCreateCaptivatingPres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose from multiple layouts and style options, create schemes and infographics for any purpose, present comfortably with Presenter View..
+        /// </summary>
+        public static string AuthDocsCreateCaptivatingPresText {
+            get {
+                return ResourceManager.GetString("AuthDocsCreateCaptivatingPresText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Professional spreadsheets.
+        /// </summary>
+        public static string AuthDocsCreateProfSpreadsheets {
+            get {
+                return ResourceManager.GetString("AuthDocsCreateProfSpreadsheets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organize your data with multiple cell and row actions and perform complex calculations with Organize your data with multiple cell and row actions and perform complex calculations with over 430 formulas. Apply styles and templates to put finishing touches..
+        /// </summary>
+        public static string AuthDocsCreateProfSpreadsheetsText {
+            get {
+                return ResourceManager.GetString("AuthDocsCreateProfSpreadsheetsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sterling documents.
+        /// </summary>
+        public static string AuthDocsCreateSterlingDocuments {
+            get {
+                return ResourceManager.GetString("AuthDocsCreateSterlingDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enjoy professional writing capabilities with Review features, page appearance settings and additional layout elements like footnotes and drop caps..
+        /// </summary>
+        public static string AuthDocsCreateSterlingDocumentsText {
+            get {
+                return ResourceManager.GetString("AuthDocsCreateSterlingDocumentsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer experience.
+        /// </summary>
+        public static string AuthDocsCustomerExperience {
+            get {
+                return ResourceManager.GetString("AuthDocsCustomerExperience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit word docs, spreadsheets and presentations online.
         /// </summary>
         public static string AuthDocsEditText {
@@ -939,7 +1137,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your email address.
+        ///   Looks up a localized string similar to Enter your email.
         /// </summary>
         public static string AuthDocsEmailHint {
             get {
@@ -948,11 +1146,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Or enter via your social networks.
+        ///   Looks up a localized string similar to Or sign in with.
         /// </summary>
         public static string AuthDocsEnterViaSocial {
             get {
                 return ResourceManager.GetString("AuthDocsEnterViaSocial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extend.
+        /// </summary>
+        public static string AuthDocsExtend {
+            get {
+                return ResourceManager.GetString("AuthDocsExtend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Already keeping files in cloud storages like {0} or {1}?.
+        /// </summary>
+        public static string AuthDocsExtendKeeping {
+            get {
+                return ResourceManager.GetString("AuthDocsExtendKeeping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect third-party services to create an integrated document management space and work with your documents directly from any cloud..
+        /// </summary>
+        public static string AuthDocsExtendKeepingText {
+            get {
+                return ResourceManager.GetString("AuthDocsExtendKeepingText", resourceCulture);
             }
         }
         
@@ -966,6 +1191,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free of charge.
+        /// </summary>
+        public static string AuthDocsFreeChargeText {
+            get {
+                return ResourceManager.GetString("AuthDocsFreeChargeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It is Free.
         /// </summary>
         public static string AuthDocsItsFree {
@@ -975,7 +1209,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE Personal is a free online office perfectly compatible with Microsoft(R) formats. It is an alternative to MS Office and enables you to edit word documents, spreadsheets and presentations online for free..
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string AuthDocsLogIn {
+            get {
+                return ResourceManager.GetString("AuthDocsLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Personal is a free online editing suite for text documents, spreadsheets and presentations with an individual cloud storage..
         /// </summary>
         public static string AuthDocsMetaDescription {
             get {
@@ -1002,11 +1245,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to or sign in.
+        ///   Looks up a localized string similar to Or sign in with.
         /// </summary>
         public static string AuthDocsOr {
             get {
                 return ResourceManager.GetString("AuthDocsOr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right in your browser.
+        /// </summary>
+        public static string AuthDocsRightBrowserText {
+            get {
+                return ResourceManager.GetString("AuthDocsRightBrowserText", resourceCulture);
             }
         }
         
@@ -1016,6 +1268,123 @@ namespace Resources {
         public static string AuthDocsSendActivationEmail {
             get {
                 return ResourceManager.GetString("AuthDocsSendActivationEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share and collaborate.
+        /// </summary>
+        public static string AuthDocsShareСollaborate {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discuss the process.
+        /// </summary>
+        public static string AuthDocsShareСollaborateDiscuss {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateDiscuss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With comments and chat, discuss the editing process and communicate without leaving the editor..
+        /// </summary>
+        public static string AuthDocsShareСollaborateDiscussText {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateDiscussText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Embed your documents.
+        /// </summary>
+        public static string AuthDocsShareСollaborateEmberDocuments {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateEmberDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add documents wherever you want, be it a blog or a website, using special embedding properties..
+        /// </summary>
+        public static string AuthDocsShareСollaborateEmberDocumentsText {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateEmberDocumentsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite users for collaboration.
+        /// </summary>
+        public static string AuthDocsShareСollaborateInviteUsers {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateInviteUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite anyone via external links to edit documents together or get reviews on your work.
+        /// </summary>
+        public static string AuthDocsShareСollaborateInviteUsersText {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateInviteUsersText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navigate through document history.
+        /// </summary>
+        public static string AuthDocsShareСollaborateNavigateHistory {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateNavigateHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Version History to see and control each input by everyone in your document..
+        /// </summary>
+        public static string AuthDocsShareСollaborateNavigateHistoryText {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateNavigateHistoryText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review the results.
+        /// </summary>
+        public static string AuthDocsShareСollaborateReviewResults {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateReviewResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Track Changes mode to highlight your inputs. Different preview modes will help you see how your texts would look with or without changes..
+        /// </summary>
+        public static string AuthDocsShareСollaborateReviewResultsText {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateReviewResultsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the right co-editing mode.
+        /// </summary>
+        public static string AuthDocsShareСollaborateSelectRight {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateSelectRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Fast mode to work in real time or Strict mode to edit parts of the document privately..
+        /// </summary>
+        public static string AuthDocsShareСollaborateSelectRightText {
+            get {
+                return ResourceManager.GetString("AuthDocsShareСollaborateSelectRightText", resourceCulture);
             }
         }
         
@@ -1038,7 +1407,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Free Alternative{0}to Microsoft® Office.
+        ///   Looks up a localized string similar to Your personal online office.
         /// </summary>
         public static string AuthDocsTitle {
             get {
@@ -1047,7 +1416,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get Free Office In The Cloud.
+        ///   Looks up a localized string similar to Personal online office.
         /// </summary>
         public static string AuthDocsTitlePage {
             get {
@@ -1369,6 +1738,24 @@ namespace Resources {
         public static string BtnAddNewContact {
             get {
                 return ResourceManager.GetString("BtnAddNewContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string ButtonSmsDisable {
+            get {
+                return ResourceManager.GetString("ButtonSmsDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string ButtonSmsEnable {
+            get {
+                return ResourceManager.GetString("ButtonSmsEnable", resourceCulture);
             }
         }
         
@@ -2048,6 +2435,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EasyBib.
+        /// </summary>
+        public static string ConsumersEasyBib {
+            get {
+                return ResourceManager.GetString("ConsumersEasyBib", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подключить приложение EasyBib для создания библиографических списков..
+        /// </summary>
+        public static string ConsumersEasyBibDescription {
+            get {
+                return ResourceManager.GetString("ConsumersEasyBibDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив приложение EasyBib Вы сможете легко создавать библиографические списки в своих документах..
+        /// </summary>
+        public static string ConsumersEasyBibInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersEasyBibInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App key.
+        /// </summary>
+        public static string ConsumersEasyBibSecret {
+            get {
+                return ResourceManager.GetString("ConsumersEasyBibSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Facebook.
         /// </summary>
         public static string ConsumersFacebook {
@@ -2458,6 +2881,51 @@ namespace Resources {
         public static string ConsumersTwitterSecretDefault {
             get {
                 return ResourceManager.GetString("ConsumersTwitterSecretDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WordPress.
+        /// </summary>
+        public static string ConsumersWordpress {
+            get {
+                return ResourceManager.GetString("ConsumersWordpress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подключить приложение для публикации документов в WordPress..
+        /// </summary>
+        public static string ConsumersWordpressDescription {
+            get {
+                return ResourceManager.GetString("ConsumersWordpressDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавив приложение WordPress Вы сможете легко, сохраняя форматирование, публиковать документы на своем сайте WordPress..
+        /// </summary>
+        public static string ConsumersWordpressInstruction {
+            get {
+                return ResourceManager.GetString("ConsumersWordpressInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WordPress Key.
+        /// </summary>
+        public static string ConsumersWordpressKey {
+            get {
+                return ResourceManager.GetString("ConsumersWordpressKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WordPress Secret.
+        /// </summary>
+        public static string ConsumersWordpressSecret {
+            get {
+                return ResourceManager.GetString("ConsumersWordpressSecret", resourceCulture);
             }
         }
         
@@ -3230,33 +3698,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document Command Service Address.
-        /// </summary>
-        public static string DocServiceUrlCommand {
-            get {
-                return ResourceManager.GetString("DocServiceUrlCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Document Conversion Service Address.
-        /// </summary>
-        public static string DocServiceUrlConverter {
-            get {
-                return ResourceManager.GetString("DocServiceUrlConverter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Docbuilder Service Address.
-        /// </summary>
-        public static string DocServiceUrlDocbuilder {
-            get {
-                return ResourceManager.GetString("DocServiceUrlDocbuilder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}{1}Docbuilder Service{2} is the server service which allows to convert the source docbuilder script into  OfficeOpen XML format  file..
         /// </summary>
         public static string DocServiceUrlDocbuilderHelp {
@@ -3275,29 +3716,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {1}Document Service{2} is the server service which allows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used to notify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which is used to get the external link to the opened document.{0}{1}Conversion Service{2} is the server service which allows to convert the document file into the appropriate OfficeOpen XML format..
+        ///   Looks up a localized string similar to {1}Document Service{2} is the server service which allows to perform the document editing and allows to convert the document file into the appropriate OfficeOpen XML format..
         /// </summary>
-        public static string DocServiceUrlHelp {
+        public static string DocServiceUrlHelp2 {
             get {
-                return ResourceManager.GetString("DocServiceUrlHelp", resourceCulture);
+                return ResourceManager.GetString("DocServiceUrlHelp2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Community Server Address.
+        ///   Looks up a localized string similar to Document Service Address for requests from the Community Server.
         /// </summary>
-        public static string DocServiceUrlPortal {
+        public static string DocServiceUrlInternal {
             get {
-                return ResourceManager.GetString("DocServiceUrlPortal", resourceCulture);
+                return ResourceManager.GetString("DocServiceUrlInternal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document Storage Service Address.
+        ///   Looks up a localized string similar to Community Server Address for requests from the Document Service.
         /// </summary>
-        public static string DocServiceUrlStorage {
+        public static string DocServiceUrlPortal2 {
             get {
-                return ResourceManager.GetString("DocServiceUrlStorage", resourceCulture);
+                return ResourceManager.GetString("DocServiceUrlPortal2", resourceCulture);
             }
         }
         
@@ -5481,6 +5922,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This link is valid for {0} days only..
+        /// </summary>
+        public static string InviteLinkValidInterval {
+            get {
+                return ResourceManager.GetString("InviteLinkValidInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string InvitePassword {
@@ -6885,6 +7335,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail Server database host.
+        /// </summary>
+        public static string MailServiceHost {
+            get {
+                return ResourceManager.GetString("MailServiceHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mail Server database password.
         /// </summary>
         public static string MailServicePassword {
@@ -6894,11 +7353,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error pinging host {0}:3306.
+        ///   Looks up a localized string similar to Error pinging host {0}:{1}.
         /// </summary>
-        public static string MailServicePingErrorMsg {
+        public static string MailServicePingingErrorMsg {
             get {
-                return ResourceManager.GetString("MailServicePingErrorMsg", resourceCulture);
+                return ResourceManager.GetString("MailServicePingingErrorMsg", resourceCulture);
             }
         }
         
@@ -7830,6 +8289,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Login.
+        /// </summary>
+        public static string PersonalLogin {
+            get {
+                return ResourceManager.GetString("PersonalLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please wait....
         /// </summary>
         public static string PleaseWaitMessage {
@@ -8208,6 +8676,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start editing.
+        /// </summary>
+        public static string RegistryButtonStartEditing {
+            get {
+                return ResourceManager.GetString("RegistryButtonStartEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reject.
         /// </summary>
         public static string RejectCallBtn {
@@ -8231,6 +8708,15 @@ namespace Resources {
         public static string RememberHelper {
             get {
                 return ResourceManager.GetString("RememberHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete personal data.
+        /// </summary>
+        public static string RemoveData {
+            get {
+                return ResourceManager.GetString("RemoveData", resourceCulture);
             }
         }
         

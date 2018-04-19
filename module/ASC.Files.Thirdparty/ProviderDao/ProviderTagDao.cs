@@ -32,9 +32,12 @@ namespace ASC.Files.Thirdparty.ProviderDao
 {
     internal class ProviderTagDao : ProviderDaoBase, ITagDao
     {
-        public IEnumerable<Tag> GetTags(TagType tagType, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)
         {
-            return TryGetTagDao().GetTags(tagType, fileEntries);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetTags(tagType, fileEntries);
+            }
         }
 
         public IEnumerable<Tag> GetNewTags(Guid subject, Folder parentFolder, bool deepSearch)
@@ -44,50 +47,101 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         #region Only for Teamlab Documents
 
-        public IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetNewTags(Guid subject, IEnumerable<FileEntry> fileEntries)
         {
-            return TryGetTagDao().GetNewTags(subject, fileEntries);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetNewTags(subject, fileEntries);
+            }
+        }
+
+        public IEnumerable<Tag> GetNewTags(Guid subject, FileEntry fileEntry)
+        {
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetNewTags(subject, fileEntry);
+            }
         }
 
         public IEnumerable<Tag> GetTags(Guid owner, TagType tagType)
         {
-            return TryGetTagDao().GetTags(owner, tagType);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetTags(owner, tagType);
+            }
         }
 
         public IEnumerable<Tag> GetTags(string name, TagType tagType)
         {
-            return TryGetTagDao().GetTags(name, tagType);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetTags(name, tagType);
+            }
         }
 
         public IEnumerable<Tag> GetTags(string[] names, TagType tagType)
         {
-            return TryGetTagDao().GetTags(names, tagType);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetTags(names, tagType);
+            }
         }
 
 
-        public IEnumerable<Tag> SaveTags(params Tag[] tag)
+        public IEnumerable<Tag> SaveTags(IEnumerable<Tag> tag)
         {
-            return TryGetTagDao().SaveTags(tag);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.SaveTags(tag);
+            }
         }
 
-        public void UpdateNewTags(params Tag[] tag)
+        public IEnumerable<Tag> SaveTags(Tag tag)
         {
-            TryGetTagDao().UpdateNewTags(tag);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.SaveTags(tag);
+            }
         }
 
-        public void RemoveTags(params Tag[] tag)
+        public void UpdateNewTags(IEnumerable<Tag> tag)
         {
-            TryGetTagDao().RemoveTags(tag);
+            using (var tagDao = TryGetTagDao())
+            {
+                tagDao.UpdateNewTags(tag);
+            }
         }
 
-        public void RemoveTags(params int[] tagIds)
+        public void UpdateNewTags(Tag tag)
         {
-            TryGetTagDao().RemoveTags(tagIds);
+            using (var tagDao = TryGetTagDao())
+            {
+                tagDao.UpdateNewTags(tag);
+            }
+        }
+
+        public void RemoveTags(IEnumerable<Tag> tag)
+        {
+            using (var tagDao = TryGetTagDao())
+            {
+                tagDao.RemoveTags(tag);
+            }
+        }
+
+        public void RemoveTags(Tag tag)
+        {
+            using (var tagDao = TryGetTagDao())
+            {
+                tagDao.RemoveTags(tag);
+            }
         }
 
         public IEnumerable<Tag> GetTags(object entryID, FileEntryType entryType, TagType tagType)
         {
-            return TryGetTagDao().GetTags(entryID, entryType, tagType);
+            using (var tagDao = TryGetTagDao())
+            {
+                return tagDao.GetTags(entryID, entryType, tagType);
+            }
         }
 
         #endregion

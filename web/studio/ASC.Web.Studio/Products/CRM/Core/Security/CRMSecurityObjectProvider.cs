@@ -40,10 +40,6 @@ namespace ASC.CRM.Core
 {
     public class CRMSecurityObjectProvider : ISecurityObjectProvider
     {
-        public CRMSecurityObjectProvider(DaoFactory daoFactory)
-        {
-        }
-
         public ISecurityObjectId InheritFrom(ISecurityObjectId objectId)
         {
             int contactId;
@@ -81,7 +77,7 @@ namespace ASC.CRM.Core
                     CompanyName = "fakeCompany"
                 };
                 
-                //   return _daoFactory.GetContactDao().GetByID(contactId);
+                //   return _daoFactory.ContactDao.GetByID(contactId);
 
             switch (entityType)
             {
@@ -92,14 +88,14 @@ namespace ASC.CRM.Core
                             ID = entityId,
                             Title = "fakeDeal"
                         };
-                   // return _daoFactory.GetDealDao().GetByID(entityId);
+                   // return _daoFactory.DealDao.GetByID(entityId);
                 case EntityType.Case:
                     return new Cases
                         {
                             ID = entityId, 
                             Title = "fakeCases"
                         };
-                  //  return _daoFactory.GetCasesDao().GetByID(entityId);
+                  //  return _daoFactory.CasesDao.GetByID(entityId);
             }
 
             return null;

@@ -95,7 +95,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
                     var messageToDomain = message.To.ToString().Split(new char[] { '@' })[1];
                    
                     foreach (
-                        var tenant in CoreContext.TenantManager.GetTenants().Where(t => t.Status == TenantStatus.Active)
+                        var tenant in CoreContext.TenantManager.GetTenants()
                         )
                     {
                         if (tenant.TenantDomain == messageToDomain)
@@ -136,7 +136,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
                             if (userId.Count != 0)
                             {
                                 var guid = new Guid(userId[0]);
-                                photoPath = UserPhotoManager.GetPhotoAbsoluteWebPath(guid);
+                                photoPath = UserPhotoManager.GetBigPhotoURL(guid);
                             }
                            
                             var tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");

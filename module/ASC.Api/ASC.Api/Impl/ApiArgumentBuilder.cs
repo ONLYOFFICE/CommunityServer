@@ -24,20 +24,22 @@
 */
 
 
-using ASC.Api.Collections;
-using ASC.Api.Exceptions;
-using ASC.Api.Interfaces;
-using ASC.Api.Utils;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using System.Web;
 using System.Web.Routing;
 using System.Xml.Linq;
+using ASC.Api.Collections;
+using ASC.Api.Exceptions;
+using ASC.Api.Interfaces;
+using ASC.Api.Utils;
+using Newtonsoft.Json;
+using Binder = ASC.Api.Utils.Binder;
 
 namespace ASC.Api.Impl
 {
@@ -189,7 +191,17 @@ namespace ASC.Api.Impl
                             {
                                 using (var reader = new StreamReader(request.InputStream))
                                 {
-                                    var xdoc = JsonConvert.DeserializeXNode(reader.ReadToEnd(), "request", false);
+                                    var value = reader.ReadToEnd();
+                                    XDocument xdoc;
+                                    try
+                                    {
+                                        xdoc = JsonConvert.DeserializeXNode(value, "request", false);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        throw new TargetInvocationException(new ArgumentException("Unable to deserialize json", e));
+                                    }
+
                                     XElement root;
                                     if (xdoc != null && (root = xdoc.Root) != null)
                                     {

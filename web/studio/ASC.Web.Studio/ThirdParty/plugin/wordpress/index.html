@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>WordPress</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../pluginBase.js"></script>
+    <script type="text/javascript" src="wordpress.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="main-container">
+        <div class="wait">Please wait...</div>
+        <div id="authorization-form">
+            <div>Connect account to publish documents to your WordPress site</div>
+            <button id="sent-auth">Connect</button>
+        </div>
+        <div id="publish-form">
+            <div class="blog">
+                <p class="blog-url"></p>
+                <div id="delete-site" class="update-blog" title="Delete site"></div>
+                <p class="username"></p>
+            </div>
+            <div class="publish">
+                <label>Title</label>
+                <input type="text" id="title" />
+
+                <button id="publish">Publish</button>
+                <button id="draft">Save as Draft</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

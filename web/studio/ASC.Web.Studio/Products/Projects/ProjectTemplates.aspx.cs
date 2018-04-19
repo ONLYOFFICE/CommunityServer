@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Classes;
@@ -33,7 +34,7 @@ namespace ASC.Web.Projects
 {
     public partial class ProjectTemplates : BasePage
     {
-        protected override bool CheckSecurity { get { return ProjectSecurity.CanCreateProject(); } }
+        protected override bool CheckSecurity { get { return ProjectSecurity.CanCreate<Project>(null); } }
 
         protected override void PageLoad()
         {

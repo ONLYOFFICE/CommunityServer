@@ -94,7 +94,7 @@ namespace ASC.Core.Billing
         {
             try
             {
-                var tenant = CoreContext.TenantManager.GetTenants().OrderByDescending(t => t.Version).FirstOrDefault();
+                var tenant = CoreContext.TenantManager.GetTenants(false).OrderByDescending(t => t.Version).FirstOrDefault();
                 if (tenant != null)
                 {
                     using (var wcfClient = new TariffSyncClient())

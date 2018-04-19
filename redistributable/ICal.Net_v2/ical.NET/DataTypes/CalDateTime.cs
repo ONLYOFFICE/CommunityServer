@@ -329,10 +329,6 @@ namespace Ical.Net.DataTypes
             {
                 throw new ArgumentException("You must provide a valid TZID to the ToTimeZone() method", nameof(newTimeZone));
             }
-            if (Calendar == null)
-            {
-                throw new Exception("The iCalDateTime object must have an iCalendar associated with it in order to use TimeZones.");
-            }
 
             var newDt = string.IsNullOrWhiteSpace(TzId)
                 ? DateUtil.ToZonedDateTimeLeniently(Value, newTimeZone).ToDateTimeUtc()

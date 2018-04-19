@@ -82,13 +82,6 @@ namespace ASC.Web.Files
 
             if (AddCustomScript)
             {
-                if ((string)Session["campaign"] == "personal")
-                {
-                    Session["campaign"] = "";
-
-                    ThirdPartyScriptsPlaceHolder.Controls.Add(LoadControl(PathProvider.GetFileControlPath("GoogleConversionScript.ascx")));
-                }
-
                 using (var streamReader = new StreamReader(HttpContext.Current.Server.MapPath(PathProvider.GetFileControlPath("AnalyticsPersonalFirstVisit.js"))))
                 {
                     var yaScriptText = streamReader.ReadToEnd();
@@ -115,7 +108,8 @@ namespace ASC.Web.Files
                                   "actionmanager.js",
                                   "anchormanager.js",
                                   "foldermanager.js",
-                                  "eventhandler.js"
+                                  "eventhandler.js",
+                                  "socketmanager.js"
                        )
                        .AddSource(ResolveUrl,
                                   "~/js/third-party/jquery/jquery.mousewheel.js",
@@ -204,8 +198,7 @@ namespace ASC.Web.Files
                 PersonalSettings.IsNewUser = false;
                 AddCustomScript = SetupInfo.CustomScripts.Length != 0 && !SetupInfo.IsSecretEmail(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email);
 
-                Classes.Global.Logger.Info("New personal user " + SecurityContext.CurrentAccount.ID
-                                           + ((string)Session["campaign"] == "personal" ? " with campaign=personal" : ""));
+                Classes.Global.Logger.Info("New personal user " + SecurityContext.CurrentAccount.ID);
             }
 
             if (PersonalSettings.IsNotActivated)

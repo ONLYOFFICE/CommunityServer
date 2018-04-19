@@ -24,12 +24,18 @@
 */
 
 
+using System;
+using System.Linq;
+using System.ServiceModel.Security;
+using System.Web;
+using System.Web.UI;
 using AjaxPro;
 using Amazon.SecurityToken.Model;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
+using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Security;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
@@ -37,11 +43,6 @@ using ASC.Web.Studio.Utility;
 using log4net;
 using Newtonsoft.Json;
 using Resources;
-using System;
-using System.Linq;
-using System.ServiceModel.Security;
-using System.Web;
-using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -73,7 +74,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     if (TenantExtra.Enterprise)
                     {
                         var countPortals = TenantExtra.GetTenantQuota().CountPortals;
-                        var activePortals = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
+                        var activePortals = CoreContext.TenantManager.GetTenants().Count();
                         if (countPortals <= activePortals)
                         {
                             _successMessage = UserControlsCommonResource.TariffPortalLimitHeaer;
@@ -224,7 +225,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 throw new ArgumentException(Resource.ErrorNotCorrectEmail);
             }
 
-            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(email + ConfirmType.PortalRemove, key, SetupInfo.ValidEamilKeyInterval);
+            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(email + ConfirmType.PortalRemove, key, SetupInfo.ValidEmailKeyInterval);
 
             if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Expired)
             {
@@ -240,7 +241,12 @@ namespace ASC.Web.Studio.UserControls.Management
             var tariff = CoreContext.TenantManager.GetTenantQuota(curTenant.TenantId);
 
             CoreContext.TenantManager.RemoveTenant(curTenant.TenantId);
-           
+
+            if (!String.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
+            {
+                ApiSystemHelper.RemoveTenantFromCache(curTenant.TenantAlias);
+            }
+
             var currentUser = CoreContext.UserManager.GetUsers(curTenant.OwnerId);
             var redirectLink = SetupInfo.TeamlabSiteRedirect + "/remove-portal-feedback-form.aspx#" +
                         Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + currentUser.FirstName +

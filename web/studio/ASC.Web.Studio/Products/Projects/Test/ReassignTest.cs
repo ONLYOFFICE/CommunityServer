@@ -5,8 +5,9 @@ using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
+using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Core.Engine;
-using ASC.Web.Studio.Utility;
+using Autofac;
 using NUnit.Framework;
 
 namespace ASC.Web.Projects.Test
@@ -15,6 +16,7 @@ namespace ASC.Web.Projects.Test
     [TestOf(typeof(ReassignTest))]
     public class ReassignTest
     {
+        protected ILifetimeScope Scope { get; set; }
         private TaskEngine TaskEngine { get; set; }
         private SubtaskEngine SubtaskEngine { get; set; }
         private MilestoneEngine MilestoneEngine { get; set; }
@@ -39,7 +41,9 @@ namespace ASC.Web.Projects.Test
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             SecurityContext.AuthenticateMe(tenant.OwnerId);
 
-            var engineFactory = new EngineFactory("test", TenantProvider.CurrentTenantID);
+            Scope = DIHelper.Resolve(true);
+
+            var engineFactory = Scope.Resolve<EngineFactory>();
             ProjectEngine = engineFactory.ProjectEngine;
             ParticipantEngine = engineFactory.ParticipantEngine;
             TaskEngine = engineFactory.TaskEngine;

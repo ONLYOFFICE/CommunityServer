@@ -64,11 +64,6 @@ namespace ASC.Web.CRM.Classes
         public static readonly int MaxHistoryEventCharacters = 65000;
         public static readonly decimal MaxInvoiceItemPrice = (decimal) 99999999.99;
 
-        public static DaoFactory DaoFactory
-        {
-            get { return new DaoFactory(TenantProvider.CurrentTenantID, CRMConstants.DatabaseId); }
-        }
-
         public static CRMSettings TenantSettings
         {
             get { return CRMSettings.Load(); }
@@ -130,7 +125,7 @@ namespace ASC.Web.CRM.Classes
 
                 canDownloadFiles = Convert.ToBoolean(value);
 
-                if (canDownloadFiles && (string.IsNullOrEmpty(FilesLinkUtility.DocServiceStorageUrl) || string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl)))
+                if (canDownloadFiles && string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl))
                 {
                     canDownloadFiles = false;
                 }
@@ -179,19 +174,19 @@ namespace ASC.Web.CRM.Classes
 
         #region Invoice PDF
 
-        public static ASC.Files.Core.File GetInvoicePdfExistingOrCreate(ASC.CRM.Core.Entities.Invoice invoice)
+        public static ASC.Files.Core.File GetInvoicePdfExistingOrCreate(ASC.CRM.Core.Entities.Invoice invoice, DaoFactory factory)
         {
-            var existingFile = invoice.GetInvoiceFile();
+            var existingFile = invoice.GetInvoiceFile(factory);
             if (existingFile != null)
             {
                 return existingFile;
             }
             else
             {
-                var newFile = PdfCreator.CreateFile(invoice);
+                var newFile = PdfCreator.CreateFile(invoice, factory);
                 invoice.FileID = Int32.Parse(newFile.ID.ToString());
-                Global.DaoFactory.GetInvoiceDao().UpdateInvoiceFileID(invoice.ID, invoice.FileID);
-                Global.DaoFactory.GetRelationshipEventDao().AttachFiles(invoice.ContactID, invoice.EntityType, invoice.EntityID, new[] { invoice.FileID });
+                factory.InvoiceDao.UpdateInvoiceFileID(invoice.ID, invoice.FileID);
+                factory.RelationshipEventDao.AttachFiles(invoice.ContactID, invoice.EntityType, invoice.EntityID, new[] { invoice.FileID });
                 return newFile;
             }
         }

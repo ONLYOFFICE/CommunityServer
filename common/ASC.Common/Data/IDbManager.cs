@@ -34,9 +34,14 @@ namespace ASC.Common.Data
     public interface IDbManager : IDisposable
     {
         IDbConnection Connection { get; }
-
+        string DatabaseId { get; }
+        bool InTransaction { get; }
 
         IDbTransaction BeginTransaction();
+
+        IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
+
+        IDbTransaction BeginTransaction(bool nestedIfAlreadyOpen);
         
         List<object[]> ExecuteList(string sql, params object[] parameters);
 

@@ -25,13 +25,28 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Routing;
+using ASC.Api.Impl.Routing;
 
 namespace ASC.Api.Impl.Constraints
 {
     public class ApiHttpMethodConstraint : HttpMethodConstraint
     {
+        private static readonly Dictionary<string, ApiHttpMethodConstraint> Methods = new Dictionary<string, ApiHttpMethodConstraint>(5);
+
+        public static ApiHttpMethodConstraint GetInstance(string method)
+        {
+            method = method.ToUpperInvariant();
+            if (Methods.ContainsKey(method)) return Methods[method];
+
+            var result = new ApiHttpMethodConstraint(method);
+            Methods.Add(method, result);
+            return result;
+        }
+
         public ApiHttpMethodConstraint(params string[] allowedMethods):base(allowedMethods)
         {
             
@@ -45,6 +60,29 @@ namespace ASC.Api.Impl.Constraints
                 baseMatch = AllowedMethods.Any(method => string.Equals(method, httpContext.Request.RequestType, StringComparison.OrdinalIgnoreCase));
             }
             return baseMatch;
+        }
+    }
+
+    public class ApiExtensionConstraint : IRouteConstraint
+    {
+        private readonly List<string> extensions;
+
+        public ApiExtensionConstraint(List<string> extensions)
+        {
+            this.extensions = extensions;
+        }
+
+        public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values,
+            RouteDirection routeDirection)
+        {
+            if(!route.Url.EndsWith(ApiRouteRegistrator.ExtensionBrace)) return true;
+            if (!values.Any()) return false;
+            var extension = (string)values.First(r => r.Key == ApiRouteRegistrator.Extension).Value;
+            extension = extension.TrimStart('.');
+
+            if (extensions.Contains("." + extension)) return true;
+
+            return false;
         }
     }
 }

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>EasyBib</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../js/asc/core/localstorage.js"></script>
+    <script type="text/javascript" src="../pluginBase.js"></script>
+    <script type="text/javascript" src="bibliography.js"></script>
+    <script type="text/javascript" src="select2.min.js"></script>
+    <script type="text/javascript" src="easybib.js"></script>
+    <link href="../plugins.css" rel="stylesheet"></link>
+    <link href="style.css" rel="stylesheet"></link>
+    <link href="select2.min.css" rel="stylesheet"></link>
+</head>
+<body>
+    
+    <div id="main-container">
+        <div class="buttons-container">
+            <button id="bookButton" class="source-button active-button">Book</button>
+            <button id="journalButton" class="source-button book-active-button">Journal Article</button>
+            <button id="websiteButton" class="source-button">Website</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search" />
+            <button id="searchButton" class="search-button">Search</button>
+        </div>
+        <div class="result-container">
+            <div class="search-title">
+                <span class="result">Search result</span>
+                <span class="back-to-bib" onclick="backToBibliography()">Back to bibliography</span>
+            </div>
+            <div class="bibliography-title">Bibliography</div>
+        </div>
+        <div id="search_result" class="webkit-scrollbar"></div>
+        <div id="bib" class="webkit-scrollbar"></div>
+    
+    <div class="add-bibl-container">
+        <div class="bib-style">
+            <label>Style</label>
+        </div>
+        <select id="styles" class="style-list combo" size="1" disabled="disabled">
+            <option>Loading...</option>
+        </select>
+        <button class="add-button">Add Bibliography to Doc</button>
+    </div>
+        <div class="clear_float"></div>
+    </div>
+</body>
+</html>

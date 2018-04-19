@@ -59,8 +59,8 @@ namespace ASC.Web.CRM.Controls.Contacts
         {
             get
             {
-                var dealsCount = Global.DaoFactory.GetDealDao().GetDealsCount();
-                var casesCount = Global.DaoFactory.GetCasesDao().GetCasesCount();
+                var dealsCount = DaoFactory.DealDao.GetDealsCount();
+                var casesCount = DaoFactory.CasesDao.GetCasesCount();
 
                 return dealsCount + casesCount > 0;
             }

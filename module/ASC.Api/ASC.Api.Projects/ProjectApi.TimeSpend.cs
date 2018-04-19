@@ -93,7 +93,7 @@ namespace ASC.Api.Projects
 
             SetTotalCount(EngineFactory.TimeTrackingEngine.GetByFilterCount(filter));
 
-            return EngineFactory.TimeTrackingEngine.GetByFilter(filter).NotFoundIfNull().Select(r => new TimeWrapper(r));
+            return EngineFactory.TimeTrackingEngine.GetByFilter(filter).NotFoundIfNull().Select(TimeWrapperSelector);
         }
 
         ///<summary>
@@ -169,8 +169,8 @@ namespace ASC.Api.Projects
         {
             if (!EngineFactory.TaskEngine.IsExists(taskid)) throw new ItemNotFoundException();
             var times = EngineFactory.TimeTrackingEngine.GetByTask(taskid).NotFoundIfNull();
-            _context.SetTotalCount(times.Count);
-            return times.Select(x => new TimeWrapper(x));
+            Context.SetTotalCount(times.Count);
+            return times.Select(TimeWrapperSelector);
         }
 
         ///<summary>
@@ -213,7 +213,7 @@ namespace ASC.Api.Projects
             ts = EngineFactory.TimeTrackingEngine.SaveOrUpdate(ts);
             MessageService.Send(Request, MessageAction.TaskTimeCreated, MessageTarget.Create(ts.ID), task.Project.Title, task.Title, ts.Note);
 
-            return new TimeWrapper(ts);
+            return TimeWrapperSelector(ts);
         }
 
         ///<summary>
@@ -249,7 +249,7 @@ namespace ASC.Api.Projects
             timeTrackingEngine.SaveOrUpdate(time);
             MessageService.Send(Request, MessageAction.TaskTimeUpdated, MessageTarget.Create(time.ID), time.Task.Project.Title, time.Task.Title, time.Note);
 
-            return new TimeWrapper(time);
+            return TimeWrapperSelector(time);
         }
 
         ///<summary>
@@ -273,7 +273,7 @@ namespace ASC.Api.Projects
             {
                 var time = timeTrackingEngine.GetByID(timeid).NotFoundIfNull();
                 timeTrackingEngine.ChangePaymentStatus(time, status);
-                times.Add(new TimeWrapper(time));
+                times.Add(TimeWrapperSelector(time));
             }
 
             MessageService.Send(Request, MessageAction.TaskTimesUpdatedStatus, MessageTarget.Create(timeids), times.Select(t => t.Note), LocalizedEnumConverter.ConvertToString(status));
@@ -301,7 +301,7 @@ namespace ASC.Api.Projects
                 var time = timeTrackingEngine.GetByID(timeid).NotFoundIfNull();
 
                 timeTrackingEngine.Delete(time);
-                listDeletedTimers.Add(new TimeWrapper(time));
+                listDeletedTimers.Add(TimeWrapperSelector(time));
             }
 
             MessageService.Send(Request, MessageAction.TaskTimesDeleted, MessageTarget.Create(timeids), listDeletedTimers.Select(t => t.Note));

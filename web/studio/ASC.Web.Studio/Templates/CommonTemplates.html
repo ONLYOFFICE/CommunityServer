@@ -114,7 +114,7 @@
                         {{/if}}
                     </a>
                 {{else}}
-                    <a href="${downloadUrl}" class="${exttype} noEdit" title="${title}" target="_blank">
+                    <a href="${viewUrl}" class="${exttype} noEdit" title="${title}" target="_blank">
                         <div class="attachmentsTitle">${title}</div>
                         {{if versionGroup > 1}}
                             <span class="version">${ASC.Resources.Master.UserControlsCommonResource.Version}${versionGroup}</span>
@@ -130,7 +130,7 @@
                 <a class="{{if trashAction == "delete"}}deleteDoc{{else}}unlinkDoc{{/if}}" title="{{if trashAction == "delete"}}${ASC.Resources.Master.UserControlsCommonResource.DeleteFile}{{else}}${ASC.Resources.Master.UserControlsCommonResource.RemoveFromList}{{/if}}" data-fileId="${id}"></a>
             {{/if}}
             {{if (!jq.browser.mobile)}}
-            <a class="downloadLink" title="${ASC.Resources.Master.UserControlsCommonResource.DownloadFile}" href="${downloadUrl}"></a>
+            <a class="downloadLink" title="${ASC.Resources.Master.UserControlsCommonResource.DownloadFile}" href="${viewUrl}"></a>
             {{/if}}
             {{if (type == "editedFile")&&(access==0 || access==1)}}
                 <a id="editDoc_${id}" title="${ASC.Resources.Master.UserControlsCommonResource.EditFile}" target="_blank" href="${editUrl}"></a>

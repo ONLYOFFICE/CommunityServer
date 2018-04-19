@@ -30,7 +30,6 @@ using System.Linq;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Files.Core;
-using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
@@ -39,16 +38,10 @@ namespace ASC.Projects.Engine
 {
     public class MessageEngine : ProjectEntityEngine
     {
-        private readonly EngineFactory engineFactory;
-        private readonly IMessageDao messageDao;
-        private readonly ICommentDao commentDao;
+        public IDaoFactory DaoFactory { get; set; }
 
-        public MessageEngine(IDaoFactory daoFactory, EngineFactory engineFactory)
-            : base(NotifyConstants.Event_NewCommentForMessage, engineFactory)
+        public MessageEngine(bool disableNotifications) : base(NotifyConstants.Event_NewCommentForMessage, disableNotifications)
         {
-            this.engineFactory = engineFactory;
-            messageDao = daoFactory.GetMessageDao();
-            commentDao = daoFactory.GetCommentDao();
         }
 
         #region Get Discussion
@@ -65,10 +58,10 @@ namespace ASC.Projects.Engine
 
         public Message GetByID(int id, bool checkSecurity)
         {
-            var message = messageDao.GetById(id);
+            var message = DaoFactory.MessageDao.GetById(id);
 
             if (message != null)
-                message.CommentsCount = commentDao.Count(new List<ProjectEntity> { message }).FirstOrDefault();
+                message.CommentsCount = DaoFactory.CommentDao.Count(new List<ProjectEntity> { message }).FirstOrDefault();
 
             if (!checkSecurity)
                 return message;
@@ -78,44 +71,43 @@ namespace ASC.Projects.Engine
 
         public IEnumerable<Message> GetAll()
         {
-            return messageDao.GetAll().Where(CanRead);
+            return DaoFactory.MessageDao.GetAll().Where(CanRead);
         }
 
         public IEnumerable<Message> GetByProject(int projectID)
         {
-            var messages = messageDao.GetByProject(projectID)
+            var messages = DaoFactory.MessageDao.GetByProject(projectID)
                 .Where(CanRead)
                 .ToList();
-            var commentsCount = commentDao.Count(messages.ConvertAll(r => (ProjectEntity)r));
-
-            return messages.Select((message, index) =>
-            { 
-                                                    message.CommentsCount = commentsCount[index];
-                                                    return message;
-            });
-
-        }
-
-        public IEnumerable<Message> GetMessages(int startIndex, int maxResult)
-        {
-            var messages = messageDao.GetMessages(startIndex, maxResult)
-                .Where(CanRead)
-                .ToList();
-            var commentsCount = commentDao.Count(messages.Select(r => (ProjectEntity)r).ToList());
+            var commentsCount = DaoFactory.CommentDao.Count(messages.ConvertAll(r => (ProjectEntity)r));
 
             return messages.Select((message, index) =>
             {
                 message.CommentsCount = commentsCount[index];
                 return message;
             });
-            
+        }
+
+        public IEnumerable<Message> GetMessages(int startIndex, int maxResult)
+        {
+            var messages = DaoFactory.MessageDao.GetMessages(startIndex, maxResult)
+                .Where(CanRead)
+                .ToList();
+            var commentsCount = DaoFactory.CommentDao.Count(messages.Select(r => (ProjectEntity)r).ToList());
+
+            return messages.Select((message, index) =>
+            {
+                message.CommentsCount = commentsCount[index];
+                return message;
+            });
         }
 
         public IEnumerable<Message> GetByFilter(TaskFilter filter)
         {
-            var messages = messageDao.GetByFilter(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+            var messages = DaoFactory.MessageDao.GetByFilter(filter, ProjectSecurity.CurrentUserAdministrator,
+                ProjectSecurity.IsPrivateDisabled);
 
-            var commentsCount = commentDao.Count(messages.Select(r => (ProjectEntity)r).ToList());
+            var commentsCount = DaoFactory.CommentDao.Count(messages.Select(r => (ProjectEntity)r).ToList());
 
             return messages.Select((message, index) =>
             {
@@ -126,17 +118,18 @@ namespace ASC.Projects.Engine
 
         public int GetByFilterCount(TaskFilter filter)
         {
-            return messageDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+            return DaoFactory.MessageDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator,
+                ProjectSecurity.IsPrivateDisabled);
         }
 
         public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter)
         {
-            return messageDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+            return DaoFactory.MessageDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
         public bool IsExists(int id)
         {
-            return messageDao.IsExists(id);
+            return DaoFactory.MessageDao.IsExists(id);
         }
 
         public bool CanRead(Message message)
@@ -148,7 +141,8 @@ namespace ASC.Projects.Engine
 
         #region Save, Delete, Attach
 
-        public Message SaveOrUpdate(Message message, bool notify, IEnumerable<Guid> participant, IEnumerable<int> fileIds = null)
+        public Message SaveOrUpdate(Message message, bool notify, IEnumerable<Guid> participant,
+            IEnumerable<int> fileIds = null)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -162,13 +156,13 @@ namespace ASC.Projects.Engine
                 if (message.CreateBy == default(Guid)) message.CreateBy = SecurityContext.CurrentAccount.ID;
                 if (message.CreateOn == default(DateTime)) message.CreateOn = TenantUtil.DateTimeNow();
 
-                ProjectSecurity.DemandCreateMessage(message.Project);
-                messageDao.Save(message);
+                ProjectSecurity.DemandCreate<Message>(message.Project);
+                DaoFactory.MessageDao.Save(message);
             }
             else
             {
                 ProjectSecurity.DemandEdit(message);
-                messageDao.Save(message);
+                DaoFactory.MessageDao.Save(message);
             }
 
             if (fileIds != null)
@@ -180,7 +174,7 @@ namespace ASC.Projects.Engine
             }
 
             if (!participant.Any())
-                participant = GetSubscribers(message).Select(r=> new Guid(r.ID)).ToList();
+                participant = GetSubscribers(message).Select(r => new Guid(r.ID)).ToList();
 
             NotifyParticipiant(message, isNew, participant, GetFiles(message), notify);
 
@@ -193,7 +187,7 @@ namespace ASC.Projects.Engine
             message.LastModifiedOn = TenantUtil.DateTimeNow();
 
             ProjectSecurity.DemandEdit(message);
-            messageDao.Save(message);
+            DaoFactory.MessageDao.Save(message);
 
             return message;
         }
@@ -205,11 +199,11 @@ namespace ASC.Projects.Engine
 
             ProjectSecurity.DemandEdit(message);
 
-            messageDao.Delete(message.ID);
+            DaoFactory.MessageDao.Delete(message.ID);
 
             var recipients = GetSubscribers(message);
 
-            if (recipients.Any() && !engineFactory.DisableNotifications)
+            if (recipients.Any() && !DisableNotifications)
             {
                 NotifyClient.Instance.SendAboutMessageDeleting(recipients, message);
             }
@@ -217,18 +211,18 @@ namespace ASC.Projects.Engine
             UnSubscribeAll(message);
         }
 
-
         #endregion
 
         #region Notify
 
-        protected void NotifyParticipiant(Message message, bool isMessageNew, IEnumerable<Guid> participant, IEnumerable<File> uploadedFiles, bool sendNotify)
+        protected void NotifyParticipiant(Message message, bool isMessageNew, IEnumerable<Guid> participant,
+            IEnumerable<File> uploadedFiles, bool sendNotify)
         {
             //Don't send anything if notifications are disabled
-            if (engineFactory.DisableNotifications) return;
+            if (DisableNotifications) return;
 
             var subscriptionRecipients = GetSubscribers(message);
-            var recipients = new HashSet<Guid>(participant) { SecurityContext.CurrentAccount.ID };
+            var recipients = new HashSet<Guid>(participant) {SecurityContext.CurrentAccount.ID};
 
             foreach (var subscriptionRecipient in subscriptionRecipients)
             {
@@ -246,7 +240,8 @@ namespace ASC.Projects.Engine
 
             if (sendNotify && recipients.Any())
             {
-                NotifyClient.Instance.SendAboutMessageAction(GetSubscribers(message), message, isMessageNew, FileEngine.GetFileListInfoHashtable(uploadedFiles));
+                NotifyClient.Instance.SendAboutMessageAction(GetSubscribers(message), message, isMessageNew,
+                    FileEngine.GetFileListInfoHashtable(uploadedFiles));
             }
         }
 

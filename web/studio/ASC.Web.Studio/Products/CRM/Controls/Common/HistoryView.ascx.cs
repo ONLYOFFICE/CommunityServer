@@ -76,21 +76,21 @@ namespace ASC.Web.CRM.Controls.Common
             switch (TargetEntityType)
             {
                 case EntityType.Contact:
-                    var contact = Global.DaoFactory.GetContactDao().GetByID(TargetContactID);
+                    var contact = DaoFactory.ContactDao.GetByID(TargetContactID);
                     if (contact.ShareType == ShareType.None)
                     {
                         users = CRMSecurity.GetAccessSubjectGuidsTo(contact);
                     }
                     break;
                 case EntityType.Opportunity:
-                    var deal = Global.DaoFactory.GetDealDao().GetByID(TargetEntityID);
+                    var deal = DaoFactory.DealDao.GetByID(TargetEntityID);
                     if (CRMSecurity.IsPrivate(deal))
                     {
                         users = CRMSecurity.GetAccessSubjectGuidsTo(deal);
                     }
                     break;
                 case EntityType.Case:
-                    var caseItem = Global.DaoFactory.GetCasesDao().GetByID(TargetEntityID);
+                    var caseItem = DaoFactory.CasesDao.GetByID(TargetEntityID);
                     if (CRMSecurity.IsPrivate(caseItem))
                     {
                         users = CRMSecurity.GetAccessSubjectGuidsTo(caseItem);

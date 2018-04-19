@@ -52,6 +52,8 @@ using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
+using ASC.Web.Projects.Core;
+using Autofac;
 using Comment = ASC.Projects.Core.Domain.Comment;
 using Project = ASC.Projects.Core.Domain.Project;
 
@@ -77,7 +79,7 @@ namespace ASC.Web.Projects.Configuration
 
             SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
 
-            var importTask = new ImportFromBasecamp(url, userName, password, SecurityContext.CurrentAccount.ID, processClosed, disableNotifications, importUsersAsCollaborators, Global.EngineFactory, projects);
+            var importTask = new ImportFromBasecamp(url, userName, password, SecurityContext.CurrentAccount.ID, processClosed, disableNotifications, importUsersAsCollaborators, projects);
 
             imports.Add(importTask);
 
@@ -239,7 +241,8 @@ namespace ASC.Web.Projects.Configuration
         private readonly bool _disableNotifications;
         private readonly bool _importUsersAsCollaborators;
         private bool _importUsersOverLimitAsCollaborators;
-        private readonly EngineFactory _engineFactory;
+        private EngineFactory _engineFactory;
+        private ILifetimeScope scope;
         public readonly int Id;
 
         private readonly ILog _log;
@@ -261,7 +264,7 @@ namespace ASC.Web.Projects.Configuration
             return Equals((ImportFromBasecamp)obj);
         }
 
-        public ImportFromBasecamp(string url, string userName, string password, Guid initiatorId, bool withClosed, bool disableNotifications, bool importUsersAsCollaborators, EngineFactory engineFactory, IEnumerable<int> projects)
+        public ImportFromBasecamp(string url, string userName, string password, Guid initiatorId, bool withClosed, bool disableNotifications, bool importUsersAsCollaborators, IEnumerable<int> projects)
         {
             _newUsersID = new List<UserIDWrapper>();
             _newProjectsID = new List<ProjectIDWrapper>();
@@ -277,8 +280,6 @@ namespace ASC.Web.Projects.Configuration
             _withClosed = withClosed;
             _disableNotifications = disableNotifications;
             _importUsersAsCollaborators = importUsersAsCollaborators;
-            _engineFactory = engineFactory;
-            _engineFactory.DisableNotifications = disableNotifications;
             StatusState.SetStatus(new ImportStatus(_url));
             Id = TenantProvider.CurrentTenantID;
             _log = LogManager.GetLogger("ASC.Project.BasecampImport");
@@ -326,6 +327,9 @@ namespace ASC.Web.Projects.Configuration
                     new HttpRequest("fake", CommonLinkUtility.GetFullAbsolutePath("/"), string.Empty),
                     new HttpResponse(new StringWriter()));
 
+                scope = DIHelper.Resolve(_disableNotifications);
+                _engineFactory = scope.Resolve<EngineFactory>();
+
                 StatusState.SetStatusStarted();
                 StatusState.StatusLogInfo(ImportResource.ImportStarted);
                 var basecampManager = BaseCamp.GetInstance(_url, _userName, _password);
@@ -348,6 +352,7 @@ namespace ASC.Web.Projects.Configuration
                     new DisposableHttpContext(HttpContext.Current).Dispose();
                     HttpContext.Current = null;
                 }
+                scope.Dispose();
             }
         }
 

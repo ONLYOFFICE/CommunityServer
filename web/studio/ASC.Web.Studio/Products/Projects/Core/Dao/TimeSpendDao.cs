@@ -27,8 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -45,7 +43,7 @@ namespace ASC.Projects.Data.DAO
             "payment_status", "status_changed" };
         private readonly Converter<object[], TimeSpend> converter;
 
-        public TimeSpendDao(string dbId, int tenantID) : base(dbId, tenantID)
+        public TimeSpendDao(int tenantID) : base(tenantID)
         {
             converter = ToTimeSpend;
         }
@@ -75,10 +73,7 @@ namespace ASC.Projects.Data.DAO
 
             query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -95,10 +90,7 @@ namespace ASC.Projects.Data.DAO
 
             var queryCount = new SqlQuery().SelectCount().From(query, "t1");
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(queryCount);
-            }
+            return Db.ExecuteScalar<int>(queryCount);
         }
 
         public float GetByFilterTotal(TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -114,10 +106,7 @@ namespace ASC.Projects.Data.DAO
 
             var queryCount = new SqlQuery().SelectSum("hours").From(query, "t1");
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<float>(queryCount);
-            }
+            return Db.ExecuteScalar<float>(queryCount);
         }
 
         private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
@@ -238,63 +227,48 @@ namespace ASC.Projects.Data.DAO
 
         public List<TimeSpend> GetByProject(int projectId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("date", false)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("date", false)).ConvertAll(converter);
         }
 
         public List<TimeSpend> GetByTask(int taskId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.relative_task_id", taskId).OrderBy("date", false)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where("t.relative_task_id", taskId).OrderBy("date", false)).ConvertAll(converter);
         }
 
         public TimeSpend GetById(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.id", id))
-                                .ConvertAll(converter)
-                                .SingleOrDefault();
-            }
+            return Db.ExecuteList(CreateQuery().Where("t.id", id))
+                            .ConvertAll(converter)
+                            .SingleOrDefault();
         }
 
         public TimeSpend Save(TimeSpend timeSpend)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                timeSpend.Date = TenantUtil.DateTimeToUtc(timeSpend.Date);
-                timeSpend.StatusChangedOn = TenantUtil.DateTimeToUtc(timeSpend.StatusChangedOn);
+            timeSpend.Date = TenantUtil.DateTimeToUtc(timeSpend.Date);
+            timeSpend.StatusChangedOn = TenantUtil.DateTimeToUtc(timeSpend.StatusChangedOn);
 
-                var insert = Insert(TimeTrackingTable)
-                    .InColumnValue("id", timeSpend.ID)
-                    .InColumnValue("note", timeSpend.Note)
-                    .InColumnValue("date", timeSpend.Date)
-                    .InColumnValue("hours", timeSpend.Hours)
-                    .InColumnValue("relative_task_id", timeSpend.Task.ID)
-                    .InColumnValue("person_id", timeSpend.Person.ToString())
-                    .InColumnValue("project_id", timeSpend.Task.Project.ID)
-                    .InColumnValue("create_on", timeSpend.CreateOn)
-                    .InColumnValue("create_by", CurrentUserID)
-                    .InColumnValue("payment_status", timeSpend.PaymentStatus)
-                    .InColumnValue("status_changed", timeSpend.StatusChangedOn)
-                    .Identity(1, 0, true);
+            var insert = Insert(TimeTrackingTable)
+                .InColumnValue("id", timeSpend.ID)
+                .InColumnValue("note", timeSpend.Note)
+                .InColumnValue("date", timeSpend.Date)
+                .InColumnValue("hours", timeSpend.Hours)
+                .InColumnValue("relative_task_id", timeSpend.Task.ID)
+                .InColumnValue("person_id", timeSpend.Person.ToString())
+                .InColumnValue("project_id", timeSpend.Task.Project.ID)
+                .InColumnValue("create_on", timeSpend.CreateOn)
+                .InColumnValue("create_by", CurrentUserID)
+                .InColumnValue("payment_status", timeSpend.PaymentStatus)
+                .InColumnValue("status_changed", timeSpend.StatusChangedOn)
+                .Identity(1, 0, true);
 
-                timeSpend.ID = db.ExecuteScalar<int>(insert);
+            timeSpend.ID = Db.ExecuteScalar<int>(insert);
 
-                return timeSpend;
-            }
+            return timeSpend;
         }
 
         public void Delete(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(Delete(TimeTrackingTable).Where("id", id));
-            }
+            Db.ExecuteNonQuery(Delete(TimeTrackingTable).Where("id", id));
         }
 
         private SqlQuery CreateQuery()

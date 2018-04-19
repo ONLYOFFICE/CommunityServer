@@ -192,7 +192,7 @@ namespace ASC.Web.Studio
                     return !CoreContext.Configuration.Standalone;
                 case ManagementType.DeletionPortal:
                     //only SaaS or Server+ControlPanel
-                    return !CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(SetupInfo.ControlPanelUrl);
+                    return !CoreContext.Configuration.Standalone || TenantExtra.Enterprise && CoreContext.TenantManager.GetTenants().Count() > 1;
                 case ManagementType.MailService:
                     //only if MailServer available
                     return SetupInfo.IsVisibleSettings("AdministrationPage");

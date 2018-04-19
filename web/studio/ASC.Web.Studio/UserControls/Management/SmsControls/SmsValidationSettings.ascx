@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SmsValidationSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.SmsValidationSettings" %>
 
+<%@ Import Namespace="ASC.Thrdparty.Configuration" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -20,37 +21,44 @@
 
         <div class="sms-validation-settings">
             <% if (SmsEnable)
-               { %>
+               {
+                   var empty = true; %>
 
-            <% if (SmsProviderManager.ClickatellProvider.Enable())
-               { %>
+            <% if (SmsProviderManager.ClickatellProvider.Enable() && KeyStorage.CanSet("clickatellapiKey"))
+               {
+                   empty = false; %>
             <p class="line-height-min"><%= string.Format(Resource.SmsBalance, "Clickatell") %>: <span class="gray-text"><%= string.Format(Resource.SmsBalanceAccount, "clickatell") %></span></p>
             <% } %>
 
-            <% if (SmsProviderManager.TwilioProvider.Enable())
-               { %>
+            <% if (SmsProviderManager.TwilioProvider.Enable() && KeyStorage.CanSet("twilioAuthToken"))
+               {
+                   empty = false; %>
             <p class="line-height-min"><%= string.Format(Resource.SmsBalance, "Twilio") %>: <span class="gray-text"><%= string.Format(Resource.SmsBalanceAccount, "twilio") %></span></p>
             <% } %>
 
-            <% if (SmsProviderManager.SmscProvider.Enable())
-               { %>
+            <% if (SmsProviderManager.SmscProvider.Enable() && KeyStorage.CanSet("smscpsw"))
+               {
+                   empty = false; %>
             <p class="line-height-min"><%= string.Format(Resource.SmsBalance, "SMSC") %>: <b><%= SmsProviderManager.SmscProvider.GetBalance() %></b></p>
             <% } %>
 
+            <% if (!empty)
+               { %>
             <br />
+            <% } %>
             <% } %>
 
             <div class="clearFix">
                 <input type="radio" id="chk2FactorAuthEnable" name="chk2FactorAuth" <%= StudioSmsNotificationSettings.Enable ? "checked=\"checked\"" : "" %>
                     <%= SmsEnable ? "" : "disabled='disabled'" %> />
                 <label for="chk2FactorAuthEnable">
-                    <%= Resource.EnableUserButton %></label>
+                    <%= Resource.ButtonSmsEnable %></label>
             </div>
             <div class="clearFix">
                 <input type="radio" id="chk2FactorAuthDisable" name="chk2FactorAuth" <%= !StudioSmsNotificationSettings.Enable ? "checked=\"checked\"" : "" %>
                     <%= SmsEnable ? "" : "disabled='disabled'" %> />
                 <label for="chk2FactorAuthDisable">
-                    <%= Resource.DisableUserButton %></label>
+                    <%= Resource.ButtonSmsDisable %></label>
             </div>
             <div class="middle-button-container">
                 <a id="chk2FactorAuthSave" class="button blue <%= SmsEnable ? "" : "disable" %> />">

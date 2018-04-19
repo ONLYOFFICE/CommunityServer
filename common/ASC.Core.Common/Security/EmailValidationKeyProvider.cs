@@ -81,9 +81,9 @@ namespace ASC.Security.Cryptography
 
         public static ValidationResult ValidateEmailKey(string email, string key, TimeSpan validInterval)
         {
-            log.DebugFormat("validating '{0}' with key:{1} interval:{2}",email,key,validInterval);
+            log.DebugFormat("validating '{0}' with key:{1} interval:{2} tenant:{3}", email, key, validInterval, CoreContext.TenantManager.GetCurrentTenant().TenantId);
             var result = ValidateEmailKeyInternal(email, key, validInterval);
-            log.DebugFormat("validation result:{3}, source: '{0}' with key:{1} interval:{2}", email, key, validInterval,result);
+            log.DebugFormat("validation result:{3}, source: '{0}' with key:{1} interval:{2}", email, key, validInterval, result);
             return result;
         }
 

@@ -34,14 +34,11 @@
     }
 
     if (typeof LoadingBanner !== 'undefined') {
-        LoadingBanner.displayMailLoading = function(withoutDelay, withBackdrop, config) {
+        LoadingBanner.displayMailLoading = function(msg) {
             if (!$('.loader-page').length) {
-                LoadingBanner.animateDelay = config && config.animateDelay || 300;
-                LoadingBanner.displayDelay = config && config.displayDelay || 2000;
-                LoadingBanner.loaderCss = config && config.loaderCss || "mail-module";
-                LoadingBanner.displayOpacity = config && config.displayOpacity || 1;
-
-                LoadingBanner.displayLoading(withoutDelay, withBackdrop);
+                LoadingBanner.strLoading = msg || ASC.Resources.Master.Resource.LoadingProcessing;
+                LoadingBanner.loaderCss = "mail-module";
+                LoadingBanner.displayLoading();
             }
         };
     }

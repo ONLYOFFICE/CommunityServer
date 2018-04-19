@@ -40,10 +40,10 @@ namespace ASC.Web.Files.Utils
     {
         public static string GetLink(File file)
         {
-            var url = file.ViewUrl;
+            var url = FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID);
 
-            if (!FileUtility.CanImageView(file.Title))
-                url = FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID);
+            if (FileUtility.CanImageView(file.Title))
+                url = file.DownloadUrl;
 
             var linkParams = CreateKey(file.ID.ToString());
             url += "&" + FilesLinkUtility.DocShareKey + "=" + HttpUtility.UrlEncode(linkParams);

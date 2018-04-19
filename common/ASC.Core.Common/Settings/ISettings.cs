@@ -67,7 +67,7 @@ namespace ASC.Core.Common.Settings
 
         public static T LoadForUser(Guid userId)
         {
-            return SettingsManagerInstance.LoadSettingsFor<T>(TenantID, CurrentUserID);
+            return SettingsManagerInstance.LoadSettingsFor<T>(TenantID, userId);
         }
 
         public static T LoadForDefaultTenant()
@@ -92,7 +92,7 @@ namespace ASC.Core.Common.Settings
 
         public bool SaveForUser(Guid userId)
         {
-            return SettingsManagerInstance.SaveSettingsFor(this, CurrentUserID);
+            return SettingsManagerInstance.SaveSettingsFor(this, userId);
         }
 
         public bool SaveForDefaultTenant()

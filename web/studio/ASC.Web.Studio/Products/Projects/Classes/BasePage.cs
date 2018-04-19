@@ -24,15 +24,15 @@
 */
 
 
+using System;
 using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using ASC.Web.Core;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Masters;
 using ASC.Web.Studio;
-using System;
-using Global = ASC.Web.Projects.Classes.Global;
+using ASC.Web.Projects.Core;
+using Autofac;
 
 namespace ASC.Web.Projects
 {
@@ -52,12 +52,15 @@ namespace ASC.Web.Projects
 
         protected virtual bool CanRead { get { return true; } }
 
+        protected ILifetimeScope Scope { get; set; }
+
         #endregion
 
         protected BasePage()
         {
+            Scope = DIHelper.Resolve();
             PreInit += PagePreInit;
-            EngineFactory = Global.EngineFactory;
+            EngineFactory = Scope.Resolve<EngineFactory>();
             RequestContext = new RequestContext(EngineFactory);
         }
 
@@ -104,6 +107,14 @@ namespace ASC.Web.Projects
         public void RedirectNotFound(string url)
         {
             Response.Redirect(url + "#elementNotFound", true);
+        }
+        protected override void OnUnload(EventArgs e)
+        {
+            if (Scope != null)
+            {
+                Scope.Dispose();
+            }
+            base.OnUnload(e);
         }
     }
 }

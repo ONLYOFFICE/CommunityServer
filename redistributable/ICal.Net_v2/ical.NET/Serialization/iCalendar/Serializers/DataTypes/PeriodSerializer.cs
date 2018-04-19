@@ -37,9 +37,12 @@ namespace Ical.Net.Serialization.iCalendar.Serializers.DataTypes
                         // Serialize the start time                    
                         sb.Append(dtSerializer.SerializeToString(p.StartTime));
 
-                        // Serialize the duration
-                        sb.Append("/");
-                        sb.Append(timeSpanSerializer.SerializeToString(p.Duration));
+                        if (!p.StartTime.HasTime)
+                        {
+                            // Serialize the duration
+                            sb.Append("/");
+                            sb.Append(timeSpanSerializer.SerializeToString(p.Duration));
+                        }
 
                         // Encode the value as necessary
                         return Encode(p, sb.ToString());

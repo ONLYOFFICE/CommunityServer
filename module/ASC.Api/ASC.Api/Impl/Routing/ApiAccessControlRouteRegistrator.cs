@@ -39,7 +39,7 @@ namespace ASC.Api.Impl.Routing
         {
             //Register 1 route
             var basePath = Config.GetBasePath();
-            var constrasints = new RouteValueDictionary {{"method", new ApiHttpMethodConstraint("OPTIONS")}};
+            var constrasints = new RouteValueDictionary { { "method", ApiHttpMethodConstraint.GetInstance("OPTIONS") } };
             routes.Add(new Route(basePath + "{*path}", null, constrasints, new ApiAccessRouteHandler()));
         }
 

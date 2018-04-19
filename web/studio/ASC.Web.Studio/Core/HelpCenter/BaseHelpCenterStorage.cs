@@ -8,9 +8,11 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using ASC.Common.Caching;
+using ASC.Common.Threading;
 using ASC.Common.Threading.Workers;
 using ASC.Web.Core.Client;
 using log4net;
@@ -29,13 +31,13 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
     class HelpDownloader
     {
-        private static readonly WorkerQueue<HelpCenterRequest> Tasks;
+        private static readonly DistributedTaskQueue Tasks;
         private static readonly object LockObj;
         private static readonly bool DownloadEnabled;
 
         static HelpDownloader()
         {
-            Tasks = new WorkerQueue<HelpCenterRequest>(1, TimeSpan.FromSeconds(60), 1, true);
+            Tasks = new DistributedTaskQueue("HelpDownloader", 1);
             LockObj = new object();
             if (!bool.TryParse(WebConfigurationManager.AppSettings["web.help-center.download"] ?? "false", out DownloadEnabled))
             {
@@ -49,14 +51,9 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
             lock (LockObj)
             {
-                if (Tasks.GetItems().Any(r => r.Url == request.Url)) return;
+                if (Tasks.GetTasks().Any(r => r.GetProperty<string>("Url") == request.Url)) return;
 
-                Tasks.Add(request);
-
-                if (!Tasks.IsStarted)
-                {
-                    Tasks.Start(r => r.SendRequest());
-                }
+                Tasks.QueueTask(request.SendRequest, request.GetDistributedTask());
             }
         }
     }
@@ -247,7 +244,25 @@ namespace ASC.Web.Studio.Core.HelpCenter
         private static bool stopRequesting;
         private static readonly ILog Log = LogManager.GetLogger("ASC.Web.HelpCenter");
 
-        internal void SendRequest()
+        protected DistributedTask TaskInfo { get; private set; }
+
+        public HelpCenterRequest()
+        {
+            TaskInfo = new DistributedTask();
+        }
+
+        public virtual DistributedTask GetDistributedTask()
+        {
+            FillDistributedTask();
+            return TaskInfo;
+        }
+
+        protected virtual void FillDistributedTask()
+        {
+            TaskInfo.SetProperty("Url", Url);
+        }
+
+        internal void SendRequest(DistributedTask task, CancellationToken token)
         {
             var result = string.Empty;
             if (stopRequesting)
@@ -276,6 +291,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                         using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
                         {
                             result = reader.ReadToEnd();
+                            break;
                         }
                     }
                     catch (WebException ex)
@@ -286,12 +302,10 @@ namespace ASC.Web.Studio.Core.HelpCenter
                         }
                     }
                 }
-
-                stopRequesting = true;
-                throw new WebException("Timeout " + maxTry, WebExceptionStatus.Timeout);
             }
             catch (Exception e)
             {
+                stopRequesting = true;
                 Log.Error(string.Format("HelpCenter is not avaliable by url {0}", Url), e);
             }
 

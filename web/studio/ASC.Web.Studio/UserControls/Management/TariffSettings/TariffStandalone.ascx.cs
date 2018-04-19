@@ -30,7 +30,6 @@ using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
-using ASC.Web.Core.Security;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -83,7 +82,7 @@ namespace ASC.Web.Studio.UserControls.Management
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             CurrentTariff = TenantExtra.GetCurrentTariff();
             CurrentQuota = TenantExtra.GetTenantQuota();
-            TenantCount = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
+            TenantCount = CoreContext.TenantManager.GetTenants().Count();
 
             Settings = AdditionalWhiteLabelSettings.Instance;
             Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);

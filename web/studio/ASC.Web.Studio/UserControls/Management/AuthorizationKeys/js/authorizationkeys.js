@@ -48,12 +48,17 @@ AuthorizationKeysManager = new function () {
         });
 
         jq(".popupContainerClass input.textEdit").keyup(function (key) {
-            if ((key.keyCode || key.which) == 13) {
-                var inputObj = jq(this);
-                var popupObj = inputObj.parents(".popupContainerClass");
-                var inputList = popupObj.find(".textEdit");
-                var saveBtn = popupObj.find(".saveButton");
+            var inputObj = jq(this);
+            var popupObj = inputObj.parents(".popupContainerClass");
+            var saveBtn = popupObj.find(".saveButton");
+            var itemName = saveBtn.attr("id").replace("saveBtn", "");
+            var inputs = jq("#popupDialog" + itemName + " .auth-service-key");
 
+            //checkParams(saveBtn, inputs); todo: need to create not required fields
+            
+            if ((key.keyCode || key.which) == 13) {
+                var inputList = popupObj.find(".textEdit");
+                
                 jq.each(inputList, function (index, obj) {
                     if (inputObj.is(obj)) {
                         if (index == inputList.length - 1) {
@@ -74,6 +79,7 @@ AuthorizationKeysManager = new function () {
 
         var keys = jq("#popupDialog" + itemName + " .auth-service-key");
         for (var i = 0; i < keys.length; i++) {
+            //if (keys[i].value == "") return; //todo: need to create not required fields
             authKeys.push({ Name: keys[i].id, Value: enable ? keys[i].value : "" });
         }
 
@@ -94,6 +100,23 @@ AuthorizationKeysManager = new function () {
         });
     };
 };
+
+function checkParams(saveBtn, keys) {
+    
+    var disabled = false;
+    for (var i = 0; i < keys.length; i++) {
+        if (keys[i].value == '') {
+           disabled = true;
+           break;
+        }
+    }
+
+    if (!disabled) {
+        saveBtn.removeClass('disabled');
+    } else {
+        saveBtn.addClass('disabled');
+    } 
+}
 
 jq(function() {
     AuthorizationKeysManager.Initialize();

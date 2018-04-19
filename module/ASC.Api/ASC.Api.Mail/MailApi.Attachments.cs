@@ -94,7 +94,7 @@ namespace ASC.Api.Mail
         [Create(@"messages/attachment/add")]
         public MailAttachment AddAttachment(int id_message, string name, Stream file, string content_type)
         {
-            var attachment = MailBoxManager.AttachFile(TenantId, Username, id_message, name, file, content_type);
+            var attachment = MailBoxManager.AttachFileToDraft(TenantId, Username, id_message, name, file, content_type);
 
             return attachment;
         }
@@ -125,7 +125,7 @@ namespace ASC.Api.Mail
                     writer.Flush();
                     ms.Position = 0;
 
-                    var attachment = MailBoxManager.AttachFile(TenantId, Username, id_message, calendar.Method.ToLowerInvariant() +  ".ics", ms, "text/calendar");
+                    var attachment = MailBoxManager.AttachFileToDraft(TenantId, Username, id_message, calendar.Method.ToLowerInvariant() +  ".ics", ms, "text/calendar");
                     return attachment;
                 }
             }

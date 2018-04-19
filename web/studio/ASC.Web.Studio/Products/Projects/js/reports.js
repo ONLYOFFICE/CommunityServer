@@ -309,7 +309,7 @@ ASC.Projects.Reports = (function () {
             basicAdvancedSelectorSettings.itemsChoose = [self.defaultFilter].concat(items);
 
             $filter.advancedSelector(basicAdvancedSelectorSettings).on("showList", function (event, item) {
-                $filter.text(item.title).attr("title", item.title);
+                $filter.html(item.title).attr("title", Encoder.htmlDecode(item.title));
 
                 if (item.id === self.defaultFilter.id) {
                     delete filter[self.filterItem.id];
@@ -766,7 +766,7 @@ ASC.Projects.Reports = (function () {
             filter.projectStatuses = jq("#cbxViewClosedProjects").is(':checked');
         }
 
-        if (filter.reportType == 6) {
+        if (filter.reportType == 6 || filter.reportType == 2) {
             filter.viewType = jq("#departmentReport").is(':checked') ? 0 : 1;
             if (filter.viewType == 0) {
                 filter.project = undefined;

@@ -57,7 +57,8 @@ namespace ASC.Api.Projects
         {
             return EngineFactory
                 .TaskEngine.GetByResponsible(CurrentUserId)
-                .Select(x => new TaskWrapper(x));
+                .Select(TaskWrapperSelector)
+                .ToList();
         }
 
         ///<summary>
@@ -74,7 +75,8 @@ namespace ASC.Api.Projects
         {
             return EngineFactory
                 .TaskEngine.GetByResponsible(CurrentUserId, status)
-                .Select(x => new TaskWrapper(x));
+                .Select(TaskWrapperSelector)
+                .ToList();
         }
 
         ///<summary>
@@ -95,19 +97,19 @@ namespace ASC.Api.Projects
             var isSubscribed = EngineFactory.TaskEngine.IsSubscribed(task);
             var milestone = EngineFactory.MilestoneEngine.GetByID(task.Milestone, false);
             var timeSpend = EngineFactory.TimeTrackingEngine.GetByTask(task.ID).Sum(r=> r.Hours);
-            var project = new ProjectWrapperFull(task.Project, EngineFactory.FileEngine.GetRoot(task.Project.ID));
-            var files = EngineFactory.TaskEngine.GetFiles(task).Select(x => new FileWrapper(x));
+            var project = ProjectWrapperFullSelector(task.Project, EngineFactory.FileEngine.GetRoot(task.Project.ID));
+            var files = EngineFactory.TaskEngine.GetFiles(task).Select(FileWrapperSelector);
             var comments = EngineFactory.CommentEngine.GetComments(task);
             var filteredComments = comments.Where(r => r.Parent.Equals(Guid.Empty)).Select(x => GetCommentInfo(comments, x, task)).ToList();
-            return new TaskWrapperFull(task, milestone, project, files, filteredComments, commentsCount, isSubscribed, timeSpend);
+            return new TaskWrapperFull(this, task, milestone, project, files, filteredComments, commentsCount, isSubscribed, timeSpend);
         }
 
         public TaskWrapper GetTask(Task task)
         {
-            if (task.Milestone == 0) return new TaskWrapper(task);
+            if (task.Milestone == 0) return TaskWrapperSelector(task);
 
             var milestone = EngineFactory.MilestoneEngine.GetByID(task.Milestone, false);
-            return new TaskWrapper(task, milestone);
+            return new TaskWrapper(this, task, milestone);
         }
 
         ///<visible>false</visible>
@@ -115,7 +117,7 @@ namespace ASC.Api.Projects
         public IEnumerable<TaskWrapper> GetTask(IEnumerable<int> taskid)
         {
             var tasks = EngineFactory.TaskEngine.GetByID(taskid.ToList()).NotFoundIfNull();
-            return tasks.Select(r => new TaskWrapper(r));
+            return tasks.Select(TaskWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -169,7 +171,9 @@ namespace ASC.Api.Projects
 
             SetTotalCount(filterResult.FilterCount.TasksTotal);
 
-            return filterResult.FilterResult.Select(r => new TaskWrapper(r));
+            ProjectSecurity.GetTaskSecurityInfo(filterResult.FilterResult);
+
+            return filterResult.FilterResult.Select(TaskWrapperSelector).ToList();
         }
 
         ///<summary>
@@ -246,7 +250,7 @@ namespace ASC.Api.Projects
 
             ProjectSecurity.DemandReadFiles(task.Project);
 
-            return taskEngine.GetFiles(task).Select(x => new FileWrapper(x));
+            return taskEngine.GetFiles(task).Select(FileWrapperSelector);
         }
 
         ///<summary>
@@ -281,7 +285,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.TaskAttachedFiles, MessageTarget.Create(task.ID), task.Project.Title, task.Title, attachments.Select(x => x.Title));
 
-            return new TaskWrapper(task);
+            return TaskWrapperSelector(task);
         }
 
         ///<summary>
@@ -309,7 +313,7 @@ namespace ASC.Api.Projects
             taskEngine.DetachFile(task, fileid);
             MessageService.Send(Request, MessageAction.TaskDetachedFile, MessageTarget.Create(task.ID), task.Project.Title, task.Title, file.Title);
 
-            return new TaskWrapper(task);
+            return TaskWrapperSelector(task);
         }
 
         ///<summary>
@@ -472,9 +476,10 @@ namespace ASC.Api.Projects
                 throw new ItemNotFoundException("Milestone not found");
             }
 
-            var team = projectEngine.GetTeam(project.ID).Select(r => r.ID).ToList();
+            var team = projectEngine.GetTeam(project.ID);
+            var teamIds = team.Select(r => r.ID).ToList();
 
-            if (responsibles.Any(responsible => !team.Contains(responsible)))
+            if (responsibles.Any(responsible => !teamIds.Contains(responsible)))
             {
                 throw new ArgumentException(@"responsibles", "responsibles");
             }
@@ -498,7 +503,7 @@ namespace ASC.Api.Projects
 
             if (copySubtasks)
             {
-                taskEngine.CopySubtasks(copyFromTask, task);
+                taskEngine.CopySubtasks(copyFromTask, task, team);
             }
 
             if (copyFiles)
@@ -619,7 +624,7 @@ namespace ASC.Api.Projects
             taskEngine.Delete(task);
             MessageService.Send(Request, MessageAction.TaskDeleted, MessageTarget.Create(task.ID), task.Project.Title, task.Title);
 
-            return new TaskWrapper(task);
+            return TaskWrapperSelector(task);
         }
 
         ///<summary>
@@ -666,7 +671,7 @@ namespace ASC.Api.Projects
         public IEnumerable<CommentWrapper> GetTaskComments(int taskid)
         {
             var task = EngineFactory.TaskEngine.GetByID(taskid).NotFoundIfNull();
-            return EngineFactory.CommentEngine.GetComments(task).Select(x => new CommentWrapper(x, task));
+            return EngineFactory.CommentEngine.GetComments(task).Select(x => new CommentWrapper(this, x, task));
         }
 
 
@@ -707,7 +712,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.TaskCommentCreated, MessageTarget.Create(comment.ID), task.Project.Title, task.Title);
 
-            return new CommentWrapper(comment, task);
+            return new CommentWrapper(this, comment, task);
         }
 
         ///<summary>
@@ -729,7 +734,7 @@ namespace ASC.Api.Projects
 
             taskEngine.SendReminder(task);
 
-            return new TaskWrapper(task);
+            return TaskWrapperSelector(task);
         }
 
         ///<summary>
@@ -753,7 +758,7 @@ namespace ASC.Api.Projects
             taskEngine.Follow(task);
             MessageService.Send(Request, MessageAction.TaskUpdatedFollowing, MessageTarget.Create(task.ID), task.Project.Title, task.Title);
 
-            return new TaskWrapper(task);
+            return TaskWrapperSelector(task);
         }
 
         ///<summary>
@@ -799,7 +804,7 @@ namespace ASC.Api.Projects
             taskEngine.AddLink(parentTask, dependentTask, linkType);
             MessageService.Send(Request, MessageAction.TasksLinked, MessageTarget.Create(new[] {parentTask.ID, dependentTask.ID}), parentTask.Project.Title, parentTask.Title, dependentTask.Title);
 
-            return new TaskWrapper(dependentTask);
+            return TaskWrapperSelector(dependentTask);
         }
 
         ///<summary>
@@ -823,7 +828,7 @@ namespace ASC.Api.Projects
             taskEngine.RemoveLink(dependentTask, parentTask);
             MessageService.Send(Request, MessageAction.TasksUnlinked, MessageTarget.Create(new[] { parentTask.ID, dependentTask.ID }), parentTask.Project.Title, parentTask.Title, dependentTask.Title);
 
-            return new TaskWrapper(dependentTask);
+            return TaskWrapperSelector(dependentTask);
         }
 
         #endregion
@@ -861,7 +866,7 @@ namespace ASC.Api.Projects
             subtask = EngineFactory.SubtaskEngine.SaveOrUpdate(subtask, task);
             MessageService.Send(Request, MessageAction.SubtaskCreated, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title);
 
-            return new SubtaskWrapper(subtask, task);
+            return new SubtaskWrapper(this, subtask, task);
         }
 
         ///<summary>
@@ -884,9 +889,11 @@ namespace ASC.Api.Projects
             var subtaskEngine = EngineFactory.SubtaskEngine;
             var subtask = subtaskEngine.GetById(subtaskid).NotFoundIfNull();
 
-            var newSubtask = subtaskEngine.Copy(subtask, task);
+            var team = EngineFactory.ProjectEngine.GetTeam(task.Project.ID);
 
-            return new SubtaskWrapper(newSubtask, task);
+            var newSubtask = subtaskEngine.Copy(subtask, task, team);
+
+            return new SubtaskWrapper(this, newSubtask, task);
         }
 
         ///<summary>
@@ -915,7 +922,7 @@ namespace ASC.Api.Projects
             EngineFactory.SubtaskEngine.SaveOrUpdate(subtask, task);
             MessageService.Send(Request, MessageAction.SubtaskUpdated, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title);
 
-            return new SubtaskWrapper(subtask, task);
+            return new SubtaskWrapper(this, subtask, task);
         }
 
         ///<summary>
@@ -937,7 +944,7 @@ namespace ASC.Api.Projects
             EngineFactory.SubtaskEngine.Delete(subtask, task);
             MessageService.Send(Request, MessageAction.SubtaskDeleted, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title);
 
-            return new SubtaskWrapper(subtask, task);
+            return new SubtaskWrapper(this, subtask, task);
         }
 
         ///<summary>
@@ -962,7 +969,7 @@ namespace ASC.Api.Projects
             EngineFactory.SubtaskEngine.ChangeStatus(task, subtask, status);
             MessageService.Send(Request, MessageAction.SubtaskUpdatedStatus, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title, LocalizedEnumConverter.ConvertToString(subtask.Status));
 
-            return new SubtaskWrapper(subtask, task);
+            return new SubtaskWrapper(this, subtask, task);
         }
 
         #endregion

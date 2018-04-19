@@ -92,24 +92,24 @@ namespace ASC.Api.CRM
             return entityType;
         }
 
-        private string GetEntityTitle(EntityType entityType, int entityId, bool checkAccess = false)
+        private string GetEntityTitle(EntityType entityType, int entityId, bool checkAccess, out DomainObject entity)
         {
             switch (entityType)
             {
                 case EntityType.Contact:
                 case EntityType.Company:
                 case EntityType.Person:
-                    var contact = DaoFactory.GetContactDao().GetByID(entityId);
-                    if (contact == null || (checkAccess &&  !CRMSecurity.CanAccessTo(contact)))
+                    var conatct = (entity = DaoFactory.ContactDao.GetByID(entityId)) as Contact;
+                    if (conatct == null || (checkAccess && !CRMSecurity.CanAccessTo(conatct)))
                         throw new ItemNotFoundException();
-                    return contact.GetTitle();
+                    return conatct.GetTitle();
                 case EntityType.Opportunity:
-                    var deal = DaoFactory.GetDealDao().GetByID(entityId);
+                    var deal = (entity = DaoFactory.DealDao.GetByID(entityId)) as Deal;
                     if (deal == null || (checkAccess && !CRMSecurity.CanAccessTo(deal)))
                         throw new ItemNotFoundException();
                     return deal.Title;
                 case EntityType.Case:
-                    var cases = DaoFactory.GetCasesDao().GetByID(entityId);
+                    var cases = (entity = DaoFactory.CasesDao.GetByID(entityId)) as Cases;
                     if (cases == null || (checkAccess && !CRMSecurity.CanAccessTo(cases)))
                         throw new ItemNotFoundException();
                     return cases.Title;

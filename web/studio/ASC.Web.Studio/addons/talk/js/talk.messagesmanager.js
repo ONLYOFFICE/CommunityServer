@@ -218,6 +218,7 @@ window.ASC.TMTalk.messagesManager = (function () {
   var loadHistory = function (iq) {
     var
       child = null,
+      isMe = false,
       childs = null,
       childsInd = 0,
       items = null,
@@ -225,6 +226,7 @@ window.ASC.TMTalk.messagesManager = (function () {
       body = '',
       date = null,
       from = '',
+      type = '',
       sender = '',
       messages = [],
       jid = iq.getAttribute('from'),
@@ -242,7 +244,8 @@ window.ASC.TMTalk.messagesManager = (function () {
     itemsInd = items.length;
     while (itemsInd--) {
       from = items[itemsInd].getAttribute('from');
-      sender = from.substring(0, from.indexOf('/')).toLowerCase();
+      type = items[itemsInd].getAttribute('type');
+      sender = type === 'groupchat' ? from.substring(from.indexOf('/') + 1, from.length) : from.substring(0, from.indexOf('/')).toLowerCase();
       sender = sender === '' ? from : sender;
       childs = items[itemsInd].childNodes;
       childsInd = childs.length;
@@ -266,13 +269,14 @@ window.ASC.TMTalk.messagesManager = (function () {
         }
       }
       date = date === null ? new Date() : date;
+      isMe = type === 'groupchat' ? ASC.TMTalk.mucManager.isMe(from) : ownjid === sender;
       messages.unshift({
         jid         : jid,
         date        : date,
         displayDate : getDisplayDate(date),
         displayName : ASC.TMTalk.contactsManager.getContactName(sender),
         body        : body,
-        isOwn       : ownjid === sender
+        isOwn       : isMe
       });
     }
 

@@ -50,7 +50,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -103,10 +103,6 @@
     <ProjectReference Include="..\..\..\common\ASC.IPSecurity\ASC.IPSecurity.csproj">
       <Project>{2FF2177F-2D1A-4396-84EB-51F14FD99385}</Project>
       <Name>ASC.IPSecurity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.SingleSignOn\ASC.SingleSignOn.csproj">
-      <Project>{ef3ae6b9-4503-42a3-88bc-c622e178a59e}</Project>
-      <Name>ASC.SingleSignOn</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>

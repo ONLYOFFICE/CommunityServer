@@ -338,15 +338,13 @@ ASC.CRM.SmtpSender = (function () {
 
                     if (response.error != null && response.error != "") {
                         ASC.CRM.SmtpSender.buildErrorList(response);
+                    }
+                    
+                    if (response.isCompleted) {
                         jq("#sendProcessPanel #abortButton").hide();
                         jq("#sendProcessPanel #okButton").show();
                     } else {
-                        if (response.isCompleted) {
-                            jq("#sendProcessPanel #abortButton").hide();
-                            jq("#sendProcessPanel #okButton").show();
-                        } else {
-                            setTimeout("ASC.CRM.SmtpSender.checkSendStatus(false)", 3000);
-                        }
+                        setTimeout("ASC.CRM.SmtpSender.checkSendStatus(false)", 3000);
                     }
                 },
                 error: function (params, errors) {

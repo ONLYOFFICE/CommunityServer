@@ -131,6 +131,12 @@ namespace Ical.Net.General
         {
             // Remove all previous values
             _values.Clear();
+
+            if (values == null)
+            {
+                return;
+            }
+
             _values.AddRange(values);
         }
 

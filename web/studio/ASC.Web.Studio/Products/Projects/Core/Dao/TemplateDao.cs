@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Common.Data;
 using ASC.Core.Tenants;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
@@ -39,8 +38,7 @@ namespace ASC.Projects.Data.DAO
         private readonly string[] templateColumns = new[] { "id", "title", "description", "create_by", "create_on" };
         private readonly Converter<object[], Template> converter;
 
-        public TemplateDao(string dbId, int tenant)
-            : base(dbId, tenant)
+        public TemplateDao(int tenant) : base(tenant)
         {
             converter = ToTemplate;
         }
@@ -49,57 +47,42 @@ namespace ASC.Projects.Data.DAO
         {
             var q = Query(TemplatesTable + " p").Select(templateColumns).OrderBy("create_on", false);
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(q).ConvertAll(converter);
-            }
+            return Db.ExecuteList(q).ConvertAll(converter);
         }
 
         public int GetCount()
         {
             var q = Query(TemplatesTable + " p").SelectCount();
 
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(q);
-            }
+            return Db.ExecuteScalar<int>(q);
         }
 
         public Template GetByID(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var query = Query(TemplatesTable + " p").Select(templateColumns).Where("p.id", id);
-                return db.ExecuteList(query).ConvertAll(converter).SingleOrDefault();
-            }
+            var query = Query(TemplatesTable + " p").Select(templateColumns).Where("p.id", id);
+            return Db.ExecuteList(query).ConvertAll(converter).SingleOrDefault();
         }
 
         public Template Save(Template template)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var insert = Insert(TemplatesTable)
-                    .InColumnValue("id", template.Id)
-                    .InColumnValue("title", template.Title)
-                    .InColumnValue("description", template.Description)
-                    .InColumnValue("create_by", template.CreateBy.ToString())
-                    .InColumnValue("create_on", TenantUtil.DateTimeToUtc(template.CreateOn))
-                    .InColumnValue("last_modified_by", template.LastModifiedBy.ToString())
-                    .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(template.LastModifiedOn))
-                    .Identity(1, 0, true);
+            var insert = Insert(TemplatesTable)
+                .InColumnValue("id", template.Id)
+                .InColumnValue("title", template.Title)
+                .InColumnValue("description", template.Description)
+                .InColumnValue("create_by", template.CreateBy.ToString())
+                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(template.CreateOn))
+                .InColumnValue("last_modified_by", template.LastModifiedBy.ToString())
+                .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(template.LastModifiedOn))
+                .Identity(1, 0, true);
 
-                template.Id = db.ExecuteScalar<int>(insert);
+            template.Id = Db.ExecuteScalar<int>(insert);
 
-                return template;
-            }
+            return template;
         }
 
         public void Delete(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(Delete(TemplatesTable).Where("id", id));
-            }
+            Db.ExecuteNonQuery(Delete(TemplatesTable).Where("id", id));
         }
 
         private static Template ToTemplate(IList<object> r)

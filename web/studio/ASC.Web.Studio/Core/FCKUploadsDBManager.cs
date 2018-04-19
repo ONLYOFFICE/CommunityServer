@@ -33,43 +33,43 @@ namespace ASC.Web.Studio.Core
 {
     class FCKUploadsDBManager
     {
-        private static readonly string _databaseID = "webstudio";
-
-        private static DbManager _dbManager
-        {
-            get
-            {
-                return DbManager.FromHttpContext(_databaseID);
-            }
-        }
+        private static readonly string _databaseID = "default";
 
         public static void SetUploadRelations(string storeDomain, string folderID, string itemID)
         {
-            _dbManager.Connection.CreateCommand(@"insert into webstudio_fckuploads (TenantID, StoreDomain, FolderID, ItemID)
+            using (var _dbManager = DbManager.FromHttpContext(_databaseID))
+            {
+                _dbManager.Connection.CreateCommand(
+                    @"insert into webstudio_fckuploads (TenantID, StoreDomain, FolderID, ItemID)
                                                       values (@tid, @sd, @fid, @iid)")
-                                                            .AddParameter("tid", TenantProvider.CurrentTenantID)
-                                                            .AddParameter("sd", storeDomain.ToLower())
-                                                            .AddParameter("fid", folderID.ToLower())
-                                                            .AddParameter("iid", itemID.ToLower()).ExecuteNonQuery();
+                    .AddParameter("tid", TenantProvider.CurrentTenantID)
+                    .AddParameter("sd", storeDomain.ToLower())
+                    .AddParameter("fid", folderID.ToLower())
+                    .AddParameter("iid", itemID.ToLower()).ExecuteNonQuery();
+            }
         }
 
         public static string GetFolderID(string storeDomain, string itemID)
-        { 
-            return _dbManager.ExecuteScalar<string>(new SqlQuery("webstudio_fckuploads").Select("FolderID" )
-                                            .Where(Exp.Eq("TenantID", TenantProvider.CurrentTenantID) &
-                                                   Exp.Eq("StoreDomain", storeDomain.ToLower()) &
-                                                   Exp.Eq("ItemID", itemID.ToLower())));
+        {
+            using (var _dbManager = DbManager.FromHttpContext(_databaseID))
+            {
+                return _dbManager.ExecuteScalar<string>(new SqlQuery("webstudio_fckuploads").Select("FolderID")
+                    .Where(Exp.Eq("TenantID", TenantProvider.CurrentTenantID) &
+                           Exp.Eq("StoreDomain", storeDomain.ToLower()) &
+                           Exp.Eq("ItemID", itemID.ToLower())));
+            }
         }
 
         public static void RemoveUploadRelation(string storeDomain, string folderID, string itemID)
-        { 
-            _dbManager.ExecuteNonQuery(new SqlDelete("webstudio_fckuploads")
-                                            .Where(Exp.Eq("TenantID", TenantProvider.CurrentTenantID) &
-                                                   Exp.Eq("StoreDomain", storeDomain.ToLower()) &
-                                                   Exp.Eq("FolderID", folderID.ToLower()) &
-                                                   Exp.Eq("ItemID", itemID.ToLower())));
+        {
+            using (var _dbManager = DbManager.FromHttpContext(_databaseID))
+            {
+                _dbManager.ExecuteNonQuery(new SqlDelete("webstudio_fckuploads")
+                    .Where(Exp.Eq("TenantID", TenantProvider.CurrentTenantID) &
+                           Exp.Eq("StoreDomain", storeDomain.ToLower()) &
+                           Exp.Eq("FolderID", folderID.ToLower()) &
+                           Exp.Eq("ItemID", itemID.ToLower())));
+            }
         }
-
-        
     }
 }

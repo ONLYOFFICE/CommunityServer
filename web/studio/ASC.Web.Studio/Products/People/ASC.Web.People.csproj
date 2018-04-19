@@ -126,6 +126,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Default\images\product_disabled_logo.png" />
+    <Content Include="App_Themes\Default\images\product_logo.png" />
+    <Content Include="App_Themes\Default\images\product_logolarge.png" />
+    <Content Include="App_Themes\Default\images\product_logomiddle.png" />
+    <Content Include="App_Themes\Default\images\product_search_icon.png" />
+    <Content Include="App_Themes\Default\imgs\angle00.png" />
+    <Content Include="App_Themes\Default\imgs\angle01.png" />
+    <Content Include="App_Themes\Default\imgs\angle02.png" />
+    <Content Include="App_Themes\Default\imgs\angle03.png" />
+    <Content Include="App_Themes\Default\imgs\angle05.png" />
+    <Content Include="App_Themes\Default\imgs\angle07.png" />
+    <Content Include="App_Themes\Default\imgs\angle08.png" />
+    <Content Include="App_Themes\Default\imgs\birthday.png" />
+    <Content Include="App_Themes\Default\imgs\btn-subtr.png" />
+    <Content Include="App_Themes\Default\imgs\delete_small.png" />
+    <Content Include="App_Themes\Default\imgs\icon-user-blocked-small.png" />
+    <Content Include="App_Themes\Default\imgs\icon-user-wait-small.png" />
+    <Content Include="App_Themes\Default\imgs\loader.gif" />
+    <Content Include="App_Themes\Default\imgs\new_field.png" />
+    <Content Include="App_Themes\Default\imgs\people_import.png" />
+    <Content Include="App_Themes\Default\imgs\reassign-sprite.png" />
+    <Content Include="App_Themes\Default\imgs\social-icons-small.png" />
+    <Content Include="App_Themes\Default\imgs\social-icons.png" />
     <Content Include="Reassigns.aspx" />
     <Content Include="js\reassigns.js" />
     <Content Include="js\departmentmanagement.js" />

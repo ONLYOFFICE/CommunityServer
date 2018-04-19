@@ -146,8 +146,6 @@ namespace ASC.Api.Employee
             ActivationStatus = userInfo.ActivationStatus;
             Terminated = (ApiDateTime)userInfo.TerminatedDate;
 
-            Department = string.Join(", ", CoreContext.UserManager.GetUserGroups(userInfo.ID).Select(d => d.Name.HtmlEncode()));
-
             WorkFrom = (ApiDateTime)userInfo.WorkFromDate;
             Email = userInfo.Email;
 
@@ -180,6 +178,11 @@ namespace ASC.Api.Employee
             if (groups.Any())
             {
                 Groups = groups;
+                Department = string.Join(", ", Groups.Select(d => d.Name.HtmlEncode()));
+            }
+            else
+            {
+                Department = "";
             }
 
             if (CheckContext(context, "avatarSmall"))
@@ -233,6 +236,24 @@ namespace ASC.Api.Employee
         {
             return context == null || context.Fields == null ||
                    (context.Fields != null && context.Fields.Contains(field));
+        }
+
+        public static EmployeeWraperFull GetFull(Guid userId)
+        {
+            try
+            {
+                return GetFull(CoreContext.UserManager.GetUsers(userId));
+
+            }
+            catch (Exception)
+            {
+                return GetFull(Core.Users.Constants.LostUser);
+            }
+        }
+
+        public static EmployeeWraperFull GetFull(UserInfo userInfo)
+        {
+            return new EmployeeWraperFull(userInfo);
         }
 
         public new static EmployeeWraperFull GetSample()

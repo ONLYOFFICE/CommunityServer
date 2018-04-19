@@ -66,9 +66,9 @@ namespace ASC.Core
         }
 
 
-        public List<Tenant> GetTenants()
+        public List<Tenant> GetTenants(bool active = true)
         {
-            return tenantService.GetTenants(default(DateTime)).ToList();
+            return tenantService.GetTenants(default(DateTime), active).ToList();
         }
 
         public Tenant GetTenant(int tenantId)

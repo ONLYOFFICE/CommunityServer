@@ -36,13 +36,16 @@ using ASC.Web.CRM.Classes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Services.NotifyService;
 using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Resources;
 using log4net;
 using ASC.Web.Core;
 using ASC.Web.CRM.Configuration;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Enums;
+using Autofac;
 
 namespace ASC.Web.CRM.HttpHandlers
 {
@@ -78,149 +81,161 @@ namespace ASC.Web.CRM.HttpHandlers
         {
             try
             {
-                _context = context;
-
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-
-                if (!CheckPermission())
+                using (var scope = DIHelper.Resolve())
                 {
-                    throw new Exception(CRMSettingResource.WebToLeadsForm_InvalidKeyException);
-                }
+                    var daoFactory = scope.Resolve<DaoFactory>();
+                    _context = context;
 
-                var productInfo = WebItemSecurity.GetSecurityInfo(ProductEntryPoint.ID.ToString());
-                if (!productInfo.Enabled)
-                {
-                    throw new Exception(CRMCommonResource.CRMProductIsDisabled);
-                }
+                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
 
-                Contact contact;
-
-                var fieldCollector = new NameValueCollection();
-
-                var addressTemplate = new JObject();
-                foreach (String addressPartName in Enum.GetNames(typeof(AddressPart)))
-                    addressTemplate.Add(addressPartName.ToLower(), "");
-                var addressTemplateStr = addressTemplate.ToString();
-
-                var isCompany = false;
-
-                var isCompanyString = GetValue("is_company");
-                var firstName = GetValue("firstName");
-                var lastName = GetValue("lastName");
-                var companyName = GetValue("companyName");
-
-                if (!String.IsNullOrEmpty(isCompanyString))
-                {
-                    if (!Boolean.TryParse(isCompanyString, out isCompany))
+                    if (!CheckPermission())
                     {
-                        throw new ArgumentException();
+                        throw new Exception(CRMSettingResource.WebToLeadsForm_InvalidKeyException);
                     }
-                }
-                else //old scheme
-                {
-                    if (!String.IsNullOrEmpty(firstName))
+
+                    var productInfo = WebItemSecurity.GetSecurityInfo(ProductEntryPoint.ID.ToString());
+                    if (!productInfo.Enabled)
                     {
-                        isCompany = false;
+                        throw new Exception(CRMCommonResource.CRMProductIsDisabled);
                     }
-                    else if (!String.IsNullOrEmpty(companyName))
+
+                    Contact contact;
+
+                    var fieldCollector = new NameValueCollection();
+
+                    var addressTemplate = new JObject();
+                    foreach (String addressPartName in Enum.GetNames(typeof(AddressPart)))
+                        addressTemplate.Add(addressPartName.ToLower(), "");
+                    var addressTemplateStr = addressTemplate.ToString();
+
+                    var isCompany = false;
+
+                    var isCompanyString = GetValue("is_company");
+                    var firstName = GetValue("firstName");
+                    var lastName = GetValue("lastName");
+                    var companyName = GetValue("companyName");
+
+                    if (!String.IsNullOrEmpty(isCompanyString))
                     {
-                        isCompany = true;
+                        if (!Boolean.TryParse(isCompanyString, out isCompany))
+                        {
+                            throw new ArgumentException();
+                        }
+                    }
+                    else //old scheme
+                    {
+                        if (!String.IsNullOrEmpty(firstName))
+                        {
+                            isCompany = false;
+                        }
+                        else if (!String.IsNullOrEmpty(companyName))
+                        {
+                            isCompany = true;
+                        }
+                        else
+                        {
+                            throw new ArgumentException();
+                        }
+                    }
+
+
+                    if (isCompany)
+                    {
+                        contact = new Company();
+
+                        ((Company) contact).CompanyName = companyName;
+
+                        fieldCollector.Add(CRMContactResource.CompanyName, companyName);
                     }
                     else
                     {
-                        throw new ArgumentException();
+                        contact = new Person();
+
+                        ((Person) contact).FirstName = firstName;
+                        ((Person) contact).LastName = lastName;
+                        ((Person) contact).JobTitle = GetValue("jobTitle");
+
+                        fieldCollector.Add(CRMContactResource.FirstName, firstName);
+                        fieldCollector.Add(CRMContactResource.LastName, lastName);
+
+                        if (!String.IsNullOrEmpty(GetValue("jobTitle")))
+                            fieldCollector.Add(CRMContactResource.JobTitle, ((Person) contact).JobTitle);
                     }
-                }
 
+                    contact.About = GetValue("about");
 
-                if (isCompany)
-                {
-                    contact = new Company();
+                    if (!String.IsNullOrEmpty(contact.About))
+                        fieldCollector.Add(CRMContactResource.About, contact.About);
 
-                    ((Company)contact).CompanyName = companyName;
-
-                    fieldCollector.Add(CRMContactResource.CompanyName, companyName);
-                }
-                else
-                {
-                    contact = new Person();
-
-                    ((Person)contact).FirstName = firstName;
-                    ((Person)contact).LastName = lastName;
-                    ((Person)contact).JobTitle = GetValue("jobTitle");
-
-                    fieldCollector.Add(CRMContactResource.FirstName, firstName);
-                    fieldCollector.Add(CRMContactResource.LastName, lastName);
-
-                    if (!String.IsNullOrEmpty(GetValue("jobTitle")))
-                        fieldCollector.Add(CRMContactResource.JobTitle, ((Person)contact).JobTitle);
-                }
-
-                contact.About = GetValue("about");
-
-                if (!String.IsNullOrEmpty(contact.About))
-                    fieldCollector.Add(CRMContactResource.About, contact.About);
-
-                if (!String.IsNullOrEmpty(GetValue("is_shared")))
-                {
-                    contact.ShareType = Convert.ToBoolean(GetValue("is_shared")) ? ShareType.ReadWrite : ShareType.None;
-                }
-                else
-                {
-                    contact.ShareType = (ShareType)(Convert.ToInt32(GetValue("share_type")));
-                }
-
-                contact.ID = Global.DaoFactory.GetContactDao().SaveContact(contact);
-
-                var messageAction = contact is Company ? MessageAction.CompanyCreatedWithWebForm : MessageAction.PersonCreatedWithWebForm;
-                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction, MessageTarget.Create(contact.ID), contact.GetTitle());
-
-                var contactInfos = new List<ContactInfo>();
-
-                foreach (var key in _context.Request.Form.AllKeys)
-                {
-                    if (key.StartsWith("customField_"))
+                    if (!String.IsNullOrEmpty(GetValue("is_shared")))
                     {
-                        var fieldID = Convert.ToInt32(key.Split(new[] {'_'})[1]);
-                        String fieldValue = GetValue(key);
-
-                        if (String.IsNullOrEmpty(fieldValue)) continue;
-
-                        var customField = Global.DaoFactory.GetCustomFieldDao().GetFieldDescription(fieldID);
-
-                        if (customField == null ||
-                            !(customField.EntityType == EntityType.Contact ||
-                              customField.EntityType == EntityType.Company && isCompany ||
-                              customField.EntityType == EntityType.Person && !isCompany)) continue;
-
-                        if (customField.FieldType == CustomFieldType.CheckBox)
-                        {
-                            fieldValue = fieldValue == "on" || fieldValue == "true" ? "true" : "false";
-                        }
-                        fieldCollector.Add(customField.Label, fieldValue);
-
-                        Global.DaoFactory.GetCustomFieldDao().SetFieldValue(isCompany ? EntityType.Company : EntityType.Person, contact.ID, fieldID, fieldValue);
+                        contact.ShareType = Convert.ToBoolean(GetValue("is_shared"))
+                            ? ShareType.ReadWrite
+                            : ShareType.None;
                     }
-                    else if (key.StartsWith("contactInfo_"))
+                    else
                     {
-                        var nameParts = key.Split(new[] {'_'}).Skip(1).ToList();
-                        var contactInfoType = (ContactInfoType)Enum.Parse(typeof(ContactInfoType), nameParts[0]);
-                        var category = Convert.ToInt32(nameParts[1]);
+                        contact.ShareType = (ShareType) (Convert.ToInt32(GetValue("share_type")));
+                    }
 
-                        bool categoryIsExists = Enum.GetValues(ContactInfo.GetCategory(contactInfoType)).Cast<object>()
-                                                    .Any(categoryEnum => (int)categoryEnum == category);
-                        if (!categoryIsExists)
-                            throw new ArgumentException(String.Format("Category for {0} not found", nameParts[0]));
+                    contact.ID = daoFactory.ContactDao.SaveContact(contact);
 
-                        if (contactInfoType == ContactInfoType.Address)
+                    var messageAction = contact is Company
+                        ? MessageAction.CompanyCreatedWithWebForm
+                        : MessageAction.PersonCreatedWithWebForm;
+                    MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, messageAction,
+                        MessageTarget.Create(contact.ID), contact.GetTitle());
+
+                    var contactInfos = new List<ContactInfo>();
+
+                    foreach (var key in _context.Request.Form.AllKeys)
+                    {
+                        if (key.StartsWith("customField_"))
                         {
-                            var addressPart = (AddressPart)Enum.Parse(typeof(AddressPart), nameParts[2]);
+                            var fieldID = Convert.ToInt32(key.Split(new[] {'_'})[1]);
+                            String fieldValue = GetValue(key);
 
-                            var findedAddress = contactInfos.Find(item => (category == item.Category) && (item.InfoType == ContactInfoType.Address));
+                            if (String.IsNullOrEmpty(fieldValue)) continue;
 
-                            if (findedAddress == null)
+                            var customField = daoFactory.CustomFieldDao.GetFieldDescription(fieldID);
+
+                            if (customField == null ||
+                                !(customField.EntityType == EntityType.Contact ||
+                                  customField.EntityType == EntityType.Company && isCompany ||
+                                  customField.EntityType == EntityType.Person && !isCompany)) continue;
+
+                            if (customField.FieldType == CustomFieldType.CheckBox)
                             {
-                                findedAddress = new ContactInfo
+                                fieldValue = fieldValue == "on" || fieldValue == "true" ? "true" : "false";
+                            }
+                            fieldCollector.Add(customField.Label, fieldValue);
+
+                            daoFactory.CustomFieldDao.SetFieldValue(isCompany ? EntityType.Company : EntityType.Person, contact.ID, fieldID, fieldValue);
+                        }
+                        else if (key.StartsWith("contactInfo_"))
+                        {
+                            var nameParts = key.Split(new[] {'_'}).Skip(1).ToList();
+                            var contactInfoType = (ContactInfoType) Enum.Parse(typeof(ContactInfoType), nameParts[0]);
+                            var category = Convert.ToInt32(nameParts[1]);
+
+                            bool categoryIsExists = Enum.GetValues(ContactInfo.GetCategory(contactInfoType))
+                                .Cast<object>()
+                                .Any(categoryEnum => (int) categoryEnum == category);
+                            if (!categoryIsExists)
+                                throw new ArgumentException(String.Format("Category for {0} not found", nameParts[0]));
+
+                            if (contactInfoType == ContactInfoType.Address)
+                            {
+                                var addressPart = (AddressPart) Enum.Parse(typeof(AddressPart), nameParts[2]);
+
+                                var findedAddress =
+                                    contactInfos.Find(
+                                        item =>
+                                            (category == item.Category) && (item.InfoType == ContactInfoType.Address));
+
+                                if (findedAddress == null)
+                                {
+                                    findedAddress = new ContactInfo
                                     {
                                         Category = category,
                                         InfoType = contactInfoType,
@@ -228,23 +243,23 @@ namespace ASC.Web.CRM.HttpHandlers
                                         ContactID = contact.ID
                                     };
 
-                                contactInfos.Add(findedAddress);
+                                    contactInfos.Add(findedAddress);
+                                }
+
+                                var addressParts = JObject.Parse(findedAddress.Data);
+
+                                addressParts[addressPart.ToString().ToLower()] = GetValue(key);
+
+                                findedAddress.Data = addressParts.ToString();
+
+                                continue;
                             }
 
-                            var addressParts = JObject.Parse(findedAddress.Data);
+                            var fieldValue = GetValue(key);
 
-                            addressParts[addressPart.ToString().ToLower()] = GetValue(key);
+                            if (String.IsNullOrEmpty(fieldValue)) continue;
 
-                            findedAddress.Data = addressParts.ToString();
-
-                            continue;
-                        }
-
-                        var fieldValue = GetValue(key);
-
-                        if (String.IsNullOrEmpty(fieldValue)) continue;
-
-                        contactInfos.Add(new ContactInfo
+                            contactInfos.Add(new ContactInfo
                             {
                                 Category = category,
                                 InfoType = contactInfoType,
@@ -252,47 +267,51 @@ namespace ASC.Web.CRM.HttpHandlers
                                 ContactID = contact.ID,
                                 IsPrimary = true
                             });
-                    }
-                    else if (String.Compare(key, "tag", true) == 0)
-                    {
-                        var tags = _context.Request.Form.GetValues("tag");
+                        }
+                        else if (String.Compare(key, "tag", true) == 0)
+                        {
+                            var tags = _context.Request.Form.GetValues("tag");
 
-                        Global.DaoFactory.GetTagDao().SetTagToEntity(EntityType.Contact, contact.ID, tags);
+                            daoFactory.TagDao.SetTagToEntity(EntityType.Contact, contact.ID, tags);
+                        }
                     }
+
+                    contactInfos.ForEach(
+                        item =>
+                            fieldCollector[item.InfoType.ToLocalizedString()] =
+                                PrepareteDataToView(item.InfoType, item.Data));
+
+                    daoFactory.ContactInfoDao.SaveList(contactInfos);
+
+                    var notifyList = GetValue("notify_list");
+
+                    if (!String.IsNullOrEmpty(notifyList))
+                        NotifyClient.Instance.SendAboutCreateNewContact(
+                            notifyList
+                                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(item => new Guid(item)).ToList(), contact.ID, contact.GetTitle(), fieldCollector);
+
+                    var managersList = GetValue("managers_list");
+                    SetPermission(contact, managersList);
+
+                    if (contact is Person && !String.IsNullOrEmpty(companyName))
+                        AssignPersonToCompany((Person)contact, companyName, managersList, daoFactory);
+
+                    if (contact is Company && !String.IsNullOrEmpty(firstName) && !String.IsNullOrEmpty(lastName))
+                        AssignCompanyToPerson((Company)contact, firstName, lastName, managersList, daoFactory);
+
+                    SecurityContext.Logout();
+
+                    var newURL = new UriBuilder(GetValue("return_url")).Uri.AbsoluteUri;
+                    context.Response.Buffer = true;
+                    context.Response.Status = "302 Object moved";
+                    context.Response.AddHeader("Location", newURL);
+                    context.Response.Write("<HTML><Head>");
+                    context.Response.Write(String.Format("<META HTTP-EQUIV=Refresh CONTENT=\"0;URL={0}\">", newURL));
+                    context.Response.Write(String.Format("<Script>window.location='{0}';</Script>", newURL));
+                    context.Response.Write("</Head>");
+                    context.Response.Write("</HTML>");
                 }
-
-                contactInfos.ForEach(item => fieldCollector[item.InfoType.ToLocalizedString()] = PrepareteDataToView(item.InfoType, item.Data));
-
-                Global.DaoFactory.GetContactInfoDao().SaveList(contactInfos);
-
-                var notifyList = GetValue("notify_list");
-
-                if (!String.IsNullOrEmpty(notifyList))
-                    NotifyClient.Instance.SendAboutCreateNewContact(
-                        notifyList
-                            .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
-                            .Select(item => new Guid(item)).ToList(), contact.ID, contact.GetTitle(), fieldCollector);
-
-                var managersList = GetValue("managers_list");
-                SetPermission(contact, managersList);
-
-                if (contact is Person && !String.IsNullOrEmpty(companyName))
-                    AssignPersonToCompany((Person)contact, companyName, managersList);
-
-                if (contact is Company && !String.IsNullOrEmpty(firstName) && !String.IsNullOrEmpty(lastName))
-                    AssignCompanyToPerson((Company)contact, firstName, lastName, managersList);
-
-                SecurityContext.Logout();
-
-                var newURL = new UriBuilder(GetValue("return_url")).Uri.AbsoluteUri;
-                context.Response.Buffer = true;
-                context.Response.Status = "302 Object moved";
-                context.Response.AddHeader("Location", newURL);
-                context.Response.Write("<HTML><Head>");
-                context.Response.Write(String.Format("<META HTTP-EQUIV=Refresh CONTENT=\"0;URL={0}\">", newURL));
-                context.Response.Write(String.Format("<Script>window.location='{0}';</Script>", newURL));
-                context.Response.Write("</Head>");
-                context.Response.Write("</HTML>");
             }
             catch(Exception error)
             {
@@ -332,7 +351,7 @@ namespace ASC.Web.CRM.HttpHandlers
             CRMSecurity.SetAccessTo(contact, selectedUsers);
         }
 
-        protected void AssignCompanyToPerson(Company company, String firstName, String lastName, String privateList)
+        protected void AssignCompanyToPerson(Company company, String firstName, String lastName, String privateList, DaoFactory daoFactory)
         {
             var person = new Person
                 {
@@ -340,16 +359,16 @@ namespace ASC.Web.CRM.HttpHandlers
                     LastName = lastName,
                     CompanyID = company.ID
                 };
-            person.ID = Global.DaoFactory.GetContactDao().SaveContact(person);
+            person.ID = daoFactory.ContactDao.SaveContact(person);
             SetPermission(person, privateList);
         }
 
 
-        protected void AssignPersonToCompany(Person person, String companyName, String privateList)
+        protected void AssignPersonToCompany(Person person, String companyName, String privateList, DaoFactory daoFactory)
         {
             Company company;
 
-            var findedCompanies = Global.DaoFactory.GetContactDao().GetContactsByName(companyName, true).ToList();
+            var findedCompanies = daoFactory.ContactDao.GetContactsByName(companyName, true).ToList();
 
             if (findedCompanies.Count == 0)
             {
@@ -358,7 +377,7 @@ namespace ASC.Web.CRM.HttpHandlers
                         CompanyName = companyName
                     };
 
-                company.ID = Global.DaoFactory.GetContactDao().SaveContact(company);
+                company.ID = daoFactory.ContactDao.SaveContact(company);
 
                 SetPermission(company, privateList);
             }
@@ -367,7 +386,7 @@ namespace ASC.Web.CRM.HttpHandlers
                 company = (Company)findedCompanies[0];
             }
 
-            Global.DaoFactory.GetContactDao().AddMember(person.ID, company.ID);
+            daoFactory.ContactDao.AddMember(person.ID, company.ID);
         }
     }
 }

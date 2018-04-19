@@ -450,7 +450,7 @@ namespace ASC.Mail.Aggregator.Common
                 .AddUrlSegment("entityId", entity.Id.ToString())
                 .AddParameter("storeOriginalFileFlag", false);
 
-            request.AddFile(filename, fileStream.CopyTo, filename, contentType);
+            request.AddFile(filename, fileStream.CopyTo, filename, fileStream.Length, contentType);
 
             var response = Execute(request);
 
@@ -476,7 +476,7 @@ namespace ASC.Mail.Aggregator.Common
                    .AddParameter("createNewIfExist", createNewIfExist)
                    .AddParameter("storeOriginalFileFlag", true);
 
-            request.AddFile(filename, fileStream.CopyTo, filename, contentType);
+            request.AddFile(filename, fileStream.CopyTo, filename, fileStream.Length, contentType);
 
             var response = Execute(request);
 
@@ -530,7 +530,7 @@ namespace ASC.Mail.Aggregator.Common
 
             request.AddParameter("calendarId", calendarId);
 
-            request.AddFile(filename, fileStream.CopyTo, filename, contentType);
+            request.AddFile(filename, fileStream.CopyTo, filename, fileStream.Length, contentType);
 
             var response = Execute(request);
 

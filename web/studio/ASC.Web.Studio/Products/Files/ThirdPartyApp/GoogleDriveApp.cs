@@ -152,7 +152,11 @@ namespace ASC.Web.Files.ThirdPartyApp
             if (file == null) return string.Empty;
 
             var fileId = ThirdPartySelector.GetFileId(file.ID.ToString());
+            return GetFileStreamUrl(fileId);
+        }
 
+        private static string GetFileStreamUrl(string fileId)
+        {
             Global.Logger.Debug("GoogleDriveApp: get file stream url " + fileId);
 
             var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(ThirdPartyAppHandler.HandlerPath));
@@ -193,20 +197,15 @@ namespace ASC.Web.Files.ThirdPartyApp
             {
                 try
                 {
-                    var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl ?? Guid.NewGuid().ToString());
                     if (stream != null)
                     {
-                        using (var tmpStream = new MemoryStream())
-                        {
-                            stream.CopyTo(tmpStream);
-
-                            Global.Logger.Debug("GoogleDriveApp: GetExternalUri format: " + fileType);
-                            downloadUrl = DocumentServiceConnector.GetExternalUri(tmpStream, fileType, key);
-                        }
+                        downloadUrl = PathProvider.GetTempUrl(stream, fileType);
+                        downloadUrl = DocumentServiceConnector.ReplaceCommunityAdress(downloadUrl);
                     }
 
                     Global.Logger.Debug("GoogleDriveApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
 
+                    var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
                     DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, false, out downloadUrl);
                     stream = null;
                 }
@@ -272,7 +271,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 Global.Logger.Error("GoogleDriveApp: Error save file stream", e);
                 request.Abort();
                 var httpResponse = (HttpWebResponse) e.Response;
-                if (httpResponse.StatusCode == HttpStatusCode.Forbidden)
+                if (httpResponse.StatusCode == HttpStatusCode.Forbidden || httpResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException, e);
                 }
@@ -713,7 +712,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 request.Abort();
 
                 var httpResponse = (HttpWebResponse)e.Response;
-                if (httpResponse.StatusCode == HttpStatusCode.Forbidden)
+                if (httpResponse.StatusCode == HttpStatusCode.Forbidden || httpResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException, e);
                 }
@@ -721,36 +720,11 @@ namespace ASC.Web.Files.ThirdPartyApp
             return null;
         }
 
-        private static string ConvertFile(string downloadUrl, string fromExt, Token token)
+        private static string ConvertFile(string fileId, string fromExt)
         {
             Global.Logger.Debug("GoogleDriveApp: convert file");
 
-            if (string.IsNullOrEmpty(downloadUrl))
-            {
-                Global.Logger.Error("GoogleDriveApp: downloadUrl is null");
-                throw new Exception("downloadUrl is null");
-            }
-
-            var request = (HttpWebRequest)WebRequest.Create(downloadUrl);
-            request.Method = "GET";
-            request.Headers.Add("Authorization", "Bearer " + token);
-
-            try
-            {
-                using (var response = request.GetResponse())
-                using (var fileStream = new ResponseStream(response))
-                {
-                    Global.Logger.Debug("GoogleDriveApp: GetExternalUri - " + downloadUrl);
-
-                    var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                    downloadUrl = DocumentServiceConnector.GetExternalUri(fileStream, response.ContentType, key);
-                }
-            }
-            catch (WebException e)
-            {
-                Global.Logger.Error("GoogleDriveApp: Error GetExternalUri", e);
-                request.Abort();
-            }
+            var downloadUrl = GetFileStreamUrl(fileId);
 
             var toExt = FileUtility.GetInternalExtension(fromExt);
             try
@@ -809,13 +783,17 @@ namespace ASC.Web.Files.ThirdPartyApp
                 {
                     Global.Logger.Error("GoogleDriveApp: Error download exportLink", e);
                     request.Abort();
+
+                    var httpResponse = (HttpWebResponse)e.Response;
+                    if (httpResponse.StatusCode == HttpStatusCode.Forbidden || httpResponse.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException, e);
+                    }
                 }
             }
             else
             {
-                var downloadUrl = GoogleLoginProvider.GoogleUrlFile + fileId + "?alt=media";
-
-                var convertedUrl = ConvertFile(downloadUrl, ext, token);
+                var convertedUrl = ConvertFile(fileId, ext);
 
                 if (string.IsNullOrEmpty(convertedUrl))
                 {

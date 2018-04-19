@@ -39,35 +39,39 @@ namespace ASC.Projects.Engine
 {
     public class ReportEngine
     {
-        private readonly IReportDao reportDao;
-        private readonly EngineFactory factory;
+        public IDaoFactory DaoFactory { get; set; }
+        public ProjectEngine ProjectEngine { get; set; }
+        public TaskEngine TaskEngine { get; set; }
+        public MilestoneEngine MilestoneEngine { get; set; }
+        public MessageEngine MessageEngine { get; set; }
 
-        public ReportEngine(IDaoFactory daoFactory, EngineFactory factory)
+        public ReportEngine(EngineFactory factory)
         {
-            reportDao = daoFactory.GetReportDao();
-            this.factory = factory;
+            ProjectEngine = factory.ProjectEngine;
+            TaskEngine = factory.TaskEngine;
+            MilestoneEngine = factory.MilestoneEngine;
+            MessageEngine = factory.MessageEngine;
         }
-
 
         public List<ReportTemplate> GetTemplates(Guid userId)
         {
             if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
-            return reportDao.GetTemplates(userId);
+            return DaoFactory.ReportDao.GetTemplates(userId);
         }
 
         public List<ReportTemplate> GetAutoTemplates()
         {
             if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
-            return reportDao.GetAutoTemplates();
+            return DaoFactory.ReportDao.GetAutoTemplates();
         }
 
         public ReportTemplate GetTemplate(int id)
         {
             if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
-            return reportDao.GetTemplate(id);
+            return DaoFactory.ReportDao.GetTemplate(id);
         }
 
         public ReportTemplate SaveTemplate(ReportTemplate template)
@@ -78,14 +82,14 @@ namespace ASC.Projects.Engine
 
             if (template.CreateOn == default(DateTime)) template.CreateOn = TenantUtil.DateTimeNow();
             if (template.CreateBy.Equals(Guid.Empty)) template.CreateBy = SecurityContext.CurrentAccount.ID;
-            return reportDao.SaveTemplate(template);
+            return DaoFactory.ReportDao.SaveTemplate(template);
         }
 
         public void DeleteTemplate(int id)
         {
             if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
-            reportDao.DeleteTemplate(id);
+            DaoFactory.ReportDao.DeleteTemplate(id);
         }
 
 
@@ -101,14 +105,14 @@ namespace ASC.Projects.Engine
             }
             else if (filter.HasProjectIds)
             {
-                users.AddRange(factory.ProjectEngine.GetTeam(filter.ProjectIds).Select(r => r.ID).Distinct());
+                users.AddRange(ProjectEngine.GetTeam(filter.ProjectIds).Select(r => r.ID).Distinct());
             }
             else if (!filter.HasProjectIds)
             {
-                users.AddRange(factory.ProjectEngine.GetTeam(factory.ProjectEngine.GetAll().Select(r => r.ID).ToList()).Select(r => r.ID).Distinct());
+                users.AddRange(ProjectEngine.GetTeam(ProjectEngine.GetAll().Select(r => r.ID).ToList()).Select(r => r.ID).Distinct());
             }
 
-            var data = factory.TaskEngine.GetByFilterCountForStatistic(filter);
+            var data = TaskEngine.GetByFilterCountForStatistic(filter);
 
             foreach (var row in data)
             {
@@ -128,7 +132,7 @@ namespace ASC.Projects.Engine
 
         public IList<object[]> BuildUsersWorkload(TaskFilter filter)
         {
-            return factory.TaskEngine.GetByFilterCountForStatistic(filter).Select(r=> new object[]
+            return TaskEngine.GetByFilterCountForStatistic(filter).Select(r=> new object[]
             {
                 r.UserId, 0, r.TasksOpen, r.TasksClosed
             }).ToList();
@@ -137,9 +141,9 @@ namespace ASC.Projects.Engine
         public IList<object[]> BuildUsersActivityReport(TaskFilter filter)
         {
             var result = new List<object[]>();
-            var tasks = factory.TaskEngine.GetByFilterCountForReport(filter);
-            var milestones = factory.MilestoneEngine.GetByFilterCountForReport(filter);
-            var messages = factory.MessageEngine.GetByFilterCountForReport(filter);
+            var tasks = TaskEngine.GetByFilterCountForReport(filter);
+            var milestones = MilestoneEngine.GetByFilterCountForReport(filter);
+            var messages = MessageEngine.GetByFilterCountForReport(filter);
 
             var userIds = tasks.Select(r => r.Key).ToList();
             userIds.AddRange(milestones.Select(r => r.Key).ToList());

@@ -114,7 +114,7 @@ namespace ASC.CRM.Core.Entities
         public int Percentage { get; set; }
         public bool IsCompleted { get; set; }
         public string ErrorText { get; set; }
-        public DocumentService.DocbuilderResponse Response { get; set; }
+        public string BuilderKey { get; set; }
         public string FileName { get; set; }
         public int FileId { get; set; }
     }

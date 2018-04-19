@@ -3868,6 +3868,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User data for {0} has been deleted.
+        /// </summary>
+        public static string UserDataRemoving {
+            get {
+                return ResourceManager.GetString("UserDataRemoving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Deleted: {0}.
         /// </summary>
         public static string UserDeleted {

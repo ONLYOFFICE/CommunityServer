@@ -123,7 +123,7 @@ namespace ASC.Api.Impl
             return null;
         }
 
-        private string GetRequestValue(string key)
+        public string GetRequestValue(string key)
         {
             var reqArray = GetRequestArray(key);
             return reqArray != null ? reqArray.FirstOrDefault() : null;

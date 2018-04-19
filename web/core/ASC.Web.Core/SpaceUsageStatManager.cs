@@ -24,6 +24,7 @@
 */
 
 
+using System;
 
 namespace ASC.Web.Core
 {
@@ -34,9 +35,15 @@ namespace ASC.Web.Core
             public string Name { get; set; }
             public string Url { get; set; }
             public string ImgUrl { get; set; }
+            public bool Disabled { get; set; }
             public long SpaceUsage { get; set; }
         }
 
         public abstract System.Collections.Generic.List<UsageSpaceStatItem> GetStatData();
+    }
+
+    public interface IUserSpaceUsage
+    {
+        long GetUserSpaceUsage(Guid userId);
     }
 }

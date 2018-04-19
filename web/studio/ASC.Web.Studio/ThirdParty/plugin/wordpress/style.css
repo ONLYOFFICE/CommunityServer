@@ -1,0 +1,96 @@
+﻿body {
+    margin: 0;
+}
+
+#main-container{
+    position: relative; 
+    height: calc(100% - 100px); 
+    overflow: hidden;
+    margin: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+} 
+
+#main-container #publish-form .blog{
+    max-width: 255px;
+    height: 30px;
+}
+#main-container #publish-form .publish{
+    margin-top: 20px; 
+    max-width: 300px;   
+}
+#main-container #publish-form .publish label{
+    display: block;
+}
+#main-container #publish-form .publish #title{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: calc(100% - 5px);
+    max-width: 250px;
+}
+
+#main-container #authorization-form button#sent-auth{
+    margin-top: 15px;
+}
+#main-container #publish-form .publish button#publish {
+    margin-right: 6px;
+}
+#main-container #publish-form .publish button#draft,
+#main-container #publish-form .publish button#publish,
+#main-container #authorization-form button#sent-auth{
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    color: #444444;
+    font-size: 11px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 22px;
+    cursor: pointer;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+#main-container #publish-form .publish button#draft:hover,
+#main-container #publish-form .publish button#publish:hover,
+#main-container #authorization-form button#sent-auth:hover{
+    background-color: #d8dadc;
+}
+#main-container #publish-form .publish button#draft:active,
+#main-container #publish-form .publish button#publish:active,
+#main-container #authorization-form button#sent-auth:active{
+    background-color: #7d858c !important;
+    color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#main-container.unauthorized #authorization-form,
+#main-container.authorized #publish-form{
+    display: block;
+}
+#main-container.authorized .wait,
+#main-container.unauthorized .wait,
+#publish-form, 
+#authorization-form{
+    display: none;
+}
+#main-container #publish-form div.blog p.blog-url{
+    display: inline-block;
+    width: calc(100% - 20px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#main-container #publish-form div.blog p.username {
+    margin: 0;
+    color: #999;
+}
+#main-container #publish-form div.blog div.update-blog{
+    width: 15px;
+    height: 15px;
+    background: url(trash.png) no-repeat 0 0;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}

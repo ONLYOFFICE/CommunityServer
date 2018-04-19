@@ -58,6 +58,7 @@ window.ASC.Files.Actions = (function () {
                     if (jq("#filesGetLink").is(":visible")) {
                         var url = ASC.Files.Actions.currentEntryData.entryObject.find(".entry-title .name a").prop("href");
 
+                        ASC.Files.Actions.clipGetLink = ASC.Clipboard.destroy(ASC.Files.Actions.clipGetLink);
                         ASC.Files.Actions.clipGetLink = ASC.Clipboard.create(url, "filesGetLink", {
                             onComplete: function () {
                                 ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.Resource.LinkCopySuccess);
@@ -106,6 +107,7 @@ window.ASC.Files.Actions = (function () {
                     if (jq("#foldersGetLink").is(":visible")) {
                         var url = ASC.Files.Actions.currentEntryData.entryObject.find(".entry-title .name a").prop("href");
 
+                        ASC.Files.Actions.clipGetLink = ASC.Clipboard.destroy(ASC.Files.Actions.clipGetLink);
                         ASC.Files.Actions.clipGetLink = ASC.Clipboard.create(url, "foldersGetLink", {
                             onComplete: function () {
                                 ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.Resource.LinkCopySuccess);
@@ -307,7 +309,6 @@ window.ASC.Files.Actions = (function () {
             var editingFile = ASC.Files.UI.editingFile(entryObj);
             if (editingFile) {
                 jq("#filesCompleteVersion,\
-                    #filesVersions,\
                     #filesMoveto,\
                     #filesRemove").hide().addClass("display-none");
 
@@ -459,6 +460,11 @@ window.ASC.Files.Actions = (function () {
                     jq("#foldersRemoveThirdparty,\
                         #foldersChangeThirdparty").hide().addClass("display-none");
                 } else {
+                    if (ASC.Desktop) {
+                        jq("#foldersRemoveThirdparty,\
+                        #foldersChangeThirdparty").hide().addClass("display-none");
+                    }
+
                     if (entryData.create_by_id != Teamlab.profile.id) {
                         jq("#foldersChangeThirdparty").hide().addClass("display-none");
                     }
@@ -569,16 +575,16 @@ window.ASC.Files.Actions = (function () {
             if (fileIdLocal) {
                 ASC.Files.UI.lockEditFileById(fileIdLocal, true);
                 ASC.Files.UI.checkEditing();
+                ASC.Files.Socket.subscribeChangeEditors(fileIdLocal);
             }
         };
 
         if (winEditor == undefined) {
 
-            clearTimeout(ASC.Files.UI.timeCheckEditing);
-            ASC.Files.UI.timeCheckEditing = setTimeout(function () {
-                ASC.Files.UI.lockEditFile(fileObj, true);
-                ASC.Files.UI.checkEditing();
-            }, 5000);
+            ASC.Files.UI.lockEditFile(fileObj, true);
+            ASC.Files.Socket.subscribeChangeEditors(fileId);
+
+            ASC.Files.UI.checkEditingDefer();
 
         } else {
 
@@ -658,6 +664,8 @@ window.ASC.Files.Actions = (function () {
         }
 
         jq.dropdownToggle().toggle(".menuActionSelectAll", "treeViewPanelSelector");
+
+        jq("#treeViewPanelSelector").scrollTo(jq("#treeViewPanelSelector").find(".tree-node" + ASC.Files.UI.getSelectorId(ASC.Files.Folders.currentFolder.id)));
 
         jq("body").bind("click", ASC.Files.Actions.registerHideTree);
     };

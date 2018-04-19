@@ -165,12 +165,6 @@ namespace ASC.Core.Tenants
             set { SetFeature("sso", value); }
         }
 
-        public bool Voip
-        {
-            get { return GetFeature("voip"); }
-            set { SetFeature("voip", value); }
-        }
-
 
         public bool WhiteLabel
         {

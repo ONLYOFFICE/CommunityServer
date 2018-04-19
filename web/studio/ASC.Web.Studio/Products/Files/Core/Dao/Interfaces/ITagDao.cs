@@ -31,25 +31,31 @@ namespace ASC.Files.Core
 {
     public interface ITagDao : IDisposable
     {
-        IEnumerable<Tag> GetTags(TagType tagType, params FileEntry[] fileEntries);
+        IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries);
 
         IEnumerable<Tag> GetTags(Guid owner, TagType tagType);
 
         IEnumerable<Tag> GetTags(string name, TagType tagType);
 
-        IEnumerable<Tag> GetTags(String[] names, TagType tagType);
+        IEnumerable<Tag> GetTags(string[] names, TagType tagType);
 
         IEnumerable<Tag> GetNewTags(Guid subject, Folder parentFolder, bool deepSearch);
 
-        IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries);
+        IEnumerable<Tag> GetNewTags(Guid subject, IEnumerable<FileEntry> fileEntries);
 
-        IEnumerable<Tag> SaveTags(params Tag[] tag);
+        IEnumerable<Tag> GetNewTags(Guid subject, FileEntry fileEntry);
 
-        void UpdateNewTags(params Tag[] tag);
+        IEnumerable<Tag> SaveTags(IEnumerable<Tag> tag);
 
-        void RemoveTags(params Tag[] tag);
+        IEnumerable<Tag> SaveTags(Tag tag);
 
-        void RemoveTags(params int[] tagIds);
+        void UpdateNewTags(IEnumerable<Tag> tag);
+
+        void UpdateNewTags(Tag tag);
+
+        void RemoveTags(IEnumerable<Tag> tag);
+
+        void RemoveTags(Tag tag);
 
         IEnumerable<Tag> GetTags(object entryID, FileEntryType entryType, TagType tagType);
     }

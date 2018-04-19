@@ -86,6 +86,13 @@ namespace Ical.Net.Utility
             return dt;
         }
 
+        public static int WeekOfMonth(DateTime d)
+        {
+            var isExact = (d.Day % 7 == 0);
+            var offset = isExact ? 0 : 1;
+            return (int)Math.Floor(d.Day / 7.0) + offset;
+        }
+
         public static DateTime FirstDayOfWeek(DateTime dt, DayOfWeek firstDayOfWeek, out int offset)
         {
             offset = 0;

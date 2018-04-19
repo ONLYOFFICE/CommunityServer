@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using ASC.Common.Threading.Progress;
+using ASC.Core.Users;
 
 namespace ASC.Data.Reassigns
 {
@@ -52,11 +55,11 @@ namespace ASC.Data.Reassigns
             }
         }
 
-        public static RemoveProgressItem StartRemove(int tenantId, Guid userId, Guid currentUserId)
+        public static RemoveProgressItem StartRemove(HttpContext context, int tenantId, UserInfo user, Guid currentUserId)
         {
             lock (Queue.SynchRoot)
             {
-                var task = GetProgressItemStatus(tenantId, userId, typeof(RemoveProgressItem)) as RemoveProgressItem;
+                var task = GetProgressItemStatus(tenantId, user.ID, typeof(RemoveProgressItem)) as RemoveProgressItem;
 
                 if (task != null && task.IsCompleted)
                 {
@@ -66,7 +69,7 @@ namespace ASC.Data.Reassigns
 
                 if (task == null)
                 {
-                    task = new RemoveProgressItem(tenantId, userId, currentUserId);
+                    task = new RemoveProgressItem(context, tenantId, user, currentUserId);
                     Queue.Add(task);
                 }
 
@@ -75,6 +78,13 @@ namespace ASC.Data.Reassigns
 
                 return task;
             }
+        }
+
+        public static Dictionary<string, string> GetHttpHeaders(HttpRequest httpRequest)
+        {
+            return httpRequest == null
+                       ? null
+                       : httpRequest.Headers.AllKeys.ToDictionary(key => key, key => httpRequest.Headers[key]);
         }
     }
 }

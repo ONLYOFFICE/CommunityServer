@@ -507,7 +507,7 @@ header menu elements for group operations
         Delete Profile Page
 *******************************************************************************/
 
-#reassignActionContainer {
+.action-container  {
     margin-top: 24px;
 
     .user-selector-container {
@@ -550,10 +550,61 @@ header menu elements for group operations
           padding-right: 6px;
         }
     }
+
+    .warning-header {
+        margin: 20px 0;
+        font-size: 18px;
+    }
 }
 
-#reassignProgressContainer {
+.progress-container {
     margin-top: 24px;
+
+    .progress-block {
+        margin-top: 32px;
+
+        .progress-row {
+            padding: 0;
+            margin: 0 0 8px 0;
+
+            .progress-title {
+                float: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 120px;
+            }
+
+            .progress-desc {
+                float: left;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 560px;
+
+                div {
+                    line-height: 16px;
+                    padding-left: 22px;
+                }
+
+                .started {
+                    background: url("../imgs/loader.gif") no-repeat 0 0 transparent;
+                }
+
+                .finished {
+                    background: url("../imgs/reassign-sprite.png") no-repeat 0px -16px transparent;
+                }
+
+                .aborted {
+                    background: url("../imgs/reassign-sprite.png") no-repeat 0px -32px transparent;
+                }
+
+                .error {
+                    background: url("../imgs/reassign-sprite.png") no-repeat 0px 0px transparent;
+                }
+            }
+        }
+    }
 }
 
 #confirmInput {

@@ -54,5 +54,7 @@ namespace ASC.MessagingSystem
         public IList<string> Description { get; set; }
 
         public MessageTarget Target { get; set; }
+
+        public string UAHeader { get; set; }
     }
 }

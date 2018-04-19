@@ -863,7 +863,7 @@ ASC.EmailOperationManager = (function () {
                 jq.unblockUI();
                 toastr.success(response.value);
                 if (reload)
-                    setTimeout(function () { document.location.reload(true); }, 3000);
+                    document.location.reload(true);
             }
         });
     };
@@ -1009,10 +1009,7 @@ ASC.EmailOperationManager = (function () {
  * LoadingBanner
  */
 LoadingBanner = function () {
-    var animateDelay = 2000,
-        displayDelay = 500,
-        displayOpacity = 1,
-        loaderCss = "",
+    var loaderCss = "",
         loaderId = "loadingBanner",
         strLoading = "Loading...",
         strDescription = "Please wait...",
@@ -1030,9 +1027,6 @@ LoadingBanner = function () {
     };
 
     return {
-        animateDelay: animateDelay,
-        displayDelay: displayDelay,
-        displayOpacity: displayOpacity,
         loaderCss: loaderCss,
         loaderId: loaderId,
         strLoading: strLoading,
@@ -1040,7 +1034,7 @@ LoadingBanner = function () {
         successId : successId,
         strSuccess: strSuccess,
 
-        displayLoading: function (withoutDelay, withBackdrop) {
+        displayLoading: function () {
             var id = "#" + LoadingBanner.loaderId;
 
             if (jq(id).length != 0)
@@ -1049,19 +1043,10 @@ LoadingBanner = function () {
             var innerHtml = '<div id="{0}" class="loadingBanner {1}"><div class="loader-block">{2}<div>{3}</div></div></div>'
                 .format(LoadingBanner.loaderId, LoadingBanner.loaderCss, LoadingBanner.strLoading, LoadingBanner.strDescription);
 
-            if (withBackdrop)
-                jq("body").append('<div class="loadingBannerBackDrop"></div>');
-
             jq("body").append(innerHtml).addClass("loading");
 
             if (jq.browser.mobile)
                 jq(id).css("top", jq(window).scrollTop() + "px");
-
-            if (withoutDelay) return;
-
-            jq(id).animate({ opacity: 0 }, LoadingBanner.displayDelay, function() {
-                jq(id).animate({ opacity: LoadingBanner.displayOpacity }, LoadingBanner.animateDelay);
-            });
         },
 
         hideLoading: function () {
@@ -1468,12 +1453,15 @@ less = {}; less.env = 'development';
  */
 window.UserManager = new function() {
     var users = null;
+    var usersCache = [];
+    var personCache = [];
 
     function init() {
         if (users != null)
             return;
 
-        users = [].concat(ASC.Resources.Master.ApiResponses_ActiveProfiles.response, ASC.Resources.Master.ApiResponses_DisabledProfiles.response);
+        var master = ASC.Resources.Master;
+        users = [].concat(master.ApiResponses_ActiveProfiles.response, master.ApiResponses_DisabledProfiles.response);
     }
 
     function getAllUsers() {
@@ -1485,15 +1473,40 @@ window.UserManager = new function() {
         if (!userId)
             return null;
 
+        if (usersCache[userId]) return usersCache[userId];
+
         init();
 
-        for (var i = 0; i < users.length; i++)
-            if (users[i].id == userId)
-                return users[i];
+        for (var i = 0, j = users.length; i < j; i++) {
+            var usersItem = users[i];
+            if (usersItem.id === userId) {
+                usersCache[userId] = usersItem;
+                return usersItem;
+            }
+        }
 
         return null;
     }
     
+    function getPerson(id, personConstructor) {
+        if (!id)
+            return null;
+
+        var result = personCache[id];
+
+        if (result) return result;
+
+        var user = getUser(id);
+        if (!user) {
+            user = getRemovedProfile();
+        }
+
+        result = personConstructor(user);
+        personCache[id] = result;
+
+        return result;
+    }
+
     function getUsers(ids) {
         if (!ids || !ids.length)
             return [];
@@ -1516,6 +1529,7 @@ window.UserManager = new function() {
     return {
         getAllUsers: getAllUsers,
         getUser: getUser,
+        getPerson: getPerson,
         getUsers: getUsers,
         getRemovedProfile: getRemovedProfile
     };

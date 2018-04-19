@@ -177,6 +177,14 @@ namespace ASC.Files.Thirdparty.Dropbox
             if (dropboxFile is ErrorFile) throw new Exception(((ErrorFile)dropboxFile).Error);
 
             var fileStream = DropboxProviderInfo.Storage.DownloadStream(MakeDropboxPath(dropboxFile));
+            if (fileStream != null)
+            {
+                if (fileStream.CanSeek)
+                    file.ContentLength = fileStream.Length; // hack for google drive
+
+                if (fileStream.CanSeek && offset > 0)
+                    fileStream.Seek(offset, SeekOrigin.Begin);
+            }
 
             return fileStream;
         }
@@ -439,6 +447,10 @@ namespace ASC.Files.Thirdparty.Dropbox
 
 
         #region Only in TMFileDao
+
+        public void ReassignFiles(object[] fileIds, Guid newOwnerId)
+        {
+        }
 
         public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
         {

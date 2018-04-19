@@ -56,6 +56,8 @@ namespace ASC.Api.Impl
             context.Response.Buffer = true;
             context.Response.BufferOutput = true;
 
+            IApiEntryPoint instance = null;
+
             try
             {
                 Log.Debug("method invoke");
@@ -64,21 +66,19 @@ namespace ASC.Api.Impl
 
                 if (Method != null)
                 {
-                    object instance;
-
                     if (!string.IsNullOrEmpty(Method.Name))
                     {
-                        instance = Container.ResolveNamed(Method.Name, typeof(IApiEntryPoint), new TypedParameter(typeof(ApiContext), ApiContext));
+                        instance = Container.ResolveNamed<IApiEntryPoint>(Method.Name, new TypedParameter(typeof(ApiContext), ApiContext));
                     }
                     else
                     {
-                        instance = Container.Resolve(typeof(IApiEntryPoint));
+                        instance = Container.Resolve<IApiEntryPoint>();
                     }
 
                     var responce = ApiManager.InvokeMethod(Method, ApiContext, instance);
                     if (responce is Exception)
                     {
-                        SetError(context, (Exception)responce, HttpStatusCode.InternalServerError);
+                        SetError(context, (Exception) responce, HttpStatusCode.InternalServerError);
                     }
                     else
                     {

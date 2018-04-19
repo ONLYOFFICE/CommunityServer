@@ -49,6 +49,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="BasecampRestAPI">
       <HintPath>..\..\..\..\..\packages\BasecampRestAPI.1.0.0.1\lib\net45\BasecampRestAPI.dll</HintPath>
       <Private>True</Private>
@@ -61,7 +64,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
@@ -106,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\NotifyHelper.cs" />
+    <Compile Include="Classes\ProjectSecurityInfo.cs" />
     <Compile Include="Classes\ResultsView.cs" />
     <Compile Include="Classes\ReportHelper.cs" />
     <Compile Include="Classes\Global.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="Core\Dao\TaskDao.cs" />
     <Compile Include="Core\Dao\TemplateDao.cs" />
     <Compile Include="Core\Dao\TimeSpendDao.cs" />
+    <Compile Include="Core\DIHelper.cs" />
     <Compile Include="Core\Engine\CachedProjectEngine.cs" />
     <Compile Include="Core\Engine\CommentEngine.cs" />
     <Compile Include="Core\Engine\EngineFactory.cs" />

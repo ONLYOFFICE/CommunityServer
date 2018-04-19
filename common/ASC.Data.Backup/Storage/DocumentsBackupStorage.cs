@@ -70,12 +70,6 @@ namespace ASC.Data.Backup.Storage
                 }
                 using (var source = IoFile.OpenRead(localPath))
                 {
-                    // hack. http://ubuntuforums.org/showthread.php?t=1841740
-                    if (WorkContext.IsMono)
-                    {
-                        ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
-                    }
-
                     var file = fileDao.SaveFile(
                         new File
                             {

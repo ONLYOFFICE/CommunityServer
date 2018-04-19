@@ -32,8 +32,8 @@ using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Core;
-using ASC.SingleSignOn.Common;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
 using ASC.Web.Studio.Utility;
 using log4net;
 

@@ -56,12 +56,12 @@ namespace ASC.Core.Users
 
         public static Size GetPhotoSize(this UserInfo userInfo)
         {
-            return UserPhotoManager.GetPhotoSize(Guid.Empty, userInfo.ID);
+            return UserPhotoManager.GetPhotoSize(userInfo.ID);
         }
 
         public static string GetPhotoURL(this UserInfo userInfo)
         {
-            return UserPhotoManager.GetPhotoAbsoluteWebPath(Guid.Empty, userInfo.ID);
+            return UserPhotoManager.GetPhotoAbsoluteWebPath(userInfo.ID);
         }
      
         public static string GetBigPhotoURL(this UserInfo userInfo)

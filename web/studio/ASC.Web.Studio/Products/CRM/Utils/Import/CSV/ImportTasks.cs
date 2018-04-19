@@ -33,6 +33,7 @@ using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.CRM.Core.Dao;
 using LumenWorks.Framework.IO.Csv;
 using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Resources;
@@ -43,16 +44,16 @@ namespace ASC.Web.CRM.Classes
 {
     public partial class ImportDataOperation
     {
-        private void ImportTaskData()
+        private void ImportTaskData(DaoFactory _daoFactory)
         {
             using (var CSVFileStream = _dataStore.GetReadStream("temp", _CSVFileURI))
             using (CsvReader csv = ImportFromCSV.CreateCsvReaderInstance(CSVFileStream, _importSettings))
             {
                 int currentIndex = 0;
 
-                var contactDao = _daoFactory.GetContactDao();
-                var listItemDao = _daoFactory.GetListItemDao();
-                var taskDao = _daoFactory.GetTaskDao();
+                var contactDao = _daoFactory.ContactDao;
+                var listItemDao = _daoFactory.ListItemDao;
+                var taskDao = _daoFactory.TaskDao;
 
                 var findedTasks = new List<Task>();
                 var taskCategories = listItemDao.GetItems(ListType.TaskCategory);

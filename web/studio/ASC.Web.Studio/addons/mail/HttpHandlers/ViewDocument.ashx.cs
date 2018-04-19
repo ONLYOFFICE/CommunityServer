@@ -74,8 +74,8 @@ namespace ASC.Web.Mail.HttpHandlers
             var mailBoxManager = new MailBoxManager();
             var file = mailBoxManager.GetMessageAttachment(attachmentId, TenantId, Username);
             var tempFileUrl = MailStoragePathCombiner.GetPreSignedUrl(file);
-            // ToDo GetFileWebViewerExternalUrl last argument need to be reviewed
-            var viewerUrl = FilesLinkUtility.GetFileWebViewerExternalUrl(tempFileUrl, file.fileName, "");
+
+            var viewerUrl = FilesLinkUtility.GetFileWebViewerExternalUrl(tempFileUrl, file.fileName);
             viewerUrl = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(viewerUrl)).ToString();
             context.Response.Redirect(viewerUrl, false);
         }

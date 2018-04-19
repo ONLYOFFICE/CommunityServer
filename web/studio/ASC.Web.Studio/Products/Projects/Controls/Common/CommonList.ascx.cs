@@ -25,8 +25,6 @@
 
 
 using System;
-using System.Globalization;
-using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Studio.UserControls.Common.Attachments;
 using ASC.Web.Studio.Utility;

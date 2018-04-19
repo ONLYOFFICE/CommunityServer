@@ -238,9 +238,9 @@ namespace ASC.Api.Calendar.iCalParser
 
             result.Uid = eventObj.Uid;
 
-            result.UtcStartDate = eventObj.Start.AsUtc;
+            result.UtcStartDate = ToUtc(eventObj.Start);
 
-            result.UtcEndDate = eventObj.End.AsUtc;
+            result.UtcEndDate = ToUtc(eventObj.End);
 
             var recurrenceRuleStr = string.Empty;
 
@@ -261,10 +261,12 @@ namespace ASC.Api.Calendar.iCalParser
 
                 foreach (var periodList in exceptionDates.First())
                 {
+                    var start = ToUtc(periodList.StartTime);
+
                     result.RecurrenceRule.ExDates.Add(new RecurrenceRule.ExDate
                         {
-                            Date = periodList.StartTime.AsUtc,
-                            isDateTime = periodList.StartTime.AsUtc != periodList.StartTime.AsUtc.Date
+                            Date = start,
+                            isDateTime = start != start.Date
                         });
                 }
             }
@@ -334,5 +336,19 @@ namespace ASC.Api.Calendar.iCalParser
             return evt;
         }
 
+
+        public static DateTime ToUtc(Ical.Net.Interfaces.DataTypes.IDateTime dateTime)
+        {
+            if (dateTime.IsUniversalTime || dateTime.TzId.Equals("UTC", StringComparison.InvariantCultureIgnoreCase))
+                return dateTime.Value;
+
+            if (dateTime.AsUtc != dateTime.Value)
+                return dateTime.AsUtc;
+
+            var timeZone = TimeZoneConverter.GetTimeZone(dateTime.TzId);
+            var utcOffse = timeZone.GetUtcOffset(dateTime.Value);
+
+            return dateTime.Value - utcOffse;
+        }
     }
 }

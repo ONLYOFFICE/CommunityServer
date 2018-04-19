@@ -51,23 +51,21 @@ var PhoneController = new function() {
         var aInt = a.country_code * 1,
             bInt = b.country_code * 1;
         if (aInt > bInt) {
-            return -1;
-        }
-        if (aInt < bInt) {
             return 1;
         }
+        if (aInt < bInt) {
+            return -1;
+        }
         return typeof (a.def) != "undefined"
-                ? -1
-                : (typeof (b.def) != "undefined" ? 1 : 0);
+                ? 1
+                : (typeof (b.def) != "undefined" ? -1 : 0);
     };
 
     _initCountryPhonesDropDown = function() {
-        var html = "",
-            tmp = null,
-            country = null;
+        var html = "";
 
         for (var i = 0, n = PhoneController.countryList.length; i < n; i++) {
-            country = PhoneController.countryList[i];
+            var country = PhoneController.countryList[i];
             if (PhoneController.defaultCountryCallingCode == country.key) {
                 PhoneController.selectedCountryPhone = country;
                 PhoneController.selectedCountryPhone["def"] = true;
@@ -176,8 +174,8 @@ var PhoneController = new function() {
     };
 
     _findCountryByPhone = function(phone) {
-        for (var i = 0, n = PhoneController.countryListSortedByCode.length; i < n; i++) {
-            country = PhoneController.countryListSortedByCode[i];
+        for (var i = PhoneController.countryListSortedByCode.length; i > 0; i--) {
+            var country = PhoneController.countryListSortedByCode[i - 1];
             if (PhoneController.GetCountryPhoneReg(country.country_code).test(phone)) {
                 return country;
             }
@@ -207,11 +205,10 @@ var PhoneController = new function() {
                 this.countryList = countryList;
 
                 this.defaultCountryCallingCode = "";
-                var tmp = null;
 
                 if (typeof (testDefaultCountryCallingCodeList) !== "undefined" && testDefaultCountryCallingCodeList.length > 0) {
                     for (var i = 0, n = testDefaultCountryCallingCodeList.length; i < n; i++) {
-                        tmp = _getCountryByKey(testDefaultCountryCallingCodeList[i]);
+                        var tmp = _getCountryByKey(testDefaultCountryCallingCodeList[i]);
                         if (tmp != null) {
                             this.defaultCountryCallingCode = tmp.key;
                             break;

@@ -169,7 +169,7 @@ namespace ASC.Web.Community.Wiki
 
                 Page.RegisterInlineScript(String.Format(" wikiCategoryAlfaList = '{0}'; wikiPages = {1}; ASC.Community.Wiki.InitListPagesByLetter();",
                                                 WikiResource.wikiCategoryAlfaList,
-                                                JsonConvert.SerializeObject(result.ConvertAll(p => new { PageName = p.PageName, ID = p.ID, PageLink = GetPageViewLink(p) }))
+                                                JsonConvert.SerializeObject(result.ConvertAll(p => new { PageName = GetPageName(p), ID = p.ID, PageLink = GetPageViewLink(p) }))
                                                 ), onReady: true);
 
 

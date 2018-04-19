@@ -65,18 +65,18 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
         {
             var attachmentPath = GetFileKey(user, stream, fileNumber, fileName);
 
-            if (dataStore == null)
-                dataStore = MailDataStore.GetDataStore(tenant);
+            //if (dataStore == null)
+            //    dataStore = MailDataStore.GetDataStore(tenant);
 
             string url;
 
-            if (dataStore is S3Storage)
-            {
-                var contentDispositionFileName = ContentDispositionUtil.GetHeaderValue(fileName, withoutBase: true);
-                var headersForUrl = new []{"Content-Disposition:" + contentDispositionFileName};
-                url = dataStore.GetPreSignedUri("", attachmentPath, TimeSpan.FromMinutes(10), headersForUrl).ToString();
-            }
-            else
+            //if (dataStore.IsSupportedPreSignedUri)
+            //{
+            //    var contentDispositionFileName = ContentDispositionUtil.GetHeaderValue(fileName, withoutBase: true);
+            //    var headersForUrl = new []{"Content-Disposition:" + contentDispositionFileName};
+            //    url = dataStore.GetPreSignedUri("", attachmentPath, TimeSpan.FromMinutes(10), headersForUrl).ToString();
+            //}
+            //else
             {
                 //TODO: Move url to config;
                 attachmentPath = "/addons/mail/httphandlers/download.ashx";

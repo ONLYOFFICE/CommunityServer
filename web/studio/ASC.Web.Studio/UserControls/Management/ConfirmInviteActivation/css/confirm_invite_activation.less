@@ -32,56 +32,62 @@
     &.confirm-personal {
         text-align: center;
 
+		.confirm-block-title{
+			margin: 0!important;
+		}
         .default-personal-popup_h {
-            font-size: 36px;
+            font-size: 29px;
             font-weight: normal;
             margin: 0;
-            text-transform: uppercase;
+            //text-transform: uppercase;
         }
 
         .default-personal-popup_line {
-            background-color: #86d6f6;
+			display: none;
+           /* background-color: #86d6f6;
             display: inline-block;
             height: 72px;
             width: 1px;
-            margin-bottom: 18px;
+            margin-bottom: 18px;*/
         }
 
         .default-personal-popup_text {
-            font-size: 21px;
-            margin-bottom: 40px;
+            font-size: 18px;
+			margin-bottom: 40px;
+			margin-top: 34px;
         }
 
         .rightPart {
             float: none;
             margin: 0 auto;
-            width: 550px;
+            width: 360px;
 
             .property {
                 margin-bottom: 36px;
 
                 .name {
-                    display: inline-block;
-                    width: 145px;
-                    text-align: right;
-                    color: #2d86ab;
-                    font-weight: bold;
-                    text-transform: uppercase;
+                    display: block;
+					margin-top: 28px;
+					margin-left: 5px;
+					font-size: 18px;
+					width: 93px;
+					color: #bdbdbd;
+					font-weight: 400;
                 }
 
                 .value {
-                    display: inline-block;
+                    display: block;
                     width: 350px;
                     text-align: left;
                 }
 
                 .textEdit {
-                    border: 1px solid #86d6f6;
-                    width: 190px;
-                    padding: 8px 15px;
-                    margin: 0 16px;
-                    .borderRadius();
-
+                    border: none;
+					border-bottom: 2px solid #bdbdbd;
+					border-radius: 0;
+					width: 100%;
+					margin-top: 4px;
+					font-size: 14px;
                     &:focus {
                         border-color: #2d86ab;
                     }
@@ -94,8 +100,8 @@
         }
 
         .big-button-container {
-            margin: 40px auto 120px;
-            width: 220px;
+            margin: 59px auto 120px;
+			width: 355px;
         }
 
         .HelpCenterSwitcher {
@@ -103,26 +109,26 @@
         }
 
         #buttonConfirmInvite {
-            background-color: #89ac35;
-            background-image: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            padding: 11px 42px;
-            margin: 0;
-            text-align: center;
-            text-transform: uppercase;
-            width: auto;
+            background-color: #f16240;
+			background-image: none;
+			border: none;
+			color: white;
+			cursor: pointer;
+			font-size: 18px;
+			font-weight: 600;
+			padding: 17px 42px;
+			margin: 0;
+			text-align: center;
+			width: 267px;
+   
             .borderRadius();
 
             &:hover {
-                background-color: #95b840;
+                background-color: #fd6a46;
             }
 
             &:active {
-                background-color: #7c9e2a;
+                background-color: #e65836;
             }
         }
 

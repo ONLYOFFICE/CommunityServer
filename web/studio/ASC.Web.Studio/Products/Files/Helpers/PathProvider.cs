@@ -26,16 +26,17 @@
 
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
-using ASC.Core;
+using ASC.Data.Storage.S3;
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Files.Resources;
-using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Studio.Utility;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Classes
 {
@@ -115,21 +116,8 @@ namespace ASC.Web.Files.Classes
         {
             if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
 
-            const int uriLengthLimit = 1024;
-
-            using (var fileDao = Global.DaoFactory.GetFileDao())
-            {
-                if (fileDao.IsSupportedPreSignedUri(file))
-                {
-                    var uri = fileDao.GetPreSignedUri(file, Global.StreamUrlExpire).ToString();
-                    if (uri.Length < uriLengthLimit) return uri;
-                    Global.Logger.Debug("Very long link: " + uri.Length);
-                }
-            }
-
             //NOTE: Always build path to handler!
             var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
-            Global.Logger.Debug("FileStreamUrl: " + uriBuilder.Uri);
             var query = uriBuilder.Query;
             query += FilesLinkUtility.Action + "=stream&";
             query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
@@ -149,6 +137,30 @@ namespace ASC.Web.Files.Classes
             query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
             query += FilesLinkUtility.Version + "=" + file.Version + "&";
             query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID + file.Version.ToString(CultureInfo.InvariantCulture));
+
+            return uriBuilder.Uri + "?" + query;
+        }
+
+        public static string GetTempUrl(Stream stream, string ext)
+        {
+            if (stream == null) throw new ArgumentNullException("stream");
+
+            var store = Global.GetStore();
+            var fileName = string.Format("{0}{1}", Guid.NewGuid(), ext);
+            var path = Path.Combine("temp_stream", fileName);
+
+            store.Save(
+                FileConstant.StorageDomainTmp,
+                path,
+                stream,
+                MimeMapping.GetMimeMapping(ext),
+                "attachment; filename=\"" + fileName + "\"");
+
+            var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
+            var query = uriBuilder.Query;
+            query += FilesLinkUtility.Action + "=tmp&";
+            query += FilesLinkUtility.FileTitle + "=" + HttpUtility.UrlEncode(fileName) + "&";
+            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileName);
 
             return uriBuilder.Uri + "?" + query;
         }

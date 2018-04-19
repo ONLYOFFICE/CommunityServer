@@ -32,6 +32,7 @@ if (typeof ASC.Settings === "undefined")
 ASC.Settings.MailService = (function () {
 
     var ip;
+    var sqlip;
     var user;
     var password;
     var token;
@@ -56,12 +57,35 @@ ASC.Settings.MailService = (function () {
     var connect = function () {
 
         var serverIp = jq("#mailServiceIp").val().trim();
+        var sqlIp = jq("#mailServiceSqlIp").val().trim();
         var usr = jq("#mailServiceUser").val().trim();
         var pwd = jq("#mailServicePassword").val().trim();
+        var valid = true;
 
-        if (!serverIp || !usr || !pwd) return;
+        if (!serverIp) {
+            jq("#mailServiceIp").parent().addClass("requiredFieldError");
+            valid = false;
+        } else {
+            jq("#mailServiceIp").parent().removeClass("requiredFieldError");
+        }
 
-        Teamlab.connectMailServerInfo(null, serverIp, usr, pwd, {
+        if (!usr) {
+            jq("#mailServiceUser").parent().addClass("requiredFieldError");
+            valid = false;
+        } else {
+            jq("#mailServiceUser").parent().removeClass("requiredFieldError");
+        }
+
+        if (!pwd) {
+            jq("#mailServicePassword").parent().addClass("requiredFieldError");
+            valid = false;
+        } else {
+            jq("#mailServicePassword").parent().removeClass("requiredFieldError");
+        }
+
+        if (!valid) return;
+
+        Teamlab.connectMailServerInfo(null, serverIp, sqlIp || serverIp, usr, pwd, {
             before: function() {
                 jq("#mailServiceBlock input").prop("disabled", true);
                 LoadingBanner.showLoaderBtn("#mailServiceBlock");
@@ -70,6 +94,7 @@ ASC.Settings.MailService = (function () {
                 LoadingBanner.showMesInfoBtn("#mailServiceBlock", res.message, res.status);
                 if (res.status == "success") {
                     ip = res.ip;
+                    sqlip = res.sqlip;
                     user = res.user;
                     password = res.password;
                     token = res.token;
@@ -77,6 +102,7 @@ ASC.Settings.MailService = (function () {
                     jq("#mailServiceSaveBtn").removeClass("disable");
                 } else {
                     ip = null;
+                    sqlip = null;
                     user = null;
                     password = null;
                     token = null;
@@ -98,7 +124,7 @@ ASC.Settings.MailService = (function () {
 
         if (!ip || !user || !password || !token || !host) return;
 
-        Teamlab.saveMailServerInfo(null, ip, user, password, token, host, {
+        Teamlab.saveMailServerInfo(null, ip, sqlip || ip, user, password, token, host, {
             before: function () {
                 jq("#mailServiceBlock input").prop("disabled", true);
                 LoadingBanner.showLoaderBtn("#mailServiceBlock");

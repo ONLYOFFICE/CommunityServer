@@ -83,9 +83,9 @@ namespace ASC.Core.Caching
             return service.GetTenants(login, passwordHash);
         }
 
-        public IEnumerable<Tenant> GetTenants(DateTime from)
+        public IEnumerable<Tenant> GetTenants(DateTime from, bool active = true)
         {
-            return service.GetTenants(from);
+            return service.GetTenants(from, active);
         }
 
         public Tenant GetTenant(int id)
@@ -168,6 +168,18 @@ namespace ASC.Core.Caching
             service.SetTenantSettings(tenant, key, data);
             var cacheKey = string.Format("settings/{0}/{1}", tenant, key);
             cacheNotify.Publish(new TenantSetting { Key = cacheKey }, CacheNotifyAction.Any);
+        }
+
+        public T LoadSettings<T>(int tenantId, Guid userId)
+        {
+            var cacheKey = string.Format("webstudio_settings/{0}/{1}", tenantId, userId);
+            var data = cache.Get<object>(cacheKey);
+            if (data == null)
+            {
+                data = service.LoadSettings<T>(tenantId, userId);
+                cache.Insert(cacheKey, data, DateTime.UtcNow + SettingsExpiration);
+            }
+            return (T) data;
         }
 
         private TenantStore GetTenantStore()

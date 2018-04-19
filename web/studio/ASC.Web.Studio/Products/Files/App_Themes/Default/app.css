@@ -31,12 +31,17 @@
     display: inline-block;
     font-size: 14px;
     line-height: 24px;
-    margin-top: 180px;
     text-align: left;
     width: 450px;
 }
 .files-app-content-create {
+    margin-top: 150px;
     width: 270px;
+}
+.files-app-baner {
+    background: url("images/personal_convert.png") no-repeat left center transparent;
+    height: 150px;
+    margin: 45px 0;
 }
 .files-app-checkbox {
     display: block;

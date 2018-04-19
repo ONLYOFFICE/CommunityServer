@@ -29,28 +29,28 @@ namespace ASC.Projects.Core.DataInterfaces
 {
     public interface IDaoFactory
     {
-        IProjectDao GetProjectDao();
-        
-        IParticipantDao GetParticipantDao();
-        
-        IMilestoneDao GetMilestoneDao();
+        IProjectDao ProjectDao { get; }
 
-        ITaskDao GetTaskDao();
+        IParticipantDao ParticipantDao { get; }
 
-        ISubtaskDao GetSubtaskDao();
+        IMilestoneDao MilestoneDao { get; }
 
-        IMessageDao GetMessageDao();
-        
-        ICommentDao GetCommentDao();
+        ITaskDao TaskDao { get; }
 
-        ITemplateDao GetTemplateDao();
-        
-        ITimeSpendDao GetTimeSpendDao();
-        
-        IReportDao GetReportDao();
-        
-        ISearchDao GetSearchDao();
+        ISubtaskDao SubtaskDao { get; }
 
-        ITagDao GetTagDao();
+        IMessageDao MessageDao { get; }
+
+        ICommentDao CommentDao { get; }
+
+        ITemplateDao TemplateDao { get; }
+
+        ITimeSpendDao TimeSpendDao { get; }
+
+        IReportDao ReportDao { get; }
+
+        ISearchDao SearchDao { get; }
+
+        ITagDao TagDao { get; }
     }
 }

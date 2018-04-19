@@ -292,6 +292,7 @@ namespace ASC.Data.Backup.Service
                     backupTask.RunJob();
 
                     var backupStorage = BackupStorageFactory.GetBackupStorage(StorageType, TenantId);
+                    CoreContext.TenantManager.SetCurrentTenant(TenantId);
                     var storagePath = backupStorage.Upload(StorageBasePath, tempFile, UserId);
                     Link = backupStorage.GetPublicLink(storagePath);
 

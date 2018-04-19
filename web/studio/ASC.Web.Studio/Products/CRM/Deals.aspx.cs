@@ -46,7 +46,7 @@ namespace ASC.Web.CRM
 
             if (int.TryParse(Request["id"], out dealID))
             {
-                var targetDeal = Global.DaoFactory.GetDealDao().GetByID(dealID);
+                var targetDeal = DaoFactory.DealDao.GetByID(dealID);
                 if (targetDeal == null || !CRMSecurity.CanAccessTo(targetDeal))
                 {
                     Response.Redirect(PathProvider.StartURL() + "deals.aspx");

@@ -41,10 +41,13 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         public void SetShare(FileShareRecord r)
         {
-            TryGetSecurityDao().SetShare(r);
+            using (var securityDao = TryGetSecurityDao())
+            {
+                securityDao.SetShare(r);
+            }
         }
 
-        public IEnumerable<FileShareRecord> GetShares(params FileEntry[] entries)
+        public IEnumerable<FileShareRecord> GetShares(IEnumerable<FileEntry> entries)
         {
             var result = new List<FileShareRecord>();
 
@@ -55,70 +58,143 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             if (defaultSelectorEntries.Any())
             {
-                var securityDao = TryGetSecurityDao();
-                if (securityDao != null)
+                using (var securityDao = TryGetSecurityDao())
                 {
-                    var shares = securityDao.GetShares(defaultSelectorEntries);
-                    if (shares != null) result.AddRange(shares);
+                    if (securityDao != null)
+                    {
+                        var shares = securityDao.GetShares(defaultSelectorEntries);
+                        if (shares != null) result.AddRange(shares);
+                    }
                 }
             }
 
             if (!otherSelectorEntries.Any()) return result;
 
-            var files = otherSelectorEntries.Where(x => x is Files.Core.File).ToArray();
-            var folders = otherSelectorEntries.Where(x => x is Folder).ToList();
+            var files = otherSelectorEntries.Where(x => x.FileEntryType == FileEntryType.File).ToArray();
+            var folders = otherSelectorEntries.Where(x => x.FileEntryType == FileEntryType.Folder).ToList();
 
             if (files.Any())
             {
-                var folderIds = files.Select(x => ((Files.Core.File) x).FolderID).Distinct();
+                var folderIds = files.Select(x => ((File) x).FolderID).Distinct();
                 foreach (var folderId in folderIds)
                 {
-                    var selector = GetSelector(folderId);
-                    var folderDao = selector.GetFolderDao(folderId);
-                    if (folderDao == null) continue;
-
-                    var folder = folderDao.GetFolder(selector.ConvertId(folderId));
-                    if (folder != null) folders.Add(folder);
+                    GetFoldersForShare(folderId, folders);
                 }
 
-                var securityDao = TryGetSecurityDao();
-                if (securityDao != null)
+                using (var securityDao = TryGetSecurityDao())
                 {
-                    var pureShareRecords = securityDao.GetPureShareRecords(files);
-                    if (pureShareRecords != null)
+                    if (securityDao != null)
                     {
-                        foreach (var pureShareRecord in pureShareRecords)
+                        var pureShareRecords = securityDao.GetPureShareRecords(files);
+                        if (pureShareRecords != null)
                         {
-                            if (pureShareRecord == null) continue;
-                            pureShareRecord.Level = -1;
-                            result.Add(pureShareRecord);
+                            foreach (var pureShareRecord in pureShareRecords)
+                            {
+                                if (pureShareRecord == null) continue;
+                                pureShareRecord.Level = -1;
+                                result.Add(pureShareRecord);
+                            }
                         }
                     }
                 }
             }
 
-            if (folders.Any())
+            result.AddRange(GetShareForFolders(folders));
+
+            return result;
+        }
+
+        public IEnumerable<FileShareRecord> GetShares(FileEntry entry)
+        {
+            var result = new List<FileShareRecord>();
+
+            if (entry == null) return result;
+
+            if (Default.IsMatch(entry.ID))
             {
-                foreach (var folder in folders)
+                using (var securityDao = TryGetSecurityDao())
                 {
-                    var selector = GetSelector(folder.ID);
-                    var folderDao = selector.GetFolderDao(folder.ID);
-                    if (folderDao == null) continue;
-
-                    var parentFolders = folderDao.GetParentFolders(selector.ConvertId(folder.ID));
-                    if (parentFolders == null || !parentFolders.Any()) continue;
-
-                    parentFolders.Reverse();
-                    var pureShareRecords = GetPureShareRecords(parentFolders.Cast<FileEntry>().ToArray());
-                    if (pureShareRecords == null) continue;
-
-                    foreach (var pureShareRecord in pureShareRecords)
+                    if (securityDao != null)
                     {
-                        if (pureShareRecord == null) continue;
-                        pureShareRecord.Level = parentFolders.IndexOf(new Folder {ID = pureShareRecord.EntryId});
-                        pureShareRecord.EntryId = folder.ID;
-                        result.Add(pureShareRecord);
+                        var shares = securityDao.GetShares(entry);
+                        if (shares != null) result.AddRange(shares);
                     }
+                }
+
+                return result;
+            }
+
+
+            var file = entry as File;
+            var folders = new List<FileEntry>();
+            var entryFolder = entry as Folder;
+            if (entryFolder != null)
+            {
+                folders.Add(entryFolder);
+            }
+
+            if (file != null)
+            {
+                GetFoldersForShare(file.FolderID, folders);
+
+                using (var securityDao = TryGetSecurityDao())
+                {
+                    if (securityDao != null)
+                    {
+                        var pureShareRecords = securityDao.GetPureShareRecords(entry);
+                        if (pureShareRecords != null)
+                        {
+                            foreach (var pureShareRecord in pureShareRecords)
+                            {
+                                if (pureShareRecord == null) continue;
+                                pureShareRecord.Level = -1;
+                                result.Add(pureShareRecord);
+                            }
+                        }
+                    }
+                }
+            }
+
+            result.AddRange(GetShareForFolders(folders));
+
+            return result;
+        }
+
+        private void GetFoldersForShare(object folderId, ICollection<FileEntry> folders)
+        {
+            var selector = GetSelector(folderId);
+            var folderDao = selector.GetFolderDao(folderId);
+            if (folderDao == null) return;
+
+            var folder = folderDao.GetFolder(selector.ConvertId(folderId));
+            if (folder != null) folders.Add(folder);
+        }
+
+        private List<FileShareRecord> GetShareForFolders(IReadOnlyCollection<FileEntry> folders)
+        {
+            if (!folders.Any()) return new List<FileShareRecord>();
+
+            var result = new List<FileShareRecord>();
+
+            foreach (var folder in folders)
+            {
+                var selector = GetSelector(folder.ID);
+                var folderDao = selector.GetFolderDao(folder.ID);
+                if (folderDao == null) continue;
+
+                var parentFolders = folderDao.GetParentFolders(selector.ConvertId(folder.ID));
+                if (parentFolders == null || !parentFolders.Any()) continue;
+
+                parentFolders.Reverse();
+                var pureShareRecords = GetPureShareRecords(parentFolders.Cast<FileEntry>().ToArray());
+                if (pureShareRecords == null) continue;
+
+                foreach (var pureShareRecord in pureShareRecords)
+                {
+                    if (pureShareRecord == null) continue;
+                    pureShareRecord.Level = parentFolders.IndexOf(new Folder { ID = pureShareRecord.EntryId });
+                    pureShareRecord.EntryId = folder.ID;
+                    result.Add(pureShareRecord);
                 }
             }
 
@@ -127,27 +203,50 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         public void RemoveSubject(Guid subject)
         {
-            TryGetSecurityDao().RemoveSubject(subject);
+            using (var securityDao = TryGetSecurityDao())
+            {
+                securityDao.RemoveSubject(subject);
+            }
         }
 
         public IEnumerable<FileShareRecord> GetShares(IEnumerable<Guid> subjects)
         {
-            return TryGetSecurityDao().GetShares(subjects);
+            using (var securityDao = TryGetSecurityDao())
+            {
+                return securityDao.GetShares(subjects);
+            }
         }
 
-        public IEnumerable<FileShareRecord> GetPureShareRecords(params FileEntry[] entries)
+        public IEnumerable<FileShareRecord> GetPureShareRecords(IEnumerable<FileEntry> entries)
         {
-            return TryGetSecurityDao().GetPureShareRecords(entries);
+            using (var securityDao = TryGetSecurityDao())
+            {
+                return securityDao.GetPureShareRecords(entries);
+            }
         }
 
-        public void DeleteShareRecords(params FileShareRecord[] records)
+        public IEnumerable<FileShareRecord> GetPureShareRecords(FileEntry entry)
         {
-            TryGetSecurityDao().DeleteShareRecords(records);
+            using (var securityDao = TryGetSecurityDao())
+            {
+                return securityDao.GetPureShareRecords(entry);
+            }
+        }
+
+        public void DeleteShareRecords(IEnumerable<FileShareRecord> records)
+        {
+            using (var securityDao = TryGetSecurityDao())
+            {
+                securityDao.DeleteShareRecords(records);
+            }
         }
 
         public bool IsShared(object entryId, FileEntryType type)
         {
-            return TryGetSecurityDao().IsShared(entryId, type);
+            using (var securityDao = TryGetSecurityDao())
+            {
+                return securityDao.IsShared(entryId, type);
+            }
         }
     }
 }

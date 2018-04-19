@@ -49,7 +49,7 @@ namespace ASC.Web.CRM.Controls.Sender
         protected string RenderTagSelector(bool isCompany)
         {
             var sb = new StringBuilder();
-            var manager = new MailTemplateManager();
+            var manager = new MailTemplateManager(DaoFactory);
             var tags = manager.GetTags(isCompany);
 
             var current = tags[0].Category;

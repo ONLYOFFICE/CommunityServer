@@ -31,6 +31,9 @@ using ASC.Web.Files.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.CRM.Core.Dao;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.CRM.Core
 {
@@ -58,23 +61,27 @@ namespace ASC.CRM.Core
 
         public bool CanRead(FileEntry file, Guid userId)
         {
-            var invoice = Global.DaoFactory.GetInvoiceDao().GetByFileId(Convert.ToInt32(file.ID));
-            if (invoice != null)
-                return CRMSecurity.CanAccessTo(invoice, userId);
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var invoice = daoFactory.InvoiceDao.GetByFileId(Convert.ToInt32(file.ID));
+                if (invoice != null)
+                    return CRMSecurity.CanAccessTo(invoice, userId);
 
-            var reportFile = Global.DaoFactory.GetReportDao().GetFile(Convert.ToInt32(file.ID), userId);
-            if (reportFile != null)
-                return true;
+                var reportFile = daoFactory.ReportDao.GetFile(Convert.ToInt32(file.ID), userId);
+                if (reportFile != null)
+                    return true;
 
-            var eventIds = FilesIntegration.GetTagDao().GetTags(file.ID, FileEntryType.File, TagType.System)
-                                    .Where(x => x.TagName.StartsWith("RelationshipEvent_"))
-                                    .Select(x => Convert.ToInt32(x.TagName.Split(new[] { '_' })[1]))
-                                    .ToList();
+                var eventIds = FilesIntegration.GetTagDao().GetTags(file.ID, FileEntryType.File, TagType.System)
+                    .Where(x => x.TagName.StartsWith("RelationshipEvent_"))
+                    .Select(x => Convert.ToInt32(x.TagName.Split(new[] {'_'})[1]))
+                    .ToList();
 
-            if (!eventIds.Any()) return false;
+                if (!eventIds.Any()) return false;
 
-            var eventItem = Global.DaoFactory.GetRelationshipEventDao().GetByID(eventIds.First());
-            return CRMSecurity.CanAccessTo(eventItem, userId);
+                var eventItem = daoFactory.RelationshipEventDao.GetByID(eventIds.First());
+                return CRMSecurity.CanAccessTo(eventItem, userId);
+            }
         }
 
         public IEnumerable<Guid> WhoCanRead(FileEntry fileEntry)

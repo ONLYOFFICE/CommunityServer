@@ -35,7 +35,10 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
     public partial class UserEmailControl : System.Web.UI.UserControl
     {
-        public static string Location { get { return "~/UserControls/Users/UserProfile/UserEmailControl.ascx"; } }
+        public static string Location
+        {
+            get { return "~/UserControls/Users/UserProfile/UserEmailControl.ascx"; }
+        }
 
         /// <summary>
         /// The user represented by the control
@@ -51,14 +54,14 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(typeof(EmailOperationService));
+            AjaxPro.Utility.RegisterTypeForAjax(typeof (EmailOperationService));
 
             IsAdmin = Viewer.IsAdmin() || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, Viewer.ID);
         }
 
         protected string RenderMailLinkAttribute()
         {
-            return CoreContext.Configuration.Personal
+            return CoreContext.Configuration.Personal || WebItemManager.Instance[WebItemManager.MailProductID].IsDisabled()
                        ? "href=\"mailto:" + User.Email.ToLower() + "\""
                        : "target=\"_blank\" href=\"" + VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower()) + "\"";
         }

@@ -583,15 +583,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import accounts.
-        /// </summary>
-        public static string LblImportAccounts {
-            get {
-                return ResourceManager.GetString("LblImportAccounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Primary Mobile Phone.
         /// </summary>
         public static string LblMobilePhone {
@@ -642,6 +633,15 @@ namespace ASC.Web.People.Resources {
         public static string LblReassignData {
             get {
                 return ResourceManager.GetString("LblReassignData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete personal data.
+        /// </summary>
+        public static string LblRemoveData {
+            get {
+                return ResourceManager.GetString("LblRemoveData", resourceCulture);
             }
         }
         
@@ -799,11 +799,65 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abort transfer.
+        /// </summary>
+        public static string ReassignAbortButton {
+            get {
+                return ResourceManager.GetString("ReassignAbortButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data transfer aborted.
+        /// </summary>
+        public static string ReassignAbortToastrMsg {
+            get {
+                return ResourceManager.GetString("ReassignAbortToastrMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reassign.
         /// </summary>
         public static string ReassignButton {
             get {
                 return ResourceManager.GetString("ReassignButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM.
+        /// </summary>
+        public static string ReassignCrmModule {
+            get {
+                return ResourceManager.GetString("ReassignCrmModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents.
+        /// </summary>
+        public static string ReassignDocumentsModule {
+            get {
+                return ResourceManager.GetString("ReassignDocumentsModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data transfer interrupted due to server error.
+        /// </summary>
+        public static string ReassignErrorToastrMsg {
+            get {
+                return ResourceManager.GetString("ReassignErrorToastrMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail.
+        /// </summary>
+        public static string ReassignMailModule {
+            get {
+                return ResourceManager.GetString("ReassignMailModule", resourceCulture);
             }
         }
         
@@ -817,11 +871,38 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The process of data transfer is started, it can take a considerable time.{0}You can close this page. When the process is completed, the administrator who runs it will be notified by mail..
+        ///   Looks up a localized string similar to Projects.
         /// </summary>
-        public static string ReassignsProgressText {
+        public static string ReassignProjectsModule {
             get {
-                return ResourceManager.GetString("ReassignsProgressText", resourceCulture);
+                return ResourceManager.GetString("ReassignProjectsModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start transfer again.
+        /// </summary>
+        public static string ReassignRestartButton {
+            get {
+                return ResourceManager.GetString("ReassignRestartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can close this page. When the process is completed, the administrator who runs it will be notified by mail..
+        /// </summary>
+        public static string ReassignsProgressNotifyInfo {
+            get {
+                return ResourceManager.GetString("ReassignsProgressNotifyInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The process of reassign data from user {0} to user {1} is started, it can take a considerable time..
+        /// </summary>
+        public static string ReassignsProgressUserInfo {
+            get {
+                return ResourceManager.GetString("ReassignsProgressUserInfo", resourceCulture);
             }
         }
         
@@ -831,6 +912,60 @@ namespace ASC.Web.People.Resources {
         public static string ReassignsReadMore {
             get {
                 return ResourceManager.GetString("ReassignsReadMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interrupted, some data could be transferred.
+        /// </summary>
+        public static string ReassignStatusAborted {
+            get {
+                return ResourceManager.GetString("ReassignStatusAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server error.
+        /// </summary>
+        public static string ReassignStatusError {
+            get {
+                return ResourceManager.GetString("ReassignStatusError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All data transfered.
+        /// </summary>
+        public static string ReassignStatusFinished {
+            get {
+                return ResourceManager.GetString("ReassignStatusFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data was not transmitted.
+        /// </summary>
+        public static string ReassignStatusNotStarted {
+            get {
+                return ResourceManager.GetString("ReassignStatusNotStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queued.
+        /// </summary>
+        public static string ReassignStatusQueued {
+            get {
+                return ResourceManager.GetString("ReassignStatusQueued", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Started.
+        /// </summary>
+        public static string ReassignStatusStarted {
+            get {
+                return ResourceManager.GetString("ReassignStatusStarted", resourceCulture);
             }
         }
         
@@ -876,6 +1011,150 @@ namespace ASC.Web.People.Resources {
         public static string ReassignsTransferedListItem3 {
             get {
                 return ResourceManager.GetString("ReassignsTransferedListItem3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tak.
+        /// </summary>
+        public static string ReassignTalkModule {
+            get {
+                return ResourceManager.GetString("ReassignTalkModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abort removing.
+        /// </summary>
+        public static string RemovingAbortButton {
+            get {
+                return ResourceManager.GetString("RemovingAbortButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data deletion aborted.
+        /// </summary>
+        public static string RemovingAbortToastrMsg {
+            get {
+                return ResourceManager.GetString("RemovingAbortToastrMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting personal data.
+        /// </summary>
+        public static string RemovingData {
+            get {
+                return ResourceManager.GetString("RemovingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data deletion interrupted due to server error.
+        /// </summary>
+        public static string RemovingErrorToastrMsg {
+            get {
+                return ResourceManager.GetString("RemovingErrorToastrMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will be removed:.
+        /// </summary>
+        public static string RemovingListHdr {
+            get {
+                return ResourceManager.GetString("RemovingListHdr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All personal documents;.
+        /// </summary>
+        public static string RemovingListItem1 {
+            get {
+                return ResourceManager.GetString("RemovingListItem1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM report files;.
+        /// </summary>
+        public static string RemovingListItem2 {
+            get {
+                return ResourceManager.GetString("RemovingListItem2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All emails and attached files;.
+        /// </summary>
+        public static string RemovingListItem3 {
+            get {
+                return ResourceManager.GetString("RemovingListItem3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attached from Talk  files;.
+        /// </summary>
+        public static string RemovingListItem4 {
+            get {
+                return ResourceManager.GetString("RemovingListItem4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The process of deleting personal data from user {0} is started, it can take a considerable time..
+        /// </summary>
+        public static string RemovingProgressUserInfo {
+            get {
+                return ResourceManager.GetString("RemovingProgressUserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More about deleting personal data.
+        /// </summary>
+        public static string RemovingReadMore {
+            get {
+                return ResourceManager.GetString("RemovingReadMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start removing again.
+        /// </summary>
+        public static string RemovingRestartButton {
+            get {
+                return ResourceManager.GetString("RemovingRestartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interrupted, some data could be deleted.
+        /// </summary>
+        public static string RemovingStatusAborted {
+            get {
+                return ResourceManager.GetString("RemovingStatusAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All data deleted.
+        /// </summary>
+        public static string RemovingStatusFinished {
+            get {
+                return ResourceManager.GetString("RemovingStatusFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data was not deleted.
+        /// </summary>
+        public static string RemovingStatusNotStarted {
+            get {
+                return ResourceManager.GetString("RemovingStatusNotStarted", resourceCulture);
             }
         }
         
@@ -1002,15 +1281,6 @@ namespace ASC.Web.People.Resources {
         public static string TariffActiveUserLimit {
             get {
                 return ResourceManager.GetString("TariffActiveUserLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Terminate.
-        /// </summary>
-        public static string TerminateButton {
-            get {
-                return ResourceManager.GetString("TerminateButton", resourceCulture);
             }
         }
         

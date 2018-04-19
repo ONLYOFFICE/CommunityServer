@@ -72,7 +72,7 @@ window.ASC.Files.Converter = (function () {
             if (!ASC.Files.UI.accessEdit()) {
                 if (Teamlab.profile.isVisitor) {
                     PopupKeyUpActionProvider.CloseDialog();
-                    url = ASC.Files.Utility.GetFileViewUrl(fileId, version);
+                    url = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
                     window.open(url, "_blank");
                     return ASC.Files.Marker.removeNewIcon("file", fileId);
                 } else {
@@ -84,7 +84,7 @@ window.ASC.Files.Converter = (function () {
             }
         } else if (Teamlab.profile.isVisitor) {
             PopupKeyUpActionProvider.CloseDialog();
-            url = ASC.Files.Utility.GetFileViewUrl(fileId, version);
+            url = ASC.Files.Utility.GetFileDownloadUrl(fileId, version);
             window.open(url, "_blank");
             return ASC.Files.Marker.removeNewIcon("file", fileId);
         }

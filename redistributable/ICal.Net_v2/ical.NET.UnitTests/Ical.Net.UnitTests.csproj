@@ -59,7 +59,7 @@
   <ItemGroup>
     <Reference Include="NodaTime, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\NodaTime.2.0.1\lib\net45\NodaTime.dll</HintPath>
+      <HintPath>..\..\..\packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.4.1\lib\net40\nunit.framework.dll</HintPath>
@@ -80,6 +80,7 @@
     <Compile Include="CollectionHelpersTests.cs" />
     <Compile Include="ComponentTest.cs" />
     <Compile Include="ConcurrentDeserializationTests.cs" />
+    <Compile Include="DataTypeTest.cs" />
     <Compile Include="DateTimeSerializerTests.cs" />
     <Compile Include="SerializationHelpers.cs" />
     <Compile Include="SimpleDeserializationTests.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="ListExtensions.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VTimeZoneTest.cs" />
     <None Include="app.config" />
     <Compile Include="RecurrenceTests.cs" />
     <Compile Include="SerializationTests.cs" />

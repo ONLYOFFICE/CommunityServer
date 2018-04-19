@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using log4net;
@@ -252,8 +253,8 @@ namespace ASC.Common.Utils
                         return TimeZoneInfo.FindSystemTimeZoneById(mapZone.OlsonTimeZoneId);
                     }
 
-                    Log.Error(string.Format("TimeZone {0} not found", timeZoneId));
-                    return defaultIfNoMatch ? TimeZoneInfo.Utc : null;
+                    Log.InfoFormat("TimeZone {0} not found", timeZoneId);
+                    return defaultIfNoMatch ? GetTimeZoneByOffset(timeZoneId) ?? TimeZoneInfo.Utc : null;
                 }
                 catch (Exception error)
                 {
@@ -279,6 +280,31 @@ namespace ASC.Common.Utils
             return _mapZones.FirstOrDefault(x =>
                 x.WindowsTimeZoneId.Equals(windowsTimeZoneId, StringComparison.CurrentCultureIgnoreCase) &&
                 x.Territory.Equals("001", StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        private static TimeZoneInfo GetTimeZoneByOffset(string timeZoneId)
+        {
+            var systemTimeZones = TimeZoneInfo.GetSystemTimeZones();
+
+            var timeZone = systemTimeZones.FirstOrDefault(tz =>
+                                                          tz.DisplayName == timeZoneId ||
+                                                          tz.StandardName == timeZoneId ||
+                                                          tz.DaylightName == timeZoneId);
+
+            if (timeZone != null) return timeZone;
+
+            var regex = new Regex(@"[+-][0-9]{2}:[0-9]{2}\b");
+
+            var offsetStr = regex.Match(timeZoneId).Value.TrimStart('+');
+
+            if (string.IsNullOrEmpty(offsetStr)) return null;
+
+            TimeSpan offset;
+
+            if (!TimeSpan.TryParse(offsetStr, out offset))
+                return null;
+
+            return systemTimeZones.FirstOrDefault(tz => tz.BaseUtcOffset == offset);
         }
 
         private class MapZone

@@ -76,7 +76,7 @@ namespace ASC.Web.Studio.UserControls.Statistics
 
             foreach (var it in items)
             {
-                data.Add(new { Name = it.Name, Icon = it.ImgUrl, Size = FileSizeComment.FilesSizeToString(it.SpaceUsage), Url = it.Url });
+                data.Add(new { Name = it.Name, Icon = it.ImgUrl, Disabled = it.Disabled, Size = FileSizeComment.FilesSizeToString(it.SpaceUsage), Url = it.Url });
             }
 
             if (items.Count == 0)

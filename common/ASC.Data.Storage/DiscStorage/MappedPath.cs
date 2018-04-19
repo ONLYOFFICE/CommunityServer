@@ -24,30 +24,23 @@
 */
 
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace ASC.Data.Storage.DiscStorage
 {
-    class MappedPath
+    internal class MappedPath
     {
         public string PhysicalPath { get; set; }
-
-        public Uri VirtualPath { get; set; }
 
 
         private MappedPath()
         {
         }
 
-        public MappedPath(string tenant, bool appendTenant, string ppath, string vpath, IDictionary<string, string> storageConfig)
+        public MappedPath(string tenant, bool appendTenant, string ppath, IDictionary<string, string> storageConfig)
         {
             tenant = tenant.Trim('/');
-            vpath = PathUtils.ResolveVirtualPath(vpath, false);
-            vpath = !vpath.Contains('{') && appendTenant ? string.Format("{0}/{1}", vpath, tenant) : string.Format(vpath, tenant);
-            VirtualPath = new Uri(vpath + "/", UriKind.RelativeOrAbsolute);
 
             ppath = PathUtils.ResolvePhysicalPath(ppath, storageConfig);
             PhysicalPath = ppath.IndexOf('{') == -1 && appendTenant ? Path.Combine(ppath, tenant) : string.Format(ppath, tenant);
@@ -57,10 +50,9 @@ namespace ASC.Data.Storage.DiscStorage
         {
             domain = domain.Replace('.', '_'); //Domain prep. Remove dots
             return new MappedPath
-            {
-                PhysicalPath = Path.Combine(this.PhysicalPath, PathUtils.Normalize(domain, true)),
-                VirtualPath = this.VirtualPath.IsAbsoluteUri ? new Uri(this.VirtualPath, domain) : new Uri(this.VirtualPath + domain, UriKind.Relative)
-            };
+                {
+                    PhysicalPath = Path.Combine(PhysicalPath, PathUtils.Normalize(domain, true)),
+                };
         }
     }
 }

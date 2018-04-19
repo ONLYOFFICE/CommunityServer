@@ -15,7 +15,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -42,19 +42,20 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\HtmlAgilityPack.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\HtmlAgilityPack.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>FX20</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\HtmlAgilityPack.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\HtmlAgilityPack.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -66,14 +67,19 @@
     <Compile Include="HtmlAttributeCollection.cs" />
     <Compile Include="HtmlCommentNode.cs" />
     <Compile Include="HtmlConsoleListener.cs" />
+    <Compile Include="HtmlDocument.PathMethods.cs" />
+    <Compile Include="HtmlDocument.Xpath.cs" />
     <Compile Include="HtmlElementFlag.cs" />
     <Compile Include="HtmlNameTable.cs" />
+    <Compile Include="HtmlNode.Xpath.cs" />
     <Compile Include="HtmlNodeCollection.cs" />
     <Compile Include="HtmlNodeType.cs" />
     <Compile Include="HtmlParseError.cs" />
     <Compile Include="HtmlParseErrorCode.cs" />
     <Compile Include="HtmlTextNode.cs" />
+    <Compile Include="HtmlWeb.Xpath.cs" />
     <Compile Include="HtmlWebException.cs" />
+    <Compile Include="InvalidProgramException.cs" />
     <Compile Include="IOLibrary.cs" />
     <Compile Include="MixedCodeDocumentCodeFragment.cs" />
     <Compile Include="MixedCodeDocumentFragment.cs" />
@@ -81,6 +87,7 @@
     <Compile Include="MixedCodeDocumentFragmentType.cs" />
     <Compile Include="MixedCodeDocumentTextFragment.cs" />
     <Compile Include="crc32.cs" />
+    <Compile Include="NameValuePair.cs" />
     <Compile Include="NameValuePairList.cs" />
     <Compile Include="HtmlAttribute.cs" />
     <Compile Include="HtmlDocument.cs" />
@@ -92,6 +99,9 @@
     <Compile Include="HtmlCmdLine.cs" />
     <Compile Include="RecursionDepthException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trace.cs" />
+    <Compile Include="Trace.FullFramework.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HtmlAgilityPack.snk" />

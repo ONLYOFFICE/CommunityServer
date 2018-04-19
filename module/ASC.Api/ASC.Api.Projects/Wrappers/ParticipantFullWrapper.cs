@@ -50,10 +50,10 @@ namespace ASC.Api.Projects.Wrappers
         public bool Removed { get; set; }
 
 
-        public ParticipantFullWrapper(ParticipantFull participant)
+        public ParticipantFullWrapper(ProjectApiBase projectApiBase,ParticipantFull participant)
         {
-            Project = new ProjectWrapper(participant.Project);
-            Participant = EmployeeWraper.Get(participant.ID);
+            Project = projectApiBase.ProjectWrapperSelector(participant.Project);
+            Participant = projectApiBase.GetEmployeeWraper(participant.ID);
             Created = participant.Created;
             Updated = participant.Updated;
             Removed = participant.Removed;

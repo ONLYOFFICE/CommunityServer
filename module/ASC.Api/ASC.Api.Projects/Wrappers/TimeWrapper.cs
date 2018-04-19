@@ -84,13 +84,13 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public TimeWrapper(TimeSpend timeSpend)
+        public TimeWrapper(ProjectApiBase projectApiBase, TimeSpend timeSpend)
         {
             Date = (ApiDateTime)timeSpend.Date;
             Hours = timeSpend.Hours;
             Id = timeSpend.ID;
             Note = timeSpend.Note;
-            CreatedBy = EmployeeWraper.Get(timeSpend.CreateBy);
+            CreatedBy = projectApiBase.GetEmployeeWraper(timeSpend.CreateBy);
             RelatedProject = timeSpend.Task.Project.ID;
             RelatedTask = timeSpend.Task.ID;
             RelatedTaskTitle = timeSpend.Task.Title;
@@ -98,12 +98,12 @@ namespace ASC.Api.Projects.Wrappers
             PaymentStatus = timeSpend.PaymentStatus;
             StatusChanged = (ApiDateTime)timeSpend.StatusChangedOn;
             CanEditPaymentStatus = ProjectSecurity.CanEditPaymentStatus(timeSpend);
-            Task = new TaskWrapper(timeSpend.Task);
+            Task = new TaskWrapper(projectApiBase, timeSpend.Task);
             CreateOn = (ApiDateTime)timeSpend.CreateOn;
 
             if (timeSpend.CreateBy != timeSpend.Person)
             {
-                Person = EmployeeWraper.Get(timeSpend.Person);
+                Person = projectApiBase.GetEmployeeWraper(timeSpend.Person);
             }
         }
 

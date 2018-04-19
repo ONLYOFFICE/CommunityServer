@@ -92,7 +92,6 @@ namespace ASC.Web.Studio.Utility
 
         public static bool EnableDocbuilder
         {
-            //TODO: & DocumentEditors version > 5.0.1
             get { return !Opensource; }
         }
 

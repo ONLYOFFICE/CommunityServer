@@ -30,15 +30,20 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
+using System.Web;
 using ASC.Common.Caching;
 using ASC.Core;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
+using ASC.Core.Tenants;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
-using ASC.Web.Core.Files;
+using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Studio.Utility;
-using Newtonsoft.Json;
+using Autofac;
 using log4net;
+using Newtonsoft.Json;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -125,31 +130,20 @@ namespace ASC.Web.CRM.Classes
                 {
                     try
                     {
-                        var value = DocumentService.DocbuilderRequest(FilesLinkUtility.DocServiceDocbuilderUrl,
-                                                                      Queue[key].Response.Key, null, true,
-                                                                      FileUtility.SignatureSecret);
+                        Dictionary<string, string> urls;
+                        var builderKey = DocumentServiceConnector.DocbuilderRequest(Queue[key].BuilderKey, null, true, out urls);
 
-                        if(value == null)
+                        if (builderKey == null)
                             throw new Exception(CRMReportResource.ErrorNullDocbuilderResponse);
 
-                        Queue[key].Response = value;
+                        Queue[key].BuilderKey = builderKey;
                         SetCacheValue(Queue[key]);
 
-                        if (value.End)
+                        if (urls != null && urls.ContainsKey(TmpFileName))
                         {
-                            SaveReportFile(Queue[key]);
+                            SaveReportFile(Queue[key], urls[TmpFileName]);
                             Queue.Remove(key);
-                            continue;
                         }
-
-                        if (value.Error == 0) continue;
-
-                        Queue[key].IsCompleted = true;
-                        Queue[key].Percentage = 100;
-                        Queue[key].Status = ReportTaskStatus.Failed;
-                        Queue[key].ErrorText = value.GetErrorText();
-                        SetCacheValue(Queue[key]);
-                        Queue.Remove(key);
                     }
                     catch (Exception ex)
                     {
@@ -210,78 +204,89 @@ namespace ASC.Web.CRM.Classes
 
             return string.Format("{0} ({1} {2}).xlsx",
                                  reportName,
-                                 DateTime.Now.ToShortDateString(),
-                                 DateTime.Now.ToShortTimeString());
+                                 TenantUtil.DateTimeNow().ToShortDateString(),
+                                 TenantUtil.DateTimeNow().ToShortTimeString());
         }
 
         public static bool CheckReportData(ReportType reportType, ReportTimePeriod timePeriod, Guid[] managers)
         {
-            var reportDao = Global.DaoFactory.GetReportDao();
-
-            switch (reportType)
+            using (var scope = DIHelper.Resolve())
             {
-                case ReportType.SalesByManagers:
-                    return reportDao.CheckSalesByManagersReportData(timePeriod, managers);
-                case ReportType.SalesForecast:
-                    return reportDao.CheckSalesForecastReportData(timePeriod, managers);
-                case ReportType.SalesFunnel:
-                    return reportDao.CheckSalesFunnelReportData(timePeriod, managers);
-                case ReportType.WorkloadByContacts:
-                    return reportDao.CheckWorkloadByContactsReportData(timePeriod, managers);
-                case ReportType.WorkloadByTasks:
-                    return reportDao.CheckWorkloadByTasksReportData(timePeriod, managers);
-                case ReportType.WorkloadByDeals:
-                    return reportDao.CheckWorkloadByDealsReportData(timePeriod, managers);
-                case ReportType.WorkloadByInvoices:
-                    return reportDao.CheckWorkloadByInvoicesReportData(timePeriod, managers);
-                case ReportType.WorkloadByVoip:
-                    return reportDao.CheckWorkloadByViopReportData(timePeriod, managers);
-                case ReportType.SummaryForThePeriod:
-                    return reportDao.CheckSummaryForThePeriodReportData(timePeriod, managers);
-                case ReportType.SummaryAtThisMoment:
-                    return reportDao.CheckSummaryAtThisMomentReportData(timePeriod, managers);
-                default:
-                    return false;
+                var reportDao = scope.Resolve<DaoFactory>().ReportDao;
+
+                switch (reportType)
+                {
+                    case ReportType.SalesByManagers:
+                        return reportDao.CheckSalesByManagersReportData(timePeriod, managers);
+                    case ReportType.SalesForecast:
+                        return reportDao.CheckSalesForecastReportData(timePeriod, managers);
+                    case ReportType.SalesFunnel:
+                        return reportDao.CheckSalesFunnelReportData(timePeriod, managers);
+                    case ReportType.WorkloadByContacts:
+                        return reportDao.CheckWorkloadByContactsReportData(timePeriod, managers);
+                    case ReportType.WorkloadByTasks:
+                        return reportDao.CheckWorkloadByTasksReportData(timePeriod, managers);
+                    case ReportType.WorkloadByDeals:
+                        return reportDao.CheckWorkloadByDealsReportData(timePeriod, managers);
+                    case ReportType.WorkloadByInvoices:
+                        return reportDao.CheckWorkloadByInvoicesReportData(timePeriod, managers);
+                    case ReportType.WorkloadByVoip:
+                        return reportDao.CheckWorkloadByViopReportData(timePeriod, managers);
+                    case ReportType.SummaryForThePeriod:
+                        return reportDao.CheckSummaryForThePeriodReportData(timePeriod, managers);
+                    case ReportType.SummaryAtThisMoment:
+                        return reportDao.CheckSummaryAtThisMomentReportData(timePeriod, managers);
+                    default:
+                        return false;
+                }
             }
         }
 
         public static List<string> GetMissingRates(ReportType reportType)
         {
-            if (reportType == ReportType.WorkloadByTasks || reportType == ReportType.WorkloadByInvoices ||
-                reportType == ReportType.WorkloadByContacts || reportType == ReportType.WorkloadByVoip) return null;
+            using (var scope = DIHelper.Resolve())
+            {
+                var reportDao = scope.Resolve<DaoFactory>().ReportDao;
+                if (reportType == ReportType.WorkloadByTasks || reportType == ReportType.WorkloadByInvoices ||
+                    reportType == ReportType.WorkloadByContacts || reportType == ReportType.WorkloadByVoip) return null;
 
-            return Global.DaoFactory.GetReportDao().GetMissingRates(Global.TenantSettings.DefaultCurrency.Abbreviation);
+                return reportDao.GetMissingRates(Global.TenantSettings.DefaultCurrency.Abbreviation);
+            }
         }
 
         private static object GetReportData(ReportType reportType, ReportTimePeriod timePeriod, Guid[] managers)
         {
-            var reportDao = Global.DaoFactory.GetReportDao();
-            var defaultCurrency = Global.TenantSettings.DefaultCurrency.Abbreviation;
-
-            switch (reportType)
+            using (var scope = DIHelper.Resolve())
             {
-                case ReportType.SalesByManagers:
-                    return reportDao.GetSalesByManagersReportData(timePeriod, managers, defaultCurrency);
-                case ReportType.SalesForecast:
-                    return reportDao.GetSalesForecastReportData(timePeriod, managers, defaultCurrency);
-                case ReportType.SalesFunnel:
-                    return reportDao.GetSalesFunnelReportData(timePeriod, managers, defaultCurrency);
-                case ReportType.WorkloadByContacts:
-                    return reportDao.GetWorkloadByContactsReportData(timePeriod, managers);
-                case ReportType.WorkloadByTasks:
-                    return reportDao.GetWorkloadByTasksReportData(timePeriod, managers);
-                case ReportType.WorkloadByDeals:
-                    return reportDao.GetWorkloadByDealsReportData(timePeriod, managers, defaultCurrency);
-                case ReportType.WorkloadByInvoices:
-                    return reportDao.GetWorkloadByInvoicesReportData(timePeriod, managers);
-                case ReportType.WorkloadByVoip:
-                    return reportDao.GetWorkloadByViopReportData(timePeriod, managers);
-                case ReportType.SummaryForThePeriod:
-                    return reportDao.GetSummaryForThePeriodReportData(timePeriod, managers, defaultCurrency);
-                case ReportType.SummaryAtThisMoment:
-                    return reportDao.GetSummaryAtThisMomentReportData(timePeriod, managers, defaultCurrency);
-                default:
-                    return null;
+                var reportDao = scope.Resolve<DaoFactory>().ReportDao;
+
+                var defaultCurrency = Global.TenantSettings.DefaultCurrency.Abbreviation;
+
+                switch (reportType)
+                {
+                    case ReportType.SalesByManagers:
+                        return reportDao.GetSalesByManagersReportData(timePeriod, managers, defaultCurrency);
+                    case ReportType.SalesForecast:
+                        return reportDao.GetSalesForecastReportData(timePeriod, managers, defaultCurrency);
+                    case ReportType.SalesFunnel:
+                        return reportDao.GetSalesFunnelReportData(timePeriod, managers, defaultCurrency);
+                    case ReportType.WorkloadByContacts:
+                        return reportDao.GetWorkloadByContactsReportData(timePeriod, managers);
+                    case ReportType.WorkloadByTasks:
+                        return reportDao.GetWorkloadByTasksReportData(timePeriod, managers);
+                    case ReportType.WorkloadByDeals:
+                        return reportDao.GetWorkloadByDealsReportData(timePeriod, managers, defaultCurrency);
+                    case ReportType.WorkloadByInvoices:
+                        return reportDao.GetWorkloadByInvoicesReportData(timePeriod, managers);
+                    case ReportType.WorkloadByVoip:
+                        return reportDao.GetWorkloadByViopReportData(timePeriod, managers);
+                    case ReportType.SummaryForThePeriod:
+                        return reportDao.GetSummaryForThePeriodReportData(timePeriod, managers, defaultCurrency);
+                    case ReportType.SummaryAtThisMoment:
+                        return reportDao.GetSummaryAtThisMomentReportData(timePeriod, managers, defaultCurrency);
+                    default:
+                        return null;
+                }
             }
         }
 
@@ -320,7 +325,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        private static void SaveReportFile(ReportTaskState state)
+        private static void SaveReportFile(ReportTaskState state, string url)
         {
             int tenantId;
             Guid userId;
@@ -330,29 +335,31 @@ namespace ASC.Web.CRM.Classes
             CoreContext.TenantManager.SetCurrentTenant(tenantId);
             SecurityContext.AuthenticateMe(userId);
 
-            var daoFactory = Global.DaoFactory;
-            var url = state.Response.GetFileUrl(TmpFileName);
-            var data = new WebClient().DownloadData(url);
-
-            using (var stream = new MemoryStream(data))
+            using (var scope = DIHelper.Resolve())
             {
-                var document = new ASC.Files.Core.File
-                    {
-                        Title = state.FileName,
-                        FolderID = daoFactory.GetFileDao().GetRoot(),
-                        ContentLength = stream.Length
-                    };
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var data = new WebClient().DownloadData(url);
 
-                var file = daoFactory.GetFileDao().SaveFile(document, stream);
+                using (var stream = new MemoryStream(data))
+                {
+                    var document = new ASC.Files.Core.File
+                        {
+                            Title = state.FileName,
+                            FolderID = daoFactory.FileDao.GetRoot(),
+                            ContentLength = stream.Length
+                        };
 
-                daoFactory.GetReportDao().SaveFile((int) file.ID, (int) state.ReportType);
+                    var file = daoFactory.FileDao.SaveFile(document, stream);
 
-                state.Percentage = 100;
-                state.IsCompleted = true;
-                state.Status = ReportTaskStatus.Done;
-                state.FileId = (int) file.ID;
+                    daoFactory.ReportDao.SaveFile((int)file.ID, (int)state.ReportType);
 
-                SetCacheValue(state);
+                    state.Percentage = 100;
+                    state.IsCompleted = true;
+                    state.Status = ReportTaskStatus.Done;
+                    state.FileId = (int)file.ID;
+
+                    SetCacheValue(state);
+                }
             }
         }
 
@@ -399,20 +406,18 @@ namespace ASC.Web.CRM.Classes
 
             if (state.Status == ReportTaskStatus.Failed) return;
 
-            state.Response = DocumentService.DocbuilderRequest(FilesLinkUtility.DocServiceDocbuilderUrl, null,
-                                                               script, true, FileUtility.SignatureSecret);
-
-            if (state.Response != null && state.Response.Error == 0)
+            try
             {
+                Dictionary<string, string> urls;
+                state.BuilderKey = DocumentServiceConnector.DocbuilderRequest(null, script, true, out urls);
+
                 state.Percentage = 80;
             }
-            else
+            catch (Exception ex)
             {
                 state.Percentage = 100;
                 state.IsCompleted = true;
-                state.ErrorText = state.Response == null
-                                      ? CRMReportResource.ErrorNullDocbuilderResponse
-                                      : state.Response.GetErrorText();
+                state.ErrorText = ex.Message;
                 state.Status = ReportTaskStatus.Failed;
             }
 
@@ -427,7 +432,14 @@ namespace ASC.Web.CRM.Classes
         {
             try
             {
-                var obj = (ReportTaskParameters) parameter;
+                var obj = (ReportTaskParameters)parameter;
+
+                if (HttpContext.Current == null && !WorkContext.IsMono)
+                {
+                    HttpContext.Current = new HttpContext(
+                        new HttpRequest("hack", obj.Url, string.Empty),
+                        new HttpResponse(new StringWriter()));
+                }
 
                 CoreContext.TenantManager.SetCurrentTenant(obj.TenantId);
                 SecurityContext.AuthenticateMe(obj.CurrentUser);
@@ -469,7 +481,6 @@ namespace ASC.Web.CRM.Classes
                     Percentage = 0,
                     IsCompleted = false,
                     ErrorText = null,
-                    Response = null,
                     FileName = GetFileName(reportType),
                     FileId = 0
                 };
@@ -485,7 +496,8 @@ namespace ASC.Web.CRM.Classes
                     CurrentUser = SecurityContext.CurrentAccount.ID,
                     ReportType = reportType,
                     TimePeriod = timePeriod,
-                    Managers = managers
+                    Managers = managers,
+                    Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null
                 });
 
             return state;
@@ -499,6 +511,7 @@ namespace ASC.Web.CRM.Classes
             public ReportType ReportType { get; set; }
             public ReportTimePeriod TimePeriod { get; set; }
             public Guid[] Managers { get; set; }
+            public string Url { get; set; }
         }
     }
 }

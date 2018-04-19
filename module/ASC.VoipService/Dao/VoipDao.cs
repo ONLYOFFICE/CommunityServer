@@ -27,19 +27,17 @@
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
-using ASC.Thrdparty.Configuration;
 using ASC.VoipService.Twilio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Core;
 
 namespace ASC.VoipService.Dao
 {
     public class VoipDao : AbstractDao
     {
-        public VoipDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public VoipDao(int tenantID)
+            : base(tenantID)
         {
         }
 

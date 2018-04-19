@@ -32,6 +32,8 @@ using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.DataStorage;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Mail.Aggregator.Dal
 {
@@ -58,58 +60,61 @@ namespace ASC.Mail.Aggregator.Dal
 
         public void AddRelationshipEvents(MailMessage message)
         {
-            var factory = new DaoFactory(CoreContext.TenantManager.GetCurrentTenant().TenantId, CRMConstants.DatabaseId);
-            foreach (var contactEntity in message.LinkedCrmEntityIds)
+            using (var scope = DIHelper.Resolve())
             {
-                switch (contactEntity.Type)
+                var factory = scope.Resolve<DaoFactory>();
+                foreach (var contactEntity in message.LinkedCrmEntityIds)
                 {
-                    case CrmContactEntity.EntityTypes.Contact:
-                        var crmContact = factory.GetContactDao().GetByID(contactEntity.Id);
-                        CRMSecurity.DemandAccessTo(crmContact);
-                        break;
-                    case CrmContactEntity.EntityTypes.Case:
-                        var crmCase = factory.GetCasesDao().GetByID(contactEntity.Id);
-                        CRMSecurity.DemandAccessTo(crmCase);
-                        break;
-                    case CrmContactEntity.EntityTypes.Opportunity:
-                        var crmOpportunity = factory.GetDealDao().GetByID(contactEntity.Id);
-                        CRMSecurity.DemandAccessTo(crmOpportunity);
-                        break;
-                }
-
-                var fileIds = new List<int>();
-
-                var apiHelper = new ApiHelper(HttpContextScheme);
-
-                foreach (var attachment in message.Attachments.FindAll(attach => !attach.isEmbedded))
-                {
-                    if (attachment.dataStream != null)
+                    switch (contactEntity.Type)
                     {
-                        attachment.dataStream.Seek(0, SeekOrigin.Begin);
-
-                        var uploadedFileId = apiHelper.UploadToCrm(attachment.dataStream, attachment.fileName,
-                            attachment.contentType, contactEntity);
-
-                        if (uploadedFileId > 0)
-                        {
-                            fileIds.Add(uploadedFileId);
-                        }
+                        case CrmContactEntity.EntityTypes.Contact:
+                            var crmContact = factory.ContactDao.GetByID(contactEntity.Id);
+                            CRMSecurity.DemandAccessTo(crmContact);
+                            break;
+                        case CrmContactEntity.EntityTypes.Case:
+                            var crmCase = factory.CasesDao.GetByID(contactEntity.Id);
+                            CRMSecurity.DemandAccessTo(crmCase);
+                            break;
+                        case CrmContactEntity.EntityTypes.Opportunity:
+                            var crmOpportunity = factory.DealDao.GetByID(contactEntity.Id);
+                            CRMSecurity.DemandAccessTo(crmOpportunity);
+                            break;
                     }
-                    else
+
+                    var fileIds = new List<int>();
+
+                    var apiHelper = new ApiHelper(HttpContextScheme);
+
+                    foreach (var attachment in message.Attachments.FindAll(attach => !attach.isEmbedded))
                     {
-                        using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                        if (attachment.dataStream != null)
                         {
-                            var uploadedFileId = apiHelper.UploadToCrm(file.FileStream, file.FileName,
+                            attachment.dataStream.Seek(0, SeekOrigin.Begin);
+
+                            var uploadedFileId = apiHelper.UploadToCrm(attachment.dataStream, attachment.fileName,
                                 attachment.contentType, contactEntity);
+
                             if (uploadedFileId > 0)
                             {
                                 fileIds.Add(uploadedFileId);
                             }
                         }
+                        else
+                        {
+                            using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                            {
+                                var uploadedFileId = apiHelper.UploadToCrm(file.FileStream, file.FileName,
+                                    attachment.contentType, contactEntity);
+                                if (uploadedFileId > 0)
+                                {
+                                    fileIds.Add(uploadedFileId);
+                                }
+                            }
+                        }
                     }
-                }
 
-                apiHelper.AddToCrmHistory(message, contactEntity, fileIds);
+                    apiHelper.AddToCrmHistory(message, contactEntity, fileIds);
+                }
             }
         }
     }

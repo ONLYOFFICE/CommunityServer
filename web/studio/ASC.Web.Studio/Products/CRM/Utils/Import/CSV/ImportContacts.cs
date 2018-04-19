@@ -45,16 +45,16 @@ namespace ASC.Web.CRM.Classes
     {
         private Int32 DaoIterationStep = 200;
 
-        private void ImportContactsData()
+        private void ImportContactsData(DaoFactory _daoFactory)
         {
             var index = 0;
 
             var personFakeIdCompanyNameHash = new Dictionary<int, String>();
 
-            var contactDao = _daoFactory.GetContactDao();
-            var contactInfoDao = _daoFactory.GetContactInfoDao();
-            var customFieldDao = _daoFactory.GetCustomFieldDao();
-            var tagDao = _daoFactory.GetTagDao();
+            var contactDao = _daoFactory.ContactDao;
+            var contactInfoDao = _daoFactory.ContactInfoDao;
+            var customFieldDao = _daoFactory.CustomFieldDao;
+            var tagDao = _daoFactory.TagDao;
 
             var findedContacts = new Dictionary<int, Contact>();
             var findedTags = new Dictionary<int, List<String>>();
@@ -74,7 +74,7 @@ namespace ASC.Web.CRM.Classes
 
                     #region Common data
 
-                    if (!_CommonData(currentIndex, ref contact, ref personFakeIdCompanyNameHash))
+                    if (!_CommonData(currentIndex, _daoFactory, ref contact, ref personFakeIdCompanyNameHash))
                         continue;
 
                     findedContacts.Add(contact.ID, contact);
@@ -136,7 +136,7 @@ namespace ASC.Web.CRM.Classes
 
             #region Processing duplicate rule
 
-            _DuplicateRecordRuleProcess(ref findedContacts, ref personFakeIdCompanyNameHash, ref findedContactInfos, ref findedCustomField, ref findedTags);
+            _DuplicateRecordRuleProcess(_daoFactory, ref findedContacts, ref personFakeIdCompanyNameHash, ref findedContactInfos, ref findedCustomField, ref findedTags);
 
             _log.Info("ImportContactsData. _DuplicateRecordRuleProcess. End");
 
@@ -399,7 +399,7 @@ namespace ASC.Web.CRM.Classes
             Complete();
         }
 
-        private bool _CommonData(int currentIndex, ref Contact contact, ref Dictionary<int, String> personFakeIdCompanyNameHash)
+        private bool _CommonData(int currentIndex, DaoFactory _daoFactory, ref Contact contact, ref Dictionary<int, String> personFakeIdCompanyNameHash)
         {
             var firstName = GetPropertyValue("firstName");
             var lastName = GetPropertyValue("lastName");
@@ -410,7 +410,7 @@ namespace ASC.Web.CRM.Classes
 
             Percentage += 1.0 * 100 / (ImportFromCSV.MaxRoxCount * 3);
 
-            var listItemDao = _daoFactory.GetListItemDao();
+            var listItemDao = _daoFactory.ListItemDao;
 
 
             if (!String.IsNullOrEmpty(firstName) || !String.IsNullOrEmpty(lastName))
@@ -521,6 +521,9 @@ namespace ASC.Web.CRM.Classes
             var contactInfoType =
                 (ContactInfoType)Enum.Parse(typeof(ContactInfoType), nameParts[0]);
 
+            if(contactInfoType == ContactInfoType.Email && !propertyValue.TestEmailRegex()) 
+                return;
+
             var category = Convert.ToInt32(nameParts[1]);
 
             bool isPrimary = false;
@@ -587,14 +590,14 @@ namespace ASC.Web.CRM.Classes
         
         #endregion
 
-        private void _DuplicateRecordRuleProcess(
+        private void _DuplicateRecordRuleProcess(DaoFactory _daoFactory,
             ref Dictionary<int, Contact> findedContacts,
             ref Dictionary<int, String> personFakeIdCompanyNameHash,
             ref List<ContactInfo> findedContactInfos,
             ref List<CustomField> findedCustomField,
             ref Dictionary<int, List<String>> findedTags)
         {
-            var contactDao = _daoFactory.GetContactDao();
+            var contactDao = _daoFactory.ContactDao;
 
             _log.Info("_DuplicateRecordRuleProcess. Start");
 

@@ -155,7 +155,7 @@ namespace ASC.Mail.Aggregator.Core
 
                     using (
                         var mc = new MailClient(draft.Mailbox, CancellationToken.None,
-                            certificatePermit: _sslCertificatePermit, log: log))
+                            certificatePermit: draft.Mailbox.IsTeamlab || _sslCertificatePermit, log: log))
                     {
                         mc.Send(mimeMessage,
                             draft.Mailbox.Imap && !DisableImapSendSyncServers.Contains(draft.Mailbox.Server));
@@ -223,7 +223,7 @@ namespace ASC.Mail.Aggregator.Core
 
                 using (var memStream = new MemoryStream(Encoding.UTF8.GetBytes(draft.CalendarIcs)))
                 {                                                                                                          
-                    manager.AttachFile(draft.Mailbox.TenantId, draft.Mailbox.UserId,
+                    manager.AttachFileToDraft(draft.Mailbox.TenantId, draft.Mailbox.UserId,
                         draft.Id, icsAttachment.ContentType.Name, memStream);
                 }
             }

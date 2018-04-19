@@ -58,7 +58,7 @@ namespace ASC.Web.Files.Utils
             if (entry == null) throw new ArgumentNullException(FilesCommonResource.ErrorMassage_BadRequest);
             if (!CanSetAccess(entry))
             {
-                Global.Logger.ErrorFormat("User {0} can't get shared info for {1} {2}", SecurityContext.CurrentAccount.ID, (entry is File ? "file" : "folder"), entry.ID);
+                Global.Logger.ErrorFormat("User {0} can't get shared info for {1} {2}", SecurityContext.CurrentAccount.ID, (entry.FileEntryType == FileEntryType.File ? "file" : "folder"), entry.ID);
                 throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
             }
 
@@ -119,7 +119,7 @@ namespace ASC.Web.Files.Utils
                 result.Add(w);
             }
 
-            if (entry is File && result.All(w => w.SubjectId != FileConstant.ShareLinkId))
+            if (entry.FileEntryType == FileEntryType.File && result.All(w => w.SubjectId != FileConstant.ShareLinkId))
             {
                 var w = new AceWrapper
                     {
@@ -195,7 +195,7 @@ namespace ASC.Web.Files.Utils
                                    ? fileSecurity.DefaultCommonShare
                                    : fileSecurity.DefaultMyShare;
 
-            var entryType = entry is File ? FileEntryType.File : FileEntryType.Folder;
+            var entryType = entry.FileEntryType;
             var recipients = new Dictionary<Guid, FileShare>();
             var changed = false;
 
@@ -292,7 +292,7 @@ namespace ASC.Web.Files.Utils
                         if (entry.RootFolderType != FolderType.USER || Equals(entry.RootFolderId, Global.FolderMy))
                             return;
 
-                        var entryType = entry is File ? FileEntryType.File : FileEntryType.Folder;
+                        var entryType = entry.FileEntryType;
                         fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID, fileSecurity.DefaultMyShare);
 
                         if (entryType == FileEntryType.File)

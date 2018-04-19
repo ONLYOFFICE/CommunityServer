@@ -33,14 +33,7 @@ namespace ASC.Projects.Engine
 {
     public class ParticipantEngine
     {
-        private readonly IParticipantDao _participantDao;
-
-
-        public ParticipantEngine(IDaoFactory daoFactory)
-        {
-            _participantDao = daoFactory.GetParticipantDao();
-        }
-
+        public IDaoFactory DaoFactory { get; set; }
 
         public Participant GetByID(Guid userID)
         {
@@ -49,26 +42,26 @@ namespace ASC.Projects.Engine
 
         public void AddToFollowingProjects(int project, Guid participant)
         {
-            _participantDao.AddToFollowingProjects(project, participant);
+            DaoFactory.ParticipantDao.AddToFollowingProjects(project, participant);
         }
 
         public void RemoveFromFollowingProjects(int project, Guid participant)
         {
-            _participantDao.RemoveFromFollowingProjects(project, participant);
+            DaoFactory.ParticipantDao.RemoveFromFollowingProjects(project, participant);
         }
 
         public List<int> GetInterestedProjects(Guid participant)
         {
-            return _participantDao.GetInterestedProjects(participant);
+            return DaoFactory.ParticipantDao.GetInterestedProjects(participant);
         }
         public List<int> GetFollowingProjects(Guid participant)
         {
-            return new List<int>(_participantDao.GetFollowingProjects(participant));
+            return new List<int>(DaoFactory.ParticipantDao.GetFollowingProjects(participant));
         }
 
         public List<int> GetMyProjects(Guid participant)
         {
-            return new List<int>(_participantDao.GetMyProjects(participant));
+            return new List<int>(DaoFactory.ParticipantDao.GetMyProjects(participant));
         }
     }
 }

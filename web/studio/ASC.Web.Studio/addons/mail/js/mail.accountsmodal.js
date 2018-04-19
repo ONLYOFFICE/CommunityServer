@@ -99,8 +99,7 @@ window.accountsModal = (function($) {
                 if (account.is_teamlab && (account.is_shared_domain || Teamlab.profile.isAdmin)) {
                     serviceManager.removeMailbox(account.mailbox_id, { account: account }, {
                         success: function(params, data) {
-                            window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
-                            window.LoadingBanner.displayMailLoading(true, true);
+                            window.LoadingBanner.displayMailLoading();
 
                             progressBarIntervalId = setInterval(function() {
                                     return checkRemoveMailboxStatus(data, params.account);
@@ -115,8 +114,7 @@ window.accountsModal = (function($) {
                 } else {
                     serviceManager.removeBox(account.email, { account: account }, {
                         success: function(params, data) {
-                            window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
-                            window.LoadingBanner.displayMailLoading(true, true);
+                            window.LoadingBanner.displayMailLoading();
 
                             progressBarIntervalId = setInterval(function() {
                                     return checkRemoveMailboxStatus(data, params.account);

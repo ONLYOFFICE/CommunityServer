@@ -45,7 +45,7 @@ namespace ASC.Web.CRM
 
             if (int.TryParse(UrlParameters.ID, out caseID))
             {
-                ASC.CRM.Core.Entities.Cases targetCase = Global.DaoFactory.GetCasesDao().GetByID(caseID);
+                ASC.CRM.Core.Entities.Cases targetCase = DaoFactory.CasesDao.GetByID(caseID);
 
                 if (targetCase == null || !CRMSecurity.CanAccessTo(targetCase))
                     Response.Redirect(PathProvider.StartURL() + "cases.aspx");

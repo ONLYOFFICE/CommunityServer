@@ -27,6 +27,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
+using ASC.Api.Impl.Constraints;
 using ASC.Api.Interfaces;
 using Autofac;
 
@@ -34,27 +35,41 @@ namespace ASC.Api.Impl.Routing
 {
     class ApiRouteRegistrator : ApiRouteRegistratorBase
     {
+        public const string Extension = "extension";
+        public const string ExtensionBrace = "{" + Extension + "}";
+
         protected override void RegisterEntryPoints(RouteCollection routes, IEnumerable<IApiMethodCall> entryPoints, List<string> extensions)
         {
+            var routeHandler = Container.Resolve<IApiRouteHandler>();
+            var defaults = new RouteValueDictionary { { Extension, ".json" } };
+            var apiExtensionConstraint = new ApiExtensionConstraint(extensions);
+
             foreach (var apiMethodCall in entryPoints.OrderBy(x => x.RoutingUrl.IndexOf('{')).ThenBy(x => x.RoutingUrl.LastIndexOf('}')))
             {
-                foreach (var extension in extensions)
-                {
-                    routes.Add(GetRoute(Container.Resolve<IApiRouteHandler>(), apiMethodCall, extension));
-                }
-                routes.Add(GetRoute(Container.Resolve<IApiRouteHandler>(), apiMethodCall));
+                var dataTokens = GetDataTokens(apiMethodCall);
+                var url = string.Format("{0}{1}{2}", apiMethodCall.FullPath, apiMethodCall.FullPath.EndsWith("}") ? "." : "", ExtensionBrace);
+
+                apiMethodCall.Constraints.Add(Extension, apiExtensionConstraint);
+
+                routes.Add(new Route(url, defaults, apiMethodCall.Constraints, dataTokens, routeHandler));
+                routes.Add(new Route(apiMethodCall.FullPath, defaults, apiMethodCall.Constraints, dataTokens, routeHandler));
             }
         }
 
-        public Route GetRoute(IApiRouteHandler routeHandler, IApiMethodCall method, string extension = "")
+        private static RouteValueDictionary GetDataTokens(IApiMethodCall method)
         {
-            var dataTokens = new RouteValueDictionary
-                {
-                    { DataTokenConstants.RequiresAuthorization, method.RequiresAuthorization },
-                    { DataTokenConstants.CheckPayment, method.CheckPayment },
-                };
+            var dataTokens = new RouteValueDictionary();
+            if (!method.RequiresAuthorization)
+            {
+                dataTokens.Add(DataTokenConstants.RequiresAuthorization, false);
+            }
 
-            return new Route(method.FullPath + extension, null, method.Constraints, dataTokens, routeHandler);
+            if (!method.CheckPayment)
+            {
+                dataTokens.Add(DataTokenConstants.CheckPayment, false);
+            }
+
+            return dataTokens;
         }
     }
 }

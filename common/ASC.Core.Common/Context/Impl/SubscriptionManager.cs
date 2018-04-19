@@ -102,6 +102,11 @@ namespace ASC.Core
                 .ToArray();
         }
 
+        public object GetSubscriptionRecord(string sourceID, string actionID, string recipientID, string objectID)
+        {
+            return service.GetSubscription(GetTenant(), sourceID, actionID, recipientID, objectID);
+        }
+
         public string[] GetSubscriptions(string sourceID, string actionID, string recipientID, bool checkSubscribe = true)
         {
             return service.GetSubscriptions(GetTenant(), sourceID, actionID, recipientID, null)

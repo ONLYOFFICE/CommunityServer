@@ -309,7 +309,16 @@ namespace ASC.Files.Thirdparty.Box
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
+        public void ReassignFolders(object[] folderIds, Guid newOwnerId)
+        {
+        }
+
+        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        {
+            return null;
+        }
+
+        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
         {
             return null;
         }

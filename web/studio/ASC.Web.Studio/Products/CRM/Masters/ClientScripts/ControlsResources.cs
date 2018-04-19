@@ -35,10 +35,13 @@ using ASC.Web.CRM.Classes;
 using ASC.CRM.Core;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.CRM.Core.Dao;
 using ASC.Web.Core;
 using ASC.Web.CRM.Configuration;
 using ASC.CRM.Core.Entities;
 using ASC.Web.Core.Client;
+using ASC.Web.CRM.Core;
+using Autofac;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
 {
@@ -116,30 +119,33 @@ namespace ASC.Web.CRM.Masters.ClientScripts
             crmAvailableWithAdmins.AddRange(admins);
             crmAvailableWithAdmins = crmAvailableWithAdmins.Distinct().SortByUserName().ToList();
 
-            var taskCategories = Global.DaoFactory.GetListItemDao().GetItems(ListType.TaskCategory);
-            Converter<UserInfo, object> converter = item =>
-                new
+            using (var scope = DIHelper.Resolve())
+            {
+                var taskCategories = scope.Resolve<DaoFactory>().ListItemDao.GetItems(ListType.TaskCategory);
+                Converter<UserInfo, object> converter = item =>
+                    new
+                    {
+                        avatarSmall = item.GetSmallPhotoURL(),
+                        displayName = item.DisplayUserName(),
+                        id = item.ID,
+                        title = item.Title.HtmlEncode()
+                    };
+
+                var categoryConverter = GetCategoryConverter("task_category");
+
+                return new List<KeyValuePair<string, object>>(1)
                 {
-                    avatarSmall = item.GetSmallPhotoURL(),
-                    displayName = item.DisplayUserName(),
-                    id = item.ID,
-                    title = item.Title.HtmlEncode()
+                    RegisterObject(
+                        new
+                        {
+                            crmAdminList = admins.ConvertAll(converter),
+                            isCrmAvailableForAllUsers = crmAvailable.Count == 0,
+                            crmAvailableWithAdminList = crmAvailableWithAdmins.ConvertAll(converter),
+                            smtpSettings = Global.TenantSettings.SMTPServerSetting,
+                            taskCategories = taskCategories.ConvertAll(categoryConverter)
+                        })
                 };
-
-            var categoryConverter = GetCategoryConverter("task_category");
-
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               crmAdminList = admins.ConvertAll(converter),
-                               isCrmAvailableForAllUsers = crmAvailable.Count == 0,
-                               crmAvailableWithAdminList = crmAvailableWithAdmins.ConvertAll(converter),
-                               smtpSettings = Global.TenantSettings.SMTPServerSetting,
-                               taskCategories = taskCategories.ConvertAll(categoryConverter)
-                           })
-                   };
+            }
         }
     }
 
@@ -151,72 +157,82 @@ namespace ASC.Web.CRM.Masters.ClientScripts
     {
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var daoFactory = Global.DaoFactory;
-
-            var allTags = daoFactory.GetTagDao().GetAllTags();
-            var contactTags = allTags.Where(r => r.Key == EntityType.Contact).Select(r => r.Value).ToList();
-            var caseTags = allTags.Where(r => r.Key == EntityType.Case).Select(r => r.Value).ToList();
-            var opportunityTags = allTags.Where(r => r.Key == EntityType.Opportunity).Select(r => r.Value).ToList();
-
-            var allListItems = daoFactory.GetListItemDao().GetItems();
-            var contactStatusListItems = allListItems.Where(r=> r.ListType == ListType.ContactStatus).ToList();
-            contactStatusListItems.Insert(0, new ListItem { ID = 0, Title = CRMCommonResource.NotSpecified, Color = "0" });
-
-            var contactStages = contactStatusListItems.ConvertAll(item => new
+            using (var scope = DIHelper.Resolve())
             {
-                value = item.ID,
-                title = item.Title.HtmlEncode(),
-                classname = "colorFilterItem color_" + item.Color.Replace("#", "").ToLower()
-            });
+                var daoFactory = scope.Resolve<DaoFactory>();
 
-            var contactTypeListItems = allListItems.Where(r => r.ListType == ListType.ContactType).ToList();
-            contactTypeListItems.Insert(0, new ListItem { ID = 0, Title = CRMContactResource.CategoryNotSpecified });
+                var allTags = daoFactory.TagDao.GetAllTags();
+                var contactTags = allTags.Where(r => r.Key == EntityType.Contact).Select(r => r.Value).ToList();
+                var caseTags = allTags.Where(r => r.Key == EntityType.Case).Select(r => r.Value).ToList();
+                var opportunityTags = allTags.Where(r => r.Key == EntityType.Opportunity).Select(r => r.Value).ToList();
 
-            var contactTypes = contactTypeListItems.ConvertAll(item => new
-            {
-                value = item.ID,
-                title = item.Title.HtmlEncode()
-            });
+                var allListItems = daoFactory.ListItemDao.GetItems();
+                var contactStatusListItems = allListItems.Where(r => r.ListType == ListType.ContactStatus).ToList();
+                contactStatusListItems.Insert(0,
+                    new ListItem {ID = 0, Title = CRMCommonResource.NotSpecified, Color = "0"});
 
-            var dealMilestones = daoFactory.GetDealMilestoneDao().GetAll();
+                var contactStages = contactStatusListItems.ConvertAll(item => new
+                {
+                    value = item.ID,
+                    title = item.Title.HtmlEncode(),
+                    classname = "colorFilterItem color_" + item.Color.Replace("#", "").ToLower()
+                });
 
-            Converter<string, object> tagsConverter = item => new
-            {
-                value = item.HtmlEncode(),
-                title = item.HtmlEncode()
-            };
-            Converter<InvoiceStatus, object> invoiceStatusesConverter = item => new
-            {
-                value = (int)item,
-                displayname = item.ToLocalizedString(),
-                apiname = item.ToString().ToLower()
-            };
+                var contactTypeListItems = allListItems.Where(r => r.ListType == ListType.ContactType).ToList();
+                contactTypeListItems.Insert(0, new ListItem {ID = 0, Title = CRMContactResource.CategoryNotSpecified});
 
-            var invoiceStatuses = new List<InvoiceStatus>(4) { InvoiceStatus.Draft, InvoiceStatus.Sent, InvoiceStatus.Rejected, InvoiceStatus.Paid }
-                .ConvertAll(invoiceStatusesConverter);
+                var contactTypes = contactTypeListItems.ConvertAll(item => new
+                {
+                    value = item.ID,
+                    title = item.Title.HtmlEncode()
+                });
 
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               contactStages,
-                               contactTypes,
-                               contactTags = contactTags.ConvertAll(tagsConverter),
-                               caseTags = caseTags.ConvertAll(tagsConverter),
-                               dealTags = opportunityTags.ConvertAll(tagsConverter),
-                               mailQuotas = MailSender.GetQuotas(),
-                               dealMilestones = dealMilestones.ConvertAll(item => 
-                                   new
-                                   {
-                                       value = item.ID,
-                                       title = item.Title,
-                                       classname = "colorFilterItem color_" + item.Color.Replace("#", "").ToLower()
-                                   }),
-                               invoiceStatuses,
-                               currencies = CurrencyProvider.GetAll()
-                           })
-                   };
+                var dealMilestones = daoFactory.DealMilestoneDao.GetAll();
+
+                Converter<string, object> tagsConverter = item => new
+                {
+                    value = item.HtmlEncode(),
+                    title = item.HtmlEncode()
+                };
+                Converter<InvoiceStatus, object> invoiceStatusesConverter = item => new
+                {
+                    value = (int) item,
+                    displayname = item.ToLocalizedString(),
+                    apiname = item.ToString().ToLower()
+                };
+
+                var invoiceStatuses = new List<InvoiceStatus>(4)
+                {
+                    InvoiceStatus.Draft,
+                    InvoiceStatus.Sent,
+                    InvoiceStatus.Rejected,
+                    InvoiceStatus.Paid
+                }
+                    .ConvertAll(invoiceStatusesConverter);
+
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            contactStages,
+                            contactTypes,
+                            contactTags = contactTags.ConvertAll(tagsConverter),
+                            caseTags = caseTags.ConvertAll(tagsConverter),
+                            dealTags = opportunityTags.ConvertAll(tagsConverter),
+                            mailQuotas = MailSender.GetQuotas(),
+                            dealMilestones = dealMilestones.ConvertAll(item =>
+                                new
+                                {
+                                    value = item.ID,
+                                    title = item.Title,
+                                    classname = "colorFilterItem color_" + item.Color.Replace("#", "").ToLower()
+                                }),
+                            invoiceStatuses,
+                            currencies = CurrencyProvider.GetAll()
+                        })
+                };
+            }
         }
     }
 
@@ -252,36 +268,40 @@ namespace ASC.Web.CRM.Masters.ClientScripts
     {
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var listItemDao = Global.DaoFactory.GetListItemDao();
-            var eventsCategories = listItemDao.GetItems(ListType.HistoryCategory);
-            var systemCategories = listItemDao.GetSystemItems();
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var listItemDao = daoFactory.ListItemDao;
+                var eventsCategories = listItemDao.GetItems(ListType.HistoryCategory);
+                var systemCategories = listItemDao.GetSystemItems();
 
-            var categoryConverter = GetCategoryConverter("event_category");
+                var categoryConverter = GetCategoryConverter("event_category");
 
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               eventsCategories = eventsCategories.ConvertAll(categoryConverter),
-                               systemCategories = systemCategories.ConvertAll(categoryConverter),
-                               historyEntityTypes = new[]
-                                                    {
-                                                        new
-                                                        {
-                                                            value = (int) EntityType.Opportunity,
-                                                            displayname = CRMDealResource.Deal,
-                                                            apiname = EntityType.Opportunity.ToString().ToLower()
-                                                        },
-                                                        new
-                                                        {
-                                                            value = (int) EntityType.Case,
-                                                            displayname = CRMCasesResource.Case,
-                                                            apiname = EntityType.Case.ToString().ToLower()
-                                                        }
-                                                    }
-                           })
-                   };
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            eventsCategories = eventsCategories.ConvertAll(categoryConverter),
+                            systemCategories = systemCategories.ConvertAll(categoryConverter),
+                            historyEntityTypes = new[]
+                            {
+                                new
+                                {
+                                    value = (int) EntityType.Opportunity,
+                                    displayname = CRMDealResource.Deal,
+                                    apiname = EntityType.Opportunity.ToString().ToLower()
+                                },
+                                new
+                                {
+                                    value = (int) EntityType.Case,
+                                    displayname = CRMCasesResource.Case,
+                                    apiname = EntityType.Case.ToString().ToLower()
+                                }
+                            }
+                        })
+                };
+            }
         }
 
     }
@@ -294,16 +314,23 @@ namespace ASC.Web.CRM.Masters.ClientScripts
     {
         protected override string GetCacheHash()
         {
-            return Global.DaoFactory.GetInvoiceTaxDao().GetMaxLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<DaoFactory>().InvoiceTaxDao.GetMaxLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
+            }
         }
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            //yield return RegisterObject("currencies", CurrencyProvider.GetAll());
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(new {taxes = Global.DaoFactory.GetInvoiceTaxDao().GetAll()})
-                   };
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+                //yield return RegisterObject("currencies", CurrencyProvider.GetAll());
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(new {taxes = scope.Resolve<DaoFactory>().InvoiceTaxDao.GetAll()})
+                };
+            }
         }
     }
 
@@ -372,38 +399,45 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 }
             }
 
-            var columnSelectorDataCompany = columnSelectorData.ToList();
-            var columnSelectorDataPerson = columnSelectorData.ToList();
-            var customFieldDao = Global.DaoFactory.GetCustomFieldDao();
-            
-            Predicate<CustomField> customFieldPredicate = customField =>
-                customField.FieldType == CustomFieldType.TextField ||
-                customField.FieldType == CustomFieldType.TextArea ||
-                customField.FieldType == CustomFieldType.CheckBox ||
-                customField.FieldType == CustomFieldType.SelectBox;
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var columnSelectorDataCompany = columnSelectorData.ToList();
+                var columnSelectorDataPerson = columnSelectorData.ToList();
+                var customFieldDao = daoFactory.CustomFieldDao;
 
-            Converter<CustomField, object> customFieldConverter = customField => defaultConverter("customField_" + customField.ID, customField.Label, (int) customField.FieldType, customField.Mask);
+                Predicate<CustomField> customFieldPredicate = customField =>
+                    customField.FieldType == CustomFieldType.TextField ||
+                    customField.FieldType == CustomFieldType.TextArea ||
+                    customField.FieldType == CustomFieldType.CheckBox ||
+                    customField.FieldType == CustomFieldType.SelectBox;
 
-            Func<EntityType, List<object>> getFieldsDescription = entityType =>
-                customFieldDao.GetFieldsDescription(entityType)
-                    .FindAll(customFieldPredicate)
-                    .ConvertAll(customFieldConverter);
+                Converter<CustomField, object> customFieldConverter =
+                    customField =>
+                        defaultConverter("customField_" + customField.ID, customField.Label, (int) customField.FieldType,
+                            customField.Mask);
 
-            columnSelectorDataCompany.AddRange(getFieldsDescription(EntityType.Company));
-            columnSelectorDataPerson.AddRange(getFieldsDescription(EntityType.Person));
+                Func<EntityType, List<object>> getFieldsDescription = entityType =>
+                    customFieldDao.GetFieldsDescription(entityType)
+                        .FindAll(customFieldPredicate)
+                        .ConvertAll(customFieldConverter);
 
-            var tagList = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Contact).ToList();
+                columnSelectorDataCompany.AddRange(getFieldsDescription(EntityType.Company));
+                columnSelectorDataPerson.AddRange(getFieldsDescription(EntityType.Person));
 
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               tagList,
-                               columnSelectorDataCompany,
-                               columnSelectorDataPerson
-                           })
-                   };
+                var tagList = daoFactory.TagDao.GetAllTags(EntityType.Contact).ToList();
+
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            tagList,
+                            columnSelectorDataCompany,
+                            columnSelectorDataPerson
+                        })
+                };
+            }
         }
     }
 
@@ -415,67 +449,73 @@ namespace ASC.Web.CRM.Masters.ClientScripts
     {
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var columnSelectorData = new List<object>(10)
+            using (var scope = DIHelper.Resolve())
             {
-                CsdConverter(string.Empty, CRMContactResource.NoMatchSelect),
-                CsdConverter("-1", CRMContactResource.DoNotImportThisField),
-                CsdDefaultConverter(string.Empty, CRMContactResource.GeneralInformation, true),
-                CsdConverter("firstName", CRMContactResource.FirstName),
-                CsdConverter("lastName", CRMContactResource.LastName),
-                CsdConverter("title", CRMContactResource.JobTitle),
-                CsdConverter("companyName", CRMContactResource.CompanyName),
-                CsdConverter("contactStage", CRMContactResource.ContactStage),
-                CsdConverter("contactType", CRMContactResource.ContactType),
-                CsdConverter("notes", CRMContactResource.About)
-            };
-
-            foreach (ContactInfoType infoTypeEnum in Enum.GetValues(typeof (ContactInfoType)))
-                foreach (Enum categoryEnum in Enum.GetValues(ContactInfo.GetCategory(infoTypeEnum)))
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var columnSelectorData = new List<object>(10)
                 {
-                    var localName = string.Format("contactInfo_{0}_{1}", infoTypeEnum, Convert.ToInt32(categoryEnum));
-                    var localTitle = string.Format("{1} ({0})", categoryEnum.ToLocalizedString().ToLower(),
-                        infoTypeEnum.ToLocalizedString());
+                    CsdConverter(string.Empty, CRMContactResource.NoMatchSelect),
+                    CsdConverter("-1", CRMContactResource.DoNotImportThisField),
+                    CsdDefaultConverter(string.Empty, CRMContactResource.GeneralInformation, true),
+                    CsdConverter("firstName", CRMContactResource.FirstName),
+                    CsdConverter("lastName", CRMContactResource.LastName),
+                    CsdConverter("title", CRMContactResource.JobTitle),
+                    CsdConverter("companyName", CRMContactResource.CompanyName),
+                    CsdConverter("contactStage", CRMContactResource.ContactStage),
+                    CsdConverter("contactType", CRMContactResource.ContactType),
+                    CsdConverter("notes", CRMContactResource.About)
+                };
 
-                    if (infoTypeEnum == ContactInfoType.Address)
+                foreach (ContactInfoType infoTypeEnum in Enum.GetValues(typeof(ContactInfoType)))
+                    foreach (Enum categoryEnum in Enum.GetValues(ContactInfo.GetCategory(infoTypeEnum)))
                     {
-                        foreach (AddressPart addressPartEnum in Enum.GetValues(typeof(AddressPart)))
+                        var localName = string.Format("contactInfo_{0}_{1}", infoTypeEnum, Convert.ToInt32(categoryEnum));
+                        var localTitle = string.Format("{1} ({0})", categoryEnum.ToLocalizedString().ToLower(),
+                            infoTypeEnum.ToLocalizedString());
+
+                        if (infoTypeEnum == ContactInfoType.Address)
                         {
-                            var name = string.Format(localName + "_{0}", addressPartEnum);
-                            var title = string.Format(localTitle + " {0}", addressPartEnum.ToLocalizedString().ToLower());
-                            columnSelectorData.Add(CsdConverter(name, title));
+                            foreach (AddressPart addressPartEnum in Enum.GetValues(typeof(AddressPart)))
+                            {
+                                var name = string.Format(localName + "_{0}", addressPartEnum);
+                                var title = string.Format(localTitle + " {0}",
+                                    addressPartEnum.ToLocalizedString().ToLower());
+                                columnSelectorData.Add(CsdConverter(name, title));
+                            }
+                        }
+                        else
+                        {
+                            columnSelectorData.Add(CsdConverter(localName, localTitle));
                         }
                     }
-                    else
-                    {
-                        columnSelectorData.Add(CsdConverter(localName, localTitle));
-                    }
-                }
 
-            var fieldsDescription = Global.DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Company);
+                var fieldsDescription = daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Company);
 
-            Global.DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Person).ForEach(item =>
-            {
-                var alreadyContains = fieldsDescription.Any(field => field.ID == item.ID);
+                daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Person).ForEach(item =>
+                {
+                    var alreadyContains = fieldsDescription.Any(field => field.ID == item.ID);
 
-                if (!alreadyContains)
-                    fieldsDescription.Add(item);
-            });
+                    if (!alreadyContains)
+                        fieldsDescription.Add(item);
+                });
 
-            columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
+                columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
 
-            columnSelectorData.AddRange(GetList("tag", CRMContactResource.ContactTags, CRMContactResource.ContactTagList, CRMContactResource.ContactTag));
+                columnSelectorData.AddRange(GetList("tag", CRMContactResource.ContactTags,
+                    CRMContactResource.ContactTagList, CRMContactResource.ContactTag));
 
-            var tagList = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Contact).ToList();
+                var tagList = daoFactory.TagDao.GetAllTags(EntityType.Contact).ToList();
 
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               tagList,
-                               columnSelectorData
-                           })
-                   };
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            tagList,
+                            columnSelectorData
+                        })
+                };
+            }
         }
     }
 
@@ -518,30 +558,36 @@ namespace ASC.Web.CRM.Masters.ClientScripts
     {
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var columnSelectorData = new List<object>(4)
+            using (var scope = DIHelper.Resolve())
             {
-                CsdConverter(string.Empty, CRMContactResource.NoMatchSelect),
-                CsdConverter("-1", CRMContactResource.DoNotImportThisField),
-                CsdDefaultConverter(String.Empty, CRMContactResource.GeneralInformation, true),
-                CsdConverter("title", CRMCasesResource.CaseTitle)
-            };
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var columnSelectorData = new List<object>(4)
+                {
+                    CsdConverter(string.Empty, CRMContactResource.NoMatchSelect),
+                    CsdConverter("-1", CRMContactResource.DoNotImportThisField),
+                    CsdDefaultConverter(String.Empty, CRMContactResource.GeneralInformation, true),
+                    CsdConverter("title", CRMCasesResource.CaseTitle)
+                };
 
-            var fieldsDescription = Global.DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case);
-            columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
-            columnSelectorData.AddRange(GetList("member", CRMCasesResource.CasesParticipants, string.Empty, CRMCasesResource.CasesParticipant));
-            columnSelectorData.AddRange(GetList("tag", CRMCasesResource.CasesTag, CRMCasesResource.CasesTagList, CRMCasesResource.CasesTag));
+                var fieldsDescription = daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Case);
+                columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
+                columnSelectorData.AddRange(GetList("member", CRMCasesResource.CasesParticipants, string.Empty,
+                    CRMCasesResource.CasesParticipant));
+                columnSelectorData.AddRange(GetList("tag", CRMCasesResource.CasesTag, CRMCasesResource.CasesTagList,
+                    CRMCasesResource.CasesTag));
 
-            var tagList = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Case).ToList();
+                var tagList = daoFactory.TagDao.GetAllTags(EntityType.Case).ToList();
 
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               tagList,
-                               columnSelectorData
-                           })
-                   };
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            tagList,
+                            columnSelectorData
+                        })
+                };
+            }
         }
     }
 
@@ -568,23 +614,26 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 CsdConverter("probability_of_winning", CRMDealResource.ProbabilityOfWinning + " %")
             };
 
+            using (var scope = DIHelper.Resolve())
+            {
+                var daoFactory = scope.Resolve<DaoFactory>();
+                var fieldsDescription = daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Opportunity);
+                columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
+                columnSelectorData.AddRange(GetList("member", CRMDealResource.DealParticipants, string.Empty, CRMDealResource.DealParticipant));
+                columnSelectorData.AddRange(GetList("tag", CRMDealResource.DealTags, CRMDealResource.DealTagList, CRMDealResource.DealTag));
 
-            var fieldsDescription = Global.DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Opportunity);
-            columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
-            columnSelectorData.AddRange(GetList("member", CRMDealResource.DealParticipants, string.Empty, CRMDealResource.DealParticipant));
-            columnSelectorData.AddRange(GetList("tag", CRMDealResource.DealTags, CRMDealResource.DealTagList, CRMDealResource.DealTag));
+                var tagList = daoFactory.TagDao.GetAllTags(EntityType.Opportunity).ToList();
 
-            var tagList = Global.DaoFactory.GetTagDao().GetAllTags(EntityType.Opportunity).ToList();
-
-            return new List<KeyValuePair<string, object>>(1)
-                   {
-                       RegisterObject(
-                           new
-                           {
-                               tagList,
-                               columnSelectorData
-                           })
-                   };
+                return new List<KeyValuePair<string, object>>(1)
+                {
+                    RegisterObject(
+                        new
+                        {
+                            tagList,
+                            columnSelectorData
+                        })
+                };
+            }
         }
     }
 

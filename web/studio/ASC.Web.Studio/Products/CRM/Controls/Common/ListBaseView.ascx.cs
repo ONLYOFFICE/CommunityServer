@@ -46,7 +46,7 @@ namespace ASC.Web.CRM.Controls.Common
         {
             InitPage();
 
-            var hasactivity = Global.DaoFactory.GetContactDao().HasActivity();
+            var hasactivity = DaoFactory.ContactDao.HasActivity();
             if (!hasactivity)
             {
                 RenderDashboardEmptyScreen();

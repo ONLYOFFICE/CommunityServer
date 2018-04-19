@@ -137,7 +137,8 @@ namespace ASC.Api.Impl
                     rwDict.Add(constraint.Key, constraint.Value);
                 }
             }
-            rwDict.Add("method", new ApiHttpMethodConstraint(method.ToUpperInvariant())); //Adding method Constraint
+
+            rwDict.Add("method", ApiHttpMethodConstraint.GetInstance(method)); //Adding method Constraint
             return rwDict;
         }
 

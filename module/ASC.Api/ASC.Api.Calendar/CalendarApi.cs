@@ -119,7 +119,7 @@ namespace ASC.Api.Calendar
         }
     }
 
-    public class CalendarApi : IApiEntryPoint
+    public class CalendarApi : IApiEntryPoint, IDisposable
     {
         public static bool IsPersonal
         {
@@ -159,19 +159,15 @@ namespace ASC.Api.Calendar
             {
                 CalendarManager.Instance.RegistryCalendar(birthdayReminderCalendar);
             }
+
+            _dataProvider = new DataProvider();
         }
 
         private CalendarApi()
         {
         }
 
-        protected DataProvider _dataProvider
-        {
-            get
-            {
-                return new DataProvider();
-            }
-        }
+        protected DataProvider _dataProvider;
 
         #region Calendars & Subscriptions
 
@@ -558,7 +554,7 @@ namespace ASC.Api.Calendar
                         usrOpt.TimeZone = timeZoneInfo;
                     }
 
-                    userOptions.RemoveAll(o => !o.UserId.Equals(oldCal.OwnerId) & !sharingOptionsList.Exists(opt => (!opt.IsGroup && o.UserId.Equals(opt.Id))
+                    userOptions.RemoveAll(o => !o.UserId.Equals(oldCal.OwnerId) && !sharingOptionsList.Exists(opt => (!opt.IsGroup && o.UserId.Equals(opt.Id))
                                                                                || opt.IsGroup && CoreContext.UserManager.IsUserInGroup(o.UserId, opt.Id)));
 
                     //check owner
@@ -929,8 +925,8 @@ namespace ASC.Api.Calendar
                     {
                         rrule = GetRRuleString(eventObj);
 
-                        var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : eventObj.Start.IsUniversalTime ? eventObj.Start.Value : eventObj.Start.AsUtc;
-                        var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : eventObj.End.IsUniversalTime ? eventObj.End.Value : eventObj.End.AsUtc;
+                        var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : DDayICalParser.ToUtc(eventObj.Start);
+                        var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : DDayICalParser.ToUtc(eventObj.End);
 
                         if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                             utcEndDate = utcEndDate.AddDays(-1);
@@ -970,8 +966,8 @@ namespace ASC.Api.Calendar
 
                         rrule = GetRRuleString(mergedEvent);
 
-                        var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : mergedEvent.Start.IsUniversalTime ? mergedEvent.Start.Value : mergedEvent.Start.AsUtc;
-                        var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : mergedEvent.End.IsUniversalTime ? mergedEvent.End.Value : mergedEvent.End.AsUtc;
+                        var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : DDayICalParser.ToUtc(mergedEvent.Start);
+                        var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : DDayICalParser.ToUtc(mergedEvent.End);
 
                         if (mergedEvent.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                             utcEndDate = utcEndDate.AddDays(-1);
@@ -1285,8 +1281,8 @@ namespace ASC.Api.Calendar
 
             var rrule = GetRRuleString(eventObj);
 
-            var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : eventObj.Start.IsUniversalTime ? eventObj.Start.Value : eventObj.Start.AsUtc;
-            var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : eventObj.End.IsUniversalTime ? eventObj.End.Value : eventObj.End.AsUtc;
+            var utcStartDate = eventObj.IsAllDay ? eventObj.Start.Value : DDayICalParser.ToUtc(eventObj.Start);
+            var utcEndDate = eventObj.IsAllDay ? eventObj.End.Value : DDayICalParser.ToUtc(eventObj.End);
 
             if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
@@ -1419,8 +1415,8 @@ namespace ASC.Api.Calendar
 
             var rrule = GetRRuleString(mergedEvent);
 
-            var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : mergedEvent.Start.IsUniversalTime ? mergedEvent.Start.Value : mergedEvent.Start.AsUtc;
-            var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : mergedEvent.End.IsUniversalTime ? mergedEvent.End.Value : mergedEvent.End.AsUtc;
+            var utcStartDate = mergedEvent.IsAllDay ? mergedEvent.Start.Value : DDayICalParser.ToUtc(mergedEvent.Start);
+            var utcEndDate = mergedEvent.IsAllDay ? mergedEvent.End.Value : DDayICalParser.ToUtc(mergedEvent.End);
 
             if (mergedEvent.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
@@ -1820,6 +1816,14 @@ namespace ASC.Api.Calendar
         public PublicItemCollection GetDefaultSharingOptions()
         {
             return PublicItemCollection.GetDefault();
+        }
+
+        public void Dispose()
+        {
+            if (_dataProvider != null)
+            {
+                _dataProvider.Dispose();
+            }
         }
     }
 }

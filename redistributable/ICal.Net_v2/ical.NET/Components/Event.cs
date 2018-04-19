@@ -288,6 +288,8 @@ namespace Ical.Net
             resourcesSet.UnionWith(Resources);
 
             var result = Equals(DtStart, other.DtStart)
+                && string.Equals(Summary, other.Summary, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(Description, other.Description, StringComparison.OrdinalIgnoreCase)
                 && Equals(DtEnd, other.DtEnd)
                 && string.Equals(Location, other.Location, StringComparison.OrdinalIgnoreCase)
                 && resourcesSet.SetEquals(other.Resources)
@@ -346,6 +348,8 @@ namespace Ical.Net
             unchecked
             {
                 var hashCode = DtStart?.GetHashCode() ?? 0;
+                hashCode = (hashCode * 397) ^ (Summary?.GetHashCode() ?? 0);
+                hashCode = (hashCode * 397) ^ (Description?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (DtEnd?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ (Location?.GetHashCode() ?? 0);
                 hashCode = (hashCode * 397) ^ Status.GetHashCode();

@@ -9,6 +9,7 @@
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="ASC.Projects.Engine" %>
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Projects.Core.Domain" %>
 
 
 <div class="page-menu">
@@ -195,7 +196,7 @@
             </a>     
         </li>
                 
-        <% if (ProjectSecurity.CanCreateProject())
+        <% if (ProjectSecurity.CanCreate<Project>(null))
         { %>
         <li id="menuTemplates" class="menu-item none-sub-list">
             <a id="menuProjectTemplate" class="menu-item-label outer-text text-overflow" href="projectTemplates.aspx">

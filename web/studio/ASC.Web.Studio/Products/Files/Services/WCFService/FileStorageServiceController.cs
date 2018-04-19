@@ -129,7 +129,7 @@ namespace ASC.Web.Files.Services.WCFService
                 try
                 {
                     parent = folderDao.GetFolder(parentId);
-                    if (!string.IsNullOrEmpty(parent.Error)) throw new Exception(parent.Error);
+                    if (parent != null && !string.IsNullOrEmpty(parent.Error)) throw new Exception(parent.Error);
                 }
                 catch (Exception e)
                 {
@@ -178,7 +178,7 @@ namespace ASC.Web.Files.Services.WCFService
 
                 parent.Shareable = FileSharing.CanSetAccess(parent) || parent.FolderType == FolderType.SHARE;
 
-                entries = entries.Where(x => x is Folder || !FileConverter.IsConverting((File)x));
+                entries = entries.Where(x => x.FileEntryType == FileEntryType.Folder || !FileConverter.IsConverting((File)x));
 
                 var result = new DataWrapper
                     {
@@ -227,7 +227,7 @@ namespace ASC.Web.Files.Services.WCFService
                 entries = EntryManager.FilterEntries(entries, filter, subjectId, search);
             }
 
-            EntryManager.SetFileStatus(entries.Select(r => r as File).Where(r => r != null && r.ID != null).ToList());
+            EntryManager.SetFileStatus(entries.OfType<File>().Where(r => r.ID != null).ToList());
 
             return new ItemList<FileEntry>(entries);
         }
@@ -338,7 +338,7 @@ namespace ASC.Web.Files.Services.WCFService
                     orderBy = new OrderBy(SortedByType.DateAndTime, false);
 
                     var shared = (IEnumerable<FileEntry>)FileSecurity.GetSharesForMe(search);
-                    shared = EntryManager.FilterEntries(shared.Where(f => f is File), filter, subjectId, search);
+                    shared = EntryManager.FilterEntries(shared.Where(f => f.FileEntryType == FileEntryType.File), filter, subjectId, search);
                     entries = entries.Concat(shared);
                 }
                 else if (folder.FolderType == FolderType.BUNCH)
@@ -456,6 +456,7 @@ namespace ASC.Web.Files.Services.WCFService
                 if (isFinish)
                 {
                     FileTracker.Remove(id, tabId);
+                    Global.SocketManager.FilesChangeEditors(id, true);
                 }
                 else
                 {
@@ -502,6 +503,8 @@ namespace ASC.Web.Files.Services.WCFService
                     FileTracker.Remove(fileId);
                 }
                 var file = EntryManager.SaveEditing(fileId, fileExtension, fileuri, stream, doc);
+
+                Global.SocketManager.FilesChangeEditors(fileId, true);
 
                 if (file != null)
                     FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileUpdated, file.Title);
@@ -659,7 +662,13 @@ namespace ASC.Web.Files.Services.WCFService
 
                         tagDao.SaveTags(tagLocked);
                     }
-                    FileTracker.RemoveAllOther(file.ID);
+
+                    var usersDrop = FileTracker.GetEditingBy(file.ID).Where(uid => uid != SecurityContext.CurrentAccount.ID).ToList();
+                    if (usersDrop.Any())
+                    {
+                        var docKey = DocumentServiceHelper.GetDocKey(file);
+                        DocumentServiceHelper.DropUser(docKey, usersDrop, file.ID);
+                    }
 
                     FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileLocked, file.Title);
                 }
@@ -762,7 +771,7 @@ namespace ASC.Web.Files.Services.WCFService
 
                         path += "new" + fileExt;
 
-                        sourceFileUrl = storeTemplate.GetPreSignedUri("", path, TimeSpan.FromHours(1), null).ToString();
+                        sourceFileUrl = storeTemplate.GetUri("", path).ToString();
                         sourceFileUrl = CommonLinkUtility.GetFullAbsolutePath(sourceFileUrl);
 
                         previouseKey = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
@@ -885,18 +894,18 @@ namespace ASC.Web.Files.Services.WCFService
         [ActionName("thirdparty-list"), HttpGet]
         public ItemList<Folder> GetThirdPartyFolder(int folderType = 0)
         {
-            using (var folderDao = GetFolderDao())
             using (var providerDao = GetProviderDao())
             {
                 if (providerDao == null) return new ItemList<Folder>();
 
                 var providersInfo = providerDao.GetProvidersInfo((FolderType)folderType);
 
-                var folders = folderDao.GetFolders(providersInfo.Select(r => r.RootFolderId).ToArray());
-                foreach (var folder in folders)
-                {
-                    folder.NewForMe = folder.RootFolderType == FolderType.COMMON ? 1 : 0;
-                }
+                var folders = providersInfo.Select(providerInfo =>
+                    {
+                        var folder = EntryManager.GetFakeThirdpartyFolder(providerInfo);
+                        folder.NewForMe = folder.RootFolderType == FolderType.COMMON ? 1 : 0;
+                        return folder;
+                    });
 
                 return new ItemList<Folder>(folders);
             }
@@ -992,27 +1001,7 @@ namespace ASC.Web.Files.Services.WCFService
                 var curProviderId = Convert.ToInt32(providerId);
                 var providerInfo = providerDao.GetProviderInfo(curProviderId);
 
-                var folder = 
-                    //Fake folder. Don't send request to third party
-                    new Folder
-                        {
-                            ID = providerInfo.RootFolderId,
-                            //ParentFolderID = parent.ID,
-                            CreateBy = providerInfo.Owner,
-                            CreateOn = providerInfo.CreateOn,
-                            FolderType = FolderType.DEFAULT,
-                            ModifiedBy = providerInfo.Owner,
-                            ModifiedOn = providerInfo.CreateOn,
-                            ProviderId = providerInfo.ID,
-                            ProviderKey = providerInfo.ProviderKey,
-                            RootFolderCreator = providerInfo.Owner,
-                            RootFolderId = providerInfo.RootFolderId,
-                            RootFolderType = providerInfo.RootFolderType,
-                            Shareable = false,
-                            Title = providerInfo.CustomerTitle,
-                            TotalFiles = 0,
-                            TotalSubFolders = 0
-                        };
+                var folder = EntryManager.GetFakeThirdpartyFolder(providerInfo);
                 ErrorIf(!FileSecurity.CanDelete(folder), FilesCommonResource.ErrorMassage_SecurityException_DeleteFolder);
 
                 if (providerInfo.RootFolderType == FolderType.COMMON)
@@ -1194,13 +1183,13 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("folders-files"), HttpPost]
-        public ItemList<FileOperationResult> DeleteItems(string action, [FromBody] ItemList<String> items, bool ignoreException = false, bool deleteAfter = false)
+        public ItemList<FileOperationResult> DeleteItems(string action, [FromBody] ItemList<String> items, bool ignoreException = false, bool deleteAfter = false, bool immediately = false)
         {
             List<object> foldersId;
             List<object> filesId;
             ParseArrayItems(items, out foldersId, out filesId);
 
-            return fileOperations.Delete(foldersId, filesId, ignoreException, !deleteAfter, GetHttpHeaders());
+            return fileOperations.Delete(foldersId, filesId, ignoreException, !deleteAfter, immediately, GetHttpHeaders());
         }
 
         [ActionName("emptytrash"), HttpGet]
@@ -1213,7 +1202,7 @@ namespace ASC.Web.Files.Services.WCFService
                 var foldersId = folderDao.GetFolders(trashId).Select(f => f.ID).ToList();
                 var filesId = fileDao.GetFiles(trashId).ToList();
 
-                return fileOperations.Delete(foldersId, filesId, false,  true, GetHttpHeaders());
+                return fileOperations.Delete(foldersId, filesId, false,  true, false, GetHttpHeaders());
             }
         }
 
@@ -1294,13 +1283,17 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var providerDao = GetProviderDao())
             {
-                var providersInfo = providerDao == null ? new List<IProviderInfo>() : providerDao.GetProvidersInfo(userFrom.ID);
-                var commonProvidersInfo = providersInfo.Where(provider => provider.RootFolderType == FolderType.COMMON).ToList();
-
-                //move common thirdparty storage userFrom
-                foreach (var commonProviderInfo in commonProvidersInfo)
+                if (providerDao != null)
                 {
-                    providerDao.UpdateProviderInfo(commonProviderInfo.ID, null, null, FolderType.DEFAULT, userTo.ID);
+                    var providersInfo = providerDao.GetProvidersInfo(userFrom.ID);
+                    var commonProvidersInfo = providersInfo.Where(provider => provider.RootFolderType == FolderType.COMMON).ToList();
+
+                    //move common thirdparty storage userFrom
+                    foreach (var commonProviderInfo in commonProvidersInfo)
+                    {
+                        Global.Logger.InfoFormat("Reassign provider {0} from {1} to {2}", commonProviderInfo.ID, userFrom.ID, userTo.ID);
+                        providerDao.UpdateProviderInfo(commonProviderInfo.ID, null, null, FolderType.DEFAULT, userTo.ID);
+                    }
                 }
             }
 
@@ -1311,18 +1304,21 @@ namespace ASC.Web.Files.Services.WCFService
                 {
                     var folderIdFromMy = folderDao.GetFolderIDUser(false, userFrom.ID);
 
-                    //create folder with name userFrom in folder userTo
-                    var folderIdToMy = folderDao.GetFolderIDUser(false, userTo.ID);
-                    var newFolderTo = folderDao.SaveFolder(new Folder
-                        {
-                            Title = string.Format(CustomNamingPeople.Substitute<FilesCommonResource>("TitleDeletedUserFolder"), userFrom.DisplayUserName(false)),
-                            ParentFolderID = folderIdToMy
-                        });
+                    if (!Equals(folderIdFromMy, 0))
+                    {
+                        //create folder with name userFrom in folder userTo
+                        var folderIdToMy = folderDao.GetFolderIDUser(true, userTo.ID);
+                        var newFolderTo = folderDao.SaveFolder(new Folder
+                            {
+                                Title = string.Format(CustomNamingPeople.Substitute<FilesCommonResource>("TitleDeletedUserFolder"), userFrom.DisplayUserName(false)),
+                                ParentFolderID = folderIdToMy
+                            });
 
-                    //move items from userFrom to userTo
-                    EntryManager.MoveSharedItems(folderIdFromMy, newFolderTo, folderDao, fileDao);
+                        //move items from userFrom to userTo
+                        EntryManager.MoveSharedItems(folderIdFromMy, newFolderTo, folderDao, fileDao);
 
-                    EntryManager.ReassignItems(newFolderTo, userFrom.ID, userTo.ID, folderDao, fileDao);
+                        EntryManager.ReassignItems(newFolderTo, userFrom.ID, userTo.ID, folderDao, fileDao);
+                    }
                 }
 
                 EntryManager.ReassignItems(Global.FolderCommon, userFrom.ID, userTo.ID, folderDao, fileDao);
@@ -1339,12 +1335,16 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var providerDao = GetProviderDao())
             {
-                var providersInfo = providerDao == null ? new List<IProviderInfo>() : providerDao.GetProvidersInfo(userId);
-
-                //delete thirdparty storage
-                foreach (var myProviderInfo in providersInfo)
+                if (providerDao != null)
                 {
-                    providerDao.RemoveProviderInfo(myProviderInfo.ID);
+                    var providersInfo = providerDao.GetProvidersInfo(userId);
+
+                    //delete thirdparty storage
+                    foreach (var myProviderInfo in providersInfo)
+                    {
+                        Global.Logger.InfoFormat("Delete provider {0} for {1}", myProviderInfo.ID, userId);
+                        providerDao.RemoveProviderInfo(myProviderInfo.ID);
+                    }
                 }
             }
 
@@ -1378,6 +1378,7 @@ namespace ASC.Web.Files.Services.WCFService
 
                     //delete My userFrom folder
                     folderDao.DeleteFolder(folderIdFromMy);
+                    Global.FolderMy = userId;
                 }
 
                 //delete all from Trash
@@ -1386,6 +1387,7 @@ namespace ASC.Web.Files.Services.WCFService
                 {
                     EntryManager.DeleteSubitems(folderIdFromTrash, folderDao, fileDao);
                     folderDao.DeleteFolder(folderIdFromTrash);
+                    Global.FolderTrash = userId;
                 }
 
                 EntryManager.ReassignItems(Global.FolderCommon, userId, SecurityContext.CurrentAccount.ID, folderDao, fileDao);
@@ -1794,6 +1796,14 @@ namespace ASC.Web.Files.Services.WCFService
             FilesMessageService.Send(GetHttpHeaders(), MessageAction.DocumentsOverwritingSettingsUpdated);
 
             return FilesSettings.UpdateIfExist;
+        }
+
+        [ActionName("changedeleteconfrim"), HttpGet]
+        public bool ChangeDeleteConfrim(bool set)
+        {
+            FilesSettings.ConfirmDelete = set;
+
+            return FilesSettings.ConfirmDelete;
         }
 
         public String GetHelpCenter()

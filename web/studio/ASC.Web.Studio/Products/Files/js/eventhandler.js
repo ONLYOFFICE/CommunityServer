@@ -188,7 +188,15 @@ window.ASC.Files.EventHandler = (function () {
                 ASC.Files.UI.updateMainContentHeader();
             }
 
-            setTimeout(ASC.Files.UI.checkEditing, 5000);
+            var list = jq(".files-content-panel #filesMainContent .file-row.on-edit:not(.cannot-edit)");
+            if (list.length > 0) {
+                var fileIds = jq(list).map(function (i, item) {
+                    return ASC.Files.UI.getObjectData(item).entryId;
+                }).toArray();
+                ASC.Files.Socket.subscribeChangeEditors(fileIds);
+            }
+
+            ASC.Files.UI.checkEditingDefer();
         }
         if (newFolderItems) {
             newFolderItems.attr("name", "");
@@ -926,7 +934,7 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         if (jsonData.length > 0) {
-            ASC.Files.UI.timeCheckEditing = setTimeout(ASC.Files.UI.checkEditing, 5000);
+            ASC.Files.UI.checkEditingDefer();
         }
     };
 

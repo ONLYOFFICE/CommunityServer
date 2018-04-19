@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Core.DataInterfaces
@@ -53,5 +54,7 @@ namespace ASC.Projects.Core.DataInterfaces
         Message Save(Message message);
 
         void Delete(int id);
+
+        IEnumerable<Message> GetMessages(Exp where);
     }
 }

@@ -288,8 +288,7 @@ window.administrationPage = (function($) {
                 { id: id },
                 {
                     success: function(params, operation) {
-                        window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
-                        window.LoadingBanner.displayMailLoading(true, true);
+                        window.LoadingBanner.displayMailLoading();
 
                         progressBarIntervalId = setInterval(function() {
                             return checkRemoveMailboxStatus(operation, id);

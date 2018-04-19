@@ -255,16 +255,19 @@
             leftPadding = $w.scrollLeft(),
             $addPanel = that.$advancedSelector.find(".advanced-selector-add-new-block");
 
-        if (($elem.offset().left + that.$advancedSelector.outerWidth() - ($addPanel.length && !$addPanel.hasClass("right-position") ? $addPanel.outerWidth() : 0)) > (leftPadding + windowWidth)) {
-            elemPosLeft = Math.max(0, elemPosLeft + that.$element.outerWidth() - that.$advancedSelector.outerWidth());
+        var selectorOuterWidth = that.$advancedSelector.widthCounted + parseInt(that.$advancedSelector.css("border-left-width"), 10) + parseInt(that.$advancedSelector.css("border-right-width"), 10);
+        var selectorOuterHeight = that.$advancedSelector.outerHeight();//TODO: optimize
+
+        if (($elem.offset().left + selectorOuterWidth - ($addPanel.length && !$addPanel.hasClass("right-position") ? $addPanel.outerWidth() : 0)) > (leftPadding + windowWidth)) {
+            elemPosLeft = Math.max(0, elemPosLeft + that.$element.outerWidth() - selectorOuterWidth);
         }
 
         if ($addPanel.is(":visible")) {
             elemPosLeft -= that.widthAddBlock;
         }
 
-        if (elemPosTop + that.$advancedSelector.outerHeight() > scrHeight + topPadding) {
-            elemPosTop = elemPos.top - that.$advancedSelector.outerHeight();
+        if (elemPosTop + selectorOuterHeight > scrHeight + topPadding) {
+            elemPosTop = elemPos.top - selectorOuterHeight;
         }
 
         that.$advancedSelector.css(
@@ -955,9 +958,12 @@
             if (that.options.showGroups) {
                 that.$groupsListSelector = that.$advancedSelector.find(".advanced-selector-list-groups");
             }
+            that.$advancedSelector.widthCounted = that.options.showGroups
+                ? that.widthSelector * 2
+                : that.widthSelector + advancedSelectorWidthAppender;
 
             that.$advancedSelector.css({
-                width: that.options.showGroups ? that.widthSelector * 2 : that.widthSelector + advancedSelectorWidthAppender
+                width: that.$advancedSelector.widthCounted
             });
 
             if (that.options.height || that.options.width) {
@@ -969,13 +975,16 @@
                     that.$advancedSelector.css({
                         height: that.options.height + listBlockHeightPadding
                     });
+                    that.$advancedSelector.heightCounted = that.options.height + listBlockHeightPadding;
                 }
 
                 if (that.options.width) {
                     var listWidthPadding = $listBlock.innerWidth() - $listBlock.width();
 
+                    that.$advancedSelector.widthCounted = ((that.options.showGroups ? that.widthSelector : that.widthSelector + advancedSelectorWidthAppender) - listWidthPadding);
+
                     that.$advancedSelector.find(".advanced-selector-block-list").css({
-                        width: ((that.options.showGroups ? that.widthSelector : that.widthSelector + advancedSelectorWidthAppender) - listWidthPadding) + "px"
+                        width: that.$advancedSelector.widthCounted + "px"
                     });
                 }
             }

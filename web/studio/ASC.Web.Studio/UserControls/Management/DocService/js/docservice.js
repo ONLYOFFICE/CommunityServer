@@ -26,20 +26,21 @@
 
 jq(function () {
     var saveUrls = function () {
-        var docServiceUrlApi = jq("#docServiceUrlApi").val();
-        var docServiceUrlCommand = jq("#docServiceUrlCommand").val();
-        var docServiceUrlStorage = jq("#docServiceUrlStorage").val();
-        var docServiceUrlConverter = jq("#docServiceUrlConverter").val();
+        var docServiceUrl = jq("#docServiceUrl").val();
+        var docServiceUrlInternal = jq("#docServiceUrlInternal").val();
         var docServiceUrlPortal = jq("#docServiceUrlPortal").val();
-        var docServiceUrlDocbuilder = jq("#docServiceUrlDocbuilder").val() || "";
 
-        Teamlab.saveDocServiceUrl(docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, docServiceUrlDocbuilder, {
-            success: function () {
+        Teamlab.saveDocServiceUrl(docServiceUrl, docServiceUrlInternal, docServiceUrlPortal, {
+            success: function (_, data) {
+                jq("#docServiceUrl").val(data[0]);
+                jq("#docServiceUrlInternal").val(data[1]);
+                jq("#docServiceUrlPortal").val(data[2]);
+
                 LoadingBanner.showMesInfoBtn("#docServiceBlock", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
                 jq("#docServiceBlock").unblock();
             },
             error: function (params, error) {
-                LoadingBanner.showMesInfoBtn("#docServiceBlock", error[0], "error");
+                LoadingBanner.showMesInfoBtn("#docServiceBlock", error, "error");
                 jq("#docServiceBlock").unblock();
             }
         });
@@ -49,7 +50,7 @@ jq(function () {
         var testApiResult = function () {
             var result = typeof DocsAPI != "undefined";
 
-            if (result || !jq("#docServiceUrlApi").val().length) {
+            if (result || !jq("#docServiceUrl").val().length) {
                 saveUrls();
             } else {
                 LoadingBanner.showMesInfoBtn("#docServiceBlock", "Api url: Service is not defined", "error");
@@ -70,7 +71,18 @@ jq(function () {
 
         scriptAddress.on("load", testApiResult).on("error", testApiResult);
 
-        var docServiceUrlApi = jq("#docServiceUrlApi").val();
+        var docServiceUrlApi = jq("#docServiceUrl").val();
+        if (docServiceUrlApi) {
+            if (docServiceUrlApi.indexOf("/") == 0) {
+                docServiceUrlApi = docServiceUrlApi.substring(1);
+            } else {
+                docServiceUrlApi += "/";
+                if (!new RegExp('(^https?:\/\/)|^\/', 'i').test(docServiceUrlApi)) {
+                    docServiceUrlApi = "http://" + docServiceUrlApi;
+                }
+            }
+            docServiceUrlApi += "web-apps/apps/api/documents/api.js";
+        }
 
         scriptAddress.attr("src", docServiceUrlApi);
     };
@@ -80,5 +92,11 @@ jq(function () {
         testDocServiceApi();
 
         return false;
+    });
+
+    jq(".doc-service-value").bind(jq.browser.msie ? "keydown" : "keypress", function (e) {
+        if ((e.keyCode || e.which) == 13) {
+            jq("#docServiceButtonSave").click();
+        }
     });
 });

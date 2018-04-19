@@ -40,7 +40,6 @@ using ASC.FederatedLogin.Profile;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
-using ASC.SingleSignOn.Common;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
@@ -49,6 +48,7 @@ using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using log4net;
 using Resources;
+using SsoSettingsV2 = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2;
 
 namespace ASC.Web.Studio.UserControls.Common
 {

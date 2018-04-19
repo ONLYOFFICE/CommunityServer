@@ -348,7 +348,7 @@ ASC.Projects.AllMilestones = (function () {
     }
 
     function onChangeStatusError(params, error) {
-        if (error[0] == "Can not close a milestone with open tasks") {
+        if (error[0] === "Can not close a milestone with open tasks") {
             showQuestionWindow(params.milestoneId);
         } else {
             common.displayInfoPanel(error[0], true);

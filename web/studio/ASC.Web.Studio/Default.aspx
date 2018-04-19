@@ -7,7 +7,7 @@
 <%@ Import Namespace="Resources" %>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
-    <div id="GreetingBlock" class="greating-block">
+    <div id="GreetingBlock" class="<%= (7 <= ProductsCount && ProductsCount <= 10) ? "five-column-block" : "greating-block" %>">
         <div class="greating-modules-block">
             <% if (_showDocs != null) { %>
             <div class="docs-default-page">
@@ -33,9 +33,7 @@
                         <a class="image-link" href="<%= productStartUrl %>">
                             <img alt="<%= productLabel %>" src="<%= product.GetLargeIconAbsoluteURL() %>" /></a>
                         <h2 class="title">
-                            <a class="link header" href="<%= productStartUrl %>">
-                                <%= productLabel %>
-                            </a>
+                            <a class="link header" href="<%= productStartUrl %>"><%= productLabel %></a>
                         </h2>
                     </div>
             <% } %>
@@ -46,9 +44,7 @@
                         <img alt="<%= Resource.ControlPanelLabel %>" src="<%= ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("icon-controlpanel.png") %>" />
                     </a>
                     <h2 class="title">
-                        <a class="link header" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
-                            <%= Resource.ControlPanelLabel %>
-                        </a>
+                        <a class="link header" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank"><%= Resource.ControlPanelLabel %></a>
                     </h2>
                 </div>
             <% } %>
@@ -58,9 +54,7 @@
                         <img alt="<%= item.Label.HtmlEncode() %>" src="<%= item.BigImg %>" />
                     </a>
                     <h2 class="title">
-                        <a class="link header" href="<%= item.Url.HtmlEncode() %>" target="_blank">
-                            <%= item.Label.HtmlEncode() %>
-                        </a>
+                        <a class="link header" href="<%= item.Url.HtmlEncode() %>" target="_blank"><%= item.Label.HtmlEncode() %></a>
                     </h2>
                 </div>
             <% } %>

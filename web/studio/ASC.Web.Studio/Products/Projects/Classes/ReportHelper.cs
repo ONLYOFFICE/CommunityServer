@@ -34,11 +34,14 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
+using ASC.Projects.Engine;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Users;
+using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
+using Autofac;
 
 namespace ASC.Web.Projects.Classes
 {
@@ -328,14 +331,17 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildReport(TaskFilter filter)
         {
-            return Global.EngineFactory.MilestoneEngine
-                         .GetByFilter(filter)
-                         .OrderBy(r => r.Project.Title)
-                         .Select(r => new object[]
-                                          {
-                                              r.Project.ID, r.Project.Title, r.ID, r.Title, r.DeadLine.ToString("d"),
-                                              LocalizedEnumConverter.ConvertToString(r.Status)
-                                          });
+            using (var scope = DIHelper.Resolve())
+            {
+                return scope.Resolve<EngineFactory>().MilestoneEngine
+                    .GetByFilter(filter)
+                    .OrderBy(r => r.Project.Title)
+                    .Select(r => new object[]
+                    {
+                        r.Project.ID, r.Project.Title, r.ID, r.Title, r.DeadLine.ToString("d"),
+                        LocalizedEnumConverter.ConvertToString(r.Status)
+                    });
+            }
         }
 
         public override string[] GetCsvColumnsName()
@@ -447,19 +453,22 @@ namespace ASC.Web.Projects.Classes
             filter.SortBy = "title";
             filter.SortOrder = true;
 
-            var result = Global.EngineFactory.ProjectEngine
-                               .GetByFilter(filter)
-                               .Select(r => new object[]
-                                                {
-                                                    r.ID, r.Title, r.Responsible,
-                                                    LocalizedEnumConverter.ConvertToString(r.Status),
-                                                    r.MilestoneCount, r.TaskCount, r.ParticipantCount
-                                                });
+            using (var scope = DIHelper.Resolve())
+            {
+                var result = scope.Resolve<EngineFactory>().ProjectEngine
+                    .GetByFilter(filter)
+                    .Select(r => new object[]
+                    {
+                        r.ID, r.Title, r.Responsible,
+                        LocalizedEnumConverter.ConvertToString(r.Status),
+                        r.MilestoneCount, r.TaskCount, r.ParticipantCount
+                    });
 
-            result = AddUserInfo(result, 2);
-            result = result.OrderBy(r => (string)r[1]);
+                result = AddUserInfo(result, 2);
+                result = result.OrderBy(r => (string) r[1]);
 
-            return result;
+                return result;
+            }
         }
 
         public override string[] GetCsvColumnsName()
@@ -588,35 +597,42 @@ namespace ASC.Web.Projects.Classes
             filter.SortBy = "deadline";
             filter.SortOrder = true;
 
-            var tasks = Global.EngineFactory.TaskEngine.GetByFilter(filter).FilterResult.OrderBy(r => r.Project.Title).ToList();
+            using (var scope = DIHelper.Resolve())
+            {
+                var tasks = scope.Resolve<EngineFactory>().TaskEngine.GetByFilter(filter)
+                        .FilterResult.OrderBy(r => r.Project.Title)
+                        .ToList();
 
-            filter.FromDate = createdFrom;
-            filter.ToDate = createdTo;
+                filter.FromDate = createdFrom;
+                filter.ToDate = createdTo;
 
-            if (!filter.FromDate.Equals(DateTime.MinValue) && !filter.ToDate.Equals(DateTime.MinValue))
-                tasks = tasks.Where(r => r.CreateOn.Date >= filter.FromDate && r.CreateOn.Date <= filter.ToDate).ToList();
+                if (!filter.FromDate.Equals(DateTime.MinValue) && !filter.ToDate.Equals(DateTime.MinValue))
+                    tasks =
+                        tasks.Where(r => r.CreateOn.Date >= filter.FromDate && r.CreateOn.Date <= filter.ToDate)
+                            .ToList();
 
-            if (!filter.NoResponsible)
-                tasks = tasks.Where(r => r.Responsibles.Any()).ToList();
+                if (!filter.NoResponsible)
+                    tasks = tasks.Where(r => r.Responsibles.Any()).ToList();
 
-            var result = tasks.Select(r => new object[]
-                                               {
-                                                   r.Project.ID, r.Project.Title,
-                                                   r.MilestoneDesc != null ? r.MilestoneDesc.ID : 0,
-                                                   r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
-                                                   r.MilestoneDesc != null ? r.MilestoneDesc.DeadLine.ToString("d") : null,
-                                                   r.MilestoneDesc != null ? (int) r.MilestoneDesc.Status : -1,
-                                                   r.ID, r.Title,
-                                                   GetResponsible(r, filter.ParticipantId),
-                                                   r.Status,
-                                                   !r.Deadline.Equals(DateTime.MinValue) ? r.Deadline.ToString("d") : "", 
-                                                   HtmlUtil.GetText(r.Description, 500)
-                                               });
+                var result = tasks.Select(r => new object[]
+                {
+                    r.Project.ID, r.Project.Title,
+                    r.MilestoneDesc != null ? r.MilestoneDesc.ID : 0,
+                    r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
+                    r.MilestoneDesc != null ? r.MilestoneDesc.DeadLine.ToString("d") : null,
+                    r.MilestoneDesc != null ? (int) r.MilestoneDesc.Status : -1,
+                    r.ID, r.Title,
+                    GetResponsible(r, filter.ParticipantId),
+                    r.Status,
+                    !r.Deadline.Equals(DateTime.MinValue) ? r.Deadline.ToString("d") : "",
+                    HtmlUtil.GetText(r.Description, 500)
+                });
 
-            result = AddUserInfo(result, 8, filter.DepartmentId);
-            result = AddStatusCssClass(result);
+                result = AddUserInfo(result, 8, filter.DepartmentId);
+                result = AddStatusCssClass(result);
 
-            return result;
+                return result;
+            }
         }
 
         public override string[] GetCsvColumnsName()
@@ -709,28 +725,36 @@ namespace ASC.Web.Projects.Classes
             filter.ToDate = TenantUtil.DateTimeNow();
             filter.TaskStatuses.Add(TaskStatus.Open);
 
-            var tasks = Global.EngineFactory.TaskEngine.GetByFilter(filter).FilterResult.OrderBy(r => r.Project.Title).ToList();
+            using (var scope = DIHelper.Resolve())
+            {
+                var tasks = scope.Resolve<EngineFactory>()
+                        .TaskEngine.GetByFilter(filter)
+                        .FilterResult.OrderBy(r => r.Project.Title)
+                        .ToList();
 
-            var result = tasks.Select(r => new object[]
-                                               {
-                                                   r.Project.ID, r.Project.Title,
-                                                   r.MilestoneDesc != null ? r.MilestoneDesc.ID : 0,
-                                                   r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
-                                                   r.MilestoneDesc != null ? r.MilestoneDesc.DeadLine.ToString("d"): null,
-                                                   r.MilestoneDesc != null ? (int) r.MilestoneDesc.Status : -1,
-                                                   r.ID, r.Title,
-                                                   r.Responsibles.Any() ? r.Responsibles.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b) : "",
-                                                   r.Status,
-                                                   !r.Deadline.Equals(DateTime.MinValue) ? r.Deadline.ToString("d") : "", 
-                                                   HtmlUtil.GetText(r.Description, 500)
-                                               });
+                var result = tasks.Select(r => new object[]
+                {
+                    r.Project.ID, r.Project.Title,
+                    r.MilestoneDesc != null ? r.MilestoneDesc.ID : 0,
+                    r.MilestoneDesc != null ? r.MilestoneDesc.Title : "",
+                    r.MilestoneDesc != null ? r.MilestoneDesc.DeadLine.ToString("d") : null,
+                    r.MilestoneDesc != null ? (int) r.MilestoneDesc.Status : -1,
+                    r.ID, r.Title,
+                    r.Responsibles.Any()
+                        ? r.Responsibles.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b)
+                        : "",
+                    r.Status,
+                    !r.Deadline.Equals(DateTime.MinValue) ? r.Deadline.ToString("d") : "",
+                    HtmlUtil.GetText(r.Description, 500)
+                });
 
-            result = result.Where(row => row[10] != null).ToList();
+                result = result.Where(row => row[10] != null).ToList();
 
-            result = AddUserInfo(result, 8);
-            result = AddStatusCssClass(result);
+                result = AddUserInfo(result, 8);
+                result = AddStatusCssClass(result);
 
-            return result;
+                return result;
+            }
         }
 
         public override string[] GetCsvColumnsName()
@@ -785,16 +809,21 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildReport(TaskFilter filter)
         {
-            if (filter.ProjectIds.Count == 0)
+            using (var scope = DIHelper.Resolve())
             {
-                filter.ProjectIds = Global.EngineFactory.TagEngine.GetTagProjects(filter.TagId).ToList();
+                var factory = scope.Resolve<EngineFactory>();
+                if (filter.ProjectIds.Count == 0)
+                {
+                    filter.ProjectIds = factory.TagEngine.GetTagProjects(filter.TagId).ToList();
+                }
+
+                var result = scope.Resolve<EngineFactory>().ReportEngine.BuildUsersWithoutActiveTasks(filter);
+                result = AddUserInfo(result, 0).ToList();
+                result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default)
+                        .ToList();
+
+                return result;
             }
-
-            var result = Global.EngineFactory.ReportEngine.BuildUsersWithoutActiveTasks(filter);
-            result = AddUserInfo(result, 0).ToList();
-            result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default).ToList();
-
-            return result;
         }
 
         public override string[] GetCsvColumnsName()
@@ -839,18 +868,21 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildReport(TaskFilter filter)
         {
-
-            if (filter.TagId != 0 && filter.ProjectIds.Count == 0)
+            using (var scope = DIHelper.Resolve())
             {
-                filter.ProjectIds = Global.EngineFactory.TagEngine.GetTagProjects(filter.TagId).ToList();
+                var factory = scope.Resolve<EngineFactory>();
+                if (filter.TagId != 0 && filter.ProjectIds.Count == 0)
+                {
+                    filter.ProjectIds = factory.TagEngine.GetTagProjects(filter.TagId).ToList();
+                }
+
+                var result = factory.ReportEngine.BuildUsersWorkload(filter);
+
+                result = AddUserInfo(result, 0).ToList();
+                result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default).ToList();
+
+                return result;
             }
-
-            var result = Global.EngineFactory.ReportEngine.BuildUsersWorkload(filter);
-
-            result = AddUserInfo(result, 0).ToList();
-            result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default).ToList();
-
-            return result;
         }
 
         public override string[] GetCsvColumnsName()
@@ -898,31 +930,43 @@ namespace ASC.Web.Projects.Classes
             filter.FromDate = filter.GetFromDate(true);
             filter.ToDate = filter.GetToDate(true);
 
-            var taskTime = Global.EngineFactory.TimeTrackingEngine.GetByFilter(filter).Select(r => new object[] { r.Person, r.Task.Project.ID, r.Task.Project.Title, r.Task.ID, r.Task.Title, r.Hours, 0, r.PaymentStatus });
-
-            if (filter.ViewType == 0)
+            using (var scope = DIHelper.Resolve())
             {
-                taskTime = taskTime.GroupBy(r => (Guid)r[0], (a, b) =>
-                {
-                    var enumerable = b as IList<object[]> ?? b.ToList();
-                    var data = (object[])enumerable.First().Clone();
-                    data[5] = enumerable.Sum(c => (float)c[5]);
-                    data[6] = enumerable.Where(r => (PaymentStatus)r[7] == PaymentStatus.Billed).Sum(c => (float)c[5]);
-                    return data;
-                });
-            }
+                var factory = scope.Resolve<EngineFactory>();
 
-            if (filter.ViewType == 1)
-            {
-                taskTime = taskTime.Select(r =>
+                var taskTime = factory.TimeTrackingEngine.GetByFilter(filter)
+                    .Select(r =>
+                            new object[]
+                            {
+                                r.Person, r.Task.Project.ID, r.Task.Project.Title, r.Task.ID, r.Task.Title, r.Hours, 0,
+                                r.PaymentStatus
+                            });
+
+                if (filter.ViewType == 0)
                 {
-                    if ((PaymentStatus)r[7] == PaymentStatus.Billed) r[6] = r[5];
-                    return r;
-                });
+                    taskTime = taskTime.GroupBy(r => (Guid) r[0], (a, b) =>
+                    {
+                        var enumerable = b as IList<object[]> ?? b.ToList();
+                        var data = (object[]) enumerable.First().Clone();
+                        data[5] = enumerable.Sum(c => (float) c[5]);
+                        data[6] =
+                            enumerable.Where(r => (PaymentStatus) r[7] == PaymentStatus.Billed).Sum(c => (float) c[5]);
+                        return data;
+                    });
+                }
+
+                if (filter.ViewType == 1)
+                {
+                    taskTime = taskTime.Select(r =>
+                    {
+                        if ((PaymentStatus) r[7] == PaymentStatus.Billed) r[6] = r[5];
+                        return r;
+                    });
+                }
+                taskTime = AddUserInfo(taskTime, 0);
+                taskTime = taskTime.OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default);
+                return taskTime;
             }
-            taskTime = AddUserInfo(taskTime, 0);
-            taskTime = taskTime.OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default);
-            return taskTime;
         }
 
         public override string[] GetCsvColumnsName()
@@ -967,11 +1011,14 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildReport(TaskFilter filter)
         {
-            var result = Global.EngineFactory.ReportEngine.BuildUsersActivityReport(filter);
-            result = AddUserInfo(result, 0).ToList();
-            return result
-                .OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default)
-                .ToList();
+            using (var scope = DIHelper.Resolve())
+            {
+                var result = scope.Resolve<EngineFactory>().ReportEngine.BuildUsersActivityReport(filter);
+                result = AddUserInfo(result, 0).ToList();
+                return result
+                    .OrderBy(r => CoreContext.UserManager.GetUsers((Guid) r[0]), UserInfoComparer.Default)
+                    .ToList();
+            }
         }
 
         public override string[] GetCsvColumnsName()

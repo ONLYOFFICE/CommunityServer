@@ -188,13 +188,30 @@ namespace ASC.Files.Core
         #region Only for TMFolderDao
 
         /// <summary>
+        /// Set created by
+        /// </summary>
+        /// <param name="folderIds"></param>
+        /// <param name="newOwnerId"></param>
+        void ReassignFolders(object[] folderIds, Guid newOwnerId);
+
+        /// <summary>
         /// Search the list of folders containing text in title
         /// Only in TMFolderDao
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="folderTypes"></param>
+        /// <param name="folderType"></param>
         /// <returns></returns>
-        IEnumerable<Folder> Search(string text, params FolderType[] folderTypes);
+        IEnumerable<Folder> Search(string text, FolderType folderType);
+
+        /// <summary>
+        /// Search the list of folders containing text in title
+        /// Only in TMFolderDao
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="folderType1"></param>
+        /// <param name="folderType2"></param>
+        /// <returns></returns>
+        IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2);
 
         /// <summary>
         /// Only in TMFolderDao

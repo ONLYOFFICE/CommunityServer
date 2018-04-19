@@ -46,9 +46,12 @@ using ASC.Core.Tenants;
 using ASC.Web.CRM.Classes;
 using ASC.CRM.Core;
 using System.Collections.Specialized;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using log4net;
 using ASC.Web.Studio.Core.Notify;
+using Autofac;
+using Twilio.Types;
 
 #endregion
 
@@ -92,11 +95,11 @@ namespace ASC.Web.CRM.Services.NotifyService
 
         }
 
-        public void SendAboutSetAccess(EntityType entityType, int entityID, params Guid[] userID)
+        public void SendAboutSetAccess(EntityType entityType, int entityID, DaoFactory daoFactory, params Guid[] userID)
         {
             if (userID.Length == 0) return;
 
-            var baseData = ExtractBaseDataFrom(entityType, entityID);
+            var baseData = ExtractBaseDataFrom(entityType, entityID, daoFactory);
 
             client.SendNoticeToAsync(
                    NotifyConstants.Event_SetAccess,
@@ -109,9 +112,8 @@ namespace ASC.Web.CRM.Services.NotifyService
                 );
         }
 
-        private NameValueCollection ExtractBaseDataFrom(EntityType entityType, int entityID)
+        private NameValueCollection ExtractBaseDataFrom(EntityType entityType, int entityID, DaoFactory daoFactory)
         {
-
             var result = new NameValueCollection();
 
             String title;
@@ -122,26 +124,26 @@ namespace ASC.Web.CRM.Services.NotifyService
                 case EntityType.Person:
                 case EntityType.Company:
                 case EntityType.Contact:
-                    {
-                        var contact = Global.DaoFactory.GetContactDao().GetByID(entityID);
-                        title = contact != null ? contact.GetTitle() : string.Empty;
-                        relativeURL = "default.aspx?id=" + entityID;
-                        break;
-                    }
+                {
+                    var contact = daoFactory.ContactDao.GetByID(entityID);
+                    title = contact != null ? contact.GetTitle() : string.Empty;
+                    relativeURL = "default.aspx?id=" + entityID;
+                    break;
+                }
                 case EntityType.Opportunity:
-                    {
-                        var deal = Global.DaoFactory.GetDealDao().GetByID(entityID);
-                        title = deal != null ? deal.Title : string.Empty;
-                        relativeURL = "deals.aspx?id=" + entityID;
-                        break;
-                    }
+                {
+                    var deal = daoFactory.DealDao.GetByID(entityID);
+                    title = deal != null ? deal.Title : string.Empty;
+                    relativeURL = "deals.aspx?id=" + entityID;
+                    break;
+                }
                 case EntityType.Case:
-                    {
-                        var cases = Global.DaoFactory.GetCasesDao().GetByID(entityID);
-                        title = cases != null ? cases.Title : string.Empty;
-                        relativeURL = "cases.aspx?id=" + entityID;
-                        break;
-                    }
+                {
+                    var cases = daoFactory.CasesDao.GetByID(entityID);
+                    title = cases != null ? cases.Title : string.Empty;
+                    relativeURL = "cases.aspx?id=" + entityID;
+                    break;
+                }
 
                 default:
                     throw new ArgumentException();
@@ -154,8 +156,7 @@ namespace ASC.Web.CRM.Services.NotifyService
             return result;
         }
 
-        public void SendAboutAddRelationshipEventAdd(RelationshipEvent entity,
-                                                    Hashtable fileListInfoHashtable, params Guid[] userID)
+        public void SendAboutAddRelationshipEventAdd(RelationshipEvent entity, Hashtable fileListInfoHashtable, DaoFactory daoFactory, params Guid[] userID)
         {
             if (userID.Length == 0) return;
 
@@ -163,11 +164,11 @@ namespace ASC.Web.CRM.Services.NotifyService
 
             if (entity.EntityID != 0)
             {
-                baseEntityData = ExtractBaseDataFrom(entity.EntityType, entity.EntityID);
+                baseEntityData = ExtractBaseDataFrom(entity.EntityType, entity.EntityID, daoFactory);
             }
             else
             {
-                var contact = Global.DaoFactory.GetContactDao().GetByID(entity.ContactID);
+                var contact = daoFactory.ContactDao.GetByID(entity.ContactID);
 
                 baseEntityData = new NameValueCollection();
                 baseEntityData["title"] = contact.GetTitle();
@@ -268,86 +269,97 @@ namespace ASC.Web.CRM.Services.NotifyService
 
         public static void SendAutoReminderAboutTask(DateTime scheduleDate)
         {
-            var execAlert = new List<int>();
-
-            var defaultDao = new DaoFactory(Tenant.DEFAULT_TENANT, CRMConstants.StorageModule);
-            
-            foreach (var row in defaultDao.GetTaskDao()
-                                  .GetInfoForReminder(scheduleDate))
+            using (var scope = DIHelper.Resolve(-1))
             {
+                var defaultDao = scope.Resolve<DaoFactory>();
 
-                var tenantId = Convert.ToInt32(row[0]);
-                var taskId = Convert.ToInt32(row[1]);
-                var deadline = Convert.ToDateTime(row[2]);
-                var alertValue = Convert.ToInt32(row[3]);
-                var responsibleID = !string.IsNullOrEmpty(Convert.ToString(row[4])) ? new Guid(Convert.ToString(row[4])) : Guid.Empty;
-                
-                var deadlineReminderDate = deadline.AddMinutes(-alertValue);
+                var execAlert = new List<int>();
 
-                if (deadlineReminderDate.Subtract(scheduleDate).Minutes > 1) continue;
-
-                execAlert.Add(taskId);
-
-                var tenant = CoreContext.TenantManager.GetTenant(tenantId);
-                if (tenant == null ||
-                    tenant.Status != TenantStatus.Active ||
-                    TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenant.TenantId).State)
+                foreach (var row in defaultDao.TaskDao
+                    .GetInfoForReminder(scheduleDate))
                 {
-                    continue;
-                }
 
-                try
-                {
-                    CoreContext.TenantManager.SetCurrentTenant(tenant);
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                    
-                    var user = CoreContext.UserManager.GetUsers(responsibleID);
+                    var tenantId = Convert.ToInt32(row[0]);
+                    var taskId = Convert.ToInt32(row[1]);
+                    var deadline = Convert.ToDateTime(row[2]);
+                    var alertValue = Convert.ToInt32(row[3]);
+                    var responsibleID = !string.IsNullOrEmpty(Convert.ToString(row[4]))
+                        ? new Guid(Convert.ToString(row[4]))
+                        : Guid.Empty;
 
-                    if (!(!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)) continue;
-                    
-                    SecurityContext.AuthenticateMe(user.ID);
+                    var deadlineReminderDate = deadline.AddMinutes(-alertValue);
 
-                    Thread.CurrentThread.CurrentCulture = user.GetCulture();
-                    Thread.CurrentThread.CurrentUICulture = user.GetCulture();
+                    if (deadlineReminderDate.Subtract(scheduleDate).Minutes > 1) continue;
 
-                    var dao = new DaoFactory(tenantId, CRMConstants.StorageModule);
-                    var task = dao.GetTaskDao().GetByID(taskId);
+                    execAlert.Add(taskId);
 
-                    if (task == null) continue;
-
-                    ASC.CRM.Core.Entities.Contact taskContact = null;
-                    ASC.CRM.Core.Entities.Cases taskCase = null;
-                    ASC.CRM.Core.Entities.Deal taskDeal = null;
-
-                    if (task.ContactID > 0)
+                    var tenant = CoreContext.TenantManager.GetTenant(tenantId);
+                    if (tenant == null ||
+                        tenant.Status != TenantStatus.Active ||
+                        TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenant.TenantId).State)
                     {
-                        taskContact = dao.GetContactDao().GetByID(task.ContactID);
+                        continue;
                     }
 
-                    if (task.EntityID > 0)
+                    try
                     {
-                        switch (task.EntityType)
+                        CoreContext.TenantManager.SetCurrentTenant(tenant);
+                        SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+
+                        var user = CoreContext.UserManager.GetUsers(responsibleID);
+
+                        if (!(!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)) continue;
+
+                        SecurityContext.AuthenticateMe(user.ID);
+
+                        Thread.CurrentThread.CurrentCulture = user.GetCulture();
+                        Thread.CurrentThread.CurrentUICulture = user.GetCulture();
+
+                        using (var innerScope = DIHelper.Resolve(tenantId))
                         {
-                            case EntityType.Case:
-                                taskCase = dao.GetCasesDao().GetByID(task.EntityID);
-                                break;
-                            case EntityType.Opportunity:
-                                taskDeal = dao.GetDealDao().GetByID(task.EntityID);
-                                break;
+                            var dao = innerScope.Resolve<DaoFactory>();
+                            var task = dao.TaskDao.GetByID(taskId);
+
+                            if (task == null) continue;
+
+                            ASC.CRM.Core.Entities.Contact taskContact = null;
+                            ASC.CRM.Core.Entities.Cases taskCase = null;
+                            ASC.CRM.Core.Entities.Deal taskDeal = null;
+
+                            if (task.ContactID > 0)
+                            {
+                                taskContact = dao.ContactDao.GetByID(task.ContactID);
+                            }
+
+                            if (task.EntityID > 0)
+                            {
+                                switch (task.EntityType)
+                                {
+                                    case EntityType.Case:
+                                        taskCase = dao.CasesDao.GetByID(task.EntityID);
+                                        break;
+                                    case EntityType.Opportunity:
+                                        taskDeal = dao.DealDao.GetByID(task.EntityID);
+                                        break;
+                                }
+                            }
+
+                            var listItem = dao.ListItemDao.GetByID(task.CategoryID);
+
+                            NotifyClient.Instance.SendTaskReminder(task,
+                                listItem != null ? listItem.Title : string.Empty,
+                                taskContact, taskCase, taskDeal);
                         }
                     }
-
-                    var listItem = dao.GetListItemDao().GetByID(task.CategoryID);
-
-                    NotifyClient.Instance.SendTaskReminder(task, listItem != null ? listItem.Title : string.Empty, taskContact, taskCase, taskDeal);
+                    catch (Exception ex)
+                    {
+                        LogManager.GetLogger("ASC.CRM.Tasks")
+                            .Error("SendAutoReminderAboutTask, tenant: " + tenant.TenantDomain, ex);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    LogManager.GetLogger("ASC.CRM.Tasks").Error("SendAutoReminderAboutTask, tenant: " + tenant.TenantDomain, ex);
-                }
+
+                defaultDao.TaskDao.ExecAlert(execAlert);
             }
-
-            defaultDao.GetTaskDao().ExecAlert(execAlert);
         }
 
         public void SendTaskReminder(Task task, String taskCategoryTitle, Contact taskContact, ASC.CRM.Core.Entities.Cases taskCase, ASC.CRM.Core.Entities.Deal taskDeal)

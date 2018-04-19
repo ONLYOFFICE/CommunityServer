@@ -63,7 +63,7 @@ function checkError(error, response, result) {
         return error;
     }
     
-    if (result.error && result.error.message) {
+    if (result && result.error && result.error.message) {
         return result.error.message;
     }
 

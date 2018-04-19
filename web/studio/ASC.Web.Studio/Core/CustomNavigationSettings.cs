@@ -89,6 +89,8 @@ namespace ASC.Web.Studio.Core
             return new CustomNavigationItem
             {
                 Id = Guid.Empty,
+                ShowInMenu = true,
+                ShowOnHomePage = true,
                 BigImg = GetDefaultBigImg(),
                 SmallImg = GetDefaultSmallImg()
             };

@@ -40,14 +40,17 @@ namespace ASC.Files.Thirdparty.ProviderDao
         public Folder GetFolder(object folderId)
         {
             var selector = GetSelector(folderId);
-            var result = selector.GetFolderDao(folderId).GetFolder(selector.ConvertId(folderId));
-
-            if (result != null && !Default.IsMatch(folderId))
+            using (var folderDao = selector.GetFolderDao(folderId))
             {
-                SetSharedProperty(new[] {result});
-            }
+                var result = folderDao.GetFolder(selector.ConvertId(folderId));
 
-            return result;
+                if (result != null && !Default.IsMatch(folderId))
+                {
+                    SetSharedProperty(new[] {result});
+                }
+
+                return result;
+            }
         }
 
         public Folder GetFolder(string title, object parentId)
@@ -59,35 +62,50 @@ namespace ASC.Files.Thirdparty.ProviderDao
         public Folder GetRootFolder(object folderId)
         {
             var selector = GetSelector(folderId);
-            return selector.GetFolderDao(folderId).GetRootFolder(selector.ConvertId(folderId));
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                return folderDao.GetRootFolder(selector.ConvertId(folderId));
+            }
         }
 
         public Folder GetRootFolderByFile(object fileId)
         {
             var selector = GetSelector(fileId);
-            return selector.GetFolderDao(fileId).GetRootFolderByFile(selector.ConvertId(fileId));
+            using (var folderDao = selector.GetFolderDao(fileId))
+            {
+                return folderDao.GetRootFolderByFile(selector.ConvertId(fileId));
+            }
         }
 
         public List<Folder> GetFolders(object parentId)
         {
             var selector = GetSelector(parentId);
-            return selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId)).Where(r => r != null).ToList();
+            using (var folderDao = selector.GetFolderDao(parentId))
+            {
+                return folderDao
+                        .GetFolders(selector.ConvertId(parentId))
+                        .Where(r => r != null)
+                        .ToList();
+            }
         }
 
         public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
-            var result = selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
-                                 .Where(r => r != null).ToList();
-
-            if (!result.Any()) return new List<Folder>();
-
-            if (!Default.IsMatch(parentId))
+            using (var folderDao = selector.GetFolderDao(parentId))
             {
-                SetSharedProperty(result);
-            }
+                var result = folderDao.GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
+                        .Where(r => r != null).ToList();
 
-            return result;
+                if (!result.Any()) return new List<Folder>();
+
+                if (!Default.IsMatch(parentId))
+                {
+                    SetSharedProperty(result);
+                }
+
+                return result;
+            }
         }
 
         public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
@@ -97,13 +115,20 @@ namespace ASC.Files.Thirdparty.ProviderDao
             foreach (var selector in GetSelectors())
             {
                 var selectorLocal = selector;
-                var mathedIds = folderIds.Where(selectorLocal.IsMatch).ToList();
+                var matchedIds = folderIds.Where(selectorLocal.IsMatch).ToList();
 
-                if (!mathedIds.Any()) continue;
+                if (!matchedIds.Any()) continue;
 
-                result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
-                                                .SelectMany(y => selectorLocal.GetFolderDao(y.FirstOrDefault())
-                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders, checkShare))
+                result = result.Concat(matchedIds.GroupBy(selectorLocal.GetIdCode)
+                                                .SelectMany(matchedId =>
+                                                {
+                                                    using (var folderDao = selectorLocal.GetFolderDao(matchedId.FirstOrDefault()))
+                                                    {
+                                                        return folderDao
+                                                            .GetFolders(matchedId.Select(selectorLocal.ConvertId).ToArray(),
+                                                                searchText, searchSubfolders, checkShare);
+                                                    }
+                                                })
                                                 .Where(r => r != null));
             }
 
@@ -113,7 +138,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
         public List<Folder> GetParentFolders(object folderId)
         {
             var selector = GetSelector(folderId);
-            return selector.GetFolderDao(folderId).GetParentFolders(selector.ConvertId(folderId));
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                return folderDao.GetParentFolders(selector.ConvertId(folderId));
+            }
         }
 
         public object SaveFolder(Folder folder)
@@ -125,18 +153,24 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var folderId = folder.ID;
                 var selector = GetSelector(folderId);
                 folder.ID = selector.ConvertId(folderId);
-                var newFolderId = selector.GetFolderDao(folderId).SaveFolder(folder);
-                folder.ID = folderId;
-                return newFolderId;
+                using (var folderDao = selector.GetFolderDao(folderId))
+                {
+                    var newFolderId = folderDao.SaveFolder(folder);
+                    folder.ID = folderId;
+                    return newFolderId;
+                }
             }
             if (folder.ParentFolderID != null)
             {
                 var folderId = folder.ParentFolderID;
                 var selector = GetSelector(folderId);
                 folder.ParentFolderID = selector.ConvertId(folderId);
-                var newFolderId = selector.GetFolderDao(folderId).SaveFolder(folder);
-                folder.ParentFolderID = folderId;
-                return newFolderId;
+                using (var folderDao = selector.GetFolderDao(folderId))
+                {
+                    var newFolderId = folderDao.SaveFolder(folder);
+                    folder.ParentFolderID = folderId;
+                    return newFolderId;
+                }
 
             }
             throw new ArgumentException("No folder id or parent folder id to determine provider");
@@ -145,7 +179,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
         public void DeleteFolder(object folderId)
         {
             var selector = GetSelector(folderId);
-            selector.GetFolderDao(folderId).DeleteFolder(selector.ConvertId(folderId));
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                folderDao.DeleteFolder(selector.ConvertId(folderId));
+            }
         }
 
         public object MoveFolder(object folderId, object toFolderId)
@@ -156,18 +193,21 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var newFolder = PerformCrossDaoFolderCopy(folderId, toFolderId, true);
                 return newFolder != null ? newFolder.ID : null;
             }
-            else
+            using (var folderDao = selector.GetFolderDao(folderId))
             {
-                return selector.GetFolderDao(folderId).MoveFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
+                return folderDao.MoveFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
             }
         }
 
         public Folder CopyFolder(object folderId, object toFolderId)
         {
             var selector = GetSelector(folderId);
-            return IsCrossDao(folderId, toFolderId)
-                ? PerformCrossDaoFolderCopy(folderId, toFolderId, false)
-                : selector.GetFolderDao(folderId).CopyFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                return IsCrossDao(folderId, toFolderId)
+                    ? PerformCrossDaoFolderCopy(folderId, toFolderId, false)
+                    : folderDao.CopyFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
+            }
         }
 
         public IDictionary<object, string> CanMoveOrCopy(object[] folderIds, object to)
@@ -179,7 +219,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             if (!matchedIds.Any()) return new Dictionary<object, string>();
 
-            return selector.GetFolderDao(matchedIds.FirstOrDefault()).CanMoveOrCopy(matchedIds, to);
+            using (var folderDao = selector.GetFolderDao(matchedIds.FirstOrDefault()))
+            {
+                return folderDao.CanMoveOrCopy(matchedIds, to);
+            }
         }
 
         public object RenameFolder(Folder folder, string newTitle)
@@ -188,37 +231,56 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var selector = GetSelector(folderId);
             folder.ID = selector.ConvertId(folderId);
             folder.ParentFolderID = selector.ConvertId(folder.ParentFolderID);
-            return selector.GetFolderDao(folderId).RenameFolder(folder, newTitle);
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                return folderDao.RenameFolder(folder, newTitle);
+            }
         }
 
         public int GetItemsCount(object folderId)
         {
             var selector = GetSelector(folderId);
-            return selector.GetFolderDao(folderId).GetItemsCount(selector.ConvertId(folderId));
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                return folderDao.GetItemsCount(selector.ConvertId(folderId));
+            }
         }
 
         public bool IsEmpty(object folderId)
         {
             var selector = GetSelector(folderId);
-            return selector.GetFolderDao(folderId).IsEmpty(selector.ConvertId(folderId));
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                return folderDao.IsEmpty(selector.ConvertId(folderId));
+            }
         }
 
         public bool UseTrashForRemove(Folder folder)
         {
             var selector = GetSelector(folder.ID);
-            return selector.GetFolderDao(folder.ID).UseTrashForRemove(folder);
+            using (var folderDao = selector.GetFolderDao(folder.ID))
+            {
+                return folderDao.UseTrashForRemove(folder);
+            }
         }
 
         public bool UseRecursiveOperation(object folderId, object toRootFolderId)
         {
             var selector = GetSelector(folderId);
-            var useRecursive = selector.GetFolderDao(folderId).UseRecursiveOperation(folderId, null);
+            bool useRecursive;
+
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                useRecursive = folderDao.UseRecursiveOperation(folderId, null);
+            }
             if (toRootFolderId != null)
             {
                 var toFolderSelector = GetSelector(toRootFolderId);
-                useRecursive = useRecursive &&
-                               toFolderSelector.GetFolderDao(toRootFolderId).
-                                                UseRecursiveOperation(folderId, toFolderSelector.ConvertId(toRootFolderId));
+
+                using (var folderDao = toFolderSelector.GetFolderDao(toRootFolderId))
+                {
+                    useRecursive = useRecursive && folderDao.UseRecursiveOperation(folderId, toFolderSelector.ConvertId(toRootFolderId));
+                }
             }
             return useRecursive;
         }
@@ -226,102 +288,186 @@ namespace ASC.Files.Thirdparty.ProviderDao
         public bool CanCalculateSubitems(object entryId)
         {
             var selector = GetSelector(entryId);
-            return selector.GetFolderDao(entryId).CanCalculateSubitems(entryId);
+            using (var folderDao = selector.GetFolderDao(entryId))
+            {
+                return folderDao.CanCalculateSubitems(entryId);
+            }
         }
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
         {
             var selector = GetSelector(folderId);
-            var storageMaxUploadSize = selector.GetFolderDao(folderId).GetMaxUploadSize(selector.ConvertId(folderId), chunkedUpload);
+            using (var folderDao = selector.GetFolderDao(folderId))
+            {
+                var storageMaxUploadSize = folderDao.GetMaxUploadSize(selector.ConvertId(folderId), chunkedUpload);
 
-            if (storageMaxUploadSize == -1 || storageMaxUploadSize == long.MaxValue)
-                storageMaxUploadSize = 1024L*1024L*1024L;
+                if (storageMaxUploadSize == -1 || storageMaxUploadSize == long.MaxValue)
+                    storageMaxUploadSize = 1024L*1024L*1024L;
 
-            return storageMaxUploadSize;
+                return storageMaxUploadSize;
+            }
         }
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
+        public void ReassignFolders(object[] folderIds, Guid newOwnerId)
         {
-            return TryGetFolderDao().Search(text, folderTypes);
+            foreach (var selector in GetSelectors())
+            {
+                var selectorLocal = selector;
+                var matchedIds = folderIds.Where(selectorLocal.IsMatch);
+
+                if (!matchedIds.Any()) continue;
+
+                foreach (var matchedId in matchedIds.GroupBy(selectorLocal.GetIdCode))
+                {
+                    using (var folderDao = selectorLocal.GetFolderDao(matchedId.FirstOrDefault()))
+                    {
+                        folderDao.ReassignFolders(matchedId.Select(selectorLocal.ConvertId).ToArray(), newOwnerId);
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        {
+            using (var folderDao = TryGetFolderDao())
+            {
+                return folderDao.Search(text, folderType);
+            }
+        }
+
+        public IEnumerable<Folder> Search(string text, FolderType folderType1, FolderType folderType2)
+        {
+            using (var folderDao = TryGetFolderDao())
+            {
+                return folderDao.Search(text, folderType1, folderType2);
+            }
         }
 
         public object GetFolderID(string module, string bunch, string data, bool createIfNotExists)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderID(module, bunch, data, createIfNotExists)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderID(module, bunch, data, createIfNotExists);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public IEnumerable<object> GetFolderIDs(string module, string bunch, IEnumerable<string> data, bool createIfNotExists)
         {
-            return TryGetFolderDao().GetFolderIDs(module, bunch, data, createIfNotExists);
+            using (var folderDao = TryGetFolderDao())
+            {
+                return folderDao.GetFolderIDs(module, bunch, data, createIfNotExists);
+            }
         }
 
         public object GetFolderIDCommon(bool createIfNotExists)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDCommon(createIfNotExists)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderIDCommon(createIfNotExists);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public object GetFolderIDProjects(bool createIfNotExists)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDProjects(createIfNotExists)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderIDProjects(createIfNotExists);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public object GetFolderIDPhotos(bool createIfNotExists)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDProjects(createIfNotExists)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderIDProjects(createIfNotExists);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public string GetBunchObjectID(object folderID)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetBunchObjectID(folderID)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetBunchObjectID(folderID);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetBunchObjectIDs(folderIDs)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetBunchObjectIDs(folderIDs);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public object GetFolderIDUser(bool createIfNotExists, Guid? userId = null)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDUser(createIfNotExists, userId)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderIDUser(createIfNotExists, userId);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public object GetFolderIDShare(bool createIfNotExists)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDShare(createIfNotExists)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderIDShare(createIfNotExists);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         public object GetFolderIDTrash(bool createIfNotExists, Guid? userId = null)
         {
-            return (from selector in GetSelectors()
-                    let folderId = selector.GetFolderDao(null).GetFolderIDTrash(createIfNotExists, userId)
-                    where folderId != null
-                    select folderId).FirstOrDefault();
+            foreach (var selector in GetSelectors())
+            {
+                using (var folderDao = selector.GetFolderDao(null))
+                {
+                    var folderId = folderDao.GetFolderIDTrash(createIfNotExists, userId);
+                    if (folderId != null) return folderId;
+                }
+            }
+            return null;
         }
 
         #endregion

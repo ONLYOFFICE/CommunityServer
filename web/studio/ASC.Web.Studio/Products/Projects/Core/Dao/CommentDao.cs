@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Projects.Core.DataInterfaces;
@@ -52,126 +51,105 @@ namespace ASC.Projects.Data.DAO
             };
 
 
-        public CommentDao(string dbId, int tenantID)
-            : base(dbId, tenantID)
+        public CommentDao(int tenantID)
+            : base(tenantID)
         {
         }
 
 
         public List<Comment> GetAll(DomainObject<int> target)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db
-                    .ExecuteList(
-                        Query("projects_comments")
-                            .Select(columns)
-                            .Where("target_uniq_id", target.UniqID))
-                    .ConvertAll(ToComment)
-                    .OrderBy(c => c.CreateOn)
-                    .ToList();
-            }
+            return Db
+                .ExecuteList(
+                    Query("projects_comments")
+                        .Select(columns)
+                        .Where("target_uniq_id", target.UniqID))
+                .ConvertAll(ToComment)
+                .OrderBy(c => c.CreateOn)
+                .ToList();
         }
 
         public Comment GetById(Guid id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(Query(CommentsTable).Select(columns).Where("id", id.ToString()))
-                         .ConvertAll(ToComment)
-                         .SingleOrDefault();
-            }
+            return Db.ExecuteList(Query(CommentsTable).Select(columns).Where("id", id.ToString()))
+                        .ConvertAll(ToComment)
+                        .SingleOrDefault();
         }
 
         public List<int> Count(List<ProjectEntity> targets)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var pairs = db.ExecuteList(
-                    Query(CommentsTable)
-                        .Select("target_uniq_id", "count(*)")
-                        .Where(Exp.In("target_uniq_id", targets.ConvertAll(target => target.UniqID)))
-                        .Where("inactive", false)
-                        .GroupBy(1)
-                    ).ConvertAll(r => new object[] { Convert.ToString(r[0]), Convert.ToInt32(r[1]) });
+            var pairs = Db.ExecuteList(
+                Query(CommentsTable)
+                    .Select("target_uniq_id", "count(*)")
+                    .Where(Exp.In("target_uniq_id", targets.ConvertAll(target => target.UniqID)))
+                    .Where("inactive", false)
+                    .GroupBy(1)
+                ).ConvertAll(r => new object[] { Convert.ToString(r[0]), Convert.ToInt32(r[1]) });
 
-                return targets.ConvertAll(
-                    target =>
-                    {
-                        var pair = pairs.Find(p => String.Equals(Convert.ToString(p[0]), target.UniqID));
-                        return pair == null ? 0 : Convert.ToInt32(pair[1]);
-                    });
-            }
+            return targets.ConvertAll(
+                target =>
+                {
+                    var pair = pairs.Find(p => String.Equals(Convert.ToString(p[0]), target.UniqID));
+                    return pair == null ? 0 : Convert.ToInt32(pair[1]);
+                });
         }
 
         public List<Comment> GetComments(Exp where)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(
-                    Query(CommentsTable)
-                        .Select(columns)
-                        .Where(where)
-                        .Where("inactive", false)
-                        .OrderBy("create_on", false))
-                    .ConvertAll(ToComment);
-            }
+            return Db.ExecuteList(
+                Query(CommentsTable)
+                    .Select(columns)
+                    .Where(where)
+                    .Where("inactive", false)
+                    .OrderBy("create_on", false))
+                .ConvertAll(ToComment);
         }
 
         public int Count(DomainObject<Int32> target)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteScalar<int>(
-                    Query(CommentsTable)
-                        .SelectCount()
-                        .Where("target_uniq_id", target.UniqID)
-                        .Where("inactive", false));
-            }
+            return Db.ExecuteScalar<int>(
+                Query(CommentsTable)
+                    .SelectCount()
+                    .Where("target_uniq_id", target.UniqID)
+                    .Where("inactive", false));
         }
 
 
         public Comment Save(Comment comment)
         {
-            using (var db = new DbManager(DatabaseId))
+            if (comment.OldGuidId == default(Guid)) comment.OldGuidId = Guid.NewGuid();
+
+            if (!string.IsNullOrWhiteSpace(comment.Content) && comment.Content.Contains("<w:WordDocument>"))
             {
-                if (comment.OldGuidId == default(Guid)) comment.OldGuidId = Guid.NewGuid();
-
-                if (!string.IsNullOrWhiteSpace(comment.Content) && comment.Content.Contains("<w:WordDocument>"))
+                try
                 {
-                    try
-                    {
-                        comment.Content = Sanitizer.GetSafeHtmlFragment(comment.Content);
-                    }
-                    catch (Exception err)
-                    {
-                        LogManager.GetLogger(GetType()).Error(err);
-                    }
+                    comment.Content = Sanitizer.GetSafeHtmlFragment(comment.Content);
                 }
-
-                var insert = Insert(CommentsTable)
-                    .InColumns(columns)
-                    .Values(
-                        comment.OldGuidId,
-                        comment.TargetUniqID,
-                        comment.Content,
-                        comment.Inactive,
-                        comment.CreateBy.ToString(),
-                        TenantUtil.DateTimeToUtc(comment.CreateOn),
-                        comment.Parent.ToString(),
-                        comment.ID
-                        );
-                db.ExecuteNonQuery(insert);
-                return comment;
+                catch (Exception err)
+                {
+                    LogManager.GetLogger(GetType()).Error(err);
+                }
             }
+
+            var insert = Insert(CommentsTable)
+                .InColumns(columns)
+                .Values(
+                    comment.OldGuidId,
+                    comment.TargetUniqID,
+                    comment.Content,
+                    comment.Inactive,
+                    comment.CreateBy.ToString(),
+                    TenantUtil.DateTimeToUtc(comment.CreateOn),
+                    comment.Parent.ToString(),
+                    comment.ID
+                    );
+            Db.ExecuteNonQuery(insert);
+            return comment;
         }
 
         public void Delete(Guid id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                db.ExecuteNonQuery(Delete(CommentsTable).Where("id", id.ToString()));
-            }
+            Db.ExecuteNonQuery(Delete(CommentsTable).Where("id", id.ToString()));
         }
 
 

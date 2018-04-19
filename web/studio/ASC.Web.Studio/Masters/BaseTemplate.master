@@ -22,6 +22,7 @@
     <title><%= (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode() %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta name="keywords" id="MetaKeywords" content="" runat="server" />
     <meta name="description" id="MetaDescription" content="" runat="server" />
@@ -58,13 +59,12 @@
 
     <asp:ContentPlaceHolder ID="GoogleTagManagerPlaceHolder" runat="server" />
     <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />
-    <asp:ContentPlaceHolder ID="YandexMetrikaScriptPlaceHolder" runat="server" />
 
     <form runat="server" id="Form" style="margin: 0; height: 100%; padding: 0;" enctype="multipart/form-data" method="post">
 
         <%= RenderStatRequest() %>
 
-        <div class="main-content <%= string.IsNullOrEmpty(Request["ab"]) ? "" : "ab-testing" %>">
+        <div class="main-content">
             <div id="studioPageContent">
                 <asp:ContentPlaceHolder runat="server" ID="TopContent" />
                 <div class="mainPageLayout">

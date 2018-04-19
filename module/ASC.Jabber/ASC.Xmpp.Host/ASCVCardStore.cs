@@ -120,7 +120,7 @@ namespace ASC.Xmpp.Host
                 vcard.Title = ui.Title;
                 if (id == null || id.IndexOf("tmtalk", StringComparison.OrdinalIgnoreCase) < 0)
                 {
-                    var image = PreparePhoto(ASCContext.UserManager.GetUserPhoto(ui.ID, Guid.Empty));
+                    var image = PreparePhoto(ASCContext.UserManager.GetUserPhoto(ui.ID));
                     if (image != null)
                     {
                         vcard.Photo = new Photo(image, ImageFormat.Png);

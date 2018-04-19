@@ -478,7 +478,7 @@ window.crmLinkPopup = (function($) {
                 needAddContactIds = [];
                 $('.header-crm-link').show();
                 messagePage.setHasLinked(true);
-                window.LoadingBanner.displayLoading(true, true);
+                window.LoadingBanner.displayMailLoading();
             }
             if (needDeleteContactIds.length > 0) {
                 messageId = getMessageId();
@@ -496,7 +496,7 @@ window.crmLinkPopup = (function($) {
                     messagePage.setHasLinked(false);
                 }
                 needDeleteContactIds = [];
-                window.LoadingBanner.displayLoading(true, true);
+                window.LoadingBanner.displayMailLoading();
             }
 
             popup.hide();
@@ -560,7 +560,7 @@ window.crmLinkPopup = (function($) {
             }, ASC.Resources.Master.Resource.LoadingProcessing);
             needAddContactIds = [];
             exportMessageId = -1;
-            window.LoadingBanner.displayLoading(true, true);
+            window.LoadingBanner.displayMailLoading();
             popup.hide();
             return false;
         });

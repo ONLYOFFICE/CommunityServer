@@ -31,12 +31,13 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using ASC.Common.Utils;
-using ASC.Projects.Core.DataInterfaces;
+using ASC.Files.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
 using ASC.Web.Projects.Classes;
 using log4net;
+using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
 {
@@ -118,45 +119,65 @@ namespace ASC.Projects.Engine
 
     public class SearchEngine
     {
-        private readonly ISearchDao searchDao;
-        private readonly IProjectDao projDao;
-        private readonly EngineFactory factory;
+        public IDaoFactory DaoFactory { get; set; }
+        public CommentEngine CommentEngine { get; set; }
+        public TaskEngine TaskEngine { get; set; }
+
         private readonly List<SearchItem> searchItems;
 
-        public SearchEngine(IDaoFactory daoFactory, EngineFactory factory)
+        public SearchEngine(EngineFactory factory)
         {
-            searchDao = daoFactory.GetSearchDao();
-            projDao = daoFactory.GetProjectDao();
-            this.factory = factory;
             searchItems = new List<SearchItem>();
+            CommentEngine = factory.CommentEngine;
+            TaskEngine = factory.TaskEngine;
         }
 
         public IEnumerable<SearchItem> Search(string searchText, int projectId = 0)
         {
-            var queryResult = searchDao.Search(searchText, projectId);
+            var queryResult = DaoFactory.SearchDao.Search(searchText, projectId);
 
-            foreach (var r in queryResult.Where(ProjectSecurity.CanRead))
+            foreach (var r in queryResult)
             {
                 switch (r.EntityType)
                 {
                     case EntityType.Project:
-                        searchItems.Add(new SearchItem((Project) r));
+                        var project = (Project)r;
+                        if (ProjectSecurity.CanRead(project))
+                        {
+                            searchItems.Add(new SearchItem(project));
+                        }
                         continue;
                     case EntityType.Milestone:
+                        var milestone = (Milestone)r;
+                        if (ProjectSecurity.CanRead(milestone))
+                        {
+                            searchItems.Add(new SearchItem(milestone));
+                        }
+                        continue;
                     case EntityType.Message:
+                        var message = (Message)r;
+                        if (ProjectSecurity.CanRead(message))
+                        {
+                            searchItems.Add(new SearchItem(message));
+                        }
+                        continue;
                     case EntityType.Task:
-                        searchItems.Add(new SearchItem((ProjectEntity)r));
+                        var task = (Task)r;
+                        if (ProjectSecurity.CanRead(task))
+                        {
+                            searchItems.Add(new SearchItem(task));
+                        }
                         continue;
                     case EntityType.Comment:
                         var comment = (Comment) r;
-                        var entity = factory.CommentEngine.GetEntityByTargetUniqId(comment);
+                        var entity = CommentEngine.GetEntityByTargetUniqId(comment);
                         if (entity == null)continue;
 
                         searchItems.Add(new SearchItem(comment.EntityType, comment.ID.ToString(CultureInfo.InvariantCulture), HtmlUtil.GetText(comment.Content), comment.CreateOn, new SearchItem(entity)));
                         continue;
                     case EntityType.SubTask:
                         var subtask = (Subtask) r;
-                        var parentTask = factory.TaskEngine.GetByID(subtask.Task);
+                        var parentTask = TaskEngine.GetByID(subtask.Task);
                         if(parentTask == null) continue;
 
                         searchItems.Add(new SearchItem(subtask.EntityType, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title, subtask.CreateOn, new SearchItem(parentTask)));
@@ -191,11 +212,11 @@ namespace ASC.Projects.Engine
                     foreach (var f in fileEntries)
                     {
                         var id = rootProject[f.RootFolderId];
-                        var project = projDao.GetById(id);
+                        var project = DaoFactory.ProjectDao.GetById(id);
 
                         if (ProjectSecurity.CanReadFiles(project))
                         {
-                            var itemId = f is Files.Core.File
+                            var itemId = f.FileEntryType == FileEntryType.File
                                              ? FilesLinkUtility.GetFileWebPreviewUrl(f.Title, f.ID)
                                              : Web.Files.Classes.PathProvider.GetFolderUrl((Files.Core.Folder) f, project.ID);
                             searchItems.Add(new SearchItem(EntityType.File, itemId, f.Title, f.CreateOn, new SearchItem(project), itemPath: "{2}"));

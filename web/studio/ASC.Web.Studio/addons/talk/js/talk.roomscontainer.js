@@ -328,7 +328,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     $(messagescontainer).scroll(function () {
         var currentMessagesCount = 0;
         if (this.scrollTop === 0) {
-            currentMessagesCount = jQuery('div#talkRoomsContainer ul.rooms li.room.chat.current ul.messages:first').find('li').not('.default').length;
+            currentMessagesCount = jQuery('div#talkRoomsContainer ul.rooms li.room.current ul.messages:first').find('li').not('.default').length;
             var startindex = currentMessagesCount++;
             var count = 5;
             ASC.TMTalk.messagesManager.updateHistory(cid, startindex, count);
@@ -1000,20 +1000,20 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       }
 
       messagesInd = messages.length;
-      var currentMessageCount = jQuery('div#talkRoomsContainer ul.rooms li.room.chat.current ul.messages:first').find('li').not('.default').length;
+      var currentMessageCount = jQuery('div#talkRoomsContainer ul.rooms li.room.current ul.messages:first').find('li').not('.default').length;
       while (messagesInd--) {
         message = messages[messagesInd];
         addMessage(room, message.displayName, message.displayDate, textToHtml(message.body), message.isOwn, true, newmessagescount-- > 0, true);
       }
       if (messages.length != 0 && currentMessageCount > 0) {
-
-          var container = jQuery('div#talkRoomsContainer ul.rooms li.room.chat.current ul.messages');
-          var element = jQuery('div#talkRoomsContainer li.room.current div.messages ul.messages li:eq(5)');
-          var top = element.position().top + container.offset().top + container.scrollTop() - 36;
           
-          jQuery('div#talkRoomsContainer ul.rooms li.room.chat.current ul.messages').scrollTo(top);
+          var container = jQuery('div#talkRoomsContainer ul.rooms li.room[data-roomcid="' + jid + '"] ul.messages');
+          var element = jQuery('div#talkRoomsContainer li.room[data-roomcid="' + jid + '"] div.messages ul.messages li:eq(5)');
+          var correction = jQuery('div#talkRoomsContainer li.room.current').hasClass('conference') ? 25 : 50;
+          var top = element.position().top + container.offset().top + container.scrollTop() - correction;
+          jQuery('div#talkRoomsContainer ul.rooms li.room[data-roomcid="' + jid + '"] ul.messages').scrollTo(top);
       } else if (currentMessageCount != 0) {
-          jQuery('div#talkRoomsContainer ul.rooms li.room.chat.current ul.messages').scrollTo(0);
+          jQuery('div#talkRoomsContainer ul.rooms li.room[data-roomcid="' + jid + '"] ul.messages').scrollTo(0);
       }
     }
   };

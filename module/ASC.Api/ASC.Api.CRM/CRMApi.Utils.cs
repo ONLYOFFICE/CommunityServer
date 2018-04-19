@@ -251,7 +251,7 @@ namespace ASC.Api.CRM
             int companyLogoID;
             if (!reset)
             {
-                companyLogoID = OrganisationLogoManager.TryUploadOrganisationLogoFromTmp();
+                companyLogoID = OrganisationLogoManager.TryUploadOrganisationLogoFromTmp(DaoFactory);
                 if (companyLogoID == 0)
                 {
                     throw new Exception("Downloaded image not found");

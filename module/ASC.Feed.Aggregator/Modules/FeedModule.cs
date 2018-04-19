@@ -108,5 +108,20 @@ namespace ASC.Feed.Aggregator.Modules
         {
             return WebItemSecurity.IsAvailableForUser(ProductID.ToString(), userId);
         }
+
+
+        protected static Guid ToGuid(object guid)
+        {
+            try
+            {
+                var str = guid as string;
+                return !string.IsNullOrEmpty(str) ? new Guid(str) : Guid.Empty;
+            }
+            catch (Exception)
+            {
+                return Guid.Empty;
+            }
+
+        }
     }
 }

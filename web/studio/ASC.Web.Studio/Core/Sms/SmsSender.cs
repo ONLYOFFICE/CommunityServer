@@ -26,6 +26,7 @@
 
 using System;
 using System.Configuration;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using ASC.Common.Caching;
 using ASC.Core;
@@ -58,15 +59,15 @@ namespace ASC.Web.Studio.Core.SMS
                 throw new MethodAccessException();
             }
 
+            var cacheKey = "smsCode_" + number;
             int count;
+            int.TryParse(PhoneCache.Get<string>(cacheKey), out count);
 
-            int.TryParse(PhoneCache.Get<string>(number), out count);
-
-            if (count >= 5)
+            if (count >= 3)
             {
                 throw new Exception(Resource.SmsTooMuchError);
             }
-            PhoneCache.Insert(number, ++count, DateTime.UtcNow.Add(TrustInterval));
+            PhoneCache.Insert(cacheKey, (++count).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TrustInterval));
 
             if ("log".Equals(ConfigurationManager.AppSettings["core.notify.postman"], StringComparison.InvariantCultureIgnoreCase))
             {

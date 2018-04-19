@@ -26,6 +26,12 @@
 
 ;
 ASC.Controls.ConfirmMobileManager = function () {
+    var init = function () {
+        if (!jq("#primaryPhone:visible").length) {
+            timerCodeStart();
+        }
+    };
+
     var sendAuthCode = function () {
         jq("#errorMobileActivate").hide();
 
@@ -49,7 +55,7 @@ ASC.Controls.ConfirmMobileManager = function () {
     };
 
     var sendAuthCodeCallback = function (result) {
-        jq("#sendPhoneButton, #getCodeAgainButton, #sendCodeButton").removeClass("disable");
+        jq("#sendPhoneButton, #sendCodeButton").removeClass("disable");
 
         var res = result.value || result.error;
         if (res.phoneNoise) {
@@ -58,6 +64,8 @@ ASC.Controls.ConfirmMobileManager = function () {
                 jq("#phoneNoise").html(res.phoneNoise);
                 jq("#mobileCodePanel").show();
                 jq("#phoneAuthcode").val("").focus();
+
+                timerCodeStart();
             } else {
                 location.href = res.RefererURL || "/";
             }
@@ -75,20 +83,41 @@ ASC.Controls.ConfirmMobileManager = function () {
             return;
         }
 
-        jq("#getCodeAgainButton, #sendCodeButton").addClass("disable");
+        jq("#sendCodeButton").addClass("disable");
 
         AjaxPro.MobileActivationController.ValidateSmsCode(code, function (result) {
             var res = result.value || result.error;
             if (typeof res.RefererURL != "undefined") {
                 location.href = res.RefererURL || "/";
             } else {
-                jq("#getCodeAgainButton, #sendCodeButton").removeClass("disable");
+                jq("#sendCodeButton").removeClass("disable");
                 jq("#errorMobileActivate").html(res.Message || "Error").show();
             }
         });
     };
 
+    var timerCodeStart = function () {
+        timerCode(31);
+    };
+
+    var timerCode = function (start) {
+        var span = "#getCodeAgainButton span";
+        var time = (start || jq(span).data("time")) | 0;
+
+        time -= 1;
+        if (time > 0) {
+            jq(span).text(" (" + time + ")").data("time", time);
+
+            setTimeout(timerCode, 1000);
+        } else {
+            jq(span).text("");
+            jq("#getCodeAgainButton").removeClass("disable");
+        }
+    };
+
     return {
+        init: init,
+
         sendAuthCode: sendAuthCode,
         sendAuthCodeAgain: sendAuthCodeAgain,
         validateAuthCode: validateAuthCode
@@ -138,5 +167,7 @@ ASC.Controls.ConfirmMobileManager = function () {
                 return false;
             }
         });
+
+        ASC.Controls.ConfirmMobileManager.init();
     });
 })();

@@ -47,8 +47,8 @@ namespace ASC.CRM.Core.Dao
     {
         private readonly HttpRequestDictionary<Deal> _dealCache = new HttpRequestDictionary<Deal>("crm_deal");
 
-        public CachedDealDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
+        public CachedDealDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -91,8 +91,8 @@ namespace ASC.CRM.Core.Dao
     {
         #region Constructor
 
-        public DealDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
+        public DealDao(int tenantID)
+            : base(tenantID)
         {
         }
 
@@ -102,10 +102,7 @@ namespace ASC.CRM.Core.Dao
 
         public void AddMember(int dealID, int memberID)
         {
-            using (var db = GetDb())
-            {
-                SetRelative(memberID, EntityType.Opportunity, dealID, db);
-            }
+            SetRelative(memberID, EntityType.Opportunity, dealID);
         }
 
         public Dictionary<int, int[]> GetMembers(int[] dealID)
@@ -125,21 +122,15 @@ namespace ASC.CRM.Core.Dao
 
         public void RemoveMember(int dealID, int memberID)
         {
-            using (var db = GetDb())
-            {
-                RemoveRelative(memberID, EntityType.Opportunity, dealID, db);
-            }
+            RemoveRelative(memberID, EntityType.Opportunity, dealID);
         }
 
         public virtual List<Deal> GetDeals(int[] id)
         {
             if (id == null || !id.Any()) return new List<Deal>();
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(GetDealSqlQuery(Exp.In("tblDeal.id", id)))
-                   .ConvertAll(ToDeal).FindAll(CRMSecurity.CanAccessTo).ToList();
-            }
+            return Db.ExecuteList(GetDealSqlQuery(Exp.In("tblDeal.id", id)))
+                .ConvertAll(ToDeal).FindAll(CRMSecurity.CanAccessTo).ToList();
         }
 
         public virtual Deal GetByID(int dealID)
@@ -153,15 +144,11 @@ namespace ASC.CRM.Core.Dao
 
         public virtual int CreateNewDeal(Deal deal)
         {
-            using (var db = GetDb())
-            {
-                return CreateNewDeal(deal, db);
-            }
+            return CreateNewDealInDb(deal);
         }
 
-        private int CreateNewDeal(Deal deal, DbManager db)
+        private int CreateNewDealInDb(Deal deal)
         {
-
             if (String.IsNullOrEmpty(deal.Title) || deal.ResponsibleID == Guid.Empty || deal.DealMilestoneID <= 0)
                 throw new ArgumentException();
 
@@ -169,7 +156,7 @@ namespace ASC.CRM.Core.Dao
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
 
 
-            var dealID = db.ExecuteScalar<int>(
+            var dealID = Db.ExecuteScalar<int>(
                 Insert("crm_deal")
                 .InColumnValue("id", 0)
                 .InColumnValue("title", deal.Title)
@@ -198,11 +185,10 @@ namespace ASC.CRM.Core.Dao
 
         public virtual int[] SaveDealList(List<Deal> items)
         {
-            using (var db = GetDb())
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
                 tx.Commit();
-                return items.Select(item => CreateNewDeal(item, db)).ToArray();
+                return items.Select(item => CreateNewDealInDb(item)).ToArray();
             }
         }
 
@@ -217,27 +203,24 @@ namespace ASC.CRM.Core.Dao
 
             //    AddMember(deal.ID, deal.ContactID);
 
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                    Update("crm_deal")
-                    .Set("title", deal.Title)
-                    .Set("description", deal.Description)
-                    .Set("responsible_id", deal.ResponsibleID)
-                    .Set("contact_id", deal.ContactID)
-                    .Set("bid_currency", deal.BidCurrency)
-                    .Set("bid_value", deal.BidValue)
-                    .Set("bid_type", deal.BidType)
-                    .Set("deal_milestone_id", deal.DealMilestoneID)
-                    .Set("deal_milestone_probability", deal.DealMilestoneProbability)
-                    .Set("expected_close_date", TenantUtil.DateTimeToUtc(deal.ExpectedCloseDate))
-                    .Set("per_period_value", deal.PerPeriodValue)
-                    .Set("actual_close_date", TenantUtil.DateTimeToUtc(deal.ActualCloseDate))
-                    .Set("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
-                    .Set("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                    .Where(Exp.Eq("id", deal.ID))
-                    );
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_deal")
+                .Set("title", deal.Title)
+                .Set("description", deal.Description)
+                .Set("responsible_id", deal.ResponsibleID)
+                .Set("contact_id", deal.ContactID)
+                .Set("bid_currency", deal.BidCurrency)
+                .Set("bid_value", deal.BidValue)
+                .Set("bid_type", deal.BidType)
+                .Set("deal_milestone_id", deal.DealMilestoneID)
+                .Set("deal_milestone_probability", deal.DealMilestoneProbability)
+                .Set("expected_close_date", TenantUtil.DateTimeToUtc(deal.ExpectedCloseDate))
+                .Set("per_period_value", deal.PerPeriodValue)
+                .Set("actual_close_date", TenantUtil.DateTimeToUtc(deal.ActualCloseDate))
+                .Set("last_modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
+                .Set("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
+                .Where(Exp.Eq("id", deal.ID))
+                );
         }
 
 
@@ -418,50 +401,45 @@ namespace ASC.CRM.Core.Dao
 
             int result;
 
-            using (var db = GetDb())
+            if (withParams)
             {
-                if (withParams)
+                var whereConditional = WhereConditional(exceptIDs, searchText, responsibleID, milestoneID, tags,
+                                                        contactID, stageType, contactAlsoIsParticipant);
+
+
+                var sqlQuery = GetDealSqlQuery(whereConditional);
+
+                if (fromDate != DateTime.MinValue && toDate != DateTime.MinValue)
                 {
+                    sqlQuery.Having(Exp.Between("close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)));
 
+                    result = Db.ExecuteList(sqlQuery).Count;
 
-                    var whereConditional = WhereConditional(exceptIDs, searchText, responsibleID, milestoneID, tags,
-                                                            contactID, stageType, contactAlsoIsParticipant);
-
-
-                    var sqlQuery = GetDealSqlQuery(whereConditional);
-
-                    if (fromDate != DateTime.MinValue && toDate != DateTime.MinValue)
-                    {
-                        sqlQuery.Having(Exp.Between("close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)));
-
-                        result = db.ExecuteList(sqlQuery).Count;
-
-                    }
-                    else if (whereConditional == null)
-                    {
-                        result = 0;
-                    }
-                    else
-                    {
-                        result = db.ExecuteList(sqlQuery).Count;
-                    }
-
+                }
+                else if (whereConditional == null)
+                {
+                    result = 0;
                 }
                 else
                 {
-
-                    var countWithoutPrivate = db.ExecuteScalar<int>(Query("crm_deal").SelectCount());
-                    var privateCount = exceptIDs.Count;
-
-                    if (privateCount > countWithoutPrivate)
-                    {
-                        _log.Error("Private deals count more than all deals");
-
-                        privateCount = 0;
-                    }
-
-                    result = countWithoutPrivate - privateCount;
+                    result = Db.ExecuteList(sqlQuery).Count;
                 }
+
+            }
+            else
+            {
+
+                var countWithoutPrivate = Db.ExecuteScalar<int>(Query("crm_deal").SelectCount());
+                var privateCount = exceptIDs.Count;
+
+                if (privateCount > countWithoutPrivate)
+                {
+                    _log.Error("Private deals count more than all deals");
+
+                    privateCount = 0;
+                }
+
+                result = countWithoutPrivate - privateCount;
             }
             if (result > 0)
             {
@@ -640,10 +618,7 @@ namespace ASC.CRM.Core.Dao
                     .OrderBy("tblDeal.contact_id", true)
                     .OrderBy("tblDeal.title", true);
 
-            using (var db = GetDb())
-            {
-                return db.ExecuteList(sqlQuery).ConvertAll(ToDeal);
-            }
+            return Db.ExecuteList(sqlQuery).ConvertAll(ToDeal);
         }
 
         public List<Deal> GetDealsByContactID(int contactID)
@@ -680,11 +655,8 @@ namespace ASC.CRM.Core.Dao
             if (0 < from && from < int.MaxValue) q.SetFirstResult(from);
             if (0 < count && count < int.MaxValue) q.SetMaxResults(count);
 
-            using (var db = GetDb())
-            {
-                var sqlResult = db.ExecuteList(q).ConvertAll(row => ToDeal(row)).FindAll(CRMSecurity.CanAccessTo);
-                return sqlResult.OrderBy(deal => deal.Title).ToList();
-            }
+            var sqlResult = Db.ExecuteList(q).ConvertAll(row => ToDeal(row)).FindAll(CRMSecurity.CanAccessTo);
+            return sqlResult.OrderBy(deal => deal.Title).ToList();
         }
 
         public virtual Deal DeleteDeal(int dealID)
@@ -734,23 +706,22 @@ namespace ASC.CRM.Core.Dao
             var dealID = deals.Select(x => x.ID).ToArray();
             object[] filesIDs;
 
-            using (var db = GetDb())
             using (var tagdao = FilesIntegration.GetTagDao())
             {
-                var tagNames = db.ExecuteList(Query("crm_relationship_event").Select("id")
+                var tagNames = Db.ExecuteList(Query("crm_relationship_event").Select("id")
                                     .Where(Exp.Eq("have_files", true) & Exp.In("entity_id", dealID) & Exp.Eq("entity_type", (int)EntityType.Opportunity)))
                                     .Select(row => String.Format("RelationshipEvent_{0}", row[0])).ToArray();
                 filesIDs = tagdao.GetTags(tagNames, TagType.System).Where(t => t.EntryType == FileEntryType.File).Select(t => t.EntryId).ToArray();
 
-                using (var tx = db.BeginTransaction(true))
+                using (var tx = Db.BeginTransaction(true))
                 {
 
-                    db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", (int)EntityType.Opportunity)));
-                    db.ExecuteNonQuery(new SqlDelete("crm_entity_contact").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
-                    db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
-                    db.ExecuteNonQuery(Delete("crm_task").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
-                    db.ExecuteNonQuery(new SqlDelete("crm_entity_tag").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
-                    db.ExecuteNonQuery(Delete("crm_deal").Where(Exp.In("id", dealID)));
+                    Db.ExecuteNonQuery(Delete("crm_field_value").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", (int)EntityType.Opportunity)));
+                    Db.ExecuteNonQuery(new SqlDelete("crm_entity_contact").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
+                    Db.ExecuteNonQuery(Delete("crm_relationship_event").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
+                    Db.ExecuteNonQuery(Delete("crm_task").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
+                    Db.ExecuteNonQuery(new SqlDelete("crm_entity_tag").Where(Exp.In("entity_id", dealID) & Exp.Eq("entity_type", EntityType.Opportunity)));
+                    Db.ExecuteNonQuery(Delete("crm_deal").Where(Exp.In("id", dealID)));
 
                     tx.Commit();
                 }
@@ -872,13 +843,10 @@ namespace ASC.CRM.Core.Dao
         /// <param name="creationDate"></param>
         public void SetDealCreationDate(int opportunityid, DateTime creationDate)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                   Update("crm_deal")
-                       .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
-                       .Where(Exp.Eq("id", opportunityid)));
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_deal")
+                    .Set("create_on", TenantUtil.DateTimeToUtc(creationDate))
+                    .Where(Exp.Eq("id", opportunityid)));
             // Delete relative keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
         }
@@ -890,13 +858,10 @@ namespace ASC.CRM.Core.Dao
         /// <param name="lastModifedDate"></param>
         public void SetDealLastModifedDate(int opportunityid, DateTime lastModifedDate)
         {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                   Update("crm_deal")
-                       .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
-                       .Where(Exp.Eq("id", opportunityid)));
-            }
+            Db.ExecuteNonQuery(
+                Update("crm_deal")
+                    .Set("last_modifed_on", TenantUtil.DateTimeToUtc(lastModifedDate))
+                    .Where(Exp.Eq("id", opportunityid)));
             // Delete relative keys
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
         }

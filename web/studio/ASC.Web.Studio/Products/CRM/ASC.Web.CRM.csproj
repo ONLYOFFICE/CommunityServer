@@ -48,6 +48,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
@@ -68,7 +72,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -151,7 +155,6 @@
     </Compile>
     <Compile Include="Classes\ContactPhotoManager.cs" />
     <Compile Include="Classes\ImportFromCSVManager.cs" />
-    <Compile Include="Classes\InvoiceFileUpdateHelper.cs" />
     <Compile Include="Classes\InvoiceFormattedData.cs" />
     <Compile Include="Classes\LocalizedEnumConverter.cs" />
     <Compile Include="Classes\OrganisationLogoManager.cs" />
@@ -355,6 +358,7 @@
       <DependentUpon>ListTaskView.ascx</DependentUpon>
     </Compile>
     <Compile Include="Core\Dao\ListItemHistoryDao.cs" />
+    <Compile Include="Core\DIHelper.cs" />
     <Compile Include="Core\Entities\ListItemHistory.cs" />
     <Compile Include="Core\Enums\ReportTaskStatus.cs" />
     <Compile Include="Core\Enums\ReportTimePeriodEnum.cs" />
@@ -478,6 +482,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CRMPatternResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\PdfQueueWorker.cs" />
     <Compile Include="Utils\ReportHelper.cs" />
     <Compile Include="Utils\CurrencyProvider.cs" />
     <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
@@ -983,7 +988,7 @@
     <Content Include="HttpHandlers\filehandler.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="InvoiceTemplates\template.docx" />
+    <EmbeddedResource Include="InvoiceTemplates\template.docx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Default\css\common.less" />
@@ -1103,6 +1108,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ReportTemplates\WorkloadByVoip.docbuilder" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

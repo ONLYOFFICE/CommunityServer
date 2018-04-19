@@ -531,5 +531,9 @@ window.ASC.Files.Mouse = (function () {
         });
 
         jq("#filesMainContent").on("mouseenter mouseleave", ".file-row:not(.checkloading)", ASC.Files.Mouse.handleMove);
+
+        jq(document).on("dragstart", ".row-selected a", function (e) {
+            e.preventDefault();
+        });
     });
 })(jQuery);

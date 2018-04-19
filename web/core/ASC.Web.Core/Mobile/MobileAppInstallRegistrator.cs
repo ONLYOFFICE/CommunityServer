@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Web;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Core.Common.Notify.Push;
@@ -60,15 +61,16 @@ namespace ASC.Web.Core.Mobile
             if (appType.HasValue)
                 query.Where("app_type", (int) appType.Value);
 
+
             using (var db = GetDbManager())
             {
                 return db.ExecuteScalar<int>(query) > 0;
             }
         }
 
-        private static DbManager GetDbManager()
+        private IDbManager GetDbManager()
         {
-            return new DbManager("core");
+            return DbManager.FromHttpContext("default");
         }
     }
 }

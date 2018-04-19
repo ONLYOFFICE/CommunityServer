@@ -1,0 +1,334 @@
+﻿html {
+    height: 100%;
+}
+.clear_float {
+    clear:both;
+}
+body {
+    margin: 0;
+    font-size: 11px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    min-height: 300px;
+}
+
+#main-container{
+    position: relative;
+    height: 100%;
+    margin: 10px;
+    margin-top: 16px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+} 
+#main-container .buttons-container ,
+#main-container .search-container ,
+#main-container .add-bibl-container,
+#main-container .result-container {
+    margin: 5px;
+    margin-bottom: 15px;
+}
+#main-container .result-container {
+   /* height: calc(100% - 180px);*/
+}
+#main-container .search-container {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    height: 21px;
+    margin-bottom: 26px;
+}
+#main-container .buttons-container {
+    height: 22px;
+   
+    margin-bottom: 7px;
+}
+#main-container #search_result .search-item .add-button-container .add-button {
+    width: 11px;
+    height: 11px;
+    background: url(add.png) no-repeat 0 0;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    
+}
+#main-container .buttons-container .source-button,
+#main-container .search-container .search-button,
+#main-container .add-bibl-container .add-button{
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    color: #444444;
+    font-size: 11px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 22px;
+    cursor: pointer;
+    outline: none;
+}
+
+
+#main-container .buttons-container .source-button#websiteButton {
+    float: right;
+    border-radius: 0;
+    width: 30%;
+}
+#main-container .buttons-container .source-button#bookButton{
+    float: left;
+    border-radius: 0;
+    width: 24%;
+}
+#main-container .buttons-container .source-button#journalButton {
+    float: left;
+    border-radius: 0;
+    width: 46%
+}
+#main-container .buttons-container .source-button:hover,
+#main-container .search-container .search-button:hover,
+#main-container .add-bibl-container .add-button:hover {
+    
+    background-color: #d8dadc;
+}
+#main-container .buttons-container .source-button:active,
+#main-container .search-container .search-button:active,
+#main-container .add-bibl-container .add-button:active {
+    background-color: #7d858c !important;
+    color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: #7d858c;
+}   
+#main-container .buttons-container #bookButton.active-button,
+#main-container .buttons-container #websiteButton.active-button, 
+#main-container .buttons-container #journalButton.active-button {
+    background-color: #7d858c !important;
+    border: 1px solid #7d858c;
+    color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    
+}
+#main-container .buttons-container #bookButton {
+    border: 1px solid #cfcfcf;
+    border-right: none;
+}
+#main-container .buttons-container #websiteButton {
+    border: 1px solid #cfcfcf;
+    border-left: none;
+}
+#main-container .buttons-container #journalButton.book-active-button {
+    border-right: 1px solid #cfcfcf;
+    border-left: 1px solid #7d858c;
+}
+#main-container .buttons-container #journalButton.web-active-button {
+    border-left: 1px solid #cfcfcf;
+    border-right: 1px solid #7d858c;
+}
+#main-container .search-container .search-button {
+    width: 61px;
+    border: none;
+    border-radius: 0;
+    display: inline;
+    margin: 0;
+    height: 21px;
+}
+#main-container .search-container #search{
+    width: calc(100% - 68px);
+    padding-left: 6px;
+    font-size: 11px;
+    border: none;
+    border-right: 1px solid #cfcfcf;
+    height: 19px;
+    float: left;
+    display: inline;
+    border-radius: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#main-container .add-bibl-container .bib-style {
+    display: inline-block;
+    vertical-align: middle;
+    height: 25px;
+}
+#main-container .add-bibl-container .style-list{
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+#main-container .add-bibl-container .add-button {
+    width: 100%;
+    height: 28px;
+}
+#main-container #search_result {
+    max-height: calc(100% - 210px);
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 10px;
+    display: none;
+}
+#main-container #search_result.top-border,
+#main-container #bib.top-border  {
+     border-top: 1px solid #cfcfcf;
+     max-height: calc(100% - 208px);
+}
+#main-container #search_result.bottom-border,
+#main-container #bib.bottom-border {
+     border-bottom: 1px solid #cfcfcf;
+     max-height: calc(100% - 208px);
+}
+#main-container #search_result.bottom-border.top-border,
+#main-container #bib.bottom-border.top-border {
+    max-height: calc(100% - 209px);
+}
+
+#main-container .add-bibl-container .combo {
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    color: #444444;
+    font-size: 11px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 22px;
+    cursor: pointer;
+    margin: 0px 0px 10px 0px;
+    box-sizing: border-box;
+}
+#main-container #search_result .search-item {
+    margin-bottom: 15px;
+    display: block;
+    overflow: auto;
+    padding: 5px;
+}
+#main-container #search_result .search-item:hover {
+    background: #cfcfcf;
+}
+#main-container #search_result .search-item .citation {
+    display: inline-block;
+    float: left;
+    width: calc(100% - 45px);
+}
+#main-container #search_result .search-item .add-button-container {
+    display: inline-block;
+    float: right;
+    margin-right: 6px;
+}
+#main-container #bib {
+    max-height: 300px;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+#main-container .result-container .bibliography-title {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+#main-container #bib .bibliography-part {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+#main-container #bib .bibliography-part:hover {
+     background: #cfcfcf;
+}
+#main-container #bib .bibliography-part .bibliography-part-data {
+    display: inline-block;
+    width: calc(100% - 45px);
+}
+#main-container #bib .bibliography-part .del-button-container {
+    display: inline-block;
+    margin: auto 0;
+    top: 3px;
+    right: 4px;
+    position: absolute;
+}
+#main-container #bib .bibliography-part .del-button-container .del-bibliography-part {
+    width: 15px;
+    height: 15px;
+    background: url(trash.png) no-repeat 0 0;
+    display: inline-block;
+    cursor: pointer;
+   
+}
+
+#main-container .result-container .search-title {
+    width: 100%;
+    margin-bottom: 18px;
+    height: 10px;
+    display: none;
+}
+#main-container .result-container .search-title span.result {
+    font-weight: bold;
+    float: left;
+}
+#main-container .result-container .search-title span.back-to-bib {
+    float: right;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#titleContent {
+    text-align: center;
+    margin: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+.select2-container {
+    width: calc(100% - 30px)!important;
+    display: inline-block!important;
+    margin-bottom: 12px!important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 22px;
+    line-height: 21px!important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: -5px!important;
+}
+.select2-container .selection .select2-selection {
+    height: 22px;
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    color: #444444;
+    font-size: 11px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+    .webkit-scrollbar::-webkit-scrollbar {
+        width: 9px;
+        height: 8px;
+    }
+
+    .webkit-scrollbar::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    .webkit-scrollbar::-webkit-scrollbar-track,
+    .webkit-scrollbar::-webkit-scrollbar-thumb {
+        border-style: solid;
+        border-color: transparent;
+        
+    }
+
+    .webkit-scrollbar::-webkit-scrollbar-track {
+        background-color: #f5f5f5;
+    }
+
+    .webkit-scrollbar::-webkit-scrollbar-thumb {
+        min-height: 28px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAQAAAAz1Zf0AAAAIUlEQVR42mNgAILz/0GQAQo+/gdBBqLAqE5ydH5k+sgEANHgUH2JtDRHAAAAAElFTkSuQmCC);
+        background-repeat: no-repeat;
+        background-position: 0 center;
+        background-color: rgb(241, 241, 241);
+        border: 1px solid #cfcfcf;
+        border-radius: 2px;
+    }
+

@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 
 #endregion
@@ -61,9 +62,10 @@ namespace ASC.Projects.Core.DataInterfaces
         List<object[]> GetTasksForReminder(DateTime deadline);
 
 
-        Task Save(Task task);
+        Task Create(Task task);
+        Task Update(Task task);
 
-        void Delete(int id);
+        void Delete(Task task);
 
 
         void SaveRecurrence(Task task, string cron, DateTime startDate, DateTime endDate);
@@ -82,5 +84,7 @@ namespace ASC.Projects.Core.DataInterfaces
         IEnumerable<TaskLink> GetLinks(List<Task> tasks);
 
         bool IsExistLink(TaskLink link);
+
+        List<Task> GetTasks(Exp where);
     }
 }

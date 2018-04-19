@@ -201,20 +201,15 @@ namespace ASC.Web.Files.ThirdPartyApp
             {
                 try
                 {
-                    var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl ?? Guid.NewGuid().ToString());
                     if (stream != null)
                     {
-                        using (var tmpStream = new MemoryStream())
-                        {
-                            stream.CopyTo(tmpStream);
-
-                            Global.Logger.Debug("BoxApp: GetExternalUri format: " + fileType);
-                            downloadUrl = DocumentServiceConnector.GetExternalUri(tmpStream, fileType, key);
-                        }
+                        downloadUrl = PathProvider.GetTempUrl(stream, fileType);
+                        downloadUrl = DocumentServiceConnector.ReplaceCommunityAdress(downloadUrl);
                     }
 
                     Global.Logger.Debug("BoxApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
 
+                    var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
                     DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, false, out downloadUrl);
                     stream = null;
                 }
@@ -290,7 +285,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 Global.Logger.Error("BoxApp: Error save file", e);
                 request.Abort();
                 var httpResponse = (HttpWebResponse)e.Response;
-                if (httpResponse.StatusCode == HttpStatusCode.Forbidden)
+                if (httpResponse.StatusCode == HttpStatusCode.Forbidden || httpResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException, e);
                 }

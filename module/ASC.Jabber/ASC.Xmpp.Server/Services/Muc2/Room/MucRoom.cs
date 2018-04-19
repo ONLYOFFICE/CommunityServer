@@ -214,7 +214,7 @@ namespace ASC.Xmpp.Server.Services.Muc2.Room
             //Send history
             if (RoomSettings.Logging)
             {
-                foreach (var msg in mucService.MucStorage.GetMucMessages(Jid, -1))
+                foreach (var msg in mucService.MucStorage.GetMucMessages(Jid, 20, 0))
                 {
                     member.Send(msg);
                 }

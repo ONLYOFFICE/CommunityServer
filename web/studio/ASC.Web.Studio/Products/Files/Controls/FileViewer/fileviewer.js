@@ -335,7 +335,7 @@ window.ASC.Files.ImageViewer = (function () {
         if (!jq(".loader-page").is(":visible")) {
             LoadingBanner.displayLoading();
         }
-        imgRef.attr("src", ASC.Files.Utility.GetFileViewUrl(imageCollection[imageCollection.selectedIndex].fileId, imageCollection[imageCollection.selectedIndex].version));
+        imgRef.attr("src", ASC.Files.Utility.GetFileDownloadUrl(imageCollection[imageCollection.selectedIndex].fileId, imageCollection[imageCollection.selectedIndex].version));
 
         jq("#imagePrev").attr("href", ASC.Files.UI.getEntryLink("file", imageCollection[prevImageIndex()].fileId, imageCollection[prevImageIndex()].title));
         jq("#imageNext").attr("href", ASC.Files.UI.getEntryLink("file", imageCollection[nextImageIndex()].fileId, imageCollection[nextImageIndex()].title));
@@ -365,7 +365,7 @@ window.ASC.Files.ImageViewer = (function () {
         };
 
         jq("#imageViewerPreload").removeAttr("src");
-        jq("#imageViewerPreload").attr("src", ASC.Files.Utility.GetFileViewUrl(imageCollection[nextIndex].fileId, imageCollection[nextIndex].version));
+        jq("#imageViewerPreload").attr("src", ASC.Files.Utility.GetFileDownloadUrl(imageCollection[nextIndex].fileId, imageCollection[nextIndex].version));
     };
 
     var mouseDownEvent = function (event) {

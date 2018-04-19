@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Core.DataInterfaces
@@ -51,5 +52,7 @@ namespace ASC.Projects.Core.DataInterfaces
         Subtask Save(Subtask task);
 
         void Delete(int id);
+
+        List<Subtask> GetSubtasks(Exp where);
     }
 }

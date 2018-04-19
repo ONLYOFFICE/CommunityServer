@@ -49,7 +49,6 @@
     <ProjectToBuild Include="$(ASCDir)common\TMResourceManager\ASC.Resource.Upload\ASC.Resource.Upload.csproj" Condition=" Exists( '$(ASCDir)common\TMResourceManager\ASC.Resource.Upload\ASC.Resource.Upload.csproj' ) "/>
     <ProjectToBuild Include="$(ASCDir)web\core\ASC.Web.Core\ASC.Web.Core.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService\ASC.VoipService.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)common\ASC.SingleSignOn\ASC.SingleSignOn.csproj" Condition=" Exists('$(ASCDir)common\ASC.SingleSignOn\') "/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj"/>
 
     <!-- Messaging system -->
@@ -141,25 +140,17 @@
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Upload\ASC.Web.Upload.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Upload\ASC.Web.Upload.csproj' ) "/>
 
     <!-- SocketIO service -->
-	<ProjectToBuild Include="$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Socket.IO.Svc\ASC.Socket.IO.Svc.csproj' ) "/>
 
-	<ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj"/>
     <!-- ThumbnailHelper -->
     <ProjectToBuild Include="$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj" Condition=" Exists( '$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj' ) "/>
-
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.CRM\ASC.CRM.DatabaseSync\ASC.CRM.DatabaseSync.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)web\Thumb\Thumb.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics\ASC.Statistics.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics.Service\ASC.Statistics.Service.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)web\Statistics\ASC.Web.Stat\ASC.Web.Stat.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)web\services\ASC.ApiSystem\ASC.ApiSystem.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)web\services\ASC.Bar\ASC.Bar.csproj" Condition="$(DeploySites)==1" />
+   
   </ItemGroup>
 
   <Target Name="Build">
     <Message Text="$(BuildTargets) projects ($(Configuration)):"/>
     <Message Text="-  %(ProjectToBuild.Filename)%(ProjectToBuild.Extension)"/>
-    <Message Text="-  %(ProjectSitesToBuild.Filename)%(ProjectSitesToBuild.Extension)"/>
     <Message Text="  "/>
 
     <CreateItem Include="$(ASCDir)\build\msbuild\">
@@ -175,14 +166,7 @@
         RebaseOutputs="true"
         StopOnFirstFailure="true"/>
 
-    <MSBuild
-        Projects="@(ProjectSitesToBuild)"
-        Targets="$(BuildTargets)"
-        Properties="Configuration=$(ConfigurationSites);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath)"
-        RebaseOutputs="true"
-        StopOnFirstFailure="true"/>
-		
-	<Exec Command="npm install" WorkingDirectory="$(ASCDir)module\ASC.Socket.IO\" ContinueOnError="true"/>
+    <Exec Command="npm install" WorkingDirectory="$(ASCDir)module\ASC.Socket.IO\" ContinueOnError="true"/>
 
   </Target>
 

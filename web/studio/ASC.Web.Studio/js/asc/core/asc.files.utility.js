@@ -303,14 +303,6 @@ ASC.Files.Utility.FileIsDocument = function (fileTitle) {
     return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsDocument) != -1;
 };
 
-ASC.Files.Utility.GetFileViewUrl = function (fileId, fileVersion) {
-    var url = ASC.Files.Utility.Resource.FileViewUrlString.format(encodeURIComponent(fileId));
-    if (fileVersion) {
-        return url + "&" + ASC.Files.Utility.Resource.ParamVersion + "=" + fileVersion;
-    }
-    return url;
-};
-
 ASC.Files.Utility.GetFileDownloadUrl = function (fileId, fileVersion, convertToExtension) {
     var url = ASC.Files.Utility.Resource.FileDownloadUrlString.format(encodeURIComponent(fileId));
     if (fileVersion) {
@@ -340,5 +332,5 @@ ASC.Files.Utility.GetFileWebEditorUrl = function (fileId) {
 
 ASC.Files.Utility.GetFileWebEditorExternalUrl = function (fileUri, fileTitle, folderId) {
     return ASC.Files.Utility.Resource.FileWebEditorExternalUrlString.format(encodeURIComponent(fileUri), encodeURIComponent(fileTitle || "")) +
-        ((folderId || "") ? ("&folderid=" + folderId) : "");
+        (folderId ? ("&folderid=" + folderId) : "");
 };

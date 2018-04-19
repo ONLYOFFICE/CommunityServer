@@ -56,10 +56,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\ASC.Core.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.SingleSignOn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\ASC.SingleSignOn.dll</HintPath>
-    </Reference>
     <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\ASC.Web.Core.dll</HintPath>
@@ -67,8 +63,17 @@
     <Reference Include="Autofac">
       <HintPath>..\..\..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK">
-      <HintPath>..\..\..\packages\AWSSDK.2.3.55.0\lib\net45\AWSSDK.dll</HintPath>
+    <Reference Include="AWSSDK.CloudFront">
+      <HintPath>..\..\packages\AWSSDK.CloudFront.3.3.6.1\lib\net45\AWSSDK.CloudFront.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.Core">
+      <HintPath>..\..\packages\AWSSDK.Core.3.3.21.6\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.S3">
+      <HintPath>..\..\packages\AWSSDK.S3.3.3.16.2\lib\net45\AWSSDK.S3.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.SecurityToken">
+      <HintPath>..\..\..\packages\AWSSDK.SecurityToken.3.3.3.3\lib\net45\AWSSDK.SecurityToken.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -80,7 +85,7 @@
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\packages\HtmlAgilityPack.1.6.0.1\lib\net462\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
@@ -113,7 +118,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NVelocity">
       <HintPath>..\..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
@@ -125,7 +130,10 @@
       <HintPath>..\..\..\packages\RedisSessionProvider.10.0.0.0\lib\net45\RedisSessionProvider.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
-      <HintPath>..\..\..\packages\RestSharpSigned.105.1.0\lib\net45\RestSharp.dll</HintPath>
+      <HintPath>..\..\..\packages\RestSharp.106.1.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SelectelSharp">
+      <HintPath>..\..\..\packages\SelectelSharp.0.8.5\lib\net462\SelectelSharp.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
@@ -239,8 +247,6 @@
     <Compile Include="Core\Backup\BackupAjaxHandler.cs" />
     <Compile Include="Core\Backup\BackupFileUploadHandler.cs" />
     <Compile Include="Core\Backup\BackupHelper.cs" />
-    <Compile Include="Core\Import\SsoImporter.cs" Condition=" Exists('Core\Import\SsoImporter.cs') " />
-    <Compile Include="Core\Import\SsoImporter2.cs" Condition=" !Exists('Core\Import\SsoImporter.cs') " />
     <Compile Include="Core\IpRestrictionsSettings.cs" />
     <Compile Include="Core\Notify\StudioWhatsNewManager.cs" />
     <Compile Include="Core\Notify\WebstudioNotifyPatternResource.Designer.cs">
@@ -259,9 +265,7 @@
     <Compile Include="HttpHandlers\UrlProxyHandler.cs" />
     <Compile Include="HttpHandlers\KeepSessionAliveHandler.cs" />
     <Compile Include="HttpHandlers\InvoiceHandler.cs" />
-    <Compile Include="HttpHandlers\JwtHandler.cs" Condition="Exists('HttpHandlers\JwtHandler.cs') " />
     <Compile Include="HttpHandlers\LicenseUploader.cs" />
-    <Compile Include="HttpHandlers\SamlHandler.cs" Condition="Exists('HttpHandlers\SamlHandler.cs') " />
     <Compile Include="HttpHandlers\TemplatingHandler.cs" />
     <Compile Include="HttpHandlers\TenantLogoHandler.cs" />
     <Compile Include="HttpHandlers\UserPhotoHandler.cs" />
@@ -427,6 +431,13 @@
     </Compile>
     <Compile Include="ThirdParty\OneDrive.aspx.designer.cs">
       <DependentUpon>OneDrive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdParty\Wordpress.aspx.cs">
+      <DependentUpon>Wordpress.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\Wordpress.aspx.designer.cs">
+      <DependentUpon>Wordpress.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Common\AuthorizeDocs\AuthorizeDocs.ascx.cs">
       <DependentUpon>AuthorizeDocs.ascx</DependentUpon>
@@ -614,6 +625,8 @@
     <Compile Include="UserControls\Management\PortalRename\PortalRename.ascx.designer.cs">
       <DependentUpon>PortalRename.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Management\SingleSignOnSettings\SsoSettingsV2.cs" />
+    <Compile Include="UserControls\Management\SingleSignOnSettings\SsoUserData.cs" />
     <Compile Include="UserControls\Management\TariffSettings\TariffNotify.ascx.cs">
       <DependentUpon>TariffNotify.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1173,6 +1186,7 @@
     <Content Include="js\asc\core\voip.navigationitem.js" />
     <Content Include="js\third-party\autosize.js" />
     <Content Include="js\third-party\clipboard.js" />
+    <Content Include="js\third-party\slick.min.js" />
     <Content Include="js\third-party\socket.io.js" />
     <Content Include="PaymentRequired.aspx" />
     <Content Include="js\asc\core\clipboard.js" />
@@ -1465,9 +1479,29 @@
     <Content Include="ThirdParty\ImportContacts\Google.aspx" />
     <Content Include="ThirdParty\Login.Master" />
     <Content Include="ThirdParty\OneDrive.aspx" />
+    <Content Include="ThirdParty\plugin\easyBib\easybib.js" />
+    <Content Include="ThirdParty\plugin\easyBib\index.html" />
+    <Content Include="ThirdParty\plugin\easyBib\style.css" />
+    <Content Include="ThirdParty\plugin\easyBib\config.json" />
+    <Content Include="ThirdParty\plugin\pluginBase.js" />
+    <Content Include="ThirdParty\plugin\wordpress\config.json" />
+    <Content Include="ThirdParty\plugin\wordpress\trash.png" />
+    <Content Include="ThirdParty\plugin\wordpress\icon.png" />
+    <Content Include="ThirdParty\plugin\wordpress\index.html" />
+    <Content Include="ThirdParty\plugin\wordpress\style.css" />
+    <Content Include="ThirdParty\plugin\wordpress\wordpress.js" />
+    <Content Include="ThirdParty\plugin\wordpress\wordpress_blue_white%402x.png" />
+    <Content Include="ThirdParty\plugin\wordpress\wordpress_blue_white.png" />
+    <Content Include="ThirdParty\Wordpress.aspx" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\1px_image_background.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\access_background.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\capabilities_icon1.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\capabilities_icon2.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\capabilities_icon3.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\customer_experience.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\default.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\formats.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\doc.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\extend_logos.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Alexis_Ascui.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Alexsandr_Slusarev.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Alonso_Cardona_Pereira.png" />
@@ -1524,11 +1558,22 @@
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Varlam_Erofeich.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\Vitaliy_Plitenko.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\foto_commets\vitali_koistrub.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\header.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\icon_facebook.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\icon_google.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\icon_lindkn.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\image_background.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\logo_chrombook.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\presentations.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_1.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_2.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_3.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_4.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_5.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\Share_and_Collaborate_scrin_6.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\small_stars.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\spreadsheets.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\sprite_acc.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\sprite_acc_ab.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\starsraring.png" />
     <Content Include="UserControls\Common\ckeditor\contents.css" />
     <Content Include="UserControls\Common\SharingSettings\css\bright-blue\images\default-action.png" />
@@ -1721,7 +1766,6 @@
     <Content Include="UserControls\Common\ThirdPartyScripts\GoogleAnalyticsScriptPersonal.ascx" />
     <Content Include="UserControls\Common\ThirdPartyScripts\GoogleAnalyticsScript.ascx" />
     <Content Include="UserControls\Common\ThirdPartyScripts\GoogleTagManagerScript.ascx" />
-    <Content Include="UserControls\Common\ThirdPartyScripts\YandexMetrikaScript.ascx" />
     <Content Include="UserControls\Common\TopStudioPanel\VoipPhoneControl.ascx" />
     <Content Include="UserControls\Common\UserForum\UserForum.ascx" />
     <Content Include="UserControls\Common\VideoGuides\js\videoguides.js" />
@@ -1886,6 +1930,7 @@
     <Content Include="UserControls\Management\TariffSettings\TariffLimitExceed.ascx" />
     <Content Include="UserControls\Management\TariffSettings\TariffHistory.ascx" />
     <Content Include="UserControls\Management\TariffSettings\TariffUsage.ascx" />
+    <Content Include="UserControls\Statistics\ProductQuotes\img\disabled.png" />
     <Content Include="UserControls\Statistics\ProductQuotes\js\product_quotes.js" />
     <Content Include="UserControls\Users\TipsSettings\js\tipsSettings.js" />
     <Content Include="UserControls\Users\TipsSettings\TipsSettings.ascx" />
@@ -1936,6 +1981,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="UserControls\Management\CustomNavigation\css\customnavigation.less" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\slick.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -2582,7 +2628,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
-    <Copy SourceFiles="$(TrunkDir)packages\jQuery.3.1.1\Content\Scripts\jquery-3.1.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.core.js" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\jQuery.3.2.1\Content\Scripts\jquery-3.2.1.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.core.js" ContinueOnError="true" />
     <Copy SourceFiles="$(TrunkDir)packages\jQuery.BlockUI.2.70\Content\Scripts\jquery.blockUI.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.blockUI.js" ContinueOnError="true" />
     <Copy SourceFiles="$(TrunkDir)packages\Magnific.Popup.1.1.0\Content\Scripts\jquery.magnific-popup.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.magnific-popup.js" ContinueOnError="true" />
     <Copy SourceFiles="$(TrunkDir)packages\jquery.mousewheel.3.1.13\Content\Scripts\jquery.mousewheel.min.js" DestinationFiles="$(MSBuildProjectDirectory)\js\third-party\jquery\jquery.mousewheel.js" ContinueOnError="true" />

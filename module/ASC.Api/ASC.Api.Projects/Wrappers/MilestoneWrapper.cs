@@ -65,23 +65,14 @@ namespace ASC.Api.Projects.Wrappers
         {
         }
 
-        public MilestoneWrapper(Milestone milestone)
+        public MilestoneWrapper(ProjectApiBase projectApiBase, Milestone milestone)
         {
             Id = milestone.ID;
             ProjectOwner = new SimpleProjectWrapper(milestone.Project);
             Title = milestone.Title;
             Description = milestone.Description;
             Created = (ApiDateTime)milestone.CreateOn;
-            CreatedBy = EmployeeWraper.Get(milestone.CreateBy);
             Updated = (ApiDateTime)milestone.LastModifiedOn;
-            if (milestone.CreateBy != milestone.LastModifiedBy)
-            {
-                UpdatedBy = EmployeeWraper.Get(milestone.LastModifiedBy);
-            }
-            if (!milestone.Responsible.Equals(Guid.Empty))
-            {
-                Responsible = EmployeeWraper.Get(milestone.Responsible);
-            }
             Status = (int)milestone.Status;
             Deadline = new ApiDateTime(milestone.DeadLine, TimeZoneInfo.Local);
             IsKey = milestone.IsKey;
@@ -90,6 +81,28 @@ namespace ASC.Api.Projects.Wrappers
             CanDelete = ProjectSecurity.CanDelete(milestone);
             ActiveTaskCount = milestone.ActiveTaskCount;
             ClosedTaskCount = milestone.ClosedTaskCount;
+
+            if (projectApiBase.Context.GetRequestValue("simple") != null)
+            {
+                CreatedById = milestone.CreateBy;
+                UpdatedById = milestone.LastModifiedBy;
+                if (!milestone.Responsible.Equals(Guid.Empty))
+                {
+                    ResponsibleId = milestone.Responsible;
+                }
+            }
+            else
+            {
+                CreatedBy = projectApiBase.GetEmployeeWraper(milestone.CreateBy);
+                if (milestone.CreateBy != milestone.LastModifiedBy)
+                {
+                    UpdatedBy = projectApiBase.GetEmployeeWraper(milestone.LastModifiedBy);
+                }
+                if (!milestone.Responsible.Equals(Guid.Empty))
+                {
+                    Responsible = projectApiBase.GetEmployeeWraper(milestone.Responsible);
+                }
+            }
         }
 
         public static MilestoneWrapper GetSample()

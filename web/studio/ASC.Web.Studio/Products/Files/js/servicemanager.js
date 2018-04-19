@@ -452,6 +452,7 @@ window.ASC.Files.ServiceManager = (function () {
 
         UpdateIfExist: "updateifexist",
         GetHelpCenter: "gethelpcenter",
+        ChangeDeleteConfrim: "changedeleteconfrim",
 
         StoreOriginalFiles: "storeoriginalfiles",
         ConvertCurrentFile: "convertcurrentfile",
@@ -613,6 +614,10 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "updateifexist?set=" + params.value);
     };
 
+    var changeDeleteConfrim = function (eventType, params) {
+        request("get", "json", eventType, params, "changedeleteconfrim?set=" + params.value);
+    };
+
     var getThirdParty = function (eventType, params) {
         params.showLoading = true;
         ASC.Files.Folders.isFirstLoad = false;
@@ -729,6 +734,7 @@ window.ASC.Files.ServiceManager = (function () {
         checkConversion: checkConversion,
         storeOriginalFiles: storeOriginalFiles,
         updateIfExist: updateIfExist,
+        changeDeleteConfrim: changeDeleteConfrim,
 
         getThirdParty: getThirdParty,
         saveThirdParty: saveThirdParty,

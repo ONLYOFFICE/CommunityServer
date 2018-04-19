@@ -51,10 +51,13 @@ namespace ASC.Api.Calendar.ExternalCalendars
 
         public override List<IEvent> LoadEvents(Guid userId, DateTime utcStartDate, DateTime utcEndDate)
         {
-            var events = new DataProvider().LoadSharedEvents(userId, CoreContext.TenantManager.GetCurrentTenant().TenantId, utcStartDate, utcEndDate);
-            events.ForEach(e => e.CalendarId = this.Id);
-            var ievents = new List<IEvent>(events.Select(e => (IEvent)e));
-            return ievents;
+            using (var provider = new DataProvider())
+            {
+                var events = provider.LoadSharedEvents(userId, CoreContext.TenantManager.GetCurrentTenant().TenantId, utcStartDate, utcEndDate);
+                events.ForEach(e => e.CalendarId = this.Id);
+                var ievents = new List<IEvent>(events.Select(e => (IEvent) e));
+                return ievents;
+            }
         }
 
         public override string Name

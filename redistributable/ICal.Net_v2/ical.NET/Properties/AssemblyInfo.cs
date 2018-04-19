@@ -32,5 +32,5 @@ using System.Security;
 //      Revision
 //
 
-[assembly: AssemblyVersion("2.3.0.1")]
-[assembly: AssemblyFileVersion("2.3.0.1")]
+[assembly: AssemblyVersion("2.3.5.1")]
+[assembly: AssemblyFileVersion("2.3.5.1")]

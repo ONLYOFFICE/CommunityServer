@@ -111,8 +111,7 @@ window.editMailboxModal = (function($) {
         window.PopupKeyUpActionProvider.CloseDialog();
 
         if (functionArray.length > 0) {
-            window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
-            window.LoadingBanner.displayMailLoading(true, true);
+            window.LoadingBanner.displayMailLoading();
             jq.when.apply(jq, functionArray).done(function () {
                 dfd.resolve();
             })

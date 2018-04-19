@@ -197,15 +197,14 @@ ASC.CalendarController = new function() {
 
         sharingManager = new SharingSettingsManager(undefined, null);
 
-        LoadingBanner.animateDelay = 500;
         jq(document).ajaxStart(function() {
             if (!ASC.CalendarController.Search)
-                LoadingBanner.displayLoading(true);
+                LoadingBanner.displayLoading();
         });
 
         jq(document).ajaxStop(function() {
             if (!ASC.CalendarController.Busy)
-                LoadingBanner.hideLoading(true);
+                LoadingBanner.hideLoading();
         });
 
 

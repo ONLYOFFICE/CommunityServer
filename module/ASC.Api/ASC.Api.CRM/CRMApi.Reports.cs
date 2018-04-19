@@ -43,7 +43,7 @@ namespace ASC.Api.CRM
             if (!Global.CanCreateReports)
                 throw CRMSecurity.CreateSecurityException();
 
-            var reportDao = DaoFactory.GetReportDao();
+            var reportDao = DaoFactory.ReportDao;
 
             var files = reportDao.GetFiles();
 
@@ -70,11 +70,11 @@ namespace ASC.Api.CRM
 
             if (fileid < 0) throw new ArgumentException();
 
-            var file = Global.DaoFactory.GetReportDao().GetFile(fileid);
+            var file = DaoFactory.ReportDao.GetFile(fileid);
 
             if (file == null) throw new Exception("File not found");
 
-            DaoFactory.GetReportDao().DeleteFile(fileid);
+            DaoFactory.ReportDao.DeleteFile(fileid);
         }
 
         [Read(@"report/status")]

@@ -34,6 +34,7 @@ using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mail;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
 using Resources;
 
 namespace ASC.Web.Studio
@@ -58,6 +59,8 @@ namespace ASC.Web.Studio
         protected List<IWebItem> defaultListProducts;
 
         protected IEnumerable<CustomNavigationItem> CustomNavigationItems { get; set; }
+
+        protected int ProductsCount { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -131,6 +134,8 @@ namespace ASC.Web.Studio
                 .ToList();
 
             CustomNavigationItems = CustomNavigationSettings.Load().Items.Where(x => x.ShowOnHomePage);
+
+            ProductsCount = defaultListProducts.Count() + CustomNavigationItems.Count() + (TenantExtra.EnableControlPanel ? 1 : 0);
         }
 
         private static Dictionary<Guid, Int32> GetStartProductsPriority()

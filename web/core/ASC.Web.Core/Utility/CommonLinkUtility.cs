@@ -588,6 +588,8 @@ namespace ASC.Web.Studio.Utility
             var baseUri = new UriBuilder(uri.Scheme, uri.Host, uri.Port).Uri;
             baseUri = uri.Segments.Aggregate(baseUri, (current, segment) => new Uri(current, segment));
             //--
+            //todo: lost query string!!!
+
 
             return baseUri.ToString();
         }

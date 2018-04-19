@@ -31,6 +31,7 @@ using System.Threading;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
 using ASC.Thrdparty;
 using ASC.Thrdparty.Facebook;
 using ASC.Thrdparty.Twitter;
@@ -44,17 +45,21 @@ namespace ASC.Web.CRM.SocialMedia
     public class SocialMediaUI
     {
         private ILog _logger = LogManager.GetLogger(typeof(SocialMediaUI));
+        private DaoFactory DaoFactory { get; set; }
 
-        #region - GetList user images -
+        public SocialMediaUI(DaoFactory factory)
+        {
+            DaoFactory = factory;
+        }
 
         public List<SocialMediaImageDescription> GetContactSMImages(int contactID)
         {
-            var contact = Global.DaoFactory.GetContactDao().GetByID(contactID);
+            var contact = DaoFactory.ContactDao.GetByID(contactID);
 
             var images = new List<SocialMediaImageDescription>();
 
 
-            var socialNetworks = Global.DaoFactory.GetContactInfoDao().GetList(contact.ID, null, null, null);
+            var socialNetworks = DaoFactory.ContactInfoDao.GetList(contact.ID, null, null, null);
 
             var twitterAccounts = socialNetworks.Where(sn => sn.InfoType == ContactInfoType.Twitter).Select(sn => sn.Data.Trim()).ToList();
             var facebookAccounts = socialNetworks.Where(sn => sn.InfoType == ContactInfoType.Facebook).Select(sn => sn.Data.Trim()).ToList();
@@ -173,8 +178,6 @@ namespace ASC.Web.CRM.SocialMedia
 
             return images;
         }
-
-        #endregion
 
         public Exception ProcessError(Exception exception, string methodName)
         {

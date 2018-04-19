@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -45,7 +44,7 @@ namespace ASC.Projects.Data.DAO
     {
         private readonly HttpRequestDictionary<Message> messageCache = new HttpRequestDictionary<Message>("message");
 
-        public CachedMessageDao(string dbId, int tenant) : base(dbId, tenant)
+        public CachedMessageDao(int tenant) : base(tenant)
         {
         }
 
@@ -84,183 +83,151 @@ namespace ASC.Projects.Data.DAO
     {
         private readonly Converter<object[], Message> converter;
 
-        public MessageDao(string dbId, int tenant)
-            : base(dbId, tenant)
+        public MessageDao(int tenant) : base(tenant)
         {
             converter = ToMessage;
         }
 
         public List<Message> GetAll()
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery()).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery()).ConvertAll(converter);
         }
 
         public List<Message> GetByProject(int projectId)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("t.create_on", false))
-                    .ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("t.create_on", false))
+                .ConvertAll(converter);
         }
 
         public List<Message> GetMessages(int startIndex, int max)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var query = CreateQuery()
-                    .OrderBy("t.create_on", false)
-                    .SetFirstResult(startIndex)
-                    .SetMaxResults(max);
+            var query = CreateQuery()
+                .OrderBy("t.create_on", false)
+                .SetFirstResult(startIndex)
+                .SetMaxResults(max);
 
-                return db.ExecuteList(query).ConvertAll(converter);
-            }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Message> GetRecentMessages(int offset, int max, params int[] projects)
         {
-            using (var db = new DbManager(DatabaseId))
+            var query = CreateQuery()
+                .SetFirstResult(offset)
+                .OrderBy("t.create_on", false)
+                .SetMaxResults(max);
+            if (projects != null && 0 < projects.Length)
             {
-                var query = CreateQuery()
-                    .SetFirstResult(offset)
-                    .OrderBy("t.create_on", false)
-                    .SetMaxResults(max);
-                if (projects != null && 0 < projects.Length)
-                {
-                    query.Where(Exp.In("t.project_id", projects));
-                }
-                return db.ExecuteList(query).ConvertAll(converter);
+                query.Where(Exp.In("t.project_id", projects));
             }
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public List<Message> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
-            using (var db = new DbManager(DatabaseId))
+            var query = CreateQuery();
+
+            if (filter.Max > 0 && filter.Max < 150000)
             {
-                var query = CreateQuery();
-
-                if (filter.Max > 0 && filter.Max < 150000)
-                {
-                    query.SetFirstResult((int)filter.Offset);
-                    query.SetMaxResults((int)filter.Max);
-                }
-
-                query.OrderBy("t.status", true);
-
-                if (!string.IsNullOrEmpty(filter.SortBy))
-                {
-                    var sortColumns = filter.SortColumns["Message"];
-                    sortColumns.Remove(filter.SortBy);
-
-                    query.OrderBy(GetSortFilter(filter.SortBy), filter.SortOrder);
-
-                    foreach (var sort in sortColumns.Keys)
-                    {
-                        query.OrderBy(GetSortFilter(sort), sortColumns[sort]);
-                    }
-                }
-
-                CreateQueryFilter(query, filter, isAdmin, checkAccess);
-
-                return db.ExecuteList(query).ConvertAll(converter);
+                query.SetFirstResult((int)filter.Offset);
+                query.SetMaxResults((int)filter.Max);
             }
+
+            query.OrderBy("t.status", true);
+
+            if (!string.IsNullOrEmpty(filter.SortBy))
+            {
+                var sortColumns = filter.SortColumns["Message"];
+                sortColumns.Remove(filter.SortBy);
+
+                query.OrderBy(GetSortFilter(filter.SortBy), filter.SortOrder);
+
+                foreach (var sort in sortColumns.Keys)
+                {
+                    query.OrderBy(GetSortFilter(sort), sortColumns[sort]);
+                }
+            }
+
+            CreateQueryFilter(query, filter, isAdmin, checkAccess);
+
+            return Db.ExecuteList(query).ConvertAll(converter);
         }
 
         public int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var query = new SqlQuery(MessagesTable + " t")
-                    .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
-                    .Select("t.id")
-                    .GroupBy("t.id")
-                    .Where("t.tenant_id", Tenant);
+            var query = new SqlQuery(MessagesTable + " t")
+                .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                .Select("t.id")
+                .GroupBy("t.id")
+                .Where("t.tenant_id", Tenant);
 
-                query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
+            query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
-                var queryCount = new SqlQuery().SelectCount().From(query, "t1");
-                return db.ExecuteScalar<int>(queryCount);
-            }
+            var queryCount = new SqlQuery().SelectCount().From(query, "t1");
+            return Db.ExecuteScalar<int>(queryCount);
         }
 
         public Dictionary<Guid, int> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
-            using (var db = new DbManager(DatabaseId))
+            var query = new SqlQuery(MessagesTable + " t")
+                .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                .Select("t.create_by")
+                .Where("t.tenant_id", Tenant)
+                .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
+
+            if (filter.HasUserId)
             {
-                var query = new SqlQuery(MessagesTable + " t")
-                    .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
-                    .Select("t.create_by")
-                    .Where("t.tenant_id", Tenant)
-                    .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
-
-                if (filter.HasUserId)
-                {
-                    query.Where(Exp.In("t.create_by", filter.GetUserIds()));
-                    filter.UserId = Guid.Empty;
-                    filter.DepartmentId = Guid.Empty;
-                }
-
-                query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
-
-                var queryCount = new SqlQuery()
-                    .SelectCount()
-                    .Select("t1.create_by")
-                    .GroupBy(2)
-                    .From(query, "t1");
-
-                return db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
+                query.Where(Exp.In("t.create_by", filter.GetUserIds()));
+                filter.UserId = Guid.Empty;
+                filter.DepartmentId = Guid.Empty;
             }
+
+            query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
+
+            var queryCount = new SqlQuery()
+                .SelectCount()
+                .Select("t1.create_by")
+                .GroupBy(2)
+                .From(query, "t1");
+
+            return Db.ExecuteList(queryCount).ToDictionary(a => Guid.Parse((string)a[1]), b => Convert.ToInt32(b[0]));
         }
 
         public virtual Message GetById(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where("t.id", id))
-                    .ConvertAll(converter)
-                    .SingleOrDefault();
-            }
+            return Db.ExecuteList(CreateQuery().Where("t.id", id))
+                .ConvertAll(converter)
+                .SingleOrDefault();
         }
 
         public bool IsExists(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var count = db.ExecuteScalar<long>(Query(MessagesTable).SelectCount().Where("id", id));
-                return 0 < count;
-            }
+            var count = Db.ExecuteScalar<long>(Query(MessagesTable).SelectCount().Where("id", id));
+            return 0 < count;
         }
 
         public virtual Message Save(Message msg)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                var insert = Insert(MessagesTable)
-                    .InColumnValue("id", msg.ID)
-                    .InColumnValue("project_id", msg.Project != null ? msg.Project.ID : 0)
-                    .InColumnValue("title", msg.Title)
-                    .InColumnValue("status", msg.Status)
-                    .InColumnValue("create_by", msg.CreateBy.ToString())
-                    .InColumnValue("create_on", TenantUtil.DateTimeToUtc(msg.CreateOn))
-                    .InColumnValue("last_modified_by", msg.LastModifiedBy.ToString())
-                    .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(msg.LastModifiedOn))
-                    .InColumnValue("content", msg.Description)
-                    .Identity(1, 0, true);
-                msg.ID = db.ExecuteScalar<int>(insert);
-                return msg;
-            }
+            var insert = Insert(MessagesTable)
+                .InColumnValue("id", msg.ID)
+                .InColumnValue("project_id", msg.Project != null ? msg.Project.ID : 0)
+                .InColumnValue("title", msg.Title)
+                .InColumnValue("status", msg.Status)
+                .InColumnValue("create_by", msg.CreateBy.ToString())
+                .InColumnValue("create_on", TenantUtil.DateTimeToUtc(msg.CreateOn))
+                .InColumnValue("last_modified_by", msg.LastModifiedBy.ToString())
+                .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(msg.LastModifiedOn))
+                .InColumnValue("content", msg.Description)
+                .Identity(1, 0, true);
+            msg.ID = Db.ExecuteScalar<int>(insert);
+            return msg;
         }
 
         public virtual void Delete(int id)
         {
-            using (var db = new DbManager(DatabaseId))
-            using (var tx = db.BeginTransaction())
+            using (var tx = Db.BeginTransaction())
             {
-                db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Message>(id)));
-                db.ExecuteNonQuery(Delete(MessagesTable).Where("id", id));
+                Db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Message>(id)));
+                Db.ExecuteNonQuery(Delete(MessagesTable).Where("id", id));
 
                 tx.Commit();
             }
@@ -400,12 +367,9 @@ namespace ASC.Projects.Data.DAO
         }
 
 
-        internal IEnumerable<Message> GetMessages(Exp where)
+        public IEnumerable<Message> GetMessages(Exp where)
         {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
-            }
+            return Db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
         }
     }
 }

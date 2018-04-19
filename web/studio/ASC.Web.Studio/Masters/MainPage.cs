@@ -26,14 +26,13 @@
 
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Web;
+using AjaxPro;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.FederatedLogin.Profile;
 using ASC.Geolocation;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
@@ -43,9 +42,8 @@ using ASC.Web.Studio.Core.Statistic;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-
-using AjaxPro;
 using log4net;
+using System.Globalization;
 
 namespace ASC.Web.Studio
 {
@@ -101,7 +99,7 @@ namespace ASC.Web.Studio
             {
                 if (TariffSettings.HidePricingPage && !user.IsAdmin())
                 {
-                    Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                    Response.StatusCode = (int)HttpStatusCode.PaymentRequired;
                     Response.End();
                 }
                 else
@@ -185,8 +183,8 @@ namespace ASC.Web.Studio
             {
                 refererURL = "/";
             }
-            else if (String.IsNullOrEmpty(refererURL) 
-                        ||refererURL.IndexOf("Subgurim_FileUploader", StringComparison.InvariantCultureIgnoreCase) != -1
+            else if (String.IsNullOrEmpty(refererURL)
+                        || refererURL.IndexOf("Subgurim_FileUploader", StringComparison.InvariantCultureIgnoreCase) != -1
                         || (this is ServerError))
             {
                 refererURL = (string)Session["refererURL"];
@@ -211,11 +209,8 @@ namespace ASC.Web.Studio
             this.RegisterInlineScript(sb.ToString(), onReady: false);
         }
 
-        protected void SetLanguage(bool checkIp = true, bool abTesting = false)
+        protected void SetLanguage(bool checkIp = true)
         {
-            var abTestingQuery = string.Empty;
-            if (abTesting) abTesting = AbTestingQuery(out abTestingQuery);
-
             if (Request.QueryString.Count == 0)
             {
                 var ipGeolocationInfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();
@@ -230,60 +225,40 @@ namespace ASC.Web.Studio
                         if (redirectUrl.EndsWith("auth.aspx", StringComparison.InvariantCulture))
                             redirectUrl = redirectUrl.Remove(redirectUrl.IndexOf("auth.aspx", StringComparison.Ordinal));
 
-                        if (abTesting)
-                            redirectUrl += (redirectUrl.Contains("?") ? "&" : "?") + abTestingQuery;
-
                         Response.Redirect(redirectUrl, true);
 
                     }
                 }
             }
-            else
+            else if (!String.IsNullOrEmpty(Request["lang"]))
             {
-                var lang = Request["lang"];
-
-                if (!string.IsNullOrEmpty(lang))
+                var lang = Request["lang"].Split(',')[0];
+                var cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
+                if (cultureInfo != null)
                 {
-                    lang = lang.Split(',')[0];
-                    var cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
-                    if (cultureInfo != null)
-                    {
-                        Thread.CurrentThread.CurrentUICulture = cultureInfo;
-                    }
-                    else
-                    {
-                        Log.WarnFormat("Lang {0} not supported", lang);
-                    }
+                    Thread.CurrentThread.CurrentUICulture = cultureInfo;
+                    Thread.CurrentThread.CurrentCulture = cultureInfo;
+                }
+                else
+                {
+                    Log.WarnFormat("Lang {0} not supported", lang);
                 }
             }
-
-            if (abTesting)
+            else if (!String.IsNullOrEmpty(Request["email"]))
             {
-                var redirectUrl = Request.Path;
+                var user = CoreContext.UserManager.GetUserByEmail(Request["email"]);
+                
+                if (user.ID.Equals(Constants.LostUser.ID))
+                {
+                    return;
+                }
 
-                redirectUrl += (redirectUrl.Contains("?") ? "&" : "?") + abTestingQuery;
-
-                Response.Redirect(redirectUrl, true);
+                if (user.CultureName != null)
+                {
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(user.CultureName);
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(user.CultureName);
+                }
             }
-        }
-
-        protected bool AbTestingQuery(out string query)
-        {
-            query = string.Empty;
-            
-            const string q = "ab";
-
-            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings[q])
-                || !string.IsNullOrEmpty((string) Session[q])
-                || !string.IsNullOrEmpty(Request[q])
-                || Request.Url.HasProfile())
-                return false;
-
-            Session[q] = "1";
-            if (new Random((int)DateTime.Now.Ticks & 0x0000FFFF).Next(2) == 0) return false;
-
-            query = q + "=1";
-            return true;
         }
 
         private void OutsideAuth()

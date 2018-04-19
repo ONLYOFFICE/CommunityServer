@@ -132,13 +132,27 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException("file");
 
-            return _dropboxClient.Files.DownloadAsync(filePath).Result.GetContentAsStreamAsync().Result;
+            using (var response = _dropboxClient.Files.DownloadAsync(filePath).Result)
+            {
+                var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+                using (var str = response.GetContentAsStreamAsync().Result)
+                {
+                    if (str != null)
+                    {
+                        str.CopyTo(tempBuffer);
+                        tempBuffer.Flush();
+                        tempBuffer.Seek(0, SeekOrigin.Begin);
+                    }
+                }
+                return tempBuffer;
+            }
         }
 
         public FolderMetadata CreateFolder(string title, string parentPath)
         {
             var path = MakeDropboxPath(parentPath, title);
-            return _dropboxClient.Files.CreateFolderAsync(path).Result;
+            var result = _dropboxClient.Files.CreateFolderV2Async(path, true).Result;
+            return result.Metadata;
         }
 
         public FileMetadata CreateFile(Stream fileStream, string title, string parentPath)
@@ -149,31 +163,35 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public void DeleteItem(Metadata dropboxItem)
         {
-            _dropboxClient.Files.DeleteAsync(dropboxItem.PathDisplay).Wait();
+            _dropboxClient.Files.DeleteV2Async(dropboxItem.PathDisplay).Wait();
         }
 
         public FolderMetadata MoveFolder(string dropboxFolderPath, string dropboxFolderPathTo, string folderName)
         {
             var pathTo = MakeDropboxPath(dropboxFolderPathTo, folderName);
-            return _dropboxClient.Files.MoveAsync(dropboxFolderPath, pathTo).Result.AsFolder;
+            var result = _dropboxClient.Files.MoveV2Async(dropboxFolderPath, pathTo).Result;
+            return (FolderMetadata)result.Metadata;
         }
 
         public FileMetadata MoveFile(string dropboxFilePath, string dropboxFolderPathTo, string fileName)
         {
             var pathTo = MakeDropboxPath(dropboxFolderPathTo, fileName);
-            return _dropboxClient.Files.MoveAsync(dropboxFilePath, pathTo).Result.AsFile;
+            var result = _dropboxClient.Files.MoveV2Async(dropboxFilePath, pathTo).Result;
+            return (FileMetadata)result.Metadata;
         }
 
         public FolderMetadata CopyFolder(string dropboxFolderPath, string dropboxFolderPathTo, string folderName)
         {
             var pathTo = MakeDropboxPath(dropboxFolderPathTo, folderName);
-            return _dropboxClient.Files.CopyAsync(dropboxFolderPath, pathTo).Result.AsFolder;
+            var result = _dropboxClient.Files.CopyV2Async(dropboxFolderPath, pathTo).Result;
+            return (FolderMetadata)result.Metadata;
         }
 
         public FileMetadata CopyFile(string dropboxFilePath, string dropboxFolderPathTo, string fileName)
         {
             var pathTo = MakeDropboxPath(dropboxFolderPathTo, fileName);
-            return _dropboxClient.Files.CopyAsync(dropboxFilePath, pathTo).Result.AsFile;
+            var result = _dropboxClient.Files.CopyV2Async(dropboxFilePath, pathTo).Result;
+            return (FileMetadata)result.Metadata;
         }
 
         public FileMetadata SaveStream(string filePath, Stream fileStream)

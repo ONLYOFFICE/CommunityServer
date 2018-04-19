@@ -41,7 +41,7 @@ using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files
 {
-    public class FilesSpaceUsageStatManager : SpaceUsageStatManager
+    public class FilesSpaceUsageStatManager : SpaceUsageStatManager, IUserSpaceUsage
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
@@ -83,11 +83,28 @@ namespace ASC.Web.Files
                                           item.Name = user.DisplayUserName(false);
                                           item.ImgUrl = user.GetSmallPhotoURL();
                                           item.Url = user.GetUserProfilePageURL();
+                                          item.Disabled = user.Status == EmployeeStatus.Terminated;
                                       }
                                       return item;
                                   })
                          .OrderByDescending(i => i.SpaceUsage)
                          .ToList();
+            }
+        }
+
+        public long GetUserSpaceUsage(Guid userId)
+        {
+            using (var db = new DbManager(FileConstant.DatabaseId))
+            {
+                var query = new SqlQuery("files_file f")
+                    .Select("sum(f.content_length) as size")
+                    .InnerJoin("files_folder_tree t", Exp.EqColumns("f.folder_id", "t.folder_id"))
+                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("t.parent_id", "b.left_node"))
+                    .Where("b.tenant_id", TenantProvider.CurrentTenantID)
+                    .Where("f.create_by", userId)
+                    .Where(Exp.Like("b.right_node", "files/my/", SqlLike.StartWith) | Exp.Like("b.right_node", "files/trash/", SqlLike.StartWith));
+
+                return db.ExecuteScalar<long>(query);
             }
         }
     }

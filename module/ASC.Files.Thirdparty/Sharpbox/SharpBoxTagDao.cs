@@ -42,7 +42,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         #region ITagDao Members
 
-        public IEnumerable<Tag> GetTags(TagType tagType, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetTags(TagType tagType, IEnumerable<FileEntry> fileEntries)
         {
             return null;
         }
@@ -71,27 +71,27 @@ namespace ASC.Files.Thirdparty.Sharpbox
             using (var db = GetDb())
             {
                 var entryIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                     .Select("hash_id")
-                                                     .Where(Exp.Like("id", fakeFolderId, SqlLike.StartWith)))
-                                    .ConvertAll(x => x[0]);
+                    .Select("hash_id")
+                    .Where(Exp.Like("id", fakeFolderId, SqlLike.StartWith)))
+                    .ConvertAll(x => x[0]);
 
                 if (!entryIDs.Any()) return new List<Tag>();
 
                 var sqlQuery = new SqlQuery("files_tag ft")
                     .Select("ft.name",
-                            "ft.flag",
-                            "ft.owner",
-                            "ftl.entry_id",
-                            "ftl.entry_type",
-                            "ftl.tag_count",
-                            "ft.id")
+                        "ft.flag",
+                        "ft.owner",
+                        "ftl.entry_id",
+                        "ftl.entry_type",
+                        "ftl.tag_count",
+                        "ft.id")
                     .Distinct()
                     .LeftOuterJoin("files_tag_link ftl",
-                                   Exp.EqColumns("ft.tenant_id", "ftl.tenant_id") &
-                                   Exp.EqColumns("ft.id", "ftl.tag_id"))
+                        Exp.EqColumns("ft.tenant_id", "ftl.tenant_id") &
+                        Exp.EqColumns("ft.id", "ftl.tag_id"))
                     .Where(Exp.Eq("ft.tenant_id", TenantID) &
                            Exp.Eq("ftl.tenant_id", TenantID) &
-                           Exp.Eq("ft.flag", (int)TagType.New) &
+                           Exp.Eq("ft.flag", (int) TagType.New) &
                            Exp.In("ftl.entry_id", entryIDs));
 
                 if (subject != Guid.Empty)
@@ -100,17 +100,17 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 var tags = db.ExecuteList(sqlQuery).ConvertAll(r => new Tag
                 {
                     TagName = Convert.ToString(r[0]),
-                    TagType = (TagType)r[1],
+                    TagType = (TagType) r[1],
                     Owner = new Guid(r[2].ToString()),
                     EntryId = MappingID(r[3]),
-                    EntryType = (FileEntryType)r[4],
+                    EntryType = (FileEntryType) r[4],
                     Count = Convert.ToInt32(r[5]),
                     Id = Convert.ToInt32(r[6])
                 });
 
                 if (deepSearch) return tags;
 
-                var folderFileIds = new[] { fakeFolderId }
+                var folderFileIds = new[] {fakeFolderId}
                     .Concat(GetFolderSubfolders(folderId).Select(x => MakeId(x)))
                     .Concat(GetFolderFiles(folderId).Select(x => MakeId(x)));
 
@@ -118,25 +118,39 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
         }
 
-        public IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries)
+        public IEnumerable<Tag> GetNewTags(Guid subject, IEnumerable<FileEntry> fileEntries)
         {
             return null;
         }
 
-        public IEnumerable<Tag> SaveTags(params Tag[] tag)
+        public IEnumerable<Tag> GetNewTags(Guid subject, FileEntry fileEntry)
         {
             return null;
         }
 
-        public void UpdateNewTags(params Tag[] tag)
+        public IEnumerable<Tag> SaveTags(IEnumerable<Tag> tag)
+        {
+            return null;
+        }
+
+        public IEnumerable<Tag> SaveTags(Tag tag)
+        {
+            return null;
+        }
+
+        public void UpdateNewTags(IEnumerable<Tag> tag)
         {
         }
 
-        public void RemoveTags(params Tag[] tag)
+        public void UpdateNewTags(Tag tag)
         {
         }
 
-        public void RemoveTags(params int[] tagIds)
+        public void RemoveTags(IEnumerable<Tag> tag)
+        {
+        }
+
+        public void RemoveTags(Tag tag)
         {
         }
 

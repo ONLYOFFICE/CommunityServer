@@ -80,16 +80,17 @@ namespace ASC.Web.Files
                 switch ((context.Request[FilesLinkUtility.Action] ?? "").ToLower())
                 {
                     case "view":
-                        DownloadFile(context, true);
-                        break;
                     case "download":
-                        DownloadFile(context, false);
+                        DownloadFile(context);
                         break;
                     case "bulk":
                         BulkDownloadFile(context);
                         break;
                     case "stream":
                         StreamFile(context);
+                        break;
+                    case "tmp":
+                        TempFile(context);
                         break;
                     case "create":
                         CreateFile(context);
@@ -131,7 +132,7 @@ namespace ASC.Web.Files
                 return;
             }
 
-            if (store is S3Storage)
+            if (store.IsSupportedPreSignedUri)
             {
                 var url = store.GetPreSignedUri(FileConstant.StorageDomainTmp, path, TimeSpan.FromHours(1), null).ToString();
                 context.Response.Redirect(url);
@@ -157,7 +158,7 @@ namespace ASC.Web.Files
             }
         }
 
-        private static void DownloadFile(HttpContext context, bool inline)
+        private static void DownloadFile(HttpContext context)
         {
             var flushed = false;
             try
@@ -214,7 +215,7 @@ namespace ASC.Web.Files
 
                     var outType = context.Request[FilesLinkUtility.OutType];
 
-                    if (!string.IsNullOrEmpty(outType) && !inline)
+                    if (!string.IsNullOrEmpty(outType))
                     {
                         outType = outType.Trim();
                         if (FileUtility.ExtsConvertible[ext].Contains(outType))
@@ -225,7 +226,7 @@ namespace ASC.Web.Files
                         }
                     }
 
-                    context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(title, inline));
+                    context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(title));
                     context.Response.ContentType = MimeMapping.GetMimeMapping(title);
 
                     //// Download file via nginx
@@ -247,7 +248,7 @@ namespace ASC.Web.Files
                     //    return;
                     //}
 
-                    if (inline && string.Equals(context.Request.Headers["If-None-Match"], GetEtag(file)))
+                    if (string.Equals(context.Request.Headers["If-None-Match"], GetEtag(file)))
                     {
                         //Its cached. Reply 304
                         context.Response.StatusCode = (int)HttpStatusCode.NotModified;
@@ -267,7 +268,7 @@ namespace ASC.Web.Files
                             {
                                 if (!FileConverter.EnableConvert(file, ext))
                                 {
-                                    if (fileDao.IsSupportedPreSignedUri(file))
+                                    if (!readLink && fileDao.IsSupportedPreSignedUri(file))
                                     {
                                         context.Response.Redirect(fileDao.GetPreSignedUri(file, TimeSpan.FromHours(1)).ToString(), true);
 
@@ -327,7 +328,7 @@ namespace ASC.Web.Files
 
                                 if (!FileConverter.EnableConvert(file, ext))
                                 {
-                                    if (fileDao.IsSupportedPreSignedUri(file))
+                                    if (!readLink && fileDao.IsSupportedPreSignedUri(file))
                                     {
                                         context.Response.Redirect(fileDao.GetPreSignedUri(file, TimeSpan.FromHours(1)).ToString(), true);
 
@@ -530,6 +531,56 @@ namespace ASC.Web.Files
             }
         }
 
+        private static void TempFile(HttpContext context)
+        {
+            var fileName = context.Request[FilesLinkUtility.FileTitle];
+            var auth = context.Request[FilesLinkUtility.AuthKey];
+
+            var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileName, auth ?? "", Global.StreamUrlExpire);
+            if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
+            {
+                var exc = new HttpException((int)HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
+
+                Global.Logger.Error(string.Format("{0} {1}: {2}", FilesLinkUtility.AuthKey, validateResult, context.Request.Url), exc);
+
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                context.Response.Write(FilesCommonResource.ErrorMassage_SecurityException);
+                return;
+            }
+
+            context.Response.Clear();
+            context.Response.ContentType = MimeMapping.GetMimeMapping(fileName);
+            context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(fileName));
+
+            var store = Global.GetStore();
+
+            var path = Path.Combine("temp_stream", fileName);
+
+            if (!store.IsFile(FileConstant.StorageDomainTmp, path))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                context.Response.Write(FilesCommonResource.ErrorMassage_FileNotFound);
+                return;
+            }
+
+            using (var readStream = store.GetReadStream(FileConstant.StorageDomainTmp, path))
+            {
+                context.Response.AddHeader("Content-Length", readStream.Length.ToString());
+                readStream.StreamCopyTo(context.Response.OutputStream);
+            }
+
+            store.Delete(FileConstant.StorageDomainTmp, path);
+
+            try
+            {
+                context.Response.Flush();
+                context.Response.End();
+            }
+            catch (HttpException)
+            {
+            }
+        }
+
         private static void DifferenceFile(HttpContext context)
         {
             var id = context.Request[FilesLinkUtility.FileId];
@@ -585,7 +636,7 @@ namespace ASC.Web.Files
 
         private static string GetEtag(File file)
         {
-            return file.ID + ":" + file.Version + ":" + file.Title.GetHashCode();
+            return file.ID + ":" + file.Version + ":" + file.Title.GetHashCode() + ":" + file.ContentLength;
         }
 
         private static void CreateFile(HttpContext context)

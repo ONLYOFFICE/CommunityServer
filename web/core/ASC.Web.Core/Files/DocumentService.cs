@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
@@ -201,87 +202,6 @@ namespace ASC.Web.Core.Files
         }
 
         /// <summary>
-        /// Placing the document in the storage service
-        /// </summary>
-        /// <param name="documentStorageUrl">Url to the storage service</param>
-        /// <param name="fileStream">Stream of document</param>
-        /// <param name="contentType">Mime type</param>
-        /// <param name="documentRevisionId">Key for caching on service, whose used in editor</param>
-        /// <param name="signatureSecret">Secret key to generate the token</param>
-        /// <returns>Uri to document in the storage</returns>
-        public static string GetExternalUri(
-            string documentStorageUrl,
-            Stream fileStream,
-            string contentType,
-            string documentRevisionId,
-            string signatureSecret)
-        {
-            var urlTostorage = String.Format("{0}?key={1}",
-                                             documentStorageUrl,
-                                             documentRevisionId);
-
-            var request = (HttpWebRequest)WebRequest.Create(urlTostorage);
-            request.Method = "POST";
-            request.ContentType = contentType;
-            request.Accept = "application/json";
-            request.Timeout = Timeout;
-
-            if (!string.IsNullOrEmpty(signatureSecret))
-            {
-                var payload = new Dictionary<string, object>
-                    {
-                        {
-                            "query", new Dictionary<string, string>
-                                {
-                                    {
-                                        "key", documentRevisionId
-                                    }
-                                }
-                        }
-                    };
-                JsonWebToken.JsonSerializer = new JwtSerializer();
-                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
-                request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
-            }
-
-            if (fileStream != null)
-            {
-                if (fileStream.Length > 0)
-                    request.ContentLength = fileStream.Length;
-
-                const int bufferSize = 2048;
-                var buffer = new byte[bufferSize];
-                int readed;
-                while ((readed = fileStream.Read(buffer, 0, bufferSize)) > 0)
-                {
-                    request.GetRequestStream().Write(buffer, 0, readed);
-                }
-            }
-
-            // hack. http://ubuntuforums.org/showthread.php?t=1841740
-            if (WorkContext.IsMono)
-            {
-                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
-            }
-
-            string dataResponse;
-            using (var response = request.GetResponse())
-            using (var stream = response.GetResponseStream())
-            {
-                if (stream == null) throw new WebException("Could not get an answer");
-
-                using (var reader = new StreamReader(stream))
-                {
-                    dataResponse = reader.ReadToEnd();
-                }
-            }
-
-            string externalUri;
-            GetResponseUri(dataResponse, out externalUri);
-            return externalUri;
-        }
-
-        /// <summary>
         /// Request to Document Server with command
         /// </summary>
         /// <param name="documentTrackerUrl">Url to the command service</param>
@@ -370,34 +290,27 @@ namespace ASC.Web.Core.Files
             return (CommandResultTypes)jResponse.Value<int>("error");
         }
 
-        /// <summary>
-        /// Generate document from docbuilder script code
-        /// </summary>
-        /// <param name="docbuilderUrl">Url to the docbuilder service</param>
-        /// <param name="requestKey">Key for re-query in asynchronous mode</param>
-        /// <param name="inputScript">docbuilder script</param>
-        /// <param name="isAsync">Perform operation asynchronously</param>
-        /// <param name="signatureSecret">Secret key to generate the token</param>
-        /// <returns>Response from the docbuilder service</returns>
-        public static DocbuilderResponse DocbuilderRequest(
+        public static string DocbuilderRequest(
             string docbuilderUrl,
             string requestKey,
-            string inputScript,
+            string scriptUrl,
             bool isAsync,
-            string signatureSecret)
+            string signatureSecret,
+            out Dictionary<string, string> urls)
         {
             if (string.IsNullOrEmpty(docbuilderUrl))
                 throw new ArgumentNullException("docbuilderUrl");
 
-            if (string.IsNullOrEmpty(requestKey) && string.IsNullOrEmpty(inputScript))
+            if (string.IsNullOrEmpty(requestKey) && string.IsNullOrEmpty(scriptUrl))
                 throw new ArgumentException("requestKey or inputScript is empty");
 
-            docbuilderUrl = String.Format("{0}?async={1}&key={2}",
+            docbuilderUrl = String.Format("{0}?async={1}&key={2}&url={3}",
                                           docbuilderUrl,
                                           isAsync.ToString().ToLowerInvariant(),
-                                          requestKey);
+                                          HttpUtility.UrlEncode(requestKey),
+                                          HttpUtility.UrlEncode(scriptUrl));
 
-            var request = (HttpWebRequest) WebRequest.Create(docbuilderUrl);
+            var request = (HttpWebRequest)WebRequest.Create(docbuilderUrl);
 
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -415,6 +328,9 @@ namespace ASC.Web.Core.Files
                                     },
                                     {
                                         "key", requestKey
+                                    },
+                                    {
+                                        "url", scriptUrl
                                     }
                                 }
                         }
@@ -425,34 +341,46 @@ namespace ASC.Web.Core.Files
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
             }
 
-            var bytes = Encoding.UTF8.GetBytes(inputScript ?? "");
-            request.ContentLength = bytes.Length;
-            using (var stream = request.GetRequestStream())
-            {
-                stream.Write(bytes, 0, bytes.Length);
-            }
-
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
             if (WorkContext.IsMono)
             {
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
             }
 
-            DocbuilderResponse res = null;
+            string dataResponse = null;
 
-            using (var response = (HttpWebResponse) request.GetResponse())
-            using (var stream = response.GetResponseStream())
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var responseStream = response.GetResponseStream())
             {
-                if (stream != null)
+                if (responseStream != null)
                 {
-                    var responseString = new StreamReader(stream).ReadToEnd();
-
-                    if (!string.IsNullOrEmpty(responseString))
-                        res = JsonConvert.DeserializeObject<DocbuilderResponse>(responseString);
+                    using (var reader = new StreamReader(responseStream))
+                    {
+                        dataResponse = reader.ReadToEnd();
+                    }
                 }
             }
 
-            return res;
+
+            if (string.IsNullOrEmpty(dataResponse)) throw new Exception("Invalid response");
+
+            var responseFromService = JObject.Parse(dataResponse);
+            if (responseFromService == null) throw new WebException("Invalid answer format");
+
+            var errorElement = responseFromService.Value<string>("error");
+            if (!string.IsNullOrEmpty(errorElement)) ProcessResponseError(Convert.ToInt32(errorElement));
+
+            var isEnd = responseFromService.Value<bool>("end");
+
+            urls = null;
+            if (isEnd)
+            {
+                IDictionary<string, JToken> rates = (JObject)responseFromService["urls"];
+
+                urls = rates.ToDictionary(pair => pair.Key, pair => pair.Value.ToString());
+            }
+
+            return responseFromService.Value<string>("key");
         }
 
         public enum CommandMethod
@@ -559,7 +487,7 @@ namespace ASC.Web.Core.Files
             if (string.IsNullOrEmpty(jsonDocumentResponse)) throw new ArgumentException("Invalid param", "jsonDocumentResponse");
 
             var responseFromService = JObject.Parse(jsonDocumentResponse);
-            if (jsonDocumentResponse == null) throw new WebException("Invalid answer format");
+            if (responseFromService == null) throw new WebException("Invalid answer format");
 
             var errorElement = responseFromService.Value<string>("error");
             if (!string.IsNullOrEmpty(errorElement)) ProcessResponseError(Convert.ToInt32(errorElement));
@@ -587,11 +515,6 @@ namespace ASC.Web.Core.Files
         /// </summary>
         /// <param name="errorCode">Error code</param>
         private static void ProcessResponseError(int errorCode)
-        {
-            throw new DocumentServiceException(GetErrorMessage(errorCode));
-        }
-
-        private static string GetErrorMessage(int errorCode)
         {
             string errorMessage;
             switch (errorCode)
@@ -628,7 +551,7 @@ namespace ASC.Web.Core.Files
                     break;
             }
 
-            return errorMessage;
+            throw new DocumentServiceException(errorMessage);
         }
 
 
@@ -666,28 +589,6 @@ namespace ASC.Web.Core.Files
                     };
 
                 return JsonConvert.DeserializeObject<T>(json, settings);
-            }
-        }
-
-        public class DocbuilderResponse
-        {
-            public int Error { get; set; }
-            public bool End { get; set; }
-            public string Key { get; set; }
-            public JObject Urls { get; set; }
-
-            public string GetFileUrl(string fileName)
-            {
-                if (!End || Urls == null) return null;
-
-                var token = Urls[fileName];
-
-                return token == null ? null : token.Value<string>();
-            }
-
-            public string GetErrorText()
-            {
-                return GetErrorMessage(Error);
             }
         }
     }
