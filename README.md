@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/License-GNU%20GPL%20V3-green.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![Release](https://img.shields.io/badge/release-9.5.4-blue.svg)](https://github.com/ONLYOFFICE/portals/releases)
+[![Release](https://img.shields.io/badge/release-9.6.1-blue.svg)](https://github.com/ONLYOFFICE/portals/releases)
 
 ## Overview
 
