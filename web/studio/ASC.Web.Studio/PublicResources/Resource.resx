@@ -1000,17 +1000,8 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="DeletePortalSuccessMessage" xml:space="preserve">
     <value>Your portal has been successfully deleted. {0}In 10 seconds you will be redirected {1}here{2}</value>
   </data>
-  <data name="DeleteProfileButton" xml:space="preserve">
-    <value>Delete my profile</value>
-  </data>
-  <data name="DeleteProfileConfirm" xml:space="preserve">
-    <value>Attention! You are deleting your profile from portal</value>
-  </data>
   <data name="DeleteProfileInfo" xml:space="preserve">
     <value>Send the profile deletion instructions to the email address</value>
-  </data>
-  <data name="DeleteProfileSuccess" xml:space="preserve">
-    <value>Your profile has been successfully deleted</value>
   </data>
   <data name="DeleteProfileTitle" xml:space="preserve">
     <value>Delete profile dialog</value>
@@ -3909,5 +3900,50 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="InviteLinkValidInterval" xml:space="preserve">
     <value>This link is valid for {0} days only.</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>Delete my account</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Delete my profile</value>
+  </data>
+  <data name="DeleteProfileConfirmation" xml:space="preserve">
+    <value>Attention! You are about to delete your account.</value>
+  </data>
+  <data name="DeleteProfileConfirmationInfo" xml:space="preserve">
+    <value>By clicking the "Delete my account" button you agree with our {0}Privacy policy{1}.</value>
+  </data>
+  <data name="DeleteProfileSuccessMessage" xml:space="preserve">
+    <value>Your account has been successfully deleted.</value>
+  </data>
+  <data name="DeleteProfileSuccessMessageInfo" xml:space="preserve">
+    <value>See our {0}Privacy policy{1} to learn more about deleting your account and data accociated with it.</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>Got it!</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>This website uses cookies. By continuing to browse the website you agree to our {0}privacy policy{1}</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>I want to subscribe to the ONLYOFFICE newsletter</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>I agree to ONLYOFFICE {0}Terms and conditions{1} and {2}Privacy statement{3}</value>
+  </data>
+  <data name="PersonalFreeSpaceException" xml:space="preserve">
+    <value>Disk space quota exceeded</value>
+  </data>
+  <data name="PersonalTariffExceedLimit" xml:space="preserve">
+    <value>Storage space amount is about to be exceeded: {0}</value>
+  </data>
+  <data name="PersonalTariffExceedLimitInfoText" xml:space="preserve">
+    <value>You are running out of free storage space. When the storage quota is exceeded you will not be able to create or upload new files, and all the existing file changes will be discarded.{2}You can remove the unnecessary files or {0}contact our support team{1} to find out how you can get additional free space.</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionDescription" xml:space="preserve">
+    <value>Email notification with tips and tricks</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionName" xml:space="preserve">
+    <value>Tips&amp;Tricks</value>
   </data>
 </root>

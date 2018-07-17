@@ -2177,6 +2177,8 @@ CREATE TABLE IF NOT EXISTS `tenants_tenants` (
   `payment_id` varchar(38) DEFAULT NULL,
   `industry` int(11) NOT NULL DEFAULT '0',
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `spam` INT(10) NOT NULL DEFAULT '1',
+  `calls` INT(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`),
   KEY `last_modified` (`last_modified`),

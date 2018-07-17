@@ -1,10 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AuthorizeDocs.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.AuthorizeDocs.AuthorizeDocs" %>
 <%@ Import Namespace="System.Globalization" %>
 
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="System.Threading" %>
-
+<link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
 <!--<script id="personalReviewTmpl" type="text/x-jquery-tmpl">
     <div class="auth-form-with_review_i carousel-block">
         <div class="auth-form-with_review_photo">
@@ -39,7 +40,18 @@
         <div class="auth-form-with_review_text">${value}</div>
     </div>
 </script>
-
+<div class="cookieMess">
+    <div class="cookieMess_container">
+        <p><%= String.Format(Resource.CookieMessText.HtmlEncode(), "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.239950403.1196593722.1525950411-169631771.1404734630\">", "</span>") %></p>
+        <div id="personalcookie" class="personalcookie">
+            <a class="gotItBtn"><%= Resource.CookieMessButton %></a>
+        </div>
+    </div>
+    <div class="closer_container">
+        <div class="cookieMess_closer">&times;</div>
+    </div>
+    
+</div>
 <div class="auth-form-container">
     <div class="auth-form-head_w_background"></div>
     <div class="auth-form-head_w <%= Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName %>">
@@ -62,13 +74,30 @@
                 <div class="auth-form-with_form clearFix">
                     <div id="confirmEmailError" class="auth-form-with_form_error"></div>
                     <input id="confirmEmail" class="auth-form-with_field" type="text" placeholder="<%= Resource.AuthDocsEmailHint %>" />
-                    <a id="confirmEmailBtn" class="auth-form-with_form_btn" ><%=Resource.RegistryButtonStartEditing %></a>
+                    <a id="confirmEmailBtn" class="auth-form-with_form_btn disabled" ><%=Resource.RegistryButtonStartEditing %></a>
                      <% if (SetupInfo.ThirdPartyAuthEnabled) {%>
                     <span class="auth-form-with_form_or"><%= Resource.AuthDocsOr %></span>
                     <span class="auth-form-with_btns_social auth-docs_btns_social">
                         <asp:PlaceHolder runat="server" ID="HolderLoginWithThirdParty"></asp:PlaceHolder>
                     </span> 
                     <%} %>
+                    <div class="auth-form-settings">
+                        <div class="auth-form-setting">
+                            <label>
+                                <input type="checkbox" id="spam" name="spam" hidden><span></span>
+                                <label for="spam"><%=Resource.RegistrySettingSpam %></label>
+                            </label>
+                            
+                        </div>
+                        <div class="auth-form-setting">
+                            <label>
+                                <input type="checkbox" id="agree_to_terms" hidden><span></span>
+                                <label for="agree_to_terms"><%=String.Format(Resource.RegistrySettingTerms.HtmlEncode(),
+                                                            "<a target=\"_blank\" href="+ CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) +">", "</a>",
+                                                            "<a target=\"_blank\" href=\"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.248662407.1867121315.1526272545-169631771.1404734630\">", "</a>")%></label>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="cloud-image"></div>

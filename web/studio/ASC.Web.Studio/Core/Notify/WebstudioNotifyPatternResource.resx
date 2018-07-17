@@ -2580,9 +2580,11 @@ h3.For a quick start, here's what you can do in ONLYOFFICE:
 
 - Edit autoshapes, charts, tables, equations and other objects;
 
-- Use various addons for extended editing features.
+- Use various addons for extended editing features;
 
-You can also edit documents offline with our free "desktop editors":"https://www.onlyoffice.com/download-desktop.aspx" or get a "mobile editing suite":"https://www.onlyoffice.com/mobile.aspx" for your iOS device.
+- Easily access your Personal cloud via "Chrome extension":"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US". 
+
+You can also edit documents offline with our free "desktop editors":"https://www.onlyoffice.com/download-desktop.aspx" or get a "mobile editing suite":"https://www.onlyoffice.com/mobile.aspx" for your iOS or Android device.
 
 Sincerely,
 ONLYOFFICE team</value>
@@ -2663,6 +2665,8 @@ ONLYOFFICE team</value>
 It has been a week since you created your cloud office, so we believe it's time to unveil some beneficial features you might have missed.
 
 Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You'll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents in. Read details about connecting file storages to ONLYOFFICE "here":"http://helpcenter.onlyoffice.com/tipstricks/add-resource.aspx".
+
+You can also integrate ONLYOFFICE editors into Google Drive using our "connector app":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
 
 Need more of document management?
 
@@ -2781,5 +2785,49 @@ ONLYOFFICE team</value>
   </data>
   <data name="ButtonLeaveFeedback" xml:space="preserve">
     <value>Leave Feedback</value>
+  </data>
+  <data name="pattern_personal_profile_delete" xml:space="preserve">
+    <value>You have requested a termination of your account at personal.onlyoffice.com. Follow the link to complete the request (the link is active for a 7-day period): 
+
+$GreenButton
+
+*Note*: After the deletion, your account and all data associated with it will be erased permanently in accordance with our "Privacy statement":"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0".
+
+Ignore this email if you do not want to proceed. 
+
+If you have any questions, please contact us at "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Sincerely,
+ONLYOFFICE team</value>
+  </data>
+  <data name="subject_personal_profile_delete" xml:space="preserve">
+    <value>ONLYOFFICE Personal account termination</value>
+  </data>
+  <data name="ButtonConfirmTermination" xml:space="preserve">
+    <value>Confirm account termination</value>
+  </data>
+  <data name="pattern_saas_admin_trial_warning_before5_coupon" xml:space="preserve">
+    <value>Dear $UserName,
+
+Thanks for using ONLYOFFICE. Hope,  everything's  OK. We just want to remind you that the trial period for your account at "${__VirtualRootPath}":"${__VirtualRootPath}" will be over in 5 days. And some good news:  you can *buy a subscription with 5% off*!
+
+Just use this coupon code while purchasing: *$Coupon*. It will be valid within the next 10 days after you receive this letter. 
+
+At this moment the number of active users in the portal is $ActiveUsers.
+
+If you're not going to increase it considerably, we can recommend you a $$Price/$PricePeriod plan.
+
+Please, check all the available options and choose the most suitable rate for your business.
+
+$GreenButton
+
+Do you know that you're using the most powerful online editors in the world? Want to know why ONLYOFFICE is better than MS Office Online, Google Docs or Collabora? "Look here":"https://www.onlyoffice.com/document-editor-comparison.aspx"
+
+Truly yours,
+ONLYOFFICE Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="subject_saas_admin_trial_warning_before5_coupon" xml:space="preserve">
+    <value>Your Trial is Almost Over: Use Our Special Discounts</value>
   </data>
 </root>

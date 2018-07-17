@@ -1628,7 +1628,8 @@ ASC.Projects.GantChartPage = (function () {
         project.taskCount = taskForDiagram.length;
         project.allTaskHash = {};
 
-        while (task = taskForDiagram.pop()) {
+        for (var i = 0; i < project.taskCount; i++) {
+            task = taskForDiagram[i];
             project.allTaskHash[task.id] = task;
             project.allTaskHash[task.id].visible = true;
             addTaskToChart(task);
@@ -1642,7 +1643,8 @@ ASC.Projects.GantChartPage = (function () {
         project.milestonesHash = {};
         milestonesForDiagram = project.milestones.slice(0);
         project.milestoneCount = milestonesForDiagram.length;
-        while (milestone = milestonesForDiagram.pop()) {
+        for (var i=0; i< project.milestoneCount; i++) {
+            milestone = milestonesForDiagram[i];
             project.milestonesHash[milestone.id] = milestone;
             addMilestoneToChart(milestone);
         }

@@ -726,4 +726,10 @@
   <data name="CallMissed" xml:space="preserve">
     <value>Missed call</value>
   </data>
+  <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
+    <value>Subscribe to Tips&amp;Tricks</value>
+  </data>
+  <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
+    <value>Unsubscribe from Tips&amp;Tricks</value>
+  </data>
 </root>

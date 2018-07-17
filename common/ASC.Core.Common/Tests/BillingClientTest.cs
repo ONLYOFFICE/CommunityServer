@@ -27,7 +27,7 @@
 #if DEBUG
 namespace ASC.Core.Common.Tests
 {
-    using Billing;
+    using Core.Billing;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Linq;

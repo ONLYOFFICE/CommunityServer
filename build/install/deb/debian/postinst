@@ -79,6 +79,12 @@ install_db(){
 		sed "s/max_allowed_packet.*/max_allowed_packet = 1048576000/" -i ${CNF_PATH} || true # ignore errors
 	    fi
 
+		if ! grep -q "^default-authentication-plugin"  ${CNF_PATH}; then
+        	sed '/\[mysqld\]/a default-authentication-plugin = mysql_native_password' -i ${CNF_PATH}
+	    else
+		sed "s/default-authentication-plugin.*/default-authentication-plugin = mysql_native_password/" -i ${CNF_PATH} || true # ignore errors
+	    fi
+
 	    if [ -e ${CNF_SERVICE_PATH} ]; then
                 if ! grep -q "^LimitNOFILE"  ${CNF_SERVICE_PATH}; then
                         sed '/\[Service\]/a LimitNOFILE = infinity' -i ${CNF_SERVICE_PATH}
@@ -99,9 +105,9 @@ install_db(){
 
 	$MYSQL -e ";" >/dev/null 2>&1 || ( service mysql start >/dev/null 2>&1 && $MYSQL -e ";" >/dev/null )
 
-        if [ "${DB_USER}" = "root" ]; then
+        if [ "${DB_USER}" = "root" ] && [ ! "$(mysql -V | grep ' 5.5.')" ]; then
        	   # allow MySql.Data.dll connect via mysql_native_password with root and empty password
-           $MYSQL -D "mysql" -e "UPDATE user SET plugin='mysql_native_password' WHERE user='${DB_USER}' and host='localhost';"
+           $MYSQL -D "mysql" -e "UPDATE user SET plugin='mysql_native_password' WHERE user='${DB_USER}' and host='localhost'; ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PWD}';"
 	fi
 
 	service mysql restart

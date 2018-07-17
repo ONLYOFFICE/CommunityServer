@@ -56,7 +56,7 @@ namespace ASC.Data.Backup.Storage
             using (var source = GetDataStore().GetReadStream("", storagePath))
             using (var destination = File.OpenWrite(targetLocalPath))
             {
-                source.CopyTo(destination);
+                source.StreamCopyTo(destination);
             }
         }
 

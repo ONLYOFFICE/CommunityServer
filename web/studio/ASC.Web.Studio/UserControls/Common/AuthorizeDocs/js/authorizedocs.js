@@ -27,6 +27,76 @@
 jq(function () {
     jq('#login').blur();
     
+    if (jq.cookies.get('onluoffice_personal_cookie') == null || jq.cookies.get('onluoffice_personal_cookie') == false) {
+        jq('.cookieMess').css('display', 'table');
+    }
+
+    if (jq("#agree_to_terms").prop("checked")) {
+        bindConfirmEmailBtm();
+        jq('.account-links a')
+                    .removeClass('disabled')
+                    .unbind('click');
+    }
+
+    function bindConfirmEmailBtm() {
+
+        jq('.account-links a').removeClass('disabled');
+
+        jq("#confirmEmailBtn")
+            .removeClass('disabled')
+            .on("click", function () {
+                var $email = jq("#confirmEmail"),
+                    email = $email.val().trim(),
+                    spam = jq("#spam").prop("checked"),
+                    $error = jq("#confirmEmailError"),
+                    errorText = "",
+                    isError = false;
+
+                $email.removeClass("error");
+
+                if (!email) {
+                    errorText = ASC.Resources.Master.Resource.ErrorEmptyEmail;
+                    isError = true;
+                } else if (!jq.isValidEmail(email)) {
+                    errorText = ASC.Resources.Master.Resource.ErrorNotCorrectEmail;
+                    isError = true;
+                }
+
+                if (isError) {
+                    $error.html(errorText);
+                    $email.addClass("error");
+                    return;
+                }
+
+                var data = {
+                    "email": email,
+                    "lang": jq(".personal-languages_select").attr("data-lang"),
+                    "campaign": jq("#confirmEmailBtn").attr("data-campaign") ? !!(jq("#confirmEmailBtn").attr("data-campaign").length) : false,
+                    "spam": spam
+                };
+
+                var onError = function (error) {
+                    $error.html(error);
+                    $email.addClass("error");
+                };
+
+                Teamlab.registerUserOnPersonal(data, {
+                    success: function (arg, res) {
+                        if (res && res.length) {
+                            onError(res);
+                            return;
+                        }
+                        $error.empty();
+                        jq("#activationEmail").html(email);
+                        jq("#sendEmailSuccessPopup").show();
+                    },
+                    error: function (params, errors) {
+                        onError(errors[0]);
+                    }
+            });
+        });
+    }
+    
     function bindEvents () {
         jq(function () {
             jq("#loginSignUp").on("click", function () {
@@ -34,6 +104,7 @@ jq(function () {
                 jq('#login').blur();
                 jq("#loginPopup").hide();
                 jq("#confirmEmail").focus();
+                hideAccountLinks();
             });
         });
 
@@ -43,12 +114,24 @@ jq(function () {
         }
         // close popup window
         jq(".default-personal-popup_closer").on("click", function () {
+            hideAccountLinks();
             jq(this).parents(".default-personal-popup").fadeOut(200, function() {
                 enableScroll();
             });
             
         });
-
+        // close cookie mess
+        jq(".cookieMess_closer").on("click", function () {
+            jq.cookies.set('onluoffice_personal_cookie', true);
+            closeCookieMess();
+        });
+        jq("#personalcookie").on("click", function () {
+            jq.cookies.set('onluoffice_personal_cookie', true);
+            closeCookieMess();
+        });
+        function closeCookieMess() {
+            jq('.cookieMess').hide();
+        }
         // confirm the email
         jq(document).on("keypress", "#confirmEmail", function (evt) {
             jq(this).removeClass("error");
@@ -57,7 +140,35 @@ jq(function () {
                 jq("#confirmEmailBtn").trigger("click");
             }
         });
+        jq('.account-links a').click(function () {
+            return false;
+        });
+        // change in consent to terms
 
+        function showAccountLinks() {
+            jq('.account-links a')
+                   .removeClass('disabled')
+                   .unbind('click');
+            bindConfirmEmailBtm();
+        }
+        function hideAccountLinks() {
+            if (!jq("#agree_to_terms")[0].checked) {
+                jq('.account-links a')
+                    .click(function () { return false; })
+                    .addClass('disabled');
+                jq("#confirmEmailBtn")
+                    .addClass('disabled')
+                    .unbind('click');
+            }
+        }
+        jq("#agree_to_terms").change(function () {
+            if (this.checked) {
+                showAccountLinks();
+            } else {
+                hideAccountLinks();
+            }
+        });
+        
         jq(document).keyup(function (event) {
             var code;
             if (!e) {
@@ -72,59 +183,12 @@ jq(function () {
             if (code == 27) {
                 jq(".default-personal-popup").fadeOut(200, function () {
                     enableScroll();
+                    hideAccountLinks();
                 });
             }
         });
 
-        jq("#confirmEmailBtn").on("click", function () {
-            var $email = jq("#confirmEmail"),
-                email = $email.val().trim(),
-                $error = jq("#confirmEmailError"),
-                errorText = "",
-                isError = false;
-
-            $email.removeClass("error");
-
-            if (!email) {
-                errorText = ASC.Resources.Master.Resource.ErrorEmptyEmail;
-                isError = true;
-            } else if (!jq.isValidEmail(email)) {
-                errorText = ASC.Resources.Master.Resource.ErrorNotCorrectEmail;
-                isError = true;
-            }
-
-            if (isError) {
-                $error.html(errorText);
-                $email.addClass("error");
-                return;
-            }
-
-            var data = {
-                "email": email,
-                "lang": jq(".personal-languages_select").attr("data-lang"),
-                "campaign": jq("#confirmEmailBtn").attr("data-campaign") ? !!(jq("#confirmEmailBtn").attr("data-campaign").length) : false,
-            };
-
-            var onError = function (error) {
-                $error.html(error);
-                $email.addClass("error");
-            };
-
-            Teamlab.registerUserOnPersonal(data, {
-                success: function (arg, res) {
-                    if (res && res.length) {
-                        onError(res);
-                        return;
-                    }
-                    $error.empty();
-                    jq("#activationEmail").html(email);
-                    jq("#sendEmailSuccessPopup").show();
-                },
-                error: function (params, errors) {
-                    onError(errors[0]);
-                }
-            });
-        });
+        
         var $body = jq(window.document.body);
         var marginRight;
         function disableScroll() {
@@ -142,6 +206,7 @@ jq(function () {
         }
         // Login
         jq("#personalLogin a").on("click", function () {
+            showAccountLinks();
             jq("#loginPopup").show();
             jq('#login').focus();
             disableScroll();

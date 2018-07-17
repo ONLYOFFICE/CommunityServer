@@ -56,13 +56,12 @@ namespace ASC.Api.Impl
         {
             Log.Debug("configuring entry points");
             var routeMap = new List<IApiMethodCall>();
-            var apiBasePathPath = Config.GetBasePath();
             var registrations = Container.ComponentRegistry.Registrations
                 .Where(x => typeof(IApiEntryPoint).IsAssignableFrom(x.Activator.LimitType)).ToList();
             //Register instances
             foreach (var apiMethodCall in registrations.Select(RouteEntryPoint).SelectMany(routePaths => routePaths.Cast<ApiMethodCall>()))
             {
-                apiMethodCall.FullPath = GetFullPath(apiBasePathPath, apiMethodCall);
+                apiMethodCall.FullPath = GetFullPath(apiMethodCall);
                 if (routeMap.Contains(apiMethodCall))
                 {
                     throw new ApiDuplicateRouteException(apiMethodCall, routeMap.Find(x => x.Equals(apiMethodCall)));
@@ -163,7 +162,7 @@ namespace ASC.Api.Impl
             if (entryPoint != null)
             {
                 //Yahoo
-                var url = RouteReplacer.Replace(GetFullPath(Config.GetBasePath(), entryPoint),
+                var url = RouteReplacer.Replace(GetFullPath(entryPoint),
                                                 x =>
                                                     {
                                                         if (x.Success && x.Groups["route"].Success && arguments.ContainsKey(x.Groups["route"].Value))
@@ -185,9 +184,9 @@ namespace ASC.Api.Impl
             throw new ArgumentException("Api method not found or not registered");
         }
 
-        private string GetFullPath(string apiBasePathPath, IApiMethodCall apiMethodCall)
+        private string GetFullPath(IApiMethodCall apiMethodCall)
         {
-            return (apiBasePathPath + apiMethodCall.Name + Config.ApiSeparator +
+            return (Config.GetBasePath() + apiMethodCall.Name + Config.ApiSeparator +
                     apiMethodCall.RoutingUrl.TrimStart(Config.ApiSeparator)).TrimEnd('/');
         }
     }

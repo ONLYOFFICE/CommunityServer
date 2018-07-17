@@ -140,7 +140,7 @@ ASC.People.Reassigns = (function () {
                     var targetObj = started.length ? started.parent() : jq(".progress-container .progress-block .progress-desc:first");
                     renderStatus(targetObj, "aborted", removeData ? ASC.People.Resources.PeopleResource.RemovingStatusAborted : ASC.People.Resources.PeopleResource.ReassignStatusAborted, null);
                     toastr.warning(removeData ? ASC.People.Resources.PeopleResource.RemovingAbortToastrMsg : ASC.People.Resources.PeopleResource.ReassignAbortToastrMsg);
-                    showAbortBtn(false);
+                    showButtons(false, true, false);
                 },
                 error: function(params, errors) {
                     toastr.error(errors[0]);
@@ -169,13 +169,23 @@ ASC.People.Reassigns = (function () {
         }
     }
 
-    function showAbortBtn(show) {
-        if (show) {
+    function showButtons(abort, restart, ok) {
+        if (abort) {
             jq(".abort-btn").removeClass("display-none");
-            jq(".restart-btn").addClass("display-none");
         } else {
             jq(".abort-btn").addClass("display-none");
+        }
+        
+        if (restart) {
             jq(".restart-btn").removeClass("display-none");
+        } else {
+            jq(".restart-btn").addClass("display-none");
+        }
+        
+        if (ok) {
+            jq(".ok-btn").removeClass("display-none");
+        } else {
+            jq(".ok-btn").addClass("display-none");
         }
     }
 
@@ -188,9 +198,9 @@ ASC.People.Reassigns = (function () {
             toastr.error(removeData ? ASC.People.Resources.PeopleResource.RemovingErrorToastrMsg : ASC.People.Resources.PeopleResource.ReassignErrorToastrMsg);
 
         if (data.isCompleted) {
-            showAbortBtn(false);
+            showButtons(false, data.status == progressStatus.failed, data.status == progressStatus.done);
         } else {
-            showAbortBtn(true);
+            showButtons(true, false, false);
             setTimeout(trackProgress, timeoutDelay);
         }  
     }

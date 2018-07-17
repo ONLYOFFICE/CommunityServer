@@ -161,14 +161,16 @@
         <span class="subs-icon-module news"></span>
         <%=Resources.Resource.WhatsNewSubscriptionName%>
     </span>
-
-<%if (IsAdmin()){%>
-    
+    <span id="product_subscribeBox_subTips" data-id="subTips" class="subs-module" >
+        <span class="subs-icon-module tips"></span>
+        <%=Resources.Resource.TipsAndTricsSubscriptionName%>
+    </span>
+    <%if (IsAdmin()) { %>
     <span id="product_subscribeBox_subAdmin" data-id="subAdmin" class="subs-module">        
         <span class="subs-icon-module admin"></span>
         <%=Resources.Resource.Administrator%>                
     </span>
- <%}%>   
+    <% } %>   
      <div id="modules_notifySenders"></div>
      <div id="productSelector" class="subs-selector"></div>
 </div>  
@@ -186,6 +188,14 @@
             <div>
                 <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%> </span>
                 <%=RenderWhatsNewNotifyByCombobox() %>
+            </div>
+      </div>
+    </div>
+    <div id="content_product_subscribeBox_subTips" class="tabs">
+        <div>
+            <div class="subs-only-button">
+                <span id="studio_tipsSubscriptionButton" class="sub-button"><%=RenderTipsAndTricsSubscriptionState()%></span>
+                <%= Resources.Resource.TipsAndTricsSubscriptionDescription%>
             </div>
       </div>
     </div>

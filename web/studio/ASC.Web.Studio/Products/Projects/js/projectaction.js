@@ -261,6 +261,8 @@ ASC.Projects.ProjectAction = (function() {
             var $tr = jq(this).parents("tr.pm-projectTeam-participantContainer");
             var id = $tr.attr("data-partisipantid");
             deleteItemInArray(teamIds, id);
+            team = team.filter(function (item) { return item.id !== id; });
+
             $projectParticipants.attr("value", teamIds.join());
             if (teamIds.length == 0) {
                 $projectParticipantsContainer.hide();

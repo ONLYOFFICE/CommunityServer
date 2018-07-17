@@ -267,6 +267,12 @@ namespace ASC.Api.Projects
                     Private = @private
                 };
 
+            //hack: fix bug 37888
+            if (!ProjectSecurity.IsAdministrator())
+            {
+                project.Responsible = Core.SecurityContext.CurrentAccount.ID;
+            }
+
             projectEngine.SaveOrUpdate(project, true);
             projectEngine.AddToTeam(project, participantEngine.GetByID(responsibleId), notify.HasValue ? notify.Value : true);
             EngineFactory.TagEngine.SetProjectTags(project.ID, tags);
@@ -294,6 +300,13 @@ namespace ASC.Api.Projects
                     task.Milestone = ml[task.Milestone - 1].ID;
                 }
                 taskEngine.SaveOrUpdate(task, null, false);
+            }
+
+            //hack: fix bug 37888
+            if (!ProjectSecurity.IsAdministrator())
+            {
+                project.Responsible = responsibleId;
+                projectEngine.SaveOrUpdate(project, true);
             }
 
             MessageService.Send(Request, MessageAction.ProjectCreated, MessageTarget.Create(project.ID), project.Title);

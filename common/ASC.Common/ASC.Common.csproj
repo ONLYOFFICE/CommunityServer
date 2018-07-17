@@ -155,6 +155,7 @@
     <Compile Include="DependencyInjection\TypeManipulation.cs" />
     <Compile Include="Geolocation\IPGeolocationInfo.cs" />
     <Compile Include="Geolocation\GeolocationHelper.cs" />
+    <Compile Include="Logging\SelfCleaningAppender.cs" />
     <Compile Include="Logging\SpecialFolderPathConverter.cs" />
     <Compile Include="Module\BaseWcfClient.cs" />
     <Compile Include="Module\IServiceController.cs" />

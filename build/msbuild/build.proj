@@ -162,7 +162,7 @@
     <MSBuild
         Projects="@(ProjectToBuild)"
         Targets="$(BuildTargets)"
-        Properties="Configuration=$(Configuration);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath)"
+        Properties="Configuration=$(Configuration);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants)"
         RebaseOutputs="true"
         StopOnFirstFailure="true"/>
 

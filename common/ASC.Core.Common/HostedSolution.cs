@@ -131,7 +131,9 @@ namespace ASC.Core
                 HostedRegion = ri.HostedRegion,
                 PartnerId = ri.PartnerId,
                 AffiliateId = ri.AffiliateId,
-                Industry = ri.Industry
+                Industry = ri.Industry,
+                Spam = ri.Spam,
+                Calls = ri.Calls
             };
 
             tenant = tenantService.SaveTenant(tenant);

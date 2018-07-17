@@ -133,6 +133,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audit Lifetime Settings Updated.
+        /// </summary>
+        public static string AuditSettingsUpdated {
+            get {
+                return ResourceManager.GetString("AuditSettingsUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audit Trail Report Downloaded.
         /// </summary>
         public static string AuditTrailReportDownloaded {

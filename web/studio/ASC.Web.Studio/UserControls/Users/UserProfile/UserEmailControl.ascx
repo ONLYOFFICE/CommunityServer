@@ -24,7 +24,7 @@
             <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
-            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
+            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()) && !User.IsLDAP() && !User.IsSSO())
                { %>
             <a class="linkAction baseLinkAction" onclick="ASC.EmailOperationManager.showEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>
@@ -39,7 +39,7 @@
             <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
-            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
+            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()) && !User.IsLDAP() && !User.IsSSO())
                { %>
             <a class="linkAction baseLinkAction" onclick="ASC.EmailOperationManager.showEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>

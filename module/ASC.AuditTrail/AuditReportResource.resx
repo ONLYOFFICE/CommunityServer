@@ -1452,4 +1452,7 @@
   <data name="UserDataRemoving" xml:space="preserve">
     <value>User data for {0} has been deleted</value>
   </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>Audit Lifetime Settings Updated</value>
+  </data>
 </root>

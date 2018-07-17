@@ -167,6 +167,8 @@ namespace ASC.Core.Data
                         .InColumnValue("payment_id", t.PaymentId)
                         .InColumnValue("last_modified", t.LastModified = DateTime.UtcNow)
                         .InColumnValue("industry", (int)t.Industry)
+                        .InColumnValue("spam", t.Spam)
+                        .InColumnValue("calls", t.Calls)
                         .Identity<int>(0, t.TenantId, true);
 
 
@@ -191,6 +193,8 @@ namespace ASC.Core.Data
                         .Set("payment_id", t.PaymentId)
                         .Set("last_modified", t.LastModified = DateTime.UtcNow)
                         .Set("industry", (int)t.Industry)
+                        .Set("spam", t.Spam)
+                        .Set("calls", t.Calls)
                         .Where("id", t.TenantId);
 
                     db.ExecuteNonQuery(u);
@@ -301,7 +305,7 @@ namespace ASC.Core.Data
                 .Select("t.id", "t.alias", "t.mappeddomain", "t.version", "t.version_changed", "t.name", "t.language", "t.timezone", "t.owner_id")
                 .Select("t.trusteddomains", "t.trusteddomainsenabled", "t.creationdatetime", "t.status", "t.statuschanged", "t.payment_id", "t.last_modified")
                 .Select("p.partner_id", "p.affiliate_id")
-                .Select("t.industry")
+                .Select("t.industry", "t.spam", "t.calls")
                 .LeftOuterJoin("tenants_partners p", Exp.EqColumns("t.id", "p.tenant_id"))
                 .Where(where);
         }
@@ -325,7 +329,9 @@ namespace ASC.Core.Data
                 LastModified = (DateTime)r[15],
                 PartnerId = (string)r[16],
                 AffiliateId = (string)r[17],
-                Industry = r[18] != null ? (TenantIndustry)Convert.ToInt32(r[18]) : TenantIndustry.Other
+                Industry = r[18] != null ? (TenantIndustry)Convert.ToInt32(r[18]) : TenantIndustry.Other,
+                Spam = Convert.ToBoolean(r[19]),
+                Calls = Convert.ToBoolean(r[20])
             };
             tenant.SetTrustedDomains((string)r[9]);
 

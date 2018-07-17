@@ -1317,7 +1317,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 var timeZoneCol = cc.RegistryColumn("time_zone");
 
                 data = new List<EventNotificationData>(db.ExecuteList(new SqlQuery("calendar_notifications").Select(cc.SelectQuery)
-                                        .Where(Exp.Between(notifyDateCol.Name, utcDate.AddDays(-1), utcDate.AddDays(1))))
+                                        .Where(Exp.Le(notifyDateCol.Name, utcDate)))
                                         .Select(r => new EventNotificationData
                                         {
                                             UserId = userIdCol.Parse<Guid>(r),
@@ -1332,9 +1332,8 @@ namespace ASC.Api.Calendar.BusinessObjects
 
                 var events = GetEventsByIds(data.Select(d => (object)d.EventId).Distinct().ToArray(), Guid.Empty);
                 data.ForEach(d => d.Event = events.Find(e => String.Equals(e.Id, d.EventId.ToString(CultureInfo.InvariantCulture), StringComparison.InvariantCultureIgnoreCase)));
-                data = data.Where(r => (r.Event.AllDayLong ? r.GetUtcStartDate() : r.NotifyUtcDate) <= utcDate).ToList();
 
-                foreach (var d in data)
+                foreach (var d in data)   
                 {
                     if (d.RRule.Freq == Frequency.Never)
                         db.ExecuteNonQuery(new SqlDelete("calendar_notifications").Where(Exp.Eq("user_id", d.UserId) & Exp.Eq("event_id", d.EventId)));

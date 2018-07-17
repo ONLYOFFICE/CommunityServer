@@ -41,11 +41,6 @@ namespace ASC.Api.Impl
     {
         public ILifetimeScope Container { get; set; }
 
-        public ApiRouteHandler(ILifetimeScope container)
-        {
-            Container = container;
-        }
-
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
             var authorizations = Container.Resolve<IEnumerable<IApiAuthorization>>().ToList();
@@ -60,7 +55,7 @@ namespace ASC.Api.Impl
             {
                 //Authorization is not required for method
                 log.Debug("Authorization is not required");
-                return GetHandler(Container, requestContext);
+                return GetHandler(requestContext);
             }
 
             foreach (var apiAuthorization in authorizations)
@@ -68,7 +63,7 @@ namespace ASC.Api.Impl
                 log.Debug("Authorizing with:{0}", apiAuthorization.GetType().ToString());
                 if (apiAuthorization.Authorize(requestContext.HttpContext))
                 {
-                    return GetHandler(Container, requestContext);
+                    return GetHandler(requestContext);
                 }
             }
 
@@ -82,17 +77,15 @@ namespace ASC.Api.Impl
             return new ErrorHttpHandler(HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString());
         }
 
-        public virtual IHttpHandler GetHandler(ILifetimeScope container, RequestContext requestContext)
+        public virtual IHttpHandler GetHandler(RequestContext requestContext)
         {
-            return container.BeginLifetimeScope().Resolve<IApiHttpHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
+            return Container.BeginLifetimeScope().Resolve<IApiHttpHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
         }
     }
 
     class ApiAsyncRouteHandler : ApiRouteHandler
     {
-        public ApiAsyncRouteHandler(ILifetimeScope container):base(container) { }
-
-        public override IHttpHandler GetHandler(ILifetimeScope container, RequestContext requestContext)
+        public override IHttpHandler GetHandler(RequestContext requestContext)
         {
             throw new NotImplementedException("This handler is not yet implemented");
         }

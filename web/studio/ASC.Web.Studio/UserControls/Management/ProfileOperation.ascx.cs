@@ -44,6 +44,13 @@ namespace ASC.Web.Studio.UserControls.Management
 
         public Guid UserId { get; set; }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            operationBlock.Visible = true;
+            result.Visible = false;
+            errorBlock.Visible = false;
+        }
+
         protected void DeleteProfile(object sender, EventArgs e)
         {
             try
@@ -56,12 +63,22 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UsersUpdatedStatus, MessageTarget.Create(user.ID), user.DisplayUserName(false));
 
+                if (!CoreContext.Configuration.Personal) return;
+
+                UserPhotoManager.RemovePhoto(user.ID);
+                CoreContext.UserManager.DeleteUser(user.ID);
+                MessageService.Send(Request, MessageAction.UserDeleted, MessageTarget.Create(user.ID), user.DisplayUserName(false));
+
                 operationBlock.Visible = false;
-                result.InnerHtml = Resource.DeleteProfileSuccess;
+                result.Visible = true;
+                errorBlock.Visible = false;
             }
             catch(Exception ex)
             {
-                result.InnerHtml = ex.Message;
+                operationBlock.Visible = false;
+                result.Visible = false;
+                errorBlock.InnerHtml = ex.Message;
+                errorBlock.Visible = true;
             }
             finally
             {

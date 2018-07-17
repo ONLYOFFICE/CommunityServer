@@ -466,6 +466,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact support.
+        /// </summary>
+        public static string ContactSupportBtn {
+            get {
+                return ResourceManager.GetString("ContactSupportBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created by.
         /// </summary>
         public static string CreatedBy {
@@ -1569,6 +1578,33 @@ namespace Resources {
         public static string Person {
             get {
                 return ResourceManager.GetString("Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file could not be added as you have exceeded your storage space quota. Please delete the outdated files or contact our support team for more information..
+        /// </summary>
+        public static string PersonalStorageLimitExceededBody {
+            get {
+                return ResourceManager.GetString("PersonalStorageLimitExceededBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quota exceeded.
+        /// </summary>
+        public static string PersonalStorageLimitExceededHeader {
+            get {
+                return ResourceManager.GetString("PersonalStorageLimitExceededHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage space quota exceeded.
+        /// </summary>
+        public static string PersonalStorageLimitExceededSubHeader {
+            get {
+                return ResourceManager.GetString("PersonalStorageLimitExceededSubHeader", resourceCulture);
             }
         }
         

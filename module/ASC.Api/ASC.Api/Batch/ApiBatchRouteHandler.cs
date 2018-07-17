@@ -33,11 +33,9 @@ namespace ASC.Api.Batch
 {
     public class ApiBatchRouteHandler : ApiRouteHandler
     {
-        public ApiBatchRouteHandler(ILifetimeScope container):base(container) { }
-
-        public override IHttpHandler GetHandler(ILifetimeScope container, RequestContext requestContext)
+        public override IHttpHandler GetHandler(RequestContext requestContext)
         {
-            return container.BeginLifetimeScope().Resolve<ApiBatchHttpHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
+            return Container.BeginLifetimeScope().Resolve<ApiBatchHttpHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
         }
     }
 }

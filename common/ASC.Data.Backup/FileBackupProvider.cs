@@ -82,7 +82,7 @@ namespace ASC.Data.Backup
                                 var tmpPath = Path.GetTempFileName();
                                 using (var tmpFile = File.OpenWrite(tmpPath))
                                 {
-                                    stream.CopyTo(tmpFile);
+                                    stream.StreamCopyTo(tmpFile);
                                 }
 
                                 writer.WriteEntry(backupPath, tmpPath);

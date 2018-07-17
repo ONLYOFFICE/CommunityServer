@@ -42,6 +42,7 @@ using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Files
 {
@@ -70,6 +71,7 @@ namespace ASC.Web.Files
             DisplayAppsBanner =
                 SetupInfo.DisplayMobappBanner("files")
                 && !CoreContext.Configuration.Standalone
+                && !TenantExtra.GetTenantQuota().Trial
                 && !mobileAppRegistrator.IsInstallRegistered(currentUser.Email, MobileAppType.IosDocuments);
 
             if (CoreContext.Configuration.Personal)

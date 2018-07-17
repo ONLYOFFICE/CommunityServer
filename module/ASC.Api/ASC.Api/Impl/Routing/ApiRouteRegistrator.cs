@@ -47,7 +47,7 @@ namespace ASC.Api.Impl.Routing
             foreach (var apiMethodCall in entryPoints.OrderBy(x => x.RoutingUrl.IndexOf('{')).ThenBy(x => x.RoutingUrl.LastIndexOf('}')))
             {
                 var dataTokens = GetDataTokens(apiMethodCall);
-                var url = string.Format("{0}{1}{2}", apiMethodCall.FullPath, apiMethodCall.FullPath.EndsWith("}") ? "." : "", ExtensionBrace);
+                var url = apiMethodCall.FullPath + (apiMethodCall.FullPath.EndsWith("}") ? "." : "") +  ExtensionBrace;
 
                 apiMethodCall.Constraints.Add(Extension, apiExtensionConstraint);
 
@@ -58,6 +58,8 @@ namespace ASC.Api.Impl.Routing
 
         private static RouteValueDictionary GetDataTokens(IApiMethodCall method)
         {
+            if (method.RequiresAuthorization && method.CheckPayment) return null;
+
             var dataTokens = new RouteValueDictionary();
             if (!method.RequiresAuthorization)
             {

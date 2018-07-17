@@ -996,12 +996,20 @@ ASC.EmailOperationManager = (function () {
         }
     };
 
+    function closeActivateEmailPanel(btn) {
+        var activateEmailPanel = jq(btn).parents(".info-box");
+        Teamlab.updateEmailActivationSettings({ show: false }, function () {
+            activateEmailPanel.remove();
+        });
+    };
+
     return {
         sendInstructions: sendInstructions,
         sendEmailActivationInstructions: sendEmailActivationInstructions,
         showResendInviteWindow: showResendInviteWindow,
         showEmailChangeWindow: showEmailChangeWindow,
-        closeEmailOperationWindow: closeEmailOperationWindow
+        closeEmailOperationWindow: closeEmailOperationWindow,
+        closeActivateEmailPanel: closeActivateEmailPanel
     }
 })();
 

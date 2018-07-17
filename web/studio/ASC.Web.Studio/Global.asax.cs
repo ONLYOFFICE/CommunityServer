@@ -86,6 +86,7 @@ namespace ASC.Web.Studio
         protected void Application_EndRequest(object sender, EventArgs e)
         {
             CallContext.FreeNamedDataSlot(TenantManager.CURRENT_TENANT);
+            SecurityContext.Logout();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -97,9 +98,9 @@ namespace ASC.Web.Studio
         protected void Session_Start(object sender, EventArgs e)
         {
             if (Request.GetUrlRewriter().Scheme == "https")
-                Response.Cookies["ASP.NET_SessionID"].Secure = true;
+                Response.Cookies["ASP.NET_SessionId"].Secure = true;
 
-            Response.Cookies["ASP.NET_SessionID"].HttpOnly = true;
+            Response.Cookies["ASP.NET_SessionId"].HttpOnly = true;
         }
 
         protected void Session_End(object sender, EventArgs e)
@@ -199,6 +200,12 @@ namespace ASC.Web.Studio
                     if (!string.IsNullOrEmpty(cookie))
                     {
                         authenticated = SecurityContext.AuthenticateMe(cookie);
+
+                        if (!authenticated)
+                        {
+                            Auth.ProcessLogout();
+                            return false;
+                        }
                     }
                 }
 

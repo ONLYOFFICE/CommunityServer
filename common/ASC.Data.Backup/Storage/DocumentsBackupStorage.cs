@@ -97,7 +97,7 @@ namespace ASC.Data.Backup.Storage
                 using (var source = fileDao.GetFileStream(file))
                 using (var destination = IoFile.OpenWrite(targetLocalPath))
                 {
-                    source.CopyTo(destination);
+                    source.StreamCopyTo(destination);
                 }
             }
         }

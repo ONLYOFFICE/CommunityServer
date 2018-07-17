@@ -324,33 +324,46 @@ namespace ASC.Web.CRM.Classes
                                                    }
                                                });
 
-                    var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportContactsToCSV(contactData, contactInfos, _daoFactory)));
-                    zipEntryData.StreamCopyTo(zipStream);
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportContactsToCSV(contactData, contactInfos, _daoFactory))))
+                    {
+                        zipEntryData.StreamCopyTo(zipStream);
+                    }
 
                     zipStream.PutNextEntry("oppotunities.csv");
                     var dealData = dealDao.GetAllDeals();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCSV(dealData, _daoFactory)));
-                    zipEntryData.StreamCopyTo(zipStream);
+
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCSV(dealData, _daoFactory))))
+                    {
+                        zipEntryData.StreamCopyTo(zipStream);
+                    }
 
                     zipStream.PutNextEntry("cases.csv");
                     var casesData = casesDao.GetAllCases();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCSV(casesData, _daoFactory)));
-                    zipEntryData.StreamCopyTo(zipStream);
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCSV(casesData, _daoFactory))))
+                    {
+                        zipEntryData.StreamCopyTo(zipStream);
+                    }
 
                     zipStream.PutNextEntry("tasks.csv");
                     var taskData = taskDao.GetAllTasks();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCSV(taskData, _daoFactory)));
-                    zipEntryData.StreamCopyTo(zipStream);
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCSV(taskData, _daoFactory))))
+                    {
+                        zipEntryData.StreamCopyTo(zipStream);
+                    }
 
                     zipStream.PutNextEntry("history.csv");
                     var historyData = historyDao.GetAllItems();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCSV(historyData, _daoFactory)));
-                    zipEntryData.StreamCopyTo(zipStream);
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCSV(historyData, _daoFactory))))
+                    {
+                        zipEntryData.StreamCopyTo(zipStream);
+                    }
 
                     zipStream.PutNextEntry("products_services.csv");
                     var invoiceItemData = invoiceItemDao.GetAll();
-                    zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCSV(invoiceItemData, _daoFactory)));
-                    zipEntryData.StreamCopyTo(zipStream);
+                    using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCSV(invoiceItemData, _daoFactory))))
+                    {
+                        zipEntryData.StreamCopyTo(zipStream);
+                    }
 
                     zipStream.Flush();
                     zipStream.Close();

@@ -51,7 +51,7 @@ namespace ASC.Web.Files
                     .Select("f.create_by")
                     .Select("sum(f.content_length) as size")
                     .InnerJoin("files_folder_tree t", Exp.EqColumns("f.folder_id", "t.folder_id"))
-                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("t.parent_id", "b.left_node"))
+                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("CONVERT(t.parent_id USING utf8)", "b.left_node"))
                     .Where("b.tenant_id", TenantProvider.CurrentTenantID)
                     .Where(Exp.Like("b.right_node", "files/my/", SqlLike.StartWith) | Exp.Like("b.right_node", "files/trash/", SqlLike.StartWith))
                     .GroupBy(1);
@@ -60,7 +60,7 @@ namespace ASC.Web.Files
                     .Select("'" + Constants.LostUser.ID + "'")
                     .Select("sum(f.content_length) as size")
                     .InnerJoin("files_folder_tree t", Exp.EqColumns("f.folder_id", "t.folder_id"))
-                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("t.parent_id", "b.left_node"))
+                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("CONVERT(t.parent_id USING utf8)", "b.left_node"))
                     .Where("b.tenant_id", TenantProvider.CurrentTenantID)
                     .Where("b.right_node", "files/common/");
 
@@ -99,7 +99,7 @@ namespace ASC.Web.Files
                 var query = new SqlQuery("files_file f")
                     .Select("sum(f.content_length) as size")
                     .InnerJoin("files_folder_tree t", Exp.EqColumns("f.folder_id", "t.folder_id"))
-                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("t.parent_id", "b.left_node"))
+                    .InnerJoin("files_bunch_objects b", Exp.EqColumns("f.tenant_id", "b.tenant_id") & Exp.EqColumns("CONVERT(t.parent_id USING utf8)", "b.left_node"))
                     .Where("b.tenant_id", TenantProvider.CurrentTenantID)
                     .Where("f.create_by", userId)
                     .Where(Exp.Like("b.right_node", "files/my/", SqlLike.StartWith) | Exp.Like("b.right_node", "files/trash/", SqlLike.StartWith));

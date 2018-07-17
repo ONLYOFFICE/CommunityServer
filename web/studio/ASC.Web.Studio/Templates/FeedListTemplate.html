@@ -54,12 +54,12 @@
                 </div>
                 <div class="date">
                     {{if isToday}}
-                    <span>${ASC.Resources.Master.FeedResource.TodayAt} ${displayModifiedTime}</span>
+                    <span>${ASC.Resources.Master.FeedResource.TodayAt} ${displayCreatedTime}</span>
                     {{else isYesterday}}
-                    <span>${ASC.Resources.Master.FeedResource.YesterdayAt} ${displayModifiedTime}</span>
+                    <span>${ASC.Resources.Master.FeedResource.YesterdayAt} ${displayCreatedTime}</span>
                     {{else}}
-                    <span>${displayModifiedDate}</span>
-                    <span class="time">${displayModifiedTime}</span>
+                    <span>${displayCreatedDate}</span>
+                    <span class="time">${displayCreatedTime}</span>
                     {{/if}}
                 </div>
                 {{if author && !excludeAuthorBox}}

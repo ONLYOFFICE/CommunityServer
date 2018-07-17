@@ -29,7 +29,9 @@ using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Users;
+using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using System.Web;
 using Resources;
@@ -52,6 +54,7 @@ namespace ASC.Web.Studio.UserControls.Users
         protected bool UserHasAvatar;
         protected bool HasActions;
         protected bool IsAdmin;
+        protected string SubscribeBtnText;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,6 +63,10 @@ namespace ASC.Web.Studio.UserControls.Users
             UserHasAvatar = !UserPhotoManager.GetPhotoAbsoluteWebPath(ProfileHelper.UserInfo.ID).Contains("default/images/");
             HasActions = Actions.AllowEdit || Actions.AllowAddOrDelete;
             IsAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+            SubscribeBtnText =
+                StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID)
+                    ? ResourceJS.TipsAndTricksUnsubscribeBtn
+                    : ResourceJS.TipsAndTricksSubscribeBtn;
 
             if (HasActions && Actions.AllowAddOrDelete)
             {

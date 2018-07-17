@@ -242,6 +242,14 @@ namespace ASC.Files.Core.Data
                 throw FileSizeComment.GetFileSizeException(SetupInfo.MaxChunkedUploadSize);
             }
 
+            if (CoreContext.Configuration.Personal && SetupInfo.IsVisibleSettings("PersonalMaxSpace"))
+            {
+                if (CoreContext.Configuration.PersonalMaxSpace - Global.GetUserUsedSpace(file.ID == null ? SecurityContext.CurrentAccount.ID : file.CreateBy) < file.ContentLength)
+                {
+                    throw FileSizeComment.GetPersonalFreeSpaceException(CoreContext.Configuration.PersonalMaxSpace);
+                }
+            }
+
             var isNew = false;
 
             lock (syncRoot)

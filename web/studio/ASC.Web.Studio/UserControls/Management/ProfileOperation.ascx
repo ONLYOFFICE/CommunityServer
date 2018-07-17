@@ -3,11 +3,17 @@
 
 <div id="operationBlock" runat="server">
     <div class="confirm-block-title header-base">
-        <%= Resource.DeleteProfileConfirm%>
+        <%= Resource.DeleteProfileConfirmation %>
     </div>
-
+    <%= string.Format(Resource.DeleteProfileConfirmationInfo, "<a href='https://www.onlyoffice.com/legalterms.aspx' target='_blank'>", "</a>")%>
     <div class="big-button-container">
-        <asp:LinkButton ID="lblDelete" runat="server" CssClass="button blue big" OnClick="DeleteProfile"><%= Resource.DeleteProfileButton%></asp:LinkButton>
+        <asp:LinkButton ID="lblDelete" runat="server" CssClass="button blue big" OnClick="DeleteProfile"><%= Resource.DeleteProfileBtn%></asp:LinkButton>
     </div>
 </div>
-<div class="confirm-block-text" id="result" runat="server"></div>
+<div id="result" runat="server">
+    <div class="confirm-block-title header-base">
+        <%= Resource.DeleteProfileSuccessMessage %>
+    </div>
+    <%= string.Format(Resource.DeleteProfileSuccessMessageInfo, "<a href='https://www.onlyoffice.com/legalterms.aspx' target='_blank'>", "</a>")%>
+</div>
+<div id="errorBlock" runat="server"></div>

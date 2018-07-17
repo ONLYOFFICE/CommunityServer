@@ -567,7 +567,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
     };
     
     function isInt(input) {
-        return input && typeof input === "number";
+        return typeof input === "number";
     };
     
     var showPopup = function (prjid, taskid, taskName, timeId, time, date, description, responsible) {

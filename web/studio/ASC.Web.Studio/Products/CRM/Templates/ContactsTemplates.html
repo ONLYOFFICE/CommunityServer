@@ -171,7 +171,7 @@
             </div>
             {{if isCompany == false && company != null}}
                 <div class="contactTitle">
-                    ${ASC.CRM.Resources.CRMContactResource.Company}:
+                    ${ASC.CRM.Resources.CRMContactResource.Company}:&nbsp;
                     <a href="default.aspx?id=${company.id}" data-id="${company.id}" id="contact_${id}_company_${company.id}" class="linkMedium crm-companyInfoCardLink">
                         ${company.displayName}
                     </a>

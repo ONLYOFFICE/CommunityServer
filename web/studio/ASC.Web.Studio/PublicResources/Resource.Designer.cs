@@ -3029,6 +3029,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Got it!.
+        /// </summary>
+        public static string CookieMessButton {
+            get {
+                return ResourceManager.GetString("CookieMessButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This website uses cookies. By continuing to browse the website you agree to our {0}privacy policy{1}.
+        /// </summary>
+        public static string CookieMessText {
+            get {
+                return ResourceManager.GetString("CookieMessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}Session Lifetime{1} allows to set time (in minutes) before the portal users will need to enter the portal credentials again in order to access the portal.{2}After save all the users will be logged out from portal..
         /// </summary>
         public static string CookieSettingsHelp {
@@ -3473,6 +3491,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete my account.
+        /// </summary>
+        public static string DeleteProfileBtn {
+            get {
+                return ResourceManager.GetString("DeleteProfileBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete my profile.
         /// </summary>
         public static string DeleteProfileButton {
@@ -3482,11 +3509,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attention! You are deleting your profile from portal.
+        ///   Looks up a localized string similar to Attention! You are about to delete your account..
         /// </summary>
-        public static string DeleteProfileConfirm {
+        public static string DeleteProfileConfirmation {
             get {
-                return ResourceManager.GetString("DeleteProfileConfirm", resourceCulture);
+                return ResourceManager.GetString("DeleteProfileConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By clicking the &quot;Delete my account&quot; button you agree with our {0}Privacy policy{1}..
+        /// </summary>
+        public static string DeleteProfileConfirmationInfo {
+            get {
+                return ResourceManager.GetString("DeleteProfileConfirmationInfo", resourceCulture);
             }
         }
         
@@ -3500,11 +3536,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your profile has been successfully deleted.
+        ///   Looks up a localized string similar to Your account has been successfully deleted..
         /// </summary>
-        public static string DeleteProfileSuccess {
+        public static string DeleteProfileSuccessMessage {
             get {
-                return ResourceManager.GetString("DeleteProfileSuccess", resourceCulture);
+                return ResourceManager.GetString("DeleteProfileSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See our {0}Privacy policy{1} to learn more about deleting your account and data accociated with it..
+        /// </summary>
+        public static string DeleteProfileSuccessMessageInfo {
+            get {
+                return ResourceManager.GetString("DeleteProfileSuccessMessageInfo", resourceCulture);
             }
         }
         
@@ -8289,11 +8334,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disk space quota exceeded.
+        /// </summary>
+        public static string PersonalFreeSpaceException {
+            get {
+                return ResourceManager.GetString("PersonalFreeSpaceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account Login.
         /// </summary>
         public static string PersonalLogin {
             get {
                 return ResourceManager.GetString("PersonalLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Storage space amount is about to be exceeded: {0}.
+        /// </summary>
+        public static string PersonalTariffExceedLimit {
+            get {
+                return ResourceManager.GetString("PersonalTariffExceedLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are running out of free storage space. When the storage quota is exceeded you will not be able to create or upload new files, and all the existing file changes will be discarded.{2}You can remove the unnecessary files or {0}contact our support team{1} to find out how you can get additional free space..
+        /// </summary>
+        public static string PersonalTariffExceedLimitInfoText {
+            get {
+                return ResourceManager.GetString("PersonalTariffExceedLimitInfoText", resourceCulture);
             }
         }
         
@@ -8681,6 +8753,24 @@ namespace Resources {
         public static string RegistryButtonStartEditing {
             get {
                 return ResourceManager.GetString("RegistryButtonStartEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I want to subscribe to the ONLYOFFICE newsletter.
+        /// </summary>
+        public static string RegistrySettingSpam {
+            get {
+                return ResourceManager.GetString("RegistrySettingSpam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I agree to ONLYOFFICE {0}Terms and conditions{1} and {2}Privacy statement{3}.
+        /// </summary>
+        public static string RegistrySettingTerms {
+            get {
+                return ResourceManager.GetString("RegistrySettingTerms", resourceCulture);
             }
         }
         
@@ -10567,6 +10657,24 @@ namespace Resources {
         public static string TimeZone {
             get {
                 return ResourceManager.GetString("TimeZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email notification with tips and tricks.
+        /// </summary>
+        public static string TipsAndTricsSubscriptionDescription {
+            get {
+                return ResourceManager.GetString("TipsAndTricsSubscriptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tips&amp;Tricks.
+        /// </summary>
+        public static string TipsAndTricsSubscriptionName {
+            get {
+                return ResourceManager.GetString("TipsAndTricsSubscriptionName", resourceCulture);
             }
         }
         

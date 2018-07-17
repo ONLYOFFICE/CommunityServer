@@ -111,11 +111,8 @@
                                 <span id="titleUserProfile" class="field-value"><%= HttpUtility.HtmlEncode(UserInfo.Title) %></span>
                             </div>
                             <% } %>
-                            
-                            <% if (Actions.AllowEdit && UserInfo.Status != EmployeeStatus.Terminated && UserInfo.ActivationStatus == EmployeeActivationStatus.Activated)
-                               { %>
-                            
-                            <% if (!UserInfo.IsLDAP() && !UserInfo.IsSSO())
+
+                            <% if (Actions.AllowEdit && UserInfo.Status != EmployeeStatus.Terminated && UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !UserInfo.IsLDAP() && !UserInfo.IsSSO())
                                { %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.Password %>:</span>
@@ -123,10 +120,10 @@
                                 <a onclick="PasswordTool.ShowPwdReminderDialog('1','<%= UserInfo.Email %>'); return false;" class="baseLinkAction">&nbsp;</a>
                             </div> 
                             <% } %>
+
                             <% if (UserInfo.IsMe())
                                { %>
                             <asp:PlaceHolder ID="_phLanguage" runat="server"></asp:PlaceHolder>
-                            <% } %>
                             <% } %>
 
                             <% if (ShowPrimaryMobile)

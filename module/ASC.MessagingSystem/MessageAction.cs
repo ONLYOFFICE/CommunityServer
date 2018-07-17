@@ -478,6 +478,8 @@ namespace ASC.MessagingSystem
 
         CustomNavigationSettingsUpdated = 6034,
 
+        AuditSettingsUpdated = 6035,
+
         DocumentServiceLocationSetting = 5037,
         AuthorizationKeysSetting = 5038,
         FullTextSearchSetting = 5039,

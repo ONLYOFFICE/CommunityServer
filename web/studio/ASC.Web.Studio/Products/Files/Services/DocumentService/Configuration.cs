@@ -442,16 +442,25 @@ namespace ASC.Web.Files.Services.DocumentService
             public class PluginsConfig
             {
                 [DataMember(Name = "pluginsData", EmitDefaultValue = false)]
-                public string[] pluginsData
+                public string[] PluginsData
                 {
                     set { }
                     get
                     {
-                        return new string[]
-                            {
-                                 KeyStorage.Get("easyBibappkey") != "" ? CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/easybib/config.json") : null,
-                                 (KeyStorage.Get("wpClientId") != "" && KeyStorage.Get("wpClientSecret") != "" && KeyStorage.Get("wpRedirectUrl") != "") ? CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/wordpress/config.json"): null
-                            }; 
+                        var plugins = new List<string>();
+                        if (!string.IsNullOrEmpty(KeyStorage.Get("easyBibappkey")))
+                        {
+                            plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/easybib/config.json"));
+                        }
+
+                        if (!string.IsNullOrEmpty(KeyStorage.Get("wpClientId")) &&
+                            !string.IsNullOrEmpty(KeyStorage.Get("wpClientSecret")) &&
+                            !string.IsNullOrEmpty(KeyStorage.Get("wpRedirectUrl")))
+                        {
+                            plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/wordpress/config.json"));
+                        }
+
+                        return plugins.ToArray();
                     }
                 }
             }

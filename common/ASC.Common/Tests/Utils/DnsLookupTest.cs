@@ -23,13 +23,14 @@
  *
 */
 
-using System;
-using System.Linq;
-using ASC.Common.Utils;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+#if DEBUG
 namespace ASC.Common.Tests.Utils
 {
+    using System;
+    using System.Linq;
+    using ASC.Common.Utils;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    
     [TestClass]
     public class DnsLookupTest
     {
@@ -111,7 +112,7 @@ namespace ASC.Common.Tests.Utils
         public void TxtSpfExists()
         {
             const string domain = "onlyoffice.com";
-            const string txt_record = "v=spf1 a mx mx:avsmedia.net a:smtp1.uservoice.com include:amazonses.com -all";
+            const string txt_record = "v=spf1 a mx mx:avsmedia.net a:smtp1.uservoice.com a:qamail.teamlab.info include:amazonses.com -all";
 
             var dnsLoopup = new DnsLookup();
 
@@ -183,3 +184,4 @@ namespace ASC.Common.Tests.Utils
         }
     }
 }
+#endif

@@ -49,18 +49,20 @@ namespace ASC.Web.Studio.Core.SMS
         public static readonly TwilioProvider TwilioProvider;
 
         public static readonly ClickatellProvider ClickatellUSAProvider = null;
+        public static readonly TwilioProvider TwilioSaaSProvider = null;
 
         static SmsProviderManager()
         {
             SmscProvider = new SmscProvider();
             ClickatellProvider = new ClickatellProvider(KeyStorage.Get("clickatellapiKey"));
             ClickatellUSAProvider = new ClickatellProvider(KeyStorage.Get("clickatellUSAapiKey"), KeyStorage.Get("clickatellUSAsender"));
-            TwilioProvider = new TwilioProvider();
+            TwilioProvider = new TwilioProvider(TwilioLoginProvider.TwilioAccountSid, TwilioLoginProvider.TwilioAuthToken, KeyStorage.Get("twiliosender"));
+            TwilioSaaSProvider = new TwilioProvider(KeyStorage.Get("twilioSaaSAccountSid"), KeyStorage.Get("twilioSaaSAuthToken"), KeyStorage.Get("twilioSaaSsender"));
         }
 
         public static bool Enabled()
         {
-            return SmscProvider.Enable() || ClickatellProvider.Enable() || ClickatellUSAProvider.Enable() || TwilioProvider.Enable();
+            return SmscProvider.Enable() || ClickatellProvider.Enable() || ClickatellUSAProvider.Enable() || TwilioProvider.Enable() || TwilioSaaSProvider.Enable();
         }
 
         public static bool SendMessage(string number, string message)
@@ -83,6 +85,11 @@ namespace ASC.Web.Studio.Core.SMS
             if (provider == null && TwilioProvider.Enable())
             {
                 provider = TwilioProvider;
+            }
+
+            if (provider == null && TwilioSaaSProvider.Enable())
+            {
+                provider = TwilioSaaSProvider;
             }
 
             if (SmscProvider.Enable()
@@ -266,6 +273,7 @@ namespace ASC.Web.Studio.Core.SMS
     {
         private readonly string _secret;
         private readonly string _sender;
+
         public ClickatellProvider(string secret, string sender = null)
         {
             _secret = secret;
@@ -298,33 +306,62 @@ namespace ASC.Web.Studio.Core.SMS
 
     public class TwilioProvider : SmsProvider
     {
+        private readonly string _key;
+        private readonly string _secret;
+        private readonly string _sender;
+
+        public TwilioProvider(string key, string secret, string sender)
+        {
+            _key = key;
+            _secret = secret;
+            _sender = sender;
+        }
+
+        protected override string Key
+        {
+            get { return _key; }
+            set { }
+        }
+
+        protected override string Secret
+        {
+            get { return _secret; }
+            set { }
+        }
+
         protected override string Sender
         {
-            get { return KeyStorage.Get("twiliosender"); }
+            get { return _sender; }
             set { }
         }
 
         public override bool Enable()
         {
             return
-                !string.IsNullOrEmpty(TwilioLoginProvider.TwilioAccountSid)
-                && !string.IsNullOrEmpty(TwilioLoginProvider.TwilioAuthToken)
+                !string.IsNullOrEmpty(Key)
+                && !string.IsNullOrEmpty(Secret)
                 && !string.IsNullOrEmpty(Sender);
         }
 
         public override bool SendMessage(string number, string message)
         {
             if (!number.StartsWith("+")) number = "+" + number;
-            var twilioRestClient = new TwilioRestClient(TwilioLoginProvider.TwilioAccountSid, TwilioLoginProvider.TwilioAuthToken);
+            var twilioRestClient = new TwilioRestClient(Key, Secret);
 
-            var smsMessage = MessageResource.Create(new PhoneNumber(number), body: message, from: new PhoneNumber(Sender), client: twilioRestClient);
-            Log.InfoFormat("SMS was sent to {0}, status: {1}", number, smsMessage.Status);
-            //if (smsMessage.RestException == null)
-            //{
-            //    return true;
-            //}
-
-            //Log.Error("Failed to send sms message: " + smsMessage.RestException.Message);
+            try
+            {
+                var smsMessage = MessageResource.Create(new PhoneNumber(number), body: message, from: new PhoneNumber(Sender), client: twilioRestClient);
+                Log.InfoFormat("SMS was sent to {0}, status: {1}", number, smsMessage.Status);
+                if (!smsMessage.ErrorCode.HasValue)
+                {
+                    return true;
+                }
+                Log.Error("Failed to send sms. code: " + smsMessage.ErrorCode.Value + " message: " + smsMessage.ErrorMessage);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Failed to send sms message via tiwilio", ex);
+            }
 
             return false;
         }

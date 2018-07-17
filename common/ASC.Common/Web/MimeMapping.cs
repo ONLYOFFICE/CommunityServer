@@ -214,6 +214,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".g", "text/plain");
             AddMimeMapping(".g3", "image/g3fax");
             AddMimeMapping(".gdoc", "application/vnd.google-apps.document");
+            AddMimeMapping(".gdraw", "application/vnd.google-apps.drawing");
             AddMimeMapping(".gif", "image/gif");
             AddMimeMapping(".gl", "video/gl");
             AddMimeMapping(".gl", "video/x-gl");

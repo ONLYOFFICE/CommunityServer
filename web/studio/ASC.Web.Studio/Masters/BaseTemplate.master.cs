@@ -120,7 +120,7 @@ namespace ASC.Web.Studio.Masters
                 TopContent.Controls.Add(TopStudioPanel);
             }
 
-            if (!EmailActivated && !CoreContext.Configuration.Personal && SecurityContext.IsAuthenticated)
+            if (!EmailActivated && !CoreContext.Configuration.Personal && SecurityContext.IsAuthenticated && EmailActivationSettings.LoadForCurrentUser().Show)
             {
                 activateEmailPanel.Controls.Add(LoadControl(ActivateEmailPanel.Location));
             }
@@ -205,7 +205,7 @@ namespace ASC.Web.Studio.Masters
             get
             {
                 var usr = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                return usr.CreateDate.Date <= DateTime.UtcNow.Date || usr.ActivationStatus == EmployeeActivationStatus.Activated;
+                return usr.CreateDate.Date == DateTime.UtcNow.Date || usr.ActivationStatus == EmployeeActivationStatus.Activated;
             }
         }
 

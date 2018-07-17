@@ -67,7 +67,7 @@ var FileUploadManager = new function() {
     };
 
     this.DisableBrowseBtn = function (disable) {
-        jq("#fileupload").prop("disabled", disable).css("visibility", disable ? "hidden": "visible");
+        jq("#fileupload").prop("disabled", disable);
     };
 
     this.GetFiles = function () {
@@ -248,7 +248,8 @@ var FileUploadManager = new function() {
             .attr("type", "file")
             .attr("multiple", "multiple")
             .css("width", "0")
-            .css("height", "0");
+            .css("height", "0")
+            .hide();
 
         inputObj.appendTo(buttonObj.parent());
 

@@ -93,3 +93,25 @@
 <% } %>
 
 <% } %>
+
+<% if (ASC.Core.CoreContext.Configuration.Personal)
+   { %>
+<div id="personalLimitExceedStoragePanel" style="display: none">
+    <sc:Container runat="server" ID="personalLimitExceedStorageDialog">
+        <Header><%= UserControlsCommonResource.PersonalStorageLimitExceededHeader%></Header>
+        <Body>
+            <div class="tariff-limitexceed-storage">
+                <span class="header-base-medium"><%= UserControlsCommonResource.PersonalStorageLimitExceededSubHeader%></span>
+                <br />
+                <br />
+                <%= UserControlsCommonResource.PersonalStorageLimitExceededBody %>
+            </div>
+            <div class="middle-button-container">
+                <a class="blue button medium" target="_blank" href="https://support.onlyoffice.com"><%= UserControlsCommonResource.ContactSupportBtn%></a>
+                <span class="splitter-buttons"></span>
+                <a class="gray button medium" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CancelButton%></a>
+            </div>
+        </Body>
+    </sc:Container>
+</div>
+<% } %>

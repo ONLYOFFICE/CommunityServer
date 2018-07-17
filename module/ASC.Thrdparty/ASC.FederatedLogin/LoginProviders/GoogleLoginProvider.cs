@@ -50,7 +50,7 @@ namespace ASC.FederatedLogin.LoginProviders
         public const string GoogleUrlFileUpload = "https://www.googleapis.com/upload/drive/v3/files";
         public const string GoogleUrlProfile = "https://www.googleapis.com/plus/v1/people/";
 
-        public static readonly string[] GoogleDriveExt = new[] { ".gdoc", ".gsheet", ".gslides" };
+        public static readonly string[] GoogleDriveExt = new[] { ".gdoc", ".gsheet", ".gslides", ".gdraw" };
         public static string GoogleDriveMimeTypeFolder = "application/vnd.google-apps.folder";
         public static string FilesField = "id,name,mimeType,parents,createdTime,modifiedTime,owners/displayName,lastModifyingUser/displayName,capabilities/canEdit,size";
 

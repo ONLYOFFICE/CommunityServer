@@ -48,6 +48,7 @@ namespace ASC.Web.Studio.UserControls.Management
             tariffLimitExceedUsersDialog.Options.IsPopup = true;
             tariffLimitExceedStorageDialog.Options.IsPopup = true;
             tariffLimitExceedFileSizeDialog.Options.IsPopup = true;
+            personalLimitExceedStorageDialog.Options.IsPopup = true;
 
             var quota = TenantExtra.GetTenantQuota();
             IsFreeTariff = (quota.Free || quota.NonProfit || quota.Trial) && !quota.Open;

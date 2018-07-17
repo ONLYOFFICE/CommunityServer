@@ -195,6 +195,9 @@ function initActionMenu() {
         if (jq(parent).hasClass("delete-self")) {
             ProfileManager.RemoveUser(userId, displayName, userName, function () { window.location.replace("/products/people/"); });
         }
+        if (jq(parent).hasClass("subscribe-tips")) {
+            onChangeTipsSubscription(jq(this));
+        }
     });
 }
 
@@ -242,6 +245,21 @@ function onChangeUserStatus(userID, status, isVisitor) {
             //}
             //toastr.success(ASC.People.Resources.PeopleJSResource.SuccessChangeUserStatus);
             //initTenantQuota();
+        },
+        before: LoadingBanner.displayLoading,
+        after: LoadingBanner.hideLoading,
+        error: function (params, errors) {
+            toastr.error(errors);
+        }
+    });
+}
+
+function onChangeTipsSubscription(obj) {
+    Teamlab.updateTipsSubscription({
+        success: function (params, data) {
+            var text = data ? ASC.Resources.Master.Resource.TipsAndTricksUnsubscribeBtn : ASC.Resources.Master.Resource.TipsAndTricksSubscribeBtn;
+            obj.attr("title", text).html(text);
+            toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
         },
         before: LoadingBanner.displayLoading,
         after: LoadingBanner.hideLoading,

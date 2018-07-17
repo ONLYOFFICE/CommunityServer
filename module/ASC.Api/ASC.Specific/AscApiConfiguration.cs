@@ -32,23 +32,9 @@ namespace ASC.Specific
     {
         public const uint DefaultItemsPerPage = 25;
 
-        public string ApiPrefix
-        {
-            get;
-            set;
-        }
-
-        public string ApiVersion
-        {
-            get;
-            set;
-        }
-
-        public char ApiSeparator
-        {
-            get;
-            set;
-        }
+        public string ApiPrefix { get; set; }
+        public string ApiVersion { get; set; }
+        public char ApiSeparator { get; set; }
 
         public AscApiConfiguration(string version)
             : this(string.Empty, version, DefaultItemsPerPage)
@@ -68,9 +54,10 @@ namespace ASC.Specific
             ItemsPerPage = maxPage;
         }
 
+        private string basePath;
         public string GetBasePath()
         {
-            return (ApiPrefix + ApiSeparator + ApiVersion + ApiSeparator).TrimStart('/', '~');
+            return basePath ?? (basePath = (ApiPrefix + ApiSeparator + ApiVersion + ApiSeparator).TrimStart('/', '~'));
         }
 
         public uint ItemsPerPage { get; private set; }

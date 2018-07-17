@@ -48,6 +48,7 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Quota;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Utility;
@@ -614,6 +615,20 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
+        /// change tips&amp;tricks subscription
+        /// </summary>
+        /// <returns>subscription state</returns>
+        [Update("tips/change/subscription")]
+        public bool UpdateTipsSubscription()
+        {
+            var isSubscribe = StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID);
+
+            StudioNotifyService.Instance.SubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID, !isSubscribe);
+
+            return !isSubscribe;
+        }
+
+        /// <summary>
         /// Complete Wizard
         /// </summary>
         /// <returns>WizardSettings</returns>
@@ -868,6 +883,21 @@ namespace ASC.Api.Settings
             settings.Save();
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.CustomNavigationSettingsUpdated);
+        }
+
+        /// <summary>
+        /// update email activation settings
+        /// </summary>
+        /// <param name="show">show email activation panel for user</param>
+        /// <returns></returns>
+        [Update("emailactivation")]
+        public EmailActivationSettings UpdateEmailActivationSettings(bool show)
+        {
+            var settings = new EmailActivationSettings { Show = show };
+
+            settings.SaveForCurrentUser();
+
+            return settings;
         }
     }
 }

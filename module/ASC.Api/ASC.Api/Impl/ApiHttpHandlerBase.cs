@@ -36,7 +36,7 @@ using ASC.Api.Enums;
 using ASC.Api.Interfaces;
 using ASC.Api.Logging;
 using ASC.Api.Utils;
-
+using ASC.Core;
 using Autofac;
 
 namespace ASC.Api.Impl
@@ -123,7 +123,8 @@ namespace ASC.Api.Impl
             {
                 ApiManager = Container.Resolve<IApiManager>();
                 RouteContext = new RequestContext(context, RouteData);
-                ApiContext = Container.Resolve<ApiContext>(new NamedParameter("requestContext", RouteContext));
+                var config = Container.Resolve<IApiConfiguration>();
+                ApiContext = Container.Resolve<ApiContext>(new NamedParameter("requestContext", RouteContext), new NamedParameter("apiConfiguration", config));
                 ApiResponce = Container.Resolve<IApiStandartResponce>();
 
                 //NOTE: Don't register anything it will be resolved when needed

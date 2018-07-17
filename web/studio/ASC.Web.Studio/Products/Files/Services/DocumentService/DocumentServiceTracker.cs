@@ -252,14 +252,14 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 try
                 {
-                    file = EntryManager.SaveEditing(fileId, null, fileData.Url, null, string.Empty, string.Join("; ", comments), false);
+                    file = EntryManager.SaveEditing(fileId, null, DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), null, string.Empty, string.Join("; ", comments), false);
                     saved = fileData.Status == TrackerStatus.MustSave;
                 }
                 catch (Exception ex)
                 {
                     Global.Logger.Error(string.Format("DocService save error. File id: '{0}'. UserId: {1}. DocKey '{2}'. DownloadUri: {3}", fileId, userId, fileData.Key, fileData.Url), ex);
 
-                    StoringFileAfterError(fileId, userId.ToString(), fileData.Url);
+                    StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
                 }
             }
 
@@ -269,7 +269,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 if (user != null)
                     FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
 
-                SaveHistory(file, (fileData.History ?? "").ToString(), fileData.ChangesUrl);
+                SaveHistory(file, (fileData.History ?? "").ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.ChangesUrl));
             }
 
             Global.SocketManager.FilesChangeEditors(fileId, true);
@@ -303,7 +303,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     case MailMergeType.AttachDocx:
                     case MailMergeType.AttachPdf:
-                        var downloadRequest = (HttpWebRequest) WebRequest.Create(fileData.Url);
+                        var downloadRequest = (HttpWebRequest) WebRequest.Create(DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
 
                         // hack. http://ubuntuforums.org/showthread.php?t=1841740
                         if (WorkContext.IsMono)
@@ -339,7 +339,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         break;
 
                     case MailMergeType.Html:
-                        var httpWebRequest = (HttpWebRequest) WebRequest.Create(fileData.Url);
+                        var httpWebRequest = (HttpWebRequest) WebRequest.Create(DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
 
                         // hack. http://ubuntuforums.org/showthread.php?t=1841740
                         if (WorkContext.IsMono)

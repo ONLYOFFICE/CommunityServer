@@ -32,7 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;$(Constants)</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -40,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;$(Constants)</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -233,6 +233,7 @@
     <Content Include="About.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\EmailActivationSettings.cs" />
     <Compile Include="Core\CustomNavigationSettings.cs" />
     <Compile Include="Core\HelpCenter\BaseHelpCenterStorage.cs" />
     <Compile Include="Core\Quota\QuotaSync.cs" />
@@ -1203,6 +1204,7 @@
     <Content Include="skins\bright-blue\img\edit_lock.png" />
     <Content Include="skins\dark-green\img\edit_lock.png" />
     <Content Include="skins\deep-blue\img\edit_lock.png" />
+    <Content Include="skins\default\ImagesCSS\close.png" />
     <Content Include="skins\default\Images\exclamation.png" />
     <Content Include="PreparationPortal.aspx" />
     <Content Include="skins\bright-blue\img\advfilter-icons.png" />

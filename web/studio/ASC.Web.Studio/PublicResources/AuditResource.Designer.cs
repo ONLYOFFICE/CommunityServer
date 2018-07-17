@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can download the report for the data available during the selected storage period to view the detailed statistics. Please note, that the logging is currently enabled for the Documents, Projects, CRM and People modules, as well as for portal settings..
+        /// </summary>
+        public static string AuditDownloadText {
+            get {
+                return ResourceManager.GetString("AuditDownloadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the latest activity is shown at this page. The data itself is stored during the period, which can be entered to the field below (measured in days, 180 maximum):.
+        /// </summary>
+        public static string AuditLatestText {
+            get {
+                return ResourceManager.GetString("AuditLatestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When the portal is actively used, all the user activity will be displayed here: document creation and editing, participation in projects, CRM and other modules, and various other information..
         /// </summary>
         public static string AuditTrailEmptyScreenDscr {
@@ -142,20 +160,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only the latest activity is shown at this page. Download the report for the latest half year to view the detailed statistics. Please note, that the logging is currently enabled for the Documents, Projects, CRM and People modules, as well as for portal settings..
+        ///   Looks up a localized string similar to You can download the report for the data available during the selected storage period to view the detailed statistics..
         /// </summary>
-        public static string LastAuditEventsText {
+        public static string LoginDownloadText {
             get {
-                return ResourceManager.GetString("LastAuditEventsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only the latest activity is shown at this page. Download the report for the latest half year to view the detailed statistics..
-        /// </summary>
-        public static string LastLoginEventsText {
-            get {
-                return ResourceManager.GetString("LastLoginEventsText", resourceCulture);
+                return ResourceManager.GetString("LoginDownloadText", resourceCulture);
             }
         }
         
@@ -192,6 +201,24 @@ namespace Resources {
         public static string LoginHistoryTitle {
             get {
                 return ResourceManager.GetString("LoginHistoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the latest activity is shown at this page. The data itself is stored during the period, which can be entered to the field below (measured in days, 180 maximum):.
+        /// </summary>
+        public static string LoginLatestText {
+            get {
+                return ResourceManager.GetString("LoginLatestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Period of storage.
+        /// </summary>
+        public static string StoragePeriod {
+            get {
+                return ResourceManager.GetString("StoragePeriod", resourceCulture);
             }
         }
         

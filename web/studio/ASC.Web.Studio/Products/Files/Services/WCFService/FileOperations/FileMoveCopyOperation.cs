@@ -350,7 +350,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 {
                                     var newFile = conflict;
                                     newFile.Version++;
-                                    newFile.ContentLength = conflict.ContentLength;
+                                    newFile.ContentLength = file.ContentLength;
                                     newFile.PureTitle = file.PureTitle;
                                     newFile.ConvertedType = file.ConvertedType;
                                     newFile.Comment = FilesCommonResource.CommentOverwrite;

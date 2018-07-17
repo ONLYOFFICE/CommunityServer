@@ -120,6 +120,12 @@
   <data name="ActionCol" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="AuditDownloadText" xml:space="preserve">
+    <value>You can download the report for the data available during the selected storage period to view the detailed statistics. Please note, that the logging is currently enabled for the Documents, Projects, CRM and People modules, as well as for portal settings.</value>
+  </data>
+  <data name="AuditLatestText" xml:space="preserve">
+    <value>Only the latest activity is shown at this page. The data itself is stored during the period, which can be entered to the field below (measured in days, 180 maximum):</value>
+  </data>
   <data name="AuditTrailEmptyScreenDscr" xml:space="preserve">
     <value>When the portal is actively used, all the user activity will be displayed here: document creation and editing, participation in projects, CRM and other modules, and various other information.</value>
   </data>
@@ -144,11 +150,8 @@
   <data name="GenerateText" xml:space="preserve">
     <value>Please wait while the report is being generated...</value>
   </data>
-  <data name="LastAuditEventsText" xml:space="preserve">
-    <value>Only the latest activity is shown at this page. Download the report for the latest half year to view the detailed statistics. Please note, that the logging is currently enabled for the Documents, Projects, CRM and People modules, as well as for portal settings.</value>
-  </data>
-  <data name="LastLoginEventsText" xml:space="preserve">
-    <value>Only the latest activity is shown at this page. Download the report for the latest half year to view the detailed statistics.</value>
+  <data name="LoginDownloadText" xml:space="preserve">
+    <value>You can download the report for the data available during the selected storage period to view the detailed statistics.</value>
   </data>
   <data name="LoginHistoryEmptyScreenDscr" xml:space="preserve">
     <value>When the portal is actively used, all the user successful login activity as well as the unsuccessful login attempts will be displayed here.</value>
@@ -161,6 +164,12 @@
   </data>
   <data name="LoginHistoryTitle" xml:space="preserve">
     <value>Login History</value>
+  </data>
+  <data name="LoginLatestText" xml:space="preserve">
+    <value>Only the latest activity is shown at this page. The data itself is stored during the period, which can be entered to the field below (measured in days, 180 maximum):</value>
+  </data>
+  <data name="StoragePeriod" xml:space="preserve">
+    <value>Period of storage</value>
   </data>
   <data name="TotalAuditItems" xml:space="preserve">
     <value>Total</value>

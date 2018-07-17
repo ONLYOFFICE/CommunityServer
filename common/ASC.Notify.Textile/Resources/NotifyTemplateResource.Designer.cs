@@ -64,7 +64,7 @@ namespace ASC.Notify.Textile.Resources {
         ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;td colspan=&quot;3&quot; style=&quot;height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         ///        &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
-        ///              &lt;img src=&quot;http://cdn.teamlab.com/media/newsletters [rest of string was truncated]&quot;;.
+        ///              &lt;img src=&quot;https://static.onlyoffice.com/media/news [rest of string was truncated]&quot;;.
         /// </summary>
         public static string FooterCommon {
             get {
@@ -76,7 +76,7 @@ namespace ASC.Notify.Textile.Resources {
         ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;td colspan=&quot;3&quot; style=&quot;height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         ///        &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
-        ///              &lt;img src=&quot;http://cdn.teamlab.com/media/newsletters [rest of string was truncated]&quot;;.
+        ///              &lt;img src=&quot;https://static.onlyoffice.com/media/news [rest of string was truncated]&quot;;.
         /// </summary>
         public static string FooterFreeCloud {
             get {
@@ -88,7 +88,7 @@ namespace ASC.Notify.Textile.Resources {
         ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;td colspan=&quot;3&quot; style=&quot;height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
         ///        &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
         ///            &lt;td style=&quot;vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;&quot;&gt;
-        ///              &lt;img src=&quot;http://cdn.teamlab.com/media/newsletters [rest of string was truncated]&quot;;.
+        ///              &lt;img src=&quot;https://static.onlyoffice.com/media/news [rest of string was truncated]&quot;;.
         /// </summary>
         public static string FooterOpensource {
             get {
@@ -100,10 +100,10 @@ namespace ASC.Notify.Textile.Resources {
         ///   Looks up a localized string similar to &lt;tr border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
         ///          &lt;td style=&quot;width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;&quot;&gt;
         ///              &lt;a href=&quot;https://www.facebook.com/pages/OnlyOffice/833032526736775&quot; style=&quot;width: 40px; height: 40px; display: block; margin: 0; padding: 0;&quot; target=&quot;_blank&quot;&gt;
-        ///                  &lt;img src=&quot;http://cdn.onlyoffice.com/media/newsletters/images/social-fb-40.png&quot; alt=&quot;Facebook&quot; style=&quot;width: 40px; height: 40px;&quot; /&gt;
+        ///                  &lt;img src=&quot;https://static.onlyoffice.com/media/newsletters/images/social-fb-40.png&quot; alt=&quot;Facebook&quot; style=&quot;width: 40px; height: 40px;&quot; /&gt;
         ///              &lt;/a&gt;
         ///          &lt;/td&gt;
-        ///      [rest of string was truncated]&quot;;.
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string FooterSocial {
             get {

@@ -38,6 +38,7 @@ namespace ASC.Core
         private readonly ITenantService tenantService;
         private bool? standalone;
         private bool? personal;
+        private long? personalMaxSpace;
         private string basedomain;
 
 
@@ -54,6 +55,29 @@ namespace ASC.Core
         public bool Personal
         {
             get { return personal ?? (bool)(personal = ConfigurationManager.AppSettings["core.personal"] == "true"); }
+        }
+
+        public long PersonalMaxSpace
+        {
+            get
+            {
+                var quotaSettings = PersonalQuotaSettings.LoadForCurrentUser();
+
+                if (quotaSettings.MaxSpace != long.MaxValue)
+                    return quotaSettings.MaxSpace;
+                
+                if (personalMaxSpace.HasValue)
+                    return personalMaxSpace.Value;
+
+                long value;
+
+                if (!long.TryParse(ConfigurationManager.AppSettings["core.personal.maxspace"], out value))
+                    value = long.MaxValue;
+
+                personalMaxSpace = value;
+
+                return personalMaxSpace.Value;
+            }
         }
 
         public SmtpSettings SmtpSettings

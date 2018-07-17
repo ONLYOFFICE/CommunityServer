@@ -374,9 +374,29 @@ ASC.Projects.DescriptionPanel = (function() {
     function showDescPanelByObject($targetObject) {
         var offset = $targetObject.offset();
         if (!offset.top && !offset.left) return;
-        $panel.css({ left: offset.left, top: offset.top + $targetObject.parent().height() / 2 });
+        var x = offset.left,
+            y = calculateTopPosition(offset.top + $targetObject.outerHeight(), $targetObject);
+
+        $panel.css({ left: x, top: y });
         $panel.show();
     };
+
+    function calculateTopPosition(y, self) {
+        var panelHeight = $panel.innerHeight(),
+            w = jq(window),
+            scrScrollTop = w.scrollTop(),
+            scrHeight = w.height();
+
+        if (panelHeight < y && scrHeight + scrScrollTop - panelHeight <= y) {
+            y = y - $panel.outerHeight();
+
+            if (self) {
+                y = y - self.outerHeight();
+            }
+        }
+
+        return y;
+    }
 
     return {
         init: init,

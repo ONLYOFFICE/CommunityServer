@@ -452,14 +452,6 @@ namespace ASC.ActiveDirectory
                     needUpdate = true;
                 }
 
-                if (portalUser.ActivationStatus != ldapUser.ActivationStatus)
-                {
-                    _log.DebugFormat("NeedUpdateUser by ActivationStatus -> portal: '{0}', ldap: '{1}'",
-                        portalUser.ActivationStatus,
-                        ldapUser.ActivationStatus);
-                    needUpdate = true;
-                }
-
                 if (portalUser.Status != ldapUser.Status)
                 {
                     _log.DebugFormat("NeedUpdateUser by Status -> portal: '{0}', ldap: '{1}'",
@@ -518,7 +510,6 @@ namespace ASC.ActiveDirectory
                 userToUpdate.FirstName = updateInfo.FirstName;
                 userToUpdate.LastName = updateInfo.LastName;
                 userToUpdate.Sid = updateInfo.Sid;
-                userToUpdate.ActivationStatus = updateInfo.ActivationStatus;
                 userToUpdate.Contacts = updateInfo.Contacts;
                 userToUpdate.Title = updateInfo.Title;
                 userToUpdate.Location = updateInfo.Location;

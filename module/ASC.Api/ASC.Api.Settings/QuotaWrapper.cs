@@ -30,6 +30,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.Web.Core;
+using ASC.Web.Files;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.UserControls.Statistics;
 
@@ -68,6 +71,18 @@ namespace ASC.Api.Settings
         [DataMember]
         public IList<QuotaUsage> StorageUsage { get; set; }
 
+        [DataMember]
+        public long UserStorageSize { get; set; }
+
+        [DataMember]
+        public long UserUsedSize { get; set; }
+
+        [DataMember]
+        public long UserAvailableSize
+        {
+            get { return Math.Max(0, UserStorageSize - UserUsedSize); }
+        }
+
         private QuotaWrapper()
         {
         }
@@ -78,8 +93,18 @@ namespace ASC.Api.Settings
             UsedSize = (ulong)Math.Max(0, quotaRows.Sum(r => r.Counter));
             MaxFileSize = Math.Min(AvailableSize, (ulong)quota.MaxFileSize);
             MaxUsersCount = TenantExtra.GetTenantQuota().ActiveUsers;
-            UsersCount = CoreContext.Configuration.Personal ? 1 : TenantStatisticsProvider.GetUsersCount();
 
+            if (CoreContext.Configuration.Personal && SetupInfo.IsVisibleSettings("PersonalMaxSpace"))
+            {
+                UsersCount = 1;
+                UserStorageSize = CoreContext.Configuration.PersonalMaxSpace;
+                UserUsedSize = Web.Files.Classes.Global.GetUserUsedSpace();
+            }
+            else
+            {
+                UsersCount = TenantStatisticsProvider.GetUsersCount();
+            }
+            
             StorageUsage = quotaRows
                 .Select(x => new QuotaUsage {Path = x.Path.TrimStart('/').TrimEnd('/'), Size = x.Counter,})
                 .ToList();

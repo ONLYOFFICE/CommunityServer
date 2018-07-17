@@ -191,8 +191,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             var ext = MimeMapping.GetExtention(file.MimeType);
             if (GoogleLoginProvider.GoogleDriveExt.Contains(ext))
             {
-                var fileType = FileUtility.GetFileTypeByExtention(ext);
-                var internalExt = FileUtility.InternalExtension[fileType];
+                var internalExt = FileUtility.GetGoogleDownloadableExtension(ext);
                 var requiredMimeType = MimeMapping.GetMimeMapping(internalExt);
 
                 downloadArg = string.Format("{0}/export?mimeType={1}",

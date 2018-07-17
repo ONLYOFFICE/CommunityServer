@@ -39,6 +39,7 @@ using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
+using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using DriveFile = Google.Apis.Drive.v3.Data.File;
 using File = ASC.Files.Core.File;
@@ -177,7 +178,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             var gExt = MimeMapping.GetExtention(driveFile.MimeType);
             if (GoogleLoginProvider.GoogleDriveExt.Contains(gExt))
             {
-                title += gExt;
+                title += FileUtility.GetGoogleDownloadableExtension(gExt);
             }
 
             return Global.ReplaceInvalidCharsAndTruncate(title);

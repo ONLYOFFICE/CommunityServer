@@ -92,7 +92,7 @@ namespace ASC.Data.Backup
                         using (var fileStream = File.Create(fullPath))
                         using (var entryStream = reader.OpenEntryStream())
                         {
-                            entryStream.CopyTo(fileStream);
+                            entryStream.StreamCopyTo(fileStream);
                         }
                     }
                     else

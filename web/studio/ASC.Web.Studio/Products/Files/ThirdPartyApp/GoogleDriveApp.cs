@@ -746,7 +746,6 @@ namespace ASC.Web.Files.ThirdPartyApp
         {
             var jsonFile = JObject.Parse(driveFile);
             var fileName = GetCorrectTitle(jsonFile);
-            fileName = FileUtility.ReplaceFileExtension(fileName, FileUtility.GetInternalExtension(fileName));
 
             var folderId = (string)jsonFile.SelectToken("parents[0]");
 
@@ -754,11 +753,11 @@ namespace ASC.Web.Files.ThirdPartyApp
 
             var ext = GetCorrectExt(jsonFile);
             var fileId = jsonFile.Value<string>("id");
-            
+
             if (GoogleLoginProvider.GoogleDriveExt.Contains(ext))
             {
-                var fileType = FileUtility.GetFileTypeByExtention(ext);
-                var internalExt = FileUtility.InternalExtension[fileType];
+                var internalExt = FileUtility.GetGoogleDownloadableExtension(ext);
+                fileName = FileUtility.ReplaceFileExtension(fileName, internalExt);
                 var requiredMimeType = MimeMapping.GetMimeMapping(internalExt);
 
                 var downloadUrl = GoogleLoginProvider.GoogleUrlFile
@@ -801,6 +800,8 @@ namespace ASC.Web.Files.ThirdPartyApp
                     throw new Exception(FilesCommonResource.ErrorMassage_DocServiceException + " (convert)");
                 }
 
+                var toExt = FileUtility.GetInternalExtension(fileName);
+                fileName = FileUtility.ReplaceFileExtension(fileName, toExt);
                 driveFile = CreateFile(convertedUrl, fileName, folderId, token);
             }
 

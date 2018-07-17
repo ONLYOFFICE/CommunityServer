@@ -496,7 +496,12 @@ namespace ASC.Files.Core.Data
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
         {
-            return chunkedUpload ? SetupInfo.MaxChunkedUploadSize : SetupInfo.MaxUploadSize;
+            var tmp = long.MaxValue;
+
+            if (CoreContext.Configuration.Personal && SetupInfo.IsVisibleSettings("PersonalMaxSpace"))
+                tmp = CoreContext.Configuration.PersonalMaxSpace - Global.GetUserUsedSpace();
+
+            return Math.Min(tmp, chunkedUpload ? SetupInfo.MaxChunkedUploadSize : SetupInfo.MaxUploadSize);
         }
 
         private void RecalculateFoldersCount(object id)

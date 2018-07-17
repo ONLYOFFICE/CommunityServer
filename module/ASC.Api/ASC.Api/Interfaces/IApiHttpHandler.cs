@@ -23,16 +23,13 @@
  *
 */
 
-
-#region usings
-
 using System.Web;
+using System.Web.SessionState;
 
-#endregion
 
 namespace ASC.Api.Interfaces
 {
-    public interface IApiHttpHandler:IHttpHandler
+    public interface IApiHttpHandler : IHttpHandler, IRequiresSessionState 
     {
         void Process(HttpContextBase context);
     }

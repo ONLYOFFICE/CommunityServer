@@ -29,6 +29,8 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.FederatedLogin;
@@ -42,6 +44,7 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using Resources;
+using log4net;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -166,6 +169,26 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 if (isNew)
                 {
+                    var spam = HttpContext.Current.Request["spam"];
+                    if (spam != "on")
+                    {
+                        try
+                        {
+                            const string _databaseID = "com";
+                            using (var db = DbManager.FromHttpContext(_databaseID))
+                            {
+                                db.ExecuteNonQuery(new SqlInsert("template_unsubscribe", false)
+                                        .InColumnValue("email",userInfo.Email.ToLowerInvariant())
+                                        .InColumnValue("reason", "personal")
+                                    );
+                                LogManager.GetLogger("ASC.Web").Debug(String.Format("Write to template_unsubscribe {0}", userInfo.Email.ToLowerInvariant()));
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC.Web").Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, userInfo.Email.ToLowerInvariant()));
+                        }
+                    }
                     StudioNotifyService.Instance.UserHasJoin();
                     UserHelpTourHelper.IsNewUser = true;
                     PersonalSettings.IsNewUser = true;

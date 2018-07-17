@@ -34,3 +34,8 @@
   </div>
 </body>
 </html>
+
+<% 
+    Response.StatusCode = 404;
+    Response.TrySkipIisCustomErrors = true;
+ %>

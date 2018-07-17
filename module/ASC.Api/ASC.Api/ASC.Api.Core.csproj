@@ -134,7 +134,6 @@
     <Compile Include="Interfaces\IApiDateTime.cs" />
     <Compile Include="Impl\ApiAllowAllAuthorization.cs" />
     <Compile Include="Impl\ApiArgumentBuilder.cs" />
-    <Compile Include="Impl\ApiConfiguration.cs" />
     <Compile Include="Impl\ApiContext.cs" />
     <Compile Include="Impl\ApiHttpHandler.cs" />
     <Compile Include="Impl\ApiKeyValueInMemoryStorage.cs" />
@@ -184,6 +183,10 @@
     <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

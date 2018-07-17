@@ -322,7 +322,7 @@ namespace ASC.Core.Notify.Signalr
 
         private bool IsAvailable()
         {
-            return EnableSignalr || lastErrorTime + Timeout < DateTime.Now;
+            return EnableSignalr && lastErrorTime + Timeout < DateTime.Now;
         }
 
         private string GetMethod(string method)

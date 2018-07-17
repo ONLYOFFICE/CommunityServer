@@ -322,6 +322,15 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm account termination.
+        /// </summary>
+        public static string ButtonConfirmTermination {
+            get {
+                return ResourceManager.GetString("ButtonConfirmTermination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deactivate Portal.
         /// </summary>
         public static string ButtonDeactivatePortal {
@@ -2490,6 +2499,21 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have requested a termination of your account at personal.onlyoffice.com. Follow the link to complete the request (the link is active for a 7-day period): 
+        ///
+        ///$GreenButton
+        ///
+        ///*Note*: After the deletion, your account and all data associated with it will be erased permanently in accordance with our &quot;Privacy statement&quot;:&quot;https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&quot;.
+        ///
+        ///Ignore this email if you do not wa [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_personal_profile_delete {
+            get {
+                return ResourceManager.GetString("pattern_personal_profile_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.Deactivation of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal
         ///
         ///Dear $OwnerName,
@@ -2986,6 +3010,23 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_saas_admin_trial_warning_before5 {
             get {
                 return ResourceManager.GetString("pattern_saas_admin_trial_warning_before5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dear $UserName,
+        ///
+        ///Thanks for using ONLYOFFICE. Hope,  everything&apos;s  OK. We just want to remind you that the trial period for your account at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; will be over in 5 days. And some good news:  you can *buy a subscription with 5% off*!
+        ///
+        ///Just use this coupon code while purchasing: *$Coupon*. It will be valid within the next 10 days after you receive this letter. 
+        ///
+        ///At this moment the number of active users in the portal is $ActiveUsers.
+        ///
+        ///If you&apos;re not going to incr [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_saas_admin_trial_warning_before5_coupon {
+            get {
+                return ResourceManager.GetString("pattern_saas_admin_trial_warning_before5_coupon", resourceCulture);
             }
         }
         
@@ -3912,6 +3953,15 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Personal account termination.
+        /// </summary>
+        public static string subject_personal_profile_delete {
+            get {
+                return ResourceManager.GetString("subject_personal_profile_delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deactivation of the ${__VirtualRootPath} portal.
         /// </summary>
         public static string subject_portal_deactivate {
@@ -4142,6 +4192,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_saas_admin_trial_warning_before5 {
             get {
                 return ResourceManager.GetString("subject_saas_admin_trial_warning_before5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Trial is Almost Over: Use Our Special Discounts.
+        /// </summary>
+        public static string subject_saas_admin_trial_warning_before5_coupon {
+            get {
+                return ResourceManager.GetString("subject_saas_admin_trial_warning_before5_coupon", resourceCulture);
             }
         }
         

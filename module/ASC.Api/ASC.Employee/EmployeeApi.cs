@@ -1123,7 +1123,7 @@ namespace ASC.Api.Employee
             if(user.IsLDAP())
                 throw new SecurityException();
 
-            StudioNotifyService.Instance.SendMsgProfileDeletion(user.Email);
+            StudioNotifyService.Instance.SendMsgProfileDeletion(user);
             MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentDeleteInstructions);
 
             return String.Format(Resource.SuccessfullySentNotificationDeleteUserInfoMessage, "<b>" + user.Email + "</b>");

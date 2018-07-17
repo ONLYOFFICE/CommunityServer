@@ -1681,6 +1681,24 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscribe to Tips&amp;Tricks.
+        /// </summary>
+        public static string TipsAndTricksSubscribeBtn {
+            get {
+                return ResourceManager.GetString("TipsAndTricksSubscribeBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsubscribe from Tips&amp;Tricks.
+        /// </summary>
+        public static string TipsAndTricksUnsubscribeBtn {
+            get {
+                return ResourceManager.GetString("TipsAndTricksUnsubscribeBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are about to unsubscribe from all notifications of the &quot;{0}&quot; module. Are you sure you want to continue?.
         /// </summary>
         public static string UnsubscribeProductMessage {

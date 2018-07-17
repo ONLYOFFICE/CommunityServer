@@ -47,6 +47,11 @@ namespace ASC.Web.Studio.Core
             return string.Format("{0} ({1}).", Resource.FileSizeMaxExceed, FilesSizeToString(size));
         }
 
+        public static string GetPersonalFreeSpaceExceptionString(long size)
+        {
+            return string.Format("{0} ({1}).", Resource.PersonalFreeSpaceException, FilesSizeToString(size));
+        }
+
         /// <summary>
         /// The maximum file size is exceeded (25 MB).
         /// </summary>
@@ -66,6 +71,11 @@ namespace ASC.Web.Studio.Core
         public static Exception GetFileSizeException(long size)
         {
             return new TenantQuotaException(GetFileSizeExceptionString(size));
+        }
+
+        public static Exception GetPersonalFreeSpaceException(long size)
+        {
+            return new TenantQuotaException(GetPersonalFreeSpaceExceptionString(size));
         }
 
         /// <summary>

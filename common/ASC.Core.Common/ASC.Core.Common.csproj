@@ -76,6 +76,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -90,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Billing\BillingClient.cs" />
+    <Compile Include="Billing\CouponManager.cs" />
     <Compile Include="Billing\ITariffSyncService.cs" />
     <Compile Include="Billing\License\License.cs" />
     <Compile Include="Billing\License\LicenseException.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Tenants\TenantAuditSettings.cs" />
     <Compile Include="Tenants\TenantCookieSettings.cs" />
     <Compile Include="Tenants\TenantDomainValidator.cs" />
     <Compile Include="Tenants\TenantIndustry.cs" />
@@ -237,6 +240,7 @@
     <Compile Include="Users\Constants.cs" />
     <Compile Include="Core\GroupInfo.cs" />
     <Compile Include="Core\UserInfo.cs" />
+    <Compile Include="Users\PersonalQuotaSettings.cs" />
     <Compile Include="Users\UserExtensions.cs" />
     <Compile Include="Users\UserFormatter.cs" />
   </ItemGroup>

@@ -125,7 +125,7 @@ namespace ASC.ActiveDirectory.Base.Data
                 ID = Guid.Empty,
                 UserName = userName,
                 Sid = ldapUser.Sid,
-                ActivationStatus = EmployeeActivationStatus.Activated,
+                ActivationStatus = EmployeeActivationStatus.NotActivated,
                 Status = ldapUser.IsDisabled ? EmployeeStatus.Terminated : EmployeeStatus.Active,
                 Title = !string.IsNullOrEmpty(title) ? title : string.Empty,
                 Location = !string.IsNullOrEmpty(location) ? location : string.Empty,

@@ -6581,6 +6581,17 @@ window.Teamlab = (function () {
         );
     };
 
+    var updateTipsSubscription = function (options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/tips/change/subscription.json',
+            null,
+            options
+        );
+    };
+
     var smsValidationSettings = function (enable, options) {
         return addRequest(
             null,
@@ -6699,6 +6710,17 @@ window.Teamlab = (function () {
         return true;
     };
 
+    var updateEmailActivationSettings = function (data, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/emailactivation.json',
+            data,
+            options
+        );
+    };
+
     /* </settings> */
 
     //#region Security
@@ -6743,6 +6765,33 @@ window.Teamlab = (function () {
             ADD,
             'security/audit/events/report.json',
             null,
+            options
+        );
+    };
+
+    var getAuditSettings = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            GET,
+            'security/audit/settings/lifetime.json',
+            null,
+            options
+        );
+    };
+
+    var setAuditSettings = function (params, loginLifeTime, auditLifeTime, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'security/audit/settings/lifetime.json',
+            {
+                settings: {
+                    LoginHistoryLifeTime: loginLifeTime,
+                    AuditTrailLifeTime: auditLifeTime
+                }
+            },
             options
         );
     };
@@ -7621,10 +7670,15 @@ window.Teamlab = (function () {
         getLoginEvents: getLoginEvents,
         createLoginHistoryReport: createLoginHistoryReport,
         createAuditTrailReport: createAuditTrailReport,
+
+        getAuditSettings: getAuditSettings,
+        setAuditSettings: setAuditSettings,
+
         getIpRestrictions: getIpRestrictions,
         saveIpRestrictions: saveIpRestrictions,
         updateIpRestrictionsSettings: updateIpRestrictionsSettings,
         updateTipsSettings: updateTipsSettings,
+        updateTipsSubscription: updateTipsSubscription,
         smsValidationSettings: smsValidationSettings,
         closeWelcomePopup: closeWelcomePopup,
         setColorTheme: setColorTheme,
@@ -7654,6 +7708,7 @@ window.Teamlab = (function () {
         getLdapDefaultSettings: getLdapDefaultSettings,
         getLdapStatus: getLdapStatus,
         syncLdap: syncLdap,
+        updateEmailActivationSettings: updateEmailActivationSettings,
 
         getBarPromotions: getBarPromotions,
         markBarPromotion: markBarPromotion,

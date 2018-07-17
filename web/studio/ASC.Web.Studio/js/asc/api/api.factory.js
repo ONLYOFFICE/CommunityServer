@@ -1349,7 +1349,10 @@ window.ServiceFactory = (function() {
                 storageUsage: factories.storageusage(response.storageUsage),
                 maxUsersCount: response.maxUsersCount,
                 usersCount: response.usersCount,
-                availableUsersCount: response.availableUsersCount
+                availableUsersCount: response.availableUsersCount,
+                userStorageSize: response.userStorageSize,
+                userUsedSize: response.userUsedSize,
+                userAvailableSize: response.userAvailableSize
             };
 
             return portalQuotas;

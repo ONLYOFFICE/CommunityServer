@@ -73,7 +73,9 @@ BEGIN
 	insert ignore into core_subscriptionmethod(source, action, recipient, sender, tenant) values ('13ff36fb-0272-4887-b416-74f52b0d0b02', 'CreateNewContact', 'abef62db-11a8-4673-9d32-ef1d8af19dc0', 'email.sender|messanger.sender', -1);
 	insert ignore into core_subscription(source, action, recipient, object, tenant) values ('13ff36fb-0272-4887-b416-74f52b0d0b02', 'ResponsibleForOpportunity', 'abef62db-11a8-4673-9d32-ef1d8af19dc0', '', -1);
 	insert ignore into core_subscriptionmethod(source, action, recipient, sender, tenant) values ('13ff36fb-0272-4887-b416-74f52b0d0b02', 'ResponsibleForOpportunity', 'abef62db-11a8-4673-9d32-ef1d8af19dc0', 'email.sender|messanger.sender', -1);
-
+	insert ignore into core_subscription(source, action, recipient, object, tenant) VALUES ('asc.web.studio','periodic_notify','c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e','',-1);
+	insert ignore into core_subscriptionmethod(source, action, recipient, sender, tenant) values('asc.web.studio','periodic_notify','c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e','email.sender',-1);
+	
 	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, '5d5b7260-f7f7-49f1-a1c9-95fbb6a12604', 'ef5e6790-f346-4b6e-b662-722bc28cb0db', '', 0);
 	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, '5d5b7260-f7f7-49f1-a1c9-95fbb6a12604', 'f11e8f3f-46e6-4e55-90e3-09c22ec565bd', '', 0);
 	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '088d5940-a80f-4403-9741-d610718ce95c', '', 0);

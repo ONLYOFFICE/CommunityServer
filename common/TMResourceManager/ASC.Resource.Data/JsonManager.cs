@@ -28,9 +28,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using TMResourceData.Model;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace TMResourceData
 {
@@ -45,18 +47,42 @@ namespace TMResourceData
             {
                 jsonString = reader.ReadToEnd();
             }
-            var jsonObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+
+            var jsonObj = new Dictionary<string, string>();
+
+            if (Path.GetExtension(fileName) == ".xml")
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(jsonString);
+                var list = doc.SelectNodes("//resources//string");
+                if (list != null)
+                {
+                    try
+                    {
+                        var nodes = list.Cast<XmlNode>().ToList();
+                        jsonObj = nodes.ToDictionary(r => r.Attributes["name"].Value, r => r.InnerText);
+                    }
+                    catch (Exception e)
+                    {
+                        log4net.LogManager.GetLogger("ASC").ErrorFormat("parse xml " + fileName, e);
+                    }
+                }
+            }
+            else
+            {
+                jsonObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+            }
 
             var fileID = ResourceData.AddFile(fileName, projectName, moduleName);
             const string resourceType = "text";
             foreach (var key in jsonObj.Keys)
             {
                 var word = new ResWord
-                    {
-                        Title = key,
-                        ValueFrom = jsonObj[key],
-                        ResFile = new ResFile {FileID = fileID}
-                    };
+                {
+                    Title = key,
+                    ValueFrom = jsonObj[key],
+                    ResFile = new ResFile {FileID = fileID}
+                };
                 if (culture != "Neutral")
                 {
                     var neutralKey = new ResWord
@@ -74,22 +100,24 @@ namespace TMResourceData
             }
         }
 
-        public static string ExportJson(string project, string module, List<string> languages, string exportPath, bool withDefaultValue = true)
+        public static string ExportJson(string project, string module, List<string> languages, string exportPath,
+            bool withDefaultValue = true)
         {
             using (var fastZip = new ZipFile())
             {
                 var filter = new ResCurrent
-                    {
-                        Project = new ResProject {Name = project},
-                        Module = new ResModule {Name = module}
-                    };
+                {
+                    Project = new ResProject {Name = project},
+                    Module = new ResModule {Name = module}
+                };
 
                 var zipDirectory = Directory.CreateDirectory(exportPath + module);
                 foreach (var language in languages)
                 {
                     filter.Language = new ResCulture {Title = language};
 
-                    var words = ResourceData.GetListResWords(filter, string.Empty).GroupBy(x => x.ResFile.FileID).ToList();
+                    var words =
+                        ResourceData.GetListResWords(filter, string.Empty).GroupBy(x => x.ResFile.FileID).ToList();
                     if (!words.Any())
                     {
                         Console.WriteLine("Error!!! Can't find appropriate project and module. Possibly wrong names!");
@@ -99,26 +127,69 @@ namespace TMResourceData
                     foreach (var fileWords in words)
                     {
                         var wordsDictionary = new Dictionary<string, string>();
-                        foreach (var word in fileWords.OrderBy(x=>x.Title).Where(word => !wordsDictionary.ContainsKey(word.Title)))
+                        foreach (
+                            var word in
+                                fileWords.OrderBy(x => x.Title).Where(word => !wordsDictionary.ContainsKey(word.Title)))
                         {
                             if (string.IsNullOrEmpty(word.ValueTo) && !withDefaultValue) continue;
 
                             wordsDictionary[word.Title] = word.ValueTo ?? word.ValueFrom;
-                            if(!string.IsNullOrEmpty(wordsDictionary[word.Title]))
+                            if (!string.IsNullOrEmpty(wordsDictionary[word.Title]))
                             {
                                 wordsDictionary[word.Title] = wordsDictionary[word.Title].TrimEnd('\n').TrimEnd('\r');
                             }
                         }
 
                         var firstWord = fileWords.FirstOrDefault();
-                        var fileName = firstWord == null ? module : Path.GetFileNameWithoutExtension(firstWord.ResFile.FileName);
+                        var fileName = firstWord == null
+                            ? module
+                            : Path.GetFileNameWithoutExtension(firstWord.ResFile.FileName);
+                        var ext = Path.GetExtension(firstWord.ResFile.FileName);
 
-                        var zipFileName = zipDirectory.FullName + "\\" + fileName
-                                          + (language == "Neutral" ? string.Empty : "." + language) + ".json";
+                        var zipFileName = zipDirectory.FullName + "\\" + fileName +
+                                          (language == "Neutral" ? string.Empty : "." + language) + ext;
                         using (TextWriter writer = new StreamWriter(zipFileName))
                         {
-                            var obj = JsonConvert.SerializeObject(wordsDictionary, Formatting.Indented);
-                            writer.Write(obj);
+                            if (ext == ".json")
+                            {
+                                var obj = JsonConvert.SerializeObject(wordsDictionary, Formatting.Indented);
+                                writer.Write(obj);
+                            }
+                            else
+                            {
+                                var data = new XmlDocument();
+                                var resources = data.CreateElement("resources");
+
+                                foreach (var ind in wordsDictionary)
+                                {
+                                    var stringAttr = data.CreateAttribute("name");
+                                    stringAttr.Value = ind.Key;
+
+                                    var child = data.CreateElement("string");
+                                    child.Attributes.Append(stringAttr);
+                                    child.InnerText = ind.Value;
+
+                                    resources.AppendChild(child);
+                                }
+
+                                data.AppendChild(resources);
+
+                                var settings = new XmlWriterSettings
+                                {
+                                    Indent = true,
+                                    IndentChars = "  ",
+                                    NewLineChars = Environment.NewLine,
+                                    NewLineHandling = NewLineHandling.Replace,
+                                    OmitXmlDeclaration = false,
+                                    ConformanceLevel = ConformanceLevel.Fragment
+                                };
+
+                                using (var xmlTextWriter = XmlWriter.Create(writer, settings))
+                                {
+                                    data.WriteTo(xmlTextWriter);
+                                    xmlTextWriter.Flush();
+                                }
+                            }
                         }
                     }
                 }

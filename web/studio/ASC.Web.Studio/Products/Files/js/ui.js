@@ -1011,6 +1011,14 @@ window.ASC.Files.UI = (function () {
         ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleMoreFeaturs);
     };
 
+    var displayPersonalLimitStorageExceed = function () {
+        if (!jq("#personalLimitExceedStoragePanel").length) {
+            return false;
+        }
+        ASC.Files.UI.blockUI("#personalLimitExceedStoragePanel", 500, 300, 0);
+        return true;
+    };
+
     var displayTariffLimitStorageExceed = function () {
         if (!jq("#tariffLimitExceedStoragePanel").length) {
             return false;
@@ -1154,6 +1162,7 @@ window.ASC.Files.UI = (function () {
         displayCommonSetting: displayCommonSetting,
         displayMoreFeaturs: displayMoreFeaturs,
 
+        displayPersonalLimitStorageExceed: displayPersonalLimitStorageExceed,
         displayTariffLimitStorageExceed: displayTariffLimitStorageExceed,
         displayTariffFileSizeExceed: displayTariffFileSizeExceed,
 

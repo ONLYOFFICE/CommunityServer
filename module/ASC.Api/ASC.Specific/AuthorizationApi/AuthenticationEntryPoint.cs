@@ -33,6 +33,8 @@ using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
 using ASC.Api.Utils;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Core.Users;
@@ -104,6 +106,10 @@ namespace ASC.Specific.AuthorizationApi
                 {
                     MessageService.Send(Request, user.DisplayUserName(false), viaEmail ? MessageAction.LoginFailViaApi : MessageAction.LoginFailViaApiSocialAccount);
                     throw new AuthenticationException("User authentication failed");
+                }
+                finally
+                {
+                    SecurityContext.Logout();
                 }
             }
 
@@ -211,6 +217,10 @@ namespace ASC.Specific.AuthorizationApi
                 MessageService.Send(Request, user.DisplayUserName(false), MessageAction.LoginFailViaApiSms, MessageTarget.Create(user.ID));
                 throw new AuthenticationException("User authentication failed");
             }
+            finally
+            {
+                SecurityContext.Logout();
+            }
         }
 
         /// <summary>
@@ -218,9 +228,10 @@ namespace ASC.Specific.AuthorizationApi
         /// </summary>
         /// <param name="email">Email address</param>
         /// <param name="lang">Culture</param>
+        /// <param name="spam">User consent to subscribe to the ONLYOFFICE newsletter</param>
         /// <visible>false</visible>
         [Create(@"register", false)] //NOTE: this method doesn't requires auth!!!
-        public string RegisterUserOnPersonal(string email, string lang)
+        public string RegisterUserOnPersonal(string email, string lang, bool spam)
         {
             if (!CoreContext.Configuration.Personal) throw new MethodAccessException("Method is only available on personal.onlyoffice.com");
 
@@ -255,7 +266,26 @@ namespace ASC.Specific.AuthorizationApi
                         SecurityContext.Logout();
                     }
                 }
-
+                if (!spam)
+                {
+                    try
+                    {
+                        const string _databaseID = "com";
+                        using (var db = DbManager.FromHttpContext(_databaseID))
+                        {
+                            db.ExecuteNonQuery(new SqlInsert("template_unsubscribe", false)
+                                    .InColumnValue("email", email.ToLowerInvariant())
+                                    .InColumnValue("reason", "personal")
+                                );
+                            log4net.LogManager.GetLogger("ASC.Web").Debug(String.Format("Write to template_unsubscribe {0}",email.ToLowerInvariant()));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        log4net.LogManager.GetLogger("ASC.Web").Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, email.ToLowerInvariant()));
+                    }
+                    
+                }
                 StudioNotifyService.Instance.SendInvitePersonal(email);
             }
             catch (Exception ex)

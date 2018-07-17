@@ -474,9 +474,6 @@
   <data name="LicenseKeyLabel" xml:space="preserve">
     <value>Upload Your License File</value>
   </data>
-  <data name="LicenseActivateDescr" xml:space="preserve">
-    <value>If you have already purchased an ONLYOFFICE license, please upload the file into the field below.</value>
-  </data>
   <data name="LicenseKeyBuyLabel" xml:space="preserve">
     <value>Buy a License</value>
   </data>
@@ -873,9 +870,6 @@
   <data name="LicenseModulesSupport" xml:space="preserve">
     <value>One Year Support</value>
   </data>
-  <data name="LicenseActivateButton" xml:space="preserve">
-    <value>Activate it</value>
-  </data>
   <data name="LicenseRequestHeader" xml:space="preserve">
     <value>Discover your special offer</value>
   </data>
@@ -941,5 +935,17 @@
   </data>
   <data name="SourceCode" xml:space="preserve">
     <value>Source code is availible on {0}GitHub{1}</value>
+  </data>
+  <data name="PersonalStorageLimitExceededBody" xml:space="preserve">
+    <value>The file could not be added as you have exceeded your storage space quota. Please delete the outdated files or contact our support team for more information.</value>
+  </data>
+  <data name="PersonalStorageLimitExceededHeader" xml:space="preserve">
+    <value>Quota exceeded</value>
+  </data>
+  <data name="PersonalStorageLimitExceededSubHeader" xml:space="preserve">
+    <value>Storage space quota exceeded</value>
+  </data>
+  <data name="ContactSupportBtn" xml:space="preserve">
+    <value>Contact support</value>
   </data>
 </root>

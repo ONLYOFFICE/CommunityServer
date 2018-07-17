@@ -28,9 +28,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Core.Tenants;
 using Newtonsoft.Json;
 using UAParser;
 using IsolationLevel = System.Data.IsolationLevel;
@@ -47,6 +49,10 @@ namespace ASC.MessagingSystem.DbSender
         private static readonly Timer Timer;
         private static bool timerStarted;
 
+        private const string LoginEventsTable = "login_events";
+        private const string AuditEventsTable = "audit_events";
+        private static readonly Timer ClearTimer;
+
         static MessagesRepository()
         {
             CacheTime = TimeSpan.FromMinutes(1);
@@ -54,6 +60,9 @@ namespace ASC.MessagingSystem.DbSender
             Parser = Parser.GetDefault();
             Timer = new Timer(FlushCache);
             timerStarted = false;
+
+            ClearTimer = new Timer(DeleteOldEvents);
+            ClearTimer.Change(new TimeSpan(0), TimeSpan.FromDays(1));
         }
 
         public static void Add(EventMessage message)
@@ -224,6 +233,50 @@ namespace ASC.MessagingSystem.DbSender
             return clientInfo == null
                        ? null
                        : string.Format("{0} {1}", clientInfo.OS.Family, clientInfo.OS.Major);
+        }
+
+
+        private static void DeleteOldEvents(object state)
+        {
+            try
+            {
+                using (var db = DbManager.FromHttpContext(MessagesDbId))
+                {
+                    var activeTenants = CoreContext.TenantManager.GetTenants().Select(t => t.TenantId);
+
+                    foreach (var tenant in activeTenants)
+                    {
+                        var settings = TenantAuditSettings.LoadForTenant(tenant);
+                        DeleteOldEvents(db, LoginEventsTable, tenant, DateTime.UtcNow.Subtract(TimeSpan.FromDays(settings.LoginHistoryLifeTime)));
+                        DeleteOldEvents(db, AuditEventsTable, tenant, DateTime.UtcNow.Subtract(TimeSpan.FromDays(settings.AuditTrailLifeTime)));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log4net.LogManager.GetLogger("ASC.Messaging").Error(ex.Message, ex);
+            }
+        }
+
+        private static void DeleteOldEvents(IDbManager dbManager, string table, int tenant, DateTime from)
+        {
+            var count = dbManager.ExecuteScalar<int>(new SqlQuery(table)
+                                                         .SelectCount()
+                                                         .Where("tenant_id", tenant)
+                                                         .Where(Exp.Le("date", from)));
+
+            while (count > 0)
+            {
+                dbManager.ExecuteNonQuery(
+                    string.Format("delete from {0} where tenant_id=@Tenant and date<@From limit 1000",
+                                  table), new
+                                      {
+                                          Tenant = tenant,
+                                          From = from
+                                      });
+
+                count = count - 1000;
+            }
         }
     }
 }

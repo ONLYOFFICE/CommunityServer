@@ -143,6 +143,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionSaasAdminUserTeamTips,
 
                     Constants.ActionSaasAdminTrialWarningBefore5,
+                    Constants.ActionSaasAdminTrialWarningBefore5Coupon,
                     Constants.ActionSaasAdminTrialWarning,
                     Constants.ActionSaasAdminTrialWarningAfter5,
                     Constants.ActionSaasAdminTrialWarningAfter30,
@@ -156,7 +157,18 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.ActionSaasAdminPaymentAfterMonthlySubscriptions,
 
                     Constants.ActionOpensourceAdminSecurityTips,
-                    Constants.ActionOpensourceAdminDocsTips
+                    Constants.ActionOpensourceAdminDocsTips,
+
+                    Constants.ActionPersonalActivate,
+                    Constants.ActionPersonalAfterRegistration1,
+                    Constants.ActionPersonalAfterRegistration7,
+                    Constants.ActionPersonalAfterRegistration14,
+                    Constants.ActionPersonalAfterRegistration21,
+                    Constants.ActionPersonalAfterRegistration28,
+                    Constants.ActionPersonalConfirmation,
+                    Constants.ActionPersonalPasswordChange,
+                    Constants.ActionPersonalEmailChange,
+                    Constants.ActionPersonalProfileDelete
                 );
         }
 

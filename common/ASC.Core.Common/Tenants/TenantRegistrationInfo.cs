@@ -60,6 +60,10 @@ namespace ASC.Core.Tenants
 
         public TenantIndustry Industry { get; set; }
 
+        public bool Spam { get; set; }
+
+        public bool Calls { get; set; }
+
 
         public TenantRegistrationInfo()
         {

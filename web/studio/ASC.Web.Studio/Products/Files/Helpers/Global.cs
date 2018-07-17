@@ -427,5 +427,18 @@ namespace ASC.Web.Files.Classes
         }
 
         #endregion
+
+
+        public static long GetUserUsedSpace()
+        {
+            return GetUserUsedSpace(SecurityContext.CurrentAccount.ID);
+        }
+        
+        public static long GetUserUsedSpace(Guid userId)
+        {
+            var spaceUsageManager = new FilesSpaceUsageStatManager() as IUserSpaceUsage;
+
+            return spaceUsageManager.GetUserSpaceUsage(userId);
+        }
     }
 }

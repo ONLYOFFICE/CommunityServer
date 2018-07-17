@@ -32,6 +32,7 @@ using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -53,10 +54,15 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (CoreContext.Configuration.Personal && SetupInfo.IsVisibleSettings("PersonalMaxSpace"))
+            {
+                Notify = GetPersonalTariffNotify();
+                return;
+            }
+            
             if (SecurityContext.IsAuthenticated
                 && TenantExtra.EnableTarrifSettings
                 && !TariffSettings.HideNotify
-                && !CoreContext.Configuration.Personal
                 && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
                 Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffnotify.less");
@@ -69,6 +75,30 @@ namespace ASC.Web.Studio.UserControls.Management
                     AjaxPro.Utility.RegisterTypeForAjax(GetType());
                 }
             }
+        }
+
+        private Tuple<string, string> GetPersonalTariffNotify()
+        {
+            var maxTotalSize = CoreContext.Configuration.PersonalMaxSpace;
+
+            var webItem = WebItemManager.Instance[WebItemManager.DocumentsProductID];
+            var spaceUsageManager = webItem.Context.SpaceUsageStatManager as IUserSpaceUsage;
+            
+            if (spaceUsageManager == null) return null;
+            
+            var usedSize = spaceUsageManager.GetUserSpaceUsage(SecurityContext.CurrentAccount.ID);
+
+            long notifySize;
+            long.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.storage"] ?? "104857600", out notifySize); //100 MB
+
+            if (notifySize > 0 && maxTotalSize - usedSize < notifySize)
+            {
+                var head = string.Format(Resource.PersonalTariffExceedLimit, FileSizeComment.FilesSizeToString(maxTotalSize));
+                var text = String.Format(Resource.PersonalTariffExceedLimitInfoText, "<a target=\"_blank\" href=\"https://support.onlyoffice.com\">", "</a>", "</br>");
+                return new Tuple<string, string>(head, text);
+            }
+
+            return null;
         }
 
         private Tuple<string, string> GetTariffNotify()

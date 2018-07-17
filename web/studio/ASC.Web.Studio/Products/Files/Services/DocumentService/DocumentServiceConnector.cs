@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Web;
 using ASC.Files.Core;
@@ -262,6 +263,26 @@ namespace ASC.Web.Files.Services.DocumentService
             uri.Port = communityUrl.Port;
 
             return uri.ToString();
+        }
+
+        public static string ReplaceDocumentAdress(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return url;
+            }
+
+            var uri = new UriBuilder(url).ToString();
+            var externalUri = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.DocServiceUrl)).ToString();
+            var internalUri = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.DocServiceUrlInternal)).ToString();
+            if (uri.StartsWith(internalUri, true, CultureInfo.InvariantCulture) || !uri.StartsWith(externalUri, true, CultureInfo.InvariantCulture))
+            {
+                return url;
+            }
+
+            uri = uri.Replace(externalUri, FilesLinkUtility.DocServiceUrlInternal);
+
+            return uri;
         }
 
         private static Exception CustomizeError(Exception ex)

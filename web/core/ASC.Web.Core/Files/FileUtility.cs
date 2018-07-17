@@ -64,6 +64,13 @@ namespace ASC.Web.Core.Files
                        : extension;
         }
 
+        public static string GetGoogleDownloadableExtension(string googleExtension)
+        {
+            googleExtension = GetFileExtension(googleExtension);
+            if (googleExtension.Equals(".gdraw")) return ".pdf";
+            return GetInternalExtension(googleExtension);
+        }
+
         public static string ReplaceFileExtension(string fileName, string newExtension)
         {
             newExtension = string.IsNullOrEmpty(newExtension) ? string.Empty : newExtension;
@@ -239,7 +246,7 @@ namespace ASC.Web.Core.Files
                 ".bmp", ".cod", ".gif", ".ief", ".jpe", ".jpeg", ".jpg",
                 ".jfif", ".tiff", ".tif", ".cmx", ".ico", ".pnm", ".pbm",
                 ".png", ".ppm", ".rgb", ".svg", ".xbm", ".xpm", ".xwd",
-                ".svgt", ".svgy"
+                ".svgt", ".svgy", ".gdraw"
             };
 
         public static readonly List<string> ExtsSpreadsheet = new List<string>

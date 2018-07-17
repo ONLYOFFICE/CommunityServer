@@ -65,6 +65,18 @@ var CommonSubscriptionManager = new function() {
         });
     };
 
+    this.SubscribeToTipsAndTrics = function () {
+
+        AjaxPro.SubscriptionManager.SubscribeToTipsAndTrics(function (result) {
+            var res = result.value;
+            if (res.rs1 == '1') {
+                jq('#studio_tipsSubscriptionButton').html(res.rs2);
+            } else {
+                jq('#studio_tipsSubscriptionButton').html('<div class="errorBox">' + res.rs2 + '</div>');
+            }
+        });
+    };
+
     this.SubscribeToAdminNotify = function() {
         AjaxPro.SubscriptionManager.SubscribeToAdminNotify(function(result) {
             var res = result.value;

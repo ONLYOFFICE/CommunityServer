@@ -95,7 +95,7 @@ namespace ASC.Notify.Textile
 
             if (isPersonalTmpl)
             {
-                logoImg = "http://cdn.teamlab.com/media/newsletters/images/mail_logo.png";
+                logoImg = "https://static.onlyoffice.com/media/newsletters/images/mail_logo.png";
             }
             else
             {
@@ -109,7 +109,7 @@ namespace ASC.Notify.Textile
                     }
                     else
                     {
-                        logoImg = "http://cdn.teamlab.com/media/newsletters/images/mail_logo.png";
+                        logoImg = "https://static.onlyoffice.com/media/newsletters/images/mail_logo.png";
                     }
                 }
             }

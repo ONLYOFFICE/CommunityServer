@@ -30,6 +30,7 @@ using ASC.AuditTrail;
 using ASC.AuditTrail.Data;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using ASC.MessagingSystem;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -44,11 +45,6 @@ namespace ASC.Api.Security
 {
     public class SecurityApi : IApiEntryPoint
     {
-        private static int CurrentTenant
-        {
-            get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
-        }
-
         private static HttpRequest Request
         {
             get { return HttpContext.Current.Request; }
@@ -68,7 +64,7 @@ namespace ASC.Api.Security
                 CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Audit)
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Audit");
 
-            return LoginEventsRepository.GetLast(CurrentTenant, 20).Select(x => new LoginEventWrapper(x));
+            return LoginEventsRepository.GetLast(TenantProvider.CurrentTenantID, 20).Select(x => new LoginEventWrapper(x));
         }
 
         [Read("/audit/events/last")]
@@ -80,7 +76,7 @@ namespace ASC.Api.Security
                 CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Audit)
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Audit");
 
-            return AuditEventsRepository.GetLast(CurrentTenant, 20).Select(x => new AuditEventWrapper(x));
+            return AuditEventsRepository.GetLast(TenantProvider.CurrentTenantID, 20).Select(x => new AuditEventWrapper(x));
         }
 
         [Create("/audit/login/report")]
@@ -88,15 +84,19 @@ namespace ASC.Api.Security
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
+            var tenantId = TenantProvider.CurrentTenantID;
+            
             if (!SetupInfo.IsVisibleSettings(ManagementType.LoginHistory.ToString()) ||
-                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Audit)
+                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(tenantId).Audit)
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Audit");
 
+            var settings = TenantAuditSettings.LoadForTenant(tenantId);
+
             var to = DateTime.UtcNow;
-            var from = to.AddMonths(-6);
+            var from = to.Subtract(TimeSpan.FromDays(settings.LoginHistoryLifeTime));
 
             var reportName = string.Format(AuditReportResource.LoginHistoryReportName + ".csv", from.ToString("MM.dd.yyyy"), to.ToString("MM.dd.yyyy"));
-            var events = LoginEventsRepository.Get(CurrentTenant, from, to);
+            var events = LoginEventsRepository.Get(tenantId, from, to);
             var result = AuditReportCreator.CreateCsvReport(events, reportName);
 
             MessageService.Send(Request, MessageAction.LoginHistoryReportDownloaded);
@@ -108,20 +108,50 @@ namespace ASC.Api.Security
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
+            var tenantId = TenantProvider.CurrentTenantID;
+
             if (!SetupInfo.IsVisibleSettings(ManagementType.AuditTrail.ToString()) ||
-                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Audit)
+                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(tenantId).Audit)
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Audit");
 
+            var settings = TenantAuditSettings.LoadForTenant(tenantId);
+
             var to = DateTime.UtcNow;
-            var from = to.AddMonths(-6);
+            var from = to.Subtract(TimeSpan.FromDays(settings.AuditTrailLifeTime));
 
             var reportName = string.Format(AuditReportResource.AuditTrailReportName + ".csv", from.ToString("MM.dd.yyyy"), to.ToString("MM.dd.yyyy"));
 
-            var events = AuditEventsRepository.Get(CurrentTenant, from, to);
+            var events = AuditEventsRepository.Get(tenantId, from, to);
             var result = AuditReportCreator.CreateCsvReport(events, reportName);
 
             MessageService.Send(Request, MessageAction.AuditTrailReportDownloaded);
             return result;
+        }
+
+        [Read("/audit/settings/lifetime")]
+        public TenantAuditSettings GetAuditSettings()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            return TenantAuditSettings.LoadForTenant(TenantProvider.CurrentTenantID);
+        }
+
+        [Create("/audit/settings/lifetime")]
+        public TenantAuditSettings SetAuditSettings(TenantAuditSettings settings)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (settings.LoginHistoryLifeTime <= 0 || settings.LoginHistoryLifeTime > TenantAuditSettings.MaxLifeTime)
+                throw new ArgumentException("LoginHistoryLifeTime");
+
+            if (settings.AuditTrailLifeTime <= 0 || settings.AuditTrailLifeTime > TenantAuditSettings.MaxLifeTime)
+                throw new ArgumentException("AuditTrailLifeTime");
+
+            settings.SaveForTenant(TenantProvider.CurrentTenantID);
+
+            MessageService.Send(Request, MessageAction.AuditSettingsUpdated);
+
+            return settings;
         }
     }
 }

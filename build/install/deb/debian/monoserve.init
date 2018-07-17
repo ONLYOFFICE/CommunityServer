@@ -18,8 +18,8 @@ USER=onlyoffice
 GROUP=$USER
 LOCKFILE=/tmp/$NAME
 PID=""
-
-ARGS="/logfile=/var/log/onlyoffice/$NAME.log /config=/etc/hyperfastcgi/onlyoffice"
+LOGFILE=/var/log/onlyoffice/$NAME.log
+ARGS="/logfile=$LOGFILE /config=/etc/hyperfastcgi/onlyoffice"
 
 do_start() {
 	echo -n "Starting $NAME... "
@@ -31,7 +31,7 @@ do_start() {
 
 	test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g www-data -d /var/run/onlyoffice
 	[ -e /var/run/onlyoffice/onlyoffice.socket ] && rm -f /var/run/onlyoffice/onlyoffice.socket
-	start-stop-daemon -m -p $LOCKFILE -S -c $USER:$GROUP -x $DAEMON -- $ARGS </dev/null >/dev/null 2>&1 &
+	start-stop-daemon -m -p $LOCKFILE -S -c $USER:$GROUP -x $DAEMON -- $ARGS </dev/null >$LOGFILE 2>&1 &
 	echo "OK"
 }
 

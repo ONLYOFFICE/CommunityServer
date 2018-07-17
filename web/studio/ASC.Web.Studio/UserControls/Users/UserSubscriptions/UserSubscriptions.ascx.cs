@@ -370,6 +370,45 @@ namespace ASC.Web.Studio.UserControls.Users
 
         #endregion
 
+        #region tips&trics
+
+        protected string RenderTipsAndTricsSubscriptionState()
+        {
+            return RenderTipsAndTricsSubscriptionState(StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID));
+        }
+
+        protected string RenderTipsAndTricsSubscriptionState(bool isSubscribe)
+        {
+            if (isSubscribe)
+                return "<a class=\"on_off_button on\" href=\"javascript:CommonSubscriptionManager.SubscribeToTipsAndTrics();\" title=\"" + Resources.Resource.UnsubscribeButton + "\"></a>";
+            else
+                return "<a class=\"on_off_button off\" href=\"javascript:CommonSubscriptionManager.SubscribeToTipsAndTrics();\" title=\"" + Resources.Resource.SubscribeButton + "\"></a>";
+
+        }
+
+        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
+        public AjaxResponse SubscribeToTipsAndTrics()
+        {
+            var resp = new AjaxResponse { rs1 = "0" };
+            try
+            {
+                var isSubscribe = StudioNotifyService.Instance.IsSubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID);
+
+                StudioNotifyService.Instance.SubscribeToPeriodicNotify(SecurityContext.CurrentAccount.ID, !isSubscribe);
+                resp.rs2 = RenderTipsAndTricsSubscriptionState(!isSubscribe);
+
+                resp.rs1 = "1";
+            }
+            catch (Exception e)
+            {
+                resp.rs2 = e.Message.HtmlEncode();
+            }
+
+            return resp;
+        }
+
+        #endregion
+
         #region admin notifies
 
         protected string RenderAdminNotifySubscriptionState()

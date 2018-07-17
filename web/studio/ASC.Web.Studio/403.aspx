@@ -33,3 +33,8 @@
   </div>
 </body>
 </html>
+
+<% 
+    Response.StatusCode = 403;
+    Response.TrySkipIisCustomErrors = true;
+ %>

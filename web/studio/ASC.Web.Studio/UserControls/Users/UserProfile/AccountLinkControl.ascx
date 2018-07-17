@@ -29,9 +29,18 @@
     <div class="account-links">
         <ul class="clearFix">
             <% foreach (var acc in Infos) { %>
-                <li>
-                    <a href="<%=acc.Url %>" class="<%= !MobileDetector.IsMobile ? "popup " : "" %> <%=acc.Provider%> <%=acc.Linked?" linked":""%>" id="<%=acc.Provider%>"></a>
-                </li>
+                <% if (acc.Provider != "twitter")
+                { %>
+                    <li class="float-left">
+                        <a href="<%= acc.Url %>" class="disabled popup <%=acc.Provider%>" id="<%=acc.Provider%>">
+                            <span class="icon"></span>
+                            <% if (acc.Provider == "google")
+                                { %>
+                                <span class="provider-text">Google</span>
+                            <% } %>
+                        </a>
+                    </li>
+                <% } %>
             <% } %>
         </ul>
     </div>

@@ -275,3 +275,50 @@
     -moz-border-radius: @value;
     -webkit-border-radius: @value;
 }
+
+@media screen and (max-width: 900px){
+	#studioPageContent{
+		min-width: auto;
+
+		.mainPageLayout{
+			min-width: auto;
+			padding: 24px 0 0;
+
+			.confirmBlock{
+				width: auto;
+
+			}
+			.confirmBlock.confirm-personal .rightPart{
+				float: none;
+				margin: 0 auto;
+				width: 320px;
+			}
+			.confirmBlock.confirm-personal .rightPart .property{
+				margin-bottom: 36px;
+				display: block;
+				position: relative;
+				width: 300px;
+				margin: 0 auto;
+				
+				.value{
+					display: block;
+					width: auto;
+					text-align: left;
+				}
+				.textEdit{
+					width: 300px;
+					margin-top: 4px;
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+			.confirmBlock.confirm-personal .big-button-container{
+				margin: 59px auto 120px;
+				width: 300px;
+			}
+			.confirmBlock.confirm-personal #buttonConfirmInvite{
+				width: 215px;
+			}
+		}
+	}
+}

@@ -65,7 +65,7 @@ namespace ASC.Socket.IO.Svc
                 if (appender != null)
                 {
                     startInfo.EnvironmentVariables.Add("logPath",
-                        Path.Combine(Path.GetDirectoryName(appender.File), "web.socketio.log"));
+                        Path.Combine(Path.GetDirectoryName(appender.File), "web.socketio.%DATE%.log"));
                 }
 
                 StartNode();

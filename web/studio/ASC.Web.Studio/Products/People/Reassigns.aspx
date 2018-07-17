@@ -69,6 +69,7 @@
         <div class="big-button-container">
             <a class="abort-btn button gray big display-none"><%= PeopleResource.RemovingAbortButton %></a>
             <a class="restart-btn button gray big display-none"><%= PeopleResource.RemovingRestartButton %></a>
+            <a class="ok-btn button gray big display-none" href="/products/people"><%= Resource.OKButton %></a>
         </div>
     </div>
 
@@ -129,6 +130,7 @@
         <div class="big-button-container">
             <a class="abort-btn button gray big display-none"><%= PeopleResource.ReassignAbortButton %></a>
             <a class="restart-btn button gray big display-none"><%= PeopleResource.ReassignRestartButton %></a>
+            <a class="ok-btn button gray big display-none" href="/products/people"><%= Resource.OKButton %></a>
         </div>
     </div>
 

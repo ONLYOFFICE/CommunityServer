@@ -80,7 +80,7 @@
             </a>
         </li>
         <% }
-           if (MyStaff && !ProfileHelper.UserInfo.IsOwner() && !CoreContext.Configuration.Personal && !ProfileHelper.UserInfo.IsLDAP())
+           if (MyStaff && !ProfileHelper.UserInfo.IsOwner() && !ProfileHelper.UserInfo.IsLDAP())
            { %>
         <li class="delete-user">
             <a class="dropdown-item" title="<%= Resource.DeleteProfileButton %>">
@@ -104,6 +104,12 @@
             <a class="dropdown-item" title="<%= Resource.DeleteSelfProfile %>">
                 <%= Resource.DeleteSelfProfile %>
             </a>
+        </li>
+        <% } 
+           if (MyStaff && CoreContext.Configuration.Personal)
+           { %>
+        <li class="subscribe-tips">
+            <a class="dropdown-item" title="<%= SubscribeBtnText %>"><%= SubscribeBtnText %></a>
         </li>
         <% } %>
     </ul>

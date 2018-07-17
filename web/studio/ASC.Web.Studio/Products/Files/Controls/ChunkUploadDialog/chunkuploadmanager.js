@@ -136,7 +136,8 @@ window.ASC.Files.ChunkUploads = (function () {
             .attr("type", "file")
             .attr("multiple", "multiple")
             .css("width", "0")
-            .css("height", "0");
+            .css("height", "0")
+            .hide();
 
         inputObj.appendTo(buttonObj.parent());
 
@@ -469,6 +470,14 @@ window.ASC.Files.ChunkUploads = (function () {
             if (ASC.Files.ChunkUploads.tenantQuota == null) {
                 return false;
             }
+            
+            if (ASC.Resources.Master.Personal && ASC.Files.ChunkUploads.tenantQuota.userStorageSize && ASC.Files.ChunkUploads.tenantQuota.userAvailableSize < sizeF) {
+                if (!ASC.Files.UI.displayPersonalLimitStorageExceed()) {
+                    ASC.Files.UI.displayInfoPanel(jq.format(ASC.Files.FilesJSResources.ErrorMassage_StorageSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.userAvailableSize)), true);
+                }
+                return false;
+            }
+
             if (ASC.Files.ChunkUploads.tenantQuota.availableSize < sizeF) {
                 if (!ASC.Files.UI.displayTariffLimitStorageExceed()) {
                     ASC.Files.UI.displayInfoPanel(jq.format(ASC.Files.FilesJSResources.ErrorMassage_StorageSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.availableSize)), true);
@@ -848,7 +857,7 @@ window.ASC.Files.ChunkUploads = (function () {
     };
 
     var disableBrowseButton = function (disable) {
-        jq("#fileupload").prop("disabled", disable).css("visibility", disable ? "hidden": "visible");
+        jq("#fileupload").prop("disabled", disable);
     };
 
 

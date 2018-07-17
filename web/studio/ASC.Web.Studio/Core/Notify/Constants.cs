@@ -86,7 +86,11 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagToUserLink = "ToUserLink";
         public static string TagMessage = "Message";
 
+        public static string Coupon = "Coupon";
+
         public static INotifyAction ActionAdminNotify = new NotifyAction("admin_notify", "admin notifications");
+        public static INotifyAction ActionPeriodicNotify = new NotifyAction("periodic_notify", "periodic notifications");
+
         public static INotifyAction ActionSelfProfileUpdated = new NotifyAction("self_profile_updated", "self profile updated");
         public static INotifyAction ActionUserHasJoin = new NotifyAction("user_has_join", "user has join");
         public static INotifyAction ActionUserMessageToAdmin = new NotifyAction("for_admin_notify", "for_admin_notify");
@@ -198,6 +202,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionSaasAdminUserTeamTips = new NotifyAction("saas_admin_user_team_tips");
 
         public static INotifyAction ActionSaasAdminTrialWarningBefore5 = new NotifyAction("saas_admin_trial_warning_before5");
+        public static INotifyAction ActionSaasAdminTrialWarningBefore5Coupon = new NotifyAction("saas_admin_trial_warning_before5_coupon");
         public static INotifyAction ActionSaasAdminTrialWarning = new NotifyAction("saas_admin_trial_warning");
         public static INotifyAction ActionSaasAdminTrialWarningAfter5 = new NotifyAction("saas_admin_trial_warning_after5");
         public static INotifyAction ActionSaasAdminTrialWarningAfter30 = new NotifyAction("saas_admin_trial_warning_after30");
@@ -223,6 +228,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionPersonalConfirmation = new NotifyAction("personal_confirmation");
         public static INotifyAction ActionPersonalPasswordChange = new NotifyAction("personal_change_password");
         public static INotifyAction ActionPersonalEmailChange = new NotifyAction("personal_change_email");
+        public static INotifyAction ActionPersonalProfileDelete = new NotifyAction("personal_profile_delete");
 
         public static ITagValue UnsubscribeLink
         {

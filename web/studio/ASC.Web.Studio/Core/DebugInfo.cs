@@ -52,7 +52,7 @@ namespace ASC.Web.Studio.Core
                 var basePath = HttpContext.Current.Server.MapPath("~/");
                 ChangeLogPatternFilePath = Path.Combine(basePath, "change.log");
                 ChangeLogFilePath = Path.Combine(basePath, "changelog.xml");
-#if DEBUG
+#if DEBUGINFO
                 ShowDebugInfo = File.Exists(ChangeLogPatternFilePath) && File.Exists(ChangeLogFilePath);
                 debugString = GetStaticDebugString();
 #else

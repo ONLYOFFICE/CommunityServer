@@ -37,6 +37,7 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Security.Authentication;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Common.Billing;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Notify;
@@ -141,6 +142,26 @@ namespace ASC.Web.Studio.Core.Notify
             }
         }
 
+        public bool IsSubscribeToPeriodicNotify(Guid userID)
+        {
+            return source.GetSubscriptionProvider().IsSubscribed(Constants.ActionPeriodicNotify, ToRecipient(userID), null);
+        }
+
+        public void SubscribeToPeriodicNotify(Guid userID, bool subscribe)
+        {
+            var recipient = source.GetRecipientsProvider().GetRecipient(userID.ToString());
+            if (recipient != null)
+            {
+                if (subscribe)
+                {
+                    source.GetSubscriptionProvider().Subscribe(Constants.ActionPeriodicNotify, null, recipient);
+                }
+                else
+                {
+                    source.GetSubscriptionProvider().UnSubscribe(Constants.ActionPeriodicNotify, null, recipient);
+                }
+            }
+        }
 
         public void SendMsgToAdminAboutProfileUpdated()
         {
@@ -529,18 +550,22 @@ namespace ASC.Web.Studio.Core.Notify
                 CreateSendFromTag());
         }
 
-        public void SendMsgProfileDeletion(string email)
+        public void SendMsgProfileDeletion(UserInfo user)
         {
-            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.ProfileRemove);
+            var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.ProfileRemove);
 
             client.SendNoticeToAsync(
-                Constants.ActionProfileDelete,
+                CoreContext.Configuration.Personal ? Constants.ActionPersonalProfileDelete : Constants.ActionProfileDelete,
                 null,
-                RecipientFromEmail(new[] { email }, false),
+                RecipientFromEmail(new[] { user.Email }, false),
                 new[] { EMailSenderName },
                 null,
                 new TagValue(Constants.TagInviteLink, confirmationUrl), //TODO: Tag is deprecated and replaced by TagGreenButton
-                Constants.TagGreenButton(WebstudioNotifyPatternResource.ButtonRemoveProfile, confirmationUrl));
+                Constants.TagGreenButton(CoreContext.Configuration.Personal ? WebstudioNotifyPatternResource.ButtonConfirmTermination : WebstudioNotifyPatternResource.ButtonRemoveProfile, confirmationUrl),
+                new TagValue(CommonTags.Footer, CoreContext.Configuration.Personal ? "personal" : ""),
+                new TagValue(CommonTags.IsPersonal, CoreContext.Configuration.Personal ? "true" : "false"),
+                new TagValue(CommonTags.Culture, user.GetCulture().Name),
+                Constants.UnsubscribeLink);
         }
 
         public void SendMsgReassignsCompleted(Guid recipientId, UserInfo fromUser, UserInfo toUser)
@@ -660,24 +685,24 @@ namespace ASC.Web.Studio.Core.Notify
 
             if (!TenantExtra.Enterprise)
             {
-                tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-brand-100.png";
+                tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/tips-brand-100.png";
                 tableItemText1 = WebstudioNotifyPatternResource.ItemBrandYourWebOffice;
                 tableItemComment1 = WebstudioNotifyPatternResource.ItemBrandYourWebOfficeText;
 
-                tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-regional-setings-100.png";
+                tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/tips-regional-setings-100.png";
                 tableItemText2 = WebstudioNotifyPatternResource.ItemAdjustRegionalSettings;
                 tableItemComment2 = WebstudioNotifyPatternResource.ItemAdjustRegionalSettingsText;
 
 
-                tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-customize-100.png";
+                tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/tips-customize-100.png";
                 tableItemText3 = WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterface;
                 tableItemComment3 = WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterfaceText;
 
-                tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-modules-100.png";
+                tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/tips-modules-100.png";
                 tableItemText4 = WebstudioNotifyPatternResource.ItemModulesAndTools;
                 tableItemComment4 = WebstudioNotifyPatternResource.ItemModulesAndToolsText;
 
-                tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-sms-secure-100.png";
+                tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/tips-sms-secure-100.png";
                 tableItemText5 = WebstudioNotifyPatternResource.ItemSecureAccess;
                 tableItemComment5 = WebstudioNotifyPatternResource.ItemSecureAccessText;
             }
@@ -929,6 +954,7 @@ namespace ASC.Web.Studio.Core.Notify
                     var delayDuedate = tariff.DelayDueDate.Date;
 
                     INotifyAction action = null;
+                    var paymentMessage = true;
 
                     var toadmins = false;
                     var tousers = false;
@@ -936,6 +962,7 @@ namespace ASC.Web.Studio.Core.Notify
                     var toowner = false;
 
                     var footer = "common";
+                    var coupon = string.Empty;
 
                     Func<string> greenButtonText = () => string.Empty;
                     var greenButtonUrl = string.Empty;
@@ -999,27 +1026,28 @@ namespace ASC.Web.Studio.Core.Notify
                         if (tenant.CreatedDateTime.Date.AddDays(2) == now)
                         {
                             action = Constants.ActionSaasUserOrganizeWorkplace;
+                            paymentMessage = false;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-01-50.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-01-50.png";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemAddFilesCreatWorkspace;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-02-50.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-02-50.png";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemTryOnlineDocEditor;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-06-50.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-06-50.png";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemShareDocuments;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-07-50.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-07-50.png";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemCoAuthoringDocuments;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-04-50.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-04-50.png";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemAddTeamlabMail;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-03-50.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-03-50.png";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemUploadCrmContacts;
 
-                            //tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-05-50.png";
+                            //tableItemImg7 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-05-50.png";
                             //tableItemComment7 = () => WebstudioNotifyPatternResource.ItemIntegrateIM;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonMoveRightNow;
@@ -1033,6 +1061,7 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(3) == now && CoreContext.UserManager.GetUsers().Count() == 1)
                         {
                             action = Constants.ActionSaasAdminInviteTeammates;
+                            paymentMessage = false;
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
@@ -1064,6 +1093,7 @@ namespace ASC.Web.Studio.Core.Notify
                             if (datesWithActivity.Count < 5)
                             {
                                 action = Constants.ActionSaasAdminWithoutActivity;
+                                paymentMessage = false;
                                 toadmins = true;
                             }
                         }
@@ -1075,40 +1105,41 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(7) == now)
                         {
                             action = Constants.ActionSaasAdminUserDocsTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-01-100.png";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips1;
                             tableItemLearnMoreUrl1 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
                             tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-02-100.png";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips2;
                             tableItemLearnMoreUrl2 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
                             tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-07-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-07-100.png";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips3;
                             tableItemLearnMoreUrl3 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
                             tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-03-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-03-100.png";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips4;
                             tableItemLearnMoreUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/documents.aspx#SharingDocuments_block";
                             tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-06-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-06-100.png";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips5;
                             tableItemLearnMoreUrl5 = "http://helpcenter.onlyoffice.com/tipstricks/add-resource.aspx";
                             tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-08-100.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-08-100.png";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips6;
                             tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
                             tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
 
-                            tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-05-100.png";
+                            tableItemImg7 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-05-100.png";
                             tableItemComment7 = () => WebstudioNotifyPatternResource.ItemSaasDocsTips7;
                             tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
                             tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
@@ -1124,6 +1155,7 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(10) == now)
                         {
                             action = Constants.ActionSaasAdminUserPowerfulTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
@@ -1138,30 +1170,31 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(14) == now)
                         {
                             action = Constants.ActionSaasAdminUserMailTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-01-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroups;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroupsText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-02-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliases;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliasesText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-03-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-03-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignature;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__addingSignature";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignatureText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-04-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-04-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachments;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachmentsText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-05-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-05-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAtts;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__emailIn";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAttsText;
@@ -1177,35 +1210,36 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(21) == now)
                         {
                             action = Constants.ActionSaasAdminUserCrmTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/crm-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/crm-01-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemWebToLead;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/website-contact-form.aspx";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemWebToLeadText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/crm-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/crm-02-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemARM;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#AddingContacts_block";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemARMText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/crm-03-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/crm-03-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemCustomization;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#ChangingCRMSettings_block";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemCustomizationText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/crm-04-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/crm-04-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjects;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/guides/link-with-project.aspx";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjectsText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/crm-05-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/crm-05-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.ItemMailIntegration;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#IntegratingwithCRM_block";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemMailIntegrationText;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/crm-06-100.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/crm-06-100.png";
                             tableItemText6 = () => WebstudioNotifyPatternResource.ItemVoIP;
                             tableItemUrl6 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#VoIP_block";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemVoIPText;
@@ -1221,30 +1255,31 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(28) == now)
                         {
                             action = Constants.ActionSaasAdminUserTeamTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-01-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunity;
                             tableItemUrl1 = "http://helpcenter.onlyoffice.com/gettingstarted/community.aspx";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunityText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-02-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChart;
                             tableItemUrl2 = "http://helpcenter.onlyoffice.com/guides/gantt-chart.aspx";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChartText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-03-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-03-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussions;
                             tableItemUrl3 = "http://helpcenter.onlyoffice.com/gettingstarted/projects.aspx#LeadingDiscussion_block";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussionsText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-04-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-04-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoring;
                             tableItemUrl4 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoringText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-05-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-05-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureTalk;
                             tableItemUrl5 = "http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureTalkText;
@@ -1263,8 +1298,30 @@ namespace ASC.Web.Studio.Core.Notify
 
                         else if (duedate != DateTime.MaxValue && duedate.AddDays(-5) == now)
                         {
-                            action = Constants.ActionSaasAdminTrialWarningBefore5;
                             toadmins = true;
+
+                            try
+                            {
+                                log.InfoFormat("start CreateCoupon to {0}", tenant.TenantAlias);
+
+                                coupon = CouponManager.CreateCoupon();
+
+                                log.InfoFormat("end CreateCoupon to {0} coupon = {1}", tenant.TenantAlias, coupon);
+
+                                action = Constants.ActionSaasAdminTrialWarningBefore5Coupon;
+                            }
+                            catch (AggregateException ae)
+                            {
+                                foreach (var ex in ae.InnerExceptions)
+                                    log.Error(ex);
+
+                                action = Constants.ActionSaasAdminTrialWarningBefore5;
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Error(ex);
+                                action = Constants.ActionSaasAdminTrialWarningBefore5;
+                            }
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonSelectPricingPlans;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
@@ -1411,6 +1468,33 @@ namespace ASC.Web.Studio.Core.Notify
 
                         #endregion
 
+                        #region 6 months after SAAS PAID expired
+
+                        else if (tariff.State == TariffState.NotPaid && duedate != DateTime.MaxValue && duedate.AddMonths(6) == now)
+                        {
+                            action = Constants.ActionSaasAdminTrialWarningAfterHalfYear;
+                            toowner = true;
+
+                            var owner = CoreContext.UserManager.GetUsers(tenant.OwnerId);
+                            feedbackUrl = SetupInfo.TeamlabSiteRedirect + "/remove-portal-feedback-form.aspx#" +
+                                          Convert.ToBase64String(
+                                              System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + owner.FirstName +
+                                                                                 "\",\"lastname\":\"" + owner.LastName +
+                                                                                 "\",\"alias\":\"" + tenant.TenantAlias +
+                                                                                 "\",\"email\":\"" + owner.Email + "\"}"));
+                        }
+                        else if (tariff.State == TariffState.NotPaid && duedate != DateTime.MaxValue && duedate.AddMonths(6).AddDays(7) <= now)
+                        {
+                            CoreContext.TenantManager.RemoveTenant(tenant.TenantId, true);
+
+                            if (!String.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
+                            {
+                                ApiSystemHelper.RemoveTenantFromCache(tenant.TenantAlias);
+                            }
+                        }
+
+                        #endregion
+
                         #endregion
                     }
 
@@ -1421,7 +1505,7 @@ namespace ASC.Web.Studio.Core.Notify
                                     ? new List<UserInfo> { CoreContext.UserManager.GetUsers(tenant.OwnerId) }
                                     : GetRecipients(toadmins, tousers, toguests);
 
-                    foreach (var u in users)
+                    foreach (var u in users.Where(u => paymentMessage || IsSubscribeToPeriodicNotify(u.ID)))
                     {
                         var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
                         Thread.CurrentThread.CurrentCulture = culture;
@@ -1453,7 +1537,8 @@ namespace ASC.Web.Studio.Core.Notify
                             Constants.TagTableItem(7, tableItemText7(), tableItemUrl7, tableItemImg7, tableItemComment7(), tableItemLearnMoreText7(), tableItemLearnMoreUrl7),
                             Constants.TagTableBottom(),
                             new TagValue(CommonTags.Footer, string.IsNullOrEmpty(tenant.PartnerId) ? footer : string.Empty),
-                            new TagValue(Constants.TagFeedBackUrl, feedbackUrl));
+                            new TagValue(Constants.TagFeedBackUrl, feedbackUrl),
+                            new TagValue(Constants.Coupon, coupon));
                     }
                 }
                 catch (Exception err)
@@ -1496,6 +1581,7 @@ namespace ASC.Web.Studio.Core.Notify
                     var delayDuedate = tariff.DelayDueDate.Date;
 
                     INotifyAction action = null;
+                    var paymentMessage = true;
 
                     var toadmins = false;
                     var tousers = false;
@@ -1564,27 +1650,28 @@ namespace ASC.Web.Studio.Core.Notify
                         if (tenant.CreatedDateTime.Date.AddDays(2) == now)
                         {
                             action = Constants.ActionEnterpriseUserOrganizeWorkplace;
+                            paymentMessage = false;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-01-50.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-01-50.png";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemAddFilesCreatWorkspace;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-02-50.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-02-50.png";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemTryOnlineDocEditor;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-06-50.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-06-50.png";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemShareDocuments;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-07-50.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-07-50.png";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemCoAuthoringDocuments;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-03-50.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-03-50.png";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemUploadCrmContacts;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-04-50.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-04-50.png";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemAddTeamlabMail;
 
-                            //tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/move-to-cloud-05-50.png";
+                            //tableItemImg7 = "https://static.onlyoffice.com/media/newsletters/images/move-to-cloud-05-50.png";
                             //tableItemComment7 = () => WebstudioNotifyPatternResource.ItemIntegrateIM;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonAccessYourPortal;
@@ -1598,25 +1685,26 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(3) == now)
                         {
                             action = Constants.ActionEnterpriseAdminCustomizePortal;
+                            paymentMessage = false;
                             toadmins = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-brand-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/tips-brand-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemBrandYourWebOffice;
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemBrandYourWebOfficeText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-regional-setings-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/tips-regional-setings-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemAdjustRegionalSettings;
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemAdjustRegionalSettingsText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-customize-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/tips-customize-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterface;
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemCustomizeWebOfficeInterfaceText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-modules-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/tips-modules-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemModulesAndTools;
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemModulesAndToolsText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-3rdparty-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/tips-3rdparty-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.Item3rdParty;
                             tableItemComment5 = () => WebstudioNotifyPatternResource.Item3rdPartyText;
 
@@ -1631,6 +1719,7 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(4) == now && CoreContext.UserManager.GetUsers().Count() == 1)
                         {
                             action = Constants.ActionEnterpriseAdminInviteTeammates;
+                            paymentMessage = false;
                             toadmins = true;
 
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonInviteRightNow;
@@ -1661,6 +1750,7 @@ namespace ASC.Web.Studio.Core.Notify
                             if (datesWithActivity.Count < 5)
                             {
                                 action = Constants.ActionEnterpriseAdminWithoutActivity;
+                                paymentMessage = false;
                                 toadmins = true;
                             }
                         }
@@ -1672,40 +1762,41 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(7) == now)
                         {
                             action = Constants.ActionEnterpriseAdminUserDocsTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-01-100.png";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips1;
                             tableItemLearnMoreUrl1 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
                             tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-02-100.png";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips2;
                             tableItemLearnMoreUrl2 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
                             tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-07-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-07-100.png";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips3;
                             tableItemLearnMoreUrl3 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
                             tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-03-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-03-100.png";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips4;
                             tableItemLearnMoreUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/documents.aspx#SharingDocuments_block";
                             tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-04-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-04-100.png";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips5;
                             tableItemLearnMoreUrl5 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/UseMailMerge.aspx";
                             tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-08-100.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-08-100.png";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips6;
                             tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
                             tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
 
-                            tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-05-100.png";
+                            tableItemImg7 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-05-100.png";
                             tableItemComment7 = () => WebstudioNotifyPatternResource.ItemEnterpriseDocsTips7;
                             tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
                             tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
@@ -1721,6 +1812,7 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(10) == now)
                         {
                             action = Constants.ActionEnterpriseAdminUserPowerfulTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
@@ -1735,30 +1827,31 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(14) == now)
                         {
                             action = Constants.ActionEnterpriseAdminUserMailTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-01-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroups;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureMailGroupsText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-02-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliases;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/tipstricks/alias-groups.aspx";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureMailboxAliasesText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-03-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-03-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignature;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__addingSignature";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureEmailSignatureText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-04-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-04-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachments;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureLinksVSAttachmentsText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/mail-exp-05-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/mail-exp-05-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAtts;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#SendingReceivingMessages_block__emailIn";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureFolderForAttsText;
@@ -1774,35 +1867,36 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(21) == now)
                         {
                             action = Constants.ActionEnterpriseAdminUserCrmTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/crm-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/crm-01-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemWebToLead;
                             tableItemUrl1 = "https://helpcenter.onlyoffice.com/tipstricks/website-contact-form.aspx";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemWebToLeadText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/crm-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/crm-02-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemARM;
                             tableItemUrl2 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#AddingContacts_block";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemARMText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/crm-03-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/crm-03-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemCustomization;
                             tableItemUrl3 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#ChangingCRMSettings_block";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemCustomizationText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/crm-04-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/crm-04-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjects;
                             tableItemUrl4 = "https://helpcenter.onlyoffice.com/guides/link-with-project.aspx";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemLinkWithProjectsText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/crm-05-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/crm-05-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.ItemMailIntegration;
                             tableItemUrl5 = "https://helpcenter.onlyoffice.com/gettingstarted/mail.aspx#IntegratingwithCRM_block";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemMailIntegrationText;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/crm-06-100.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/crm-06-100.png";
                             tableItemText6 = () => WebstudioNotifyPatternResource.ItemVoIP;
                             tableItemUrl6 = "https://helpcenter.onlyoffice.com/gettingstarted/crm.aspx#VoIP_block";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemVoIPText;
@@ -1818,30 +1912,31 @@ namespace ASC.Web.Studio.Core.Notify
                         else if (tenant.CreatedDateTime.Date.AddDays(28) == now)
                         {
                             action = Constants.ActionEnterpriseAdminUserTeamTips;
+                            paymentMessage = false;
                             toadmins = true;
                             tousers = true;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-01-100.png";
                             tableItemText1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunity;
                             tableItemUrl1 = "http://helpcenter.onlyoffice.com/gettingstarted/community.aspx";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemFeatureCommunityText;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-02-100.png";
                             tableItemText2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChart;
                             tableItemUrl2 = "http://helpcenter.onlyoffice.com/guides/gantt-chart.aspx";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemFeatureGanttChartText;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-03-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-03-100.png";
                             tableItemText3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussions;
                             tableItemUrl3 = "http://helpcenter.onlyoffice.com/gettingstarted/projects.aspx#LeadingDiscussion_block";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemFeatureProjectDiscussionsText;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-04-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-04-100.png";
                             tableItemText4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoring;
                             tableItemUrl4 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemFeatureDocCoAuthoringText;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/collaboration-05-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/collaboration-05-100.png";
                             tableItemText5 = () => WebstudioNotifyPatternResource.ItemFeatureTalk;
                             tableItemUrl5 = "http://helpcenter.onlyoffice.com/gettingstarted/talk.aspx";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemFeatureTalkText;
@@ -1921,7 +2016,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var users = GetRecipients(toadmins, tousers, toguests);
 
-                    foreach (var u in users)
+                    foreach (var u in users.Where(u => paymentMessage || IsSubscribeToPeriodicNotify(u.ID)))
                     {
                         var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
                         Thread.CurrentThread.CurrentCulture = culture;
@@ -2064,7 +2159,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var users = GetRecipients(toadmins, tousers, toguests);
 
-                    foreach (var u in users)
+                    foreach (var u in users.Where(u => IsSubscribeToPeriodicNotify(u.ID)))
                     {
                         var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
                         Thread.CurrentThread.CurrentCulture = culture;
@@ -2201,37 +2296,37 @@ namespace ASC.Web.Studio.Core.Notify
                         {
                             action = Constants.ActionOpensourceAdminDocsTips;
 
-                            tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-01-100.png";
+                            tableItemImg1 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-01-100.png";
                             tableItemComment1 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips1;
                             tableItemLearnMoreUrl1 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/CollaborativeEditing.aspx";
                             tableItemLearnMoreText1 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg2 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-02-100.png";
+                            tableItemImg2 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-02-100.png";
                             tableItemComment2 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips2;
                             tableItemLearnMoreUrl2 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/ViewDocInfo.aspx";
                             tableItemLearnMoreText2 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg3 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-07-100.png";
+                            tableItemImg3 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-07-100.png";
                             tableItemComment3 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips3;
                             tableItemLearnMoreUrl3 = "https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/HelpfulHints/Review.aspx";
                             tableItemLearnMoreText3 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg4 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-03-100.png";
+                            tableItemImg4 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-03-100.png";
                             tableItemComment4 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips4;
                             tableItemLearnMoreUrl4 = "https://helpcenter.onlyoffice.com/gettingstarted/documents.aspx#SharingDocuments_block";
                             tableItemLearnMoreText4 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg5 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-04-100.png";
+                            tableItemImg5 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-04-100.png";
                             tableItemComment5 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips5;
                             tableItemLearnMoreUrl5 = "http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/UseMailMerge.aspx";
                             tableItemLearnMoreText5 = () => WebstudioNotifyPatternResource.LinkLearnMore;
 
-                            tableItemImg6 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-08-100.png";
+                            tableItemImg6 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-08-100.png";
                             tableItemComment6 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips6;
                             tableItemLearnMoreUrl6 = "http://www.onlyoffice.com/desktop.aspx";
                             tableItemLearnMoreText6 = () => WebstudioNotifyPatternResource.ButtonDownloadNow;
 
-                            tableItemImg7 = "http://cdn.teamlab.com/media/newsletters/images/tips-documents-05-100.png";
+                            tableItemImg7 = "https://static.onlyoffice.com/media/newsletters/images/tips-documents-05-100.png";
                             tableItemComment7 = () => WebstudioNotifyPatternResource.ItemOpensourceDocsTips7;
                             tableItemLearnMoreUrl7 = "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972";
                             tableItemLearnMoreText7 = () => WebstudioNotifyPatternResource.ButtonGoToAppStore;
@@ -2246,7 +2341,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var users = GetRecipients(true, false, false);
 
-                    foreach (var u in users)
+                    foreach (var u in users.Where(u => IsSubscribeToPeriodicNotify(u.ID)))
                     {
                         var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
                         Thread.CurrentThread.CurrentCulture = culture;
@@ -2350,7 +2445,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     var users = CoreContext.UserManager.GetUsers(EmployeeStatus.Active);
 
-                    foreach (var user in users)
+                    foreach (var user in users.Where(u => IsSubscribeToPeriodicNotify(u.ID)))
                     {
                         INotifyAction action;
 

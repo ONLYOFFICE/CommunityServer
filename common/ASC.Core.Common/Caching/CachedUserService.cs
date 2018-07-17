@@ -137,6 +137,12 @@ namespace ASC.Core.Caching
 
         public void RemoveUser(int tenant, Guid id)
         {
+            if (CoreContext.Configuration.Personal)
+            {
+                var key = GetUserCacheKeyForPersonal(tenant, id);
+                cache.Remove(key);
+            }
+            
             service.RemoveUser(tenant, id);
             cacheNotify.Publish(new UserInfo { ID = id }, CacheNotifyAction.Remove);
         }

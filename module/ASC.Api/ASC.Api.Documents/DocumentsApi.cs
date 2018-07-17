@@ -66,7 +66,7 @@ using SortedByType = ASC.Files.Core.SortedByType;
 namespace ASC.Api.Documents
 {
     /// <summary>
-    /// Provides acces to documents
+    /// Provides access to documents
     /// </summary>
     public class DocumentsApi : Interfaces.IApiEntryPoint
     {
