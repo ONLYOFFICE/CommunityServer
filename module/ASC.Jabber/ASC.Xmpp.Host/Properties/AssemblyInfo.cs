@@ -11,7 +11,7 @@ using ASC.Xmpp.Host;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Xmpp.Host")]
-[assembly: AssemblyCopyright("Ascensio System SIA 2015")]
+[assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
