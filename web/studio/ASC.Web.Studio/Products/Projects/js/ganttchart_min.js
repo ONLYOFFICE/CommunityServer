@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2016
+ * (c) Copyright Ascensio System Limited 2010-2018
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -22,6 +22,7 @@
  * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
  *
 */
+
 
 function G(){return function(){}}function V(y){return function(U){this[y]=U}}function W(y){return function(){return this[y]}}function aa(y){return function(){return y}}
 ASC.Projects.GantChart=function(y){var U,wa,xa,X,ia;function J(a){if(!a)return a;var b;[Number,String,Boolean].forEach(function(c){a instanceof c&&(b=c(a))});if("undefined"==typeof b)if("[object Array]"===Object.prototype.toString.call(a))b=[],a.forEach(function(a,c){b[c]=J(a)});else if("object"==typeof a)if(a.nodeType&&"function"==typeof a.cloneNode)b=a.cloneNode(!0);else if(a.prototype)b=a;else if(a instanceof Date)b=new Date(a);else{b={};for(var c in a)b[c]=J(a[c])}else b=a;return b}function N(a){a.preventDefault?

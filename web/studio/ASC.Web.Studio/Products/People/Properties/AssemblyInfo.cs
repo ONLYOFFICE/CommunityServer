@@ -11,7 +11,7 @@ using ASC.Web.Core;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Web.People")]
-[assembly: AssemblyCopyright("Ascensio System SIA 2013")]
+[assembly: AssemblyCopyright("Copyright © 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
