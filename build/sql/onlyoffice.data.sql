@@ -173,6 +173,8 @@ BEGIN
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_PoundSterling', 'GBP', '£', 'GB', 1, 1);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_GeorgianLari', 'GEL', 'ლარი', 'GE', 0, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_HongKongDollar', 'HKD', 'HK$', 'HK', 1, 0);
+	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_SerbianDinarLatin', 'RSD', 'din', 'SR', 1, 0);
+	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_SerbianDinarCyrillic', 'РСД', 'рсд', 'SR', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_CroatianKuna', 'HRK', 'kn', 'HR', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_HungarianForint', 'HUF', 'Ft', 'HU', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_IndonesianRupiah', 'IDR', 'Rp', 'ID', 1, 0);
